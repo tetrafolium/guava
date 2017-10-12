@@ -9,9 +9,7 @@
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
 
-    <module name="FileLength">
-        <property name="max" value="1500"/>
-    </module>
+    <module name="FileLength"><property name="max" value="1500"/></module>
 
     <module name="TreeWalker">
 

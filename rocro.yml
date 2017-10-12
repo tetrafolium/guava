@@ -9,6 +9,12 @@ inspecode:
   ### tools for Java [91.4%]
   astyle:
     auto-fix: true
+    options:
+      --style: google
+      #--indent: spaces=2
+      #--indent-classes:
+      #--indent-continuation: 2
+      #--keep-one-line-statements:
   checkstyle:
     auto-fix: true
     config-file: rocro-checkstyle.xml
@@ -18,11 +24,12 @@ inspecode:
     auto-fix: true
   uncrustify:
     auto-fix: true
+    config-file: rocro-uncrustify.cfg
 
   ### tools for all Languages
   grep:
   misspell:
-    auto-fix: false
+    auto-fix: true
     options:
       -i:
       - "Escapers"
