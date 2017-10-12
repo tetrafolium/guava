@@ -11,15 +11,15 @@ inspecode:
     auto-fix: true
     options:
       --style: google
-      #--indent: spaces=2
+      --indent: spaces=2
       #--indent-classes:
-      #--indent-continuation: 2
+      --indent-continuation: 2
       #--keep-one-line-statements:
   checkstyle:
     auto-fix: true
     config-file: rocro-checkstyle.xml
   cpd:
-  infer:
+  #infer:       ## temporary disabled ... takes too long
   pmd:
     auto-fix: true
   uncrustify:
