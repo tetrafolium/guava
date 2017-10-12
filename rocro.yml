@@ -12,9 +12,7 @@ inspecode:
     options:
       --style: google
       --indent: spaces=2
-      #--indent-classes:
-      --indent-continuation: 2
-      #--keep-one-line-statements:
+      --indent-continuation: 4
   checkstyle:
     auto-fix: true
     config-file: rocro-checkstyle.xml
