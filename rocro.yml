@@ -1,0 +1,29 @@
+inspecode:
+
+  ### file filters
+  experimental:
+    input:
+    ignore:
+    - "/*test*/"
+
+  ### tools for Java [91.4%]
+  astyle:
+    auto-fix: true
+  checkstyle:
+    auto-fix: true
+    config-file: rocro-checkstyle.xml
+  cpd:
+  infer:
+  pmd:
+    auto-fix: true
+  uncrustify:
+    auto-fix: true
+
+  ### tools for all Languages
+  grep:
+  misspell:
+    auto-fix: false
+    options:
+      -i:
+      - "Escapers"
+      - "escapers"
