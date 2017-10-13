@@ -172,7 +172,7 @@ public final class Multisets {
     }
 
     @Override
-    public int add(E element, int occurences) {
+    public int add(E element, int occurrences) {
       throw new UnsupportedOperationException();
     }
 

@@ -122,7 +122,7 @@ public class EventBusTest extends TestCase {
         new RecordingSubscriberExceptionHandler();
     final EventBus eventBus = new EventBus(handler);
     final RuntimeException exception =
-        new RuntimeException("but culottes have a tendancy to ride up!");
+        new RuntimeException("but culottes have a tendency to ride up!");
     final Object subscriber = new Object() {
       @Subscribe
       public void throwExceptionOn(String message) {
@@ -172,7 +172,7 @@ public class EventBusTest extends TestCase {
     GhostCatcher catcher = new GhostCatcher();
     bus.register(catcher);
 
-    // A String -- an event for which noone has registered.
+    // A String -- an event for which no one has registered.
     bus.post(EVENT);
 
     List<DeadEvent> events = catcher.getEvents();
