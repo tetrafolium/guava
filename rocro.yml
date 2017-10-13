@@ -14,12 +14,12 @@ inspecode:
     auto-fix:    true
     config-file: rocro-astyle.opts
   checkstyle:
-    auto-fix:    false  # temporary disabled ... takes long time
+    auto-fix:    true
     config-file: rocro-checkstyle.xml
   cpd:
   #infer:       ## temporary disabled ... takes too long
   pmd:
-    auto-fix:    false  # temporary disabled ... takes long time
+    auto-fix:    true
   uncrustify:
   - input:       [ "android/**/*.java" ]
     auto-fix:    true
