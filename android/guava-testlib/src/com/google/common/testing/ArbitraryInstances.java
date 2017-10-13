@@ -374,11 +374,10 @@ public final class ArbitraryInstances {
     Field[] fields = type.getDeclaredFields();
     Arrays.sort(fields, BY_FIELD_NAME);
     for (Field field : fields) {
-      if (Modifier.isPublic(field.getModifiers())
+      if ((Modifier.isPublic(field.getModifiers())
           && Modifier.isStatic(field.getModifiers())
-          && Modifier.isFinal(field.getModifiers())) {
-        if (field.getGenericType() == field.getType()
-            && type.isAssignableFrom(field.getType())) {
+          && Modifier.isFinal(field.getModifiers())) && (field.getGenericType() == field.getType()
+            && type.isAssignableFrom(field.getType()))) {
           field.setAccessible(true);
           try {
             T constant = type.cast(field.get(null));
@@ -389,7 +388,6 @@ public final class ArbitraryInstances {
             throw new AssertionError(impossible);
           }
         }
-      }
     }
     return null;
   }

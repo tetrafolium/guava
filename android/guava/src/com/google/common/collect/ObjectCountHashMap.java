@@ -321,8 +321,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     }
     int last = UNSET;
     do {
-      if (getHash(entries[next]) == hash) {
-        if (Objects.equal(key, keys[next])) {
+      if ((getHash(entries[next]) == hash) && (Objects.equal(key, keys[next]))) {
           int oldValue = values[next];
 
           if (last == UNSET) {
@@ -338,7 +337,6 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
           modCount++;
           return oldValue;
         }
-      }
       last = next;
       next = getNext(entries[next]);
     } while (next != UNSET);

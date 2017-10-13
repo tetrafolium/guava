@@ -170,16 +170,9 @@ public class MultisetsCollectionTest extends TestCase {
         if (elements.length > 0) {
           multiset1.add(elements[0]);
         }
-        if (elements.length > 1) {
-          /*
-           * When a test requests a multiset with duplicates, our plan of
-           * "add an extra item 0 to A and an extra item 1 to B" really means
-           * "add an extra item 0 to A and B," which isn't what we want.
-           */
-          if (!Objects.equal(elements[0], elements[1])) {
+        if ((elements.length > 1) && (!Objects.equal(elements[0], elements[1]))) {
             multiset2.add(elements[1], 2);
           }
-        }
         return Multisets.intersection(multiset1, multiset2);
       }
     };

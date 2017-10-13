@@ -271,7 +271,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
         underlying, new Function<Boolean, Boolean>() {
           @Override
           public Boolean apply(@Nullable Boolean from) {
-            return (from == null) ? true : null;
+            return (from == null) || null;
           }
         }
     );

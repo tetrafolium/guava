@@ -68,12 +68,9 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
 
   @Override
   public boolean contains(Object object) {
-    if (!allowNulls) {
-      // behave badly
-      if (object == null) {
+    if ((!allowNulls) && (object == null)) {
         throw new NullPointerException();
       }
-    }
     Platform.checkCast(type, object); // behave badly
     return Arrays.asList(contents).contains(object);
   }

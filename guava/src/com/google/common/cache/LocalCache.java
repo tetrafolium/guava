@@ -2775,11 +2775,9 @@ class LocalCache<K, V> extends AbstractMap<K, V> implements ConcurrentMap<K, V> 
 
       // If the newest entry by itself is too heavy for the segment, don't bother evicting
       // anything else, just that
-      if (newest.getValueReference().getWeight() > maxSegmentWeight) {
-        if (!removeEntry(newest, newest.getHash(), RemovalCause.SIZE)) {
+      if ((newest.getValueReference().getWeight() > maxSegmentWeight) && (!removeEntry(newest, newest.getHash(), RemovalCause.SIZE))) {
           throw new AssertionError();
         }
-      }
 
       while (totalWeight > maxSegmentWeight) {
         ReferenceEntry<K, V> e = getNextEvictable();
@@ -4546,11 +4544,9 @@ class LocalCache<K, V> extends AbstractMap<K, V> implements ConcurrentMap<K, V> 
      */
     boolean nextInTable() {
       while (nextTableIndex >= 0) {
-        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
-          if (advanceTo(nextEntry) || nextInChain()) {
+        if (((nextEntry = currentTable.get(nextTableIndex--)) != null) && (advanceTo(nextEntry) || nextInChain())) {
             return true;
           }
-        }
       }
       return false;
     }

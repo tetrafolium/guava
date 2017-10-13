@@ -2575,11 +2575,9 @@ class MapMakerInternalMap<
      */
     boolean nextInTable() {
       while (nextTableIndex >= 0) {
-        if ((nextEntry = currentTable.get(nextTableIndex--)) != null) {
-          if (advanceTo(nextEntry) || nextInChain()) {
+        if (((nextEntry = currentTable.get(nextTableIndex--)) != null) && (advanceTo(nextEntry) || nextInChain())) {
             return true;
           }
-        }
       }
       return false;
     }
