@@ -227,7 +227,7 @@ public final class PairedStatsAccumulator {
     if (xSumOfSquaresOfDeltas > 0.0) {
       if (yStats.sumOfSquaresOfDeltas() > 0.0) {
         return LinearTransformation.mapping(xStats.mean(), yStats.mean())
-            .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
+               .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
       } else {
         return LinearTransformation.horizontal(yStats.mean());
       }

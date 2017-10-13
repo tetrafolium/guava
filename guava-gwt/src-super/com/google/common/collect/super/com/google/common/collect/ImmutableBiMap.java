@@ -34,15 +34,15 @@ public abstract class ImmutableBiMap<K, V> extends ForwardingImmutableMap<K, V>
   implements BiMap<K, V> {
   @Beta
   public static <T, K, V> Collector<T, ?, ImmutableBiMap<K, V>> toImmutableBiMap(
-      Function<? super T, ? extends K> keyFunction,
-      Function<? super T, ? extends V> valueFunction) {
+    Function<? super T, ? extends K> keyFunction,
+    Function<? super T, ? extends V> valueFunction) {
     return CollectCollectors.toImmutableBiMap(keyFunction, valueFunction);
   }
 
   // Casting to any type is safe because the set will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableBiMap<K, V> of() {
-    return (ImmutableBiMap<K, V>) RegularImmutableBiMap.EMPTY;
+    return (ImmutableBiMap<K, V>)RegularImmutableBiMap.EMPTY;
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1) {
@@ -55,21 +55,21 @@ public abstract class ImmutableBiMap<K, V> extends ForwardingImmutableMap<K, V>
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3) {
+    K k1, V v1, K k2, V v2, K k3, V v3) {
     return new RegularImmutableBiMap<K, V>(ImmutableMap.of(
-                k1, v1, k2, v2, k3, v3));
+        k1, v1, k2, v2, k3, v3));
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     return new RegularImmutableBiMap<K, V>(ImmutableMap.of(
-                k1, v1, k2, v2, k3, v3, k4, v4));
+        k1, v1, k2, v2, k3, v3, k4, v4));
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return new RegularImmutableBiMap<K, V>(ImmutableMap.of(
-                k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
+        k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
   }
 
   public static <K, V> Builder<K, V> builder() {
@@ -100,7 +100,7 @@ public abstract class ImmutableBiMap<K, V> extends ForwardingImmutableMap<K, V>
     }
 
     @Override public Builder<K, V> putAll(
-        Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
       super.putAll(entries);
       return this;
     }
@@ -125,10 +125,10 @@ public abstract class ImmutableBiMap<K, V> extends ForwardingImmutableMap<K, V>
   }
 
   public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Map<? extends K, ? extends V> map) {
+    Map<? extends K, ? extends V> map) {
     if (map instanceof ImmutableBiMap) {
       @SuppressWarnings("unchecked") // safe since map is not writable
-      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>) map;
+      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>)map;
       return bimap;
     }
 
@@ -141,7 +141,7 @@ public abstract class ImmutableBiMap<K, V> extends ForwardingImmutableMap<K, V>
   }
 
   public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     return new Builder<K, V>().putAll(entries).build();
   }
 

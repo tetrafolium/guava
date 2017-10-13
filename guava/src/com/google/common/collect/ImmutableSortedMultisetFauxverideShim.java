@@ -63,7 +63,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    */
   @Deprecated
   public static <T, E> Collector<T, ?, ImmutableMultiset<E>> toImmutableMultiset(
-      Function<? super T, ? extends E> elementFunction, ToIntFunction<? super T> countFunction) {
+    Function<? super T, ? extends E> elementFunction, ToIntFunction<? super T> countFunction) {
     throw new UnsupportedOperationException();
   }
 
@@ -163,7 +163,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    */
   @Deprecated
   public static <E> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
     throw new UnsupportedOperationException();
   }
 

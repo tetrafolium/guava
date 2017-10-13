@@ -49,8 +49,8 @@ final class Platform {
   static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
     WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
     return ref == null
-        ? Optional.<T>absent()
-        : Optional.of(enumClass.cast(ref.get()));
+           ? Optional.<T>absent()
+           : Optional.of(enumClass.cast(ref.get()));
   }
 
   static String formatCompact4Digits(double value) {
@@ -74,7 +74,7 @@ final class Platform {
     ServiceLoader<PatternCompiler> loader = ServiceLoader.load(PatternCompiler.class);
     // Returns the first PatternCompiler that loads successfully.
     try {
-      for (Iterator<PatternCompiler> it = loader.iterator(); it.hasNext();) {
+      for (Iterator<PatternCompiler> it = loader.iterator(); it.hasNext(); ) {
         try {
           return it.next();
         } catch (ServiceConfigurationError e) {

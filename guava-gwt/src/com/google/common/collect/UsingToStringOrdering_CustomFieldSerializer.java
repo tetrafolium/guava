@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class UsingToStringOrdering_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, UsingToStringOrdering instance) {}
+    SerializationStreamReader reader, UsingToStringOrdering instance) {}
 
   public static UsingToStringOrdering instantiate(SerializationStreamReader reader) {
     return UsingToStringOrdering.INSTANCE;

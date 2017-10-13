@@ -390,15 +390,15 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
   private static long codePointToFourUtf8Bytes(int codePoint) {
     return (((0xFL << 4) | (codePoint >>> 18)) & 0xFF)
-        | ((0x80L | (0x3F & (codePoint >>> 12))) << 8)
-        | ((0x80L | (0x3F & (codePoint >>> 6))) << 16)
-        | ((0x80L | (0x3F & codePoint)) << 24);
+           | ((0x80L | (0x3F & (codePoint >>> 12))) << 8)
+           | ((0x80L | (0x3F & (codePoint >>> 6))) << 16)
+           | ((0x80L | (0x3F & codePoint)) << 24);
   }
 
   private static long charToThreeUtf8Bytes(char c) {
     return (((0xF << 5) | (c >>> 12)) & 0xFF)
-        | ((0x80 | (0x3F & (c >>> 6))) << 8)
-        | ((0x80 | (0x3F & c)) << 16);
+           | ((0x80 | (0x3F & (c >>> 6))) << 8)
+           | ((0x80 | (0x3F & c)) << 16);
   }
 
   private static long charToTwoUtf8Bytes(char c) {

@@ -80,15 +80,15 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    */
   @Beta
   public static <T, K, V> Collector<T, ?, ImmutableListMultimap<K, V>> toImmutableListMultimap(
-      Function<? super T, ? extends K> keyFunction,
-      Function<? super T, ? extends V> valueFunction) {
+    Function<? super T, ? extends K> keyFunction,
+    Function<? super T, ? extends V> valueFunction) {
     checkNotNull(keyFunction, "keyFunction");
     checkNotNull(valueFunction, "valueFunction");
     return Collector.of(
-            ImmutableListMultimap::<K, V>builder,
-            (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
-            ImmutableListMultimap.Builder::combine,
-            ImmutableListMultimap.Builder::build);
+      ImmutableListMultimap : :<K, V>builder,
+      (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
+      ImmutableListMultimap.Builder : : combine,
+      ImmutableListMultimap.Builder: : build);
   }
 
   /**
@@ -125,23 +125,23 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
   @Beta
   public static <T, K, V>
   Collector<T, ?, ImmutableListMultimap<K, V>> flatteningToImmutableListMultimap(
-      Function<? super T, ? extends K> keyFunction,
-      Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
+    Function<? super T, ? extends K> keyFunction,
+    Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
     checkNotNull(keyFunction);
     checkNotNull(valuesFunction);
     return Collectors.collectingAndThen(
-            Multimaps.flatteningToMultimap(
-                input -> checkNotNull(keyFunction.apply(input)),
-                input -> valuesFunction.apply(input).peek(Preconditions::checkNotNull),
-                MultimapBuilder.linkedHashKeys().arrayListValues()::<K, V>build),
-            ImmutableListMultimap::copyOf);
+      Multimaps.flatteningToMultimap(
+        input -> checkNotNull(keyFunction.apply(input)),
+        input -> valuesFunction.apply(input).peek(Preconditions: : checkNotNull),
+        MultimapBuilder.linkedHashKeys().arrayListValues() : :<K, V>build),
+      ImmutableListMultimap : : copyOf);
   }
 
   /** Returns the empty multimap. */
   // Casting is safe because the multimap will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableListMultimap<K, V> of() {
-    return (ImmutableListMultimap<K, V>) EmptyImmutableListMultimap.INSTANCE;
+    return (ImmutableListMultimap<K, V>)EmptyImmutableListMultimap.INSTANCE;
   }
 
   /**
@@ -178,7 +178,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    * Returns an immutable multimap containing the given entries, in order.
    */
   public static <K, V> ImmutableListMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
     builder.put(k1, v1);
     builder.put(k2, v2);
@@ -191,7 +191,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    * Returns an immutable multimap containing the given entries, in order.
    */
   public static <K, V> ImmutableListMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
     builder.put(k1, v1);
     builder.put(k2, v2);
@@ -342,7 +342,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    *         null
    */
   public static <K, V> ImmutableListMultimap<K, V> copyOf(
-      Multimap<? extends K, ? extends V> multimap) {
+    Multimap<? extends K, ? extends V> multimap) {
     if (multimap.isEmpty()) {
       return of();
     }
@@ -350,7 +350,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
     // TODO(lowasser): copy ImmutableSetMultimap by using asList() on the sets
     if (multimap instanceof ImmutableListMultimap) {
       @SuppressWarnings("unchecked") // safe since multimap is not writable
-      ImmutableListMultimap<K, V> kvMultimap = (ImmutableListMultimap<K, V>) multimap;
+      ImmutableListMultimap<K, V> kvMultimap = (ImmutableListMultimap<K, V>)multimap;
       if (!kvMultimap.isPartialView()) {
         return kvMultimap;
       }
@@ -383,7 +383,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    */
   @Beta
   public static <K, V> ImmutableListMultimap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     return new Builder<K, V>().putAll(entries).build();
   }
 
@@ -402,7 +402,7 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
   @Override
   public ImmutableList<V> get(@Nullable K key) {
     // This cast is safe as its type is known in constructor.
-    ImmutableList<V> list = (ImmutableList<V>) map.get(key);
+    ImmutableList<V> list = (ImmutableList<V>)map.get(key);
     return (list == null) ? ImmutableList.<V>of() : list;
   }
 

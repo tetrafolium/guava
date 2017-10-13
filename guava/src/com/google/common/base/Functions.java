@@ -83,7 +83,7 @@ public final class Functions {
   // implementation is "fully variant"; E has become a "pass-through" type
   @SuppressWarnings("unchecked")
   public static <E> Function<E, E> identity() {
-    return (Function<E, E>) IdentityFunction.INSTANCE;
+    return (Function<E, E>)IdentityFunction.INSTANCE;
   }
 
   // enum singleton pattern
@@ -136,7 +136,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object o) {
       if (o instanceof FunctionForMapNoDefault) {
-        FunctionForMapNoDefault<?, ?> that = (FunctionForMapNoDefault<?, ?>) o;
+        FunctionForMapNoDefault<?, ?> that = (FunctionForMapNoDefault<?, ?>)o;
         return map.equals(that.map);
       }
       return false;
@@ -190,7 +190,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object o) {
       if (o instanceof ForMapWithDefault) {
-        ForMapWithDefault<?, ?> that = (ForMapWithDefault<?, ?>) o;
+        ForMapWithDefault<?, ?> that = (ForMapWithDefault<?, ?>)o;
         return map.equals(that.map) && Objects.equal(defaultValue, that.defaultValue);
       }
       return false;
@@ -243,7 +243,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof FunctionComposition) {
-        FunctionComposition<?, ?, ?> that = (FunctionComposition<?, ?, ?>) obj;
+        FunctionComposition<?, ?, ?> that = (FunctionComposition<?, ?, ?>)obj;
         return f.equals(that.f) && g.equals(that.g);
       }
       return false;
@@ -291,7 +291,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof PredicateFunction) {
-        PredicateFunction<?> that = (PredicateFunction<?>) obj;
+        PredicateFunction<?> that = (PredicateFunction<?>)obj;
         return predicate.equals(that.predicate);
       }
       return false;
@@ -337,7 +337,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof ConstantFunction) {
-        ConstantFunction<?> that = (ConstantFunction<?>) obj;
+        ConstantFunction<?> that = (ConstantFunction<?>)obj;
         return Objects.equal(value, that.value);
       }
       return false;
@@ -384,7 +384,7 @@ public final class Functions {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof SupplierFunction) {
-        SupplierFunction<?> that = (SupplierFunction<?>) obj;
+        SupplierFunction<?> that = (SupplierFunction<?>)obj;
         return this.supplier.equals(that.supplier);
       }
       return false;

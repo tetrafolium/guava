@@ -87,8 +87,8 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
   @SuppressWarnings("unchecked")
   public static <E> TreeMultiset<E> create(@Nullable Comparator<? super E> comparator) {
     return (comparator == null)
-        ? new TreeMultiset<E>((Comparator) Ordering.natural())
-        : new TreeMultiset<E>(comparator);
+           ? new TreeMultiset<E>((Comparator) Ordering.natural())
+           : new TreeMultiset<E>(comparator);
   }
 
   /**
@@ -178,17 +178,17 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
       return aggregateBelowRange(aggr, node.left);
     } else if (cmp == 0) {
       switch (range.getLowerBoundType()) {
-      case OPEN:
+      case OPEN :
         return aggr.nodeAggregate(node) + aggr.treeAggregate(node.left);
-      case CLOSED:
+      case CLOSED :
         return aggr.treeAggregate(node.left);
       default:
         throw new AssertionError();
       }
     } else {
       return aggr.treeAggregate(node.left)
-          + aggr.nodeAggregate(node)
-          + aggregateBelowRange(aggr, node.right);
+             + aggr.nodeAggregate(node)
+             + aggregateBelowRange(aggr, node.right);
     }
   }
 
@@ -210,8 +210,8 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
       }
     } else {
       return aggr.treeAggregate(node.right)
-          + aggr.nodeAggregate(node)
-          + aggregateAboveRange(aggr, node.left);
+             + aggr.nodeAggregate(node)
+             + aggregateAboveRange(aggr, node.left);
     }
   }
 
@@ -334,20 +334,20 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
 
   private Entry<E> wrapEntry(final AvlNode<E> baseEntry) {
     return new Multisets.AbstractEntry<E>() {
-      @Override
-      public E getElement() {
-        return baseEntry.getElement();
-      }
+             @Override
+             public E getElement() {
+               return baseEntry.getElement();
+             }
 
-      @Override
-      public int getCount() {
-        int result = baseEntry.getCount();
-        if (result == 0) {
-          return count(getElement());
-        } else {
-          return result;
-        }
-      }
+             @Override
+             public int getCount() {
+               int result = baseEntry.getCount();
+               if (result == 0) {
+                 return count(getElement());
+               } else {
+                 return result;
+               }
+             }
     };
   }
 
@@ -403,101 +403,101 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
   @Override
   Iterator<Entry<E>> entryIterator() {
     return new Iterator<Entry<E>>() {
-      AvlNode<E> current = firstNode();
-      Entry<E> prevEntry;
+             AvlNode<E> current = firstNode();
+             Entry<E> prevEntry;
 
-      @Override
-      public boolean hasNext() {
-        if (current == null) {
-          return false;
-        } else if (range.tooHigh(current.getElement())) {
-          current = null;
-          return false;
-        } else {
-          return true;
-        }
-      }
+             @Override
+             public boolean hasNext() {
+               if (current == null) {
+                 return false;
+               } else if (range.tooHigh(current.getElement())) {
+                 current = null;
+                 return false;
+               } else {
+                 return true;
+               }
+             }
 
-      @Override
-      public Entry<E> next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        Entry<E> result = wrapEntry(current);
-        prevEntry = result;
-        if (current.succ == header) {
-          current = null;
-        } else {
-          current = current.succ;
-        }
-        return result;
-      }
+             @Override
+             public Entry<E> next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               Entry<E> result = wrapEntry(current);
+               prevEntry = result;
+               if (current.succ == header) {
+                 current = null;
+               } else {
+                 current = current.succ;
+               }
+               return result;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(prevEntry != null);
-        setCount(prevEntry.getElement(), 0);
-        prevEntry = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(prevEntry != null);
+               setCount(prevEntry.getElement(), 0);
+               prevEntry = null;
+             }
     };
   }
 
   @Override
   Iterator<Entry<E>> descendingEntryIterator() {
     return new Iterator<Entry<E>>() {
-      AvlNode<E> current = lastNode();
-      Entry<E> prevEntry = null;
+             AvlNode<E> current = lastNode();
+             Entry<E> prevEntry = null;
 
-      @Override
-      public boolean hasNext() {
-        if (current == null) {
-          return false;
-        } else if (range.tooLow(current.getElement())) {
-          current = null;
-          return false;
-        } else {
-          return true;
-        }
-      }
+             @Override
+             public boolean hasNext() {
+               if (current == null) {
+                 return false;
+               } else if (range.tooLow(current.getElement())) {
+                 current = null;
+                 return false;
+               } else {
+                 return true;
+               }
+             }
 
-      @Override
-      public Entry<E> next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        Entry<E> result = wrapEntry(current);
-        prevEntry = result;
-        if (current.pred == header) {
-          current = null;
-        } else {
-          current = current.pred;
-        }
-        return result;
-      }
+             @Override
+             public Entry<E> next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               Entry<E> result = wrapEntry(current);
+               prevEntry = result;
+               if (current.pred == header) {
+                 current = null;
+               } else {
+                 current = current.pred;
+               }
+               return result;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(prevEntry != null);
-        setCount(prevEntry.getElement(), 0);
-        prevEntry = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(prevEntry != null);
+               setCount(prevEntry.getElement(), 0);
+               prevEntry = null;
+             }
     };
   }
 
   @Override
   public SortedMultiset<E> headMultiset(@Nullable E upperBound, BoundType boundType) {
     return new TreeMultiset<E>(
-            rootReference,
-            range.intersect(GeneralRange.upTo(comparator(), upperBound, boundType)),
-            header);
+      rootReference,
+      range.intersect(GeneralRange.upTo(comparator(), upperBound, boundType)),
+      header);
   }
 
   @Override
   public SortedMultiset<E> tailMultiset(@Nullable E lowerBound, BoundType boundType) {
     return new TreeMultiset<E>(
-            rootReference,
-            range.intersect(GeneralRange.downTo(comparator(), lowerBound, boundType)),
-            header);
+      rootReference,
+      range.intersect(GeneralRange.downTo(comparator(), lowerBound, boundType)),
+      header);
   }
 
   static int distinctElements(@Nullable AvlNode<?> node) {
@@ -719,11 +719,11 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
     }
 
     AvlNode<E> setCount(
-        Comparator<? super E> comparator,
-        @Nullable E e,
-        int expectedCount,
-        int newCount,
-        int[] result) {
+      Comparator<? super E> comparator,
+      @Nullable E e,
+      int expectedCount,
+      int newCount,
+      int[] result) {
       int cmp = comparator.compare(e, elem);
       if (cmp < 0) {
         AvlNode<E> initLeft = left;
@@ -848,17 +848,17 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
 
     private AvlNode<E> rebalance() {
       switch (balanceFactor()) {
-      case -2:
+      case -2 :
         if (right.balanceFactor() > 0) {
           right = right.rotateRight();
         }
         return rotateLeft();
-      case 2:
+      case 2 :
         if (left.balanceFactor() < 0) {
           left = left.rotateLeft();
         }
         return rotateRight();
-      default:
+      default :
         recomputeHeight();
         return this;
       }
@@ -972,7 +972,7 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
     stream.defaultReadObject();
     @SuppressWarnings("unchecked")
     // reading data stored by writeObject
-    Comparator<? super E> comparator = (Comparator<? super E>) stream.readObject();
+    Comparator<? super E> comparator = (Comparator<? super E>)stream.readObject();
     Serialization.getFieldSetter(AbstractSortedMultiset.class, "comparator").set(this, comparator);
     Serialization.getFieldSetter(TreeMultiset.class, "range")
     .set(this, GeneralRange.all(comparator));

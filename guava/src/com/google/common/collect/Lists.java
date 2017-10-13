@@ -146,8 +146,8 @@ public final class Lists {
     checkNotNull(elements); // for GWT
     // Let ArrayList's sizing logic work, if possible
     return (elements instanceof Collection)
-        ? new ArrayList<>(Collections2.cast(elements))
-        : newArrayList(elements.iterator());
+           ? new ArrayList<>(Collections2.cast(elements))
+           : newArrayList(elements.iterator());
   }
 
   /**
@@ -285,7 +285,7 @@ public final class Lists {
    */
   @GwtIncompatible // CopyOnWriteArrayList
   public static <E> CopyOnWriteArrayList<E> newCopyOnWriteArrayList(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     // We copy elements to an ArrayList first, rather than incurring the
     // quadratic cost of adding them to the COWAL directly.
     Collection<? extends E> elementsCollection =
@@ -556,10 +556,10 @@ public final class Lists {
    * deprecated, but we gently encourage you to migrate to streams.
    */
   public static <F, T> List<T> transform(
-      List<F> fromList, Function<? super F, ? extends T> function) {
+    List<F> fromList, Function<? super F, ? extends T> function) {
     return (fromList instanceof RandomAccess)
-        ? new TransformingRandomAccessList<>(fromList, function)
-        : new TransformingSequentialList<>(fromList, function);
+           ? new TransformingRandomAccessList<>(fromList, function)
+           : new TransformingSequentialList<>(fromList, function);
   }
 
   /**
@@ -594,10 +594,10 @@ public final class Lists {
     @Override
     public ListIterator<T> listIterator(final int index) {
       return new TransformedListIterator<F, T>(fromList.listIterator(index)) {
-        @Override
-        T transform(F from) {
-          return function.apply(from);
-        }
+               @Override
+               T transform(F from) {
+                 return function.apply(from);
+               }
       };
     }
 
@@ -646,10 +646,10 @@ public final class Lists {
     @Override
     public ListIterator<T> listIterator(int index) {
       return new TransformedListIterator<F, T>(fromList.listIterator(index)) {
-        @Override
-        T transform(F from) {
-          return function.apply(from);
-        }
+               @Override
+               T transform(F from) {
+                 return function.apply(from);
+               }
       };
     }
 
@@ -699,8 +699,8 @@ public final class Lists {
     checkNotNull(list);
     checkArgument(size > 0);
     return (list instanceof RandomAccess)
-        ? new RandomAccessPartition<>(list, size)
-        : new Partition<>(list, size);
+           ? new RandomAccessPartition<>(list, size)
+           : new Partition<>(list, size);
   }
 
   private static class Partition<T> extends AbstractList<List<T>> {
@@ -838,9 +838,9 @@ public final class Lists {
    */
   public static <T> List<T> reverse(List<T> list) {
     if (list instanceof ImmutableList) {
-      return ((ImmutableList<T>) list).reverse();
+      return ((ImmutableList<T>)list).reverse();
     } else if (list instanceof ReverseList) {
-      return ((ReverseList<T>) list).getForwardList();
+      return ((ReverseList<T>)list).getForwardList();
     } else if (list instanceof RandomAccess) {
       return new RandomAccessReverseList<>(list);
     } else {
@@ -923,65 +923,65 @@ public final class Lists {
       final ListIterator<T> forwardIterator = forwardList.listIterator(start);
       return new ListIterator<T>() {
 
-        boolean canRemoveOrSet;
+               boolean canRemoveOrSet;
 
-        @Override
-        public void add(T e) {
-          forwardIterator.add(e);
-          forwardIterator.previous();
-          canRemoveOrSet = false;
-        }
+               @Override
+               public void add(T e) {
+                 forwardIterator.add(e);
+                 forwardIterator.previous();
+                 canRemoveOrSet = false;
+               }
 
-        @Override
-        public boolean hasNext() {
-          return forwardIterator.hasPrevious();
-        }
+               @Override
+               public boolean hasNext() {
+                 return forwardIterator.hasPrevious();
+               }
 
-        @Override
-        public boolean hasPrevious() {
-          return forwardIterator.hasNext();
-        }
+               @Override
+               public boolean hasPrevious() {
+                 return forwardIterator.hasNext();
+               }
 
-        @Override
-        public T next() {
-          if (!hasNext()) {
-            throw new NoSuchElementException();
-          }
-          canRemoveOrSet = true;
-          return forwardIterator.previous();
-        }
+               @Override
+               public T next() {
+                 if (!hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+                 canRemoveOrSet = true;
+                 return forwardIterator.previous();
+               }
 
-        @Override
-        public int nextIndex() {
-          return reversePosition(forwardIterator.nextIndex());
-        }
+               @Override
+               public int nextIndex() {
+                 return reversePosition(forwardIterator.nextIndex());
+               }
 
-        @Override
-        public T previous() {
-          if (!hasPrevious()) {
-            throw new NoSuchElementException();
-          }
-          canRemoveOrSet = true;
-          return forwardIterator.next();
-        }
+               @Override
+               public T previous() {
+                 if (!hasPrevious()) {
+                   throw new NoSuchElementException();
+                 }
+                 canRemoveOrSet = true;
+                 return forwardIterator.next();
+               }
 
-        @Override
-        public int previousIndex() {
-          return nextIndex() - 1;
-        }
+               @Override
+               public int previousIndex() {
+                 return nextIndex() - 1;
+               }
 
-        @Override
-        public void remove() {
-          checkRemove(canRemoveOrSet);
-          forwardIterator.remove();
-          canRemoveOrSet = false;
-        }
+               @Override
+               public void remove() {
+                 checkRemove(canRemoveOrSet);
+                 forwardIterator.remove();
+                 canRemoveOrSet = false;
+               }
 
-        @Override
-        public void set(T e) {
-          checkState(canRemoveOrSet);
-          forwardIterator.set(e);
-        }
+               @Override
+               public void set(T e) {
+                 checkState(canRemoveOrSet);
+                 forwardIterator.set(e);
+               }
       };
     }
   }
@@ -1017,7 +1017,7 @@ public final class Lists {
     if (!(other instanceof List)) {
       return false;
     }
-    List<?> otherList = (List<?>) other;
+    List<?> otherList = (List<?>)other;
     int size = thisList.size();
     if (size != otherList.size()) {
       return false;
@@ -1131,7 +1131,7 @@ public final class Lists {
     List<E> wrapper;
     if (list instanceof RandomAccess) {
       wrapper =
-      new RandomAccessListWrapper<E>(list) {
+          new RandomAccessListWrapper<E>(list) {
         @Override
         public ListIterator<E> listIterator(int index) {
           return backingList.listIterator(index);
@@ -1141,7 +1141,7 @@ public final class Lists {
       };
     } else {
       wrapper =
-      new AbstractListWrapper<E>(list) {
+          new AbstractListWrapper<E>(list) {
         @Override
         public ListIterator<E> listIterator(int index) {
           return backingList.listIterator(index);
@@ -1207,6 +1207,6 @@ public final class Lists {
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
   static <T> List<T> cast(Iterable<T> iterable) {
-    return (List<T>) iterable;
+    return (List<T>)iterable;
   }
 }

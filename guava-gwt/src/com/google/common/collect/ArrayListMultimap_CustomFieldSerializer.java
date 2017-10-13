@@ -32,7 +32,7 @@ public class ArrayListMultimap_CustomFieldSerializer {
   public static ArrayListMultimap<Object, Object> instantiate(SerializationStreamReader in)
   throws SerializationException {
     return (ArrayListMultimap<Object, Object>)
-        Multimap_CustomFieldSerializerBase.populate(in, ArrayListMultimap.create());
+           Multimap_CustomFieldSerializerBase.populate(in, ArrayListMultimap.create());
   }
 
   public static void serialize(SerializationStreamWriter out, ArrayListMultimap<?, ?> multimap)

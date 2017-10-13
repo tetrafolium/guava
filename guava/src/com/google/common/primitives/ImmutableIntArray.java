@@ -157,7 +157,7 @@ public final class ImmutableIntArray implements Serializable {
    */
   public static ImmutableIntArray copyOf(Iterable<Integer> values) {
     if (values instanceof Collection) {
-      return copyOf((Collection<Integer>) values);
+      return copyOf((Collection<Integer>)values);
     }
     return builder().addAll(values).build();
   }
@@ -237,7 +237,7 @@ public final class ImmutableIntArray implements Serializable {
      */
     public Builder addAll(Iterable<Integer> values) {
       if (values instanceof Collection) {
-        return addAll((Collection<Integer>) values);
+        return addAll((Collection<Integer>)values);
       }
       for (Integer value : values) {
         add(value);
@@ -267,7 +267,7 @@ public final class ImmutableIntArray implements Serializable {
       if (size > 0) { // known *and* nonempty
         ensureRoomFor(Ints.saturatedCast(size));
       }
-      spliterator.forEachRemaining((IntConsumer) this::add);
+      spliterator.forEachRemaining((IntConsumer) this : : add);
       return this;
     }
 
@@ -430,8 +430,8 @@ public final class ImmutableIntArray implements Serializable {
   public ImmutableIntArray subArray(int startIndex, int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
-        ? EMPTY
-        : new ImmutableIntArray(array, start + startIndex, start + endIndex);
+           ? EMPTY
+           : new ImmutableIntArray(array, start + startIndex, start + endIndex);
   }
 
   private Spliterator.OfInt spliterator() {
@@ -509,7 +509,7 @@ public final class ImmutableIntArray implements Serializable {
       if (!(object instanceof List)) {
         return false;
       }
-      List<?> that = (List<?>) object;
+      List<?> that = (List<?>)object;
       if (this.size() != that.size()) {
         return false;
       }

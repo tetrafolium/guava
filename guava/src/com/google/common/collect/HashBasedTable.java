@@ -86,7 +86,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
    *     expectedCellsPerRow} is negative
    */
   public static <R, C, V> HashBasedTable<R, C, V> create(
-      int expectedRows, int expectedCellsPerRow) {
+    int expectedRows, int expectedCellsPerRow) {
     checkNonnegative(expectedCellsPerRow, "expectedCellsPerRow");
     Map<R, Map<C, V>> backingMap = Maps.newLinkedHashMapWithExpectedSize(expectedRows);
     return new HashBasedTable<>(backingMap, new Factory<C, V>(expectedCellsPerRow));
@@ -101,7 +101,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
    *     in {@code table} is null
    */
   public static <R, C, V> HashBasedTable<R, C, V> create(
-      Table<? extends R, ? extends C, ? extends V> table) {
+    Table<? extends R, ? extends C, ? extends V> table) {
     HashBasedTable<R, C, V> result = create();
     result.putAll(table);
     return result;

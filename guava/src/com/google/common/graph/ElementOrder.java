@@ -125,7 +125,7 @@ public final class ElementOrder<T> {
       return false;
     }
 
-    ElementOrder<?> other = (ElementOrder<?>) obj;
+    ElementOrder<?> other = (ElementOrder<?>)obj;
     return (type == other.type) && Objects.equal(comparator, other.comparator);
   }
 

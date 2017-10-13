@@ -38,7 +38,7 @@ public class CompoundOrdering_CustomFieldSerializer {
     int n = reader.readInt();
     List<Comparator<Object>> comparators = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
-      comparators.add((Comparator<Object>) reader.readObject());
+      comparators.add((Comparator<Object>)reader.readObject());
     }
     return new CompoundOrdering<>(comparators);
   }

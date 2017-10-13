@@ -81,8 +81,8 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    */
   public static <V> FluentFuture<V> from(ListenableFuture<V> future) {
     return future instanceof FluentFuture
-        ? (FluentFuture<V>) future
-        : new ForwardingFluentFuture<V>(future);
+           ? (FluentFuture<V>)future
+           : new ForwardingFluentFuture<V>(future);
   }
 
   /**
@@ -124,8 +124,8 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    */
   @Partially.GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public final <X extends Throwable> FluentFuture<V> catching(
-      Class<X> exceptionType, Function<? super X, ? extends V> fallback, Executor executor) {
-    return (FluentFuture<V>) Futures.catching(this, exceptionType, fallback, executor);
+    Class<X> exceptionType, Function<? super X, ? extends V> fallback, Executor executor) {
+    return (FluentFuture<V>)Futures.catching(this, exceptionType, fallback, executor);
   }
 
   /**
@@ -189,8 +189,8 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    */
   @Partially.GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public final <X extends Throwable> FluentFuture<V> catchingAsync(
-      Class<X> exceptionType, AsyncFunction<? super X, ? extends V> fallback, Executor executor) {
-    return (FluentFuture<V>) Futures.catchingAsync(this, exceptionType, fallback, executor);
+    Class<X> exceptionType, AsyncFunction<? super X, ? extends V> fallback, Executor executor) {
+    return (FluentFuture<V>)Futures.catchingAsync(this, exceptionType, fallback, executor);
   }
 
   /**
@@ -205,8 +205,8 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    */
   @GwtIncompatible // ScheduledExecutorService
   public final FluentFuture<V> withTimeout(
-      long timeout, TimeUnit unit, ScheduledExecutorService scheduledExecutor) {
-    return (FluentFuture<V>) Futures.withTimeout(this, timeout, unit, scheduledExecutor);
+    long timeout, TimeUnit unit, ScheduledExecutorService scheduledExecutor) {
+    return (FluentFuture<V>)Futures.withTimeout(this, timeout, unit, scheduledExecutor);
   }
 
   /**
@@ -249,8 +249,8 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    *     input's failure (if not)
    */
   public final <T> FluentFuture<T> transformAsync(
-      AsyncFunction<? super V, T> function, Executor executor) {
-    return (FluentFuture<T>) Futures.transformAsync(this, function, executor);
+    AsyncFunction<? super V, T> function, Executor executor) {
+    return (FluentFuture<T>)Futures.transformAsync(this, function, executor);
   }
 
   /**
@@ -286,7 +286,7 @@ public abstract class FluentFuture<V> extends GwtFluentFutureCatchingSpecializat
    * @return A future that holds result of the transformation.
    */
   public final <T> FluentFuture<T> transform(Function<? super V, T> function, Executor executor) {
-    return (FluentFuture<T>) Futures.transform(this, function, executor);
+    return (FluentFuture<T>)Futures.transform(this, function, executor);
   }
 
   /**

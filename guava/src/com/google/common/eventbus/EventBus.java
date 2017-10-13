@@ -118,10 +118,10 @@ public class EventBus {
    */
   public EventBus(String identifier) {
     this(
-        identifier,
-        MoreExecutors.directExecutor(),
-        Dispatcher.perThreadDispatchQueue(),
-        LoggingHandler.INSTANCE);
+      identifier,
+      MoreExecutors.directExecutor(),
+      Dispatcher.perThreadDispatchQueue(),
+      LoggingHandler.INSTANCE);
   }
 
   /**
@@ -132,17 +132,17 @@ public class EventBus {
    */
   public EventBus(SubscriberExceptionHandler exceptionHandler) {
     this(
-        "default",
-        MoreExecutors.directExecutor(),
-        Dispatcher.perThreadDispatchQueue(),
-        exceptionHandler);
+      "default",
+      MoreExecutors.directExecutor(),
+      Dispatcher.perThreadDispatchQueue(),
+      exceptionHandler);
   }
 
   EventBus(
-      String identifier,
-      Executor executor,
-      Dispatcher dispatcher,
-      SubscriberExceptionHandler exceptionHandler) {
+    String identifier,
+    Executor executor,
+    Dispatcher dispatcher,
+    SubscriberExceptionHandler exceptionHandler) {
     this.identifier = checkNotNull(identifier);
     this.executor = checkNotNull(executor);
     this.dispatcher = checkNotNull(dispatcher);
@@ -176,9 +176,9 @@ public class EventBus {
     } catch (Throwable e2) {
       // if the handler threw an exception... well, just log it
       logger.log(
-          Level.SEVERE,
-          String.format(Locale.ROOT, "Exception %s thrown while handling exception: %s", e2, e),
-          e2);
+        Level.SEVERE,
+        String.format(Locale.ROOT, "Exception %s thrown while handling exception: %s", e2, e),
+        e2);
     }
   }
 
@@ -247,14 +247,14 @@ public class EventBus {
     private static String message(SubscriberExceptionContext context) {
       Method method = context.getSubscriberMethod();
       return "Exception thrown by subscriber method "
-          + method.getName()
-          + '('
-          + method.getParameterTypes()[0].getName()
-          + ')'
-          + " on subscriber "
-          + context.getSubscriber()
-          + " when dispatching event: "
-          + context.getEvent();
+             + method.getName()
+             + '('
+             + method.getParameterTypes()[0].getName()
+             + ')'
+             + " on subscriber "
+             + context.getSubscriber()
+             + " when dispatching event: "
+             + context.getEvent();
     }
   }
 }

@@ -190,7 +190,7 @@ public final class Closer implements Closeable {
    * @throws X2 when the given throwable is of the declared type X2
    */
   public <X1 extends Exception, X2 extends Exception> RuntimeException rethrow(
-      Throwable e, Class<X1> declaredType1, Class<X2> declaredType2) throws IOException, X1, X2 {
+    Throwable e, Class<X1> declaredType1, Class<X2> declaredType2) throws IOException, X1, X2 {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);
@@ -254,7 +254,7 @@ public final class Closer implements Closeable {
     public void suppress(Closeable closeable, Throwable thrown, Throwable suppressed) {
       // log to the same place as Closeables
       Closeables.logger.log(
-          Level.WARNING, "Suppressing exception thrown when closing " + closeable, suppressed);
+        Level.WARNING, "Suppressing exception thrown when closing " + closeable, suppressed);
     }
   }
 

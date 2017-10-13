@@ -121,20 +121,20 @@ abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements 
 
   SortedMultiset<E> createDescendingMultiset() {
     return new DescendingMultiset<E>() {
-      @Override
-      SortedMultiset<E> forwardMultiset() {
-        return AbstractSortedMultiset.this;
-      }
+             @Override
+             SortedMultiset<E> forwardMultiset() {
+               return AbstractSortedMultiset.this;
+             }
 
-      @Override
-      Iterator<Entry<E>> entryIterator() {
-        return descendingEntryIterator();
-      }
+             @Override
+             Iterator<Entry<E>> entryIterator() {
+               return descendingEntryIterator();
+             }
 
-      @Override
-      public Iterator<E> iterator() {
-        return descendingIterator();
-      }
+             @Override
+             public Iterator<E> iterator() {
+               return descendingIterator();
+             }
     };
   }
 }

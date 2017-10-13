@@ -39,8 +39,8 @@ class Subscriber {
    */
   static Subscriber create(EventBus bus, Object listener, Method method) {
     return isDeclaredThreadSafe(method)
-        ? new Subscriber(bus, listener, method)
-        : new SynchronizedSubscriber(bus, listener, method);
+           ? new Subscriber(bus, listener, method)
+           : new SynchronizedSubscriber(bus, listener, method);
   }
 
   /** The event bus this subscriber belongs to. */
@@ -69,7 +69,7 @@ class Subscriber {
    */
   final void dispatchEvent(final Object event) {
     executor.execute(
-    new Runnable() {
+      new Runnable() {
       @Override
       public void run() {
         try {

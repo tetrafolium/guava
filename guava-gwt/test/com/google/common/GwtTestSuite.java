@@ -39,7 +39,7 @@ public class GwtTestSuite extends TestCase {
         Class<?> clazz = info.load();
         // TODO(cpovirk): why does asSubclass() throw? Is it something about ClassLoaders?
         @SuppressWarnings("unchecked")
-        Class<? extends GWTTestCase> cast = (Class<? extends GWTTestCase>) clazz;
+        Class<? extends GWTTestCase> cast = (Class<? extends GWTTestCase>)clazz;
         suite.addTestSuite(cast);
       }
     }

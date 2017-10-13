@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class SingletonImmutableSet_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, SingletonImmutableSet<?> instance) {}
+    SerializationStreamReader reader, SingletonImmutableSet<?> instance) {}
 
   public static SingletonImmutableSet<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {

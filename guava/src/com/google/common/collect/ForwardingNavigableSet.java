@@ -179,7 +179,7 @@ public abstract class ForwardingNavigableSet<E> extends ForwardingSortedSet<E>
 
   @Override
   public NavigableSet<E> subSet(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+    E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
     return delegate().subSet(fromElement, fromInclusive, toElement, toInclusive);
   }
 
@@ -190,7 +190,7 @@ public abstract class ForwardingNavigableSet<E> extends ForwardingSortedSet<E>
    */
   @Beta
   protected NavigableSet<E> standardSubSet(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+    E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
     return tailSet(fromElement, fromInclusive).headSet(toElement, toInclusive);
   }
 

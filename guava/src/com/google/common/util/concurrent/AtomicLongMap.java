@@ -107,7 +107,7 @@ public final class AtomicLongMap<K> implements Serializable {
    */
   @CanIgnoreReturnValue
   public long addAndGet(K key, long delta) {
-    return accumulateAndGet(key, delta, Long::sum);
+    return accumulateAndGet(key, delta, Long : : sum);
   }
 
   /**
@@ -132,7 +132,7 @@ public final class AtomicLongMap<K> implements Serializable {
    */
   @CanIgnoreReturnValue
   public long getAndAdd(K key, long delta) {
-    return getAndAccumulate(key, delta, Long::sum);
+    return getAndAccumulate(key, delta, Long: : sum);
   }
 
   /**
@@ -146,7 +146,7 @@ public final class AtomicLongMap<K> implements Serializable {
   public long updateAndGet(K key, LongUnaryOperator updaterFunction) {
     checkNotNull(updaterFunction);
     return map.compute(
-            key, (k, value) -> updaterFunction.applyAsLong((value == null) ? 0L : value.longValue()));
+      key, (k, value) -> updaterFunction.applyAsLong((value == null) ? 0L : value.longValue()));
   }
 
   /**
@@ -161,8 +161,8 @@ public final class AtomicLongMap<K> implements Serializable {
     checkNotNull(updaterFunction);
     AtomicLong holder = new AtomicLong();
     map.compute(
-        key,
-    (k, value) -> {
+      key,
+      (k, value) -> {
       long oldValue = (value == null) ? 0L : value.longValue();
       holder.set(oldValue);
       return updaterFunction.applyAsLong(oldValue);
@@ -214,7 +214,7 @@ public final class AtomicLongMap<K> implements Serializable {
    * if the specified map is modified while the operation is in progress.
    */
   public void putAll(Map<? extends K, ? extends Long> m) {
-    m.forEach(this::put);
+    m.forEach(this : : put);
   }
 
   /**
@@ -254,7 +254,7 @@ public final class AtomicLongMap<K> implements Serializable {
    * <p>This method is not atomic: the sum may or may not include other concurrent operations.
    */
   public long sum() {
-    return map.values().stream().mapToLong(Long::longValue).sum();
+    return map.values().stream().mapToLong(Long: : longValue).sum();
   }
 
   private transient Map<K, Long> asMap;
@@ -317,8 +317,8 @@ public final class AtomicLongMap<K> implements Serializable {
     AtomicBoolean noValue = new AtomicBoolean(false);
     Long result =
         map.compute(
-            key,
-    (k, oldValue) -> {
+      key,
+      (k, oldValue) -> {
       if (oldValue == null || oldValue == 0) {
         noValue.set(true);
         return newValue;

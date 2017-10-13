@@ -345,8 +345,8 @@ final class Synchronized {
 
   private static <E> List<E> list(List<E> list, @Nullable Object mutex) {
     return (list instanceof RandomAccess)
-        ? new SynchronizedRandomAccessList<E>(list, mutex)
-        : new SynchronizedList<E>(list, mutex);
+           ? new SynchronizedRandomAccessList<E>(list, mutex)
+           : new SynchronizedList<E>(list, mutex);
   }
 
   private static class SynchronizedList<E> extends SynchronizedCollection<E> implements List<E> {
@@ -758,7 +758,7 @@ final class Synchronized {
   }
 
   static <K, V> ListMultimap<K, V> listMultimap(
-      ListMultimap<K, V> multimap, @Nullable Object mutex) {
+    ListMultimap<K, V> multimap, @Nullable Object mutex) {
     if (multimap instanceof SynchronizedListMultimap || multimap instanceof ImmutableListMultimap) {
       return multimap;
     }
@@ -855,7 +855,7 @@ final class Synchronized {
   }
 
   static <K, V> SortedSetMultimap<K, V> sortedSetMultimap(
-      SortedSetMultimap<K, V> multimap, @Nullable Object mutex) {
+    SortedSetMultimap<K, V> multimap, @Nullable Object mutex) {
     if (multimap instanceof SynchronizedSortedSetMultimap) {
       return multimap;
     }
@@ -905,22 +905,22 @@ final class Synchronized {
   }
 
   private static <E> Collection<E> typePreservingCollection(
-      Collection<E> collection, @Nullable Object mutex) {
+    Collection<E> collection, @Nullable Object mutex) {
     if (collection instanceof SortedSet) {
-      return sortedSet((SortedSet<E>) collection, mutex);
+      return sortedSet((SortedSet<E>)collection, mutex);
     }
     if (collection instanceof Set) {
-      return set((Set<E>) collection, mutex);
+      return set((Set<E>)collection, mutex);
     }
     if (collection instanceof List) {
-      return list((List<E>) collection, mutex);
+      return list((List<E>)collection, mutex);
     }
     return collection(collection, mutex);
   }
 
   private static <E> Set<E> typePreservingSet(Set<E> set, @Nullable Object mutex) {
     if (set instanceof SortedSet) {
-      return sortedSet((SortedSet<E>) set, mutex);
+      return sortedSet((SortedSet<E>)set, mutex);
     } else {
       return set(set, mutex);
     }
@@ -936,21 +936,21 @@ final class Synchronized {
     public Iterator<Map.Entry<K, Collection<V>>> iterator() {
       // Must be manually synchronized.
       return new TransformedIterator<Map.Entry<K, Collection<V>>, Map.Entry<K, Collection<V>>>(
-      super.iterator()) {
-        @Override
-        Map.Entry<K, Collection<V>> transform(final Map.Entry<K, Collection<V>> entry) {
-          return new ForwardingMapEntry<K, Collection<V>>() {
-            @Override
-            protected Map.Entry<K, Collection<V>> delegate() {
-              return entry;
-            }
+        super.iterator()) {
+               @Override
+               Map.Entry<K, Collection<V>> transform(final Map.Entry<K, Collection<V>> entry) {
+                 return new ForwardingMapEntry<K, Collection<V>>() {
+                          @Override
+                          protected Map.Entry<K, Collection<V>> delegate() {
+                            return entry;
+                          }
 
-            @Override
-            public Collection<V> getValue() {
-              return typePreservingCollection(entry.getValue(), mutex);
-            }
-          };
-        }
+                          @Override
+                          public Collection<V> getValue() {
+                            return typePreservingCollection(entry.getValue(), mutex);
+                          }
+                 };
+               }
       };
     }
 
@@ -1144,7 +1144,7 @@ final class Synchronized {
 
     @Override
     public V computeIfPresent(
-        K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+      K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
       synchronized (mutex) {
         return delegate().computeIfPresent(key, remappingFunction);
       }
@@ -1159,7 +1159,7 @@ final class Synchronized {
 
     @Override
     public V merge(
-        K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+      K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
       synchronized (mutex) {
         return delegate().merge(key, value, remappingFunction);
       }
@@ -1306,7 +1306,7 @@ final class Synchronized {
     private transient BiMap<V, K> inverse;
 
     private SynchronizedBiMap(
-        BiMap<K, V> delegate, @Nullable Object mutex, @Nullable BiMap<V, K> inverse) {
+      BiMap<K, V> delegate, @Nullable Object mutex, @Nullable BiMap<V, K> inverse) {
       super(delegate, mutex);
       this.inverse = inverse;
     }
@@ -1400,10 +1400,10 @@ final class Synchronized {
     public Iterator<Collection<V>> iterator() {
       // Must be manually synchronized.
       return new TransformedIterator<Collection<V>, Collection<V>>(super.iterator()) {
-        @Override
-        Collection<V> transform(Collection<V> from) {
-          return typePreservingCollection(from, mutex);
-        }
+               @Override
+               Collection<V> transform(Collection<V> from) {
+                 return typePreservingCollection(from, mutex);
+               }
       };
     }
 
@@ -1493,10 +1493,10 @@ final class Synchronized {
 
     @Override
     public NavigableSet<E> subSet(
-        E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
       synchronized (mutex) {
         return Synchronized.navigableSet(
-                delegate().subSet(fromElement, fromInclusive, toElement, toInclusive), mutex);
+          delegate().subSet(fromElement, fromInclusive, toElement, toInclusive), mutex);
       }
     }
 
@@ -1542,7 +1542,7 @@ final class Synchronized {
 
   @GwtIncompatible // NavigableMap
   static <K, V> NavigableMap<K, V> navigableMap(
-      NavigableMap<K, V> navigableMap, @Nullable Object mutex) {
+    NavigableMap<K, V> navigableMap, @Nullable Object mutex) {
     return new SynchronizedNavigableMap<>(navigableMap, mutex);
   }
 
@@ -1694,7 +1694,7 @@ final class Synchronized {
 
     @Override
     public NavigableMap<K, V> subMap(
-        K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
+      K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
       synchronized (mutex) {
         return navigableMap(delegate().subMap(fromKey, fromInclusive, toKey, toInclusive), mutex);
       }
@@ -1727,7 +1727,7 @@ final class Synchronized {
 
   @GwtIncompatible // works but is needed only for NavigableMap
   private static <K, V> Entry<K, V> nullableSynchronizedEntry(
-      @Nullable Entry<K, V> entry, @Nullable Object mutex) {
+    @Nullable Entry<K, V> entry, @Nullable Object mutex) {
     if (entry == null) {
       return null;
     }
@@ -2115,15 +2115,15 @@ final class Synchronized {
     public Map<R, Map<C, V>> rowMap() {
       synchronized (mutex) {
         return map(
-                Maps.transformValues(
-                    delegate().rowMap(),
-        new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
+          Maps.transformValues(
+            delegate().rowMap(),
+            new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
           @Override
           public Map<C, V> apply(Map<C, V> t) {
             return map(t, mutex);
           }
         }),
-        mutex);
+          mutex);
       }
     }
 
@@ -2131,15 +2131,15 @@ final class Synchronized {
     public Map<C, Map<R, V>> columnMap() {
       synchronized (mutex) {
         return map(
-                Maps.transformValues(
-                    delegate().columnMap(),
-        new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
+          Maps.transformValues(
+            delegate().columnMap(),
+            new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
           @Override
           public Map<R, V> apply(Map<R, V> t) {
             return map(t, mutex);
           }
         }),
-        mutex);
+          mutex);
       }
     }
 

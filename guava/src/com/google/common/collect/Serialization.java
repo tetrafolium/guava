@@ -125,7 +125,7 @@ final class Serialization {
    * of distinct elements is determined by a prior call to {@link #readCount}.
    */
   static <E> void populateMultiset(
-      Multiset<E> multiset, ObjectInputStream stream, int distinctElements)
+    Multiset<E> multiset, ObjectInputStream stream, int distinctElements)
   throws IOException, ClassNotFoundException {
     for (int i = 0; i < distinctElements; i++) {
       @SuppressWarnings("unchecked") // reading data stored by writeMultiset
@@ -173,7 +173,7 @@ final class Serialization {
    * of distinct keys is determined by a prior call to {@link #readCount}.
    */
   static <K, V> void populateMultimap(
-      Multimap<K, V> multimap, ObjectInputStream stream, int distinctKeys)
+    Multimap<K, V> multimap, ObjectInputStream stream, int distinctKeys)
   throws IOException, ClassNotFoundException {
     for (int i = 0; i < distinctKeys; i++) {
       @SuppressWarnings("unchecked") // reading data stored by writeMultimap

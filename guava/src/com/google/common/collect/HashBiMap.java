@@ -454,10 +454,10 @@ public final class HashBiMap<K, V> extends IteratorBasedAbstractMap<K, V>
     @Override
     public Iterator<K> iterator() {
       return new Itr<K>() {
-        @Override
-        K output(BiEntry<K, V> entry) {
-          return entry.key;
-        }
+               @Override
+               K output(BiEntry<K, V> entry) {
+                 return entry.key;
+               }
       };
     }
 
@@ -483,49 +483,49 @@ public final class HashBiMap<K, V> extends IteratorBasedAbstractMap<K, V>
   @Override
   Iterator<Entry<K, V>> entryIterator() {
     return new Itr<Entry<K, V>>() {
-      @Override
-      Entry<K, V> output(BiEntry<K, V> entry) {
-        return new MapEntry(entry);
-      }
+             @Override
+             Entry<K, V> output(BiEntry<K, V> entry) {
+               return new MapEntry(entry);
+             }
 
-      class MapEntry extends AbstractMapEntry<K, V> {
-        BiEntry<K, V> delegate;
+             class MapEntry extends AbstractMapEntry<K, V> {
+               BiEntry<K, V> delegate;
 
-        MapEntry(BiEntry<K, V> entry) {
-          this.delegate = entry;
-        }
+               MapEntry(BiEntry<K, V> entry) {
+                 this.delegate = entry;
+               }
 
-        @Override
-        public K getKey() {
-          return delegate.key;
-        }
+               @Override
+               public K getKey() {
+                 return delegate.key;
+               }
 
-        @Override
-        public V getValue() {
-          return delegate.value;
-        }
+               @Override
+               public V getValue() {
+                 return delegate.value;
+               }
 
-        @Override
-        public V setValue(V value) {
-          V oldValue = delegate.value;
-          int valueHash = smearedHash(value);
-          if (valueHash == delegate.valueHash && Objects.equal(value, oldValue)) {
-            return value;
-          }
-          checkArgument(seekByValue(value, valueHash) == null, "value already present: %s", value);
-          delete(delegate);
-          BiEntry<K, V> newEntry = new BiEntry<>(delegate.key, delegate.keyHash, value, valueHash);
-          insert(newEntry, delegate);
-          delegate.prevInKeyInsertionOrder = null;
-          delegate.nextInKeyInsertionOrder = null;
-          expectedModCount = modCount;
-          if (toRemove == delegate) {
-            toRemove = newEntry;
-          }
-          delegate = newEntry;
-          return oldValue;
-        }
-      }
+               @Override
+               public V setValue(V value) {
+                 V oldValue = delegate.value;
+                 int valueHash = smearedHash(value);
+                 if (valueHash == delegate.valueHash && Objects.equal(value, oldValue)) {
+                   return value;
+                 }
+                 checkArgument(seekByValue(value, valueHash) == null, "value already present: %s", value);
+                 delete(delegate);
+                 BiEntry<K, V> newEntry = new BiEntry<>(delegate.key, delegate.keyHash, value, valueHash);
+                 insert(newEntry, delegate);
+                 delegate.prevInKeyInsertionOrder = null;
+                 delegate.nextInKeyInsertionOrder = null;
+                 expectedModCount = modCount;
+                 if (toRemove == delegate) {
+                   toRemove = newEntry;
+                 }
+                 delegate = newEntry;
+                 return oldValue;
+               }
+             }
     };
   }
 
@@ -637,10 +637,10 @@ public final class HashBiMap<K, V> extends IteratorBasedAbstractMap<K, V>
       @Override
       public Iterator<V> iterator() {
         return new Itr<V>() {
-          @Override
-          V output(BiEntry<K, V> entry) {
-            return entry.value;
-          }
+                 @Override
+                 V output(BiEntry<K, V> entry) {
+                   return entry.value;
+                 }
         };
       }
     }
@@ -653,47 +653,47 @@ public final class HashBiMap<K, V> extends IteratorBasedAbstractMap<K, V>
     @Override
     Iterator<Entry<V, K>> entryIterator() {
       return new Itr<Entry<V, K>>() {
-        @Override
-        Entry<V, K> output(BiEntry<K, V> entry) {
-          return new InverseEntry(entry);
-        }
+               @Override
+               Entry<V, K> output(BiEntry<K, V> entry) {
+                 return new InverseEntry(entry);
+               }
 
-        class InverseEntry extends AbstractMapEntry<V, K> {
-          BiEntry<K, V> delegate;
+               class InverseEntry extends AbstractMapEntry<V, K> {
+                 BiEntry<K, V> delegate;
 
-          InverseEntry(BiEntry<K, V> entry) {
-            this.delegate = entry;
-          }
+                 InverseEntry(BiEntry<K, V> entry) {
+                   this.delegate = entry;
+                 }
 
-          @Override
-          public V getKey() {
-            return delegate.value;
-          }
+                 @Override
+                 public V getKey() {
+                   return delegate.value;
+                 }
 
-          @Override
-          public K getValue() {
-            return delegate.key;
-          }
+                 @Override
+                 public K getValue() {
+                   return delegate.key;
+                 }
 
-          @Override
-          public K setValue(K key) {
-            K oldKey = delegate.key;
-            int keyHash = smearedHash(key);
-            if (keyHash == delegate.keyHash && Objects.equal(key, oldKey)) {
-              return key;
-            }
-            checkArgument(seekByKey(key, keyHash) == null, "value already present: %s", key);
-            delete(delegate);
-            BiEntry<K, V> newEntry =
-                new BiEntry<>(key, keyHash, delegate.value, delegate.valueHash);
-            delegate = newEntry;
-            insert(newEntry, null);
-            expectedModCount = modCount;
-            // This is safe because entries can only get bumped up to earlier in the iteration,
-            // so they can't get revisited.
-            return oldKey;
-          }
-        }
+                 @Override
+                 public K setValue(K key) {
+                   K oldKey = delegate.key;
+                   int keyHash = smearedHash(key);
+                   if (keyHash == delegate.keyHash && Objects.equal(key, oldKey)) {
+                     return key;
+                   }
+                   checkArgument(seekByKey(key, keyHash) == null, "value already present: %s", key);
+                   delete(delegate);
+                   BiEntry<K, V> newEntry =
+                       new BiEntry<>(key, keyHash, delegate.value, delegate.valueHash);
+                   delegate = newEntry;
+                   insert(newEntry, null);
+                   expectedModCount = modCount;
+                   // This is safe because entries can only get bumped up to earlier in the iteration,
+                   // so they can't get revisited.
+                   return oldKey;
+                 }
+               }
       };
     }
 

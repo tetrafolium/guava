@@ -192,7 +192,7 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
     @SuppressWarnings("unchecked")
     public boolean remove(@Nullable Object o) {
       if (o instanceof Entry) {
-        Entry<?, ?> entry = (Entry<?, ?>) o;
+        Entry<?, ?> entry = (Entry<?, ?>)o;
         if (unfiltered.containsKey(entry.getKey())
             // if this holds, then we know entry.getKey() is a K
             && keyPredicate.apply((K) entry.getKey())) {

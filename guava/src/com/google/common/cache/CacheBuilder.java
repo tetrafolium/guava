@@ -153,21 +153,26 @@ public final class CacheBuilder<K, V> {
 
   static final Supplier<? extends StatsCounter> NULL_STATS_COUNTER =
       Suppliers.ofInstance(
-  new StatsCounter() {
+    new StatsCounter() {
     @Override
-    public void recordHits(int count) {}
+    public void recordHits(int count) {
+    }
 
     @Override
-    public void recordMisses(int count) {}
+    public void recordMisses(int count) {
+    }
 
     @Override
-    public void recordLoadSuccess(long loadTime) {}
+    public void recordLoadSuccess(long loadTime) {
+    }
 
     @Override
-    public void recordLoadException(long loadTime) {}
+    public void recordLoadException(long loadTime) {
+    }
 
     @Override
-    public void recordEviction() {}
+    public void recordEviction() {
+    }
 
     @Override
     public CacheStats snapshot() {
@@ -177,7 +182,7 @@ public final class CacheBuilder<K, V> {
   static final CacheStats EMPTY_STATS = new CacheStats(0, 0, 0, 0, 0, 0);
 
   static final Supplier<StatsCounter> CACHE_STATS_COUNTER =
-  new Supplier<StatsCounter>() {
+      new Supplier<StatsCounter>() {
     @Override
     public StatsCounter get() {
       return new SimpleStatsCounter();
@@ -201,7 +206,7 @@ public final class CacheBuilder<K, V> {
   }
 
   static final Ticker NULL_TICKER =
-  new Ticker() {
+      new Ticker() {
     @Override
     public long read() {
       return 0;
@@ -309,7 +314,7 @@ public final class CacheBuilder<K, V> {
   @GwtIncompatible // To be supported
   CacheBuilder<K, V> valueEquivalence(Equivalence<Object> equivalence) {
     checkState(
-        valueEquivalence == null, "value equivalence was already set to %s", valueEquivalence);
+      valueEquivalence == null, "value equivalence was already set to %s", valueEquivalence);
     this.valueEquivalence = checkNotNull(equivalence);
     return this;
   }
@@ -331,9 +336,9 @@ public final class CacheBuilder<K, V> {
    */
   public CacheBuilder<K, V> initialCapacity(int initialCapacity) {
     checkState(
-        this.initialCapacity == UNSET_INT,
-        "initial capacity was already set to %s",
-        this.initialCapacity);
+      this.initialCapacity == UNSET_INT,
+      "initial capacity was already set to %s",
+      this.initialCapacity);
     checkArgument(initialCapacity >= 0);
     this.initialCapacity = initialCapacity;
     return this;
@@ -376,9 +381,9 @@ public final class CacheBuilder<K, V> {
    */
   public CacheBuilder<K, V> concurrencyLevel(int concurrencyLevel) {
     checkState(
-        this.concurrencyLevel == UNSET_INT,
-        "concurrency level was already set to %s",
-        this.concurrencyLevel);
+      this.concurrencyLevel == UNSET_INT,
+      "concurrency level was already set to %s",
+      this.concurrencyLevel);
     checkArgument(concurrencyLevel > 0);
     this.concurrencyLevel = concurrencyLevel;
     return this;
@@ -411,11 +416,11 @@ public final class CacheBuilder<K, V> {
    */
   public CacheBuilder<K, V> maximumSize(long maximumSize) {
     checkState(
-        this.maximumSize == UNSET_INT, "maximum size was already set to %s", this.maximumSize);
+      this.maximumSize == UNSET_INT, "maximum size was already set to %s", this.maximumSize);
     checkState(
-        this.maximumWeight == UNSET_INT,
-        "maximum weight was already set to %s",
-        this.maximumWeight);
+      this.maximumWeight == UNSET_INT,
+      "maximum weight was already set to %s",
+      this.maximumWeight);
     checkState(this.weigher == null, "maximum size can not be combined with weigher");
     checkArgument(maximumSize >= 0, "maximum size must not be negative");
     this.maximumSize = maximumSize;
@@ -452,11 +457,11 @@ public final class CacheBuilder<K, V> {
   @GwtIncompatible // To be supported
   public CacheBuilder<K, V> maximumWeight(long maximumWeight) {
     checkState(
-        this.maximumWeight == UNSET_INT,
-        "maximum weight was already set to %s",
-        this.maximumWeight);
+      this.maximumWeight == UNSET_INT,
+      "maximum weight was already set to %s",
+      this.maximumWeight);
     checkState(
-        this.maximumSize == UNSET_INT, "maximum size was already set to %s", this.maximumSize);
+      this.maximumSize == UNSET_INT, "maximum size was already set to %s", this.maximumSize);
     this.maximumWeight = maximumWeight;
     checkArgument(maximumWeight >= 0, "maximum weight must not be negative");
     return this;
@@ -493,13 +498,13 @@ public final class CacheBuilder<K, V> {
    */
   @GwtIncompatible // To be supported
   public <K1 extends K, V1 extends V> CacheBuilder<K1, V1> weigher(
-      Weigher<? super K1, ? super V1> weigher) {
+    Weigher<? super K1, ? super V1> weigher) {
     checkState(this.weigher == null);
     if (strictParsing) {
       checkState(
-          this.maximumSize == UNSET_INT,
-          "weigher can not be combined with maximum size",
-          this.maximumSize);
+        this.maximumSize == UNSET_INT,
+        "weigher can not be combined with maximum size",
+        this.maximumSize);
     }
 
     // safely limiting the kinds of caches this can produce
@@ -519,7 +524,7 @@ public final class CacheBuilder<K, V> {
   // Make a safe contravariant cast now so we don't have to do it over and over.
   @SuppressWarnings("unchecked")
   <K1 extends K, V1 extends V> Weigher<K1, V1> getWeigher() {
-    return (Weigher<K1, V1>) MoreObjects.firstNonNull(weigher, OneWeigher.INSTANCE);
+    return (Weigher<K1, V1>)MoreObjects.firstNonNull(weigher, OneWeigher.INSTANCE);
   }
 
   /**
@@ -631,9 +636,9 @@ public final class CacheBuilder<K, V> {
    */
   public CacheBuilder<K, V> expireAfterWrite(long duration, TimeUnit unit) {
     checkState(
-        expireAfterWriteNanos == UNSET_INT,
-        "expireAfterWrite was already set to %s ns",
-        expireAfterWriteNanos);
+      expireAfterWriteNanos == UNSET_INT,
+      "expireAfterWrite was already set to %s ns",
+      expireAfterWriteNanos);
     checkArgument(duration >= 0, "duration cannot be negative: %s %s", duration, unit);
     this.expireAfterWriteNanos = unit.toNanos(duration);
     return this;
@@ -667,9 +672,9 @@ public final class CacheBuilder<K, V> {
    */
   public CacheBuilder<K, V> expireAfterAccess(long duration, TimeUnit unit) {
     checkState(
-        expireAfterAccessNanos == UNSET_INT,
-        "expireAfterAccess was already set to %s ns",
-        expireAfterAccessNanos);
+      expireAfterAccessNanos == UNSET_INT,
+      "expireAfterAccess was already set to %s ns",
+      expireAfterAccessNanos);
     checkArgument(duration >= 0, "duration cannot be negative: %s %s", duration, unit);
     this.expireAfterAccessNanos = unit.toNanos(duration);
     return this;
@@ -677,8 +682,8 @@ public final class CacheBuilder<K, V> {
 
   long getExpireAfterAccessNanos() {
     return (expireAfterAccessNanos == UNSET_INT)
-        ? DEFAULT_EXPIRATION_NANOS
-        : expireAfterAccessNanos;
+           ? DEFAULT_EXPIRATION_NANOS
+           : expireAfterAccessNanos;
   }
 
   /**
@@ -766,7 +771,7 @@ public final class CacheBuilder<K, V> {
    */
   @CheckReturnValue
   public <K1 extends K, V1 extends V> CacheBuilder<K1, V1> removalListener(
-      RemovalListener<? super K1, ? super V1> listener) {
+    RemovalListener<? super K1, ? super V1> listener) {
     checkState(this.removalListener == null);
 
     // safely limiting the kinds of caches this can produce
@@ -780,7 +785,7 @@ public final class CacheBuilder<K, V> {
   @SuppressWarnings("unchecked")
   <K1 extends K, V1 extends V> RemovalListener<K1, V1> getRemovalListener() {
     return (RemovalListener<K1, V1>)
-        MoreObjects.firstNonNull(removalListener, NullListener.INSTANCE);
+           MoreObjects.firstNonNull(removalListener, NullListener.INSTANCE);
   }
 
   /**
@@ -818,7 +823,7 @@ public final class CacheBuilder<K, V> {
    * @return a cache having the requested features
    */
   public <K1 extends K, V1 extends V> LoadingCache<K1, V1> build(
-      CacheLoader<? super K1, V1> loader) {
+    CacheLoader<? super K1, V1> loader) {
     checkWeightWithWeigher();
     return new LocalCache.LocalLoadingCache<>(this, loader);
   }

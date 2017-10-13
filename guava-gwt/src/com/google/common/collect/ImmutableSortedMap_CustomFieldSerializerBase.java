@@ -38,7 +38,7 @@ final class ImmutableSortedMap_CustomFieldSerializerBase {
      * correctly typed, anyway.
      */
     @SuppressWarnings("unchecked")
-    Comparator<Object> comparator = (Comparator<Object>) reader.readObject();
+    Comparator<Object> comparator = (Comparator<Object>)reader.readObject();
 
     SortedMap<Object, Object> entries = new TreeMap<>(comparator);
     Map_CustomFieldSerializerBase.deserialize(reader, entries);

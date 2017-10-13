@@ -52,84 +52,84 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   @Override
   public Graph<N> asGraph() {
     return new AbstractGraph<N>() {
-      @Override
-      public Set<N> nodes() {
-        return AbstractNetwork.this.nodes();
-      }
+             @Override
+             public Set<N> nodes() {
+               return AbstractNetwork.this.nodes();
+             }
 
-      @Override
-      public Set<EndpointPair<N>> edges() {
-        if (allowsParallelEdges()) {
-          return super.edges(); // Defer to AbstractGraph implementation.
-        }
+             @Override
+             public Set<EndpointPair<N>> edges() {
+               if (allowsParallelEdges()) {
+                 return super.edges(); // Defer to AbstractGraph implementation.
+               }
 
-        // Optimized implementation assumes no parallel edges (1:1 edge to EndpointPair mapping).
-        return new AbstractSet<EndpointPair<N>>() {
-          @Override
-          public Iterator<EndpointPair<N>> iterator() {
-            return Iterators.transform(
-                    AbstractNetwork.this.edges().iterator(),
-            new Function<E, EndpointPair<N>>() {
+               // Optimized implementation assumes no parallel edges (1:1 edge to EndpointPair mapping).
+               return new AbstractSet<EndpointPair<N>>() {
+                        @Override
+                        public Iterator<EndpointPair<N>> iterator() {
+                          return Iterators.transform(
+                            AbstractNetwork.this.edges().iterator(),
+                            new Function<E, EndpointPair<N>>() {
               @Override
               public EndpointPair<N> apply(E edge) {
                 return incidentNodes(edge);
               }
             });
-          }
+                        }
 
-          @Override
-          public int size() {
-            return AbstractNetwork.this.edges().size();
-          }
+                        @Override
+                        public int size() {
+                          return AbstractNetwork.this.edges().size();
+                        }
 
-          // Mostly safe: We check contains(u) before calling successors(u), so we perform unsafe
-          // operations only in weird cases like checking for an EndpointPair<ArrayList> in a
-          // Network<LinkedList>.
-          @SuppressWarnings("unchecked")
-          @Override
-          public boolean contains(@Nullable Object obj) {
-            if (!(obj instanceof EndpointPair)) {
-              return false;
-            }
-            EndpointPair<?> endpointPair = (EndpointPair<?>) obj;
-            return isDirected() == endpointPair.isOrdered()
-                && nodes().contains(endpointPair.nodeU())
-                && successors((N) endpointPair.nodeU()).contains(endpointPair.nodeV());
-          }
-        };
-      }
+                        // Mostly safe: We check contains(u) before calling successors(u), so we perform unsafe
+                        // operations only in weird cases like checking for an EndpointPair<ArrayList> in a
+                        // Network<LinkedList>.
+                        @SuppressWarnings("unchecked")
+                        @Override
+                        public boolean contains(@Nullable Object obj) {
+                          if (!(obj instanceof EndpointPair)) {
+                            return false;
+                          }
+                          EndpointPair<?> endpointPair = (EndpointPair<?>)obj;
+                          return isDirected() == endpointPair.isOrdered()
+                                 && nodes().contains(endpointPair.nodeU())
+                                 && successors((N) endpointPair.nodeU()).contains(endpointPair.nodeV());
+                        }
+               };
+             }
 
-      @Override
-      public ElementOrder<N> nodeOrder() {
-        return AbstractNetwork.this.nodeOrder();
-      }
+             @Override
+             public ElementOrder<N> nodeOrder() {
+               return AbstractNetwork.this.nodeOrder();
+             }
 
-      @Override
-      public boolean isDirected() {
-        return AbstractNetwork.this.isDirected();
-      }
+             @Override
+             public boolean isDirected() {
+               return AbstractNetwork.this.isDirected();
+             }
 
-      @Override
-      public boolean allowsSelfLoops() {
-        return AbstractNetwork.this.allowsSelfLoops();
-      }
+             @Override
+             public boolean allowsSelfLoops() {
+               return AbstractNetwork.this.allowsSelfLoops();
+             }
 
-      @Override
-      public Set<N> adjacentNodes(N node) {
-        return AbstractNetwork.this.adjacentNodes(node);
-      }
+             @Override
+             public Set<N> adjacentNodes(N node) {
+               return AbstractNetwork.this.adjacentNodes(node);
+             }
 
-      @Override
-      public Set<N> predecessors(N node) {
-        return AbstractNetwork.this.predecessors(node);
-      }
+             @Override
+             public Set<N> predecessors(N node) {
+               return AbstractNetwork.this.predecessors(node);
+             }
 
-      @Override
-      public Set<N> successors(N node) {
-        return AbstractNetwork.this.successors(node);
-      }
+             @Override
+             public Set<N> successors(N node) {
+               return AbstractNetwork.this.successors(node);
+             }
 
-      // DO NOT override the AbstractGraph *degree() implementations.
+             // DO NOT override the AbstractGraph *degree() implementations.
     };
   }
 
@@ -165,16 +165,16 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     Set<E> outEdgesU = outEdges(nodeU);
     Set<E> inEdgesV = inEdges(nodeV);
     return outEdgesU.size() <= inEdgesV.size()
-        ? unmodifiableSet(Sets.filter(outEdgesU, connectedPredicate(nodeU, nodeV)))
-        : unmodifiableSet(Sets.filter(inEdgesV, connectedPredicate(nodeV, nodeU)));
+           ? unmodifiableSet(Sets.filter(outEdgesU, connectedPredicate(nodeU, nodeV)))
+           : unmodifiableSet(Sets.filter(inEdgesV, connectedPredicate(nodeV, nodeU)));
   }
 
   private Predicate<E> connectedPredicate(final N nodePresent, final N nodeToCheck) {
     return new Predicate<E>() {
-      @Override
-      public boolean apply(E edge) {
-        return incidentNodes(edge).adjacentNode(nodePresent).equals(nodeToCheck);
-      }
+             @Override
+             public boolean apply(E edge) {
+               return incidentNodes(edge).adjacentNode(nodePresent).equals(nodeToCheck);
+             }
     };
   }
 
@@ -210,11 +210,11 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     if (!(obj instanceof Network)) {
       return false;
     }
-    Network<?, ?> other = (Network<?, ?>) obj;
+    Network<?, ?> other = (Network<?, ?>)obj;
 
     return isDirected() == other.isDirected()
-        && nodes().equals(other.nodes())
-        && edgeIncidentNodesMap(this).equals(edgeIncidentNodesMap(other));
+           && nodes().equals(other.nodes())
+           && edgeIncidentNodesMap(this).equals(edgeIncidentNodesMap(other));
   }
 
   @Override
@@ -226,20 +226,20 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   @Override
   public String toString() {
     return "isDirected: "
-        + isDirected()
-        + ", allowsParallelEdges: "
-        + allowsParallelEdges()
-        + ", allowsSelfLoops: "
-        + allowsSelfLoops()
-        + ", nodes: "
-        + nodes()
-        + ", edges: "
-        + edgeIncidentNodesMap(this);
+           + isDirected()
+           + ", allowsParallelEdges: "
+           + allowsParallelEdges()
+           + ", allowsSelfLoops: "
+           + allowsSelfLoops()
+           + ", nodes: "
+           + nodes()
+           + ", edges: "
+           + edgeIncidentNodesMap(this);
   }
 
   private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
     Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
-    new Function<E, EndpointPair<N>>() {
+      new Function<E, EndpointPair<N>>() {
       @Override
       public EndpointPair<N> apply(E edge) {
         return network.incidentNodes(edge);

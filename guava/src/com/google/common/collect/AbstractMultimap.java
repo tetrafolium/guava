@@ -80,7 +80,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
     // make sure we only call values.iterator() once
     // and we only call get(key) if values is nonempty
     if (values instanceof Collection) {
-      Collection<? extends V> valueCollection = (Collection<? extends V>) values;
+      Collection<? extends V> valueCollection = (Collection<? extends V>)values;
       return !valueCollection.isEmpty() && get(key).addAll(valueCollection);
     } else {
       Iterator<? extends V> valueItr = values.iterator();
@@ -158,7 +158,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
 
   Spliterator<Entry<K, V>> entrySpliterator() {
     return Spliterators.spliterator(
-            entryIterator(), size(), (this instanceof SetMultimap) ? Spliterator.DISTINCT : 0);
+      entryIterator(), size(), (this instanceof SetMultimap) ? Spliterator.DISTINCT : 0);
   }
 
   private transient Set<K> keySet;

@@ -32,7 +32,7 @@ public class HashMultiset_CustomFieldSerializer {
   public static HashMultiset<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
     return (HashMultiset<Object>)
-        Multiset_CustomFieldSerializerBase.populate(reader, HashMultiset.create());
+           Multiset_CustomFieldSerializerBase.populate(reader, HashMultiset.create());
   }
 
   public static void serialize(SerializationStreamWriter writer, HashMultiset<?> instance)

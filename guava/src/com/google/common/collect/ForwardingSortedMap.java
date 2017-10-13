@@ -115,9 +115,9 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   private int unsafeCompare(Object k1, Object k2) {
     Comparator<? super K> comparator = comparator();
     if (comparator == null) {
-      return ((Comparable<Object>) k1).compareTo(k2);
+      return ((Comparable<Object>)k1).compareTo(k2);
     } else {
-      return ((Comparator<Object>) comparator).compare(k1, k2);
+      return ((Comparator<Object>)comparator).compare(k1, k2);
     }
   }
 

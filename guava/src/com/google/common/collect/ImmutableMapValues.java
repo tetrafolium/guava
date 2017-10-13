@@ -49,22 +49,22 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   @Override
   public UnmodifiableIterator<V> iterator() {
     return new UnmodifiableIterator<V>() {
-      final UnmodifiableIterator<Entry<K, V>> entryItr = map.entrySet().iterator();
+             final UnmodifiableIterator<Entry<K, V>> entryItr = map.entrySet().iterator();
 
-      @Override
-      public boolean hasNext() {
-        return entryItr.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return entryItr.hasNext();
+             }
 
-      @Override
-      public V next() {
-        return entryItr.next().getValue();
-      }
+             @Override
+             public V next() {
+               return entryItr.next().getValue();
+             }
     };
   }
 
   @Override public Spliterator<V> spliterator() {
-    return CollectSpliterators.map(map.entrySet().spliterator(), Entry::getValue);
+    return CollectSpliterators.map(map.entrySet().spliterator(), Entry: : getValue);
   }
 
   @Override
@@ -81,15 +81,15 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   public ImmutableList<V> asList() {
     final ImmutableList<Entry<K, V>> entryList = map.entrySet().asList();
     return new ImmutableAsList<V>() {
-      @Override
-      public V get(int index) {
-        return entryList.get(index).getValue();
-      }
+             @Override
+             public V get(int index) {
+               return entryList.get(index).getValue();
+             }
 
-      @Override
-      ImmutableCollection<V> delegateCollection() {
-        return ImmutableMapValues.this;
-      }
+             @Override
+             ImmutableCollection<V> delegateCollection() {
+               return ImmutableMapValues.this;
+             }
     };
   }
 

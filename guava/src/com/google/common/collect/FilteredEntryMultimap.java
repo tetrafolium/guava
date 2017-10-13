@@ -84,9 +84,9 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
   }
 
   static <E> Collection<E> filterCollection(
-      Collection<E> collection, Predicate<? super E> predicate) {
+    Collection<E> collection, Predicate<? super E> predicate) {
     if (collection instanceof Set) {
-      return Sets.filter((Set<E>) collection, predicate);
+      return Sets.filter((Set<E>)collection, predicate);
     } else {
       return Collections2.filter(collection, predicate);
     }
@@ -105,8 +105,8 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
   Collection<V> unmodifiableEmptyCollection() {
     // These return false, rather than throwing a UOE, on remove calls.
     return (unfiltered instanceof SetMultimap)
-        ? Collections.<V>emptySet()
-        : Collections.<V>emptyList();
+           ? Collections.<V>emptySet()
+           : Collections.<V>emptyList();
   }
 
   @Override
@@ -251,22 +251,22 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
         @Override
         public Iterator<Entry<K, Collection<V>>> iterator() {
           return new AbstractIterator<Entry<K, Collection<V>>>() {
-            final Iterator<Entry<K, Collection<V>>> backingIterator =
-                unfiltered.asMap().entrySet().iterator();
+                   final Iterator<Entry<K, Collection<V>>> backingIterator =
+                       unfiltered.asMap().entrySet().iterator();
 
-            @Override
-            protected Entry<K, Collection<V>> computeNext() {
-              while (backingIterator.hasNext()) {
-                Entry<K, Collection<V>> entry = backingIterator.next();
-                K key = entry.getKey();
-                Collection<V> collection =
-                    filterCollection(entry.getValue(), new ValuePredicate(key));
-                if (!collection.isEmpty()) {
-                  return Maps.immutableEntry(key, collection);
-                }
-              }
-              return endOfData();
-            }
+                   @Override
+                   protected Entry<K, Collection<V>> computeNext() {
+                     while (backingIterator.hasNext()) {
+                       Entry<K, Collection<V>> entry = backingIterator.next();
+                       K key = entry.getKey();
+                       Collection<V> collection =
+                           filterCollection(entry.getValue(), new ValuePredicate(key));
+                       if (!collection.isEmpty()) {
+                         return Maps.immutableEntry(key, collection);
+                       }
+                     }
+                     return endOfData();
+                   }
           };
         }
 
@@ -299,7 +299,7 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
         @Override
         public boolean remove(@Nullable Object o) {
           if (o instanceof Collection) {
-            Collection<?> c = (Collection<?>) o;
+            Collection<?> c = (Collection<?>)o;
             Iterator<Entry<K, Collection<V>>> entryIterator =
                 unfiltered.asMap().entrySet().iterator();
             while (entryIterator.hasNext()) {
@@ -375,42 +375,42 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
     public Set<Multiset.Entry<K>> entrySet() {
       return new Multisets.EntrySet<K>() {
 
-        @Override
-        Multiset<K> multiset() {
-          return Keys.this;
-        }
+               @Override
+               Multiset<K> multiset() {
+                 return Keys.this;
+               }
 
-        @Override
-        public Iterator<Multiset.Entry<K>> iterator() {
-          return Keys.this.entryIterator();
-        }
+               @Override
+               public Iterator<Multiset.Entry<K>> iterator() {
+                 return Keys.this.entryIterator();
+               }
 
-        @Override
-        public int size() {
-          return FilteredEntryMultimap.this.keySet().size();
-        }
+               @Override
+               public int size() {
+                 return FilteredEntryMultimap.this.keySet().size();
+               }
 
-        private boolean removeEntriesIf(final Predicate<? super Multiset.Entry<K>> predicate) {
-          return FilteredEntryMultimap.this
-              .removeEntriesIf(
-          new Predicate<Map.Entry<K, Collection<V>>>() {
+               private boolean removeEntriesIf(final Predicate<? super Multiset.Entry<K>> predicate) {
+                 return FilteredEntryMultimap.this
+                        .removeEntriesIf(
+                   new Predicate<Map.Entry<K, Collection<V>>>() {
             @Override
             public boolean apply(Map.Entry<K, Collection<V>> entry) {
               return predicate.apply(
-                      Multisets.immutableEntry(entry.getKey(), entry.getValue().size()));
+                Multisets.immutableEntry(entry.getKey(), entry.getValue().size()));
             }
           });
-        }
+               }
 
-        @Override
-        public boolean removeAll(Collection<?> c) {
-          return removeEntriesIf(in(c));
-        }
+               @Override
+               public boolean removeAll(Collection<?> c) {
+                 return removeEntriesIf(in(c));
+               }
 
-        @Override
-        public boolean retainAll(Collection<?> c) {
-          return removeEntriesIf(not(in(c)));
-        }
+               @Override
+               public boolean retainAll(Collection<?> c) {
+                 return removeEntriesIf(not(in(c)));
+               }
       };
     }
   }

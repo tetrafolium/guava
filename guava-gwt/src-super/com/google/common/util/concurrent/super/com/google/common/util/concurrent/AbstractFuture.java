@@ -236,7 +236,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   String pendingToString() {
     Object localValue = value;
     if (localValue instanceof AbstractFuture.SetFuture) {
-      return "setFuture=[" + ((AbstractFuture.SetFuture) localValue).delegate + "]";
+      return "setFuture=[" + ((AbstractFuture.SetFuture)localValue).delegate + "]";
     }
     return null;
   }
@@ -354,7 +354,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       }
 
       if (delegate instanceof AbstractFuture) {
-        AbstractFuture<? extends V> other = (AbstractFuture<? extends V>) delegate;
+        AbstractFuture<? extends V> other = (AbstractFuture<? extends V>)delegate;
         value = other.value;
         throwable = other.throwable;
         // don't copy the mayInterruptIfRunning bit, for consistency with the server, to ensure that

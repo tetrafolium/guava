@@ -72,10 +72,10 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E> implements So
 
   @Override
   public SortedMultiset<E> subMultiset(
-      E fromElement, BoundType fromBoundType, E toElement, BoundType toBoundType) {
+    E fromElement, BoundType fromBoundType, E toElement, BoundType toBoundType) {
     return forwardMultiset()
-        .subMultiset(toElement, toBoundType, fromElement, fromBoundType)
-        .descendingMultiset();
+           .subMultiset(toElement, toBoundType, fromElement, fromBoundType)
+           .descendingMultiset();
   }
 
   @Override

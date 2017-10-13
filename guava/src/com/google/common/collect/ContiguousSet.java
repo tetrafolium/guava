@@ -59,7 +59,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 13.0
    */
   public static <C extends Comparable> ContiguousSet<C> create(
-      Range<C> range, DiscreteDomain<C> domain) {
+    Range<C> range, DiscreteDomain<C> domain) {
     checkNotNull(range);
     checkNotNull(domain);
     Range<C> effectiveRange = range;
@@ -78,13 +78,13 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
     boolean empty =
         effectiveRange.isEmpty()
         || Range.compareOrThrow(
-            range.lowerBound.leastValueAbove(domain),
-            range.upperBound.greatestValueBelow(domain))
+      range.lowerBound.leastValueAbove(domain),
+      range.upperBound.greatestValueBelow(domain))
         > 0;
 
     return empty
-        ? new EmptyContiguousSet<C>(domain)
-        : new RegularContiguousSet<C>(effectiveRange, domain);
+           ? new EmptyContiguousSet<C>(domain)
+           : new RegularContiguousSet<C>(effectiveRange, domain);
   }
 
   /**
@@ -178,7 +178,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
   @GwtIncompatible // NavigableSet
   @Override
   public ContiguousSet<C> subSet(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+    C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator().compare(fromElement, toElement) <= 0);
@@ -208,7 +208,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
 
   /* @Override */
   abstract ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive);
+    C fromElement, boolean fromInclusive, C toElement, boolean toInclusive);
 
   /* @Override */
   abstract ContiguousSet<C> tailSetImpl(C fromElement, boolean inclusive);

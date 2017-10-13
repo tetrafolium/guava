@@ -104,8 +104,8 @@ public abstract class ByteSource {
   public InputStream openBufferedStream() throws IOException {
     InputStream in = openStream();
     return (in instanceof BufferedInputStream)
-        ? (BufferedInputStream) in
-        : new BufferedInputStream(in);
+           ? (BufferedInputStream) in
+           : new BufferedInputStream(in);
   }
 
   /**
@@ -631,7 +631,7 @@ public abstract class ByteSource {
     @Override
     public String toString() {
       return "ByteSource.wrap("
-          + Ascii.truncate(BaseEncoding.base16().encode(bytes, offset, length), 30, "...") + ")";
+             + Ascii.truncate(BaseEncoding.base16().encode(bytes, offset, length), 30, "...") + ")";
     }
   }
 

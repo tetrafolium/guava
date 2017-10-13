@@ -54,8 +54,8 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
    */
   @Beta
   public static <T, K, V> Collector<T, ?, ImmutableBiMap<K, V>> toImmutableBiMap(
-      Function<? super T, ? extends K> keyFunction,
-      Function<? super T, ? extends V> valueFunction) {
+    Function<? super T, ? extends K> keyFunction,
+    Function<? super T, ? extends V> valueFunction) {
     return CollectCollectors.toImmutableBiMap(keyFunction, valueFunction);
   }
 
@@ -65,7 +65,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
   // Casting to any type is safe because the set will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableBiMap<K, V> of() {
-    return (ImmutableBiMap<K, V>) RegularImmutableBiMap.EMPTY;
+    return (ImmutableBiMap<K, V>)RegularImmutableBiMap.EMPTY;
   }
 
   /**
@@ -100,7 +100,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     return RegularImmutableBiMap.fromEntries(
-            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
+      entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
   }
 
   /**
@@ -109,9 +109,9 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return RegularImmutableBiMap.fromEntries(
-            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
+      entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -271,7 +271,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
     @Override
     public ImmutableBiMap<K, V> build() {
       switch (size) {
-      case 0:
+      case 0 :
         return of();
       case 1:
         return of(entries[0].getKey(), entries[0].getValue());
@@ -288,10 +288,10 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
             entries = Arrays.copyOf(entries, size);
           }
           Arrays.sort(
-              entries,
-              0,
-              size,
-              Ordering.from(valueComparator).onResultOf(Maps.<V>valueFunction()));
+            entries,
+            0,
+            size,
+            Ordering.from(valueComparator).onResultOf(Maps.<V>valueFunction()));
         }
         entriesUsed = size == entries.length;
         return RegularImmutableBiMap.fromEntryArray(size, entries);
@@ -319,7 +319,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
   public static <K, V> ImmutableBiMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
     if (map instanceof ImmutableBiMap) {
       @SuppressWarnings("unchecked") // safe since map is not writable
-      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>) map;
+      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>)map;
       // TODO(lowasser): if we need to make a copy of a BiMap because the
       // forward map is a view, don't make a copy of the non-view delegate map
       if (!bimap.isPartialView()) {
@@ -340,9 +340,9 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
    */
   @Beta
   public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     @SuppressWarnings("unchecked") // we'll only be using getKey and getValue, which are covariant
-    Entry<K, V>[] entryArray = (Entry<K, V>[]) Iterables.toArray(entries, EMPTY_ENTRY_ARRAY);
+    Entry<K, V>[] entryArray = (Entry<K, V>[])Iterables.toArray(entries, EMPTY_ENTRY_ARRAY);
     switch (entryArray.length) {
     case 0:
       return of();

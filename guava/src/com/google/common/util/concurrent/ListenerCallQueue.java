@@ -174,9 +174,9 @@ final class ListenerCallQueue<L> {
           }
           // Log it and keep going.
           logger.log(
-              Level.SEVERE,
-              "Exception while running callbacks for " + listener + " on " + executor,
-              e);
+            Level.SEVERE,
+            "Exception while running callbacks for " + listener + " on " + executor,
+            e);
           throw e;
         }
       }
@@ -206,9 +206,9 @@ final class ListenerCallQueue<L> {
           } catch (RuntimeException e) {
             // Log it and keep going.
             logger.log(
-                Level.SEVERE,
-                "Exception while executing callback: " + listener + " " + nextLabel,
-                e);
+              Level.SEVERE,
+              "Exception while executing callback: " + listener + " " + nextLabel,
+              e);
           }
         }
       } finally {

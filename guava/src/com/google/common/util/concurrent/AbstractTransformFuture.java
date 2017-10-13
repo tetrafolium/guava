@@ -35,9 +35,9 @@ import javax.annotation.Nullable;
 abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.TrustedFuture<O>
   implements Runnable {
   static <I, O> ListenableFuture<O> create(
-      ListenableFuture<I> input,
-      AsyncFunction<? super I, ? extends O> function,
-      Executor executor) {
+    ListenableFuture<I> input,
+    AsyncFunction<? super I, ? extends O> function,
+    Executor executor) {
     checkNotNull(executor);
     AsyncTransformFuture<I, O> output = new AsyncTransformFuture<>(input, function);
     input.addListener(output, rejectionPropagatingExecutor(executor, output));
@@ -45,7 +45,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
   }
 
   static <I, O> ListenableFuture<O> create(
-      ListenableFuture<I> input, Function<? super I, ? extends O> function, Executor executor) {
+    ListenableFuture<I> input, Function<? super I, ? extends O> function, Executor executor) {
     checkNotNull(function);
     TransformFuture<I, O> output = new TransformFuture<>(input, function);
     input.addListener(output, rejectionPropagatingExecutor(executor, output));
@@ -194,20 +194,20 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
    */
   private static final class AsyncTransformFuture<I, O>
     extends AbstractTransformFuture<
-    I, O, AsyncFunction<? super I, ? extends O>, ListenableFuture<? extends O>> {
+      I, O, AsyncFunction<? super I, ? extends O>, ListenableFuture<? extends O>> {
     AsyncTransformFuture(
-        ListenableFuture<? extends I> inputFuture, AsyncFunction<? super I, ? extends O> function) {
+      ListenableFuture<? extends I> inputFuture, AsyncFunction<? super I, ? extends O> function) {
       super(inputFuture, function);
     }
 
     @Override
     ListenableFuture<? extends O> doTransform(
-        AsyncFunction<? super I, ? extends O> function, @Nullable I input) throws Exception {
+      AsyncFunction<? super I, ? extends O> function, @Nullable I input) throws Exception {
       ListenableFuture<? extends O> outputFuture = function.apply(input);
       checkNotNull(
-          outputFuture,
-          "AsyncFunction.apply returned null instead of a Future. "
-          + "Did you mean to return immediateFuture(null)?");
+        outputFuture,
+        "AsyncFunction.apply returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
       return outputFuture;
     }
 
@@ -224,7 +224,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
   private static final class TransformFuture<I, O>
     extends AbstractTransformFuture<I, O, Function<? super I, ? extends O>, O> {
     TransformFuture(
-        ListenableFuture<? extends I> inputFuture, Function<? super I, ? extends O> function) {
+      ListenableFuture<? extends I> inputFuture, Function<? super I, ? extends O> function) {
       super(inputFuture, function);
     }
 

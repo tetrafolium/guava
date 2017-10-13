@@ -67,8 +67,8 @@ public interface Table<R, C, V> {
    * @param columnKey key of column to search for
    */
   boolean contains(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+    @Nullable @CompatibleWith("R") Object rowKey,
+    @Nullable @CompatibleWith("C") Object columnKey);
 
   /**
    * Returns {@code true} if the table contains a mapping with the specified row key.
@@ -99,8 +99,8 @@ public interface Table<R, C, V> {
    * @param columnKey key of column to search for
    */
   V get(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+    @Nullable @CompatibleWith("R") Object rowKey,
+    @Nullable @CompatibleWith("C") Object columnKey);
 
   /** Returns {@code true} if the table contains no mappings. */
   boolean isEmpty();
@@ -163,8 +163,8 @@ public interface Table<R, C, V> {
   @CanIgnoreReturnValue
   @Nullable
   V remove(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+    @Nullable @CompatibleWith("R") Object rowKey,
+    @Nullable @CompatibleWith("C") Object columnKey);
 
   // Views
 

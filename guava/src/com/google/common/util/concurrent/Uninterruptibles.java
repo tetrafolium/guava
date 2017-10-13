@@ -304,7 +304,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(
-      Semaphore semaphore, long timeout, TimeUnit unit) {
+    Semaphore semaphore, long timeout, TimeUnit unit) {
     return tryAcquireUninterruptibly(semaphore, 1, timeout, unit);
   }
 
@@ -316,7 +316,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(
-      Semaphore semaphore, int permits, long timeout, TimeUnit unit) {
+    Semaphore semaphore, int permits, long timeout, TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);

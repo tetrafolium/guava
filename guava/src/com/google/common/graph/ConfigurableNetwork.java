@@ -64,10 +64,10 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
   /** Constructs a graph with the properties specified in {@code builder}. */
   ConfigurableNetwork(NetworkBuilder<? super N, ? super E> builder) {
     this(
-        builder,
-        builder.nodeOrder.<N, NetworkConnections<N, E>>createMap(
-            builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
-        builder.edgeOrder.<E, N>createMap(builder.expectedEdgeCount.or(DEFAULT_EDGE_COUNT)));
+      builder,
+      builder.nodeOrder.<N, NetworkConnections<N, E>>createMap(
+        builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
+      builder.edgeOrder.<E, N>createMap(builder.expectedEdgeCount.or(DEFAULT_EDGE_COUNT)));
   }
 
   /**
@@ -75,9 +75,9 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
    * node and edge maps.
    */
   ConfigurableNetwork(
-      NetworkBuilder<? super N, ? super E> builder,
-      Map<N, NetworkConnections<N, E>> nodeConnections,
-      Map<E, N> edgeToReferenceNode) {
+    NetworkBuilder<? super N, ? super E> builder,
+    Map<N, NetworkConnections<N, E>> nodeConnections,
+    Map<E, N> edgeToReferenceNode) {
     this.isDirected = builder.directed;
     this.allowsParallelEdges = builder.allowsParallelEdges;
     this.allowsSelfLoops = builder.allowsSelfLoops;

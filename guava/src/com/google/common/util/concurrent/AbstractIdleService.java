@@ -55,7 +55,7 @@ public abstract class AbstractIdleService implements Service {
     protected final void doStart() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
       .execute(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           try {
@@ -72,7 +72,7 @@ public abstract class AbstractIdleService implements Service {
     protected final void doStop() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
       .execute(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           try {
@@ -109,10 +109,10 @@ public abstract class AbstractIdleService implements Service {
    */
   protected Executor executor() {
     return new Executor() {
-      @Override
-      public void execute(Runnable command) {
-        MoreExecutors.newThread(threadNameSupplier.get(), command).start();
-      }
+             @Override
+             public void execute(Runnable command) {
+               MoreExecutors.newThread(threadNameSupplier.get(), command).start();
+             }
     };
   }
 

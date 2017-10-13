@@ -213,29 +213,29 @@ public final class HostAndPort implements Serializable {
     int colonIndex = 0;
     int closeBracketIndex = 0;
     checkArgument(
-        hostPortString.charAt(0) == '[',
-        "Bracketed host-port string must start with a bracket: %s",
-        hostPortString);
+      hostPortString.charAt(0) == '[',
+      "Bracketed host-port string must start with a bracket: %s",
+      hostPortString);
     colonIndex = hostPortString.indexOf(':');
     closeBracketIndex = hostPortString.lastIndexOf(']');
     checkArgument(
-        colonIndex > -1 && closeBracketIndex > colonIndex,
-        "Invalid bracketed host/port: %s",
-        hostPortString);
+      colonIndex > -1 && closeBracketIndex > colonIndex,
+      "Invalid bracketed host/port: %s",
+      hostPortString);
 
     String host = hostPortString.substring(1, closeBracketIndex);
     if (closeBracketIndex + 1 == hostPortString.length()) {
       return new String[] {host, ""};
     } else {
       checkArgument(
-          hostPortString.charAt(closeBracketIndex + 1) == ':',
-          "Only a colon may follow a close bracket: %s",
-          hostPortString);
+        hostPortString.charAt(closeBracketIndex + 1) == ':',
+        "Only a colon may follow a close bracket: %s",
+        hostPortString);
       for (int i = closeBracketIndex + 2; i < hostPortString.length(); ++i) {
         checkArgument(
-            Character.isDigit(hostPortString.charAt(i)),
-            "Port must be numeric: %s",
-            hostPortString);
+          Character.isDigit(hostPortString.charAt(i)),
+          "Port must be numeric: %s",
+          hostPortString);
       }
       return new String[] {host, hostPortString.substring(closeBracketIndex + 2)};
     }
@@ -285,8 +285,8 @@ public final class HostAndPort implements Serializable {
     if (other instanceof HostAndPort) {
       HostAndPort that = (HostAndPort) other;
       return Objects.equal(this.host, that.host)
-          && this.port == that.port
-          && this.hasBracketlessColons == that.hasBracketlessColons;
+             && this.port == that.port
+             && this.hasBracketlessColons == that.hasBracketlessColons;
     }
     return false;
   }

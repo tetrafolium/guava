@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class RegularImmutableAsList_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableAsList<?> instance) {}
+    SerializationStreamReader reader, RegularImmutableAsList<?> instance) {}
 
   public static RegularImmutableAsList<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {

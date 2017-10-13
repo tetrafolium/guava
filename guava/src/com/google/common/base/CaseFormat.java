@@ -151,8 +151,8 @@ public enum CaseFormat {
       i = j + wordSeparator.length();
     }
     return (i == 0)
-        ? format.normalizeFirstWord(s)
-        : out.append(format.normalizeWord(s.substring(i))).toString();
+           ? format.normalizeFirstWord(s)
+           : out.append(format.normalizeWord(s.substring(i))).toString();
   }
 
   /**
@@ -215,7 +215,7 @@ public enum CaseFormat {
 
   private static String firstCharOnlyToUpper(String word) {
     return (word.isEmpty())
-        ? word
-        : Ascii.toUpperCase(word.charAt(0)) + Ascii.toLowerCase(word.substring(1));
+           ? word
+           : Ascii.toUpperCase(word.charAt(0)) + Ascii.toLowerCase(word.substring(1));
   }
 }

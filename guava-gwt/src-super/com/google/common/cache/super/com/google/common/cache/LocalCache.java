@@ -70,12 +70,12 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
     /* Implements size-capped LinkedHashMap */
     final long maximumSize = builder.maximumSize;
     this.cachingHashMap = new CapacityEnforcingLinkedHashMap<K, V>(
-        builder.getInitialCapacity(),
-        0.75f,
-        (builder.maximumSize != UNSET_INT),
-        builder.maximumSize,
-        statsCounter,
-        removalListener);
+      builder.getInitialCapacity(),
+      0.75f,
+      (builder.maximumSize != UNSET_INT),
+      builder.maximumSize,
+      statsCounter,
+      removalListener);
 
     this.ticker = firstNonNull(builder.ticker, Ticker.systemTicker());
   }
@@ -468,12 +468,12 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
     private final long maximumSize;
 
     public CapacityEnforcingLinkedHashMap(
-        int initialCapacity,
-        float loadFactor,
-        boolean accessOrder,
-        long maximumSize,
-        StatsCounter statsCounter,
-        @Nullable RemovalListener removalListener) {
+      int initialCapacity,
+      float loadFactor,
+      boolean accessOrder,
+      long maximumSize,
+      StatsCounter statsCounter,
+      @Nullable RemovalListener removalListener) {
       super(initialCapacity, loadFactor, accessOrder);
       this.maximumSize = maximumSize;
       this.statsCounter = statsCounter;
@@ -485,9 +485,9 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
       boolean removal = !((maximumSize == UNSET_INT)) && (size() > maximumSize);
       if ((removalListener != null) && removal) {
         removalListener.onRemoval(RemovalNotification.create(
-                ignored.getKey(),
-                ignored.getValue().getValue(),
-                RemovalCause.SIZE));
+              ignored.getKey(),
+              ignored.getValue().getValue(),
+              RemovalCause.SIZE));
       }
       statsCounter.recordEviction();
       return removal;
@@ -687,7 +687,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
     public boolean equals(@Nullable Object object) {
       // Cannot use key and value equivalence
       if (object instanceof Entry) {
-        Entry<?, ?> that = (Entry<?, ?>) object;
+        Entry<?, ?> that = (Entry<?, ?>)object;
         return key.equals(that.getKey()) && value.equals(that.getValue());
       }
       return false;
@@ -807,7 +807,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
       if (!(o instanceof Entry)) {
         return false;
       }
-      Entry<?, ?> e = (Entry<?, ?>) o;
+      Entry<?, ?> e = (Entry<?, ?>)o;
       Object key = e.getKey();
       if (key == null) {
         return false;
@@ -822,7 +822,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
       if (!(o instanceof Entry)) {
         return false;
       }
-      Entry<?, ?> e = (Entry<?, ?>) o;
+      Entry<?, ?> e = (Entry<?, ?>)o;
       Object key = e.getKey();
       return (key != null) && LocalCache.this.remove(key, e.getValue());
     }

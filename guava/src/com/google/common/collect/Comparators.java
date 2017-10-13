@@ -92,7 +92,7 @@ public final class Comparators {
    * this is always true when the iterable has fewer than two elements.
    */
   public static <T> boolean isInStrictOrder(
-      Iterable<? extends T> iterable, Comparator<T> comparator) {
+    Iterable<? extends T> iterable, Comparator<T> comparator) {
     checkNotNull(comparator);
     Iterator<? extends T> it = iterable.iterator();
     if (it.hasNext()) {
@@ -131,11 +131,11 @@ public final class Comparators {
     checkNonnegative(k, "k");
     checkNotNull(comparator);
     return Collector.of(
-            () -> TopKSelector.<T>least(k, comparator),
-            TopKSelector::offer,
-            TopKSelector::combine,
-            TopKSelector::topK,
-            Collector.Characteristics.UNORDERED);
+      () -> TopKSelector.<T>least(k, comparator),
+      TopKSelector : : offer,
+      TopKSelector: : combine,
+      TopKSelector: : topK,
+      Collector.Characteristics.UNORDERED);
   }
 
   /**

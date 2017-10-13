@@ -85,34 +85,34 @@ class MapIteratorCache<K, V> {
 
   public final Set<K> unmodifiableKeySet() {
     return new AbstractSet<K>() {
-      @Override
-      public UnmodifiableIterator<K> iterator() {
-        final Iterator<Entry<K, V>> entryIterator = backingMap.entrySet().iterator();
+             @Override
+             public UnmodifiableIterator<K> iterator() {
+               final Iterator<Entry<K, V>> entryIterator = backingMap.entrySet().iterator();
 
-        return new UnmodifiableIterator<K>() {
-          @Override
-          public boolean hasNext() {
-            return entryIterator.hasNext();
-          }
+               return new UnmodifiableIterator<K>() {
+                        @Override
+                        public boolean hasNext() {
+                          return entryIterator.hasNext();
+                        }
 
-          @Override
-          public K next() {
-            Entry<K, V> entry = entryIterator.next(); // store local reference for thread-safety
-            entrySetCache = entry;
-            return entry.getKey();
-          }
-        };
-      }
+                        @Override
+                        public K next() {
+                          Entry<K, V> entry = entryIterator.next(); // store local reference for thread-safety
+                          entrySetCache = entry;
+                          return entry.getKey();
+                        }
+               };
+             }
 
-      @Override
-      public int size() {
-        return backingMap.size();
-      }
+             @Override
+             public int size() {
+               return backingMap.size();
+             }
 
-      @Override
-      public boolean contains(@Nullable Object key) {
-        return containsKey(key);
-      }
+             @Override
+             public boolean contains(@Nullable Object key) {
+               return containsKey(key);
+             }
     };
   }
 

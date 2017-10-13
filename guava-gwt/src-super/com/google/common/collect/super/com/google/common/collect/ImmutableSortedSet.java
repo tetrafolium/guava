@@ -59,7 +59,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
       new RegularImmutableSortedSet<Object>(new TreeSet<Object>(NATURAL_ORDER), false);
 
   static <E> ImmutableSortedSet<E> emptySet(
-      Comparator<? super E> comparator) {
+    Comparator<? super E> comparator) {
     checkNotNull(comparator);
     if (NATURAL_ORDER.equals(comparator)) {
       return of();
@@ -70,47 +70,47 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
 
   @Beta
   public static <E> Collector<E, ?, ImmutableSortedSet<E>> toImmutableSortedSet(
-      Comparator<? super E> comparator) {
+    Comparator<? super E> comparator) {
     return CollectCollectors.toImmutableSortedSet(comparator);
   }
 
   @SuppressWarnings("unchecked")
   public static <E> ImmutableSortedSet<E> of() {
-    return (ImmutableSortedSet<E>) NATURAL_EMPTY_SET;
+    return (ImmutableSortedSet<E>)NATURAL_EMPTY_SET;
   }
 
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E element) {
+    E element) {
     return ofInternal(Ordering.natural(), element);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2) {
+    E e1, E e2) {
     return ofInternal(Ordering.natural(), e1, e2);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3) {
+    E e1, E e2, E e3) {
     return ofInternal(Ordering.natural(), e1, e2, e3);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4) {
+    E e1, E e2, E e3, E e4) {
     return ofInternal(Ordering.natural(), e1, e2, e3, e4);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5) {
+    E e1, E e2, E e3, E e4, E e5) {
     return ofInternal(Ordering.natural(), e1, e2, e3, e4, e5);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
     int size = remaining.length + 6;
     List<E> all = new ArrayList<E>(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -120,10 +120,10 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> ofInternal(
-      Comparator<? super E> comparator, E... elements) {
+    Comparator<? super E> comparator, E... elements) {
     checkNotNull(elements);
     switch (elements.length) {
-    case 0:
+    case 0 :
       return emptySet(comparator);
     default:
       SortedSet<E> delegate = new TreeSet<E>(comparator);
@@ -136,36 +136,36 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(Collection<? extends E> elements) {
-    return copyOfInternal((Ordering<E>) Ordering.natural(), (Collection) elements, false);
+    return copyOfInternal((Ordering<E>)Ordering.natural(), (Collection) elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(Iterable<? extends E> elements) {
-    return copyOfInternal((Ordering<E>) Ordering.natural(), (Iterable) elements, false);
+    return copyOfInternal((Ordering<E>)Ordering.natural(), (Iterable) elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(Iterator<? extends E> elements) {
-    return copyOfInternal((Ordering<E>) Ordering.natural(), (Iterator) elements);
+    return copyOfInternal((Ordering<E>)Ordering.natural(), (Iterator) elements);
   }
 
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> copyOf(
-      E[] elements) {
+    E[] elements) {
     return ofInternal(Ordering.natural(), elements);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+    Comparator<? super E> comparator, Iterable<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Collection<? extends E> elements) {
+    Comparator<? super E> comparator, Collection<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+    Comparator<? super E> comparator, Iterator<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements);
   }
@@ -180,15 +180,15 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> copyOfInternal(
-      Comparator<? super E> comparator, Iterable<? extends E> elements,
-      boolean fromSortedSet) {
+    Comparator<? super E> comparator, Iterable<? extends E> elements,
+    boolean fromSortedSet) {
     checkNotNull(comparator);
 
     boolean hasSameComparator
       = fromSortedSet || hasSameComparator(elements, comparator);
     if (hasSameComparator && (elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked")
-      ImmutableSortedSet<E> result = (ImmutableSortedSet<E>) elements;
+      ImmutableSortedSet<E> result = (ImmutableSortedSet<E>)elements;
       boolean isSubset = (result instanceof RegularImmutableSortedSet)
           && ((RegularImmutableSortedSet) result).isSubset;
       if (!isSubset) {
@@ -201,7 +201,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> copyOfInternal(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+    Comparator<? super E> comparator, Iterator<? extends E> elements) {
     checkNotNull(comparator);
     if (!elements.hasNext()) {
       return emptySet(comparator);
@@ -216,23 +216,23 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static boolean hasSameComparator(
-      Iterable<?> elements, Comparator<?> comparator) {
+    Iterable<?> elements, Comparator<?> comparator) {
     if (elements instanceof SortedSet) {
-      SortedSet<?> sortedSet = (SortedSet<?>) elements;
+      SortedSet<?> sortedSet = (SortedSet<?>)elements;
       Comparator<?> comparator2 = sortedSet.comparator();
       return (comparator2 == null)
-          ? comparator == Ordering.natural()
-          : comparator.equals(comparator2);
+             ? comparator == Ordering.natural()
+             : comparator.equals(comparator2);
     }
     return false;
   }
 
   // Assumes that delegate doesn't have null elements and comparator.
   static <E> ImmutableSortedSet<E> unsafeDelegateSortedSet(
-      SortedSet<E> delegate, boolean isSubset) {
+    SortedSet<E> delegate, boolean isSubset) {
     return delegate.isEmpty()
-        ? emptySet(delegate.comparator())
-        : new RegularImmutableSortedSet<E>(delegate, isSubset);
+           ? emptySet(delegate.comparator())
+           : new RegularImmutableSortedSet<E>(delegate, isSubset);
   }
 
   private transient final SortedSet<E> sortedDelegate;

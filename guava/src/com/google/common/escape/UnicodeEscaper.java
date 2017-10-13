@@ -260,26 +260,26 @@ public abstract class UnicodeEscaper extends Escaper {
           return Character.toCodePoint(c1, c2);
         }
         throw new IllegalArgumentException(
-            "Expected low surrogate but got char '"
-            + c2
-            + "' with value "
-            + (int) c2
-            + " at index "
-            + index
-            + " in '"
-            + seq
-            + "'");
+                "Expected low surrogate but got char '"
+                + c2
+                + "' with value "
+                + (int) c2
+                + " at index "
+                + index
+                + " in '"
+                + seq
+                + "'");
       } else {
         throw new IllegalArgumentException(
-            "Unexpected low surrogate character '"
-            + c1
-            + "' with value "
-            + (int) c1
-            + " at index "
-            + (index - 1)
-            + " in '"
-            + seq
-            + "'");
+                "Unexpected low surrogate character '"
+                + c1
+                + "' with value "
+                + (int) c1
+                + " at index "
+                + (index - 1)
+                + " in '"
+                + seq
+                + "'");
       }
     }
     throw new IndexOutOfBoundsException("Index exceeds specified range");

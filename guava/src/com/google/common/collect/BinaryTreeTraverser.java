@@ -57,38 +57,38 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
   public final Iterable<T> children(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return new AbstractIterator<T>() {
-          boolean doneLeft;
-          boolean doneRight;
+             @Override
+             public Iterator<T> iterator() {
+               return new AbstractIterator<T>() {
+                        boolean doneLeft;
+                        boolean doneRight;
 
-          @Override
-          protected T computeNext() {
-            if (!doneLeft) {
-              doneLeft = true;
-              Optional<T> left = leftChild(root);
-              if (left.isPresent()) {
-                return left.get();
-              }
-            }
-            if (!doneRight) {
-              doneRight = true;
-              Optional<T> right = rightChild(root);
-              if (right.isPresent()) {
-                return right.get();
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+                        @Override
+                        protected T computeNext() {
+                          if (!doneLeft) {
+                            doneLeft = true;
+                            Optional<T> left = leftChild(root);
+                            if (left.isPresent()) {
+                              return left.get();
+                            }
+                          }
+                          if (!doneRight) {
+                            doneRight = true;
+                            Optional<T> right = rightChild(root);
+                            if (right.isPresent()) {
+                              return right.get();
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public void forEach(Consumer<? super T> action) {
-        acceptIfPresent(action, leftChild(root));
-        acceptIfPresent(action, rightChild(root));
-      }
+             @Override
+             public void forEach(Consumer<? super T> action) {
+               acceptIfPresent(action, leftChild(root));
+               acceptIfPresent(action, rightChild(root));
+             }
     };
   }
 
@@ -174,23 +174,23 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
   public final FluentIterable<T> inOrderTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return new InOrderIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return new InOrderIterator(root);
+             }
 
-      @Override
-      public void forEach(Consumer<? super T> action) {
-        checkNotNull(action);
-        new Consumer<T>() {
-          @Override
-          public void accept(T t) {
-            acceptIfPresent(this, leftChild(t));
-            action.accept(t);
-            acceptIfPresent(this, rightChild(t));
-          }
-        } .accept(root);
-      }
+             @Override
+             public void forEach(Consumer<? super T> action) {
+               checkNotNull(action);
+               new Consumer<T>() {
+                 @Override
+                 public void accept(T t) {
+                   acceptIfPresent(this, leftChild(t));
+                   action.accept(t);
+                   acceptIfPresent(this, rightChild(t));
+                 }
+               }.accept(root);
+             }
     };
   }
 

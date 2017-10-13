@@ -40,7 +40,7 @@ final class TrieParser {
     while (idx < encodedLen) {
       idx +=
           doParseTrieToBuilder(
-              Lists.<CharSequence>newLinkedList(), encoded.subSequence(idx, encodedLen), builder);
+        Lists.<CharSequence>newLinkedList(), encoded.subSequence(idx, encodedLen), builder);
     }
     return builder.build();
   }
@@ -55,9 +55,9 @@ final class TrieParser {
    * @return The number of characters consumed from {@code encoded}.
    */
   private static int doParseTrieToBuilder(
-      List<CharSequence> stack,
-      CharSequence encoded,
-      ImmutableMap.Builder<String, PublicSuffixType> builder) {
+    List<CharSequence> stack,
+    CharSequence encoded,
+    ImmutableMap.Builder<String, PublicSuffixType> builder) {
 
     int encodedLen = encoded.length();
     int idx = 0;

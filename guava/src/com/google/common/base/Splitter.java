@@ -133,7 +133,7 @@ public final class Splitter {
     checkNotNull(separatorMatcher);
 
     return new Splitter(
-    new Strategy() {
+      new Strategy() {
       @Override
       public SplittingIterator iterator(Splitter splitter, final CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
@@ -165,7 +165,7 @@ public final class Splitter {
       return Splitter.on(separator.charAt(0));
     }
     return new Splitter(
-    new Strategy() {
+      new Strategy() {
       @Override
       public SplittingIterator iterator(Splitter splitter, CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
@@ -211,12 +211,12 @@ public final class Splitter {
 
   private static Splitter on(final CommonPattern separatorPattern) {
     checkArgument(
-        !separatorPattern.matcher("").matches(),
-        "The pattern may not match the empty string: %s",
-        separatorPattern);
+      !separatorPattern.matcher("").matches(),
+      "The pattern may not match the empty string: %s",
+      separatorPattern);
 
     return new Splitter(
-    new Strategy() {
+      new Strategy() {
       @Override
       public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
         final CommonMatcher matcher = separatorPattern.matcher(toSplit);
@@ -273,7 +273,7 @@ public final class Splitter {
     checkArgument(length > 0, "The length may not be less than 1");
 
     return new Splitter(
-    new Strategy() {
+      new Strategy() {
       @Override
       public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
@@ -376,18 +376,18 @@ public final class Splitter {
     checkNotNull(sequence);
 
     return new Iterable<String>() {
-      @Override
-      public Iterator<String> iterator() {
-        return splittingIterator(sequence);
-      }
+             @Override
+             public Iterator<String> iterator() {
+               return splittingIterator(sequence);
+             }
 
-      @Override
-      public String toString() {
-        return Joiner.on(", ")
-            .appendTo(new StringBuilder().append('['), this)
-            .append(']')
-            .toString();
-      }
+             @Override
+             public String toString() {
+               return Joiner.on(", ")
+                      .appendTo(new StringBuilder().append('['), this)
+                      .append(']')
+                      .toString();
+             }
     };
   }
 

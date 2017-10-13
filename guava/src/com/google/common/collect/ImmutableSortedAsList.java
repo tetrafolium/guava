@@ -87,9 +87,9 @@ final class ImmutableSortedAsList<E> extends RegularImmutableAsList<E>
   @Override
   public Spliterator<E> spliterator() {
     return CollectSpliterators.indexed(
-            size(),
-            ImmutableList.SPLITERATOR_CHARACTERISTICS | Spliterator.SORTED | Spliterator.DISTINCT,
-            delegateList()::get,
-            comparator());
+      size(),
+      ImmutableList.SPLITERATOR_CHARACTERISTICS | Spliterator.SORTED | Spliterator.DISTINCT,
+      delegateList() : : get,
+        comparator());
   }
 }

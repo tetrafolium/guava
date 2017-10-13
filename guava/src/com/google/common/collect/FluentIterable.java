@@ -136,13 +136,13 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   public static <E> FluentIterable<E> from(final Iterable<E> iterable) {
     return (iterable instanceof FluentIterable)
-        ? (FluentIterable<E>) iterable
-    : new FluentIterable<E>(iterable) {
-      @Override
-      public Iterator<E> iterator() {
-        return iterable.iterator();
-      }
-    };
+           ? (FluentIterable<E>)iterable
+           : new FluentIterable<E>(iterable) {
+             @Override
+             public Iterator<E> iterator() {
+               return iterable.iterator();
+             }
+           };
   }
 
   /**
@@ -205,7 +205,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   @Beta
   public static <T> FluentIterable<T> concat(
-      Iterable<? extends T> a, Iterable<? extends T> b, Iterable<? extends T> c) {
+    Iterable<? extends T> a, Iterable<? extends T> b, Iterable<? extends T> c) {
     return concatNoDefensiveCopy(a, b, c);
   }
 
@@ -225,10 +225,10 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   @Beta
   public static <T> FluentIterable<T> concat(
-      Iterable<? extends T> a,
-      Iterable<? extends T> b,
-      Iterable<? extends T> c,
-      Iterable<? extends T> d) {
+    Iterable<? extends T> a,
+    Iterable<? extends T> b,
+    Iterable<? extends T> c,
+    Iterable<? extends T> d) {
     return concatNoDefensiveCopy(a, b, c, d);
   }
 
@@ -254,22 +254,22 @@ public abstract class FluentIterable<E> implements Iterable<E> {
 
   /** Concatenates a varargs array of iterables without making a defensive copy of the array. */
   private static <T> FluentIterable<T> concatNoDefensiveCopy(
-      final Iterable<? extends T>... inputs) {
+    final Iterable<? extends T>... inputs) {
     for (Iterable<? extends T> input : inputs) {
       checkNotNull(input);
     }
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.concat(
-                /* lazily generate the iterators on each input only as needed */
-        new AbstractIndexedListIterator<Iterator<? extends T>>(inputs.length) {
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.concat(
+                 /* lazily generate the iterators on each input only as needed */
+                 new AbstractIndexedListIterator<Iterator<? extends T>>(inputs.length) {
           @Override
           public Iterator<? extends T> get(int i) {
             return inputs[i].iterator();
           }
         });
-      }
+             }
     };
   }
 
@@ -289,13 +289,13 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   @Beta
   public static <T> FluentIterable<T> concat(
-      final Iterable<? extends Iterable<? extends T>> inputs) {
+    final Iterable<? extends Iterable<? extends T>> inputs) {
     checkNotNull(inputs);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.concat(Iterators.transform(inputs.iterator(), Iterables.<T>toIterator()));
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.concat(Iterators.transform(inputs.iterator(), Iterables.<T>toIterator()));
+             }
     };
   }
 
@@ -493,7 +493,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    * @since 13.0 (required {@code Function<E, Iterable<T>>} until 14.0)
    */
   public <T> FluentIterable<T> transformAndConcat(
-      Function<? super E, ? extends Iterable<? extends T>> function) {
+    Function<? super E, ? extends Iterable<? extends T>> function) {
     return FluentIterable.concat(transform(function));
   }
 
@@ -529,7 +529,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
     // TODO(kevinb): Support a concurrently modified collection?
     Iterable<E> iterable = getDelegate();
     if (iterable instanceof List) {
-      List<E> list = (List<E>) iterable;
+      List<E> list = (List<E>)iterable;
       if (list.isEmpty()) {
         return Optional.absent();
       }
@@ -545,7 +545,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
      * to know they are SortedSets and probably would not call this method.
      */
     if (iterable instanceof SortedSet) {
-      SortedSet<E> sortedSet = (SortedSet<E>) iterable;
+      SortedSet<E> sortedSet = (SortedSet<E>)iterable;
       return Optional.of(sortedSet.last());
     }
 

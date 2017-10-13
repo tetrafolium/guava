@@ -140,8 +140,8 @@ public final class MapMaker {
 
   public <K, V> ConcurrentMap<K, V> makeMap() {
     return useCustomMap
-        ? new ComputingMap<K, V>(null, initialCapacity)
-        : new ConcurrentHashMap<K, V>(initialCapacity);
+           ? new ComputingMap<K, V>(null, initialCapacity)
+           : new ConcurrentHashMap<K, V>(initialCapacity);
   }
 
   public <K, V> ConcurrentMap<K, V> makeComputingMap(Function<? super K, ? extends V> computer) {

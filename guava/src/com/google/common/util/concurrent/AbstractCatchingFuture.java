@@ -34,20 +34,20 @@ import javax.annotation.Nullable;
 abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
   extends AbstractFuture.TrustedFuture<V> implements Runnable {
   static <V, X extends Throwable> ListenableFuture<V> create(
-      ListenableFuture<? extends V> input,
-      Class<X> exceptionType,
-      Function<? super X, ? extends V> fallback,
-      Executor executor) {
+    ListenableFuture<? extends V> input,
+    Class<X> exceptionType,
+    Function<? super X, ? extends V> fallback,
+    Executor executor) {
     CatchingFuture<V, X> future = new CatchingFuture<>(input, exceptionType, fallback);
     input.addListener(future, rejectionPropagatingExecutor(executor, future));
     return future;
   }
 
   static <X extends Throwable, V> ListenableFuture<V> create(
-      ListenableFuture<? extends V> input,
-      Class<X> exceptionType,
-      AsyncFunction<? super X, ? extends V> fallback,
-      Executor executor) {
+    ListenableFuture<? extends V> input,
+    Class<X> exceptionType,
+    AsyncFunction<? super X, ? extends V> fallback,
+    Executor executor) {
     AsyncCatchingFuture<V, X> future = new AsyncCatchingFuture<>(input, exceptionType, fallback);
     input.addListener(future, rejectionPropagatingExecutor(executor, future));
     return future;
@@ -62,7 +62,7 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
   @Nullable F fallback;
 
   AbstractCatchingFuture(
-      ListenableFuture<? extends V> inputFuture, Class<X> exceptionType, F fallback) {
+    ListenableFuture<? extends V> inputFuture, Class<X> exceptionType, F fallback) {
     this.inputFuture = checkNotNull(inputFuture);
     this.exceptionType = checkNotNull(exceptionType);
     this.fallback = checkNotNull(fallback);
@@ -125,12 +125,12 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
     F localFallback = fallback;
     if (localInputFuture != null && localExceptionType != null && localFallback != null) {
       return "input=["
-          + localInputFuture
-          + "], exceptionType=["
-          + localExceptionType
-          + "], fallback=["
-          + localFallback
-          + "]";
+             + localInputFuture
+             + "], exceptionType=["
+             + localExceptionType
+             + "], fallback=["
+             + localFallback
+             + "]";
     }
     return null;
   }
@@ -158,22 +158,22 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
    */
   private static final class AsyncCatchingFuture<V, X extends Throwable>
     extends AbstractCatchingFuture<
-    V, X, AsyncFunction<? super X, ? extends V>, ListenableFuture<? extends V>> {
+      V, X, AsyncFunction<? super X, ? extends V>, ListenableFuture<? extends V>> {
     AsyncCatchingFuture(
-        ListenableFuture<? extends V> input,
-        Class<X> exceptionType,
-        AsyncFunction<? super X, ? extends V> fallback) {
+      ListenableFuture<? extends V> input,
+      Class<X> exceptionType,
+      AsyncFunction<? super X, ? extends V> fallback) {
       super(input, exceptionType, fallback);
     }
 
     @Override
     ListenableFuture<? extends V> doFallback(
-        AsyncFunction<? super X, ? extends V> fallback, X cause) throws Exception {
+      AsyncFunction<? super X, ? extends V> fallback, X cause) throws Exception {
       ListenableFuture<? extends V> replacement = fallback.apply(cause);
       checkNotNull(
-          replacement,
-          "AsyncFunction.apply returned null instead of a Future. "
-          + "Did you mean to return immediateFuture(null)?");
+        replacement,
+        "AsyncFunction.apply returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
       return replacement;
     }
 
@@ -190,9 +190,9 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
   private static final class CatchingFuture<V, X extends Throwable>
     extends AbstractCatchingFuture<V, X, Function<? super X, ? extends V>, V> {
     CatchingFuture(
-        ListenableFuture<? extends V> input,
-        Class<X> exceptionType,
-        Function<? super X, ? extends V> fallback) {
+      ListenableFuture<? extends V> input,
+      Class<X> exceptionType,
+      Function<? super X, ? extends V> fallback) {
       super(input, exceptionType, fallback);
     }
 

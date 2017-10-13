@@ -454,9 +454,9 @@ public final class UnsignedLongs {
    */
   public static String toString(long x, int radix) {
     checkArgument(
-        radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
-        "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
-        radix);
+      radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
+      "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
+      radix);
     if (x == 0) {
       // Simply return "0"
       return "0";

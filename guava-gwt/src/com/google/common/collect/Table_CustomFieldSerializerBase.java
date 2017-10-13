@@ -30,10 +30,10 @@ import java.util.Map.Entry;
  */
 final class Table_CustomFieldSerializerBase {
   static <T extends StandardTable<Object, Object, Object>> T populate(
-      SerializationStreamReader reader, T table) throws SerializationException {
-    Map<?, ?> hashMap = (Map<?, ?>) reader.readObject();
+    SerializationStreamReader reader, T table) throws SerializationException {
+    Map<?, ?> hashMap = (Map<?, ?>)reader.readObject();
     for (Entry<?, ?> row : hashMap.entrySet()) {
-      table.row(row.getKey()).putAll((Map<?, ?>) row.getValue());
+      table.row(row.getKey()).putAll((Map<?, ?>)row.getValue());
     }
     return table;
   }

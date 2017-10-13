@@ -54,9 +54,9 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   /** Returns an immutable copy of {@code graph}. */
   public static <N> ImmutableGraph<N> copyOf(Graph<N> graph) {
     return (graph instanceof ImmutableGraph)
-        ? (ImmutableGraph<N>) graph
-        : new ImmutableGraph<N>(new ConfigurableValueGraph<N, Presence>(
-                GraphBuilder.from(graph), getNodeConnections(graph), graph.edges().size()));
+           ? (ImmutableGraph<N>)graph
+           : new ImmutableGraph<N>(new ConfigurableValueGraph<N, Presence>(
+        GraphBuilder.from(graph), getNodeConnections(graph), graph.edges().size()));
   }
 
   /**
@@ -70,7 +70,7 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   }
 
   private static <N> ImmutableMap<N, GraphConnections<N, Presence>> getNodeConnections(
-      Graph<N> graph) {
+    Graph<N> graph) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the graph's nodes do, so ImmutableSortedMap is unnecessary even if the
     // input nodes are sorted.
@@ -84,10 +84,10 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   private static <N> GraphConnections<N, Presence> connectionsOf(Graph<N> graph, N node) {
     Function<Object, Presence> edgeValueFn = Functions.constant(Presence.EDGE_EXISTS);
     return graph.isDirected()
-        ? DirectedGraphConnections.ofImmutable(
-            graph.predecessors(node), Maps.asMap(graph.successors(node), edgeValueFn))
-        : UndirectedGraphConnections.ofImmutable(
-            Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
+           ? DirectedGraphConnections.ofImmutable(
+      graph.predecessors(node), Maps.asMap(graph.successors(node), edgeValueFn))
+           : UndirectedGraphConnections.ofImmutable(
+      Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
   }
 
   @Override

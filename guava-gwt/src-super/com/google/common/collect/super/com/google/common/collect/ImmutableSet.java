@@ -49,7 +49,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   // Casting to any type is safe because the set will never hold any elements.
   @SuppressWarnings({"unchecked"})
   public static <E> ImmutableSet<E> of() {
-    return (ImmutableSet<E>) RegularImmutableSet.EMPTY;
+    return (ImmutableSet<E>)RegularImmutableSet.EMPTY;
   }
 
   public static <E> ImmutableSet<E> of(E element) {
@@ -105,7 +105,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   public static <E> ImmutableSet<E> copyOf(Iterable<? extends E> elements) {
     if (elements instanceof ImmutableSet && !(elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableSet<E> set = (ImmutableSet<E>) elements;
+      ImmutableSet<E> set = (ImmutableSet<E>)elements;
       return set;
     }
     return copyOf(elements.iterator());
@@ -134,11 +134,11 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   // the elements are known to be non-null.
   static <E> ImmutableSet<E> unsafeDelegate(Set<E> delegate) {
     switch (delegate.size()) {
-    case 0:
+    case 0 :
       return of();
-    case 1:
+    case 1 :
       return new SingletonImmutableSet<E>(delegate.iterator().next());
-    default:
+    default :
       return new RegularImmutableSet<E>(delegate);
     }
   }
@@ -185,15 +185,15 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     @Override
     ImmutableList<E> createAsList() {
       return new ImmutableAsList<E>() {
-        @Override
-        public E get(int index) {
-          return Indexed.this.get(index);
-        }
+               @Override
+               public E get(int index) {
+                 return Indexed.this.get(index);
+               }
 
-        @Override
-        Indexed<E> delegateCollection() {
-          return Indexed.this;
-        }
+               @Override
+               Indexed<E> delegateCollection() {
+                 return Indexed.this;
+               }
       };
     }
   }
@@ -232,7 +232,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
 
     @Override public Builder<E> addAll(Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
-        Collection<?> collection = (Collection<?>) elements;
+        Collection<?> collection = (Collection<?>)elements;
         contents.ensureCapacity(contents.size() + collection.size());
       }
       super.addAll(elements);

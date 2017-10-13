@@ -72,7 +72,7 @@ public final class Utf8 {
     if (utf8Length < utf16Length) {
       // Necessary and sufficient condition for overflow because of maximum 3x expansion
       throw new IllegalArgumentException(
-          "UTF-8 length does not fit in int: " + (utf8Length + (1L << 32)));
+              "UTF-8 length does not fit in int: " + (utf8Length + (1L << 32)));
     }
     return utf8Length;
   }

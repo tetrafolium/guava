@@ -99,7 +99,7 @@ public interface RangeSet<C extends Comparable> {
    *
    * @since 21.0
    */
-default boolean enclosesAll(Iterable<Range<C>> other) {
+  default boolean enclosesAll(Iterable<Range<C>> other) {
     for (Range<C> range : other) {
       if (!encloses(range)) {
         return false;
@@ -220,7 +220,7 @@ default boolean enclosesAll(Iterable<Range<C>> other) {
    *     operation
    * @since 21.0
    */
-default void addAll(Iterable<Range<C>> ranges) {
+  default void addAll(Iterable<Range<C>> ranges) {
     for (Range<C> range : ranges) {
       add(range);
     }
@@ -249,7 +249,7 @@ default void addAll(Iterable<Range<C>> ranges) {
    *     operation
    * @since 21.0
    */
-default void removeAll(Iterable<Range<C>> ranges) {
+  default void removeAll(Iterable<Range<C>> ranges) {
     for (Range<C> range : ranges) {
       remove(range);
     }

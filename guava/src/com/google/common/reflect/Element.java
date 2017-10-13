@@ -36,7 +36,7 @@ class Element extends AccessibleObject implements Member {
   private final AccessibleObject accessibleObject;
   private final Member member;
 
-  <M extends AccessibleObject & Member> Element(M member) {
+  <M extends AccessibleObject &Member> Element(M member) {
     checkNotNull(member);
     this.accessibleObject = member;
     this.member = member;

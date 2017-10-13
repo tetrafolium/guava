@@ -77,17 +77,17 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
    * Wraps the {@code setValue} implementation of an {@code Entry} to enforce the class constraint.
    */
   private static <B> Entry<Class<? extends B>, B> checkedEntry(
-      final Entry<Class<? extends B>, B> entry) {
+    final Entry<Class<? extends B>, B> entry) {
     return new ForwardingMapEntry<Class<? extends B>, B>() {
-      @Override
-      protected Entry<Class<? extends B>, B> delegate() {
-        return entry;
-      }
+             @Override
+             protected Entry<Class<? extends B>, B> delegate() {
+               return entry;
+             }
 
-      @Override
-      public B setValue(B value) {
-        return super.setValue(cast(getKey(), value));
-      }
+             @Override
+             public B setValue(B value) {
+               return super.setValue(cast(getKey(), value));
+             }
     };
   }
 
@@ -95,37 +95,37 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
   public Set<Entry<Class<? extends B>, B>> entrySet() {
     return new ForwardingSet<Entry<Class<? extends B>, B>>() {
 
-      @Override
-      protected Set<Entry<Class<? extends B>, B>> delegate() {
-        return MutableClassToInstanceMap.this.delegate().entrySet();
-      }
+             @Override
+             protected Set<Entry<Class<? extends B>, B>> delegate() {
+               return MutableClassToInstanceMap.this.delegate().entrySet();
+             }
 
-      @Override
-      public Spliterator<Entry<Class<? extends B>, B>> spliterator() {
-        return CollectSpliterators.map(
-                delegate().spliterator(), MutableClassToInstanceMap::checkedEntry);
-      }
+             @Override
+             public Spliterator<Entry<Class<? extends B>, B>> spliterator() {
+               return CollectSpliterators.map(
+                 delegate().spliterator(), MutableClassToInstanceMap: : checkedEntry);
+             }
 
-      @Override
-      public Iterator<Entry<Class<? extends B>, B>> iterator() {
-        return new TransformedIterator<Entry<Class<? extends B>, B>, Entry<Class<? extends B>, B>>(
-        delegate().iterator()) {
-          @Override
-          Entry<Class<? extends B>, B> transform(Entry<Class<? extends B>, B> from) {
-            return checkedEntry(from);
-          }
-        };
-      }
+             @Override
+             public Iterator<Entry<Class<? extends B>, B>> iterator() {
+               return new TransformedIterator<Entry<Class<? extends B>, B>, Entry<Class<? extends B>, B>>(
+                 delegate().iterator()) {
+                        @Override
+                        Entry<Class<? extends B>, B> transform(Entry<Class<? extends B>, B> from) {
+                          return checkedEntry(from);
+                        }
+               };
+             }
 
-      @Override
-      public Object[] toArray() {
-        return standardToArray();
-      }
+             @Override
+             public Object[] toArray() {
+               return standardToArray();
+             }
 
-      @Override
-      public <T> T[] toArray(T[] array) {
-        return standardToArray(array);
-      }
+             @Override
+             public <T> T[] toArray(T[] array) {
+               return standardToArray(array);
+             }
     };
   }
 

@@ -76,7 +76,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
         return true;
       }
       return isProxyOfSameInterfaces(arg, proxy.getClass())
-          && equals(Proxy.getInvocationHandler(arg));
+             && equals(Proxy.getInvocationHandler(arg));
     }
     if (args.length == 0 && method.getName().equals("toString")) {
       return toString();
@@ -132,12 +132,12 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
 
   private static boolean isProxyOfSameInterfaces(Object arg, Class<?> proxyClass) {
     return proxyClass.isInstance(arg)
-        // Equal proxy instances should mostly be instance of proxyClass
-        // Under some edge cases (such as the proxy of JDK types serialized and then deserialized)
-        // the proxy type may not be the same.
-        // We first check isProxyClass() so that the common case of comparing with non-proxy objects
-        // is efficient.
-        || (Proxy.isProxyClass(arg.getClass())
-            && Arrays.equals(arg.getClass().getInterfaces(), proxyClass.getInterfaces()));
+           // Equal proxy instances should mostly be instance of proxyClass
+           // Under some edge cases (such as the proxy of JDK types serialized and then deserialized)
+           // the proxy type may not be the same.
+           // We first check isProxyClass() so that the common case of comparing with non-proxy objects
+           // is efficient.
+           || (Proxy.isProxyClass(arg.getClass())
+           && Arrays.equals(arg.getClass().getInterfaces(), proxyClass.getInterfaces()));
   }
 }

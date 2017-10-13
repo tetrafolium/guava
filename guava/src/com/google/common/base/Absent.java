@@ -30,7 +30,7 @@ final class Absent<T> extends Optional<T> {
 
   @SuppressWarnings("unchecked") // implementation is "fully variant"
   static <T> Optional<T> withType() {
-    return (Optional<T>) INSTANCE;
+    return (Optional<T>)INSTANCE;
   }
 
   private Absent() {}
@@ -53,13 +53,13 @@ final class Absent<T> extends Optional<T> {
   @SuppressWarnings("unchecked") // safe covariant cast
   @Override
   public Optional<T> or(Optional<? extends T> secondChoice) {
-    return (Optional<T>) checkNotNull(secondChoice);
+    return (Optional<T>)checkNotNull(secondChoice);
   }
 
   @Override
   public T or(Supplier<? extends T> supplier) {
     return checkNotNull(
-            supplier.get(), "use Optional.orNull() instead of a Supplier that returns null");
+      supplier.get(), "use Optional.orNull() instead of a Supplier that returns null");
   }
 
   @Override

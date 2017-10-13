@@ -32,7 +32,7 @@ public class Present_CustomFieldSerializer {
 
   public static Present<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
-    return (Present<Object>) Optional.of(reader.readObject());
+    return (Present<Object>)Optional.of(reader.readObject());
   }
 
   public static void serialize(SerializationStreamWriter writer, Present<?> instance)

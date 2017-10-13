@@ -150,7 +150,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
 
   private GraphConnections<N, V> newConnections() {
     return isDirected()
-        ? DirectedGraphConnections.<N, V>of()
-        : UndirectedGraphConnections.<N, V>of();
+           ? DirectedGraphConnections.<N, V>of()
+           : UndirectedGraphConnections.<N, V>of();
   }
 }

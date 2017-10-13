@@ -79,7 +79,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   // Casting to any type is safe because the list will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <E> ImmutableList<E> of() {
-    return (ImmutableList<E>) EMPTY;
+    return (ImmutableList<E>)EMPTY;
   }
 
   /**
@@ -172,7 +172,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    * @throws NullPointerException if any element is null
    */
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
     return construct(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
   }
 
@@ -182,7 +182,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    * @throws NullPointerException if any element is null
    */
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11) {
     return construct(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11);
   }
 
@@ -197,7 +197,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    */
   @SafeVarargs // For Eclipse. For internal javac we have disabled this pointless type of warning.
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11, E e12, E... others) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11, E e12, E... others) {
     Object[] array = new Object[12 + others.length];
     array[0] = e1;
     array[1] = e2;
@@ -226,8 +226,8 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   public static <E> ImmutableList<E> copyOf(Iterable<? extends E> elements) {
     checkNotNull(elements); // TODO(kevinb): is this here only for GWT?
     return (elements instanceof Collection)
-        ? copyOf((Collection<? extends E>) elements)
-        : copyOf(elements.iterator());
+           ? copyOf((Collection<? extends E>)elements)
+             : copyOf(elements.iterator());
   }
 
   /**
@@ -252,7 +252,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   public static <E> ImmutableList<E> copyOf(Collection<? extends E> elements) {
     if (elements instanceof ImmutableCollection) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableList<E> list = ((ImmutableCollection<E>) elements).asList();
+      ImmutableList<E> list = ((ImmutableCollection<E>)elements).asList();
       return list.isPartialView() ? ImmutableList.<E>asImmutableList(list.toArray()) : list;
     }
     return construct(elements.toArray());
@@ -284,9 +284,9 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    */
   public static <E> ImmutableList<E> copyOf(E[] elements) {
     switch (elements.length) {
-    case 0:
+    case 0 :
       return of();
-    case 1:
+    case 1 :
       return of(elements[0]);
     default:
       return construct(elements.clone());
@@ -309,7 +309,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    * @since 21.0
    */
   public static <E extends Comparable<? super E>> ImmutableList<E> sortedCopyOf(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     Comparable<?>[] array = Iterables.toArray(elements, new Comparable<?>[0]);
     checkElementsNotNull((Object[]) array);
     Arrays.sort(array);
@@ -332,7 +332,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    * @since 21.0
    */
   public static <E> ImmutableList<E> sortedCopyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+    Comparator<? super E> comparator, Iterable<? extends E> elements) {
     checkNotNull(comparator);
     @SuppressWarnings("unchecked") // all supported methods are covariant
     E[] array = (E[]) Iterables.toArray(elements);
@@ -363,9 +363,9 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    */
   static <E> ImmutableList<E> asImmutableList(Object[] elements, int length) {
     switch (length) {
-    case 0:
+    case 0 :
       return of();
-    case 1:
+    case 1 :
       return of((E) elements[0]);
     default:
       if (length < elements.length) {
@@ -392,10 +392,10 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   @Override
   public UnmodifiableListIterator<E> listIterator(int index) {
     return new AbstractIndexedListIterator<E>(size(), index) {
-      @Override
-      protected E get(int index) {
-        return ImmutableList.this.get(index);
-      }
+             @Override
+             protected E get(int index) {
+               return ImmutableList.this.get(index);
+             }
     };
   }
 
@@ -574,7 +574,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
 
   @Override
   public Spliterator<E> spliterator() {
-    return CollectSpliterators.indexed(size(), SPLITERATOR_CHARACTERISTICS, this::get);
+    return CollectSpliterators.indexed(size(), SPLITERATOR_CHARACTERISTICS, this : : get);
   }
 
   @Override

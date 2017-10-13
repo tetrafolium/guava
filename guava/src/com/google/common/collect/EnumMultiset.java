@@ -96,7 +96,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
 
   private boolean isActuallyE(@Nullable Object o) {
     if (o instanceof Enum) {
-      Enum<?> e = (Enum<?>) o;
+      Enum<?> e = (Enum<?>)o;
       int index = e.ordinal();
       return index < enumConstants.length && enumConstants[index] == e;
     }
@@ -130,7 +130,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
     if (element == null || !isActuallyE(element)) {
       return 0;
     }
-    Enum<?> e = (Enum<?>) element;
+    Enum<?> e = (Enum<?>)element;
     return counts[e.ordinal()];
   }
 
@@ -162,7 +162,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
     if (element == null || !isActuallyE(element)) {
       return 0;
     }
-    Enum<?> e = (Enum<?>) element;
+    Enum<?> e = (Enum<?>)element;
     checkNonnegative(occurrences, "occurrences");
     if (occurrences == 0) {
       return count(element);
@@ -250,35 +250,35 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   Set<E> createElementSet() {
     return new ElementSet() {
 
-      @Override
-      public Iterator<E> iterator() {
-        return new Itr<E>() {
-          @Override
-          E output(int index) {
-            return enumConstants[index];
-          }
-        };
-      }
+             @Override
+             public Iterator<E> iterator() {
+               return new Itr<E>() {
+                        @Override
+                        E output(int index) {
+                          return enumConstants[index];
+                        }
+               };
+             }
     };
   }
 
   @Override
   Iterator<Entry<E>> entryIterator() {
     return new Itr<Entry<E>>() {
-      @Override
-      Entry<E> output(final int index) {
-        return new Multisets.AbstractEntry<E>() {
-          @Override
-          public E getElement() {
-            return enumConstants[index];
-          }
+             @Override
+             Entry<E> output(final int index) {
+               return new Multisets.AbstractEntry<E>() {
+                        @Override
+                        public E getElement() {
+                          return enumConstants[index];
+                        }
 
-          @Override
-          public int getCount() {
-            return counts[index];
-          }
-        };
-      }
+                        @Override
+                        public int getCount() {
+                          return counts[index];
+                        }
+               };
+             }
     };
   }
 
@@ -297,7 +297,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    Class<E> localType = (Class<E>) stream.readObject();
+    Class<E> localType = (Class<E>)stream.readObject();
     type = localType;
     enumConstants = type.getEnumConstants();
     counts = new int[enumConstants.length];

@@ -132,10 +132,10 @@ public abstract class Traverser<N> {
   public static <N> Traverser<N> forTree(SuccessorsFunction<N> tree) {
     checkNotNull(tree);
     if (tree instanceof BaseGraph) {
-      checkArgument(((BaseGraph<?>) tree).isDirected(), "Undirected graphs can never be trees.");
+      checkArgument(((BaseGraph<?>)tree).isDirected(), "Undirected graphs can never be trees.");
     }
     if (tree instanceof Network) {
-      checkArgument(((Network<?, ?>) tree).isDirected(), "Undirected networks can never be trees.");
+      checkArgument(((Network<?, ?>)tree).isDirected(), "Undirected networks can never be trees.");
     }
     return new TreeTraverser<>(tree);
   }
@@ -243,30 +243,30 @@ public abstract class Traverser<N> {
     @Override
     public Iterable<N> breadthFirst(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new BreadthFirstIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new BreadthFirstIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPreOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstIterator(startNode, Order.PREORDER);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstIterator(startNode, Order.PREORDER);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPostOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstIterator(startNode, Order.POSTORDER);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstIterator(startNode, Order.POSTORDER);
+               }
       };
     }
 
@@ -361,30 +361,30 @@ public abstract class Traverser<N> {
     @Override
     public Iterable<N> breadthFirst(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new BreadthFirstIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new BreadthFirstIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPreOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstPreOrderIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstPreOrderIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPostOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstPostOrderIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstPostOrderIterator(startNode);
+               }
       };
     }
 

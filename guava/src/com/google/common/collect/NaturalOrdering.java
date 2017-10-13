@@ -43,7 +43,7 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
     if (result == null) {
       result = nullsFirst = super.nullsFirst();
     }
-    return (Ordering<S>) result;
+    return (Ordering<S>)result;
   }
 
   @Override
@@ -52,12 +52,12 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
     if (result == null) {
       result = nullsLast = super.nullsLast();
     }
-    return (Ordering<S>) result;
+    return (Ordering<S>)result;
   }
 
   @Override
   public <S extends Comparable> Ordering<S> reverse() {
-    return (Ordering<S>) ReverseNaturalOrdering.INSTANCE;
+    return (Ordering<S>)ReverseNaturalOrdering.INSTANCE;
   }
 
   // preserving singleton-ness gives equals()/hashCode() for free

@@ -121,10 +121,10 @@ public final class ArrayListMultimap<K, V>
 
   private ArrayListMultimap(Multimap<? extends K, ? extends V> multimap) {
     this(
-        multimap.keySet().size(),
-        (multimap instanceof ArrayListMultimap)
-        ? ((ArrayListMultimap<?, ?>) multimap).expectedValuesPerKey
-        : DEFAULT_VALUES_PER_KEY);
+      multimap.keySet().size(),
+      (multimap instanceof ArrayListMultimap)
+      ? ((ArrayListMultimap<?, ?>)multimap).expectedValuesPerKey
+      : DEFAULT_VALUES_PER_KEY);
     putAll(multimap);
   }
 
@@ -147,7 +147,7 @@ public final class ArrayListMultimap<K, V>
   @Deprecated
   public void trimToSize() {
     for (Collection<V> collection : backingMap().values()) {
-      ArrayList<V> arrayList = (ArrayList<V>) collection;
+      ArrayList<V> arrayList = (ArrayList<V>)collection;
       arrayList.trimToSize();
     }
   }

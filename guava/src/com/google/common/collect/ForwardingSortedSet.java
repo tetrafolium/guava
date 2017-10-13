@@ -99,8 +99,8 @@ public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements
   private int unsafeCompare(Object o1, Object o2) {
     Comparator<? super E> comparator = comparator();
     return (comparator == null)
-        ? ((Comparable<Object>) o1).compareTo(o2)
-        : ((Comparator<Object>) comparator).compare(o1, o2);
+           ? ((Comparable<Object>)o1).compareTo(o2)
+           : ((Comparator<Object>)comparator).compare(o1, o2);
   }
 
   /**

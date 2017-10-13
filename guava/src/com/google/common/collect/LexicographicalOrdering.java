@@ -59,7 +59,7 @@ final class LexicographicalOrdering<T> extends Ordering<Iterable<T>> implements 
       return true;
     }
     if (object instanceof LexicographicalOrdering) {
-      LexicographicalOrdering<?> that = (LexicographicalOrdering<?>) object;
+      LexicographicalOrdering<?> that = (LexicographicalOrdering<?>)object;
       return this.elementOrder.equals(that.elementOrder);
     }
     return false;

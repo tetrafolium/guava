@@ -68,8 +68,8 @@ public class DeadEvent {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-        .add("source", source)
-        .add("event", event)
-        .toString();
+           .add("source", source)
+           .add("event", event)
+           .toString();
   }
 }

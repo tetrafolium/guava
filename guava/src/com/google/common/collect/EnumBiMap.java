@@ -52,7 +52,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
    * @param valueType the value type
    */
   public static <K extends Enum<K>, V extends Enum<V>> EnumBiMap<K, V> create(
-      Class<K> keyType, Class<V> valueType) {
+    Class<K> keyType, Class<V> valueType) {
     return new EnumBiMap<>(keyType, valueType);
   }
 
@@ -74,18 +74,18 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
 
   private EnumBiMap(Class<K> keyType, Class<V> valueType) {
     super(
-        WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-        WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
+      WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
+      WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
     this.keyType = keyType;
     this.valueType = valueType;
   }
 
   static <K extends Enum<K>> Class<K> inferKeyType(Map<K, ?> map) {
     if (map instanceof EnumBiMap) {
-      return ((EnumBiMap<K, ?>) map).keyType();
+      return ((EnumBiMap<K, ?>)map).keyType();
     }
     if (map instanceof EnumHashBiMap) {
-      return ((EnumHashBiMap<K, ?>) map).keyType();
+      return ((EnumHashBiMap<K, ?>)map).keyType();
     }
     checkArgument(!map.isEmpty());
     return map.keySet().iterator().next().getDeclaringClass();
@@ -93,7 +93,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
 
   private static <V extends Enum<V>> Class<V> inferValueType(Map<?, V> map) {
     if (map instanceof EnumBiMap) {
-      return ((EnumBiMap<?, V>) map).valueType;
+      return ((EnumBiMap<?, V>)map).valueType;
     }
     checkArgument(!map.isEmpty());
     return map.values().iterator().next().getDeclaringClass();
@@ -135,11 +135,11 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
   @GwtIncompatible // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
-    keyType = (Class<K>) stream.readObject();
-    valueType = (Class<V>) stream.readObject();
+    keyType = (Class<K>)stream.readObject();
+    valueType = (Class<V>)stream.readObject();
     setDelegates(
-        WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-        WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
+      WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
+      WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
     Serialization.populateMap(this, stream);
   }
 

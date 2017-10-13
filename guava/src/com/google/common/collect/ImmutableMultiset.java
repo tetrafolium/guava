@@ -79,18 +79,18 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
    * @since 22.0
    */
   public static <T, E> Collector<T, ?, ImmutableMultiset<E>> toImmutableMultiset(
-      Function<? super T, ? extends E> elementFunction, ToIntFunction<? super T> countFunction) {
+    Function<? super T, ? extends E> elementFunction, ToIntFunction<? super T> countFunction) {
     checkNotNull(elementFunction);
     checkNotNull(countFunction);
     return Collector.of(
-            LinkedHashMultiset::create,
-            (multiset, t) ->
-            multiset.add(checkNotNull(elementFunction.apply(t)), countFunction.applyAsInt(t)),
-    (multiset1, multiset2) -> {
+      LinkedHashMultiset : : create,
+      (multiset, t) ->
+      multiset.add(checkNotNull(elementFunction.apply(t)), countFunction.applyAsInt(t)),
+      (multiset1, multiset2) -> {
       multiset1.addAll(multiset2);
       return multiset1;
     },
-    (Multiset<E> multiset) -> copyFromEntries(multiset.entrySet()));
+      (Multiset<E> multiset) -> copyFromEntries(multiset.entrySet()));
   }
 
   /**
@@ -98,7 +98,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
    */
   @SuppressWarnings("unchecked") // all supported methods are covariant
   public static <E> ImmutableMultiset<E> of() {
-    return (ImmutableMultiset<E>) RegularImmutableMultiset.EMPTY;
+    return (ImmutableMultiset<E>)RegularImmutableMultiset.EMPTY;
   }
 
   /**
@@ -191,7 +191,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   public static <E> ImmutableMultiset<E> copyOf(Iterable<? extends E> elements) {
     if (elements instanceof ImmutableMultiset) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableMultiset<E> result = (ImmutableMultiset<E>) elements;
+      ImmutableMultiset<E> result = (ImmutableMultiset<E>)elements;
       if (!result.isPartialView()) {
         return result;
       }
@@ -212,7 +212,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   static <E> ImmutableMultiset<E> copyFromEntries(
-      Collection<? extends Entry<? extends E>> entries) {
+    Collection<? extends Entry<? extends E>> entries) {
     if (entries.isEmpty()) {
       return of();
     } else {
@@ -238,24 +238,24 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   public UnmodifiableIterator<E> iterator() {
     final Iterator<Entry<E>> entryIterator = entrySet().iterator();
     return new UnmodifiableIterator<E>() {
-      int remaining;
-      E element;
+             int remaining;
+             E element;
 
-      @Override
-      public boolean hasNext() {
-        return (remaining > 0) || entryIterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return (remaining > 0) || entryIterator.hasNext();
+             }
 
-      @Override
-      public E next() {
-        if (remaining <= 0) {
-          Entry<E> entry = entryIterator.next();
-          element = entry.getElement();
-          remaining = entry.getCount();
-        }
-        remaining--;
-        return element;
-      }
+             @Override
+             public E next() {
+               if (remaining <= 0) {
+                 Entry<E> entry = entryIterator.next();
+                 element = entry.getElement();
+                 remaining = entry.getCount();
+               }
+               remaining--;
+               return element;
+             }
     };
   }
 
@@ -389,7 +389,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     @Override
     public boolean contains(Object o) {
       if (o instanceof Entry) {
-        Entry<?> entry = (Entry<?>) o;
+        Entry<?> entry = (Entry<?>)o;
         if (entry.getCount() <= 0) {
           return false;
         }

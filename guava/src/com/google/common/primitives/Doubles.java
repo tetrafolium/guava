@@ -169,7 +169,7 @@ public final class Doubles {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -267,7 +267,7 @@ public final class Doubles {
    * @param arrays zero or more {@code double} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static double[] concat(double[]... arrays) {
+  public static double[] concat(double[] ... arrays) {
     int length = 0;
     for (double[] array : arrays) {
       length += array.length;
@@ -557,7 +557,7 @@ public final class Doubles {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Double)
-          && Doubles.indexOf(array, (Double) target, start, end) != -1;
+             && Doubles.indexOf(array, (Double) target, start, end) != -1;
     }
 
     @Override

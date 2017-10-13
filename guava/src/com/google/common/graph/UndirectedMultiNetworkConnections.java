@@ -48,7 +48,7 @@ final class UndirectedMultiNetworkConnections<N, E>
 
   static <N, E> UndirectedMultiNetworkConnections<N, E> of() {
     return new UndirectedMultiNetworkConnections<>(
-            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR));
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR));
   }
 
   static <N, E> UndirectedMultiNetworkConnections<N, E> ofImmutable(Map<E, N> incidentEdges) {
@@ -75,10 +75,10 @@ final class UndirectedMultiNetworkConnections<N, E>
   @Override
   public Set<E> edgesConnecting(final N node) {
     return new MultiEdgesConnecting<E>(incidentEdgeMap, node) {
-      @Override
-      public int size() {
-        return adjacentNodesMultiset().count(node);
-      }
+             @Override
+             public int size() {
+               return adjacentNodesMultiset().count(node);
+             }
     };
   }
 

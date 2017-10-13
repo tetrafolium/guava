@@ -156,16 +156,16 @@ public abstract class RateLimiter {
   public static RateLimiter create(double permitsPerSecond, long warmupPeriod, TimeUnit unit) {
     checkArgument(warmupPeriod >= 0, "warmupPeriod must not be negative: %s", warmupPeriod);
     return create(
-            permitsPerSecond, warmupPeriod, unit, 3.0, SleepingStopwatch.createFromSystemTimer());
+      permitsPerSecond, warmupPeriod, unit, 3.0, SleepingStopwatch.createFromSystemTimer());
   }
 
   @VisibleForTesting
   static RateLimiter create(
-      double permitsPerSecond,
-      long warmupPeriod,
-      TimeUnit unit,
-      double coldFactor,
-      SleepingStopwatch stopwatch) {
+    double permitsPerSecond,
+    long warmupPeriod,
+    TimeUnit unit,
+    double coldFactor,
+    SleepingStopwatch stopwatch) {
     RateLimiter rateLimiter = new SmoothWarmingUp(stopwatch, warmupPeriod, unit, coldFactor);
     rateLimiter.setRate(permitsPerSecond);
     return rateLimiter;
@@ -217,7 +217,7 @@ public abstract class RateLimiter {
    */
   public final void setRate(double permitsPerSecond) {
     checkArgument(
-        permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
+      permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond), "rate must be positive");
     synchronized (mutex()) {
       doSetRate(permitsPerSecond, stopwatch.readMicros());
     }
@@ -403,19 +403,19 @@ public abstract class RateLimiter {
 
     public static final SleepingStopwatch createFromSystemTimer() {
       return new SleepingStopwatch() {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
+               final Stopwatch stopwatch = Stopwatch.createStarted();
 
-        @Override
-        protected long readMicros() {
-          return stopwatch.elapsed(MICROSECONDS);
-        }
+               @Override
+               protected long readMicros() {
+                 return stopwatch.elapsed(MICROSECONDS);
+               }
 
-        @Override
-        protected void sleepMicrosUninterruptibly(long micros) {
-          if (micros > 0) {
-            Uninterruptibles.sleepUninterruptibly(micros, MICROSECONDS);
-          }
-        }
+               @Override
+               protected void sleepMicrosUninterruptibly(long micros) {
+                 if (micros > 0) {
+                   Uninterruptibles.sleepUninterruptibly(micros, MICROSECONDS);
+                 }
+               }
       };
     }
   }

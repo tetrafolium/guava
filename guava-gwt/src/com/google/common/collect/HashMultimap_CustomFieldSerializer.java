@@ -33,7 +33,7 @@ public class HashMultimap_CustomFieldSerializer {
   public static HashMultimap<Object, Object> instantiate(SerializationStreamReader in)
   throws SerializationException {
     return (HashMultimap<Object, Object>)
-        Multimap_CustomFieldSerializerBase.populate(in, HashMultimap.create());
+           Multimap_CustomFieldSerializerBase.populate(in, HashMultimap.create());
   }
 
   public static void serialize(SerializationStreamWriter out, HashMultimap<?, ?> multimap)

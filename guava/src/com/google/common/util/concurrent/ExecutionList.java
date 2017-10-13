@@ -144,9 +144,9 @@ public final class ExecutionList {
       // we're given a bad one. We only catch RuntimeException because we want Errors to propagate
       // up.
       log.log(
-          Level.SEVERE,
-          "RuntimeException while executing runnable " + runnable + " with executor " + executor,
-          e);
+        Level.SEVERE,
+        "RuntimeException while executing runnable " + runnable + " with executor " + executor,
+        e);
     }
   }
 

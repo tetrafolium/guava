@@ -73,9 +73,9 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
    */
   public static UnsignedInteger valueOf(long value) {
     checkArgument(
-        (value & INT_MASK) == value,
-        "value (%s) is outside the range for an unsigned integer value",
-        value);
+      (value & INT_MASK) == value,
+      "value (%s) is outside the range for an unsigned integer value",
+      value);
     return fromIntBits((int) value);
   }
 
@@ -88,9 +88,9 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
   public static UnsignedInteger valueOf(BigInteger value) {
     checkNotNull(value);
     checkArgument(
-        value.signum() >= 0 && value.bitLength() <= Integer.SIZE,
-        "value (%s) is outside the range for an unsigned integer value",
-        value);
+      value.signum() >= 0 && value.bitLength() <= Integer.SIZE,
+      "value (%s) is outside the range for an unsigned integer value",
+      value);
     return fromIntBits(value.intValue());
   }
 

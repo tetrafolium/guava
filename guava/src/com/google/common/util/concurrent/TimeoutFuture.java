@@ -35,10 +35,10 @@ import javax.annotation.Nullable;
 @GwtIncompatible
 final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
   static <V> ListenableFuture<V> create(
-      ListenableFuture<V> delegate,
-      long time,
-      TimeUnit unit,
-      ScheduledExecutorService scheduledExecutor) {
+    ListenableFuture<V> delegate,
+    long time,
+    TimeUnit unit,
+    ScheduledExecutorService scheduledExecutor) {
     TimeoutFuture<V> result = new TimeoutFuture<>(delegate);
     Fire<V> fire = new Fire<>(result);
     result.timer = scheduledExecutor.schedule(fire, time, unit);

@@ -48,14 +48,14 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
 
   private ImmutableNetwork(Network<N, E> network) {
     super(
-        NetworkBuilder.from(network), getNodeConnections(network), getEdgeToReferenceNode(network));
+      NetworkBuilder.from(network), getNodeConnections(network), getEdgeToReferenceNode(network));
   }
 
   /** Returns an immutable copy of {@code network}. */
   public static <N, E> ImmutableNetwork<N, E> copyOf(Network<N, E> network) {
     return (network instanceof ImmutableNetwork)
-        ? (ImmutableNetwork<N, E>) network
-        : new ImmutableNetwork<N, E>(network);
+           ? (ImmutableNetwork<N, E>)network
+           : new ImmutableNetwork<N, E>(network);
   }
 
   /**
@@ -101,41 +101,41 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
       Map<E, N> outEdgeMap = Maps.asMap(network.outEdges(node), targetNodeFn(network));
       int selfLoopCount = network.edgesConnecting(node, node).size();
       return network.allowsParallelEdges()
-          ? DirectedMultiNetworkConnections.ofImmutable(inEdgeMap, outEdgeMap, selfLoopCount)
-          : DirectedNetworkConnections.ofImmutable(inEdgeMap, outEdgeMap, selfLoopCount);
+             ? DirectedMultiNetworkConnections.ofImmutable(inEdgeMap, outEdgeMap, selfLoopCount)
+             : DirectedNetworkConnections.ofImmutable(inEdgeMap, outEdgeMap, selfLoopCount);
     } else {
       Map<E, N> incidentEdgeMap =
           Maps.asMap(network.incidentEdges(node), adjacentNodeFn(network, node));
       return network.allowsParallelEdges()
-          ? UndirectedMultiNetworkConnections.ofImmutable(incidentEdgeMap)
-          : UndirectedNetworkConnections.ofImmutable(incidentEdgeMap);
+             ? UndirectedMultiNetworkConnections.ofImmutable(incidentEdgeMap)
+             : UndirectedNetworkConnections.ofImmutable(incidentEdgeMap);
     }
   }
 
   private static <N, E> Function<E, N> sourceNodeFn(final Network<N, E> network) {
     return new Function<E, N>() {
-      @Override
-      public N apply(E edge) {
-        return network.incidentNodes(edge).source();
-      }
+             @Override
+             public N apply(E edge) {
+               return network.incidentNodes(edge).source();
+             }
     };
   }
 
   private static <N, E> Function<E, N> targetNodeFn(final Network<N, E> network) {
     return new Function<E, N>() {
-      @Override
-      public N apply(E edge) {
-        return network.incidentNodes(edge).target();
-      }
+             @Override
+             public N apply(E edge) {
+               return network.incidentNodes(edge).target();
+             }
     };
   }
 
   private static <N, E> Function<E, N> adjacentNodeFn(final Network<N, E> network, final N node) {
     return new Function<E, N>() {
-      @Override
-      public N apply(E edge) {
-        return network.incidentNodes(edge).adjacentNode(node);
-      }
+             @Override
+             public N apply(E edge) {
+               return network.incidentNodes(edge).adjacentNode(node);
+             }
     };
   }
 }

@@ -70,7 +70,7 @@ public final class Throwables {
    */
   @GwtIncompatible // Class.cast, Class.isInstance
   public static <X extends Throwable> void throwIfInstanceOf(
-      Throwable throwable, Class<X> declaredType) throws X {
+    Throwable throwable, Class<X> declaredType) throws X {
     checkNotNull(throwable);
     if (declaredType.isInstance(throwable)) {
       throw declaredType.cast(throwable);
@@ -99,7 +99,7 @@ public final class Throwables {
   @Deprecated
   @GwtIncompatible // throwIfInstanceOf
   public static <X extends Throwable> void propagateIfInstanceOf(
-      @Nullable Throwable throwable, Class<X> declaredType) throws X {
+    @Nullable Throwable throwable, Class<X> declaredType) throws X {
     if (throwable != null) {
       throwIfInstanceOf(throwable, declaredType);
     }
@@ -180,7 +180,7 @@ public final class Throwables {
    */
   @GwtIncompatible // propagateIfInstanceOf
   public static <X extends Throwable> void propagateIfPossible(
-      @Nullable Throwable throwable, Class<X> declaredType) throws X {
+    @Nullable Throwable throwable, Class<X> declaredType) throws X {
     propagateIfInstanceOf(throwable, declaredType);
     propagateIfPossible(throwable);
   }
@@ -198,7 +198,7 @@ public final class Throwables {
    */
   @GwtIncompatible // propagateIfInstanceOf
   public static <X1 extends Throwable, X2 extends Throwable> void propagateIfPossible(
-      @Nullable Throwable throwable, Class<X1> declaredType1, Class<X2> declaredType2)
+    @Nullable Throwable throwable, Class<X1> declaredType1, Class<X2> declaredType2)
   throws X1, X2 {
     checkNotNull(declaredType2);
     propagateIfInstanceOf(throwable, declaredType1);
@@ -331,7 +331,7 @@ public final class Throwables {
   @Beta
   @GwtIncompatible // Class.cast(Object)
   public static <X extends Throwable> X getCauseAs(
-      Throwable throwable, Class<X> expectedCauseType) {
+    Throwable throwable, Class<X> expectedCauseType) {
     try {
       return expectedCauseType.cast(throwable.getCause());
     } catch (ClassCastException e) {
@@ -386,8 +386,8 @@ public final class Throwables {
   // TODO(cpovirk): Consider making this available under GWT (slow implementation only).
   public static List<StackTraceElement> lazyStackTrace(Throwable throwable) {
     return lazyStackTraceIsLazy()
-        ? jlaStackTrace(throwable)
-        : unmodifiableList(asList(throwable.getStackTrace()));
+           ? jlaStackTrace(throwable)
+           : unmodifiableList(asList(throwable.getStackTrace()));
   }
 
   /**
@@ -412,22 +412,22 @@ public final class Throwables {
      * AOSP grief.
      */
     return new AbstractList<StackTraceElement>() {
-      @Override
-      public StackTraceElement get(int n) {
-        return (StackTraceElement)
-            invokeAccessibleNonThrowingMethod(getStackTraceElementMethod, jla, t, n);
-      }
+             @Override
+             public StackTraceElement get(int n) {
+               return (StackTraceElement)
+                      invokeAccessibleNonThrowingMethod(getStackTraceElementMethod, jla, t, n);
+             }
 
-      @Override
-      public int size() {
-        return (Integer) invokeAccessibleNonThrowingMethod(getStackTraceDepthMethod, jla, t);
-      }
+             @Override
+             public int size() {
+               return (Integer) invokeAccessibleNonThrowingMethod(getStackTraceDepthMethod, jla, t);
+             }
     };
   }
 
   @GwtIncompatible // java.lang.reflect
   private static Object invokeAccessibleNonThrowingMethod(
-      Method method, Object receiver, Object... params) {
+    Method method, Object receiver, Object... params) {
     try {
       return method.invoke(receiver, params);
     } catch (IllegalAccessException e) {

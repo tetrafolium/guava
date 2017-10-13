@@ -121,7 +121,7 @@ import javax.annotation.concurrent.GuardedBy;
 public final class ServiceManager {
   private static final Logger logger = Logger.getLogger(ServiceManager.class.getName());
   private static final ListenerCallQueue.Event<Listener> HEALTHY_EVENT =
-  new ListenerCallQueue.Event<Listener>() {
+      new ListenerCallQueue.Event<Listener>() {
     @Override
     public void call(Listener listener) {
       listener.healthy();
@@ -133,7 +133,7 @@ public final class ServiceManager {
     }
   };
   private static final ListenerCallQueue.Event<Listener> STOPPED_EVENT =
-  new ListenerCallQueue.Event<Listener>() {
+      new ListenerCallQueue.Event<Listener>() {
     @Override
     public void call(Listener listener) {
       listener.stopped();
@@ -204,9 +204,9 @@ public final class ServiceManager {
       // Having no services causes the manager to behave strangely. Notably, listeners are never
       // fired. To avoid this we substitute a placeholder service.
       logger.log(
-          Level.WARNING,
-          "ServiceManager configured with no services.  Is your application configured properly?",
-          new EmptyServiceManagerWarning());
+        Level.WARNING,
+        "ServiceManager configured with no services.  Is your application configured properly?",
+        new EmptyServiceManagerWarning());
       copy = ImmutableList.<Service>of(new NoOpService());
     }
     this.state = new ServiceManagerState(copy);
@@ -401,8 +401,8 @@ public final class ServiceManager {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(ServiceManager.class)
-        .add("services", Collections2.filter(services, not(instanceOf(NoOpService.class))))
-        .toString();
+           .add("services", Collections2.filter(services, not(instanceOf(NoOpService.class))))
+           .toString();
   }
 
   /**
@@ -460,9 +460,9 @@ public final class ServiceManager {
       public boolean isSatisfied() {
         // All services have started or some service has terminated/failed.
         return states.count(RUNNING) == numberOfServices
-            || states.contains(STOPPING)
-            || states.contains(TERMINATED)
-            || states.contains(FAILED);
+               || states.contains(STOPPING)
+               || states.contains(TERMINATED)
+               || states.contains(FAILED);
       }
     }
 
@@ -533,9 +533,9 @@ public final class ServiceManager {
             }
           }
           throw new IllegalArgumentException(
-              "Services started transitioning asynchronously before "
-              + "the ServiceManager was constructed: "
-              + servicesInBadStates);
+                  "Services started transitioning asynchronously before "
+                  + "the ServiceManager was constructed: "
+                  + servicesInBadStates);
         }
       } finally {
         monitor.leave();
@@ -560,9 +560,9 @@ public final class ServiceManager {
       try {
         if (!monitor.waitForUninterruptibly(awaitHealthGuard, timeout, unit)) {
           throw new TimeoutException(
-              "Timeout waiting for the services to become healthy. The "
-              + "following services have not started: "
-              + Multimaps.filterKeys(servicesByState, in(ImmutableSet.of(NEW, STARTING))));
+                  "Timeout waiting for the services to become healthy. The "
+                  + "following services have not started: "
+                  + Multimaps.filterKeys(servicesByState, in(ImmutableSet.of(NEW, STARTING))));
         }
         checkHealthy();
       } finally {
@@ -580,9 +580,9 @@ public final class ServiceManager {
       try {
         if (!monitor.waitForUninterruptibly(stoppedGuard, timeout, unit)) {
           throw new TimeoutException(
-              "Timeout waiting for the services to stop. The following "
-              + "services have not stopped: "
-              + Multimaps.filterKeys(servicesByState, not(in(EnumSet.of(TERMINATED, FAILED)))));
+                  "Timeout waiting for the services to stop. The following "
+                  + "services have not stopped: "
+                  + Multimaps.filterKeys(servicesByState, not(in(EnumSet.of(TERMINATED, FAILED)))));
         }
       } finally {
         monitor.leave();
@@ -621,10 +621,10 @@ public final class ServiceManager {
         monitor.leave();
       }
       Collections.sort(
-          loadTimes,
-          Ordering.natural()
-          .onResultOf(
-      new Function<Entry<Service, Long>, Long>() {
+        loadTimes,
+        Ordering.natural()
+        .onResultOf(
+          new Function<Entry<Service, Long>, Long>() {
         @Override
         public Long apply(Map.Entry<Service, Long> input) {
           return input.getValue();
@@ -655,15 +655,15 @@ public final class ServiceManager {
         }
         // Update state.
         checkState(
-            servicesByState.remove(from, service),
-            "Service %s not at the expected location in the state map %s",
-            service,
-            from);
+          servicesByState.remove(from, service),
+          "Service %s not at the expected location in the state map %s",
+          service,
+          from);
         checkState(
-            servicesByState.put(to, service),
-            "Service %s in the state map unexpectedly at %s",
-            service,
-            to);
+          servicesByState.put(to, service),
+          "Service %s in the state map unexpectedly at %s",
+          service,
+          to);
         // Update the timer
         Stopwatch stopwatch = startupTimers.get(service);
         if (stopwatch == null) {
@@ -709,7 +709,7 @@ public final class ServiceManager {
 
     void enqueueFailedEvent(final Service service) {
       listeners.enqueue(
-      new ListenerCallQueue.Event<Listener>() {
+        new ListenerCallQueue.Event<Listener>() {
         @Override
         public void call(Listener listener) {
           listener.failure(service);
@@ -725,8 +725,8 @@ public final class ServiceManager {
     /** Attempts to execute all the listeners in {@link #listeners}. */
     void dispatchListenerEvents() {
       checkState(
-          !monitor.isOccupiedByCurrentThread(),
-          "It is incorrect to execute listeners with the monitor held.");
+        !monitor.isOccupiedByCurrentThread(),
+        "It is incorrect to execute listeners with the monitor held.");
       listeners.dispatch();
     }
 
@@ -735,8 +735,8 @@ public final class ServiceManager {
       if (states.count(RUNNING) != numberOfServices) {
         IllegalStateException exception =
             new IllegalStateException(
-            "Expected to be healthy after starting. The following services are not running: "
-            + Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
+          "Expected to be healthy after starting. The following services are not running: "
+          + Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
         for (Service service : servicesByState.get(State.FAILED)) {
           exception.addSuppressed(new FailedService(service));
         }
@@ -794,9 +794,9 @@ public final class ServiceManager {
       if (state != null) {
         if (!(service instanceof NoOpService)) {
           logger.log(
-              Level.FINE,
-              "Service {0} has terminated. Previous state was: {1}",
-              new Object[] {service, from});
+            Level.FINE,
+            "Service {0} has terminated. Previous state was: {1}",
+            new Object[] {service, from});
         }
         state.transitionService(service, from, TERMINATED);
       }
@@ -816,9 +816,9 @@ public final class ServiceManager {
         log &= from != State.STARTING;
         if (log) {
           logger.log(
-              Level.SEVERE,
-              "Service " + service + " has failed in the " + from + " state.",
-              failure);
+            Level.SEVERE,
+            "Service " + service + " has failed in the " + from + " state.",
+            failure);
         }
         state.transitionService(service, from, FAILED);
       }
@@ -851,10 +851,10 @@ public final class ServiceManager {
   private static final class FailedService extends Throwable {
     FailedService(Service service) {
       super(
-          service.toString(),
-          service.failureCause(),
-          false /* don't enable suppression */,
-          false /* don't calculate a stack trace. */);
+        service.toString(),
+        service.failureCause(),
+        false /* don't enable suppression */,
+        false /* don't calculate a stack trace. */);
     }
   }
 }

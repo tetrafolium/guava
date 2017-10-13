@@ -617,11 +617,11 @@ public abstract class CharMatcher implements Predicate<Character> {
           ? description.substring(0, description.length() - suffix.length())
           : description + suffix;
       return new NegatedFastMatcher(
-      precomputedPositive(negatedCharacters, table, negatedDescription)) {
-        @Override
-        public String toString() {
-          return description;
-        }
+        precomputedPositive(negatedCharacters, table, negatedDescription)) {
+               @Override
+               public String toString() {
+                 return description;
+               }
       };
     }
   }
@@ -631,9 +631,9 @@ public abstract class CharMatcher implements Predicate<Character> {
    */
   @GwtIncompatible // SmallCharMatcher
   private static CharMatcher precomputedPositive(
-      int totalCharacters, BitSet table, String description) {
+    int totalCharacters, BitSet table, String description) {
     switch (totalCharacters) {
-    case 0:
+    case 0 :
       return none();
     case 1:
       return is((char) table.nextSetBit(0));
@@ -643,15 +643,15 @@ public abstract class CharMatcher implements Predicate<Character> {
       return isEither(c1, c2);
     default:
       return isSmall(totalCharacters, table.length())
-          ? SmallCharMatcher.from(table, description)
-          : new BitSetMatcher(table, description);
+             ? SmallCharMatcher.from(table, description)
+             : new BitSetMatcher(table, description);
     }
   }
 
   @GwtIncompatible // SmallCharMatcher
   private static boolean isSmall(int totalCharacters, int tableLength) {
     return totalCharacters <= SmallCharMatcher.MAX_SIZE
-        && tableLength > (totalCharacters * 4 * Character.SIZE);
+           && tableLength > (totalCharacters * 4 * Character.SIZE);
     // err on the side of BitSetMatcher
   }
 
@@ -811,7 +811,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     int spread = 1;
 
     // This unusual loop comes from extensive benchmarking
-    OUT:
+OUT:
     while (true) {
       pos++;
       while (true) {
@@ -1046,18 +1046,18 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     return (first == 0 && last == len - 1)
-        ? collapseFrom(sequence, replacement)
-        : finishCollapseFrom(
-            sequence, first, last + 1, replacement, new StringBuilder(last + 1 - first), false);
+           ? collapseFrom(sequence, replacement)
+           : finishCollapseFrom(
+      sequence, first, last + 1, replacement, new StringBuilder(last + 1 - first), false);
   }
 
   private String finishCollapseFrom(
-      CharSequence sequence,
-      int start,
-      int end,
-      char replacement,
-      StringBuilder builder,
-      boolean inMatchingGroup) {
+    CharSequence sequence,
+    int start,
+    int end,
+    char replacement,
+    StringBuilder builder,
+    boolean inMatchingGroup) {
     for (int i = start; i < end; i++) {
       char c = sequence.charAt(i);
       if (matches(c)) {
@@ -1501,9 +1501,9 @@ public abstract class CharMatcher implements Predicate<Character> {
 
     // Must be in ascending order.
     private static final String ZEROES =
-        "0\u0660\u06f0\u07c0\u0966\u09e6\u0a66\u0ae6\u0b66"
-        + "\u0be6\u0c66\u0ce6\u0d66\u0e50\u0ed0\u0f20\u1040\u1090\u17e0\u1810"
-        + "\u1946\u19d0\u1b50\u1bb0\u1c40\u1c50\ua620\ua8d0\ua900\uaa50\uff10";
+      "0\u0660\u06f0\u07c0\u0966\u09e6\u0a66\u0ae6\u0b66"
+      + "\u0be6\u0c66\u0ce6\u0d66\u0e50\u0ed0\u0f20\u1040\u1090\u17e0\u1810"
+      + "\u1946\u19d0\u1b50\u1bb0\u1c40\u1c50\ua620\ua8d0\ua900\uaa50\uff10";
 
     private static char[] zeroes() {
       return ZEROES.toCharArray();
@@ -1623,8 +1623,8 @@ public abstract class CharMatcher implements Predicate<Character> {
   private static final class Invisible extends RangesMatcher {
 
     private static final String RANGE_STARTS =
-        "\u0000\u007f\u00ad\u0600\u061c\u06dd\u070f\u1680\u180e\u2000\u2028\u205f\u2066\u2067"
-        + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
+      "\u0000\u007f\u00ad\u0600\u061c\u06dd\u070f\u1680\u180e\u2000\u2028\u205f\u2066\u2067"
+      + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
     private static final String RANGE_ENDS =
         "\u0020\u00a0\u00ad\u0604\u061c\u06dd\u070f\u1680\u180e\u200f\u202f\u2064\u2066\u2067"
         + "\u2068\u2069\u206f\u3000\uf8ff\ufeff\ufff9\ufffb";
@@ -1643,9 +1643,9 @@ public abstract class CharMatcher implements Predicate<Character> {
 
     private SingleWidth() {
       super(
-          "CharMatcher.singleWidth()",
-          "\u0000\u05be\u05d0\u05f3\u0600\u0750\u0e00\u1e00\u2100\ufb50\ufe70\uff61".toCharArray(),
-          "\u04f9\u05be\u05ea\u05f4\u06ff\u077f\u0e7f\u20af\u213a\ufdff\ufeff\uffdc".toCharArray());
+        "CharMatcher.singleWidth()",
+        "\u0000\u05be\u05d0\u05f3\u0600\u0750\u0e00\u1e00\u2100\ufb50\ufe70\uff61".toCharArray(),
+        "\u04f9\u05be\u05ea\u05f4\u06ff\u077f\u0e7f\u20af\u213a\ufdff\ufeff\uffdc".toCharArray());
     }
   }
 
@@ -1945,10 +1945,10 @@ public abstract class CharMatcher implements Predicate<Character> {
     @Override
     public String toString() {
       return "CharMatcher.inRange('"
-          + showCharacter(startInclusive)
-          + "', '"
-          + showCharacter(endInclusive)
-          + "')";
+             + showCharacter(startInclusive)
+             + "', '"
+             + showCharacter(endInclusive)
+             + "')";
     }
   }
 

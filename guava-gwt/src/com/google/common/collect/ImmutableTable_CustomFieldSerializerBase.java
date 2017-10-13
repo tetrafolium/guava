@@ -41,7 +41,7 @@ final class ImmutableTable_CustomFieldSerializerBase {
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, ImmutableTable<Object, Object, Object> table)
+    SerializationStreamWriter writer, ImmutableTable<Object, Object, Object> table)
   throws SerializationException {
     writer.writeInt(table.rowKeySet().size());
     for (Object rowKey : table.rowKeySet()) {

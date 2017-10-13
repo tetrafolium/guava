@@ -72,7 +72,7 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
    */
   @SuppressWarnings("unchecked")
   public static <C extends Comparable> ImmutableRangeSet<C> of() {
-    return (ImmutableRangeSet<C>) EMPTY;
+    return (ImmutableRangeSet<C>)EMPTY;
   }
 
   /**
@@ -80,7 +80,7 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
    */
   @SuppressWarnings("unchecked")
   static <C extends Comparable> ImmutableRangeSet<C> all() {
-    return (ImmutableRangeSet<C>) ALL;
+    return (ImmutableRangeSet<C>)ALL;
   }
 
   /**
@@ -110,7 +110,7 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     }
 
     if (rangeSet instanceof ImmutableRangeSet) {
-      ImmutableRangeSet<C> immutableRangeSet = (ImmutableRangeSet<C>) rangeSet;
+      ImmutableRangeSet<C> immutableRangeSet = (ImmutableRangeSet<C>)rangeSet;
       if (!immutableRangeSet.isPartialView()) {
         return immutableRangeSet;
       }
@@ -157,32 +157,32 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
   public boolean intersects(Range<C> otherRange) {
     int ceilingIndex =
         SortedLists.binarySearch(
-            ranges,
-            Range.<C>lowerBoundFn(),
-            otherRange.lowerBound,
-            Ordering.natural(),
-            ANY_PRESENT,
-            NEXT_HIGHER);
+      ranges,
+      Range.<C>lowerBoundFn(),
+      otherRange.lowerBound,
+      Ordering.natural(),
+      ANY_PRESENT,
+      NEXT_HIGHER);
     if (ceilingIndex < ranges.size()
         && ranges.get(ceilingIndex).isConnected(otherRange)
         && !ranges.get(ceilingIndex).intersection(otherRange).isEmpty()) {
       return true;
     }
     return ceilingIndex > 0
-        && ranges.get(ceilingIndex - 1).isConnected(otherRange)
-        && !ranges.get(ceilingIndex - 1).intersection(otherRange).isEmpty();
+           && ranges.get(ceilingIndex - 1).isConnected(otherRange)
+           && !ranges.get(ceilingIndex - 1).intersection(otherRange).isEmpty();
   }
 
   @Override
   public boolean encloses(Range<C> otherRange) {
     int index =
         SortedLists.binarySearch(
-            ranges,
-            Range.<C>lowerBoundFn(),
-            otherRange.lowerBound,
-            Ordering.natural(),
-            ANY_PRESENT,
-            NEXT_LOWER);
+      ranges,
+      Range.<C>lowerBoundFn(),
+      otherRange.lowerBound,
+      Ordering.natural(),
+      ANY_PRESENT,
+      NEXT_LOWER);
     return index != -1 && ranges.get(index).encloses(otherRange);
   }
 
@@ -190,12 +190,12 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
   public Range<C> rangeContaining(C value) {
     int index =
         SortedLists.binarySearch(
-            ranges,
-            Range.<C>lowerBoundFn(),
-            Cut.belowValue(value),
-            Ordering.natural(),
-            ANY_PRESENT,
-            NEXT_LOWER);
+      ranges,
+      Range.<C>lowerBoundFn(),
+      Cut.belowValue(value),
+      Ordering.natural(),
+      ANY_PRESENT,
+      NEXT_LOWER);
     if (index != -1) {
       Range<C> range = ranges.get(index);
       return range.contains(value) ? range : null;
@@ -434,11 +434,11 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     if (range.hasLowerBound()) {
       fromIndex =
           SortedLists.binarySearch(
-              ranges,
-              Range.<C>upperBoundFn(),
-              range.lowerBound,
-              KeyPresentBehavior.FIRST_AFTER,
-              KeyAbsentBehavior.NEXT_HIGHER);
+        ranges,
+        Range.<C>upperBoundFn(),
+        range.lowerBound,
+        KeyPresentBehavior.FIRST_AFTER,
+        KeyAbsentBehavior.NEXT_HIGHER);
     } else {
       fromIndex = 0;
     }
@@ -447,11 +447,11 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     if (range.hasUpperBound()) {
       toIndex =
           SortedLists.binarySearch(
-              ranges,
-              Range.<C>lowerBoundFn(),
-              range.upperBound,
-              KeyPresentBehavior.FIRST_PRESENT,
-              KeyAbsentBehavior.NEXT_HIGHER);
+        ranges,
+        Range.<C>lowerBoundFn(),
+        range.upperBound,
+        KeyPresentBehavior.FIRST_PRESENT,
+        KeyAbsentBehavior.NEXT_HIGHER);
     } else {
       toIndex = ranges.size();
     }
@@ -460,25 +460,25 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
       return ImmutableList.of();
     } else {
       return new ImmutableList<Range<C>>() {
-        @Override
-        public int size() {
-          return length;
-        }
+               @Override
+               public int size() {
+                 return length;
+               }
 
-        @Override
-        public Range<C> get(int index) {
-          checkElementIndex(index, length);
-          if (index == 0 || index == length - 1) {
-            return ranges.get(index + fromIndex).intersection(range);
-          } else {
-            return ranges.get(index + fromIndex);
-          }
-        }
+               @Override
+               public Range<C> get(int index) {
+                 checkElementIndex(index, length);
+                 if (index == 0 || index == length - 1) {
+                   return ranges.get(index + fromIndex).intersection(range);
+                 } else {
+                   return ranges.get(index + fromIndex);
+                 }
+               }
 
-        @Override
-        boolean isPartialView() {
-          return true;
-        }
+               @Override
+               boolean isPartialView() {
+                 return true;
+               }
       };
     }
   }
@@ -528,13 +528,13 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
       // according to the spec of canonical, neither this ImmutableRangeSet nor
       // the range have a lower bound
       throw new IllegalArgumentException(
-          "Neither the DiscreteDomain nor this range set are bounded below");
+              "Neither the DiscreteDomain nor this range set are bounded below");
     } else if (!span.hasUpperBound()) {
       try {
         domain.maxValue();
       } catch (NoSuchElementException e) {
         throw new IllegalArgumentException(
-            "Neither the DiscreteDomain nor this range set are bounded above");
+                "Neither the DiscreteDomain nor this range set are bounded above");
       }
     }
 
@@ -571,20 +571,20 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     @Override
     public UnmodifiableIterator<C> iterator() {
       return new AbstractIterator<C>() {
-        final Iterator<Range<C>> rangeItr = ranges.iterator();
-        Iterator<C> elemItr = Iterators.emptyIterator();
+               final Iterator<Range<C>> rangeItr = ranges.iterator();
+               Iterator<C> elemItr = Iterators.emptyIterator();
 
-        @Override
-        protected C computeNext() {
-          while (!elemItr.hasNext()) {
-            if (rangeItr.hasNext()) {
-              elemItr = ContiguousSet.create(rangeItr.next(), domain).iterator();
-            } else {
-              return endOfData();
-            }
-          }
-          return elemItr.next();
-        }
+               @Override
+               protected C computeNext() {
+                 while (!elemItr.hasNext()) {
+                   if (rangeItr.hasNext()) {
+                     elemItr = ContiguousSet.create(rangeItr.next(), domain).iterator();
+                   } else {
+                     return endOfData();
+                   }
+                 }
+                 return elemItr.next();
+               }
       };
     }
 
@@ -592,20 +592,20 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
     @GwtIncompatible("NavigableSet")
     public UnmodifiableIterator<C> descendingIterator() {
       return new AbstractIterator<C>() {
-        final Iterator<Range<C>> rangeItr = ranges.reverse().iterator();
-        Iterator<C> elemItr = Iterators.emptyIterator();
+               final Iterator<Range<C>> rangeItr = ranges.reverse().iterator();
+               Iterator<C> elemItr = Iterators.emptyIterator();
 
-        @Override
-        protected C computeNext() {
-          while (!elemItr.hasNext()) {
-            if (rangeItr.hasNext()) {
-              elemItr = ContiguousSet.create(rangeItr.next(), domain).descendingIterator();
-            } else {
-              return endOfData();
-            }
-          }
-          return elemItr.next();
-        }
+               @Override
+               protected C computeNext() {
+                 while (!elemItr.hasNext()) {
+                   if (rangeItr.hasNext()) {
+                     elemItr = ContiguousSet.create(rangeItr.next(), domain).descendingIterator();
+                   } else {
+                     return endOfData();
+                   }
+                 }
+                 return elemItr.next();
+               }
       };
     }
 
@@ -620,14 +620,14 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
 
     @Override
     ImmutableSortedSet<C> subSetImpl(
-        C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
       if (!fromInclusive && !toInclusive && Range.compareOrThrow(fromElement, toElement) == 0) {
         return ImmutableSortedSet.of();
       }
       return subSet(
-              Range.range(
-                  fromElement, BoundType.forBoolean(fromInclusive),
-                  toElement, BoundType.forBoolean(toInclusive)));
+        Range.range(
+          fromElement, BoundType.forBoolean(fromInclusive),
+          toElement, BoundType.forBoolean(toInclusive)));
     }
 
     @Override
@@ -791,10 +791,10 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
           Range<C> nextRange = peekingItr.peek();
           if (range.isConnected(nextRange)) {
             checkArgument(
-                range.intersection(nextRange).isEmpty(),
-                "Overlapping ranges not permitted but found %s overlapping %s",
-                range,
-                nextRange);
+              range.intersection(nextRange).isEmpty(),
+              "Overlapping ranges not permitted but found %s overlapping %s",
+              range,
+              nextRange);
             range = range.span(peekingItr.next());
           } else {
             break;

@@ -418,7 +418,7 @@ public final class Quantiles {
       }
       sort(requiredSelections, 0, requiredSelectionsCount);
       selectAllInPlace(
-          requiredSelections, 0, requiredSelectionsCount - 1, dataset, 0, dataset.length - 1);
+        requiredSelections, 0, requiredSelectionsCount - 1, dataset, 0, dataset.length - 1);
       Map<Integer, Double> ret = new HashMap<>();
       for (int i = 0; i < indexes.length; i++) {
         int quotient = quotients[i];
@@ -427,7 +427,7 @@ public final class Quantiles {
           ret.put(indexes[i], dataset[quotient]);
         } else {
           ret.put(
-              indexes[i], interpolate(dataset[quotient], dataset[quotient + 1], remainder, scale));
+            indexes[i], interpolate(dataset[quotient], dataset[quotient + 1], remainder, scale));
         }
       }
       return unmodifiableMap(ret);
@@ -470,7 +470,7 @@ public final class Quantiles {
   private static void checkIndex(int index, int scale) {
     if (index < 0 || index > scale) {
       throw new IllegalArgumentException(
-          "Quantile indexes must be between 0 and the scale, which is " + scale);
+              "Quantile indexes must be between 0 and the scale, which is " + scale);
     }
   }
 
@@ -601,7 +601,7 @@ public final class Quantiles {
    * {@code to}].
    */
   private static void selectAllInPlace(
-      int[] allRequired, int requiredFrom, int requiredTo, double[] array, int from, int to) {
+    int[] allRequired, int requiredFrom, int requiredTo, double[] array, int from, int to) {
     // Choose the first selection to do...
     int requiredChosen = chooseNextSelection(allRequired, requiredFrom, requiredTo, from, to);
     int required = allRequired[requiredChosen];
@@ -638,7 +638,7 @@ public final class Quantiles {
    * minimizes the size of the subranges from which the remaining selections must be done.
    */
   private static int chooseNextSelection(
-      int[] allRequired, int requiredFrom, int requiredTo, int from, int to) {
+    int[] allRequired, int requiredFrom, int requiredTo, int from, int to) {
     if (requiredFrom == requiredTo) {
       return requiredFrom; // only one thing to choose, so choose it
     }

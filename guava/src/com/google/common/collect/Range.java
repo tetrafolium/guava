@@ -146,7 +146,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   }
 
   static <C extends Comparable<?>> Ordering<Range<C>> rangeLexOrdering() {
-    return (Ordering<Range<C>>) (Ordering) RangeLexOrdering.INSTANCE;
+    return (Ordering<Range<C>>)(Ordering) RangeLexOrdering.INSTANCE;
   }
 
   static <C extends Comparable<?>> Range<C> create(Cut<C> lowerBound, Cut<C> upperBound) {
@@ -211,7 +211,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> range(
-      C lower, BoundType lowerType, C upper, BoundType upperType) {
+    C lower, BoundType lowerType, C upper, BoundType upperType) {
     checkNotNull(lowerType);
     checkNotNull(upperType);
 
@@ -505,7 +505,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    */
   public boolean encloses(Range<C> other) {
     return lowerBound.compareTo(other.lowerBound) <= 0
-        && upperBound.compareTo(other.upperBound) >= 0;
+           && upperBound.compareTo(other.upperBound) >= 0;
   }
 
   /**
@@ -534,7 +534,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    */
   public boolean isConnected(Range<C> other) {
     return lowerBound.compareTo(other.upperBound) <= 0
-        && other.lowerBound.compareTo(upperBound) <= 0;
+           && other.lowerBound.compareTo(upperBound) <= 0;
   }
 
   /**
@@ -633,7 +633,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Range) {
-      Range<?> other = (Range<?>) object;
+      Range<?> other = (Range<?>)object;
       return lowerBound.equals(other.lowerBound) && upperBound.equals(other.upperBound);
     }
     return false;
@@ -666,7 +666,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
   private static <T> SortedSet<T> cast(Iterable<T> iterable) {
-    return (SortedSet<T>) iterable;
+    return (SortedSet<T>)iterable;
   }
 
   Object readResolve() {
@@ -691,9 +691,9 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
     @Override
     public int compare(Range<?> left, Range<?> right) {
       return ComparisonChain.start()
-          .compare(left.lowerBound, right.lowerBound)
-          .compare(left.upperBound, right.upperBound)
-          .result();
+             .compare(left.lowerBound, right.lowerBound)
+             .compare(left.upperBound, right.upperBound)
+             .result();
     }
 
     private static final long serialVersionUID = 0;

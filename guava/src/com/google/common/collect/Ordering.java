@@ -156,7 +156,7 @@ public abstract class Ordering<T> implements Comparator<T> {
   @GwtCompatible(serializable = true)
   @SuppressWarnings("unchecked") // TODO(kevinb): right way to explain this??
   public static <C extends Comparable> Ordering<C> natural() {
-    return (Ordering<C>) NaturalOrdering.INSTANCE;
+    return (Ordering<C>)NaturalOrdering.INSTANCE;
   }
 
   // Static factories
@@ -177,8 +177,8 @@ public abstract class Ordering<T> implements Comparator<T> {
   @GwtCompatible(serializable = true)
   public static <T> Ordering<T> from(Comparator<T> comparator) {
     return (comparator instanceof Ordering)
-        ? (Ordering<T>) comparator
-        : new ComparatorOrdering<T>(comparator);
+           ? (Ordering<T>)comparator
+           : new ComparatorOrdering<T>(comparator);
   }
 
   /**
@@ -731,7 +731,7 @@ public abstract class Ordering<T> implements Comparator<T> {
    */
   public <E extends T> List<E> leastOf(Iterable<E> iterable, int k) {
     if (iterable instanceof Collection) {
-      Collection<E> collection = (Collection<E>) iterable;
+      Collection<E> collection = (Collection<E>)iterable;
       if (collection.size() <= 2L * k) {
         // In this case, just dumping the collection to an array and sorting is
         // faster than using the implementation for Iterator, which is

@@ -92,7 +92,7 @@ public final class Collections2 {
     if (unfiltered instanceof FilteredCollection) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
-      return ((FilteredCollection<E>) unfiltered).createCombined(predicate);
+      return ((FilteredCollection<E>)unfiltered).createCombined(predicate);
     }
 
     return new FilteredCollection<E>(checkNotNull(unfiltered), checkNotNull(predicate));
@@ -193,7 +193,7 @@ public final class Collections2 {
     public void forEach(Consumer<? super E> action) {
       checkNotNull(action);
       unfiltered.forEach(
-      (E e) -> {
+        (E e) -> {
         if (predicate.test(e)) {
           action.accept(e);
         }
@@ -207,7 +207,7 @@ public final class Collections2 {
 
     @Override
     public boolean removeAll(final Collection<?> collection) {
-      return removeIf(collection::contains);
+      return removeIf(collection : : contains);
     }
 
     @Override
@@ -266,7 +266,7 @@ public final class Collections2 {
    * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#map Stream.map}.
    */
   public static <F, T> Collection<T> transform(
-      Collection<F> fromCollection, Function<? super F, T> function) {
+    Collection<F> fromCollection, Function<? super F, T> function) {
     return new TransformedCollection<>(fromCollection, function);
   }
 
@@ -370,7 +370,7 @@ public final class Collections2 {
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
   static <T> Collection<T> cast(Iterable<T> iterable) {
-    return (Collection<T>) iterable;
+    return (Collection<T>)iterable;
   }
 
   /**
@@ -402,7 +402,7 @@ public final class Collections2 {
    */
   @Beta
   public static <E extends Comparable<? super E>> Collection<List<E>> orderedPermutations(
-      Iterable<E> elements) {
+    Iterable<E> elements) {
     return orderedPermutations(elements, Ordering.natural());
   }
 
@@ -455,7 +455,7 @@ public final class Collections2 {
    */
   @Beta
   public static <E> Collection<List<E>> orderedPermutations(
-      Iterable<E> elements, Comparator<? super E> comparator) {
+    Iterable<E> elements, Comparator<? super E> comparator) {
     return new OrderedPermutationCollection<E>(elements, comparator);
   }
 
@@ -480,7 +480,7 @@ public final class Collections2 {
      * </ul>
      */
     private static <E> int calculateSize(
-        List<E> sortedInputList, Comparator<? super E> comparator) {
+      List<E> sortedInputList, Comparator<? super E> comparator) {
       int permutations = 1;
       int n = 1;
       int r = 1;
@@ -518,7 +518,7 @@ public final class Collections2 {
     @Override
     public boolean contains(@Nullable Object obj) {
       if (obj instanceof List) {
-        List<?> list = (List<?>) obj;
+        List<?> list = (List<?>)obj;
         return isPermutation(inputList, list);
       }
       return false;
@@ -633,7 +633,7 @@ public final class Collections2 {
     @Override
     public boolean contains(@Nullable Object obj) {
       if (obj instanceof List) {
-        List<?> list = (List<?>) obj;
+        List<?> list = (List<?>)obj;
         return isPermutation(inputList, list);
       }
       return false;

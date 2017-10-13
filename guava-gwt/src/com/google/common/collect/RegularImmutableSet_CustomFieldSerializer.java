@@ -30,7 +30,7 @@ import java.util.List;
 public class RegularImmutableSet_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableSet<?> instance) {}
+    SerializationStreamReader reader, RegularImmutableSet<?> instance) {}
 
   public static RegularImmutableSet<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
@@ -42,7 +42,7 @@ public class RegularImmutableSet_CustomFieldSerializer {
      * always have two or more elements, ImmutableSet.copyOf always return
      * a RegularImmutableSet back.
      */
-    return (RegularImmutableSet<Object>) ImmutableSet.copyOf(elements);
+    return (RegularImmutableSet<Object>)ImmutableSet.copyOf(elements);
   }
 
   public static void serialize(SerializationStreamWriter writer, RegularImmutableSet<?> instance)

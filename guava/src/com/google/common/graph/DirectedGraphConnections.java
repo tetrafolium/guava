@@ -65,24 +65,24 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   private int successorCount;
 
   private DirectedGraphConnections(
-      Map<N, Object> adjacentNodeValues, int predecessorCount, int successorCount) {
+    Map<N, Object> adjacentNodeValues, int predecessorCount, int successorCount) {
     this.adjacentNodeValues = checkNotNull(adjacentNodeValues);
     this.predecessorCount = checkNonNegative(predecessorCount);
     this.successorCount = checkNonNegative(successorCount);
     checkState(
-        predecessorCount <= adjacentNodeValues.size()
-        && successorCount <= adjacentNodeValues.size());
+      predecessorCount <= adjacentNodeValues.size()
+      && successorCount <= adjacentNodeValues.size());
   }
 
   static <N, V> DirectedGraphConnections<N, V> of() {
     // We store predecessors and successors in the same map, so double the initial capacity.
     int initialCapacity = INNER_CAPACITY * 2;
     return new DirectedGraphConnections<>(
-            new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
+      new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
   }
 
   static <N, V> DirectedGraphConnections<N, V> ofImmutable(
-      Set<N> predecessors, Map<N, V> successorValues) {
+    Set<N> predecessors, Map<N, V> successorValues) {
     Map<N, Object> adjacentNodeValues = new HashMap<>();
     adjacentNodeValues.putAll(successorValues);
     for (N predecessor : predecessors) {
@@ -92,7 +92,7 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       }
     }
     return new DirectedGraphConnections<>(
-            ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(), successorValues.size());
+      ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(), successorValues.size());
   }
 
   @Override
@@ -103,64 +103,64 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   @Override
   public Set<N> predecessors() {
     return new AbstractSet<N>() {
-      @Override
-      public UnmodifiableIterator<N> iterator() {
-        final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
-        return new AbstractIterator<N>() {
-          @Override
-          protected N computeNext() {
-            while (entries.hasNext()) {
-              Entry<N, Object> entry = entries.next();
-              if (isPredecessor(entry.getValue())) {
-                return entry.getKey();
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+             @Override
+             public UnmodifiableIterator<N> iterator() {
+               final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
+               return new AbstractIterator<N>() {
+                        @Override
+                        protected N computeNext() {
+                          while (entries.hasNext()) {
+                            Entry<N, Object> entry = entries.next();
+                            if (isPredecessor(entry.getValue())) {
+                              return entry.getKey();
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public int size() {
-        return predecessorCount;
-      }
+             @Override
+             public int size() {
+               return predecessorCount;
+             }
 
-      @Override
-      public boolean contains(@Nullable Object obj) {
-        return isPredecessor(adjacentNodeValues.get(obj));
-      }
+             @Override
+             public boolean contains(@Nullable Object obj) {
+               return isPredecessor(adjacentNodeValues.get(obj));
+             }
     };
   }
 
   @Override
   public Set<N> successors() {
     return new AbstractSet<N>() {
-      @Override
-      public UnmodifiableIterator<N> iterator() {
-        final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
-        return new AbstractIterator<N>() {
-          @Override
-          protected N computeNext() {
-            while (entries.hasNext()) {
-              Entry<N, Object> entry = entries.next();
-              if (isSuccessor(entry.getValue())) {
-                return entry.getKey();
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+             @Override
+             public UnmodifiableIterator<N> iterator() {
+               final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
+               return new AbstractIterator<N>() {
+                        @Override
+                        protected N computeNext() {
+                          while (entries.hasNext()) {
+                            Entry<N, Object> entry = entries.next();
+                            if (isSuccessor(entry.getValue())) {
+                              return entry.getKey();
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public int size() {
-        return successorCount;
-      }
+             @Override
+             public int size() {
+               return successorCount;
+             }
 
-      @Override
-      public boolean contains(@Nullable Object obj) {
-        return isSuccessor(adjacentNodeValues.get(obj));
-      }
+             @Override
+             public boolean contains(@Nullable Object obj) {
+               return isSuccessor(adjacentNodeValues.get(obj));
+             }
     };
   }
 

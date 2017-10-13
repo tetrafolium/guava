@@ -159,9 +159,9 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
     @Override
     ListenableFuture<V> runInterruptibly() throws Exception {
       return checkNotNull(
-              callable.call(),
-              "AsyncCallable.call returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+        callable.call(),
+        "AsyncCallable.call returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
     }
 
     @Override

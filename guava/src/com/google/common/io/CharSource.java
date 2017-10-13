@@ -112,8 +112,8 @@ public abstract class CharSource {
   public BufferedReader openBufferedStream() throws IOException {
     Reader reader = openStream();
     return (reader instanceof BufferedReader)
-        ? (BufferedReader) reader
-        : new BufferedReader(reader);
+           ? (BufferedReader) reader
+           : new BufferedReader(reader);
   }
 
   /**
@@ -477,8 +477,8 @@ public abstract class CharSource {
    */
   public static CharSource wrap(CharSequence charSequence) {
     return charSequence instanceof String
-        ? new StringCharSource((String) charSequence)
-        : new CharSequenceCharSource(charSequence);
+           ? new StringCharSource((String) charSequence)
+           : new CharSequenceCharSource(charSequence);
   }
 
   /**
@@ -561,19 +561,19 @@ public abstract class CharSource {
      */
     private Iterator<String> linesIterator() {
       return new AbstractIterator<String>() {
-        Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
+               Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
 
-        @Override
-        protected String computeNext() {
-          if (lines.hasNext()) {
-            String next = lines.next();
-            // skip last line if it's empty
-            if (lines.hasNext() || !next.isEmpty()) {
-              return next;
-            }
-          }
-          return endOfData();
-        }
+               @Override
+               protected String computeNext() {
+                 if (lines.hasNext()) {
+                   String next = lines.next();
+                   // skip last line if it's empty
+                   if (lines.hasNext() || !next.isEmpty()) {
+                     return next;
+                   }
+                 }
+                 return endOfData();
+               }
       };
     }
 

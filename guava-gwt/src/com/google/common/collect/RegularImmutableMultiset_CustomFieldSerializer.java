@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class RegularImmutableMultiset_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableMultiset<?> instance) {}
+    SerializationStreamReader reader, RegularImmutableMultiset<?> instance) {}
 
   public static RegularImmutableMultiset<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
@@ -41,11 +41,11 @@ public class RegularImmutableMultiset_CustomFieldSerializer {
      * RegularImmutableMultiset always have one or more elements,
      * ImmutableMultiset.copyOf always return a RegularImmutableMultiset back.
      */
-    return (RegularImmutableMultiset<Object>) ImmutableMultiset.copyOf(elements);
+    return (RegularImmutableMultiset<Object>)ImmutableMultiset.copyOf(elements);
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableMultiset<?> instance)
+    SerializationStreamWriter writer, RegularImmutableMultiset<?> instance)
   throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }

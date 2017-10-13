@@ -251,8 +251,8 @@ public class CycleDetectingLockFactory {
    */
   public ReentrantLock newReentrantLock(String lockName, boolean fair) {
     return policy == Policies.DISABLED
-        ? new ReentrantLock(fair)
-        : new CycleDetectingReentrantLock(new LockGraphNode(lockName), fair);
+           ? new ReentrantLock(fair)
+           : new CycleDetectingReentrantLock(new LockGraphNode(lockName), fair);
   }
 
   /**
@@ -269,8 +269,8 @@ public class CycleDetectingLockFactory {
    */
   public ReentrantReadWriteLock newReentrantReadWriteLock(String lockName, boolean fair) {
     return policy == Policies.DISABLED
-        ? new ReentrantReadWriteLock(fair)
-        : new CycleDetectingReentrantReadWriteLock(new LockGraphNode(lockName), fair);
+           ? new ReentrantReadWriteLock(fair)
+           : new CycleDetectingReentrantReadWriteLock(new LockGraphNode(lockName), fair);
   }
 
   // A static mapping from an Enum type to its set of LockGraphNodes.
@@ -281,13 +281,13 @@ public class CycleDetectingLockFactory {
    * Creates a {@code CycleDetectingLockFactory.WithExplicitOrdering<E>}.
    */
   public static <E extends Enum<E>> WithExplicitOrdering<E> newInstanceWithExplicitOrdering(
-      Class<E> enumClass, Policy policy) {
+    Class<E> enumClass, Policy policy) {
     // createNodes maps each enumClass to a Map with the corresponding enum key
     // type.
     checkNotNull(enumClass);
     checkNotNull(policy);
     @SuppressWarnings("unchecked")
-    Map<E, LockGraphNode> lockGraphNodes = (Map<E, LockGraphNode>) getOrCreateNodes(enumClass);
+    Map<E, LockGraphNode> lockGraphNodes = (Map<E, LockGraphNode>)getOrCreateNodes(enumClass);
     return new WithExplicitOrdering<E>(policy, lockGraphNodes);
   }
 
@@ -424,8 +424,8 @@ public class CycleDetectingLockFactory {
      */
     public ReentrantLock newReentrantLock(E rank, boolean fair) {
       return policy == Policies.DISABLED
-          ? new ReentrantLock(fair)
-          : new CycleDetectingReentrantLock(lockGraphNodes.get(rank), fair);
+             ? new ReentrantLock(fair)
+             : new CycleDetectingReentrantLock(lockGraphNodes.get(rank), fair);
     }
 
     /**
@@ -445,8 +445,8 @@ public class CycleDetectingLockFactory {
      */
     public ReentrantReadWriteLock newReentrantReadWriteLock(E rank, boolean fair) {
       return policy == Policies.DISABLED
-          ? new ReentrantReadWriteLock(fair)
-          : new CycleDetectingReentrantReadWriteLock(lockGraphNodes.get(rank), fair);
+             ? new ReentrantReadWriteLock(fair)
+             : new CycleDetectingReentrantReadWriteLock(lockGraphNodes.get(rank), fair);
     }
   }
 
@@ -467,7 +467,7 @@ public class CycleDetectingLockFactory {
   // This is logically a Set, but an ArrayList is used to minimize the amount
   // of allocation done on lock()/unlock().
   private static final ThreadLocal<ArrayList<LockGraphNode>> acquiredLocks =
-  new ThreadLocal<ArrayList<LockGraphNode>>() {
+      new ThreadLocal<ArrayList<LockGraphNode>>() {
     @Override
     protected ArrayList<LockGraphNode> initialValue() {
       return Lists.<LockGraphNode>newArrayListWithCapacity(3);
@@ -493,9 +493,9 @@ public class CycleDetectingLockFactory {
 
     static final ImmutableSet<String> EXCLUDED_CLASS_NAMES =
         ImmutableSet.of(
-            CycleDetectingLockFactory.class.getName(),
-            ExampleStackTrace.class.getName(),
-            LockGraphNode.class.getName());
+      CycleDetectingLockFactory.class.getName(),
+      ExampleStackTrace.class.getName(),
+      LockGraphNode.class.getName());
 
     ExampleStackTrace(LockGraphNode node1, LockGraphNode node2) {
       super(node1.getLockName() + " -> " + node2.getLockName());
@@ -540,7 +540,7 @@ public class CycleDetectingLockFactory {
     private final ExampleStackTrace conflictingStackTrace;
 
     private PotentialDeadlockException(
-        LockGraphNode node1, LockGraphNode node2, ExampleStackTrace conflictingStackTrace) {
+      LockGraphNode node1, LockGraphNode node2, ExampleStackTrace conflictingStackTrace) {
       super(node1, node2);
       this.conflictingStackTrace = conflictingStackTrace;
       initCause(conflictingStackTrace);
@@ -631,9 +631,9 @@ public class CycleDetectingLockFactory {
       // this situation, throw an IllegalStateException as defined by contract
       // described in the documentation of WithExplicitOrdering.
       Preconditions.checkState(
-          this != acquiredLock,
-          "Attempted to acquire multiple locks with the same rank %s",
-          acquiredLock.getLockName());
+        this != acquiredLock,
+        "Attempted to acquire multiple locks with the same rank %s",
+        acquiredLock.getLockName());
 
       if (allowedPriorLocks.containsKey(acquiredLock)) {
         // The acquisition ordering from "acquiredLock" to "this" has already
@@ -648,7 +648,7 @@ public class CycleDetectingLockFactory {
         // (the example cycle) as that of the cached exception.
         PotentialDeadlockException exception =
             new PotentialDeadlockException(
-            acquiredLock, this, previousDeadlockException.getConflictingStackTrace());
+          acquiredLock, this, previousDeadlockException.getConflictingStackTrace());
         policy.handlePotentialDeadlock(exception);
         return;
       }

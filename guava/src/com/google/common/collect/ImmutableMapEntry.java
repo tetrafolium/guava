@@ -97,10 +97,10 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInValueBucket;
 
     NonTerminalImmutableBiMapEntry(
-        K key,
-        V value,
-        ImmutableMapEntry<K, V> nextInKeyBucket,
-        ImmutableMapEntry<K, V> nextInValueBucket) {
+      K key,
+      V value,
+      ImmutableMapEntry<K, V> nextInKeyBucket,
+      ImmutableMapEntry<K, V> nextInValueBucket) {
       super(key, value, nextInKeyBucket);
       this.nextInValueBucket = nextInValueBucket;
     }

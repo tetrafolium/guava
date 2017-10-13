@@ -150,9 +150,9 @@ public final class Preconditions {
    * @throws IllegalArgumentException if {@code expression} is false
    */
   public static void checkArgument(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object... errorMessageArgs) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object... errorMessageArgs) {
     if (!expression) {
       throw new IllegalArgumentException(format(errorMessageTemplate, errorMessageArgs));
     }
@@ -205,7 +205,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1));
     }
@@ -219,7 +219,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, char p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, char p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -233,7 +233,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, char p1, int p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, int p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -247,7 +247,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, char p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, long p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -261,7 +261,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -275,7 +275,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, int p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, int p1, char p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -289,7 +289,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, int p1, int p2) {
+    boolean b, @Nullable String errorMessageTemplate, int p1, int p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -303,7 +303,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, int p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, int p1, long p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -317,7 +317,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -331,7 +331,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, long p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, char p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -345,7 +345,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, long p1, int p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, int p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -359,7 +359,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, long p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, long p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -373,7 +373,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -387,7 +387,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -401,7 +401,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -415,7 +415,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -429,7 +429,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2));
     }
@@ -443,11 +443,11 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3) {
+    boolean b,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2, p3));
     }
@@ -461,12 +461,12 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkArgument(
-      boolean b,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3,
-      @Nullable Object p4) {
+    boolean b,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3,
+    @Nullable Object p4) {
     if (!b) {
       throw new IllegalArgumentException(format(errorMessageTemplate, p1, p2, p3, p4));
     }
@@ -518,9 +518,9 @@ public final class Preconditions {
    * @see Verify#verify Verify.verify()
    */
   public static void checkState(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object... errorMessageArgs) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object... errorMessageArgs) {
     if (!expression) {
       throw new IllegalStateException(format(errorMessageTemplate, errorMessageArgs));
     }
@@ -577,7 +577,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1));
     }
@@ -592,7 +592,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, char p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, char p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -621,7 +621,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, char p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, long p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -636,7 +636,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -693,7 +693,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -708,7 +708,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, long p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, char p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -737,7 +737,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, long p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, long p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -752,7 +752,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -767,7 +767,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -782,7 +782,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -797,7 +797,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -812,7 +812,7 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
+    boolean b, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2));
     }
@@ -827,11 +827,11 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3) {
+    boolean b,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2, p3));
     }
@@ -846,12 +846,12 @@ public final class Preconditions {
    * @since 20.0 (varargs overload since 2.0)
    */
   public static void checkState(
-      boolean b,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3,
-      @Nullable Object p4) {
+    boolean b,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3,
+    @Nullable Object p4) {
     if (!b) {
       throw new IllegalStateException(format(errorMessageTemplate, p1, p2, p3, p4));
     }
@@ -908,7 +908,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T reference, @Nullable String errorMessageTemplate, @Nullable Object... errorMessageArgs) {
+    T reference, @Nullable String errorMessageTemplate, @Nullable Object... errorMessageArgs) {
     if (reference == null) {
       throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));
     }
@@ -969,7 +969,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, @Nullable Object p1) {
+    T obj, @Nullable String errorMessageTemplate, @Nullable Object p1) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1));
     }
@@ -1030,7 +1030,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
+    T obj, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1091,7 +1091,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
+    T obj, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1152,7 +1152,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
+    T obj, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1168,7 +1168,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
+    T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1184,7 +1184,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
+    T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1200,7 +1200,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
+    T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1216,7 +1216,7 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
+    T obj, @Nullable String errorMessageTemplate, @Nullable Object p1, @Nullable Object p2) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2));
     }
@@ -1232,11 +1232,11 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3) {
+    T obj,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2, p3));
     }
@@ -1252,12 +1252,12 @@ public final class Preconditions {
    */
   @CanIgnoreReturnValue
   public static <T> T checkNotNull(
-      T obj,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3,
-      @Nullable Object p4) {
+    T obj,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3,
+    @Nullable Object p4) {
     if (obj == null) {
       throw new NullPointerException(format(errorMessageTemplate, p1, p2, p3, p4));
     }

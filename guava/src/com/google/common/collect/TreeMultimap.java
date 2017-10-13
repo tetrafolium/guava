@@ -95,7 +95,7 @@ public class TreeMultimap<K, V> extends AbstractSortedKeySortedSetMultimap<K, V>
    * @param valueComparator the comparator that determines the value ordering
    */
   public static <K, V> TreeMultimap<K, V> create(
-      Comparator<? super K> keyComparator, Comparator<? super V> valueComparator) {
+    Comparator<? super K> keyComparator, Comparator<? super V> valueComparator) {
     return new TreeMultimap<>(checkNotNull(keyComparator), checkNotNull(valueComparator));
   }
 
@@ -106,7 +106,7 @@ public class TreeMultimap<K, V> extends AbstractSortedKeySortedSetMultimap<K, V>
    * @param multimap the multimap whose contents are copied to this multimap
    */
   public static <K extends Comparable, V extends Comparable> TreeMultimap<K, V> create(
-      Multimap<? extends K, ? extends V> multimap) {
+    Multimap<? extends K, ? extends V> multimap) {
     return new TreeMultimap<>(Ordering.natural(), Ordering.natural(), multimap);
   }
 
@@ -117,9 +117,9 @@ public class TreeMultimap<K, V> extends AbstractSortedKeySortedSetMultimap<K, V>
   }
 
   private TreeMultimap(
-      Comparator<? super K> keyComparator,
-      Comparator<? super V> valueComparator,
-      Multimap<? extends K, ? extends V> multimap) {
+    Comparator<? super K> keyComparator,
+    Comparator<? super V> valueComparator,
+    Multimap<? extends K, ? extends V> multimap) {
     this(keyComparator, valueComparator);
     putAll(multimap);
   }
@@ -214,8 +214,8 @@ public class TreeMultimap<K, V> extends AbstractSortedKeySortedSetMultimap<K, V>
   @SuppressWarnings("unchecked") // reading data stored by writeObject
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
-    keyComparator = checkNotNull((Comparator<? super K>) stream.readObject());
-    valueComparator = checkNotNull((Comparator<? super V>) stream.readObject());
+    keyComparator = checkNotNull((Comparator<? super K>)stream.readObject());
+    valueComparator = checkNotNull((Comparator<? super V>)stream.readObject());
     setMap(new TreeMap<K, Collection<V>>(keyComparator));
     Serialization.populateMultimap(this, stream);
   }

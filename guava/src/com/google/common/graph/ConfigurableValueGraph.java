@@ -54,10 +54,10 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
   /** Constructs a graph with the properties specified in {@code builder}. */
   ConfigurableValueGraph(AbstractGraphBuilder<? super N> builder) {
     this(
-        builder,
-        builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
-            builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
-        0L);
+      builder,
+      builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
+        builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
+      0L);
   }
 
   /**
@@ -65,9 +65,9 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
    * node map.
    */
   ConfigurableValueGraph(
-      AbstractGraphBuilder<? super N> builder,
-      Map<N, GraphConnections<N, V>> nodeConnections,
-      long edgeCount) {
+    AbstractGraphBuilder<? super N> builder,
+    Map<N, GraphConnections<N, V>> nodeConnections,
+    long edgeCount) {
     this.isDirected = builder.directed;
     this.allowsSelfLoops = builder.allowsSelfLoops;
     this.nodeOrder = builder.nodeOrder.cast();

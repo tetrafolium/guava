@@ -57,7 +57,7 @@ final class FunctionalEquivalence<F, T> extends Equivalence<F> implements Serial
       return true;
     }
     if (obj instanceof FunctionalEquivalence) {
-      FunctionalEquivalence<?, ?> that = (FunctionalEquivalence<?, ?>) obj;
+      FunctionalEquivalence<?, ?> that = (FunctionalEquivalence<?, ?>)obj;
       return function.equals(that.function) && resultEquivalence.equals(that.resultEquivalence);
     }
     return false;

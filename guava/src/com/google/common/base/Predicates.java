@@ -246,7 +246,7 @@ public final class Predicates {
    * @return the composition of the provided function and predicate
    */
   public static <A, B> Predicate<A> compose(
-      Predicate<B> predicate, Function<A, ? extends B> function) {
+    Predicate<B> predicate, Function<A, ? extends B> function) {
     return new CompositionPredicate<>(predicate, function);
   }
 
@@ -355,7 +355,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof NotPredicate) {
-        NotPredicate<?> that = (NotPredicate<?>) obj;
+        NotPredicate<?> that = (NotPredicate<?>)obj;
         return predicate.equals(that.predicate);
       }
       return false;
@@ -397,7 +397,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof AndPredicate) {
-        AndPredicate<?> that = (AndPredicate<?>) obj;
+        AndPredicate<?> that = (AndPredicate<?>)obj;
         return components.equals(that.components);
       }
       return false;
@@ -439,7 +439,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof OrPredicate) {
-        OrPredicate<?> that = (OrPredicate<?>) obj;
+        OrPredicate<?> that = (OrPredicate<?>)obj;
         return components.equals(that.components);
       }
       return false;
@@ -487,7 +487,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof IsEqualToPredicate) {
-        IsEqualToPredicate<?> that = (IsEqualToPredicate<?>) obj;
+        IsEqualToPredicate<?> that = (IsEqualToPredicate<?>)obj;
         return target.equals(that.target);
       }
       return false;
@@ -593,7 +593,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof InPredicate) {
-        InPredicate<?> that = (InPredicate<?>) obj;
+        InPredicate<?> that = (InPredicate<?>)obj;
         return target.equals(that.target);
       }
       return false;
@@ -630,7 +630,7 @@ public final class Predicates {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof CompositionPredicate) {
-        CompositionPredicate<?, ?> that = (CompositionPredicate<?, ?>) obj;
+        CompositionPredicate<?, ?> that = (CompositionPredicate<?, ?>)obj;
         return f.equals(that.f) && p.equals(that.p);
       }
       return false;
@@ -680,7 +680,7 @@ public final class Predicates {
         // Pattern uses Object (identity) equality, so we have to reach
         // inside to compare individual fields.
         return Objects.equal(pattern.pattern(), that.pattern.pattern())
-            && pattern.flags() == that.pattern.flags();
+               && pattern.flags() == that.pattern.flags();
       }
       return false;
     }
@@ -715,7 +715,7 @@ public final class Predicates {
   }
 
   private static <T> List<Predicate<? super T>> asList(
-      Predicate<? super T> first, Predicate<? super T> second) {
+    Predicate<? super T> first, Predicate<? super T> second) {
     // TODO(kevinb): understand why we still get a warning despite @SafeVarargs!
     return Arrays.<Predicate<? super T>>asList(first, second);
   }

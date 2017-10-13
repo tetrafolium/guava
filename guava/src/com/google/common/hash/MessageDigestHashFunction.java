@@ -48,7 +48,7 @@ final class MessageDigestHashFunction extends AbstractHashFunction implements Se
     this.prototype = getMessageDigest(algorithmName);
     int maxLength = prototype.getDigestLength();
     checkArgument(
-        bytes >= 4 && bytes <= maxLength, "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
+      bytes >= 4 && bytes <= maxLength, "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
     this.bytes = bytes;
     this.supportsClone = supportsClone(prototype);
   }
@@ -154,8 +154,8 @@ final class MessageDigestHashFunction extends AbstractHashFunction implements Se
       checkNotDone();
       done = true;
       return (bytes == digest.getDigestLength())
-          ? HashCode.fromBytesNoCopy(digest.digest())
-          : HashCode.fromBytesNoCopy(Arrays.copyOf(digest.digest(), bytes));
+             ? HashCode.fromBytesNoCopy(digest.digest())
+             : HashCode.fromBytesNoCopy(Arrays.copyOf(digest.digest(), bytes));
     }
   }
 }

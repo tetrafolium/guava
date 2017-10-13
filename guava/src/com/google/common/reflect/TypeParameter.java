@@ -41,7 +41,7 @@ public abstract class TypeParameter<T> extends TypeCapture<T> {
   protected TypeParameter() {
     Type type = capture();
     checkArgument(type instanceof TypeVariable, "%s should be a type variable.", type);
-    this.typeVariable = (TypeVariable<?>) type;
+    this.typeVariable = (TypeVariable<?>)type;
   }
 
   @Override
@@ -52,7 +52,7 @@ public abstract class TypeParameter<T> extends TypeCapture<T> {
   @Override
   public final boolean equals(@Nullable Object o) {
     if (o instanceof TypeParameter) {
-      TypeParameter<?> that = (TypeParameter<?>) o;
+      TypeParameter<?> that = (TypeParameter<?>)o;
       return typeVariable.equals(that.typeVariable);
     }
     return false;

@@ -39,7 +39,7 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
     Comparator<? super E> result = comparator;
     if (result == null) {
       return comparator =
-              Ordering.from(forwardMultiset().comparator()).<E>reverse();
+                 Ordering.from(forwardMultiset().comparator()).<E>reverse();
     }
     return result;
   }
@@ -65,19 +65,19 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
   @Override public SortedMultiset<E> headMultiset(E toElement,
       BoundType boundType) {
     return forwardMultiset().tailMultiset(toElement, boundType)
-        .descendingMultiset();
+           .descendingMultiset();
   }
 
   @Override public SortedMultiset<E> subMultiset(E fromElement,
       BoundType fromBoundType, E toElement, BoundType toBoundType) {
     return forwardMultiset().subMultiset(toElement, toBoundType, fromElement,
-            fromBoundType).descendingMultiset();
+               fromBoundType).descendingMultiset();
   }
 
   @Override public SortedMultiset<E> tailMultiset(E fromElement,
       BoundType boundType) {
     return forwardMultiset().headMultiset(fromElement, boundType)
-        .descendingMultiset();
+           .descendingMultiset();
   }
 
   @Override protected Multiset<E> delegate() {
@@ -107,17 +107,17 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
 
   Set<Entry<E>> createEntrySet() {
     return new Multisets.EntrySet<E>() {
-      @Override Multiset<E> multiset() {
-        return DescendingMultiset.this;
-      }
+             @Override Multiset<E> multiset() {
+               return DescendingMultiset.this;
+             }
 
-      @Override public Iterator<Entry<E>> iterator() {
-        return entryIterator();
-      }
+             @Override public Iterator<Entry<E>> iterator() {
+               return entryIterator();
+             }
 
-      @Override public int size() {
-        return forwardMultiset().entrySet().size();
-      }
+             @Override public int size() {
+               return forwardMultiset().entrySet().size();
+             }
     };
   }
 

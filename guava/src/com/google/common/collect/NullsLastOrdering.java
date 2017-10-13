@@ -66,7 +66,7 @@ final class NullsLastOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof NullsLastOrdering) {
-      NullsLastOrdering<?> that = (NullsLastOrdering<?>) object;
+      NullsLastOrdering<?> that = (NullsLastOrdering<?>)object;
       return this.ordering.equals(that.ordering);
     }
     return false;

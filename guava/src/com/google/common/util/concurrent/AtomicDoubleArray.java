@@ -144,8 +144,8 @@ public class AtomicDoubleArray implements java.io.Serializable {
    */
   public final boolean compareAndSet(int i, double expect, double update) {
     return longs.compareAndSet(i,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+               doubleToRawLongBits(expect),
+               doubleToRawLongBits(update));
   }
 
   /**
@@ -167,8 +167,8 @@ public class AtomicDoubleArray implements java.io.Serializable {
    */
   public final boolean weakCompareAndSet(int i, double expect, double update) {
     return longs.weakCompareAndSet(i,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+               doubleToRawLongBits(expect),
+               doubleToRawLongBits(update));
   }
 
   /**

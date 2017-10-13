@@ -123,7 +123,7 @@ public final class ImmutableDoubleArray implements Serializable {
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray of(
-      double e0, double e1, double e2, double e3, double e4, double e5) {
+    double e0, double e1, double e2, double e3, double e4, double e5) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -142,8 +142,8 @@ public final class ImmutableDoubleArray implements Serializable {
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray copyOf(double[] values) {
     return values.length == 0
-        ? EMPTY
-        : new ImmutableDoubleArray(Arrays.copyOf(values, values.length));
+           ? EMPTY
+           : new ImmutableDoubleArray(Arrays.copyOf(values, values.length));
   }
 
   /** Returns an immutable array containing the given values, in order. */
@@ -160,7 +160,7 @@ public final class ImmutableDoubleArray implements Serializable {
    */
   public static ImmutableDoubleArray copyOf(Iterable<Double> values) {
     if (values instanceof Collection) {
-      return copyOf((Collection<Double>) values);
+      return copyOf((Collection<Double>)values);
     }
     return builder().addAll(values).build();
   }
@@ -240,7 +240,7 @@ public final class ImmutableDoubleArray implements Serializable {
      */
     public Builder addAll(Iterable<Double> values) {
       if (values instanceof Collection) {
-        return addAll((Collection<Double>) values);
+        return addAll((Collection<Double>)values);
       }
       for (Double value : values) {
         add(value);
@@ -270,7 +270,7 @@ public final class ImmutableDoubleArray implements Serializable {
       if (size > 0) { // known *and* nonempty
         ensureRoomFor(Ints.saturatedCast(size));
       }
-      spliterator.forEachRemaining((DoubleConsumer) this::add);
+      spliterator.forEachRemaining((DoubleConsumer) this : : add);
       return this;
     }
 
@@ -435,8 +435,8 @@ public final class ImmutableDoubleArray implements Serializable {
   public ImmutableDoubleArray subArray(int startIndex, int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
-        ? EMPTY
-        : new ImmutableDoubleArray(array, start + startIndex, start + endIndex);
+           ? EMPTY
+           : new ImmutableDoubleArray(array, start + startIndex, start + endIndex);
   }
 
   private Spliterator.OfDouble spliterator() {
@@ -514,7 +514,7 @@ public final class ImmutableDoubleArray implements Serializable {
       if (!(object instanceof List)) {
         return false;
       }
-      List<?> that = (List<?>) object;
+      List<?> that = (List<?>)object;
       if (this.size() != that.size()) {
         return false;
       }

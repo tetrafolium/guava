@@ -309,11 +309,11 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
    */
   public ImmutableList<E> asList() {
     switch (size()) {
-    case 0:
+    case 0 :
       return ImmutableList.of();
-    case 1:
+    case 1 :
       return ImmutableList.of(iterator().next());
-    default:
+    default :
       return new RegularImmutableAsList<E>(this, toArray());
     }
   }
@@ -396,7 +396,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
      */
     @CanIgnoreReturnValue
     public Builder<E> add(E... elements) {
-      for (E element : elements) {
+      for (E element: elements) {
         add(element);
       }
       return this;
@@ -472,7 +472,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
       if (contents.length < minCapacity) {
         this.contents =
             Arrays.copyOf(
-                this.contents, expandedCapacity(contents.length, minCapacity));
+          this.contents, expandedCapacity(contents.length, minCapacity));
         forceCopy = false;
       } else if (forceCopy) {
         this.contents = contents.clone();
@@ -503,7 +503,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
     @Override
     public Builder<E> addAll(Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
-        Collection<?> collection = (Collection<?>) elements;
+        Collection<?> collection = (Collection<?>)elements;
         getReadyToExpandTo(size + collection.size());
       }
       super.addAll(elements);

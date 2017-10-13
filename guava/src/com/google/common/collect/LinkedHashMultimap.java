@@ -106,7 +106,7 @@ public final class LinkedHashMultimap<K, V>
    */
   public static <K, V> LinkedHashMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
     return new LinkedHashMultimap<>(
-            Maps.capacity(expectedKeys), Maps.capacity(expectedValuesPerKey));
+      Maps.capacity(expectedKeys), Maps.capacity(expectedValuesPerKey));
   }
 
   /**
@@ -119,7 +119,7 @@ public final class LinkedHashMultimap<K, V>
    * @param multimap the multimap whose contents are copied to this multimap
    */
   public static <K, V> LinkedHashMultimap<K, V> create(
-      Multimap<? extends K, ? extends V> multimap) {
+    Multimap<? extends K, ? extends V> multimap) {
     LinkedHashMultimap<K, V> result = create(multimap.keySet().size(), DEFAULT_VALUE_SET_CAPACITY);
     result.putAll(multimap);
     return result;
@@ -172,10 +172,10 @@ public final class LinkedHashMultimap<K, V>
     ValueEntry<K, V> successorInMultimap;
 
     ValueEntry(
-        @Nullable K key,
-        @Nullable V value,
-        int smearedValueHash,
-        @Nullable ValueEntry<K, V> nextInValueBucket) {
+      @Nullable K key,
+      @Nullable V value,
+      int smearedValueHash,
+      @Nullable ValueEntry<K, V> nextInValueBucket) {
       super(key, value);
       this.smearedValueHash = smearedValueHash;
       this.nextInValueBucket = nextInValueBucket;
@@ -382,42 +382,42 @@ public final class LinkedHashMultimap<K, V>
     @Override
     public Iterator<V> iterator() {
       return new Iterator<V>() {
-        ValueSetLink<K, V> nextEntry = firstEntry;
-        ValueEntry<K, V> toRemove;
-        int expectedModCount = modCount;
+               ValueSetLink<K, V> nextEntry = firstEntry;
+               ValueEntry<K, V> toRemove;
+               int expectedModCount = modCount;
 
-        private void checkForComodification() {
-          if (modCount != expectedModCount) {
-            throw new ConcurrentModificationException();
-          }
-        }
+               private void checkForComodification() {
+                 if (modCount != expectedModCount) {
+                   throw new ConcurrentModificationException();
+                 }
+               }
 
-        @Override
-        public boolean hasNext() {
-          checkForComodification();
-          return nextEntry != ValueSet.this;
-        }
+               @Override
+               public boolean hasNext() {
+                 checkForComodification();
+                 return nextEntry != ValueSet.this;
+               }
 
-        @Override
-        public V next() {
-          if (!hasNext()) {
-            throw new NoSuchElementException();
-          }
-          ValueEntry<K, V> entry = (ValueEntry<K, V>) nextEntry;
-          V result = entry.getValue();
-          toRemove = entry;
-          nextEntry = entry.getSuccessorInValueSet();
-          return result;
-        }
+               @Override
+               public V next() {
+                 if (!hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+                 ValueEntry<K, V> entry = (ValueEntry<K, V>)nextEntry;
+                 V result = entry.getValue();
+                 toRemove = entry;
+                 nextEntry = entry.getSuccessorInValueSet();
+                 return result;
+               }
 
-        @Override
-        public void remove() {
-          checkForComodification();
-          checkRemove(toRemove != null);
-          ValueSet.this.remove(toRemove.getValue());
-          expectedModCount = modCount;
-          toRemove = null;
-        }
+               @Override
+               public void remove() {
+                 checkForComodification();
+                 checkRemove(toRemove != null);
+                 ValueSet.this.remove(toRemove.getValue());
+                 expectedModCount = modCount;
+                 toRemove = null;
+               }
       };
     }
 
@@ -427,7 +427,7 @@ public final class LinkedHashMultimap<K, V>
       for (ValueSetLink<K, V> entry = firstEntry;
           entry != ValueSet.this;
           entry = entry.getSuccessorInValueSet()) {
-        action.accept(((ValueEntry<K, V>) entry).getValue());
+        action.accept(((ValueEntry<K, V>)entry).getValue());
       }
     }
 
@@ -481,7 +481,7 @@ public final class LinkedHashMultimap<K, V>
         for (ValueSetLink<K, V> entry = firstEntry;
             entry != this;
             entry = entry.getSuccessorInValueSet()) {
-          ValueEntry<K, V> valueEntry = (ValueEntry<K, V>) entry;
+          ValueEntry<K, V> valueEntry = (ValueEntry<K, V>)entry;
           int bucket = valueEntry.smearedValueHash & mask;
           valueEntry.nextInValueBucket = hashTable[bucket];
           hashTable[bucket] = valueEntry;
@@ -522,7 +522,7 @@ public final class LinkedHashMultimap<K, V>
       for (ValueSetLink<K, V> entry = firstEntry;
           entry != this;
           entry = entry.getSuccessorInValueSet()) {
-        ValueEntry<K, V> valueEntry = (ValueEntry<K, V>) entry;
+        ValueEntry<K, V> valueEntry = (ValueEntry<K, V>)entry;
         deleteFromMultimap(valueEntry);
       }
       succeedsInValueSet(this, this);
@@ -533,31 +533,31 @@ public final class LinkedHashMultimap<K, V>
   @Override
   Iterator<Map.Entry<K, V>> entryIterator() {
     return new Iterator<Map.Entry<K, V>>() {
-      ValueEntry<K, V> nextEntry = multimapHeaderEntry.successorInMultimap;
-      ValueEntry<K, V> toRemove;
+             ValueEntry<K, V> nextEntry = multimapHeaderEntry.successorInMultimap;
+             ValueEntry<K, V> toRemove;
 
-      @Override
-      public boolean hasNext() {
-        return nextEntry != multimapHeaderEntry;
-      }
+             @Override
+             public boolean hasNext() {
+               return nextEntry != multimapHeaderEntry;
+             }
 
-      @Override
-      public Map.Entry<K, V> next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        ValueEntry<K, V> result = nextEntry;
-        toRemove = result;
-        nextEntry = nextEntry.successorInMultimap;
-        return result;
-      }
+             @Override
+             public Map.Entry<K, V> next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               ValueEntry<K, V> result = nextEntry;
+               toRemove = result;
+               nextEntry = nextEntry.successorInMultimap;
+               return result;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(toRemove != null);
-        LinkedHashMultimap.this.remove(toRemove.getKey(), toRemove.getValue());
-        toRemove = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(toRemove != null);
+               LinkedHashMultimap.this.remove(toRemove.getKey(), toRemove.getValue());
+               toRemove = null;
+             }
     };
   }
 
@@ -573,7 +573,7 @@ public final class LinkedHashMultimap<K, V>
 
   @Override
   Spliterator<V> valueSpliterator() {
-    return CollectSpliterators.map(entrySpliterator(), Entry::getValue);
+    return CollectSpliterators.map(entrySpliterator(), Entry: : getValue);
   }
 
   @Override

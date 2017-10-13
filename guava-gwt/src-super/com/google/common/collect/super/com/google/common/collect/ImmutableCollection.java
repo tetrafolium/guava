@@ -81,11 +81,11 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
 
   ImmutableList<E> createAsList() {
     switch (size()) {
-    case 0:
+    case 0 :
       return ImmutableList.of();
-    case 1:
+    case 1 :
       return ImmutableList.of(iterator().next());
-    default:
+    default :
       return new RegularImmutableAsList<E>(this, toArray());
     }
   }
@@ -108,7 +108,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
 
     public Builder<E> add(E... elements) {
       checkNotNull(elements); // for GWT
-      for (E element : elements) {
+      for (E element: elements) {
         add(checkNotNull(element));
       }
       return this;

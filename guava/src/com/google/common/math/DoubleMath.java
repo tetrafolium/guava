@@ -280,8 +280,8 @@ public final class DoubleMath {
   @GwtIncompatible // java.lang.Math.getExponent, com.google.common.math.DoubleUtils
   public static boolean isMathematicalInteger(double x) {
     return isFinite(x)
-        && (x == 0.0
-            || SIGNIFICAND_BITS - Long.numberOfTrailingZeros(getSignificand(x)) <= getExponent(x));
+           && (x == 0.0
+           || SIGNIFICAND_BITS - Long.numberOfTrailingZeros(getSignificand(x)) <= getExponent(x));
   }
 
   /**
@@ -354,9 +354,9 @@ public final class DoubleMath {
   public static boolean fuzzyEquals(double a, double b, double tolerance) {
     MathPreconditions.checkNonNegative("tolerance", tolerance);
     return Math.copySign(a - b, 1.0) <= tolerance
-        // copySign(x, 1.0) is a branch-free version of abs(x), but with different NaN semantics
-        || (a == b) // needed to ensure that infinities equal themselves
-        || (Double.isNaN(a) && Double.isNaN(b));
+           // copySign(x, 1.0) is a branch-free version of abs(x), but with different NaN semantics
+           || (a == b) // needed to ensure that infinities equal themselves
+           || (Double.isNaN(a) && Double.isNaN(b));
   }
 
   /**

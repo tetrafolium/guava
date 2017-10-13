@@ -30,11 +30,11 @@ public class PairwiseEquivalence_CustomFieldSerializer {
   private PairwiseEquivalence_CustomFieldSerializer() {}
 
   public static void deserialize(
-      SerializationStreamReader reader, PairwiseEquivalence<?> instance) {}
+    SerializationStreamReader reader, PairwiseEquivalence<?> instance) {}
 
   public static PairwiseEquivalence<?> instantiate(SerializationStreamReader reader)
   throws SerializationException {
-    return create((Equivalence<?>) reader.readObject());
+    return create((Equivalence<?>)reader.readObject());
   }
 
   private static <T> PairwiseEquivalence<T> create(Equivalence<T> elementEquivalence) {

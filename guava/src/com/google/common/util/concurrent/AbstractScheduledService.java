@@ -118,15 +118,15 @@ public abstract class AbstractScheduledService implements Service {
      * @param unit the time unit of the initialDelay and delay parameters
      */
     public static Scheduler newFixedDelaySchedule(
-        final long initialDelay, final long delay, final TimeUnit unit) {
+      final long initialDelay, final long delay, final TimeUnit unit) {
       checkNotNull(unit);
       checkArgument(delay > 0, "delay must be > 0, found %s", delay);
       return new Scheduler() {
-        @Override
-        public Future<?> schedule(
-            AbstractService service, ScheduledExecutorService executor, Runnable task) {
-          return executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);
-        }
+               @Override
+               public Future<?> schedule(
+                 AbstractService service, ScheduledExecutorService executor, Runnable task) {
+                 return executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);
+               }
       };
     }
 
@@ -139,21 +139,21 @@ public abstract class AbstractScheduledService implements Service {
      * @param unit the time unit of the initialDelay and period parameters
      */
     public static Scheduler newFixedRateSchedule(
-        final long initialDelay, final long period, final TimeUnit unit) {
+      final long initialDelay, final long period, final TimeUnit unit) {
       checkNotNull(unit);
       checkArgument(period > 0, "period must be > 0, found %s", period);
       return new Scheduler() {
-        @Override
-        public Future<?> schedule(
-            AbstractService service, ScheduledExecutorService executor, Runnable task) {
-          return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
-        }
+               @Override
+               public Future<?> schedule(
+                 AbstractService service, ScheduledExecutorService executor, Runnable task) {
+                 return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
+               }
       };
     }
 
     /** Schedules the task to run on the provided executor on behalf of the service. */
     abstract Future<?> schedule(
-        AbstractService service, ScheduledExecutorService executor, Runnable runnable);
+      AbstractService service, ScheduledExecutorService executor, Runnable runnable);
 
     private Scheduler() {}
   }
@@ -191,9 +191,9 @@ public abstract class AbstractScheduledService implements Service {
             shutDown();
           } catch (Exception ignored) {
             logger.log(
-                Level.WARNING,
-                "Error while attempting to shut down the service after failure.",
-                ignored);
+              Level.WARNING,
+              "Error while attempting to shut down the service after failure.",
+              ignored);
           }
           notifyFailed(t);
           runningTask.cancel(false); // prevent future invocations.
@@ -209,15 +209,15 @@ public abstract class AbstractScheduledService implements Service {
     protected final void doStart() {
       executorService =
           MoreExecutors.renamingDecorator(
-              executor(),
-      new Supplier<String>() {
+        executor(),
+        new Supplier<String>() {
         @Override
         public String get() {
           return serviceName() + " " + state();
         }
       });
       executorService.execute(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           lock.lock();
@@ -242,7 +242,7 @@ public abstract class AbstractScheduledService implements Service {
     protected final void doStop() {
       runningTask.cancel(false);
       executorService.execute(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           try {
@@ -334,7 +334,7 @@ public abstract class AbstractScheduledService implements Service {
     // is called within doStart() so we know that the service cannot terminate or fail concurrently
     // with adding this listener so it is impossible to miss an event that we are interested in.
     addListener(
-    new Listener() {
+      new Listener() {
       @Override
       public void terminated(State from) {
         executor.shutdown();
@@ -345,7 +345,7 @@ public abstract class AbstractScheduledService implements Service {
         executor.shutdown();
       }
     },
-    directExecutor());
+      directExecutor());
     return executor;
   }
 
@@ -482,7 +482,7 @@ public abstract class AbstractScheduledService implements Service {
       private Future<Void> currentFuture;
 
       ReschedulableCallable(
-          AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
+        AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
         this.wrappedRunnable = runnable;
         this.executor = executor;
         this.service = service;
@@ -562,13 +562,13 @@ public abstract class AbstractScheduledService implements Service {
       @Override
       protected Future<Void> delegate() {
         throw new UnsupportedOperationException(
-            "Only cancel and isCancelled is supported by this future");
+                "Only cancel and isCancelled is supported by this future");
       }
     }
 
     @Override
     final Future<?> schedule(
-        AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
+      AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
       ReschedulableCallable task = new ReschedulableCallable(service, executor, runnable);
       task.reschedule();
       return task;

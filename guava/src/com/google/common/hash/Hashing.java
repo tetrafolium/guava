@@ -335,10 +335,10 @@ public final class Hashing {
 
   private static String hmacToString(String methodName, Key key) {
     return String.format(
-            "Hashing.%s(Key[algorithm=%s, format=%s])",
-            methodName,
-            key.getAlgorithm(),
-            key.getFormat());
+      "Hashing.%s(Key[algorithm=%s, format=%s])",
+      methodName,
+      key.getAlgorithm(),
+      key.getFormat());
   }
 
   /**
@@ -530,7 +530,7 @@ public final class Hashing {
     for (HashCode hashCode : hashCodes) {
       byte[] nextBytes = hashCode.asBytes();
       checkArgument(
-          nextBytes.length == resultBytes.length, "All hashcodes must have the same bit length.");
+        nextBytes.length == resultBytes.length, "All hashcodes must have the same bit length.");
       for (int i = 0; i < nextBytes.length; i++) {
         resultBytes[i] = (byte) (resultBytes[i] * 37 ^ nextBytes[i]);
       }
@@ -554,7 +554,7 @@ public final class Hashing {
     for (HashCode hashCode : hashCodes) {
       byte[] nextBytes = hashCode.asBytes();
       checkArgument(
-          nextBytes.length == resultBytes.length, "All hashcodes must have the same bit length.");
+        nextBytes.length == resultBytes.length, "All hashcodes must have the same bit length.");
       for (int i = 0; i < nextBytes.length; i++) {
         resultBytes[i] += nextBytes[i];
       }
@@ -581,7 +581,7 @@ public final class Hashing {
    * @since 19.0
    */
   public static HashFunction concatenating(
-      HashFunction first, HashFunction second, HashFunction... rest) {
+    HashFunction first, HashFunction second, HashFunction... rest) {
     // We can't use Lists.asList() here because there's no hash->collect dependency
     List<HashFunction> list = new ArrayList<>();
     list.add(first);
@@ -620,10 +620,10 @@ public final class Hashing {
       for (HashFunction function : functions) {
         bitSum += function.bits();
         checkArgument(
-            function.bits() % 8 == 0,
-            "the number of bits (%s) in hashFunction (%s) must be divisible by 8",
-            function.bits(),
-            function);
+          function.bits() % 8 == 0,
+          "the number of bits (%s) in hashFunction (%s) must be divisible by 8",
+          function.bits(),
+          function);
       }
       this.bits = bitSum;
     }

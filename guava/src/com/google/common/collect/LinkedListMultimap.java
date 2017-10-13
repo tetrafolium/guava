@@ -194,7 +194,7 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
    * @param multimap the multimap whose contents are copied to this multimap
    */
   public static <K, V> LinkedListMultimap<K, V> create(
-      Multimap<? extends K, ? extends V> multimap) {
+    Multimap<? extends K, ? extends V> multimap) {
     return new LinkedListMultimap<>(multimap);
   }
 
@@ -692,16 +692,16 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
   @Override
   public List<V> get(final @Nullable K key) {
     return new AbstractSequentialList<V>() {
-      @Override
-      public int size() {
-        KeyList<K, V> keyList = keyToKeyList.get(key);
-        return (keyList == null) ? 0 : keyList.count;
-      }
+             @Override
+             public int size() {
+               KeyList<K, V> keyList = keyToKeyList.get(key);
+               return (keyList == null) ? 0 : keyList.count;
+             }
 
-      @Override
-      public ListIterator<V> listIterator(int index) {
-        return new ValueForKeyIterator(key, index);
-      }
+             @Override
+             public ListIterator<V> listIterator(int index) {
+               return new ValueForKeyIterator(key, index);
+             }
     };
   }
 
@@ -759,15 +759,15 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
       public ListIterator<V> listIterator(int index) {
         final NodeIterator nodeItr = new NodeIterator(index);
         return new TransformedListIterator<Entry<K, V>, V>(nodeItr) {
-          @Override
-          V transform(Entry<K, V> entry) {
-            return entry.getValue();
-          }
+                 @Override
+                 V transform(Entry<K, V> entry) {
+                   return entry.getValue();
+                 }
 
-          @Override
-          public void set(V value) {
-            nodeItr.setValue(value);
-          }
+                 @Override
+                 public void set(V value) {
+                   nodeItr.setValue(value);
+                 }
         };
       }
     }

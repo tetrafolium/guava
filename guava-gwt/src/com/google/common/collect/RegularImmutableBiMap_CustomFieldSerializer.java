@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class RegularImmutableBiMap_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableBiMap<?, ?> instance) {}
+    SerializationStreamReader reader, RegularImmutableBiMap<?, ?> instance) {}
 
   public static RegularImmutableBiMap<Object, Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
@@ -43,11 +43,11 @@ public class RegularImmutableBiMap_CustomFieldSerializer {
      * always have one or more elements, ImmutableBiMap.copyOf always return a
      * RegularImmutableBiMap back.
      */
-    return (RegularImmutableBiMap<Object, Object>) ImmutableBiMap.copyOf(entries);
+    return (RegularImmutableBiMap<Object, Object>)ImmutableBiMap.copyOf(entries);
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableBiMap<?, ?> instance)
+    SerializationStreamWriter writer, RegularImmutableBiMap<?, ?> instance)
   throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }

@@ -177,7 +177,7 @@ public final class Shorts {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -276,7 +276,7 @@ public final class Shorts {
    * @param arrays zero or more {@code short} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static short[] concat(short[]... arrays) {
+  public static short[] concat(short[] ... arrays) {
     int length = 0;
     for (short[] array : arrays) {
       length += array.length;

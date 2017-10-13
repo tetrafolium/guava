@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class RegularImmutableSortedSet_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableSortedSet<?> instance) {}
+    SerializationStreamReader reader, RegularImmutableSortedSet<?> instance) {}
 
   public static RegularImmutableSortedSet<Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
@@ -41,7 +41,7 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
      * correctly typed, anyway.
      */
     @SuppressWarnings("unchecked")
-    Comparator<Object> comparator = (Comparator<Object>) reader.readObject();
+    Comparator<Object> comparator = (Comparator<Object>)reader.readObject();
 
     List<Object> elements = new ArrayList<>();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
@@ -51,11 +51,11 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
      * RegularImmutableSortedSet always have one or more elements,
      * ImmutableSortedSet.copyOf always return a RegularImmutableSortedSet back.
      */
-    return (RegularImmutableSortedSet<Object>) ImmutableSortedSet.copyOf(comparator, elements);
+    return (RegularImmutableSortedSet<Object>)ImmutableSortedSet.copyOf(comparator, elements);
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableSortedSet<?> instance)
+    SerializationStreamWriter writer, RegularImmutableSortedSet<?> instance)
   throws SerializationException {
     writer.writeObject(instance.comparator());
 

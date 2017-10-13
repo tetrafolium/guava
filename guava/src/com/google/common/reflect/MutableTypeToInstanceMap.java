@@ -120,32 +120,32 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
 
     static <K, V> Set<Entry<K, V>> transformEntries(final Set<Entry<K, V>> entries) {
       return new ForwardingSet<Map.Entry<K, V>>() {
-        @Override
-        protected Set<Entry<K, V>> delegate() {
-          return entries;
-        }
+               @Override
+               protected Set<Entry<K, V>> delegate() {
+                 return entries;
+               }
 
-        @Override
-        public Iterator<Entry<K, V>> iterator() {
-          return UnmodifiableEntry.transformEntries(super.iterator());
-        }
+               @Override
+               public Iterator<Entry<K, V>> iterator() {
+                 return UnmodifiableEntry.transformEntries(super.iterator());
+               }
 
-        @Override
-        public Object[] toArray() {
-          return standardToArray();
-        }
+               @Override
+               public Object[] toArray() {
+                 return standardToArray();
+               }
 
-        @Override
-        public <T> T[] toArray(T[] array) {
-          return standardToArray(array);
-        }
+               @Override
+               public <T> T[] toArray(T[] array) {
+                 return standardToArray(array);
+               }
       };
     }
 
     private static <K, V> Iterator<Entry<K, V>> transformEntries(Iterator<Entry<K, V>> entries) {
       return Iterators.transform(
-              entries,
-      new Function<Entry<K, V>, Entry<K, V>>() {
+        entries,
+        new Function<Entry<K, V>, Entry<K, V>>() {
         @Override
         public Entry<K, V> apply(Entry<K, V> entry) {
           return new UnmodifiableEntry<>(entry);

@@ -198,7 +198,7 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
 
   @Override
   public SortedMultiset<E> subMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+    E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
     return delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType);
   }
 
@@ -211,7 +211,7 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
    * {@link #subMultiset(Object, BoundType, Object, BoundType)} to forward to this implementation.
    */
   protected SortedMultiset<E> standardSubMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+    E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
     return tailMultiset(lowerBound, lowerBoundType).headMultiset(upperBound, upperBoundType);
   }
 

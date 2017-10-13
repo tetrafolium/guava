@@ -204,27 +204,27 @@ public abstract class Converter<A, B> implements Function<A, B> {
   public Iterable<B> convertAll(final Iterable<? extends A> fromIterable) {
     checkNotNull(fromIterable, "fromIterable");
     return new Iterable<B>() {
-      @Override
-      public Iterator<B> iterator() {
-        return new Iterator<B>() {
-          private final Iterator<? extends A> fromIterator = fromIterable.iterator();
+             @Override
+             public Iterator<B> iterator() {
+               return new Iterator<B>() {
+                        private final Iterator<? extends A> fromIterator = fromIterable.iterator();
 
-          @Override
-          public boolean hasNext() {
-            return fromIterator.hasNext();
-          }
+                        @Override
+                        public boolean hasNext() {
+                          return fromIterator.hasNext();
+                        }
 
-          @Override
-          public B next() {
-            return convert(fromIterator.next());
-          }
+                        @Override
+                        public B next() {
+                          return convert(fromIterator.next());
+                        }
 
-          @Override
-          public void remove() {
-            fromIterator.remove();
-          }
-        };
-      }
+                        @Override
+                        public void remove() {
+                          fromIterator.remove();
+                        }
+               };
+             }
     };
   }
 
@@ -287,7 +287,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
     @Override
     public boolean equals(@Nullable Object object) {
       if (object instanceof ReverseConverter) {
-        ReverseConverter<?, ?> that = (ReverseConverter<?, ?>) object;
+        ReverseConverter<?, ?> that = (ReverseConverter<?, ?>)object;
         return this.original.equals(that.original);
       }
       return false;
@@ -366,7 +366,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
     @Override
     public boolean equals(@Nullable Object object) {
       if (object instanceof ConverterComposition) {
-        ConverterComposition<?, ?, ?> that = (ConverterComposition<?, ?, ?>) object;
+        ConverterComposition<?, ?, ?> that = (ConverterComposition<?, ?, ?>)object;
         return this.first.equals(that.first) && this.second.equals(that.second);
       }
       return false;
@@ -429,8 +429,8 @@ public abstract class Converter<A, B> implements Function<A, B> {
    * @since 17.0
    */
   public static <A, B> Converter<A, B> from(
-      Function<? super A, ? extends B> forwardFunction,
-      Function<? super B, ? extends A> backwardFunction) {
+    Function<? super A, ? extends B> forwardFunction,
+    Function<? super B, ? extends A> backwardFunction) {
     return new FunctionBasedConverter<>(forwardFunction, backwardFunction);
   }
 
@@ -440,8 +440,8 @@ public abstract class Converter<A, B> implements Function<A, B> {
     private final Function<? super B, ? extends A> backwardFunction;
 
     private FunctionBasedConverter(
-        Function<? super A, ? extends B> forwardFunction,
-        Function<? super B, ? extends A> backwardFunction) {
+      Function<? super A, ? extends B> forwardFunction,
+      Function<? super B, ? extends A> backwardFunction) {
       this.forwardFunction = checkNotNull(forwardFunction);
       this.backwardFunction = checkNotNull(backwardFunction);
     }
@@ -459,9 +459,9 @@ public abstract class Converter<A, B> implements Function<A, B> {
     @Override
     public boolean equals(@Nullable Object object) {
       if (object instanceof FunctionBasedConverter) {
-        FunctionBasedConverter<?, ?> that = (FunctionBasedConverter<?, ?>) object;
+        FunctionBasedConverter<?, ?> that = (FunctionBasedConverter<?, ?>)object;
         return this.forwardFunction.equals(that.forwardFunction)
-            && this.backwardFunction.equals(that.backwardFunction);
+               && this.backwardFunction.equals(that.backwardFunction);
       }
       return false;
     }
@@ -482,7 +482,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
    */
   @SuppressWarnings("unchecked") // implementation is "fully variant"
   public static <T> Converter<T, T> identity() {
-    return (IdentityConverter<T>) IdentityConverter.INSTANCE;
+    return (IdentityConverter<T>)IdentityConverter.INSTANCE;
   }
 
   /**

@@ -38,11 +38,11 @@ public abstract class AbstractGraph<N> extends AbstractBaseGraph<N> implements G
     if (!(obj instanceof Graph)) {
       return false;
     }
-    Graph<?> other = (Graph<?>) obj;
+    Graph<?> other = (Graph<?>)obj;
 
     return isDirected() == other.isDirected()
-        && nodes().equals(other.nodes())
-        && edges().equals(other.edges());
+           && nodes().equals(other.nodes())
+           && edges().equals(other.edges());
   }
 
   @Override
@@ -54,12 +54,12 @@ public abstract class AbstractGraph<N> extends AbstractBaseGraph<N> implements G
   @Override
   public String toString() {
     return "isDirected: "
-        + isDirected()
-        + ", allowsSelfLoops: "
-        + allowsSelfLoops()
-        + ", nodes: "
-        + nodes()
-        + ", edges: "
-        + edges();
+           + isDirected()
+           + ", allowsSelfLoops: "
+           + allowsSelfLoops()
+           + ", nodes: "
+           + nodes()
+           + ", edges: "
+           + edges();
   }
 }

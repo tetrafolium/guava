@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @SuppressWarnings("unchecked")
   static final ImmutableMap<Object, Object> EMPTY =
-      new RegularImmutableMap<>((Entry<Object, Object>[]) ImmutableMap.EMPTY_ENTRY_ARRAY, null, 0);
+      new RegularImmutableMap<>((Entry<Object, Object>[])ImmutableMap.EMPTY_ENTRY_ARRAY, null, 0);
 
   // entries in insertion order
   @VisibleForTesting
@@ -63,7 +63,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   static <K, V> RegularImmutableMap<K, V> fromEntryArray(int n, Entry<K, V>[] entryArray) {
     checkPositionIndex(n, entryArray.length);
     if (n == 0) {
-      return (RegularImmutableMap<K, V>) EMPTY;
+      return (RegularImmutableMap<K, V>)EMPTY;
     }
     Entry<K, V>[] entries;
     if (n == entryArray.length) {
@@ -85,9 +85,9 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       ImmutableMapEntry<K, V> newEntry;
       if (existing == null) {
         boolean reusable =
-            entry instanceof ImmutableMapEntry && ((ImmutableMapEntry<K, V>) entry).isReusable();
+            entry instanceof ImmutableMapEntry && ((ImmutableMapEntry<K, V>)entry).isReusable();
         newEntry =
-            reusable ? (ImmutableMapEntry<K, V>) entry : new ImmutableMapEntry<K, V>(key, value);
+            reusable ? (ImmutableMapEntry<K, V>)entry : new ImmutableMapEntry<K, V>(key, value);
       } else {
         newEntry = new NonTerminalImmutableMapEntry<>(key, value, existing);
       }
@@ -105,7 +105,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   static void checkNoConflictInKeyBucket(
-      Object key, Entry<?, ?> entry, @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
+    Object key, Entry<?, ?> entry, @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
     for (; keyBucketHead != null; keyBucketHead = keyBucketHead.getNextInKeyBucket()) {
       checkNoConflict(!key.equals(keyBucketHead.getKey()), "key", entry, keyBucketHead);
     }

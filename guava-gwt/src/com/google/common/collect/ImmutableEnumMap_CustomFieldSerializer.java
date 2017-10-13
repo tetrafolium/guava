@@ -30,10 +30,10 @@ import java.util.Map;
 public class ImmutableEnumMap_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, ImmutableEnumMap<?, ?> instance) {}
+    SerializationStreamReader reader, ImmutableEnumMap<?, ?> instance) {}
 
   public static <K extends Enum<K>, V> ImmutableEnumMap<?, ?> instantiate(
-      SerializationStreamReader reader) throws SerializationException {
+    SerializationStreamReader reader) throws SerializationException {
     Map<K, V> deserialized = Maps.newHashMap();
     Map_CustomFieldSerializerBase.deserialize(reader, deserialized);
     /*
@@ -41,7 +41,7 @@ public class ImmutableEnumMap_CustomFieldSerializer {
      * serialized as an ImmutableEnumSet, it must be non-empty to start
      * with.
      */
-    return (ImmutableEnumMap<?, ?>) Maps.immutableEnumMap(deserialized);
+    return (ImmutableEnumMap<?, ?>)Maps.immutableEnumMap(deserialized);
   }
 
   public static void serialize(SerializationStreamWriter writer, ImmutableEnumMap<?, ?> instance)

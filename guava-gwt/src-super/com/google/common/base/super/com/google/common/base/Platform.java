@@ -55,8 +55,8 @@ final class Platform {
 
   @JsMethod
   static native boolean stringIsNullOrEmpty(@Nullable String string) /*-{
-    return !string;
-  }-*/;
+                                                                        return !string;
+                                                                        }-*/;
 
   @JsType(isNative = true, name = "Number", namespace = GLOBAL)
   private static class Number {

@@ -83,7 +83,7 @@ public final class Reflection {
     checkArgument(interfaceType.isInterface(), "%s is not an interface", interfaceType);
     Object object =
         Proxy.newProxyInstance(
-            interfaceType.getClassLoader(), new Class<?>[] {interfaceType}, handler);
+      interfaceType.getClassLoader(), new Class<?>[] {interfaceType}, handler);
     return interfaceType.cast(object);
   }
 

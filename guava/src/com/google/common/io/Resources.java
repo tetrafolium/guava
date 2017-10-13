@@ -145,9 +145,9 @@ public final class Resources {
     // don't use asCharSource(url, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return readLines(
-            url,
-            charset,
-    new LineProcessor<List<String>>() {
+      url,
+      charset,
+      new LineProcessor<List<String>>() {
       final List<String> result = Lists.newArrayList();
 
       @Override
@@ -192,7 +192,7 @@ public final class Resources {
   public static URL getResource(String resourceName) {
     ClassLoader loader =
         MoreObjects.firstNonNull(
-            Thread.currentThread().getContextClassLoader(), Resources.class.getClassLoader());
+      Thread.currentThread().getContextClassLoader(), Resources.class.getClassLoader());
     URL url = loader.getResource(resourceName);
     checkArgument(url != null, "resource %s not found.", resourceName);
     return url;
@@ -207,7 +207,7 @@ public final class Resources {
   public static URL getResource(Class<?> contextClass, String resourceName) {
     URL url = contextClass.getResource(resourceName);
     checkArgument(
-        url != null, "resource %s relative to %s not found.", resourceName, contextClass.getName());
+      url != null, "resource %s relative to %s not found.", resourceName, contextClass.getName());
     return url;
   }
 }

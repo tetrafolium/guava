@@ -357,7 +357,7 @@ public final class UnsignedInts {
     long result = Long.parseLong(string, radix);
     if ((result & INT_MASK) != result) {
       throw new NumberFormatException(
-          "Input " + string + " in base " + radix + " is not in the range of an unsigned integer");
+              "Input " + string + " in base " + radix + " is not in the range of an unsigned integer");
     }
     return (int) result;
   }

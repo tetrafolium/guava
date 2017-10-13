@@ -445,10 +445,10 @@ public final class MediaType {
   public static final MediaType OGG_CONTAINER = createConstant(APPLICATION_TYPE, "ogg");
   public static final MediaType OOXML_DOCUMENT =
       createConstant(
-          APPLICATION_TYPE, "vnd.openxmlformats-officedocument.wordprocessingml.document");
+    APPLICATION_TYPE, "vnd.openxmlformats-officedocument.wordprocessingml.document");
   public static final MediaType OOXML_PRESENTATION =
       createConstant(
-          APPLICATION_TYPE, "vnd.openxmlformats-officedocument.presentationml.presentation");
+    APPLICATION_TYPE, "vnd.openxmlformats-officedocument.presentationml.presentation");
   public static final MediaType OOXML_SHEET =
       createConstant(APPLICATION_TYPE, "vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   public static final MediaType OPENDOCUMENT_GRAPHICS =
@@ -557,8 +557,8 @@ public final class MediaType {
 
   private Map<String, ImmutableMultiset<String>> parametersAsMap() {
     return Maps.transformValues(
-            parameters.asMap(),
-    new Function<Collection<String>, ImmutableMultiset<String>>() {
+      parameters.asMap(),
+      new Function<Collection<String>, ImmutableMultiset<String>>() {
       @Override
       public ImmutableMultiset<String> apply(Collection<String> input) {
         return ImmutableMultiset.copyOf(input);
@@ -586,7 +586,7 @@ public final class MediaType {
           local = Optional.of(Charset.forName(value));
         } else if (!value.equals(currentValue)) {
           throw new IllegalStateException(
-              "Multiple charset values defined: " + value + ", " + currentValue);
+                  "Multiple charset values defined: " + value + ", " + currentValue);
         }
       }
       parsedCharset = local;
@@ -690,8 +690,8 @@ public final class MediaType {
    */
   public boolean is(MediaType mediaTypeRange) {
     return (mediaTypeRange.type.equals(WILDCARD) || mediaTypeRange.type.equals(this.type))
-        && (mediaTypeRange.subtype.equals(WILDCARD) || mediaTypeRange.subtype.equals(this.subtype))
-        && this.parameters.entries().containsAll(mediaTypeRange.parameters.entries());
+           && (mediaTypeRange.subtype.equals(WILDCARD) || mediaTypeRange.subtype.equals(this.subtype))
+           && this.parameters.entries().containsAll(mediaTypeRange.parameters.entries());
   }
 
   /**
@@ -752,15 +752,15 @@ public final class MediaType {
   }
 
   private static MediaType create(
-      String type, String subtype, Multimap<String, String> parameters) {
+    String type, String subtype, Multimap<String, String> parameters) {
     checkNotNull(type);
     checkNotNull(subtype);
     checkNotNull(parameters);
     String normalizedType = normalizeToken(type);
     String normalizedSubtype = normalizeToken(subtype);
     checkArgument(
-        !WILDCARD.equals(normalizedType) || WILDCARD.equals(normalizedSubtype),
-        "A wildcard type cannot be used with a non-wildcard subtype");
+      !WILDCARD.equals(normalizedType) || WILDCARD.equals(normalizedSubtype),
+      "A wildcard type cannot be used with a non-wildcard subtype");
     ImmutableListMultimap.Builder<String, String> builder = ImmutableListMultimap.builder();
     for (Entry<String, String> entry : parameters.entries()) {
       String attribute = normalizeToken(entry.getKey());
@@ -878,9 +878,9 @@ public final class MediaType {
     } else if (obj instanceof MediaType) {
       MediaType that = (MediaType) obj;
       return this.type.equals(that.type)
-          && this.subtype.equals(that.subtype)
-          // compare parameters regardless of order
-          && this.parametersAsMap().equals(that.parametersAsMap());
+             && this.subtype.equals(that.subtype)
+             // compare parameters regardless of order
+             && this.parametersAsMap().equals(that.parametersAsMap());
     } else {
       return false;
     }
@@ -920,8 +920,8 @@ public final class MediaType {
       builder.append("; ");
       Multimap<String, String> quotedParameters =
           Multimaps.transformValues(
-              parameters,
-      new Function<String, String>() {
+        parameters,
+        new Function<String, String>() {
         @Override
         public String apply(String value) {
           return TOKEN_MATCHER.matchesAllOf(value) ? value : escapeAndQuote(value);

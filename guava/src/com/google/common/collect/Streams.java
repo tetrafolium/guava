@@ -60,8 +60,8 @@ public final class Streams {
    */
   public static <T> Stream<T> stream(Iterable<T> iterable) {
     return (iterable instanceof Collection)
-        ? ((Collection<T>) iterable).stream()
-        : StreamSupport.stream(iterable.spliterator(), false);
+           ? ((Collection<T>)iterable).stream()
+           : StreamSupport.stream(iterable.spliterator(), false);
   }
 
   /**
@@ -155,14 +155,14 @@ public final class Streams {
       estimatedSize = LongMath.saturatedAdd(estimatedSize, splitr.estimateSize());
     }
     return StreamSupport.stream(
-            CollectSpliterators.flatMap(
-                splitrsBuilder.build().spliterator(),
-                splitr -> (Spliterator<T>) splitr,
-                characteristics,
-                estimatedSize),
-            isParallel)
-        .onClose(
-    () -> {
+      CollectSpliterators.flatMap(
+        splitrsBuilder.build().spliterator(),
+        splitr -> (Spliterator<T>)splitr,
+        characteristics,
+        estimatedSize),
+      isParallel)
+           .onClose(
+      () -> {
       for (Stream<? extends T> stream : streams) {
         stream.close();
       }
@@ -237,7 +237,7 @@ public final class Streams {
    * This may harm parallel performance.
    */
   public static <A, B, R> Stream<R> zip(
-      Stream<A> streamA, Stream<B> streamB, BiFunction<? super A, ? super B, R> function) {
+    Stream<A> streamA, Stream<B> streamB, BiFunction<? super A, ? super B, R> function) {
     checkNotNull(streamA);
     checkNotNull(streamB);
     checkNotNull(function);
@@ -251,8 +251,8 @@ public final class Streams {
     Iterator<A> itrA = Spliterators.iterator(splitrA);
     Iterator<B> itrB = Spliterators.iterator(splitrB);
     return StreamSupport.stream(
-            new AbstractSpliterator<R>(
-    Math.min(splitrA.estimateSize(), splitrB.estimateSize()), characteristics) {
+      new AbstractSpliterator<R>(
+        Math.min(splitrA.estimateSize(), splitrB.estimateSize()), characteristics) {
       @Override
       public boolean tryAdvance(Consumer<? super R> action) {
         if (itrA.hasNext() && itrB.hasNext()) {
@@ -262,9 +262,9 @@ public final class Streams {
         return false;
       }
     },
-    isParallel)
-    .onClose(streamA::close)
-    .onClose(streamB::close);
+      isParallel)
+           .onClose(streamA: : close)
+           .onClose(streamB: : close);
   }
 
   /**
@@ -298,11 +298,11 @@ public final class Streams {
    * @since 22.0
    */
   public static <A, B> void forEachPair(
-      Stream<A> streamA, Stream<B> streamB, BiConsumer<? super A, ? super B> consumer) {
+    Stream<A> streamA, Stream<B> streamB, BiConsumer<? super A, ? super B> consumer) {
     checkNotNull(consumer);
 
     if (streamA.isParallel() || streamB.isParallel()) {
-      zip(streamA, streamB, TemporaryPair::new).forEach(pair -> consumer.accept(pair.a, pair.b));
+      zip(streamA, streamB, TemporaryPair: : new).forEach(pair -> consumer.accept(pair.a, pair.b));
     } else {
       Iterator<A> iterA = streamA.iterator();
       Iterator<B> iterB = streamB.iterator();
@@ -346,7 +346,7 @@ public final class Streams {
    * was defined.
    */
   public static <T, R> Stream<R> mapWithIndex(
-      Stream<T> stream, FunctionWithIndex<? super T, ? extends R> function) {
+    Stream<T> stream, FunctionWithIndex<? super T, ? extends R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -355,9 +355,9 @@ public final class Streams {
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
       Iterator<T> fromIterator = Spliterators.iterator(fromSpliterator);
       return StreamSupport.stream(
-              new AbstractSpliterator<R>(
-                  fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
+        new AbstractSpliterator<R>(
+          fromSpliterator.estimateSize(),
+          fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
         long index = 0;
 
         @Override
@@ -369,7 +369,7 @@ public final class Streams {
           return false;
         }
       },
-      isParallel).onClose(stream::close);
+        isParallel).onClose(stream: : close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator<T>, R, Splitr> implements Consumer<T> {
       T holder;
@@ -401,7 +401,7 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream: : close);
   }
 
   /**
@@ -419,7 +419,7 @@ public final class Streams {
   }
 
   private abstract static class MapWithIndexSpliterator<
-    F extends Spliterator<?>, R, S extends MapWithIndexSpliterator<F, R, S>>
+      F extends Spliterator<?>, R, S extends MapWithIndexSpliterator<F, R, S>>
     implements Spliterator<R> {
     final F fromSpliterator;
     long index;
@@ -451,7 +451,7 @@ public final class Streams {
     @Override
     public int characteristics() {
       return fromSpliterator.characteristics()
-          & (Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED);
+             & (Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED);
     }
   }
 
@@ -486,9 +486,9 @@ public final class Streams {
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
       PrimitiveIterator.OfInt fromIterator = Spliterators.iterator(fromSpliterator);
       return StreamSupport.stream(
-              new AbstractSpliterator<R>(
-                  fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
+        new AbstractSpliterator<R>(
+          fromSpliterator.estimateSize(),
+          fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
         long index = 0;
 
         @Override
@@ -500,8 +500,8 @@ public final class Streams {
           return false;
         }
       },
-      isParallel)
-      .onClose(stream::close);
+        isParallel)
+             .onClose(stream: : close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator.OfInt, R, Splitr>
       implements IntConsumer, Spliterator<R> {
@@ -530,7 +530,7 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream: : close);
   }
 
   /**
@@ -578,9 +578,9 @@ public final class Streams {
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
       PrimitiveIterator.OfLong fromIterator = Spliterators.iterator(fromSpliterator);
       return StreamSupport.stream(
-              new AbstractSpliterator<R>(
-                  fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
+        new AbstractSpliterator<R>(
+          fromSpliterator.estimateSize(),
+          fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
         long index = 0;
 
         @Override
@@ -592,8 +592,8 @@ public final class Streams {
           return false;
         }
       },
-      isParallel)
-      .onClose(stream::close);
+        isParallel)
+             .onClose(stream: : close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator.OfLong, R, Splitr>
       implements LongConsumer, Spliterator<R> {
@@ -622,7 +622,7 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream: : close);
   }
 
   /**
@@ -662,7 +662,7 @@ public final class Streams {
    * was defined.
    */
   public static <R> Stream<R> mapWithIndex(
-      DoubleStream stream, DoubleFunctionWithIndex<R> function) {
+    DoubleStream stream, DoubleFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -671,9 +671,9 @@ public final class Streams {
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
       PrimitiveIterator.OfDouble fromIterator = Spliterators.iterator(fromSpliterator);
       return StreamSupport.stream(
-              new AbstractSpliterator<R>(
-                  fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
+        new AbstractSpliterator<R>(
+          fromSpliterator.estimateSize(),
+          fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
         long index = 0;
 
         @Override
@@ -685,8 +685,8 @@ public final class Streams {
           return false;
         }
       },
-      isParallel)
-      .onClose(stream::close);
+        isParallel)
+             .onClose(stream: : close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator.OfDouble, R, Splitr>
       implements DoubleConsumer, Spliterator<R> {
@@ -715,7 +715,7 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream: : close);
   }
 
   /**
@@ -789,14 +789,14 @@ public final class Streams {
         }
 
         // spliterator is known to be nonempty now
-        spliterator.forEachRemaining(state::set);
+        spliterator.forEachRemaining(state : : set);
         return java.util.Optional.of(state.get());
       }
 
       Spliterator<T> prefix = spliterator.trySplit();
       if (prefix == null || prefix.getExactSizeIfKnown() == 0) {
         // we can't split this any further
-        spliterator.forEachRemaining(state::set);
+        spliterator.forEachRemaining(state: : set);
         if (state.set) {
           return java.util.Optional.of(state.get());
         }

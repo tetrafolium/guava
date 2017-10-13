@@ -178,11 +178,11 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
       h2 += h1;
 
       return HashCode.fromBytesNoCopy(
-              ByteBuffer.wrap(new byte[CHUNK_SIZE])
-              .order(ByteOrder.LITTLE_ENDIAN)
-              .putLong(h1)
-              .putLong(h2)
-              .array());
+        ByteBuffer.wrap(new byte[CHUNK_SIZE])
+        .order(ByteOrder.LITTLE_ENDIAN)
+        .putLong(h1)
+        .putLong(h2)
+        .array());
     }
 
     private static long fmix64(long k) {

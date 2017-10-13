@@ -462,8 +462,8 @@ public final class BigIntegerMath {
       }
     }
     return accum
-        .multiply(BigInteger.valueOf(numeratorAccum))
-        .divide(BigInteger.valueOf(denominatorAccum));
+           .multiply(BigInteger.valueOf(numeratorAccum))
+           .divide(BigInteger.valueOf(denominatorAccum));
   }
 
   // Returns true if BigInteger.valueOf(x.longValue()).equals(x).

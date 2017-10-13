@@ -44,11 +44,11 @@ public final class MoreCollectors {
    */
   private static final Collector<Object, ?, Optional<Object>> TO_OPTIONAL =
       Collector.of(
-          ToOptionalState::new,
-          ToOptionalState::add,
-          ToOptionalState::combine,
-          ToOptionalState::getOptional,
-          Collector.Characteristics.UNORDERED);
+    ToOptionalState : : new,
+    ToOptionalState: : add,
+    ToOptionalState: : combine,
+    ToOptionalState: : getOptional,
+    Collector.Characteristics.UNORDERED);
 
   /**
    * A collector that converts a stream of zero or one elements to an {@code Optional}. The returned
@@ -65,14 +65,14 @@ public final class MoreCollectors {
 
   private static final Collector<Object, ?, Object> ONLY_ELEMENT =
       Collector.of(
-          ToOptionalState::new,
-          (state, o) -> state.add((o == null) ? NULL_PLACEHOLDER : o),
-          ToOptionalState::combine,
-  state -> {
+    ToOptionalState : : new,
+    (state, o) -> state.add((o == null) ? NULL_PLACEHOLDER : o),
+    ToOptionalState: : combine,
+    state -> {
     Object result = state.getElement();
     return (result == NULL_PLACEHOLDER) ? null : result;
   },
-  Collector.Characteristics.UNORDERED);
+    Collector.Characteristics.UNORDERED);
 
   /**
    * A collector that takes a stream containing exactly one element and returns that element. The

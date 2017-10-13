@@ -134,7 +134,7 @@ public interface SortedMultiset<E> extends SortedMultisetBridge<E>, SortedIterab
    * upperBoundType)}.
    */
   SortedMultiset<E> subMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType);
+    E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType);
 
   /**
    * Returns a view of this multiset restricted to the elements greater than

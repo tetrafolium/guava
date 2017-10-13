@@ -25,16 +25,16 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class SparseImmutableTable_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, SparseImmutableTable<?, ?, ?> instance) {}
+    SerializationStreamReader reader, SparseImmutableTable<?, ?, ?> instance) {}
 
   public static SparseImmutableTable<Object, Object, Object> instantiate(
-      SerializationStreamReader reader) throws SerializationException {
+    SerializationStreamReader reader) throws SerializationException {
     return (SparseImmutableTable<Object, Object, Object>)
-        ImmutableTable_CustomFieldSerializerBase.instantiate(reader);
+           ImmutableTable_CustomFieldSerializerBase.instantiate(reader);
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, SparseImmutableTable<Object, Object, Object> table)
+    SerializationStreamWriter writer, SparseImmutableTable<Object, Object, Object> table)
   throws SerializationException {
     ImmutableTable_CustomFieldSerializerBase.serialize(writer, table);
   }

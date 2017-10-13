@@ -30,9 +30,9 @@ public class TreeBasedTable_CustomFieldSerializer {
   public static TreeBasedTable<Object, Object, Object> instantiate(SerializationStreamReader reader)
   throws SerializationException {
     @SuppressWarnings("unchecked") // The comparator isn't used statically.
-    Comparator<Object> rowComparator = (Comparator<Object>) reader.readObject();
+    Comparator<Object> rowComparator = (Comparator<Object>)reader.readObject();
     @SuppressWarnings("unchecked") // The comparator isn't used statically.
-    Comparator<Object> columnComparator = (Comparator<Object>) reader.readObject();
+    Comparator<Object> columnComparator = (Comparator<Object>)reader.readObject();
 
     TreeBasedTable<Object, Object, Object> table =
         TreeBasedTable.create(rowComparator, columnComparator);

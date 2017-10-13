@@ -35,34 +35,34 @@ abstract class GwtFuturesCatchingSpecialization {
   /** @deprecated Use the overload that requires an executor. */
   @Deprecated
   public static <V> ListenableFuture<V> catching(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      Function<? super Throwable, ? extends V> fallback) {
+    ListenableFuture<? extends V> input,
+    Class<Throwable> exceptionType,
+    Function<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, directExecutor());
   }
 
   public static <V> ListenableFuture<V> catching(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      Function<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+    ListenableFuture<? extends V> input,
+    Class<Throwable> exceptionType,
+    Function<? super Throwable, ? extends V> fallback,
+    Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, executor);
   }
 
   /** @deprecated Use the overload that requires an executor. */
   @Deprecated
   public static <V> ListenableFuture<V> catchingAsync(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      AsyncFunction<? super Throwable, ? extends V> fallback) {
+    ListenableFuture<? extends V> input,
+    Class<Throwable> exceptionType,
+    AsyncFunction<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, directExecutor());
   }
 
   public static <V> ListenableFuture<V> catchingAsync(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      AsyncFunction<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+    ListenableFuture<? extends V> input,
+    Class<Throwable> exceptionType,
+    AsyncFunction<? super Throwable, ? extends V> fallback,
+    Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, executor);
   }
 }

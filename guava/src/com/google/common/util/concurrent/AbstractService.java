@@ -52,7 +52,7 @@ import javax.annotation.concurrent.Immutable;
 @GwtIncompatible
 public abstract class AbstractService implements Service {
   private static final ListenerCallQueue.Event<Listener> STARTING_EVENT =
-  new ListenerCallQueue.Event<Listener>() {
+      new ListenerCallQueue.Event<Listener>() {
     @Override
     public void call(Listener listener) {
       listener.starting();
@@ -64,7 +64,7 @@ public abstract class AbstractService implements Service {
     }
   };
   private static final ListenerCallQueue.Event<Listener> RUNNING_EVENT =
-  new ListenerCallQueue.Event<Listener>() {
+      new ListenerCallQueue.Event<Listener>() {
     @Override
     public void call(Listener listener) {
       listener.running();
@@ -89,29 +89,29 @@ public abstract class AbstractService implements Service {
 
   private static ListenerCallQueue.Event<Listener> terminatedEvent(final State from) {
     return new ListenerCallQueue.Event<Listener>() {
-      @Override
-      public void call(Listener listener) {
-        listener.terminated(from);
-      }
+             @Override
+             public void call(Listener listener) {
+               listener.terminated(from);
+             }
 
-      @Override
-      public String toString() {
-        return "terminated({from = " + from + "})";
-      }
+             @Override
+             public String toString() {
+               return "terminated({from = " + from + "})";
+             }
     };
   }
 
   private static ListenerCallQueue.Event<Listener> stoppingEvent(final State from) {
     return new ListenerCallQueue.Event<Listener>() {
-      @Override
-      public void call(Listener listener) {
-        listener.stopping(from);
-      }
+             @Override
+             public void call(Listener listener) {
+               listener.stopping(from);
+             }
 
-      @Override
-      public String toString() {
-        return "stopping({from = " + from + "})";
-      }
+             @Override
+             public String toString() {
+               return "stopping({from = " + from + "})";
+             }
     };
   }
 
@@ -325,11 +325,11 @@ public abstract class AbstractService implements Service {
       // even check the guard. I don't think we care too much about this use case but it could lead
       // to a confusing error message.
       throw new TimeoutException(
-          "Timed out waiting for "
-          + this
-          + " to reach a terminal state. "
-          + "Current state: "
-          + state());
+              "Timed out waiting for "
+              + this
+              + " to reach a terminal state. "
+              + "Current state: "
+              + state());
     }
   }
 
@@ -341,11 +341,11 @@ public abstract class AbstractService implements Service {
       if (actual == FAILED) {
         // Handle this specially so that we can include the failureCause, if there is one.
         throw new IllegalStateException(
-            "Expected the service " + this + " to be " + expected + ", but the service has FAILED",
-            failureCause());
+                "Expected the service " + this + " to be " + expected + ", but the service has FAILED",
+                failureCause());
       }
       throw new IllegalStateException(
-          "Expected the service " + this + " to be " + expected + ", but was " + actual);
+              "Expected the service " + this + " to be " + expected + ", but was " + actual);
     }
   }
 
@@ -363,7 +363,7 @@ public abstract class AbstractService implements Service {
       if (snapshot.state != STARTING) {
         IllegalStateException failure =
             new IllegalStateException(
-            "Cannot notifyStarted() when the service is " + snapshot.state);
+          "Cannot notifyStarted() when the service is " + snapshot.state);
         notifyFailed(failure);
         throw failure;
       }
@@ -524,7 +524,7 @@ public abstract class AbstractService implements Service {
   private void enqueueFailedEvent(final State from, final Throwable cause) {
     // can't memoize this one due to the exception
     listeners.enqueue(
-    new ListenerCallQueue.Event<Listener>() {
+      new ListenerCallQueue.Event<Listener>() {
       @Override
       public void call(Listener listener) {
         listener.failed(from, cause);
@@ -565,17 +565,17 @@ public abstract class AbstractService implements Service {
     }
 
     StateSnapshot(
-        State internalState, boolean shutdownWhenStartupFinishes, @Nullable Throwable failure) {
+      State internalState, boolean shutdownWhenStartupFinishes, @Nullable Throwable failure) {
       checkArgument(
-          !shutdownWhenStartupFinishes || internalState == STARTING,
-          "shutdownWhenStartupFinishes can only be set if state is STARTING. Got %s instead.",
-          internalState);
+        !shutdownWhenStartupFinishes || internalState == STARTING,
+        "shutdownWhenStartupFinishes can only be set if state is STARTING. Got %s instead.",
+        internalState);
       checkArgument(
-          !(failure != null ^ internalState == FAILED),
-          "A failure cause should be set if and only if the state is failed.  Got %s and %s "
-          + "instead.",
-          internalState,
-          failure);
+        !(failure != null ^ internalState == FAILED),
+        "A failure cause should be set if and only if the state is failed.  Got %s and %s "
+        + "instead.",
+        internalState,
+        failure);
       this.state = internalState;
       this.shutdownWhenStartupFinishes = shutdownWhenStartupFinishes;
       this.failure = failure;
@@ -593,9 +593,9 @@ public abstract class AbstractService implements Service {
     /** @see Service#failureCause() */
     Throwable failureCause() {
       checkState(
-          state == FAILED,
-          "failureCause() is only valid if the service has failed, service is %s",
-          state);
+        state == FAILED,
+        "failureCause() is only valid if the service has failed, service is %s",
+        state);
       return failure;
     }
   }

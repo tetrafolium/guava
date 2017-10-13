@@ -369,10 +369,10 @@ public final class Monitor {
   public Guard newGuard(final BooleanSupplier isSatisfied) {
     checkNotNull(isSatisfied, "isSatisfied");
     return new Guard(this) {
-      @Override
-      public boolean isSatisfied() {
-        return isSatisfied.getAsBoolean();
-      }
+             @Override
+             public boolean isSatisfied() {
+               return isSatisfied.getAsBoolean();
+             }
     };
   }
 
@@ -406,7 +406,7 @@ public final class Monitor {
     boolean interrupted = Thread.interrupted();
     try {
       final long startTime = System.nanoTime();
-      for (long remainingNanos = timeoutNanos; ;) {
+      for (long remainingNanos = timeoutNanos;; ) {
         try {
           return lock.tryLock(remainingNanos, TimeUnit.NANOSECONDS);
         } catch (InterruptedException interrupt) {
@@ -509,7 +509,7 @@ public final class Monitor {
     boolean reentrant = lock.isHeldByCurrentThread();
     long startTime = 0L;
 
-    locked: {
+    locked : {
       if (!fair) {
         // Check interrupt status to get behavior consistent with fair case.
         if (Thread.interrupted()) {
@@ -531,9 +531,9 @@ public final class Monitor {
       satisfied =
           guard.isSatisfied()
           || awaitNanos(
-              guard,
-              (startTime == 0L) ? timeoutNanos : remainingNanos(startTime, timeoutNanos),
-              reentrant);
+        guard,
+        (startTime == 0L) ? timeoutNanos : remainingNanos(startTime, timeoutNanos),
+        reentrant);
       threw = false;
       return satisfied;
     } finally {
@@ -568,7 +568,7 @@ public final class Monitor {
     try {
       if (fair || !lock.tryLock()) {
         startTime = initNanoTime(timeoutNanos);
-        for (long remainingNanos = timeoutNanos; ;) {
+        for (long remainingNanos = timeoutNanos;; ) {
           try {
             if (lock.tryLock(remainingNanos, TimeUnit.NANOSECONDS)) {
               break;
@@ -807,7 +807,7 @@ public final class Monitor {
     final long startTime = initNanoTime(timeoutNanos);
     boolean interrupted = Thread.interrupted();
     try {
-      for (long remainingNanos = timeoutNanos; ;) {
+      for (long remainingNanos = timeoutNanos;; ) {
         try {
           return awaitNanos(guard, remainingNanos, signalBeforeWaiting);
         } catch (InterruptedException interrupt) {
@@ -938,8 +938,8 @@ public final class Monitor {
   private static long toSafeNanos(long time, TimeUnit unit) {
     long timeoutNanos = unit.toNanos(time);
     return (timeoutNanos <= 0L)
-        ? 0L
-        : (timeoutNanos > (Long.MAX_VALUE / 4) * 3) ? (Long.MAX_VALUE / 4) * 3 : timeoutNanos;
+           ? 0L
+           : (timeoutNanos > (Long.MAX_VALUE / 4) * 3) ? (Long.MAX_VALUE / 4) * 3 : timeoutNanos;
   }
 
   /**
@@ -1067,7 +1067,7 @@ public final class Monitor {
     int waiters = --guard.waiterCount;
     if (waiters == 0) {
       // unlink guard from activeGuards
-      for (Guard p = activeGuards, pred = null; ; pred = p, p = p.next) {
+      for (Guard p = activeGuards, pred = null;; pred = p, p = p.next) {
         if (p == guard) {
           if (pred == null) {
             activeGuards = p.next;

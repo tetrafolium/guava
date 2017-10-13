@@ -59,30 +59,30 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
   @Override
   public Set<EndpointPair<N>> edges() {
     return new AbstractSet<EndpointPair<N>>() {
-      @Override
-      public UnmodifiableIterator<EndpointPair<N>> iterator() {
-        return EndpointPairIterator.of(AbstractBaseGraph.this);
-      }
+             @Override
+             public UnmodifiableIterator<EndpointPair<N>> iterator() {
+               return EndpointPairIterator.of(AbstractBaseGraph.this);
+             }
 
-      @Override
-      public int size() {
-        return Ints.saturatedCast(edgeCount());
-      }
+             @Override
+             public int size() {
+               return Ints.saturatedCast(edgeCount());
+             }
 
-      // Mostly safe: We check contains(u) before calling successors(u), so we perform unsafe
-      // operations only in weird cases like checking for an EndpointPair<ArrayList> in a
-      // Graph<LinkedList>.
-      @SuppressWarnings("unchecked")
-      @Override
-      public boolean contains(@Nullable Object obj) {
-        if (!(obj instanceof EndpointPair)) {
-          return false;
-        }
-        EndpointPair<?> endpointPair = (EndpointPair<?>) obj;
-        return isDirected() == endpointPair.isOrdered()
-            && nodes().contains(endpointPair.nodeU())
-            && successors((N) endpointPair.nodeU()).contains(endpointPair.nodeV());
-      }
+             // Mostly safe: We check contains(u) before calling successors(u), so we perform unsafe
+             // operations only in weird cases like checking for an EndpointPair<ArrayList> in a
+             // Graph<LinkedList>.
+             @SuppressWarnings("unchecked")
+             @Override
+             public boolean contains(@Nullable Object obj) {
+               if (!(obj instanceof EndpointPair)) {
+                 return false;
+               }
+               EndpointPair<?> endpointPair = (EndpointPair<?>)obj;
+               return isDirected() == endpointPair.isOrdered()
+                      && nodes().contains(endpointPair.nodeU())
+                      && successors((N) endpointPair.nodeU()).contains(endpointPair.nodeV());
+             }
     };
   }
 

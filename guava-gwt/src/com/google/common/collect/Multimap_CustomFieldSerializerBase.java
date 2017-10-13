@@ -35,7 +35,7 @@ import java.util.Map;
 public final class Multimap_CustomFieldSerializerBase {
 
   static ImmutableMultimap<Object, Object> instantiate(
-      SerializationStreamReader reader, ImmutableMultimap.Builder<Object, Object> builder)
+    SerializationStreamReader reader, ImmutableMultimap.Builder<Object, Object> builder)
   throws SerializationException {
     int keyCount = reader.readInt();
     for (int i = 0; i < keyCount; ++i) {
@@ -51,7 +51,7 @@ public final class Multimap_CustomFieldSerializerBase {
 
   @CanIgnoreReturnValue
   public static Multimap<Object, Object> populate(
-      SerializationStreamReader reader, Multimap<Object, Object> multimap)
+    SerializationStreamReader reader, Multimap<Object, Object> multimap)
   throws SerializationException {
     int keyCount = reader.readInt();
     for (int i = 0; i < keyCount; ++i) {

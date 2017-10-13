@@ -99,7 +99,7 @@ public final class Graphs {
    * cycle in the graph.
    */
   private static <N> boolean subgraphHasCycle(
-      Graph<N> graph, Map<Object, NodeVisitState> visitedNodes, N node, @Nullable N previousNode) {
+    Graph<N> graph, Map<Object, NodeVisitState> visitedNodes, N node, @Nullable N previousNode) {
     NodeVisitState state = visitedNodes.get(node);
     if (state == NodeVisitState.COMPLETE) {
       return false;
@@ -111,7 +111,7 @@ public final class Graphs {
     visitedNodes.put(node, NodeVisitState.PENDING);
     for (N nextNode : graph.successors(node)) {
       if (canTraverseWithoutReusingEdge(graph, nextNode, previousNode)
-          && subgraphHasCycle(graph, visitedNodes, nextNode, node)) {
+            && subgraphHasCycle(graph, visitedNodes, nextNode, node)) {
         return true;
       }
     }
@@ -126,7 +126,7 @@ public final class Graphs {
    * from B to A).
    */
   private static boolean canTraverseWithoutReusingEdge(
-      Graph<?> graph, Object nextNode, @Nullable Object previousNode) {
+    Graph<?> graph, Object nextNode, @Nullable Object previousNode) {
     if (graph.isDirected() || !Objects.equal(previousNode, nextNode)) {
       return true;
     }
@@ -223,7 +223,7 @@ public final class Graphs {
   // TODO(user): Delete this method.
   @Deprecated
   public static boolean equivalent(
-      @Nullable ValueGraph<?, ?> graphA, @Nullable ValueGraph<?, ?> graphB) {
+    @Nullable ValueGraph<?, ?> graphA, @Nullable ValueGraph<?, ?> graphB) {
     return Objects.equal(graphA, graphB);
   }
 
@@ -234,7 +234,7 @@ public final class Graphs {
   // TODO(user): Delete this method.
   @Deprecated
   public static boolean equivalent(
-      @Nullable Network<?, ?> networkA, @Nullable Network<?, ?> networkB) {
+    @Nullable Network<?, ?> networkA, @Nullable Network<?, ?> networkB) {
     return Objects.equal(networkA, networkB);
   }
 
@@ -252,7 +252,7 @@ public final class Graphs {
     }
 
     if (graph instanceof TransposedGraph) {
-      return ((TransposedGraph<N>) graph).graph;
+      return ((TransposedGraph<N>)graph).graph;
     }
 
     return new TransposedGraph<N>(graph);
@@ -308,7 +308,7 @@ public final class Graphs {
     }
 
     if (graph instanceof TransposedValueGraph) {
-      return ((TransposedValueGraph<N, V>) graph).graph;
+      return ((TransposedValueGraph<N, V>)graph).graph;
     }
 
     return new TransposedValueGraph<>(graph);
@@ -375,7 +375,7 @@ public final class Graphs {
     }
 
     if (network instanceof TransposedNetwork) {
-      return ((TransposedNetwork<N, E>) network).network;
+      return ((TransposedNetwork<N, E>)network).network;
     }
 
     return new TransposedNetwork<>(network);
@@ -461,8 +461,8 @@ public final class Graphs {
    */
   public static <N> MutableGraph<N> inducedSubgraph(Graph<N> graph, Iterable<? extends N> nodes) {
     MutableGraph<N> subgraph = (nodes instanceof Collection)
-        ? GraphBuilder.from(graph).expectedNodeCount(((Collection) nodes).size()).build()
-        : GraphBuilder.from(graph).build();
+      ? GraphBuilder.from(graph).expectedNodeCount(((Collection) nodes).size()).build()
+      : GraphBuilder.from(graph).build();
     for (N node : nodes) {
       subgraph.addNode(node);
     }
@@ -485,10 +485,10 @@ public final class Graphs {
    * @throws IllegalArgumentException if any element in {@code nodes} is not a node in the graph
    */
   public static <N, V> MutableValueGraph<N, V> inducedSubgraph(
-      ValueGraph<N, V> graph, Iterable<? extends N> nodes) {
+    ValueGraph<N, V> graph, Iterable<? extends N> nodes) {
     MutableValueGraph<N, V> subgraph = (nodes instanceof Collection)
-        ? ValueGraphBuilder.from(graph).expectedNodeCount(((Collection) nodes).size()).build()
-        : ValueGraphBuilder.from(graph).build();
+      ? ValueGraphBuilder.from(graph).expectedNodeCount(((Collection) nodes).size()).build()
+      : ValueGraphBuilder.from(graph).build();
     for (N node : nodes) {
       subgraph.addNode(node);
     }
@@ -496,7 +496,7 @@ public final class Graphs {
       for (N successorNode : graph.successors(node)) {
         if (subgraph.nodes().contains(successorNode)) {
           subgraph.putEdgeValue(
-              node, successorNode, graph.edgeValueOrDefault(node, successorNode, null));
+            node, successorNode, graph.edgeValueOrDefault(node, successorNode, null));
         }
       }
     }
@@ -512,10 +512,10 @@ public final class Graphs {
    * @throws IllegalArgumentException if any element in {@code nodes} is not a node in the graph
    */
   public static <N, E> MutableNetwork<N, E> inducedSubgraph(
-      Network<N, E> network, Iterable<? extends N> nodes) {
+    Network<N, E> network, Iterable<? extends N> nodes) {
     MutableNetwork<N, E> subgraph = (nodes instanceof Collection)
-        ? NetworkBuilder.from(network).expectedNodeCount(((Collection) nodes).size()).build()
-        : NetworkBuilder.from(network).build();
+      ? NetworkBuilder.from(network).expectedNodeCount(((Collection) nodes).size()).build()
+      : NetworkBuilder.from(network).build();
     for (N node : nodes) {
       subgraph.addNode(node);
     }
@@ -545,13 +545,13 @@ public final class Graphs {
   /** Creates a mutable copy of {@code graph} with the same nodes, edges, and edge values. */
   public static <N, V> MutableValueGraph<N, V> copyOf(ValueGraph<N, V> graph) {
     MutableValueGraph<N, V> copy =
-        ValueGraphBuilder.from(graph).expectedNodeCount(graph.nodes().size()).build();
+      ValueGraphBuilder.from(graph).expectedNodeCount(graph.nodes().size()).build();
     for (N node : graph.nodes()) {
       copy.addNode(node);
     }
     for (EndpointPair<N> edge : graph.edges()) {
       copy.putEdgeValue(
-          edge.nodeU(), edge.nodeV(), graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null));
+        edge.nodeU(), edge.nodeV(), graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null));
     }
     return copy;
   }
@@ -559,10 +559,10 @@ public final class Graphs {
   /** Creates a mutable copy of {@code network} with the same nodes and edges. */
   public static <N, E> MutableNetwork<N, E> copyOf(Network<N, E> network) {
     MutableNetwork<N, E> copy =
-        NetworkBuilder.from(network)
-        .expectedNodeCount(network.nodes().size())
-        .expectedEdgeCount(network.edges().size())
-        .build();
+      NetworkBuilder.from(network)
+      .expectedNodeCount(network.nodes().size())
+      .expectedEdgeCount(network.edges().size())
+      .build();
     for (N node : network.nodes()) {
       copy.addNode(node);
     }

@@ -42,21 +42,21 @@ import javax.annotation.Nullable;
 final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetworkConnections<N, E> {
 
   private DirectedMultiNetworkConnections(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
     super(inEdges, outEdges, selfLoopCount);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> of() {
     return new DirectedMultiNetworkConnections<>(
-            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-            0);
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+      0);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
     return new DirectedMultiNetworkConnections<>(
-            ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
+      ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
   }
 
   @LazyInit
@@ -96,10 +96,10 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   @Override
   public Set<E> edgesConnecting(final N node) {
     return new MultiEdgesConnecting<E>(outEdgeMap, node) {
-      @Override
-      public int size() {
-        return successorsMultiset().count(node);
-      }
+             @Override
+             public int size() {
+               return successorsMultiset().count(node);
+             }
     };
   }
 

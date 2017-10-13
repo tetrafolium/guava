@@ -27,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
 final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> {
   static final ImmutableTable<Object, Object, Object> EMPTY =
       new SparseImmutableTable<>(
-      ImmutableList.<Cell<Object, Object, Object>>of(), ImmutableSet.of(), ImmutableSet.of());
+    ImmutableList.<Cell<Object, Object, Object>>of(), ImmutableSet.of(), ImmutableSet.of());
 
   private final ImmutableMap<R, Map<C, V>> rowMap;
   private final ImmutableMap<C, Map<R, V>> columnMap;
@@ -38,9 +38,9 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   private final int[] cellColumnInRowIndices;
 
   SparseImmutableTable(
-      ImmutableList<Cell<R, C, V>> cellList,
-      ImmutableSet<R> rowSpace,
-      ImmutableSet<C> columnSpace) {
+    ImmutableList<Cell<R, C, V>> cellList,
+    ImmutableSet<R> rowSpace,
+    ImmutableSet<C> columnSpace) {
     Map<R, Integer> rowIndex = Maps.indexMap(rowSpace);
     Map<R, Map<C, V>> rows = Maps.newLinkedHashMap();
     for (R row : rowSpace) {
@@ -64,14 +64,14 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
       V oldValue = thisRow.put(columnKey, value);
       if (oldValue != null) {
         throw new IllegalArgumentException(
-            "Duplicate value for row="
-            + rowKey
-            + ", column="
-            + columnKey
-            + ": "
-            + value
-            + ", "
-            + oldValue);
+                "Duplicate value for row="
+                + rowKey
+                + ", column="
+                + columnKey
+                + ": "
+                + value
+                + ", "
+                + oldValue);
       }
       columns.get(columnKey).put(rowKey, value);
     }
@@ -109,7 +109,7 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   Cell<R, C, V> getCell(int index) {
     int rowIndex = cellRowIndices[index];
     Map.Entry<R, Map<C, V>> rowEntry = rowMap.entrySet().asList().get(rowIndex);
-    ImmutableMap<C, V> row = (ImmutableMap<C, V>) rowEntry.getValue();
+    ImmutableMap<C, V> row = (ImmutableMap<C, V>)rowEntry.getValue();
     int columnIndex = cellColumnInRowIndices[index];
     Map.Entry<C, V> colEntry = row.entrySet().asList().get(columnIndex);
     return cellOf(rowEntry.getKey(), colEntry.getKey(), colEntry.getValue());
@@ -118,7 +118,7 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   @Override
   V getValue(int index) {
     int rowIndex = cellRowIndices[index];
-    ImmutableMap<C, V> row = (ImmutableMap<C, V>) rowMap.values().asList().get(rowIndex);
+    ImmutableMap<C, V> row = (ImmutableMap<C, V>)rowMap.values().asList().get(rowIndex);
     int columnIndex = cellColumnInRowIndices[index];
     return row.values().asList().get(columnIndex);
   }

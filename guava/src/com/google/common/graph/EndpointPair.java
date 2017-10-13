@@ -171,7 +171,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
         return false;
       }
 
-      EndpointPair<?> other = (EndpointPair<?>) obj;
+      EndpointPair<?> other = (EndpointPair<?>)obj;
       if (isOrdered() != other.isOrdered()) {
         return false;
       }
@@ -219,7 +219,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
         return false;
       }
 
-      EndpointPair<?> other = (EndpointPair<?>) obj;
+      EndpointPair<?> other = (EndpointPair<?>)obj;
       if (isOrdered() != other.isOrdered()) {
         return false;
       }
