@@ -47,9 +47,9 @@ public class CharSourceTest extends IoTestCase {
     TestSuite suite = new TestSuite();
     for (boolean asByteSource : new boolean[] {false, true}) {
       suite.addTest(CharSourceTester.tests("CharSource.wrap[CharSequence]",
-          SourceSinkFactories.stringCharSourceFactory(), asByteSource));
+              SourceSinkFactories.stringCharSourceFactory(), asByteSource));
       suite.addTest(CharSourceTester.tests("CharSource.empty[]",
-          SourceSinkFactories.emptyCharSourceFactory(), asByteSource));
+              SourceSinkFactories.emptyCharSourceFactory(), asByteSource));
     }
     suite.addTestSuite(CharSourceTest.class);
     return suite;
@@ -247,9 +247,9 @@ public class CharSourceTest extends IoTestCase {
   static final CharSink BROKEN_OPEN_SINK = new TestCharSink(OPEN_THROWS);
 
   private static final ImmutableSet<CharSource> BROKEN_SOURCES
-      = ImmutableSet.of(BROKEN_CLOSE_SOURCE, BROKEN_OPEN_SOURCE, BROKEN_READ_SOURCE);
+    = ImmutableSet.of(BROKEN_CLOSE_SOURCE, BROKEN_OPEN_SOURCE, BROKEN_READ_SOURCE);
   private static final ImmutableSet<CharSink> BROKEN_SINKS
-      = ImmutableSet.of(BROKEN_CLOSE_SINK, BROKEN_OPEN_SINK, BROKEN_WRITE_SINK);
+    = ImmutableSet.of(BROKEN_CLOSE_SINK, BROKEN_OPEN_SINK, BROKEN_WRITE_SINK);
 
   public void testCopyExceptions() {
     if (!Closer.SuppressingSuppressor.isAvailable()) {

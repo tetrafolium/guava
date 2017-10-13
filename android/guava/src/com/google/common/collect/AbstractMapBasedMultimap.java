@@ -87,7 +87,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
-    implements Serializable {
+  implements Serializable {
   /*
    * Here's an outline of the overall design.
    *
@@ -668,27 +668,27 @@ abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
     public SortedSet<V> headSet(V toElement) {
       refreshIfEmpty();
       return new WrappedSortedSet(
-          getKey(),
-          getSortedSetDelegate().headSet(toElement),
-          (getAncestor() == null) ? this : getAncestor());
+              getKey(),
+              getSortedSetDelegate().headSet(toElement),
+              (getAncestor() == null) ? this : getAncestor());
     }
 
     @Override
     public SortedSet<V> subSet(V fromElement, V toElement) {
       refreshIfEmpty();
       return new WrappedSortedSet(
-          getKey(),
-          getSortedSetDelegate().subSet(fromElement, toElement),
-          (getAncestor() == null) ? this : getAncestor());
+              getKey(),
+              getSortedSetDelegate().subSet(fromElement, toElement),
+              (getAncestor() == null) ? this : getAncestor());
     }
 
     @Override
     public SortedSet<V> tailSet(V fromElement) {
       refreshIfEmpty();
       return new WrappedSortedSet(
-          getKey(),
-          getSortedSetDelegate().tailSet(fromElement),
-          (getAncestor() == null) ? this : getAncestor());
+              getKey(),
+              getSortedSetDelegate().tailSet(fromElement),
+              (getAncestor() == null) ? this : getAncestor());
     }
   }
 
@@ -752,7 +752,7 @@ abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
     public NavigableSet<V> subSet(
         V fromElement, boolean fromInclusive, V toElement, boolean toInclusive) {
       return wrap(
-          getSortedSetDelegate().subSet(fromElement, fromInclusive, toElement, toInclusive));
+              getSortedSetDelegate().subSet(fromElement, fromInclusive, toElement, toInclusive));
     }
 
     @Override
@@ -854,9 +854,9 @@ abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
     public List<V> subList(int fromIndex, int toIndex) {
       refreshIfEmpty();
       return wrapList(
-          getKey(),
-          getListDelegate().subList(fromIndex, toIndex),
-          (getAncestor() == null) ? this : getAncestor());
+              getKey(),
+              getListDelegate().subList(fromIndex, toIndex),
+              (getAncestor() == null) ? this : getAncestor());
     }
 
     /** ListIterator decorator. */
@@ -1111,7 +1111,7 @@ abstract class AbstractMapBasedMultimap<K, V> extends AbstractMultimap<K, V>
     public NavigableSet<K> subSet(
         K fromElement, boolean fromInclusive, K toElement, boolean toInclusive) {
       return new NavigableKeySet(
-          sortedMap().subMap(fromElement, fromInclusive, toElement, toInclusive));
+              sortedMap().subMap(fromElement, fromInclusive, toElement, toInclusive));
     }
 
     @Override

@@ -167,7 +167,7 @@ public class FinalizableReferenceQueue implements Closeable {
       logger.log(
           Level.INFO,
           "Failed to start reference finalizer thread."
-              + " Reference cleanup will only occur when new references are created.",
+          + " Reference cleanup will only occur when new references are created.",
           t);
     }
 
@@ -278,9 +278,9 @@ public class FinalizableReferenceQueue implements Closeable {
   static class DecoupledLoader implements FinalizerLoader {
     private static final String LOADING_ERROR =
         "Could not load Finalizer in its own class loader. Loading Finalizer in the current class "
-            + "loader instead. As a result, you will not be able to garbage collect this class "
-            + "loader. To support reclaiming this class loader, either resolve the underlying "
-            + "issue, or move Guava to your system class path.";
+        + "loader instead. As a result, you will not be able to garbage collect this class "
+        + "loader. To support reclaiming this class loader, either resolve the underlying "
+        + "issue, or move Guava to your system class path.";
 
     @Nullable
     @Override
@@ -353,7 +353,7 @@ public class FinalizableReferenceQueue implements Closeable {
   static Method getStartFinalizer(Class<?> finalizer) {
     try {
       return finalizer.getMethod(
-          "startFinalizer", Class.class, ReferenceQueue.class, PhantomReference.class);
+              "startFinalizer", Class.class, ReferenceQueue.class, PhantomReference.class);
     } catch (NoSuchMethodException e) {
       throw new AssertionError(e);
     }

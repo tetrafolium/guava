@@ -90,7 +90,7 @@ public class EnumMultisetTest extends TestCase {
 
   public void testCollectionCreate() {
     Multiset<Color> ms = EnumMultiset.create(
-        asList(Color.RED, Color.YELLOW, Color.RED));
+            asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(0, ms.count(Color.BLUE));
     assertEquals(1, ms.count(Color.YELLOW));
     assertEquals(2, ms.count(Color.RED));
@@ -128,7 +128,7 @@ public class EnumMultisetTest extends TestCase {
   @GwtIncompatible // SerializableTester
   public void testSerializable() {
     Multiset<Color> ms = EnumMultiset.create(
-        asList(Color.RED, Color.YELLOW, Color.RED));
+            asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(ms, SerializableTester.reserialize(ms));
   }
 
@@ -155,17 +155,17 @@ public class EnumMultisetTest extends TestCase {
   @GwtIncompatible // reflection
   public void testEquals() throws Exception {
     new ClassSanityTester()
-        .setDistinctValues(Class.class, Color.class, Gender.class)
-        .setDistinctValues(Enum.class, Color.BLUE, Color.RED)
-        .forAllPublicStaticMethods(EnumMultisetFactory.class)
-        .testEquals();
+    .setDistinctValues(Class.class, Color.class, Gender.class)
+    .setDistinctValues(Enum.class, Color.BLUE, Color.RED)
+    .forAllPublicStaticMethods(EnumMultisetFactory.class)
+    .testEquals();
   }
 
   @GwtIncompatible // reflection
   public void testNulls() throws Exception {
     new NullPointerTester()
-        .setDefault(Class.class, Color.class)
-        .setDefault(Iterable.class, EnumSet.allOf(Color.class))
-        .testAllPublicStaticMethods(EnumMultiset.class);
+    .setDefault(Class.class, Color.class)
+    .setDefault(Iterable.class, EnumSet.allOf(Color.class))
+    .testAllPublicStaticMethods(EnumMultiset.class);
   }
 }

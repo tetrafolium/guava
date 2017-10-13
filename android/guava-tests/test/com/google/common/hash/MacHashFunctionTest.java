@@ -53,16 +53,16 @@ public class MacHashFunctionTest extends TestCase {
   // From http://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Mac
   private static final ImmutableTable<String, SecretKey, HashFunction> ALGORITHMS =
       new ImmutableTable.Builder<String, SecretKey, HashFunction>()
-          .put("HmacMD5", MD5_KEY, Hashing.hmacMd5(MD5_KEY))
-          .put("HmacSHA1", SHA1_KEY, Hashing.hmacSha1(SHA1_KEY))
-          .put("HmacSHA256", SHA256_KEY, Hashing.hmacSha256(SHA256_KEY))
-          .put("HmacSHA512", SHA512_KEY, Hashing.hmacSha512(SHA512_KEY))
-          .build();
+  .put("HmacMD5", MD5_KEY, Hashing.hmacMd5(MD5_KEY))
+  .put("HmacSHA1", SHA1_KEY, Hashing.hmacSha1(SHA1_KEY))
+  .put("HmacSHA256", SHA256_KEY, Hashing.hmacSha256(SHA256_KEY))
+  .put("HmacSHA512", SHA512_KEY, Hashing.hmacSha512(SHA512_KEY))
+  .build();
 
   public void testNulls() {
     NullPointerTester tester = new NullPointerTester()
-        .setDefault(String.class, "HmacMD5")
-        .setDefault(Key.class, MD5_KEY);
+    .setDefault(String.class, "HmacMD5")
+    .setDefault(Key.class, MD5_KEY);
     tester.testAllPublicConstructors(MacHashFunction.class);
     tester.testAllPublicInstanceMethods(new MacHashFunction("HmacMD5", MD5_KEY, "toString"));
   }
@@ -100,9 +100,9 @@ public class MacHashFunctionTest extends TestCase {
     assertEquals(
         HashCode.fromBytes(mac.doFinal()),
         Hashing.hmacSha1(SHA1_KEY).newHasher()
-            .putString("hello", UTF_8)
-            .putString("world", UTF_8)
-            .hash());
+        .putString("hello", UTF_8)
+        .putString("world", UTF_8)
+        .hash());
   }
 
   public void testMultipleUpdatesDoFinal() throws Exception {
@@ -114,10 +114,10 @@ public class MacHashFunctionTest extends TestCase {
     assertEquals(
         HashCode.fromBytes(mac.doFinal("!!!".getBytes(UTF_8))),
         Hashing.hmacSha1(SHA1_KEY).newHasher()
-            .putString("hello", UTF_8)
-            .putString("world", UTF_8)
-            .putString("!!!", UTF_8)
-            .hash());
+        .putString("hello", UTF_8)
+        .putString("world", UTF_8)
+        .putString("!!!", UTF_8)
+        .hash());
   }
 
   public void testCustomKey() throws Exception {
@@ -134,8 +134,8 @@ public class MacHashFunctionTest extends TestCase {
     };
     assertEquals("ad262969c53bc16032f160081c4a07a0",
         Hashing.hmacMd5(customKey)
-            .hashString("The quick brown fox jumps over the lazy dog", UTF_8)
-            .toString());
+        .hashString("The quick brown fox jumps over the lazy dog", UTF_8)
+        .toString());
   }
 
   public void testBadKey_emptyKey() throws Exception {

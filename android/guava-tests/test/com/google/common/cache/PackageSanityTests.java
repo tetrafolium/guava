@@ -29,7 +29,8 @@ public class PackageSanityTests extends AbstractPackageSanityTests {
     setDefault(CacheLoader.class, new CacheLoader<Object, Object>() {
       @Override public Object load(Object key) {
         return key;
-      }});
+      }
+    });
     setDefault(LocalCache.class, new LocalCache<Object, Object>(CacheBuilder.newBuilder(), null));
     setDefault(CacheBuilder.class, CacheBuilder.newBuilder());
   }

@@ -46,10 +46,10 @@ public class ComparatorsTest extends TestCase {
     Helpers.testComparator(lexy, empty, a, aa, ab, b);
 
     new EqualsTester()
-        .addEqualityGroup(lexy, Comparators.lexicographical(comparator))
-        .addEqualityGroup(Comparators.lexicographical(String.CASE_INSENSITIVE_ORDER))
-        .addEqualityGroup(Ordering.natural())
-        .testEquals();
+    .addEqualityGroup(lexy, Comparators.lexicographical(comparator))
+    .addEqualityGroup(Comparators.lexicographical(String.CASE_INSENSITIVE_ORDER))
+    .addEqualityGroup(Ordering.natural())
+    .testEquals();
   }
 
   public void testIsInOrder() {

@@ -117,7 +117,7 @@ public class EventBusTest extends TestCase {
         compEvent, compEvents.get(1));
   }
 
-  public void testSubscriberThrowsException() throws Exception{
+  public void testSubscriberThrowsException() throws Exception {
     final RecordingSubscriberExceptionHandler handler =
         new RecordingSubscriberExceptionHandler();
     final EventBus eventBus = new EventBus(handler);
@@ -146,7 +146,7 @@ public class EventBusTest extends TestCase {
         handler.context.getSubscriberMethod());
   }
 
-  public void testSubscriberThrowsExceptionHandlerThrowsException() throws Exception{
+  public void testSubscriberThrowsExceptionHandlerThrowsException() throws Exception {
     final EventBus eventBus = new EventBus(new SubscriberExceptionHandler() {
       @Override
       public void handleException(Throwable exception,
@@ -218,18 +218,18 @@ public class EventBusTest extends TestCase {
     expectedEvents.add(EVENT);
 
     assertEquals("Two correct events should be delivered.",
-                 expectedEvents, catcher1.getEvents());
+        expectedEvents, catcher1.getEvents());
 
     assertEquals("One correct event should be delivered.",
-                 Lists.newArrayList(EVENT), catcher2.getEvents());
+        Lists.newArrayList(EVENT), catcher2.getEvents());
 
     bus.unregister(catcher1);
     bus.post(EVENT);
 
     assertEquals("Shouldn't catch any more events when unregistered.",
-                 expectedEvents, catcher1.getEvents());
+        expectedEvents, catcher1.getEvents());
     assertEquals("Two correct events should be delivered.",
-                 expectedEvents, catcher2.getEvents());
+        expectedEvents, catcher2.getEvents());
 
     try {
       bus.unregister(catcher1);
@@ -241,9 +241,9 @@ public class EventBusTest extends TestCase {
     bus.unregister(catcher2);
     bus.post(EVENT);
     assertEquals("Shouldn't catch any more events when unregistered.",
-                 expectedEvents, catcher1.getEvents());
+        expectedEvents, catcher1.getEvents());
     assertEquals("Shouldn't catch any more events when unregistered.",
-                 expectedEvents, catcher2.getEvents());
+        expectedEvents, catcher2.getEvents());
   }
 
   // NOTE: This test will always pass if register() is thread-safe but may also
@@ -301,7 +301,7 @@ public class EventBusTest extends TestCase {
    * Records thrown exception information.
    */
   private static final class RecordingSubscriberExceptionHandler
-      implements SubscriberExceptionHandler {
+    implements SubscriberExceptionHandler {
 
     public SubscriberExceptionContext context;
     public Throwable exception;

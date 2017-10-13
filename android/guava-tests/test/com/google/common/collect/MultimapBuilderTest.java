@@ -70,15 +70,15 @@ public class MultimapBuilderTest extends TestCase {
   @GwtIncompatible // serialization
   public void testSerialization() throws Exception {
     for (MultimapBuilderWithKeys<?> builderWithKeys : ImmutableList.of(
-        MultimapBuilder.hashKeys(), MultimapBuilder.linkedHashKeys(), MultimapBuilder.treeKeys(),
-        MultimapBuilder.enumKeys(RoundingMode.class))) {
+            MultimapBuilder.hashKeys(), MultimapBuilder.linkedHashKeys(), MultimapBuilder.treeKeys(),
+            MultimapBuilder.enumKeys(RoundingMode.class))) {
       for (MultimapBuilder<?, ?> builder : ImmutableList.of(
-          builderWithKeys.arrayListValues(),
-          builderWithKeys.linkedListValues(),
-          builderWithKeys.hashSetValues(),
-          builderWithKeys.linkedHashSetValues(),
-          builderWithKeys.treeSetValues(),
-          builderWithKeys.enumSetValues(RoundingMode.class))) {
+              builderWithKeys.arrayListValues(),
+              builderWithKeys.linkedListValues(),
+              builderWithKeys.hashSetValues(),
+              builderWithKeys.linkedHashSetValues(),
+              builderWithKeys.treeSetValues(),
+              builderWithKeys.enumSetValues(RoundingMode.class))) {
         /*
          * Temporarily inlining SerializableTester here for obscure internal reasons.
          */

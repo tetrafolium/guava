@@ -171,17 +171,17 @@ public class ElementTest extends TestCase {
 
   public void testEquals() throws Exception {
     new EqualsTester()
-        .addEqualityGroup(A.field("privateField"), A.field("privateField"))
-        .addEqualityGroup(A.field("publicField"))
-        .addEqualityGroup(A.constructor(), A.constructor())
-        .addEqualityGroup(A.method("privateMethod"), A.method("privateMethod"))
-        .addEqualityGroup(A.method("publicFinalMethod"))
-        .testEquals();
+    .addEqualityGroup(A.field("privateField"), A.field("privateField"))
+    .addEqualityGroup(A.field("publicField"))
+    .addEqualityGroup(A.constructor(), A.constructor())
+    .addEqualityGroup(A.method("privateMethod"), A.method("privateMethod"))
+    .addEqualityGroup(A.method("publicFinalMethod"))
+    .testEquals();
   }
 
   public void testNulls() {
     new NullPointerTester()
-        .testAllPublicStaticMethods(Element.class);
+    .testAllPublicStaticMethods(Element.class);
   }
 
   @Retention(RetentionPolicy.RUNTIME)

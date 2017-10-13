@@ -46,26 +46,26 @@ public class ArrayListMultimapTest extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TestStringListMultimapGenerator() {
-        @Override
-        protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
-          ListMultimap<String, String> multimap = ArrayListMultimap.create();
-          for (Entry<String, String> entry : entries) {
-            multimap.put(entry.getKey(), entry.getValue());
-          }
-          return multimap;
+      @Override
+      protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+        ListMultimap<String, String> multimap = ArrayListMultimap.create();
+        for (Entry<String, String> entry : entries) {
+          multimap.put(entry.getKey(), entry.getValue());
         }
-      })
-      .named("ArrayListMultimap")
-      .withFeatures(
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-          CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-          CollectionFeature.SERIALIZABLE,
-          CollectionSize.ANY)
-      .createTestSuite());
+        return multimap;
+      }
+    })
+    .named("ArrayListMultimap")
+    .withFeatures(
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionSize.ANY)
+    .createTestSuite());
     suite.addTestSuite(ArrayListMultimapTest.class);
     return suite;
   }
@@ -137,19 +137,19 @@ public class ArrayListMultimapTest extends TestCase {
     multimap.put("foo", 3);
     multimap.put("bar", 2);
     ArrayListMultimap<String, Integer> copy
-        = ArrayListMultimap.create(multimap);
+      = ArrayListMultimap.create(multimap);
     assertEquals(multimap, copy);
   }
 
   public void testCreate() {
     ArrayListMultimap<String, Integer> multimap
-        = ArrayListMultimap.create();
+      = ArrayListMultimap.create();
     assertEquals(3, multimap.expectedValuesPerKey);
   }
 
   public void testCreateFromSizes() {
     ArrayListMultimap<String, Integer> multimap
-        = ArrayListMultimap.create(15, 20);
+      = ArrayListMultimap.create(15, 20);
     assertEquals(20, multimap.expectedValuesPerKey);
   }
 
@@ -168,21 +168,21 @@ public class ArrayListMultimapTest extends TestCase {
   public void testCreateFromHashMultimap() {
     Multimap<String, Integer> original = HashMultimap.create();
     ArrayListMultimap<String, Integer> multimap
-        = ArrayListMultimap.create(original);
+      = ArrayListMultimap.create(original);
     assertEquals(3, multimap.expectedValuesPerKey);
   }
 
   public void testCreateFromArrayListMultimap() {
     ArrayListMultimap<String, Integer> original
-        = ArrayListMultimap.create(15, 20);
+      = ArrayListMultimap.create(15, 20);
     ArrayListMultimap<String, Integer> multimap
-        = ArrayListMultimap.create(original);
+      = ArrayListMultimap.create(original);
     assertEquals(20, multimap.expectedValuesPerKey);
   }
 
   public void testTrimToSize() {
     ArrayListMultimap<String, Integer> multimap
-        = ArrayListMultimap.create();
+      = ArrayListMultimap.create();
     multimap.put("foo", 1);
     multimap.put("foo", 2);
     multimap.put("bar", 3);

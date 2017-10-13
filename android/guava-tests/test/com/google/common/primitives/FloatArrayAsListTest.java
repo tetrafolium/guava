@@ -53,26 +53,26 @@ public class FloatArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Float>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new FloatsAsListGenerator())
-                .named("Floats.asList"),
+            .named("Floats.asList"),
 
             ListTestSuiteBuilder.using(new FloatsAsListHeadSubListGenerator())
-                .named("Floats.asList, head subList"),
+            .named("Floats.asList, head subList"),
 
             ListTestSuiteBuilder.using(new FloatsAsListTailSubListGenerator())
-                .named("Floats.asList, tail subList"),
+            .named("Floats.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new FloatsAsListMiddleSubListGenerator())
-                .named("Floats.asList, middle subList")
-            );
+            .named("Floats.asList, middle subList")
+        );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Float> builder : builders) {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -120,7 +120,7 @@ public class FloatArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestFloatListGenerator
-      implements TestListGenerator<Float> {
+    implements TestListGenerator<Float> {
     @Override
     public SampleElements<Float> samples() {
       return new SampleFloats();

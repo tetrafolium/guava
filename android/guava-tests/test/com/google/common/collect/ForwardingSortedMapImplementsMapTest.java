@@ -29,10 +29,10 @@ import java.util.TreeMap;
  */
 @GwtCompatible
 public class ForwardingSortedMapImplementsMapTest
-    extends SortedMapInterfaceTest<String, Integer> {
+  extends SortedMapInterfaceTest<String, Integer> {
 
   private static class SimpleForwardingSortedMap<K, V>
-      extends ForwardingSortedMap<K, V> {
+    extends ForwardingSortedMap<K, V> {
     final SortedMap<K, V> delegate;
     SimpleForwardingSortedMap(SortedMap<K, V> delegate) {
       this.delegate = delegate;
@@ -48,7 +48,7 @@ public class ForwardingSortedMapImplementsMapTest
 
   @Override protected SortedMap<String, Integer> makeEmptyMap() {
     return new SimpleForwardingSortedMap<>(
-        new TreeMap<String, Integer>(Ordering.natural().nullsFirst()));
+            new TreeMap<String, Integer>(Ordering.natural().nullsFirst()));
   }
 
   @Override protected SortedMap<String, Integer> makePopulatedMap() {
@@ -60,12 +60,12 @@ public class ForwardingSortedMapImplementsMapTest
   }
 
   @Override protected String getKeyNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return "minus one";
   }
 
   @Override protected Integer getValueNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return -1;
   }
 

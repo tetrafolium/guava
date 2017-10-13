@@ -131,7 +131,7 @@ public final class ForwardingWrapperTester {
     final RuntimeException exception = new RuntimeException();
     T proxy = Reflection.newProxy(interfaceType, new AbstractInvocationHandler() {
       @Override protected Object handleInvocation(Object p, Method m, Object[] args)
-          throws Throwable {
+      throws Throwable {
         throw exception;
       }
     });
@@ -153,10 +153,10 @@ public final class ForwardingWrapperTester {
     FreshValueGenerator generator = new FreshValueGenerator();
     T instance = generator.newFreshProxy(interfaceType);
     new EqualsTester()
-        .addEqualityGroup(wrapperFunction.apply(instance), wrapperFunction.apply(instance))
-        .addEqualityGroup(wrapperFunction.apply(generator.newFreshProxy(interfaceType)))
-        // TODO: add an overload to EqualsTester to print custom error message?
-        .testEquals();
+    .addEqualityGroup(wrapperFunction.apply(instance), wrapperFunction.apply(instance))
+    .addEqualityGroup(wrapperFunction.apply(generator.newFreshProxy(interfaceType)))
+    // TODO: add an overload to EqualsTester to print custom error message?
+    .testEquals();
   }
 
   private static <T> void testToString(
@@ -192,7 +192,7 @@ public final class ForwardingWrapperTester {
     }
 
     @Override protected Object handleInvocation(Object p, Method calledMethod, Object[] args)
-        throws Throwable {
+    throws Throwable {
       assertEquals(method, calledMethod);
       assertEquals(method + " invoked more than once.", 0, called.get());
       for (int i = 0; i < passedArgs.length; i++) {

@@ -35,61 +35,61 @@ public class AbstractPackageSanityTestsTest extends TestCase {
 
   public void testFindClassesToTest_testClass() {
     assertThat(findClassesToTest(ImmutableList.of(EmptyTest.class)))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(ImmutableList.of(EmptyTests.class)))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(ImmutableList.of(EmptyTestCase.class)))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(ImmutableList.of(EmptyTestSuite.class)))
-        .isEmpty();
+    .isEmpty();
   }
 
   public void testFindClassesToTest_noCorrespondingTestClass() {
     assertThat(findClassesToTest(ImmutableList.of(Foo.class))).containsExactly(Foo.class);
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, Foo2Test.class)))
-        .containsExactly(Foo.class);
+    .containsExactly(Foo.class);
   }
 
   public void testFindClassesToTest_publicApiOnly() {
     sanityTests.publicApiOnly();
     assertThat(findClassesToTest(ImmutableList.of(Foo.class)))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(ImmutableList.of(PublicFoo.class))).contains(PublicFoo.class);
   }
 
   public void testFindClassesToTest_ignoreClasses() {
     sanityTests.ignoreClasses(Predicates.<Object>equalTo(PublicFoo.class));
     assertThat(findClassesToTest(ImmutableList.of(PublicFoo.class)))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(ImmutableList.of(Foo.class))).contains(Foo.class);
   }
 
   public void testFindClassesToTeset_ignoreUnderscores() {
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, Foo_Bar.class)))
-        .containsExactly(Foo.class, Foo_Bar.class);
+    .containsExactly(Foo.class, Foo_Bar.class);
     sanityTests.ignoreClasses(AbstractPackageSanityTests.UNDERSCORE_IN_NAME);
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, Foo_Bar.class)))
-        .containsExactly(Foo.class);
+    .containsExactly(Foo.class);
   }
 
   public void testFindClassesToTest_withCorrespondingTestClassButNotExplicitlyTested() {
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, FooTest.class), "testNotThere"))
-        .containsExactly(Foo.class);
+    .containsExactly(Foo.class);
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, FooTest.class), "testNotPublic"))
-        .containsExactly(Foo.class);
+    .containsExactly(Foo.class);
   }
 
   public void testFindClassesToTest_withCorrespondingTestClassAndExplicitlyTested() {
     ImmutableList<Class<?>> classes = ImmutableList.of(Foo.class, FooTest.class);
     assertThat(findClassesToTest(classes, "testPublic"))
-        .isEmpty();
+    .isEmpty();
     assertThat(findClassesToTest(classes, "testNotThere", "testPublic"))
-        .isEmpty();
+    .isEmpty();
   }
 
   public void testFindClassesToTest_withCorrespondingTestClass_noTestName() {
     assertThat(findClassesToTest(ImmutableList.of(Foo.class, FooTest.class)))
-        .containsExactly(Foo.class);
+    .containsExactly(Foo.class);
   }
 
   static class EmptyTestCase {}

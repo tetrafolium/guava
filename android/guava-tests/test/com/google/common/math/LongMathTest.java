@@ -114,7 +114,7 @@ public class LongMathTest extends TestCase {
     assertEquals(
 
         /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Long.SIZE - 1), FLOOR)
-            .longValue(),
+        .longValue(),
         /*actual=*/ LongMath.MAX_POWER_OF_SQRT2_UNSIGNED);
   }
 
@@ -849,7 +849,7 @@ public class LongMathTest extends TestCase {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
-        .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
+    .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
     // parseInt blows up on overflow as opposed to intValue() which does not.
     return Long.parseLong(bigMean.toString());
   }

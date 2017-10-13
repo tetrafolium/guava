@@ -54,7 +54,7 @@ public abstract class AbstractDirectedNetworkTest extends AbstractNetworkTest {
         Set<String> edges = network.edgesConnecting(node, adjacentNode);
         Set<String> antiParallelEdges = network.edgesConnecting(adjacentNode, node);
         assertThat(node.equals(adjacentNode) || Collections.disjoint(edges, antiParallelEdges))
-            .isTrue();
+        .isTrue();
       }
     }
   }

@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableList<E> extends ImmutableCollection<E>
-    implements List<E>, RandomAccess {
+  implements List<E>, RandomAccess {
   /**
    * Returns the empty immutable list. This list behaves and performs comparably
    * to {@link Collections#emptyList}, and is preferable mainly for consistency

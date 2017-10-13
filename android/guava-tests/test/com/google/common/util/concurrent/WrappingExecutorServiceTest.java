@@ -132,7 +132,7 @@ public class WrappingExecutorServiceTest extends TestCase {
   }
 
   private static void checkResults(List<Future<String>> futures)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
     for (int i = 0; i < futures.size(); i++) {
       assertEquals(RESULT_VALUE + i, futures.get(i).get());
     }
@@ -210,7 +210,7 @@ public class WrappingExecutorServiceTest extends TestCase {
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-        throws InterruptedException {
+    throws InterruptedException {
       lastMethodCalled = "invokeAll";
       assertTaskWrapped(tasks);
       return inline.invokeAll(tasks);
@@ -219,7 +219,7 @@ public class WrappingExecutorServiceTest extends TestCase {
     @Override
     public <T> List<Future<T>> invokeAll(
         Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-        throws InterruptedException {
+    throws InterruptedException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAllTimeout";
       lastTimeoutInMillis = unit.toMillis(timeout);
@@ -229,7 +229,7 @@ public class WrappingExecutorServiceTest extends TestCase {
     // Define the invokeAny methods to invoke the first task
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-        throws ExecutionException, InterruptedException {
+    throws ExecutionException, InterruptedException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAny";
       return inline.submit(Iterables.get(tasks, 0)).get();
@@ -237,7 +237,7 @@ public class WrappingExecutorServiceTest extends TestCase {
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-        throws ExecutionException, InterruptedException, TimeoutException {
+    throws ExecutionException, InterruptedException, TimeoutException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAnyTimeout";
       lastTimeoutInMillis = unit.toMillis(timeout);

@@ -66,15 +66,15 @@ public class TreeTraverserTest extends TestCase {
 
   private static final TreeTraverser<Tree> ADAPTER_USING_USING =
       TreeTraverser.using(
-          new Function<Tree, Iterable<Tree>>() {
-            @Override
-            public Iterable<Tree> apply(Tree node) {
-              return node.children;
-            }
-          });
+  new Function<Tree, Iterable<Tree>>() {
+    @Override
+    public Iterable<Tree> apply(Tree node) {
+      return node.children;
+    }
+  });
 
   private static final BinaryTreeTraverser<BinaryTree> BIN_ADAPTER =
-      new BinaryTreeTraverser<BinaryTree>() {
+  new BinaryTreeTraverser<BinaryTree>() {
 
     @Override
     public Optional<BinaryTree> leftChild(BinaryTree node) {

@@ -549,9 +549,9 @@ public final class Graphs {
   public static <N, E> MutableNetwork<N, E> copyOf(Network<N, E> network) {
     MutableNetwork<N, E> copy =
         NetworkBuilder.from(network)
-            .expectedNodeCount(network.nodes().size())
-            .expectedEdgeCount(network.edges().size())
-            .build();
+        .expectedNodeCount(network.nodes().size())
+        .expectedEdgeCount(network.edges().size())
+        .build();
     for (N node : network.nodes()) {
       copy.addNode(node);
     }

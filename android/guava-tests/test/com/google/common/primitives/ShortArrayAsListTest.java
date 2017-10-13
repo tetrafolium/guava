@@ -53,26 +53,26 @@ public class ShortArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Short>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new ShortsAsListGenerator())
-                .named("Shorts.asList"),
+            .named("Shorts.asList"),
 
             ListTestSuiteBuilder.using(new ShortsAsListHeadSubListGenerator())
-                .named("Shorts.asList, head subList"),
+            .named("Shorts.asList, head subList"),
 
             ListTestSuiteBuilder.using(new ShortsAsListTailSubListGenerator())
-                .named("Shorts.asList, tail subList"),
+            .named("Shorts.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new ShortsAsListMiddleSubListGenerator())
-                .named("Shorts.asList, middle subList")
-            );
+            .named("Shorts.asList, middle subList")
+        );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Short> builder : builders) {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -120,7 +120,7 @@ public class ShortArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestShortListGenerator
-      implements TestListGenerator<Short> {
+    implements TestListGenerator<Short> {
     @Override
     public SampleElements<Short> samples() {
       return new SampleShorts();

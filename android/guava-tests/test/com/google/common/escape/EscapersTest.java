@@ -85,7 +85,7 @@ public class EscapersTest extends TestCase {
 
   public void testAsUnicodeEscaper() throws IOException {
     CharEscaper charEscaper = createSimpleCharEscaper(
-        ImmutableMap.<Character, char[]>builder()
+            ImmutableMap.<Character, char[]>builder()
             .put('x', "<hello>".toCharArray())
             .put('\uD800', "<hi>".toCharArray())
             .put('\uDC00', "<lo>".toCharArray())

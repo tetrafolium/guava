@@ -42,7 +42,7 @@ import java.util.Set;
 @GwtIncompatible
 @SuppressWarnings("serial") // using writeReplace instead of standard serialization
 public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? extends B>, B>
-    implements ClassToInstanceMap<B>, Serializable {
+  implements ClassToInstanceMap<B>, Serializable {
 
   /**
    * Returns a new {@code MutableClassToInstanceMap} instance backed by a {@link
@@ -98,7 +98,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
       @Override
       public Iterator<Entry<Class<? extends B>, B>> iterator() {
         return new TransformedIterator<Entry<Class<? extends B>, B>, Entry<Class<? extends B>, B>>(
-            delegate().iterator()) {
+        delegate().iterator()) {
           @Override
           Entry<Class<? extends B>, B> transform(Entry<Class<? extends B>, B> from) {
             return checkedEntry(from);

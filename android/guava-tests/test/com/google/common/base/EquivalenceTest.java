@@ -36,18 +36,18 @@ public class EquivalenceTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testPairwiseEquivalent() {
     EquivalenceTester.of(Equivalence.equals().<String>pairwise())
-        .addEquivalenceGroup(ImmutableList.<String>of())
-        .addEquivalenceGroup(ImmutableList.of("a"))
-        .addEquivalenceGroup(ImmutableList.of("b"))
-        .addEquivalenceGroup(ImmutableList.of("a", "b"), ImmutableList.of("a", "b"))
-        .test();
+    .addEquivalenceGroup(ImmutableList.<String>of())
+    .addEquivalenceGroup(ImmutableList.of("a"))
+    .addEquivalenceGroup(ImmutableList.of("b"))
+    .addEquivalenceGroup(ImmutableList.of("a", "b"), ImmutableList.of("a", "b"))
+    .test();
   }
 
   public void testPairwiseEquivalent_equals() {
     new EqualsTester()
-        .addEqualityGroup(Equivalence.equals().pairwise(), Equivalence.equals().pairwise())
-        .addEqualityGroup(Equivalence.identity().pairwise())
-        .testEquals();
+    .addEqualityGroup(Equivalence.equals().pairwise(), Equivalence.equals().pairwise())
+    .addEqualityGroup(Equivalence.identity().pairwise())
+    .testEquals();
   }
 
   private enum LengthFunction implements Function<String, Integer> {
@@ -63,19 +63,19 @@ public class EquivalenceTest extends TestCase {
 
   public void testWrap() {
     new EqualsTester()
-        .addEqualityGroup(
-            LENGTH_EQUIVALENCE.wrap("hello"),
-            LENGTH_EQUIVALENCE.wrap("hello"),
-            LENGTH_EQUIVALENCE.wrap("world"))
-        .addEqualityGroup(
-            LENGTH_EQUIVALENCE.wrap("hi"),
-            LENGTH_EQUIVALENCE.wrap("yo"))
-        .addEqualityGroup(
-            LENGTH_EQUIVALENCE.wrap(null),
-            LENGTH_EQUIVALENCE.wrap(null))
-        .addEqualityGroup(Equivalence.equals().wrap("hello"))
-        .addEqualityGroup(Equivalence.equals().wrap(null))
-        .testEquals();
+    .addEqualityGroup(
+        LENGTH_EQUIVALENCE.wrap("hello"),
+        LENGTH_EQUIVALENCE.wrap("hello"),
+        LENGTH_EQUIVALENCE.wrap("world"))
+    .addEqualityGroup(
+        LENGTH_EQUIVALENCE.wrap("hi"),
+        LENGTH_EQUIVALENCE.wrap("yo"))
+    .addEqualityGroup(
+        LENGTH_EQUIVALENCE.wrap(null),
+        LENGTH_EQUIVALENCE.wrap(null))
+    .addEqualityGroup(Equivalence.equals().wrap("hello"))
+    .addEqualityGroup(Equivalence.equals().wrap(null))
+    .testEquals();
   }
 
   public void testWrap_get() {
@@ -105,19 +105,19 @@ public class EquivalenceTest extends TestCase {
 
   public void testOnResultOf() {
     EquivalenceTester.of(Equivalence.equals().onResultOf(Functions.toStringFunction()))
-        .addEquivalenceGroup(new IntValue(1), new IntValue(1))
-        .addEquivalenceGroup(new IntValue(2))
-        .test();
+    .addEquivalenceGroup(new IntValue(1), new IntValue(1))
+    .addEquivalenceGroup(new IntValue(2))
+    .test();
   }
 
   public void testOnResultOf_equals() {
     new EqualsTester()
-        .addEqualityGroup(
-            Equivalence.identity().onResultOf(Functions.toStringFunction()),
-            Equivalence.identity().onResultOf(Functions.toStringFunction()))
-        .addEqualityGroup(Equivalence.equals().onResultOf(Functions.toStringFunction()))
-        .addEqualityGroup(Equivalence.identity().onResultOf(Functions.identity()))
-        .testEquals();
+    .addEqualityGroup(
+        Equivalence.identity().onResultOf(Functions.toStringFunction()),
+        Equivalence.identity().onResultOf(Functions.toStringFunction()))
+    .addEqualityGroup(Equivalence.equals().onResultOf(Functions.toStringFunction()))
+    .addEqualityGroup(Equivalence.identity().onResultOf(Functions.identity()))
+    .testEquals();
   }
 
   public void testEquivalentTo() {
@@ -131,31 +131,31 @@ public class EquivalenceTest extends TestCase {
     assertTrue(isNull.apply(null));
 
     new EqualsTester()
-        .addEqualityGroup(equalTo1, Equivalence.equals().equivalentTo("1"))
-        .addEqualityGroup(isNull)
-        .addEqualityGroup(Equivalence.identity().equivalentTo("1"))
-        .testEquals();
+    .addEqualityGroup(equalTo1, Equivalence.equals().equivalentTo("1"))
+    .addEqualityGroup(isNull)
+    .addEqualityGroup(Equivalence.identity().equivalentTo("1"))
+    .testEquals();
   }
   public void testEqualsEquivalent() {
     EquivalenceTester.of(Equivalence.equals())
-        .addEquivalenceGroup(new Integer(42), 42)
-        .addEquivalenceGroup("a")
-        .test();
+    .addEquivalenceGroup(new Integer(42), 42)
+    .addEquivalenceGroup("a")
+    .test();
   }
 
   public void testIdentityEquivalent() {
     EquivalenceTester.of(Equivalence.identity())
-        .addEquivalenceGroup(new Integer(42))
-        .addEquivalenceGroup(new Integer(42))
-        .addEquivalenceGroup("a")
-        .test();
+    .addEquivalenceGroup(new Integer(42))
+    .addEquivalenceGroup(new Integer(42))
+    .addEquivalenceGroup("a")
+    .test();
   }
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(Equivalence.equals(), Equivalence.equals())
-        .addEqualityGroup(Equivalence.identity(), Equivalence.identity())
-        .testEquals();
+    .addEqualityGroup(Equivalence.equals(), Equivalence.equals())
+    .addEqualityGroup(Equivalence.identity(), Equivalence.identity())
+    .testEquals();
   }
 
   @GwtIncompatible // NullPointerTester

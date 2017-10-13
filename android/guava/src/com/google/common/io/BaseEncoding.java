@@ -222,7 +222,7 @@ public abstract class BaseEncoding {
    * @throws DecodingException if the input is not a valid encoded string according to this
    *     encoding.
    */ final byte[] decodeChecked(CharSequence chars)
-      throws DecodingException {
+  throws DecodingException {
     chars = trimTrailingPadding(chars);
     byte[] tmp = new byte[maxDecodedSize(chars.length())];
     int len = decodeTo(tmp, chars);
@@ -315,7 +315,7 @@ public abstract class BaseEncoding {
 
   private static final BaseEncoding BASE64 =
       new Base64Encoding(
-          "base64()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", '=');
+      "base64()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", '=');
 
   /**
    * The "base64" base encoding specified by
@@ -336,7 +336,7 @@ public abstract class BaseEncoding {
 
   private static final BaseEncoding BASE64_URL =
       new Base64Encoding(
-          "base64Url()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", '=');
+      "base64Url()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", '=');
 
   /**
    * The "base64url" encoding specified by
@@ -815,7 +815,7 @@ public abstract class BaseEncoding {
       if (result == null) {
         Alphabet upper = alphabet.upperCase();
         result = upperCase =
-            (upper == alphabet) ? this : newInstance(upper, paddingChar);
+                (upper == alphabet) ? this : newInstance(upper, paddingChar);
       }
       return result;
     }
@@ -826,7 +826,7 @@ public abstract class BaseEncoding {
       if (result == null) {
         Alphabet lower = alphabet.lowerCase();
         result = lowerCase =
-            (lower == alphabet) ? this : newInstance(lower, paddingChar);
+                (lower == alphabet) ? this : newInstance(lower, paddingChar);
       }
       return result;
     }

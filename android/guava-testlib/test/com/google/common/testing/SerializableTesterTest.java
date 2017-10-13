@@ -76,12 +76,12 @@ public class SerializableTesterTest extends TestCase {
   }
 
   private static class ClassWhichDoesNotImplementEquals
-      implements Serializable {
+    implements Serializable {
     private static final long serialVersionUID = 1L;
   }
 
   private static class ClassWhichIsAlwaysEqualButHasDifferentHashcodes
-      implements Serializable {
+    implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @Override
@@ -91,13 +91,13 @@ public class SerializableTesterTest extends TestCase {
   }
 
   private static class ObjectWhichIsEqualButChangesClass
-      implements Serializable {
+    implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Override
     public boolean equals(Object other) {
       return (other instanceof ObjectWhichIsEqualButChangesClass
-          || other instanceof OtherForm);
+              || other instanceof OtherForm);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class SerializableTesterTest extends TestCase {
       @Override
       public boolean equals(Object other) {
         return (other instanceof ObjectWhichIsEqualButChangesClass
-            || other instanceof OtherForm);
+                || other instanceof OtherForm);
       }
 
       @Override

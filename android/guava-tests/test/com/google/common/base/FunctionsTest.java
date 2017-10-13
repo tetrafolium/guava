@@ -58,11 +58,11 @@ public class FunctionsTest extends TestCase {
     assertEquals("hiya", Functions.toStringFunction().apply("hiya"));
     assertEquals("I'm a string",
         Functions.toStringFunction().apply(
-            new Object() {
-              @Override public String toString() {
-                return "I'm a string";
-              }
-            }));
+    new Object() {
+      @Override public String toString() {
+        return "I'm a string";
+      }
+    }));
     try {
       Functions.toStringFunction().apply(null);
       fail("expected NullPointerException");
@@ -99,9 +99,9 @@ public class FunctionsTest extends TestCase {
     }
 
     new EqualsTester()
-        .addEqualityGroup(function, Functions.forMap(map))
-        .addEqualityGroup(Functions.forMap(map, 42))
-        .testEquals();
+    .addEqualityGroup(function, Functions.forMap(map))
+    .addEqualityGroup(Functions.forMap(map, 42))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -122,11 +122,11 @@ public class FunctionsTest extends TestCase {
     assertNull(function.apply("Null"));
 
     new EqualsTester()
-        .addEqualityGroup(function, Functions.forMap(map, 42))
-        .addEqualityGroup(Functions.forMap(map))
-        .addEqualityGroup(Functions.forMap(map, null))
-        .addEqualityGroup(Functions.forMap(map, 43))
-        .testEquals();
+    .addEqualityGroup(function, Functions.forMap(map, 42))
+    .addEqualityGroup(Functions.forMap(map))
+    .addEqualityGroup(Functions.forMap(map, null))
+    .addEqualityGroup(Functions.forMap(map, 43))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -141,14 +141,14 @@ public class FunctionsTest extends TestCase {
     assertEquals(3, function.apply("Three").intValue());
 
     new EqualsTester()
-        .addEqualityGroup(
-            function,
-            Functions.forMap(map, 42),
-            SerializableTester.reserialize(function))
-        .addEqualityGroup(Functions.forMap(map))
-        .addEqualityGroup(Functions.forMap(map, null))
-        .addEqualityGroup(Functions.forMap(map, 43))
-        .testEquals();
+    .addEqualityGroup(
+        function,
+        Functions.forMap(map, 42),
+        SerializableTester.reserialize(function))
+    .addEqualityGroup(Functions.forMap(map))
+    .addEqualityGroup(Functions.forMap(map, null))
+    .addEqualityGroup(Functions.forMap(map, 43))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -165,9 +165,9 @@ public class FunctionsTest extends TestCase {
 
     // check basic sanity of equals and hashCode
     new EqualsTester()
-        .addEqualityGroup(function)
-        .addEqualityGroup(Functions.forMap(map, 1))
-        .testEquals();
+    .addEqualityGroup(function)
+    .addEqualityGroup(Functions.forMap(map, 1))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -180,9 +180,9 @@ public class FunctionsTest extends TestCase {
 
     // check basic sanity of equals and hashCode
     new EqualsTester()
-        .addEqualityGroup(function, SerializableTester.reserialize(function))
-        .addEqualityGroup(Functions.forMap(map, 1))
-        .testEquals();
+    .addEqualityGroup(function, SerializableTester.reserialize(function))
+    .addEqualityGroup(Functions.forMap(map, 1))
+    .testEquals();
   }
 
   public void testForMapWildCardWithDefault() {
@@ -229,14 +229,14 @@ public class FunctionsTest extends TestCase {
     }
 
     new EqualsTester()
-        .addEqualityGroup(
-            japaneseToSpanish,
-            Functions.compose(integerToSpanish, japaneseToInteger))
-        .addEqualityGroup(japaneseToInteger)
-        .addEqualityGroup(integerToSpanish)
-        .addEqualityGroup(
-            Functions.compose(japaneseToInteger, integerToSpanish))
-        .testEquals();
+    .addEqualityGroup(
+        japaneseToSpanish,
+        Functions.compose(integerToSpanish, japaneseToInteger))
+    .addEqualityGroup(japaneseToInteger)
+    .addEqualityGroup(integerToSpanish)
+    .addEqualityGroup(
+        Functions.compose(japaneseToInteger, integerToSpanish))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -259,15 +259,15 @@ public class FunctionsTest extends TestCase {
         Functions.compose(integerToSpanish, japaneseToInteger);
 
     new EqualsTester()
-        .addEqualityGroup(
-            japaneseToSpanish,
-            Functions.compose(integerToSpanish, japaneseToInteger),
-            SerializableTester.reserialize(japaneseToSpanish))
-        .addEqualityGroup(japaneseToInteger)
-        .addEqualityGroup(integerToSpanish)
-        .addEqualityGroup(
-            Functions.compose(japaneseToInteger, integerToSpanish))
-        .testEquals();
+    .addEqualityGroup(
+        japaneseToSpanish,
+        Functions.compose(integerToSpanish, japaneseToInteger),
+        SerializableTester.reserialize(japaneseToSpanish))
+    .addEqualityGroup(japaneseToInteger)
+    .addEqualityGroup(integerToSpanish)
+    .addEqualityGroup(
+        Functions.compose(japaneseToInteger, integerToSpanish))
+    .testEquals();
   }
 
   public void testCompositionWildcard() {
@@ -290,7 +290,7 @@ public class FunctionsTest extends TestCase {
 
   public void testComposeOfFunctionsIsAssociative() {
     Map<Float, String> m = ImmutableMap.of(
-        4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
+            4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
     Function<? super Integer, Boolean> h = Functions.constant(Boolean.TRUE);
     Function<? super String, Integer> g = new HashCodeFunction();
     Function<Float, String> f = Functions.forMap(m, "F");
@@ -310,7 +310,7 @@ public class FunctionsTest extends TestCase {
 
   public void testComposeOfPredicateAndFunctionIsAssociative() {
     Map<Float, String> m = ImmutableMap.of(
-        4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
+            4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
     Predicate<? super Integer> h = Predicates.equalTo(42);
     Function<? super String, Integer> g = new HashCodeFunction();
     Function<Float, String> f = Functions.forMap(m, "F");
@@ -338,11 +338,11 @@ public class FunctionsTest extends TestCase {
     assertFalse(alwaysFalse.apply(0));
 
     new EqualsTester()
-        .addEqualityGroup(
-            alwaysTrue, Functions.forPredicate(Predicates.alwaysTrue()))
-        .addEqualityGroup(alwaysFalse)
-        .addEqualityGroup(Functions.identity())
-        .testEquals();
+    .addEqualityGroup(
+        alwaysTrue, Functions.forPredicate(Predicates.alwaysTrue()))
+    .addEqualityGroup(alwaysFalse)
+    .addEqualityGroup(Functions.identity())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -360,18 +360,18 @@ public class FunctionsTest extends TestCase {
     assertEquals(null, g.apply(null));
 
     new EqualsTester()
-        .addEqualityGroup(f, Functions.constant("correct"))
-        .addEqualityGroup(Functions.constant("incorrect"))
-        .addEqualityGroup(Functions.toStringFunction())
-        .addEqualityGroup(g)
-        .testEquals();
+    .addEqualityGroup(f, Functions.constant("correct"))
+    .addEqualityGroup(Functions.constant("incorrect"))
+    .addEqualityGroup(Functions.toStringFunction())
+    .addEqualityGroup(g)
+    .testEquals();
 
     new EqualsTester()
-        .addEqualityGroup(g, Functions.constant(null))
-        .addEqualityGroup(Functions.constant("incorrect"))
-        .addEqualityGroup(Functions.toStringFunction())
-        .addEqualityGroup(f)
-        .testEquals();
+    .addEqualityGroup(g, Functions.constant(null))
+    .addEqualityGroup(Functions.constant("incorrect"))
+    .addEqualityGroup(Functions.toStringFunction())
+    .addEqualityGroup(f)
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -380,7 +380,7 @@ public class FunctionsTest extends TestCase {
   }
 
   private static class CountingSupplier
-      implements Supplier<Integer>, Serializable {
+    implements Supplier<Integer>, Serializable {
 
     private static final long serialVersionUID = 0;
 
@@ -413,11 +413,11 @@ public class FunctionsTest extends TestCase {
     assertEquals(2, (int) function.apply("foo"));
 
     new EqualsTester()
-        .addEqualityGroup(function, Functions.forSupplier(supplier))
-        .addEqualityGroup(Functions.forSupplier(new CountingSupplier()))
-        .addEqualityGroup(Functions.forSupplier(Suppliers.ofInstance(12)))
-        .addEqualityGroup(Functions.toStringFunction())
-        .testEquals();
+    .addEqualityGroup(function, Functions.forSupplier(supplier))
+    .addEqualityGroup(Functions.forSupplier(new CountingSupplier()))
+    .addEqualityGroup(Functions.forSupplier(Suppliers.ofInstance(12)))
+    .addEqualityGroup(Functions.toStringFunction())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester

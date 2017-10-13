@@ -90,19 +90,19 @@ public final class CacheBuilderSpec {
   /** Map of names to ValueParser. */
   private static final ImmutableMap<String, ValueParser> VALUE_PARSERS =
       ImmutableMap.<String, ValueParser>builder()
-          .put("initialCapacity", new InitialCapacityParser())
-          .put("maximumSize", new MaximumSizeParser())
-          .put("maximumWeight", new MaximumWeightParser())
-          .put("concurrencyLevel", new ConcurrencyLevelParser())
-          .put("weakKeys", new KeyStrengthParser(Strength.WEAK))
-          .put("softValues", new ValueStrengthParser(Strength.SOFT))
-          .put("weakValues", new ValueStrengthParser(Strength.WEAK))
-          .put("recordStats", new RecordStatsParser())
-          .put("expireAfterAccess", new AccessDurationParser())
-          .put("expireAfterWrite", new WriteDurationParser())
-          .put("refreshAfterWrite", new RefreshDurationParser())
-          .put("refreshInterval", new RefreshDurationParser())
-          .build();
+      .put("initialCapacity", new InitialCapacityParser())
+      .put("maximumSize", new MaximumSizeParser())
+      .put("maximumWeight", new MaximumWeightParser())
+      .put("concurrencyLevel", new ConcurrencyLevelParser())
+      .put("weakKeys", new KeyStrengthParser(Strength.WEAK))
+      .put("softValues", new ValueStrengthParser(Strength.SOFT))
+      .put("weakValues", new ValueStrengthParser(Strength.WEAK))
+      .put("recordStats", new RecordStatsParser())
+      .put("expireAfterAccess", new AccessDurationParser())
+      .put("expireAfterWrite", new WriteDurationParser())
+      .put("refreshAfterWrite", new RefreshDurationParser())
+      .put("refreshInterval", new RefreshDurationParser())
+      .build();
 
   @VisibleForTesting Integer initialCapacity;
   @VisibleForTesting Long maximumSize;
@@ -180,23 +180,23 @@ public final class CacheBuilderSpec {
     }
     if (keyStrength != null) {
       switch (keyStrength) {
-        case WEAK:
-          builder.weakKeys();
-          break;
-        default:
-          throw new AssertionError();
+      case WEAK:
+        builder.weakKeys();
+        break;
+      default:
+        throw new AssertionError();
       }
     }
     if (valueStrength != null) {
       switch (valueStrength) {
-        case SOFT:
-          builder.softValues();
-          break;
-        case WEAK:
-          builder.weakValues();
-          break;
-        default:
-          throw new AssertionError();
+      case SOFT:
+        builder.softValues();
+        break;
+      case WEAK:
+        builder.weakValues();
+        break;
+      default:
+        throw new AssertionError();
       }
     }
     if (recordStats != null && recordStats) {
@@ -236,16 +236,16 @@ public final class CacheBuilderSpec {
   @Override
   public int hashCode() {
     return Objects.hashCode(
-        initialCapacity,
-        maximumSize,
-        maximumWeight,
-        concurrencyLevel,
-        keyStrength,
-        valueStrength,
-        recordStats,
-        durationInNanos(writeExpirationDuration, writeExpirationTimeUnit),
-        durationInNanos(accessExpirationDuration, accessExpirationTimeUnit),
-        durationInNanos(refreshDuration, refreshTimeUnit));
+            initialCapacity,
+            maximumSize,
+            maximumWeight,
+            concurrencyLevel,
+            keyStrength,
+            valueStrength,
+            recordStats,
+            durationInNanos(writeExpirationDuration, writeExpirationTimeUnit),
+            durationInNanos(accessExpirationDuration, accessExpirationTimeUnit),
+            durationInNanos(refreshDuration, refreshTimeUnit));
   }
 
   @Override
@@ -418,22 +418,22 @@ public final class CacheBuilderSpec {
         char lastChar = value.charAt(value.length() - 1);
         TimeUnit timeUnit;
         switch (lastChar) {
-          case 'd':
-            timeUnit = TimeUnit.DAYS;
-            break;
-          case 'h':
-            timeUnit = TimeUnit.HOURS;
-            break;
-          case 'm':
-            timeUnit = TimeUnit.MINUTES;
-            break;
-          case 's':
-            timeUnit = TimeUnit.SECONDS;
-            break;
-          default:
-            throw new IllegalArgumentException(
-                format(
-                    "key %s invalid format.  was %s, must end with one of [dDhHmMsS]", key, value));
+        case 'd':
+          timeUnit = TimeUnit.DAYS;
+          break;
+        case 'h':
+          timeUnit = TimeUnit.HOURS;
+          break;
+        case 'm':
+          timeUnit = TimeUnit.MINUTES;
+          break;
+        case 's':
+          timeUnit = TimeUnit.SECONDS;
+          break;
+        default:
+          throw new IllegalArgumentException(
+              format(
+                  "key %s invalid format.  was %s, must end with one of [dDhHmMsS]", key, value));
         }
 
         long duration = Long.parseLong(value.substring(0, value.length() - 1));

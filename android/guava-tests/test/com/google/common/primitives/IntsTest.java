@@ -41,13 +41,13 @@ public class IntsTest extends TestCase {
   private static final int[] EMPTY = {};
   private static final int[] ARRAY1 = {(int) 1};
   private static final int[] ARRAY234
-      = {(int) 2, (int) 3, (int) 4};
+    = {(int) 2, (int) 3, (int) 4};
 
   private static final int LEAST = Integer.MIN_VALUE;
   private static final int GREATEST = Integer.MAX_VALUE;
 
   private static final int[] VALUES =
-      { LEAST, (int) -1, (int) 0, (int) 1, GREATEST };
+  { LEAST, (int) -1, (int) 0, (int) 1, GREATEST };
 
   public void testHashCode() {
     for (int value : VALUES) {
@@ -90,8 +90,8 @@ public class IntsTest extends TestCase {
       for (int y : VALUES) {
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Integer.valueOf(x).compareTo(y),
-                     Ints.compare(x, y));
+            Integer.valueOf(x).compareTo(y),
+            Ints.compare(x, y));
       }
     }
   }
@@ -111,13 +111,13 @@ public class IntsTest extends TestCase {
     assertEquals(-1, Ints.indexOf(ARRAY1, (int) 2));
     assertEquals(-1, Ints.indexOf(ARRAY234, (int) 1));
     assertEquals(0, Ints.indexOf(
-        new int[] {(int) -1}, (int) -1));
+            new int[] {(int) -1}, (int) -1));
     assertEquals(0, Ints.indexOf(ARRAY234, (int) 2));
     assertEquals(1, Ints.indexOf(ARRAY234, (int) 3));
     assertEquals(2, Ints.indexOf(ARRAY234, (int) 4));
     assertEquals(1, Ints.indexOf(
-        new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
-        (int) 3));
+            new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
+            (int) 3));
   }
 
   public void testIndexOf_arrayTarget() {
@@ -129,29 +129,32 @@ public class IntsTest extends TestCase {
     assertEquals(0, Ints.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Ints.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Ints.indexOf(
-        ARRAY234, new int[] { (int) 2, (int) 3 }));
+            ARRAY234, new int[] { (int) 2, (int) 3 }));
     assertEquals(1, Ints.indexOf(
-        ARRAY234, new int[] { (int) 3, (int) 4 }));
+            ARRAY234, new int[] { (int) 3, (int) 4 }));
     assertEquals(1, Ints.indexOf(ARRAY234, new int[] { (int) 3 }));
     assertEquals(2, Ints.indexOf(ARRAY234, new int[] { (int) 4 }));
     assertEquals(1, Ints.indexOf(new int[] { (int) 2, (int) 3,
-        (int) 3, (int) 3, (int) 3 },
-        new int[] { (int) 3 }
-    ));
+                (int) 3, (int) 3, (int) 3
+            },
+            new int[] { (int) 3 }
+        ));
     assertEquals(2, Ints.indexOf(
-        new int[] { (int) 2, (int) 3, (int) 2,
-            (int) 3, (int) 4, (int) 2, (int) 3},
-        new int[] { (int) 2, (int) 3, (int) 4}
-    ));
+            new int[] { (int) 2, (int) 3, (int) 2,
+                (int) 3, (int) 4, (int) 2, (int) 3
+            },
+            new int[] { (int) 2, (int) 3, (int) 4}
+        ));
     assertEquals(1, Ints.indexOf(
-        new int[] { (int) 2, (int) 2, (int) 3,
-            (int) 4, (int) 2, (int) 3, (int) 4},
-        new int[] { (int) 2, (int) 3, (int) 4}
-    ));
+            new int[] { (int) 2, (int) 2, (int) 3,
+                (int) 4, (int) 2, (int) 3, (int) 4
+            },
+            new int[] { (int) 2, (int) 3, (int) 4}
+        ));
     assertEquals(-1, Ints.indexOf(
-        new int[] { (int) 4, (int) 3, (int) 2},
-        new int[] { (int) 2, (int) 3, (int) 4}
-    ));
+            new int[] { (int) 4, (int) 3, (int) 2},
+            new int[] { (int) 2, (int) 3, (int) 4}
+        ));
   }
 
   public void testLastIndexOf() {
@@ -159,13 +162,13 @@ public class IntsTest extends TestCase {
     assertEquals(-1, Ints.lastIndexOf(ARRAY1, (int) 2));
     assertEquals(-1, Ints.lastIndexOf(ARRAY234, (int) 1));
     assertEquals(0, Ints.lastIndexOf(
-        new int[] {(int) -1}, (int) -1));
+            new int[] {(int) -1}, (int) -1));
     assertEquals(0, Ints.lastIndexOf(ARRAY234, (int) 2));
     assertEquals(1, Ints.lastIndexOf(ARRAY234, (int) 3));
     assertEquals(2, Ints.lastIndexOf(ARRAY234, (int) 4));
     assertEquals(3, Ints.lastIndexOf(
-        new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
-        (int) 3));
+            new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
+            (int) 3));
   }
 
   public void testMax_noArgs() {
@@ -180,8 +183,8 @@ public class IntsTest extends TestCase {
     assertEquals(LEAST, Ints.max(LEAST));
     assertEquals(GREATEST, Ints.max(GREATEST));
     assertEquals((int) 9, Ints.max(
-        (int) 8, (int) 6, (int) 7,
-        (int) 5, (int) 3, (int) 0, (int) 9));
+            (int) 8, (int) 6, (int) 7,
+            (int) 5, (int) 3, (int) 0, (int) 9));
   }
 
   public void testMin_noArgs() {
@@ -196,8 +199,8 @@ public class IntsTest extends TestCase {
     assertEquals(LEAST, Ints.min(LEAST));
     assertEquals(GREATEST, Ints.min(GREATEST));
     assertEquals((int) 0, Ints.min(
-        (int) 8, (int) 6, (int) 7,
-        (int) 5, (int) 3, (int) 0, (int) 9));
+            (int) 8, (int) 6, (int) 7,
+            (int) 5, (int) 3, (int) 0, (int) 9));
   }
 
   public void testConstrainToRange() {
@@ -221,26 +224,26 @@ public class IntsTest extends TestCase {
     assertNotSame(ARRAY1, Ints.concat(ARRAY1));
     assertTrue(Arrays.equals(ARRAY1, Ints.concat(EMPTY, ARRAY1, EMPTY)));
     assertTrue(Arrays.equals(
-        new int[] {(int) 1, (int) 1, (int) 1},
-        Ints.concat(ARRAY1, ARRAY1, ARRAY1)));
+            new int[] {(int) 1, (int) 1, (int) 1},
+            Ints.concat(ARRAY1, ARRAY1, ARRAY1)));
     assertTrue(Arrays.equals(
-        new int[] {(int) 1, (int) 2, (int) 3, (int) 4},
-        Ints.concat(ARRAY1, ARRAY234)));
+            new int[] {(int) 1, (int) 2, (int) 3, (int) 4},
+            Ints.concat(ARRAY1, ARRAY234)));
   }
 
   public void testToByteArray() {
     assertTrue(Arrays.equals(
-        new byte[] {0x12, 0x13, 0x14, 0x15}, Ints.toByteArray(0x12131415)));
+            new byte[] {0x12, 0x13, 0x14, 0x15}, Ints.toByteArray(0x12131415)));
     assertTrue(Arrays.equals(
-        new byte[] {(byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC},
-        Ints.toByteArray(0xFFEEDDCC)));
+            new byte[] {(byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC},
+            Ints.toByteArray(0xFFEEDDCC)));
   }
 
   public void testFromByteArray() {
     assertEquals(0x12131415,
         Ints.fromByteArray(new byte[] {0x12, 0x13, 0x14, 0x15, 0x33}));
     assertEquals(0xFFEEDDCC, Ints.fromByteArray(
-        new byte[] {(byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC}));
+            new byte[] {(byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC}));
   }
 
   public void testFromByteArrayFails() {
@@ -253,9 +256,9 @@ public class IntsTest extends TestCase {
 
   public void testFromBytes() {
     assertEquals(0x12131415, Ints.fromBytes(
-        (byte) 0x12, (byte) 0x13, (byte) 0x14, (byte) 0x15));
+            (byte) 0x12, (byte) 0x13, (byte) 0x14, (byte) 0x15));
     assertEquals(0xFFEEDDCC, Ints.fromBytes(
-        (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC));
+            (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC));
   }
 
   public void testByteArrayRoundTrips() {
@@ -277,8 +280,8 @@ public class IntsTest extends TestCase {
     assertSame(ARRAY1, Ints.ensureCapacity(ARRAY1, 0, 1));
     assertSame(ARRAY1, Ints.ensureCapacity(ARRAY1, 1, 1));
     assertTrue(Arrays.equals(
-        new int[] {(int) 1, (int) 0, (int) 0},
-        Ints.ensureCapacity(ARRAY1, 2, 1)));
+            new int[] {(int) 1, (int) 0, (int) 0},
+            Ints.ensureCapacity(ARRAY1, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -305,15 +308,15 @@ public class IntsTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<int[]> ordered = Arrays.asList(
-        new int[] {},
-        new int[] {LEAST},
-        new int[] {LEAST, LEAST},
-        new int[] {LEAST, (int) 1},
-        new int[] {(int) 1},
-        new int[] {(int) 1, LEAST},
-        new int[] {GREATEST, GREATEST - (int) 1},
-        new int[] {GREATEST, GREATEST},
-        new int[] {GREATEST, GREATEST, GREATEST});
+            new int[] {},
+            new int[] {LEAST},
+            new int[] {LEAST, LEAST},
+            new int[] {LEAST, (int) 1},
+            new int[] {(int) 1},
+            new int[] {(int) 1, LEAST},
+            new int[] {GREATEST, GREATEST - (int) 1},
+            new int[] {GREATEST, GREATEST},
+            new int[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<int[]> comparator = Ints.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -465,7 +468,7 @@ public class IntsTest extends TestCase {
     // Make sure it returned a copy
     list.set(0, (int) 4);
     assertTrue(Arrays.equals(
-        new int[] { (int) 0, (int) 1, (int) 2 }, newArray));
+            new int[] { (int) 0, (int) 1, (int) 2 }, newArray));
     newArray[1] = (int) 5;
     assertEquals((int) 1, (int) list.get(1));
   }
@@ -475,9 +478,9 @@ public class IntsTest extends TestCase {
     int[] array = { (int) 0, (int) 1, (int) 2, (int) 3 };
     List<Integer> list = Ints.asList(array);
     assertTrue(Arrays.equals(new int[] { (int) 1, (int) 2 },
-        Ints.toArray(list.subList(1, 3))));
+            Ints.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new int[] {},
-        Ints.toArray(list.subList(2, 2))));
+            Ints.toArray(list.subList(2, 2))));
   }
 
   public void testAsListEmpty() {

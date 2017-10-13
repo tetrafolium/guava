@@ -435,7 +435,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
   }
 
   private static void assertSuccessful(AbstractFuture<Integer> future, Integer expectedResult)
-      throws InterruptedException, TimeoutException, ExecutionException {
+  throws InterruptedException, TimeoutException, ExecutionException {
     assertDone(future);
     assertThat(future.isCancelled()).isFalse();
 
@@ -444,7 +444,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
   }
 
   private static void assertFailed(AbstractFuture<Integer> future, Throwable expectedException)
-      throws InterruptedException, TimeoutException {
+  throws InterruptedException, TimeoutException {
     assertDone(future);
     assertThat(future.isCancelled()).isFalse();
 
@@ -464,7 +464,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
   }
 
   private static void assertCancelled(AbstractFuture<Integer> future, boolean expectWasInterrupted)
-      throws InterruptedException, TimeoutException, ExecutionException {
+  throws InterruptedException, TimeoutException, ExecutionException {
     assertDone(future);
     assertThat(future.isCancelled()).isTrue();
     assertThat(future.wasInterrupted()).isEqualTo(expectWasInterrupted);

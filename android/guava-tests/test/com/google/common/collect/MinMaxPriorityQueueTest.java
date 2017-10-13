@@ -60,14 +60,14 @@ public class MinMaxPriorityQueueTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(MinMaxPriorityQueueTest.class);
     suite.addTest(QueueTestSuiteBuilder
-        .using(new TestStringQueueGenerator() {
-          @Override protected Queue<String> create(String[] elements) {
-            return MinMaxPriorityQueue.create(Arrays.asList(elements));
-          }
-        })
-        .named("MinMaxPriorityQueue")
-        .withFeatures(CollectionSize.ANY, CollectionFeature.GENERAL_PURPOSE)
-        .createTestSuite());
+    .using(new TestStringQueueGenerator() {
+      @Override protected Queue<String> create(String[] elements) {
+        return MinMaxPriorityQueue.create(Arrays.asList(elements));
+      }
+    })
+    .named("MinMaxPriorityQueue")
+    .withFeatures(CollectionSize.ANY, CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     return suite;
   }
 
@@ -359,7 +359,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
    */
   public void testIteratorRegressionChildlessUncle() {
     final ArrayList<Integer> initial = Lists.newArrayList(
-        1, 15, 13, 8, 9, 10, 11, 14);
+            1, 15, 13, 8, 9, 10, 11, 14);
     MinMaxPriorityQueue<Integer> q = MinMaxPriorityQueue.create(initial);
     assertTrue("State " + Arrays.toString(q.toArray()), q.isIntact());
     q.remove(9);
@@ -401,8 +401,8 @@ public class MinMaxPriorityQueueTest extends TestCase {
   public void testInvalidatingRemove2() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     List<Integer> values = Lists.newArrayList(
-        1, 20, 1000, 2, 3, 30, 40, 10, 11, 12, 13, 300, 400, 500, 600, 4, 5,
-        6, 7, 8, 9, 4, 5, 200, 250);
+            1, 20, 1000, 2, 3, 30, 40, 10, 11, 12, 13, 300, 400, 500, 600, 4, 5,
+            6, 7, 8, 9, 4, 5, 200, 250);
     mmHeap.addAll(values);
     assertEquals(25, mmHeap.size());
     assertTrue("Heap is not intact initially", mmHeap.isIntact());
@@ -460,7 +460,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
   public void testIteratorInvalidatingIteratorRemove2() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.create();
     mmHeap.addAll(Lists.newArrayList(
-        1, 20, 1000, 2, 3, 30, 40, 10, 11, 12, 13, 200, 300, 500, 400));
+            1, 20, 1000, 2, 3, 30, 40, 10, 11, 12, 13, 200, 300, 500, 400));
     assertTrue("Heap is not intact initially", mmHeap.isIntact());
     Iterator<Integer> it = mmHeap.iterator();
     assertEquals((Integer) 1, it.next());
@@ -505,7 +505,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     assertTrue("heap does not contain sergey",
         mmHeap.contains("sergey"));
     assertTrue("Could not remove larry", mmHeap.removeAll(
-        Lists.newArrayList("sergey", "eric")));
+            Lists.newArrayList("sergey", "eric")));
     assertFalse("Could remove nikesh which is not in the heap",
         mmHeap.remove("nikesh"));
     assertEquals(4, mmHeap.size());
@@ -523,7 +523,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
 
   public void testCreateWithCapacityAndOrdering() {
     MinMaxPriorityQueue<Integer> mmHeap = MinMaxPriorityQueue.orderedBy(
-        Ordering.natural().reverse()).expectedSize(5).create();
+            Ordering.natural().reverse()).expectedSize(5).create();
     Collections.addAll(mmHeap, 1, 7, 2, 56, 2, 5, 23, 68, 0, 3);
     assertTrue("Heap is not intact initially", mmHeap.isIntact());
     assertEquals(68, (int) mmHeap.peek());
@@ -534,21 +534,21 @@ public class MinMaxPriorityQueueTest extends TestCase {
       final List<T> values, int steps) throws Exception {
     IteratorTester<T> tester =
         new IteratorTester<T>(
-            steps,
-            IteratorFeature.MODIFIABLE,
-            Lists.newLinkedList(values),
-            IteratorTester.KnownOrder.UNKNOWN_ORDER) {
-          private MinMaxPriorityQueue<T> mmHeap;
-          @Override protected Iterator<T> newTargetIterator() {
-            mmHeap = MinMaxPriorityQueue.create(values);
-            return mmHeap.iterator();
-          }
-          @Override protected void verify(List<T> elements) {
-            assertEquals(Sets.newHashSet(elements),
-                Sets.newHashSet(mmHeap.iterator()));
-            assertTrue("Invalid MinMaxHeap: " + mmHeap, mmHeap.isIntact());
-          }
-        };
+        steps,
+        IteratorFeature.MODIFIABLE,
+        Lists.newLinkedList(values),
+    IteratorTester.KnownOrder.UNKNOWN_ORDER) {
+      private MinMaxPriorityQueue<T> mmHeap;
+      @Override protected Iterator<T> newTargetIterator() {
+        mmHeap = MinMaxPriorityQueue.create(values);
+        return mmHeap.iterator();
+      }
+      @Override protected void verify(List<T> elements) {
+        assertEquals(Sets.newHashSet(elements),
+            Sets.newHashSet(mmHeap.iterator()));
+        assertTrue("Invalid MinMaxHeap: " + mmHeap, mmHeap.isIntact());
+      }
+    };
     tester.test();
   }
 

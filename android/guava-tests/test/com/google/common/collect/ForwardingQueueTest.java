@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
 public class ForwardingQueueTest extends TestCase {
 
   static final class StandardImplForwardingQueue<T>
-      extends ForwardingQueue<T> {
+    extends ForwardingQueue<T> {
     private final Queue<T> backingQueue;
 
     StandardImplForwardingQueue(Queue<T> backingQueue) {
@@ -109,19 +109,19 @@ public class ForwardingQueueTest extends TestCase {
     suite.addTestSuite(ForwardingQueueTest.class);
     suite.addTest(
         QueueTestSuiteBuilder.using(
-                new TestStringQueueGenerator() {
+    new TestStringQueueGenerator() {
 
-                  @Override
-                  protected Queue<String> create(String[] elements) {
-                    return new StandardImplForwardingQueue<>(Lists.newLinkedList(asList(elements)));
-                  }
-                })
-            .named("ForwardingQueue[LinkedList] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+      @Override
+      protected Queue<String> create(String[] elements) {
+        return new StandardImplForwardingQueue<>(Lists.newLinkedList(asList(elements)));
+      }
+    })
+    .named("ForwardingQueue[LinkedList] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
 
     return suite;
   }
@@ -129,11 +129,11 @@ public class ForwardingQueueTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(Queue.class, new Function<Queue, Queue>() {
-          @Override public Queue apply(Queue delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(Queue.class, new Function<Queue, Queue>() {
+      @Override public Queue apply(Queue delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   private static <T> Queue<T> wrap(final Queue<T> delegate) {

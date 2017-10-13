@@ -47,33 +47,33 @@ public class SynchronizedMultimapTest extends TestCase {
     suite.addTestSuite(SynchronizedMultimapTest.class);
     suite.addTest(
         SetMultimapTestSuiteBuilder.using(
-                new TestStringSetMultimapGenerator() {
-                  @Override
-                  protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
-                    TestMultimap<String, String> inner = new TestMultimap<>();
-                    SetMultimap<String, String> outer =
-                        Synchronized.setMultimap(inner, inner.mutex);
-                    for (Entry<String, String> entry : entries) {
-                      outer.put(entry.getKey(), entry.getValue());
-                    }
-                    return outer;
-                  }
-                })
-            .named("Synchronized.setMultimap")
-            .withFeatures(
-                MapFeature.GENERAL_PURPOSE,
-                CollectionSize.ANY,
-                CollectionFeature.SERIALIZABLE,
-                CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-                MapFeature.ALLOWS_NULL_KEYS,
-                MapFeature.ALLOWS_NULL_VALUES,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES)
-            .createTestSuite());
+    new TestStringSetMultimapGenerator() {
+      @Override
+      protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+        TestMultimap<String, String> inner = new TestMultimap<>();
+        SetMultimap<String, String> outer =
+            Synchronized.setMultimap(inner, inner.mutex);
+        for (Entry<String, String> entry : entries) {
+          outer.put(entry.getKey(), entry.getValue());
+        }
+        return outer;
+      }
+    })
+    .named("Synchronized.setMultimap")
+    .withFeatures(
+        MapFeature.GENERAL_PURPOSE,
+        CollectionSize.ANY,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     return suite;
   }
 
   private static final class TestMultimap<K, V> extends ForwardingSetMultimap<K, V>
-      implements Serializable {
+    implements Serializable {
     final SetMultimap<K, V> delegate = HashMultimap.create();
     public final Object mutex = new Integer(1); // something Serializable
 
@@ -201,27 +201,27 @@ public class SynchronizedMultimapTest extends TestCase {
 
   public void testSynchronizedListMultimap() {
     ListMultimap<String, Integer> multimap
-        = Multimaps.synchronizedListMultimap(
-            ArrayListMultimap.<String, Integer>create());
+      = Multimaps.synchronizedListMultimap(
+              ArrayListMultimap.<String, Integer>create());
     multimap.putAll("foo", Arrays.asList(3, -1, 2, 4, 1));
     multimap.putAll("bar", Arrays.asList(1, 2, 3, 1));
     assertThat(multimap.removeAll("foo")).containsExactly(3, -1, 2, 4, 1).inOrder();
     assertFalse(multimap.containsKey("foo"));
     assertThat(multimap.replaceValues("bar", Arrays.asList(6, 5)))
-        .containsExactly(1, 2, 3, 1).inOrder();
+    .containsExactly(1, 2, 3, 1).inOrder();
     assertThat(multimap.get("bar")).containsExactly(6, 5).inOrder();
   }
 
   public void testSynchronizedSortedSetMultimap() {
     SortedSetMultimap<String, Integer> multimap
-        = Multimaps.synchronizedSortedSetMultimap(
-            TreeMultimap.<String, Integer>create());
+      = Multimaps.synchronizedSortedSetMultimap(
+              TreeMultimap.<String, Integer>create());
     multimap.putAll("foo", Arrays.asList(3, -1, 2, 4, 1));
     multimap.putAll("bar", Arrays.asList(1, 2, 3, 1));
     assertThat(multimap.removeAll("foo")).containsExactly(-1, 1, 2, 3, 4).inOrder();
     assertFalse(multimap.containsKey("foo"));
     assertThat(multimap.replaceValues("bar", Arrays.asList(6, 5)))
-        .containsExactly(1, 2, 3).inOrder();
+    .containsExactly(1, 2, 3).inOrder();
     assertThat(multimap.get("bar")).containsExactly(5, 6).inOrder();
   }
 
@@ -230,7 +230,7 @@ public class SynchronizedMultimapTest extends TestCase {
     delegate.put("foo", 1);
     delegate.put("foo", 3);
     ListMultimap<String, Integer> multimap
-        = Multimaps.synchronizedListMultimap(delegate);
+      = Multimaps.synchronizedListMultimap(delegate);
     assertTrue(multimap.get("foo") instanceof RandomAccess);
     assertTrue(multimap.get("bar") instanceof RandomAccess);
   }

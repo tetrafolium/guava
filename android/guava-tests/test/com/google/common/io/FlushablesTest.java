@@ -62,7 +62,7 @@ public class FlushablesTest extends TestCase {
   }
 
   public void testFlushQuietly_flushableWithEatenException()
-      throws IOException {
+  throws IOException {
     // make sure that no exception is thrown by flushQuietly when the mock does
     // throw an exception on flush.
     setupFlushable(true);
@@ -75,7 +75,7 @@ public class FlushablesTest extends TestCase {
     mockFlushable = mock(Flushable.class);
     if (shouldThrowOnFlush) {
       doThrow(new IOException("This should only appear in the "
-          + "logs. It should not be rethrown.")).when(mockFlushable).flush();
+              + "logs. It should not be rethrown.")).when(mockFlushable).flush();
     }
   }
 

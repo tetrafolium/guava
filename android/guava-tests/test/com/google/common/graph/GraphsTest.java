@@ -541,7 +541,7 @@ public class GraphsTest {
     assertThat(undirectedMultigraph.addEdge(N1, N2, E12_A)).isTrue();
     assertThat(undirectedMultigraph.addEdge(N2, N1, E21)).isTrue();
     assertThat(undirectedMultigraph.edgesConnecting(N1, N2))
-        .isEqualTo(ImmutableSet.of(E12, E12_A, E21));
+    .isEqualTo(ImmutableSet.of(E12, E12_A, E21));
   }
 
   @Test

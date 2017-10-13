@@ -221,7 +221,7 @@ public class PreconditionsTest extends TestCase {
 
   public void testCheckNotNull_complexMessage_success() {
     String result = Preconditions.checkNotNull(
-        NON_NULL_STRING, "%s", IGNORE_ME);
+            NON_NULL_STRING, "%s", IGNORE_ME);
     assertSame(NON_NULL_STRING, result);
   }
 
@@ -400,7 +400,7 @@ public class PreconditionsTest extends TestCase {
     assertEquals("(Object[])null", Preconditions.format("%s", (Object[]) null));
   }
 
-    @GwtIncompatible("Reflection")
+  @GwtIncompatible("Reflection")
   public void testAllOverloads_checkArgument() throws Exception {
     for (ImmutableList<Class<?>> sig : allSignatures(boolean.class)) {
       Method checkArgumentMethod =
@@ -465,7 +465,7 @@ public class PreconditionsTest extends TestCase {
       assertThat(throwable).hasMessage("");
     } else {
       assertThat(throwable)
-          .hasMessage(Preconditions.format("", Arrays.copyOfRange(params, 2, params.length)));
+      .hasMessage(Preconditions.format("", Arrays.copyOfRange(params, 2, params.length)));
     }
   }
 
@@ -518,10 +518,10 @@ public class PreconditionsTest extends TestCase {
       for (List<Class<?>> curr : Lists.cartesianProduct(typesLists)) {
         allOverloads.add(
             ImmutableList.<Class<?>>builder()
-                .add(predicateType)
-                .add(String.class)  // the format string
-                .addAll(curr)
-                .build());
+            .add(predicateType)
+            .add(String.class)  // the format string
+            .addAll(curr)
+            .build());
       }
     }
     return allOverloads.build().asList();

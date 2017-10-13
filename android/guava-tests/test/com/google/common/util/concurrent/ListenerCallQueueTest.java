@@ -37,17 +37,17 @@ import junit.framework.TestCase;
 public class ListenerCallQueueTest extends TestCase {
 
   private static final ListenerCallQueue.Event<Object> THROWING_EVENT =
-      new ListenerCallQueue.Event<Object>() {
-        @Override
-        public void call(Object object) {
-          throw new RuntimeException();
-        }
+  new ListenerCallQueue.Event<Object>() {
+    @Override
+    public void call(Object object) {
+      throw new RuntimeException();
+    }
 
-        @Override
-        public String toString() {
-          return "throwing()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "throwing()";
+    }
+  };
 
   public void testEnqueueAndDispatch() {
     Object listener = new Object();
@@ -154,7 +154,7 @@ public class ListenerCallQueueTest extends TestCase {
   }
 
   public void testEnqueueAndDispatch_multithreaded_withThrowingRunnable()
-      throws InterruptedException {
+  throws InterruptedException {
     Object listener = new Object();
     ExecutorService service = Executors.newFixedThreadPool(4);
     ListenerCallQueue<Object> queue = new ListenerCallQueue<>();

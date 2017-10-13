@@ -54,16 +54,16 @@ public class IntArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Integer>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new IntsAsListGenerator())
-                .named("Ints.asList"),
+            .named("Ints.asList"),
 
             ListTestSuiteBuilder.using(new IntsAsListHeadSubListGenerator())
-                .named("Ints.asList, head subList"),
+            .named("Ints.asList, head subList"),
 
             ListTestSuiteBuilder.using(new IntsAsListTailSubListGenerator())
-                .named("Ints.asList, tail subList"),
+            .named("Ints.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new IntsAsListMiddleSubListGenerator())
-                .named("Ints.asList, middle subList")
+            .named("Ints.asList, middle subList")
         );
 
     TestSuite suite = new TestSuite();
@@ -71,9 +71,9 @@ public class IntArrayAsListTest extends TestCase {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -121,7 +121,7 @@ public class IntArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestIntegerListGenerator
-      implements TestListGenerator<Integer> {
+    implements TestListGenerator<Integer> {
     @Override
     public SampleElements<Integer> samples() {
       return new SampleIntegers();

@@ -90,9 +90,9 @@ public class CycleDetectingLockFactoryTest extends TestCase {
   // graph nodes (as opposed to using the static per-Enum map) to avoid
   // conflicts across different test runs.
   private <E extends Enum<E>> CycleDetectingLockFactory.WithExplicitOrdering<E>
-      newInstanceWithExplicitOrdering(Class<E> enumClass, Policy policy) {
+  newInstanceWithExplicitOrdering(Class<E> enumClass, Policy policy) {
     return new CycleDetectingLockFactory.WithExplicitOrdering<E>(
-        policy, CycleDetectingLockFactory.createNodes(enumClass));
+            policy, CycleDetectingLockFactory.createNodes(enumClass));
   }
 
   public void testDeadlock_twoLocks() {

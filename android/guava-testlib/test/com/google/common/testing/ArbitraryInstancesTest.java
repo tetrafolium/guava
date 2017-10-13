@@ -446,7 +446,7 @@ public class ArbitraryInstancesTest extends TestCase {
   }
 
   private static class ParentClassHasConstant
-      extends WithPublicConstant {}
+    extends WithPublicConstant {}
 
   public static class WithGenericConstant<T> {
     public static final WithGenericConstant<String> STRING_CONSTANT = new WithGenericConstant<>();

@@ -206,7 +206,7 @@ public class IteratorsTest extends TestCase {
       fail();
     } catch (IllegalArgumentException expected) {
       assertThat(expected)
-          .hasMessage("expected one element but was: <one, two, three, four, five>");
+      .hasMessage("expected one element but was: <one, two, three, four, five>");
     }
   }
 
@@ -218,7 +218,7 @@ public class IteratorsTest extends TestCase {
       fail();
     } catch (IllegalArgumentException expected) {
       assertThat(expected)
-          .hasMessage("expected one element but was: <one, two, three, four, five, ...>");
+      .hasMessage("expected one element but was: <one, two, three, four, five, ...>");
     }
   }
 
@@ -272,7 +272,7 @@ public class IteratorsTest extends TestCase {
   public void testFilterSimple() {
     Iterator<String> unfiltered = Lists.newArrayList("foo", "bar").iterator();
     Iterator<String> filtered = Iterators.filter(unfiltered,
-                                                 Predicates.equalTo("foo"));
+            Predicates.equalTo("foo"));
     List<String> expected = Collections.singletonList("foo");
     List<String> actual = Lists.newArrayList(filtered);
     assertEquals(expected, actual);
@@ -281,7 +281,7 @@ public class IteratorsTest extends TestCase {
   public void testFilterNoMatch() {
     Iterator<String> unfiltered = Lists.newArrayList("foo", "bar").iterator();
     Iterator<String> filtered = Iterators.filter(unfiltered,
-                                                 Predicates.alwaysFalse());
+            Predicates.alwaysFalse());
     List<String> expected = Collections.emptyList();
     List<String> actual = Lists.newArrayList(filtered);
     assertEquals(expected, actual);
@@ -290,7 +290,7 @@ public class IteratorsTest extends TestCase {
   public void testFilterMatchAll() {
     Iterator<String> unfiltered = Lists.newArrayList("foo", "bar").iterator();
     Iterator<String> filtered = Iterators.filter(unfiltered,
-                                                 Predicates.alwaysTrue());
+            Predicates.alwaysTrue());
     List<String> expected = Lists.newArrayList("foo", "bar");
     List<String> actual = Lists.newArrayList(filtered);
     assertEquals(expected, actual);
@@ -299,12 +299,12 @@ public class IteratorsTest extends TestCase {
   public void testFilterNothing() {
     Iterator<String> unfiltered = Collections.<String>emptyList().iterator();
     Iterator<String> filtered = Iterators.filter(unfiltered,
-        new Predicate<String>() {
-          @Override
-          public boolean apply(String s) {
-            throw new AssertionFailedError("Should never be evaluated");
-          }
-        });
+    new Predicate<String>() {
+      @Override
+      public boolean apply(String s) {
+        throw new AssertionFailedError("Should never be evaluated");
+      }
+    });
 
     List<String> expected = Collections.emptyList();
     List<String> actual = Lists.newArrayList(filtered);
@@ -325,7 +325,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.filter(list.iterator(), isEven);
       }
-    }.test();
+    } .test();
   }
 
   public void testAny() {
@@ -361,7 +361,7 @@ public class IteratorsTest extends TestCase {
     Iterable<String> list = Lists.newArrayList("cool", "pants");
     Iterator<String> iterator = list.iterator();
     assertEquals("pants", Iterators.find(iterator,
-        Predicates.equalTo("pants")));
+            Predicates.equalTo("pants")));
     assertFalse(iterator.hasNext());
   }
 
@@ -458,12 +458,12 @@ public class IteratorsTest extends TestCase {
   public void testTransform() {
     Iterator<String> input = asList("1", "2", "3").iterator();
     Iterator<Integer> result = Iterators.transform(input,
-        new Function<String, Integer>() {
-          @Override
-          public Integer apply(String from) {
-            return Integer.valueOf(from);
-          }
-        });
+    new Function<String, Integer>() {
+      @Override
+      public Integer apply(String from) {
+        return Integer.valueOf(from);
+      }
+    });
 
     List<Integer> actual = Lists.newArrayList(result);
     List<Integer> expected = asList(1, 2, 3);
@@ -474,12 +474,12 @@ public class IteratorsTest extends TestCase {
     List<String> list = Lists.newArrayList("1", "2", "3");
     Iterator<String> input = list.iterator();
     Iterator<Integer> iterator = Iterators.transform(input,
-        new Function<String, Integer>() {
-          @Override
-          public Integer apply(String from) {
-            return Integer.valueOf(from);
-          }
-        });
+    new Function<String, Integer>() {
+      @Override
+      public Integer apply(String from) {
+        return Integer.valueOf(from);
+      }
+    });
 
     assertEquals(Integer.valueOf(1), iterator.next());
     assertEquals(Integer.valueOf(2), iterator.next());
@@ -490,12 +490,12 @@ public class IteratorsTest extends TestCase {
   public void testPoorlyBehavedTransform() {
     Iterator<String> input = asList("1", null, "3").iterator();
     Iterator<Integer> result = Iterators.transform(input,
-        new Function<String, Integer>() {
-          @Override
-          public Integer apply(String from) {
-            return Integer.valueOf(from);
-          }
-        });
+    new Function<String, Integer>() {
+      @Override
+      public Integer apply(String from) {
+        return Integer.valueOf(from);
+      }
+    });
 
     result.next();
     try {
@@ -508,12 +508,12 @@ public class IteratorsTest extends TestCase {
   public void testNullFriendlyTransform() {
     Iterator<Integer> input = asList(1, 2, null, 3).iterator();
     Iterator<String> result = Iterators.transform(input,
-        new Function<Integer, String>() {
-          @Override
-          public String apply(Integer from) {
-            return String.valueOf(from);
-          }
-        });
+    new Function<Integer, String>() {
+      @Override
+      public String apply(Integer from) {
+        return String.valueOf(from);
+      }
+    });
 
     List<String> actual = Lists.newArrayList(result);
     List<String> expected = asList("1", "2", "null", "3");
@@ -696,11 +696,11 @@ public class IteratorsTest extends TestCase {
   @GwtIncompatible // unreasonably slow
   public void testCycleUsingIteratorTester() {
     new IteratorTester<Integer>(5, UNMODIFIABLE, asList(1, 2, 1, 2, 1,
-        2, 1, 2, 1, 2, 1, 2), IteratorTester.KnownOrder.KNOWN_ORDER) {
+            2, 1, 2, 1, 2, 1, 2), IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.cycle(asList(1, 2));
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~5s)
@@ -710,7 +710,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat();
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~5s)
@@ -720,7 +720,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(iterateOver());
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~5s)
@@ -729,7 +729,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(iterateOver(), iterateOver());
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~3s)
@@ -739,7 +739,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(iterateOver(1));
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~5s)
@@ -748,7 +748,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(iterateOver(), iterateOver(1), iterateOver());
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // fairly slow (~40s)
@@ -757,7 +757,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(iterateOver(1), iterateOver(2));
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // fairly slow (~40s)
@@ -765,9 +765,9 @@ public class IteratorsTest extends TestCase {
     new DoubletonIteratorTester() {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(
-            iterateOver(1), iterateOver(), iterateOver(), iterateOver(2));
+                iterateOver(1), iterateOver(), iterateOver(), iterateOver(2));
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // fairly slow (~50s)
@@ -776,9 +776,9 @@ public class IteratorsTest extends TestCase {
         IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.concat(asList(1).iterator(),
-            Arrays.<Integer>asList().iterator(), asList(2).iterator());
+                Arrays.<Integer>asList().iterator(), asList(2).iterator());
       }
-    }.test();
+    } .test();
   }
 
   public void testConcatPartiallyAdvancedSecond() {
@@ -807,7 +807,7 @@ public class IteratorsTest extends TestCase {
   public void testConcatContainingNull() {
     @SuppressWarnings("unchecked")
     Iterator<Iterator<Integer>> input
-        = asList(iterateOver(1, 2), null, iterateOver(3)).iterator();
+      = asList(iterateOver(1, 2), null, iterateOver(3)).iterator();
     Iterator<Integer> result = Iterators.concat(input);
     assertEquals(1, (int) result.next());
     assertEquals(2, (int) result.next());
@@ -856,7 +856,7 @@ public class IteratorsTest extends TestCase {
     List<String> alreadyThere = Lists.newArrayList("already", "there");
 
     boolean changed = Iterators.addAll(alreadyThere,
-                                       Iterators.<String>emptyIterator());
+            Iterators.<String>emptyIterator());
     assertThat(alreadyThere).containsExactly("already", "there").inOrder();
     assertFalse(changed);
   }
@@ -873,7 +873,7 @@ public class IteratorsTest extends TestCase {
 
   public void testAddAllToSet() {
     Set<String> alreadyThere
-        = Sets.newLinkedHashSet(asList("already", "there"));
+      = Sets.newLinkedHashSet(asList("already", "there"));
     List<String> oneMore = Lists.newArrayList("there");
 
     boolean changed = Iterators.addAll(alreadyThere, oneMore.iterator());
@@ -1008,13 +1008,13 @@ public class IteratorsTest extends TestCase {
         Iterator<Integer> source = Iterators.forArray(1, 2, 3, 4, 5, 6, 7);
         return Iterators.partition(source, 3);
       }
-    }.test();
+    } .test();
   }
 
   public void testPartition_view() {
     List<Integer> list = asList(1, 2);
     Iterator<List<Integer>> partitions
-        = Iterators.partition(list.iterator(), 1);
+      = Iterators.partition(list.iterator(), 1);
 
     // Changes before the partition is retrieved are reflected
     list.set(0, 3);
@@ -1081,13 +1081,13 @@ public class IteratorsTest extends TestCase {
         Iterator<Integer> source = Iterators.forArray(1, 2, 3, 4, 5, 6, 7);
         return Iterators.paddedPartition(source, 3);
       }
-    }.test();
+    } .test();
   }
 
   public void testPaddedPartition_view() {
     List<Integer> list = asList(1, 2);
     Iterator<List<Integer>> partitions
-        = Iterators.paddedPartition(list.iterator(), 1);
+      = Iterators.paddedPartition(list.iterator(), 1);
 
     // Changes before the PaddedPartition is retrieved are reflected
     list.set(0, 3);
@@ -1170,7 +1170,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.forArray(1, 2, 3);
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // unreasonably slow
@@ -1180,7 +1180,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.forArray(new Integer[] { 0, 1, 2, 3, 4 }, 1, 3, 0);
       }
-    }.test();
+    } .test();
   }
 
   public void testForEnumerationEmpty() {
@@ -1333,7 +1333,7 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.limit(Lists.newArrayList(list).iterator(), 3);
       }
-    }.test();
+    } .test();
   }
 
   public void testGetNext_withDefault_singleton() {
@@ -1528,77 +1528,77 @@ public class IteratorsTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterators.singletonIterator(1);
       }
-    }.test();
+    } .test();
   }
 
   public void testRemoveAll() {
     List<String> list = newArrayList("a", "b", "c", "d", "e");
     assertTrue(Iterators.removeAll(
-        list.iterator(), newArrayList("b", "d", "f")));
+            list.iterator(), newArrayList("b", "d", "f")));
     assertEquals(newArrayList("a", "c", "e"), list);
     assertFalse(Iterators.removeAll(
-        list.iterator(), newArrayList("x", "y", "z")));
+            list.iterator(), newArrayList("x", "y", "z")));
     assertEquals(newArrayList("a", "c", "e"), list);
   }
 
   public void testRemoveIf() {
     List<String> list = newArrayList("a", "b", "c", "d", "e");
     assertTrue(Iterators.removeIf(
-        list.iterator(),
-        new Predicate<String>() {
-          @Override
-          public boolean apply(String s) {
-            return s.equals("b") || s.equals("d") || s.equals("f");
-          }
-        }));
+            list.iterator(),
+    new Predicate<String>() {
+      @Override
+      public boolean apply(String s) {
+        return s.equals("b") || s.equals("d") || s.equals("f");
+      }
+    }));
     assertEquals(newArrayList("a", "c", "e"), list);
     assertFalse(Iterators.removeIf(
-        list.iterator(),
-        new Predicate<String>() {
-          @Override
-          public boolean apply(String s) {
-            return s.equals("x") || s.equals("y") || s.equals("z");
-          }
-        }));
+            list.iterator(),
+    new Predicate<String>() {
+      @Override
+      public boolean apply(String s) {
+        return s.equals("x") || s.equals("y") || s.equals("z");
+      }
+    }));
     assertEquals(newArrayList("a", "c", "e"), list);
   }
 
   public void testRetainAll() {
     List<String> list = newArrayList("a", "b", "c", "d", "e");
     assertTrue(Iterators.retainAll(
-        list.iterator(), newArrayList("b", "d", "f")));
+            list.iterator(), newArrayList("b", "d", "f")));
     assertEquals(newArrayList("b", "d"), list);
     assertFalse(Iterators.retainAll(
-        list.iterator(), newArrayList("b", "e", "d")));
+            list.iterator(), newArrayList("b", "e", "d")));
     assertEquals(newArrayList("b", "d"), list);
   }
 
   @GwtIncompatible // ListTestSuiteBuilder
   private static Test testsForRemoveAllAndRetainAll() {
     return ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override public List<String> create(final String[] elements) {
-            final List<String> delegate = newArrayList(elements);
-            return new ForwardingList<String>() {
-              @Override protected List<String> delegate() {
-                return delegate;
-              }
-
-              @Override public boolean removeAll(Collection<?> c) {
-                return Iterators.removeAll(iterator(), c);
-              }
-
-              @Override public boolean retainAll(Collection<?> c) {
-                return Iterators.retainAll(iterator(), c);
-              }
-            };
+      @Override public List<String> create(final String[] elements) {
+        final List<String> delegate = newArrayList(elements);
+        return new ForwardingList<String>() {
+          @Override protected List<String> delegate() {
+            return delegate;
           }
-        })
-        .named("ArrayList with Iterators.removeAll and retainAll")
-        .withFeatures(
-            ListFeature.GENERAL_PURPOSE,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionSize.ANY)
-        .createTestSuite();
+
+          @Override public boolean removeAll(Collection<?> c) {
+            return Iterators.removeAll(iterator(), c);
+          }
+
+          @Override public boolean retainAll(Collection<?> c) {
+            return Iterators.retainAll(iterator(), c);
+          }
+        };
+      }
+    })
+    .named("ArrayList with Iterators.removeAll and retainAll")
+    .withFeatures(
+        ListFeature.GENERAL_PURPOSE,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionSize.ANY)
+    .createTestSuite();
   }
 
   public void testConsumingIterator() {

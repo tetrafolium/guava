@@ -172,20 +172,20 @@ final class LittleEndianByteArray {
       }
       try {
         return java.security.AccessController.doPrivileged(
-            new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-              @Override
-              public sun.misc.Unsafe run() throws Exception {
-                Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                  f.setAccessible(true);
-                  Object x = f.get(null);
-                  if (k.isInstance(x)) {
-                    return k.cast(x);
-                  }
-                }
-                throw new NoSuchFieldError("the Unsafe");
+        new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+          @Override
+          public sun.misc.Unsafe run() throws Exception {
+            Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+            for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+              f.setAccessible(true);
+              Object x = f.get(null);
+              if (k.isInstance(x)) {
+                return k.cast(x);
               }
-            });
+            }
+            throw new NoSuchFieldError("the Unsafe");
+          }
+        });
       } catch (java.security.PrivilegedActionException e) {
         throw new RuntimeException("Could not initialize intrinsics", e.getCause());
       }
@@ -247,8 +247,8 @@ final class LittleEndianByteArray {
       if ("amd64".equals(arch) || "aarch64".equals(arch)) {
         theGetter =
             ByteOrder.nativeOrder().equals(ByteOrder.LITTLE_ENDIAN)
-                ? UnsafeByteArray.UNSAFE_LITTLE_ENDIAN
-                : UnsafeByteArray.UNSAFE_BIG_ENDIAN;
+            ? UnsafeByteArray.UNSAFE_LITTLE_ENDIAN
+            : UnsafeByteArray.UNSAFE_BIG_ENDIAN;
       }
     } catch (Throwable t) {
       // ensure we really catch *everything*

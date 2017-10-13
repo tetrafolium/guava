@@ -59,7 +59,7 @@ public class MapEqualsTester<K, V> extends AbstractMapTester<K, V> {
     resetContainer(getSubjectGenerator().create(entries.toArray()));
     assertTrue(
         "A Map should equal any other Map containing the same entries,"
-            + " even if some keys are null.",
+        + " even if some keys are null.",
         getMap().equals(newHashMap(entries)));
   }
 
@@ -83,7 +83,7 @@ public class MapEqualsTester<K, V> extends AbstractMapTester<K, V> {
     resetContainer(getSubjectGenerator().create(entries.toArray()));
     assertTrue(
         "A Map should equal any other Map containing the same entries,"
-            + " even if some values are null.",
+        + " even if some values are null.",
         getMap().equals(newHashMap(entries)));
   }
 

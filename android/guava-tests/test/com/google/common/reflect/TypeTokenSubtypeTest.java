@@ -34,40 +34,40 @@ public class TypeTokenSubtypeTest extends TestCase {
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass() {
     TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {}.getClass();
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
     assertTrue(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass_typeParameterOfOwnerTypeNotMatch() {
     TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Indoor>().new Shop<Electronics>() {}.getClass();
+    Class<?> subclass = new Mall<Indoor>().new Shop<Electronics>() {} .getClass();
     assertFalse(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass_typeParameterOfInnerTypeNotMatch() {
     TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Grocery>() {}.getClass();
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Grocery>() {} .getClass();
     assertFalse(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public static void testSubtypeOfInnerClass_staticAnonymousClass() {
     TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {}.getClass();
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
     assertTrue(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public static void testSubtypeOfStaticAnonymousClass() {
-    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {}.getClass();
+    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
     assertTrue(TypeToken.of(superclass).isSubtypeOf(superclass));
-    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {}.getClass())
-        .isSubtypeOf(superclass));
+    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {} .getClass())
+    .isSubtypeOf(superclass));
   }
 
   public void testSubtypeOfNonStaticAnonymousClass() {
-    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {}.getClass();
+    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
     assertTrue(TypeToken.of(superclass).isSubtypeOf(superclass));
-    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {}.getClass())
-        .isSubtypeOf(superclass));
+    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {} .getClass())
+    .isSubtypeOf(superclass));
   }
 
   private static class OwnerTypeSubtypingTests extends SubtypeTester {
@@ -159,7 +159,7 @@ public class TypeTokenSubtypeTest extends TestCase {
 
     @TestSubtype
     public Mall<Outdoor>.Shop<? extends Electronics> innerTypeDoesNotMatch_supertypeWithWildcard(
-       Mall<Outdoor>.Shop<Grocery> shop) {
+        Mall<Outdoor>.Shop<Grocery> shop) {
       return notSubtype(shop);
     }
 
@@ -316,7 +316,7 @@ public class TypeTokenSubtypeTest extends TestCase {
   private static class Mall<T> {
     class Shop<ProductT> {}
     abstract class Retailer<ProductT> extends Shop<ProductT>
-        implements Comparator<ProductT>, ConsumerFacing<ProductT> {}
+      implements Comparator<ProductT>, ConsumerFacing<ProductT> {}
   }
 
   private static class Outlet<T> extends Mall<T> {}

@@ -41,45 +41,45 @@ public class SafeTreeSetTest extends TestCase {
     suite.addTestSuite(SafeTreeSetTest.class);
     suite.addTest(
         NavigableSetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    return new SafeTreeSet<>(Arrays.asList(elements));
-                  }
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        return new SafeTreeSet<>(Arrays.asList(elements));
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-                  }
-                })
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE)
-            .named("SafeTreeSet with natural comparator")
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE)
+    .named("SafeTreeSet with natural comparator")
+    .createTestSuite());
     suite.addTest(
         SetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    NavigableSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
-                    Collections.addAll(set, elements);
-                    return set;
-                  }
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        NavigableSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
+        Collections.addAll(set, elements);
+        return set;
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-                  }
-                })
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE,
-                CollectionFeature.ALLOWS_NULL_VALUES)
-            .named("SafeTreeSet with null-friendly comparator")
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .named("SafeTreeSet with null-friendly comparator")
+    .createTestSuite());
     return suite;
   }
 

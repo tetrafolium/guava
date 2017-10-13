@@ -221,7 +221,8 @@ final class HashTestUtils {
     PUT_STRING_LOW_HIGH_SURROGATE() {
       @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
-            randomLowSurrogate(random), randomHighSurrogate(random)});
+                randomLowSurrogate(random), randomHighSurrogate(random)
+            });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
@@ -230,7 +231,8 @@ final class HashTestUtils {
     PUT_STRING_HIGH_LOW_SURROGATE() {
       @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
-            randomHighSurrogate(random), randomLowSurrogate(random)});
+                randomHighSurrogate(random), randomLowSurrogate(random)
+            });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
@@ -289,9 +291,9 @@ final class HashTestUtils {
         // likely number of trials to have proven no funneling
         if (count > maxCount) {
           Assert.fail("input bit(" + i + ") was found not to affect all " +
-               hashBits + " output bits; The unaffected bits are " +
-               "as follows: " + ~(same & diff) + ". This was " +
-               "determined after " + count + " trials.");
+              hashBits + " output bits; The unaffected bits are " +
+              "as follows: " + ~(same & diff) + ". This was " +
+              "determined after " + count + " trials.");
         }
       }
     }
@@ -378,8 +380,8 @@ final class HashTestUtils {
           count++;
           if (count > maxCount) {
             Assert.fail("2-bit delta (" + i + ", " + j + ") is likely a " +
-                 "characteristic for this hash. This was " +
-                 "determined after " + count + " trials");
+                "characteristic for this hash. This was " +
+                "determined after " + count + " trials");
           }
         }
       }
@@ -594,27 +596,27 @@ final class HashTestUtils {
   }
 
   private static final ImmutableSet<Charset> CHARSETS = ImmutableSet.of(
-      Charsets.ISO_8859_1,
-      Charsets.US_ASCII,
-      Charsets.UTF_16,
-      Charsets.UTF_16BE,
-      Charsets.UTF_16LE,
-      Charsets.UTF_8);
+          Charsets.ISO_8859_1,
+          Charsets.US_ASCII,
+          Charsets.UTF_16,
+          Charsets.UTF_16BE,
+          Charsets.UTF_16LE,
+          Charsets.UTF_8);
 
   private static void assertHashStringEquivalence(HashFunction hashFunction, Random random) {
     // Test that only data and data-order is important, not the individual operations.
     new EqualsTester()
-        .addEqualityGroup(
-            hashFunction.hashUnencodedChars("abc"),
-            hashFunction.newHasher().putUnencodedChars("abc").hash(),
-            hashFunction.newHasher().putUnencodedChars("ab").putUnencodedChars("c").hash(),
-            hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("bc").hash(),
-            hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("b")
-                .putUnencodedChars("c").hash(),
-            hashFunction.newHasher().putChar('a').putUnencodedChars("bc").hash(),
-            hashFunction.newHasher().putUnencodedChars("ab").putChar('c').hash(),
-            hashFunction.newHasher().putChar('a').putChar('b').putChar('c').hash())
-        .testEquals();
+    .addEqualityGroup(
+        hashFunction.hashUnencodedChars("abc"),
+        hashFunction.newHasher().putUnencodedChars("abc").hash(),
+        hashFunction.newHasher().putUnencodedChars("ab").putUnencodedChars("c").hash(),
+        hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("bc").hash(),
+        hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("b")
+        .putUnencodedChars("c").hash(),
+        hashFunction.newHasher().putChar('a').putUnencodedChars("bc").hash(),
+        hashFunction.newHasher().putUnencodedChars("ab").putChar('c').hash(),
+        hashFunction.newHasher().putChar('a').putChar('b').putChar('c').hash())
+    .testEquals();
 
     int size = random.nextInt(2048);
     byte[] bytes = new byte[size];
@@ -647,11 +649,11 @@ final class HashTestUtils {
 
   static char randomLowSurrogate(Random random) {
     return (char) (Character.MIN_LOW_SURROGATE
-        + random.nextInt(Character.MAX_LOW_SURROGATE - Character.MIN_LOW_SURROGATE + 1));
+            + random.nextInt(Character.MAX_LOW_SURROGATE - Character.MIN_LOW_SURROGATE + 1));
   }
 
   static char randomHighSurrogate(Random random) {
     return (char) (Character.MIN_HIGH_SURROGATE
-        + random.nextInt(Character.MAX_HIGH_SURROGATE - Character.MIN_HIGH_SURROGATE + 1));
+            + random.nextInt(Character.MAX_HIGH_SURROGATE - Character.MIN_HIGH_SURROGATE + 1));
   }
 }

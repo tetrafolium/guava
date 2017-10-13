@@ -65,12 +65,12 @@ import junit.framework.TestSuite;
 public class ListsTest extends TestCase {
 
   private static final Collection<Integer> SOME_COLLECTION
-      = asList(0, 1, 1);
+    = asList(0, 1, 1);
 
   private static final Iterable<Integer> SOME_ITERABLE = new SomeIterable();
 
   private static final class RemoveFirstFunction
-      implements Function<String, String>, Serializable {
+    implements Function<String, String>, Serializable {
     @Override
     public String apply(String from) {
       return (from.length() == 0) ? from : from.substring(1);
@@ -86,19 +86,19 @@ public class ListsTest extends TestCase {
   }
 
   private static final List<Integer> SOME_LIST
-      = Lists.newArrayList(1, 2, 3, 4);
+    = Lists.newArrayList(1, 2, 3, 4);
 
   private static final List<Integer> SOME_SEQUENTIAL_LIST
-      = Lists.newLinkedList(asList(1, 2, 3, 4));
+    = Lists.newLinkedList(asList(1, 2, 3, 4));
 
   private static final List<String> SOME_STRING_LIST
-      = asList("1", "2", "3", "4");
+    = asList("1", "2", "3", "4");
 
   private static final Function<Number, String> SOME_FUNCTION
-      = new SomeFunction();
+    = new SomeFunction();
 
   private static class SomeFunction
-      implements Function<Number, String>, Serializable {
+    implements Function<Number, String>, Serializable {
     @Override
     public String apply(Number n) {
       return String.valueOf(n);
@@ -112,92 +112,92 @@ public class ListsTest extends TestCase {
     suite.addTestSuite(ListsTest.class);
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            String[] rest = new String[elements.length - 1];
-            System.arraycopy(elements, 1, rest, 0, elements.length - 1);
-            return Lists.asList(elements[0], rest);
-          }
-        })
-        .named("Lists.asList, 2 parameter")
-        .withFeatures(CollectionSize.SEVERAL, CollectionSize.ONE,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_VALUES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        String[] rest = new String[elements.length - 1];
+        System.arraycopy(elements, 1, rest, 0, elements.length - 1);
+        return Lists.asList(elements[0], rest);
+      }
+    })
+    .named("Lists.asList, 2 parameter")
+    .withFeatures(CollectionSize.SEVERAL, CollectionSize.ONE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            String[] rest = new String[elements.length - 2];
-            System.arraycopy(elements, 2, rest, 0, elements.length - 2);
-            return Lists.asList(elements[0], elements[1], rest);
-          }
-        })
-        .named("Lists.asList, 3 parameter")
-        .withFeatures(CollectionSize.SEVERAL,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_VALUES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        String[] rest = new String[elements.length - 2];
+        System.arraycopy(elements, 2, rest, 0, elements.length - 2);
+        return Lists.asList(elements[0], elements[1], rest);
+      }
+    })
+    .named("Lists.asList, 3 parameter")
+    .withFeatures(CollectionSize.SEVERAL,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     final Function<String, String> removeFirst
-        = new RemoveFirstFunction();
+      = new RemoveFirstFunction();
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            List<String> fromList = Lists.newArrayList();
-            for (String element : elements) {
-              fromList.add("q" + checkNotNull(element));
-            }
-            return Lists.transform(fromList, removeFirst);
-          }
-        })
-        .named("Lists.transform, random access, no nulls")
-        .withFeatures(CollectionSize.ANY,
-            ListFeature.REMOVE_OPERATIONS,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        List<String> fromList = Lists.newArrayList();
+        for (String element : elements) {
+          fromList.add("q" + checkNotNull(element));
+        }
+        return Lists.transform(fromList, removeFirst);
+      }
+    })
+    .named("Lists.transform, random access, no nulls")
+    .withFeatures(CollectionSize.ANY,
+        ListFeature.REMOVE_OPERATIONS,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            List<String> fromList = Lists.newLinkedList();
-            for (String element : elements) {
-              fromList.add("q" + checkNotNull(element));
-            }
-            return Lists.transform(fromList, removeFirst);
-          }
-        })
-        .named("Lists.transform, sequential access, no nulls")
-        .withFeatures(CollectionSize.ANY,
-            ListFeature.REMOVE_OPERATIONS,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        List<String> fromList = Lists.newLinkedList();
+        for (String element : elements) {
+          fromList.add("q" + checkNotNull(element));
+        }
+        return Lists.transform(fromList, removeFirst);
+      }
+    })
+    .named("Lists.transform, sequential access, no nulls")
+    .withFeatures(CollectionSize.ANY,
+        ListFeature.REMOVE_OPERATIONS,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            List<String> fromList = Lists.newArrayList(elements);
-            return Lists.transform(fromList, Functions.<String>identity());
-          }
-        })
-        .named("Lists.transform, random access, nulls")
-        .withFeatures(CollectionSize.ANY,
-            ListFeature.REMOVE_OPERATIONS,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_VALUES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        List<String> fromList = Lists.newArrayList(elements);
+        return Lists.transform(fromList, Functions.<String>identity());
+      }
+    })
+    .named("Lists.transform, random access, nulls")
+    .withFeatures(CollectionSize.ANY,
+        ListFeature.REMOVE_OPERATIONS,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
-            List<String> fromList =
-                Lists.newLinkedList(asList(elements));
-            return Lists.transform(fromList, Functions.<String>identity());
-          }
-        })
-        .named("Lists.transform, sequential access, nulls")
-        .withFeatures(CollectionSize.ANY,
-            ListFeature.REMOVE_OPERATIONS,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_VALUES)
-        .createTestSuite());
+      @Override protected List<String> create(String[] elements) {
+        List<String> fromList =
+            Lists.newLinkedList(asList(elements));
+        return Lists.transform(fromList, Functions.<String>identity());
+      }
+    })
+    .named("Lists.transform, sequential access, nulls")
+    .withFeatures(CollectionSize.ANY,
+        ListFeature.REMOVE_OPERATIONS,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override protected List<String> create(String[] elements) {
@@ -208,7 +208,7 @@ public class ListsTest extends TestCase {
       }
     }).named("Lists.reverse[ArrayList]").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES, ListFeature.GENERAL_PURPOSE)
-        .createTestSuite());
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override protected List<String> create(String[] elements) {
@@ -219,7 +219,7 @@ public class ListsTest extends TestCase {
       }
     }).named("Lists.reverse[Arrays.asList]").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES, ListFeature.SUPPORTS_SET)
-        .createTestSuite());
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override protected List<String> create(String[] elements) {
@@ -230,7 +230,7 @@ public class ListsTest extends TestCase {
       }
     }).named("Lists.reverse[LinkedList]").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES, ListFeature.GENERAL_PURPOSE)
-        .createTestSuite());
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override protected List<String> create(String[] elements) {
@@ -241,19 +241,19 @@ public class ListsTest extends TestCase {
       }
     }).named("Lists.reverse[ImmutableList]").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new CharactersOfStringGenerator())
         .named("Lists.charactersOf[String]").withFeatures(
             CollectionSize.ANY,
             CollectionFeature.SERIALIZABLE,
             CollectionFeature.ALLOWS_NULL_QUERIES)
-            .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new CharactersOfCharSequenceGenerator())
         .named("Lists.charactersOf[CharSequence]").withFeatures(
             CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
-            .createTestSuite());
+        .createTestSuite());
 
     return suite;
   }
@@ -360,7 +360,7 @@ public class ListsTest extends TestCase {
   @GwtIncompatible // CopyOnWriteArrayList
   public void testNewCOWALFromIterable() {
     CopyOnWriteArrayList<Integer> list = Lists.newCopyOnWriteArrayList(
-        SOME_ITERABLE);
+            SOME_ITERABLE);
     assertEquals(SOME_COLLECTION, list);
   }
 
@@ -413,7 +413,7 @@ public class ListsTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return Lists.asList("foo", new String[] {"bar", "baz"}).iterator();
       }
-    }.test();
+    } .test();
   }
 
   private void checkFooBarBazList(List<String> list) {
@@ -440,7 +440,7 @@ public class ListsTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return Lists.asList("foo", new String[0]).iterator();
       }
-    }.test();
+    } .test();
   }
 
   public void testAsList2() {
@@ -449,11 +449,11 @@ public class ListsTest extends TestCase {
     assertTrue(list instanceof RandomAccess);
 
     new IteratorTester<String>(5, UNMODIFIABLE, asList("foo", "bar",
-        "baz"), IteratorTester.KnownOrder.KNOWN_ORDER) {
+            "baz"), IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override protected Iterator<String> newTargetIterator() {
         return Lists.asList("foo", "bar", new String[] {"baz"}).iterator();
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // SerializableTester
@@ -473,7 +473,7 @@ public class ListsTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return Lists.asList("foo", "bar", new String[0]).iterator();
       }
-    }.test();
+    } .test();
   }
 
   private static void assertIndexIsOutOfBounds(List<String> list, int index) {
@@ -538,13 +538,13 @@ public class ListsTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs!
   public void testCartesianProduct_binary1x2() {
     assertThat(Lists.cartesianProduct(list(1), list(2, 3)))
-        .containsExactly(list(1, 2), list(1, 3)).inOrder();
+    .containsExactly(list(1, 2), list(1, 3)).inOrder();
   }
 
   @SuppressWarnings("unchecked") // varargs!
   public void testCartesianProduct_binary2x2() {
     assertThat(Lists.cartesianProduct(list(1, 2), list(3, 4)))
-        .containsExactly(list(1, 3), list(1, 4), list(2, 3), list(2, 4)).inOrder();
+    .containsExactly(list(1, 3), list(1, 4), list(2, 3), list(2, 4)).inOrder();
   }
 
   @SuppressWarnings("unchecked") // varargs!
@@ -575,7 +575,7 @@ public class ListsTest extends TestCase {
     List<Object> exp4 = list((Object) 2, "4");
 
     assertThat(Lists.<Object>cartesianProduct(x, y))
-        .containsExactly(exp1, exp2, exp3, exp4).inOrder();
+    .containsExactly(exp1, exp2, exp3, exp4).inOrder();
   }
 
   @SuppressWarnings("unchecked") // varargs!
@@ -764,7 +764,7 @@ public class ListsTest extends TestCase {
     verifyNoMoreInteractions(listMock);
     List<String> transform = Lists.transform(listMock, SOME_FUNCTION);
     assertTrue(Iterables.elementsEqual(
-        transform, Lists.transform(randomAccessList, SOME_FUNCTION)));
+            transform, Lists.transform(randomAccessList, SOME_FUNCTION)));
   }
 
   private static void assertTransformIterator(List<String> list) {

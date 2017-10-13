@@ -47,20 +47,20 @@ public class SimpleAbstractMultisetTest extends TestCase {
     suite.addTestSuite(SimpleAbstractMultisetTest.class);
     suite.addTest(
         MultisetTestSuiteBuilder.using(
-                new TestStringMultisetGenerator() {
-                  @Override
-                  protected Multiset<String> create(String[] elements) {
-                    Multiset<String> ms = new NoRemoveMultiset<>();
-                    Collections.addAll(ms, elements);
-                    return ms;
-                  }
-                })
-            .named("NoRemoveMultiset")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.SUPPORTS_ADD)
-            .createTestSuite());
+    new TestStringMultisetGenerator() {
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        Multiset<String> ms = new NoRemoveMultiset<>();
+        Collections.addAll(ms, elements);
+        return ms;
+      }
+    })
+    .named("NoRemoveMultiset")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.SUPPORTS_ADD)
+    .createTestSuite());
     return suite;
   }
 
@@ -90,7 +90,7 @@ public class SimpleAbstractMultisetTest extends TestCase {
   }
 
   private static class NoRemoveMultiset<E> extends AbstractMultiset<E>
-      implements Serializable {
+    implements Serializable {
     final Map<E, Integer> backingMap = Maps.newHashMap();
 
     @Override public int add(@Nullable E element, int occurrences) {

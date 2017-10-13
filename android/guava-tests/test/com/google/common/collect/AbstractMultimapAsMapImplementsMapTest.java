@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public abstract class AbstractMultimapAsMapImplementsMapTest
-    extends MapInterfaceTest<String, Collection<Integer>> {
+  extends MapInterfaceTest<String, Collection<Integer>> {
 
   public AbstractMultimapAsMapImplementsMapTest(
       boolean modifiable, boolean allowsNulls, boolean supportsIteratorRemove) {
@@ -47,12 +47,12 @@ public abstract class AbstractMultimapAsMapImplementsMapTest
   }
 
   @Override protected String getKeyNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return "zero";
   }
 
   @Override protected Collection<Integer> getValueNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return Lists.newArrayList(0);
   }
 

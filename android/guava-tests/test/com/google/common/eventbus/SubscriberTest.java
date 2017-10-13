@@ -91,11 +91,11 @@ public class SubscriberTest extends TestCase {
     Method charAt = String.class.getMethod("charAt", int.class);
     Method concat = String.class.getMethod("concat", String.class);
     new EqualsTester()
-        .addEqualityGroup(
-            Subscriber.create(bus, "foo", charAt), Subscriber.create(bus, "foo", charAt))
-        .addEqualityGroup(Subscriber.create(bus, "bar", charAt))
-        .addEqualityGroup(Subscriber.create(bus, "foo", concat))
-        .testEquals();
+    .addEqualityGroup(
+        Subscriber.create(bus, "foo", charAt), Subscriber.create(bus, "foo", charAt))
+    .addEqualityGroup(Subscriber.create(bus, "bar", charAt))
+    .addEqualityGroup(Subscriber.create(bus, "foo", concat))
+    .testEquals();
   }
 
   private Method getTestSubscriberMethod(String name) {

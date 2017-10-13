@@ -93,8 +93,8 @@ public final class SerializableTester {
   public static <T> T reserializeAndAssert(T object) {
     T copy = reserialize(object);
     new EqualsTester()
-        .addEqualityGroup(object, copy)
-        .testEquals();
+    .addEqualityGroup(object, copy)
+    .testEquals();
     Assert.assertEquals(object.getClass(), copy.getClass());
     return copy;
   }

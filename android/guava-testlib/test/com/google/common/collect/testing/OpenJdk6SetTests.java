@@ -41,14 +41,14 @@ public class OpenJdk6SetTests extends TestsForSetsInJavaUtil {
 
   @Override protected Collection<Method> suppressForTreeSetNatural() {
     return Arrays.asList(
-        getAddNullUnsupportedMethod(),
-        getAddAllNullUnsupportedMethod(),
-        getCreateWithNullUnsupportedMethod());
+            getAddNullUnsupportedMethod(),
+            getAddAllNullUnsupportedMethod(),
+            getCreateWithNullUnsupportedMethod());
   }
 
   @Override protected Collection<Method> suppressForCheckedSet() {
     return Arrays.asList(
-        getAddNullSupportedMethod(),
-        getAddSupportedNullPresentMethod());
+            getAddNullSupportedMethod(),
+            getAddSupportedNullPresentMethod());
   }
 }

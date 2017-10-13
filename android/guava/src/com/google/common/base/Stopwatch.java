@@ -230,22 +230,22 @@ public final class Stopwatch {
 
   private static String abbreviate(TimeUnit unit) {
     switch (unit) {
-      case NANOSECONDS:
-        return "ns";
-      case MICROSECONDS:
-        return "\u03bcs"; // μs
-      case MILLISECONDS:
-        return "ms";
-      case SECONDS:
-        return "s";
-      case MINUTES:
-        return "min";
-      case HOURS:
-        return "h";
-      case DAYS:
-        return "d";
-      default:
-        throw new AssertionError();
+    case NANOSECONDS:
+      return "ns";
+    case MICROSECONDS:
+      return "\u03bcs"; // μs
+    case MILLISECONDS:
+      return "ms";
+    case SECONDS:
+      return "s";
+    case MINUTES:
+      return "min";
+    case HOURS:
+      return "h";
+    case DAYS:
+      return "d";
+    default:
+      throw new AssertionError();
     }
   }
 }

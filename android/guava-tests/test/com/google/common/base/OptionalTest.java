@@ -176,13 +176,13 @@ public final class OptionalTest extends TestCase {
     try {
       Optional<String> unused =
           Optional.of("a")
-              .transform(
-                  new Function<String, String>() {
-                    @Override
-                    public String apply(String input) {
-                      return null;
-                    }
-                  });
+          .transform(
+      new Function<String, String>() {
+        @Override
+        public String apply(String input) {
+          return null;
+        }
+      });
       fail("Should throw if Function returns null.");
     } catch (NullPointerException expected) {
     }
@@ -191,19 +191,19 @@ public final class OptionalTest extends TestCase {
   public void testTransform_absent_functionReturnsNull() {
     assertEquals(Optional.absent(),
         Optional.absent().transform(
-          new Function<Object, Object>() {
-            @Override public Object apply(Object input) {
-              return null;
-            }
-          }));
+    new Function<Object, Object>() {
+      @Override public Object apply(Object input) {
+        return null;
+      }
+    }));
   }
 
   public void testEqualsAndHashCode() {
     new EqualsTester()
-        .addEqualityGroup(Optional.absent(), reserialize(Optional.absent()))
-        .addEqualityGroup(Optional.of(new Long(5)), reserialize(Optional.of(new Long(5))))
-        .addEqualityGroup(Optional.of(new Long(42)), reserialize(Optional.of(new Long(42))))
-        .testEquals();
+    .addEqualityGroup(Optional.absent(), reserialize(Optional.absent()))
+    .addEqualityGroup(Optional.of(new Long(5)), reserialize(Optional.of(new Long(5))))
+    .addEqualityGroup(Optional.of(new Long(42)), reserialize(Optional.of(new Long(42))))
+    .testEquals();
   }
 
   public void testToString_absent() {

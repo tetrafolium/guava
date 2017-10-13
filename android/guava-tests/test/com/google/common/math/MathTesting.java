@@ -45,14 +45,14 @@ import java.math.RoundingMode;
 @GwtCompatible
 public class MathTesting {
   static final ImmutableSet<RoundingMode> ALL_ROUNDING_MODES = ImmutableSet.copyOf(RoundingMode
-      .values());
+          .values());
 
   static final ImmutableList<RoundingMode> ALL_SAFE_ROUNDING_MODES = ImmutableList.of(DOWN, UP,
-      FLOOR, CEILING, HALF_EVEN, HALF_UP, HALF_DOWN);
+          FLOOR, CEILING, HALF_EVEN, HALF_UP, HALF_DOWN);
 
   // Exponents to test for the pow() function.
   static final ImmutableList<Integer> EXPONENTS = ImmutableList.of(0, 1, 2, 3, 4, 7, 10, 15,
-      20, 25, 40, 70);
+          20, 25, 40, 70);
 
   /* Helper function to make a Long value from an Integer. */
   private static final Function<Integer, Long> TO_LONG = new Function<Integer, Long>() {
@@ -64,12 +64,12 @@ public class MathTesting {
 
   /* Helper function to make a BigInteger value from a Long. */
   private static final Function<Long, BigInteger> TO_BIGINTEGER =
-      new Function<Long, BigInteger>() {
-        @Override
-        public BigInteger apply(Long n) {
-          return BigInteger.valueOf(n);
-        }
-      };
+  new Function<Long, BigInteger>() {
+    @Override
+    public BigInteger apply(Long n) {
+      return BigInteger.valueOf(n);
+    }
+  };
 
   private static final Function<Integer, Integer> NEGATE_INT = new Function<Integer, Integer>() {
     @Override
@@ -86,12 +86,12 @@ public class MathTesting {
   };
 
   private static final Function<BigInteger, BigInteger> NEGATE_BIGINT =
-      new Function<BigInteger, BigInteger>() {
-        @Override
-        public BigInteger apply(BigInteger x) {
-          return x.negate();
-        }
-      };
+  new Function<BigInteger, BigInteger>() {
+    @Override
+    public BigInteger apply(BigInteger x) {
+      return x.negate();
+    }
+  };
 
   /*
    * This list contains values that attempt to provoke overflow in integer operations. It contains
@@ -122,10 +122,10 @@ public class MathTesting {
     intValues.add(5792).add(5793); // sqrt(2^25) rounded up and down
     POSITIVE_INTEGER_CANDIDATES = intValues.build();
     NEGATIVE_INTEGER_CANDIDATES = ImmutableList.copyOf(Iterables.concat(
-        Iterables.transform(POSITIVE_INTEGER_CANDIDATES, NEGATE_INT),
-        ImmutableList.of(Integer.MIN_VALUE)));
+                Iterables.transform(POSITIVE_INTEGER_CANDIDATES, NEGATE_INT),
+                ImmutableList.of(Integer.MIN_VALUE)));
     NONZERO_INTEGER_CANDIDATES = ImmutableList.copyOf(
-        Iterables.concat(POSITIVE_INTEGER_CANDIDATES, NEGATIVE_INTEGER_CANDIDATES));
+            Iterables.concat(POSITIVE_INTEGER_CANDIDATES, NEGATIVE_INTEGER_CANDIDATES));
     ALL_INTEGER_CANDIDATES = Iterables.concat(NONZERO_INTEGER_CANDIDATES, ImmutableList.of(0));
   }
 
@@ -184,12 +184,12 @@ public class MathTesting {
     bigValues.add(BigInteger.valueOf(Long.MAX_VALUE).add(ONE));
     // Now add values near 2^N for lots of values of N.
     for (int exponent : asList(64, 65, 71, 72, 73, 79, 80, 81, 255, 256, 257, 511, 512, 513,
-        Double.MAX_EXPONENT - 1, Double.MAX_EXPONENT, Double.MAX_EXPONENT + 1)) {
+            Double.MAX_EXPONENT - 1, Double.MAX_EXPONENT, Double.MAX_EXPONENT + 1)) {
       BigInteger x = ONE.shiftLeft(exponent);
       bigValues.add(x, x.add(ONE), x.subtract(ONE));
     }
     bigValues.add(new BigInteger("218838949120258359057546633")); // sqrt(2^175) rounded up and
-                                                                  // down
+    // down
     bigValues.add(new BigInteger("218838949120258359057546634"));
     POSITIVE_BIGINTEGER_CANDIDATES = bigValues.build();
     NEGATIVE_BIGINTEGER_CANDIDATES =
@@ -203,8 +203,8 @@ public class MathTesting {
   static final ImmutableSet<Double> INTEGRAL_DOUBLE_CANDIDATES;
   static final ImmutableSet<Double> FRACTIONAL_DOUBLE_CANDIDATES;
   static final Iterable<Double> INFINITIES = Doubles.asList(
-      Double.POSITIVE_INFINITY,
-      Double.NEGATIVE_INFINITY);
+          Double.POSITIVE_INFINITY,
+          Double.NEGATIVE_INFINITY);
   static final Iterable<Double> FINITE_DOUBLE_CANDIDATES;
   static final Iterable<Double> POSITIVE_FINITE_DOUBLE_CANDIDATES;
   static final Iterable<Double> ALL_DOUBLE_CANDIDATES;
@@ -221,7 +221,7 @@ public class MathTesting {
     }
     for (int i = Double.MIN_EXPONENT; i <= Double.MAX_EXPONENT; i++) {
       for (int direction : new int[] {1, -1}) {
-        double d = 
+        double d =
             Double.longBitsToDouble(Double.doubleToLongBits(Math.scalb(1.0, i)) + direction);
         // Math.nextUp/nextDown
         if (d != Math.rint(d)) {
@@ -230,7 +230,7 @@ public class MathTesting {
       }
     }
     for (double d : Doubles.asList(0, 1, 2, 7, 51, 102, Math.scalb(1.0, 53), Integer.MIN_VALUE,
-        Integer.MAX_VALUE, Long.MIN_VALUE, Long.MAX_VALUE)) {
+            Integer.MAX_VALUE, Long.MIN_VALUE, Long.MAX_VALUE)) {
       for (double delta : Doubles.asList(0.0, 1.0, 2.0)) {
         integralBuilder.addAll(Doubles.asList(d + delta, d - delta, -d - delta, -d + delta));
       }
@@ -254,12 +254,12 @@ public class MathTesting {
     FINITE_DOUBLE_CANDIDATES =
         Iterables.concat(FRACTIONAL_DOUBLE_CANDIDATES, INTEGRAL_DOUBLE_CANDIDATES);
     POSITIVE_FINITE_DOUBLE_CANDIDATES =
-        Iterables.filter(FINITE_DOUBLE_CANDIDATES, new Predicate<Double>() {
-          @Override
-          public boolean apply(Double input) {
-            return input.doubleValue() > 0.0;
-          }
-        });
+    Iterables.filter(FINITE_DOUBLE_CANDIDATES, new Predicate<Double>() {
+      @Override
+      public boolean apply(Double input) {
+        return input.doubleValue() > 0.0;
+      }
+    });
     DOUBLE_CANDIDATES_EXCEPT_NAN = Iterables.concat(FINITE_DOUBLE_CANDIDATES, INFINITIES);
     ALL_DOUBLE_CANDIDATES =
         Iterables.concat(DOUBLE_CANDIDATES_EXCEPT_NAN, asList(Double.NaN));

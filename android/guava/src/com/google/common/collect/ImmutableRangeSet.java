@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 @Beta
 @GwtIncompatible
 public final class ImmutableRangeSet<C extends Comparable> extends AbstractRangeSet<C>
-    implements Serializable {
+  implements Serializable {
 
   private static final ImmutableRangeSet<Comparable<?>> EMPTY =
       new ImmutableRangeSet<>(ImmutableList.<Range<Comparable<?>>>of());
@@ -611,9 +611,9 @@ public final class ImmutableRangeSet<C extends Comparable> extends AbstractRange
         return ImmutableSortedSet.of();
       }
       return subSet(
-          Range.range(
-              fromElement, BoundType.forBoolean(fromInclusive),
-              toElement, BoundType.forBoolean(toInclusive)));
+              Range.range(
+                  fromElement, BoundType.forBoolean(fromInclusive),
+                  toElement, BoundType.forBoolean(toInclusive)));
     }
 
     @Override

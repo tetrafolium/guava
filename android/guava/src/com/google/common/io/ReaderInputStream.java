@@ -82,9 +82,9 @@ final class ReaderInputStream extends InputStream {
     this(
         reader,
         charset
-            .newEncoder()
-            .onMalformedInput(CodingErrorAction.REPLACE)
-            .onUnmappableCharacter(CodingErrorAction.REPLACE),
+        .newEncoder()
+        .onMalformedInput(CodingErrorAction.REPLACE)
+        .onUnmappableCharacter(CodingErrorAction.REPLACE),
         bufferSize);
   }
 

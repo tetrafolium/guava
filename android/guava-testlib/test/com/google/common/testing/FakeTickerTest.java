@@ -106,16 +106,16 @@ public class FakeTickerTest extends TestCase {
 
     int numberOfThreads = 64;
     runConcurrentTest(numberOfThreads,
-        new Callable<Void>() {
-          @Override
-          public Void call() throws Exception {
-            // adds two nanoseconds to the ticker
-            ticker.advance(1L);
-            Thread.sleep(10);
-            ticker.advance(1L);
-            return null;
-          }
-        });
+    new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        // adds two nanoseconds to the ticker
+        ticker.advance(1L);
+        Thread.sleep(10);
+        ticker.advance(1L);
+        return null;
+      }
+    });
 
     assertEquals(numberOfThreads * 2, ticker.read());
   }
@@ -129,13 +129,13 @@ public class FakeTickerTest extends TestCase {
 
     int numberOfThreads = 64;
     runConcurrentTest(numberOfThreads,
-        new Callable<Void>() {
-          @Override
-          public Void call() throws Exception {
-            ticker.read();
-            return null;
-          }
-        });
+    new Callable<Void>() {
+      @Override
+      public Void call() throws Exception {
+        ticker.read();
+        return null;
+      }
+    });
 
     assertEquals(incrementByNanos * numberOfThreads, ticker.read());
   }
@@ -145,7 +145,7 @@ public class FakeTickerTest extends TestCase {
    */
   @GwtIncompatible // concurrency
   private void runConcurrentTest(int numberOfThreads, final Callable<Void> callable)
-      throws Exception {
+  throws Exception {
     ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
     final CountDownLatch startLatch = new CountDownLatch(numberOfThreads);
     final CountDownLatch doneLatch = new CountDownLatch(numberOfThreads);
@@ -153,16 +153,16 @@ public class FakeTickerTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           executorService.submit(
-              new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                  startLatch.countDown();
-                  startLatch.await();
-                  callable.call();
-                  doneLatch.countDown();
-                  return null;
-                }
-              });
+      new Callable<Void>() {
+        @Override
+        public Void call() throws Exception {
+          startLatch.countDown();
+          startLatch.await();
+          callable.call();
+          doneLatch.countDown();
+          return null;
+        }
+      });
     }
     doneLatch.await();
   }

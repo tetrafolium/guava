@@ -52,29 +52,29 @@ import javax.annotation.concurrent.Immutable;
 @GwtIncompatible
 public abstract class AbstractService implements Service {
   private static final ListenerCallQueue.Event<Listener> STARTING_EVENT =
-      new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.starting();
-        }
+  new ListenerCallQueue.Event<Listener>() {
+    @Override
+    public void call(Listener listener) {
+      listener.starting();
+    }
 
-        @Override
-        public String toString() {
-          return "starting()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "starting()";
+    }
+  };
   private static final ListenerCallQueue.Event<Listener> RUNNING_EVENT =
-      new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.running();
-        }
+  new ListenerCallQueue.Event<Listener>() {
+    @Override
+    public void call(Listener listener) {
+      listener.running();
+    }
 
-        @Override
-        public String toString() {
-          return "running()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "running()";
+    }
+  };
   private static final ListenerCallQueue.Event<Listener> STOPPING_FROM_STARTING_EVENT =
       stoppingEvent(STARTING);
   private static final ListenerCallQueue.Event<Listener> STOPPING_FROM_RUNNING_EVENT =
@@ -243,26 +243,26 @@ public abstract class AbstractService implements Service {
       try {
         State previous = state();
         switch (previous) {
-          case NEW:
-            snapshot = new StateSnapshot(TERMINATED);
-            enqueueTerminatedEvent(NEW);
-            break;
-          case STARTING:
-            snapshot = new StateSnapshot(STARTING, true, null);
-            enqueueStoppingEvent(STARTING);
-            break;
-          case RUNNING:
-            snapshot = new StateSnapshot(STOPPING);
-            enqueueStoppingEvent(RUNNING);
-            doStop();
-            break;
-          case STOPPING:
-          case TERMINATED:
-          case FAILED:
-            // These cases are impossible due to the if statement above.
-            throw new AssertionError("isStoppable is incorrectly implemented, saw: " + previous);
-          default:
-            throw new AssertionError("Unexpected state: " + previous);
+        case NEW:
+          snapshot = new StateSnapshot(TERMINATED);
+          enqueueTerminatedEvent(NEW);
+          break;
+        case STARTING:
+          snapshot = new StateSnapshot(STARTING, true, null);
+          enqueueStoppingEvent(STARTING);
+          break;
+        case RUNNING:
+          snapshot = new StateSnapshot(STOPPING);
+          enqueueStoppingEvent(RUNNING);
+          doStop();
+          break;
+        case STOPPING:
+        case TERMINATED:
+        case FAILED:
+          // These cases are impossible due to the if statement above.
+          throw new AssertionError("isStoppable is incorrectly implemented, saw: " + previous);
+        default:
+          throw new AssertionError("Unexpected state: " + previous);
         }
       } catch (Throwable shutdownFailure) {
         notifyFailed(shutdownFailure);
@@ -326,10 +326,10 @@ public abstract class AbstractService implements Service {
       // to a confusing error message.
       throw new TimeoutException(
           "Timed out waiting for "
-              + this
-              + " to reach a terminal state. "
-              + "Current state: "
-              + state());
+          + this
+          + " to reach a terminal state. "
+          + "Current state: "
+          + state());
     }
   }
 
@@ -363,7 +363,7 @@ public abstract class AbstractService implements Service {
       if (snapshot.state != STARTING) {
         IllegalStateException failure =
             new IllegalStateException(
-                "Cannot notifyStarted() when the service is " + snapshot.state);
+            "Cannot notifyStarted() when the service is " + snapshot.state);
         notifyFailed(failure);
         throw failure;
       }
@@ -422,20 +422,20 @@ public abstract class AbstractService implements Service {
     try {
       State previous = state();
       switch (previous) {
-        case NEW:
-        case TERMINATED:
-          throw new IllegalStateException("Failed while in state:" + previous, cause);
-        case RUNNING:
-        case STARTING:
-        case STOPPING:
-          snapshot = new StateSnapshot(FAILED, false, cause);
-          enqueueFailedEvent(previous, cause);
-          break;
-        case FAILED:
-          // Do nothing
-          break;
-        default:
-          throw new AssertionError("Unexpected state: " + previous);
+      case NEW:
+      case TERMINATED:
+        throw new IllegalStateException("Failed while in state:" + previous, cause);
+      case RUNNING:
+      case STARTING:
+      case STOPPING:
+        snapshot = new StateSnapshot(FAILED, false, cause);
+        enqueueFailedEvent(previous, cause);
+        break;
+      case FAILED:
+        // Do nothing
+        break;
+      default:
+        throw new AssertionError("Unexpected state: " + previous);
       }
     } finally {
       monitor.leave();
@@ -504,37 +504,37 @@ public abstract class AbstractService implements Service {
 
   private void enqueueTerminatedEvent(final State from) {
     switch (from) {
-      case NEW:
-        listeners.enqueue(TERMINATED_FROM_NEW_EVENT);
-        break;
-      case RUNNING:
-        listeners.enqueue(TERMINATED_FROM_RUNNING_EVENT);
-        break;
-      case STOPPING:
-        listeners.enqueue(TERMINATED_FROM_STOPPING_EVENT);
-        break;
-      case STARTING:
-      case TERMINATED:
-      case FAILED:
-      default:
-        throw new AssertionError();
+    case NEW:
+      listeners.enqueue(TERMINATED_FROM_NEW_EVENT);
+      break;
+    case RUNNING:
+      listeners.enqueue(TERMINATED_FROM_RUNNING_EVENT);
+      break;
+    case STOPPING:
+      listeners.enqueue(TERMINATED_FROM_STOPPING_EVENT);
+      break;
+    case STARTING:
+    case TERMINATED:
+    case FAILED:
+    default:
+      throw new AssertionError();
     }
   }
 
   private void enqueueFailedEvent(final State from, final Throwable cause) {
     // can't memoize this one due to the exception
     listeners.enqueue(
-        new ListenerCallQueue.Event<Listener>() {
-          @Override
-          public void call(Listener listener) {
-            listener.failed(from, cause);
-          }
+    new ListenerCallQueue.Event<Listener>() {
+      @Override
+      public void call(Listener listener) {
+        listener.failed(from, cause);
+      }
 
-          @Override
-          public String toString() {
-            return "failed({from = " + from + ", cause = " + cause + "})";
-          }
-        });
+      @Override
+      public String toString() {
+        return "failed({from = " + from + ", cause = " + cause + "})";
+      }
+    });
   }
 
   /**
@@ -573,7 +573,7 @@ public abstract class AbstractService implements Service {
       checkArgument(
           !(failure != null ^ internalState == FAILED),
           "A failure cause should be set if and only if the state is failed.  Got %s and %s "
-              + "instead.",
+          + "instead.",
           internalState,
           failure);
       this.state = internalState;

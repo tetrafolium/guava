@@ -134,7 +134,7 @@ public class ByteStreamsTest extends IoTestCase {
 
     Arrays.fill(b, (byte) 0);
     ByteStreams.readFully(newTestStream(10), b, 0, 5);
-    assertEquals(new byte[]{0, 1, 2, 3, 4, 0, 0, 0, 0, 0}, b);
+    assertEquals(new byte[] {0, 1, 2, 3, 4, 0, 0, 0, 0, 0}, b);
   }
 
   public void testSkipFully() throws IOException {
@@ -152,7 +152,7 @@ public class ByteStreamsTest extends IoTestCase {
   }
 
   private static void skipHelper(long n, int expect, InputStream in)
-      throws IOException {
+  throws IOException {
     ByteStreams.skipFully(in, n);
     assertEquals(expect, in.read());
     in.close();
@@ -212,7 +212,7 @@ public class ByteStreamsTest extends IoTestCase {
 
   public void testNewDataInput_readLine() {
     ByteArrayDataInput in = ByteStreams.newDataInput(
-        "This is a line\r\nThis too\rand this\nand also this".getBytes(Charsets.UTF_8));
+            "This is a line\r\nThis too\rand this\nand also this".getBytes(Charsets.UTF_8));
     assertEquals("This is a line", in.readLine());
     assertEquals("This too", in.readLine());
     assertEquals("and this", in.readLine());
@@ -488,7 +488,7 @@ public class ByteStreamsTest extends IoTestCase {
   public void testReadBytes() throws IOException {
     final byte[] array = newPreFilledByteArray(1000);
     assertEquals(array, ByteStreams.readBytes(
-      new ByteArrayInputStream(array), new TestByteProcessor()));
+            new ByteArrayInputStream(array), new TestByteProcessor()));
   }
 
   private class TestByteProcessor implements ByteProcessor<byte[]> {
@@ -496,7 +496,7 @@ public class ByteStreamsTest extends IoTestCase {
 
     @Override
     public boolean processBytes(byte[] buf, int off, int len)
-        throws IOException {
+    throws IOException {
       out.write(buf, off, len);
       return true;
     }
@@ -511,20 +511,20 @@ public class ByteStreamsTest extends IoTestCase {
     byte[] array = newPreFilledByteArray(10000);
     assertEquals((Integer) 42,
         ByteStreams.readBytes(new ByteArrayInputStream(array),
-            new ByteProcessor<Integer>() {
-              @Override
-              public boolean processBytes(byte[] buf, int off, int len) {
-                assertEquals(
-                    copyOfRange(buf, off, off + len),
-                    newPreFilledByteArray(8192));
-                return false;
-              }
+    new ByteProcessor<Integer>() {
+      @Override
+      public boolean processBytes(byte[] buf, int off, int len) {
+        assertEquals(
+            copyOfRange(buf, off, off + len),
+            newPreFilledByteArray(8192));
+        return false;
+      }
 
-              @Override
-              public Integer getResult() {
-                return 42;
-              }
-            }));
+      @Override
+      public Integer getResult() {
+        return 42;
+      }
+    }));
   }
 
   public void testNullOutputStream() throws Exception {

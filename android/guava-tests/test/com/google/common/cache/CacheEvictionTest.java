@@ -140,11 +140,11 @@ public class CacheEvictionTest extends TestCase {
 
     // Even numbers are free, odd are too expensive
     Weigher<Integer, Integer> evensOnly =
-        new Weigher<Integer, Integer>() {
-          @Override public int weigh(Integer k, Integer v) {
-            return k % 2;
-          }
-        };
+    new Weigher<Integer, Integer>() {
+      @Override public int weigh(Integer k, Integer v) {
+        return k % 2;
+      }
+    };
 
     LoadingCache<Integer, Integer> cache = CacheBuilder.newBuilder()
         .concurrencyLevel(1)
@@ -260,12 +260,12 @@ public class CacheEvictionTest extends TestCase {
     final LoadingCache<Integer, Integer> cache =
         CacheBuilder.newBuilder().maximumSize(MAX_SIZE).build(loader);
     CacheTesting.checkRecency(cache, MAX_SIZE,
-        new Receiver<ReferenceEntry<Integer, Integer>>() {
-          @Override
-          public void accept(ReferenceEntry<Integer, Integer> entry) {
-            cache.getUnchecked(entry.getKey());
-          }
-        });
+    new Receiver<ReferenceEntry<Integer, Integer>>() {
+      @Override
+      public void accept(ReferenceEntry<Integer, Integer> entry) {
+        cache.getUnchecked(entry.getKey());
+      }
+    });
   }
 
   public void testUpdateRecency_onInvalidate() {
@@ -275,13 +275,13 @@ public class CacheEvictionTest extends TestCase {
         .concurrencyLevel(1)
         .build(loader);
     CacheTesting.checkRecency(cache, MAX_SIZE,
-        new Receiver<ReferenceEntry<Integer, Integer>>() {
-          @Override
-          public void accept(ReferenceEntry<Integer, Integer> entry) {
-            Integer key = entry.getKey();
-            cache.invalidate(key);
-          }
-        });
+    new Receiver<ReferenceEntry<Integer, Integer>>() {
+      @Override
+      public void accept(ReferenceEntry<Integer, Integer> entry) {
+        Integer key = entry.getKey();
+        cache.invalidate(key);
+      }
+    });
   }
 
   public void testEviction_lru() {

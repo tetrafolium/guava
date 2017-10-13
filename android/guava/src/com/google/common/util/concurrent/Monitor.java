@@ -493,8 +493,7 @@ public final class Monitor {
     boolean reentrant = lock.isHeldByCurrentThread();
     long startTime = 0L;
 
-    locked:
-    {
+    locked: {
       if (!fair) {
         // Check interrupt status to get behavior consistent with fair case.
         if (Thread.interrupted()) {
@@ -515,10 +514,10 @@ public final class Monitor {
     try {
       satisfied =
           guard.isSatisfied()
-              || awaitNanos(
-                  guard,
-                  (startTime == 0L) ? timeoutNanos : remainingNanos(startTime, timeoutNanos),
-                  reentrant);
+          || awaitNanos(
+              guard,
+              (startTime == 0L) ? timeoutNanos : remainingNanos(startTime, timeoutNanos),
+              reentrant);
       threw = false;
       return satisfied;
     } finally {
@@ -679,7 +678,7 @@ public final class Monitor {
    * @return whether the monitor was entered, which guarantees that the guard is now satisfied
    */
   public boolean enterIfInterruptibly(Guard guard, long time, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     if (guard.monitor != this) {
       throw new IllegalMonitorStateException();
     }
@@ -1107,7 +1106,7 @@ public final class Monitor {
    */
   @GuardedBy("lock")
   private boolean awaitNanos(Guard guard, long nanos, boolean signalBeforeWaiting)
-      throws InterruptedException {
+  throws InterruptedException {
     boolean firstTime = true;
     try {
       do {

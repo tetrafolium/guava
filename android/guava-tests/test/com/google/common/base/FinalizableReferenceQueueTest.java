@@ -45,10 +45,10 @@ public class FinalizableReferenceQueueTest extends TestCase {
         frq = new FinalizableReferenceQueue());
 
     GcFinalization.awaitDone(new GcFinalization.FinalizationPredicate() {
-        public boolean isDone() {
-          return reference.finalizeReferentCalled;
-        }
-      });
+      public boolean isDone() {
+        return reference.finalizeReferentCalled;
+      }
+    });
   }
 
   static class MockReference extends FinalizableWeakReference<Object> {
@@ -108,12 +108,12 @@ public class FinalizableReferenceQueueTest extends TestCase {
   @AndroidIncompatible // no concept of separate ClassLoaders
   public void testDecoupledLoader() {
     FinalizableReferenceQueue.DecoupledLoader decoupledLoader =
-        new FinalizableReferenceQueue.DecoupledLoader() {
-          @Override
-          URLClassLoader newLoader(URL base) {
-            return new DecoupledClassLoader(new URL[] { base });
-          }
-        };
+    new FinalizableReferenceQueue.DecoupledLoader() {
+      @Override
+      URLClassLoader newLoader(URL base) {
+        return new DecoupledClassLoader(new URL[] { base });
+      }
+    };
 
     Class<?> finalizerCopy = decoupledLoader.loadFinalizer();
 
@@ -131,7 +131,7 @@ public class FinalizableReferenceQueueTest extends TestCase {
 
     @Override
     protected synchronized Class<?> loadClass(String name, boolean resolve)
-        throws ClassNotFoundException {
+    throws ClassNotFoundException {
       // Force Finalizer to load from this class loader, not its parent.
       if (name.equals(Finalizer.class.getName())) {
         Class<?> clazz = findClass(name);

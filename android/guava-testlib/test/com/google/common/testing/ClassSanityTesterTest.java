@@ -82,10 +82,10 @@ public class ClassSanityTesterTest extends TestCase {
       tester.forAllPublicStaticMethods(NoPublicStaticMethods.class).testEquals();
     } catch (AssertionFailedError expected) {
       assertThat(expected)
-          .hasMessage(
-              "No public static methods that return java.lang.Object or subtype are found in "
-                  + NoPublicStaticMethods.class
-                  + ".");
+      .hasMessage(
+          "No public static methods that return java.lang.Object or subtype are found in "
+          + NoPublicStaticMethods.class
+          + ".");
       return;
     }
     fail();
@@ -123,9 +123,9 @@ public class ClassSanityTesterTest extends TestCase {
   public void testNullsOnReturnValues_bad() throws Exception {
     try {
       tester
-          .forAllPublicStaticMethods(BadNullsFactory.class)
-          .thatReturn(Object.class)
-          .testNulls();
+      .forAllPublicStaticMethods(BadNullsFactory.class)
+      .thatReturn(Object.class)
+      .testNulls();
     } catch (AssertionFailedError expected) {
       return;
     }
@@ -135,15 +135,15 @@ public class ClassSanityTesterTest extends TestCase {
   public void testNullsOnReturnValues_returnTypeFiltered() throws Exception {
     try {
       tester
-          .forAllPublicStaticMethods(BadNullsFactory.class)
-          .thatReturn(Iterable.class)
-          .testNulls();
+      .forAllPublicStaticMethods(BadNullsFactory.class)
+      .thatReturn(Iterable.class)
+      .testNulls();
     } catch (AssertionFailedError expected) {
       assertThat(expected)
-          .hasMessage(
-              "No public static methods that return java.lang.Iterable or subtype are found in "
-                  + BadNullsFactory.class
-                  + ".");
+      .hasMessage(
+          "No public static methods that return java.lang.Iterable or subtype are found in "
+          + BadNullsFactory.class
+          + ".");
       return;
     }
     fail();
@@ -188,7 +188,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public void testEqualsAndSerializableOnReturnValues_equalsIsGoodButNotSerializable()
-      throws Exception {
+  throws Exception {
     try {
       tester.forAllPublicStaticMethods(GoodEqualsFactory.class).testEqualsAndSerializable();
     } catch (AssertionFailedError expected) {
@@ -198,7 +198,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public void testEqualsAndSerializableOnReturnValues_serializableButNotEquals()
-      throws Exception {
+  throws Exception {
     try {
       tester.forAllPublicStaticMethods(GoodSerializableFactory.class).testEqualsAndSerializable();
     } catch (AssertionFailedError expected) {
@@ -210,7 +210,7 @@ public class ClassSanityTesterTest extends TestCase {
   @AndroidIncompatible // TODO(cpovirk): ClassNotFoundException... ClassSanityTesterTest$AnInterface
   public void testEqualsAndSerializableOnReturnValues_good() throws Exception {
     tester.forAllPublicStaticMethods(GoodEqualsAndSerialiableFactory.class)
-        .testEqualsAndSerializable();
+    .testEqualsAndSerializable();
   }
 
   public static class GoodEqualsAndSerialiableFactory {
@@ -222,7 +222,7 @@ public class ClassSanityTesterTest extends TestCase {
   public void testEqualsForReturnValues_factoryReturnsNullButNotAnnotated() throws Exception {
     try {
       tester.forAllPublicStaticMethods(FactoryThatReturnsNullButNotAnnotated.class)
-          .testEquals();
+      .testEquals();
     } catch (AssertionFailedError expected) {
       return;
     }
@@ -232,7 +232,7 @@ public class ClassSanityTesterTest extends TestCase {
   public void testNullsForReturnValues_factoryReturnsNullButNotAnnotated() throws Exception {
     try {
       tester.forAllPublicStaticMethods(FactoryThatReturnsNullButNotAnnotated.class)
-          .testNulls();
+      .testNulls();
     } catch (AssertionFailedError expected) {
       return;
     }
@@ -242,7 +242,7 @@ public class ClassSanityTesterTest extends TestCase {
   public void testSerializableForReturnValues_factoryReturnsNullButNotAnnotated() throws Exception {
     try {
       tester.forAllPublicStaticMethods(FactoryThatReturnsNullButNotAnnotated.class)
-          .testSerializable();
+      .testSerializable();
     } catch (AssertionFailedError expected) {
       return;
     }
@@ -250,10 +250,10 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public void testEqualsAndSerializableForReturnValues_factoryReturnsNullButNotAnnotated()
-      throws Exception {
+  throws Exception {
     try {
       tester.forAllPublicStaticMethods(FactoryThatReturnsNullButNotAnnotated.class)
-          .testEqualsAndSerializable();
+      .testEqualsAndSerializable();
     } catch (AssertionFailedError expected) {
       return;
     }
@@ -268,23 +268,23 @@ public class ClassSanityTesterTest extends TestCase {
 
   public void testEqualsForReturnValues_factoryReturnsNullAndAnnotated() throws Exception {
     tester.forAllPublicStaticMethods(FactoryThatReturnsNullAndAnnotated.class)
-        .testEquals();
+    .testEquals();
   }
 
   public void testNullsForReturnValues_factoryReturnsNullAndAnnotated() throws Exception {
     tester.forAllPublicStaticMethods(FactoryThatReturnsNullAndAnnotated.class)
-        .testNulls();
+    .testNulls();
   }
 
   public void testSerializableForReturnValues_factoryReturnsNullAndAnnotated() throws Exception {
     tester.forAllPublicStaticMethods(FactoryThatReturnsNullAndAnnotated.class)
-        .testSerializable();
+    .testSerializable();
   }
 
   public void testEqualsAndSerializableForReturnValues_factoryReturnsNullAndAnnotated()
-      throws Exception {
+  throws Exception {
     tester.forAllPublicStaticMethods(FactoryThatReturnsNullAndAnnotated.class)
-        .testEqualsAndSerializable();
+    .testEqualsAndSerializable();
   }
 
   public static class FactoryThatReturnsNullAndAnnotated {

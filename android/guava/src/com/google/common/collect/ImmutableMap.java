@@ -153,7 +153,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * <p>It is not specified if any performance benefits apply if {@code expectedSize} is close to,
    * but not exactly, the number of entries added to the builder.
-   * 
+   *
    * @since 23.1
    */
   @Beta
@@ -189,8 +189,8 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * they were inserted into the builder, equivalently to {@code LinkedHashMap}.  For example, in
    * the above example, {@code WORD_TO_INT.entrySet()} is guaranteed to iterate over the entries in
    * the order {@code "one"=1, "two"=2, "three"=3}, and {@code keySet()} and {@code values()}
-   * respect the same order.   If you want a different order, consider using 
-   * {@link ImmutableSortedMap} to sort by keys, or call {@link #orderEntriesByValue(Comparator)}, 
+   * respect the same order.   If you want a different order, consider using
+   * {@link ImmutableSortedMap} to sort by keys, or call {@link #orderEntriesByValue(Comparator)},
    * which changes this builder to sort entries by value.
    *
    * <p>Builder instances can be reused - it is safe to call {@link #build}
@@ -339,7 +339,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
         for (int i = 0; i < size; i++) {
           entries[i] =
               new AbstractMap.SimpleImmutableEntry<K, V>(
-                  (K) alternatingKeysAndValues[2 * i], (V) alternatingKeysAndValues[2 * i + 1]);
+              (K) alternatingKeysAndValues[2 * i], (V) alternatingKeysAndValues[2 * i + 1]);
         }
         Arrays.sort(
             entries, 0, size, Ordering.from(valueComparator).onResultOf(Maps.<V>valueFunction()));
@@ -388,8 +388,8 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
       Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     int initialCapacity =
         (entries instanceof Collection)
-            ? ((Collection<?>) entries).size()
-            : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
+        ? ((Collection<?>) entries).size()
+        : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
     ImmutableMap.Builder<K, V> builder = new ImmutableMap.Builder<K, V>(initialCapacity);
     builder.putAll(entries);
     return builder.build();
@@ -581,13 +581,13 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     ImmutableSetMultimap<K, V> result = multimapView;
     return (result == null)
         ? (multimapView =
-            new ImmutableSetMultimap<>(new MapViewOfValuesAsSingletonSets(), size(), null))
+                new ImmutableSetMultimap<>(new MapViewOfValuesAsSingletonSets(), size(), null))
         : result;
   }
 
   @WeakOuter
   private final class MapViewOfValuesAsSingletonSets
-      extends IteratorBasedImmutableMap<K, ImmutableSet<V>> {
+    extends IteratorBasedImmutableMap<K, ImmutableSet<V>> {
 
     @Override
     public int size() {

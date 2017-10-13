@@ -165,7 +165,7 @@ public enum CaseFormat {
   }
 
   private static final class StringConverter extends Converter<String, String>
-      implements Serializable {
+    implements Serializable {
 
     private final CaseFormat sourceFormat;
     private final CaseFormat targetFormat;

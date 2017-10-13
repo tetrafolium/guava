@@ -60,11 +60,11 @@ public class EnumHashBiMapTest extends TestCase {
     @Override
     public SampleElements<Entry<Country, String>> samples() {
       return new SampleElements<>(
-          Maps.immutableEntry(Country.CANADA, "DOLLAR"),
-          Maps.immutableEntry(Country.CHILE, "PESO"),
-          Maps.immutableEntry(Country.UK, "POUND"),
-          Maps.immutableEntry(Country.JAPAN, "YEN"),
-          Maps.immutableEntry(Country.SWITZERLAND, "FRANC"));
+              Maps.immutableEntry(Country.CANADA, "DOLLAR"),
+              Maps.immutableEntry(Country.CHILE, "PESO"),
+              Maps.immutableEntry(Country.UK, "POUND"),
+              Maps.immutableEntry(Country.JAPAN, "YEN"),
+              Maps.immutableEntry(Country.SWITZERLAND, "FRANC"));
     }
 
     @SuppressWarnings("unchecked")
@@ -119,11 +119,11 @@ public class EnumHashBiMapTest extends TestCase {
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, String> map = ImmutableMap.of(
-        Currency.DOLLAR, "dollar",
-        Currency.PESO, "peso",
-        Currency.FRANC, "franc");
+            Currency.DOLLAR, "dollar",
+            Currency.PESO, "peso",
+            Currency.FRANC, "franc");
     EnumHashBiMap<Currency, String> bimap
-        = EnumHashBiMap.create(map);
+      = EnumHashBiMap.create(map);
     assertEquals("dollar", bimap.get(Currency.DOLLAR));
     assertEquals(Currency.DOLLAR, bimap.inverse().get("dollar"));
 
@@ -143,7 +143,7 @@ public class EnumHashBiMapTest extends TestCase {
     Map<Currency, Country> emptyBimap2 =
         EnumBiMap.create(Currency.class, Country.class);
     EnumHashBiMap<Currency, Country> bimap2
-        = EnumHashBiMap.create(emptyBimap2);
+      = EnumHashBiMap.create(emptyBimap2);
     assertTrue(bimap2.isEmpty());
   }
 
@@ -200,11 +200,11 @@ public class EnumHashBiMapTest extends TestCase {
   public void testEntrySet() {
     // Bug 3168290
     Map<Currency, String> map = ImmutableMap.of(
-        Currency.DOLLAR, "dollar",
-        Currency.PESO, "peso",
-        Currency.FRANC, "franc");
+            Currency.DOLLAR, "dollar",
+            Currency.PESO, "peso",
+            Currency.FRANC, "franc");
     EnumHashBiMap<Currency, String> bimap
-        = EnumHashBiMap.create(map);
+      = EnumHashBiMap.create(map);
 
     Set<Object> uniqueEntries = Sets.newIdentityHashSet();
     uniqueEntries.addAll(bimap.entrySet());

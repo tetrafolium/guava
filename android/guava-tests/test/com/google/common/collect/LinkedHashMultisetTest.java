@@ -99,7 +99,7 @@ public class LinkedHashMultisetTest extends TestCase {
 
   public void testCreateFromIterable() {
     Multiset<String> multiset
-        = LinkedHashMultiset.create(Arrays.asList("foo", "bar", "foo"));
+      = LinkedHashMultiset.create(Arrays.asList("foo", "bar", "foo"));
     assertEquals(3, multiset.size());
     assertEquals(2, multiset.count("foo"));
     assertEquals("[foo x 2, bar]", multiset.toString());

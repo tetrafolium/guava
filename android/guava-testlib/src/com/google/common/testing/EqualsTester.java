@@ -111,7 +111,7 @@ public final class EqualsTester {
   public EqualsTester testEquals() {
     RelationshipTester<Object> delegate =
         new RelationshipTester<>(
-            Equivalence.equals(), "Object#equals", "Object#hashCode", itemReporter);
+        Equivalence.equals(), "Object#equals", "Object#hashCode", itemReporter);
     for (List<Object> group : equalityGroups) {
       delegate.addRelatedGroup(group);
     }

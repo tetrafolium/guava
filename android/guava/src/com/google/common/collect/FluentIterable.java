@@ -140,12 +140,12 @@ public abstract class FluentIterable<E> implements Iterable<E> {
   public static <E> FluentIterable<E> from(final Iterable<E> iterable) {
     return (iterable instanceof FluentIterable)
         ? (FluentIterable<E>) iterable
-        : new FluentIterable<E>(iterable) {
-          @Override
-          public Iterator<E> iterator() {
-            return iterable.iterator();
-          }
-        };
+    : new FluentIterable<E>(iterable) {
+      @Override
+      public Iterator<E> iterator() {
+        return iterable.iterator();
+      }
+    };
   }
 
   /**
@@ -265,13 +265,13 @@ public abstract class FluentIterable<E> implements Iterable<E> {
       @Override
       public Iterator<T> iterator() {
         return Iterators.concat(
-            /* lazily generate the iterators on each input only as needed */
-            new AbstractIndexedListIterator<Iterator<? extends T>>(inputs.length) {
-              @Override
-              public Iterator<? extends T> get(int i) {
-                return inputs[i].iterator();
-              }
-            });
+                /* lazily generate the iterators on each input only as needed */
+        new AbstractIndexedListIterator<Iterator<? extends T>>(inputs.length) {
+          @Override
+          public Iterator<? extends T> get(int i) {
+            return inputs[i].iterator();
+          }
+        });
       }
     };
   }

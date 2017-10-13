@@ -71,10 +71,10 @@ abstract class SubtypeTester implements Cloneable {
   @Target(ElementType.METHOD)
   @interface TestSubtype {
     /** Suppresses the assertion on {@link TypeToken#getSubtype}. */
-    boolean suppressGetSubtype() default false;
+  boolean suppressGetSubtype() default false;
 
     /** Suppresses the assertion on {@link TypeToken#getSupertype}. */
-    boolean suppressGetSupertype() default false;
+  boolean suppressGetSupertype() default false;
   }
 
   private Method method = null;
@@ -85,18 +85,18 @@ abstract class SubtypeTester implements Cloneable {
     Type paramType = getOnlyParameterType();
     TestSubtype spec = method.getAnnotation(TestSubtype.class);
     assertThat(TypeToken.of(paramType).isSubtypeOf(returnType))
-        .named("%s is subtype of %s", paramType, returnType)
-        .isTrue();
+    .named("%s is subtype of %s", paramType, returnType)
+    .isTrue();
     assertThat(TypeToken.of(returnType).isSupertypeOf(paramType))
-        .named("%s is supertype of %s", returnType, paramType)
-        .isTrue();
+    .named("%s is supertype of %s", returnType, paramType)
+    .isTrue();
     if (!spec.suppressGetSubtype()) {
       assertThat(getSubtype(returnType, TypeToken.of(paramType).getRawType()))
-          .isEqualTo(paramType);
+      .isEqualTo(paramType);
     }
     if (!spec.suppressGetSupertype()) {
       assertThat(getSupertype(paramType, TypeToken.of(returnType).getRawType()))
-          .isEqualTo(returnType);
+      .isEqualTo(returnType);
     }
     return sub;
   }
@@ -110,15 +110,15 @@ abstract class SubtypeTester implements Cloneable {
     Type paramType = getOnlyParameterType();
     TestSubtype spec = method.getAnnotation(TestSubtype.class);
     assertThat(TypeToken.of(paramType).isSubtypeOf(returnType))
-        .named("%s is subtype of %s", paramType, returnType)
-        .isFalse();
+    .named("%s is subtype of %s", paramType, returnType)
+    .isFalse();
     assertThat(TypeToken.of(returnType).isSupertypeOf(paramType))
-        .named("%s is supertype of %s", returnType, paramType)
-        .isFalse();
+    .named("%s is supertype of %s", returnType, paramType)
+    .isFalse();
     if (!spec.suppressGetSubtype()) {
       try {
         assertThat(getSubtype(returnType, TypeToken.of(paramType).getRawType()))
-            .isNotEqualTo(paramType);
+        .isNotEqualTo(paramType);
       } catch (IllegalArgumentException notSubtype1) {
         // The raw class isn't even a subclass.
       }
@@ -126,7 +126,7 @@ abstract class SubtypeTester implements Cloneable {
     if (!spec.suppressGetSupertype()) {
       try {
         assertThat(getSupertype(paramType, TypeToken.of(returnType).getRawType()))
-            .isNotEqualTo(returnType);
+        .isNotEqualTo(returnType);
       } catch (IllegalArgumentException notSubtype2) {
         // The raw class isn't even a subclass.
       }

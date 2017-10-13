@@ -127,7 +127,7 @@ public class ListsImplTest extends TestCase {
     assertThat(Lists.hashCodeImpl(base)).isEqualTo(Lists.hashCodeImpl(copy));
 
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl (
-        utOfOrder));
+            utOfOrder));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffValue));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffLength));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(empty));
@@ -159,16 +159,16 @@ public class ListsImplTest extends TestCase {
     List<String> toTest = createList(String.class);
 
     List<Iterable<String>> toAdd = ImmutableList.of(
-        (Iterable<String>) Collections.singleton("A"),
-        Collections.<String>emptyList(),
-        ImmutableList.of("A", "B", "C"),
-        ImmutableList.of("D", "E"));
+            (Iterable<String>) Collections.singleton("A"),
+            Collections.<String>emptyList(),
+            ImmutableList.of("A", "B", "C"),
+            ImmutableList.of("D", "E"));
     List<Integer> indexes = ImmutableList.of(0, 0, 1, 3);
     List<List<String>> expected = ImmutableList.of(
-        Collections.singletonList("A"),
-        ImmutableList.of("A"),
-        ImmutableList.of("A", "A", "B", "C"),
-        ImmutableList.of("A", "A", "D", "E", "B", "C"));
+            Collections.singletonList("A"),
+            ImmutableList.of("A"),
+            ImmutableList.of("A", "A", "B", "C"),
+            ImmutableList.of("A", "A", "D", "E", "B", "C"));
 
     String format = "Adding %s at %s";
     for (int i = 0; i < toAdd.size(); i++) {
@@ -176,9 +176,9 @@ public class ListsImplTest extends TestCase {
       Iterable<String> iterableToAdd = toAdd.get(i);
       boolean expectedChanged = iterableToAdd.iterator().hasNext();
       assertThat(Lists.addAllImpl(toTest, index, iterableToAdd)).named(format, iterableToAdd, index)
-          .isEqualTo(expectedChanged);
+      .isEqualTo(expectedChanged);
       assertThat(toTest).named(format, iterableToAdd, index)
-          .containsExactlyElementsIn(expected.get(i));
+      .containsExactlyElementsIn(expected.get(i));
     }
   }
 
@@ -223,8 +223,8 @@ public class ListsImplTest extends TestCase {
     for (Object obj : toTest) {
       String name = "toTest[" + index + "] (" + obj + ")";
       assertThat(Lists.indexOfImpl(toTest, obj))
-          .named(name)
-          .isEqualTo(expected[index]);
+      .named(name)
+      .isEqualTo(expected[index]);
       index++;
     }
   }
@@ -234,8 +234,8 @@ public class ListsImplTest extends TestCase {
     for (Object obj : toTest) {
       String name = "toTest[" + index + "] (" + obj + ")";
       assertThat(Lists.lastIndexOfImpl(toTest, obj))
-          .named(name)
-          .isEqualTo(expected[index]);
+      .named(name)
+      .isEqualTo(expected[index]);
       index++;
     }
   }

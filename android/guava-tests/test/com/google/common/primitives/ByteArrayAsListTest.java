@@ -53,16 +53,16 @@ public class ByteArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Byte>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new BytesAsListGenerator())
-                .named("Bytes.asList"),
+            .named("Bytes.asList"),
 
             ListTestSuiteBuilder.using(new BytesAsListHeadSubListGenerator())
-                .named("Bytes.asList, head subList"),
+            .named("Bytes.asList, head subList"),
 
             ListTestSuiteBuilder.using(new BytesAsListTailSubListGenerator())
-                .named("Bytes.asList, tail subList"),
+            .named("Bytes.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new BytesAsListMiddleSubListGenerator())
-                .named("Bytes.asList, middle subList")
+            .named("Bytes.asList, middle subList")
         );
 
     TestSuite suite = new TestSuite();
@@ -70,9 +70,9 @@ public class ByteArrayAsListTest extends TestCase {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -120,7 +120,7 @@ public class ByteArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestByteListGenerator
-      implements TestListGenerator<Byte> {
+    implements TestListGenerator<Byte> {
     @Override
     public SampleElements<Byte> samples() {
       return new SampleBytes();

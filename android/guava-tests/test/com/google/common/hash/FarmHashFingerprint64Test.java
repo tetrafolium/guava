@@ -68,9 +68,9 @@ public class FarmHashFingerprint64Test extends TestCase {
     String stringB = new String(charsB);
     assertThat(stringA).isNotEqualTo(stringB);
     assertThat(HASH_FN.hashUnencodedChars(stringA))
-        .isNotEqualTo(HASH_FN.hashUnencodedChars(stringB));
+    .isNotEqualTo(HASH_FN.hashUnencodedChars(stringB));
     assertThat(fingerprint(stringA.getBytes(UTF_8)))
-        .isNotEqualTo(fingerprint(stringB.getBytes(UTF_8)));
+    .isNotEqualTo(fingerprint(stringB.getBytes(UTF_8)));
 
     // ISO 8859-1 only has 0-255 (ubyte) representation so throws away UTF-8 characters
     // greater than 127 (ie with their top bit set).
@@ -83,34 +83,34 @@ public class FarmHashFingerprint64Test extends TestCase {
     Hasher hasher = HASH_FN.newHasher();
     // Expected data is 0x0100010100000000
     hasher
-        .putBoolean(true)
-        .putBoolean(true)
-        .putBoolean(false)
-        .putBoolean(true)
-        .putBoolean(false)
-        .putBoolean(false)
-        .putBoolean(false)
-        .putBoolean(false);
+    .putBoolean(true)
+    .putBoolean(true)
+    .putBoolean(false)
+    .putBoolean(true)
+    .putBoolean(false)
+    .putBoolean(false)
+    .putBoolean(false)
+    .putBoolean(false);
     final long hashCode = hasher.hash().asLong();
 
     hasher = HASH_FN.newHasher();
     hasher
-        .putByte((byte) 0x01)
-        .putByte((byte) 0x01)
-        .putByte((byte) 0x00)
-        .putByte((byte) 0x01)
-        .putByte((byte) 0x00)
-        .putByte((byte) 0x00)
-        .putByte((byte) 0x00)
-        .putByte((byte) 0x00);
+    .putByte((byte) 0x01)
+    .putByte((byte) 0x01)
+    .putByte((byte) 0x00)
+    .putByte((byte) 0x01)
+    .putByte((byte) 0x00)
+    .putByte((byte) 0x00)
+    .putByte((byte) 0x00)
+    .putByte((byte) 0x00);
     assertEquals(hashCode, hasher.hash().asLong());
 
     hasher = HASH_FN.newHasher();
     hasher
-        .putChar((char) 0x0101)
-        .putChar((char) 0x0100)
-        .putChar((char) 0x0000)
-        .putChar((char) 0x0000);
+    .putChar((char) 0x0101)
+    .putChar((char) 0x0100)
+    .putChar((char) 0x0000)
+    .putChar((char) 0x0000);
     assertEquals(hashCode, hasher.hash().asLong());
 
     hasher = HASH_FN.newHasher();
@@ -123,10 +123,10 @@ public class FarmHashFingerprint64Test extends TestCase {
 
     hasher = HASH_FN.newHasher();
     hasher
-        .putShort((short) 0x0101)
-        .putShort((short) 0x0100)
-        .putShort((short) 0x0000)
-        .putShort((short) 0x0000);
+    .putShort((short) 0x0101)
+    .putShort((short) 0x0100)
+    .putShort((short) 0x0000)
+    .putShort((short) 0x0000);
     assertEquals(hashCode, hasher.hash().asLong());
   }
 

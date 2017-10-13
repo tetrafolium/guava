@@ -58,13 +58,13 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
     @Override
     public ListenableFuture<String> apply(Integer input) {
       switch (input) {
-        case VALID_INPUT_DATA: outputFuture.set(RESULT_DATA); break;
-        case SLOW_OUTPUT_VALID_INPUT_DATA: break;  // do nothing to the result
-        case SLOW_FUNC_VALID_INPUT_DATA:
-          funcIsWaitingLatch.countDown();
-          awaitUninterruptibly(funcCompletionLatch);
-          break;
-        default: throw new UndeclaredThrowableException(EXCEPTION);
+      case VALID_INPUT_DATA: outputFuture.set(RESULT_DATA); break;
+      case SLOW_OUTPUT_VALID_INPUT_DATA: break;  // do nothing to the result
+      case SLOW_FUNC_VALID_INPUT_DATA:
+        funcIsWaitingLatch.countDown();
+        awaitUninterruptibly(funcCompletionLatch);
+        break;
+      default: throw new UndeclaredThrowableException(EXCEPTION);
       }
       return outputFuture;
     }
@@ -76,7 +76,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
   }
 
   public void testFutureGetThrowsCancellationIfInputCancelled()
-      throws Exception {
+  throws Exception {
     inputFuture.cancel(true); // argument is ignored
     try {
       resultFuture.get();
@@ -86,7 +86,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
   }
 
   public void testFutureGetThrowsCancellationIfOutputCancelled()
-      throws Exception {
+  throws Exception {
     inputFuture.set(SLOW_OUTPUT_VALID_INPUT_DATA);
     outputFuture.cancel(true); // argument is ignored
     try {
@@ -129,7 +129,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       public void run() {
         inputFuture.set(SLOW_FUNC_VALID_INPUT_DATA);
       }
-    }.start();
+    } .start();
     funcIsWaitingLatch.await();
 
     assertTrue(resultFuture.cancel(true));
@@ -174,7 +174,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
    * Proxy to throw a {@link RuntimeException} out of the {@link #get()} method.
    */
   public static class BadFuture
-      extends SimpleForwardingListenableFuture<Integer> {
+    extends SimpleForwardingListenableFuture<Integer> {
     protected BadFuture(ListenableFuture<Integer> delegate) {
       super(delegate);
     }

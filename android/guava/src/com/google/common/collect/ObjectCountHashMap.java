@@ -322,21 +322,21 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     int last = UNSET;
     do {
       if ((getHash(entries[next]) == hash) && (Objects.equal(key, keys[next]))) {
-          int oldValue = values[next];
+        int oldValue = values[next];
 
-          if (last == UNSET) {
-            // we need to update the root link from table[]
-            table[tableIndex] = getNext(entries[next]);
-          } else {
-            // we need to update the link from the chain
-            entries[last] = swapNext(entries[last], getNext(entries[next]));
-          }
-
-          moveLastEntry(next);
-          size--;
-          modCount++;
-          return oldValue;
+        if (last == UNSET) {
+          // we need to update the root link from table[]
+          table[tableIndex] = getNext(entries[next]);
+        } else {
+          // we need to update the link from the chain
+          entries[last] = swapNext(entries[last], getNext(entries[next]));
         }
+
+        moveLastEntry(next);
+        size--;
+        modCount++;
+        return oldValue;
+      }
       last = next;
       next = getNext(entries[next]);
     } while (next != UNSET);

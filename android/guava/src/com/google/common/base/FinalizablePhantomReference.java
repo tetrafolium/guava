@@ -30,7 +30,7 @@ import java.lang.ref.ReferenceQueue;
  */
 @GwtIncompatible
 public abstract class FinalizablePhantomReference<T> extends PhantomReference<T>
-    implements FinalizableReference {
+  implements FinalizableReference {
   /**
    * Constructs a new finalizable phantom reference.
    *

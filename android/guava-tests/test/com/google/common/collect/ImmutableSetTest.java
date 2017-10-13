@@ -91,14 +91,14 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-        new ImmutableSetWithBadHashesGenerator())
+            new ImmutableSetWithBadHashesGenerator())
         .named(ImmutableSetTest.class.getName() + ", with bad hashes")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
             CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-        new DegeneratedImmutableSetGenerator())
+            new DegeneratedImmutableSetGenerator())
         .named(ImmutableSetTest.class.getName() + ", degenerate")
         .withFeatures(CollectionSize.ONE, CollectionFeature.KNOWN_ORDER,
             CollectionFeature.ALLOWS_NULL_QUERIES)
@@ -175,16 +175,16 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
   public void testCreation_oneDuplicate() {
     // now we'll get the varargs overload
     ImmutableSet<String> set = ImmutableSet.of(
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "a");
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "a");
     assertEquals(Lists.newArrayList(
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
         Lists.newArrayList(set));
   }
 
   public void testCreation_manyDuplicates() {
     // now we'll get the varargs overload
     ImmutableSet<String> set = ImmutableSet.of(
-        "a", "b", "c", "c", "c", "c", "b", "b", "a", "a", "c", "c", "c", "a");
+            "a", "b", "c", "c", "c", "c", "b", "b", "a", "a", "c", "c", "c", "a");
     assertThat(set).containsExactly("a", "b", "c").inOrder();
   }
 
@@ -264,9 +264,9 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
     verifyTableSize(100, 33, 64);
     verifyTableSize(60, 60, 128);
     verifyTableSize(120, 60, 256);
-      // if the table is only double the necessary size, we don't bother resizing it
+    // if the table is only double the necessary size, we don't bother resizing it
     verifyTableSize(180, 60, 128);
-      // but if it's even bigger than double, we rebuild the table
+    // but if it's even bigger than double, we rebuild the table
     verifyTableSize(17, 17, 32);
     verifyTableSize(17, 16, 32);
     verifyTableSize(17, 15, 32);
@@ -305,10 +305,10 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(ImmutableSet.of(), ImmutableSet.of())
-        .addEqualityGroup(ImmutableSet.of(1), ImmutableSet.of(1), ImmutableSet.of(1, 1))
-        .addEqualityGroup(ImmutableSet.of(1, 2, 1), ImmutableSet.of(2, 1, 1))
-        .testEquals();
+    .addEqualityGroup(ImmutableSet.of(), ImmutableSet.of())
+    .addEqualityGroup(ImmutableSet.of(1), ImmutableSet.of(1), ImmutableSet.of(1, 1))
+    .addEqualityGroup(ImmutableSet.of(1, 2, 1), ImmutableSet.of(2, 1, 1))
+    .testEquals();
   }
 
   @GwtIncompatible("internals")

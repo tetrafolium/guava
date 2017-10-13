@@ -45,10 +45,10 @@ public class LongsTest extends TestCase {
   private static final long[] EMPTY = {};
   private static final long[] ARRAY1 = {(long) 1};
   private static final long[] ARRAY234
-      = {(long) 2, (long) 3, (long) 4};
+    = {(long) 2, (long) 3, (long) 4};
 
   private static final long[] VALUES =
-      { MIN_VALUE, (long) -1, (long) 0, (long) 1, MAX_VALUE };
+  { MIN_VALUE, (long) -1, (long) 0, (long) 1, MAX_VALUE };
 
   @GwtIncompatible // Long.hashCode returns different values in GWT.
   public void testHashCode() {
@@ -63,8 +63,8 @@ public class LongsTest extends TestCase {
       for (long y : VALUES) {
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Long.valueOf(x).compareTo(y),
-                     Longs.compare(x, y));
+            Long.valueOf(x).compareTo(y),
+            Longs.compare(x, y));
       }
     }
   }
@@ -84,13 +84,13 @@ public class LongsTest extends TestCase {
     assertEquals(-1, Longs.indexOf(ARRAY1, (long) 2));
     assertEquals(-1, Longs.indexOf(ARRAY234, (long) 1));
     assertEquals(0, Longs.indexOf(
-        new long[] {(long) -1}, (long) -1));
+            new long[] {(long) -1}, (long) -1));
     assertEquals(0, Longs.indexOf(ARRAY234, (long) 2));
     assertEquals(1, Longs.indexOf(ARRAY234, (long) 3));
     assertEquals(2, Longs.indexOf(ARRAY234, (long) 4));
     assertEquals(1, Longs.indexOf(
-        new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
-        (long) 3));
+            new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
+            (long) 3));
   }
 
   public void testIndexOf_arrayTarget() {
@@ -102,29 +102,32 @@ public class LongsTest extends TestCase {
     assertEquals(0, Longs.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Longs.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Longs.indexOf(
-        ARRAY234, new long[] { (long) 2, (long) 3 }));
+            ARRAY234, new long[] { (long) 2, (long) 3 }));
     assertEquals(1, Longs.indexOf(
-        ARRAY234, new long[] { (long) 3, (long) 4 }));
+            ARRAY234, new long[] { (long) 3, (long) 4 }));
     assertEquals(1, Longs.indexOf(ARRAY234, new long[] { (long) 3 }));
     assertEquals(2, Longs.indexOf(ARRAY234, new long[] { (long) 4 }));
     assertEquals(1, Longs.indexOf(new long[] { (long) 2, (long) 3,
-        (long) 3, (long) 3, (long) 3 },
-        new long[] { (long) 3 }
-    ));
+                (long) 3, (long) 3, (long) 3
+            },
+            new long[] { (long) 3 }
+        ));
     assertEquals(2, Longs.indexOf(
-        new long[] { (long) 2, (long) 3, (long) 2,
-            (long) 3, (long) 4, (long) 2, (long) 3},
-        new long[] { (long) 2, (long) 3, (long) 4}
-    ));
+            new long[] { (long) 2, (long) 3, (long) 2,
+                (long) 3, (long) 4, (long) 2, (long) 3
+            },
+            new long[] { (long) 2, (long) 3, (long) 4}
+        ));
     assertEquals(1, Longs.indexOf(
-        new long[] { (long) 2, (long) 2, (long) 3,
-            (long) 4, (long) 2, (long) 3, (long) 4},
-        new long[] { (long) 2, (long) 3, (long) 4}
-    ));
+            new long[] { (long) 2, (long) 2, (long) 3,
+                (long) 4, (long) 2, (long) 3, (long) 4
+            },
+            new long[] { (long) 2, (long) 3, (long) 4}
+        ));
     assertEquals(-1, Longs.indexOf(
-        new long[] { (long) 4, (long) 3, (long) 2},
-        new long[] { (long) 2, (long) 3, (long) 4}
-    ));
+            new long[] { (long) 4, (long) 3, (long) 2},
+            new long[] { (long) 2, (long) 3, (long) 4}
+        ));
   }
 
   public void testLastIndexOf() {
@@ -132,13 +135,13 @@ public class LongsTest extends TestCase {
     assertEquals(-1, Longs.lastIndexOf(ARRAY1, (long) 2));
     assertEquals(-1, Longs.lastIndexOf(ARRAY234, (long) 1));
     assertEquals(0, Longs.lastIndexOf(
-        new long[] {(long) -1}, (long) -1));
+            new long[] {(long) -1}, (long) -1));
     assertEquals(0, Longs.lastIndexOf(ARRAY234, (long) 2));
     assertEquals(1, Longs.lastIndexOf(ARRAY234, (long) 3));
     assertEquals(2, Longs.lastIndexOf(ARRAY234, (long) 4));
     assertEquals(3, Longs.lastIndexOf(
-        new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
-        (long) 3));
+            new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
+            (long) 3));
   }
 
   public void testMax_noArgs() {
@@ -153,8 +156,8 @@ public class LongsTest extends TestCase {
     assertEquals(MIN_VALUE, Longs.max(MIN_VALUE));
     assertEquals(MAX_VALUE, Longs.max(MAX_VALUE));
     assertEquals((long) 9, Longs.max(
-        (long) 8, (long) 6, (long) 7,
-        (long) 5, (long) 3, (long) 0, (long) 9));
+            (long) 8, (long) 6, (long) 7,
+            (long) 5, (long) 3, (long) 0, (long) 9));
   }
 
   public void testMin_noArgs() {
@@ -169,8 +172,8 @@ public class LongsTest extends TestCase {
     assertEquals(MIN_VALUE, Longs.min(MIN_VALUE));
     assertEquals(MAX_VALUE, Longs.min(MAX_VALUE));
     assertEquals((long) 0, Longs.min(
-        (long) 8, (long) 6, (long) 7,
-        (long) 5, (long) 3, (long) 0, (long) 9));
+            (long) 8, (long) 6, (long) 7,
+            (long) 5, (long) 3, (long) 0, (long) 9));
   }
 
   public void testConstrainToRange() {
@@ -194,11 +197,11 @@ public class LongsTest extends TestCase {
     assertNotSame(ARRAY1, Longs.concat(ARRAY1));
     assertTrue(Arrays.equals(ARRAY1, Longs.concat(EMPTY, ARRAY1, EMPTY)));
     assertTrue(Arrays.equals(
-        new long[] {(long) 1, (long) 1, (long) 1},
-        Longs.concat(ARRAY1, ARRAY1, ARRAY1)));
+            new long[] {(long) 1, (long) 1, (long) 1},
+            Longs.concat(ARRAY1, ARRAY1, ARRAY1)));
     assertTrue(Arrays.equals(
-        new long[] {(long) 1, (long) 2, (long) 3, (long) 4},
-        Longs.concat(ARRAY1, ARRAY234)));
+            new long[] {(long) 1, (long) 2, (long) 3, (long) 4},
+            Longs.concat(ARRAY1, ARRAY234)));
   }
 
   private static void assertByteArrayEquals(byte[] expected, byte[] actual) {
@@ -214,17 +217,19 @@ public class LongsTest extends TestCase {
     assertByteArrayEquals(
         new byte[] {
             (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC,
-            (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88},
+            (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88
+        },
         Longs.toByteArray(0xFFEEDDCCBBAA9988L));
   }
 
   public void testFromByteArray() {
     assertEquals(0x1213141516171819L, Longs.fromByteArray(
-        new byte[] {0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x33}));
+            new byte[] {0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x33}));
     assertEquals(0xFFEEDDCCBBAA9988L, Longs.fromByteArray(
-        new byte[] {
-            (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC,
-            (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88}));
+            new byte[] {
+                (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC,
+                (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88
+            }));
   }
 
   public void testFromByteArrayFails() {
@@ -237,11 +242,11 @@ public class LongsTest extends TestCase {
 
   public void testFromBytes() {
     assertEquals(0x1213141516171819L, Longs.fromBytes(
-        (byte) 0x12, (byte) 0x13, (byte) 0x14, (byte) 0x15,
-        (byte) 0x16, (byte) 0x17, (byte) 0x18, (byte) 0x19));
+            (byte) 0x12, (byte) 0x13, (byte) 0x14, (byte) 0x15,
+            (byte) 0x16, (byte) 0x17, (byte) 0x18, (byte) 0x19));
     assertEquals(0xFFEEDDCCBBAA9988L, Longs.fromBytes(
-        (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC,
-        (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88));
+            (byte) 0xFF, (byte) 0xEE, (byte) 0xDD, (byte) 0xCC,
+            (byte) 0xBB, (byte) 0xAA, (byte) 0x99, (byte) 0x88));
   }
 
   public void testByteArrayRoundTrips() {
@@ -264,8 +269,8 @@ public class LongsTest extends TestCase {
     assertSame(ARRAY1, Longs.ensureCapacity(ARRAY1, 0, 1));
     assertSame(ARRAY1, Longs.ensureCapacity(ARRAY1, 1, 1));
     assertTrue(Arrays.equals(
-        new long[] {(long) 1, (long) 0, (long) 0},
-        Longs.ensureCapacity(ARRAY1, 2, 1)));
+            new long[] {(long) 1, (long) 0, (long) 0},
+            Longs.ensureCapacity(ARRAY1, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -292,15 +297,15 @@ public class LongsTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<long[]> ordered = Arrays.asList(
-        new long[] {},
-        new long[] {MIN_VALUE},
-        new long[] {MIN_VALUE, MIN_VALUE},
-        new long[] {MIN_VALUE, (long) 1},
-        new long[] {(long) 1},
-        new long[] {(long) 1, MIN_VALUE},
-        new long[] {MAX_VALUE, MAX_VALUE - (long) 1},
-        new long[] {MAX_VALUE, MAX_VALUE},
-        new long[] {MAX_VALUE, MAX_VALUE, MAX_VALUE});
+            new long[] {},
+            new long[] {MIN_VALUE},
+            new long[] {MIN_VALUE, MIN_VALUE},
+            new long[] {MIN_VALUE, (long) 1},
+            new long[] {(long) 1},
+            new long[] {(long) 1, MIN_VALUE},
+            new long[] {MAX_VALUE, MAX_VALUE - (long) 1},
+            new long[] {MAX_VALUE, MAX_VALUE},
+            new long[] {MAX_VALUE, MAX_VALUE, MAX_VALUE});
 
     Comparator<long[]> comparator = Longs.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -452,7 +457,7 @@ public class LongsTest extends TestCase {
     // Make sure it returned a copy
     list.set(0, (long) 4);
     assertTrue(Arrays.equals(
-        new long[] { (long) 0, (long) 1, (long) 2 }, newArray));
+            new long[] { (long) 0, (long) 1, (long) 2 }, newArray));
     newArray[1] = (long) 5;
     assertEquals((long) 1, (long) list.get(1));
   }
@@ -462,9 +467,9 @@ public class LongsTest extends TestCase {
     long[] array = { (long) 0, (long) 1, (long) 2, (long) 3 };
     List<Long> list = Longs.asList(array);
     assertTrue(Arrays.equals(new long[] { (long) 1, (long) 2 },
-        Longs.toArray(list.subList(1, 3))));
+            Longs.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new long[] {},
-        Longs.toArray(list.subList(2, 2))));
+            Longs.toArray(list.subList(2, 2))));
   }
 
   public void testAsListEmpty() {

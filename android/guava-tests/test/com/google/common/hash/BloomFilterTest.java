@@ -46,7 +46,7 @@ import junit.framework.TestCase;
  */
 public class BloomFilterTest extends TestCase {
   private static final int NUM_PUTS = 100_000;
-  private static final ThreadLocal<Random> random = new ThreadLocal<Random>(){
+  private static final ThreadLocal<Random> random = new ThreadLocal<Random>() {
     @Override
     protected Random initialValue() {
       return new Random();
@@ -81,8 +81,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckMitz32BloomFilterWithKnownFalsePositives() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-        Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
-        BloomFilterStrategies.MURMUR128_MITZ_32);
+            Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
+            BloomFilterStrategies.MURMUR128_MITZ_32);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -98,7 +98,7 @@ public class BloomFilterTest extends TestCase {
     // Now we check for known false positives using a set of known false positives.
     // (These are all of the false positives under 900.)
     ImmutableSet<Integer> falsePositives = ImmutableSet.of(
-        49, 51, 59, 163, 199, 321, 325, 363, 367, 469, 545, 561, 727, 769, 773, 781);
+            49, 51, 59, 163, 199, 321, 325, 363, 367, 469, 545, 561, 727, 769, 773, 781);
     for (int i = 1; i < 900; i += 2) {
       if (!falsePositives.contains(i)) {
         assertFalse("BF should not contain " + i, bf.mightContain(Integer.toString(i)));
@@ -122,8 +122,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckBloomFilterWithKnownFalsePositives64() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-        Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
-        BloomFilterStrategies.MURMUR128_MITZ_64);
+            Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
+            BloomFilterStrategies.MURMUR128_MITZ_64);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -139,7 +139,7 @@ public class BloomFilterTest extends TestCase {
     // Now we check for known false positives using a set of known false positives.
     // (These are all of the false positives under 900.)
     ImmutableSet<Integer> falsePositives = ImmutableSet.of(
-        15, 25, 287, 319, 381, 399, 421, 465, 529, 697, 767, 857);
+            15, 25, 287, 319, 381, 399, 421, 465, 529, 697, 767, 857);
     for (int i = 1; i < 900; i += 2) {
       if (!falsePositives.contains(i)) {
         assertFalse("BF should not contain " + i, bf.mightContain(Integer.toString(i)));
@@ -163,8 +163,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckBloomFilterWithKnownUtf8FalsePositives64() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-        Funnels.stringFunnel(UTF_8), numInsertions, 0.03,
-        BloomFilterStrategies.MURMUR128_MITZ_64);
+            Funnels.stringFunnel(UTF_8), numInsertions, 0.03,
+            BloomFilterStrategies.MURMUR128_MITZ_64);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -280,7 +280,7 @@ public class BloomFilterTest extends TestCase {
 
     // and some crazy values (this used to be capped to Integer.MAX_VALUE, now it can go bigger
     assertEquals(3327428144502L, BloomFilter.optimalNumOfBits(
-        Integer.MAX_VALUE, Double.MIN_VALUE));
+            Integer.MAX_VALUE, Double.MIN_VALUE));
     try {
       BloomFilter<String> unused =
           BloomFilter.create(HashTestUtils.BAD_FUNNEL, Integer.MAX_VALUE, Double.MIN_VALUE);
@@ -354,15 +354,15 @@ public class BloomFilterTest extends TestCase {
 
   public void testEquals_empty() {
     new EqualsTester()
-        .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 100, 0.01))
-        .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 100, 0.02))
-        .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 200, 0.01))
-        .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 200, 0.02))
-        .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 100, 0.01))
-        .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 100, 0.02))
-        .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 200, 0.01))
-        .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 200, 0.02))
-        .testEquals();
+    .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 100, 0.01))
+    .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 100, 0.02))
+    .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 200, 0.01))
+    .addEqualityGroup(BloomFilter.create(Funnels.byteArrayFunnel(), 200, 0.02))
+    .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 100, 0.01))
+    .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 100, 0.02))
+    .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 200, 0.01))
+    .addEqualityGroup(BloomFilter.create(Funnels.unencodedCharsFunnel(), 200, 0.02))
+    .testEquals();
   }
 
   public void testEquals() {
@@ -375,15 +375,15 @@ public class BloomFilterTest extends TestCase {
     bf2.put("2");
 
     new EqualsTester()
-        .addEqualityGroup(bf1, bf2)
-        .testEquals();
+    .addEqualityGroup(bf1, bf2)
+    .testEquals();
 
     bf2.put("3");
 
     new EqualsTester()
-        .addEqualityGroup(bf1)
-        .addEqualityGroup(bf2)
-        .testEquals();
+    .addEqualityGroup(bf1)
+    .addEqualityGroup(bf2)
+    .testEquals();
   }
 
   public void testEqualsWithCustomFunnel() {
@@ -530,31 +530,31 @@ public class BloomFilterTest extends TestCase {
     final Stopwatch stopwatch = Stopwatch.createStarted();
 
     Runnable task =
-        new Runnable() {
-          @Override
-          public void run() {
-            do {
-              // We can't have a GOLDEN_NOT_PRESENT_KEY because false positives are
-              // possible! It's false negatives that can't happen.
-              assertThat(bloomFilter.mightContain(GOLDEN_PRESENT_KEY)).isTrue();
+    new Runnable() {
+      @Override
+      public void run() {
+        do {
+          // We can't have a GOLDEN_NOT_PRESENT_KEY because false positives are
+          // possible! It's false negatives that can't happen.
+          assertThat(bloomFilter.mightContain(GOLDEN_PRESENT_KEY)).isTrue();
 
-              int key = getNonGoldenRandomKey();
-              // We can't check that the key is mightContain() == false before the
-              // put() because the key could have already been generated *or* the
-              // bloom filter might say true even when it's not there (false
-              // positive).
-              bloomFilter.put(key);
-              // False negative should *never* happen.
-              assertThat(bloomFilter.mightContain(key)).isTrue();
+          int key = getNonGoldenRandomKey();
+          // We can't check that the key is mightContain() == false before the
+          // put() because the key could have already been generated *or* the
+          // bloom filter might say true even when it's not there (false
+          // positive).
+          bloomFilter.put(key);
+          // False negative should *never* happen.
+          assertThat(bloomFilter.mightContain(key)).isTrue();
 
-              // If this check ever fails, that means we need to either bump the
-              // number of expected insertions or don't run the test for so long.
-              // Don't forget, the bloom filter slowly saturates over time and the
-              // expected false positive probability goes up!
-              assertThat(bloomFilter.expectedFpp()).isLessThan(safetyFalsePositiveRate);
-            } while (stopwatch.elapsed(TimeUnit.SECONDS) < 1);
-          }
-        };
+          // If this check ever fails, that means we need to either bump the
+          // number of expected insertions or don't run the test for so long.
+          // Don't forget, the bloom filter slowly saturates over time and the
+          // expected false positive probability goes up!
+          assertThat(bloomFilter.expectedFpp()).isLessThan(safetyFalsePositiveRate);
+        } while (stopwatch.elapsed(TimeUnit.SECONDS) < 1);
+      }
+    };
 
     List<Throwable> exceptions = runThreadsAndReturnExceptions(numThreads, task);
 
@@ -567,12 +567,12 @@ public class BloomFilterTest extends TestCase {
     for (int i = 0; i < numThreads; i++) {
       Thread thread = new Thread(task);
       thread.setUncaughtExceptionHandler(
-          new UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-              exceptions.add(e);
-            }
-          });
+      new UncaughtExceptionHandler() {
+        @Override
+        public void uncaughtException(Thread t, Throwable e) {
+          exceptions.add(e);
+        }
+      });
       threads.add(thread);
     }
     for (Thread t : threads) {

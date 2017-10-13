@@ -28,13 +28,13 @@ public class RemovalNotificationTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(
-            RemovalNotification.create("one", 1, RemovalCause.EXPLICIT),
-            RemovalNotification.create("one", 1, RemovalCause.REPLACED))
-        .addEqualityGroup(
-            RemovalNotification.create("1", 1, RemovalCause.EXPLICIT))
-        .addEqualityGroup(
-            RemovalNotification.create("one", 2, RemovalCause.EXPLICIT))
-        .testEquals();
+    .addEqualityGroup(
+        RemovalNotification.create("one", 1, RemovalCause.EXPLICIT),
+        RemovalNotification.create("one", 1, RemovalCause.REPLACED))
+    .addEqualityGroup(
+        RemovalNotification.create("1", 1, RemovalCause.EXPLICIT))
+    .addEqualityGroup(
+        RemovalNotification.create("one", 2, RemovalCause.EXPLICIT))
+    .testEquals();
   }
 }

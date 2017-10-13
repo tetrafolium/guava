@@ -492,9 +492,9 @@ public class RateLimiterTest extends TestCase {
 
   public void testNulls() {
     NullPointerTester tester = new NullPointerTester()
-        .setDefault(SleepingStopwatch.class, stopwatch)
-        .setDefault(int.class, 1)
-        .setDefault(double.class, 1.0d);
+    .setDefault(SleepingStopwatch.class, stopwatch)
+    .setDefault(int.class, 1)
+    .setDefault(double.class, 1.0d);
     tester.testStaticMethods(RateLimiter.class, Visibility.PACKAGE);
     tester.testInstanceMethods(RateLimiter.create(5.0, stopwatch), Visibility.PACKAGE);
   }
@@ -607,9 +607,9 @@ public class RateLimiterTest extends TestCase {
   // We would use ArbitraryInstances, but it returns 0, invalid for many RateLimiter methods.
   private static final ImmutableClassToInstanceMap<Object> PARAMETER_VALUES =
       ImmutableClassToInstanceMap.builder()
-          .put(int.class, 1)
-          .put(long.class, 1L)
-          .put(double.class, 1.0)
-          .put(TimeUnit.class, SECONDS)
-          .build();
+      .put(int.class, 1)
+      .put(long.class, 1L)
+      .put(double.class, 1.0)
+      .put(TimeUnit.class, SECONDS)
+      .build();
 }

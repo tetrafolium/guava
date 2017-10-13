@@ -66,11 +66,11 @@ public class Utf8Test extends TestCase {
     assertEquals(11, Utf8.encodedLength("Hello world"));
     assertEquals(8, Utf8.encodedLength("Résumé"));
     assertEquals(461, Utf8.encodedLength("威廉·莎士比亞（William Shakespeare，"
-        + "1564年4月26號—1616年4月23號[1]）係隻英國嗰演員、劇作家同詩人，"
-        + "有時間佢簡稱莎翁；中國清末民初哈拕翻譯做舌克斯毕、沙斯皮耳、筛斯比耳、"
-        + "莎基斯庇尔、索士比尔、夏克思芘尔、希哀苦皮阿、叶斯壁、沙克皮尔、"
-        + "狹斯丕爾。[2]莎士比亞編寫過好多作品，佢嗰劇作響西洋文學好有影響，"
-        + "哈都拕人翻譯做好多話。"));
+            + "1564年4月26號—1616年4月23號[1]）係隻英國嗰演員、劇作家同詩人，"
+            + "有時間佢簡稱莎翁；中國清末民初哈拕翻譯做舌克斯毕、沙斯皮耳、筛斯比耳、"
+            + "莎基斯庇尔、索士比尔、夏克思芘尔、希哀苦皮阿、叶斯壁、沙克皮尔、"
+            + "狹斯丕爾。[2]莎士比亞編寫過好多作品，佢嗰劇作響西洋文學好有影響，"
+            + "哈都拕人翻譯做好多話。"));
     // A surrogate pair
     assertEquals(4, Utf8.encodedLength(newString(MIN_HIGH_SURROGATE, MIN_LOW_SURROGATE)));
   }
@@ -86,7 +86,7 @@ public class Utf8Test extends TestCase {
     utf8Lengths.put(MIN_SUPPLEMENTARY_CODE_POINT, 4);
     utf8Lengths.put(MAX_CODE_POINT, 4);
 
-    Integer[] codePoints = utf8Lengths.keySet().toArray(new Integer[]{});
+    Integer[] codePoints = utf8Lengths.keySet().toArray(new Integer[] {});
     StringBuilder sb = new StringBuilder();
     Random rnd = new Random();
     for (int trial = 0; trial < 100; trial++) {
@@ -156,8 +156,8 @@ public class Utf8Test extends TestCase {
       (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 3) +
       // One two byte character and a one byte character
       2 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
-       // Three byte characters
+      ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
+      // Three byte characters
       THREE_BYTE_ROUNDTRIPPABLE_CHARACTERS;
 
   // 1,048,576 [chars 0x10000L to 0x10FFFF]
@@ -170,13 +170,13 @@ public class Utf8Test extends TestCase {
       (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 4) +
       // One and three byte characters
       2 * THREE_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
+      ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
       // Two two byte characters
       TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS +
       // Permutations of one and two byte characters
       3 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
+      ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS *
+      ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
       // Four byte characters
       FOUR_BYTE_ROUNDTRIPPABLE_CHARACTERS;
 
@@ -274,7 +274,7 @@ public class Utf8Test extends TestCase {
     }
     // 97-111 are all 2342912
     for (int i = 97; i <= 111; i++) {
-     expected[i] = 2342912;
+      expected[i] = 2342912;
     }
     // 113-117 are all 1048576
     for (int i = 113; i <= 117; i++) {

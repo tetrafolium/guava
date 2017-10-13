@@ -45,37 +45,37 @@ import junit.framework.TestCase;
 public class TypesTest extends TestCase {
   public void testNewParameterizedType_ownerTypeImplied() throws Exception {
     ParameterizedType jvmType = (ParameterizedType)
-        new TypeCapture<Map.Entry<String, Integer>>() {}.capture();
+    new TypeCapture<Map.Entry<String, Integer>>() {} .capture();
     ParameterizedType ourType = Types.newParameterizedType(
-        Map.Entry.class, String.class, Integer.class);
+            Map.Entry.class, String.class, Integer.class);
     assertEquals(jvmType, ourType);
     assertEquals(Map.class, ourType.getOwnerType());
   }
 
   public void testNewParameterizedType() {
     ParameterizedType jvmType = (ParameterizedType)
-        new TypeCapture<HashMap<String, int[][]>>() {}.capture();
+    new TypeCapture<HashMap<String, int[][]>>() {} .capture();
     ParameterizedType ourType = Types.newParameterizedType(
-        HashMap.class, String.class, int[][].class);
+            HashMap.class, String.class, int[][].class);
 
     new EqualsTester()
-        .addEqualityGroup(jvmType, ourType)
-        .testEquals();
+    .addEqualityGroup(jvmType, ourType)
+    .testEquals();
     assertEquals(jvmType.toString(), ourType.toString());
     assertEquals(jvmType.hashCode(), ourType.hashCode());
     assertEquals(HashMap.class, ourType.getRawType());
     assertThat(ourType.getActualTypeArguments())
-        .asList()
-        .containsExactlyElementsIn(asList(jvmType.getActualTypeArguments()))
-        .inOrder();
+    .asList()
+    .containsExactlyElementsIn(asList(jvmType.getActualTypeArguments()))
+    .inOrder();
     assertEquals(Arrays.asList(String.class, Types.newArrayType(Types.newArrayType(int.class))),
-                 Arrays.asList(ourType.getActualTypeArguments()));
+        Arrays.asList(ourType.getActualTypeArguments()));
     assertEquals(null, ourType.getOwnerType());
   }
 
   public void testNewParameterizedType_nonStaticLocalClass() {
     class LocalClass<T> {}
-    Type jvmType = new LocalClass<String>() {}.getClass().getGenericSuperclass();
+    Type jvmType = new LocalClass<String>() {} .getClass().getGenericSuperclass();
     Type ourType = Types.newParameterizedType(LocalClass.class, String.class);
     assertEquals(jvmType, ourType);
   }
@@ -86,34 +86,34 @@ public class TypesTest extends TestCase {
 
   private static void doTestNewParameterizedType_staticLocalClass() {
     class LocalClass<T> {}
-    Type jvmType = new LocalClass<String>() {}.getClass().getGenericSuperclass();
+    Type jvmType = new LocalClass<String>() {} .getClass().getGenericSuperclass();
     Type ourType = Types.newParameterizedType(LocalClass.class, String.class);
     assertEquals(jvmType, ourType);
   }
 
   public void testNewParameterizedTypeWithOwner() {
     ParameterizedType jvmType = (ParameterizedType)
-        new TypeCapture<Map.Entry<String, int[][]>>() {}.capture();
+    new TypeCapture<Map.Entry<String, int[][]>>() {} .capture();
     ParameterizedType ourType = Types.newParameterizedTypeWithOwner(
-        Map.class, Map.Entry.class, String.class, int[][].class);
+            Map.class, Map.Entry.class, String.class, int[][].class);
 
     new EqualsTester()
-        .addEqualityGroup(jvmType, ourType)
-        .addEqualityGroup(new TypeCapture<Map.Entry<String, String>>() {}.capture())
-        .addEqualityGroup(new TypeCapture<Map<String, Integer>>() {}.capture())
-        .testEquals();
+    .addEqualityGroup(jvmType, ourType)
+    .addEqualityGroup(new TypeCapture<Map.Entry<String, String>>() {} .capture())
+    .addEqualityGroup(new TypeCapture<Map<String, Integer>>() {} .capture())
+    .testEquals();
     assertEquals(jvmType.toString(), ourType.toString());
     assertEquals(Map.class, ourType.getOwnerType());
     assertEquals(Map.Entry.class, ourType.getRawType());
     assertThat(ourType.getActualTypeArguments())
-        .asList()
-        .containsExactlyElementsIn(asList(jvmType.getActualTypeArguments()))
-        .inOrder();
+    .asList()
+    .containsExactlyElementsIn(asList(jvmType.getActualTypeArguments()))
+    .inOrder();
   }
 
   public void testNewParameterizedType_serializable() {
     SerializableTester.reserializeAndAssert(Types.newParameterizedType(
-        Map.Entry.class, String.class, Integer.class));
+            Map.Entry.class, String.class, Integer.class));
   }
 
   public void testNewParameterizedType_ownerMismatch() {
@@ -148,37 +148,37 @@ public class TypesTest extends TestCase {
   }
 
   public void testNewArrayType() {
-    Type jvmType1 = new TypeCapture<List<String>[]>() {}.capture();
+    Type jvmType1 = new TypeCapture<List<String>[]>() {} .capture();
     GenericArrayType ourType1 = (GenericArrayType) Types.newArrayType(
-        Types.newParameterizedType(List.class, String.class));
-    Type jvmType2 = new TypeCapture<List[]>() {}.capture();
+            Types.newParameterizedType(List.class, String.class));
+    Type jvmType2 = new TypeCapture<List[]>() {} .capture();
     Type ourType2 = Types.newArrayType(List.class);
     new EqualsTester()
-        .addEqualityGroup(jvmType1, ourType1)
-        .addEqualityGroup(jvmType2, ourType2)
-        .testEquals();
-    assertEquals(new TypeCapture<List<String>>() {}.capture(),
-        ourType1.getGenericComponentType());
+    .addEqualityGroup(jvmType1, ourType1)
+    .addEqualityGroup(jvmType2, ourType2)
+    .testEquals();
+    assertEquals(new TypeCapture<List<String>>() {} .capture(),
+    ourType1.getGenericComponentType());
     assertEquals(jvmType1.toString(), ourType1.toString());
     assertEquals(jvmType2.toString(), ourType2.toString());
   }
 
   public void testNewArrayTypeOfArray() {
-    Type jvmType = new TypeCapture<int[][]>() {}.capture();
+    Type jvmType = new TypeCapture<int[][]>() {} .capture();
     Type ourType = Types.newArrayType(int[].class);
     assertEquals(jvmType.toString(), ourType.toString());
     new EqualsTester()
-        .addEqualityGroup(jvmType, ourType)
-        .testEquals();
+    .addEqualityGroup(jvmType, ourType)
+    .testEquals();
   }
 
   public void testNewArrayType_primitive() {
-    Type jvmType = new TypeCapture<int[]>() {}.capture();
+    Type jvmType = new TypeCapture<int[]>() {} .capture();
     Type ourType = Types.newArrayType(int.class);
     assertEquals(jvmType.toString(), ourType.toString());
     new EqualsTester()
-        .addEqualityGroup(jvmType, ourType)
-        .testEquals();
+    .addEqualityGroup(jvmType, ourType)
+    .testEquals();
   }
 
   public void testNewArrayType_upperBoundedWildcard() {
@@ -213,8 +213,8 @@ public class TypesTest extends TestCase {
     static WildcardType getWildcardType(String methodName) throws Exception {
       ParameterizedType parameterType = (ParameterizedType)
           WithWildcardType.class
-              .getDeclaredMethod(methodName, List.class)
-              .getGenericParameterTypes()[0];
+          .getDeclaredMethod(methodName, List.class)
+          .getGenericParameterTypes()[0];
       return (WildcardType) parameterType.getActualTypeArguments()[0];
     }
   }
@@ -241,11 +241,11 @@ public class TypesTest extends TestCase {
     assertEqualWildcardType(lowerBoundJvmType, lowerBound);
 
     new EqualsTester()
-        .addEqualityGroup(
-            noBoundJvmType, objectBoundJvmType, objectBound)
-        .addEqualityGroup(upperBoundJvmType, upperBound)
-        .addEqualityGroup(lowerBoundJvmType, lowerBound)
-        .testEquals();
+    .addEqualityGroup(
+        noBoundJvmType, objectBoundJvmType, objectBound)
+    .addEqualityGroup(upperBoundJvmType, upperBound)
+    .addEqualityGroup(lowerBoundJvmType, lowerBound)
+    .testEquals();
   }
 
   public void testNewWildcardType_primitiveTypeBound() {
@@ -269,13 +269,13 @@ public class TypesTest extends TestCase {
     assertEquals(expected.toString(), actual.toString());
     assertEquals(actual.toString(), expected.hashCode(), actual.hashCode());
     assertThat(actual.getLowerBounds())
-        .asList()
-        .containsExactlyElementsIn(asList(expected.getLowerBounds()))
-        .inOrder();
+    .asList()
+    .containsExactlyElementsIn(asList(expected.getLowerBounds()))
+    .inOrder();
     assertThat(actual.getUpperBounds())
-        .asList()
-        .containsExactlyElementsIn(asList(expected.getUpperBounds()))
-        .inOrder();
+    .asList()
+    .containsExactlyElementsIn(asList(expected.getUpperBounds()))
+    .inOrder();
   }
 
   private static class WithTypeVariable {
@@ -292,8 +292,8 @@ public class TypesTest extends TestCase {
     static TypeVariable<?> getTypeVariable(String methodName) throws Exception {
       ParameterizedType parameterType = (ParameterizedType)
           WithTypeVariable.class
-              .getDeclaredMethod(methodName, List.class)
-              .getGenericParameterTypes()[0];
+          .getDeclaredMethod(methodName, List.class)
+          .getGenericParameterTypes()[0];
       return (TypeVariable<?>) parameterType.getActualTypeArguments()[0];
     }
   }
@@ -308,7 +308,7 @@ public class TypesTest extends TestCase {
     TypeVariable<?> noBound = withBounds(noBoundJvmType);
     TypeVariable<?> objectBound = withBounds(objectBoundJvmType, Object.class);
     TypeVariable<?> upperBound = withBounds(
-        upperBoundJvmType, Number.class, CharSequence.class);
+            upperBoundJvmType, Number.class, CharSequence.class);
 
     assertEqualTypeVariable(noBoundJvmType, noBound);
     assertEqualTypeVariable(noBoundJvmType,
@@ -317,10 +317,10 @@ public class TypesTest extends TestCase {
     assertEqualTypeVariable(upperBoundJvmType, upperBound);
 
     new TypeVariableEqualsTester()
-        .addEqualityGroup(noBoundJvmType, noBound)
-        .addEqualityGroup(objectBoundJvmType, objectBound)
-        .addEqualityGroup(upperBoundJvmType, upperBound)
-        .testEquals();
+    .addEqualityGroup(noBoundJvmType, noBound)
+    .addEqualityGroup(objectBoundJvmType, objectBound)
+    .addEqualityGroup(upperBoundJvmType, upperBound)
+    .testEquals();
   }
 
   public void testNewTypeVariable_primitiveTypeBound() {
@@ -340,7 +340,7 @@ public class TypesTest extends TestCase {
   private static <D extends GenericDeclaration> TypeVariable<D> withBounds(
       TypeVariable<D> typeVariable, Type... bounds) {
     return Types.newArtificialTypeVariable(
-        typeVariable.getGenericDeclaration(), typeVariable.getName(), bounds);
+            typeVariable.getGenericDeclaration(), typeVariable.getName(), bounds);
   }
 
   private static class TypeVariableEqualsTester {
@@ -371,9 +371,9 @@ public class TypesTest extends TestCase {
       assertEquals(actual.toString(), expected.hashCode(), actual.hashCode());
     }
     assertThat(actual.getBounds())
-        .asList()
-        .containsExactlyElementsIn(asList(expected.getBounds()))
-        .inOrder();
+    .asList()
+    .containsExactlyElementsIn(asList(expected.getBounds()))
+    .inOrder();
   }
 
   /**
@@ -383,7 +383,7 @@ public class TypesTest extends TestCase {
   public void testNewParameterizedTypeImmutability() {
     Type[] typesIn = { String.class, Integer.class };
     ParameterizedType parameterizedType
-        = Types.newParameterizedType(Map.class, typesIn);
+      = Types.newParameterizedType(Map.class, typesIn);
     typesIn[0] = null;
     typesIn[1] = null;
 

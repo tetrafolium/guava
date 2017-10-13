@@ -125,7 +125,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class)
   public void testPropagateIfPossible_OneDeclared_NoneThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -145,7 +145,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class)
   public void testPropagateIfPossible_OneDeclared_UncheckedThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -188,7 +188,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class)
   public void testPropagateIfPossible_OneDeclared_UndeclaredThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -210,10 +210,10 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class, Class)
   public void testPropagateIfPossible_TwoDeclared_NoneThrown()
-      throws SomeCheckedException, SomeOtherCheckedException {
+  throws SomeCheckedException, SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-          SomeOtherCheckedException {
+        SomeOtherCheckedException {
         try {
           methodThatDoesntThrowAnything();
         } catch (Throwable t) {
@@ -230,10 +230,10 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class, Class)
   public void testPropagateIfPossible_TwoDeclared_UncheckedThrown()
-      throws SomeCheckedException, SomeOtherCheckedException {
+  throws SomeCheckedException, SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-          SomeOtherCheckedException {
+        SomeOtherCheckedException {
         try {
           methodThatThrowsUnchecked();
         } catch (Throwable t) {
@@ -254,10 +254,10 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class, Class)
   public void testPropagateIfPossible_TwoDeclared_CheckedThrown()
-      throws SomeOtherCheckedException {
+  throws SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-          SomeOtherCheckedException {
+        SomeOtherCheckedException {
         try {
           methodThatThrowsChecked();
         } catch (Throwable t) {
@@ -278,10 +278,10 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // propagateIfPossible(Throwable, Class, Class)
   public void testPropagateIfPossible_TwoDeclared_OtherCheckedThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-          SomeOtherCheckedException {
+        SomeOtherCheckedException {
         try {
           methodThatThrowsOtherChecked();
         } catch (Throwable t) {
@@ -431,7 +431,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // throwIfInstanceOf
   public void testPropagateIfInstanceOf_NoneThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -470,7 +470,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // throwIfInstanceOf
   public void testPropagateIfInstanceOf_UncheckedThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -492,7 +492,7 @@ public class ThrowablesTest extends TestCase {
 
   @GwtIncompatible // throwIfInstanceOf
   public void testPropagateIfInstanceOf_UndeclaredThrown()
-      throws SomeCheckedException {
+  throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void oneDeclared() throws SomeCheckedException {
         try {
@@ -588,7 +588,7 @@ public class ThrowablesTest extends TestCase {
     throw new SomeOtherCheckedException();
   }
   static void methodThatThrowsUndeclaredChecked()
-      throws SomeUndeclaredCheckedException {
+  throws SomeUndeclaredCheckedException {
     throw new SomeUndeclaredCheckedException();
   }
 

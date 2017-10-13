@@ -96,7 +96,7 @@ public class CloseablesTest extends TestCase {
     mockCloseable = mock(Closeable.class);
     if (shouldThrow) {
       doThrow(new IOException("This should only appear in the logs. It should not be rethrown."))
-          .when(mockCloseable).close();
+      .when(mockCloseable).close();
     }
   }
 

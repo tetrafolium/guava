@@ -87,9 +87,9 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-        e,
-        equalObject1 + " [group 1, item 1] must be Object#equals to "
-            + notEqualObject1 + " [group 1, item 2]");
+          e,
+          equalObject1 + " [group 1, item 1] must be Object#equals to "
+          + notEqualObject1 + " [group 1, item 2]");
       return;
     }
     fail("Should get not equal to equal object error");
@@ -220,7 +220,7 @@ public class EqualsTesterTest extends TestCase {
 
   public void testSymmetryBroken() {
     EqualsTester tester = new EqualsTester()
-        .addEqualityGroup(named("foo").addPeers("bar"), named("bar"));
+    .addEqualityGroup(named("foo").addPeers("bar"), named("bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
@@ -234,10 +234,10 @@ public class EqualsTesterTest extends TestCase {
 
   public void testTransitivityBrokenInEqualityGroup() {
     EqualsTester tester = new EqualsTester()
-        .addEqualityGroup(
-            named("foo").addPeers("bar", "baz"),
-            named("bar").addPeers("foo"),
-            named("baz").addPeers("foo"));
+    .addEqualityGroup(
+        named("foo").addPeers("bar", "baz"),
+        named("bar").addPeers("foo"),
+        named("baz").addPeers("foo"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
@@ -251,7 +251,7 @@ public class EqualsTesterTest extends TestCase {
 
   public void testUnequalObjectsInEqualityGroup() {
     EqualsTester tester = new EqualsTester()
-        .addEqualityGroup(named("foo"), named("bar"));
+    .addEqualityGroup(named("foo"), named("bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
@@ -265,12 +265,12 @@ public class EqualsTesterTest extends TestCase {
 
   public void testTransitivityBrokenAcrossEqualityGroups() {
     EqualsTester tester = new EqualsTester()
-        .addEqualityGroup(
-            named("foo").addPeers("bar"),
-            named("bar").addPeers("foo", "x"))
-        .addEqualityGroup(
-            named("baz").addPeers("x"),
-            named("x").addPeers("baz", "bar"));
+    .addEqualityGroup(
+        named("foo").addPeers("bar"),
+        named("bar").addPeers("foo", "x"))
+    .addEqualityGroup(
+        named("baz").addPeers("x"),
+        named("x").addPeers("baz", "bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
@@ -284,10 +284,10 @@ public class EqualsTesterTest extends TestCase {
 
   public void testEqualityGroups() {
     new EqualsTester()
-        .addEqualityGroup(
-            named("foo").addPeers("bar"), named("bar").addPeers("foo"))
-        .addEqualityGroup(named("baz"), named("baz"))
-        .testEquals();
+    .addEqualityGroup(
+        named("foo").addPeers("bar"), named("bar").addPeers("foo"))
+    .addEqualityGroup(named("baz"), named("baz"))
+    .testEquals();
   }
 
   private static void assertErrorMessage(Throwable e, String message) {

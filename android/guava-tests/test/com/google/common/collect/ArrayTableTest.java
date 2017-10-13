@@ -117,21 +117,21 @@ public class ArrayTableTest extends AbstractTableTest {
     hashCopy.put("bar", 1, 'b');
     hashCopy.put("foo", 3, 'c');
     Table<String, Integer, Character> reordered
-        = create("foo", 3, 'c', "foo", 1, 'a', "bar", 1, 'b');
+      = create("foo", 3, 'c', "foo", 1, 'a', "bar", 1, 'b');
     Table<String, Integer, Character> smaller
-        = create("foo", 1, 'a', "bar", 1, 'b');
+      = create("foo", 1, 'a', "bar", 1, 'b');
     Table<String, Integer, Character> swapOuter
-        = create("bar", 1, 'a', "foo", 1, 'b', "bar", 3, 'c');
+      = create("bar", 1, 'a', "foo", 1, 'b', "bar", 3, 'c');
     Table<String, Integer, Character> swapValues
-        = create("foo", 1, 'c', "bar", 1, 'b', "foo", 3, 'a');
+      = create("foo", 1, 'c', "bar", 1, 'b', "foo", 3, 'a');
 
     new EqualsTester()
-        .addEqualityGroup(table, reordered)
-        .addEqualityGroup(hashCopy)
-        .addEqualityGroup(smaller)
-        .addEqualityGroup(swapOuter)
-        .addEqualityGroup(swapValues)
-        .testEquals();
+    .addEqualityGroup(table, reordered)
+    .addEqualityGroup(hashCopy)
+    .addEqualityGroup(smaller)
+    .addEqualityGroup(swapOuter)
+    .addEqualityGroup(swapValues)
+    .testEquals();
   }
 
   @Override public void testHashCode() {
@@ -200,7 +200,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testCreateCopyArrayTable() {
     Table<String, Integer, Character> original
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Table<String, Integer, Character> copy = ArrayTable.create(original);
     assertEquals(original, copy);
     original.put("foo", 1, 'd');
@@ -284,13 +284,13 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testRowKeyList() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertThat(table.rowKeyList()).containsExactly("foo", "bar", "cat").inOrder();
   }
 
   public void testColumnKeyList() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertThat(table.columnKeyList()).containsExactly(1, 2, 3).inOrder();
   }
 
@@ -302,7 +302,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testAt() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals((Character) 'b', table.at(1, 0));
     assertEquals((Character) 'c', table.at(0, 2));
     assertNull(table.at(1, 2));
@@ -326,7 +326,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testSet() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals((Character) 'b', table.set(1, 0, 'd'));
     assertEquals((Character) 'd', table.get("bar", 1));
     assertNull(table.set(2, 0, 'e'));
@@ -354,7 +354,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testEraseAll() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     table.eraseAll();
     assertEquals(9, table.size());
     assertNull(table.get("bar", 1));
@@ -381,7 +381,7 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testErase() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     assertEquals((Character) 'b', table.erase("bar", 1));
     assertNull(table.get("bar", 1));
     assertEquals(9, table.size());
@@ -396,7 +396,7 @@ public class ArrayTableTest extends AbstractTableTest {
   @GwtIncompatible // ArrayTable.toArray(Class)
   public void testToArray() {
     ArrayTable<String, Integer, Character> table
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Character[][] array = table.toArray(Character.class);
     assertThat(array).hasLength(3);
     assertThat(array[0]).asList().containsExactly('a', null, 'c').inOrder();

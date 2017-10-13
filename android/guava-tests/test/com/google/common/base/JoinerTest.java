@@ -49,12 +49,12 @@ public class JoinerTest extends TestCase {
   private static final Iterable<Integer> ITERABLE_123 = Arrays.asList(1, 2, 3);
   private static final Iterable<Integer> ITERABLE_NULL = Arrays.asList((Integer) null);
   private static final Iterable<Integer> ITERABLE_NULL_NULL
-      = Arrays.asList((Integer) null, null);
+    = Arrays.asList((Integer) null, null);
   private static final Iterable<Integer> ITERABLE_NULL_1 = Arrays.asList(null, 1);
   private static final Iterable<Integer> ITERABLE_1_NULL = Arrays.asList(1, null);
   private static final Iterable<Integer> ITERABLE_1_NULL_2 = Arrays.asList(1, null, 2);
   private static final Iterable<Integer> ITERABLE_FOUR_NULLS
-      = Arrays.asList((Integer) null, null, null, null);
+    = Arrays.asList((Integer) null, null, null, null);
 
   public void testNoSpecialNullBehavior() {
     checkNoOutput(J, ITERABLE_);
@@ -346,9 +346,9 @@ public class JoinerTest extends TestCase {
   @GwtIncompatible // StringBuilder.append in GWT invokes Object.toString(), unlike the JRE version.
   public void testDontConvertCharSequenceToString() {
     assertEquals("foo,foo", Joiner.on(",").join(
-        new DontStringMeBro(), new DontStringMeBro()));
+            new DontStringMeBro(), new DontStringMeBro()));
     assertEquals("foo,bar,foo", Joiner.on(",").useForNull("bar").join(
-        new DontStringMeBro(), null, new DontStringMeBro()));
+            new DontStringMeBro(), null, new DontStringMeBro()));
   }
 
   @GwtIncompatible // NullPointerTester

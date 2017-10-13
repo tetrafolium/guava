@@ -269,14 +269,14 @@ public class CacheBuilderTest extends TestCase {
 
   public void testTimeToLive_small() {
     CacheBuilder.newBuilder()
-        .expireAfterWrite(1, NANOSECONDS)
-        .build(identityLoader());
+    .expireAfterWrite(1, NANOSECONDS)
+    .build(identityLoader());
     // well, it didn't blow up.
   }
 
   public void testTimeToLive_setTwice() {
     CacheBuilder<Object, Object> builder =
-            CacheBuilder.newBuilder().expireAfterWrite(3600, SECONDS);
+        CacheBuilder.newBuilder().expireAfterWrite(3600, SECONDS);
     try {
       // even to the same value is not allowed
       builder.expireAfterWrite(3600, SECONDS);
@@ -294,14 +294,14 @@ public class CacheBuilderTest extends TestCase {
 
   public void testTimeToIdle_small() {
     CacheBuilder.newBuilder()
-        .expireAfterAccess(1, NANOSECONDS)
-        .build(identityLoader());
+    .expireAfterAccess(1, NANOSECONDS)
+    .build(identityLoader());
     // well, it didn't blow up.
   }
 
   public void testTimeToIdle_setTwice() {
     CacheBuilder<Object, Object> builder =
-            CacheBuilder.newBuilder().expireAfterAccess(3600, SECONDS);
+        CacheBuilder.newBuilder().expireAfterAccess(3600, SECONDS);
     try {
       // even to the same value is not allowed
       builder.expireAfterAccess(3600, SECONDS);
@@ -311,9 +311,9 @@ public class CacheBuilderTest extends TestCase {
 
   public void testTimeToIdleAndToLive() {
     CacheBuilder.newBuilder()
-        .expireAfterWrite(1, NANOSECONDS)
-        .expireAfterAccess(1, NANOSECONDS)
-        .build(identityLoader());
+    .expireAfterWrite(1, NANOSECONDS)
+    .expireAfterAccess(1, NANOSECONDS)
+    .build(identityLoader());
     // well, it didn't blow up.
   }
 
@@ -329,7 +329,7 @@ public class CacheBuilderTest extends TestCase {
   @GwtIncompatible // refreshAfterWrite
   public void testRefresh_setTwice() {
     CacheBuilder<Object, Object> builder =
-            CacheBuilder.newBuilder().refreshAfterWrite(3600, SECONDS);
+        CacheBuilder.newBuilder().refreshAfterWrite(3600, SECONDS);
     try {
       // even to the same value is not allowed
       builder.refreshAfterWrite(3600, SECONDS);
@@ -340,7 +340,7 @@ public class CacheBuilderTest extends TestCase {
   public void testTicker_setTwice() {
     Ticker testTicker = Ticker.systemTicker();
     CacheBuilder<Object, Object> builder =
-            CacheBuilder.newBuilder().ticker(testTicker);
+        CacheBuilder.newBuilder().ticker(testTicker);
     try {
       // even to the same instance is not allowed
       builder.ticker(testTicker);
@@ -351,7 +351,7 @@ public class CacheBuilderTest extends TestCase {
   public void testRemovalListener_setTwice() {
     RemovalListener<Object, Object> testListener = nullRemovalListener();
     CacheBuilder<Object, Object> builder =
-            CacheBuilder.newBuilder().removalListener(testListener);
+        CacheBuilder.newBuilder().removalListener(testListener);
     try {
       // even to the same instance is not allowed
       builder = builder.removalListener(testListener);
@@ -480,14 +480,14 @@ public class CacheBuilderTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           threadPool.submit(
-              new Runnable() {
-                @Override
-                public void run() {
-                  cache.getUnchecked(s);
-                  computedCount.incrementAndGet();
-                  tasksFinished.countDown();
-                }
-              });
+      new Runnable() {
+        @Override
+        public void run() {
+          cache.getUnchecked(s);
+          computedCount.incrementAndGet();
+          tasksFinished.countDown();
+        }
+      });
       expectedKeys.add(s);
     }
 
@@ -539,25 +539,25 @@ public class CacheBuilderTest extends TestCase {
     final AtomicInteger exceptionCount = new AtomicInteger();
     final AtomicInteger computeNullCount = new AtomicInteger();
     CacheLoader<String, String> countingIdentityLoader =
-        new CacheLoader<String, String>() {
-          @Override public String load(String key) throws InterruptedException {
-            int behavior = random.nextInt(4);
-            if (behavior == 0) { // throw an exception
-              exceptionCount.incrementAndGet();
-              throw new RuntimeException("fake exception for test");
-            } else if (behavior == 1) { // return null
-              computeNullCount.incrementAndGet();
-              return null;
-            } else if (behavior == 2) { // slight delay before returning
-              Thread.sleep(5);
-              computeCount.incrementAndGet();
-              return key;
-            } else {
-              computeCount.incrementAndGet();
-              return key;
-            }
-          }
-        };
+    new CacheLoader<String, String>() {
+      @Override public String load(String key) throws InterruptedException {
+        int behavior = random.nextInt(4);
+        if (behavior == 0) { // throw an exception
+          exceptionCount.incrementAndGet();
+          throw new RuntimeException("fake exception for test");
+        } else if (behavior == 1) { // return null
+          computeNullCount.incrementAndGet();
+          return null;
+        } else if (behavior == 2) { // slight delay before returning
+          Thread.sleep(5);
+          computeCount.incrementAndGet();
+          return key;
+        } else {
+          computeCount.incrementAndGet();
+          return key;
+        }
+      }
+    };
     final LoadingCache<String, String> cache = CacheBuilder.newBuilder()
         .recordStats()
         .concurrencyLevel(2)
@@ -571,17 +571,17 @@ public class CacheBuilderTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           threadPool.submit(
-              new Runnable() {
-                @Override
-                public void run() {
-                  for (int j = 0; j < getsPerTask; j++) {
-                    try {
-                      cache.getUnchecked("key" + random.nextInt(nUniqueKeys));
-                    } catch (RuntimeException e) {
-                    }
-                  }
-                }
-              });
+      new Runnable() {
+        @Override
+        public void run() {
+          for (int j = 0; j < getsPerTask; j++) {
+            try {
+              cache.getUnchecked("key" + random.nextInt(nUniqueKeys));
+            } catch (RuntimeException e) {
+            }
+          }
+        }
+      });
     }
 
     threadPool.shutdown();

@@ -59,8 +59,8 @@ public class PackageSanityTests extends AbstractPackageSanityTests {
       super.testNulls();
     } catch (AssertionFailedError e) {
       assertWithMessage("Method did not throw null pointer OR element not in graph exception.")
-          .that(e.getCause().getMessage())
-          .contains(ERROR_ELEMENT_NOT_IN_GRAPH);
+      .that(e.getCause().getMessage())
+      .contains(ERROR_ELEMENT_NOT_IN_GRAPH);
     }
   }
 

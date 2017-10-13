@@ -104,13 +104,13 @@ public class TopKSelectorTest extends TestCase {
     int k = 200000;
     final long[] compareCalls = {0};
     Comparator<Integer> cmp =
-        new Comparator<Integer>() {
-          @Override
-          public int compare(Integer o1, Integer o2) {
-            compareCalls[0]++;
-            return o1.compareTo(o2);
-          }
-        };
+    new Comparator<Integer>() {
+      @Override
+      public int compare(Integer o1, Integer o2) {
+        compareCalls[0]++;
+        return o1.compareTo(o2);
+      }
+    };
     TopKSelector<Integer> top = TopKSelector.least(k, cmp);
     top.offer(1);
     for (int i = 1; i < n; i++) {

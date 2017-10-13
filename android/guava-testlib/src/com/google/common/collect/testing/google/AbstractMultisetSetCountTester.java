@@ -318,8 +318,8 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
   }
 
   @CollectionFeature.Require(
-    value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-    absent = RESTRICTS_ELEMENTS
+      value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
+      absent = RESTRICTS_ELEMENTS
   )
   public void testSetCount_addNull_nullSupported() {
     assertSetCount(null, 1);
@@ -377,7 +377,7 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
       setCountNoCheckReturnValue(e3(), -1);
       fail(
           "calling setCount() with a negative count should throw "
-              + "IllegalArgumentException or UnsupportedOperationException");
+          + "IllegalArgumentException or UnsupportedOperationException");
     } catch (IllegalArgumentException | UnsupportedOperationException expected) {
     }
   }
@@ -392,9 +392,9 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
   @GwtIncompatible // reflection
   public static List<Method> getSetCountDuplicateInitializingMethods() {
     return Arrays.asList(
-        getMethod("testSetCount_threeToThree_removeSupported"),
-        getMethod("testSetCount_threeToZero_supported"),
-        getMethod("testSetCount_threeToOne_supported"));
+            getMethod("testSetCount_threeToThree_removeSupported"),
+            getMethod("testSetCount_threeToZero_supported"),
+            getMethod("testSetCount_threeToOne_supported"));
   }
 
   @GwtIncompatible // reflection

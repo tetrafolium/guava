@@ -57,18 +57,18 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
       + "Sed nec arcu sem. In hac habitasse platea dictumst.";
 
   static final ImmutableMap<String, String> TEST_STRINGS
-      = ImmutableMap.<String, String>builder()
-      .put("empty", "")
-      .put("1 char", "0")
-      .put("1 word", "hello")
-      .put("2 words", "hello world")
-      .put("\\n line break", "hello\nworld")
-      .put("\\r line break", "hello\rworld")
-      .put("\\r\\n line break", "hello\r\nworld")
-      .put("\\n at EOF", "hello\nworld\n")
-      .put("\\r at EOF", "hello\nworld\r")
-      .put("lorem ipsum", LOREM_IPSUM)
-      .build();
+    = ImmutableMap.<String, String>builder()
+        .put("empty", "")
+        .put("1 char", "0")
+        .put("1 word", "hello")
+        .put("2 words", "hello world")
+        .put("\\n line break", "hello\nworld")
+        .put("\\r line break", "hello\rworld")
+        .put("\\r\\n line break", "hello\r\nworld")
+        .put("\\n at EOF", "hello\nworld\n")
+        .put("\\r at EOF", "hello\nworld\r")
+        .put("lorem ipsum", LOREM_IPSUM)
+        .build();
 
   protected final F factory;
   protected final T data;
@@ -98,7 +98,7 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
         public Reader openStream() throws IOException {
           return new StringReader(string);
         }
-      }.readLines();
+      } .readLines();
     } catch (IOException e) {
       throw new AssertionError();
     }

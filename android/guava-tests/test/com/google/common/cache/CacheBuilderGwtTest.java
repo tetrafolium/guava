@@ -256,20 +256,20 @@ public class CacheBuilderGwtTest extends TestCase {
       @Override
       public void onRemoval(RemovalNotification<Integer, Integer> notification) {
         switch (notification.getCause()) {
-          case EXPIRED:
-            stats[0]++;
-            break;
-          case EXPLICIT:
-            stats[1]++;
-            break;
-          case REPLACED:
-            stats[2]++;
-            break;
-          case SIZE:
-            stats[3]++;
-            break;
-          default:
-            throw new IllegalStateException("No collected exceptions in GWT CacheBuilder.");
+        case EXPIRED:
+          stats[0]++;
+          break;
+        case EXPLICIT:
+          stats[1]++;
+          break;
+        case REPLACED:
+          stats[2]++;
+          break;
+        case SIZE:
+          stats[3]++;
+          break;
+        default:
+          throw new IllegalStateException("No collected exceptions in GWT CacheBuilder.");
         }
       }
     };

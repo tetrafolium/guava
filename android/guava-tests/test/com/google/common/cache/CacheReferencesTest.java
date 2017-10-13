@@ -35,11 +35,11 @@ import junit.framework.TestCase;
 public class CacheReferencesTest extends TestCase {
 
   private static final CacheLoader<Key,String> KEY_TO_STRING_LOADER =
-      new CacheLoader<Key, String>() {
-        @Override public String load(Key key) {
-          return key.toString();
-        }
-      };
+  new CacheLoader<Key, String>() {
+    @Override public String load(Key key) {
+      return key.toString();
+    }
+  };
 
   private CacheBuilderFactory factoryWithAllKeyStrengths() {
     return new CacheBuilderFactory()
@@ -50,11 +50,11 @@ public class CacheReferencesTest extends TestCase {
   private Iterable<LoadingCache<Key, String>> caches() {
     CacheBuilderFactory factory = factoryWithAllKeyStrengths();
     return Iterables.transform(factory.buildAllPermutations(),
-        new Function<CacheBuilder<Object, Object>, LoadingCache<Key, String>>() {
-          @Override public LoadingCache<Key, String> apply(CacheBuilder<Object, Object> builder) {
-            return builder.build(KEY_TO_STRING_LOADER);
-          }
-        });
+    new Function<CacheBuilder<Object, Object>, LoadingCache<Key, String>>() {
+      @Override public LoadingCache<Key, String> apply(CacheBuilder<Object, Object> builder) {
+        return builder.build(KEY_TO_STRING_LOADER);
+      }
+    });
   }
 
   public void testContainsKeyAndValue() {

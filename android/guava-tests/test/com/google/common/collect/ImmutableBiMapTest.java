@@ -91,7 +91,7 @@ public class ImmutableBiMapTest extends TestCase {
   }
 
   public static abstract class AbstractMapTests<K, V>
-      extends MapInterfaceTest<K, V> {
+    extends MapInterfaceTest<K, V> {
     public AbstractMapTests() {
       super(false, false, false, false, false);
     }
@@ -145,7 +145,7 @@ public class ImmutableBiMapTest extends TestCase {
   }
 
   public static class InverseMapTests
-      extends AbstractMapTests<String, Integer> {
+    extends AbstractMapTests<String, Integer> {
     @Override protected Map<String, Integer> makeEmptyMap() {
       return ImmutableBiMap.of();
     }
@@ -166,7 +166,7 @@ public class ImmutableBiMapTest extends TestCase {
   public static class CreationTests extends TestCase {
     public void testEmptyBuilder() {
       ImmutableBiMap<String, Integer> map
-          = new Builder<String, Integer>().build();
+        = new Builder<String, Integer>().build();
       assertEquals(Collections.<String, Integer>emptyMap(), map);
       assertEquals(Collections.<Integer, String>emptyMap(), map.inverse());
       assertSame(ImmutableBiMap.of(), map);
@@ -174,22 +174,22 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testSingletonBuilder() {
       ImmutableBiMap<String, Integer> map = new Builder<String, Integer>()
-          .put("one", 1)
-          .build();
+      .put("one", 1)
+      .build();
       assertMapEquals(map, "one", 1);
       assertMapEquals(map.inverse(), 1, "one");
     }
 
     public void testBuilder_withImmutableEntry() {
       ImmutableBiMap<String, Integer> map = new Builder<String, Integer>()
-          .put(Maps.immutableEntry("one", 1))
-          .build();
+      .put(Maps.immutableEntry("one", 1))
+      .build();
       assertMapEquals(map, "one", 1);
     }
 
     public void testBuilder() {
       ImmutableBiMap<String, Integer> map
-          = ImmutableBiMap.<String, Integer>builder()
+        = ImmutableBiMap.<String, Integer>builder()
             .put("one", 1)
             .put("two", 2)
             .put("three", 3)
@@ -220,13 +220,13 @@ public class ImmutableBiMapTest extends TestCase {
     public void testBuilder_orderEntriesByValue() {
       ImmutableBiMap<String, Integer> map =
           ImmutableBiMap.<String, Integer>builder()
-              .orderEntriesByValue(Ordering.natural())
-              .put("three", 3)
-              .put("one", 1)
-              .put("five", 5)
-              .put("four", 4)
-              .put("two", 2)
-              .build();
+          .orderEntriesByValue(Ordering.natural())
+          .put("three", 3)
+          .put("one", 1)
+          .put("five", 5)
+          .put("four", 4)
+          .put("two", 2)
+          .build();
       assertMapEquals(map,
           "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
       assertMapEquals(map.inverse(),
@@ -245,7 +245,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testBuilder_orderEntriesByValue_usedTwiceFails() {
       ImmutableBiMap.Builder<String, Integer> builder = new Builder<String, Integer>()
-          .orderEntriesByValue(Ordering.natural());
+      .orderEntriesByValue(Ordering.natural());
       try {
         builder.orderEntriesByValue(Ordering.natural());
         fail("Expected IllegalStateException");
@@ -254,8 +254,8 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testBuilderPutAllWithEmptyMap() {
       ImmutableBiMap<String, Integer> map = new Builder<String, Integer>()
-          .putAll(Collections.<String, Integer>emptyMap())
-          .build();
+      .putAll(Collections.<String, Integer>emptyMap())
+      .build();
       assertEquals(Collections.<String, Integer>emptyMap(), map);
     }
 
@@ -269,9 +269,9 @@ public class ImmutableBiMapTest extends TestCase {
       moreToPut.put("five", 5);
 
       ImmutableBiMap<String, Integer> map = new Builder<String, Integer>()
-          .putAll(toPut)
-          .putAll(moreToPut)
-          .build();
+      .putAll(toPut)
+      .putAll(moreToPut)
+      .build();
       assertMapEquals(map,
           "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
       assertMapEquals(map.inverse(),
@@ -334,8 +334,8 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testPuttingTheSameKeyTwiceThrowsOnBuild() {
       Builder<String, Integer> builder = new Builder<String, Integer>()
-          .put("one", 1)
-          .put("one", 1); // throwing on this line would be even better
+      .put("one", 1)
+      .put("one", 1); // throwing on this line would be even better
 
       try {
         builder.build();
@@ -420,7 +420,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testCopyOfEmptyMap() {
       ImmutableBiMap<String, Integer> copy
-          = ImmutableBiMap.copyOf(Collections.<String, Integer>emptyMap());
+        = ImmutableBiMap.copyOf(Collections.<String, Integer>emptyMap());
       assertEquals(Collections.<String, Integer>emptyMap(), copy);
       assertSame(copy, ImmutableBiMap.copyOf(copy));
       assertSame(ImmutableBiMap.of(), copy);
@@ -428,7 +428,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testCopyOfSingletonMap() {
       ImmutableBiMap<String, Integer> copy
-          = ImmutableBiMap.copyOf(Collections.singletonMap("one", 1));
+        = ImmutableBiMap.copyOf(Collections.singletonMap("one", 1));
       assertMapEquals(copy, "one", 1);
       assertSame(copy, ImmutableBiMap.copyOf(copy));
     }
@@ -455,14 +455,14 @@ public class ImmutableBiMapTest extends TestCase {
       hashMap.put("one", 1);
       hashMap.put("two", 2);
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of("one", 1, "two", 2));
+              ImmutableMap.of("one", 1, "two", 2));
       assertMapEquals(bimap, "one", 1, "two", 2);
       assertMapEquals(bimap.inverse(), 1, "one", 2, "two");
     }
 
     public void testFromImmutableMap() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          new ImmutableMap.Builder<String, Integer>()
+              new ImmutableMap.Builder<String, Integer>()
               .put("one", 1)
               .put("two", 2)
               .put("three", 3)
@@ -477,12 +477,12 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testDuplicateValues() {
       ImmutableMap<String, Integer> map
-          = new ImmutableMap.Builder<String, Integer>()
-              .put("one", 1)
-              .put("two", 2)
-              .put("uno", 1)
-              .put("dos", 2)
-              .build();
+        = new ImmutableMap.Builder<String, Integer>()
+      .put("one", 1)
+      .put("two", 2)
+      .put("uno", 1)
+      .put("dos", 2)
+      .build();
 
       try {
         ImmutableBiMap.copyOf(map);
@@ -505,7 +505,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testKeySet() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
+              ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
       Set<String> keys = bimap.keySet();
       assertEquals(Sets.newHashSet("one", "two", "three", "four"), keys);
       assertThat(keys).containsExactly("one", "two", "three", "four").inOrder();
@@ -513,7 +513,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testValues() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
+              ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4));
       Set<Integer> values = bimap.values();
       assertEquals(Sets.newHashSet(1, 2, 3, 4), values);
       assertThat(values).containsExactly(1, 2, 3, 4).inOrder();
@@ -521,7 +521,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     public void testDoubleInverse() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of("one", 1, "two", 2));
+              ImmutableMap.of("one", 1, "two", 2));
       assertSame(bimap, bimap.inverse().inverse());
     }
 
@@ -534,7 +534,7 @@ public class ImmutableBiMapTest extends TestCase {
     @GwtIncompatible // SerializableTester
     public void testSerialization() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of("one", 1, "two", 2));
+              ImmutableMap.of("one", 1, "two", 2));
       ImmutableBiMap<String, Integer> copy =
           SerializableTester.reserializeAndAssert(bimap);
       assertEquals(Integer.valueOf(1), copy.get("one"));
@@ -545,7 +545,7 @@ public class ImmutableBiMapTest extends TestCase {
     @GwtIncompatible // SerializableTester
     public void testInverseSerialization() {
       ImmutableBiMap<String, Integer> bimap = ImmutableBiMap.copyOf(
-          ImmutableMap.of(1, "one", 2, "two")).inverse();
+              ImmutableMap.of(1, "one", 2, "two")).inverse();
       ImmutableBiMap<String, Integer> copy =
           SerializableTester.reserializeAndAssert(bimap);
       assertEquals(Integer.valueOf(1), copy.get("one"));

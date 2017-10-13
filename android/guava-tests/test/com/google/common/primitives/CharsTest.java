@@ -40,13 +40,13 @@ public class CharsTest extends TestCase {
   private static final char[] EMPTY = {};
   private static final char[] ARRAY1 = {(char) 1};
   private static final char[] ARRAY234
-      = {(char) 2, (char) 3, (char) 4};
+    = {(char) 2, (char) 3, (char) 4};
 
   private static final char LEAST = Character.MIN_VALUE;
   private static final char GREATEST = Character.MAX_VALUE;
 
   private static final char[] VALUES =
-      {LEAST, 'a', '\u00e0', '\udcaa', GREATEST};
+  {LEAST, 'a', '\u00e0', '\udcaa', GREATEST};
 
   public void testHashCode() {
     for (char value : VALUES) {
@@ -89,8 +89,8 @@ public class CharsTest extends TestCase {
       for (char y : VALUES) {
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Character.valueOf(x).compareTo(y),
-                     Chars.compare(x, y));
+            Character.valueOf(x).compareTo(y),
+            Chars.compare(x, y));
       }
     }
   }
@@ -110,13 +110,13 @@ public class CharsTest extends TestCase {
     assertEquals(-1, Chars.indexOf(ARRAY1, (char) 2));
     assertEquals(-1, Chars.indexOf(ARRAY234, (char) 1));
     assertEquals(0, Chars.indexOf(
-        new char[] {(char) -1}, (char) -1));
+            new char[] {(char) -1}, (char) -1));
     assertEquals(0, Chars.indexOf(ARRAY234, (char) 2));
     assertEquals(1, Chars.indexOf(ARRAY234, (char) 3));
     assertEquals(2, Chars.indexOf(ARRAY234, (char) 4));
     assertEquals(1, Chars.indexOf(
-        new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
-        (char) 3));
+            new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
+            (char) 3));
   }
 
   public void testIndexOf_arrayTarget() {
@@ -128,29 +128,32 @@ public class CharsTest extends TestCase {
     assertEquals(0, Chars.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Chars.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Chars.indexOf(
-        ARRAY234, new char[] { (char) 2, (char) 3 }));
+            ARRAY234, new char[] { (char) 2, (char) 3 }));
     assertEquals(1, Chars.indexOf(
-        ARRAY234, new char[] { (char) 3, (char) 4 }));
+            ARRAY234, new char[] { (char) 3, (char) 4 }));
     assertEquals(1, Chars.indexOf(ARRAY234, new char[] { (char) 3 }));
     assertEquals(2, Chars.indexOf(ARRAY234, new char[] { (char) 4 }));
     assertEquals(1, Chars.indexOf(new char[] { (char) 2, (char) 3,
-        (char) 3, (char) 3, (char) 3 },
-        new char[] { (char) 3 }
-    ));
+                (char) 3, (char) 3, (char) 3
+            },
+            new char[] { (char) 3 }
+        ));
     assertEquals(2, Chars.indexOf(
-        new char[] { (char) 2, (char) 3, (char) 2,
-            (char) 3, (char) 4, (char) 2, (char) 3},
-        new char[] { (char) 2, (char) 3, (char) 4}
-    ));
+            new char[] { (char) 2, (char) 3, (char) 2,
+                (char) 3, (char) 4, (char) 2, (char) 3
+            },
+            new char[] { (char) 2, (char) 3, (char) 4}
+        ));
     assertEquals(1, Chars.indexOf(
-        new char[] { (char) 2, (char) 2, (char) 3,
-            (char) 4, (char) 2, (char) 3, (char) 4},
-        new char[] { (char) 2, (char) 3, (char) 4}
-    ));
+            new char[] { (char) 2, (char) 2, (char) 3,
+                (char) 4, (char) 2, (char) 3, (char) 4
+            },
+            new char[] { (char) 2, (char) 3, (char) 4}
+        ));
     assertEquals(-1, Chars.indexOf(
-        new char[] { (char) 4, (char) 3, (char) 2},
-        new char[] { (char) 2, (char) 3, (char) 4}
-    ));
+            new char[] { (char) 4, (char) 3, (char) 2},
+            new char[] { (char) 2, (char) 3, (char) 4}
+        ));
   }
 
   public void testLastIndexOf() {
@@ -158,13 +161,13 @@ public class CharsTest extends TestCase {
     assertEquals(-1, Chars.lastIndexOf(ARRAY1, (char) 2));
     assertEquals(-1, Chars.lastIndexOf(ARRAY234, (char) 1));
     assertEquals(0, Chars.lastIndexOf(
-        new char[] {(char) -1}, (char) -1));
+            new char[] {(char) -1}, (char) -1));
     assertEquals(0, Chars.lastIndexOf(ARRAY234, (char) 2));
     assertEquals(1, Chars.lastIndexOf(ARRAY234, (char) 3));
     assertEquals(2, Chars.lastIndexOf(ARRAY234, (char) 4));
     assertEquals(3, Chars.lastIndexOf(
-        new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
-        (char) 3));
+            new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
+            (char) 3));
   }
 
   public void testMax_noArgs() {
@@ -179,8 +182,8 @@ public class CharsTest extends TestCase {
     assertEquals(LEAST, Chars.max(LEAST));
     assertEquals(GREATEST, Chars.max(GREATEST));
     assertEquals((char) 9, Chars.max(
-        (char) 8, (char) 6, (char) 7,
-        (char) 5, (char) 3, (char) 0, (char) 9));
+            (char) 8, (char) 6, (char) 7,
+            (char) 5, (char) 3, (char) 0, (char) 9));
   }
 
   public void testMin_noArgs() {
@@ -195,8 +198,8 @@ public class CharsTest extends TestCase {
     assertEquals(LEAST, Chars.min(LEAST));
     assertEquals(GREATEST, Chars.min(GREATEST));
     assertEquals((char) 0, Chars.min(
-        (char) 8, (char) 6, (char) 7,
-        (char) 5, (char) 3, (char) 0, (char) 9));
+            (char) 8, (char) 6, (char) 7,
+            (char) 5, (char) 3, (char) 0, (char) 9));
   }
 
   public void testConstrainToRange() {
@@ -220,19 +223,19 @@ public class CharsTest extends TestCase {
     assertNotSame(ARRAY1, Chars.concat(ARRAY1));
     assertTrue(Arrays.equals(ARRAY1, Chars.concat(EMPTY, ARRAY1, EMPTY)));
     assertTrue(Arrays.equals(
-        new char[] {(char) 1, (char) 1, (char) 1},
-        Chars.concat(ARRAY1, ARRAY1, ARRAY1)));
+            new char[] {(char) 1, (char) 1, (char) 1},
+            Chars.concat(ARRAY1, ARRAY1, ARRAY1)));
     assertTrue(Arrays.equals(
-        new char[] {(char) 1, (char) 2, (char) 3, (char) 4},
-        Chars.concat(ARRAY1, ARRAY234)));
+            new char[] {(char) 1, (char) 2, (char) 3, (char) 4},
+            Chars.concat(ARRAY1, ARRAY234)));
   }
 
   @GwtIncompatible // Chars.fromByteArray
   public void testFromByteArray() {
     assertEquals('\u2345', Chars.fromByteArray(
-        new byte[] {0x23, 0x45, (byte) 0xDC}));
+            new byte[] {0x23, 0x45, (byte) 0xDC}));
     assertEquals('\uFEDC', Chars.fromByteArray(
-        new byte[] {(byte) 0xFE, (byte) 0xDC}));
+            new byte[] {(byte) 0xFE, (byte) 0xDC}));
   }
 
   @GwtIncompatible // Chars.fromByteArray
@@ -255,10 +258,10 @@ public class CharsTest extends TestCase {
     char c = 0;
     for (int hi = 0; hi < 256; hi++) {
       for (int lo = 0; lo < 256; lo++) {
-        char result = Chars.fromByteArray(new byte[]{(byte) hi, (byte) lo});
+        char result = Chars.fromByteArray(new byte[] {(byte) hi, (byte) lo});
         assertEquals(String.format(Locale.ROOT,
-            "hi=%s, lo=%s, expected=%s, result=%s",
-            hi, lo, (int) c, (int) result), c, result);
+                "hi=%s, lo=%s, expected=%s, result=%s",
+                hi, lo, (int) c, (int) result), c, result);
 
         byte[] bytes = Chars.toByteArray(c);
         assertEquals((byte) hi, bytes[0]);
@@ -284,8 +287,8 @@ public class CharsTest extends TestCase {
     assertSame(ARRAY1, Chars.ensureCapacity(ARRAY1, 0, 1));
     assertSame(ARRAY1, Chars.ensureCapacity(ARRAY1, 1, 1));
     assertTrue(Arrays.equals(
-        new char[] {(char) 1, (char) 0, (char) 0},
-        Chars.ensureCapacity(ARRAY1, 2, 1)));
+            new char[] {(char) 1, (char) 0, (char) 0},
+            Chars.ensureCapacity(ARRAY1, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -311,15 +314,15 @@ public class CharsTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<char[]> ordered = Arrays.asList(
-        new char[] {},
-        new char[] {LEAST},
-        new char[] {LEAST, LEAST},
-        new char[] {LEAST, (char) 1},
-        new char[] {(char) 1},
-        new char[] {(char) 1, LEAST},
-        new char[] {GREATEST, GREATEST - (char) 1},
-        new char[] {GREATEST, GREATEST},
-        new char[] {GREATEST, GREATEST, GREATEST});
+            new char[] {},
+            new char[] {LEAST},
+            new char[] {LEAST, LEAST},
+            new char[] {LEAST, (char) 1},
+            new char[] {(char) 1},
+            new char[] {(char) 1, LEAST},
+            new char[] {GREATEST, GREATEST - (char) 1},
+            new char[] {GREATEST, GREATEST},
+            new char[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<char[]> comparator = Chars.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -448,7 +451,7 @@ public class CharsTest extends TestCase {
     // Make sure it returned a copy
     list.set(0, (char) 4);
     assertTrue(Arrays.equals(
-        new char[] { (char) 0, (char) 1, (char) 2 }, newArray));
+            new char[] { (char) 0, (char) 1, (char) 2 }, newArray));
     newArray[1] = (char) 5;
     assertEquals((char) 1, (char) list.get(1));
   }
@@ -458,9 +461,9 @@ public class CharsTest extends TestCase {
     char[] array = { (char) 0, (char) 1, (char) 2, (char) 3 };
     List<Character> list = Chars.asList(array);
     assertTrue(Arrays.equals(new char[] { (char) 1, (char) 2 },
-        Chars.toArray(list.subList(1, 3))));
+            Chars.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new char[] {},
-        Chars.toArray(list.subList(2, 2))));
+            Chars.toArray(list.subList(2, 2))));
   }
 
   public void testAsListEmpty() {

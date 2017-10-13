@@ -91,8 +91,8 @@ public enum MapFeature implements Feature<Map> {
   @Inherited
   @TesterAnnotation
   public @interface Require {
-    public abstract MapFeature[] value() default {};
+  public abstract MapFeature[] value() default {};
 
-    public abstract MapFeature[] absent() default {};
+  public abstract MapFeature[] absent() default {};
   }
 }

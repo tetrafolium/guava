@@ -31,17 +31,17 @@ import com.google.common.testing.EqualsTester;
 public class MultisetEqualsTester<E> extends AbstractMultisetTester<E> {
   public void testEqualsSameContents() {
     new EqualsTester()
-        .addEqualityGroup(
-            getMultiset(), getSubjectGenerator().create(getSampleElements().toArray()))
-        .testEquals();
+    .addEqualityGroup(
+        getMultiset(), getSubjectGenerator().create(getSampleElements().toArray()))
+    .testEquals();
   }
 
   @CollectionSize.Require(absent = ZERO)
   public void testNotEqualsEmpty() {
     new EqualsTester()
-        .addEqualityGroup(getMultiset())
-        .addEqualityGroup(getSubjectGenerator().create())
-        .testEquals();
+    .addEqualityGroup(getMultiset())
+    .addEqualityGroup(getSubjectGenerator().create())
+    .testEquals();
   }
 
   public void testHashCodeMatchesEntrySet() {
@@ -52,10 +52,10 @@ public class MultisetEqualsTester<E> extends AbstractMultisetTester<E> {
   @CollectionFeature.Require(ALLOWS_NULL_VALUES)
   public void testEqualsMultisetWithNullValue() {
     new EqualsTester()
-        .addEqualityGroup(getMultiset())
-        .addEqualityGroup(
-            getSubjectGenerator().create(createArrayWithNullElement()),
-            getSubjectGenerator().create(createArrayWithNullElement()))
-        .testEquals();
+    .addEqualityGroup(getMultiset())
+    .addEqualityGroup(
+        getSubjectGenerator().create(createArrayWithNullElement()),
+        getSubjectGenerator().create(createArrayWithNullElement()))
+    .testEquals();
   }
 }

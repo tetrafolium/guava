@@ -38,20 +38,20 @@ public class UnsignedLongTest extends TestCase {
     ImmutableSet.Builder<BigInteger> testBigIntegersBuilder = ImmutableSet.builder();
     for (long i = -3; i <= 3; i++) {
       testLongsBuilder
-          .add(i)
-          .add(Long.MAX_VALUE + i)
-          .add(Long.MIN_VALUE + i)
-          .add(Integer.MIN_VALUE + i)
-          .add(Integer.MAX_VALUE + i);
+      .add(i)
+      .add(Long.MAX_VALUE + i)
+      .add(Long.MIN_VALUE + i)
+      .add(Integer.MIN_VALUE + i)
+      .add(Integer.MAX_VALUE + i);
       BigInteger bigI = BigInteger.valueOf(i);
       testBigIntegersBuilder
-          .add(bigI)
-          .add(BigInteger.valueOf(Long.MAX_VALUE).add(bigI))
-          .add(BigInteger.valueOf(Long.MIN_VALUE).add(bigI))
-          .add(BigInteger.valueOf(Integer.MAX_VALUE).add(bigI))
-          .add(BigInteger.valueOf(Integer.MIN_VALUE).add(bigI))
-          .add(BigInteger.ONE.shiftLeft(63).add(bigI))
-          .add(BigInteger.ONE.shiftLeft(64).add(bigI));
+      .add(bigI)
+      .add(BigInteger.valueOf(Long.MAX_VALUE).add(bigI))
+      .add(BigInteger.valueOf(Long.MIN_VALUE).add(bigI))
+      .add(BigInteger.valueOf(Integer.MAX_VALUE).add(bigI))
+      .add(BigInteger.valueOf(Integer.MIN_VALUE).add(bigI))
+      .add(BigInteger.ONE.shiftLeft(63).add(bigI))
+      .add(BigInteger.ONE.shiftLeft(64).add(bigI));
     }
     TEST_LONGS = testLongsBuilder.build();
     TEST_BIG_INTEGERS = testBigIntegersBuilder.build();

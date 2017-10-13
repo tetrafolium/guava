@@ -314,7 +314,7 @@ public class FreshValueGeneratorTest extends TestCase {
   public void testConcurrentMap() {
     assertFreshInstance(new TypeToken<ConcurrentMap<String, ?>>() {});
     assertCanGenerateOnly(new TypeToken<ConcurrentMap<EmptyEnum, String>>() {},
-        Maps.newConcurrentMap());
+    Maps.newConcurrentMap());
   }
 
   public void testMultimap() {
@@ -386,21 +386,21 @@ public class FreshValueGeneratorTest extends TestCase {
     FreshValueGenerator generator = new FreshValueGenerator();
     assertEquals(
         com.google.common.base.Optional.absent(),
-        generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
+    generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
     assertEquals(
         com.google.common.base.Optional.of("2"),
-        generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
+    generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
     // Test that the first generated instance for different cgcb.Optional<T> is always absent().
     // Having generated cgcb.Optional<String> instances doesn't prevent absent() from being
     // generated for other cgcb.Optional types.
     assertEquals(
         com.google.common.base.Optional.absent(),
         generator.generateFresh(
-            new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
+    new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
     assertEquals(
         com.google.common.base.Optional.of(OneConstantEnum.CONSTANT1),
         generator.generateFresh(
-            new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
+    new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
   }
 
   public void testAddSampleInstances_twoInstances() {
@@ -435,8 +435,8 @@ public class FreshValueGeneratorTest extends TestCase {
 
   public void testNulls() throws Exception {
     new ClassSanityTester()
-        .setDefault(Method.class, FreshValueGeneratorTest.class.getDeclaredMethod("testNulls"))
-        .testNulls(FreshValueGenerator.class);
+    .setDefault(Method.class, FreshValueGeneratorTest.class.getDeclaredMethod("testNulls"))
+    .testNulls(FreshValueGenerator.class);
   }
 
   private static void assertFreshInstances(Class<?>... types) {

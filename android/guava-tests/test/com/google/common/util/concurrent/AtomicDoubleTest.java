@@ -46,7 +46,7 @@ public class AtomicDoubleTest extends JSR166TestCase {
 
   static void assertBitEquals(double x, double y) {
     assertEquals(Double.doubleToRawLongBits(x),
-                 Double.doubleToRawLongBits(y));
+        Double.doubleToRawLongBits(y));
   }
 
   /**
@@ -113,14 +113,15 @@ public class AtomicDoubleTest extends JSR166TestCase {
    * to succeed
    */
 
-      public void testCompareAndSetInMultipleThreads() throws Exception {
+  public void testCompareAndSetInMultipleThreads() throws Exception {
     final AtomicDouble at = new AtomicDouble(1.0);
     Thread t = newStartedThread(new CheckedRunnable() {
-        public void realRun() {
-          while (!at.compareAndSet(2.0, 3.0)) {
-            Thread.yield();
-          }
-        }});
+      public void realRun() {
+        while (!at.compareAndSet(2.0, 3.0)) {
+          Thread.yield();
+        }
+      }
+    });
 
     assertTrue(at.compareAndSet(1.0, 2.0));
     awaitTermination(t);

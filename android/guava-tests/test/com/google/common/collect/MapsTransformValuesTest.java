@@ -54,7 +54,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
 
   protected Map<String, String> makeEmptyMap() {
     return Maps.transformValues(Maps.<String, String>newHashMap(),
-        Functions.<String>identity());
+            Functions.<String>identity());
   }
 
   @Override
@@ -67,12 +67,12 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
   }
 
   @Override protected String getKeyNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return "z";
   }
 
   @Override protected String getValueNotInPopulatedMap()
-      throws UnsupportedOperationException {
+  throws UnsupportedOperationException {
     return "26";
   }
 
@@ -93,13 +93,13 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
 
   public void testTransformEmptyMapEquality() {
     Map<String, String> map = Maps.transformValues(
-        ImmutableMap.<String, Integer>of(), Functions.toStringFunction());
+            ImmutableMap.<String, Integer>of(), Functions.toStringFunction());
     assertMapsEqual(Maps.newHashMap(), map);
   }
 
   public void testTransformSingletonMapEquality() {
     Map<String, String> map = Maps.transformValues(
-        ImmutableMap.of("a", 1), Functions.toStringFunction());
+            ImmutableMap.of("a", 1), Functions.toStringFunction());
     Map<String, String> expected = ImmutableMap.of("a", "1");
     assertMapsEqual(expected, map);
     assertEquals(expected.get("a"), map.get("a"));
@@ -108,13 +108,13 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
   public void testTransformIdentityFunctionEquality() {
     Map<String, Integer> underlying = ImmutableMap.of("a", 1);
     Map<String, Integer> map = Maps.transformValues(
-        underlying, Functions.<Integer>identity());
+            underlying, Functions.<Integer>identity());
     assertMapsEqual(underlying, map);
   }
 
   public void testTransformPutEntryIsUnsupported() {
     Map<String, String> map = Maps.transformValues(
-        ImmutableMap.of("a", 1), Functions.toStringFunction());
+            ImmutableMap.of("a", 1), Functions.toStringFunction());
     try {
       map.put("b", "2");
       fail();
@@ -138,7 +138,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     Map<String, Integer> underlying = Maps.newHashMap();
     underlying.put("a", 1);
     Map<String, String> map
-        = Maps.transformValues(underlying, Functions.toStringFunction());
+      = Maps.transformValues(underlying, Functions.toStringFunction());
     assertEquals("1", map.remove("a"));
     assertNull(map.remove("b"));
   }
@@ -149,13 +149,13 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     underlying.put("b", "");
 
     Map<String, Boolean> map = Maps.transformValues(underlying,
-        new Function<String, Boolean>() {
-          @Override
-          public Boolean apply(@Nullable String from) {
-            return from == null;
-          }
-        }
-    );
+    new Function<String, Boolean>() {
+      @Override
+      public Boolean apply(@Nullable String from) {
+        return from == null;
+      }
+    }
+        );
     Map<String, Boolean> expected = ImmutableMap.of("a", true, "b", false);
     assertMapsEqual(expected, map);
     assertEquals(expected.get("a"), map.get("a"));
@@ -172,7 +172,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     underlying.put("b", 2);
     underlying.put("c", 3);
     Map<String, String> map
-        = Maps.transformValues(underlying, Functions.toStringFunction());
+      = Maps.transformValues(underlying, Functions.toStringFunction());
     assertEquals(underlying.size(), map.size());
 
     underlying.put("d", 4);
@@ -197,7 +197,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     underlying.put("f", 6);
     underlying.put("g", 7);
     Map<String, String> map
-        = Maps.transformValues(underlying, Functions.toStringFunction());
+      = Maps.transformValues(underlying, Functions.toStringFunction());
 
     map.remove("a");
     assertFalse(underlying.containsKey("a"));
@@ -240,24 +240,24 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
   public void testTransformEquals() {
     Map<String, Integer> underlying = ImmutableMap.of("a", 0, "b", 1, "c", 2);
     Map<String, Integer> expected
-        = Maps.transformValues(underlying, Functions.<Integer>identity());
+      = Maps.transformValues(underlying, Functions.<Integer>identity());
 
     assertMapsEqual(expected, expected);
 
     Map<String, Integer> equalToUnderlying = Maps.newTreeMap();
     equalToUnderlying.putAll(underlying);
     Map<String, Integer> map = Maps.transformValues(
-        equalToUnderlying, Functions.<Integer>identity());
+            equalToUnderlying, Functions.<Integer>identity());
     assertMapsEqual(expected, map);
 
     map = Maps.transformValues(ImmutableMap.of("a", 1, "b", 2, "c", 3),
-        new Function<Integer, Integer>() {
-          @Override
-          public Integer apply(Integer from) {
-            return from - 1;
-          }
-        }
-    );
+    new Function<Integer, Integer>() {
+      @Override
+      public Integer apply(Integer from) {
+        return from - 1;
+      }
+    }
+        );
     assertMapsEqual(expected, map);
   }
 
@@ -268,19 +268,19 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     underlying.put(null, true);
 
     Map<String, Boolean> map = Maps.transformValues(
-        underlying, new Function<Boolean, Boolean>() {
-          @Override
-          public Boolean apply(@Nullable Boolean from) {
-            return (from == null) || null;
-          }
-        }
-    );
+    underlying, new Function<Boolean, Boolean>() {
+      @Override
+      public Boolean apply(@Nullable Boolean from) {
+        return (from == null) || null;
+      }
+    }
+        );
 
     Set<Map.Entry<String, Boolean>> entries = map.entrySet();
     assertTrue(entries.contains(Maps.immutableEntry("a", true)));
     assertTrue(entries.contains(Maps.immutableEntry("b", (Boolean) null)));
     assertTrue(entries.contains(
-        Maps.immutableEntry((String) null, (Boolean) null)));
+            Maps.immutableEntry((String) null, (Boolean) null)));
 
     assertFalse(entries.contains(Maps.immutableEntry("c", (Boolean) null)));
     assertFalse(entries.contains(Maps.immutableEntry((String) null, true)));

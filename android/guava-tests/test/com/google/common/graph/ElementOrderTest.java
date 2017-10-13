@@ -75,13 +75,13 @@ public final class ElementOrderTest {
   public void nodeOrder_sorted() {
     MutableGraph<Integer> graph =
         GraphBuilder.directed()
-            .nodeOrder(ElementOrder.sorted(Ordering.<Integer>natural().reverse()))
-            .build();
+        .nodeOrder(ElementOrder.sorted(Ordering.<Integer>natural().reverse()))
+        .build();
 
     addNodes(graph);
 
     assertThat(graph.nodeOrder())
-        .isEqualTo(ElementOrder.sorted(Ordering.<Integer>natural().reverse()));
+    .isEqualTo(ElementOrder.sorted(Ordering.<Integer>natural().reverse()));
     assertThat(graph.nodes()).containsExactly(4, 3, 1).inOrder();
   }
 
@@ -136,13 +136,13 @@ public final class ElementOrderTest {
   public void edgeOrder_sorted() {
     MutableNetwork<Integer, String> network =
         NetworkBuilder.directed()
-            .edgeOrder(ElementOrder.sorted(Ordering.<String>natural().reverse()))
-            .build();
+        .edgeOrder(ElementOrder.sorted(Ordering.<String>natural().reverse()))
+        .build();
 
     addEdges(network);
 
     assertThat(network.edgeOrder())
-        .isEqualTo(ElementOrder.sorted(Ordering.<String>natural().reverse()));
+    .isEqualTo(ElementOrder.sorted(Ordering.<String>natural().reverse()));
     assertThat(network.edges()).containsExactly("p", "i", "e").inOrder();
     assertThat(network.nodeOrder()).isEqualTo(ElementOrder.insertion()); // default
   }
@@ -153,14 +153,14 @@ public final class ElementOrderTest {
   public void nodeOrderUnorderedandEdgesSorted() {
     MutableNetwork<Integer, String> network =
         NetworkBuilder.directed()
-            .nodeOrder(unordered())
-            .edgeOrder(ElementOrder.sorted(Ordering.<String>natural().reverse()))
-            .build();
+        .nodeOrder(unordered())
+        .edgeOrder(ElementOrder.sorted(Ordering.<String>natural().reverse()))
+        .build();
 
     addEdges(network);
 
     assertThat(network.edgeOrder())
-        .isEqualTo(ElementOrder.sorted(Ordering.<String>natural().reverse()));
+    .isEqualTo(ElementOrder.sorted(Ordering.<String>natural().reverse()));
     assertThat(network.edges()).containsExactly("p", "i", "e").inOrder();
     assertThat(network.nodeOrder()).isEqualTo(unordered());
     assertThat(network.nodes()).containsExactly(4, 1, 3);
@@ -171,12 +171,12 @@ public final class ElementOrderTest {
   @Test
   public void customComparator() {
     Comparator<NonComparableSuperClass> comparator =
-        new Comparator<NonComparableSuperClass>() {
-          @Override
-          public int compare(NonComparableSuperClass left, NonComparableSuperClass right) {
-            return left.value.compareTo(right.value);
-          }
-        };
+    new Comparator<NonComparableSuperClass>() {
+      @Override
+      public int compare(NonComparableSuperClass left, NonComparableSuperClass right) {
+        return left.value.compareTo(right.value);
+      }
+    };
 
     MutableGraph<NonComparableSuperClass> graph =
         GraphBuilder.undirected().nodeOrder(ElementOrder.sorted(comparator)).build();
@@ -240,7 +240,7 @@ public final class ElementOrderTest {
   }
 
   private static class ComparableSubClass extends NonComparableSuperClass
-      implements Comparable<NonComparableSuperClass> {
+    implements Comparable<NonComparableSuperClass> {
 
     ComparableSubClass(Integer value) {
       super(value);

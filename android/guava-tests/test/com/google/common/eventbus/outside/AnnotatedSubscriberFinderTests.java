@@ -62,7 +62,7 @@ public class AnnotatedSubscriberFinderTests {
    * We break the tests up based on whether they are annotated or abstract in the superclass.
    */
   public static class BaseSubscriberFinderTest
-      extends AbstractEventBusTest<BaseSubscriberFinderTest.Subscriber> {
+    extends AbstractEventBusTest<BaseSubscriberFinderTest.Subscriber> {
     static class Subscriber {
       final List<Object> nonSubscriberEvents = Lists.newArrayList();
       final List<Object> subscriberEvents = Lists.newArrayList();
@@ -92,7 +92,7 @@ public class AnnotatedSubscriberFinderTests {
   }
 
   public static class AnnotatedAndAbstractInSuperclassTest
-      extends AbstractEventBusTest<AnnotatedAndAbstractInSuperclassTest.SubClass> {
+    extends AbstractEventBusTest<AnnotatedAndAbstractInSuperclassTest.SubClass> {
     abstract static class SuperClass {
       @Subscribe
       public abstract void overriddenAndAnnotatedInSubclass(Object o);
@@ -132,7 +132,7 @@ public class AnnotatedSubscriberFinderTests {
   }
 
   public static class AnnotatedNotAbstractInSuperclassTest
-      extends AbstractEventBusTest<AnnotatedNotAbstractInSuperclassTest.SubClass> {
+    extends AbstractEventBusTest<AnnotatedNotAbstractInSuperclassTest.SubClass> {
     static class SuperClass {
       final List<Object> notOverriddenInSubclassEvents = Lists.newArrayList();
       final List<Object> overriddenNotAnnotatedInSubclassEvents = Lists.newArrayList();
@@ -207,7 +207,7 @@ public class AnnotatedSubscriberFinderTests {
 
     public void testDifferentlyOverriddenNotAnnotatedInSubclass() {
       assertThat(getSubscriber().differentlyOverriddenNotAnnotatedInSubclassGoodEvents)
-          .contains(EVENT);
+      .contains(EVENT);
       assertThat(getSubscriber().differentlyOverriddenNotAnnotatedInSubclassBadEvents).isEmpty();
     }
 
@@ -217,7 +217,7 @@ public class AnnotatedSubscriberFinderTests {
 
     public void testDifferentlyOverriddenAndAnnotatedInSubclass() {
       assertThat(getSubscriber().differentlyOverriddenAnnotatedInSubclassGoodEvents)
-          .contains(EVENT);
+      .contains(EVENT);
       assertThat(getSubscriber().differentlyOverriddenAnnotatedInSubclassBadEvents).isEmpty();
     }
 
@@ -228,7 +228,7 @@ public class AnnotatedSubscriberFinderTests {
   }
 
   public static class AbstractNotAnnotatedInSuperclassTest
-      extends AbstractEventBusTest<AbstractNotAnnotatedInSuperclassTest.SubClass> {
+    extends AbstractEventBusTest<AbstractNotAnnotatedInSuperclassTest.SubClass> {
     abstract static class SuperClass {
       public abstract void overriddenInSubclassNowhereAnnotated(Object o);
 
@@ -266,7 +266,7 @@ public class AnnotatedSubscriberFinderTests {
   }
 
   public static class NeitherAbstractNorAnnotatedInSuperclassTest
-      extends AbstractEventBusTest<NeitherAbstractNorAnnotatedInSuperclassTest.SubClass> {
+    extends AbstractEventBusTest<NeitherAbstractNorAnnotatedInSuperclassTest.SubClass> {
     static class SuperClass {
       final List<Object> neitherOverriddenNorAnnotatedEvents = Lists.newArrayList();
       final List<Object> overriddenInSubclassNowhereAnnotatedEvents = Lists.newArrayList();
@@ -317,7 +317,7 @@ public class AnnotatedSubscriberFinderTests {
   }
 
   public static class DeepInterfaceTest
-      extends AbstractEventBusTest<DeepInterfaceTest.SubscriberClass> {
+    extends AbstractEventBusTest<DeepInterfaceTest.SubscriberClass> {
     interface Interface1 {
       @Subscribe
       void annotatedIn1(Object o);

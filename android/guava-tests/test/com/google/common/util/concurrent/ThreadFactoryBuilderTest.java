@@ -39,11 +39,11 @@ public class ThreadFactoryBuilderTest extends TestCase {
   };
 
   private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER =
-      new UncaughtExceptionHandler() {
-        @Override public void uncaughtException(Thread t, Throwable e) {
-          // No-op
-        }
-      };
+  new UncaughtExceptionHandler() {
+    @Override public void uncaughtException(Thread t, Throwable e) {
+      // No-op
+    }
+  };
 
   private ThreadFactoryBuilder builder;
   private volatile boolean completed = false;
@@ -84,8 +84,8 @@ public class ThreadFactoryBuilderTest extends TestCase {
     checkThreadPoolName(thread3, 1);
     assertThat(
         thread2.getName().substring(0, thread.getName().lastIndexOf('-')))
-        .isNotEqualTo(
-            thread3.getName().substring(0, thread.getName().lastIndexOf('-')));
+    .isNotEqualTo(
+        thread3.getName().substring(0, thread.getName().lastIndexOf('-')));
   }
 
   private static void checkThreadPoolName(Thread thread, int threadId) {

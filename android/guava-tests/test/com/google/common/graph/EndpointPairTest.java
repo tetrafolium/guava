@@ -64,7 +64,7 @@ public final class EndpointPairTest {
     assertThat(unordered.isOrdered()).isFalse();
     assertThat(unordered).containsExactly("chicken", "egg");
     assertThat(ImmutableSet.of(unordered.nodeU(), unordered.nodeV()))
-        .containsExactly("chicken", "egg");
+    .containsExactly("chicken", "egg");
     assertThat(unordered.adjacentNode(unordered.nodeU())).isEqualTo(unordered.nodeV());
     assertThat(unordered.adjacentNode(unordered.nodeV())).isEqualTo(unordered.nodeU());
     assertThat(unordered.toString()).contains("chicken");
@@ -107,10 +107,10 @@ public final class EndpointPairTest {
     EndpointPair<String> unorderedMirror = EndpointPair.unordered("b", "a");
 
     new EqualsTester()
-        .addEqualityGroup(ordered)
-        .addEqualityGroup(orderedMirror)
-        .addEqualityGroup(unordered, unorderedMirror)
-        .testEquals();
+    .addEqualityGroup(ordered)
+    .addEqualityGroup(orderedMirror)
+    .addEqualityGroup(unordered, unorderedMirror)
+    .testEquals();
   }
 
   // Tests for Graph.edges() and Network.asGraph().edges() methods

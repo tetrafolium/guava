@@ -52,9 +52,9 @@ public class ByteSourceTest extends IoTestCase {
     TestSuite suite = new TestSuite();
     for (boolean asCharSource : new boolean[] {false, true}) {
       suite.addTest(ByteSourceTester.tests("ByteSource.wrap[byte[]]",
-          SourceSinkFactories.byteArraySourceFactory(), asCharSource));
+              SourceSinkFactories.byteArraySourceFactory(), asCharSource));
       suite.addTest(ByteSourceTester.tests("ByteSource.empty[]",
-          SourceSinkFactories.emptyByteSourceFactory(), asCharSource));
+              SourceSinkFactories.emptyByteSourceFactory(), asCharSource));
     }
     suite.addTestSuite(ByteSourceTest.class);
     return suite;
@@ -378,22 +378,22 @@ public class ByteSourceTest extends IoTestCase {
   }
 
   private static final ByteSource BROKEN_CLOSE_SOURCE
-      = new TestByteSource(new byte[10], CLOSE_THROWS);
+    = new TestByteSource(new byte[10], CLOSE_THROWS);
   private static final ByteSource BROKEN_OPEN_SOURCE
-      = new TestByteSource(new byte[10], OPEN_THROWS);
+    = new TestByteSource(new byte[10], OPEN_THROWS);
   private static final ByteSource BROKEN_READ_SOURCE
-      = new TestByteSource(new byte[10], READ_THROWS);
+    = new TestByteSource(new byte[10], READ_THROWS);
   private static final ByteSink BROKEN_CLOSE_SINK
-      = new TestByteSink(CLOSE_THROWS);
+    = new TestByteSink(CLOSE_THROWS);
   private static final ByteSink BROKEN_OPEN_SINK
-      = new TestByteSink(OPEN_THROWS);
+    = new TestByteSink(OPEN_THROWS);
   private static final ByteSink BROKEN_WRITE_SINK
-      = new TestByteSink(WRITE_THROWS);
+    = new TestByteSink(WRITE_THROWS);
 
   private static final ImmutableSet<ByteSource> BROKEN_SOURCES
-      = ImmutableSet.of(BROKEN_CLOSE_SOURCE, BROKEN_OPEN_SOURCE, BROKEN_READ_SOURCE);
+    = ImmutableSet.of(BROKEN_CLOSE_SOURCE, BROKEN_OPEN_SOURCE, BROKEN_READ_SOURCE);
   private static final ImmutableSet<ByteSink> BROKEN_SINKS
-      = ImmutableSet.of(BROKEN_CLOSE_SINK, BROKEN_OPEN_SINK, BROKEN_WRITE_SINK);
+    = ImmutableSet.of(BROKEN_CLOSE_SINK, BROKEN_OPEN_SINK, BROKEN_WRITE_SINK);
 
   public void testCopyExceptions() {
     if (!Closer.SuppressingSuppressor.isAvailable()) {

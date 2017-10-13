@@ -100,7 +100,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
-    implements ListMultimap<K, V>, Serializable {
+  implements ListMultimap<K, V>, Serializable {
   /*
    * Order is maintained using a linked list containing all key-value pairs. In
    * addition, a series of disjoint linked lists of "siblings", each containing

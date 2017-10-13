@@ -44,7 +44,7 @@ public abstract class AbstractTableReadTest extends TestCase {
    * @throws ClassCastException if a data element has the wrong type
    */
   protected abstract Table<String, Integer, Character>
-      create(Object... data);
+  create(Object... data);
 
   protected void assertSize(int expectedSize) {
     assertEquals(expectedSize, table.size());
@@ -122,20 +122,20 @@ public abstract class AbstractTableReadTest extends TestCase {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Table<String, Integer, Character> hashCopy = HashBasedTable.create(table);
     Table<String, Integer, Character> reordered
-        = create("foo", 3, 'c', "foo", 1, 'a', "bar", 1, 'b');
+      = create("foo", 3, 'c', "foo", 1, 'a', "bar", 1, 'b');
     Table<String, Integer, Character> smaller
-        = create("foo", 1, 'a', "bar", 1, 'b');
+      = create("foo", 1, 'a', "bar", 1, 'b');
     Table<String, Integer, Character> swapOuter
-        = create("bar", 1, 'a', "foo", 1, 'b', "bar", 3, 'c');
+      = create("bar", 1, 'a', "foo", 1, 'b', "bar", 3, 'c');
     Table<String, Integer, Character> swapValues
-        = create("foo", 1, 'c', "bar", 1, 'b', "foo", 3, 'a');
+      = create("foo", 1, 'c', "bar", 1, 'b', "foo", 3, 'a');
 
     new EqualsTester()
-        .addEqualityGroup(table, hashCopy, reordered)
-        .addEqualityGroup(smaller)
-        .addEqualityGroup(swapOuter)
-        .addEqualityGroup(swapValues)
-        .testEquals();
+    .addEqualityGroup(table, hashCopy, reordered)
+    .addEqualityGroup(smaller)
+    .addEqualityGroup(swapOuter)
+    .addEqualityGroup(swapValues)
+    .testEquals();
   }
 
   public void testHashCode() {
@@ -181,14 +181,14 @@ public abstract class AbstractTableReadTest extends TestCase {
 
   public void testColumnSetPartialOverlap() {
     table = create(
-        "foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');
+            "foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');
     assertThat(table.columnKeySet()).containsExactly(1, 2, 3);
   }
 
   @GwtIncompatible // NullPointerTester
   public void testNullPointerInstance() {
     table = create(
-        "foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');
+            "foo", 1, 'a', "bar", 1, 'b', "foo", 2, 'c', "bar", 3, 'd');
     new NullPointerTester().testAllPublicInstanceMethods(table);
   }
 }

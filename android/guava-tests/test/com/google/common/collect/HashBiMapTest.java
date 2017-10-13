@@ -56,16 +56,16 @@ public class HashBiMapTest extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(BiMapTestSuiteBuilder.using(new HashBiMapGenerator())
-      .named("HashBiMap")
-      .withFeatures(CollectionSize.ANY,
-          CollectionFeature.SERIALIZABLE,
-          CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-          CollectionFeature.KNOWN_ORDER,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES,
-          MapFeature.GENERAL_PURPOSE)
-      .createTestSuite());
+        .named("HashBiMap")
+        .withFeatures(CollectionSize.ANY,
+            CollectionFeature.SERIALIZABLE,
+            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+            CollectionFeature.KNOWN_ORDER,
+            MapFeature.ALLOWS_NULL_KEYS,
+            MapFeature.ALLOWS_NULL_VALUES,
+            MapFeature.ALLOWS_ANY_NULL_QUERIES,
+            MapFeature.GENERAL_PURPOSE)
+        .createTestSuite());
     suite.addTestSuite(HashBiMapTest.class);
     return suite;
   }
@@ -73,9 +73,9 @@ public class HashBiMapTest extends TestCase {
   public void testMapConstructor() {
     /* Test with non-empty Map. */
     Map<String, String> map = ImmutableMap.of(
-        "canada", "dollar",
-        "chile", "peso",
-        "switzerland", "franc");
+            "canada", "dollar",
+            "chile", "peso",
+            "switzerland", "franc");
     HashBiMap<String, String> bimap = HashBiMap.create(map);
     assertEquals("dollar", bimap.get("canada"));
     assertEquals("canada", bimap.inverse().get("dollar"));
@@ -205,8 +205,8 @@ public class HashBiMapTest extends TestCase {
     map.put("quux", 1);
 
     assertThat(map.inverse().entrySet())
-        .containsExactly(Maps.immutableEntry(2, "bar"), Maps.immutableEntry(1, "quux"))
-        .inOrder();
+    .containsExactly(Maps.immutableEntry(2, "bar"), Maps.immutableEntry(1, "quux"))
+    .inOrder();
   }
 
   public void testInverseInsertionOrderAfterInverseForcePut() {

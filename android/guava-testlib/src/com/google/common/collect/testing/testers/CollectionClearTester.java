@@ -52,7 +52,7 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
       collection.clear();
       fail(
           "clear() should throw UnsupportedOperation if a collection does "
-              + "not support it and is not empty.");
+          + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();

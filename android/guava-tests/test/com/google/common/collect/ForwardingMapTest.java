@@ -126,47 +126,47 @@ public class ForwardingMapTest extends TestCase {
     suite.addTestSuite(ForwardingMapTest.class);
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestStringMapGenerator() {
+    new TestStringMapGenerator() {
 
-                  @Override
-                  protected Map<String, String> create(Entry<String, String>[] entries) {
-                    Map<String, String> map = Maps.newLinkedHashMap();
-                    for (Entry<String, String> entry : entries) {
-                      map.put(entry.getKey(), entry.getValue());
-                    }
-                    return new StandardImplForwardingMap<>(map);
-                  }
-                })
-            .named("ForwardingMap[LinkedHashMap] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.ALLOWS_NULL_VALUES,
-                MapFeature.ALLOWS_NULL_KEYS,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                MapFeature.GENERAL_PURPOSE,
-                CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-                CollectionFeature.KNOWN_ORDER)
-            .createTestSuite());
+      @Override
+      protected Map<String, String> create(Entry<String, String>[] entries) {
+        Map<String, String> map = Maps.newLinkedHashMap();
+        for (Entry<String, String> entry : entries) {
+          map.put(entry.getKey(), entry.getValue());
+        }
+        return new StandardImplForwardingMap<>(map);
+      }
+    })
+    .named("ForwardingMap[LinkedHashMap] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        MapFeature.GENERAL_PURPOSE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        CollectionFeature.KNOWN_ORDER)
+    .createTestSuite());
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestStringMapGenerator() {
+    new TestStringMapGenerator() {
 
-                  @Override
-                  protected Map<String, String> create(Entry<String, String>[] entries) {
-                    ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
-                    for (Entry<String, String> entry : entries) {
-                      builder.put(entry.getKey(), entry.getValue());
-                    }
-                    return new StandardImplForwardingMap<>(builder.build());
-                  }
-                })
-            .named("ForwardingMap[ImmutableMap] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.KNOWN_ORDER)
-            .createTestSuite());
+      @Override
+      protected Map<String, String> create(Entry<String, String>[] entries) {
+        ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+        for (Entry<String, String> entry : entries) {
+          builder.put(entry.getKey(), entry.getValue());
+        }
+        return new StandardImplForwardingMap<>(builder.build());
+      }
+    })
+    .named("ForwardingMap[ImmutableMap] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.KNOWN_ORDER)
+    .createTestSuite());
 
     return suite;
   }
@@ -174,20 +174,20 @@ public class ForwardingMapTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(Map.class, new Function<Map, Map>() {
-          @Override public Map apply(Map delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(Map.class, new Function<Map, Map>() {
+      @Override public Map apply(Map delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     Map<Integer, String> map1 = ImmutableMap.of(1, "one");
     Map<Integer, String> map2 = ImmutableMap.of(2, "two");
     new EqualsTester()
-        .addEqualityGroup(map1, wrap(map1), wrap(map1))
-        .addEqualityGroup(map2, wrap(map2))
-        .testEquals();
+    .addEqualityGroup(map1, wrap(map1), wrap(map1))
+    .addEqualityGroup(map2, wrap(map2))
+    .testEquals();
   }
 
   public void testStandardEntrySet() throws InvocationTargetException {
@@ -195,22 +195,22 @@ public class ForwardingMapTest extends TestCase {
     final Map<String, Boolean> map = mock(Map.class);
 
     Map<String, Boolean> forward =
-        new ForwardingMap<String, Boolean>() {
-          @Override
-          protected Map<String, Boolean> delegate() {
-            return map;
-          }
+    new ForwardingMap<String, Boolean>() {
+      @Override
+      protected Map<String, Boolean> delegate() {
+        return map;
+      }
 
+      @Override
+      public Set<Entry<String, Boolean>> entrySet() {
+        return new StandardEntrySet() {
           @Override
-          public Set<Entry<String, Boolean>> entrySet() {
-            return new StandardEntrySet() {
-              @Override
-              public Iterator<Entry<String, Boolean>> iterator() {
-                return Iterators.emptyIterator();
-              }
-            };
+          public Iterator<Entry<String, Boolean>> iterator() {
+            return Iterators.emptyIterator();
           }
         };
+      }
+    };
     callAllPublicMethods(Set.class, forward.entrySet());
 
     // These are the methods specified by StandardEntrySet
@@ -333,7 +333,7 @@ public class ForwardingMapTest extends TestCase {
   }
 
   private static <T> void callAllPublicMethods(Class<T> theClass, T object)
-      throws InvocationTargetException {
+  throws InvocationTargetException {
     for (Method method : theClass.getMethods()) {
       if ((method.getModifiers() & STATIC) != 0) {
         continue;

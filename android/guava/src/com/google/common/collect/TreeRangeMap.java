@@ -64,7 +64,7 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
   }
 
   private static final class RangeMapEntry<K extends Comparable, V>
-      extends AbstractMapEntry<Range<K>, V> {
+    extends AbstractMapEntry<Range<K>, V> {
     private final Range<K> range;
     private final V value;
 
@@ -185,7 +185,7 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
       throw new NoSuchElementException();
     }
     return Range.create(
-        firstEntry.getValue().getKey().lowerBound, lastEntry.getValue().getKey().upperBound);
+            firstEntry.getValue().getKey().lowerBound, lastEntry.getValue().getKey().upperBound);
   }
 
   private void putRangeMapEntry(Cut<K> lowerBound, Cut<K> upperBound, V value) {
@@ -304,70 +304,70 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
   }
 
   private static final RangeMap EMPTY_SUB_RANGE_MAP =
-      new RangeMap() {
-        @Override
-        @Nullable
-        public Object get(Comparable key) {
-          return null;
-        }
+  new RangeMap() {
+    @Override
+    @Nullable
+    public Object get(Comparable key) {
+      return null;
+    }
 
-        @Override
-        @Nullable
-        public Entry<Range, Object> getEntry(Comparable key) {
-          return null;
-        }
+    @Override
+    @Nullable
+    public Entry<Range, Object> getEntry(Comparable key) {
+      return null;
+    }
 
-        @Override
-        public Range span() {
-          throw new NoSuchElementException();
-        }
+    @Override
+    public Range span() {
+      throw new NoSuchElementException();
+    }
 
-        @Override
-        public void put(Range range, Object value) {
-          checkNotNull(range);
-          throw new IllegalArgumentException(
-              "Cannot insert range " + range + " into an empty subRangeMap");
-        }
+    @Override
+    public void put(Range range, Object value) {
+      checkNotNull(range);
+      throw new IllegalArgumentException(
+          "Cannot insert range " + range + " into an empty subRangeMap");
+    }
 
-        @Override
-        public void putCoalescing(Range range, Object value) {
-          checkNotNull(range);
-          throw new IllegalArgumentException(
-              "Cannot insert range " + range + " into an empty subRangeMap");
-        }
+    @Override
+    public void putCoalescing(Range range, Object value) {
+      checkNotNull(range);
+      throw new IllegalArgumentException(
+          "Cannot insert range " + range + " into an empty subRangeMap");
+    }
 
-        @Override
-        public void putAll(RangeMap rangeMap) {
-          if (!rangeMap.asMapOfRanges().isEmpty()) {
-            throw new IllegalArgumentException(
-                "Cannot putAll(nonEmptyRangeMap) into an empty subRangeMap");
-          }
-        }
+    @Override
+    public void putAll(RangeMap rangeMap) {
+      if (!rangeMap.asMapOfRanges().isEmpty()) {
+        throw new IllegalArgumentException(
+            "Cannot putAll(nonEmptyRangeMap) into an empty subRangeMap");
+      }
+    }
 
-        @Override
-        public void clear() {}
+    @Override
+    public void clear() {}
 
-        @Override
-        public void remove(Range range) {
-          checkNotNull(range);
-        }
+    @Override
+    public void remove(Range range) {
+      checkNotNull(range);
+    }
 
-        @Override
-        public Map<Range, Object> asMapOfRanges() {
-          return Collections.emptyMap();
-        }
+    @Override
+    public Map<Range, Object> asMapOfRanges() {
+      return Collections.emptyMap();
+    }
 
-        @Override
-        public Map<Range, Object> asDescendingMapOfRanges() {
-          return Collections.emptyMap();
-        }
+    @Override
+    public Map<Range, Object> asDescendingMapOfRanges() {
+      return Collections.emptyMap();
+    }
 
-        @Override
-        public RangeMap subRangeMap(Range range) {
-          checkNotNull(range);
-          return this;
-        }
-      };
+    @Override
+    public RangeMap subRangeMap(Range range) {
+      checkNotNull(range);
+      return this;
+    }
+  };
 
   private class SubRangeMap implements RangeMap<K, V> {
 
@@ -493,10 +493,10 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
           }
           final Iterator<RangeMapEntry<K, V>> backingItr =
               entriesByLowerBound
-                  .headMap(subRange.upperBound, false)
-                  .descendingMap()
-                  .values()
-                  .iterator();
+              .headMap(subRange.upperBound, false)
+              .descendingMap()
+              .values()
+              .iterator();
           return new AbstractIterator<Entry<Range<K>, V>>() {
 
             @Override

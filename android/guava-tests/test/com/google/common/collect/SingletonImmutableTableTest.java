@@ -70,18 +70,18 @@ public class SingletonImmutableTableTest extends AbstractImmutableTableTest {
 
   public void testEqualsObject() {
     new EqualsTester()
-        .addEqualityGroup(testTable, HashBasedTable.create(testTable))
-        .addEqualityGroup(ImmutableTable.of(), HashBasedTable.create())
-        .addEqualityGroup(HashBasedTable.create(ImmutableTable.of('A', 2, "")))
-        .testEquals();
+    .addEqualityGroup(testTable, HashBasedTable.create(testTable))
+    .addEqualityGroup(ImmutableTable.of(), HashBasedTable.create())
+    .addEqualityGroup(HashBasedTable.create(ImmutableTable.of('A', 2, "")))
+    .testEquals();
   }
 
   @GwtIncompatible // ArrayTable
   public void testEqualsObjectNullValues() {
     new EqualsTester()
-        .addEqualityGroup(testTable)
-        .addEqualityGroup(ArrayTable.create(ImmutableSet.of('A'), ImmutableSet.of(1)))
-        .testEquals();
+    .addEqualityGroup(testTable)
+    .addEqualityGroup(ArrayTable.create(ImmutableSet.of('A'), ImmutableSet.of(1)))
+    .testEquals();
   }
 
   public void testToString() {

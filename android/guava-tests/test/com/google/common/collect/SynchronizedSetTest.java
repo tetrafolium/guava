@@ -42,20 +42,20 @@ public class SynchronizedSetTest extends TestCase {
 
   public static Test suite() {
     return SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override
-          protected Set<String> create(String[] elements) {
-            TestSet<String> inner = new TestSet<>(new HashSet<String>(), MUTEX);
-            Set<String> outer = Synchronized.set(inner, inner.mutex);
-            Collections.addAll(outer, elements);
-            return outer;
-          }
-        })
-        .named("Synchronized.set")
-        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE)
-        .createTestSuite();
+      @Override
+      protected Set<String> create(String[] elements) {
+        TestSet<String> inner = new TestSet<>(new HashSet<String>(), MUTEX);
+        Set<String> outer = Synchronized.set(inner, inner.mutex);
+        Collections.addAll(outer, elements);
+        return outer;
+      }
+    })
+    .named("Synchronized.set")
+    .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionSize.ANY,
+        CollectionFeature.SERIALIZABLE)
+    .createTestSuite();
   }
 
   static class TestSet<E> extends ForwardingSet<E> implements Serializable {

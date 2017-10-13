@@ -65,7 +65,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
-    implements Serializable {
+  implements Serializable {
 
   /** Returns an empty multimap. */
   public static <K, V> ImmutableMultimap<K, V> of() {
@@ -279,8 +279,8 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
             MultimapBuilder.linkedHashKeys().arrayListValues().<K, V>build();
         List<Map.Entry<K, Collection<V>>> entries =
             Ordering.from(keyComparator)
-                .<K>onKeys()
-                .immutableSortedCopy(builderMultimap.asMap().entrySet());
+            .<K>onKeys()
+            .immutableSortedCopy(builderMultimap.asMap().entrySet());
         for (Map.Entry<K, Collection<V>> entry : entries) {
           sortedCopy.putAll(entry.getKey(), entry.getValue());
         }

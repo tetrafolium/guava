@@ -58,7 +58,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
 
   private static final class IntegerDomain extends DiscreteDomain<Integer> implements Serializable {
     private static final IntegerDomain INSTANCE = new IntegerDomain();
-    
+
     IntegerDomain() {
       super(true);
     }
@@ -74,7 +74,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
       int i = value;
       return (i == Integer.MIN_VALUE) ? null : i - 1;
     }
-    
+
     @Override
     Integer offset(Integer origin, long distance) {
       checkNonnegative(distance, "distance");
@@ -119,7 +119,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
 
   private static final class LongDomain extends DiscreteDomain<Long> implements Serializable {
     private static final LongDomain INSTANCE = new LongDomain();
-    
+
     LongDomain() {
       super(true);
     }
@@ -190,7 +190,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
   }
 
   private static final class BigIntegerDomain extends DiscreteDomain<BigInteger>
-      implements Serializable {
+    implements Serializable {
     private static final BigIntegerDomain INSTANCE = new BigIntegerDomain();
 
     BigIntegerDomain() {
@@ -232,7 +232,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
 
     private static final long serialVersionUID = 0;
   }
-  
+
   final boolean supportsFastOffset;
 
   /** Constructor for use by subclasses. */

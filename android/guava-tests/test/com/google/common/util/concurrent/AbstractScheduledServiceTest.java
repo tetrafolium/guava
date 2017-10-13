@@ -355,15 +355,15 @@ public class AbstractScheduledServiceTest extends TestCase {
       Future<?> unused =
           schedule.schedule(
               null,
-              new ScheduledThreadPoolExecutor(1) {
-                @Override
-                public ScheduledFuture<?> scheduleAtFixedRate(
-                    Runnable command, long initialDelay, long period, TimeUnit unit) {
-                  assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
-                  return null;
-                }
-              },
-              testRunnable);
+      new ScheduledThreadPoolExecutor(1) {
+        @Override
+        public ScheduledFuture<?> scheduleAtFixedRate(
+            Runnable command, long initialDelay, long period, TimeUnit unit) {
+          assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
+          return null;
+        }
+      },
+      testRunnable);
       assertTrue(called);
     }
 
@@ -372,20 +372,20 @@ public class AbstractScheduledServiceTest extends TestCase {
       Future<?> unused =
           schedule.schedule(
               null,
-              new ScheduledThreadPoolExecutor(10) {
-                @Override
-                public ScheduledFuture<?> scheduleWithFixedDelay(
-                    Runnable command, long initialDelay, long delay, TimeUnit unit) {
-                  assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
-                  return null;
-                }
-              },
-              testRunnable);
+      new ScheduledThreadPoolExecutor(10) {
+        @Override
+        public ScheduledFuture<?> scheduleWithFixedDelay(
+            Runnable command, long initialDelay, long delay, TimeUnit unit) {
+          assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
+          return null;
+        }
+      },
+      testRunnable);
       assertTrue(called);
     }
 
     public void testFixedDelayScheduleFarFuturePotentiallyOverflowingScheduleIsNeverReached()
-        throws Exception {
+    throws Exception {
       TestAbstractScheduledCustomService service = new TestAbstractScheduledCustomService() {
         @Override protected Scheduler scheduler() {
           return newFixedDelaySchedule(Long.MAX_VALUE, Long.MAX_VALUE, SECONDS);
@@ -403,7 +403,7 @@ public class AbstractScheduledServiceTest extends TestCase {
     }
 
     public void testCustomSchedulerFarFuturePotentiallyOverflowingScheduleIsNeverReached()
-        throws Exception {
+    throws Exception {
       TestAbstractScheduledCustomService service = new TestAbstractScheduledCustomService() {
         @Override protected Scheduler scheduler() {
           return new AbstractScheduledService.CustomScheduler() {
@@ -549,7 +549,8 @@ public class AbstractScheduledServiceTest extends TestCase {
           @Override
           protected Schedule getNextSchedule() throws Exception {
             return new Schedule(delay, unit);
-          }};
+          }
+        };
       }
     }
 
@@ -594,7 +595,8 @@ public class AbstractScheduledServiceTest extends TestCase {
               throw new IllegalStateException("Failed");
             }
             return new Schedule(delay, unit);
-          }};
+          }
+        };
       }
     }
   }

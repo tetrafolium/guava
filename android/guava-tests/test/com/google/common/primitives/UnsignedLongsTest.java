@@ -71,8 +71,8 @@ public class UnsignedLongsTest extends TestCase {
     assertEquals(LEAST, UnsignedLongs.max(LEAST));
     assertEquals(GREATEST, UnsignedLongs.max(GREATEST));
     assertEquals(0xff1a618b7f65ea12L, UnsignedLongs.max(
-        0x5a4316b8c153ac4dL, 8L, 100L,
-        0L, 0x6cf78a4b139a4e2aL, 0xff1a618b7f65ea12L));
+            0x5a4316b8c153ac4dL, 8L, 100L,
+            0L, 0x6cf78a4b139a4e2aL, 0xff1a618b7f65ea12L));
   }
 
   public void testMin_noArgs() {
@@ -87,21 +87,21 @@ public class UnsignedLongsTest extends TestCase {
     assertEquals(LEAST, UnsignedLongs.min(LEAST));
     assertEquals(GREATEST, UnsignedLongs.min(GREATEST));
     assertEquals(0L, UnsignedLongs.min(
-        0x5a4316b8c153ac4dL, 8L, 100L,
-        0L, 0x6cf78a4b139a4e2aL, 0xff1a618b7f65ea12L));
+            0x5a4316b8c153ac4dL, 8L, 100L,
+            0L, 0x6cf78a4b139a4e2aL, 0xff1a618b7f65ea12L));
   }
 
   public void testLexicographicalComparator() {
     List<long[]> ordered = Arrays.asList(
-        new long[] {},
-        new long[] {LEAST},
-        new long[] {LEAST, LEAST},
-        new long[] {LEAST, (long) 1},
-        new long[] {(long) 1},
-        new long[] {(long) 1, LEAST},
-        new long[] {GREATEST, GREATEST - (long) 1},
-        new long[] {GREATEST, GREATEST},
-        new long[] {GREATEST, GREATEST, GREATEST});
+            new long[] {},
+            new long[] {LEAST},
+            new long[] {LEAST, LEAST},
+            new long[] {LEAST, (long) 1},
+            new long[] {(long) 1},
+            new long[] {(long) 1, LEAST},
+            new long[] {GREATEST, GREATEST - (long) 1},
+            new long[] {GREATEST, GREATEST},
+            new long[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<long[]> comparator = UnsignedLongs.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -200,7 +200,7 @@ public class UnsignedLongsTest extends TestCase {
       // Test that the Euclidean property is preserved:
       assertEquals(0,
           dividend - (divisor * UnsignedLongs.divide(dividend, divisor)
-          + UnsignedLongs.remainder(dividend, divisor)));
+              + UnsignedLongs.remainder(dividend, divisor)));
     }
   }
 

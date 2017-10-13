@@ -138,31 +138,31 @@ public class ForwardingListTest extends TestCase {
     suite.addTestSuite(ForwardingListTest.class);
     suite.addTest(
         ListTestSuiteBuilder.using(
-                new TestStringListGenerator() {
+    new TestStringListGenerator() {
 
-                  @Override
-                  protected List<String> create(String[] elements) {
-                    return new StandardImplForwardingList<>(Lists.newArrayList(elements));
-                  }
-                })
-            .named("ForwardingList[ArrayList] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                ListFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+      @Override
+      protected List<String> create(String[] elements) {
+        return new StandardImplForwardingList<>(Lists.newArrayList(elements));
+      }
+    })
+    .named("ForwardingList[ArrayList] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        ListFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     suite.addTest(
         ListTestSuiteBuilder.using(
-                new TestStringListGenerator() {
+    new TestStringListGenerator() {
 
-                  @Override
-                  protected List<String> create(String[] elements) {
-                    return new StandardImplForwardingList<>(ImmutableList.copyOf(elements));
-                  }
-                })
-            .named("ForwardingList[ImmutableList] with standard implementations")
-            .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
-            .createTestSuite());
+      @Override
+      protected List<String> create(String[] elements) {
+        return new StandardImplForwardingList<>(ImmutableList.copyOf(elements));
+      }
+    })
+    .named("ForwardingList[ImmutableList] with standard implementations")
+    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
 
     return suite;
   }
@@ -170,20 +170,20 @@ public class ForwardingListTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(List.class, new Function<List, List>() {
-          @Override public List apply(List delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(List.class, new Function<List, List>() {
+      @Override public List apply(List delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     List<String> list1 = ImmutableList.of("one");
     List<String> list2 = ImmutableList.of("two");
     new EqualsTester()
-        .addEqualityGroup(list1, wrap(list1), wrap(list1))
-        .addEqualityGroup(list2, wrap(list2))
-        .testEquals();
+    .addEqualityGroup(list1, wrap(list1), wrap(list1))
+    .addEqualityGroup(list2, wrap(list2))
+    .testEquals();
   }
 
   private static <T> List<T> wrap(final List<T> delegate) {

@@ -113,7 +113,7 @@ public class FauxveridesTest extends TestCase {
     Set<MethodSignature> missing = ImmutableSortedSet.copyOf(difference(required, found));
     if (!missing.isEmpty()) {
       fail(rootLocaleFormat("%s should hide the public static methods declared in %s: %s",
-          descendant.getSimpleName(), ancestor.getSimpleName(), missing));
+              descendant.getSimpleName(), ancestor.getSimpleName(), missing));
     }
   }
 
@@ -168,7 +168,7 @@ public class FauxveridesTest extends TestCase {
    * See JLS 8.4.2 for the definition of the related "override-equivalent."
    */
   private static final class MethodSignature
-      implements Comparable<MethodSignature> {
+    implements Comparable<MethodSignature> {
     final String name;
     final List<Class<?>> parameterTypes;
     final TypeSignature typeSignature;
@@ -196,7 +196,7 @@ public class FauxveridesTest extends TestCase {
 
     @Override public String toString() {
       return rootLocaleFormat("%s%s(%s)",
-          typeSignature, name, getTypesString(parameterTypes));
+              typeSignature, name, getTypesString(parameterTypes));
     }
 
     @Override public int compareTo(MethodSignature o) {
@@ -210,12 +210,12 @@ public class FauxveridesTest extends TestCase {
     TypeSignature(TypeVariable<Method>[] parameters) {
       parameterSignatures =
           transform(Arrays.asList(parameters),
-              new Function<TypeVariable<?>, TypeParameterSignature>() {
-                @Override
-                public TypeParameterSignature apply(TypeVariable<?> from) {
-                  return new TypeParameterSignature(from);
-                }
-              });
+      new Function<TypeVariable<?>, TypeParameterSignature>() {
+        @Override
+        public TypeParameterSignature apply(TypeVariable<?> from) {
+          return new TypeParameterSignature(from);
+        }
+      });
     }
 
     @Override public boolean equals(Object obj) {
@@ -277,15 +277,15 @@ public class FauxveridesTest extends TestCase {
   }
 
   private static final Function<Type, String> SIMPLE_NAME_GETTER =
-      new Function<Type, String>() {
-        @Override
-        public String apply(Type from) {
-          if (from instanceof Class) {
-            return ((Class<?>) from).getSimpleName();
-          }
-          return from.toString();
-        }
-      };
+  new Function<Type, String>() {
+    @Override
+    public String apply(Type from) {
+      if (from instanceof Class) {
+        return ((Class<?>) from).getSimpleName();
+      }
+      return from.toString();
+    }
+  };
 
   private static String rootLocaleFormat(String format, Object... args) {
     return String.format(Locale.ROOT, format, args);

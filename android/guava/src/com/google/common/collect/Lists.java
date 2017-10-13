@@ -314,7 +314,7 @@ public final class Lists {
 
   /** @see Lists#asList(Object, Object[]) */
   private static class OnePlusArrayList<E> extends AbstractList<E>
-      implements Serializable, RandomAccess {
+    implements Serializable, RandomAccess {
     final E first;
     final E[] rest;
 
@@ -361,7 +361,7 @@ public final class Lists {
 
   /** @see Lists#asList(Object, Object, Object[]) */
   private static class TwoPlusArrayList<E> extends AbstractList<E>
-      implements Serializable, RandomAccess {
+    implements Serializable, RandomAccess {
     final E first;
     final E second;
     final E[] rest;
@@ -380,14 +380,14 @@ public final class Lists {
     @Override
     public E get(int index) {
       switch (index) {
-        case 0:
-          return first;
-        case 1:
-          return second;
-        default:
-          // check explicitly so the IOOBE will have the right message
-          checkElementIndex(index, size());
-          return rest[index - 2];
+      case 0:
+        return first;
+      case 1:
+        return second;
+      default:
+        // check explicitly so the IOOBE will have the right message
+        checkElementIndex(index, size());
+        return rest[index - 2];
       }
     }
 
@@ -567,7 +567,7 @@ public final class Lists {
    * @see Lists#transform
    */
   private static class TransformingSequentialList<F, T> extends AbstractSequentialList<T>
-      implements Serializable {
+    implements Serializable {
     final List<F> fromList;
     final Function<? super F, ? extends T> function;
 
@@ -612,7 +612,7 @@ public final class Lists {
    * @see Lists#transform
    */
   private static class TransformingRandomAccessList<F, T> extends AbstractList<T>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final List<F> fromList;
     final Function<? super F, ? extends T> function;
 
@@ -1118,24 +1118,24 @@ public final class Lists {
     List<E> wrapper;
     if (list instanceof RandomAccess) {
       wrapper =
-          new RandomAccessListWrapper<E>(list) {
-            @Override
-            public ListIterator<E> listIterator(int index) {
-              return backingList.listIterator(index);
-            }
+      new RandomAccessListWrapper<E>(list) {
+        @Override
+        public ListIterator<E> listIterator(int index) {
+          return backingList.listIterator(index);
+        }
 
-            private static final long serialVersionUID = 0;
-          };
+        private static final long serialVersionUID = 0;
+      };
     } else {
       wrapper =
-          new AbstractListWrapper<E>(list) {
-            @Override
-            public ListIterator<E> listIterator(int index) {
-              return backingList.listIterator(index);
-            }
+      new AbstractListWrapper<E>(list) {
+        @Override
+        public ListIterator<E> listIterator(int index) {
+          return backingList.listIterator(index);
+        }
 
-            private static final long serialVersionUID = 0;
-          };
+        private static final long serialVersionUID = 0;
+      };
     }
     return wrapper.subList(fromIndex, toIndex);
   }
@@ -1184,7 +1184,7 @@ public final class Lists {
   }
 
   private static class RandomAccessListWrapper<E> extends AbstractListWrapper<E>
-      implements RandomAccess {
+    implements RandomAccess {
     RandomAccessListWrapper(List<E> backingList) {
       super(backingList);
     }

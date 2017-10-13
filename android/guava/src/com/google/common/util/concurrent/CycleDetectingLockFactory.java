@@ -275,7 +275,7 @@ public class CycleDetectingLockFactory {
 
   // A static mapping from an Enum type to its set of LockGraphNodes.
   private static final ConcurrentMap<Class<? extends Enum>, Map<? extends Enum, LockGraphNode>>
-      lockGraphNodesPerType = new MapMaker().weakKeys().makeMap();
+  lockGraphNodesPerType = new MapMaker().weakKeys().makeMap();
 
   /**
    * Creates a {@code CycleDetectingLockFactory.WithExplicitOrdering<E>}.
@@ -397,7 +397,7 @@ public class CycleDetectingLockFactory {
    */
   @Beta
   public static final class WithExplicitOrdering<E extends Enum<E>>
-      extends CycleDetectingLockFactory {
+    extends CycleDetectingLockFactory {
 
     private final Map<E, LockGraphNode> lockGraphNodes;
 
@@ -467,12 +467,12 @@ public class CycleDetectingLockFactory {
   // This is logically a Set, but an ArrayList is used to minimize the amount
   // of allocation done on lock()/unlock().
   private static final ThreadLocal<ArrayList<LockGraphNode>> acquiredLocks =
-      new ThreadLocal<ArrayList<LockGraphNode>>() {
-        @Override
-        protected ArrayList<LockGraphNode> initialValue() {
-          return Lists.<LockGraphNode>newArrayListWithCapacity(3);
-        }
-      };
+  new ThreadLocal<ArrayList<LockGraphNode>>() {
+    @Override
+    protected ArrayList<LockGraphNode> initialValue() {
+      return Lists.<LockGraphNode>newArrayListWithCapacity(3);
+    }
+  };
 
   /**
    * A Throwable used to record a stack trace that illustrates an example of a specific lock
@@ -648,7 +648,7 @@ public class CycleDetectingLockFactory {
         // (the example cycle) as that of the cached exception.
         PotentialDeadlockException exception =
             new PotentialDeadlockException(
-                acquiredLock, this, previousDeadlockException.getConflictingStackTrace());
+            acquiredLock, this, previousDeadlockException.getConflictingStackTrace());
         policy.handlePotentialDeadlock(exception);
         return;
       }
@@ -817,7 +817,7 @@ public class CycleDetectingLockFactory {
   }
 
   final class CycleDetectingReentrantReadWriteLock extends ReentrantReadWriteLock
-      implements CycleDetectingLock {
+    implements CycleDetectingLock {
 
     // These ReadLock/WriteLock implementations shadow those in the
     // ReentrantReadWriteLock superclass. They are simply wrappers around the

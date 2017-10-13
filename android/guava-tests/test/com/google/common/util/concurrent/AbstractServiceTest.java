@@ -132,7 +132,7 @@ public class AbstractServiceTest extends TestCase {
   }
 
   public void testNoOpServiceStartStopAndWaitUninterruptible()
-      throws Exception {
+  throws Exception {
     NoOpService service = new NoOpService();
 
     currentThread().interrupt();
@@ -192,7 +192,7 @@ public class AbstractServiceTest extends TestCase {
             State.RUNNING,
             State.STOPPING,
             State.TERMINATED),
-            listener.getStateHistory());
+        listener.getStateHistory());
 
   }
 
@@ -212,7 +212,7 @@ public class AbstractServiceTest extends TestCase {
             State.STARTING,
             State.RUNNING,
             State.TERMINATED),
-            listener.getStateHistory());
+        listener.getStateHistory());
   }
 
   public void testManualServiceStopWhileStarting() throws Exception {
@@ -242,7 +242,7 @@ public class AbstractServiceTest extends TestCase {
             State.STARTING,
             State.STOPPING,
             State.TERMINATED),
-            listener.getStateHistory());
+        listener.getStateHistory());
   }
 
   /**
@@ -400,7 +400,7 @@ public class AbstractServiceTest extends TestCase {
             State.RUNNING,
             State.STOPPING,
             State.TERMINATED),
-            listener.getStateHistory());
+        listener.getStateHistory());
   }
 
   public void testThreadedServiceStopIdempotence() throws Throwable {
@@ -419,7 +419,7 @@ public class AbstractServiceTest extends TestCase {
   }
 
   public void testThreadedServiceStopIdempotenceAfterWait()
-      throws Throwable {
+  throws Throwable {
     ThreadedService service = new ThreadedService();
 
     service.startAsync().awaitRunning();
@@ -437,7 +437,7 @@ public class AbstractServiceTest extends TestCase {
   }
 
   public void testThreadedServiceStopIdempotenceDoubleWait()
-      throws Throwable {
+  throws Throwable {
     ThreadedService service = new ThreadedService();
 
     service.startAsync().awaitRunning();
@@ -857,7 +857,7 @@ public class AbstractServiceTest extends TestCase {
         } catch (IllegalStateException expected) {
           assertNull(expected.getCause());
           assertTrue(expected.getMessage().equals(
-              "Expected the service " + service + " to be RUNNING, but was STOPPING"));
+                  "Expected the service " + service + " to be RUNNING, but was STOPPING"));
         }
       }
       assertNotSame(from, service.state());
@@ -874,7 +874,7 @@ public class AbstractServiceTest extends TestCase {
         } catch (IllegalStateException expected) {
           assertNull(expected.getCause());
           assertTrue(expected.getMessage().equals(
-              "Expected the service " + service + " to be RUNNING, but was TERMINATED"));
+                  "Expected the service " + service + " to be RUNNING, but was TERMINATED"));
         }
       }
       completionLatch.countDown();

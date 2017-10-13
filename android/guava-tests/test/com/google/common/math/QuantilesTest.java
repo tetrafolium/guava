@@ -87,20 +87,20 @@ public class QuantilesTest extends TestCase {
    * each other or identical non-finite values.
    */
   private static final Correspondence<Double, Double> QUANTILE_CORRESPONDENCE =
-      new Correspondence<Double, Double>() {
+  new Correspondence<Double, Double>() {
 
-        @Override
-        public boolean compare(@Nullable Double actual, @Nullable Double expected) {
-          // Test for equality to allow non-finite values to match; otherwise, use the finite test.
-          return actual.equals(expected)
-              || FINITE_QUANTILE_CORRESPONDENCE.compare(actual, expected);
-        }
+    @Override
+    public boolean compare(@Nullable Double actual, @Nullable Double expected) {
+      // Test for equality to allow non-finite values to match; otherwise, use the finite test.
+      return actual.equals(expected)
+          || FINITE_QUANTILE_CORRESPONDENCE.compare(actual, expected);
+    }
 
-        @Override
-        public String toString() {
-          return "is identical to or " + FINITE_QUANTILE_CORRESPONDENCE;
-        }
-      };
+    @Override
+    public String toString() {
+      return "is identical to or " + FINITE_QUANTILE_CORRESPONDENCE;
+    }
+  };
 
   // 1. Tests on a hardcoded dataset for chains starting with median(), quartiles(), and scale(10):
 
@@ -108,11 +108,11 @@ public class QuantilesTest extends TestCase {
    * The squares of the 16 integers from 0 to 15, in an arbitrary order.
    */
   private static final ImmutableList<Double> SIXTEEN_SQUARES_DOUBLES = ImmutableList.of(25.0, 100.0,
-      0.0, 144.0, 9.0, 121.0, 4.0, 225.0, 169.0, 64.0, 49.0, 16.0, 36.0, 1.0, 81.0, 196.0);
+          0.0, 144.0, 9.0, 121.0, 4.0, 225.0, 169.0, 64.0, 49.0, 16.0, 36.0, 1.0, 81.0, 196.0);
   private static final ImmutableList<Long> SIXTEEN_SQUARES_LONGS = ImmutableList.of(25L, 100L,
-      0L, 144L, 9L, 121L, 4L, 225L, 169L, 64L, 49L, 16L, 36L, 1L, 81L, 196L);
+          0L, 144L, 9L, 121L, 4L, 225L, 169L, 64L, 49L, 16L, 36L, 1L, 81L, 196L);
   private static final ImmutableList<Integer> SIXTEEN_SQUARES_INTEGERS = ImmutableList.of(25, 100,
-      0, 144, 9, 121, 4, 225, 169, 64, 49, 16, 36, 1, 81, 196);
+          0, 144, 9, 121, 4, 225, 169, 64, 49, 16, 36, 1, 81, 196);
   private static final double SIXTEEN_SQUARES_MIN = 0.0;
   private static final double SIXTEEN_SQUARES_DECILE_1 = 0.5 * (1.0 + 4.0);
   private static final double SIXTEEN_SQUARES_QUARTILE_1 = 0.25 * 9.0 + 0.75 * 16.0;
@@ -123,8 +123,8 @@ public class QuantilesTest extends TestCase {
 
   public void testMedian_compute_doubleCollection() {
     assertThat(median().compute(SIXTEEN_SQUARES_DOUBLES))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_MEDIAN);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_MEDIAN);
   }
 
   public void testMedian_computeInPlace() {
@@ -135,103 +135,103 @@ public class QuantilesTest extends TestCase {
 
   public void testQuartiles_index_compute_doubleCollection() {
     assertThat(quartiles().index(1).compute(SIXTEEN_SQUARES_DOUBLES))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_QUARTILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_QUARTILE_1);
   }
 
   public void testQuartiles_index_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(quartiles().index(1).computeInPlace(dataset))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_QUARTILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_QUARTILE_1);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
   public void testQuartiles_indexes_varargs_compute_doubleCollection() {
     assertThat(quartiles().indexes(1, 3).compute(SIXTEEN_SQUARES_DOUBLES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(1, SIXTEEN_SQUARES_QUARTILE_1, 3, SIXTEEN_SQUARES_QUARTILE_3);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(1, SIXTEEN_SQUARES_QUARTILE_1, 3, SIXTEEN_SQUARES_QUARTILE_3);
   }
 
   public void testQuartiles_indexes_varargs_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(quartiles().indexes(1, 3).computeInPlace(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            1, SIXTEEN_SQUARES_QUARTILE_1,
-            3, SIXTEEN_SQUARES_QUARTILE_3);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        1, SIXTEEN_SQUARES_QUARTILE_1,
+        3, SIXTEEN_SQUARES_QUARTILE_3);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
   public void testScale_index_compute_doubleCollection() {
     assertThat(Quantiles.scale(10).index(1).compute(SIXTEEN_SQUARES_DOUBLES))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
   }
 
   public void testScale_index_compute_longCollection() {
     assertThat(Quantiles.scale(10).index(1).compute(SIXTEEN_SQUARES_LONGS))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
   }
 
   public void testScale_index_compute_integerCollection() {
     assertThat(Quantiles.scale(10).index(1).compute(SIXTEEN_SQUARES_INTEGERS))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
   }
 
   public void testScale_index_compute_doubleVarargs() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(Quantiles.scale(10).index(1).compute(dataset))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
     assertThat(dataset)
-        .usingExactEquality()
-        .containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES)
-        .inOrder();
+    .usingExactEquality()
+    .containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES)
+    .inOrder();
   }
 
   public void testScale_index_compute_longVarargs() {
     long[] dataset = Longs.toArray(SIXTEEN_SQUARES_LONGS);
     assertThat(Quantiles.scale(10).index(1).compute(dataset))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_LONGS);
   }
 
   public void testScale_index_compute_intVarargs() {
     int[] dataset = Ints.toArray(SIXTEEN_SQUARES_INTEGERS);
     assertThat(Quantiles.scale(10).index(1).compute(dataset))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_INTEGERS);
   }
 
   public void testScale_index_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(Quantiles.scale(10).index(1).computeInPlace(dataset))
-        .isWithin(ALLOWED_ERROR)
-        .of(SIXTEEN_SQUARES_DECILE_1);
+    .isWithin(ALLOWED_ERROR)
+    .of(SIXTEEN_SQUARES_DECILE_1);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
   public void testScale_index_computeInPlace_explicitVarargs() {
     assertThat(Quantiles.scale(10).index(5).computeInPlace(78.9, 12.3, 45.6))
-        .isWithin(ALLOWED_ERROR)
-        .of(45.6);
+    .isWithin(ALLOWED_ERROR)
+    .of(45.6);
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection() {
     // Note that we specify index 1 twice, which by the method contract should be ignored.
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_DOUBLES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_snapshotsIndexes() {
@@ -242,13 +242,13 @@ public class QuantilesTest extends TestCase {
     ScaleAndIndexes intermediate = Quantiles.scale(10).indexes(indexes);
     indexes[0] = 3;
     assertThat(intermediate.compute(SIXTEEN_SQUARES_DOUBLES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_largeVarargs_compute_doubleCollection() {
@@ -259,127 +259,127 @@ public class QuantilesTest extends TestCase {
     // (1-5/Integer.MAX_VALUE).
     double otherValue = 16.0 * 5.0 / Integer.MAX_VALUE + 25.0 * (1.0 - 5.0 / Integer.MAX_VALUE);
     assertThat(
-            Quantiles.scale(scale).indexes(0, scale, otherIndex).compute(SIXTEEN_SQUARES_DOUBLES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN, scale, SIXTEEN_SQUARES_MAX, otherIndex, otherValue);
+        Quantiles.scale(scale).indexes(0, scale, otherIndex).compute(SIXTEEN_SQUARES_DOUBLES))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN, scale, SIXTEEN_SQUARES_MAX, otherIndex, otherValue);
   }
 
   public void testScale_indexes_varargs_compute_longCollection() {
     // Note that we specify index 1 twice, which by the method contract should be ignored.
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_LONGS))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_integerCollection() {
     // Note that we specify index 1 twice, which by the method contract should be ignored.
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_INTEGERS))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_doubleVarargs() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset)
-        .usingExactEquality()
-        .containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES)
-        .inOrder();
+    .usingExactEquality()
+    .containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES)
+    .inOrder();
   }
 
   public void testScale_indexes_varargs_compute_longVarargs() {
     long[] dataset = Longs.toArray(SIXTEEN_SQUARES_LONGS);
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_LONGS);
   }
 
   public void testScale_indexes_varargs_compute_intVarargs() {
     int[] dataset = Ints.toArray(SIXTEEN_SQUARES_INTEGERS);
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_INTEGERS);
   }
 
   public void testScale_indexes_varargs_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).computeInPlace(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
   public void testScale_indexes_varargs_computeInPlace_explicitVarargs() {
     assertThat(Quantiles.scale(10).indexes(0, 10).computeInPlace(78.9, 12.3, 45.6))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, 12.3,
-            10, 78.9);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, 12.3,
+        10, 78.9);
   }
 
   public void testScale_indexes_collection_compute_doubleCollection() {
     // Note that we specify index 1 twice, which by the method contract should be ignored.
     assertThat(
-            Quantiles.scale(10)
-                .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
-                .compute(SIXTEEN_SQUARES_DOUBLES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+        Quantiles.scale(10)
+        .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
+        .compute(SIXTEEN_SQUARES_DOUBLES))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_collection_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(
-            Quantiles.scale(10)
-                .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
-                .computeInPlace(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, SIXTEEN_SQUARES_MIN,
-            10, SIXTEEN_SQUARES_MAX,
-            5, SIXTEEN_SQUARES_MEDIAN,
-            1, SIXTEEN_SQUARES_DECILE_1,
-            8, SIXTEEN_SQUARES_DECILE_8);
+        Quantiles.scale(10)
+        .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
+        .computeInPlace(dataset))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, SIXTEEN_SQUARES_MIN,
+        10, SIXTEEN_SQUARES_MAX,
+        5, SIXTEEN_SQUARES_MEDIAN,
+        1, SIXTEEN_SQUARES_DECILE_1,
+        8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
@@ -397,71 +397,71 @@ public class QuantilesTest extends TestCase {
 
   public void testScale_indexes_varargs_compute_doubleCollection_positiveInfinity() {
     assertThat(
-            Quantiles.scale(10)
-                .indexes(0, 1, 2, 8, 9, 10)
-                .compute(ONE_TO_FIVE_AND_POSITIVE_INFINITY))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, 1.0,
-            1, 1.5,
-            2, 2.0,
-            8, 5.0,
-            9, POSITIVE_INFINITY, // interpolating between 5.0 and POSITIVE_INFNINITY
-            10, POSITIVE_INFINITY);
+        Quantiles.scale(10)
+        .indexes(0, 1, 2, 8, 9, 10)
+        .compute(ONE_TO_FIVE_AND_POSITIVE_INFINITY))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, 1.0,
+        1, 1.5,
+        2, 2.0,
+        8, 5.0,
+        9, POSITIVE_INFINITY, // interpolating between 5.0 and POSITIVE_INFNINITY
+        10, POSITIVE_INFINITY);
   }
 
   public void testScale_index_compute_doubleCollection_positiveInfinity() {
     // interpolating between 5.0 and POSITIVE_INFNINITY
     assertThat(Quantiles.scale(10).index(9).compute(ONE_TO_FIVE_AND_POSITIVE_INFINITY))
-        .isPositiveInfinity();
+    .isPositiveInfinity();
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_negativeInfinity() {
     assertThat(
-            Quantiles.scale(10)
-                .indexes(0, 1, 2, 8, 9, 10)
-                .compute(ONE_TO_FIVE_AND_NEGATIVE_INFINITY))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, NEGATIVE_INFINITY,
-            1, NEGATIVE_INFINITY, // interpolating between NEGATIVE_INFNINITY and 1.0
-            2, 1.0,
-            8, 4.0,
-            9, 4.5,
-            10, 5.0);
+        Quantiles.scale(10)
+        .indexes(0, 1, 2, 8, 9, 10)
+        .compute(ONE_TO_FIVE_AND_NEGATIVE_INFINITY))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, NEGATIVE_INFINITY,
+        1, NEGATIVE_INFINITY, // interpolating between NEGATIVE_INFNINITY and 1.0
+        2, 1.0,
+        8, 4.0,
+        9, 4.5,
+        10, 5.0);
   }
 
   public void testScale_index_compute_doubleCollection_negativeInfinity() {
     // interpolating between NEGATIVE_INFNINITY and 1.0
     assertThat(Quantiles.scale(10).index(1).compute(ONE_TO_FIVE_AND_NEGATIVE_INFINITY))
-        .isNegativeInfinity();
+    .isNegativeInfinity();
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_bothInfinities() {
     assertThat(
-            Quantiles.scale(10)
-                .indexes(0, 1, 2, 8, 9, 10)
-                .compute(NEGATIVE_INFINITY_AND_FIVE_POSITIVE_INFINITIES))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, NEGATIVE_INFINITY,
-            1, NaN, // interpolating between NEGATIVE_ and POSITIVE_INFINITY values
-            2, POSITIVE_INFINITY,
-            8, POSITIVE_INFINITY,
-            9, POSITIVE_INFINITY, // interpolating between two POSITIVE_INFINITY values
-            10, POSITIVE_INFINITY);
+        Quantiles.scale(10)
+        .indexes(0, 1, 2, 8, 9, 10)
+        .compute(NEGATIVE_INFINITY_AND_FIVE_POSITIVE_INFINITIES))
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, NEGATIVE_INFINITY,
+        1, NaN, // interpolating between NEGATIVE_ and POSITIVE_INFINITY values
+        2, POSITIVE_INFINITY,
+        8, POSITIVE_INFINITY,
+        9, POSITIVE_INFINITY, // interpolating between two POSITIVE_INFINITY values
+        10, POSITIVE_INFINITY);
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_nan() {
     assertThat(Quantiles.scale(10).indexes(0, 1, 2, 8, 9, 10).compute(ONE_TO_FIVE_AND_NAN))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactly(
-            0, NaN,
-            1, NaN,
-            2, NaN,
-            8, NaN,
-            9, NaN,
-            10, NaN);
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactly(
+        0, NaN,
+        1, NaN,
+        2, NaN,
+        8, NaN,
+        9, NaN,
+        10, NaN);
   }
 
   public void testScale_index_compute_doubleCollection_nan() {
@@ -503,9 +503,9 @@ public class QuantilesTest extends TestCase {
   public void testPercentiles_index_compute_doubleCollection() {
     for (int index = 0; index <= 100; index++) {
       assertThat(percentiles().index(index).compute(PSEUDORANDOM_DATASET))
-          .named("quantile at index " + index)
-          .isWithin(ALLOWED_ERROR)
-          .of(expectedLargeDatasetPercentile(index));
+      .named("quantile at index " + index)
+      .isWithin(ALLOWED_ERROR)
+      .of(expectedLargeDatasetPercentile(index));
     }
   }
 
@@ -515,9 +515,9 @@ public class QuantilesTest extends TestCase {
     for (int index = 0; index <= 100; index++) {
       double[] dataset = Doubles.toArray(PSEUDORANDOM_DATASET);
       assertThat(percentiles().index(index).computeInPlace(dataset))
-          .named("quantile at index " + index)
-          .isWithin(ALLOWED_ERROR)
-          .of(expectedLargeDatasetPercentile(index));
+      .named("quantile at index " + index)
+      .isWithin(ALLOWED_ERROR)
+      .of(expectedLargeDatasetPercentile(index));
     }
 
     // Assert that the dataset contains the same elements after the in-place computation (although
@@ -538,8 +538,8 @@ public class QuantilesTest extends TestCase {
           expectedBuilder.put(index2, expectedLargeDatasetPercentile(index2));
         }
         assertThat(percentiles().indexes(index1, index2).compute(PSEUDORANDOM_DATASET))
-            .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-            .containsExactlyEntriesIn(expectedBuilder.build());
+        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+        .containsExactlyEntriesIn(expectedBuilder.build());
       }
     }
   }
@@ -554,8 +554,8 @@ public class QuantilesTest extends TestCase {
     Random random = new Random(770683168895677741L);
     Collections.shuffle(indexes, random);
     assertThat(percentiles().indexes(Ints.toArray(indexes)).compute(PSEUDORANDOM_DATASET))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactlyEntriesIn(expectedBuilder.build());
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactlyEntriesIn(expectedBuilder.build());
   }
 
   @AndroidIncompatible // slow
@@ -570,8 +570,8 @@ public class QuantilesTest extends TestCase {
     Random random = new Random(770683168895677741L);
     Collections.shuffle(indexes, random);
     assertThat(percentiles().indexes(Ints.toArray(indexes)).computeInPlace(dataset))
-        .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
-        .containsExactlyEntriesIn(expectedBuilder.build());
+    .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
+    .containsExactlyEntriesIn(expectedBuilder.build());
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(PSEUDORANDOM_DATASET);
   }
 

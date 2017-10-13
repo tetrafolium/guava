@@ -54,7 +54,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
   }
 
   private abstract static class WrappedHashMapGenerator
-      extends TestStringMapGenerator {
+    extends TestStringMapGenerator {
     @Override protected final Map<String, String> create(
         Map.Entry<String, String>[] entries) {
       HashMap<String, String> map = Maps.newHashMap();

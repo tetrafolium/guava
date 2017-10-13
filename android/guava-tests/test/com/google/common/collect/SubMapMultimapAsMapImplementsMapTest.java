@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class SubMapMultimapAsMapImplementsMapTest
-    extends AbstractMultimapAsMapImplementsMapTest {
+  extends AbstractMultimapAsMapImplementsMapTest {
 
   public SubMapMultimapAsMapImplementsMapTest() {
     super(true, true, true);
@@ -37,8 +37,8 @@ public class SubMapMultimapAsMapImplementsMapTest
 
   private TreeMultimap<String, Integer> createMultimap() {
     TreeMultimap<String, Integer> multimap
-        = TreeMultimap.create(Ordering.<String>natural().nullsFirst(),
-            Ordering.<Integer>natural().nullsFirst());
+      = TreeMultimap.create(Ordering.<String>natural().nullsFirst(),
+              Ordering.<Integer>natural().nullsFirst());
     multimap.put("a", -1);
     multimap.put("a", -3);
     multimap.put("z", -2);

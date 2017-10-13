@@ -568,8 +568,8 @@ public class TraverserTest {
 
   private static void assertEqualCharNodes(Iterable<Character> result, String expectedCharacters) {
     assertThat(ImmutableList.copyOf(result))
-        .containsExactlyElementsIn(Chars.asList(expectedCharacters.toCharArray()))
-        .inOrder();
+    .containsExactlyElementsIn(Chars.asList(expectedCharacters.toCharArray()))
+    .inOrder();
   }
 
   private static class RequestSavingGraph implements SuccessorsFunction<Character> {

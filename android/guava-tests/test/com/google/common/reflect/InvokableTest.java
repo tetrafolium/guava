@@ -85,9 +85,9 @@ public class InvokableTest extends TestCase {
     assertEquals(int.class, parameters.get(1).getType().getType());
     assertFalse(parameters.get(1).isAnnotationPresent(NotBlank.class));
     new EqualsTester()
-        .addEqualityGroup(parameters.get(0))
-        .addEqualityGroup(parameters.get(1))
-        .testEquals();
+    .addEqualityGroup(parameters.get(0))
+    .addEqualityGroup(parameters.get(1))
+    .testEquals();
   }
 
   public void testConstructor_call() throws Exception {
@@ -139,9 +139,9 @@ public class InvokableTest extends TestCase {
     assertEquals(new TypeToken<Iterable<String>>() {}, parameters.get(1).getType());
     assertFalse(parameters.get(1).isAnnotationPresent(NotBlank.class));
     new EqualsTester()
-        .addEqualityGroup(parameters.get(0))
-        .addEqualityGroup(parameters.get(1))
-        .testEquals();
+    .addEqualityGroup(parameters.get(0))
+    .addEqualityGroup(parameters.get(1))
+    .testEquals();
   }
 
   public void testStaticMethod_call() throws Exception {
@@ -155,7 +155,7 @@ public class InvokableTest extends TestCase {
   public void testStaticMethod_returning() throws Exception {
     Invokable<?, Iterable<String>> delegate = Prepender.method(
             "prepend", String.class, Iterable.class)
-        .returning(new TypeToken<Iterable<String>>() {});
+    .returning(new TypeToken<Iterable<String>>() {});
     assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
     Iterable<String> result = delegate.invoke(null, "a", ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "b", "c"), ImmutableList.copyOf(result));
@@ -219,7 +219,7 @@ public class InvokableTest extends TestCase {
   public void testInstanceMethod_returning() throws Exception {
     Invokable<Prepender, Iterable<String>> delegate = Prepender.method(
             "prepend", Iterable.class)
-        .returning(new TypeToken<Iterable<String>>() {});
+    .returning(new TypeToken<Iterable<String>>() {});
     assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
     Iterable<String> result = delegate.invoke(new Prepender("a", 2), ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "a", "b", "c"), ImmutableList.copyOf(result));
@@ -232,7 +232,7 @@ public class InvokableTest extends TestCase {
     assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
     @SuppressWarnings("unchecked") // prepend() returns Iterable<String>
     Iterable<String> result = delegate.invoke(
-        new Prepender("a", 2), ImmutableList.of("b", "c"));
+            new Prepender("a", 2), ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "a", "b", "c"), ImmutableList.copyOf(result));
   }
 
@@ -309,7 +309,7 @@ public class InvokableTest extends TestCase {
 
   public void testNonFinalMethodInFinalClass_isOverridable() throws Exception {
     Invokable<?, ?> delegate = Invokable.from(
-        FinalClass.class.getDeclaredMethod("notFinalMethod"));
+            FinalClass.class.getDeclaredMethod("notFinalMethod"));
     assertFalse(delegate.isOverridable());
     assertFalse(delegate.isVarArgs());
   }
@@ -367,7 +367,7 @@ public class InvokableTest extends TestCase {
     Invokable<?, ?> invokable = Invokable.from(constructor);
     assertEquals(2, invokable.getParameters().size());
     assertEquals(new TypeToken<Iterable<String>>() {},
-        invokable.getParameters().get(0).getType());
+    invokable.getParameters().get(0).getType());
     assertEquals(TypeToken.of(String.class),
         invokable.getParameters().get(1).getType());
   }
@@ -379,7 +379,7 @@ public class InvokableTest extends TestCase {
       @Override public void run() {
         System.out.println(s + i);
       }
-    }.getClass();
+    } .getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(0, Invokable.from(constructor).getParameters().size());
   }
@@ -389,7 +389,7 @@ public class InvokableTest extends TestCase {
       @SuppressWarnings("unused") // called by reflection
       Base(String s, int i) {}
     }
-    Class<?> anonymous = new Base("test", 0) {}.getClass();
+    Class<?> anonymous = new Base("test", 0) {} .getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(2, Invokable.from(constructor).getParameters().size());
   }
@@ -417,7 +417,7 @@ public class InvokableTest extends TestCase {
       @Override public void run() {
         System.out.println(s + i);
       }
-    }.getClass();
+    } .getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(0, Invokable.from(constructor).getParameters().size());
   }
@@ -434,7 +434,7 @@ public class InvokableTest extends TestCase {
         @Override public void run() {
           System.out.println(s + i);
         }
-      }.getClass();
+      } .getClass();
       Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
       assertEquals(0, Invokable.from(constructor).getParameters().size());
     }
@@ -522,18 +522,18 @@ public class InvokableTest extends TestCase {
     Invokable<?, ?> invokable = Invokable.from(constructor);
     assertEquals(2, invokable.getParameters().size());
     assertEquals(new TypeToken<Iterable<String>>() {},
-        invokable.getParameters().get(0).getType());
+    invokable.getParameters().get(0).getType());
     assertEquals(TypeToken.of(String.class),
         invokable.getParameters().get(1).getType());
   }
 
   public void testEquals() throws Exception {
     new EqualsTester()
-        .addEqualityGroup(Prepender.constructor(), Prepender.constructor())
-        .addEqualityGroup(Prepender.constructor(String.class, int.class))
-        .addEqualityGroup(Prepender.method("privateMethod"), Prepender.method("privateMethod"))
-        .addEqualityGroup(Prepender.method("privateFinalMethod"))
-        .testEquals();
+    .addEqualityGroup(Prepender.constructor(), Prepender.constructor())
+    .addEqualityGroup(Prepender.constructor(String.class, int.class))
+    .addEqualityGroup(Prepender.method("privateMethod"), Prepender.method("privateMethod"))
+    .addEqualityGroup(Prepender.method("privateFinalMethod"))
+    .testEquals();
   }
 
   public void testNulls() {
@@ -570,7 +570,7 @@ public class InvokableTest extends TestCase {
     }
 
     Iterable<String> prepend(Iterable<String> tail)
-        throws IllegalArgumentException, NullPointerException {
+    throws IllegalArgumentException, NullPointerException {
       return Iterables.concat(Collections.nCopies(times, prefix), tail);
     }
 

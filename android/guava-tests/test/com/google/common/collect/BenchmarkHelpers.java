@@ -406,7 +406,7 @@ final class BenchmarkHelpers {
     };
 
     abstract <R extends Comparable<R>, C extends Comparable<C>, V>
-        Table<R, C, V> create(Table<R, C, V> contents);
+    Table<R, C, V> create(Table<R, C, V> contents);
   }
 
   public enum InternerImpl implements InternerImplEnum {

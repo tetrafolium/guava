@@ -161,20 +161,20 @@ public class EvictingQueueTest extends TestCase {
   public void testAddAll_largeList() {
     final List<String> list = ImmutableList.of("one", "two", "three", "four", "five");
     List<String> misbehavingList =
-        new AbstractList<String>() {
-          @Override
-          public int size() {
-            return list.size();
-          }
+    new AbstractList<String>() {
+      @Override
+      public int size() {
+        return list.size();
+      }
 
-          @Override
-          public String get(int index) {
-            if (index < 2) {
-              throw new AssertionError();
-            }
-            return list.get(index);
-          }
-        };
+      @Override
+      public String get(int index) {
+        if (index < 2) {
+          throw new AssertionError();
+        }
+        return list.get(index);
+      }
+    };
 
     EvictingQueue<String> queue = EvictingQueue.create(3);
     assertTrue(queue.addAll(misbehavingList));

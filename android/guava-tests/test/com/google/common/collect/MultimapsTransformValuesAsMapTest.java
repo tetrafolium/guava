@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class MultimapsTransformValuesAsMapTest
-    extends AbstractMultimapAsMapImplementsMapTest {
+  extends AbstractMultimapAsMapImplementsMapTest {
 
   public MultimapsTransformValuesAsMapTest() {
     super(true, true, true);
@@ -36,8 +36,8 @@ public class MultimapsTransformValuesAsMapTest
 
   @Override protected Map<String, Collection<Integer>> makeEmptyMap() {
     return Multimaps.transformValues(
-        ArrayListMultimap.<String, Integer> create(),
-        Functions.<Integer> identity()).asMap();
+            ArrayListMultimap.<String, Integer> create(),
+            Functions.<Integer> identity()).asMap();
   }
 
   @Override protected Map<String, Collection<Integer>> makePopulatedMap() {

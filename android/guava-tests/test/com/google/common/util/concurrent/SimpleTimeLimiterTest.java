@@ -43,44 +43,44 @@ public class SimpleTimeLimiterTest extends TestCase {
 
   private static final String GOOD_CALLABLE_RESULT = "good callable result";
   private static final Callable<String> GOOD_CALLABLE =
-      new Callable<String>() {
-        @Override
-        public String call() throws InterruptedException {
-          MILLISECONDS.sleep(DELAY_MS);
-          return GOOD_CALLABLE_RESULT;
-        }
-      };
+  new Callable<String>() {
+    @Override
+    public String call() throws InterruptedException {
+      MILLISECONDS.sleep(DELAY_MS);
+      return GOOD_CALLABLE_RESULT;
+    }
+  };
   private static final Callable<String> BAD_CALLABLE =
-      new Callable<String>() {
-        @Override
-        public String call() throws InterruptedException, SampleException {
-          MILLISECONDS.sleep(DELAY_MS);
-          throw new SampleException();
-        }
-      };
+  new Callable<String>() {
+    @Override
+    public String call() throws InterruptedException, SampleException {
+      MILLISECONDS.sleep(DELAY_MS);
+      throw new SampleException();
+    }
+  };
   private static final Runnable GOOD_RUNNABLE =
-      new Runnable() {
-        @Override
-        public void run() {
-          try {
-            MILLISECONDS.sleep(DELAY_MS);
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-          }
-        }
-      };
+  new Runnable() {
+    @Override
+    public void run() {
+      try {
+        MILLISECONDS.sleep(DELAY_MS);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  };
   private static final Runnable BAD_RUNNABLE =
-      new Runnable() {
-        @Override
-        public void run() {
-          try {
-            MILLISECONDS.sleep(DELAY_MS);
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-          }
-          throw new SampleRuntimeException();
-        }
-      };
+  new Runnable() {
+    @Override
+    public void run() {
+      try {
+        MILLISECONDS.sleep(DELAY_MS);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+      throw new SampleRuntimeException();
+    }
+  };
 
   private TimeLimiter service;
 

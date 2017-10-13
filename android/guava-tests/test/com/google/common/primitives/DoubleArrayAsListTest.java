@@ -53,16 +53,16 @@ public class DoubleArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Double>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new DoublesAsListGenerator())
-                .named("Doubles.asList"),
+            .named("Doubles.asList"),
 
             ListTestSuiteBuilder.using(new DoublsAsListHeadSubListGenerator())
-                .named("Doubles.asList, head subList"),
+            .named("Doubles.asList, head subList"),
 
             ListTestSuiteBuilder.using(new DoublesAsListTailSubListGenerator())
-                .named("Doubles.asList, tail subList"),
+            .named("Doubles.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new DoublesAsListMiddleSubListGenerator())
-                .named("Doubles.asList, middle subList")
+            .named("Doubles.asList, middle subList")
         );
 
     TestSuite suite = new TestSuite();
@@ -70,9 +70,9 @@ public class DoubleArrayAsListTest extends TestCase {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -120,7 +120,7 @@ public class DoubleArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestDoubleListGenerator
-      implements TestListGenerator<Double> {
+    implements TestListGenerator<Double> {
     @Override
     public SampleElements<Double> samples() {
       return new SampleDoubles();

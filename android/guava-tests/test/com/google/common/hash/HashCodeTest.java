@@ -34,31 +34,35 @@ import junit.framework.TestCase;
 public class HashCodeTest extends TestCase {
   // note: asInt(), asLong() are in little endian
   private static final ImmutableList<ExpectedHashCode> expectedHashCodes = ImmutableList.of(
-      new ExpectedHashCode(new byte[] {
-        (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x89,
-        (byte) 0x67, (byte) 0x45, (byte) 0x23, (byte) 0x01},
-        0x89abcdef, 0x0123456789abcdefL, "efcdab8967452301"),
+          new ExpectedHashCode(new byte[] {
+                  (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x89,
+                  (byte) 0x67, (byte) 0x45, (byte) 0x23, (byte) 0x01
+              },
+              0x89abcdef, 0x0123456789abcdefL, "efcdab8967452301"),
 
-      new ExpectedHashCode(new byte[] {
-        (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x89,
-        (byte) 0x67, (byte) 0x45, (byte) 0x23, (byte) 0x01, // up to here, same bytes as above
-        (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04,
-        (byte) 0x05, (byte) 0x06, (byte) 0x07, (byte) 0x08},
-        0x89abcdef, 0x0123456789abcdefL, // asInt/asLong as above, due to equal eight first bytes
-        "efcdab89674523010102030405060708"),
+          new ExpectedHashCode(new byte[] {
+                  (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x89,
+                  (byte) 0x67, (byte) 0x45, (byte) 0x23, (byte) 0x01, // up to here, same bytes as above
+                  (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04,
+                  (byte) 0x05, (byte) 0x06, (byte) 0x07, (byte) 0x08
+              },
+              0x89abcdef, 0x0123456789abcdefL, // asInt/asLong as above, due to equal eight first bytes
+              "efcdab89674523010102030405060708"),
 
-      new ExpectedHashCode(new byte[] { (byte) 0xdf, (byte) 0x9b, (byte) 0x57, (byte) 0x13 },
-        0x13579bdf, null, "df9b5713"),
+          new ExpectedHashCode(new byte[] { (byte) 0xdf, (byte) 0x9b, (byte) 0x57, (byte) 0x13 },
+              0x13579bdf, null, "df9b5713"),
 
-      new ExpectedHashCode(new byte[] {
-          (byte) 0xcd, (byte) 0xab, (byte) 0x00, (byte) 0x00},
-          0x0000abcd, null, "cdab0000"),
+          new ExpectedHashCode(new byte[] {
+                  (byte) 0xcd, (byte) 0xab, (byte) 0x00, (byte) 0x00
+              },
+              0x0000abcd, null, "cdab0000"),
 
-      new ExpectedHashCode(new byte[] {
-          (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x00,
-          (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00},
-          0x00abcdef, 0x0000000000abcdefL, "efcdab0000000000")
-    );
+          new ExpectedHashCode(new byte[] {
+                  (byte) 0xef, (byte) 0xcd, (byte) 0xab, (byte) 0x00,
+                  (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00
+              },
+              0x00abcdef, 0x0000000000abcdefL, "efcdab0000000000")
+      );
 
   // expectedHashCodes must contain at least one hash code with 4 bytes
   public void testFromInt() {
@@ -260,16 +264,16 @@ public class HashCodeTest extends TestCase {
     byte[] dest = new byte[4];
     HashCode.fromInt(42).writeBytesTo(dest, 0, 4);
     assertTrue(Arrays.equals(
-        HashCode.fromInt(42).asBytes(),
-        dest));
+            HashCode.fromInt(42).asBytes(),
+            dest));
   }
 
   public void testLongWriteBytesTo() {
     byte[] dest = new byte[8];
     HashCode.fromLong(42).writeBytesTo(dest, 0, 8);
     assertTrue(Arrays.equals(
-        HashCode.fromLong(42).asBytes(),
-        dest));
+            HashCode.fromLong(42).asBytes(),
+            dest));
   }
 
   private static final HashCode HASH_ABCD =
@@ -279,32 +283,32 @@ public class HashCodeTest extends TestCase {
     byte[] dest = new byte[4];
     HASH_ABCD.writeBytesTo(dest, 0, 4);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd },
-        dest));
+            new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd },
+            dest));
   }
 
   public void testWriteBytesToOversizedArray() {
     byte[] dest = new byte[5];
     HASH_ABCD.writeBytesTo(dest, 0, 4);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0x00 },
-        dest));
+            new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0x00 },
+            dest));
   }
 
   public void testWriteBytesToOversizedArrayLongMaxLength() {
     byte[] dest = new byte[5];
     HASH_ABCD.writeBytesTo(dest, 0, 5);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0x00 },
-        dest));
+            new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0xdd, (byte) 0x00 },
+            dest));
   }
 
   public void testWriteBytesToOversizedArrayShortMaxLength() {
     byte[] dest = new byte[5];
     HASH_ABCD.writeBytesTo(dest, 0, 3);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0x00, (byte) 0x00 },
-        dest));
+            new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0xcc, (byte) 0x00, (byte) 0x00 },
+            dest));
   }
 
   public void testWriteBytesToUndersizedArray() {
@@ -329,8 +333,8 @@ public class HashCodeTest extends TestCase {
     byte[] dest = new byte[3];
     HASH_ABCD.writeBytesTo(dest, 0, 2);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0x00 },
-        dest));
+            new byte[] { (byte) 0xaa, (byte) 0xbb, (byte) 0x00 },
+            dest));
   }
 
   private static ClassSanityTester.FactoryMethodReturnValueTester sanityTester() {

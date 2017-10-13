@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
  */
 @GwtIncompatible
 public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
-    implements BlockingDeque<E> {
+  implements BlockingDeque<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingBlockingDeque() {}

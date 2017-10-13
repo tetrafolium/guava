@@ -313,14 +313,14 @@ public final class AtomicLongMap<K> implements Serializable {
 
   private Map<K, Long> createAsMap() {
     return Collections.unmodifiableMap(
-        Maps.transformValues(
-            map,
-            new Function<AtomicLong, Long>() {
-              @Override
-              public Long apply(AtomicLong atomic) {
-                return atomic.get();
-              }
-            }));
+            Maps.transformValues(
+                map,
+    new Function<AtomicLong, Long>() {
+      @Override
+      public Long apply(AtomicLong atomic) {
+        return atomic.get();
+      }
+    }));
   }
 
   /**

@@ -115,7 +115,7 @@ public class IntMathTest extends TestCase {
     assertEquals(
 
         /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Integer.SIZE - 1), FLOOR)
-            .intValue(),
+        .intValue(),
         /*actual=*/ IntMath.MAX_POWER_OF_SQRT2_UNSIGNED);
   }
 
@@ -139,8 +139,8 @@ public class IntMathTest extends TestCase {
   public void testConstantsHalfPowersOf10() {
     for (int i = 0; i < IntMath.halfPowersOf10.length; i++) {
       assert IntMath.halfPowersOf10[i]
-          == Math.min(Integer.MAX_VALUE,
-              BigIntegerMath.sqrt(BigInteger.TEN.pow(2 * i + 1), FLOOR).longValue());
+      == Math.min(Integer.MAX_VALUE,
+          BigIntegerMath.sqrt(BigInteger.TEN.pow(2 * i + 1), FLOOR).longValue());
     }
   }
 
@@ -154,7 +154,7 @@ public class IntMathTest extends TestCase {
     }
     assertFalse(
         fitsInInt(BigIntegerMath.binomial(
-            2 * IntMath.biggestBinomials.length, IntMath.biggestBinomials.length)));
+                2 * IntMath.biggestBinomials.length, IntMath.biggestBinomials.length)));
   }
 
   @GwtIncompatible // sqrt
@@ -718,7 +718,7 @@ public class IntMathTest extends TestCase {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
-        .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
+    .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
     // parseInt blows up on overflow as opposed to intValue() which does not.
     return Integer.parseInt(bigMean.toString());
   }

@@ -88,12 +88,12 @@ public class MultimapsCollectionTest extends TestCase {
   };
 
   static final Supplier<TreeSet<String>> STRING_TREESET_FACTORY =
-      new Supplier<TreeSet<String>>() {
-        @Override
-        public TreeSet<String> get() {
-          return new TreeSet<>(Ordering.natural().nullsLast());
-        }
-      };
+  new Supplier<TreeSet<String>>() {
+    @Override
+    public TreeSet<String> get() {
+      return new TreeSet<>(Ordering.natural().nullsLast());
+    }
+  };
 
   static void populateMultimapForGet(
       Multimap<Integer, String> multimap, String[] elements) {
@@ -135,7 +135,7 @@ public class MultimapsCollectionTest extends TestCase {
    * {@link #build()}.
    */
   private static final class PopulatableMapAsMultimap<K, V>
-      extends ForwardingMultimap<K, V> {
+    extends ForwardingMultimap<K, V> {
     final Map<K, V> map;
     final SetMultimap<K, V> unusableDelegate;
 
@@ -147,15 +147,15 @@ public class MultimapsCollectionTest extends TestCase {
     PopulatableMapAsMultimap() {
       this.map = newHashMap();
       this.unusableDelegate = (SetMultimap<K, V>) newProxyInstance(
-          SetMultimap.class.getClassLoader(),
-          new Class<?>[] {SetMultimap.class},
-          new InvocationHandler() {
-            @Override
-            public Object invoke(Object proxy, Method method, Object[] args)
-                throws Throwable {
-              throw new UnsupportedOperationException();
-            }
-          });
+              SetMultimap.class.getClassLoader(),
+              new Class<?>[] {SetMultimap.class},
+      new InvocationHandler() {
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args)
+        throws Throwable {
+          throw new UnsupportedOperationException();
+        }
+      });
     }
 
     @Override protected Multimap<K, V> delegate() {
@@ -173,15 +173,15 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   abstract static class TestEntriesGenerator
-      implements TestCollectionGenerator<Entry<String, Integer>> {
+    implements TestCollectionGenerator<Entry<String, Integer>> {
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-          Maps.immutableEntry("bar", 1),
-          Maps.immutableEntry("bar", 2),
-          Maps.immutableEntry("foo", 3),
-          Maps.immutableEntry("bar", 3),
-          Maps.immutableEntry("cat", 2));
+              Maps.immutableEntry("bar", 1),
+              Maps.immutableEntry("bar", 2),
+              Maps.immutableEntry("foo", 3),
+              Maps.immutableEntry("bar", 3),
+              Maps.immutableEntry("cat", 2));
     }
 
     @Override
@@ -211,25 +211,25 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   public abstract static class TestEntriesListGenerator
-      extends TestEntriesGenerator
-      implements TestListGenerator<Entry<String, Integer>> {
+    extends TestEntriesGenerator
+    implements TestListGenerator<Entry<String, Integer>> {
     @Override public List<Entry<String, Integer>> create(Object... elements) {
       return (List<Entry<String, Integer>>) super.create(elements);
     }
   }
 
   private static final Predicate<Map.Entry<Integer, String>> FILTER_GET_PREDICATE
-      = new Predicate<Map.Entry<Integer, String>>() {
-        @Override public boolean apply(Entry<Integer, String> entry) {
-          return !"badvalue".equals(entry.getValue()) && 55556 != entry.getKey();
-        }
-    };
+  = new Predicate<Map.Entry<Integer, String>>() {
+    @Override public boolean apply(Entry<Integer, String> entry) {
+      return !"badvalue".equals(entry.getValue()) && 55556 != entry.getKey();
+    }
+  };
 
   private static final Predicate<Map.Entry<String, Integer>> FILTER_KEYSET_PREDICATE
-    = new Predicate<Map.Entry<String, Integer>>() {
-      @Override public boolean apply(Entry<String, Integer> entry) {
-        return !"badkey".equals(entry.getKey()) && 55556 != entry.getValue();
-      }
+  = new Predicate<Map.Entry<String, Integer>>() {
+    @Override public boolean apply(Entry<String, Integer> entry) {
+      return !"badkey".equals(entry.getKey()) && 55556 != entry.getValue();
+    }
   };
 
   public static Test suite() {
@@ -239,71 +239,71 @@ public class MultimapsCollectionTest extends TestCase {
     suite.addTest(filterSuite());
 
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TestStringListMultimapGenerator() {
-        @Override
-        protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
-          ListMultimap<String, String> multimap = Multimaps.synchronizedListMultimap(
-              ArrayListMultimap.<String, String> create());
-          for (Entry<String, String> entry : entries) {
-            multimap.put(entry.getKey(), entry.getValue());
-          }
-          return multimap;
+      @Override
+      protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+        ListMultimap<String, String> multimap = Multimaps.synchronizedListMultimap(
+                ArrayListMultimap.<String, String> create());
+        for (Entry<String, String> entry : entries) {
+          multimap.put(entry.getKey(), entry.getValue());
         }
-      })
-      .named("synchronized ArrayListMultimap")
-      .withFeatures(
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-          CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-          CollectionSize.ANY)
-      .createTestSuite());
+        return multimap;
+      }
+    })
+    .named("synchronized ArrayListMultimap")
+    .withFeatures(
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        CollectionSize.ANY)
+    .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-        new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
-            PopulatableMapAsMultimap<Integer, String> multimap
-                = PopulatableMapAsMultimap.create();
-            populateMultimapForGet(multimap, elements);
-            return multimap.build().get(3);
-          }
-        })
-        .named("Multimaps.forMap.get")
-        .withFeatures(FOR_MAP_FEATURES_ONE)
-        .createTestSuite());
+    new TestStringSetGenerator() {
+      @Override protected Set<String> create(String[] elements) {
+        PopulatableMapAsMultimap<Integer, String> multimap
+          = PopulatableMapAsMultimap.create();
+        populateMultimapForGet(multimap, elements);
+        return multimap.build().get(3);
+      }
+    })
+    .named("Multimaps.forMap.get")
+    .withFeatures(FOR_MAP_FEATURES_ONE)
+    .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-        new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
-            PopulatableMapAsMultimap<String, Integer> multimap
-                = PopulatableMapAsMultimap.create();
-            populateMultimapForKeySet(multimap, elements);
-            return multimap.build().keySet();
-          }
-        })
-        .named("Multimaps.forMap.keySet")
-        .withFeatures(FOR_MAP_FEATURES_ANY)
-        .createTestSuite());
+    new TestStringSetGenerator() {
+      @Override protected Set<String> create(String[] elements) {
+        PopulatableMapAsMultimap<String, Integer> multimap
+          = PopulatableMapAsMultimap.create();
+        populateMultimapForKeySet(multimap, elements);
+        return multimap.build().keySet();
+      }
+    })
+    .named("Multimaps.forMap.keySet")
+    .withFeatures(FOR_MAP_FEATURES_ANY)
+    .createTestSuite());
 
     // TODO: use collection testers on Multimaps.forMap.values
 
     suite.addTest(MultisetTestSuiteBuilder.using(
-        new TestStringMultisetGenerator() {
-          @Override protected Multiset<String> create(String[] elements) {
-            PopulatableMapAsMultimap<String, Integer> multimap
-                = PopulatableMapAsMultimap.create();
-            populateMultimapForKeys(multimap, elements);
-            return multimap.build().keys();
-          }
-        })
-        .named("Multimaps.forMap.keys")
-        .withFeatures(FOR_MAP_FEATURES_ANY)
-        .suppressing(getCountDuplicateInitializingMethods())
-        .suppressing(getSetCountDuplicateInitializingMethods())
-        .suppressing(getIteratorDuplicateInitializingMethods())
-        .suppressing(getRemoveDuplicateInitializingMethods())
-        .createTestSuite());
+    new TestStringMultisetGenerator() {
+      @Override protected Multiset<String> create(String[] elements) {
+        PopulatableMapAsMultimap<String, Integer> multimap
+          = PopulatableMapAsMultimap.create();
+        populateMultimapForKeys(multimap, elements);
+        return multimap.build().keys();
+      }
+    })
+    .named("Multimaps.forMap.keys")
+    .withFeatures(FOR_MAP_FEATURES_ANY)
+    .suppressing(getCountDuplicateInitializingMethods())
+    .suppressing(getSetCountDuplicateInitializingMethods())
+    .suppressing(getIteratorDuplicateInitializingMethods())
+    .suppressing(getRemoveDuplicateInitializingMethods())
+    .createTestSuite());
 
     // TODO: use collection testers on Multimaps.forMap.entries
 
@@ -311,7 +311,7 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static abstract class TransformedMultimapGenerator<M extends Multimap<String, String>>
-      implements TestMultimapGenerator<String, String, M> {
+    implements TestMultimapGenerator<String, String, M> {
 
     @Override
     public String[] createKeyArray(int length) {
@@ -341,11 +341,11 @@ public class MultimapsCollectionTest extends TestCase {
     @Override
     public SampleElements<Entry<String, String>> samples() {
       return new SampleElements<>(
-          mapEntry("one", "january"),
-          mapEntry("two", "february"),
-          mapEntry("three", "march"),
-          mapEntry("four", "april"),
-          mapEntry("five", "may"));
+              mapEntry("one", "january"),
+              mapEntry("two", "february"),
+              mapEntry("three", "march"),
+              mapEntry("four", "april"),
+              mapEntry("five", "may"));
     }
 
     @Override
@@ -380,7 +380,7 @@ public class MultimapsCollectionTest extends TestCase {
     };
 
     static final EntryTransformer<String, String, String> ENTRY_TRANSFORMER =
-        new EntryTransformer<String, String, String>() {
+    new EntryTransformer<String, String, String>() {
       @Override
       public String transformEntry(String key, String value) {
         return Ascii.toLowerCase(value);
@@ -389,71 +389,71 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static abstract class TransformedListMultimapGenerator
-      extends TransformedMultimapGenerator<ListMultimap<String, String>>
-      implements TestListMultimapGenerator<String, String> {
+    extends TransformedMultimapGenerator<ListMultimap<String, String>>
+    implements TestListMultimapGenerator<String, String> {
   }
 
   private static Test transformSuite() {
     TestSuite suite = new TestSuite("Multimaps.transform*");
     suite.addTest(MultimapTestSuiteBuilder.using(
-        new TransformedMultimapGenerator<Multimap<String,String>>() {
-          @Override
-          Multimap<String, String> transform(Multimap<String, String> multimap) {
-            return Multimaps.transformValues(multimap, FUNCTION);
-          }
-        })
-        .named("Multimaps.transformValues[Multimap]")
-        .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.SUPPORTS_REMOVE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            MapFeature.ALLOWS_NULL_KEYS,
-            MapFeature.ALLOWS_ANY_NULL_QUERIES)
-        .createTestSuite());
+    new TransformedMultimapGenerator<Multimap<String,String>>() {
+      @Override
+      Multimap<String, String> transform(Multimap<String, String> multimap) {
+        return Multimaps.transformValues(multimap, FUNCTION);
+      }
+    })
+    .named("Multimaps.transformValues[Multimap]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(MultimapTestSuiteBuilder.using(
-        new TransformedMultimapGenerator<Multimap<String,String>>() {
-          @Override
-          Multimap<String, String> transform(Multimap<String, String> multimap) {
-            return Multimaps.transformEntries(multimap, ENTRY_TRANSFORMER);
-          }
-        })
-        .named("Multimaps.transformEntries[Multimap]")
-        .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.SUPPORTS_REMOVE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            MapFeature.ALLOWS_NULL_KEYS,
-            MapFeature.ALLOWS_ANY_NULL_QUERIES)
-        .createTestSuite());
+    new TransformedMultimapGenerator<Multimap<String,String>>() {
+      @Override
+      Multimap<String, String> transform(Multimap<String, String> multimap) {
+        return Multimaps.transformEntries(multimap, ENTRY_TRANSFORMER);
+      }
+    })
+    .named("Multimaps.transformEntries[Multimap]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TransformedListMultimapGenerator() {
-          @Override
-          ListMultimap<String, String> transform(Multimap<String, String> multimap) {
-            return Multimaps.transformValues((ListMultimap<String, String>) multimap, FUNCTION);
-          }
-        })
-        .named("Multimaps.transformValues[ListMultimap]")
-        .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.SUPPORTS_REMOVE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            MapFeature.ALLOWS_NULL_KEYS,
-            MapFeature.ALLOWS_ANY_NULL_QUERIES)
-        .createTestSuite());
+      @Override
+      ListMultimap<String, String> transform(Multimap<String, String> multimap) {
+        return Multimaps.transformValues((ListMultimap<String, String>) multimap, FUNCTION);
+      }
+    })
+    .named("Multimaps.transformValues[ListMultimap]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TransformedListMultimapGenerator() {
-          @Override
-          ListMultimap<String, String> transform(Multimap<String, String> multimap) {
-            return Multimaps.transformEntries(
+      @Override
+      ListMultimap<String, String> transform(Multimap<String, String> multimap) {
+        return Multimaps.transformEntries(
                 (ListMultimap<String, String>) multimap, ENTRY_TRANSFORMER);
-          }
-        })
-        .named("Multimaps.transformEntries[ListMultimap]")
-        .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.SUPPORTS_REMOVE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            MapFeature.ALLOWS_NULL_KEYS,
-            MapFeature.ALLOWS_ANY_NULL_QUERIES)
-        .createTestSuite());
+      }
+    })
+    .named("Multimaps.transformEntries[ListMultimap]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
 
     // TODO: use collection testers on Multimaps.forMap.entries
 
@@ -461,16 +461,16 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static abstract class TestFilteredMultimapGenerator<M extends Multimap<String, Integer>>
-      implements TestMultimapGenerator<String, Integer, M> {
+    implements TestMultimapGenerator<String, Integer, M> {
 
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-          mapEntry("one", 114),
-          mapEntry("two", 37),
-          mapEntry("three", 42),
-          mapEntry("four", 19),
-          mapEntry("five", 82));
+              mapEntry("one", 114),
+              mapEntry("two", 37),
+              mapEntry("three", 42),
+              mapEntry("four", 19),
+              mapEntry("five", 82));
     }
 
     @SuppressWarnings("unchecked")
@@ -506,8 +506,8 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static abstract class FilteredSetMultimapGenerator
-      extends TestFilteredMultimapGenerator<SetMultimap<String, Integer>>
-      implements TestSetMultimapGenerator<String, Integer> {
+    extends TestFilteredMultimapGenerator<SetMultimap<String, Integer>>
+    implements TestSetMultimapGenerator<String, Integer> {
 
     abstract SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap);
 
@@ -529,8 +529,8 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static abstract class FilteredListMultimapGenerator
-      extends TestFilteredMultimapGenerator<ListMultimap<String, Integer>>
-      implements TestListMultimapGenerator<String, Integer> {
+    extends TestFilteredMultimapGenerator<ListMultimap<String, Integer>>
+    implements TestListMultimapGenerator<String, Integer> {
 
     @Override
     public ListMultimap<String, Integer> create(Object... elements) {
@@ -554,159 +554,159 @@ public class MultimapsCollectionTest extends TestCase {
   private static Test filterSuite() {
     TestSuite suite = new TestSuite("Multimaps.filter*");
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          multimap.put("foo", 17);
-          multimap.put("bar", 32);
-          multimap.put("foo", 16);
-          return Multimaps.filterKeys(multimap,
-              Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
-        }
-      })
-      .named("Multimaps.filterKeys[SetMultimap, Predicate]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        multimap.put("foo", 17);
+        multimap.put("bar", 32);
+        multimap.put("foo", 16);
+        return Multimaps.filterKeys(multimap,
+                Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
+      }
+    })
+    .named("Multimaps.filterKeys[SetMultimap, Predicate]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
 
     suite.addTest(ListMultimapTestSuiteBuilder.using(new FilteredListMultimapGenerator() {
-        @Override
-        ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
-          multimap.put("foo", 17);
-          multimap.put("bar", 32);
-          multimap.put("foo", 16);
-          return Multimaps.filterKeys(multimap,
-              Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
-        }
-      })
-      .named("Multimaps.filterKeys[ListMultimap, Predicate]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
+        multimap.put("foo", 17);
+        multimap.put("bar", 32);
+        multimap.put("foo", 16);
+        return Multimaps.filterKeys(multimap,
+                Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
+      }
+    })
+    .named("Multimaps.filterKeys[ListMultimap, Predicate]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new FilteredListMultimapGenerator() {
-        @Override
-        ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
-          multimap.put("foo", 17);
-          multimap.put("bar", 32);
-          multimap.put("foo", 16);
-          multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("foo")));
-          return Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("bar")));
-        }
-      })
-      .named("Multimaps.filterKeys[Multimaps.filterKeys[ListMultimap], Predicate]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
+        multimap.put("foo", 17);
+        multimap.put("bar", 32);
+        multimap.put("foo", 16);
+        multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("foo")));
+        return Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("bar")));
+      }
+    })
+    .named("Multimaps.filterKeys[Multimaps.filterKeys[ListMultimap], Predicate]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          multimap.put("one", 314);
-          multimap.put("two", 159);
-          multimap.put("one", 265);
-          return Multimaps.filterValues(multimap,
-              Predicates.not(Predicates.in(ImmutableSet.of(314, 159, 265))));
-        }
-      })
-      .named("Multimaps.filterValues[SetMultimap, Predicate]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        multimap.put("one", 314);
+        multimap.put("two", 159);
+        multimap.put("one", 265);
+        return Multimaps.filterValues(multimap,
+                Predicates.not(Predicates.in(ImmutableSet.of(314, 159, 265))));
+      }
+    })
+    .named("Multimaps.filterValues[SetMultimap, Predicate]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          ImmutableSetMultimap<String, Integer> badEntries =
-              ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
-          multimap.putAll(badEntries);
-          return Multimaps.filterEntries(multimap,
-              Predicates.not(Predicates.in(badEntries.entries())));
-        }
-      })
-      .named("Multimaps.filterEntries[SetMultimap, Predicate]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        ImmutableSetMultimap<String, Integer> badEntries =
+            ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
+        multimap.putAll(badEntries);
+        return Multimaps.filterEntries(multimap,
+                Predicates.not(Predicates.in(badEntries.entries())));
+      }
+    })
+    .named("Multimaps.filterEntries[SetMultimap, Predicate]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          ImmutableSetMultimap<String, Integer> badEntries =
-              ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
-          multimap.putAll(badEntries);
-          multimap = Multimaps.filterKeys(multimap,
-              Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
-          return Multimaps.filterEntries(multimap,
-              Predicates.not(Predicates.in(badEntries.entries())));
-        }
-      })
-      .named("Multimaps.filterEntries[Multimaps.filterKeys[SetMultimap]]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        ImmutableSetMultimap<String, Integer> badEntries =
+            ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
+        multimap.putAll(badEntries);
+        multimap = Multimaps.filterKeys(multimap,
+                Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
+        return Multimaps.filterEntries(multimap,
+                Predicates.not(Predicates.in(badEntries.entries())));
+      }
+    })
+    .named("Multimaps.filterEntries[Multimaps.filterKeys[SetMultimap]]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          ImmutableSetMultimap<String, Integer> badEntries =
-              ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
-          multimap.putAll(badEntries);
-          multimap = Multimaps.filterEntries(multimap,
-              Predicates.not(Predicates.in(ImmutableMap.of("one", 159, "two", 265).entrySet())));
-          return Multimaps.filterKeys(multimap,
-              Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
-        }
-      })
-      .named("Multimaps.filterKeys[Multimaps.filterEntries[SetMultimap]]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        ImmutableSetMultimap<String, Integer> badEntries =
+            ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
+        multimap.putAll(badEntries);
+        multimap = Multimaps.filterEntries(multimap,
+                Predicates.not(Predicates.in(ImmutableMap.of("one", 159, "two", 265).entrySet())));
+        return Multimaps.filterKeys(multimap,
+                Predicates.not(Predicates.in(ImmutableSet.of("foo", "bar"))));
+      }
+    })
+    .named("Multimaps.filterKeys[Multimaps.filterEntries[SetMultimap]]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
-        @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
-          ImmutableSetMultimap<String, Integer> badEntries =
-              ImmutableSetMultimap.of("foo", 314, "bar", 358);
-          multimap.putAll(badEntries);
-          multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("foo")));
-          multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("bar")));
-          return multimap;
-        }
-      })
-      .named("Multimaps.filterKeys[Multimaps.filterKeys[SetMultimap]]")
-      .withFeatures(
-          CollectionSize.ANY,
-          MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
-          MapFeature.GENERAL_PURPOSE,
-          MapFeature.ALLOWS_NULL_KEYS,
-          MapFeature.ALLOWS_NULL_VALUES,
-          MapFeature.ALLOWS_ANY_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        ImmutableSetMultimap<String, Integer> badEntries =
+            ImmutableSetMultimap.of("foo", 314, "bar", 358);
+        multimap.putAll(badEntries);
+        multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("foo")));
+        multimap = Multimaps.filterKeys(multimap, Predicates.not(Predicates.equalTo("bar")));
+        return multimap;
+      }
+    })
+    .named("Multimaps.filterKeys[Multimaps.filterKeys[SetMultimap]]")
+    .withFeatures(
+        CollectionSize.ANY,
+        MultimapFeature.VALUE_COLLECTIONS_SUPPORT_ITERATOR_REMOVE,
+        MapFeature.GENERAL_PURPOSE,
+        MapFeature.ALLOWS_NULL_KEYS,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES)
+    .createTestSuite());
     return suite;
   }
 }

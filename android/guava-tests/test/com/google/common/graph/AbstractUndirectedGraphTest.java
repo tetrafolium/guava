@@ -35,9 +35,9 @@ public abstract class AbstractUndirectedGraphTest extends AbstractGraphTest {
   public void validateUndirectedEdges() {
     for (Integer node : graph.nodes()) {
       new EqualsTester()
-          .addEqualityGroup(
-              graph.predecessors(node), graph.successors(node), graph.adjacentNodes(node))
-          .testEquals();
+      .addEqualityGroup(
+          graph.predecessors(node), graph.successors(node), graph.adjacentNodes(node))
+      .testEquals();
     }
   }
 

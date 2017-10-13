@@ -367,14 +367,14 @@ public class CacheBuilderSpecTest extends TestCase {
     assertEquals(10L, spec.accessExpirationDuration);
     assertCacheBuilderEquivalence(
         CacheBuilder.newBuilder()
-          .expireAfterAccess(10L, TimeUnit.SECONDS)
-          .expireAfterWrite(9L, TimeUnit.MINUTES),
+        .expireAfterAccess(10L, TimeUnit.SECONDS)
+        .expireAfterWrite(9L, TimeUnit.MINUTES),
         CacheBuilder.from(spec));
   }
 
   public void testParse_multipleKeys() {
     CacheBuilderSpec spec = parse("initialCapacity=10,maximumSize=20,concurrencyLevel=30,"
-        + "weakKeys,weakValues,expireAfterAccess=10m,expireAfterWrite=1h");
+            + "weakKeys,weakValues,expireAfterAccess=10m,expireAfterWrite=1h");
     assertEquals(10, spec.initialCapacity.intValue());
     assertEquals(20, spec.maximumSize.intValue());
     assertNull(spec.maximumWeight);
@@ -398,7 +398,7 @@ public class CacheBuilderSpecTest extends TestCase {
 
   public void testParse_whitespaceAllowed() {
     CacheBuilderSpec spec = parse(" initialCapacity=10,\nmaximumSize=20,\t\r"
-        + "weakKeys \t ,softValues \n , \r  expireAfterWrite \t =  15s\n\n");
+            + "weakKeys \t ,softValues \n , \r  expireAfterWrite \t =  15s\n\n");
     assertEquals(10, spec.initialCapacity.intValue());
     assertEquals(20, spec.maximumSize.intValue());
     assertNull(spec.maximumWeight);
@@ -447,31 +447,31 @@ public class CacheBuilderSpecTest extends TestCase {
 
   public void testEqualsAndHashCode() {
     new EqualsTester()
-        .addEqualityGroup(parse(""), parse(""))
-        .addEqualityGroup(parse("concurrencyLevel=7"), parse("concurrencyLevel=7"))
-        .addEqualityGroup(parse("concurrencyLevel=15"), parse("concurrencyLevel=15"))
-        .addEqualityGroup(parse("initialCapacity=7"), parse("initialCapacity=7"))
-        .addEqualityGroup(parse("initialCapacity=15"), parse("initialCapacity=15"))
-        .addEqualityGroup(parse("maximumSize=7"), parse("maximumSize=7"))
-        .addEqualityGroup(parse("maximumSize=15"), parse("maximumSize=15"))
-        .addEqualityGroup(parse("maximumWeight=7"), parse("maximumWeight=7"))
-        .addEqualityGroup(parse("maximumWeight=15"), parse("maximumWeight=15"))
-        .addEqualityGroup(parse("expireAfterAccess=60s"), parse("expireAfterAccess=1m"))
-        .addEqualityGroup(parse("expireAfterAccess=60m"), parse("expireAfterAccess=1h"))
-        .addEqualityGroup(parse("expireAfterWrite=60s"), parse("expireAfterWrite=1m"))
-        .addEqualityGroup(parse("expireAfterWrite=60m"), parse("expireAfterWrite=1h"))
-        .addEqualityGroup(parse("weakKeys"), parse("weakKeys"))
-        .addEqualityGroup(parse("softValues"), parse("softValues"))
-        .addEqualityGroup(parse("weakValues"), parse("weakValues"))
-        .addEqualityGroup(parse("recordStats"), parse("recordStats"))
-        .testEquals();
+    .addEqualityGroup(parse(""), parse(""))
+    .addEqualityGroup(parse("concurrencyLevel=7"), parse("concurrencyLevel=7"))
+    .addEqualityGroup(parse("concurrencyLevel=15"), parse("concurrencyLevel=15"))
+    .addEqualityGroup(parse("initialCapacity=7"), parse("initialCapacity=7"))
+    .addEqualityGroup(parse("initialCapacity=15"), parse("initialCapacity=15"))
+    .addEqualityGroup(parse("maximumSize=7"), parse("maximumSize=7"))
+    .addEqualityGroup(parse("maximumSize=15"), parse("maximumSize=15"))
+    .addEqualityGroup(parse("maximumWeight=7"), parse("maximumWeight=7"))
+    .addEqualityGroup(parse("maximumWeight=15"), parse("maximumWeight=15"))
+    .addEqualityGroup(parse("expireAfterAccess=60s"), parse("expireAfterAccess=1m"))
+    .addEqualityGroup(parse("expireAfterAccess=60m"), parse("expireAfterAccess=1h"))
+    .addEqualityGroup(parse("expireAfterWrite=60s"), parse("expireAfterWrite=1m"))
+    .addEqualityGroup(parse("expireAfterWrite=60m"), parse("expireAfterWrite=1h"))
+    .addEqualityGroup(parse("weakKeys"), parse("weakKeys"))
+    .addEqualityGroup(parse("softValues"), parse("softValues"))
+    .addEqualityGroup(parse("weakValues"), parse("weakValues"))
+    .addEqualityGroup(parse("recordStats"), parse("recordStats"))
+    .testEquals();
   }
 
   public void testMaximumWeight_withWeigher() {
     CacheBuilder<Object, Object> builder = CacheBuilder.from(parse("maximumWeight=9000"));
     builder
-        .weigher(constantWeigher(42))
-        .build(CacheLoader.from(Suppliers.ofInstance(null)));
+    .weigher(constantWeigher(42))
+    .build(CacheLoader.from(Suppliers.ofInstance(null)));
   }
 
   public void testMaximumWeight_withoutWeigher() {
@@ -485,8 +485,8 @@ public class CacheBuilderSpecTest extends TestCase {
   public void testMaximumSize_withWeigher() {
     CacheBuilder<Object, Object> builder = CacheBuilder.from(parse("maximumSize=9000"));
     builder
-        .weigher(constantWeigher(42))
-        .build(CacheLoader.from(Suppliers.ofInstance(null)));
+    .weigher(constantWeigher(42))
+    .build(CacheLoader.from(Suppliers.ofInstance(null)));
   }
 
   public void testMaximumSize_withoutWeigher() {
@@ -501,7 +501,7 @@ public class CacheBuilderSpecTest extends TestCase {
     Object key = new Object();
     Object value = new Object();
     LoadingCache<Object, Object> cache = builder.build(
-        CacheLoader.from(Suppliers.ofInstance(value)));
+            CacheLoader.from(Suppliers.ofInstance(value)));
     assertSame(value, cache.getUnchecked(key));
     assertEquals(0, cache.size());
     assertFalse(cache.asMap().containsKey(key));
@@ -509,8 +509,8 @@ public class CacheBuilderSpecTest extends TestCase {
 
   public void testCacheBuilderFrom_string() {
     CacheBuilder<?, ?> fromString = CacheBuilder.from(
-        "initialCapacity=10,maximumSize=20,concurrencyLevel=30,"
-        + "weakKeys,weakValues,expireAfterAccess=10m");
+            "initialCapacity=10,maximumSize=20,concurrencyLevel=30,"
+            + "weakKeys,weakValues,expireAfterAccess=10m");
     CacheBuilder<?, ?> expected = CacheBuilder.newBuilder()
         .initialCapacity(10)
         .maximumSize(20)

@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
-    implements ValueGraph<N, V> {
+  implements ValueGraph<N, V> {
 
   @Override
   public Graph<N> asGraph() {
@@ -134,12 +134,12 @@ public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
 
   private static <N, V> Map<EndpointPair<N>, V> edgeValueMap(final ValueGraph<N, V> graph) {
     Function<EndpointPair<N>, V> edgeToValueFn =
-        new Function<EndpointPair<N>, V>() {
-          @Override
-          public V apply(EndpointPair<N> edge) {
-            return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
-          }
-        };
+    new Function<EndpointPair<N>, V>() {
+      @Override
+      public V apply(EndpointPair<N> edge) {
+        return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
+      }
+    };
     return Maps.asMap(graph.edges(), edgeToValueFn);
   }
 }

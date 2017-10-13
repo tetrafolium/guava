@@ -40,12 +40,12 @@ public abstract class IoTestCase extends TestCase {
   private static final Logger logger = Logger.getLogger(IoTestCase.class.getName());
 
   static final String I18N
-      = "\u00CE\u00F1\u0163\u00E9\u0072\u00F1\u00E5\u0163\u00EE\u00F6"
-      + "\u00F1\u00E5\u013C\u00EE\u017E\u00E5\u0163\u00EE\u00F6\u00F1";
+    = "\u00CE\u00F1\u0163\u00E9\u0072\u00F1\u00E5\u0163\u00EE\u00F6"
+        + "\u00F1\u00E5\u013C\u00EE\u017E\u00E5\u0163\u00EE\u00F6\u00F1";
 
   static final String ASCII
-      = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      + "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+    = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        + "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
   private File testDir;
   private File tempDir;

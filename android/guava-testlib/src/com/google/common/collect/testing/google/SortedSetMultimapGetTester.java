@@ -26,7 +26,7 @@ import com.google.common.collect.SortedSetMultimap;
  */
 @GwtCompatible
 public class SortedSetMultimapGetTester<K, V>
-    extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
   public void testValueComparator() {
     assertEquals(multimap().valueComparator(), multimap().get(k0()).comparator());
   }

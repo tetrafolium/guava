@@ -46,7 +46,7 @@ public class FluentFutureTest extends TestCase {
 
   public void testFromNonFluentFuture() throws Exception {
     ListenableFuture<String> f =
-        new SimpleForwardingListenableFuture<String>(immediateFuture("a")) {};
+    new SimpleForwardingListenableFuture<String>(immediateFuture("a")) {};
     verify(!(f instanceof FluentFuture));
     assertThat(FluentFuture.from(f).get()).isEqualTo("a");
     // TODO(cpovirk): Test forwarding more extensively.
@@ -56,74 +56,74 @@ public class FluentFutureTest extends TestCase {
     FluentFuture<String> f = FluentFuture.from(immediateFuture("a"));
     final boolean[] called = new boolean[1];
     f.addCallback(
-        new FutureCallback<String>() {
-          @Override
-          public void onSuccess(String result) {
-            called[0] = true;
-          }
+    new FutureCallback<String>() {
+      @Override
+      public void onSuccess(String result) {
+        called[0] = true;
+      }
 
-          @Override
-          public void onFailure(Throwable t) {}
-        },
-        directExecutor());
+      @Override
+      public void onFailure(Throwable t) {}
+    },
+    directExecutor());
     assertThat(called[0]).isTrue();
   }
 
   public void testCatching() throws Exception {
     FluentFuture<?> f =
         FluentFuture.from(immediateFailedFuture(new RuntimeException()))
-            .catching(
-                Throwable.class,
-                new Function<Throwable, Class<?>>() {
-                  @Override
-                  public Class<?> apply(Throwable input) {
-                    return input.getClass();
-                  }
-                },
-                directExecutor());
+        .catching(
+            Throwable.class,
+    new Function<Throwable, Class<?>>() {
+      @Override
+      public Class<?> apply(Throwable input) {
+        return input.getClass();
+      }
+    },
+    directExecutor());
     assertThat(f.get()).isEqualTo(RuntimeException.class);
   }
 
   public void testCatchingAsync() throws Exception {
     FluentFuture<?> f =
         FluentFuture.from(immediateFailedFuture(new RuntimeException()))
-            .catchingAsync(
-                Throwable.class,
-                new AsyncFunction<Throwable, Class<?>>() {
-                  @Override
-                  public ListenableFuture<Class<?>> apply(Throwable input) {
-                    return Futures.<Class<?>>immediateFuture(input.getClass());
-                  }
-                },
-                directExecutor());
+        .catchingAsync(
+            Throwable.class,
+    new AsyncFunction<Throwable, Class<?>>() {
+      @Override
+      public ListenableFuture<Class<?>> apply(Throwable input) {
+        return Futures.<Class<?>>immediateFuture(input.getClass());
+      }
+    },
+    directExecutor());
     assertThat(f.get()).isEqualTo(RuntimeException.class);
   }
 
   public void testTransform() throws Exception {
     FluentFuture<Integer> f =
         FluentFuture.from(immediateFuture(1))
-            .transform(
-                new Function<Integer, Integer>() {
-                  @Override
-                  public Integer apply(Integer input) {
-                    return input + 1;
-                  }
-                },
-                directExecutor());
+        .transform(
+    new Function<Integer, Integer>() {
+      @Override
+      public Integer apply(Integer input) {
+        return input + 1;
+      }
+    },
+    directExecutor());
     assertThat(f.get()).isEqualTo(2);
   }
 
   public void testTransformAsync() throws Exception {
     FluentFuture<Integer> f =
         FluentFuture.from(immediateFuture(1))
-            .transformAsync(
-                new AsyncFunction<Integer, Integer>() {
-                  @Override
-                  public ListenableFuture<Integer> apply(Integer input) {
-                    return immediateFuture(input + 1);
-                  }
-                },
-                directExecutor());
+        .transformAsync(
+    new AsyncFunction<Integer, Integer>() {
+      @Override
+      public ListenableFuture<Integer> apply(Integer input) {
+        return immediateFuture(input + 1);
+      }
+    },
+    directExecutor());
     assertThat(f.get()).isEqualTo(2);
   }
 

@@ -211,12 +211,12 @@ public class ExecutionListBenchmark {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           executorService.submit(
-              new Runnable() {
-                @Override
-                public void run() {
-                  integer.getAndIncrement();
-                }
-              });
+      new Runnable() {
+        @Override
+        public void run() {
+          integer.getAndIncrement();
+        }
+      });
     }
   }
 
@@ -531,26 +531,27 @@ public class ExecutionListBenchmark {
      * TODO(lukes):  This was copied verbatim from Striped64.java... standardize this?
      */
     private static sun.misc.Unsafe getUnsafe() {
-        try {
-            return sun.misc.Unsafe.getUnsafe();
-        } catch (SecurityException tryReflectionInstead) {}
-        try {
-            return java.security.AccessController.doPrivileged (
-            ew java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                @Override public sun.misc.Unsafe run() throws Exception {
-                    Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                    for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                        f.setAccessible(true);
-                        Object x = f.get(null);
-                        if (k.isInstance(x))
-                            return k.cast(x);
-                    }
-                    throw new NoSuchFieldError("the Unsafe");
-                }});
-        } catch (java.security.PrivilegedActionException e) {
-            throw new RuntimeException("Could not initialize intrinsics",
-                                       e.getCause());
-        }
+      try {
+        return sun.misc.Unsafe.getUnsafe();
+      } catch (SecurityException tryReflectionInstead) {}
+      try {
+        return java.security.AccessController.doPrivileged (
+        ew java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+          @Override public sun.misc.Unsafe run() throws Exception {
+            Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+            for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+              f.setAccessible(true);
+              Object x = f.get(null);
+              if (k.isInstance(x))
+                return k.cast(x);
+            }
+            throw new NoSuchFieldError("the Unsafe");
+          }
+        });
+      } catch (java.security.PrivilegedActionException e) {
+        throw new RuntimeException("Could not initialize intrinsics",
+            e.getCause());
+      }
     }
     private volatile RunnableExecutorPair head = NULL_PAIR;
 

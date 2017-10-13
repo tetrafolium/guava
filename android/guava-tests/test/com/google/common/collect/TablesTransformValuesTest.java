@@ -31,10 +31,10 @@ import com.google.common.base.Function;
 public class TablesTransformValuesTest extends AbstractTableTest {
 
   private static final Function<String, Character> FIRST_CHARACTER
-    = new Function<String, Character>() {
-      @Override public Character apply(String input) {
-        return input == null ? null : input.charAt(0);
-      }
+  = new Function<String, Character>() {
+    @Override public Character apply(String input) {
+      return input == null ? null : input.charAt(0);
+    }
   };
 
   @Override protected Table<String, Integer, Character> create(

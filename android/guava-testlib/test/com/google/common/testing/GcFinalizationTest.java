@@ -99,13 +99,15 @@ public class GcFinalizationTest extends TestCase {
       this(interruptee, new AtomicBoolean(false));
     }
     Interruptenator(final Thread interruptee,
-                    final AtomicBoolean shutdown) {
+        final AtomicBoolean shutdown) {
       super(new Runnable() {
-          public void run() {
-            while (!shutdown.get()) {
-              interruptee.interrupt();
-              Thread.yield();
-            }}});
+        public void run() {
+          while (!shutdown.get()) {
+            interruptee.interrupt();
+            Thread.yield();
+          }
+        }
+      });
       this.shutdown = shutdown;
       start();
     }
@@ -175,10 +177,10 @@ public class GcFinalizationTest extends TestCase {
     try {
       try {
         GcFinalization.awaitDone(new FinalizationPredicate() {
-            public boolean isDone() {
-              return false;
-            }
-          });
+          public boolean isDone() {
+            return false;
+          }
+        });
         fail("should throw");
       } catch (RuntimeException expected) {
         assertWrapsInterruptedException(expected);
@@ -198,9 +200,9 @@ public class GcFinalizationTest extends TestCase {
   public void testAwaitFullGc() {
     final CountDownLatch finalizerRan = new CountDownLatch(1);
     final WeakReference<Object> ref = new WeakReference<Object>(
-        new Object() {
-          @Override protected void finalize() { finalizerRan.countDown(); }
-        });
+    new Object() {
+      @Override protected void finalize() { finalizerRan.countDown(); }
+    });
 
     // Don't copy this into your own test!
     // Use e.g. awaitClear or await(CountDownLatch) instead.

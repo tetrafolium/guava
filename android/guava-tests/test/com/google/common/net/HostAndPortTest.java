@@ -199,10 +199,10 @@ public class HostAndPortTest extends TestCase {
     HostAndPort hp4 = HostAndPort.fromParts("[foo::123]", 80);
     HostAndPort hp5 = HostAndPort.fromString("[foo::123]:80");
     new EqualsTester()
-        .addEqualityGroup(hp1, hp2)
-        .addEqualityGroup(hp3)
-        .addEqualityGroup(hp4, hp5)
-        .testEquals();
+    .addEqualityGroup(hp1, hp2)
+    .addEqualityGroup(hp3)
+    .addEqualityGroup(hp4, hp5)
+    .testEquals();
   }
 
   public void testRequireBracketsForIPv6() {

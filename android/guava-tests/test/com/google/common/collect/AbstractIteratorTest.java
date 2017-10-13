@@ -42,15 +42,15 @@ public class AbstractIteratorTest extends TestCase {
       private int rep;
       @Override public Integer computeNext() {
         switch (rep++) {
-          case 0:
-            return 0;
-          case 1:
-            return 1;
-          case 2:
-            return endOfData();
-          default:
-            fail("Should not have been invoked again");
-            return null;
+        case 0:
+          return 0;
+        case 1:
+          return 1;
+        case 2:
+          return endOfData();
+        default:
+          fail("Should not have been invoked again");
+          return null;
         }
       }
     };
@@ -85,15 +85,15 @@ public class AbstractIteratorTest extends TestCase {
       private int rep;
       @Override public Integer computeNext() {
         switch (rep++) {
-          case 0:
-            return 0;
-          case 1:
-            return 1;
-          case 2:
-            return endOfData();
-          default:
-            fail("Should not have been invoked again");
-            return null;
+        case 0:
+          return 0;
+        case 1:
+          return 1;
+        case 2:
+          return endOfData();
+        default:
+          fail("Should not have been invoked again");
+          return null;
         }
       }
     };
@@ -255,13 +255,13 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testReentrantHasNext() {
     Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          @Override
-          protected Integer computeNext() {
-            boolean unused = hasNext();
-            return null;
-          }
-        };
+    new AbstractIterator<Integer>() {
+      @Override
+      protected Integer computeNext() {
+        boolean unused = hasNext();
+        return null;
+      }
+    };
     try {
       iter.hasNext();
       fail();

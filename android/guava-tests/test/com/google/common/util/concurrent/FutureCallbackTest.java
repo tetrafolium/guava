@@ -63,21 +63,21 @@ public class FutureCallbackTest extends TestCase {
   public void testCancel() {
     SettableFuture<String> f = SettableFuture.create();
     FutureCallback<String> callback =
-        new FutureCallback<String>() {
-          private boolean called = false;
+    new FutureCallback<String>() {
+      private boolean called = false;
 
-          @Override
-          public void onSuccess(String result) {
-            fail("Was not expecting onSuccess() to be called.");
-          }
+      @Override
+      public void onSuccess(String result) {
+        fail("Was not expecting onSuccess() to be called.");
+      }
 
-          @Override
-          public synchronized void onFailure(Throwable t) {
-            assertFalse(called);
-            assertThat(t).isInstanceOf(CancellationException.class);
-            called = true;
-          }
-        };
+      @Override
+      public synchronized void onFailure(Throwable t) {
+        assertFalse(called);
+        assertThat(t).isInstanceOf(CancellationException.class);
+        called = true;
+      }
+    };
     addCallback(f, callback, directExecutor());
     f.cancel(true);
   }

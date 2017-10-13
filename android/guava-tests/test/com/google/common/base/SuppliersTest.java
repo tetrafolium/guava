@@ -161,22 +161,22 @@ public class SuppliersTest extends TestCase {
     };
 
     Function<Number, Integer> intValueFunction =
-        new Function<Number, Integer>() {
-          @Override
-          public Integer apply(Number x) {
-            return x.intValue();
-          }
-        };
+    new Function<Number, Integer>() {
+      @Override
+      public Integer apply(Number x) {
+        return x.intValue();
+      }
+    };
 
     Supplier<Integer> squareSupplier = Suppliers.compose(intValueFunction,
-        fiveSupplier);
+            fiveSupplier);
 
     assertEquals(Integer.valueOf(5), squareSupplier.get());
   }
 
   public void testComposeWithLists() {
     Supplier<ArrayList<Integer>> listSupplier
-        = new Supplier<ArrayList<Integer>>() {
+    = new Supplier<ArrayList<Integer>>() {
       @Override
       public ArrayList<Integer> get() {
         return Lists.newArrayList(0);
@@ -184,17 +184,17 @@ public class SuppliersTest extends TestCase {
     };
 
     Function<List<Integer>, List<Integer>> addElementFunction =
-        new Function<List<Integer>, List<Integer>>() {
-          @Override
-          public List<Integer> apply(List<Integer> list) {
-            ArrayList<Integer> result = Lists.newArrayList(list);
-            result.add(1);
-            return result;
-          }
-        };
+    new Function<List<Integer>, List<Integer>>() {
+      @Override
+      public List<Integer> apply(List<Integer> list) {
+        ArrayList<Integer> result = Lists.newArrayList(list);
+        result.add(1);
+        return result;
+      }
+    };
 
     Supplier<List<Integer>> addSupplier = Suppliers.compose(addElementFunction,
-        listSupplier);
+            listSupplier);
 
     List<Integer> result = addSupplier.get();
     assertEquals(Integer.valueOf(0), result.get(0));
@@ -206,7 +206,7 @@ public class SuppliersTest extends TestCase {
     CountingSupplier countingSupplier = new CountingSupplier();
 
     Supplier<Integer> memoizedSupplier = Suppliers.memoizeWithExpiration(
-        countingSupplier, 75, TimeUnit.MILLISECONDS);
+            countingSupplier, 75, TimeUnit.MILLISECONDS);
 
     checkExpiration(countingSupplier, memoizedSupplier);
   }
@@ -216,7 +216,7 @@ public class SuppliersTest extends TestCase {
     SerializableCountingSupplier countingSupplier = new SerializableCountingSupplier();
 
     Supplier<Integer> memoizedSupplier = Suppliers.memoizeWithExpiration(
-        countingSupplier, 75, TimeUnit.MILLISECONDS);
+            countingSupplier, 75, TimeUnit.MILLISECONDS);
     // Calls to the original memoized supplier shouldn't affect its copy.
     memoizedSupplier.get();
 
@@ -231,7 +231,7 @@ public class SuppliersTest extends TestCase {
   @GwtIncompatible // Thread.sleep
   private void checkExpiration(
       CountingSupplier countingSupplier, Supplier<Integer> memoizedSupplier)
-      throws InterruptedException {
+  throws InterruptedException {
     // the underlying supplier hasn't executed yet
     assertEquals(0, countingSupplier.calls);
 
@@ -270,10 +270,10 @@ public class SuppliersTest extends TestCase {
 
   public void testExpiringMemoizedSupplierThreadSafe() throws Throwable {
     Function<Supplier<Boolean>, Supplier<Boolean>> memoizer =
-        new Function<Supplier<Boolean>, Supplier<Boolean>>() {
+    new Function<Supplier<Boolean>, Supplier<Boolean>>() {
       @Override public Supplier<Boolean> apply(Supplier<Boolean> supplier) {
         return Suppliers.memoizeWithExpiration(
-            supplier, Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+                supplier, Long.MAX_VALUE, TimeUnit.NANOSECONDS);
       }
     };
     testSupplierThreadSafe(memoizer);
@@ -283,7 +283,7 @@ public class SuppliersTest extends TestCase {
 
   public void testMemoizedSupplierThreadSafe() throws Throwable {
     Function<Supplier<Boolean>, Supplier<Boolean>> memoizer =
-        new Function<Supplier<Boolean>, Supplier<Boolean>>() {
+    new Function<Supplier<Boolean>, Supplier<Boolean>>() {
       @Override public Supplier<Boolean> apply(Supplier<Boolean> supplier) {
         return Suppliers.memoize(supplier);
       }
@@ -293,7 +293,7 @@ public class SuppliersTest extends TestCase {
 
   @GwtIncompatible // Thread
   public void testSupplierThreadSafe(Function<Supplier<Boolean>, Supplier<Boolean>> memoizer)
-      throws Throwable {
+  throws Throwable {
     final AtomicInteger count = new AtomicInteger(0);
     final AtomicReference<Throwable> thrown = new AtomicReference<>(null);
     final int numThreads = 3;
@@ -303,11 +303,11 @@ public class SuppliersTest extends TestCase {
     final Supplier<Boolean> supplier = new Supplier<Boolean>() {
       boolean isWaiting(Thread thread) {
         switch (thread.getState()) {
-          case BLOCKED:
-          case WAITING:
-          case TIMED_WAITING:
+        case BLOCKED:
+        case WAITING:
+        case TIMED_WAITING:
           return true;
-          default:
+        default:
           return false;
         }
       }
@@ -330,8 +330,8 @@ public class SuppliersTest extends TestCase {
         while (waitingThreads() != numThreads - 1) {
           if (System.nanoTime() - t0 > timeout) {
             thrown.set(new TimeoutException(
-                "timed out waiting for other threads to block" +
-                " synchronizing on supplier"));
+                    "timed out waiting for other threads to block" +
+                    " synchronizing on supplier"));
             break;
           }
           Thread.yield();
@@ -412,46 +412,46 @@ public class SuppliersTest extends TestCase {
     assertEquals(
         Integer.valueOf(5), reserialize(Suppliers.ofInstance(5)).get());
     assertEquals(Integer.valueOf(5), reserialize(Suppliers.compose(
-        Functions.identity(), Suppliers.ofInstance(5))).get());
+                Functions.identity(), Suppliers.ofInstance(5))).get());
     assertEquals(Integer.valueOf(5),
         reserialize(Suppliers.memoize(Suppliers.ofInstance(5))).get());
     assertEquals(Integer.valueOf(5),
         reserialize(Suppliers.memoizeWithExpiration(
-            Suppliers.ofInstance(5), 30, TimeUnit.SECONDS)).get());
+                Suppliers.ofInstance(5), 30, TimeUnit.SECONDS)).get());
     assertEquals(Integer.valueOf(5), reserialize(
-        Suppliers.synchronizedSupplier(Suppliers.ofInstance(5))).get());
+            Suppliers.synchronizedSupplier(Suppliers.ofInstance(5))).get());
   }
 
   @GwtIncompatible // reflection
   public void testSuppliersNullChecks() throws Exception {
     new ClassSanityTester().forAllPublicStaticMethods(Suppliers.class)
-        .testNulls();
+    .testNulls();
   }
 
   @GwtIncompatible // reflection
   @AndroidIncompatible // TODO(cpovirk): ClassNotFoundException: com.google.common.base.Function
   public void testSuppliersSerializable() throws Exception {
     new ClassSanityTester().forAllPublicStaticMethods(Suppliers.class)
-        .testSerializable();
+    .testSerializable();
   }
 
   public void testOfInstance_equals() {
     new EqualsTester()
-        .addEqualityGroup(
-            Suppliers.ofInstance("foo"), Suppliers.ofInstance("foo"))
-        .addEqualityGroup(Suppliers.ofInstance("bar"))
-        .testEquals();
+    .addEqualityGroup(
+        Suppliers.ofInstance("foo"), Suppliers.ofInstance("foo"))
+    .addEqualityGroup(Suppliers.ofInstance("bar"))
+    .testEquals();
   }
 
   public void testCompose_equals() {
     new EqualsTester()
-        .addEqualityGroup(
-            Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("foo")),
-            Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("foo")))
-        .addEqualityGroup(
-            Suppliers.compose(Functions.constant(2), Suppliers.ofInstance("foo")))
-        .addEqualityGroup(
-            Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("bar")))
-        .testEquals();
+    .addEqualityGroup(
+        Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("foo")),
+        Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("foo")))
+    .addEqualityGroup(
+        Suppliers.compose(Functions.constant(2), Suppliers.ofInstance("foo")))
+    .addEqualityGroup(
+        Suppliers.compose(Functions.constant(1), Suppliers.ofInstance("bar")))
+    .testEquals();
   }
 }

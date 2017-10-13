@@ -35,19 +35,19 @@ import junit.framework.TestCase;
 public class ConverterTest extends TestCase {
 
   private static final Converter<String, Long> STR_TO_LONG =
-      new Converter<String, Long>() {
-        @Override protected Long doForward(String object) {
-          return Long.valueOf(object);
-        }
+  new Converter<String, Long>() {
+    @Override protected Long doForward(String object) {
+      return Long.valueOf(object);
+    }
 
-        @Override protected String doBackward(Long object) {
-          return String.valueOf(object);
-        }
+    @Override protected String doBackward(Long object) {
+      return String.valueOf(object);
+    }
 
-        @Override public String toString() {
-          return "string2long";
-        }
-      };
+    @Override public String toString() {
+      return "string2long";
+    }
+  };
 
   private static final Long LONG_VAL = 12345L;
   private static final String STR_VAL = "12345";
@@ -88,9 +88,9 @@ public class ConverterTest extends TestCase {
     assertEquals("string2long.reverse()", reverseConverter.toString());
 
     new EqualsTester()
-        .addEqualityGroup(STR_TO_LONG, STR_TO_LONG.reverse().reverse())
-        .addEqualityGroup(STR_TO_LONG.reverse(), STR_TO_LONG.reverse())
-        .testEquals();
+    .addEqualityGroup(STR_TO_LONG, STR_TO_LONG.reverse().reverse())
+    .addEqualityGroup(STR_TO_LONG.reverse(), STR_TO_LONG.reverse())
+    .testEquals();
   }
 
   public void testReverseReverse() {

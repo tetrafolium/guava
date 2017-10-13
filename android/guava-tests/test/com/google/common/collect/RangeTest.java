@@ -301,7 +301,7 @@ public class RangeTest extends TestCase {
     assertFalse(range.containsAll(ImmutableSortedSet.of(3, 3, 4, 5, 6)));
 
     assertTrue(Range.openClosed(3, 3).containsAll(
-        Collections.<Integer>emptySet()));
+            Collections.<Integer>emptySet()));
   }
 
   public void testEncloses_open() {
@@ -521,33 +521,33 @@ public class RangeTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(Range.open(1, 5),
-            Range.range(1, OPEN, 5, OPEN))
-        .addEqualityGroup(Range.greaterThan(2), Range.greaterThan(2))
-        .addEqualityGroup(Range.all(), Range.all())
-        .addEqualityGroup("Phil")
-        .testEquals();
+    .addEqualityGroup(Range.open(1, 5),
+        Range.range(1, OPEN, 5, OPEN))
+    .addEqualityGroup(Range.greaterThan(2), Range.greaterThan(2))
+    .addEqualityGroup(Range.all(), Range.all())
+    .addEqualityGroup("Phil")
+    .testEquals();
   }
 
   public void testLegacyComparable() {
     Range<LegacyComparable> range
-        = Range.closed(LegacyComparable.X, LegacyComparable.Y);
+      = Range.closed(LegacyComparable.X, LegacyComparable.Y);
   }
 
   static final DiscreteDomain<Integer> UNBOUNDED_DOMAIN =
-      new DiscreteDomain<Integer>() {
-        @Override public Integer next(Integer value) {
-          return integers().next(value);
-        }
+  new DiscreteDomain<Integer>() {
+    @Override public Integer next(Integer value) {
+      return integers().next(value);
+    }
 
-        @Override public Integer previous(Integer value) {
-          return integers().previous(value);
-        }
+    @Override public Integer previous(Integer value) {
+      return integers().previous(value);
+    }
 
-        @Override public long distance(Integer start, Integer end) {
-          return integers().distance(start, end);
-        }
-      };
+    @Override public long distance(Integer start, Integer end) {
+      return integers().distance(start, end);
+    }
+  };
 
   public void testCanonical() {
     assertEquals(Range.closedOpen(1, 5),
@@ -609,31 +609,31 @@ public class RangeTest extends TestCase {
 
   public void testEquivalentFactories() {
     new EqualsTester()
-        .addEqualityGroup(Range.all())
-        .addEqualityGroup(
-            Range.atLeast(1),
-            Range.downTo(1, CLOSED))
-        .addEqualityGroup(
-            Range.greaterThan(1),
-            Range.downTo(1, OPEN))
-        .addEqualityGroup(
-            Range.atMost(7),
-            Range.upTo(7, CLOSED))
-        .addEqualityGroup(
-            Range.lessThan(7),
-            Range.upTo(7, OPEN))
-        .addEqualityGroup(
-            Range.open(1, 7),
-            Range.range(1, OPEN, 7, OPEN))
-        .addEqualityGroup(
-            Range.openClosed(1, 7),
-            Range.range(1, OPEN, 7, CLOSED))
-        .addEqualityGroup(
-            Range.closed(1, 7),
-            Range.range(1, CLOSED, 7, CLOSED))
-        .addEqualityGroup(
-            Range.closedOpen(1, 7),
-            Range.range(1, CLOSED, 7, OPEN))
-        .testEquals();
+    .addEqualityGroup(Range.all())
+    .addEqualityGroup(
+        Range.atLeast(1),
+        Range.downTo(1, CLOSED))
+    .addEqualityGroup(
+        Range.greaterThan(1),
+        Range.downTo(1, OPEN))
+    .addEqualityGroup(
+        Range.atMost(7),
+        Range.upTo(7, CLOSED))
+    .addEqualityGroup(
+        Range.lessThan(7),
+        Range.upTo(7, OPEN))
+    .addEqualityGroup(
+        Range.open(1, 7),
+        Range.range(1, OPEN, 7, OPEN))
+    .addEqualityGroup(
+        Range.openClosed(1, 7),
+        Range.range(1, OPEN, 7, CLOSED))
+    .addEqualityGroup(
+        Range.closed(1, 7),
+        Range.range(1, CLOSED, 7, CLOSED))
+    .addEqualityGroup(
+        Range.closedOpen(1, 7),
+        Range.range(1, CLOSED, 7, OPEN))
+    .testEquals();
   }
 }

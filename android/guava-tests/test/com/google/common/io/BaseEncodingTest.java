@@ -427,14 +427,14 @@ public class BaseEncodingTest extends TestCase {
 
   @GwtIncompatible // Reader/Writer
   private static void testStreamingEncoding(BaseEncoding encoding, String decoded, String encoded)
-      throws IOException {
+  throws IOException {
     testStreamingEncodes(encoding, decoded, encoded);
     testStreamingDecodes(encoding, encoded, decoded);
   }
 
   @GwtIncompatible // Writer
   private static void testStreamingEncodes(BaseEncoding encoding, String decoded, String encoded)
-      throws IOException {
+  throws IOException {
     StringWriter writer = new StringWriter();
     OutputStream encodingStream = encoding.encodingStream(writer);
     encodingStream.write(decoded.getBytes(UTF_8));
@@ -444,7 +444,7 @@ public class BaseEncodingTest extends TestCase {
 
   @GwtIncompatible // Reader
   private static void testStreamingDecodes(BaseEncoding encoding, String encoded, String decoded)
-      throws IOException {
+  throws IOException {
     byte[] bytes = decoded.getBytes(UTF_8);
     InputStream decodingStream = encoding.decodingStream(new StringReader(encoded));
     for (int i = 0; i < bytes.length; i++) {

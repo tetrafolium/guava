@@ -54,13 +54,13 @@ public class QueuesTest extends TestCase {
 
   public static List<BlockingQueue<Object>> blockingQueues() {
     return ImmutableList.<BlockingQueue<Object>>of(
-        new LinkedBlockingQueue<Object>(),
-        new LinkedBlockingQueue<Object>(10),
-        new SynchronousQueue<Object>(),
-        new ArrayBlockingQueue<Object>(10),
-        new LinkedBlockingDeque<Object>(),
-        new LinkedBlockingDeque<Object>(10),
-        new PriorityBlockingQueue<Object>(10, Ordering.arbitrary()));
+            new LinkedBlockingQueue<Object>(),
+            new LinkedBlockingQueue<Object>(10),
+            new SynchronousQueue<Object>(),
+            new ArrayBlockingQueue<Object>(10),
+            new LinkedBlockingDeque<Object>(),
+            new LinkedBlockingDeque<Object>(10),
+            new PriorityBlockingQueue<Object>(10, Ordering.arbitrary()));
   }
 
   /*
@@ -87,7 +87,7 @@ public class QueuesTest extends TestCase {
       long timeout,
       TimeUnit unit,
       boolean interruptibly)
-      throws InterruptedException {
+  throws InterruptedException {
     return interruptibly
         ? Queues.drain(q, buffer, maxElements, timeout, unit)
         : Queues.drainUninterruptibly(q, buffer, maxElements, timeout, unit);
@@ -221,14 +221,14 @@ public class QueuesTest extends TestCase {
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError =
         threadPool.submit(
-            new Callable<Void>() {
-              public Void call() throws InterruptedException {
-                new Producer(q, 50).call();
-                new Interrupter(mainThread).run();
-                new Producer(q, 50).call();
-                return null;
-              }
-            });
+    new Callable<Void>() {
+      public Void call() throws InterruptedException {
+        new Producer(q, 50).call();
+        new Interrupter(mainThread).run();
+        new Producer(q, 50).call();
+        return null;
+      }
+    });
     List<Object> buf = newArrayList();
     int elements = Queues.drainUninterruptibly(q, buf, 100, MAX_VALUE, NANOSECONDS);
     // so when this drains all elements, we know the thread has also been interrupted in between

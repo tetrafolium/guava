@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializationDependencies<E>
-    implements Multiset<E> {
+  implements Multiset<E> {
   /**
    * Returns the empty immutable multiset.
    */
@@ -463,7 +463,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     Builder(int estimatedDistinct) {
       this.contents = ObjectCountHashMap.createWithExpectedSize(estimatedDistinct);
     }
-    
+
     Builder(boolean forSubtype) {
       // for ImmutableSortedMultiset not to allocate data structures not used there
       this.contents = null;

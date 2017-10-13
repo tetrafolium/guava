@@ -45,9 +45,9 @@ public class ResourcesTest extends IoTestCase {
   public static TestSuite suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(ByteSourceTester.tests("Resources.asByteSource[URL]",
-        SourceSinkFactories.urlByteSourceFactory(), true));
+            SourceSinkFactories.urlByteSourceFactory(), true));
     suite.addTest(CharSourceTester.tests("Resources.asCharSource[URL, Charset]",
-        SourceSinkFactories.urlCharSourceFactory(), false));
+            SourceSinkFactories.urlCharSourceFactory(), false));
     suite.addTestSuite(ResourcesTest.class);
     return suite;
   }
@@ -56,7 +56,7 @@ public class ResourcesTest extends IoTestCase {
     URL resource = getClass().getResource("testdata/i18n.txt");
     assertEquals(I18N, Resources.toString(resource, Charsets.UTF_8));
     assertThat(Resources.toString(resource, Charsets.US_ASCII))
-        .isNotEqualTo(I18N);
+    .isNotEqualTo(I18N);
   }
 
   public void testToToByteArray() throws IOException {
@@ -75,22 +75,22 @@ public class ResourcesTest extends IoTestCase {
   public void testReadLines_withLineProcessor() throws IOException {
     URL resource = getClass().getResource("testdata/alice_in_wonderland.txt");
     LineProcessor<List<String>> collectAndLowercaseAndTrim =
-        new LineProcessor<List<String>>() {
-          List<String> collector = new ArrayList<>();
+    new LineProcessor<List<String>>() {
+      List<String> collector = new ArrayList<>();
 
-          @Override
-          public boolean processLine(String line) {
-            collector.add(whitespace().trimFrom(line));
-            return true;
-          }
+      @Override
+      public boolean processLine(String line) {
+        collector.add(whitespace().trimFrom(line));
+        return true;
+      }
 
-          @Override
-          public List<String> getResult() {
-            return collector;
-          }
-        };
+      @Override
+      public List<String> getResult() {
+        return collector;
+      }
+    };
     List<String> result = Resources.readLines(resource, Charsets.US_ASCII,
-        collectAndLowercaseAndTrim);
+            collectAndLowercaseAndTrim);
     assertEquals(3600, result.size());
     assertEquals("ALICE'S ADVENTURES IN WONDERLAND", result.get(0));
     assertEquals("THE END", result.get(result.size() - 1));
@@ -124,9 +124,9 @@ public class ResourcesTest extends IoTestCase {
       fail();
     } catch (IllegalArgumentException e) {
       assertThat(e)
-          .hasMessage(
-              "resource com/google/common/io/testdata/i18n.txt"
-                  + " relative to com.google.common.io.ResourcesTest not found.");
+      .hasMessage(
+          "resource com/google/common/io/testdata/i18n.txt"
+          + " relative to com.google.common.io.ResourcesTest not found.");
     }
   }
 
@@ -186,8 +186,8 @@ public class ResourcesTest extends IoTestCase {
 
   public void testNulls() {
     new NullPointerTester()
-        .setDefault(URL.class, classfile(ResourcesTest.class))
-        .testAllPublicStaticMethods(Resources.class);
+    .setDefault(URL.class, classfile(ResourcesTest.class))
+    .testAllPublicStaticMethods(Resources.class);
   }
 
   private static URL classfile(Class<?> c) {

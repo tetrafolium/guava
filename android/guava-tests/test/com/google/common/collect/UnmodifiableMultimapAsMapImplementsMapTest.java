@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class UnmodifiableMultimapAsMapImplementsMapTest
-    extends AbstractMultimapAsMapImplementsMapTest {
+  extends AbstractMultimapAsMapImplementsMapTest {
 
   public UnmodifiableMultimapAsMapImplementsMapTest() {
     super(false, true, false);
@@ -37,7 +37,7 @@ public class UnmodifiableMultimapAsMapImplementsMapTest
 
   @Override protected Map<String, Collection<Integer>> makeEmptyMap() {
     return Multimaps.unmodifiableMultimap(
-        LinkedHashMultimap.<String, Integer>create()).asMap();
+            LinkedHashMultimap.<String, Integer>create()).asMap();
   }
 
   @Override protected Map<String, Collection<Integer>> makePopulatedMap() {

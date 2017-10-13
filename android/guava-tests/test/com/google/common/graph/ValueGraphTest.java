@@ -58,7 +58,7 @@ public final class ValueGraphTest {
         assertThat(hasEdge).isEqualTo(asGraph.hasEdgeConnecting(node, otherNode));
         assertThat(graph.edgeValueOrDefault(node, otherNode, null) != null).isEqualTo(hasEdge);
         assertThat(!graph.edgeValueOrDefault(node, otherNode, DEFAULT).equals(DEFAULT))
-            .isEqualTo(hasEdge);
+        .isEqualTo(hasEdge);
       }
     }
   }

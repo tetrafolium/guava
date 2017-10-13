@@ -56,7 +56,7 @@ public class AbstractFutureTest extends TestCase {
       {
         set(value);
       }
-    }.get());
+    } .get());
   }
 
   public void testException() throws InterruptedException {
@@ -205,15 +205,15 @@ public class AbstractFutureTest extends TestCase {
 
   public void testToString_notDone() throws Exception {
     AbstractFuture<Object> testFuture =
-        new AbstractFuture<Object>() {
-          @Override
-          public String pendingToString() {
-            return "cause=[Because this test isn't done]";
-          }
-        };
+    new AbstractFuture<Object>() {
+      @Override
+      public String pendingToString() {
+        return "cause=[Because this test isn't done]";
+      }
+    };
     assertThat(testFuture.toString())
-        .matches(
-            "[^\\[]+\\[status=PENDING, info=\\[cause=\\[Because this test isn't done\\]\\]\\]");
+    .matches(
+        "[^\\[]+\\[status=PENDING, info=\\[cause=\\[Because this test isn't done\\]\\]\\]");
     try {
       testFuture.get(1, TimeUnit.NANOSECONDS);
       fail();
@@ -225,44 +225,44 @@ public class AbstractFutureTest extends TestCase {
 
   public void testToString_completed() throws Exception {
     AbstractFuture<Object> testFuture2 =
-        new AbstractFuture<Object>() {
-          @Override
-          public String pendingToString() {
-            return "cause=[Someday...]";
-          }
-        };
+    new AbstractFuture<Object>() {
+      @Override
+      public String pendingToString() {
+        return "cause=[Someday...]";
+      }
+    };
     AbstractFuture<Object> testFuture3 = new AbstractFuture<Object>() {};
     testFuture3.setFuture(testFuture2);
     assertThat(testFuture3.toString())
-        .matches(
-            "[^\\[]+\\[status=PENDING, info=\\[setFuture="
-                + "\\[[^\\[]+\\[status=PENDING, info=\\[cause=\\[Someday...\\]\\]\\]\\]\\]\\]");
+    .matches(
+        "[^\\[]+\\[status=PENDING, info=\\[setFuture="
+        + "\\[[^\\[]+\\[status=PENDING, info=\\[cause=\\[Someday...\\]\\]\\]\\]\\]\\]");
     testFuture2.set("result string");
     assertThat(testFuture3.toString())
-        .matches("[^\\[]+\\[status=SUCCESS, result=\\[result string\\]\\]");
+    .matches("[^\\[]+\\[status=SUCCESS, result=\\[result string\\]\\]");
   }
 
   public void testToString_cancelled() throws Exception {
     assertThat(Futures.immediateCancelledFuture().toString())
-        .matches("[^\\[]+\\[status=CANCELLED\\]");
+    .matches("[^\\[]+\\[status=CANCELLED\\]");
   }
 
   public void testToString_failed() {
     assertThat(Futures.immediateFailedFuture(new RuntimeException("foo")).toString())
-        .matches("[^\\[]+\\[status=FAILURE, cause=\\[java.lang.RuntimeException: foo\\]\\]");
+    .matches("[^\\[]+\\[status=FAILURE, cause=\\[java.lang.RuntimeException: foo\\]\\]");
   }
 
   public void testToString_misbehaving() throws Exception {
     assertThat(
-            new AbstractFuture<Object>() {
-              @Override
-              public String pendingToString() {
-                throw new RuntimeException("I'm a misbehaving implementation");
-              }
-            }.toString())
-        .matches(
-            "[^\\[]+\\[status=PENDING, info=\\[Exception thrown from implementation: "
-                + "class java.lang.RuntimeException\\]\\]");
+    new AbstractFuture<Object>() {
+      @Override
+      public String pendingToString() {
+        throw new RuntimeException("I'm a misbehaving implementation");
+      }
+    } .toString())
+    .matches(
+        "[^\\[]+\\[status=PENDING, info=\\[Exception thrown from implementation: "
+        + "class java.lang.RuntimeException\\]\\]");
   }
 
   public void testCompletionFinishesWithDone() {
@@ -384,44 +384,44 @@ public class AbstractFutureTest extends TestCase {
     };
     final Set<Object> finalResults = Collections.synchronizedSet(Sets.newIdentityHashSet());
     Runnable collectResultsRunnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            try {
-              String result = Uninterruptibles.getUninterruptibly(currentFuture.get());
-              finalResults.add(result);
-            } catch (ExecutionException e) {
-              finalResults.add(e.getCause());
-            } catch (CancellationException e) {
-              finalResults.add(CancellationException.class);
-            } finally {
-              awaitUnchecked(barrier);
-            }
-          }
-        };
+    new Runnable() {
+      @Override
+      public void run() {
+        try {
+          String result = Uninterruptibles.getUninterruptibly(currentFuture.get());
+          finalResults.add(result);
+        } catch (ExecutionException e) {
+          finalResults.add(e.getCause());
+        } catch (CancellationException e) {
+          finalResults.add(CancellationException.class);
+        } finally {
+          awaitUnchecked(barrier);
+        }
+      }
+    };
     Runnable collectResultsTimedGetRunnable =
-        new Runnable() {
-          @Override
-          public void run() {
-            Future<String> future = currentFuture.get();
-            while (true) {
-              try {
-                String result = Uninterruptibles.getUninterruptibly(future, 0, TimeUnit.SECONDS);
-                finalResults.add(result);
-                break;
-              } catch (ExecutionException e) {
-                finalResults.add(e.getCause());
-                break;
-              } catch (CancellationException e) {
-                finalResults.add(CancellationException.class);
-                break;
-              } catch (TimeoutException e) {
-                // loop
-              }
-            }
-            awaitUnchecked(barrier);
+    new Runnable() {
+      @Override
+      public void run() {
+        Future<String> future = currentFuture.get();
+        while (true) {
+          try {
+            String result = Uninterruptibles.getUninterruptibly(future, 0, TimeUnit.SECONDS);
+            finalResults.add(result);
+            break;
+          } catch (ExecutionException e) {
+            finalResults.add(e.getCause());
+            break;
+          } catch (CancellationException e) {
+            finalResults.add(CancellationException.class);
+            break;
+          } catch (TimeoutException e) {
+            // loop
           }
-        };
+        }
+        awaitUnchecked(barrier);
+      }
+    };
     List<Callable<?>> allTasks = new ArrayList<>();
     allTasks.add(completeSucessFullyRunnable);
     allTasks.add(completeExceptionallyRunnable);
@@ -716,7 +716,7 @@ public class AbstractFutureTest extends TestCase {
   private void checkStackTrace(ExecutionException e) {
     // Our call site for get() should be in the trace.
     int index = findStackFrame(
-        e, getClass().getName(), "getExpectingExecutionException");
+            e, getClass().getName(), "getExpectingExecutionException");
 
     assertThat(index).isNotEqualTo(0);
 
@@ -737,7 +737,7 @@ public class AbstractFutureTest extends TestCase {
     }
     AssertionFailedError failure =
         new AssertionFailedError("Expected element " + clazz + "." + method
-            + " not found in stack trace");
+        + " not found in stack trace");
     failure.initCause(e);
     throw failure;
   }
@@ -838,7 +838,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   private static final class InterruptibleFuture
-      extends AbstractFuture<String> {
+    extends AbstractFuture<String> {
     boolean interruptTaskWasCalled;
 
     @Override protected void interruptTask() {

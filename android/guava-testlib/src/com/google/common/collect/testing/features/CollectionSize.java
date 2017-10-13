@@ -92,8 +92,8 @@ public enum CollectionSize implements Feature<Collection>, Comparable<Collection
   @Inherited
   @TesterAnnotation
   public @interface Require {
-    CollectionSize[] value() default {};
+  CollectionSize[] value() default {};
 
-    CollectionSize[] absent() default {};
+  CollectionSize[] absent() default {};
   }
 }

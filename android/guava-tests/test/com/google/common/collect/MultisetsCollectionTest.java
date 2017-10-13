@@ -45,7 +45,7 @@ public class MultisetsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite();
 
     suite.addTest(MultisetTestSuiteBuilder.using(
-        unmodifiableMultisetGenerator())
+            unmodifiableMultisetGenerator())
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
             CollectionFeature.SERIALIZABLE,
             CollectionFeature.ALLOWS_NULL_QUERIES)
@@ -123,7 +123,7 @@ public class MultisetsCollectionTest extends TestCase {
     return new TestStringMultisetGenerator() {
       @Override protected Multiset<String> create(String[] elements) {
         return Multisets.unmodifiableSortedMultiset(
-            TreeMultiset.create(asList(elements)));
+                TreeMultiset.create(asList(elements)));
       }
       @Override public List<String> order(List<String> insertionOrder) {
         Collections.sort(insertionOrder);
@@ -171,8 +171,8 @@ public class MultisetsCollectionTest extends TestCase {
           multiset1.add(elements[0]);
         }
         if ((elements.length > 1) && (!Objects.equal(elements[0], elements[1]))) {
-            multiset2.add(elements[1], 2);
-          }
+          multiset2.add(elements[1], 2);
+        }
         return Multisets.intersection(multiset1, multiset2);
       }
     };

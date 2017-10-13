@@ -78,7 +78,7 @@ public enum CollectionFeature implements Feature<Collection> {
    */
   REJECTS_DUPLICATES_AT_CREATION,
 
-    SUPPORTS_ADD,
+  SUPPORTS_ADD,
   SUPPORTS_REMOVE,
   SUPPORTS_ITERATOR_REMOVE,
   FAILS_FAST_ON_CONCURRENT_MODIFICATION,
@@ -120,8 +120,8 @@ public enum CollectionFeature implements Feature<Collection> {
   @Inherited
   @TesterAnnotation
   public @interface Require {
-    CollectionFeature[] value() default {};
+  CollectionFeature[] value() default {};
 
-    CollectionFeature[] absent() default {};
+  CollectionFeature[] absent() default {};
   }
 }

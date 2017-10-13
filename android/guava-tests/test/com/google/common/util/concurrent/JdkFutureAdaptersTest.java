@@ -76,7 +76,7 @@ public class JdkFutureAdaptersTest extends TestCase {
   }
 
   public void testListenInPoolThreadIgnoresExecutorWhenDelegateIsDone()
-      throws Exception {
+  throws Exception {
     NonListenableSettableFuture<String> abstractFuture =
         NonListenableSettableFuture.create();
     abstractFuture.set(DATA1);
@@ -105,7 +105,7 @@ public class JdkFutureAdaptersTest extends TestCase {
 
   public void testListenInPoolThreadUsesGivenExecutor() throws Exception {
     ExecutorService executorService = newCachedThreadPool(
-        new ThreadFactoryBuilder().setDaemon(true).build());
+            new ThreadFactoryBuilder().setDaemon(true).build());
     NonListenableSettableFuture<String> abstractFuture =
         NonListenableSettableFuture.create();
     ExecutorSpy spy = new ExecutorSpy(executorService);
@@ -130,12 +130,12 @@ public class JdkFutureAdaptersTest extends TestCase {
   }
 
   public void testListenInPoolThreadCustomExecutorInterrupted()
-      throws Exception {
+  throws Exception {
     final CountDownLatch submitSuccessful = new CountDownLatch(1);
     ExecutorService executorService = new ThreadPoolExecutor(
         0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
         new SynchronousQueue<Runnable>(),
-        new ThreadFactoryBuilder().setDaemon(true).build()) {
+    new ThreadFactoryBuilder().setDaemon(true).build()) {
       @Override
       protected void beforeExecute(Thread t, Runnable r) {
         submitSuccessful.countDown();
@@ -173,7 +173,7 @@ public class JdkFutureAdaptersTest extends TestCase {
    * listenInPoolThread.
    */
   private static final class NonListenableSettableFuture<V>
-      extends ForwardingFuture<V> {
+    extends ForwardingFuture<V> {
     static <V> NonListenableSettableFuture<V> create() {
       return new NonListenableSettableFuture<V>();
     }
@@ -190,7 +190,7 @@ public class JdkFutureAdaptersTest extends TestCase {
   }
 
   private static final class RuntimeExceptionThrowingFuture<V>
-      implements Future<V> {
+    implements Future<V> {
     final CountDownLatch allowGetToComplete = new CountDownLatch(1);
 
     @Override
@@ -242,7 +242,7 @@ public class JdkFutureAdaptersTest extends TestCase {
   }
 
   public void testListenInPoolThreadRunsListenerAfterRuntimeException()
-      throws Exception {
+  throws Exception {
     RuntimeExceptionThrowingFuture<String> input = new RuntimeExceptionThrowingFuture<>();
     /*
      * The compiler recognizes that "input instanceof ListenableFuture" is
@@ -272,8 +272,8 @@ public class JdkFutureAdaptersTest extends TestCase {
 
   public void testAdapters_nullChecks() throws Exception {
     new ClassSanityTester()
-        .forAllPublicStaticMethods(JdkFutureAdapters.class)
-        .thatReturn(Future.class)
-        .testNulls();
+    .forAllPublicStaticMethods(JdkFutureAdapters.class)
+    .thatReturn(Future.class)
+    .testNulls();
   }
 }

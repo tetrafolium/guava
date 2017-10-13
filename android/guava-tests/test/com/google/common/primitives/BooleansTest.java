@@ -67,8 +67,8 @@ public class BooleansTest extends TestCase {
       for (boolean y : VALUES) {
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Boolean.valueOf(x).compareTo(y),
-                     Booleans.compare(x, y));
+            Boolean.valueOf(x).compareTo(y),
+            Booleans.compare(x, y));
       }
     }
   }
@@ -119,11 +119,11 @@ public class BooleansTest extends TestCase {
     assertNotSame(ARRAY_FALSE, Booleans.concat(ARRAY_FALSE));
     assertTrue(Arrays.equals(ARRAY_FALSE, Booleans.concat(EMPTY, ARRAY_FALSE, EMPTY)));
     assertTrue(Arrays.equals(
-        new boolean[] {false, false, false},
-        Booleans.concat(ARRAY_FALSE, ARRAY_FALSE, ARRAY_FALSE)));
+            new boolean[] {false, false, false},
+            Booleans.concat(ARRAY_FALSE, ARRAY_FALSE, ARRAY_FALSE)));
     assertTrue(Arrays.equals(
-        new boolean[] {false, false, true},
-        Booleans.concat(ARRAY_FALSE, ARRAY_FALSE_TRUE)));
+            new boolean[] {false, false, true},
+            Booleans.concat(ARRAY_FALSE, ARRAY_FALSE_TRUE)));
   }
 
   public void testEnsureCapacity() {
@@ -131,8 +131,8 @@ public class BooleansTest extends TestCase {
     assertSame(ARRAY_FALSE, Booleans.ensureCapacity(ARRAY_FALSE, 0, 1));
     assertSame(ARRAY_FALSE, Booleans.ensureCapacity(ARRAY_FALSE, 1, 1));
     assertTrue(Arrays.equals(
-        new boolean[] {true, false, false},
-        Booleans.ensureCapacity(new boolean[] {true}, 2, 1)));
+            new boolean[] {true, false, false},
+            Booleans.ensureCapacity(new boolean[] {true}, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -159,14 +159,14 @@ public class BooleansTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<boolean[]> ordered = Arrays.asList(
-        new boolean[] {},
-        new boolean[] {false},
-        new boolean[] {false, false},
-        new boolean[] {false, true},
-        new boolean[] {true},
-        new boolean[] {true, false},
-        new boolean[] {true, true},
-        new boolean[] {true, true, true});
+            new boolean[] {},
+            new boolean[] {false},
+            new boolean[] {false, false},
+            new boolean[] {false, true},
+            new boolean[] {true},
+            new boolean[] {true, false},
+            new boolean[] {true, true},
+            new boolean[] {true, true, true});
 
     Comparator<boolean[]> comparator = Booleans.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);

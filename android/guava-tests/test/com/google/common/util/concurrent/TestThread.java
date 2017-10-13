@@ -77,7 +77,7 @@ public final class TestThread<L> extends Thread implements TearDown {
 
     if (uncaughtThrowable != null) {
       throw (AssertionFailedError) new AssertionFailedError("Uncaught throwable in " + getName())
-          .initCause(uncaughtThrowable);
+      .initCause(uncaughtThrowable);
     }
   }
 
@@ -96,7 +96,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * boolean value.
    */
   public void callAndAssertReturns(boolean expected, String methodName, Object... arguments)
-      throws Exception {
+  throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
     sendRequest(methodName, arguments);
@@ -108,7 +108,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * int value.
    */
   public void callAndAssertReturns(int expected, String methodName, Object... arguments)
-      throws Exception {
+  throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
     sendRequest(methodName, arguments);
@@ -151,7 +151,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * this method.
    */
   public void callAndAssertWaits(String methodName, Object conditionLikeObject)
-      throws Exception {
+  throws Exception {
     checkNotNull(methodName);
     checkNotNull(conditionLikeObject);
     // TODO: Restore the following line when Monitor.hasWaiters() no longer acquires the lock.
@@ -175,7 +175,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * the expected boolean value.
    */
   public void assertPriorCallReturns(boolean expected, @Nullable String methodName)
-      throws Exception {
+  throws Exception {
     assertEquals(expected, getResponse(methodName).getResult());
   }
 
@@ -187,7 +187,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    */
   private void sendRequest(String methodName, Object... arguments) throws Exception {
     if (!requestQueue.offer(
-        new Request(methodName, arguments), TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
+            new Request(methodName, arguments), TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
       throw new TimeoutException();
     }
   }

@@ -37,11 +37,11 @@ public class ArrayBasedCharEscaperTest extends TestCase {
   public void testSafeRange() throws IOException {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
-        new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'A', 'Z') {
-          @Override protected char[] escapeUnsafe(char c) {
-            return ("{" + c + "}").toCharArray();
-          }
-        };
+    new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'A', 'Z') {
+      @Override protected char[] escapeUnsafe(char c) {
+        return ("{" + c + "}").toCharArray();
+      }
+    };
     EscaperAsserts.assertBasic(wrappingEscaper);
     // '[' and '@' lie either side of [A-Z].
     assertEquals("{[}FOO{@}BAR{]}", wrappingEscaper.escape("[FOO@BAR]"));
@@ -50,11 +50,11 @@ public class ArrayBasedCharEscaperTest extends TestCase {
   public void testSafeRange_maxLessThanMin() throws IOException {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
-        new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'Z', 'A') {
-          @Override protected char[] escapeUnsafe(char c) {
-            return ("{" + c + "}").toCharArray();
-          }
-        };
+    new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'Z', 'A') {
+      @Override protected char[] escapeUnsafe(char c) {
+        return ("{" + c + "}").toCharArray();
+      }
+    };
     EscaperAsserts.assertBasic(wrappingEscaper);
     // escape everything.
     assertEquals("{[}{F}{O}{O}{]}", wrappingEscaper.escape("[FOO]"));
@@ -62,12 +62,12 @@ public class ArrayBasedCharEscaperTest extends TestCase {
 
   public void testDeleteUnsafeChars() throws IOException {
     CharEscaper deletingEscaper =
-        new ArrayBasedCharEscaper(NO_REPLACEMENTS, ' ', '~') {
-          private final char[] noChars = new char[0];
-          @Override protected char[] escapeUnsafe(char c) {
-            return noChars;
-          }
-        };
+    new ArrayBasedCharEscaper(NO_REPLACEMENTS, ' ', '~') {
+      private final char[] noChars = new char[0];
+      @Override protected char[] escapeUnsafe(char c) {
+        return noChars;
+      }
+    };
     EscaperAsserts.assertBasic(deletingEscaper);
     assertEquals("Everything outside the printable ASCII range is deleted.",
         deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 " +
@@ -76,12 +76,12 @@ public class ArrayBasedCharEscaperTest extends TestCase {
 
   public void testReplacementPriority() throws IOException {
     CharEscaper replacingEscaper =
-        new ArrayBasedCharEscaper(SIMPLE_REPLACEMENTS, ' ', '~') {
-          private final char[] unknown = new char[] { '?' };
-          @Override protected char[] escapeUnsafe(char c) {
-            return unknown;
-          }
-        };
+    new ArrayBasedCharEscaper(SIMPLE_REPLACEMENTS, ' ', '~') {
+      private final char[] unknown = new char[] { '?' };
+      @Override protected char[] escapeUnsafe(char c) {
+        return unknown;
+      }
+    };
     EscaperAsserts.assertBasic(replacingEscaper);
 
     // Replacements are applied first regardless of whether the character is in

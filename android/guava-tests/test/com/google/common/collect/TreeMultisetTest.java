@@ -53,63 +53,63 @@ public class TreeMultisetTest extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(SortedMultisetTestSuiteBuilder
-        .using(new TestStringMultisetGenerator() {
-          @Override
-          protected Multiset<String> create(String[] elements) {
-            return TreeMultiset.create(Arrays.asList(elements));
-          }
+    .using(new TestStringMultisetGenerator() {
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        return TreeMultiset.create(Arrays.asList(elements));
+      }
 
-          @Override
-          public List<String> order(List<String> insertionOrder) {
-            return Ordering.natural().sortedCopy(insertionOrder);
-          }
-        })
-        .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES,
-            MultisetFeature.ENTRIES_ARE_VIEWS)
-        .named("TreeMultiset, Ordering.natural")
-        .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Ordering.natural().sortedCopy(insertionOrder);
+      }
+    })
+    .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES,
+        MultisetFeature.ENTRIES_ARE_VIEWS)
+    .named("TreeMultiset, Ordering.natural")
+    .createTestSuite());
     suite.addTest(SortedMultisetTestSuiteBuilder
-        .using(new TestStringMultisetGenerator() {
-          @Override
-          protected Multiset<String> create(String[] elements) {
-            Multiset<String> result = TreeMultiset.create(NullsBeforeB.INSTANCE);
-            Collections.addAll(result, elements);
-            return result;
-          }
+    .using(new TestStringMultisetGenerator() {
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        Multiset<String> result = TreeMultiset.create(NullsBeforeB.INSTANCE);
+        Collections.addAll(result, elements);
+        return result;
+      }
 
-          @Override
-          public List<String> order(List<String> insertionOrder) {
-            sort(insertionOrder, NullsBeforeB.INSTANCE);
-            return insertionOrder;
-          }
-        })
-        .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            MultisetFeature.ENTRIES_ARE_VIEWS)
-        .named("TreeMultiset, NullsBeforeB")
-        .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        sort(insertionOrder, NullsBeforeB.INSTANCE);
+        return insertionOrder;
+      }
+    })
+    .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        MultisetFeature.ENTRIES_ARE_VIEWS)
+    .named("TreeMultiset, NullsBeforeB")
+    .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
-        @Override
-        protected Set<String> create(String[] elements) {
-          return TreeMultiset.create(Arrays.asList(elements)).elementSet();
-        }
+      @Override
+      protected Set<String> create(String[] elements) {
+        return TreeMultiset.create(Arrays.asList(elements)).elementSet();
+      }
 
-        @Override
-        public List<String> order(List<String> insertionOrder) {
-          return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-        }
-      })
-      .named("TreeMultiset[Ordering.natural].elementSet")
-      .withFeatures(
-          CollectionSize.ANY,
-          CollectionFeature.REMOVE_OPERATIONS,
-          CollectionFeature.ALLOWS_NULL_QUERIES)
-      .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .named("TreeMultiset[Ordering.natural].elementSet")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.REMOVE_OPERATIONS,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
     suite.addTestSuite(TreeMultisetTest.class);
     return suite;
   }
@@ -135,7 +135,7 @@ public class TreeMultisetTest extends TestCase {
 
   public void testCreateFromIterable() {
     Multiset<String> multiset
-        = TreeMultiset.create(Arrays.asList("foo", "bar", "foo"));
+      = TreeMultiset.create(Arrays.asList("foo", "bar", "foo"));
     assertEquals(3, multiset.size());
     assertEquals(2, multiset.count("foo"));
     assertEquals("[bar, foo x 2]", multiset.toString());
@@ -294,12 +294,12 @@ public class TreeMultisetTest extends TestCase {
   }
 
   private static final Comparator<String> DEGENERATE_COMPARATOR =
-      new Comparator<String>() {
-        @Override
-        public int compare(String o1, String o2) {
-          return o1.length() - o2.length();
-        }
-      };
+  new Comparator<String>() {
+    @Override
+    public int compare(String o1, String o2) {
+      return o1.length() - o2.length();
+    }
+  };
 
   /**
    * Test a TreeMultiset with a comparator that can return 0 when comparing

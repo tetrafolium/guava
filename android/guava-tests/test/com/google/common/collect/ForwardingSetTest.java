@@ -105,29 +105,29 @@ public class ForwardingSetTest extends TestCase {
     suite.addTestSuite(ForwardingSetTest.class);
     suite.addTest(
         SetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    return new StandardImplForwardingSet<>(Sets.newLinkedHashSet(asList(elements)));
-                  }
-                })
-            .named("ForwardingSet[LinkedHashSet] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        return new StandardImplForwardingSet<>(Sets.newLinkedHashSet(asList(elements)));
+      }
+    })
+    .named("ForwardingSet[LinkedHashSet] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     suite.addTest(
         SetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    return new StandardImplForwardingSet<>(MinimalSet.of(elements));
-                  }
-                })
-            .named("ForwardingSet[MinimalSet] with standard implementations")
-            .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
-            .createTestSuite());
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        return new StandardImplForwardingSet<>(MinimalSet.of(elements));
+      }
+    })
+    .named("ForwardingSet[MinimalSet] with standard implementations")
+    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     return suite;
   }
@@ -135,20 +135,20 @@ public class ForwardingSetTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(Set.class, new Function<Set, Set>() {
-          @Override public Set apply(Set delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(Set.class, new Function<Set, Set>() {
+      @Override public Set apply(Set delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     Set<String> set1 = ImmutableSet.of("one");
     Set<String> set2 = ImmutableSet.of("two");
     new EqualsTester()
-        .addEqualityGroup(set1, wrap(set1), wrap(set1))
-        .addEqualityGroup(set2, wrap(set2))
-        .testEquals();
+    .addEqualityGroup(set1, wrap(set1), wrap(set1))
+    .addEqualityGroup(set2, wrap(set2))
+    .testEquals();
   }
 
   private static <T> Set<T> wrap(final Set<T> delegate) {

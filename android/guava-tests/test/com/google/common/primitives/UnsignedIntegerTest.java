@@ -43,14 +43,14 @@ public class UnsignedIntegerTest extends TestCase {
     ImmutableSet.Builder<Long> testLongsBuilder = ImmutableSet.builder();
     for (int i = -3; i <= 3; i++) {
       testIntsBuilder
-        .add(i)
-        .add(force32(Integer.MIN_VALUE + i))
-        .add(force32(Integer.MAX_VALUE + i));
+      .add(i)
+      .add(force32(Integer.MIN_VALUE + i))
+      .add(force32(Integer.MAX_VALUE + i));
       testLongsBuilder
-        .add((long) i)
-        .add((long) Integer.MIN_VALUE + i)
-        .add((long) Integer.MAX_VALUE + i)
-        .add((1L << 32) + i);
+      .add((long) i)
+      .add((long) Integer.MIN_VALUE + i)
+      .add((long) Integer.MAX_VALUE + i)
+      .add((1L << 32) + i);
     }
     TEST_INTS = testIntsBuilder.build();
     TEST_LONGS = testLongsBuilder.build();

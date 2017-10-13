@@ -77,25 +77,25 @@ import junit.framework.AssertionFailedError;
 public final class ClassSanityTester {
 
   private static final Ordering<Invokable<?, ?>> BY_METHOD_NAME =
-      new Ordering<Invokable<?, ?>>() {
-        @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
-          return left.getName().compareTo(right.getName());
-        }
-      };
+  new Ordering<Invokable<?, ?>>() {
+    @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
+      return left.getName().compareTo(right.getName());
+    }
+  };
 
   private static final Ordering<Invokable<?, ?>> BY_PARAMETERS =
-      new Ordering<Invokable<?, ?>>() {
-        @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
-          return Ordering.usingToString().compare(left.getParameters(), right.getParameters());
-        }
-      };
+  new Ordering<Invokable<?, ?>>() {
+    @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
+      return Ordering.usingToString().compare(left.getParameters(), right.getParameters());
+    }
+  };
 
   private static final Ordering<Invokable<?, ?>> BY_NUMBER_OF_PARAMETERS =
-      new Ordering<Invokable<?, ?>>() {
-        @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
-          return Ints.compare(left.getParameters().size(), right.getParameters().size());
-        }
-      };
+  new Ordering<Invokable<?, ?>>() {
+    @Override public int compare(Invokable<?, ?> left, Invokable<?, ?> right) {
+      return Ints.compare(left.getParameters().size(), right.getParameters().size());
+    }
+  };
 
   private final MutableClassToInstanceMap<Object> defaultValues =
       MutableClassToInstanceMap.create();
@@ -189,8 +189,8 @@ public final class ClassSanityTester {
   }
 
   void doTestNulls(Class<?> cls, Visibility visibility)
-      throws ParameterNotInstantiableException, IllegalAccessException,
-             InvocationTargetException, FactoryMethodReturnsNullException {
+  throws ParameterNotInstantiableException, IllegalAccessException,
+    InvocationTargetException, FactoryMethodReturnsNullException {
     if (!Modifier.isAbstract(cls.getModifiers())) {
       nullPointerTester.testConstructors(cls, visibility);
     }
@@ -273,8 +273,8 @@ public final class ClassSanityTester {
   }
 
   void doTestEquals(Class<?> cls)
-      throws ParameterNotInstantiableException, ParameterHasNoDistinctValueException,
-             IllegalAccessException, InvocationTargetException, FactoryMethodReturnsNullException {
+  throws ParameterNotInstantiableException, ParameterHasNoDistinctValueException,
+    IllegalAccessException, InvocationTargetException, FactoryMethodReturnsNullException {
     if (cls.isEnum()) {
       return;
     }
@@ -318,8 +318,8 @@ public final class ClassSanityTester {
    *         or factory method to be constructed.
    */
   @Nullable <T> T instantiate(Class<T> cls)
-      throws ParameterNotInstantiableException, IllegalAccessException,
-             InvocationTargetException, FactoryMethodReturnsNullException {
+  throws ParameterNotInstantiableException, IllegalAccessException,
+    InvocationTargetException, FactoryMethodReturnsNullException {
     if (cls.isEnum()) {
       T[] constants = cls.getEnumConstants();
       if (constants.length > 0) {
@@ -516,8 +516,8 @@ public final class ClassSanityTester {
       }
       ImmutableList<Invokable<?, ?>> factoriesToTest = builder.build();
       Assert.assertFalse("No " + factoryMethodsDescription + " that return "
-              + returnTypeToTest.getName() + " or subtype are found in "
-              + declaringClass + ".",
+          + returnTypeToTest.getName() + " or subtype are found in "
+          + declaringClass + ".",
           factoriesToTest.isEmpty());
       return factoriesToTest;
     }
@@ -534,15 +534,15 @@ public final class ClassSanityTester {
    * @throws InvocationTargetException if a static method threw exception.
    */
   @Nullable private <T> T instantiate(Invokable<?, ? extends T> factory)
-      throws ParameterNotInstantiableException, InvocationTargetException,
-      IllegalAccessException {
+  throws ParameterNotInstantiableException, InvocationTargetException,
+    IllegalAccessException {
     return invoke(factory, getDummyArguments(factory));
   }
 
   private void testEqualsUsing(final Invokable<?, ?> factory)
 
-      throws ParameterNotInstantiableException, ParameterHasNoDistinctValueException,
-             IllegalAccessException, InvocationTargetException, FactoryMethodReturnsNullException {
+  throws ParameterNotInstantiableException, ParameterHasNoDistinctValueException,
+    IllegalAccessException, InvocationTargetException, FactoryMethodReturnsNullException {
     List<Parameter> params = factory.getParameters();
     List<FreshValueGenerator> argGenerators = Lists.newArrayListWithCapacity(params.size());
     List<Object> args = Lists.newArrayListWithCapacity(params.size());
@@ -586,8 +586,8 @@ public final class ClassSanityTester {
    */
   private List<Object> generateEqualFactoryArguments(
       Invokable<?, ?> factory, List<Parameter> params, List<Object> args)
-      throws ParameterNotInstantiableException, FactoryMethodReturnsNullException,
-      InvocationTargetException, IllegalAccessException {
+  throws ParameterNotInstantiableException, FactoryMethodReturnsNullException,
+    InvocationTargetException, IllegalAccessException {
     List<Object> equalArgs = Lists.newArrayList(args);
     for (int i = 0; i < args.size(); i++) {
       Parameter param = params.get(i);
@@ -611,7 +611,7 @@ public final class ClassSanityTester {
 
   private static boolean hashCodeInsensitiveToArgReference(
       Invokable<?, ?> factory, List<Object> args, int i, Object alternateArg)
-      throws FactoryMethodReturnsNullException, InvocationTargetException, IllegalAccessException {
+  throws FactoryMethodReturnsNullException, InvocationTargetException, IllegalAccessException {
     List<Object> tentativeArgs = Lists.newArrayList(args);
     tentativeArgs.set(i, alternateArg);
     return createInstance(factory, tentativeArgs).hashCode()
@@ -634,7 +634,7 @@ public final class ClassSanityTester {
   }
 
   @Nullable private static Object generateDummyArg(Parameter param, FreshValueGenerator generator)
-      throws ParameterNotInstantiableException {
+  throws ParameterNotInstantiableException {
     if (param.isAnnotationPresent(Nullable.class)) {
       return null;
     }
@@ -684,7 +684,7 @@ public final class ClassSanityTester {
   }
 
   private List<Object> getDummyArguments(Invokable<?, ?> invokable)
-      throws ParameterNotInstantiableException {
+  throws ParameterNotInstantiableException {
     List<Object> args = Lists.newArrayList();
     for (Parameter param : invokable.getParameters()) {
       if (param.isAnnotationPresent(Nullable.class)) {
@@ -719,7 +719,7 @@ public final class ClassSanityTester {
   }
 
   private static <T> T createInstance(Invokable<?, ? extends T> factory, List<?> args)
-      throws FactoryMethodReturnsNullException, InvocationTargetException, IllegalAccessException {
+  throws FactoryMethodReturnsNullException, InvocationTargetException, IllegalAccessException {
     T instance = invoke(factory, args);
     if (instance == null) {
       throw new FactoryMethodReturnsNullException(factory);
@@ -728,7 +728,7 @@ public final class ClassSanityTester {
   }
 
   @Nullable private static <T> T invoke(Invokable<?, ? extends T> factory, List<?> args)
-      throws InvocationTargetException, IllegalAccessException {
+  throws InvocationTargetException, IllegalAccessException {
     T returnValue = factory.invoke(null, args.toArray());
     if (returnValue == null) {
       Assert.assertTrue(factory + " returns null but it's not annotated with @Nullable",
@@ -755,8 +755,8 @@ public final class ClassSanityTester {
    */
   @VisibleForTesting static class ParameterHasNoDistinctValueException extends Exception {
     ParameterHasNoDistinctValueException(Parameter parameter) {
-        super("Cannot generate distinct value for parameter " + parameter
-            + " of " + parameter.getDeclaringInvokable());
+      super("Cannot generate distinct value for parameter " + parameter
+          + " of " + parameter.getDeclaringInvokable());
     }
   }
 
@@ -771,7 +771,7 @@ public final class ClassSanityTester {
   }
 
   private static final class SerializableDummyProxy extends DummyProxy
-      implements Serializable {
+    implements Serializable {
 
     private final transient ClassSanityTester tester;
 

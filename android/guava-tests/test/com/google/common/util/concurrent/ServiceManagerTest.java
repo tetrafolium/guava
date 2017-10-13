@@ -76,7 +76,7 @@ public class ServiceManagerTest extends TestCase {
           Uninterruptibles.sleepUninterruptibly(delay, TimeUnit.MILLISECONDS);
           notifyStarted();
         }
-      }.start();
+      } .start();
     }
 
     @Override protected void doStop() {
@@ -85,7 +85,7 @@ public class ServiceManagerTest extends TestCase {
           Uninterruptibles.sleepUninterruptibly(delay, TimeUnit.MILLISECONDS);
           notifyStopped();
         }
-      }.start();
+      } .start();
     }
   }
 
@@ -317,7 +317,8 @@ public class ServiceManagerTest extends TestCase {
     manager.addListener(new Listener() {
       @Override public void failure(Service service) {
         manager.stopAsync();
-      }});
+      }
+    });
     manager.startAsync();
     manager.awaitStopped(10, TimeUnit.MILLISECONDS);
   }
@@ -389,7 +390,7 @@ public class ServiceManagerTest extends TestCase {
             Uninterruptibles.awaitUninterruptibly(afterStarted);
             notifyFailed(new Exception("boom"));
           }
-        }.start();
+        } .start();
       }
       @Override protected void doStop() {
         notifyStopped();
@@ -472,7 +473,7 @@ public class ServiceManagerTest extends TestCase {
       }
 
       @Override public final void awaitRunning(long timeout, TimeUnit unit)
-          throws TimeoutException {
+      throws TimeoutException {
         delegate.awaitRunning(timeout, unit);
       }
 
@@ -481,7 +482,7 @@ public class ServiceManagerTest extends TestCase {
       }
 
       @Override public final void awaitTerminated(long timeout, TimeUnit unit)
-          throws TimeoutException {
+      throws TimeoutException {
         delegate.awaitTerminated(timeout, unit);
       }
 
@@ -555,8 +556,8 @@ public class ServiceManagerTest extends TestCase {
   public void testNulls() {
     ServiceManager manager = new ServiceManager(Arrays.<Service>asList());
     new NullPointerTester()
-        .setDefault(ServiceManager.Listener.class, new RecordingListener())
-        .testAllPublicInstanceMethods(manager);
+    .setDefault(ServiceManager.Listener.class, new RecordingListener())
+    .testAllPublicInstanceMethods(manager);
   }
 
   private static final class RecordingListener extends ServiceManager.Listener {

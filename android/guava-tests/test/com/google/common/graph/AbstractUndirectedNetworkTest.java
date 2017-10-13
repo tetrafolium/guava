@@ -37,17 +37,17 @@ public abstract class AbstractUndirectedNetworkTest extends AbstractNetworkTest 
   public void validateUndirectedEdges() {
     for (Integer node : network.nodes()) {
       new EqualsTester()
-          .addEqualityGroup(
-              network.inEdges(node), network.outEdges(node), network.incidentEdges(node))
-          .testEquals();
+      .addEqualityGroup(
+          network.inEdges(node), network.outEdges(node), network.incidentEdges(node))
+      .testEquals();
       new EqualsTester()
-          .addEqualityGroup(
-              network.predecessors(node), network.successors(node), network.adjacentNodes(node))
-          .testEquals();
+      .addEqualityGroup(
+          network.predecessors(node), network.successors(node), network.adjacentNodes(node))
+      .testEquals();
 
       for (Integer adjacentNode : network.adjacentNodes(node)) {
         assertThat(network.edgesConnecting(node, adjacentNode))
-            .containsExactlyElementsIn(network.edgesConnecting(adjacentNode, node));
+        .containsExactlyElementsIn(network.edgesConnecting(adjacentNode, node));
       }
     }
   }

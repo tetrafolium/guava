@@ -57,7 +57,7 @@ public class ForwardingCacheTest extends TestCase {
 
   public void testGetAllPresent() throws ExecutionException {
     when(mock.getAllPresent(ImmutableList.of("key")))
-        .thenReturn(ImmutableMap.of("key", Boolean.TRUE));
+    .thenReturn(ImmutableMap.of("key", Boolean.TRUE));
     assertEquals(ImmutableMap.of("key", Boolean.TRUE),
         forward.getAllPresent(ImmutableList.of("key")));
   }

@@ -148,9 +148,9 @@ public abstract class AbstractGraphTest {
           assertThat(node).isNotEqualTo(adjacentNode);
         }
         assertThat(
-                graph.predecessors(node).contains(adjacentNode)
-                    || graph.successors(node).contains(adjacentNode))
-            .isTrue();
+            graph.predecessors(node).contains(adjacentNode)
+            || graph.successors(node).contains(adjacentNode))
+        .isTrue();
       }
 
       for (N predecessor : sanityCheckSet(graph.predecessors(node))) {

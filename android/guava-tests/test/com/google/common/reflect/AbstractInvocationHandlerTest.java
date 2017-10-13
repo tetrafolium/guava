@@ -48,7 +48,7 @@ public class AbstractInvocationHandlerTest extends TestCase {
   }
 
   interface A {}
-  interface B{}
+  interface B {}
 
   public void testEquals() {
     class AB implements A, B {}
@@ -56,26 +56,26 @@ public class AbstractInvocationHandlerTest extends TestCase {
     AB ab = new AB();
     BA ba = new BA();
     new EqualsTester()
-        .addEqualityGroup(newDelegatingList(LIST1))
-        // Actually, this violates List#equals contract.
-        // But whatever, no one is going to proxy List (hopefully).
-        .addEqualityGroup(newDelegatingList(LIST1))
-        .addEqualityGroup(newDelegatingList(LIST2))
-        .addEqualityGroup(
-            newProxyWithEqualsForInterfaces(List.class, Runnable.class),
-            newProxyWithEqualsForInterfaces(List.class, Runnable.class))
-        .addEqualityGroup(
-            newProxyWithEqualsForInterfaces(Runnable.class, List.class))
-        .addEqualityGroup(
-            newDelegatingListWithEquals(LIST1),
-            newDelegatingListWithEquals(LIST1),
-            SerializableTester.reserialize(newDelegatingListWithEquals(LIST1)))
-        .addEqualityGroup(
-            newDelegatingListWithEquals(LIST2),
-            newProxyWithSubHandler1(LIST2), // Makes sure type of handler doesn't affect equality
-            newProxyWithSubHandler2(LIST2))
-        .addEqualityGroup(newDelegatingIterableWithEquals(LIST2)) // different interface
-        .testEquals();
+    .addEqualityGroup(newDelegatingList(LIST1))
+    // Actually, this violates List#equals contract.
+    // But whatever, no one is going to proxy List (hopefully).
+    .addEqualityGroup(newDelegatingList(LIST1))
+    .addEqualityGroup(newDelegatingList(LIST2))
+    .addEqualityGroup(
+        newProxyWithEqualsForInterfaces(List.class, Runnable.class),
+        newProxyWithEqualsForInterfaces(List.class, Runnable.class))
+    .addEqualityGroup(
+        newProxyWithEqualsForInterfaces(Runnable.class, List.class))
+    .addEqualityGroup(
+        newDelegatingListWithEquals(LIST1),
+        newDelegatingListWithEquals(LIST1),
+        SerializableTester.reserialize(newDelegatingListWithEquals(LIST1)))
+    .addEqualityGroup(
+        newDelegatingListWithEquals(LIST2),
+        newProxyWithSubHandler1(LIST2), // Makes sure type of handler doesn't affect equality
+        newProxyWithSubHandler2(LIST2))
+    .addEqualityGroup(newDelegatingIterableWithEquals(LIST2)) // different interface
+    .testEquals();
   }
 
   @SuppressWarnings("unchecked") // proxy of List<String>
@@ -106,11 +106,11 @@ public class AbstractInvocationHandlerTest extends TestCase {
   private static Object newProxyWithEqualsForInterfaces(
       Class<?>... interfaces) {
     return Proxy.newProxyInstance(AbstractInvocationHandlerTest.class.getClassLoader(),
-        interfaces, new DelegatingInvocationHandlerWithEquals("a string"));
+            interfaces, new DelegatingInvocationHandlerWithEquals("a string"));
   }
 
   private static class DelegatingInvocationHandler extends AbstractInvocationHandler
-      implements Serializable {
+    implements Serializable {
     final Object delegate;
 
     DelegatingInvocationHandler(Object delegate) {
@@ -118,7 +118,7 @@ public class AbstractInvocationHandlerTest extends TestCase {
     }
 
     @Override protected Object handleInvocation(Object proxy, Method method, Object[] args)
-        throws Throwable {
+    throws Throwable {
       return method.invoke(delegate, args);
     }
 

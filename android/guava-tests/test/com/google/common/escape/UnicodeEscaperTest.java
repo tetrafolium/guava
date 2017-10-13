@@ -49,8 +49,8 @@ public class UnicodeEscaperTest extends TestCase {
     @Override
     protected char[] escape(int cp) {
       return ('a' <= cp && cp <= 'z') ||
-             ('A' <= cp && cp <= 'Z') ||
-             ('0' <= cp && cp <= '9') ? null :
+          ('A' <= cp && cp <= 'Z') ||
+          ('0' <= cp && cp <= '9') ? null :
           ("[" + String.valueOf(cp) + "]").toCharArray();
     }
   };
@@ -136,14 +136,14 @@ public class UnicodeEscaperTest extends TestCase {
   public void testBadStrings() {
     UnicodeEscaper e = SIMPLE_ESCAPER;
     String[] BAD_STRINGS = {
-        String.valueOf(Character.MIN_LOW_SURROGATE),
-        Character.MIN_LOW_SURROGATE + "xyz",
-        "abc" + Character.MIN_LOW_SURROGATE,
-        "abc" + Character.MIN_LOW_SURROGATE + "xyz",
-        String.valueOf(Character.MAX_LOW_SURROGATE),
-        Character.MAX_LOW_SURROGATE + "xyz",
-        "abc" + Character.MAX_LOW_SURROGATE,
-        "abc" + Character.MAX_LOW_SURROGATE + "xyz",
+      String.valueOf(Character.MIN_LOW_SURROGATE),
+      Character.MIN_LOW_SURROGATE + "xyz",
+      "abc" + Character.MIN_LOW_SURROGATE,
+      "abc" + Character.MIN_LOW_SURROGATE + "xyz",
+      String.valueOf(Character.MAX_LOW_SURROGATE),
+      Character.MAX_LOW_SURROGATE + "xyz",
+      "abc" + Character.MAX_LOW_SURROGATE,
+      "abc" + Character.MAX_LOW_SURROGATE + "xyz",
     };
     for (String s : BAD_STRINGS) {
       try {

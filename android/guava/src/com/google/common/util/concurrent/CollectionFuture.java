@@ -42,8 +42,8 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
 
       this.values =
           futures.isEmpty()
-              ? ImmutableList.<Optional<V>>of()
-              : Lists.<Optional<V>>newArrayListWithCapacity(futures.size());
+          ? ImmutableList.<Optional<V>>of()
+          : Lists.<Optional<V>>newArrayListWithCapacity(futures.size());
 
       // Populate the results list with null initially.
       for (int i = 0; i < futures.size(); ++i) {

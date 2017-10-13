@@ -177,14 +177,14 @@ public class SequentialExecutorTest extends TestCase {
     final AtomicInteger numCalls = new AtomicInteger();
     final AtomicBoolean reject = new AtomicBoolean(true);
     final SequentialExecutor executor = new SequentialExecutor(
-        new Executor() {
-          @Override public void execute(Runnable r) {
-            if (reject.get()) {
-              throw new RejectedExecutionException();
-            }
-            r.run();
-          }
-        });
+    new Executor() {
+      @Override public void execute(Runnable r) {
+        if (reject.get()) {
+          throw new RejectedExecutionException();
+        }
+        r.run();
+      }
+    });
     Runnable task = new Runnable() {
       @Override
       public void run() {

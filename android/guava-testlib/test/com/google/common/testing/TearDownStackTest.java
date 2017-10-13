@@ -52,7 +52,7 @@ public class TearDownStackTest extends TestCase {
       @Override
       public void run() {
         assertEquals("tearDownTwo should have been run before tearDownOne",
-          false, tearDownOne.ran);
+            false, tearDownOne.ran);
       }
     };
 
@@ -87,7 +87,7 @@ public class TearDownStackTest extends TestCase {
       assertThat(expected.getCause()).hasMessage("two");
     } catch (RuntimeException e) {
       throw new RuntimeException(
-        "A ClusterException should have been thrown, rather than a " + e.getClass().getName(), e);
+          "A ClusterException should have been thrown, rather than a " + e.getClass().getName(), e);
     }
 
     assertEquals(true, tearDownOne.ran);
@@ -119,8 +119,8 @@ public class TearDownStackTest extends TestCase {
       public void tearDown() throws Exception {
         synchronized (result.stack) {
           assertEquals(
-            "The test should have cleared the stack (say, by virtue of running runTearDown)",
-            0, result.stack.size());
+              "The test should have cleared the stack (say, by virtue of running runTearDown)",
+              0, result.stack.size());
         }
       }
     });

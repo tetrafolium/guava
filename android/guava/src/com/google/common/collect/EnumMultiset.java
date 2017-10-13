@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
-    implements Serializable {
+  implements Serializable {
   /** Creates an empty {@code EnumMultiset}. */
   public static <E extends Enum<E>> EnumMultiset<E> create(Class<E> type) {
     return new EnumMultiset<E>(type);
@@ -93,7 +93,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
     this.enumConstants = type.getEnumConstants();
     this.counts = new int[enumConstants.length];
   }
-  
+
   private boolean isActuallyE(@Nullable Object o) {
     if (o instanceof Enum) {
       Enum<?> e = (Enum<?>) o;

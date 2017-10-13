@@ -56,7 +56,7 @@ final class AbstractFutureBenchmarks {
   }
 
   private static class OldAbstractFutureFacade<T>
-      extends OldAbstractFuture<T> implements Facade<T> {
+    extends OldAbstractFuture<T> implements Facade<T> {
     @CanIgnoreReturnValue
     @Override
     public boolean set(T t) {
@@ -89,14 +89,14 @@ final class AbstractFutureBenchmarks {
     while (true) {
       Thread.State state = t.getState();
       switch (state) {
-        case RUNNABLE:
-        case BLOCKED:
-          Thread.yield();
-          break;
-        case WAITING:
-          return;
-        default:
-          throw new AssertionError("unexpected state: " + state);
+      case RUNNABLE:
+      case BLOCKED:
+        Thread.yield();
+        break;
+      case WAITING:
+        return;
+      default:
+        throw new AssertionError("unexpected state: " + state);
       }
     }
   }
@@ -132,7 +132,7 @@ final class AbstractFutureBenchmarks {
     @CanIgnoreReturnValue
     @Override
     public V get(long timeout, TimeUnit unit)
-        throws InterruptedException, TimeoutException, ExecutionException {
+    throws InterruptedException, TimeoutException, ExecutionException {
       return sync.get(unit.toNanos(timeout));
     }
 
@@ -306,7 +306,7 @@ final class AbstractFutureBenchmarks {
        * {@link #get()}.
        */
       V get(long nanos) throws TimeoutException, CancellationException,
-          ExecutionException, InterruptedException {
+        ExecutionException, InterruptedException {
 
         // Attempt to acquire the shared lock with a timeout.
         if (!tryAcquireSharedNanos(-1, nanos)) {
@@ -323,7 +323,7 @@ final class AbstractFutureBenchmarks {
        * an error.
        */
       V get() throws CancellationException, ExecutionException,
-          InterruptedException {
+        InterruptedException {
 
         // Acquire the shared lock allowing interruption.
         acquireSharedInterruptibly(-1);
@@ -338,21 +338,21 @@ final class AbstractFutureBenchmarks {
       private V getValue() throws CancellationException, ExecutionException {
         int state = getState();
         switch (state) {
-          case COMPLETED:
-            if (exception != null) {
-              throw new ExecutionException(exception);
-            } else {
-              return value;
-            }
+        case COMPLETED:
+          if (exception != null) {
+            throw new ExecutionException(exception);
+          } else {
+            return value;
+          }
 
-          case CANCELLED:
-          case INTERRUPTED:
-            throw cancellationExceptionWithCause(
-                "Task was cancelled.", exception);
+        case CANCELLED:
+        case INTERRUPTED:
+          throw cancellationExceptionWithCause(
+              "Task was cancelled.", exception);
 
-          default:
-            throw new IllegalStateException(
-                "Error, synchronizer in invalid state: " + state);
+        default:
+          throw new IllegalStateException(
+              "Error, synchronizer in invalid state: " + state);
         }
       }
 

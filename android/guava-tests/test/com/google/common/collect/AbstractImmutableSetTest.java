@@ -270,7 +270,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return of("a").iterator();
       }
-    }.test();
+    } .test();
   }
 
   @GwtIncompatible // slow (~30s)
@@ -280,7 +280,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return of("a", "b", "c").iterator();
       }
-    }.test();
+    } .test();
   }
 
   public void testContainsAll_sameType() {
@@ -357,7 +357,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     List<Integer> colorElem = asList(0x00, 0x33, 0x66, 0x99, 0xCC, 0xFF);
     // javac won't compile this without "this.<Integer>"
     ImmutableSet.Builder<Integer> webSafeColorsBuilder
-        = this.<Integer>builder();
+      = this.<Integer>builder();
     for (Integer red : colorElem) {
       for (Integer green : colorElem) {
         for (Integer blue : colorElem) {
@@ -375,7 +375,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     assertEquals(0x003300, (int) webSafeColorArray[6]);
     assertEquals(0x330000, (int) webSafeColorArray[36]);
     ImmutableSet<Integer> addedColor
-        = webSafeColorsBuilder.add(LAST_COLOR_ADDED).build();
+      = webSafeColorsBuilder.add(LAST_COLOR_ADDED).build();
     assertEquals(
         "Modifying the builder should not have changed any already built sets",
         216, webSafeColors.size());

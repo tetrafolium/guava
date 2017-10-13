@@ -33,7 +33,7 @@ public class SortedIterablesTest extends TestCase {
           SortedIterables.hasSameComparator(Ordering.natural(), Maps.newTreeMap().keySet()));
     }
     assertTrue(SortedIterables.hasSameComparator(Ordering.natural().reverse(),
-        Sets.newTreeSet(Ordering.natural().reverse())));
+            Sets.newTreeSet(Ordering.natural().reverse())));
   }
 
   public void testComparator() {

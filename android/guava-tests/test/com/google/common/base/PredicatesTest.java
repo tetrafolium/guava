@@ -47,7 +47,7 @@ public class PredicatesTest extends TestCase {
   private static final Predicate<Integer> TRUE = Predicates.alwaysTrue();
   private static final Predicate<Integer> FALSE = Predicates.alwaysFalse();
   private static final Predicate<Integer> NEVER_REACHED =
-      new Predicate<Integer>() {
+  new Predicate<Integer>() {
     @Override
     public boolean apply(Integer i) {
       throw new AssertionFailedError(
@@ -93,10 +93,10 @@ public class PredicatesTest extends TestCase {
 
   public void testAlwaysTrue_equality() throws Exception {
     new EqualsTester()
-        .addEqualityGroup(TRUE, Predicates.alwaysTrue())
-        .addEqualityGroup(isOdd())
-        .addEqualityGroup(Predicates.alwaysFalse())
-        .testEquals();
+    .addEqualityGroup(TRUE, Predicates.alwaysTrue())
+    .addEqualityGroup(isOdd())
+    .addEqualityGroup(Predicates.alwaysFalse())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -114,10 +114,10 @@ public class PredicatesTest extends TestCase {
 
   public void testAlwaysFalse_equality() throws Exception {
     new EqualsTester()
-        .addEqualityGroup(FALSE, Predicates.alwaysFalse())
-        .addEqualityGroup(isOdd())
-        .addEqualityGroup(Predicates.alwaysTrue())
-        .testEquals();
+    .addEqualityGroup(FALSE, Predicates.alwaysFalse())
+    .addEqualityGroup(isOdd())
+    .addEqualityGroup(Predicates.alwaysTrue())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -137,36 +137,36 @@ public class PredicatesTest extends TestCase {
 
   public void testNot_equality() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.not(isOdd()), Predicates.not(isOdd()))
-        .addEqualityGroup(Predicates.not(TRUE))
-        .addEqualityGroup(isOdd())
-        .testEquals();
+    .addEqualityGroup(Predicates.not(isOdd()), Predicates.not(isOdd()))
+    .addEqualityGroup(Predicates.not(TRUE))
+    .addEqualityGroup(isOdd())
+    .testEquals();
   }
 
   public void testNot_equalityForNotOfKnownValues() {
     new EqualsTester()
-        .addEqualityGroup(TRUE, Predicates.alwaysTrue())
-        .addEqualityGroup(FALSE)
-        .addEqualityGroup(Predicates.not(TRUE))
-        .testEquals();
+    .addEqualityGroup(TRUE, Predicates.alwaysTrue())
+    .addEqualityGroup(FALSE)
+    .addEqualityGroup(Predicates.not(TRUE))
+    .testEquals();
 
     new EqualsTester()
-        .addEqualityGroup(FALSE, Predicates.alwaysFalse())
-        .addEqualityGroup(TRUE)
-        .addEqualityGroup(Predicates.not(FALSE))
-        .testEquals();
+    .addEqualityGroup(FALSE, Predicates.alwaysFalse())
+    .addEqualityGroup(TRUE)
+    .addEqualityGroup(Predicates.not(FALSE))
+    .testEquals();
 
     new EqualsTester()
-        .addEqualityGroup(Predicates.isNull(), Predicates.isNull())
-        .addEqualityGroup(Predicates.notNull())
-        .addEqualityGroup(Predicates.not(Predicates.isNull()))
-        .testEquals();
+    .addEqualityGroup(Predicates.isNull(), Predicates.isNull())
+    .addEqualityGroup(Predicates.notNull())
+    .addEqualityGroup(Predicates.not(Predicates.isNull()))
+    .testEquals();
 
     new EqualsTester()
-        .addEqualityGroup(Predicates.notNull(), Predicates.notNull())
-        .addEqualityGroup(Predicates.isNull())
-        .addEqualityGroup(Predicates.not(Predicates.notNull()))
-        .testEquals();
+    .addEqualityGroup(Predicates.notNull(), Predicates.notNull())
+    .addEqualityGroup(Predicates.isNull())
+    .addEqualityGroup(Predicates.not(Predicates.notNull()))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -186,10 +186,10 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_equalityNoArgs() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.and(), Predicates.and())
-        .addEqualityGroup(Predicates.and(FALSE))
-        .addEqualityGroup(Predicates.or())
-        .testEquals();
+    .addEqualityGroup(Predicates.and(), Predicates.and())
+    .addEqualityGroup(Predicates.and(FALSE))
+    .addEqualityGroup(Predicates.or())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -207,13 +207,13 @@ public class PredicatesTest extends TestCase {
   public void testAnd_equalityOneArg() {
     Object[] notEqualObjects = {Predicates.and(NEVER_REACHED, FALSE)};
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.and(NEVER_REACHED), Predicates.and(NEVER_REACHED))
-        .addEqualityGroup(notEqualObjects)
-        .addEqualityGroup(Predicates.and(isOdd()))
-        .addEqualityGroup(Predicates.and())
-        .addEqualityGroup(Predicates.or(NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.and(NEVER_REACHED), Predicates.and(NEVER_REACHED))
+    .addEqualityGroup(notEqualObjects)
+    .addEqualityGroup(Predicates.and(isOdd()))
+    .addEqualityGroup(Predicates.and())
+    .addEqualityGroup(Predicates.or(NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -231,13 +231,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_equalityBinary() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.and(TRUE, NEVER_REACHED),
-            Predicates.and(TRUE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.and(NEVER_REACHED, TRUE))
-        .addEqualityGroup(Predicates.and(TRUE))
-        .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.and(TRUE, NEVER_REACHED),
+        Predicates.and(TRUE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.and(NEVER_REACHED, TRUE))
+    .addEqualityGroup(Predicates.and(TRUE))
+    .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -256,13 +256,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_equalityTernary() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.and(TRUE, isOdd(), NEVER_REACHED),
-            Predicates.and(TRUE, isOdd(), NEVER_REACHED))
-        .addEqualityGroup(Predicates.and(isOdd(), NEVER_REACHED, TRUE))
-        .addEqualityGroup(Predicates.and(TRUE))
-        .addEqualityGroup(Predicates.or(TRUE, isOdd(), NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.and(TRUE, isOdd(), NEVER_REACHED),
+        Predicates.and(TRUE, isOdd(), NEVER_REACHED))
+    .addEqualityGroup(Predicates.and(isOdd(), NEVER_REACHED, TRUE))
+    .addEqualityGroup(Predicates.and(TRUE))
+    .addEqualityGroup(Predicates.or(TRUE, isOdd(), NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -283,13 +283,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_equalityIterable() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
-            Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
-            Predicates.and(TRUE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
+        Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
+        Predicates.and(TRUE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -341,10 +341,10 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testOr_equalityNoArgs() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.or(), Predicates.or())
-        .addEqualityGroup(Predicates.or(TRUE))
-        .addEqualityGroup(Predicates.and())
-        .testEquals();
+    .addEqualityGroup(Predicates.or(), Predicates.or())
+    .addEqualityGroup(Predicates.or(TRUE))
+    .addEqualityGroup(Predicates.and())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -362,13 +362,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testOr_equalityOneArg() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.or(NEVER_REACHED), Predicates.or(NEVER_REACHED))
-        .addEqualityGroup(Predicates.or(NEVER_REACHED, TRUE))
-        .addEqualityGroup(Predicates.or(TRUE))
-        .addEqualityGroup(Predicates.or())
-        .addEqualityGroup(Predicates.and(NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.or(NEVER_REACHED), Predicates.or(NEVER_REACHED))
+    .addEqualityGroup(Predicates.or(NEVER_REACHED, TRUE))
+    .addEqualityGroup(Predicates.or(TRUE))
+    .addEqualityGroup(Predicates.or())
+    .addEqualityGroup(Predicates.and(NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -390,13 +390,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testOr_equalityBinary() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.or(FALSE, NEVER_REACHED),
-            Predicates.or(FALSE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.or(NEVER_REACHED, FALSE))
-        .addEqualityGroup(Predicates.or(TRUE))
-        .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.or(FALSE, NEVER_REACHED),
+        Predicates.or(FALSE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.or(NEVER_REACHED, FALSE))
+    .addEqualityGroup(Predicates.or(TRUE))
+    .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -415,13 +415,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testOr_equalityTernary() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.or(FALSE, NEVER_REACHED, TRUE),
-            Predicates.or(FALSE, NEVER_REACHED, TRUE))
-        .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED, FALSE))
-        .addEqualityGroup(Predicates.or(TRUE))
-        .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED, TRUE))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.or(FALSE, NEVER_REACHED, TRUE),
+        Predicates.or(FALSE, NEVER_REACHED, TRUE))
+    .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED, FALSE))
+    .addEqualityGroup(Predicates.or(TRUE))
+    .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED, TRUE))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -449,13 +449,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
   public void testOr_equalityIterable() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
-            Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
-            Predicates.or(FALSE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
-        .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
+        Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
+        Predicates.or(FALSE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
+    .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -511,10 +511,10 @@ public class PredicatesTest extends TestCase {
 
   public void testIsEqualTo_equality() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.equalTo(1), Predicates.equalTo(1))
-        .addEqualityGroup(Predicates.equalTo(2))
-        .addEqualityGroup(Predicates.equalTo(null))
-        .testEquals();
+    .addEqualityGroup(Predicates.equalTo(1), Predicates.equalTo(1))
+    .addEqualityGroup(Predicates.equalTo(2))
+    .addEqualityGroup(Predicates.equalTo(null))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -530,10 +530,10 @@ public class PredicatesTest extends TestCase {
 
   public void testIsEqualToNull_equality() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.equalTo(null), Predicates.equalTo(null))
-        .addEqualityGroup(Predicates.equalTo(1))
-        .addEqualityGroup(Predicates.equalTo("null"))
-        .testEquals();
+    .addEqualityGroup(Predicates.equalTo(null), Predicates.equalTo(null))
+    .addEqualityGroup(Predicates.equalTo(1))
+    .addEqualityGroup(Predicates.equalTo("null"))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -580,12 +580,12 @@ public class PredicatesTest extends TestCase {
   @GwtIncompatible // Predicates.instanceOf
   public void testIsInstanceOf_equality() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.instanceOf(Integer.class),
-            Predicates.instanceOf(Integer.class))
-        .addEqualityGroup(Predicates.instanceOf(Number.class))
-        .addEqualityGroup(Predicates.instanceOf(Float.class))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.instanceOf(Integer.class),
+        Predicates.instanceOf(Integer.class))
+    .addEqualityGroup(Predicates.instanceOf(Number.class))
+    .addEqualityGroup(Predicates.instanceOf(Float.class))
+    .testEquals();
   }
 
   @GwtIncompatible // Predicates.instanceOf, SerializableTester
@@ -627,13 +627,13 @@ public class PredicatesTest extends TestCase {
   @SuppressWarnings("deprecation")
   public void testSubtypeOf_equality() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.subtypeOf(Integer.class),
-            Predicates.subtypeOf(Integer.class),
-            Predicates.assignableFrom(Integer.class))
-        .addEqualityGroup(Predicates.subtypeOf(Number.class))
-        .addEqualityGroup(Predicates.subtypeOf(Float.class))
-        .testEquals();
+    .addEqualityGroup(
+        Predicates.subtypeOf(Integer.class),
+        Predicates.subtypeOf(Integer.class),
+        Predicates.assignableFrom(Integer.class))
+    .addEqualityGroup(Predicates.subtypeOf(Number.class))
+    .addEqualityGroup(Predicates.subtypeOf(Float.class))
+    .testEquals();
   }
 
   @GwtIncompatible // Predicates.subtypeOf, SerializableTester
@@ -660,9 +660,9 @@ public class PredicatesTest extends TestCase {
 
   public void testIsNull_equality() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.isNull(), Predicates.isNull())
-        .addEqualityGroup(Predicates.notNull())
-        .testEquals();
+    .addEqualityGroup(Predicates.isNull(), Predicates.isNull())
+    .addEqualityGroup(Predicates.notNull())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -681,9 +681,9 @@ public class PredicatesTest extends TestCase {
 
   public void testNotNull_equality() {
     new EqualsTester()
-        .addEqualityGroup(Predicates.notNull(), Predicates.notNull())
-        .addEqualityGroup(Predicates.isNull())
-        .testEquals();
+    .addEqualityGroup(Predicates.notNull(), Predicates.notNull())
+    .addEqualityGroup(Predicates.isNull())
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -708,10 +708,10 @@ public class PredicatesTest extends TestCase {
     Collection<Integer> differentNums = ImmutableSet.of(1, 3, 5);
 
     new EqualsTester()
-        .addEqualityGroup(Predicates.in(nums), Predicates.in(nums),
-            Predicates.in(sameOrder), Predicates.in(differentOrder))
-        .addEqualityGroup(Predicates.in(differentNums))
-        .testEquals();
+    .addEqualityGroup(Predicates.in(nums), Predicates.in(nums),
+        Predicates.in(sameOrder), Predicates.in(differentOrder))
+    .addEqualityGroup(Predicates.in(differentNums))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -771,11 +771,11 @@ public class PredicatesTest extends TestCase {
   public void testCascadingSerialization() throws Exception {
     // Eclipse says Predicate<Integer>; javac says Predicate<Object>.
     Predicate<? super Integer> nasty = Predicates.not(Predicates.and(
-        Predicates.or(
-            Predicates.equalTo((Object) 1), Predicates.equalTo(null),
-            Predicates.alwaysFalse(), Predicates.alwaysTrue(),
-            Predicates.isNull(), Predicates.notNull(),
-            Predicates.in(Arrays.asList(1)))));
+                Predicates.or(
+                    Predicates.equalTo((Object) 1), Predicates.equalTo(null),
+                    Predicates.alwaysFalse(), Predicates.alwaysTrue(),
+                    Predicates.isNull(), Predicates.notNull(),
+                    Predicates.in(Arrays.asList(1)))));
     assertEvalsToFalse(nasty);
 
     Predicate<? super Integer> stillNasty =
@@ -806,12 +806,12 @@ public class PredicatesTest extends TestCase {
     assertFalse(trimEqualsFoo.apply("Foo-b-que"));
 
     new EqualsTester()
-        .addEqualityGroup(trimEqualsFoo, Predicates.compose(equalsFoo, trim))
-        .addEqualityGroup(equalsFoo)
-        .addEqualityGroup(trim)
-        .addEqualityGroup(Predicates.compose(equalsFoo, identity))
-        .addEqualityGroup(Predicates.compose(equalsBar, trim))
-        .testEquals();
+    .addEqualityGroup(trimEqualsFoo, Predicates.compose(equalsFoo, trim))
+    .addEqualityGroup(equalsFoo)
+    .addEqualityGroup(trim)
+    .addEqualityGroup(Predicates.compose(equalsFoo, identity))
+    .addEqualityGroup(Predicates.compose(equalsBar, trim))
+    .testEquals();
   }
 
   @GwtIncompatible // SerializableTester
@@ -872,16 +872,16 @@ public class PredicatesTest extends TestCase {
   @GwtIncompatible // java.util.regex.Pattern
   public void testContains_equals() {
     new EqualsTester()
-        .addEqualityGroup(
-            Predicates.contains(Pattern.compile("foo")),
-            Predicates.containsPattern("foo"))
-        .addEqualityGroup(
-            Predicates.contains(
-                Pattern.compile("foo", Pattern.CASE_INSENSITIVE)))
-        .addEqualityGroup(
-            Predicates.containsPattern("bar"))
-        .testEquals();
-      }
+    .addEqualityGroup(
+        Predicates.contains(Pattern.compile("foo")),
+        Predicates.containsPattern("foo"))
+    .addEqualityGroup(
+        Predicates.contains(
+            Pattern.compile("foo", Pattern.CASE_INSENSITIVE)))
+    .addEqualityGroup(
+        Predicates.containsPattern("bar"))
+    .testEquals();
+  }
 
   public void assertEqualHashCode(
       Predicate<? super Integer> expected, Predicate<? super Integer> actual) {

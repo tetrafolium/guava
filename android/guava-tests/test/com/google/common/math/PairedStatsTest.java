@@ -96,8 +96,8 @@ public class PairedStatsTest extends TestCase {
     assertThat(createSingleStats(Double.NEGATIVE_INFINITY, 1.23).populationCovariance()).isNaN();
     assertThat(createSingleStats(Double.NaN, 1.23).populationCovariance()).isNaN();
     assertThat(TWO_VALUES_PAIRED_STATS.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
     // For datasets of many double values, we test many combinations of finite and non-finite
     // x-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -107,14 +107,14 @@ public class PairedStatsTest extends TestCase {
         assertThat(populationCovariance).named("population covariance of " + values).isNaN();
       } else {
         assertThat(populationCovariance)
-            .named("population covariance of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
+        .named("population covariance of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
       }
     }
     assertThat(HORIZONTAL_VALUES_PAIRED_STATS.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
     assertThat(VERTICAL_VALUES_PAIRED_STATS.populationCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(CONSTANT_VALUES_PAIRED_STATS.populationCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
   }
@@ -131,11 +131,11 @@ public class PairedStatsTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
     assertThat(TWO_VALUES_PAIRED_STATS.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
     assertThat(MANY_VALUES_PAIRED_STATS.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
+    .isWithin(ALLOWED_ERROR)
+    .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
     assertThat(HORIZONTAL_VALUES_PAIRED_STATS.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(VERTICAL_VALUES_PAIRED_STATS.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(CONSTANT_VALUES_PAIRED_STATS.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
@@ -158,11 +158,11 @@ public class PairedStatsTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
     assertThat(TWO_VALUES_PAIRED_STATS.pearsonsCorrelationCoefficient())
-        .isWithin(ALLOWED_ERROR)
-        .of(
-            TWO_VALUES_PAIRED_STATS.populationCovariance()
-                / (TWO_VALUES_PAIRED_STATS.xStats().populationStandardDeviation()
-                    * TWO_VALUES_PAIRED_STATS.yStats().populationStandardDeviation()));
+    .isWithin(ALLOWED_ERROR)
+    .of(
+        TWO_VALUES_PAIRED_STATS.populationCovariance()
+        / (TWO_VALUES_PAIRED_STATS.xStats().populationStandardDeviation()
+            * TWO_VALUES_PAIRED_STATS.yStats().populationStandardDeviation()));
     // For datasets of many double values, we test many combinations of finite and non-finite
     // y-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -170,16 +170,16 @@ public class PairedStatsTest extends TestCase {
       double pearsonsCorrelationCoefficient = stats.pearsonsCorrelationCoefficient();
       if (values.hasAnyNonFinite()) {
         assertThat(pearsonsCorrelationCoefficient)
-            .named("Pearson's correlation coefficient of " + values)
-            .isNaN();
+        .named("Pearson's correlation coefficient of " + values)
+        .isNaN();
       } else {
         assertThat(pearsonsCorrelationCoefficient)
-            .named("Pearson's correlation coefficient of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(
-                stats.populationCovariance()
-                    / (stats.xStats().populationStandardDeviation()
-                        * stats.yStats().populationStandardDeviation()));
+        .named("Pearson's correlation coefficient of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(
+            stats.populationCovariance()
+            / (stats.xStats().populationStandardDeviation()
+                * stats.yStats().populationStandardDeviation()));
       }
     }
     try {
@@ -252,24 +252,24 @@ public class PairedStatsTest extends TestCase {
 
   public void testEqualsAndHashCode() {
     new EqualsTester()
-        .addEqualityGroup(
-            MANY_VALUES_PAIRED_STATS,
-            DUPLICATE_MANY_VALUES_PAIRED_STATS,
-            SerializableTester.reserialize(MANY_VALUES_PAIRED_STATS))
-        .addEqualityGroup(
-            new PairedStats(MANY_VALUES_STATS_ITERABLE, OTHER_MANY_VALUES_STATS, 1.23),
-            new PairedStats(MANY_VALUES_STATS_VARARGS, OTHER_MANY_VALUES_STATS, 1.23))
-        .addEqualityGroup(
-            new PairedStats(OTHER_MANY_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
-        .addEqualityGroup(
-            new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.23))
-        .addEqualityGroup(
-            new PairedStats(TWO_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
-        .addEqualityGroup(
-            new PairedStats(MANY_VALUES_STATS_ITERABLE, ONE_VALUE_STATS, 1.23))
-        .addEqualityGroup(
-            new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.234))
-        .testEquals();
+    .addEqualityGroup(
+        MANY_VALUES_PAIRED_STATS,
+        DUPLICATE_MANY_VALUES_PAIRED_STATS,
+        SerializableTester.reserialize(MANY_VALUES_PAIRED_STATS))
+    .addEqualityGroup(
+        new PairedStats(MANY_VALUES_STATS_ITERABLE, OTHER_MANY_VALUES_STATS, 1.23),
+        new PairedStats(MANY_VALUES_STATS_VARARGS, OTHER_MANY_VALUES_STATS, 1.23))
+    .addEqualityGroup(
+        new PairedStats(OTHER_MANY_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
+    .addEqualityGroup(
+        new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.23))
+    .addEqualityGroup(
+        new PairedStats(TWO_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
+    .addEqualityGroup(
+        new PairedStats(MANY_VALUES_STATS_ITERABLE, ONE_VALUE_STATS, 1.23))
+    .addEqualityGroup(
+        new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.234))
+    .testEquals();
   }
 
   public void testSerializable() {
@@ -278,16 +278,16 @@ public class PairedStatsTest extends TestCase {
 
   public void testToString() {
     assertThat(EMPTY_PAIRED_STATS.toString())
-        .isEqualTo("PairedStats{xStats=Stats{count=0}, yStats=Stats{count=0}}");
+    .isEqualTo("PairedStats{xStats=Stats{count=0}, yStats=Stats{count=0}}");
     assertThat(MANY_VALUES_PAIRED_STATS.toString())
-        .isEqualTo(
-            "PairedStats{xStats="
-                + MANY_VALUES_PAIRED_STATS.xStats()
-                + ", yStats="
-                + MANY_VALUES_PAIRED_STATS.yStats()
-                + ", populationCovariance="
-                + MANY_VALUES_PAIRED_STATS.populationCovariance()
-                + "}");
+    .isEqualTo(
+        "PairedStats{xStats="
+        + MANY_VALUES_PAIRED_STATS.xStats()
+        + ", yStats="
+        + MANY_VALUES_PAIRED_STATS.yStats()
+        + ", populationCovariance="
+        + MANY_VALUES_PAIRED_STATS.populationCovariance()
+        + "}");
   }
 
   private PairedStats createSingleStats(double x, double y) {
@@ -312,7 +312,7 @@ public class PairedStatsTest extends TestCase {
   }
 
   public void testFromByteArray_withEmptyArrayInputThrowsIllegalArgumentException() {
-   try {
+    try {
       PairedStats.fromByteArray(new byte[0]);
       fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException expected) {
@@ -326,11 +326,11 @@ public class PairedStatsTest extends TestCase {
         .put(buffer)
         .putChar('.')
         .array();
-      try {
-        PairedStats.fromByteArray(tooLongByteArray);
-        fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {
-      }
+    try {
+      PairedStats.fromByteArray(tooLongByteArray);
+      fail("Expected IllegalArgumentException");
+    } catch (IllegalArgumentException expected) {
+    }
   }
 
   public void testFromByteArrayWithTooShortArrayInputThrowsIllegalArgumentException() {

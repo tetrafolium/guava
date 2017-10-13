@@ -37,7 +37,7 @@ public class UnsignedBytesTest extends TestCase {
 
   // Only in this class, VALUES must be strictly ascending
   private static final byte[] VALUES =
-      {LEAST, 127, (byte) 128, (byte) 129, GREATEST};
+  {LEAST, 127, (byte) 128, (byte) 129, GREATEST};
 
   public void testToInt() {
     assertEquals(0, UnsignedBytes.toInt((byte) 0));
@@ -89,8 +89,8 @@ public class UnsignedBytesTest extends TestCase {
         byte y = VALUES[j];
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Math.signum(UnsignedBytes.compare(x, y)),
-                     Math.signum(Ints.compare(i, j)));
+            Math.signum(UnsignedBytes.compare(x, y)),
+            Math.signum(Ints.compare(i, j)));
       }
     }
   }
@@ -107,7 +107,7 @@ public class UnsignedBytesTest extends TestCase {
     assertEquals(LEAST, UnsignedBytes.max(LEAST));
     assertEquals(GREATEST, UnsignedBytes.max(GREATEST));
     assertEquals((byte) 255, UnsignedBytes.max(
-        (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
   }
 
   public void testMin_noArgs() {
@@ -122,9 +122,9 @@ public class UnsignedBytesTest extends TestCase {
     assertEquals(LEAST, UnsignedBytes.min(LEAST));
     assertEquals(GREATEST, UnsignedBytes.min(GREATEST));
     assertEquals((byte) 0, UnsignedBytes.min(
-        (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
     assertEquals((byte) 0, UnsignedBytes.min(
-        (byte) -1, (byte) 127, (byte) 1, (byte) -128, (byte) 0));
+            (byte) -1, (byte) 127, (byte) 1, (byte) -128, (byte) 0));
   }
 
   private static void assertParseFails(String value) {
@@ -268,15 +268,15 @@ public class UnsignedBytesTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<byte[]> ordered = Arrays.asList(
-        new byte[] {},
-        new byte[] {LEAST},
-        new byte[] {LEAST, LEAST},
-        new byte[] {LEAST, (byte) 1},
-        new byte[] {(byte) 1},
-        new byte[] {(byte) 1, LEAST},
-        new byte[] {GREATEST, GREATEST - (byte) 1},
-        new byte[] {GREATEST, GREATEST},
-        new byte[] {GREATEST, GREATEST, GREATEST});
+            new byte[] {},
+            new byte[] {LEAST},
+            new byte[] {LEAST, LEAST},
+            new byte[] {LEAST, (byte) 1},
+            new byte[] {(byte) 1},
+            new byte[] {(byte) 1, LEAST},
+            new byte[] {GREATEST, GREATEST - (byte) 1},
+            new byte[] {GREATEST, GREATEST},
+            new byte[] {GREATEST, GREATEST, GREATEST});
 
     // The Unsafe implementation if it's available. Otherwise, the Java implementation.
     Comparator<byte[]> comparator = UnsignedBytes.lexicographicalComparator();
@@ -293,8 +293,8 @@ public class UnsignedBytesTest extends TestCase {
   public void testLexicographicalComparatorLongInputs() {
     Random rnd = new Random();
     for (Comparator<byte[]> comparator : Arrays.asList(
-        UnsignedBytes.lexicographicalComparator(),
-        UnsignedBytes.lexicographicalComparatorJavaImpl())) {
+            UnsignedBytes.lexicographicalComparator(),
+            UnsignedBytes.lexicographicalComparatorJavaImpl())) {
       for (int trials = 10; trials-- > 0;) {
         byte[] left = new byte[1 + rnd.nextInt(32)];
         rnd.nextBytes(left);

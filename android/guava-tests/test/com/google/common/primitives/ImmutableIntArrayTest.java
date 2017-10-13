@@ -66,20 +66,20 @@ public class ImmutableIntArrayTest extends TestCase {
 
   public void testOf5() {
     assertThat(ImmutableIntArray.of(0, 1, 3, 6, 10).asList())
-        .containsExactly(0, 1, 3, 6, 10)
-        .inOrder();
+    .containsExactly(0, 1, 3, 6, 10)
+    .inOrder();
   }
 
   public void testOf6() {
     assertThat(ImmutableIntArray.of(0, 1, 3, 6, 10, 15).asList())
-        .containsExactly(0, 1, 3, 6, 10, 15)
-        .inOrder();
+    .containsExactly(0, 1, 3, 6, 10, 15)
+    .inOrder();
   }
 
   public void testOf7() {
     assertThat(ImmutableIntArray.of(0, 1, 3, 6, 10, 15, 21).asList())
-        .containsExactly(0, 1, 3, 6, 10, 15, 21)
-        .inOrder();
+    .containsExactly(0, 1, 3, 6, 10, 15, 21)
+    .inOrder();
   }
 
   public void testCopyOf_array_empty() {
@@ -354,14 +354,14 @@ public class ImmutableIntArrayTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(ImmutableIntArray.of())
-        .addEqualityGroup(
-            ImmutableIntArray.of(1, 2),
-            reserialize(ImmutableIntArray.of(1, 2)),
-            ImmutableIntArray.of(0, 1, 2, 3).subArray(1, 3))
-        .addEqualityGroup(ImmutableIntArray.of(1, 3))
-        .addEqualityGroup(ImmutableIntArray.of(1, 2, 3))
-        .testEquals();
+    .addEqualityGroup(ImmutableIntArray.of())
+    .addEqualityGroup(
+        ImmutableIntArray.of(1, 2),
+        reserialize(ImmutableIntArray.of(1, 2)),
+        ImmutableIntArray.of(0, 1, 2, 3).subArray(1, 3))
+    .addEqualityGroup(ImmutableIntArray.of(1, 3))
+    .addEqualityGroup(ImmutableIntArray.of(1, 2, 3))
+    .testEquals();
   }
 
   /**
@@ -389,7 +389,7 @@ public class ImmutableIntArrayTest extends TestCase {
   public void testSerialization() {
     assertThat(reserialize(ImmutableIntArray.of())).isSameAs(ImmutableIntArray.of());
     assertThat(reserialize(ImmutableIntArray.of(0, 1).subArray(1, 1)))
-        .isSameAs(ImmutableIntArray.of());
+    .isSameAs(ImmutableIntArray.of());
 
     ImmutableIntArray iia = ImmutableIntArray.of(0, 1, 3, 6).subArray(1, 3);
     ImmutableIntArray iia2 = reserialize(iia);
@@ -414,27 +414,27 @@ public class ImmutableIntArrayTest extends TestCase {
     List<ListTestSuiteBuilder<Integer>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new ImmutableIntArrayAsListGenerator())
-                .named("ImmutableIntArray.asList"),
+            .named("ImmutableIntArray.asList"),
             ListTestSuiteBuilder.using(new ImmutableIntArrayHeadSubListAsListGenerator())
-                .named("ImmutableIntArray.asList, head subList"),
+            .named("ImmutableIntArray.asList, head subList"),
             ListTestSuiteBuilder.using(new ImmutableIntArrayTailSubListAsListGenerator())
-                .named("ImmutableIntArray.asList, tail subList"),
+            .named("ImmutableIntArray.asList, tail subList"),
             ListTestSuiteBuilder.using(new ImmutableIntArrayMiddleSubListAsListGenerator())
-                .named("ImmutableIntArray.asList, middle subList"));
+            .named("ImmutableIntArray.asList, middle subList"));
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Integer> builder : builders) {
       suite.addTest(
           builder
-              .withFeatures(
-                  CollectionSize.ZERO,
-                  CollectionSize.ONE,
-                  CollectionSize.SEVERAL,
-                  CollectionFeature.ALLOWS_NULL_QUERIES,
-                  CollectionFeature.RESTRICTS_ELEMENTS,
-                  CollectionFeature.KNOWN_ORDER,
-                  CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
-              .createTestSuite());
+          .withFeatures(
+              CollectionSize.ZERO,
+              CollectionSize.ONE,
+              CollectionSize.SEVERAL,
+              CollectionFeature.ALLOWS_NULL_QUERIES,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              CollectionFeature.KNOWN_ORDER,
+              CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
+          .createTestSuite());
     }
     suite.addTestSuite(ImmutableIntArrayTest.class);
     return suite;
@@ -458,7 +458,7 @@ public class ImmutableIntArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableIntArrayHeadSubListAsListGenerator
-      extends TestIntegerListGenerator {
+    extends TestIntegerListGenerator {
     @Override
     protected List<Integer> create(Integer[] elements) {
       Integer[] suffix = {Integer.MIN_VALUE, Integer.MAX_VALUE};
@@ -469,7 +469,7 @@ public class ImmutableIntArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableIntArrayTailSubListAsListGenerator
-      extends TestIntegerListGenerator {
+    extends TestIntegerListGenerator {
     @Override
     protected List<Integer> create(Integer[] elements) {
       Integer[] prefix = {86, 99};
@@ -480,7 +480,7 @@ public class ImmutableIntArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableIntArrayMiddleSubListAsListGenerator
-      extends TestIntegerListGenerator {
+    extends TestIntegerListGenerator {
     @Override
     protected List<Integer> create(Integer[] elements) {
       Integer[] prefix = {Integer.MIN_VALUE, Integer.MAX_VALUE};

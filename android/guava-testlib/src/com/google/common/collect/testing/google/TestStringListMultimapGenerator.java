@@ -32,16 +32,16 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class TestStringListMultimapGenerator
-    implements TestListMultimapGenerator<String, String> {
+  implements TestListMultimapGenerator<String, String> {
 
   @Override
   public SampleElements<Map.Entry<String, String>> samples() {
     return new SampleElements<>(
-        Helpers.mapEntry("one", "January"),
-        Helpers.mapEntry("two", "February"),
-        Helpers.mapEntry("three", "March"),
-        Helpers.mapEntry("four", "April"),
-        Helpers.mapEntry("five", "May"));
+            Helpers.mapEntry("one", "January"),
+            Helpers.mapEntry("two", "February"),
+            Helpers.mapEntry("three", "March"),
+            Helpers.mapEntry("four", "April"),
+            Helpers.mapEntry("five", "May"));
   }
 
   @Override

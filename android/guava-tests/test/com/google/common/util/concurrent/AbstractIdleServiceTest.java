@@ -134,7 +134,7 @@ public class AbstractIdleServiceTest extends TestCase {
     assertEquals(1, service.shutDownCalled);
     assertEquals(Service.State.TERMINATED, service.state());
     assertThat(service.transitionStates)
-        .containsExactly(Service.State.STARTING, Service.State.STOPPING).inOrder();
+    .containsExactly(Service.State.STARTING, Service.State.STOPPING).inOrder();
   }
 
   public void testStop_failed() {
@@ -158,7 +158,7 @@ public class AbstractIdleServiceTest extends TestCase {
     assertEquals(1, service.shutDownCalled);
     assertEquals(Service.State.FAILED, service.state());
     assertThat(service.transitionStates)
-        .containsExactly(Service.State.STARTING, Service.State.STOPPING).inOrder();
+    .containsExactly(Service.State.STARTING, Service.State.STOPPING).inOrder();
   }
 
   public void testServiceToString() {

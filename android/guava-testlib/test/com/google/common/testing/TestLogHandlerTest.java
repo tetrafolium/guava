@@ -87,7 +87,7 @@ public class TestLogHandlerTest extends TestCase {
 
   static class ExampleClassUnderTest {
     static final Logger logger
-        = Logger.getLogger(ExampleClassUnderTest.class.getName());
+      = Logger.getLogger(ExampleClassUnderTest.class.getName());
 
     static void foo() {
       logger.log(Level.INFO,  "message", EXCEPTION);

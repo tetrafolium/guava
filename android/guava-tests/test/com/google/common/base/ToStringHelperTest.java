@@ -194,10 +194,10 @@ public class ToStringHelperTest extends TestCase {
         .build();
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", "This is string.")
-            .add("field2", Arrays.asList("abc", "def", "ghi"))
-            .add("field3", map)
-            .toString();
+        .add("field1", "This is string.")
+        .add("field2", Arrays.asList("abc", "def", "ghi"))
+        .add("field3", map)
+        .toString();
     final String expected = "TestClass{"
         + "field1=This is string., field2=[abc, def, ghi], field3={abc=1, def=2, ghi=3}}";
 
@@ -213,10 +213,10 @@ public class ToStringHelperTest extends TestCase {
         .build();
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", "This is string.")
-            .add("field2", Arrays.asList("abc", "def", "ghi"))
-            .add("field3", map)
-            .toString();
+        .add("field1", "This is string.")
+        .add("field2", Arrays.asList("abc", "def", "ghi"))
+        .add("field3", map)
+        .toString();
     final String expectedRegex = ".*\\{"
         + "field1\\=This is string\\., "
         + "field2\\=\\[abc, def, ghi\\], "
@@ -250,9 +250,9 @@ public class ToStringHelperTest extends TestCase {
   public void testToString_ToStringTwice() {
     MoreObjects.ToStringHelper helper =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", 1)
-            .addValue("value1")
-            .add("field2", "value2");
+        .add("field1", 1)
+        .addValue("value1")
+        .add("field2", "value2");
     final String expected = "TestClass{field1=1, value1, field2=value2}";
 
     assertEquals(expected, helper.toString());
@@ -269,11 +269,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToString_addValue() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", 1)
-            .addValue("value1")
-            .add("field2", "value2")
-            .addValue(2)
-            .toString();
+        .add("field1", 1)
+        .addValue("value1")
+        .add("field2", "value2")
+        .addValue(2)
+        .toString();
     final String expected = "TestClass{field1=1, value1, field2=value2, 2}";
 
     assertEquals(expected, toTest);
@@ -282,11 +282,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringLenient_addValue() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", 1)
-            .addValue("value1")
-            .add("field2", "value2")
-            .addValue(2)
-            .toString();
+        .add("field1", 1)
+        .addValue("value1")
+        .add("field2", "value2")
+        .addValue(2)
+        .toString();
     final String expected = ".*\\{field1\\=1, value1, field2\\=value2, 2\\}";
 
     assertTrue(toTest, toTest.matches(expected));
@@ -296,10 +296,10 @@ public class ToStringHelperTest extends TestCase {
   public void testToString_addValueWithNullValue() {
     final String result =
         MoreObjects.toStringHelper(new TestClass())
-            .addValue(null)
-            .addValue("Hello")
-            .addValue(null)
-            .toString();
+        .addValue(null)
+        .addValue("Hello")
+        .addValue(null)
+        .toString();
     final String expected = "TestClass{null, Hello, null}";
 
     assertEquals(expected, result);
@@ -308,10 +308,10 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringLenient_addValueWithNullValue() {
     final String result =
         MoreObjects.toStringHelper(new TestClass())
-            .addValue(null)
-            .addValue("Hello")
-            .addValue(null)
-            .toString();
+        .addValue(null)
+        .addValue("Hello")
+        .addValue(null)
+        .toString();
     final String expected = ".*\\{null, Hello, null\\}";
 
     assertTrue(result, result.matches(expected));
@@ -328,11 +328,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_manyFieldsFirstNull() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .add("field1", null)
-            .add("field2", "Googley")
-            .add("field3", "World")
-            .toString();
+        .omitNullValues()
+        .add("field1", null)
+        .add("field2", "Googley")
+        .add("field3", "World")
+        .toString();
     assertEquals("TestClass{field2=Googley, field3=World}", toTest);
   }
 
@@ -340,11 +340,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_manyFieldsOmitAfterNull() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", null)
-            .add("field2", "Googley")
-            .add("field3", "World")
-            .omitNullValues()
-            .toString();
+        .add("field1", null)
+        .add("field2", "Googley")
+        .add("field3", "World")
+        .omitNullValues()
+        .toString();
     assertEquals("TestClass{field2=Googley, field3=World}", toTest);
   }
 
@@ -352,11 +352,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_manyFieldsLastNull() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .add("field1", "Hello")
-            .add("field2", "Googley")
-            .add("field3", null)
-            .toString();
+        .omitNullValues()
+        .add("field1", "Hello")
+        .add("field2", "Googley")
+        .add("field3", null)
+        .toString();
     assertEquals("TestClass{field1=Hello, field2=Googley}", toTest);
   }
 
@@ -371,11 +371,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_manyValuesFirstNull() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .addValue(null)
-            .addValue("Googley")
-            .addValue("World")
-            .toString();
+        .omitNullValues()
+        .addValue(null)
+        .addValue("Googley")
+        .addValue("World")
+        .toString();
     assertEquals("TestClass{Googley, World}", toTest);
   }
 
@@ -383,11 +383,11 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_manyValuesLastNull() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .addValue("Hello")
-            .addValue("Googley")
-            .addValue(null)
-            .toString();
+        .omitNullValues()
+        .addValue("Hello")
+        .addValue("Googley")
+        .addValue(null)
+        .toString();
     assertEquals("TestClass{Hello, Googley}", toTest);
   }
 
@@ -396,18 +396,18 @@ public class ToStringHelperTest extends TestCase {
     String expected = "TestClass{field1=Hello, field2=Googley, field3=World}";
     String toTest1 =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .add("field1", "Hello")
-            .add("field2", "Googley")
-            .add("field3", "World")
-            .toString();
+        .omitNullValues()
+        .add("field1", "Hello")
+        .add("field2", "Googley")
+        .add("field3", "World")
+        .toString();
     String toTest2 =
         MoreObjects.toStringHelper(new TestClass())
-            .add("field1", "Hello")
-            .add("field2", "Googley")
-            .omitNullValues()
-            .add("field3", "World")
-            .toString();
+        .add("field1", "Hello")
+        .add("field2", "Googley")
+        .omitNullValues()
+        .add("field3", "World")
+        .toString();
     assertEquals(expected, toTest1);
     assertEquals(expected, toTest2);
   }
@@ -416,14 +416,14 @@ public class ToStringHelperTest extends TestCase {
   public void testToStringOmitNullValues_canBeCalledManyTimes() {
     String toTest =
         MoreObjects.toStringHelper(new TestClass())
-            .omitNullValues()
-            .omitNullValues()
-            .add("field1", "Hello")
-            .omitNullValues()
-            .add("field2", "Googley")
-            .omitNullValues()
-            .add("field3", "World")
-            .toString();
+        .omitNullValues()
+        .omitNullValues()
+        .add("field1", "Hello")
+        .omitNullValues()
+        .add("field2", "Googley")
+        .omitNullValues()
+        .add("field3", "World")
+        .toString();
     assertEquals("TestClass{field1=Hello, field2=Googley, field3=World}",
         toTest);
   }

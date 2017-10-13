@@ -64,7 +64,7 @@ public class FilteredCollectionsTest extends TestCase {
    */
 
   public static abstract class AbstractFilteredIterableTest<C extends Iterable<Integer>>
-      extends TestCase {
+    extends TestCase {
     abstract C createUnfiltered(Iterable<Integer> contents);
 
     abstract C filter(C elements, Predicate<? super Integer> predicate);
@@ -87,7 +87,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static abstract class AbstractFilteredCollectionTest<C extends Collection<Integer>>
-      extends AbstractFilteredIterableTest<C> {
+    extends AbstractFilteredIterableTest<C> {
 
     public void testReadsThroughAdd() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
@@ -186,7 +186,7 @@ public class FilteredCollectionsTest extends TestCase {
         C filtered2 = filter(filtered1, PRIME_DIGIT);
 
         C inverseFiltered = filter(createUnfiltered(contents),
-            Predicates.not(Predicates.and(EVEN, PRIME_DIGIT)));
+                Predicates.not(Predicates.and(EVEN, PRIME_DIGIT)));
 
         filtered2.clear();
         assertThat(unfiltered).containsExactlyElementsIn(inverseFiltered);
@@ -195,7 +195,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static abstract class AbstractFilteredSetTest<C extends Set<Integer>>
-      extends AbstractFilteredCollectionTest<C> {
+    extends AbstractFilteredCollectionTest<C> {
     public void testEqualsAndHashCode() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         Set<Integer> expected = Sets.newHashSet();
@@ -205,13 +205,13 @@ public class FilteredCollectionsTest extends TestCase {
           }
         }
         new EqualsTester().addEqualityGroup(expected, filter(createUnfiltered(contents), EVEN))
-            .testEquals();
+        .testEquals();
       }
     }
   }
 
   public static abstract class AbstractFilteredSortedSetTest<C extends SortedSet<Integer>>
-      extends AbstractFilteredSetTest<C> {
+    extends AbstractFilteredSetTest<C> {
     public void testFirst() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         C filtered = filter(createUnfiltered(contents), EVEN);
@@ -244,9 +244,9 @@ public class FilteredCollectionsTest extends TestCase {
     public void testHeadSet() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int i = 0; i < 10; i++) {
-            assertEquals(
-                filter((C) createUnfiltered(contents).headSet(i), EVEN),
-                filter(createUnfiltered(contents), EVEN).headSet(i));
+          assertEquals(
+              filter((C) createUnfiltered(contents).headSet(i), EVEN),
+              filter(createUnfiltered(contents), EVEN).headSet(i));
         }
       }
     }
@@ -267,9 +267,9 @@ public class FilteredCollectionsTest extends TestCase {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int i = 0; i < 10; i++) {
           for (int j = i; j < 10; j++) {
-          assertEquals(
-              filter((C) createUnfiltered(contents).subSet(i, j), EVEN),
-              filter(createUnfiltered(contents), EVEN).subSet(i, j));
+            assertEquals(
+                filter((C) createUnfiltered(contents).subSet(i, j), EVEN),
+                filter(createUnfiltered(contents), EVEN).subSet(i, j));
           }
         }
       }
@@ -277,7 +277,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static abstract class AbstractFilteredNavigableSetTest
-      extends AbstractFilteredSortedSetTest<NavigableSet<Integer>> {
+    extends AbstractFilteredSortedSetTest<NavigableSet<Integer>> {
 
     public void testNavigableHeadSet() {
       for (List<Integer> contents : SAMPLE_INPUTS) {
@@ -310,7 +310,7 @@ public class FilteredCollectionsTest extends TestCase {
             for (boolean fromInclusive : ImmutableList.of(true, false)) {
               for (boolean toInclusive : ImmutableList.of(true, false)) {
                 NavigableSet<Integer> filterSubset = filter(
-                    createUnfiltered(contents).subSet(i, fromInclusive, j, toInclusive), EVEN);
+                        createUnfiltered(contents).subSet(i, fromInclusive, j, toInclusive), EVEN);
                 NavigableSet<Integer> subsetFilter = filter(createUnfiltered(contents), EVEN)
                     .subSet(i, fromInclusive, j, toInclusive);
                 assertEquals(filterSubset, subsetFilter);
@@ -327,8 +327,8 @@ public class FilteredCollectionsTest extends TestCase {
         NavigableSet<Integer> unfiltered = createUnfiltered(filtered);
 
         assertThat(filtered.descendingSet())
-            .containsExactlyElementsIn(unfiltered.descendingSet())
-            .inOrder();
+        .containsExactlyElementsIn(unfiltered.descendingSet())
+        .inOrder();
       }
     }
 
@@ -369,7 +369,7 @@ public class FilteredCollectionsTest extends TestCase {
   // implementation tests
 
   public static final class IterablesFilterArrayListTest
-      extends AbstractFilteredIterableTest<Iterable<Integer>> {
+    extends AbstractFilteredIterableTest<Iterable<Integer>> {
     @Override
     Iterable<Integer> createUnfiltered(Iterable<Integer> contents) {
       return Lists.newArrayList(contents);
@@ -382,7 +382,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static final class Collections2FilterArrayListTest
-      extends AbstractFilteredCollectionTest<Collection<Integer>> {
+    extends AbstractFilteredCollectionTest<Collection<Integer>> {
     @Override
     Collection<Integer> createUnfiltered(Iterable<Integer> contents) {
       return Lists.newArrayList(contents);
@@ -395,7 +395,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static final class SetsFilterHashSetTest
-      extends AbstractFilteredSetTest<Set<Integer>> {
+    extends AbstractFilteredSetTest<Set<Integer>> {
     @Override
     Set<Integer> createUnfiltered(Iterable<Integer> contents) {
       return Sets.newHashSet(contents);
@@ -408,7 +408,7 @@ public class FilteredCollectionsTest extends TestCase {
   }
 
   public static final class SetsFilterSortedSetTest
-      extends AbstractFilteredSortedSetTest<SortedSet<Integer>> {
+    extends AbstractFilteredSortedSetTest<SortedSet<Integer>> {
     @Override
     SortedSet<Integer> createUnfiltered(Iterable<Integer> contents) {
       final TreeSet<Integer> result = Sets.newTreeSet(contents);

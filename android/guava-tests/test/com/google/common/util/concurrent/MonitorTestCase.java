@@ -219,8 +219,8 @@ public abstract class MonitorTestCase extends TestCase {
   public void testNulls() {
     monitor.enter();  // Inhibit IllegalMonitorStateException
     new NullPointerTester()
-        .setDefault(Monitor.Guard.class, new TestGuard(true))
-        .testAllPublicInstanceMethods(monitor);
+    .setDefault(Monitor.Guard.class, new TestGuard(true))
+    .testAllPublicInstanceMethods(monitor);
   }
 
   // TODO: Test enter(long, TimeUnit).

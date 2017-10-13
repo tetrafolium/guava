@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
  */
 public class ForwardingCollectionTest extends TestCase {
   static final class StandardImplForwardingCollection<T>
-      extends ForwardingCollection<T> {
+    extends ForwardingCollection<T> {
     private final Collection<T> backingCollection;
 
     StandardImplForwardingCollection(Collection<T> backingCollection) {
@@ -97,30 +97,30 @@ public class ForwardingCollectionTest extends TestCase {
     suite.addTestSuite(ForwardingCollectionTest.class);
     suite.addTest(
         CollectionTestSuiteBuilder.using(
-                new TestStringCollectionGenerator() {
-                  @Override
-                  protected Collection<String> create(String[] elements) {
-                    return new StandardImplForwardingCollection<>(
-                        Lists.newLinkedList(asList(elements)));
-                  }
-                })
-            .named("ForwardingCollection[LinkedList] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+    new TestStringCollectionGenerator() {
+      @Override
+      protected Collection<String> create(String[] elements) {
+        return new StandardImplForwardingCollection<>(
+                Lists.newLinkedList(asList(elements)));
+      }
+    })
+    .named("ForwardingCollection[LinkedList] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     suite.addTest(
         CollectionTestSuiteBuilder.using(
-                new TestStringCollectionGenerator() {
-                  @Override
-                  protected Collection<String> create(String[] elements) {
-                    return new StandardImplForwardingCollection<>(MinimalCollection.of(elements));
-                  }
-                })
-            .named("ForwardingCollection[MinimalCollection] with standard" + " implementations")
-            .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
-            .createTestSuite());
+    new TestStringCollectionGenerator() {
+      @Override
+      protected Collection<String> create(String[] elements) {
+        return new StandardImplForwardingCollection<>(MinimalCollection.of(elements));
+      }
+    })
+    .named("ForwardingCollection[MinimalCollection] with standard" + " implementations")
+    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     return suite;
   }
@@ -128,11 +128,11 @@ public class ForwardingCollectionTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(Collection.class, new Function<Collection, Collection>() {
-          @Override public Collection apply(Collection delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(Collection.class, new Function<Collection, Collection>() {
+      @Override public Collection apply(Collection delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   private static <T> Collection<T> wrap(final Collection<T> delegate) {

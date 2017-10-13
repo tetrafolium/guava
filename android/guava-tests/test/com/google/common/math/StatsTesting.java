@@ -52,7 +52,7 @@ class StatsTesting {
   static final double TWO_VALUES_MEAN = (12.34 - 56.78) / 2;
   static final double TWO_VALUES_SUM_OF_SQUARES_OF_DELTAS =
       (12.34 - TWO_VALUES_MEAN) * (12.34 - TWO_VALUES_MEAN)
-          + (-56.78 - TWO_VALUES_MEAN) * (-56.78 - TWO_VALUES_MEAN);
+      + (-56.78 - TWO_VALUES_MEAN) * (-56.78 - TWO_VALUES_MEAN);
   static final double TWO_VALUES_MAX = 12.34;
   static final double TWO_VALUES_MIN = -56.78;
 
@@ -60,7 +60,7 @@ class StatsTesting {
   static final double OTHER_TWO_VALUES_MEAN = (123.456 - 789.012) / 2;
   static final double TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS =
       (12.34 - TWO_VALUES_MEAN) * (123.456 - OTHER_TWO_VALUES_MEAN)
-          + (-56.78 - TWO_VALUES_MEAN) * (-789.012 - OTHER_TWO_VALUES_MEAN);
+      + (-56.78 - TWO_VALUES_MEAN) * (-789.012 - OTHER_TWO_VALUES_MEAN);
 
   /**
    * Helper class for testing with non-finite values. {@link #ALL_MANY_VALUES} gives a number
@@ -135,10 +135,10 @@ class StatsTesting {
   static final double MANY_VALUES_MEAN = (1.1 - 44.44 + 33.33 + 555.555 - 2.2) / 5;
   static final double MANY_VALUES_SUM_OF_SQUARES_OF_DELTAS =
       (1.1 - MANY_VALUES_MEAN) * (1.1 - MANY_VALUES_MEAN)
-          + (-44.44 - MANY_VALUES_MEAN) * (-44.44 - MANY_VALUES_MEAN)
-          + (33.33 - MANY_VALUES_MEAN) * (33.33 - MANY_VALUES_MEAN)
-          + (555.555 - MANY_VALUES_MEAN) * (555.555 - MANY_VALUES_MEAN)
-          + (-2.2 - MANY_VALUES_MEAN) * (-2.2 - MANY_VALUES_MEAN);
+      + (-44.44 - MANY_VALUES_MEAN) * (-44.44 - MANY_VALUES_MEAN)
+      + (33.33 - MANY_VALUES_MEAN) * (33.33 - MANY_VALUES_MEAN)
+      + (555.555 - MANY_VALUES_MEAN) * (555.555 - MANY_VALUES_MEAN)
+      + (-2.2 - MANY_VALUES_MEAN) * (-2.2 - MANY_VALUES_MEAN);
   static final double MANY_VALUES_MAX = 555.555;
   static final double MANY_VALUES_MIN = -44.44;
 
@@ -153,10 +153,10 @@ class StatsTesting {
 
   static final double MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS =
       (1.1 - MANY_VALUES_MEAN) * (1.11 - OTHER_MANY_VALUES_MEAN)
-          + (-44.44 - MANY_VALUES_MEAN) * (-2.22 - OTHER_MANY_VALUES_MEAN)
-          + (33.33 - MANY_VALUES_MEAN) * (33.3333 - OTHER_MANY_VALUES_MEAN)
-          + (555.555 - MANY_VALUES_MEAN) * (-44.4444 - OTHER_MANY_VALUES_MEAN)
-          + (-2.2 - MANY_VALUES_MEAN) * (555.555555 - OTHER_MANY_VALUES_MEAN);
+      + (-44.44 - MANY_VALUES_MEAN) * (-2.22 - OTHER_MANY_VALUES_MEAN)
+      + (33.33 - MANY_VALUES_MEAN) * (33.3333 - OTHER_MANY_VALUES_MEAN)
+      + (555.555 - MANY_VALUES_MEAN) * (-44.4444 - OTHER_MANY_VALUES_MEAN)
+      + (-2.2 - MANY_VALUES_MEAN) * (555.555555 - OTHER_MANY_VALUES_MEAN);
 
   static final ImmutableList<Integer> INTEGER_MANY_VALUES =
       ImmutableList.of(11, -22, 3333, -4444, 555555);
@@ -164,10 +164,10 @@ class StatsTesting {
   static final double INTEGER_MANY_VALUES_MEAN = (11.0 - 22.0 + 3333.0 - 4444.0 + 555555.0) / 5;
   static final double INTEGER_MANY_VALUES_SUM_OF_SQUARES_OF_DELTAS =
       (11.0 - INTEGER_MANY_VALUES_MEAN) * (11.0 - INTEGER_MANY_VALUES_MEAN)
-          + (-22.0 - INTEGER_MANY_VALUES_MEAN) * (-22.0 - INTEGER_MANY_VALUES_MEAN)
-          + (3333.0 - INTEGER_MANY_VALUES_MEAN) * (3333.0 - INTEGER_MANY_VALUES_MEAN)
-          + (-4444.0 - INTEGER_MANY_VALUES_MEAN) * (-4444.0 - INTEGER_MANY_VALUES_MEAN)
-          + (555555.0 - INTEGER_MANY_VALUES_MEAN) * (555555.0 - INTEGER_MANY_VALUES_MEAN);
+      + (-22.0 - INTEGER_MANY_VALUES_MEAN) * (-22.0 - INTEGER_MANY_VALUES_MEAN)
+      + (3333.0 - INTEGER_MANY_VALUES_MEAN) * (3333.0 - INTEGER_MANY_VALUES_MEAN)
+      + (-4444.0 - INTEGER_MANY_VALUES_MEAN) * (-4444.0 - INTEGER_MANY_VALUES_MEAN)
+      + (555555.0 - INTEGER_MANY_VALUES_MEAN) * (555555.0 - INTEGER_MANY_VALUES_MEAN);
   static final double INTEGER_MANY_VALUES_MAX = 555555.0;
   static final double INTEGER_MANY_VALUES_MIN = -4444.0;
 
@@ -175,14 +175,14 @@ class StatsTesting {
   static final int[] LARGE_INTEGER_VALUES = {Integer.MAX_VALUE, Integer.MAX_VALUE / 2};
   static final double LARGE_INTEGER_VALUES_MEAN =
       BigInteger.valueOf(Integer.MAX_VALUE)
-          .multiply(BigInteger.valueOf(3L))
-          .divide(BigInteger.valueOf(4L))
-          .doubleValue();
+      .multiply(BigInteger.valueOf(3L))
+      .divide(BigInteger.valueOf(4L))
+      .doubleValue();
   static final double LARGE_INTEGER_VALUES_POPULATION_VARIANCE =
       BigInteger.valueOf(Integer.MAX_VALUE)
-          .multiply(BigInteger.valueOf(Integer.MAX_VALUE))
-          .divide(BigInteger.valueOf(16L))
-          .doubleValue();
+      .multiply(BigInteger.valueOf(Integer.MAX_VALUE))
+      .divide(BigInteger.valueOf(16L))
+      .doubleValue();
 
   static final ImmutableList<Long> LONG_MANY_VALUES =
       ImmutableList.of(1111L, -2222L, 33333333L, -44444444L, 5555555555L);
@@ -191,10 +191,10 @@ class StatsTesting {
       (1111.0 - 2222.0 + 33333333.0 - 44444444.0 + 5555555555.0) / 5;
   static final double LONG_MANY_VALUES_SUM_OF_SQUARES_OF_DELTAS =
       (1111.0 - LONG_MANY_VALUES_MEAN) * (1111.0 - LONG_MANY_VALUES_MEAN)
-          + (-2222.0 - LONG_MANY_VALUES_MEAN) * (-2222.0 - LONG_MANY_VALUES_MEAN)
-          + (33333333.0 - LONG_MANY_VALUES_MEAN) * (33333333.0 - LONG_MANY_VALUES_MEAN)
-          + (-44444444.0 - LONG_MANY_VALUES_MEAN) * (-44444444.0 - LONG_MANY_VALUES_MEAN)
-          + (5555555555.0 - LONG_MANY_VALUES_MEAN) * (5555555555.0 - LONG_MANY_VALUES_MEAN);
+      + (-2222.0 - LONG_MANY_VALUES_MEAN) * (-2222.0 - LONG_MANY_VALUES_MEAN)
+      + (33333333.0 - LONG_MANY_VALUES_MEAN) * (33333333.0 - LONG_MANY_VALUES_MEAN)
+      + (-44444444.0 - LONG_MANY_VALUES_MEAN) * (-44444444.0 - LONG_MANY_VALUES_MEAN)
+      + (5555555555.0 - LONG_MANY_VALUES_MEAN) * (5555555555.0 - LONG_MANY_VALUES_MEAN);
   static final double LONG_MANY_VALUES_MAX = 5555555555.0;
   static final double LONG_MANY_VALUES_MIN = -44444444.0;
 
@@ -202,14 +202,14 @@ class StatsTesting {
   static final long[] LARGE_LONG_VALUES = {Long.MAX_VALUE, Long.MAX_VALUE / 2};
   static final double LARGE_LONG_VALUES_MEAN =
       BigInteger.valueOf(Long.MAX_VALUE)
-          .multiply(BigInteger.valueOf(3L))
-          .divide(BigInteger.valueOf(4L))
-          .doubleValue();
+      .multiply(BigInteger.valueOf(3L))
+      .divide(BigInteger.valueOf(4L))
+      .doubleValue();
   static final double LARGE_LONG_VALUES_POPULATION_VARIANCE =
       BigInteger.valueOf(Long.MAX_VALUE)
-          .multiply(BigInteger.valueOf(Long.MAX_VALUE))
-          .divide(BigInteger.valueOf(16L))
-          .doubleValue();
+      .multiply(BigInteger.valueOf(Long.MAX_VALUE))
+      .divide(BigInteger.valueOf(16L))
+      .doubleValue();
 
   // Stats instances:
 
@@ -357,8 +357,8 @@ class StatsTesting {
     } else {
       assertThat(actualStats.mean()).isWithin(ALLOWED_ERROR).of(expectedStats.mean());
       assertThat(actualStats.populationVariance())
-          .isWithin(ALLOWED_ERROR)
-          .of(expectedStats.populationVariance());
+      .isWithin(ALLOWED_ERROR)
+      .of(expectedStats.populationVariance());
       assertThat(actualStats.min()).isWithin(ALLOWED_ERROR).of(expectedStats.min());
       assertThat(actualStats.max()).isWithin(ALLOWED_ERROR).of(expectedStats.max());
     }
@@ -383,8 +383,8 @@ class StatsTesting {
     assertThat(transformation.transform(x1 + xDelta)).isWithin(ALLOWED_ERROR).of(y1 + yDelta);
     assertThat(transformation.inverse().transform(y1)).isWithin(ALLOWED_ERROR).of(x1);
     assertThat(transformation.inverse().transform(y1 + yDelta))
-        .isWithin(ALLOWED_ERROR)
-        .of(x1 + xDelta);
+    .isWithin(ALLOWED_ERROR)
+    .of(x1 + xDelta);
     assertThat(transformation.slope()).isWithin(ALLOWED_ERROR).of(yDelta / xDelta);
     assertThat(transformation.inverse().slope()).isWithin(ALLOWED_ERROR).of(xDelta / yDelta);
     assertThat(transformation.inverse()).isSameAs(transformation.inverse());

@@ -79,12 +79,12 @@ public final class ClassPath {
   private static final Logger logger = Logger.getLogger(ClassPath.class.getName());
 
   private static final Predicate<ClassInfo> IS_TOP_LEVEL =
-      new Predicate<ClassInfo>() {
-        @Override
-        public boolean apply(ClassInfo info) {
-          return info.className.indexOf('$') == -1;
-        }
-      };
+  new Predicate<ClassInfo>() {
+    @Override
+    public boolean apply(ClassInfo info) {
+      return info.className.indexOf('$') == -1;
+    }
+  };
 
   /** Separator for the Class-Path manifest attribute value in jar files. */
   private static final Splitter CLASS_PATH_ATTRIBUTE_SEPARATOR =
@@ -547,7 +547,7 @@ public final class ClassPath {
      */
     private void scanDirectory(
         File directory, ClassLoader classloader, String packagePrefix, Set<File> currentPath)
-        throws IOException {
+    throws IOException {
       File[] files = directory.listFiles();
       if (files == null) {
         logger.warning("Cannot read directory " + directory);

@@ -61,7 +61,7 @@ public class MultisetsTest extends TestCase {
 
   public void testNewTreeMultisetComparator() {
     TreeMultiset<String> multiset
-        = TreeMultiset.create(Collections.reverseOrder());
+      = TreeMultiset.create(Collections.reverseOrder());
     multiset.add("bar", 3);
     multiset.add("foo", 2);
     assertThat(multiset).containsExactly("foo", "foo", "bar", "bar", "bar").inOrder();
@@ -93,7 +93,7 @@ public class MultisetsTest extends TestCase {
   public void testUnion() {
     Multiset<String> ms1 = HashMultiset.create(Arrays.asList("a", "b", "a"));
     Multiset<String> ms2 = HashMultiset.create(
-        Arrays.asList("a", "b", "b", "c"));
+            Arrays.asList("a", "b", "b", "c"));
     assertThat(Multisets.union(ms1, ms2)).containsExactly("a", "a", "b", "b", "c");
   }
 
@@ -260,7 +260,7 @@ public class MultisetsTest extends TestCase {
 
   public void testHighestCountFirst() {
     Multiset<String> multiset = HashMultiset.create(
-        Arrays.asList("a", "a", "a", "b", "c", "c"));
+            Arrays.asList("a", "a", "a", "b", "c", "c"));
     ImmutableMultiset<String> sortedMultiset =
         Multisets.copyHighestCountFirst(multiset);
 

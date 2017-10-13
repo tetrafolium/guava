@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
  */
 public class ForwardingSortedSetTest extends TestCase {
   static class StandardImplForwardingSortedSet<T>
-      extends ForwardingSortedSet<T> {
+    extends ForwardingSortedSet<T> {
     private final SortedSet<T> backingSortedSet;
 
     StandardImplForwardingSortedSet(SortedSet<T> backingSortedSet) {
@@ -109,24 +109,24 @@ public class ForwardingSortedSetTest extends TestCase {
     suite.addTestSuite(ForwardingSortedSetTest.class);
     suite.addTest(
         SortedSetTestSuiteBuilder.using(
-                new TestStringSortedSetGenerator() {
-                  @Override
-                  protected SortedSet<String> create(String[] elements) {
-                    return new StandardImplForwardingSortedSet<>(
-                        new SafeTreeSet<String>(Arrays.asList(elements)));
-                  }
+    new TestStringSortedSetGenerator() {
+      @Override
+      protected SortedSet<String> create(String[] elements) {
+        return new StandardImplForwardingSortedSet<>(
+                new SafeTreeSet<String>(Arrays.asList(elements)));
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-                  }
-                })
-            .named("ForwardingSortedSet[SafeTreeSet] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .named("ForwardingSortedSet[SafeTreeSet] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
 
     return suite;
   }
@@ -134,20 +134,20 @@ public class ForwardingSortedSetTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(SortedSet.class, new Function<SortedSet, SortedSet>() {
-          @Override public SortedSet apply(SortedSet delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(SortedSet.class, new Function<SortedSet, SortedSet>() {
+      @Override public SortedSet apply(SortedSet delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     SortedSet<String> set1 = ImmutableSortedSet.of("one");
     SortedSet<String> set2 = ImmutableSortedSet.of("two");
     new EqualsTester()
-        .addEqualityGroup(set1, wrap(set1), wrap(set1))
-        .addEqualityGroup(set2, wrap(set2))
-        .testEquals();
+    .addEqualityGroup(set1, wrap(set1), wrap(set1))
+    .addEqualityGroup(set2, wrap(set2))
+    .testEquals();
   }
 
   private static <T> SortedSet<T> wrap(final SortedSet<T> delegate) {

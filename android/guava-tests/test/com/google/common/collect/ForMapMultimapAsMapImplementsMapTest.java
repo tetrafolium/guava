@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class ForMapMultimapAsMapImplementsMapTest
-    extends AbstractMultimapAsMapImplementsMapTest {
+  extends AbstractMultimapAsMapImplementsMapTest {
 
   public ForMapMultimapAsMapImplementsMapTest() {
     super(true, true, true);

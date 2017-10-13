@@ -48,7 +48,7 @@ public class ListRemoveTester<E> extends AbstractListTester<E> {
         getList().contains(duplicate));
     assertFalse(
         "remove(duplicate) should remove the first instance of the "
-            + "duplicate element in the list",
+        + "duplicate element in the list",
         firstIndex == getList().indexOf(duplicate));
     assertEquals(
         "remove(present) should decrease the size of a list by one.",

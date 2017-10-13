@@ -83,7 +83,7 @@ public class HashMultisetTest extends TestCase {
 
   public void testCreateFromIterable() {
     Multiset<String> multiset
-        = HashMultiset.create(Arrays.asList("foo", "bar", "foo"));
+      = HashMultiset.create(Arrays.asList("foo", "bar", "foo"));
     assertEquals(3, multiset.size());
     assertEquals(2, multiset.count("foo"));
   }

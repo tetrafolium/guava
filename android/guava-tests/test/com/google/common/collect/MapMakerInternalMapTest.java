@@ -39,8 +39,8 @@ public class MapMakerInternalMapTest extends TestCase {
   static final int SMALL_MAX_SIZE = DRAIN_THRESHOLD * 5;
 
   private static <K, V>
-      MapMakerInternalMap<K, V, ? extends InternalEntry<K, V, ?>, ? extends Segment<K, V, ?, ?>>
-          makeMap(MapMaker maker) {
+  MapMakerInternalMap<K, V, ? extends InternalEntry<K, V, ?>, ? extends Segment<K, V, ?, ?>>
+  makeMap(MapMaker maker) {
     return MapMakerInternalMap.create(maker);
   }
 
@@ -61,7 +61,7 @@ public class MapMakerInternalMapTest extends TestCase {
     assertSame(map.valueStrength().defaultEquivalence(), map.valueEquivalence());
 
     assertThat(map.entryHelper)
-        .isInstanceOf(MapMakerInternalMap.StrongKeyStrongValueEntry.Helper.class);
+    .isInstanceOf(MapMakerInternalMap.StrongKeyStrongValueEntry.Helper.class);
 
     assertEquals(4, map.concurrencyLevel);
 
@@ -193,14 +193,14 @@ public class MapMakerInternalMapTest extends TestCase {
     MapMakerInternalMap<Object, Object, ?, ?> map = makeMap(createMapMaker().weakKeys());
     checkStrength(map, Strength.WEAK, Strength.STRONG);
     assertThat(map.entryHelper)
-        .isInstanceOf(MapMakerInternalMap.WeakKeyStrongValueEntry.Helper.class);
+    .isInstanceOf(MapMakerInternalMap.WeakKeyStrongValueEntry.Helper.class);
   }
 
   public void testSetWeakValues() {
     MapMakerInternalMap<Object, Object, ?, ?> map = makeMap(createMapMaker().weakValues());
     checkStrength(map, Strength.STRONG, Strength.WEAK);
     assertThat(map.entryHelper)
-        .isInstanceOf(MapMakerInternalMap.StrongKeyWeakValueEntry.Helper.class);
+    .isInstanceOf(MapMakerInternalMap.StrongKeyWeakValueEntry.Helper.class);
   }
 
   private static void checkStrength(
@@ -958,13 +958,13 @@ public class MapMakerInternalMapTest extends TestCase {
 
   private static Iterable<MapMaker> allWeakKeyStrengthMakers() {
     return ImmutableList.of(
-        createMapMaker().weakKeys(),
-        createMapMaker().weakKeys().weakValues());
+            createMapMaker().weakKeys(),
+            createMapMaker().weakKeys().weakValues());
   }
 
   private static Iterable<MapMaker> allWeakValueStrengthMakers() {
     return ImmutableList.of(
-        createMapMaker().weakValues(), createMapMaker().weakKeys().weakValues());
+            createMapMaker().weakValues(), createMapMaker().weakKeys().weakValues());
   }
 
   public void testNullParameters() throws Exception {

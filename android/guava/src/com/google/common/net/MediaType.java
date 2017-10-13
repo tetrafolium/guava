@@ -83,9 +83,9 @@ public final class MediaType {
   /** Matcher for type, subtype and attributes. */
   private static final CharMatcher TOKEN_MATCHER =
       ascii()
-          .and(javaIsoControl().negate())
-          .and(CharMatcher.isNot(' '))
-          .and(CharMatcher.noneOf("()<>@,;:\\\"/[]?="));
+      .and(javaIsoControl().negate())
+      .and(CharMatcher.isNot(' '))
+      .and(CharMatcher.noneOf("()<>@,;:\\\"/[]?="));
   private static final CharMatcher QUOTED_TEXT_MATCHER = ascii().and(CharMatcher.noneOf("\"\\\r"));
   /*
    * This matches the same characters as linear-white-space from RFC 822, but we make no effort to
@@ -557,13 +557,13 @@ public final class MediaType {
 
   private Map<String, ImmutableMultiset<String>> parametersAsMap() {
     return Maps.transformValues(
-        parameters.asMap(),
-        new Function<Collection<String>, ImmutableMultiset<String>>() {
-          @Override
-          public ImmutableMultiset<String> apply(Collection<String> input) {
-            return ImmutableMultiset.copyOf(input);
-          }
-        });
+            parameters.asMap(),
+    new Function<Collection<String>, ImmutableMultiset<String>>() {
+      @Override
+      public ImmutableMultiset<String> apply(Collection<String> input) {
+        return ImmutableMultiset.copyOf(input);
+      }
+    });
   }
 
   /**
@@ -921,12 +921,12 @@ public final class MediaType {
       Multimap<String, String> quotedParameters =
           Multimaps.transformValues(
               parameters,
-              new Function<String, String>() {
-                @Override
-                public String apply(String value) {
-                  return TOKEN_MATCHER.matchesAllOf(value) ? value : escapeAndQuote(value);
-                }
-              });
+      new Function<String, String>() {
+        @Override
+        public String apply(String value) {
+          return TOKEN_MATCHER.matchesAllOf(value) ? value : escapeAndQuote(value);
+        }
+      });
       PARAMETER_JOINER.appendTo(builder, quotedParameters.entries());
     }
     return builder.toString();

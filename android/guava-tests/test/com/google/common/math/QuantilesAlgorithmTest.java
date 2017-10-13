@@ -37,7 +37,7 @@ public class QuantilesAlgorithmTest extends TestCase {
   private static final double ALLOWED_ERROR = 1.0e-10;
   private static final QuantilesAlgorithm REFERENCE_ALGORITHM = QuantilesAlgorithm.SORTING;
   private static final Set<QuantilesAlgorithm> NON_REFERENCE_ALGORITHMS = Sets.difference(
-      ImmutableSet.copyOf(QuantilesAlgorithm.values()), ImmutableSet.of(REFERENCE_ALGORITHM));
+          ImmutableSet.copyOf(QuantilesAlgorithm.values()), ImmutableSet.of(REFERENCE_ALGORITHM));
 
   private double[] dataset;
 
@@ -53,9 +53,9 @@ public class QuantilesAlgorithmTest extends TestCase {
     double referenceValue = REFERENCE_ALGORITHM.singleQuantile(1, 2, dataset.clone());
     for (QuantilesAlgorithm algorithm : NON_REFERENCE_ALGORITHMS) {
       assertWithMessage("Mismatch between %s and %s", algorithm, REFERENCE_ALGORITHM)
-          .that(algorithm.singleQuantile(1, 2, dataset.clone()))
-          .isWithin(ALLOWED_ERROR)
-          .of(referenceValue);
+      .that(algorithm.singleQuantile(1, 2, dataset.clone()))
+      .isWithin(ALLOWED_ERROR)
+      .of(referenceValue);
     }
   }
 
@@ -63,9 +63,9 @@ public class QuantilesAlgorithmTest extends TestCase {
     double referenceValue = REFERENCE_ALGORITHM.singleQuantile(99, 100, dataset.clone());
     for (QuantilesAlgorithm algorithm : NON_REFERENCE_ALGORITHMS) {
       assertWithMessage("Mismatch between %s and %s", algorithm, REFERENCE_ALGORITHM)
-          .that(algorithm.singleQuantile(99, 100, dataset.clone()))
-          .isWithin(ALLOWED_ERROR)
-          .of(referenceValue);
+      .that(algorithm.singleQuantile(99, 100, dataset.clone()))
+      .isWithin(ALLOWED_ERROR)
+      .of(referenceValue);
     }
   }
 
@@ -79,9 +79,9 @@ public class QuantilesAlgorithmTest extends TestCase {
       assertWithMessage("Wrong keys from " + algorithm).that(quantiles.keySet()).isEqualTo(indexes);
       for (int i : indexes) {
         assertWithMessage("Mismatch between %s and %s at %s", algorithm, REFERENCE_ALGORITHM, i)
-            .that(quantiles.get(i))
-            .isWithin(ALLOWED_ERROR)
-            .of(referenceQuantiles.get(i));
+        .that(quantiles.get(i))
+        .isWithin(ALLOWED_ERROR)
+        .of(referenceQuantiles.get(i));
       }
     }
   }

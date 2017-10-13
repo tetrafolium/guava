@@ -444,7 +444,7 @@ public class FluentIterableTest extends TestCase {
   }
 
   private static final class RepeatedStringValueOfFunction
-      implements Function<Integer, List<String>> {
+    implements Function<Integer, List<String>> {
     @Override
     public List<String> apply(Integer from) {
       String value = String.valueOf(from);
@@ -460,7 +460,7 @@ public class FluentIterableTest extends TestCase {
   }
 
   private static final class RepeatedStringValueOfWildcardFunction
-      implements Function<Integer, List<? extends String>> {
+    implements Function<Integer, List<? extends String>> {
     @Override
     public List<String> apply(Integer from) {
       String value = String.valueOf(from);
@@ -596,7 +596,7 @@ public class FluentIterableTest extends TestCase {
         Collections.addAll(collection, 1, 2, 3);
         return FluentIterable.from(collection).skip(1).iterator();
       }
-    }.test();
+    } .test();
   }
 
   public void testSkip_iteratorList() throws Exception {
@@ -605,7 +605,7 @@ public class FluentIterableTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return FluentIterable.from(Lists.newArrayList(1, 2, 3)).skip(1).iterator();
       }
-    }.test();
+    } .test();
   }
 
   public void testSkip_nonStructurallyModifiedList() throws Exception {
@@ -714,12 +714,12 @@ public class FluentIterableTest extends TestCase {
 
   public void testToSortedSet() {
     assertThat(fluent(1, 4, 2, 3).toSortedSet(Ordering.<Integer>natural().reverse()))
-        .containsExactly(4, 3, 2, 1).inOrder();
+    .containsExactly(4, 3, 2, 1).inOrder();
   }
 
   public void testToSortedSet_removeDuplicates() {
     assertThat(fluent(1, 4, 1, 3).toSortedSet(Ordering.<Integer>natural().reverse()))
-        .containsExactly(4, 3, 1).inOrder();
+    .containsExactly(4, 3, 1).inOrder();
   }
 
   public void testToMultiset() {
@@ -732,10 +732,10 @@ public class FluentIterableTest extends TestCase {
 
   public void testToMap() {
     assertThat(fluent(1, 2, 3).toMap(Functions.toStringFunction()).entrySet())
-        .containsExactly(
-            Maps.immutableEntry(1, "1"),
-            Maps.immutableEntry(2, "2"),
-            Maps.immutableEntry(3, "3")).inOrder();
+    .containsExactly(
+        Maps.immutableEntry(1, "1"),
+        Maps.immutableEntry(2, "2"),
+        Maps.immutableEntry(3, "3")).inOrder();
   }
 
   public void testToMap_nullKey() {
@@ -757,18 +757,18 @@ public class FluentIterableTest extends TestCase {
   public void testIndex() {
     ImmutableListMultimap<Integer, String> expected =
         ImmutableListMultimap.<Integer, String>builder()
-            .putAll(3, "one", "two")
-            .put(5, "three")
-            .put(4, "four")
-            .build();
+        .putAll(3, "one", "two")
+        .put(5, "three")
+        .put(4, "four")
+        .build();
     ImmutableListMultimap<Integer, String> index =
         FluentIterable.from(asList("one", "two", "three", "four")).index(
-            new Function<String, Integer>() {
-              @Override
-              public Integer apply(String input) {
-                return input.length();
-              }
-            });
+    new Function<String, Integer>() {
+      @Override
+      public Integer apply(String input) {
+        return input.length();
+      }
+    });
     assertEquals(expected, index);
   }
 
@@ -795,12 +795,12 @@ public class FluentIterableTest extends TestCase {
         ImmutableMap.of(3, "two", 5, "three", 4, "four");
     ImmutableMap<Integer, String> index =
         FluentIterable.from(asList("two", "three", "four")).uniqueIndex(
-            new Function<String, Integer>() {
-              @Override
-              public Integer apply(String input) {
-                return input.length();
-              }
-            });
+    new Function<String, Integer>() {
+      @Override
+      public Integer apply(String input) {
+        return input.length();
+      }
+    });
     assertEquals(expected, index);
   }
 
@@ -808,13 +808,13 @@ public class FluentIterableTest extends TestCase {
     try {
       ImmutableMap<Integer, String> unused =
           FluentIterable.from(asList("one", "two", "three", "four"))
-              .uniqueIndex(
-                  new Function<String, Integer>() {
-                    @Override
-                    public Integer apply(String input) {
-                      return input.length();
-                    }
-                  });
+          .uniqueIndex(
+      new Function<String, Integer>() {
+        @Override
+        public Integer apply(String input) {
+          return input.length();
+        }
+      });
       fail();
     } catch (IllegalArgumentException expected) {
     }
@@ -832,13 +832,13 @@ public class FluentIterableTest extends TestCase {
     try {
       ImmutableMap<Object, Integer> unused =
           fluent(1, null, 2)
-              .uniqueIndex(
-                  new Function<Integer, Object>() {
-                    @Override
-                    public Object apply(@Nullable Integer input) {
-                      return String.valueOf(input);
-                    }
-                  });
+          .uniqueIndex(
+      new Function<Integer, Object>() {
+        @Override
+        public Object apply(@Nullable Integer input) {
+          return String.valueOf(input);
+        }
+      });
       fail();
     } catch (NullPointerException expected) {
     }
@@ -846,17 +846,17 @@ public class FluentIterableTest extends TestCase {
 
   public void testCopyInto_List() {
     assertThat(fluent(1, 3, 5).copyInto(Lists.newArrayList(1, 2)))
-        .containsExactly(1, 2, 1, 3, 5).inOrder();
+    .containsExactly(1, 2, 1, 3, 5).inOrder();
   }
 
   public void testCopyInto_Set() {
     assertThat(fluent(1, 3, 5).copyInto(Sets.newHashSet(1, 2)))
-        .containsExactly(1, 2, 3, 5);
+    .containsExactly(1, 2, 3, 5);
   }
 
   public void testCopyInto_SetAllDuplicates() {
     assertThat(fluent(1, 3, 5).copyInto(Sets.newHashSet(1, 2, 3, 5)))
-        .containsExactly(1, 2, 3, 5);
+    .containsExactly(1, 2, 3, 5);
   }
 
   public void testCopyInto_NonCollection() {
@@ -871,7 +871,7 @@ public class FluentIterableTest extends TestCase {
     };
 
     assertThat(FluentIterable.from(iterable).copyInto(list))
-        .containsExactly(1, 2, 3, 9, 8, 7).inOrder();
+    .containsExactly(1, 2, 3, 9, 8, 7).inOrder();
   }
 
   public void testJoin() {

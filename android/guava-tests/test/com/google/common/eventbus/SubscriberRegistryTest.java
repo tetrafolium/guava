@@ -186,12 +186,12 @@ public class SubscriberRegistryTest extends TestCase {
   }
 
   private interface HierarchyFixtureSubinterface
-      extends HierarchyFixtureInterface {
+    extends HierarchyFixtureInterface {
     // Exists only for hierarchy mapping; no members.
   }
 
   private static class HierarchyFixtureParent
-      implements HierarchyFixtureSubinterface {
+    implements HierarchyFixtureSubinterface {
     // Exists only for hierarchy mapping; no members.
   }
 

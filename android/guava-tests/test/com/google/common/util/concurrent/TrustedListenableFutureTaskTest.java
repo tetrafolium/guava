@@ -66,11 +66,11 @@ public class TrustedListenableFutureTaskTest extends TestCase {
   public void testFailed() throws Exception {
     final Exception e = new Exception();
     TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-        new Callable<Integer>() {
-          @Override public Integer call() throws Exception {
-            throw e;
-          }
-        });
+    new Callable<Integer>() {
+      @Override public Integer call() throws Exception {
+        throw e;
+      }
+    });
     task.run();
     assertTrue(task.isDone());
     assertFalse(task.isCancelled());
@@ -89,19 +89,19 @@ public class TrustedListenableFutureTaskTest extends TestCase {
     final CountDownLatch enterLatch = new CountDownLatch(1);
     final CountDownLatch exitLatch = new CountDownLatch(1);
     final TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-        new Callable<Integer>() {
-          @Override public Integer call() throws Exception {
-            enterLatch.countDown();
-            try {
-              new CountDownLatch(1).await();  // wait forever
-              throw new AssertionError();
-            } catch (InterruptedException e) {
-              interruptedExceptionThrown.set(true);
-              throw e;
-            } finally {
-            }
-          }
-        });
+    new Callable<Integer>() {
+      @Override public Integer call() throws Exception {
+        enterLatch.countDown();
+        try {
+          new CountDownLatch(1).await();  // wait forever
+          throw new AssertionError();
+        } catch (InterruptedException e) {
+          interruptedExceptionThrown.set(true);
+          throw e;
+        } finally {
+        }
+      }
+    });
     assertFalse(task.isDone());
     Thread thread = new Thread(new Runnable() {
       @Override public void run() {
@@ -136,11 +136,11 @@ public class TrustedListenableFutureTaskTest extends TestCase {
     for (int i = 0; i < 1000; i++) {
       final AtomicInteger counter = new AtomicInteger();
       final TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-          new Callable<Integer>() {
-            @Override public Integer call() {
-              return counter.incrementAndGet();
-            }
-          });
+      new Callable<Integer>() {
+        @Override public Integer call() {
+          return counter.incrementAndGet();
+        }
+      });
       final CyclicBarrier barrier = new CyclicBarrier(numThreads + 1);
       Runnable wrapper = new Runnable() {
         @Override public void run() {

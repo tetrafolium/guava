@@ -35,9 +35,9 @@ class LegacyComparable implements Comparable, Serializable {
   static final LegacyComparable Z = new LegacyComparable("z");
 
   static final Iterable<LegacyComparable> VALUES_FORWARD
-      = Arrays.asList(X, Y, Z);
+    = Arrays.asList(X, Y, Z);
   static final Iterable<LegacyComparable> VALUES_BACKWARD
-      = Arrays.asList(Z, Y, X);
+    = Arrays.asList(Z, Y, X);
 
   private final String value;
 

@@ -131,7 +131,7 @@ public class PairedStatsAccumulatorTest extends TestCase {
     assertThat(twoValuesAccumulatorByAddAllPartitionedPairedStats.count()).isEqualTo(2);
     assertThat(manyValuesAccumulator.count()).isEqualTo(MANY_VALUES_COUNT);
     assertThat(manyValuesAccumulatorByAddAllPartitionedPairedStats.count())
-        .isEqualTo(MANY_VALUES_COUNT);
+    .isEqualTo(MANY_VALUES_COUNT);
   }
 
   public void testCountOverflow_doesNotThrow() {
@@ -185,20 +185,20 @@ public class PairedStatsAccumulatorTest extends TestCase {
     }
     assertThat(oneValueAccumulator.populationCovariance()).isWithin(0.0).of(0.0);
     assertThat(oneValueAccumulatorByAddAllEmptyPairedStats.populationCovariance())
-        .isWithin(0.0)
-        .of(0.0);
+    .isWithin(0.0)
+    .of(0.0);
     assertThat(twoValuesAccumulator.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
     assertThat(twoValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / 2);
     assertThat(manyValuesAccumulator.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
+    .isWithin(ALLOWED_ERROR)
+    .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
     assertThat(manyValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
+    .isWithin(ALLOWED_ERROR)
+    .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
     // For datasets of many double values, we test many combinations of finite and non-finite
     // x-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -212,31 +212,31 @@ public class PairedStatsAccumulatorTest extends TestCase {
       if (values.hasAnyNonFinite()) {
         assertThat(populationCovariance).named("population covariance of " + values).isNaN();
         assertThat(populationCovarianceByAddAllPartitionedPairedStats)
-            .named("population covariance by addAll(PairedStats) of " + values)
-            .isNaN();
+        .named("population covariance by addAll(PairedStats) of " + values)
+        .isNaN();
       } else {
         assertThat(populationCovariance)
-            .named("population covariance of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
+        .named("population covariance of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
         assertThat(populationCovarianceByAddAllPartitionedPairedStats)
-            .named("population covariance by addAll(PairedStats) of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
+        .named("population covariance by addAll(PairedStats) of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / MANY_VALUES_COUNT);
       }
     }
     assertThat(horizontalValuesAccumulator.populationCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(horizontalValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
     assertThat(verticalValuesAccumulator.populationCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(verticalValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
     assertThat(constantValuesAccumulator.populationCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(constantValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
   }
 
   public void testSampleCovariance() {
@@ -261,29 +261,29 @@ public class PairedStatsAccumulatorTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
     assertThat(twoValuesAccumulator.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
     assertThat(twoValuesAccumulatorByAddAllPartitionedPairedStats.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
+    .isWithin(ALLOWED_ERROR)
+    .of(TWO_VALUES_SUM_OF_PRODUCTS_OF_DELTAS);
     assertThat(manyValuesAccumulator.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
+    .isWithin(ALLOWED_ERROR)
+    .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
     assertThat(manyValuesAccumulatorByAddAllPartitionedPairedStats.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
+    .isWithin(ALLOWED_ERROR)
+    .of(MANY_VALUES_SUM_OF_PRODUCTS_OF_DELTAS / (MANY_VALUES_COUNT - 1));
     assertThat(horizontalValuesAccumulator.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(horizontalValuesAccumulatorByAddAllPartitionedPairedStats.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
     assertThat(verticalValuesAccumulator.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(verticalValuesAccumulatorByAddAllPartitionedPairedStats.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
     assertThat(constantValuesAccumulator.sampleCovariance()).isWithin(ALLOWED_ERROR).of(0.0);
     assertThat(constantValuesAccumulatorByAddAllPartitionedPairedStats.sampleCovariance())
-        .isWithin(ALLOWED_ERROR)
-        .of(0.0);
+    .isWithin(ALLOWED_ERROR)
+    .of(0.0);
   }
 
   public void testPearsonsCorrelationCoefficient() {
@@ -308,27 +308,27 @@ public class PairedStatsAccumulatorTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
     assertThat(twoValuesAccumulator.pearsonsCorrelationCoefficient())
-        .isWithin(ALLOWED_ERROR)
-        .of(
-            twoValuesAccumulator.populationCovariance()
-                / (twoValuesAccumulator.xStats().populationStandardDeviation()
-                    * twoValuesAccumulator.yStats().populationStandardDeviation()));
+    .isWithin(ALLOWED_ERROR)
+    .of(
+        twoValuesAccumulator.populationCovariance()
+        / (twoValuesAccumulator.xStats().populationStandardDeviation()
+            * twoValuesAccumulator.yStats().populationStandardDeviation()));
     assertThat(manyValuesAccumulator.pearsonsCorrelationCoefficient())
-        .isWithin(ALLOWED_ERROR)
-        .of(
-            manyValuesAccumulator.populationCovariance()
-                / (manyValuesAccumulator.xStats().populationStandardDeviation()
-                    * manyValuesAccumulator.yStats().populationStandardDeviation()));
+    .isWithin(ALLOWED_ERROR)
+    .of(
+        manyValuesAccumulator.populationCovariance()
+        / (manyValuesAccumulator.xStats().populationStandardDeviation()
+            * manyValuesAccumulator.yStats().populationStandardDeviation()));
     assertThat(manyValuesAccumulatorByAddAllPartitionedPairedStats.pearsonsCorrelationCoefficient())
-        .isWithin(ALLOWED_ERROR)
-        .of(
-            manyValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance()
-                / (manyValuesAccumulatorByAddAllPartitionedPairedStats
-                        .xStats()
-                        .populationStandardDeviation()
-                    * manyValuesAccumulatorByAddAllPartitionedPairedStats
-                        .yStats()
-                        .populationStandardDeviation()));
+    .isWithin(ALLOWED_ERROR)
+    .of(
+        manyValuesAccumulatorByAddAllPartitionedPairedStats.populationCovariance()
+        / (manyValuesAccumulatorByAddAllPartitionedPairedStats
+            .xStats()
+            .populationStandardDeviation()
+            * manyValuesAccumulatorByAddAllPartitionedPairedStats
+            .yStats()
+            .populationStandardDeviation()));
     // For datasets of many double values, we test many combinations of finite and non-finite
     // y-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -341,30 +341,30 @@ public class PairedStatsAccumulatorTest extends TestCase {
           accumulatorByAddAllPartitionedPairedStats.pearsonsCorrelationCoefficient();
       if (values.hasAnyNonFinite()) {
         assertThat(pearsonsCorrelationCoefficient)
-            .named("Pearson's correlation coefficient of " + values)
-            .isNaN();
+        .named("Pearson's correlation coefficient of " + values)
+        .isNaN();
         assertThat(pearsonsCorrelationCoefficient)
-            .named("Pearson's correlation coefficient by addAll(PairedStats) of " + values)
-            .isNaN();
+        .named("Pearson's correlation coefficient by addAll(PairedStats) of " + values)
+        .isNaN();
       } else {
         assertThat(pearsonsCorrelationCoefficient)
-            .named("Pearson's correlation coefficient of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(
-                accumulator.populationCovariance()
-                    / (accumulator.xStats().populationStandardDeviation()
-                        * accumulator.yStats().populationStandardDeviation()));
+        .named("Pearson's correlation coefficient of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(
+            accumulator.populationCovariance()
+            / (accumulator.xStats().populationStandardDeviation()
+                * accumulator.yStats().populationStandardDeviation()));
         assertThat(pearsonsCorrelationCoefficientByAddAllPartitionedPairedStats)
-            .named("Pearson's correlation coefficient by addAll(PairedStats) of " + values)
-            .isWithin(ALLOWED_ERROR)
-            .of(
-                accumulatorByAddAllPartitionedPairedStats.populationCovariance()
-                    / (accumulatorByAddAllPartitionedPairedStats
-                            .xStats()
-                            .populationStandardDeviation()
-                        * accumulatorByAddAllPartitionedPairedStats
-                            .yStats()
-                            .populationStandardDeviation()));
+        .named("Pearson's correlation coefficient by addAll(PairedStats) of " + values)
+        .isWithin(ALLOWED_ERROR)
+        .of(
+            accumulatorByAddAllPartitionedPairedStats.populationCovariance()
+            / (accumulatorByAddAllPartitionedPairedStats
+                .xStats()
+                .populationStandardDeviation()
+                * accumulatorByAddAllPartitionedPairedStats
+                .yStats()
+                .populationStandardDeviation()));
       }
     }
     try {

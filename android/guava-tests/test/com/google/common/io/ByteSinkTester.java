@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkFactory> {
 
   private static final ImmutableList<Method> testMethods
-      = getTestMethods(ByteSinkTester.class);
+    = getTestMethods(ByteSinkTester.class);
 
   static TestSuite tests(String name, ByteSinkFactory factory) {
     TestSuite suite = new TestSuite(name);
@@ -58,7 +58,7 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
     TestSuite suite = suiteForBytes(name, factory, desc, bytes);
     CharSinkFactory charSinkFactory = SourceSinkFactories.asCharSinkFactory(factory);
     suite.addTest(CharSinkTester.suiteForString(name + ".asCharSink[Charset]", charSinkFactory,
-        string, desc));
+            string, desc));
     return suite;
   }
 

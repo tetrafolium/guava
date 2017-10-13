@@ -90,12 +90,12 @@ class CacheBuilderFactory {
   Iterable<CacheBuilder<Object, Object>> buildAllPermutations() {
     @SuppressWarnings("unchecked")
     Iterable<List<Object>> combinations = buildCartesianProduct(concurrencyLevels,
-        initialCapacities, maximumSizes, expireAfterWrites, expireAfterAccesses, refreshes,
-        keyStrengths, valueStrengths);
+            initialCapacities, maximumSizes, expireAfterWrites, expireAfterAccesses, refreshes,
+            keyStrengths, valueStrengths);
     return Iterables.transform(combinations,
-        new Function<List<Object>, CacheBuilder<Object, Object>>() {
-          @Override public CacheBuilder<Object, Object> apply(List<Object> combination) {
-            return createCacheBuilder(
+    new Function<List<Object>, CacheBuilder<Object, Object>>() {
+      @Override public CacheBuilder<Object, Object> apply(List<Object> combination) {
+        return createCacheBuilder(
                 (Integer) combination.get(0),
                 (Integer) combination.get(1),
                 (Integer) combination.get(2),
@@ -104,23 +104,23 @@ class CacheBuilderFactory {
                 (DurationSpec) combination.get(5),
                 (Strength) combination.get(6),
                 (Strength) combination.get(7));
-          }
-        });
+      }
+    });
   }
 
   private static final Function<Object, Optional<?>> NULLABLE_TO_OPTIONAL =
-      new Function<Object, Optional<?>>() {
-        @Override public Optional<?> apply(@Nullable Object obj) {
-          return Optional.fromNullable(obj);
-        }
-      };
+  new Function<Object, Optional<?>>() {
+    @Override public Optional<?> apply(@Nullable Object obj) {
+      return Optional.fromNullable(obj);
+    }
+  };
 
   private static final Function<Optional<?>, Object> OPTIONAL_TO_NULLABLE =
-      new Function<Optional<?>, Object>() {
-        @Override public Object apply(Optional<?> optional) {
-          return optional.orNull();
-        }
-      };
+  new Function<Optional<?>, Object>() {
+    @Override public Object apply(Optional<?> optional) {
+      return optional.orNull();
+    }
+  };
 
   /**
    * Sets.cartesianProduct doesn't allow sets that contain null, but we want null to mean
@@ -138,11 +138,11 @@ class CacheBuilderFactory {
     }
     Set<List<Optional<?>>> cartesianProduct = Sets.cartesianProduct(optionalSets);
     return Iterables.transform(cartesianProduct,
-        new Function<List<Optional<?>>, List<Object>>() {
-          @Override public List<Object> apply(List<Optional<?>> objs) {
-            return Lists.transform(objs, OPTIONAL_TO_NULLABLE);
-          }
-        });
+    new Function<List<Optional<?>>, List<Object>>() {
+      @Override public List<Object> apply(List<Optional<?>> objs) {
+        return Lists.transform(objs, OPTIONAL_TO_NULLABLE);
+      }
+    });
   }
 
   private CacheBuilder<Object, Object> createCacheBuilder(

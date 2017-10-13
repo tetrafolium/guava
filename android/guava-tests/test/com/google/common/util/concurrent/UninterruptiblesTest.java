@@ -75,9 +75,9 @@ public class UninterruptiblesTest extends TestCase {
 
   public void testNull() throws Exception {
     new NullPointerTester()
-        .setDefault(CountDownLatch.class, new CountDownLatch(0))
-        .setDefault(Semaphore.class, new Semaphore(999))
-        .testAllPublicStaticMethods(Uninterruptibles.class);
+    .setDefault(CountDownLatch.class, new CountDownLatch(0))
+    .setDefault(Semaphore.class, new Semaphore(999))
+    .testAllPublicStaticMethods(Uninterruptibles.class);
   }
 
   // IncrementableCountDownLatch.await() tests

@@ -65,7 +65,7 @@ public class ListenableFutureTester {
   }
 
   public void testCompletedFuture(@Nullable Object expectedValue)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
     assertTrue(future.isDone());
     assertFalse(future.isCancelled());
 
@@ -77,7 +77,7 @@ public class ListenableFutureTester {
   }
 
   public void testCancelledFuture()
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
     assertTrue(future.isDone());
     assertTrue(future.isCancelled());
 
@@ -92,7 +92,7 @@ public class ListenableFutureTester {
   }
 
   public void testFailedFuture(@Nullable String message)
-      throws InterruptedException {
+  throws InterruptedException {
     assertTrue(future.isDone());
     assertFalse(future.isCancelled());
 

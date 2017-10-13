@@ -58,10 +58,10 @@ public final class DefaultNetworkImplementationsTest {
   @Parameters
   public static Collection<Object[]> parameters() {
     return Arrays.asList(
-        new Object[][] {
-          { UNDIRECTED },
-          { DIRECTED },
-        });
+    new Object[][] {
+      { UNDIRECTED },
+      { DIRECTED },
+    });
   }
 
   private final EdgeType edgeType;

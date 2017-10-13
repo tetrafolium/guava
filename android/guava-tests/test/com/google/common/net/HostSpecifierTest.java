@@ -73,13 +73,13 @@ public final class HostSpecifierTest extends TestCase {
 
   public void testEquality() {
     new EqualsTester()
-        .addEqualityGroup(spec("1.2.3.4"), spec("1.2.3.4"))
-        .addEqualityGroup(
-            spec("2001:db8::1"), spec("2001:db8::1"), spec("[2001:db8::1]"))
-        .addEqualityGroup(spec("2001:db8::2"))
-        .addEqualityGroup(spec("google.com"), spec("google.com"))
-        .addEqualityGroup(spec("www.google.com"))
-        .testEquals();
+    .addEqualityGroup(spec("1.2.3.4"), spec("1.2.3.4"))
+    .addEqualityGroup(
+        spec("2001:db8::1"), spec("2001:db8::1"), spec("[2001:db8::1]"))
+    .addEqualityGroup(spec("2001:db8::2"))
+    .addEqualityGroup(spec("google.com"), spec("google.com"))
+    .addEqualityGroup(spec("www.google.com"))
+    .testEquals();
   }
 
   private static HostSpecifier spec(String specifier) {

@@ -127,8 +127,8 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   }
 
   @CollectionFeature.Require(
-    value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-    absent = RESTRICTS_ELEMENTS
+      value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
+      absent = RESTRICTS_ELEMENTS
   )
   public void testAddAll_nullSupported() {
     List<E> containsNull = singletonList(null);

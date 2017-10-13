@@ -37,38 +37,38 @@ public class SortedListsTest extends TestCase {
   void assertModelAgrees(List<Integer> list, Integer key, int answer,
       KeyPresentBehavior presentBehavior, KeyAbsentBehavior absentBehavior) {
     switch (presentBehavior) {
-      case FIRST_PRESENT:
-        if (list.contains(key)) {
-          assertEquals(list.indexOf(key), answer);
-          return;
-        }
-        break;
-      case LAST_PRESENT:
-        if (list.contains(key)) {
-          assertEquals(list.lastIndexOf(key), answer);
-          return;
-        }
-        break;
-      case ANY_PRESENT:
-        if (list.contains(key)) {
-          assertEquals(key, list.get(answer));
-          return;
-        }
-        break;
-      case FIRST_AFTER:
-        if (list.contains(key)) {
-          assertEquals(list.lastIndexOf(key) + 1, answer);
-          return;
-        }
-        break;
-      case LAST_BEFORE:
-        if (list.contains(key)) {
-          assertEquals(list.indexOf(key) - 1, answer);
-          return;
-        }
-        break;
-      default:
-        throw new AssertionError();
+    case FIRST_PRESENT:
+      if (list.contains(key)) {
+        assertEquals(list.indexOf(key), answer);
+        return;
+      }
+      break;
+    case LAST_PRESENT:
+      if (list.contains(key)) {
+        assertEquals(list.lastIndexOf(key), answer);
+        return;
+      }
+      break;
+    case ANY_PRESENT:
+      if (list.contains(key)) {
+        assertEquals(key, list.get(answer));
+        return;
+      }
+      break;
+    case FIRST_AFTER:
+      if (list.contains(key)) {
+        assertEquals(list.lastIndexOf(key) + 1, answer);
+        return;
+      }
+      break;
+    case LAST_BEFORE:
+      if (list.contains(key)) {
+        assertEquals(list.indexOf(key) - 1, answer);
+        return;
+      }
+      break;
+    default:
+      throw new AssertionError();
     }
     // key is not present
     int nextHigherIndex = list.size();
@@ -76,17 +76,17 @@ public class SortedListsTest extends TestCase {
       nextHigherIndex = i;
     }
     switch (absentBehavior) {
-      case NEXT_LOWER:
-        assertEquals(nextHigherIndex - 1, answer);
-        return;
-      case NEXT_HIGHER:
-        assertEquals(nextHigherIndex, answer);
-        return;
-      case INVERTED_INSERTION_INDEX:
-        assertEquals(-1 - nextHigherIndex, answer);
-        return;
-      default:
-        throw new AssertionError();
+    case NEXT_LOWER:
+      assertEquals(nextHigherIndex - 1, answer);
+      return;
+    case NEXT_HIGHER:
+      assertEquals(nextHigherIndex, answer);
+      return;
+    case INVERTED_INSERTION_INDEX:
+      assertEquals(-1 - nextHigherIndex, answer);
+      return;
+    default:
+      throw new AssertionError();
     }
   }
 

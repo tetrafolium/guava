@@ -51,62 +51,62 @@ public class ImmutableSortedMultisetTest extends TestCase {
     suite.addTestSuite(ImmutableSortedMultisetTest.class);
 
     suite.addTest(SortedMultisetTestSuiteBuilder.using(new TestStringMultisetGenerator() {
-        @Override
-        protected Multiset<String> create(String[] elements) {
-          return ImmutableSortedMultiset.copyOf(elements);
-        }
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        return ImmutableSortedMultiset.copyOf(elements);
+      }
 
-        @Override
-        public List<String> order(List<String> insertionOrder) {
-          return Ordering.natural().sortedCopy(insertionOrder);
-        }
-      })
-      .named("ImmutableSortedMultiset")
-      .withFeatures(CollectionSize.ANY,
-          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
-          CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
-
-    suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-        @Override
-        protected List<String> create(String[] elements) {
-          return ImmutableSortedMultiset.copyOf(elements).asList();
-        }
-
-        @Override
-        public List<String> order(List<String> insertionOrder) {
-          return Ordering.natural().sortedCopy(insertionOrder);
-        }
-      })
-      .named("ImmutableSortedMultiset.asList")
-      .withFeatures(CollectionSize.ANY,
-          CollectionFeature.SERIALIZABLE,
-          CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Ordering.natural().sortedCopy(insertionOrder);
+      }
+    })
+    .named("ImmutableSortedMultiset")
+    .withFeatures(CollectionSize.ANY,
+        CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-        @Override
-        protected List<String> create(String[] elements) {
-          Set<String> set = Sets.newHashSet();
-          ImmutableSortedMultiset.Builder<String> builder = ImmutableSortedMultiset.naturalOrder();
-          for (String s : elements) {
-            checkArgument(set.add(s));
-            builder.addCopies(s, 2);
-          }
-          return builder.build().elementSet().asList();
-        }
+      @Override
+      protected List<String> create(String[] elements) {
+        return ImmutableSortedMultiset.copyOf(elements).asList();
+      }
 
-        @Override
-        public List<String> order(List<String> insertionOrder) {
-          return Ordering.natural().sortedCopy(insertionOrder);
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Ordering.natural().sortedCopy(insertionOrder);
+      }
+    })
+    .named("ImmutableSortedMultiset.asList")
+    .withFeatures(CollectionSize.ANY,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
+
+    suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
+      @Override
+      protected List<String> create(String[] elements) {
+        Set<String> set = Sets.newHashSet();
+        ImmutableSortedMultiset.Builder<String> builder = ImmutableSortedMultiset.naturalOrder();
+        for (String s : elements) {
+          checkArgument(set.add(s));
+          builder.addCopies(s, 2);
         }
-      })
-      .named("ImmutableSortedMultiset.elementSet.asList")
-      .withFeatures(CollectionSize.ANY,
-          CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-          CollectionFeature.SERIALIZABLE,
-          CollectionFeature.ALLOWS_NULL_QUERIES)
-        .createTestSuite());
+        return builder.build().elementSet().asList();
+      }
+
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Ordering.natural().sortedCopy(insertionOrder);
+      }
+    })
+    .named("ImmutableSortedMultiset.elementSet.asList")
+    .withFeatures(CollectionSize.ANY,
+        CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
 
     return suite;
   }
@@ -166,12 +166,12 @@ public class ImmutableSortedMultisetTest extends TestCase {
   public void testCreation_arrayOfArray() {
     Comparator<String[]> comparator =
         Ordering.natural().lexicographical()
-            .onResultOf(new Function<String[], Iterable<Comparable>>() {
-              @Override
-              public Iterable<Comparable> apply(String[] input) {
-                return Arrays.<Comparable>asList(input);
-              }
-            });
+    .onResultOf(new Function<String[], Iterable<Comparable>>() {
+      @Override
+      public Iterable<Comparable> apply(String[] input) {
+        return Arrays.<Comparable>asList(input);
+      }
+    });
     String[] array = new String[] {"a"};
     Multiset<String[]> multiset = ImmutableSortedMultiset.orderedBy(comparator).add(array).build();
     Multiset<String[]> expected = HashMultiset.create();
@@ -314,9 +314,9 @@ public class ImmutableSortedMultisetTest extends TestCase {
     assertEquals(HashMultiset.create(asList("a", "b", "a", "c", "c")), multiset2);
     assertTrue(
         ((RegularImmutableList<String>)
-                    ((RegularImmutableSortedMultiset<String>) multiset1).elementSet.elements)
-                .array
-            != builder.elements);
+            ((RegularImmutableSortedMultiset<String>) multiset1).elementSet.elements)
+        .array
+        != builder.elements);
   }
 
   public void testBuilderAddAll() {
@@ -345,14 +345,14 @@ public class ImmutableSortedMultisetTest extends TestCase {
   public void testBuilderAddCopies() {
     ImmutableSortedMultiset<String> multiset =
         ImmutableSortedMultiset.<String>naturalOrder().addCopies("a", 2).addCopies("b", 3)
-            .addCopies("c", 0).build();
+        .addCopies("c", 0).build();
     assertEquals(HashMultiset.create(asList("a", "a", "b", "b", "b")), multiset);
   }
 
   public void testBuilderSetCount() {
     ImmutableSortedMultiset<String> multiset =
         ImmutableSortedMultiset.<String>naturalOrder().add("a").setCount("a", 2).setCount("b", 3)
-            .build();
+        .build();
     assertEquals(HashMultiset.create(asList("a", "a", "b", "b", "b")), multiset);
   }
 
@@ -360,19 +360,19 @@ public class ImmutableSortedMultisetTest extends TestCase {
     ImmutableSortedMultiset<String> multiset =
         ImmutableSortedMultiset.<String>naturalOrder().add("a").setCount("a", 2).setCount("b", 3)
         .setCount("a", 0)
-            .build();
+        .build();
     assertEquals(HashMultiset.create(asList("b", "b", "b")), multiset);
   }
 
   public void testBuilderSetCountThenAdd() {
     ImmutableSortedMultiset<String> multiset =
         ImmutableSortedMultiset.<String>naturalOrder()
-            .add("a")
-            .setCount("a", 2)
-            .setCount("b", 3)
-            .setCount("a", 1)
-            .add("a")
-            .build();
+        .add("a")
+        .setCount("a", 2)
+        .setCount("b", 3)
+        .setCount("a", 1)
+        .add("a")
+        .build();
     assertEquals(HashMultiset.create(asList("a", "a", "b", "b", "b")), multiset);
   }
 

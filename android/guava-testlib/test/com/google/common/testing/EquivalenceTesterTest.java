@@ -82,8 +82,8 @@ public class EquivalenceTesterTest extends TestCase {
     equivalenceMock.replay();
 
     tester.addEquivalenceGroup(group1Item1, group1Item2)
-        .addEquivalenceGroup(group2Item1, group2Item2)
-        .test();
+    .addEquivalenceGroup(group2Item1, group2Item2)
+    .test();
   }
 
   public void testTest_symmetric() {
@@ -192,7 +192,7 @@ public class EquivalenceTesterTest extends TestCase {
     final int group;
     final int item;
 
-    TestObject(int group , int item) {
+    TestObject(int group, int item) {
       this.group = group;
       this.item = item;
     }

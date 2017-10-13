@@ -120,7 +120,7 @@ public class Murmur3Hash32Test extends TestCase {
   public void testInvalidUnicodeHashString() {
     String str =
         new String(
-            new char[] {'a', Character.MIN_HIGH_SURROGATE, Character.MIN_HIGH_SURROGATE, 'z'});
+        new char[] {'a', Character.MIN_HIGH_SURROGATE, Character.MIN_HIGH_SURROGATE, 'z'});
     assertEquals(
         murmur3_32().hashBytes(str.getBytes(Charsets.UTF_8)),
         murmur3_32().hashString(str, Charsets.UTF_8));
@@ -129,7 +129,7 @@ public class Murmur3Hash32Test extends TestCase {
   public void testInvalidUnicodeHasherPutString() {
     String str =
         new String(
-            new char[] {'a', Character.MIN_HIGH_SURROGATE, Character.MIN_HIGH_SURROGATE, 'z'});
+        new char[] {'a', Character.MIN_HIGH_SURROGATE, Character.MIN_HIGH_SURROGATE, 'z'});
     assertEquals(
         murmur3_32().hashBytes(str.getBytes(Charsets.UTF_8)),
         murmur3_32().newHasher().putString(str, Charsets.UTF_8).hash());

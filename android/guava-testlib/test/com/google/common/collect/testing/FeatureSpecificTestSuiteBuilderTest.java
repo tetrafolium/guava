@@ -43,7 +43,7 @@ public class FeatureSpecificTestSuiteBuilderTest extends TestCase {
   }
 
   private static final class MyTestSuiteBuilder extends
-      FeatureSpecificTestSuiteBuilder<MyTestSuiteBuilder, String> {
+    FeatureSpecificTestSuiteBuilder<MyTestSuiteBuilder, String> {
 
     @Override
     protected List<Class<? extends AbstractTester>> getTesters() {

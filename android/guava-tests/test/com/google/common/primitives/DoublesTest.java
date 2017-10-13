@@ -44,7 +44,7 @@ public class DoublesTest extends TestCase {
   private static final double[] EMPTY = {};
   private static final double[] ARRAY1 = {(double) 1};
   private static final double[] ARRAY234
-      = {(double) 2, (double) 3, (double) 4};
+    = {(double) 2, (double) 3, (double) 4};
 
   private static final double LEAST = Double.NEGATIVE_INFINITY;
   private static final double GREATEST = Double.POSITIVE_INFINITY;
@@ -57,7 +57,7 @@ public class DoublesTest extends TestCase {
   };
 
   private static final double[] VALUES
-      = Doubles.concat(NUMBERS, new double[] {NaN});
+    = Doubles.concat(NUMBERS, new double[] {NaN});
 
   public void testHashCode() {
     for (double value : VALUES) {
@@ -76,8 +76,8 @@ public class DoublesTest extends TestCase {
       for (double y : VALUES) {
         // note: spec requires only that the sign is the same
         assertEquals(x + ", " + y,
-                     Double.valueOf(x).compareTo(y),
-                     Doubles.compare(x, y));
+            Double.valueOf(x).compareTo(y),
+            Doubles.compare(x, y));
       }
     }
   }
@@ -103,13 +103,13 @@ public class DoublesTest extends TestCase {
     assertEquals(-1, Doubles.indexOf(ARRAY1, (double) 2));
     assertEquals(-1, Doubles.indexOf(ARRAY234, (double) 1));
     assertEquals(0, Doubles.indexOf(
-        new double[] {(double) -1}, (double) -1));
+            new double[] {(double) -1}, (double) -1));
     assertEquals(0, Doubles.indexOf(ARRAY234, (double) 2));
     assertEquals(1, Doubles.indexOf(ARRAY234, (double) 3));
     assertEquals(2, Doubles.indexOf(ARRAY234, (double) 4));
     assertEquals(1, Doubles.indexOf(
-        new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
-        (double) 3));
+            new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
+            (double) 3));
 
     for (double value : NUMBERS) {
       assertEquals("" + value,
@@ -127,36 +127,39 @@ public class DoublesTest extends TestCase {
     assertEquals(0, Doubles.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Doubles.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Doubles.indexOf(
-        ARRAY234, new double[] { (double) 2, (double) 3 }));
+            ARRAY234, new double[] { (double) 2, (double) 3 }));
     assertEquals(1, Doubles.indexOf(
-        ARRAY234, new double[] { (double) 3, (double) 4 }));
+            ARRAY234, new double[] { (double) 3, (double) 4 }));
     assertEquals(1, Doubles.indexOf(ARRAY234, new double[] { (double) 3 }));
     assertEquals(2, Doubles.indexOf(ARRAY234, new double[] { (double) 4 }));
     assertEquals(1, Doubles.indexOf(new double[] { (double) 2, (double) 3,
-        (double) 3, (double) 3, (double) 3 },
-        new double[] { (double) 3 }
-    ));
+                (double) 3, (double) 3, (double) 3
+            },
+            new double[] { (double) 3 }
+        ));
     assertEquals(2, Doubles.indexOf(
-        new double[] { (double) 2, (double) 3, (double) 2,
-            (double) 3, (double) 4, (double) 2, (double) 3},
-        new double[] { (double) 2, (double) 3, (double) 4}
-    ));
+            new double[] { (double) 2, (double) 3, (double) 2,
+                (double) 3, (double) 4, (double) 2, (double) 3
+            },
+            new double[] { (double) 2, (double) 3, (double) 4}
+        ));
     assertEquals(1, Doubles.indexOf(
-        new double[] { (double) 2, (double) 2, (double) 3,
-            (double) 4, (double) 2, (double) 3, (double) 4},
-        new double[] { (double) 2, (double) 3, (double) 4}
-    ));
+            new double[] { (double) 2, (double) 2, (double) 3,
+                (double) 4, (double) 2, (double) 3, (double) 4
+            },
+            new double[] { (double) 2, (double) 3, (double) 4}
+        ));
     assertEquals(-1, Doubles.indexOf(
-        new double[] { (double) 4, (double) 3, (double) 2},
-        new double[] { (double) 2, (double) 3, (double) 4}
-    ));
+            new double[] { (double) 4, (double) 3, (double) 2},
+            new double[] { (double) 2, (double) 3, (double) 4}
+        ));
 
     for (double value : NUMBERS) {
       assertEquals("" + value, 1, Doubles.indexOf(
-          new double[] {5.0, value, value, 5.0}, new double[] {value, value}));
+              new double[] {5.0, value, value, 5.0}, new double[] {value, value}));
     }
     assertEquals(-1, Doubles.indexOf(
-        new double[] {5.0, NaN, NaN, 5.0}, new double[] {NaN, NaN}));
+            new double[] {5.0, NaN, NaN, 5.0}, new double[] {NaN, NaN}));
   }
 
   public void testLastIndexOf() {
@@ -164,13 +167,13 @@ public class DoublesTest extends TestCase {
     assertEquals(-1, Doubles.lastIndexOf(ARRAY1, (double) 2));
     assertEquals(-1, Doubles.lastIndexOf(ARRAY234, (double) 1));
     assertEquals(0, Doubles.lastIndexOf(
-        new double[] {(double) -1}, (double) -1));
+            new double[] {(double) -1}, (double) -1));
     assertEquals(0, Doubles.lastIndexOf(ARRAY234, (double) 2));
     assertEquals(1, Doubles.lastIndexOf(ARRAY234, (double) 3));
     assertEquals(2, Doubles.lastIndexOf(ARRAY234, (double) 4));
     assertEquals(3, Doubles.lastIndexOf(
-        new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
-        (double) 3));
+            new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
+            (double) 3));
 
     for (double value : NUMBERS) {
       assertEquals("" + value,
@@ -191,8 +194,8 @@ public class DoublesTest extends TestCase {
     assertEquals(LEAST, Doubles.max(LEAST));
     assertEquals(GREATEST, Doubles.max(GREATEST));
     assertEquals((double) 9, Doubles.max(
-        (double) 8, (double) 6, (double) 7,
-        (double) 5, (double) 3, (double) 0, (double) 9));
+            (double) 8, (double) 6, (double) 7,
+            (double) 5, (double) 3, (double) 0, (double) 9));
 
     assertEquals(0.0, Doubles.max(-0.0, 0.0));
     assertEquals(0.0, Doubles.max(0.0, -0.0));
@@ -212,8 +215,8 @@ public class DoublesTest extends TestCase {
     assertEquals(LEAST, Doubles.min(LEAST));
     assertEquals(GREATEST, Doubles.min(GREATEST));
     assertEquals((double) 0, Doubles.min(
-        (double) 8, (double) 6, (double) 7,
-        (double) 5, (double) 3, (double) 0, (double) 9));
+            (double) 8, (double) 6, (double) 7,
+            (double) 5, (double) 3, (double) 0, (double) 9));
 
     assertEquals(-0.0, Doubles.min(-0.0, 0.0));
     assertEquals(-0.0, Doubles.min(0.0, -0.0));
@@ -248,11 +251,11 @@ public class DoublesTest extends TestCase {
     assertNotSame(ARRAY1, Doubles.concat(ARRAY1));
     assertTrue(Arrays.equals(ARRAY1, Doubles.concat(EMPTY, ARRAY1, EMPTY)));
     assertTrue(Arrays.equals(
-        new double[] {(double) 1, (double) 1, (double) 1},
-        Doubles.concat(ARRAY1, ARRAY1, ARRAY1)));
+            new double[] {(double) 1, (double) 1, (double) 1},
+            Doubles.concat(ARRAY1, ARRAY1, ARRAY1)));
     assertTrue(Arrays.equals(
-        new double[] {(double) 1, (double) 2, (double) 3, (double) 4},
-        Doubles.concat(ARRAY1, ARRAY234)));
+            new double[] {(double) 1, (double) 2, (double) 3, (double) 4},
+            Doubles.concat(ARRAY1, ARRAY234)));
   }
 
   public void testEnsureCapacity() {
@@ -260,8 +263,8 @@ public class DoublesTest extends TestCase {
     assertSame(ARRAY1, Doubles.ensureCapacity(ARRAY1, 0, 1));
     assertSame(ARRAY1, Doubles.ensureCapacity(ARRAY1, 1, 1));
     assertTrue(Arrays.equals(
-        new double[] {(double) 1, (double) 0, (double) 0},
-        Doubles.ensureCapacity(ARRAY1, 2, 1)));
+            new double[] {(double) 1, (double) 0, (double) 0},
+            Doubles.ensureCapacity(ARRAY1, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -296,15 +299,15 @@ public class DoublesTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<double[]> ordered = Arrays.asList(
-        new double[] {},
-        new double[] {LEAST},
-        new double[] {LEAST, LEAST},
-        new double[] {LEAST, (double) 1},
-        new double[] {(double) 1},
-        new double[] {(double) 1, LEAST},
-        new double[] {GREATEST, Double.MAX_VALUE},
-        new double[] {GREATEST, GREATEST},
-        new double[] {GREATEST, GREATEST, GREATEST});
+            new double[] {},
+            new double[] {LEAST},
+            new double[] {LEAST, LEAST},
+            new double[] {LEAST, (double) 1},
+            new double[] {(double) 1},
+            new double[] {(double) 1, LEAST},
+            new double[] {GREATEST, Double.MAX_VALUE},
+            new double[] {GREATEST, GREATEST},
+            new double[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<double[]> comparator = Doubles.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -468,7 +471,7 @@ public class DoublesTest extends TestCase {
     // Make sure it returned a copy
     list.set(0, (double) 4);
     assertTrue(Arrays.equals(
-        new double[] { (double) 0, (double) 1, (double) 2 }, newArray));
+            new double[] { (double) 0, (double) 1, (double) 2 }, newArray));
     newArray[1] = (double) 5;
     assertEquals((double) 1, (double) list.get(1));
   }
@@ -478,9 +481,9 @@ public class DoublesTest extends TestCase {
     double[] array = { (double) 0, (double) 1, (double) 2, (double) 3 };
     List<Double> list = Doubles.asList(array);
     assertTrue(Arrays.equals(new double[] { (double) 1, (double) 2 },
-        Doubles.toArray(list.subList(1, 3))));
+            Doubles.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new double[] {},
-        Doubles.toArray(list.subList(2, 2))));
+            Doubles.toArray(list.subList(2, 2))));
   }
 
   public void testAsListEmpty() {
@@ -585,9 +588,10 @@ public class DoublesTest extends TestCase {
     checkTryParse(Double.NEGATIVE_INFINITY, "-Infinity");
   }
 
-  private static final String[] BAD_TRY_PARSE_INPUTS =
-    { "", "+-", "+-0", " 5", "32 ", " 55 ", "infinity", "POSITIVE_INFINITY", "0x9A", "0x9A.bE-5",
-      ".", ".e5", "NaNd", "InfinityF" };
+  private static final String[] BAD_TRY_PARSE_INPUTS = {
+    "", "+-", "+-0", " 5", "32 ", " 55 ", "infinity", "POSITIVE_INFINITY", "0x9A", "0x9A.bE-5",
+    ".", ".e5", "NaNd", "InfinityF"
+  };
 
   @GwtIncompatible // Doubles.tryParse
   public void testTryParseFailures() {

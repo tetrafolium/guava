@@ -53,26 +53,26 @@ public class CharArrayAsListTest extends TestCase {
     List<ListTestSuiteBuilder<Character>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new CharsAsListGenerator())
-                .named("Chars.asList"),
+            .named("Chars.asList"),
 
             ListTestSuiteBuilder.using(new CharsAsListHeadSubListGenerator())
-                .named("Chars.asList, head subList"),
+            .named("Chars.asList, head subList"),
 
             ListTestSuiteBuilder.using(new CharsAsListTailSubListGenerator())
-                .named("Chars.asList, tail subList"),
+            .named("Chars.asList, tail subList"),
 
             ListTestSuiteBuilder.using(new CharsAsListMiddleSubListGenerator())
-                .named("Chars.asList, middle subList")
-            );
+            .named("Chars.asList, middle subList")
+        );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Character> builder : builders) {
       suite.addTest(
           builder
           .withFeatures(CollectionSize.ONE,
-                        CollectionSize.SEVERAL,
-                        CollectionFeature.RESTRICTS_ELEMENTS,
-                        ListFeature.SUPPORTS_SET)
+              CollectionSize.SEVERAL,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              ListFeature.SUPPORTS_SET)
           .createTestSuite());
     }
     return suite;
@@ -120,7 +120,7 @@ public class CharArrayAsListTest extends TestCase {
   }
 
   public static abstract class TestCharListGenerator
-      implements TestListGenerator<Character> {
+    implements TestListGenerator<Character> {
     @Override
     public SampleElements<Character> samples() {
       return new SampleChars();

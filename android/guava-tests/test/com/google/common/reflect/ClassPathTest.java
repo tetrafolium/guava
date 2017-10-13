@@ -64,20 +64,20 @@ public class ClassPathTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(classInfo(ClassPathTest.class), classInfo(ClassPathTest.class))
-        .addEqualityGroup(classInfo(Test.class), classInfo(Test.class, getClass().getClassLoader()))
-        .addEqualityGroup(
-            new ResourceInfo("a/b/c.txt", getClass().getClassLoader()),
-            new ResourceInfo("a/b/c.txt", getClass().getClassLoader()))
-        .addEqualityGroup(
-            new ResourceInfo("x.txt", getClass().getClassLoader()))
-        .testEquals();
+    .addEqualityGroup(classInfo(ClassPathTest.class), classInfo(ClassPathTest.class))
+    .addEqualityGroup(classInfo(Test.class), classInfo(Test.class, getClass().getClassLoader()))
+    .addEqualityGroup(
+        new ResourceInfo("a/b/c.txt", getClass().getClassLoader()),
+        new ResourceInfo("a/b/c.txt", getClass().getClassLoader()))
+    .addEqualityGroup(
+        new ResourceInfo("x.txt", getClass().getClassLoader()))
+    .testEquals();
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
   public void testClassPathEntries_emptyURLClassLoader_noParent() {
     assertThat(ClassPath.Scanner.getClassPathEntries(new URLClassLoader(new URL[0], null)).keySet())
-        .isEmpty();
+    .isEmpty();
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -86,7 +86,7 @@ public class ClassPathTest extends TestCase {
     URL url2 = new URL("file:/b");
     URLClassLoader classloader = new URLClassLoader(new URL[] {url1, url2}, null);
     assertThat(ClassPath.Scanner.getClassPathEntries(classloader))
-        .containsExactly(new File("/a"), classloader, new File("/b"), classloader);
+    .containsExactly(new File("/a"), classloader, new File("/b"), classloader);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -96,8 +96,8 @@ public class ClassPathTest extends TestCase {
     URLClassLoader parent = new URLClassLoader(new URL[] {url1}, null);
     URLClassLoader child = new URLClassLoader(new URL[] {url2}, parent) {};
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
-        .containsExactly(new File("/a"), parent, new File("/b"), child)
-        .inOrder();
+    .containsExactly(new File("/a"), parent, new File("/b"), child)
+    .inOrder();
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -106,7 +106,7 @@ public class ClassPathTest extends TestCase {
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
     URLClassLoader child = new URLClassLoader(new URL[] {url}, parent) {};
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
-        .containsExactly(new File("/a"), parent);
+    .containsExactly(new File("/a"), parent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -119,7 +119,7 @@ public class ClassPathTest extends TestCase {
     URL url = new URL("file:/a");
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
     assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
-        .containsExactly(new File("/a"), parent);
+    .containsExactly(new File("/a"), parent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -129,7 +129,7 @@ public class ClassPathTest extends TestCase {
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url1}, null);
     URLClassLoader parent = new URLClassLoader(new URL[] {url2}, grandParent);
     assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
-        .containsExactly(new File("/a"), grandParent, new File("/b"), parent);
+    .containsExactly(new File("/a"), grandParent, new File("/b"), parent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -138,7 +138,7 @@ public class ClassPathTest extends TestCase {
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url}, null);
     ClassLoader parent = new ClassLoader(grandParent) {};
     assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
-        .containsExactly(new File("/a"), grandParent);
+    .containsExactly(new File("/a"), grandParent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -147,7 +147,7 @@ public class ClassPathTest extends TestCase {
     URL url = new URL("file:///c:/Documents and Settings/");
     URLClassLoader classloader = new URLClassLoader(new URL[] {url}, null);
     assertThat(ClassPath.Scanner.getClassPathEntries(classloader))
-        .containsExactly(new File("/c:/Documents and Settings/"), classloader);
+    .containsExactly(new File("/c:/Documents and Settings/"), classloader);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -156,26 +156,26 @@ public class ClassPathTest extends TestCase {
     URL url = new URL("file:///c:/Documents%20and%20Settings/");
     URLClassLoader classloader = new URLClassLoader(new URL[] {url}, null);
     assertThat(ClassPath.Scanner.getClassPathEntries(classloader))
-        .containsExactly(new File("/c:/Documents and Settings/"), classloader);
+    .containsExactly(new File("/c:/Documents and Settings/"), classloader);
   }
 
   // https://github.com/google/guava/issues/2152
   public void testToFile() throws Exception {
     assertThat(ClassPath.toFile(new URL("file:///c:/Documents%20and%20Settings/")))
-        .isEqualTo(new File("/c:/Documents and Settings/"));
+    .isEqualTo(new File("/c:/Documents and Settings/"));
     assertThat(ClassPath.toFile(new URL("file:///c:/Documents ~ Settings, or not/11-12 12:05")))
-        .isEqualTo(new File("/c:/Documents ~ Settings, or not/11-12 12:05"));
+    .isEqualTo(new File("/c:/Documents ~ Settings, or not/11-12 12:05"));
   }
 
   // https://github.com/google/guava/issues/2152
   @AndroidIncompatible // works in newer Android versions but fails at the version we test with
   public void testToFile_AndroidIncompatible() throws Exception {
     assertThat(ClassPath.toFile(new URL("file:///c:\\Documents ~ Settings, or not\\11-12 12:05")))
-        .isEqualTo(new File("/c:\\Documents ~ Settings, or not\\11-12 12:05"));
+    .isEqualTo(new File("/c:\\Documents ~ Settings, or not\\11-12 12:05"));
     assertThat(ClassPath.toFile(new URL("file:///C:\\Program Files\\Apache Software Foundation")))
-        .isEqualTo(new File("/C:\\Program Files\\Apache Software Foundation/"));
+    .isEqualTo(new File("/C:\\Program Files\\Apache Software Foundation/"));
     assertThat(ClassPath.toFile(new URL("file:///C:\\\u20320 \u22909")))  // Chinese Ni Hao
-        .isEqualTo(new File("/C:\\\u20320 \u22909"));
+    .isEqualTo(new File("/C:\\\u20320 \u22909"));
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
@@ -227,10 +227,10 @@ public class ClassPathTest extends TestCase {
         ClassPath.Scanner.getClassPathEntry(new File("/home/build/outer.jar"), "x/y/z").toURI());
     assertEquals(new File("/home/build/x/y/z.jar").toURI(),
         ClassPath.Scanner.getClassPathEntry(new File("/home/build/outer.jar"), "x/y/z.jar")
-            .toURI());
+        .toURI());
     assertEquals("/home/build/x y.jar",
         ClassPath.Scanner.getClassPathEntry(new File("/home/build/outer.jar"), "x y.jar")
-            .getFile());
+        .getFile());
   }
 
   public void testGetClassPathFromManifest_nullManifest() {
@@ -240,27 +240,27 @@ public class ClassPathTest extends TestCase {
   public void testGetClassPathFromManifest_noClassPath() throws IOException {
     File jarFile = new File("base.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest("")))
-        .isEmpty();
+    .isEmpty();
   }
 
   public void testGetClassPathFromManifest_emptyClassPath() throws IOException {
     File jarFile = new File("base.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifestClasspath("")))
-        .isEmpty();
+    .isEmpty();
   }
 
   public void testGetClassPathFromManifest_badClassPath() throws IOException {
     File jarFile = new File("base.jar");
     Manifest manifest = manifestClasspath("nosuchscheme:an_invalid^path");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .isEmpty();
+    .isEmpty();
   }
 
   public void testGetClassPathFromManifest_pathWithStrangeCharacter() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath("file:the^file.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/the^file.jar"));
+    .containsExactly(fullpath("base/the^file.jar"));
   }
 
   public void testGetClassPathFromManifest_relativeDirectory() throws IOException {
@@ -268,7 +268,7 @@ public class ClassPathTest extends TestCase {
     // with/relative/directory is the Class-Path value in the mf file.
     Manifest manifest = manifestClasspath("with/relative/dir");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/with/relative/dir"));
+    .containsExactly(fullpath("base/with/relative/dir"));
   }
 
   public void testGetClassPathFromManifest_relativeJar() throws IOException {
@@ -276,7 +276,7 @@ public class ClassPathTest extends TestCase {
     // with/relative/directory is the Class-Path value in the mf file.
     Manifest manifest = manifestClasspath("with/relative.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/with/relative.jar"));
+    .containsExactly(fullpath("base/with/relative.jar"));
   }
 
   public void testGetClassPathFromManifest_jarInCurrentDirectory() throws IOException {
@@ -284,46 +284,46 @@ public class ClassPathTest extends TestCase {
     // with/relative/directory is the Class-Path value in the mf file.
     Manifest manifest = manifestClasspath("current.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/current.jar"));
+    .containsExactly(fullpath("base/current.jar"));
   }
 
   public void testGetClassPathFromManifest_absoluteDirectory() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath("file:/with/absolute/dir");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("/with/absolute/dir"));
+    .containsExactly(fullpath("/with/absolute/dir"));
   }
 
   public void testGetClassPathFromManifest_absoluteJar() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath("file:/with/absolute.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("/with/absolute.jar"));
+    .containsExactly(fullpath("/with/absolute.jar"));
   }
 
   public void testGetClassPathFromManifest_multiplePaths() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath("file:/with/absolute.jar relative.jar  relative/dir");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(
-            fullpath("/with/absolute.jar"),
-            fullpath("base/relative.jar"),
-            fullpath("base/relative/dir"))
-        .inOrder();
+    .containsExactly(
+        fullpath("/with/absolute.jar"),
+        fullpath("base/relative.jar"),
+        fullpath("base/relative/dir"))
+    .inOrder();
   }
 
   public void testGetClassPathFromManifest_leadingBlanks() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath(" relative.jar");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/relative.jar"));
+    .containsExactly(fullpath("base/relative.jar"));
   }
 
   public void testGetClassPathFromManifest_trailingBlanks() throws IOException {
     File jarFile = new File("base/some.jar");
     Manifest manifest = manifestClasspath("relative.jar ");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
-        .containsExactly(fullpath("base/relative.jar"));
+    .containsExactly(fullpath("base/relative.jar"));
   }
 
   public void testGetClassName() {
@@ -370,11 +370,11 @@ public class ClassPathTest extends TestCase {
     System.setProperty(
         JAVA_CLASS_PATH.key(),
         Joiner.on(":")
-            .join(
-                "relative/path/to/some.jar",
-                "/absolute/path/to/some.jar",
-                "relative/path/to/class/root",
-                "/absolute/path/to/class/root"));
+        .join(
+            "relative/path/to/some.jar",
+            "/absolute/path/to/some.jar",
+            "relative/path/to/class/root",
+            "/absolute/path/to/class/root"));
     try {
       ImmutableList<URL> urls = ClassPath.Scanner.parseJavaClassPath();
 
@@ -406,7 +406,7 @@ public class ClassPathTest extends TestCase {
   public void testNulls() throws IOException {
     new NullPointerTester().testAllPublicStaticMethods(ClassPath.class);
     new NullPointerTester()
-        .testAllPublicInstanceMethods(ClassPath.from(getClass().getClassLoader()));
+    .testAllPublicInstanceMethods(ClassPath.from(getClass().getClassLoader()));
   }
 
   public void testResourceScanner() throws IOException {
@@ -437,14 +437,14 @@ public class ClassPathTest extends TestCase {
     }
     assertThat(file).isNotNull();
     SecurityManager disallowFilesSecurityManager =
-        new SecurityManager() {
-          @Override
-          public void checkPermission(Permission p) {
-            if (readClassPathFiles.implies(p)) {
-              throw new SecurityException("Disallowed: " + p);
-            }
-          }
-        };
+    new SecurityManager() {
+      @Override
+      public void checkPermission(Permission p) {
+        if (readClassPathFiles.implies(p)) {
+          throw new SecurityException("Disallowed: " + p);
+        }
+      }
+    };
     System.setSecurityManager(disallowFilesSecurityManager);
     try {
       file.exists();
@@ -488,7 +488,7 @@ public class ClassPathTest extends TestCase {
   }
 
   private static void writeSelfReferencingJarFile(File jarFile, String... entries)
-      throws IOException {
+  throws IOException {
     Manifest manifest = new Manifest();
     // Without version, the manifest is silently ignored. Ugh!
     manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");

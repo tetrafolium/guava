@@ -41,15 +41,15 @@ public class AbstractIteratorTest extends TestCase {
       private int rep;
       @Override public Integer computeNext() {
         switch (rep++) {
-          case 0:
-            return 0;
-          case 1:
-            return 1;
-          case 2:
-            return endOfData();
-          default:
-            fail("Should not have been invoked again");
-            return null;
+        case 0:
+          return 0;
+        case 1:
+          return 1;
+        case 2:
+          return endOfData();
+        default:
+          fail("Should not have been invoked again");
+          return null;
         }
       }
     };
@@ -126,13 +126,13 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testExceptionAfterEndOfData() {
     Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          @Override
-          public Integer computeNext() {
-            endOfData();
-            throw new SomeUncheckedException();
-          }
-        };
+    new AbstractIterator<Integer>() {
+      @Override
+      public Integer computeNext() {
+        endOfData();
+        throw new SomeUncheckedException();
+      }
+    };
     try {
       iter.hasNext();
       fail("No exception thrown");
@@ -142,18 +142,18 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testCantRemove() {
     Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          boolean haveBeenCalled;
+    new AbstractIterator<Integer>() {
+      boolean haveBeenCalled;
 
-          @Override
-          public Integer computeNext() {
-            if (haveBeenCalled) {
-              endOfData();
-            }
-            haveBeenCalled = true;
-            return 0;
-          }
-        };
+      @Override
+      public Integer computeNext() {
+        if (haveBeenCalled) {
+          endOfData();
+        }
+        haveBeenCalled = true;
+        return 0;
+      }
+    };
 
     assertEquals(0, (int) iter.next());
 
@@ -177,13 +177,13 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testReentrantHasNext() {
     Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          @Override
-          protected Integer computeNext() {
-            boolean unused = hasNext();
-            return null;
-          }
-        };
+    new AbstractIterator<Integer>() {
+      @Override
+      protected Integer computeNext() {
+        boolean unused = hasNext();
+        return null;
+      }
+    };
     try {
       iter.hasNext();
       fail();

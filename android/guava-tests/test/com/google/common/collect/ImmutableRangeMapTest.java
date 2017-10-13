@@ -213,7 +213,7 @@ public class ImmutableRangeMapTest extends TestCase {
           for (Range<Integer> subRange : RANGES) {
             ImmutableRangeMap<Integer, Integer> rangeMap =
                 ImmutableRangeMap.<Integer, Integer>builder()
-                  .put(range1, 1).put(range2, 2).build();
+                .put(range1, 1).put(range2, 2).build();
 
             ImmutableRangeMap.Builder<Integer, Integer> expectedBuilder =
                 ImmutableRangeMap.builder();
@@ -238,11 +238,11 @@ public class ImmutableRangeMapTest extends TestCase {
 
     ImmutableRangeMap<Integer, Integer> nonEmptyRangeMap =
         new ImmutableRangeMap.Builder<Integer, Integer>()
-            .put(Range.closed(2, 4), 5)
-            .put(Range.open(6, 7), 3)
-            .put(Range.closedOpen(8, 10), 4)
-            .put(Range.openClosed(15, 17), 2)
-        .build();
+    .put(Range.closed(2, 4), 5)
+    .put(Range.open(6, 7), 3)
+    .put(Range.closedOpen(8, 10), 4)
+    .put(Range.openClosed(15, 17), 2)
+    .build();
 
     ImmutableMap<Range<Integer>, Integer> test = nonEmptyRangeMap.asMapOfRanges();
 

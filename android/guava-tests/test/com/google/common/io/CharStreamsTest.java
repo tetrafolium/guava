@@ -36,7 +36,7 @@ import java.util.List;
 public class CharStreamsTest extends IoTestCase {
 
   private static final String TEXT
-      = "The quick brown fox jumped over the lazy dog.";
+    = "The quick brown fox jumped over the lazy dog.";
 
   public void testToString() throws IOException {
     assertEquals(TEXT, CharStreams.toString(new StringReader(TEXT)));
@@ -44,7 +44,7 @@ public class CharStreamsTest extends IoTestCase {
 
   public void testReadLines() throws IOException {
     List<String> lines = CharStreams.readLines(
-        new StringReader("a\nb\nc"));
+            new StringReader("a\nb\nc"));
     assertEquals(ImmutableList.of("a", "b", "c"), lines);
   }
 

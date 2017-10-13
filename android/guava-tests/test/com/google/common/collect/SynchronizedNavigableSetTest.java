@@ -51,7 +51,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
   }
 
   static class TestSet<E> extends SynchronizedSetTest.TestSet<E>
-      implements NavigableSet<E> {
+    implements NavigableSet<E> {
 
     TestSet(NavigableSet<E> delegate, Object mutex) {
       super(delegate, mutex);
@@ -112,7 +112,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
         boolean fromInclusive, E toElement, boolean toInclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().subSet(
-          fromElement, fromInclusive, toElement, toInclusive);
+              fromElement, fromInclusive, toElement, toInclusive);
     }
 
     @Override public SortedSet<E> subSet(E fromElement, E toElement) {
@@ -151,29 +151,29 @@ public class SynchronizedNavigableSetTest extends TestCase {
     suite.addTestSuite(SynchronizedNavigableSetTest.class);
     suite.addTest(
         NavigableSetTestSuiteBuilder.using(
-                new TestStringSortedSetGenerator() {
+    new TestStringSortedSetGenerator() {
 
-                  @Override
-                  protected NavigableSet<String> create(String[] elements) {
-                    NavigableSet<String> innermost = new SafeTreeSet<>();
-                    Collections.addAll(innermost, elements);
-                    TestSet<String> inner = new TestSet<>(innermost, MUTEX);
-                    NavigableSet<String> outer = Synchronized.navigableSet(inner, MUTEX);
-                    return outer;
-                  }
+      @Override
+      protected NavigableSet<String> create(String[] elements) {
+        NavigableSet<String> innermost = new SafeTreeSet<>();
+        Collections.addAll(innermost, elements);
+        TestSet<String> inner = new TestSet<>(innermost, MUTEX);
+        NavigableSet<String> outer = Synchronized.navigableSet(inner, MUTEX);
+        return outer;
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Ordering.natural().sortedCopy(insertionOrder);
-                  }
-                })
-            .named("Sets.synchronizedNavigableSet[SafeTreeSet]")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE,
-                CollectionFeature.SERIALIZABLE)
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Ordering.natural().sortedCopy(insertionOrder);
+      }
+    })
+    .named("Sets.synchronizedNavigableSet[SafeTreeSet]")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SERIALIZABLE)
+    .createTestSuite());
 
     return suite;
   }

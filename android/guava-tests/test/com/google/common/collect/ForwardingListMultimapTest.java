@@ -31,20 +31,20 @@ public class ForwardingListMultimapTest extends TestCase {
   @SuppressWarnings("rawtypes")
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(ListMultimap.class, new Function<ListMultimap, ListMultimap>() {
-          @Override public ListMultimap apply(ListMultimap delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(ListMultimap.class, new Function<ListMultimap, ListMultimap>() {
+      @Override public ListMultimap apply(ListMultimap delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     ListMultimap<Integer, String> map1 = ImmutableListMultimap.of(1, "one");
     ListMultimap<Integer, String> map2 = ImmutableListMultimap.of(2, "two");
     new EqualsTester()
-        .addEqualityGroup(map1, wrap(map1), wrap(map1))
-        .addEqualityGroup(map2, wrap(map2))
-        .testEquals();
+    .addEqualityGroup(map1, wrap(map1), wrap(map1))
+    .addEqualityGroup(map2, wrap(map2))
+    .testEquals();
   }
 
   private static <K, V> ListMultimap<K, V> wrap(final ListMultimap<K, V> delegate) {

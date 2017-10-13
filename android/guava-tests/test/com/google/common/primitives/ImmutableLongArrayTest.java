@@ -62,26 +62,26 @@ public class ImmutableLongArrayTest extends TestCase {
 
   public void testOf4() {
     assertThat(ImmutableLongArray.of(0, 1, 3, 6).asList())
-        .containsExactly(0L, 1L, 3L, 6L)
-        .inOrder();
+    .containsExactly(0L, 1L, 3L, 6L)
+    .inOrder();
   }
 
   public void testOf5() {
     assertThat(ImmutableLongArray.of(0, 1, 3, 6, 10).asList())
-        .containsExactly(0L, 1L, 3L, 6L, 10L)
-        .inOrder();
+    .containsExactly(0L, 1L, 3L, 6L, 10L)
+    .inOrder();
   }
 
   public void testOf6() {
     assertThat(ImmutableLongArray.of(0, 1, 3, 6, 10, 15).asList())
-        .containsExactly(0L, 1L, 3L, 6L, 10L, 15L)
-        .inOrder();
+    .containsExactly(0L, 1L, 3L, 6L, 10L, 15L)
+    .inOrder();
   }
 
   public void testOf7() {
     assertThat(ImmutableLongArray.of(0, 1, 3, 6, 10, 15, 21).asList())
-        .containsExactly(0L, 1L, 3L, 6L, 10L, 15L, 21L)
-        .inOrder();
+    .containsExactly(0L, 1L, 3L, 6L, 10L, 15L, 21L)
+    .inOrder();
   }
 
   public void testCopyOf_array_empty() {
@@ -356,14 +356,14 @@ public class ImmutableLongArrayTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(ImmutableLongArray.of())
-        .addEqualityGroup(
-            ImmutableLongArray.of(1, 2),
-            reserialize(ImmutableLongArray.of(1, 2)),
-            ImmutableLongArray.of(0, 1, 2, 3).subArray(1, 3))
-        .addEqualityGroup(ImmutableLongArray.of(1, 3))
-        .addEqualityGroup(ImmutableLongArray.of(1, 2, 3))
-        .testEquals();
+    .addEqualityGroup(ImmutableLongArray.of())
+    .addEqualityGroup(
+        ImmutableLongArray.of(1, 2),
+        reserialize(ImmutableLongArray.of(1, 2)),
+        ImmutableLongArray.of(0, 1, 2, 3).subArray(1, 3))
+    .addEqualityGroup(ImmutableLongArray.of(1, 3))
+    .addEqualityGroup(ImmutableLongArray.of(1, 2, 3))
+    .testEquals();
   }
 
   /**
@@ -391,7 +391,7 @@ public class ImmutableLongArrayTest extends TestCase {
   public void testSerialization() {
     assertThat(reserialize(ImmutableLongArray.of())).isSameAs(ImmutableLongArray.of());
     assertThat(reserialize(ImmutableLongArray.of(0, 1).subArray(1, 1)))
-        .isSameAs(ImmutableLongArray.of());
+    .isSameAs(ImmutableLongArray.of());
 
     ImmutableLongArray iia = ImmutableLongArray.of(0, 1, 3, 6).subArray(1, 3);
     ImmutableLongArray iia2 = reserialize(iia);
@@ -416,27 +416,27 @@ public class ImmutableLongArrayTest extends TestCase {
     List<ListTestSuiteBuilder<Long>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new ImmutableLongArrayAsListGenerator())
-                .named("ImmutableLongArray.asList"),
+            .named("ImmutableLongArray.asList"),
             ListTestSuiteBuilder.using(new ImmutableLongArrayHeadSubListAsListGenerator())
-                .named("ImmutableLongArray.asList, head subList"),
+            .named("ImmutableLongArray.asList, head subList"),
             ListTestSuiteBuilder.using(new ImmutableLongArrayTailSubListAsListGenerator())
-                .named("ImmutableLongArray.asList, tail subList"),
+            .named("ImmutableLongArray.asList, tail subList"),
             ListTestSuiteBuilder.using(new ImmutableLongArrayMiddleSubListAsListGenerator())
-                .named("ImmutableLongArray.asList, middle subList"));
+            .named("ImmutableLongArray.asList, middle subList"));
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Long> builder : builders) {
       suite.addTest(
           builder
-              .withFeatures(
-                  CollectionSize.ZERO,
-                  CollectionSize.ONE,
-                  CollectionSize.SEVERAL,
-                  CollectionFeature.ALLOWS_NULL_QUERIES,
-                  CollectionFeature.RESTRICTS_ELEMENTS,
-                  CollectionFeature.KNOWN_ORDER,
-                  CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
-              .createTestSuite());
+          .withFeatures(
+              CollectionSize.ZERO,
+              CollectionSize.ONE,
+              CollectionSize.SEVERAL,
+              CollectionFeature.ALLOWS_NULL_QUERIES,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              CollectionFeature.KNOWN_ORDER,
+              CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
+          .createTestSuite());
     }
     suite.addTestSuite(ImmutableLongArrayTest.class);
     return suite;
@@ -460,7 +460,7 @@ public class ImmutableLongArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableLongArrayHeadSubListAsListGenerator
-      extends TestLongListGenerator {
+    extends TestLongListGenerator {
     @Override
     protected List<Long> create(Long[] elements) {
       Long[] suffix = {Long.MIN_VALUE, Long.MAX_VALUE};
@@ -471,7 +471,7 @@ public class ImmutableLongArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableLongArrayTailSubListAsListGenerator
-      extends TestLongListGenerator {
+    extends TestLongListGenerator {
     @Override
     protected List<Long> create(Long[] elements) {
       Long[] prefix = {86L, 99L};
@@ -482,7 +482,7 @@ public class ImmutableLongArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableLongArrayMiddleSubListAsListGenerator
-      extends TestLongListGenerator {
+    extends TestLongListGenerator {
     @Override
     protected List<Long> create(Long[] elements) {
       Long[] prefix = {Long.MIN_VALUE, Long.MAX_VALUE};

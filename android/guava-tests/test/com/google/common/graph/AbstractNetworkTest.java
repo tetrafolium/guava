@@ -197,11 +197,11 @@ public abstract class AbstractNetworkTest {
 
       int selfLoopCount = network.edgesConnecting(node, node).size();
       assertThat(network.incidentEdges(node).size() + selfLoopCount)
-          .isEqualTo(network.degree(node));
+      .isEqualTo(network.degree(node));
 
       if (network.isDirected()) {
         assertThat(network.incidentEdges(node).size() + selfLoopCount)
-            .isEqualTo(network.inDegree(node) + network.outDegree(node));
+        .isEqualTo(network.inDegree(node) + network.outDegree(node));
         assertThat(network.inEdges(node)).hasSize(network.inDegree(node));
         assertThat(network.outEdges(node)).hasSize(network.outDegree(node));
       } else {
@@ -216,28 +216,28 @@ public abstract class AbstractNetworkTest {
       for (N otherNode : network.nodes()) {
         Set<E> edgesConnecting = sanityCheckSet(network.edgesConnecting(node, otherNode));
         switch (edgesConnecting.size()) {
-            case 0:
-              assertThat(network.edgeConnectingOrNull(node, otherNode)).isNull();
-              assertThat(network.hasEdgeConnecting(node, otherNode)).isFalse();
-              break;
-            case 1:
-              assertThat(network.edgeConnectingOrNull(node, otherNode))
-                  .isEqualTo(edgesConnecting.iterator().next());
-              assertThat(network.hasEdgeConnecting(node, otherNode)).isTrue();
-              break;
-            default:
-              assertThat(network.hasEdgeConnecting(node, otherNode)).isTrue();
-              try {
-                network.edgeConnectingOrNull(node, otherNode);
-                fail();
-              } catch (IllegalArgumentException expected) {}
+        case 0:
+          assertThat(network.edgeConnectingOrNull(node, otherNode)).isNull();
+          assertThat(network.hasEdgeConnecting(node, otherNode)).isFalse();
+          break;
+        case 1:
+          assertThat(network.edgeConnectingOrNull(node, otherNode))
+          .isEqualTo(edgesConnecting.iterator().next());
+          assertThat(network.hasEdgeConnecting(node, otherNode)).isTrue();
+          break;
+        default:
+          assertThat(network.hasEdgeConnecting(node, otherNode)).isTrue();
+          try {
+            network.edgeConnectingOrNull(node, otherNode);
+            fail();
+          } catch (IllegalArgumentException expected) {}
         }
 
         boolean isSelfLoop = node.equals(otherNode);
         boolean connected = !edgesConnecting.isEmpty();
         if (network.isDirected() || !isSelfLoop) {
           assertThat(edgesConnecting)
-              .isEqualTo(Sets.intersection(network.outEdges(node), network.inEdges(otherNode)));
+          .isEqualTo(Sets.intersection(network.outEdges(node), network.inEdges(otherNode)));
         }
         if (!network.allowsParallelEdges()) {
           assertThat(edgesConnecting.size()).isAtMost(1);
@@ -250,7 +250,7 @@ public abstract class AbstractNetworkTest {
         assertThat(network.predecessors(otherNode).contains(node)).isEqualTo(connected);
         for (E edge : edgesConnecting) {
           assertThat(network.incidentNodes(edge))
-              .isEqualTo(EndpointPair.of(network, node, otherNode));
+          .isEqualTo(EndpointPair.of(network, node, otherNode));
           assertThat(network.outEdges(node)).contains(edge);
           assertThat(network.inEdges(otherNode)).contains(edge);
         }
@@ -259,10 +259,10 @@ public abstract class AbstractNetworkTest {
       for (N adjacentNode : sanityCheckSet(network.adjacentNodes(node))) {
         assertTrue(
             network.predecessors(node).contains(adjacentNode)
-                || network.successors(node).contains(adjacentNode));
+            || network.successors(node).contains(adjacentNode));
         assertTrue(
             !network.edgesConnecting(node, adjacentNode).isEmpty()
-                || !network.edgesConnecting(adjacentNode, node).isEmpty());
+            || !network.edgesConnecting(adjacentNode, node).isEmpty());
       }
 
       for (N predecessor : sanityCheckSet(network.predecessors(node))) {
@@ -278,7 +278,7 @@ public abstract class AbstractNetworkTest {
       for (E incidentEdge : sanityCheckSet(network.incidentEdges(node))) {
         assertTrue(
             network.inEdges(node).contains(incidentEdge)
-                || network.outEdges(node).contains(incidentEdge));
+            || network.outEdges(node).contains(incidentEdge));
         assertThat(network.edges()).contains(incidentEdge);
         assertThat(network.incidentNodes(incidentEdge)).contains(node);
       }
@@ -286,7 +286,7 @@ public abstract class AbstractNetworkTest {
       for (E inEdge : sanityCheckSet(network.inEdges(node))) {
         assertThat(network.incidentEdges(node)).contains(inEdge);
         assertThat(network.outEdges(network.incidentNodes(inEdge).adjacentNode(node)))
-            .contains(inEdge);
+        .contains(inEdge);
         if (network.isDirected()) {
           assertThat(network.incidentNodes(inEdge).target()).isEqualTo(node);
         }
@@ -295,7 +295,7 @@ public abstract class AbstractNetworkTest {
       for (E outEdge : sanityCheckSet(network.outEdges(node))) {
         assertThat(network.incidentEdges(node)).contains(outEdge);
         assertThat(network.inEdges(network.incidentNodes(outEdge).adjacentNode(node)))
-            .contains(outEdge);
+        .contains(outEdge);
         if (network.isDirected()) {
           assertThat(network.incidentNodes(outEdge).source()).isEqualTo(node);
         }

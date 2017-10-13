@@ -83,7 +83,7 @@ public class HashBasedTableTest extends AbstractTableTest {
 
   public void testCreateCopy() {
     Table<String, Integer, Character> original
-        = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
+      = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
     Table<String, Integer, Character> copy = HashBasedTable.create(original);
     assertEquals(original, copy);
     assertEquals((Character) 'a', copy.get("foo", 1));

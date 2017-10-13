@@ -155,17 +155,17 @@ public class FunnelsTest extends TestCase {
   }
 
   public void testEquals() {
-     new EqualsTester()
-       .addEqualityGroup(Funnels.byteArrayFunnel())
-       .addEqualityGroup(Funnels.integerFunnel())
-       .addEqualityGroup(Funnels.longFunnel())
-       .addEqualityGroup(Funnels.unencodedCharsFunnel())
-       .addEqualityGroup(Funnels.stringFunnel(Charsets.UTF_8))
-       .addEqualityGroup(Funnels.stringFunnel(Charsets.US_ASCII))
-       .addEqualityGroup(Funnels.sequentialFunnel(Funnels.integerFunnel()),
-           SerializableTester.reserialize(Funnels.sequentialFunnel(
-               Funnels.integerFunnel())))
-       .addEqualityGroup(Funnels.sequentialFunnel(Funnels.longFunnel()))
-       .testEquals();
+    new EqualsTester()
+    .addEqualityGroup(Funnels.byteArrayFunnel())
+    .addEqualityGroup(Funnels.integerFunnel())
+    .addEqualityGroup(Funnels.longFunnel())
+    .addEqualityGroup(Funnels.unencodedCharsFunnel())
+    .addEqualityGroup(Funnels.stringFunnel(Charsets.UTF_8))
+    .addEqualityGroup(Funnels.stringFunnel(Charsets.US_ASCII))
+    .addEqualityGroup(Funnels.sequentialFunnel(Funnels.integerFunnel()),
+        SerializableTester.reserialize(Funnels.sequentialFunnel(
+                Funnels.integerFunnel())))
+    .addEqualityGroup(Funnels.sequentialFunnel(Funnels.longFunnel()))
+    .testEquals();
   }
 }

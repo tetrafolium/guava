@@ -48,7 +48,7 @@ import junit.framework.TestSuite;
  */
 public class ForwardingNavigableMapTest extends TestCase {
   static class StandardImplForwardingNavigableMap<K, V>
-      extends ForwardingNavigableMap<K, V> {
+    extends ForwardingNavigableMap<K, V> {
     private final NavigableMap<K, V> backingMap;
 
     StandardImplForwardingNavigableMap(NavigableMap<K, V> backingMap) {
@@ -217,7 +217,7 @@ public class ForwardingNavigableMapTest extends TestCase {
   }
 
   static class StandardLastEntryForwardingNavigableMap<K, V>
-      extends ForwardingNavigableMap<K, V> {
+    extends ForwardingNavigableMap<K, V> {
     private final NavigableMap<K, V> backingMap;
 
     StandardLastEntryForwardingNavigableMap(NavigableMap<K, V> backingMap) {
@@ -240,34 +240,34 @@ public class ForwardingNavigableMapTest extends TestCase {
     suite.addTestSuite(ForwardingNavigableMapTest.class);
     suite.addTest(
         NavigableMapTestSuiteBuilder.using(
-                new TestStringSortedMapGenerator() {
-                  @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
-                    NavigableMap<String, String> map = new SafeTreeMap<>();
-                    for (Entry<String, String> entry : entries) {
-                      map.put(entry.getKey(), entry.getValue());
-                    }
-                    return new StandardImplForwardingNavigableMap<>(map);
-                  }
-                })
-            .named(
-                "ForwardingNavigableMap[SafeTreeMap] with no comparator and standard "
-                    + "implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                MapFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-                MapFeature.GENERAL_PURPOSE)
-            /*
-             * StandardDescendingMap uses lowerEntry(), and TreeMap.lowerEntry() deliberately
-             * produces immutable entries.
-             *
-             * TODO(cpovirk): Consider making StandardDescendingMap return a ForwardingEntry that
-             * supports setValue().
-             */
-            .suppressing(MapEntrySetTester.getSetValueMethod())
-            .createTestSuite());
+    new TestStringSortedMapGenerator() {
+      @Override
+      protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        NavigableMap<String, String> map = new SafeTreeMap<>();
+        for (Entry<String, String> entry : entries) {
+          map.put(entry.getKey(), entry.getValue());
+        }
+        return new StandardImplForwardingNavigableMap<>(map);
+      }
+    })
+    .named(
+        "ForwardingNavigableMap[SafeTreeMap] with no comparator and standard "
+        + "implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        MapFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.GENERAL_PURPOSE)
+    /*
+     * StandardDescendingMap uses lowerEntry(), and TreeMap.lowerEntry() deliberately
+     * produces immutable entries.
+     *
+     * TODO(cpovirk): Consider making StandardDescendingMap return a ForwardingEntry that
+     * supports setValue().
+     */
+    .suppressing(MapEntrySetTester.getSetValueMethod())
+    .createTestSuite());
     // TODO(lowasser): add forwarding-to-ImmutableSortedMap test
     return suite;
   }
@@ -289,20 +289,20 @@ public class ForwardingNavigableMapTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(NavigableMap.class, new Function<NavigableMap, NavigableMap>() {
-          @Override public NavigableMap apply(NavigableMap delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(NavigableMap.class, new Function<NavigableMap, NavigableMap>() {
+      @Override public NavigableMap apply(NavigableMap delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
-   public void testEquals() {
+  public void testEquals() {
     NavigableMap<Integer, String> map1 = ImmutableSortedMap.of(1, "one");
     NavigableMap<Integer, String> map2 = ImmutableSortedMap.of(2, "two");
     new EqualsTester()
-        .addEqualityGroup(map1, wrap(map1), wrap(map1))
-        .addEqualityGroup(map2, wrap(map2))
-        .testEquals();
+    .addEqualityGroup(map1, wrap(map1), wrap(map1))
+    .addEqualityGroup(map2, wrap(map2))
+    .testEquals();
   }
 
   private static <K, V> NavigableMap<K, V> wrap(final NavigableMap<K, V> delegate) {

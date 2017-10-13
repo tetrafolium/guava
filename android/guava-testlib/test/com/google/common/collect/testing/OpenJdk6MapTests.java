@@ -51,12 +51,12 @@ public class OpenJdk6MapTests extends TestsForMapsInJavaUtil {
 
   @Override protected Collection<Method> suppressForTreeMapNatural() {
     return Arrays.asList(
-        getPutNullKeyUnsupportedMethod(),
-        getPutAllNullKeyUnsupportedMethod(),
-        getCreateWithNullKeyUnsupportedMethod(),
-        getCreateWithNullUnsupportedMethod(), // for keySet
-        getContainsEntryWithIncomparableKeyMethod(),
-        getContainsEntryWithIncomparableValueMethod());
+            getPutNullKeyUnsupportedMethod(),
+            getPutAllNullKeyUnsupportedMethod(),
+            getCreateWithNullKeyUnsupportedMethod(),
+            getCreateWithNullUnsupportedMethod(), // for keySet
+            getContainsEntryWithIncomparableKeyMethod(),
+            getContainsEntryWithIncomparableValueMethod());
   }
 
   @Override
@@ -73,9 +73,9 @@ public class OpenJdk6MapTests extends TestsForMapsInJavaUtil {
      * feature for entrySet() that supports add(), or something else
      */
     return Arrays.asList(
-        getAddUnsupportedNotPresentMethod(),
-        getAddAllUnsupportedNonePresentMethod(),
-        getAddAllUnsupportedSomePresentMethod());
+            getAddUnsupportedNotPresentMethod(),
+            getAddAllUnsupportedNonePresentMethod(),
+            getAddAllUnsupportedSomePresentMethod());
   }
 
   @Override

@@ -68,7 +68,7 @@ public class TreeMultimapExplicitTest extends TestCase {
 
   private SetMultimap<String, Integer> create() {
     return TreeMultimap.create(
-        StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
   }
 
   /**
@@ -76,7 +76,7 @@ public class TreeMultimapExplicitTest extends TestCase {
    */
   private TreeMultimap<String, Integer> createPopulate() {
     TreeMultimap<String, Integer> multimap = TreeMultimap.create(
-        StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
     multimap.put("google", 2);
     multimap.put("google", 6);
     multimap.put(null, 3);
@@ -92,7 +92,7 @@ public class TreeMultimapExplicitTest extends TestCase {
    */
   public void testMultimapCreateFromTreeMultimap() {
     TreeMultimap<String, Integer> tree = TreeMultimap.create(
-        StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
     tree.put("google", 2);
     tree.put("google", 6);
     tree.put("tree", 0);
@@ -208,7 +208,7 @@ public class TreeMultimapExplicitTest extends TestCase {
   public void testExplicitComparatorSerialization() {
     TreeMultimap<String, Integer> multimap = createPopulate();
     TreeMultimap<String, Integer> copy
-        = SerializableTester.reserializeAndAssert(multimap);
+      = SerializableTester.reserializeAndAssert(multimap);
     assertThat(copy.values()).containsExactly(7, 3, 1, null, 0, 6, 2).inOrder();
     assertThat(copy.keySet()).containsExactly(null, "tree", "google").inOrder();
     assertEquals(multimap.keyComparator(), copy.keyComparator());

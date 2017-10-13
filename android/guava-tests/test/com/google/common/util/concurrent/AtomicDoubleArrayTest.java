@@ -48,7 +48,7 @@ public class AtomicDoubleArrayTest extends JSR166TestCase {
 
   static void assertBitEquals(double x, double y) {
     assertEquals(Double.doubleToRawLongBits(x),
-                 Double.doubleToRawLongBits(y));
+        Double.doubleToRawLongBits(y));
   }
 
   /**
@@ -196,15 +196,16 @@ public class AtomicDoubleArrayTest extends JSR166TestCase {
    * to succeed
    */
 
-      public void testCompareAndSetInMultipleThreads() throws InterruptedException {
+  public void testCompareAndSetInMultipleThreads() throws InterruptedException {
     final AtomicDoubleArray a = new AtomicDoubleArray(1);
     a.set(0, 1.0);
     Thread t = newStartedThread(new CheckedRunnable() {
-        public void realRun() {
-          while (!a.compareAndSet(0, 2.0, 3.0)) {
-            Thread.yield();
-          }
-        }});
+      public void realRun() {
+        while (!a.compareAndSet(0, 2.0, 3.0)) {
+          Thread.yield();
+        }
+      }
+    });
 
     assertTrue(a.compareAndSet(0, 1.0, 2.0));
     awaitTermination(t);
@@ -312,7 +313,7 @@ public class AtomicDoubleArrayTest extends JSR166TestCase {
    * update a number of times equal to total count
    */
 
-      public void testCountingInMultipleThreads() throws InterruptedException {
+  public void testCountingInMultipleThreads() throws InterruptedException {
     final AtomicDoubleArray aa = new AtomicDoubleArray(SIZE);
     for (int i = 0; i < SIZE; i++) {
       aa.set(i, (double) COUNTDOWN);

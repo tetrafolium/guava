@@ -27,7 +27,7 @@ import java.util.List;
  */
 @GwtIncompatible
 public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
-    extends NavigableMapTestSuiteBuilder<K, V> {
+  extends NavigableMapTestSuiteBuilder<K, V> {
 
   public static <K, V> ConcurrentNavigableMapTestSuiteBuilder<K, V> using(
       TestSortedMapGenerator<K, V> generator) {

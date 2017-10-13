@@ -93,7 +93,7 @@ public class FuturesGetCheckedTest extends TestCase {
   }
 
   public void testGetCheckedUntimed_ExecutionExceptionUnchecked()
-      throws TwoArgConstructorException {
+  throws TwoArgConstructorException {
     try {
       getChecked(FAILED_FUTURE_UNCHECKED_EXCEPTION, TwoArgConstructorException.class);
       fail();
@@ -140,7 +140,7 @@ public class FuturesGetCheckedTest extends TestCase {
   }
 
   public void testGetCheckedUntimed_badExceptionConstructor_failsEvenForSuccessfulInput()
-      throws Exception {
+  throws Exception {
     try {
       getChecked(immediateFuture("x"), ExceptionWithBadConstructor.class);
       fail();
@@ -149,7 +149,7 @@ public class FuturesGetCheckedTest extends TestCase {
   }
 
   public void testGetCheckedUntimed_badExceptionConstructor_wrapsOriginalChecked()
-      throws Exception {
+  throws Exception {
     try {
       getChecked(FAILED_FUTURE_CHECKED_EXCEPTION, ExceptionWithBadConstructor.class);
       fail();
@@ -263,7 +263,7 @@ public class FuturesGetCheckedTest extends TestCase {
   }
 
   public void testGetCheckedTimed_badExceptionConstructor_failsEvenForSuccessfulInput()
-      throws Exception {
+  throws Exception {
     try {
       getChecked(immediateFuture("x"), ExceptionWithBadConstructor.class, 1, TimeUnit.SECONDS);
       fail();
@@ -314,7 +314,7 @@ public class FuturesGetCheckedTest extends TestCase {
 
   @SuppressWarnings("FuturesGetCheckedIllegalExceptionType")
   public void testGetCheckedUntimed_exceptionClassNoPublicConstructor()
-      throws ExceptionWithPrivateConstructor {
+  throws ExceptionWithPrivateConstructor {
     try {
       getChecked(FAILED_FUTURE_CHECKED_EXCEPTION, ExceptionWithPrivateConstructor.class);
       fail();
@@ -324,7 +324,7 @@ public class FuturesGetCheckedTest extends TestCase {
 
   @SuppressWarnings("FuturesGetCheckedIllegalExceptionType")
   public void testGetCheckedUntimed_exceptionClassPublicConstructorWrongType()
-      throws ExceptionWithWrongTypesConstructor {
+  throws ExceptionWithWrongTypesConstructor {
     try {
       getChecked(FAILED_FUTURE_CHECKED_EXCEPTION, ExceptionWithWrongTypesConstructor.class);
       fail();
@@ -371,7 +371,7 @@ public class FuturesGetCheckedTest extends TestCase {
     @SuppressWarnings("unchecked")
     Class<WillBeUnloadedException> shadowClass =
         (Class<WillBeUnloadedException>)
-            Class.forName(WillBeUnloadedException.class.getName(), false, shadowLoader);
+        Class.forName(WillBeUnloadedException.class.getName(), false, shadowLoader);
     assertNotSame(shadowClass, WillBeUnloadedException.class);
     getChecked(immediateFuture("foo"), shadowClass);
     return new WeakReference<>(shadowLoader);

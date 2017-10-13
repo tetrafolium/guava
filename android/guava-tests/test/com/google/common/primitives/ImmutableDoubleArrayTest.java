@@ -62,26 +62,26 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   public void testOf4() {
     assertThat(ImmutableDoubleArray.of(0, 1, 3, 6).asList())
-        .containsExactly(0.0, 1.0, 3.0, 6.0)
-        .inOrder();
+    .containsExactly(0.0, 1.0, 3.0, 6.0)
+    .inOrder();
   }
 
   public void testOf5() {
     assertThat(ImmutableDoubleArray.of(0, 1, 3, 6, 10).asList())
-        .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0)
-        .inOrder();
+    .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0)
+    .inOrder();
   }
 
   public void testOf6() {
     assertThat(ImmutableDoubleArray.of(0, 1, 3, 6, 10, 15).asList())
-        .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0, 15.0)
-        .inOrder();
+    .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0, 15.0)
+    .inOrder();
   }
 
   public void testOf7() {
     assertThat(ImmutableDoubleArray.of(0, 1, 3, 6, 10, 15, 21).asList())
-        .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 21.0)
-        .inOrder();
+    .containsExactly(0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 21.0)
+    .inOrder();
   }
 
   public void testCopyOf_array_empty() {
@@ -366,14 +366,14 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   public void testEquals() {
     new EqualsTester()
-        .addEqualityGroup(ImmutableDoubleArray.of())
-        .addEqualityGroup(
-            ImmutableDoubleArray.of(1, 2),
-            reserialize(ImmutableDoubleArray.of(1, 2)),
-            ImmutableDoubleArray.of(0, 1, 2, 3).subArray(1, 3))
-        .addEqualityGroup(ImmutableDoubleArray.of(1, 3))
-        .addEqualityGroup(ImmutableDoubleArray.of(1, 2, 3))
-        .testEquals();
+    .addEqualityGroup(ImmutableDoubleArray.of())
+    .addEqualityGroup(
+        ImmutableDoubleArray.of(1, 2),
+        reserialize(ImmutableDoubleArray.of(1, 2)),
+        ImmutableDoubleArray.of(0, 1, 2, 3).subArray(1, 3))
+    .addEqualityGroup(ImmutableDoubleArray.of(1, 3))
+    .addEqualityGroup(ImmutableDoubleArray.of(1, 2, 3))
+    .testEquals();
   }
 
   /**
@@ -401,7 +401,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   public void testSerialization() {
     assertThat(reserialize(ImmutableDoubleArray.of())).isSameAs(ImmutableDoubleArray.of());
     assertThat(reserialize(ImmutableDoubleArray.of(0, 1).subArray(1, 1)))
-        .isSameAs(ImmutableDoubleArray.of());
+    .isSameAs(ImmutableDoubleArray.of());
 
     ImmutableDoubleArray iia = ImmutableDoubleArray.of(0, 1, 3, 6).subArray(1, 3);
     ImmutableDoubleArray iia2 = reserialize(iia);
@@ -426,27 +426,27 @@ public class ImmutableDoubleArrayTest extends TestCase {
     List<ListTestSuiteBuilder<Double>> builders =
         ImmutableList.of(
             ListTestSuiteBuilder.using(new ImmutableDoubleArrayAsListGenerator())
-                .named("ImmutableDoubleArray.asList"),
+            .named("ImmutableDoubleArray.asList"),
             ListTestSuiteBuilder.using(new ImmutableDoubleArrayHeadSubListAsListGenerator())
-                .named("ImmutableDoubleArray.asList, head subList"),
+            .named("ImmutableDoubleArray.asList, head subList"),
             ListTestSuiteBuilder.using(new ImmutableDoubleArrayTailSubListAsListGenerator())
-                .named("ImmutableDoubleArray.asList, tail subList"),
+            .named("ImmutableDoubleArray.asList, tail subList"),
             ListTestSuiteBuilder.using(new ImmutableDoubleArrayMiddleSubListAsListGenerator())
-                .named("ImmutableDoubleArray.asList, middle subList"));
+            .named("ImmutableDoubleArray.asList, middle subList"));
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Double> builder : builders) {
       suite.addTest(
           builder
-              .withFeatures(
-                  CollectionSize.ZERO,
-                  CollectionSize.ONE,
-                  CollectionSize.SEVERAL,
-                  CollectionFeature.ALLOWS_NULL_QUERIES,
-                  CollectionFeature.RESTRICTS_ELEMENTS,
-                  CollectionFeature.KNOWN_ORDER,
-                  CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
-              .createTestSuite());
+          .withFeatures(
+              CollectionSize.ZERO,
+              CollectionSize.ONE,
+              CollectionSize.SEVERAL,
+              CollectionFeature.ALLOWS_NULL_QUERIES,
+              CollectionFeature.RESTRICTS_ELEMENTS,
+              CollectionFeature.KNOWN_ORDER,
+              CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
+          .createTestSuite());
     }
     suite.addTestSuite(ImmutableDoubleArrayTest.class);
     return suite;
@@ -470,7 +470,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableDoubleArrayHeadSubListAsListGenerator
-      extends TestDoubleListGenerator {
+    extends TestDoubleListGenerator {
     @Override
     protected List<Double> create(Double[] elements) {
       Double[] suffix = {Double.MIN_VALUE, Double.MAX_VALUE};
@@ -481,7 +481,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableDoubleArrayTailSubListAsListGenerator
-      extends TestDoubleListGenerator {
+    extends TestDoubleListGenerator {
     @Override
     protected List<Double> create(Double[] elements) {
       Double[] prefix = {86.0, 99.0};
@@ -492,7 +492,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   @GwtIncompatible // used only from suite
   public static final class ImmutableDoubleArrayMiddleSubListAsListGenerator
-      extends TestDoubleListGenerator {
+    extends TestDoubleListGenerator {
     @Override
     protected List<Double> create(Double[] elements) {
       Double[] prefix = {Double.MIN_VALUE, Double.MAX_VALUE};

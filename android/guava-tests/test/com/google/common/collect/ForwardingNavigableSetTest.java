@@ -42,7 +42,7 @@ import junit.framework.TestSuite;
  */
 public class ForwardingNavigableSetTest extends TestCase {
   static class StandardImplForwardingNavigableSet<T>
-      extends ForwardingNavigableSet<T> {
+    extends ForwardingNavigableSet<T> {
     private final NavigableSet<T> backingSet;
 
     StandardImplForwardingNavigableSet(NavigableSet<T> backingSet) {
@@ -152,48 +152,48 @@ public class ForwardingNavigableSetTest extends TestCase {
     suite.addTestSuite(ForwardingNavigableSetTest.class);
     suite.addTest(
         SetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    return new StandardImplForwardingNavigableSet<>(
-                        new SafeTreeSet<String>(Arrays.asList(elements)));
-                  }
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        return new StandardImplForwardingNavigableSet<>(
+                new SafeTreeSet<String>(Arrays.asList(elements)));
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-                  }
-                })
-            .named("ForwardingNavigableSet[SafeTreeSet] with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .named("ForwardingNavigableSet[SafeTreeSet] with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     suite.addTest(
         SetTestSuiteBuilder.using(
-                new TestStringSetGenerator() {
-                  @Override
-                  protected Set<String> create(String[] elements) {
-                    SafeTreeSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
-                    Collections.addAll(set, elements);
-                    return new StandardImplForwardingNavigableSet<>(set);
-                  }
+    new TestStringSetGenerator() {
+      @Override
+      protected Set<String> create(String[] elements) {
+        SafeTreeSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
+        Collections.addAll(set, elements);
+        return new StandardImplForwardingNavigableSet<>(set);
+      }
 
-                  @Override
-                  public List<String> order(List<String> insertionOrder) {
-                    return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
-                  }
-                })
-            .named(
-                "ForwardingNavigableSet[SafeTreeSet[Ordering.natural.nullsFirst]]"
-                    + " with standard implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.GENERAL_PURPOSE,
-                CollectionFeature.ALLOWS_NULL_VALUES)
-            .createTestSuite());
+      @Override
+      public List<String> order(List<String> insertionOrder) {
+        return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
+      }
+    })
+    .named(
+        "ForwardingNavigableSet[SafeTreeSet[Ordering.natural.nullsFirst]]"
+        + " with standard implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.ALLOWS_NULL_VALUES)
+    .createTestSuite());
 
     return suite;
   }
@@ -201,20 +201,20 @@ public class ForwardingNavigableSetTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(NavigableSet.class, new Function<NavigableSet, NavigableSet>() {
-          @Override public NavigableSet apply(NavigableSet delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(NavigableSet.class, new Function<NavigableSet, NavigableSet>() {
+      @Override public NavigableSet apply(NavigableSet delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     NavigableSet<String> set1 = ImmutableSortedSet.of("one");
     NavigableSet<String> set2 = ImmutableSortedSet.of("two");
     new EqualsTester()
-        .addEqualityGroup(set1, wrap(set1), wrap(set1))
-        .addEqualityGroup(set2, wrap(set2))
-        .testEquals();
+    .addEqualityGroup(set1, wrap(set1), wrap(set1))
+    .addEqualityGroup(set2, wrap(set2))
+    .testEquals();
   }
 
   private static <T> NavigableSet<T> wrap(final NavigableSet<T> delegate) {

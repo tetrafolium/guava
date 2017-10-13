@@ -39,7 +39,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @param <V> Value parameter type
  */
 final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N, V>
-    implements MutableValueGraph<N, V> {
+  implements MutableValueGraph<N, V> {
 
   /** Constructs a mutable graph with the properties specified in {@code builder}. */
   ConfigurableMutableValueGraph(AbstractGraphBuilder<? super N> builder) {
@@ -109,9 +109,9 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
     }
 
     if ((allowsSelfLoops()) && (connections.removeSuccessor(node) != null)) {
-        connections.removePredecessor(node);
-        --edgeCount;
-      }
+      connections.removePredecessor(node);
+      --edgeCount;
+    }
 
     for (N successor : connections.successors()) {
       nodeConnections.getWithoutCaching(successor).removePredecessor(node);

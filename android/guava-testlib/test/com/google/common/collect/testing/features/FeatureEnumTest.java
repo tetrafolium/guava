@@ -50,20 +50,20 @@ public class FeatureEnumTest extends TestCase {
         rootLocaleFormat("%s must be inherited.", annotationClass),
         annotationClass.getAnnotation(Inherited.class));
 
-    for (String propertyName : new String[]{"value", "absent"}) {
+    for (String propertyName : new String[] {"value", "absent"}) {
       Method method = null;
       try {
         method = annotationClass.getMethod(propertyName);
       } catch (NoSuchMethodException e) {
         fail(rootLocaleFormat("%s must have a property named '%s'.",
-            annotationClass, propertyName));
+                annotationClass, propertyName));
       }
       final Class<?> returnType = method.getReturnType();
       assertTrue(rootLocaleFormat("%s.%s() must return an array.",
-          annotationClass, propertyName),
+              annotationClass, propertyName),
           returnType.isArray());
       assertSame(rootLocaleFormat("%s.%s() must return an array of %s.",
-          annotationClass, propertyName, annotationClass.getDeclaringClass()),
+              annotationClass, propertyName, annotationClass.getDeclaringClass()),
           annotationClass.getDeclaringClass(), returnType.getComponentType());
     }
   }
@@ -79,13 +79,13 @@ public class FeatureEnumTest extends TestCase {
           assertGoodTesterAnnotation(asAnnotation(containedClass));
         } else {
           fail(rootLocaleFormat("Feature enum %s contains a class named "
-              + "'Require' but it is not an annotation.", featureEnumClass));
+                  + "'Require' but it is not an annotation.", featureEnumClass));
         }
         return;
       }
     }
     fail(rootLocaleFormat("Feature enum %s should contain an "
-        + "annotation named 'Require'.", featureEnumClass));
+            + "annotation named 'Require'.", featureEnumClass));
   }
 
   @SuppressWarnings("unchecked")

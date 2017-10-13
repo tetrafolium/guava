@@ -510,7 +510,7 @@ public final class Chars {
 
   @GwtCompatible
   private static class CharArrayAsList extends AbstractList<Character>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final char[] array;
     final int start;
     final int end;

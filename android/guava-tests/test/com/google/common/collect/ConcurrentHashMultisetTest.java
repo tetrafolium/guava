@@ -313,7 +313,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   public void testCreateFromIterable() {
     Iterable<Integer> iterable = asList(1, 2, 2, 3, 4);
     ConcurrentHashMultiset<Integer> multiset
-        = ConcurrentHashMultiset.create(iterable);
+      = ConcurrentHashMultiset.create(iterable);
     assertEquals(2, multiset.count(2));
     reserializeAndAssert(multiset);
   }

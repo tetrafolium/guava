@@ -94,16 +94,16 @@ public class MultiInputStreamTest extends IoTestCase {
   @SuppressWarnings("CheckReturnValue") // these calls to skip always return 0
   public void testSkip() throws Exception {
     MultiInputStream multi = new MultiInputStream(
-        Collections.singleton(new ByteSource() {
-          @Override
-          public InputStream openStream() {
-            return new ByteArrayInputStream(newPreFilledByteArray(0, 50)) {
-              @Override public long skip(long n) {
-                return 0;
-              }
-            };
+    Collections.singleton(new ByteSource() {
+      @Override
+      public InputStream openStream() {
+        return new ByteArrayInputStream(newPreFilledByteArray(0, 50)) {
+          @Override public long skip(long n) {
+            return 0;
           }
-        }).iterator());
+        };
+      }
+    }).iterator());
     assertEquals(0, multi.skip(-1));
     assertEquals(0, multi.skip(-1));
     assertEquals(0, multi.skip(0));

@@ -46,30 +46,30 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
 
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestClassToInstanceMapGenerator() {
-                  // Other tests will verify what real, warning-free usage looks like
-                  // but here we have to do some serious fudging
-                  @Override
-                  @SuppressWarnings("unchecked")
-                  public Map<Class, Impl> create(Object... elements) {
-                    ImmutableClassToInstanceMap.Builder<Impl> builder =
-                        ImmutableClassToInstanceMap.builder();
-                    for (Object object : elements) {
-                      Entry<Class, Impl> entry = (Entry<Class, Impl>) object;
-                      builder.put(entry.getKey(), entry.getValue());
-                    }
-                    return (Map) builder.build();
-                  }
-                })
-            .named("ImmutableClassToInstanceMap")
-            .withFeatures(
-                MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-                MapFeature.RESTRICTS_KEYS,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionSize.ANY,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.SERIALIZABLE)
-            .createTestSuite());
+    new TestClassToInstanceMapGenerator() {
+      // Other tests will verify what real, warning-free usage looks like
+      // but here we have to do some serious fudging
+      @Override
+      @SuppressWarnings("unchecked")
+      public Map<Class, Impl> create(Object... elements) {
+        ImmutableClassToInstanceMap.Builder<Impl> builder =
+            ImmutableClassToInstanceMap.builder();
+        for (Object object : elements) {
+          Entry<Class, Impl> entry = (Entry<Class, Impl>) object;
+          builder.put(entry.getKey(), entry.getValue());
+        }
+        return (Map) builder.build();
+      }
+    })
+    .named("ImmutableClassToInstanceMap")
+    .withFeatures(
+        MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+        MapFeature.RESTRICTS_KEYS,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionSize.ANY,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.SERIALIZABLE)
+    .createTestSuite());
 
     return suite;
   }
@@ -115,7 +115,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
 
   public void testCopyOf_map_nulls() {
     Map<Class<? extends Number>, Number> nullKey = Collections.singletonMap(
-        null, (Number) 1.0);
+            null, (Number) 1.0);
     try {
       ImmutableClassToInstanceMap.copyOf(nullKey);
       fail();
@@ -123,7 +123,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     }
 
     Map<? extends Class<? extends Number>, Number> nullValue
-        = Collections.singletonMap(Number.class, null);
+      = Collections.singletonMap(Number.class, null);
     try {
       ImmutableClassToInstanceMap.copyOf(nullValue);
       fail();
@@ -139,7 +139,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
 
   public void testCopyOf_imap_valid() {
     ImmutableMap<Class<? extends Number>, ? extends Number> in
-        = ImmutableMap.of(Number.class, 0, Double.class, Math.PI);
+      = ImmutableMap.of(Number.class, 0, Double.class, Math.PI);
     ClassToInstanceMap<Number> map = ImmutableClassToInstanceMap.copyOf(in);
     assertEquals(2, map.size());
 
@@ -152,10 +152,10 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
 
   public void testPrimitiveAndWrapper() {
     ImmutableClassToInstanceMap<Number> ictim
-        = new ImmutableClassToInstanceMap.Builder<Number>()
-            .put(Integer.class, 0)
-            .put(int.class, 1)
-            .build();
+      = new ImmutableClassToInstanceMap.Builder<Number>()
+    .put(Integer.class, 0)
+    .put(int.class, 1)
+    .build();
     assertEquals(2, ictim.size());
 
     assertEquals(0, (int) ictim.getInstance(Integer.class));
@@ -177,11 +177,11 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     @Override
     public SampleElements<Entry<Class, Impl>> samples() {
       return new SampleElements<>(
-          immutableEntry((Class) One.class, new Impl(1)),
-          immutableEntry((Class) Two.class, new Impl(2)),
-          immutableEntry((Class) Three.class, new Impl(3)),
-          immutableEntry((Class) Four.class, new Impl(4)),
-          immutableEntry((Class) Five.class, new Impl(5)));
+              immutableEntry((Class) One.class, new Impl(1)),
+              immutableEntry((Class) Two.class, new Impl(2)),
+              immutableEntry((Class) Three.class, new Impl(3)),
+              immutableEntry((Class) Four.class, new Impl(4)),
+              immutableEntry((Class) Five.class, new Impl(5)));
     }
 
     @Override

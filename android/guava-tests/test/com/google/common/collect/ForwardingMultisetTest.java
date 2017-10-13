@@ -43,7 +43,7 @@ import junit.framework.TestSuite;
 public class ForwardingMultisetTest extends TestCase {
 
   static final class StandardImplForwardingMultiset<T>
-      extends ForwardingMultiset<T> {
+    extends ForwardingMultiset<T> {
     private final Multiset<T> backingCollection;
 
     StandardImplForwardingMultiset(Multiset<T> backingMultiset) {
@@ -141,32 +141,32 @@ public class ForwardingMultisetTest extends TestCase {
     suite.addTestSuite(ForwardingMultisetTest.class);
     suite.addTest(
         MultisetTestSuiteBuilder.using(
-                new TestStringMultisetGenerator() {
+    new TestStringMultisetGenerator() {
 
-                  @Override
-                  protected Multiset<String> create(String[] elements) {
-                    return new StandardImplForwardingMultiset<>(
-                        LinkedHashMultiset.create(Arrays.asList(elements)));
-                  }
-                })
-            .named("ForwardingMultiset[LinkedHashMultiset] with standard " + "implementations")
-            .withFeatures(
-                CollectionSize.ANY,
-                CollectionFeature.ALLOWS_NULL_VALUES,
-                CollectionFeature.GENERAL_PURPOSE)
-            .createTestSuite());
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        return new StandardImplForwardingMultiset<>(
+                LinkedHashMultiset.create(Arrays.asList(elements)));
+      }
+    })
+    .named("ForwardingMultiset[LinkedHashMultiset] with standard " + "implementations")
+    .withFeatures(
+        CollectionSize.ANY,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.GENERAL_PURPOSE)
+    .createTestSuite());
     suite.addTest(
         MultisetTestSuiteBuilder.using(
-                new TestStringMultisetGenerator() {
+    new TestStringMultisetGenerator() {
 
-                  @Override
-                  protected Multiset<String> create(String[] elements) {
-                    return new StandardImplForwardingMultiset<>(ImmutableMultiset.copyOf(elements));
-                  }
-                })
-            .named("ForwardingMultiset[ImmutableMultiset] with standard " + "implementations")
-            .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
-            .createTestSuite());
+      @Override
+      protected Multiset<String> create(String[] elements) {
+        return new StandardImplForwardingMultiset<>(ImmutableMultiset.copyOf(elements));
+      }
+    })
+    .named("ForwardingMultiset[ImmutableMultiset] with standard " + "implementations")
+    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
+    .createTestSuite());
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
 
       /**
@@ -257,7 +257,7 @@ public class ForwardingMultisetTest extends TestCase {
           @Override public int size() {
             throw new UnsupportedOperationException();
           }
-        }.elementSet();
+        } .elementSet();
       }
     }).named("standardElementSet tripwire").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
@@ -269,20 +269,20 @@ public class ForwardingMultisetTest extends TestCase {
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void testForwarding() {
     new ForwardingWrapperTester()
-        .testForwarding(Multiset.class, new Function<Multiset, Multiset>() {
-          @Override public Multiset apply(Multiset delegate) {
-            return wrap(delegate);
-          }
-        });
+    .testForwarding(Multiset.class, new Function<Multiset, Multiset>() {
+      @Override public Multiset apply(Multiset delegate) {
+        return wrap(delegate);
+      }
+    });
   }
 
   public void testEquals() {
     Multiset<String> set1 = ImmutableMultiset.of("one");
     Multiset<String> set2 = ImmutableMultiset.of("two");
     new EqualsTester()
-        .addEqualityGroup(set1, wrap(set1), wrap(set1))
-        .addEqualityGroup(set2, wrap(set2))
-        .testEquals();
+    .addEqualityGroup(set1, wrap(set1), wrap(set1))
+    .addEqualityGroup(set2, wrap(set2))
+    .testEquals();
   }
 
   private static <T> Multiset<T> wrap(final Multiset<T> delegate) {

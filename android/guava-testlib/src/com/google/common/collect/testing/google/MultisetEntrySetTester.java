@@ -92,8 +92,8 @@ public class MultisetEntrySetTester<E> extends AbstractMultisetTester<E> {
     assertTrue(
         "multiset.entrySet.removeAll(presentEntry) returned false",
         getMultiset()
-            .entrySet()
-            .removeAll(Collections.singleton(Multisets.immutableEntry(e0(), 1))));
+        .entrySet()
+        .removeAll(Collections.singleton(Multisets.immutableEntry(e0(), 1))));
     assertFalse("multiset contains element after removing its entry", getMultiset().contains(e0()));
   }
 
@@ -103,8 +103,8 @@ public class MultisetEntrySetTester<E> extends AbstractMultisetTester<E> {
     assertFalse(
         "multiset.entrySet.remove(missingEntry) returned true",
         getMultiset()
-            .entrySet()
-            .removeAll(Collections.singleton(Multisets.immutableEntry(e0(), 2))));
+        .entrySet()
+        .removeAll(Collections.singleton(Multisets.immutableEntry(e0(), 2))));
     assertTrue(
         "multiset didn't contain element after removing a missing entry",
         getMultiset().contains(e0()));
@@ -116,8 +116,8 @@ public class MultisetEntrySetTester<E> extends AbstractMultisetTester<E> {
     assertFalse(
         "multiset.entrySet.retainAll(presentEntry) returned false",
         getMultiset()
-            .entrySet()
-            .retainAll(Collections.singleton(Multisets.immutableEntry(e0(), 1))));
+        .entrySet()
+        .retainAll(Collections.singleton(Multisets.immutableEntry(e0(), 1))));
     assertTrue(
         "multiset doesn't contains element after retaining its entry",
         getMultiset().contains(e0()));
@@ -129,8 +129,8 @@ public class MultisetEntrySetTester<E> extends AbstractMultisetTester<E> {
     assertTrue(
         "multiset.entrySet.retainAll(missingEntry) returned true",
         getMultiset()
-            .entrySet()
-            .retainAll(Collections.singleton(Multisets.immutableEntry(e0(), 2))));
+        .entrySet()
+        .retainAll(Collections.singleton(Multisets.immutableEntry(e0(), 2))));
     assertFalse(
         "multiset contains element after retaining a different entry",
         getMultiset().contains(e0()));

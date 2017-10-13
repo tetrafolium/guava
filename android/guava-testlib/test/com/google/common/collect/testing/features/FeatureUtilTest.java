@@ -55,12 +55,12 @@ public class FeatureUtilTest extends TestCase {
     @Inherited
     @TesterAnnotation
     @interface Require {
-      ExampleBaseFeature[] value() default {};
-      ExampleBaseFeature[] absent() default {};
+    ExampleBaseFeature[] value() default {};
+    ExampleBaseFeature[] absent() default {};
     }
   }
 
-  enum ExampleDerivedFeature implements Feature<ExampleDerivedInterface>{
+  enum ExampleDerivedFeature implements Feature<ExampleDerivedInterface> {
     DERIVED_FEATURE_1,
     DERIVED_FEATURE_2(ExampleBaseFeature.BASE_FEATURE_1),
     DERIVED_FEATURE_3,
@@ -86,8 +86,8 @@ public class FeatureUtilTest extends TestCase {
     @Inherited
     @TesterAnnotation
     @interface Require {
-      ExampleDerivedFeature[] value() default {};
-      ExampleDerivedFeature[] absent() default {};
+    ExampleDerivedFeature[] value() default {};
+    ExampleDerivedFeature[] absent() default {};
     }
   }
 
@@ -109,8 +109,9 @@ public class FeatureUtilTest extends TestCase {
     // Exists to test that our framework doesn't run it:
     @SuppressWarnings("unused")
     @ExampleDerivedFeature.Require({
-        ExampleDerivedFeature.DERIVED_FEATURE_1,
-        ExampleDerivedFeature.DERIVED_FEATURE_2})
+      ExampleDerivedFeature.DERIVED_FEATURE_1,
+      ExampleDerivedFeature.DERIVED_FEATURE_2
+    })
     public void testRequiringTwoExplicitDerivedFeatures() throws Exception {
       doNotActuallyRunThis();
     }
@@ -118,8 +119,9 @@ public class FeatureUtilTest extends TestCase {
     // Exists to test that our framework doesn't run it:
     @SuppressWarnings("unused")
     @ExampleDerivedFeature.Require({
-        ExampleDerivedFeature.DERIVED_FEATURE_1,
-        ExampleDerivedFeature.DERIVED_FEATURE_3})
+      ExampleDerivedFeature.DERIVED_FEATURE_1,
+      ExampleDerivedFeature.DERIVED_FEATURE_3
+    })
     public void testRequiringAllThreeDerivedFeatures() {
       doNotActuallyRunThis();
     }
@@ -135,7 +137,7 @@ public class FeatureUtilTest extends TestCase {
   @ExampleDerivedFeature.Require(
       absent = {ExampleDerivedFeature.DERIVED_FEATURE_2})
   private static class ExampleDerivedInterfaceTester_Conflict
-      extends ExampleBaseInterfaceTester {
+    extends ExampleBaseInterfaceTester {
   }
 
   public void testTestFeatureEnums() throws Exception {
@@ -148,7 +150,7 @@ public class FeatureUtilTest extends TestCase {
 
   public void testAddImpliedFeatures_returnsSameSetInstance() throws Exception {
     Set<Feature<?>> features = Sets.<Feature<?>>newHashSet(
-        ExampleBaseFeature.BASE_FEATURE_1);
+            ExampleBaseFeature.BASE_FEATURE_1);
     assertSame(features, FeatureUtil.addImpliedFeatures(features));
   }
 
@@ -156,9 +158,9 @@ public class FeatureUtilTest extends TestCase {
     Set<Feature<?>> features;
 
     features = Sets.<Feature<?>>newHashSet(
-        ExampleDerivedFeature.DERIVED_FEATURE_1);
+            ExampleDerivedFeature.DERIVED_FEATURE_1);
     assertThat(FeatureUtil.addImpliedFeatures(features))
-        .contains(ExampleDerivedFeature.DERIVED_FEATURE_1);
+    .contains(ExampleDerivedFeature.DERIVED_FEATURE_1);
 
     features = Sets.<Feature<?>>newHashSet(ExampleDerivedFeature.DERIVED_FEATURE_2);
     assertThat(FeatureUtil.addImpliedFeatures(features)).containsExactly(
@@ -166,7 +168,7 @@ public class FeatureUtilTest extends TestCase {
         ExampleBaseFeature.BASE_FEATURE_1);
 
     features = Sets.<Feature<?>>newHashSet(
-        ExampleDerivedFeature.COMPOUND_DERIVED_FEATURE);
+            ExampleDerivedFeature.COMPOUND_DERIVED_FEATURE);
     assertThat(FeatureUtil.addImpliedFeatures(features)).containsExactly(
         ExampleDerivedFeature.COMPOUND_DERIVED_FEATURE,
         ExampleDerivedFeature.DERIVED_FEATURE_1,
@@ -177,7 +179,7 @@ public class FeatureUtilTest extends TestCase {
 
   public void testImpliedFeatures_returnsNewSetInstance() throws Exception {
     Set<Feature<?>> features = Sets.<Feature<?>>newHashSet(
-        ExampleBaseFeature.BASE_FEATURE_1);
+            ExampleBaseFeature.BASE_FEATURE_1);
     assertNotSame(features, FeatureUtil.impliedFeatures(features));
   }
 
@@ -185,11 +187,11 @@ public class FeatureUtilTest extends TestCase {
     Set<Feature<?>> features;
 
     features = Sets.<Feature<?>>newHashSet(
-        ExampleDerivedFeature.DERIVED_FEATURE_1);
+            ExampleDerivedFeature.DERIVED_FEATURE_1);
     assertTrue(FeatureUtil.impliedFeatures(features).isEmpty());
 
     features = Sets.<Feature<?>>newHashSet(
-        ExampleDerivedFeature.DERIVED_FEATURE_2);
+            ExampleDerivedFeature.DERIVED_FEATURE_2);
     assertThat(FeatureUtil.impliedFeatures(features)).contains(ExampleBaseFeature.BASE_FEATURE_1);
 
     features = Sets.<Feature<?>>newHashSet(ExampleDerivedFeature.COMPOUND_DERIVED_FEATURE);
@@ -220,8 +222,8 @@ public class FeatureUtilTest extends TestCase {
   @AndroidIncompatible // Android runs ExampleDerivedInterfaceTester directly if it exists
   public void testBuildTesterRequirements_method() throws Exception {
     assertEquals(FeatureUtil.buildTesterRequirements(
-        ExampleDerivedInterfaceTester.class.getMethod(
-            "testRequiringTwoExplicitDerivedFeatures")),
+            ExampleDerivedInterfaceTester.class.getMethod(
+                "testRequiringTwoExplicitDerivedFeatures")),
         new TesterRequirements(
             Sets.<Feature<?>>newHashSet(
                 ExampleBaseFeature.BASE_FEATURE_1,
@@ -229,8 +231,8 @@ public class FeatureUtilTest extends TestCase {
                 ExampleDerivedFeature.DERIVED_FEATURE_2),
             Collections.<Feature<?>>emptySet()));
     assertEquals(FeatureUtil.buildTesterRequirements(
-        ExampleDerivedInterfaceTester.class.getMethod(
-            "testRequiringAllThreeDerivedFeatures")),
+            ExampleDerivedInterfaceTester.class.getMethod(
+                "testRequiringAllThreeDerivedFeatures")),
         new TesterRequirements(
             Sets.<Feature<?>>newHashSet(
                 ExampleBaseFeature.BASE_FEATURE_1,
@@ -268,12 +270,12 @@ public class FeatureUtilTest extends TestCase {
   @AndroidIncompatible // Android runs ExampleDerivedInterfaceTester directly if it exists
   public void testBuildDeclaredTesterRequirements() throws Exception {
     assertEquals(FeatureUtil.buildDeclaredTesterRequirements(
-        ExampleDerivedInterfaceTester.class
+            ExampleDerivedInterfaceTester.class
             .getMethod("testRequiringTwoExplicitDerivedFeatures")),
         new TesterRequirements(FeatureUtil.addImpliedFeatures(
-            Sets.<Feature<?>>newHashSet(
-                ExampleDerivedFeature.DERIVED_FEATURE_1,
-                ExampleDerivedFeature.DERIVED_FEATURE_2)),
+                Sets.<Feature<?>>newHashSet(
+                    ExampleDerivedFeature.DERIVED_FEATURE_1,
+                    ExampleDerivedFeature.DERIVED_FEATURE_2)),
             Collections.<Feature<?>>emptySet()));
   }
 

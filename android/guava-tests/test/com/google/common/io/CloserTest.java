@@ -222,7 +222,7 @@ public class CloserTest extends TestCase {
   }
 
   public void testCloseExceptionsSuppressed_whenExceptionThrownClosingFirstCloseable()
-      throws IOException {
+  throws IOException {
     Closer closer = new Closer(suppressor);
 
     IOException c1Exception = new IOException();

@@ -44,231 +44,231 @@ public class TreeRangeMapTest extends TestCase {
     suite.addTestSuite(TreeRangeMapTest.class);
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestMapGenerator<Range<Integer>, String>() {
-                  @Override
-                  public SampleElements<Entry<Range<Integer>, String>> samples() {
-                    return new SampleElements<>(
-                        mapEntry(Range.singleton(0), "banana"),
-                        mapEntry(Range.closedOpen(3, 5), "frisbee"),
-                        mapEntry(Range.atMost(-1), "fruitcake"),
-                        mapEntry(Range.open(10, 15), "elephant"),
-                        mapEntry(Range.closed(20, 22), "umbrella"));
-                  }
+    new TestMapGenerator<Range<Integer>, String>() {
+      @Override
+      public SampleElements<Entry<Range<Integer>, String>> samples() {
+        return new SampleElements<>(
+                mapEntry(Range.singleton(0), "banana"),
+                mapEntry(Range.closedOpen(3, 5), "frisbee"),
+                mapEntry(Range.atMost(-1), "fruitcake"),
+                mapEntry(Range.open(10, 15), "elephant"),
+                mapEntry(Range.closed(20, 22), "umbrella"));
+      }
 
-                  @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
-                    RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
-                    for (Object o : elements) {
-                      @SuppressWarnings("unchecked")
-                      Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
-                      rangeMap.put(entry.getKey(), entry.getValue());
-                    }
-                    return rangeMap.asMapOfRanges();
-                  }
+      @Override
+      public Map<Range<Integer>, String> create(Object... elements) {
+        RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
+        for (Object o : elements) {
+          @SuppressWarnings("unchecked")
+          Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
+          rangeMap.put(entry.getKey(), entry.getValue());
+        }
+        return rangeMap.asMapOfRanges();
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
-                    return new Entry[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Entry<Range<Integer>, String>[] createArray(int length) {
+        return new Entry[length];
+      }
 
-                  @Override
-                  public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
-                    return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
-                  }
+      @Override
+      public Iterable<Entry<Range<Integer>, String>> order(
+          List<Entry<Range<Integer>, String>> insertionOrder) {
+        return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Range<Integer>[] createKeyArray(int length) {
-                    return new Range[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Range<Integer>[] createKeyArray(int length) {
+        return new Range[length];
+      }
 
-                  @Override
-                  public String[] createValueArray(int length) {
-                    return new String[length];
-                  }
-                })
-            .named("TreeRangeMap.asMapOfRanges")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.SUPPORTS_REMOVE,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-            .createTestSuite());
-
-    suite.addTest(
-        MapTestSuiteBuilder.using(
-                new TestMapGenerator<Range<Integer>, String>() {
-                  @Override
-                  public SampleElements<Entry<Range<Integer>, String>> samples() {
-                    return new SampleElements<>(
-                        mapEntry(Range.singleton(0), "banana"),
-                        mapEntry(Range.closedOpen(3, 5), "frisbee"),
-                        mapEntry(Range.atMost(-1), "fruitcake"),
-                        mapEntry(Range.open(10, 15), "elephant"),
-                        mapEntry(Range.closed(20, 22), "umbrella"));
-                  }
-
-                  @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
-                    RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
-                    for (Object o : elements) {
-                      @SuppressWarnings("unchecked")
-                      Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
-                      rangeMap.put(entry.getKey(), entry.getValue());
-                    }
-                    return rangeMap.subRangeMap(Range.atMost(22)).asMapOfRanges();
-                  }
-
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
-                    return new Entry[length];
-                  }
-
-                  @Override
-                  public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
-                    return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
-                  }
-
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Range<Integer>[] createKeyArray(int length) {
-                    return new Range[length];
-                  }
-
-                  @Override
-                  public String[] createValueArray(int length) {
-                    return new String[length];
-                  }
-                })
-            .named("TreeRangeMap.subRangeMap.asMapOfRanges")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.SUPPORTS_REMOVE,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.KNOWN_ORDER)
-            .createTestSuite());
+      @Override
+      public String[] createValueArray(int length) {
+        return new String[length];
+      }
+    })
+    .named("TreeRangeMap.asMapOfRanges")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+    .createTestSuite());
 
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestMapGenerator<Range<Integer>, String>() {
-                  @Override
-                  public SampleElements<Entry<Range<Integer>, String>> samples() {
-                    return new SampleElements<>(
-                        mapEntry(Range.singleton(0), "banana"),
-                        mapEntry(Range.closedOpen(3, 5), "frisbee"),
-                        mapEntry(Range.atMost(-1), "fruitcake"),
-                        mapEntry(Range.open(10, 15), "elephant"),
-                        mapEntry(Range.closed(20, 22), "umbrella"));
-                  }
+    new TestMapGenerator<Range<Integer>, String>() {
+      @Override
+      public SampleElements<Entry<Range<Integer>, String>> samples() {
+        return new SampleElements<>(
+                mapEntry(Range.singleton(0), "banana"),
+                mapEntry(Range.closedOpen(3, 5), "frisbee"),
+                mapEntry(Range.atMost(-1), "fruitcake"),
+                mapEntry(Range.open(10, 15), "elephant"),
+                mapEntry(Range.closed(20, 22), "umbrella"));
+      }
 
-                  @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
-                    RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
-                    for (Object o : elements) {
-                      @SuppressWarnings("unchecked")
-                      Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
-                      rangeMap.put(entry.getKey(), entry.getValue());
-                    }
-                    return rangeMap.asDescendingMapOfRanges();
-                  }
+      @Override
+      public Map<Range<Integer>, String> create(Object... elements) {
+        RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
+        for (Object o : elements) {
+          @SuppressWarnings("unchecked")
+          Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
+          rangeMap.put(entry.getKey(), entry.getValue());
+        }
+        return rangeMap.subRangeMap(Range.atMost(22)).asMapOfRanges();
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
-                    return new Entry[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Entry<Range<Integer>, String>[] createArray(int length) {
+        return new Entry[length];
+      }
 
-                  @Override
-                  public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
-                    return Range.<Integer>rangeLexOrdering()
-                        .reverse()
-                        .onKeys()
-                        .sortedCopy(insertionOrder);
-                  }
+      @Override
+      public Iterable<Entry<Range<Integer>, String>> order(
+          List<Entry<Range<Integer>, String>> insertionOrder) {
+        return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Range<Integer>[] createKeyArray(int length) {
-                    return new Range[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Range<Integer>[] createKeyArray(int length) {
+        return new Range[length];
+      }
 
-                  @Override
-                  public String[] createValueArray(int length) {
-                    return new String[length];
-                  }
-                })
-            .named("TreeRangeMap.asDescendingMapOfRanges")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.SUPPORTS_REMOVE,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.KNOWN_ORDER,
-                CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-            .createTestSuite());
+      @Override
+      public String[] createValueArray(int length) {
+        return new String[length];
+      }
+    })
+    .named("TreeRangeMap.subRangeMap.asMapOfRanges")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.KNOWN_ORDER)
+    .createTestSuite());
 
     suite.addTest(
         MapTestSuiteBuilder.using(
-                new TestMapGenerator<Range<Integer>, String>() {
-                  @Override
-                  public SampleElements<Entry<Range<Integer>, String>> samples() {
-                    return new SampleElements<>(
-                        mapEntry(Range.singleton(0), "banana"),
-                        mapEntry(Range.closedOpen(3, 5), "frisbee"),
-                        mapEntry(Range.atMost(-1), "fruitcake"),
-                        mapEntry(Range.open(10, 15), "elephant"),
-                        mapEntry(Range.closed(20, 22), "umbrella"));
-                  }
+    new TestMapGenerator<Range<Integer>, String>() {
+      @Override
+      public SampleElements<Entry<Range<Integer>, String>> samples() {
+        return new SampleElements<>(
+                mapEntry(Range.singleton(0), "banana"),
+                mapEntry(Range.closedOpen(3, 5), "frisbee"),
+                mapEntry(Range.atMost(-1), "fruitcake"),
+                mapEntry(Range.open(10, 15), "elephant"),
+                mapEntry(Range.closed(20, 22), "umbrella"));
+      }
 
-                  @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
-                    RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
-                    for (Object o : elements) {
-                      @SuppressWarnings("unchecked")
-                      Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
-                      rangeMap.put(entry.getKey(), entry.getValue());
-                    }
-                    return rangeMap.subRangeMap(Range.atMost(22)).asDescendingMapOfRanges();
-                  }
+      @Override
+      public Map<Range<Integer>, String> create(Object... elements) {
+        RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
+        for (Object o : elements) {
+          @SuppressWarnings("unchecked")
+          Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
+          rangeMap.put(entry.getKey(), entry.getValue());
+        }
+        return rangeMap.asDescendingMapOfRanges();
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
-                    return new Entry[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Entry<Range<Integer>, String>[] createArray(int length) {
+        return new Entry[length];
+      }
 
-                  @Override
-                  public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
-                    return Range.<Integer>rangeLexOrdering()
-                        .reverse()
-                        .onKeys()
-                        .sortedCopy(insertionOrder);
-                  }
+      @Override
+      public Iterable<Entry<Range<Integer>, String>> order(
+          List<Entry<Range<Integer>, String>> insertionOrder) {
+        return Range.<Integer>rangeLexOrdering()
+            .reverse()
+            .onKeys()
+            .sortedCopy(insertionOrder);
+      }
 
-                  @SuppressWarnings("unchecked")
-                  @Override
-                  public Range<Integer>[] createKeyArray(int length) {
-                    return new Range[length];
-                  }
+      @SuppressWarnings("unchecked")
+      @Override
+      public Range<Integer>[] createKeyArray(int length) {
+        return new Range[length];
+      }
 
-                  @Override
-                  public String[] createValueArray(int length) {
-                    return new String[length];
-                  }
-                })
-            .named("TreeRangeMap.subRangeMap.asDescendingMapOfRanges")
-            .withFeatures(
-                CollectionSize.ANY,
-                MapFeature.SUPPORTS_REMOVE,
-                MapFeature.ALLOWS_ANY_NULL_QUERIES,
-                CollectionFeature.KNOWN_ORDER)
-            .createTestSuite());
+      @Override
+      public String[] createValueArray(int length) {
+        return new String[length];
+      }
+    })
+    .named("TreeRangeMap.asDescendingMapOfRanges")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+    .createTestSuite());
+
+    suite.addTest(
+        MapTestSuiteBuilder.using(
+    new TestMapGenerator<Range<Integer>, String>() {
+      @Override
+      public SampleElements<Entry<Range<Integer>, String>> samples() {
+        return new SampleElements<>(
+                mapEntry(Range.singleton(0), "banana"),
+                mapEntry(Range.closedOpen(3, 5), "frisbee"),
+                mapEntry(Range.atMost(-1), "fruitcake"),
+                mapEntry(Range.open(10, 15), "elephant"),
+                mapEntry(Range.closed(20, 22), "umbrella"));
+      }
+
+      @Override
+      public Map<Range<Integer>, String> create(Object... elements) {
+        RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
+        for (Object o : elements) {
+          @SuppressWarnings("unchecked")
+          Entry<Range<Integer>, String> entry = (Entry<Range<Integer>, String>) o;
+          rangeMap.put(entry.getKey(), entry.getValue());
+        }
+        return rangeMap.subRangeMap(Range.atMost(22)).asDescendingMapOfRanges();
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public Entry<Range<Integer>, String>[] createArray(int length) {
+        return new Entry[length];
+      }
+
+      @Override
+      public Iterable<Entry<Range<Integer>, String>> order(
+          List<Entry<Range<Integer>, String>> insertionOrder) {
+        return Range.<Integer>rangeLexOrdering()
+            .reverse()
+            .onKeys()
+            .sortedCopy(insertionOrder);
+      }
+
+      @SuppressWarnings("unchecked")
+      @Override
+      public Range<Integer>[] createKeyArray(int length) {
+        return new Range[length];
+      }
+
+      @Override
+      public String[] createValueArray(int length) {
+        return new String[length];
+      }
+    })
+    .named("TreeRangeMap.subRangeMap.asDescendingMapOfRanges")
+    .withFeatures(
+        CollectionSize.ANY,
+        MapFeature.SUPPORTS_REMOVE,
+        MapFeature.ALLOWS_ANY_NULL_QUERIES,
+        CollectionFeature.KNOWN_ORDER)
+    .createTestSuite());
     return suite;
   }
 
@@ -512,15 +512,15 @@ public class TreeRangeMapTest extends TestCase {
     //  [9..14): 0, [14..15): 2, [17..20): 3, [22..25): 4}
     assertEquals(
         new ImmutableMap.Builder<>()
-            .put(Range.closedOpen(-6, -4), 0)
-            .put(Range.closedOpen(0, 1), 1) // not coalesced
-            .put(Range.closedOpen(1, 5), 1)
-            .put(Range.closedOpen(7, 9), 2)
-            .put(Range.closedOpen(9, 14), 0)
-            .put(Range.closedOpen(14, 15), 2)
-            .put(Range.closedOpen(17, 20), 3)
-            .put(Range.closedOpen(22, 25), 4)
-            .build(),
+        .put(Range.closedOpen(-6, -4), 0)
+        .put(Range.closedOpen(0, 1), 1) // not coalesced
+        .put(Range.closedOpen(1, 5), 1)
+        .put(Range.closedOpen(7, 9), 2)
+        .put(Range.closedOpen(9, 14), 0)
+        .put(Range.closedOpen(14, 15), 2)
+        .put(Range.closedOpen(17, 20), 3)
+        .put(Range.closedOpen(22, 25), 4)
+        .build(),
         rangeMap.asMapOfRanges());
   }
 

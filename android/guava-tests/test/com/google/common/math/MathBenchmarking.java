@@ -40,10 +40,11 @@ final class MathBenchmarking {
    * binomial(biggestBinomials[k], k) fits in a long, but not
    * binomial(biggestBinomials[k] + 1, k).
    */
-  static final int[] biggestBinomials =
-      {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 3810779, 121977, 16175, 4337, 1733,
-          887, 534, 361, 265, 206, 169, 143, 125, 111, 101, 94, 88, 83, 79, 76, 74, 72, 70, 69, 68,
-          67, 67, 66, 66, 66, 66};
+  static final int[] biggestBinomials = {
+    Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 3810779, 121977, 16175, 4337, 1733,
+    887, 534, 361, 265, 206, 169, 143, 125, 111, 101, 94, 88, 83, 79, 76, 74, 72, 70, 69, 68,
+    67, 67, 66, 66, 66, 66
+  };
 
   /**
    * Generates values in a distribution equivalent to randomNonNegativeBigInteger

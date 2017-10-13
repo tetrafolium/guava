@@ -126,7 +126,7 @@ public final class Multisets {
           // Safe because the returned set is made unmodifiable and Entry
           // itself is readonly
           ? entrySet = (Set) Collections.unmodifiableSet(delegate.entrySet())
-          : es;
+              : es;
     }
 
     @Override
@@ -307,13 +307,13 @@ public final class Multisets {
     @Override
     Set<Entry<E>> createEntrySet() {
       return Sets.filter(
-          unfiltered.entrySet(),
-          new Predicate<Entry<E>>() {
-            @Override
-            public boolean apply(Entry<E> entry) {
-              return predicate.apply(entry.getElement());
-            }
-          });
+              unfiltered.entrySet(),
+      new Predicate<Entry<E>>() {
+        @Override
+        public boolean apply(Entry<E> entry) {
+          return predicate.apply(entry.getElement());
+        }
+      });
     }
 
     @Override
@@ -890,8 +890,8 @@ public final class Multisets {
   static boolean removeAllImpl(Multiset<?> self, Collection<?> elementsToRemove) {
     Collection<?> collection =
         (elementsToRemove instanceof Multiset)
-            ? ((Multiset<?>) elementsToRemove).elementSet()
-            : elementsToRemove;
+        ? ((Multiset<?>) elementsToRemove).elementSet()
+        : elementsToRemove;
 
     return self.elementSet().removeAll(collection);
   }
@@ -903,8 +903,8 @@ public final class Multisets {
     checkNotNull(elementsToRetain);
     Collection<?> collection =
         (elementsToRetain instanceof Multiset)
-            ? ((Multiset<?>) elementsToRetain).elementSet()
-            : elementsToRetain;
+        ? ((Multiset<?>) elementsToRetain).elementSet()
+        : elementsToRetain;
 
     return self.elementSet().retainAll(collection);
   }

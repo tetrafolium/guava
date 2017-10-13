@@ -36,7 +36,7 @@ import junit.framework.TestSuite;
 public class CharSinkTester extends SourceSinkTester<CharSink, String, CharSinkFactory> {
 
   private static final ImmutableList<Method> testMethods
-      = getTestMethods(CharSinkTester.class);
+    = getTestMethods(CharSinkTester.class);
 
   static TestSuite tests(String name, CharSinkFactory factory) {
     TestSuite suite = new TestSuite(name);

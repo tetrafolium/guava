@@ -484,14 +484,14 @@ class CacheTesting {
     assertThat(collection.toArray(new Object[0])).isEmpty();
     if (collection instanceof Set) {
       new EqualsTester()
-          .addEqualityGroup(ImmutableSet.of(), collection)
-          .addEqualityGroup(ImmutableSet.of(""))
-          .testEquals();
+      .addEqualityGroup(ImmutableSet.of(), collection)
+      .addEqualityGroup(ImmutableSet.of(""))
+      .testEquals();
     } else if (collection instanceof List) {
       new EqualsTester()
-          .addEqualityGroup(ImmutableList.of(), collection)
-          .addEqualityGroup(ImmutableList.of(""))
-          .testEquals();
+      .addEqualityGroup(ImmutableList.of(), collection)
+      .addEqualityGroup(ImmutableList.of(""))
+      .testEquals();
     }
   }
 }

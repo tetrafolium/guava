@@ -52,23 +52,23 @@ public final class GraphEquivalenceTest {
 
   private static MutableGraph<Integer> createGraph(EdgeType edgeType) {
     switch (edgeType) {
-      case UNDIRECTED:
-        return GraphBuilder.undirected().allowsSelfLoops(true).build();
-      case DIRECTED:
-        return GraphBuilder.directed().allowsSelfLoops(true).build();
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      return GraphBuilder.undirected().allowsSelfLoops(true).build();
+    case DIRECTED:
+      return GraphBuilder.directed().allowsSelfLoops(true).build();
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 
   private static EdgeType oppositeType(EdgeType edgeType) {
     switch (edgeType) {
-      case UNDIRECTED:
-        return EdgeType.DIRECTED;
-      case DIRECTED:
-        return EdgeType.UNDIRECTED;
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      return EdgeType.DIRECTED;
+    case DIRECTED:
+      return EdgeType.UNDIRECTED;
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 
@@ -144,14 +144,14 @@ public final class GraphEquivalenceTest {
     g2.putEdge(N2, N1);
 
     switch (edgeType) {
-      case UNDIRECTED:
-        assertThat(graph).isEqualTo(g2);
-        break;
-      case DIRECTED:
-        assertThat(graph).isNotEqualTo(g2);
-        break;
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      assertThat(graph).isEqualTo(g2);
+      break;
+    case DIRECTED:
+      assertThat(graph).isNotEqualTo(g2);
+      break;
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 }

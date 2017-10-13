@@ -41,13 +41,13 @@ public class ShortsTest extends TestCase {
   private static final short[] EMPTY = {};
   private static final short[] ARRAY1 = {(short) 1};
   private static final short[] ARRAY234
-      = {(short) 2, (short) 3, (short) 4};
+    = {(short) 2, (short) 3, (short) 4};
 
   private static final short LEAST = Short.MIN_VALUE;
   private static final short GREATEST = Short.MAX_VALUE;
 
   private static final short[] VALUES =
-      { LEAST, (short) -1, (short) 0, (short) 1, GREATEST };
+  { LEAST, (short) -1, (short) 0, (short) 1, GREATEST };
 
   public void testHashCode() {
     for (short value : VALUES) {
@@ -119,13 +119,13 @@ public class ShortsTest extends TestCase {
     assertEquals(-1, Shorts.indexOf(ARRAY1, (short) 2));
     assertEquals(-1, Shorts.indexOf(ARRAY234, (short) 1));
     assertEquals(0, Shorts.indexOf(
-        new short[] {(short) -1}, (short) -1));
+            new short[] {(short) -1}, (short) -1));
     assertEquals(0, Shorts.indexOf(ARRAY234, (short) 2));
     assertEquals(1, Shorts.indexOf(ARRAY234, (short) 3));
     assertEquals(2, Shorts.indexOf(ARRAY234, (short) 4));
     assertEquals(1, Shorts.indexOf(
-        new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
-        (short) 3));
+            new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
+            (short) 3));
   }
 
   public void testIndexOf_arrayTarget() {
@@ -137,29 +137,32 @@ public class ShortsTest extends TestCase {
     assertEquals(0, Shorts.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Shorts.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Shorts.indexOf(
-        ARRAY234, new short[] { (short) 2, (short) 3 }));
+            ARRAY234, new short[] { (short) 2, (short) 3 }));
     assertEquals(1, Shorts.indexOf(
-        ARRAY234, new short[] { (short) 3, (short) 4 }));
+            ARRAY234, new short[] { (short) 3, (short) 4 }));
     assertEquals(1, Shorts.indexOf(ARRAY234, new short[] { (short) 3 }));
     assertEquals(2, Shorts.indexOf(ARRAY234, new short[] { (short) 4 }));
     assertEquals(1, Shorts.indexOf(new short[] { (short) 2, (short) 3,
-        (short) 3, (short) 3, (short) 3 },
-        new short[] { (short) 3 }
-    ));
+                (short) 3, (short) 3, (short) 3
+            },
+            new short[] { (short) 3 }
+        ));
     assertEquals(2, Shorts.indexOf(
-        new short[] { (short) 2, (short) 3, (short) 2,
-            (short) 3, (short) 4, (short) 2, (short) 3},
-        new short[] { (short) 2, (short) 3, (short) 4}
-    ));
+            new short[] { (short) 2, (short) 3, (short) 2,
+                (short) 3, (short) 4, (short) 2, (short) 3
+            },
+            new short[] { (short) 2, (short) 3, (short) 4}
+        ));
     assertEquals(1, Shorts.indexOf(
-        new short[] { (short) 2, (short) 2, (short) 3,
-            (short) 4, (short) 2, (short) 3, (short) 4},
-        new short[] { (short) 2, (short) 3, (short) 4}
-    ));
+            new short[] { (short) 2, (short) 2, (short) 3,
+                (short) 4, (short) 2, (short) 3, (short) 4
+            },
+            new short[] { (short) 2, (short) 3, (short) 4}
+        ));
     assertEquals(-1, Shorts.indexOf(
-        new short[] { (short) 4, (short) 3, (short) 2},
-        new short[] { (short) 2, (short) 3, (short) 4}
-    ));
+            new short[] { (short) 4, (short) 3, (short) 2},
+            new short[] { (short) 2, (short) 3, (short) 4}
+        ));
   }
 
   public void testLastIndexOf() {
@@ -167,13 +170,13 @@ public class ShortsTest extends TestCase {
     assertEquals(-1, Shorts.lastIndexOf(ARRAY1, (short) 2));
     assertEquals(-1, Shorts.lastIndexOf(ARRAY234, (short) 1));
     assertEquals(0, Shorts.lastIndexOf(
-        new short[] {(short) -1}, (short) -1));
+            new short[] {(short) -1}, (short) -1));
     assertEquals(0, Shorts.lastIndexOf(ARRAY234, (short) 2));
     assertEquals(1, Shorts.lastIndexOf(ARRAY234, (short) 3));
     assertEquals(2, Shorts.lastIndexOf(ARRAY234, (short) 4));
     assertEquals(3, Shorts.lastIndexOf(
-        new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
-        (short) 3));
+            new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
+            (short) 3));
   }
 
   public void testMax_noArgs() {
@@ -188,8 +191,8 @@ public class ShortsTest extends TestCase {
     assertEquals(LEAST, Shorts.max(LEAST));
     assertEquals(GREATEST, Shorts.max(GREATEST));
     assertEquals((short) 9, Shorts.max(
-        (short) 8, (short) 6, (short) 7,
-        (short) 5, (short) 3, (short) 0, (short) 9));
+            (short) 8, (short) 6, (short) 7,
+            (short) 5, (short) 3, (short) 0, (short) 9));
   }
 
   public void testMin_noArgs() {
@@ -204,8 +207,8 @@ public class ShortsTest extends TestCase {
     assertEquals(LEAST, Shorts.min(LEAST));
     assertEquals(GREATEST, Shorts.min(GREATEST));
     assertEquals((short) 0, Shorts.min(
-        (short) 8, (short) 6, (short) 7,
-        (short) 5, (short) 3, (short) 0, (short) 9));
+            (short) 8, (short) 6, (short) 7,
+            (short) 5, (short) 3, (short) 0, (short) 9));
   }
 
   public void testConstrainToRange() {
@@ -229,20 +232,20 @@ public class ShortsTest extends TestCase {
     assertNotSame(ARRAY1, Shorts.concat(ARRAY1));
     assertTrue(Arrays.equals(ARRAY1, Shorts.concat(EMPTY, ARRAY1, EMPTY)));
     assertTrue(Arrays.equals(
-        new short[] {(short) 1, (short) 1, (short) 1},
-        Shorts.concat(ARRAY1, ARRAY1, ARRAY1)));
+            new short[] {(short) 1, (short) 1, (short) 1},
+            Shorts.concat(ARRAY1, ARRAY1, ARRAY1)));
     assertTrue(Arrays.equals(
-        new short[] {(short) 1, (short) 2, (short) 3, (short) 4},
-        Shorts.concat(ARRAY1, ARRAY234)));
+            new short[] {(short) 1, (short) 2, (short) 3, (short) 4},
+            Shorts.concat(ARRAY1, ARRAY234)));
   }
 
   @GwtIncompatible // Shorts.toByteArray
   public void testToByteArray() {
     assertTrue(Arrays.equals(
-        new byte[] {0x23, 0x45}, Shorts.toByteArray((short) 0x2345)));
+            new byte[] {0x23, 0x45}, Shorts.toByteArray((short) 0x2345)));
     assertTrue(Arrays.equals(
-        new byte[] {(byte) 0xFE, (byte) 0xDC},
-        Shorts.toByteArray((short) 0xFEDC)));
+            new byte[] {(byte) 0xFE, (byte) 0xDC},
+            Shorts.toByteArray((short) 0xFEDC)));
   }
 
   @GwtIncompatible // Shorts.fromByteArray
@@ -250,7 +253,7 @@ public class ShortsTest extends TestCase {
     assertEquals((short) 0x2345,
         Shorts.fromByteArray(new byte[] {0x23, 0x45}));
     assertEquals((short) 0xFEDC, Shorts.fromByteArray(
-        new byte[] {(byte) 0xFE, (byte) 0xDC}));
+            new byte[] {(byte) 0xFE, (byte) 0xDC}));
   }
 
   @GwtIncompatible // Shorts.fromByteArray
@@ -280,7 +283,7 @@ public class ShortsTest extends TestCase {
 
       r.nextBytes(b);
       assertTrue(Arrays.equals(b,
-          Shorts.toByteArray(Shorts.fromByteArray(b))));
+              Shorts.toByteArray(Shorts.fromByteArray(b))));
     }
   }
 
@@ -289,8 +292,8 @@ public class ShortsTest extends TestCase {
     assertSame(ARRAY1, Shorts.ensureCapacity(ARRAY1, 0, 1));
     assertSame(ARRAY1, Shorts.ensureCapacity(ARRAY1, 1, 1));
     assertTrue(Arrays.equals(
-        new short[] {(short) 1, (short) 0, (short) 0},
-        Shorts.ensureCapacity(ARRAY1, 2, 1)));
+            new short[] {(short) 1, (short) 0, (short) 0},
+            Shorts.ensureCapacity(ARRAY1, 2, 1)));
   }
 
   public void testEnsureCapacity_fail() {
@@ -317,15 +320,15 @@ public class ShortsTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<short[]> ordered = Arrays.asList(
-        new short[] {},
-        new short[] {LEAST},
-        new short[] {LEAST, LEAST},
-        new short[] {LEAST, (short) 1},
-        new short[] {(short) 1},
-        new short[] {(short) 1, LEAST},
-        new short[] {GREATEST, GREATEST - (short) 1},
-        new short[] {GREATEST, GREATEST},
-        new short[] {GREATEST, GREATEST, GREATEST});
+            new short[] {},
+            new short[] {LEAST},
+            new short[] {LEAST, LEAST},
+            new short[] {LEAST, (short) 1},
+            new short[] {(short) 1},
+            new short[] {(short) 1, LEAST},
+            new short[] {GREATEST, GREATEST - (short) 1},
+            new short[] {GREATEST, GREATEST},
+            new short[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<short[]> comparator = Shorts.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -478,7 +481,7 @@ public class ShortsTest extends TestCase {
     // Make sure it returned a copy
     list.set(0, (short) 4);
     assertTrue(Arrays.equals(
-        new short[] { (short) 0, (short) 1, (short) 2 }, newArray));
+            new short[] { (short) 0, (short) 1, (short) 2 }, newArray));
     newArray[1] = (short) 5;
     assertEquals((short) 1, (short) list.get(1));
   }
@@ -488,9 +491,9 @@ public class ShortsTest extends TestCase {
     short[] array = { (short) 0, (short) 1, (short) 2, (short) 3 };
     List<Short> list = Shorts.asList(array);
     assertTrue(Arrays.equals(new short[] { (short) 1, (short) 2 },
-        Shorts.toArray(list.subList(1, 3))));
+            Shorts.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new short[] {},
-        Shorts.toArray(list.subList(2, 2))));
+            Shorts.toArray(list.subList(2, 2))));
   }
 
   public void testAsListEmpty() {

@@ -56,20 +56,20 @@ final class ForwardingObjectTester {
     Class<? super T> interfaceType = (Class<? super T>)
         Iterables.getOnlyElement(Arrays.asList(forwarderClass.getInterfaces()));
     new ForwardingWrapperTester()
-        .testForwarding(
-            interfaceType,
-            new Function<Object, T>() {
-              @Override
-              public T apply(Object delegate) {
-                T mock = mock(forwarderClass, CALLS_REAL_METHODS.get());
-                try {
-                  T stubber = doReturn(delegate).when(mock);
-                  DELEGATE_METHOD.invoke(stubber);
-                } catch (Exception e) {
-                  throw new RuntimeException(e);
-                }
-                return mock;
-              }
-            });
+    .testForwarding(
+        interfaceType,
+    new Function<Object, T>() {
+      @Override
+      public T apply(Object delegate) {
+        T mock = mock(forwarderClass, CALLS_REAL_METHODS.get());
+        try {
+          T stubber = doReturn(delegate).when(mock);
+          DELEGATE_METHOD.invoke(stubber);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+        return mock;
+      }
+    });
   }
 }

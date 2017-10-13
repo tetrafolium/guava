@@ -48,7 +48,7 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
   @Override
   protected List<TestSuite> createDerivedSuites(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     if (!parentBuilder.getFeatures().contains(SUBSET_VIEW)) {
@@ -66,7 +66,7 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
   }
 
   public static final class NavigableSetSubsetTestSetGenerator<E>
-      extends SortedSetSubsetTestSetGenerator<E> {
+    extends SortedSetSubsetTestSetGenerator<E> {
     public NavigableSetSubsetTestSetGenerator(
         TestSortedSetGenerator<E> delegate, Bound to, Bound from) {
       super(delegate, to, from);
@@ -102,8 +102,8 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
    */
   private TestSuite createDescendingSuite(
       final FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      parentBuilder) {
     final TestSetGenerator<E> delegate =
         (TestSetGenerator<E>) parentBuilder.getSubjectGenerator().getInnerGenerator();
 
@@ -112,38 +112,38 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
     features.addAll(parentBuilder.getFeatures());
 
     return NavigableSetTestSuiteBuilder.using(
-            new TestSetGenerator<E>() {
+    new TestSetGenerator<E>() {
 
-              @Override
-              public SampleElements<E> samples() {
-                return delegate.samples();
-              }
+      @Override
+      public SampleElements<E> samples() {
+        return delegate.samples();
+      }
 
-              @Override
-              public E[] createArray(int length) {
-                return delegate.createArray(length);
-              }
+      @Override
+      public E[] createArray(int length) {
+        return delegate.createArray(length);
+      }
 
-              @Override
-              public Iterable<E> order(List<E> insertionOrder) {
-                List<E> list = new ArrayList<E>();
-                for (E e : delegate.order(insertionOrder)) {
-                  list.add(e);
-                }
-                Collections.reverse(list);
-                return list;
-              }
+      @Override
+      public Iterable<E> order(List<E> insertionOrder) {
+        List<E> list = new ArrayList<E>();
+        for (E e : delegate.order(insertionOrder)) {
+          list.add(e);
+        }
+        Collections.reverse(list);
+        return list;
+      }
 
-              @Override
-              public Set<E> create(Object... elements) {
-                NavigableSet<E> navigableSet = (NavigableSet<E>) delegate.create(elements);
-                return navigableSet.descendingSet();
-              }
-            })
-        .named(parentBuilder.getName() + " descending")
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+      @Override
+      public Set<E> create(Object... elements) {
+        NavigableSet<E> navigableSet = (NavigableSet<E>) delegate.create(elements);
+        return navigableSet.descendingSet();
+      }
+    })
+    .named(parentBuilder.getName() + " descending")
+    .withFeatures(features)
+    .suppressing(parentBuilder.getSuppressedTests())
+    .createTestSuite();
   }
 
   @Override

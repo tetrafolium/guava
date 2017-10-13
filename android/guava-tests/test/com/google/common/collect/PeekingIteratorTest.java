@@ -82,7 +82,7 @@ public class PeekingIteratorTest extends TestCase {
         Iterator<T> iterator = Collections.unmodifiableList(list).iterator();
         return Iterators.peekingIterator(iterator);
       }
-    }.test();
+    } .test();
   }
 
   public void testPeekingIteratorBehavesLikeIteratorOnEmptyIterable() {

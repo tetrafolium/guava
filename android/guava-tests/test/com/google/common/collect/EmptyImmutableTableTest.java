@@ -42,17 +42,17 @@ public class EmptyImmutableTableTest extends AbstractImmutableTableTest {
     nonEmptyTable.put('A', 1, "blah");
 
     new EqualsTester()
-        .addEqualityGroup(INSTANCE, HashBasedTable.create(), TreeBasedTable.create())
-        .addEqualityGroup(nonEmptyTable)
-        .testEquals();
+    .addEqualityGroup(INSTANCE, HashBasedTable.create(), TreeBasedTable.create())
+    .addEqualityGroup(nonEmptyTable)
+    .testEquals();
   }
 
   @GwtIncompatible // ArrayTable
   public void testEqualsObjectNullValues() {
     new EqualsTester()
-        .addEqualityGroup(INSTANCE)
-        .addEqualityGroup(ArrayTable.create(ImmutableSet.of('A'), ImmutableSet.of(1)))
-        .testEquals();
+    .addEqualityGroup(INSTANCE)
+    .addEqualityGroup(ArrayTable.create(ImmutableSet.of('A'), ImmutableSet.of(1)))
+    .testEquals();
   }
 
   public void testToString() {

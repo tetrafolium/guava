@@ -57,23 +57,23 @@ public final class NetworkEquivalenceTest {
 
   private static MutableNetwork<Integer, String> createNetwork(EdgeType edgeType) {
     switch (edgeType) {
-      case UNDIRECTED:
-        return NetworkBuilder.undirected().allowsSelfLoops(true).build();
-      case DIRECTED:
-        return NetworkBuilder.directed().allowsSelfLoops(true).build();
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      return NetworkBuilder.undirected().allowsSelfLoops(true).build();
+    case DIRECTED:
+      return NetworkBuilder.directed().allowsSelfLoops(true).build();
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 
   private static EdgeType oppositeType(EdgeType edgeType) {
     switch (edgeType) {
-      case UNDIRECTED:
-        return EdgeType.DIRECTED;
-      case DIRECTED:
-        return EdgeType.UNDIRECTED;
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      return EdgeType.DIRECTED;
+    case DIRECTED:
+      return EdgeType.UNDIRECTED;
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 
@@ -142,9 +142,9 @@ public final class NetworkEquivalenceTest {
 
     MutableNetwork<Integer, String> g2 =
         NetworkBuilder.from(network)
-            .allowsParallelEdges(!network.allowsParallelEdges())
-            .allowsSelfLoops(!network.allowsSelfLoops())
-            .build();
+        .allowsParallelEdges(!network.allowsParallelEdges())
+        .allowsSelfLoops(!network.allowsSelfLoops())
+        .build();
     g2.addEdge(N1, N2, E12);
 
     assertThat(network).isEqualTo(g2);
@@ -178,14 +178,14 @@ public final class NetworkEquivalenceTest {
     g2.addEdge(N2, N1, E12);
 
     switch (edgeType) {
-      case UNDIRECTED:
-        assertThat(network).isEqualTo(g2);
-        break;
-      case DIRECTED:
-        assertThat(network).isNotEqualTo(g2);
-        break;
-      default:
-        throw new IllegalStateException("Unexpected edge type: " + edgeType);
+    case UNDIRECTED:
+      assertThat(network).isEqualTo(g2);
+      break;
+    case DIRECTED:
+      assertThat(network).isNotEqualTo(g2);
+      break;
+    default:
+      throw new IllegalStateException("Unexpected edge type: " + edgeType);
     }
   }
 }

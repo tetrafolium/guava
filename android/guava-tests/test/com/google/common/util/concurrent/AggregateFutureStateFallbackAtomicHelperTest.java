@@ -101,7 +101,7 @@ public class AggregateFutureStateFallbackAtomicHelperTest extends TestCase {
   }
 
   private void checkHelperVersion(ClassLoader classLoader, String expectedHelperClassName)
-      throws Exception {
+  throws Exception {
     // Make sure we are actually running with the expected helper implementation
     Class<?> abstractFutureClass = classLoader.loadClass(AggregateFutureState.class.getName());
     Field helperField = abstractFutureClass.getDeclaredField("ATOMIC_HELPER");

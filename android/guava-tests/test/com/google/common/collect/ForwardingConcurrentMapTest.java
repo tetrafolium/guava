@@ -28,7 +28,7 @@ import junit.framework.TestCase;
 public class ForwardingConcurrentMapTest extends TestCase {
 
   private static class TestMap
-      extends ForwardingConcurrentMap<String, Integer> {
+    extends ForwardingConcurrentMap<String, Integer> {
     final ConcurrentMap<String, Integer> delegate = new ConcurrentHashMap<>();
 
     @Override protected ConcurrentMap<String, Integer> delegate() {
