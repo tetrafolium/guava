@@ -3,28 +3,35 @@ inspecode:
   ### file filters
   experimental:
     input:
-    ignore:
-    - "/*test*/"
+    ignore:      [ "/*test*/" ]
 
   ### tools for Java [91.4%]
   astyle:
-    auto-fix: true
+  - input:       [ "android/**/*.java" ]
+    auto-fix:    true
+    config-file: rocro-astyle.opts
+  - input:       [ "guava*/**/*.java" ]
+    auto-fix:    true
     config-file: rocro-astyle.opts
   checkstyle:
-    auto-fix: true
+    auto-fix:    false  # temporary disabled ... takes long time
     config-file: rocro-checkstyle.xml
   cpd:
   #infer:       ## temporary disabled ... takes too long
   pmd:
-    auto-fix: true
+    auto-fix:    false  # temporary disabled ... takes long time
   uncrustify:
-    auto-fix: true
+  - input:       [ "android/**/*.java" ]
+    auto-fix:    true
+    config-file: rocro-uncrustify.cfg
+  - input:       [ "guava*/**/*.java" ]
+    auto-fix:    true
     config-file: rocro-uncrustify.cfg
 
   ### tools for all Languages
   grep:
   misspell:
-    auto-fix: true
+    auto-fix:    true
     options:
       -i:
       - "Escapers"
