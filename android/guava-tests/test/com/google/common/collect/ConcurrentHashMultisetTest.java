@@ -267,7 +267,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     multiset.add(KEY);
 
     int mutations = 0;
-    for (Iterator<String> it = multiset.iterator(); it.hasNext(); ) {
+    for (Iterator<String> it = multiset.iterator(); it.hasNext();) {
       it.next();
       it.remove();
       mutations++;

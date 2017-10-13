@@ -403,7 +403,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
         try {
             int n = 0;
             E e;
-            while ( (e = q.poll()) != null) {
+            while ((e = q.poll()) != null) {
                 c.add(e);
                 ++n;
             }
@@ -559,7 +559,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
             // not just a .equals element.
             monitor.enter();
             try {
-                for (Iterator<E> it = q.iterator(); it.hasNext(); ) {
+                for (Iterator<E> it = q.iterator(); it.hasNext();) {
                     if (it.next() == x) {
                         it.remove();
                         return;

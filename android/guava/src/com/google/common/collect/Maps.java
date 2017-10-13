@@ -1265,7 +1265,7 @@ public final class Maps {
   public static ImmutableMap<String, String> fromProperties(Properties properties) {
     ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
 
-    for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements(); ) {
+    for (Enumeration<?> e = properties.propertyNames(); e.hasMoreElements();) {
       String key = (String) e.nextElement();
       builder.put(key, properties.getProperty(key));
     }

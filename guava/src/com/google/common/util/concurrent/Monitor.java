@@ -406,7 +406,7 @@ public final class Monitor {
     boolean interrupted = Thread.interrupted();
     try {
       final long startTime = System.nanoTime();
-      for (long remainingNanos = timeoutNanos; ; ) {
+      for (long remainingNanos = timeoutNanos; ;) {
         try {
           return lock.tryLock(remainingNanos, TimeUnit.NANOSECONDS);
         } catch (InterruptedException interrupt) {
@@ -569,7 +569,7 @@ public final class Monitor {
     try {
       if (fair || !lock.tryLock()) {
         startTime = initNanoTime(timeoutNanos);
-        for (long remainingNanos = timeoutNanos; ; ) {
+        for (long remainingNanos = timeoutNanos; ;) {
           try {
             if (lock.tryLock(remainingNanos, TimeUnit.NANOSECONDS)) {
               break;
@@ -808,7 +808,7 @@ public final class Monitor {
     final long startTime = initNanoTime(timeoutNanos);
     boolean interrupted = Thread.interrupted();
     try {
-      for (long remainingNanos = timeoutNanos; ; ) {
+      for (long remainingNanos = timeoutNanos; ;) {
         try {
           return awaitNanos(guard, remainingNanos, signalBeforeWaiting);
         } catch (InterruptedException interrupt) {

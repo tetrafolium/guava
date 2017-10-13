@@ -696,8 +696,8 @@ abstract class JSR166TestCase extends TestCase {
      */
     public static Policy permissivePolicy() {
         return new AdjustablePolicy
-            // Permissions j.u.c. needs directly
-            (new RuntimePermission("modifyThread"),
+            // Permissions j.u.c. needs directly (
+            ew RuntimePermission("modifyThread"),
              new RuntimePermission("getClassLoader"),
              new RuntimePermission("setContextClassLoader"),
              // Permissions needed to change permissions!
@@ -1224,8 +1224,8 @@ abstract class JSR166TestCase extends TestCase {
             oos.writeObject(o);
             oos.flush();
             oos.close();
-            ObjectInputStream ois = new ObjectInputStream
-                (new ByteArrayInputStream(bos.toByteArray()));
+            ObjectInputStream ois = new ObjectInputStream (
+                ew ByteArrayInputStream(bos.toByteArray()));
             T clone = (T) ois.readObject();
             assertSame(o.getClass(), clone.getClass());
             return clone;

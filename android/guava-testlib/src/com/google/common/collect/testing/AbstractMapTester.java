@@ -203,7 +203,7 @@ public abstract class AbstractMapTester<K, V>
   }
 
   private void replaceValue(List<Entry<K, V>> expected, Entry<K, V> newEntry) {
-    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext(); ) {
+    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext();) {
       if (Helpers.equal(i.next().getKey(), newEntry.getKey())) {
         i.set(newEntry);
         return;

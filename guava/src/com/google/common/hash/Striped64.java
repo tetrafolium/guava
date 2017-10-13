@@ -110,8 +110,8 @@ abstract class Striped64 extends Number {
             try {
                 UNSAFE = getUnsafe();
                 Class<?> ak = Cell.class;
-                valueOffset = UNSAFE.objectFieldOffset
-                    (ak.getDeclaredField("value"));
+                valueOffset = UNSAFE.objectFieldOffset (
+                    k.getDeclaredField("value"));
             } catch (Exception e) {
                 throw new Error(e);
             }
@@ -299,10 +299,10 @@ abstract class Striped64 extends Number {
         try {
             UNSAFE = getUnsafe();
             Class<?> sk = Striped64.class;
-            baseOffset = UNSAFE.objectFieldOffset
-                (sk.getDeclaredField("base"));
-            busyOffset = UNSAFE.objectFieldOffset
-                (sk.getDeclaredField("busy"));
+            baseOffset = UNSAFE.objectFieldOffset (
+                k.getDeclaredField("base"));
+            busyOffset = UNSAFE.objectFieldOffset (
+                k.getDeclaredField("busy"));
         } catch (Exception e) {
             throw new Error(e);
         }
@@ -320,8 +320,8 @@ abstract class Striped64 extends Number {
             return sun.misc.Unsafe.getUnsafe();
         } catch (SecurityException tryReflectionInstead) {}
         try {
-            return java.security.AccessController.doPrivileged
-            (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            return java.security.AccessController.doPrivileged (
+            ew java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
                 public sun.misc.Unsafe run() throws Exception {
                     Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
                     for (java.lang.reflect.Field f : k.getDeclaredFields()) {

@@ -770,9 +770,9 @@ public class ImmutableListTest extends TestCase {
           .addAll(a)
           .addAll(b)
           .build();
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
     }
 
     public void testBuilderAddAll_iterator() {
@@ -782,9 +782,9 @@ public class ImmutableListTest extends TestCase {
           .addAll(a.iterator())
           .addAll(b.iterator())
           .build();
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
     }
 
     public void testComplexBuilder() {

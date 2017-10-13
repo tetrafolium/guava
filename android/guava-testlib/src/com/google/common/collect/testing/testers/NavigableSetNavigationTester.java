@@ -220,7 +220,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   @CollectionSize.Require(SEVERAL)
   public void testDescendingNavigation() {
     List<E> descending = new ArrayList<E>();
-    for (Iterator<E> i = navigableSet.descendingIterator(); i.hasNext(); ) {
+    for (Iterator<E> i = navigableSet.descendingIterator(); i.hasNext();) {
       descending.add(i.next());
     }
     Collections.reverse(descending);

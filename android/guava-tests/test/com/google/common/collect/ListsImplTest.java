@@ -126,8 +126,8 @@ public class ListsImplTest extends TestCase {
 
     assertThat(Lists.hashCodeImpl(base)).isEqualTo(Lists.hashCodeImpl(copy));
 
-    assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl
-        (outOfOrder));
+    assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl (
+        utOfOrder));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffValue));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffLength));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(empty));

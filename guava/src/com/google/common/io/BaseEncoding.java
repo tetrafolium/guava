@@ -947,7 +947,7 @@ public abstract class BaseEncoding {
         throw new DecodingException("Invalid input length " + chars.length());
       }
       int bytesWritten = 0;
-      for (int i = 0; i < chars.length(); ) {
+      for (int i = 0; i < chars.length();) {
         int chunk = alphabet.decode(chars.charAt(i++)) << 18;
         chunk |= alphabet.decode(chars.charAt(i++)) << 12;
         target[bytesWritten++] = (byte) (chunk >>> 16);

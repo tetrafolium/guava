@@ -480,7 +480,7 @@ class FreshValueGenerator {
   }
 
   private Currency preJava7FreshCurrency() {
-    for (Set<Locale> uselessLocales = Sets.newHashSet(); ; ) {
+    for (Set<Locale> uselessLocales = Sets.newHashSet(); ;) {
       Locale locale = generateLocale();
       if (uselessLocales.contains(locale)) { // exhausted all locales
         return Currency.getInstance(Locale.US);

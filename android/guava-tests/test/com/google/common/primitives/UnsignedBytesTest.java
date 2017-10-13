@@ -295,7 +295,7 @@ public class UnsignedBytesTest extends TestCase {
     for (Comparator<byte[]> comparator : Arrays.asList(
         UnsignedBytes.lexicographicalComparator(),
         UnsignedBytes.lexicographicalComparatorJavaImpl())) {
-      for (int trials = 10; trials-- > 0; ) {
+      for (int trials = 10; trials-- > 0;) {
         byte[] left = new byte[1 + rnd.nextInt(32)];
         rnd.nextBytes(left);
         byte[] right = left.clone();
