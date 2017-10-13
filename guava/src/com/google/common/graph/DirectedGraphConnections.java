@@ -71,14 +71,14 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
     this.successorCount = checkNonNegative(successorCount);
     checkState(
         predecessorCount <= adjacentNodeValues.size()
-            && successorCount <= adjacentNodeValues.size());
+        && successorCount <= adjacentNodeValues.size());
   }
 
   static <N, V> DirectedGraphConnections<N, V> of() {
     // We store predecessors and successors in the same map, so double the initial capacity.
     int initialCapacity = INNER_CAPACITY * 2;
     return new DirectedGraphConnections<>(
-        new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
+            new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
   }
 
   static <N, V> DirectedGraphConnections<N, V> ofImmutable(
@@ -92,7 +92,7 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       }
     }
     return new DirectedGraphConnections<>(
-        ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(), successorValues.size());
+            ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(), successorValues.size());
   }
 
   @Override

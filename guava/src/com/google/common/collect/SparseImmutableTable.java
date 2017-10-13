@@ -27,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
 final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> {
   static final ImmutableTable<Object, Object, Object> EMPTY =
       new SparseImmutableTable<>(
-          ImmutableList.<Cell<Object, Object, Object>>of(), ImmutableSet.of(), ImmutableSet.of());
+      ImmutableList.<Cell<Object, Object, Object>>of(), ImmutableSet.of(), ImmutableSet.of());
 
   private final ImmutableMap<R, Map<C, V>> rowMap;
   private final ImmutableMap<C, Map<R, V>> columnMap;
@@ -65,13 +65,13 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
       if (oldValue != null) {
         throw new IllegalArgumentException(
             "Duplicate value for row="
-                + rowKey
-                + ", column="
-                + columnKey
-                + ": "
-                + value
-                + ", "
-                + oldValue);
+            + rowKey
+            + ", column="
+            + columnKey
+            + ": "
+            + value
+            + ", "
+            + oldValue);
       }
       columns.get(columnKey).put(rowKey, value);
     }

@@ -76,7 +76,7 @@ public interface Predicate<T> extends java.util.function.Predicate<T> {
   boolean equals(@Nullable Object object);
 
   @Override
-  default boolean test(@Nullable T input) {
+default boolean test(@Nullable T input) {
     return apply(input);
   }
 }

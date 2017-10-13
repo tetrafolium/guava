@@ -96,7 +96,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   @SuppressWarnings("unchecked")
   @CanIgnoreReturnValue
   public final R invoke(@Nullable T receiver, Object... args)
-      throws InvocationTargetException, IllegalAccessException {
+  throws InvocationTargetException, IllegalAccessException {
     return (R) invokeInternal(receiver, checkNotNull(args));
   }
 
@@ -171,7 +171,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   }
 
   abstract Object invokeInternal(@Nullable Object receiver, Object[] args)
-      throws InvocationTargetException, IllegalAccessException;
+  throws InvocationTargetException, IllegalAccessException;
 
   abstract Type[] getGenericParameterTypes();
 
@@ -193,7 +193,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
 
     @Override
     final Object invokeInternal(@Nullable Object receiver, Object[] args)
-        throws InvocationTargetException, IllegalAccessException {
+    throws InvocationTargetException, IllegalAccessException {
       return method.invoke(receiver, args);
     }
 
@@ -225,9 +225,9 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
     @Override
     public final boolean isOverridable() {
       return !(isFinal()
-          || isPrivate()
-          || isStatic()
-          || Modifier.isFinal(getDeclaringClass().getModifiers()));
+              || isPrivate()
+              || isStatic()
+              || Modifier.isFinal(getDeclaringClass().getModifiers()));
     }
 
     @Override
@@ -247,7 +247,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
 
     @Override
     final Object invokeInternal(@Nullable Object receiver, Object[] args)
-        throws InvocationTargetException, IllegalAccessException {
+    throws InvocationTargetException, IllegalAccessException {
       try {
         return constructor.newInstance(args);
       } catch (InstantiationException e) {

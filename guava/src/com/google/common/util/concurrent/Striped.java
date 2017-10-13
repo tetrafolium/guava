@@ -194,13 +194,13 @@ public abstract class Striped<L> {
    */
   public static Striped<Lock> lock(int stripes) {
     return new CompactStriped<>(
-        stripes,
-        new Supplier<Lock>() {
-          @Override
-          public Lock get() {
-            return new PaddedLock();
-          }
-        });
+            stripes,
+    new Supplier<Lock>() {
+      @Override
+      public Lock get() {
+        return new PaddedLock();
+      }
+    });
   }
 
   /**
@@ -212,13 +212,13 @@ public abstract class Striped<L> {
    */
   public static Striped<Lock> lazyWeakLock(int stripes) {
     return lazy(
-        stripes,
-        new Supplier<Lock>() {
-          @Override
-          public Lock get() {
-            return new ReentrantLock(false);
-          }
-        });
+            stripes,
+    new Supplier<Lock>() {
+      @Override
+      public Lock get() {
+        return new ReentrantLock(false);
+      }
+    });
   }
 
   private static <L> Striped<L> lazy(int stripes, Supplier<L> supplier) {
@@ -237,13 +237,13 @@ public abstract class Striped<L> {
    */
   public static Striped<Semaphore> semaphore(int stripes, final int permits) {
     return new CompactStriped<>(
-        stripes,
-        new Supplier<Semaphore>() {
-          @Override
-          public Semaphore get() {
-            return new PaddedSemaphore(permits);
-          }
-        });
+            stripes,
+    new Supplier<Semaphore>() {
+      @Override
+      public Semaphore get() {
+        return new PaddedSemaphore(permits);
+      }
+    });
   }
 
   /**
@@ -256,13 +256,13 @@ public abstract class Striped<L> {
    */
   public static Striped<Semaphore> lazyWeakSemaphore(int stripes, final int permits) {
     return lazy(
-        stripes,
-        new Supplier<Semaphore>() {
-          @Override
-          public Semaphore get() {
-            return new Semaphore(permits, false);
-          }
-        });
+            stripes,
+    new Supplier<Semaphore>() {
+      @Override
+      public Semaphore get() {
+        return new Semaphore(permits, false);
+      }
+    });
   }
 
   /**
@@ -289,12 +289,12 @@ public abstract class Striped<L> {
 
   // ReentrantReadWriteLock is large enough to make padding probably unnecessary
   private static final Supplier<ReadWriteLock> READ_WRITE_LOCK_SUPPLIER =
-      new Supplier<ReadWriteLock>() {
-        @Override
-        public ReadWriteLock get() {
-          return new ReentrantReadWriteLock();
-        }
-      };
+  new Supplier<ReadWriteLock>() {
+    @Override
+    public ReadWriteLock get() {
+      return new ReentrantReadWriteLock();
+    }
+  };
 
   private abstract static class PowerOfTwoStriped<L> extends Striped<L> {
     /** Capacity (power of two) minus one, for fast mod evaluation */

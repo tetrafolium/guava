@@ -151,14 +151,14 @@ final class SubscriberRegistry {
    */
   private static final LoadingCache<Class<?>, ImmutableList<Method>> subscriberMethodsCache =
       CacheBuilder.newBuilder()
-          .weakKeys()
-          .build(
-              new CacheLoader<Class<?>, ImmutableList<Method>>() {
-                @Override
-                public ImmutableList<Method> load(Class<?> concreteClass) throws Exception {
-                  return getAnnotatedMethodsNotCached(concreteClass);
-                }
-              });
+      .weakKeys()
+      .build(
+  new CacheLoader<Class<?>, ImmutableList<Method>>() {
+    @Override
+    public ImmutableList<Method> load(Class<?> concreteClass) throws Exception {
+      return getAnnotatedMethodsNotCached(concreteClass);
+    }
+  });
 
   /**
    * Returns all subscribers for the given listener grouped by the type of event they subscribe to.
@@ -189,7 +189,7 @@ final class SubscriberRegistry {
           checkArgument(
               parameterTypes.length == 1,
               "Method %s has @Subscribe annotation but has %s parameters."
-                  + "Subscriber methods must have exactly 1 parameter.",
+              + "Subscriber methods must have exactly 1 parameter.",
               method,
               parameterTypes.length);
 
@@ -208,17 +208,17 @@ final class SubscriberRegistry {
    */
   private static final LoadingCache<Class<?>, ImmutableSet<Class<?>>> flattenHierarchyCache =
       CacheBuilder.newBuilder()
-          .weakKeys()
-          .build(
-              new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
-                // <Class<?>> is actually needed to compile
-                @SuppressWarnings("RedundantTypeArguments")
-                @Override
-                public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
-                  return ImmutableSet.<Class<?>>copyOf(
-                      TypeToken.of(concreteClass).getTypes().rawTypes());
-                }
-              });
+      .weakKeys()
+      .build(
+  new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
+    // <Class<?>> is actually needed to compile
+    @SuppressWarnings("RedundantTypeArguments")
+    @Override
+    public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
+      return ImmutableSet.<Class<?>>copyOf(
+              TypeToken.of(concreteClass).getTypes().rawTypes());
+    }
+  });
 
   /**
    * Flattens a class's type hierarchy into a set of {@code Class} objects including all

@@ -45,12 +45,12 @@ public final class RemovalListeners {
       @Override
       public void onRemoval(final RemovalNotification<K, V> notification) {
         executor.execute(
-            new Runnable() {
-              @Override
-              public void run() {
-                listener.onRemoval(notification);
-              }
-            });
+        new Runnable() {
+          @Override
+          public void run() {
+            listener.onRemoval(notification);
+          }
+        });
       }
     };
   }

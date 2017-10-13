@@ -60,7 +60,7 @@ public final class MoreCollectors {
   public static <T> Collector<T, ?, Optional<T>> toOptional() {
     return (Collector) TO_OPTIONAL;
   }
-  
+
   private static final Object NULL_PLACEHOLDER = new Object();
 
   private static final Collector<Object, ?, Object> ONLY_ELEMENT =
@@ -68,11 +68,11 @@ public final class MoreCollectors {
           ToOptionalState::new,
           (state, o) -> state.add((o == null) ? NULL_PLACEHOLDER : o),
           ToOptionalState::combine,
-          state -> {
-            Object result = state.getElement();
-            return (result == NULL_PLACEHOLDER) ? null : result;
-          },
-          Collector.Characteristics.UNORDERED);
+  state -> {
+    Object result = state.getElement();
+    return (result == NULL_PLACEHOLDER) ? null : result;
+  },
+  Collector.Characteristics.UNORDERED);
 
   /**
    * A collector that takes a stream containing exactly one element and returns that element. The

@@ -134,11 +134,11 @@ public abstract class HashCode {
     @Override
     public byte[] asBytes() {
       return new byte[] {
-        (byte) hash,
-        (byte) (hash >> 8),
-        (byte) (hash >> 16),
-        (byte) (hash >> 24)
-      };
+              (byte) hash,
+              (byte) (hash >> 8),
+              (byte) (hash >> 16),
+              (byte) (hash >> 24)
+          };
     }
 
     @Override
@@ -196,15 +196,15 @@ public abstract class HashCode {
     @Override
     public byte[] asBytes() {
       return new byte[] {
-        (byte) hash,
-        (byte) (hash >> 8),
-        (byte) (hash >> 16),
-        (byte) (hash >> 24),
-        (byte) (hash >> 32),
-        (byte) (hash >> 40),
-        (byte) (hash >> 48),
-        (byte) (hash >> 56)
-      };
+              (byte) hash,
+              (byte) (hash >> 8),
+              (byte) (hash >> 16),
+              (byte) (hash >> 24),
+              (byte) (hash >> 32),
+              (byte) (hash >> 40),
+              (byte) (hash >> 48),
+              (byte) (hash >> 56)
+          };
     }
 
     @Override

@@ -49,29 +49,29 @@ abstract class LineBuffer {
   protected void add(char[] cbuf, int off, int len) throws IOException {
     int pos = off;
     if ((sawReturn && len > 0) && (finishLine(cbuf[pos] == '\n'))) {
-        pos++;
-      }
+      pos++;
+    }
 
     int start = pos;
     for (int end = off + len; pos < end; pos++) {
       switch (cbuf[pos]) {
-        case '\r':
-          line.append(cbuf, start, pos - start);
-          sawReturn = true;
-          if ((pos + 1 < end) && (finishLine(cbuf[pos + 1] == '\n'))) {
-              pos++;
-            }
-          start = pos + 1;
-          break;
+      case '\r':
+        line.append(cbuf, start, pos - start);
+        sawReturn = true;
+        if ((pos + 1 < end) && (finishLine(cbuf[pos + 1] == '\n'))) {
+          pos++;
+        }
+        start = pos + 1;
+        break;
 
-        case '\n':
-          line.append(cbuf, start, pos - start);
-          finishLine(true);
-          start = pos + 1;
-          break;
+      case '\n':
+        line.append(cbuf, start, pos - start);
+        finishLine(true);
+        start = pos + 1;
+        break;
 
-        default:
-          // do nothing
+      default:
+        // do nothing
       }
     }
     line.append(cbuf, start, off + len - start);

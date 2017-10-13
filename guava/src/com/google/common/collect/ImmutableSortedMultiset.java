@@ -51,7 +51,7 @@ import java.util.stream.Collector;
  */
 @GwtIncompatible // hasn't been tested yet
 public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultisetFauxverideShim<E>
-    implements SortedMultiset<E> {
+  implements SortedMultiset<E> {
   // TODO(lowasser): GWT compatibility
 
   /**
@@ -88,14 +88,14 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
     checkNotNull(elementFunction);
     checkNotNull(countFunction);
     return Collector.of(
-        () -> TreeMultiset.create(comparator),
-        (multiset, t) ->
+            () -> TreeMultiset.create(comparator),
+            (multiset, t) ->
             multiset.add(checkNotNull(elementFunction.apply(t)), countFunction.applyAsInt(t)),
-        (multiset1, multiset2) -> {
-          multiset1.addAll(multiset2);
-          return multiset1;
-        },
-        (Multiset<E> multiset) -> copyOfSortedEntries(comparator, multiset.entrySet()));
+    (multiset1, multiset2) -> {
+      multiset1.addAll(multiset2);
+      return multiset1;
+    },
+    (Multiset<E> multiset) -> copyOfSortedEntries(comparator, multiset.entrySet()));
   }
 
   /**
@@ -293,7 +293,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    */
   public static <E> ImmutableSortedMultiset<E> copyOfSorted(SortedMultiset<E> sortedMultiset) {
     return copyOfSortedEntries(
-        sortedMultiset.comparator(), Lists.newArrayList(sortedMultiset.entrySet()));
+            sortedMultiset.comparator(), Lists.newArrayList(sortedMultiset.entrySet()));
   }
 
   private static <E> ImmutableSortedMultiset<E> copyOfSortedEntries(
@@ -310,10 +310,10 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
       i++;
     }
     return new RegularImmutableSortedMultiset<E>(
-        new RegularImmutableSortedSet<E>(elementsBuilder.build(), comparator),
-        cumulativeCounts,
-        0,
-        entries.size());
+            new RegularImmutableSortedSet<E>(elementsBuilder.build(), comparator),
+            cumulativeCounts,
+            0,
+            entries.size());
   }
 
   @SuppressWarnings("unchecked")
@@ -343,7 +343,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
     ImmutableSortedMultiset<E> result = descendingMultiset;
     if (result == null) {
       return descendingMultiset =
-          this.isEmpty()
+              this.isEmpty()
               ? emptyMultiset(Ordering.from(comparator()).reverse())
               : new DescendingImmutableSortedMultiset<E>(this);
     }

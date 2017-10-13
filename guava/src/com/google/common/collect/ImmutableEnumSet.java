@@ -36,12 +36,12 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   @SuppressWarnings("rawtypes") // necessary to compile against Java 8
   static ImmutableSet asImmutable(EnumSet set) {
     switch (set.size()) {
-      case 0:
-        return ImmutableSet.of();
-      case 1:
-        return ImmutableSet.of(Iterables.getOnlyElement(set));
-      default:
-        return new ImmutableEnumSet(set);
+    case 0:
+      return ImmutableSet.of();
+    case 1:
+      return ImmutableSet.of(Iterables.getOnlyElement(set));
+    default:
+      return new ImmutableEnumSet(set);
     }
   }
 

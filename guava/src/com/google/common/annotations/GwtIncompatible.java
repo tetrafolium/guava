@@ -43,5 +43,5 @@ public @interface GwtIncompatible {
    * <p>As of Guava 20.0, this value is optional. We encourage authors who wish to describe why an
    * API is {@code @GwtIncompatible} to instead leave an implementation comment.
    */
-  String value() default "";
+String value() default "";
 }

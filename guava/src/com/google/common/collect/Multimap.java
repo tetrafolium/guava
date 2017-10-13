@@ -360,7 +360,7 @@ public interface Multimap<K, V> {
    *
    * @since 21.0
    */
-  default void forEach(BiConsumer<? super K, ? super V> action) {
+default void forEach(BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
     entries().forEach(entry -> action.accept(entry.getKey(), entry.getValue()));
   }

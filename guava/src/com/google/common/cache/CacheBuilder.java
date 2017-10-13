@@ -153,36 +153,36 @@ public final class CacheBuilder<K, V> {
 
   static final Supplier<? extends StatsCounter> NULL_STATS_COUNTER =
       Suppliers.ofInstance(
-          new StatsCounter() {
-            @Override
-            public void recordHits(int count) {}
+  new StatsCounter() {
+    @Override
+    public void recordHits(int count) {}
 
-            @Override
-            public void recordMisses(int count) {}
+    @Override
+    public void recordMisses(int count) {}
 
-            @Override
-            public void recordLoadSuccess(long loadTime) {}
+    @Override
+    public void recordLoadSuccess(long loadTime) {}
 
-            @Override
-            public void recordLoadException(long loadTime) {}
+    @Override
+    public void recordLoadException(long loadTime) {}
 
-            @Override
-            public void recordEviction() {}
+    @Override
+    public void recordEviction() {}
 
-            @Override
-            public CacheStats snapshot() {
-              return EMPTY_STATS;
-            }
-          });
+    @Override
+    public CacheStats snapshot() {
+      return EMPTY_STATS;
+    }
+  });
   static final CacheStats EMPTY_STATS = new CacheStats(0, 0, 0, 0, 0, 0);
 
   static final Supplier<StatsCounter> CACHE_STATS_COUNTER =
-      new Supplier<StatsCounter>() {
-        @Override
-        public StatsCounter get() {
-          return new SimpleStatsCounter();
-        }
-      };
+  new Supplier<StatsCounter>() {
+    @Override
+    public StatsCounter get() {
+      return new SimpleStatsCounter();
+    }
+  };
 
   enum NullListener implements RemovalListener<Object, Object> {
     INSTANCE;
@@ -201,12 +201,12 @@ public final class CacheBuilder<K, V> {
   }
 
   static final Ticker NULL_TICKER =
-      new Ticker() {
-        @Override
-        public long read() {
-          return 0;
-        }
-      };
+  new Ticker() {
+    @Override
+    public long read() {
+      return 0;
+    }
+  };
 
   private static final Logger logger = Logger.getLogger(CacheBuilder.class.getName());
 

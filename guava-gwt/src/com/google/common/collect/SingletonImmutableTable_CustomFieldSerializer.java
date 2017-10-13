@@ -37,7 +37,7 @@ public class SingletonImmutableTable_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, SingletonImmutableTable<?, ?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.singleRowKey);
     writer.writeObject(instance.singleColumnKey);
     writer.writeObject(instance.singleValue);

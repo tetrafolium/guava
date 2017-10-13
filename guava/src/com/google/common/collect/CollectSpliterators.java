@@ -97,7 +97,7 @@ final class CollectSpliterators {
     }
     return new WithCharacteristics(IntStream.range(0, size).spliterator());
   }
-  
+
   /**
    * Returns a {@code Spliterator} over the elements of {@code fromSpliterator} mapped by {@code
    * function}.
@@ -111,7 +111,7 @@ final class CollectSpliterators {
       @Override
       public boolean tryAdvance(Consumer<? super T> action) {
         return fromSpliterator.tryAdvance(
-            fromElement -> action.accept(function.apply(fromElement)));
+                fromElement -> action.accept(function.apply(fromElement)));
       }
 
       @Override
@@ -137,7 +137,7 @@ final class CollectSpliterators {
       }
     };
   }
-  
+
   /** Returns a {@code Spliterator} filtered by the specified predicate. */
   static <T> Spliterator<T> filter(Spliterator<T> fromSpliterator, Predicate<? super T> predicate) {
     checkNotNull(fromSpliterator);

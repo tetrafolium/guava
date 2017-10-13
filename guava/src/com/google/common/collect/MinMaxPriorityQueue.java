@@ -219,7 +219,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
     public <T extends B> MinMaxPriorityQueue<T> create(Iterable<? extends T> initialContents) {
       MinMaxPriorityQueue<T> queue =
           new MinMaxPriorityQueue<T>(
-              this, initialQueueSize(expectedSize, maximumSize, initialContents));
+          this, initialQueueSize(expectedSize, maximumSize, initialContents));
       for (T element : initialContents) {
         queue.offer(element);
       }
@@ -324,14 +324,14 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
    */
   private int getMaxElementIndex() {
     switch (size) {
-      case 1:
-        return 0; // The lone element in the queue is the maximum.
-      case 2:
-        return 1; // The lone element in the maxHeap is the maximum.
-      default:
-        // The max element must sit on the first level of the maxHeap. It is
-        // actually the *lesser* of the two from the maxHeap's perspective.
-        return (maxHeap.compareElements(1, 2) <= 0) ? 1 : 2;
+    case 1:
+      return 0; // The lone element in the queue is the maximum.
+    case 2:
+      return 1; // The lone element in the maxHeap is the maximum.
+    default:
+      // The max element must sit on the first level of the maxHeap. It is
+      // actually the *lesser* of the two from the maxHeap's perspective.
+      return (maxHeap.compareElements(1, 2) <= 0) ? 1 : 2;
     }
   }
 
@@ -955,8 +955,8 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
     // Start with what they said, if they said it, otherwise DEFAULT_CAPACITY
     int result =
         (configuredExpectedSize == Builder.UNSET_EXPECTED_SIZE)
-            ? DEFAULT_CAPACITY
-            : configuredExpectedSize;
+        ? DEFAULT_CAPACITY
+        : configuredExpectedSize;
 
     // Enlarge to contain initial contents
     if (initialContents instanceof Collection) {
@@ -982,8 +982,8 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
     int oldCapacity = queue.length;
     int newCapacity =
         (oldCapacity < 64)
-            ? (oldCapacity + 1) * 2
-            : IntMath.checkedMultiply(oldCapacity / 2, 3);
+        ? (oldCapacity + 1) * 2
+        : IntMath.checkedMultiply(oldCapacity / 2, 3);
     return capAtMaximumSize(newCapacity, maximumSize);
   }
 

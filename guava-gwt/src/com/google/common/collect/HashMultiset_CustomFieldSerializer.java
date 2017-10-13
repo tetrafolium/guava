@@ -30,13 +30,13 @@ public class HashMultiset_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader, HashMultiset<?> instance) {}
 
   public static HashMultiset<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return (HashMultiset<Object>)
         Multiset_CustomFieldSerializerBase.populate(reader, HashMultiset.create());
   }
 
   public static void serialize(SerializationStreamWriter writer, HashMultiset<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Multiset_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

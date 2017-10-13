@@ -100,8 +100,8 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     checkNotNull(valueFunction);
     checkNotNull(mergeFunction);
     return Collectors.collectingAndThen(
-        Collectors.toMap(keyFunction, valueFunction, mergeFunction, LinkedHashMap::new),
-        ImmutableMap::copyOf);
+            Collectors.toMap(keyFunction, valueFunction, mergeFunction, LinkedHashMap::new),
+            ImmutableMap::copyOf);
   }
 
   /**
@@ -149,7 +149,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    */
   public static <K, V> ImmutableMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     return RegularImmutableMap.fromEntries(
-        entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
+            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
   }
 
   /**
@@ -160,7 +160,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
   public static <K, V> ImmutableMap<K, V> of(
       K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return RegularImmutableMap.fromEntries(
-        entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
+            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -194,7 +194,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * <p>It is not specified if any performance benefits apply if {@code expectedSize} is close to,
    * but not exactly, the number of entries added to the builder.
-   * 
+   *
    * @since 23.1
    */
   @Beta
@@ -229,8 +229,8 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * they were inserted into the builder, equivalently to {@code LinkedHashMap}.  For example, in
    * the above example, {@code WORD_TO_INT.entrySet()} is guaranteed to iterate over the entries in
    * the order {@code "one"=1, "two"=2, "three"=3}, and {@code keySet()} and {@code values()}
-   * respect the same order.   If you want a different order, consider using 
-   * {@link ImmutableSortedMap} to sort by keys, or call {@link #orderEntriesByValue(Comparator)}, 
+   * respect the same order.   If you want a different order, consider using
+   * {@link ImmutableSortedMap} to sort by keys, or call {@link #orderEntriesByValue(Comparator)},
    * which changes this builder to sort entries by value.
    *
    * <p>Builder instances can be reused - it is safe to call {@link #build}
@@ -384,12 +384,12 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
       }
       entriesUsed = size == entries.length;
       switch (size) {
-        case 0:
-          return of();
-        case 1:
-          return of(entries[0].getKey(), entries[0].getValue());
-        default:
-          return RegularImmutableMap.fromEntryArray(size, entries);
+      case 0:
+        return of();
+      case 1:
+        return of(entries[0].getKey(), entries[0].getValue());
+      default:
+        return RegularImmutableMap.fromEntryArray(size, entries);
       }
     }
   }
@@ -436,17 +436,17 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     @SuppressWarnings("unchecked") // we'll only be using getKey and getValue, which are covariant
     Entry<K, V>[] entryArray = (Entry<K, V>[]) Iterables.toArray(entries, EMPTY_ENTRY_ARRAY);
     switch (entryArray.length) {
-      case 0:
-        return of();
-      case 1:
-        Entry<K, V> onlyEntry = entryArray[0];
-        return of(onlyEntry.getKey(), onlyEntry.getValue());
-      default:
-        /*
-         * The current implementation will end up using entryArray directly, though it will write
-         * over the (arbitrary, potentially mutable) Entry objects actually stored in entryArray.
-         */
-        return RegularImmutableMap.fromEntries(entryArray);
+    case 0:
+      return of();
+    case 1:
+      Entry<K, V> onlyEntry = entryArray[0];
+      return of(onlyEntry.getKey(), onlyEntry.getValue());
+    default:
+      /*
+       * The current implementation will end up using entryArray directly, though it will write
+       * over the (arbitrary, potentially mutable) Entry objects actually stored in entryArray.
+       */
+      return RegularImmutableMap.fromEntries(entryArray);
     }
   }
 
@@ -466,9 +466,9 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
 
     Spliterator<Entry<K, V>> entrySpliterator() {
       return Spliterators.spliterator(
-          entryIterator(),
-          size(),
-          Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.IMMUTABLE | Spliterator.ORDERED);
+              entryIterator(),
+              size(),
+              Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.IMMUTABLE | Spliterator.ORDERED);
     }
 
     @Override
@@ -776,13 +776,13 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     ImmutableSetMultimap<K, V> result = multimapView;
     return (result == null)
         ? (multimapView =
-            new ImmutableSetMultimap<>(new MapViewOfValuesAsSingletonSets(), size(), null))
+                new ImmutableSetMultimap<>(new MapViewOfValuesAsSingletonSets(), size(), null))
         : result;
   }
 
   @WeakOuter
   private final class MapViewOfValuesAsSingletonSets
-      extends IteratorBasedImmutableMap<K, ImmutableSet<V>> {
+    extends IteratorBasedImmutableMap<K, ImmutableSet<V>> {
 
     @Override
     public int size() {

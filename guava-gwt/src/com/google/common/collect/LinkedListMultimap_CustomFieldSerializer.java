@@ -31,7 +31,7 @@ public class LinkedListMultimap_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader in, LinkedListMultimap<?, ?> out) {}
 
   public static LinkedListMultimap<Object, Object> instantiate(SerializationStreamReader in)
-      throws SerializationException {
+  throws SerializationException {
     LinkedListMultimap<Object, Object> multimap = LinkedListMultimap.create();
     int size = in.readInt();
     for (int i = 0; i < size; i++) {
@@ -43,7 +43,7 @@ public class LinkedListMultimap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter out, LinkedListMultimap<?, ?> multimap)
-      throws SerializationException {
+  throws SerializationException {
     out.writeInt(multimap.size());
     for (Map.Entry<?, ?> entry : multimap.entries()) {
       out.writeObject(entry.getKey());

@@ -131,11 +131,11 @@ public final class Comparators {
     checkNonnegative(k, "k");
     checkNotNull(comparator);
     return Collector.of(
-        () -> TopKSelector.<T>least(k, comparator),
-        TopKSelector::offer,
-        TopKSelector::combine,
-        TopKSelector::topK,
-        Collector.Characteristics.UNORDERED);
+            () -> TopKSelector.<T>least(k, comparator),
+            TopKSelector::offer,
+            TopKSelector::combine,
+            TopKSelector::topK,
+            Collector.Characteristics.UNORDERED);
   }
 
   /**

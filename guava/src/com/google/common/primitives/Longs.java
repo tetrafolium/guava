@@ -301,7 +301,7 @@ public final class Longs {
   public static long fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(
-        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
+            bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
   }
 
   /**
@@ -663,7 +663,7 @@ public final class Longs {
 
   @GwtCompatible
   private static class LongArrayAsList extends AbstractList<Long>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final long[] array;
     final int start;
     final int end;

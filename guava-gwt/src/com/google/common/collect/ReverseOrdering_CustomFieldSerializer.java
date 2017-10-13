@@ -31,12 +31,12 @@ public class ReverseOrdering_CustomFieldSerializer {
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static ReverseOrdering<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return new ReverseOrdering<>((Ordering<Object>) reader.readObject());
   }
 
   public static void serialize(SerializationStreamWriter writer, ReverseOrdering<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.forwardOrder);
   }
 }

@@ -15,96 +15,96 @@
  */
 package com.google.common.collect;
 public class Collections2Test_gwt extends com.google.gwt.junit.client.GWTTestCase {
-@Override public String getModuleName() {
-  return "com.google.common.collect.testModule";
-}
-public void testOrderedPermutationSetContains() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetContains();
-}
+  @Override public String getModuleName() {
+    return "com.google.common.collect.testModule";
+  }
+  public void testOrderedPermutationSetContains() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetContains();
+  }
 
-public void testOrderedPermutationSetEmpty() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetEmpty();
-}
+  public void testOrderedPermutationSetEmpty() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetEmpty();
+  }
 
-public void testOrderedPermutationSetOneElement() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetOneElement();
-}
+  public void testOrderedPermutationSetOneElement() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetOneElement();
+  }
 
-public void testOrderedPermutationSetRepeatedElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetRepeatedElements();
-}
+  public void testOrderedPermutationSetRepeatedElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetRepeatedElements();
+  }
 
-public void testOrderedPermutationSetRepeatedElementsSize() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetRepeatedElementsSize();
-}
+  public void testOrderedPermutationSetRepeatedElementsSize() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetRepeatedElementsSize();
+  }
 
-public void testOrderedPermutationSetSizeOverflow() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetSizeOverflow();
-}
+  public void testOrderedPermutationSetSizeOverflow() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetSizeOverflow();
+  }
 
-public void testOrderedPermutationSetThreeElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testOrderedPermutationSetThreeElements();
-}
+  public void testOrderedPermutationSetThreeElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testOrderedPermutationSetThreeElements();
+  }
 
-public void testPermutationSetContains() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetContains();
-}
+  public void testPermutationSetContains() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetContains();
+  }
 
-public void testPermutationSetEmpty() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetEmpty();
-}
+  public void testPermutationSetEmpty() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetEmpty();
+  }
 
-public void testPermutationSetFourElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetFourElements();
-}
+  public void testPermutationSetFourElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetFourElements();
+  }
 
-public void testPermutationSetOneElement() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetOneElement();
-}
+  public void testPermutationSetOneElement() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetOneElement();
+  }
 
-public void testPermutationSetSize() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetSize();
-}
+  public void testPermutationSetSize() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetSize();
+  }
 
-public void testPermutationSetSizeOverflow() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetSizeOverflow();
-}
+  public void testPermutationSetSizeOverflow() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetSizeOverflow();
+  }
 
-public void testPermutationSetThreeElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetThreeElements();
-}
+  public void testPermutationSetThreeElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetThreeElements();
+  }
 
-public void testPermutationSetThreeElementsOutOfOrder() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetThreeElementsOutOfOrder();
-}
+  public void testPermutationSetThreeElementsOutOfOrder() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetThreeElementsOutOfOrder();
+  }
 
-public void testPermutationSetThreeRepeatedElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetThreeRepeatedElements();
-}
+  public void testPermutationSetThreeRepeatedElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetThreeRepeatedElements();
+  }
 
-public void testPermutationSetTwoElements() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testPermutationSetTwoElements();
-}
+  public void testPermutationSetTwoElements() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testPermutationSetTwoElements();
+  }
 
-public void testToStringImplWithNullEntries() throws Exception {
-  com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
-  testCase.testToStringImplWithNullEntries();
-}
+  public void testToStringImplWithNullEntries() throws Exception {
+    com.google.common.collect.Collections2Test testCase = new com.google.common.collect.Collections2Test();
+    testCase.testToStringImplWithNullEntries();
+  }
 }

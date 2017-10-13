@@ -204,8 +204,8 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
   public boolean containsValue(Object value) {
     for (Timestamped<V> val : cachingHashMap.values()) {
       if ((val.getValue().equals(value)) && (!isExpired(val))) {
-          return true;
-        }
+        return true;
+      }
     }
     return false;
   }
@@ -289,7 +289,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
     }
   }
 
-  private V getOrLoad(K key) throws ExecutionException{
+  private V getOrLoad(K key) throws ExecutionException {
     V value = get(key);
     if (value != null) {
       return value;
@@ -411,7 +411,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
    * @param <V> the base value type
    */
   public static class LocalLoadingCache<K, V>
-      extends LocalManualCache<K, V> implements LoadingCache<K, V> {
+    extends LocalManualCache<K, V> implements LoadingCache<K, V> {
 
     LocalLoadingCache(CacheBuilder<? super K, ? super V> builder,
         CacheLoader<? super K, V> loader) {
@@ -485,9 +485,9 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
       boolean removal = !((maximumSize == UNSET_INT)) && (size() > maximumSize);
       if ((removalListener != null) && removal) {
         removalListener.onRemoval(RemovalNotification.create(
-            ignored.getKey(),
-            ignored.getValue().getValue(),
-            RemovalCause.SIZE));
+                ignored.getKey(),
+                ignored.getValue().getValue(),
+                RemovalCause.SIZE));
       }
       statsCounter.recordEviction();
       return removal;

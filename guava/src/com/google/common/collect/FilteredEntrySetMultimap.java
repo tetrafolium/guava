@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @GwtCompatible
 final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>
-    implements FilteredSetMultimap<K, V> {
+  implements FilteredSetMultimap<K, V> {
 
   FilteredEntrySetMultimap(SetMultimap<K, V> unfiltered, Predicate<? super Entry<K, V>> predicate) {
     super(unfiltered, predicate);

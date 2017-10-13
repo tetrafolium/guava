@@ -33,13 +33,13 @@ public class ByFunctionOrdering_CustomFieldSerializer {
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static ByFunctionOrdering<Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return new ByFunctionOrdering<>(
-        (Function<Object, Object>) reader.readObject(), (Ordering<Object>) reader.readObject());
+            (Function<Object, Object>) reader.readObject(), (Ordering<Object>) reader.readObject());
   }
 
   public static void serialize(SerializationStreamWriter writer, ByFunctionOrdering<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.function);
     writer.writeObject(instance.ordering);
   }

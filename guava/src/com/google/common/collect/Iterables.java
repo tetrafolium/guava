@@ -582,11 +582,11 @@ public final class Iterables {
       public void forEach(Consumer<? super T> action) {
         checkNotNull(action);
         unfiltered.forEach(
-            (T a) -> {
-              if (retainIfTrue.test(a)) {
-                action.accept(a);
-              }
-            });
+        (T a) -> {
+          if (retainIfTrue.test(a)) {
+            action.accept(a);
+          }
+        });
       }
 
       @Override
@@ -1045,13 +1045,13 @@ public final class Iterables {
     checkNotNull(iterables, "iterables");
     checkNotNull(comparator, "comparator");
     Iterable<T> iterable =
-        new FluentIterable<T>() {
-          @Override
-          public Iterator<T> iterator() {
-            return Iterators.mergeSorted(
+    new FluentIterable<T>() {
+      @Override
+      public Iterator<T> iterator() {
+        return Iterators.mergeSorted(
                 Iterables.transform(iterables, Iterables.<T>toIterator()), comparator);
-          }
-        };
+      }
+    };
     return new UnmodifiableIterable<>(iterable);
   }
 

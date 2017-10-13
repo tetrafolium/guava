@@ -35,7 +35,7 @@ public class DenseImmutableTable_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, DenseImmutableTable<Object, Object, Object> table)
-      throws SerializationException {
+  throws SerializationException {
     ImmutableTable_CustomFieldSerializerBase.serialize(writer, table);
   }
 }

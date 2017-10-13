@@ -146,14 +146,14 @@ public final class ElementOrder<T> {
   /** Returns an empty mutable map whose keys will respect this {@link ElementOrder}. */
   <K extends T, V> Map<K, V> createMap(int expectedSize) {
     switch (type) {
-      case UNORDERED:
-        return Maps.newHashMapWithExpectedSize(expectedSize);
-      case INSERTION:
-        return Maps.newLinkedHashMapWithExpectedSize(expectedSize);
-      case SORTED:
-        return Maps.newTreeMap(comparator());
-      default:
-        throw new AssertionError();
+    case UNORDERED:
+      return Maps.newHashMapWithExpectedSize(expectedSize);
+    case INSERTION:
+      return Maps.newLinkedHashMapWithExpectedSize(expectedSize);
+    case SORTED:
+      return Maps.newTreeMap(comparator());
+    default:
+      throw new AssertionError();
     }
   }
 

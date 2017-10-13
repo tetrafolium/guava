@@ -117,7 +117,7 @@ import javax.annotation.Nullable;
 @GwtCompatible
 @SuppressWarnings("rawtypes")
 public final class Range<C extends Comparable> extends RangeGwtSerializationDependencies
-    implements Predicate<C>, Serializable {
+  implements Predicate<C>, Serializable {
 
   static class LowerBoundFn implements Function<Range, Cut> {
     static final LowerBoundFn INSTANCE = new LowerBoundFn();
@@ -250,12 +250,12 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    */
   public static <C extends Comparable<?>> Range<C> upTo(C endpoint, BoundType boundType) {
     switch (boundType) {
-      case OPEN:
-        return lessThan(endpoint);
-      case CLOSED:
-        return atMost(endpoint);
-      default:
-        throw new AssertionError();
+    case OPEN:
+      return lessThan(endpoint);
+    case CLOSED:
+      return atMost(endpoint);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -287,12 +287,12 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    */
   public static <C extends Comparable<?>> Range<C> downTo(C endpoint, BoundType boundType) {
     switch (boundType) {
-      case OPEN:
-        return greaterThan(endpoint);
-      case CLOSED:
-        return atLeast(endpoint);
-      default:
-        throw new AssertionError();
+    case OPEN:
+      return greaterThan(endpoint);
+    case CLOSED:
+      return atLeast(endpoint);
+    default:
+      throw new AssertionError();
     }
   }
 

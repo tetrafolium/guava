@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableList<E> extends ImmutableCollection<E>
-    implements List<E>, RandomAccess {
+  implements List<E>, RandomAccess {
 
   /**
    * Returns a {@code Collector} that accumulates the input elements into a new
@@ -284,12 +284,12 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    */
   public static <E> ImmutableList<E> copyOf(E[] elements) {
     switch (elements.length) {
-      case 0:
-        return of();
-      case 1:
-        return of(elements[0]);
-      default:
-        return construct(elements.clone());
+    case 0:
+      return of();
+    case 1:
+      return of(elements[0]);
+    default:
+      return construct(elements.clone());
     }
   }
 
@@ -363,15 +363,15 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    */
   static <E> ImmutableList<E> asImmutableList(Object[] elements, int length) {
     switch (length) {
-      case 0:
-        return of();
-      case 1:
-        return of((E) elements[0]);
-      default:
-        if (length < elements.length) {
-          elements = Arrays.copyOf(elements, length);
-        }
-        return new RegularImmutableList<E>(elements);
+    case 0:
+      return of();
+    case 1:
+      return of((E) elements[0]);
+    default:
+      if (length < elements.length) {
+        elements = Arrays.copyOf(elements, length);
+      }
+      return new RegularImmutableList<E>(elements);
     }
   }
 

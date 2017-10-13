@@ -178,12 +178,12 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
       return aggregateBelowRange(aggr, node.left);
     } else if (cmp == 0) {
       switch (range.getLowerBoundType()) {
-        case OPEN:
-          return aggr.nodeAggregate(node) + aggr.treeAggregate(node.left);
-        case CLOSED:
-          return aggr.treeAggregate(node.left);
-        default:
-          throw new AssertionError();
+      case OPEN:
+        return aggr.nodeAggregate(node) + aggr.treeAggregate(node.left);
+      case CLOSED:
+        return aggr.treeAggregate(node.left);
+      default:
+        throw new AssertionError();
       }
     } else {
       return aggr.treeAggregate(node.left)
@@ -201,12 +201,12 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
       return aggregateAboveRange(aggr, node.right);
     } else if (cmp == 0) {
       switch (range.getUpperBoundType()) {
-        case OPEN:
-          return aggr.nodeAggregate(node) + aggr.treeAggregate(node.right);
-        case CLOSED:
-          return aggr.treeAggregate(node.right);
-        default:
-          throw new AssertionError();
+      case OPEN:
+        return aggr.nodeAggregate(node) + aggr.treeAggregate(node.right);
+      case CLOSED:
+        return aggr.treeAggregate(node.right);
+      default:
+        throw new AssertionError();
       }
     } else {
       return aggr.treeAggregate(node.right)
@@ -487,17 +487,17 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
   @Override
   public SortedMultiset<E> headMultiset(@Nullable E upperBound, BoundType boundType) {
     return new TreeMultiset<E>(
-        rootReference,
-        range.intersect(GeneralRange.upTo(comparator(), upperBound, boundType)),
-        header);
+            rootReference,
+            range.intersect(GeneralRange.upTo(comparator(), upperBound, boundType)),
+            header);
   }
 
   @Override
   public SortedMultiset<E> tailMultiset(@Nullable E lowerBound, BoundType boundType) {
     return new TreeMultiset<E>(
-        rootReference,
-        range.intersect(GeneralRange.downTo(comparator(), lowerBound, boundType)),
-        header);
+            rootReference,
+            range.intersect(GeneralRange.downTo(comparator(), lowerBound, boundType)),
+            header);
   }
 
   static int distinctElements(@Nullable AvlNode<?> node) {
@@ -848,19 +848,19 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
 
     private AvlNode<E> rebalance() {
       switch (balanceFactor()) {
-        case -2:
-          if (right.balanceFactor() > 0) {
-            right = right.rotateRight();
-          }
-          return rotateLeft();
-        case 2:
-          if (left.balanceFactor() < 0) {
-            left = left.rotateLeft();
-          }
-          return rotateRight();
-        default:
-          recomputeHeight();
-          return this;
+      case -2:
+        if (right.balanceFactor() > 0) {
+          right = right.rotateRight();
+        }
+        return rotateLeft();
+      case 2:
+        if (left.balanceFactor() < 0) {
+          left = left.rotateLeft();
+        }
+        return rotateRight();
+      default:
+        recomputeHeight();
+        return this;
       }
     }
 
@@ -975,9 +975,9 @@ public final class TreeMultiset<E> extends AbstractSortedMultiset<E> implements 
     Comparator<? super E> comparator = (Comparator<? super E>) stream.readObject();
     Serialization.getFieldSetter(AbstractSortedMultiset.class, "comparator").set(this, comparator);
     Serialization.getFieldSetter(TreeMultiset.class, "range")
-        .set(this, GeneralRange.all(comparator));
+    .set(this, GeneralRange.all(comparator));
     Serialization.getFieldSetter(TreeMultiset.class, "rootReference")
-        .set(this, new Reference<AvlNode<E>>());
+    .set(this, new Reference<AvlNode<E>>());
     AvlNode<E> header = new AvlNode<E>(null, 1);
     Serialization.getFieldSetter(TreeMultiset.class, "header").set(this, header);
     successor(header, header);

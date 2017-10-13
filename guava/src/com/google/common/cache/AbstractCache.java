@@ -247,12 +247,12 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     @Override
     public CacheStats snapshot() {
       return new CacheStats(
-          hitCount.sum(),
-          missCount.sum(),
-          loadSuccessCount.sum(),
-          loadExceptionCount.sum(),
-          totalLoadTime.sum(),
-          evictionCount.sum());
+              hitCount.sum(),
+              missCount.sum(),
+              loadSuccessCount.sum(),
+              loadExceptionCount.sum(),
+              totalLoadTime.sum(),
+              evictionCount.sum());
     }
 
     /**

@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingSetMultimap<K, V> extends ForwardingMultimap<K, V>
-    implements SetMultimap<K, V> {
+  implements SetMultimap<K, V> {
 
   @Override
   protected abstract SetMultimap<K, V> delegate();

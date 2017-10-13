@@ -33,7 +33,7 @@ public final class MapMaker {
   // this implementation (based on a LHM) does. This will all be replaced soon anyways, so leaving
   // it as is for now.
   private static class ComputingMap<K, V> extends LinkedHashMap<K, V>
-      implements ConcurrentMap<K, V> {
+    implements ConcurrentMap<K, V> {
     private final Function<? super K, ? extends V> computer;
 
     ComputingMap(int initialCapacity) {

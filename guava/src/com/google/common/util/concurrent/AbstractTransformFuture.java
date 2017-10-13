@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.TrustedFuture<O>
-    implements Runnable {
+  implements Runnable {
   static <I, O> ListenableFuture<O> create(
       ListenableFuture<I> input,
       AsyncFunction<? super I, ? extends O> function,
@@ -193,8 +193,8 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
    * {@link #setFuture(ListenableFuture)}.
    */
   private static final class AsyncTransformFuture<I, O>
-      extends AbstractTransformFuture<
-          I, O, AsyncFunction<? super I, ? extends O>, ListenableFuture<? extends O>> {
+    extends AbstractTransformFuture<
+    I, O, AsyncFunction<? super I, ? extends O>, ListenableFuture<? extends O>> {
     AsyncTransformFuture(
         ListenableFuture<? extends I> inputFuture, AsyncFunction<? super I, ? extends O> function) {
       super(inputFuture, function);
@@ -207,7 +207,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
       checkNotNull(
           outputFuture,
           "AsyncFunction.apply returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+          + "Did you mean to return immediateFuture(null)?");
       return outputFuture;
     }
 
@@ -222,7 +222,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
    * {@link #set(Object)}.
    */
   private static final class TransformFuture<I, O>
-      extends AbstractTransformFuture<I, O, Function<? super I, ? extends O>, O> {
+    extends AbstractTransformFuture<I, O, Function<? super I, ? extends O>, O> {
     TransformFuture(
         ListenableFuture<? extends I> inputFuture, Function<? super I, ? extends O> function) {
       super(inputFuture, function);

@@ -82,7 +82,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
       @Override
       Iterator<Entry<V, K>> entrySetIterator() {
         return new TransformedIterator<Entry<K, V>, Entry<V, K>>(
-            HashBiMap.this.delegate().entrySet().iterator()) {
+        HashBiMap.this.delegate().entrySet().iterator()) {
           @Override
           public Entry<V, K> transform(final Entry<K, V> forwardEntry) {
             return new AbstractMapEntry<V, K>() {

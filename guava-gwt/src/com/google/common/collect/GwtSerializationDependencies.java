@@ -115,7 +115,7 @@ final class GwtSerializationDependencies {
    * won't generate serialization code for R, C, and V.
    */
   static final class ImmutableTableDependencies<R, C, V> extends SingletonImmutableTable<R, C, V>
-      implements Serializable {
+    implements Serializable {
     R rowKey;
     C columnKey;
     V value;

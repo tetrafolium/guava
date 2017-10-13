@@ -71,31 +71,31 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
 
   @Override ImmutableSet<Entry<K, V>> createEntrySet() {
     return ImmutableSet.unsafeDelegate(
-        new ForwardingSet<Entry<K, V>>() {
-          @Override protected Set<Entry<K, V>> delegate() {
-            return delegate.entrySet();
-          }
-          @Override public boolean contains(Object object) {
-            if (object instanceof Entry<?, ?>
-                && ((Entry<?, ?>) object).getKey() == null) {
-              return false;
-            }
-            try {
-              return super.contains(object);
-            } catch (ClassCastException e) {
-              return false;
-            }
-          }
-          @Override public <T> T[] toArray(T[] array) {
-            T[] result = super.toArray(array);
-            if (size() < result.length) {
-              // It works around a GWT bug where elements after last is not
-              // properly null'ed.
-              result[size()] = null;
-            }
-            return result;
-          }
-        });
+    new ForwardingSet<Entry<K, V>>() {
+      @Override protected Set<Entry<K, V>> delegate() {
+        return delegate.entrySet();
+      }
+      @Override public boolean contains(Object object) {
+        if (object instanceof Entry<?, ?>
+            && ((Entry<?, ?>) object).getKey() == null) {
+          return false;
+        }
+        try {
+          return super.contains(object);
+        } catch (ClassCastException e) {
+          return false;
+        }
+      }
+      @Override public <T> T[] toArray(T[] array) {
+        T[] result = super.toArray(array);
+        if (size() < result.length) {
+          // It works around a GWT bug where elements after last is not
+          // properly null'ed.
+          result[size()] = null;
+        }
+        return result;
+      }
+    });
   }
 
   @Override ImmutableSet<K> createKeySet() {

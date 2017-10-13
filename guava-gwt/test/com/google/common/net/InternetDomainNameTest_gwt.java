@@ -15,86 +15,86 @@
  */
 package com.google.common.net;
 public class InternetDomainNameTest_gwt extends com.google.gwt.junit.client.GWTTestCase {
-@Override public String getModuleName() {
-  return "com.google.common.net.testModule";
-}
-public void testChild() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testChild();
-}
+  @Override public String getModuleName() {
+    return "com.google.common.net.testModule";
+  }
+  public void testChild() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testChild();
+  }
 
-public void testEquality() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testEquality();
-}
+  public void testEquality() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testEquality();
+  }
 
-public void testExclusion() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testExclusion();
-}
+  public void testExclusion() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testExclusion();
+  }
 
-public void testInvalid() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testInvalid();
-}
+  public void testInvalid() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testInvalid();
+  }
 
-public void testInvalidTopPrivateDomain() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testInvalidTopPrivateDomain();
-}
+  public void testInvalidTopPrivateDomain() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testInvalidTopPrivateDomain();
+  }
 
-public void testIsValid() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testIsValid();
-}
+  public void testIsValid() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testIsValid();
+  }
 
-public void testMultipleUnders() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testMultipleUnders();
-}
+  public void testMultipleUnders() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testMultipleUnders();
+  }
 
-public void testParent() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testParent();
-}
+  public void testParent() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testParent();
+  }
 
-public void testParentChild() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testParentChild();
-}
+  public void testParentChild() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testParentChild();
+  }
 
-public void testPublicSuffix() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testPublicSuffix();
-}
+  public void testPublicSuffix() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testPublicSuffix();
+  }
 
-public void testToString() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testToString();
-}
+  public void testToString() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testToString();
+  }
 
-public void testTopPrivateDomain() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testTopPrivateDomain();
-}
+  public void testTopPrivateDomain() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testTopPrivateDomain();
+  }
 
-public void testUnderPrivateDomain() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testUnderPrivateDomain();
-}
+  public void testUnderPrivateDomain() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testUnderPrivateDomain();
+  }
 
-public void testUnderPublicSuffix() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testUnderPublicSuffix();
-}
+  public void testUnderPublicSuffix() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testUnderPublicSuffix();
+  }
 
-public void testValid() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testValid();
-}
+  public void testValid() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testValid();
+  }
 
-public void testValidTopPrivateDomain() throws Exception {
-  com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
-  testCase.testValidTopPrivateDomain();
-}
+  public void testValidTopPrivateDomain() throws Exception {
+    com.google.common.net.InternetDomainNameTest testCase = new com.google.common.net.InternetDomainNameTest();
+    testCase.testValidTopPrivateDomain();
+  }
 }

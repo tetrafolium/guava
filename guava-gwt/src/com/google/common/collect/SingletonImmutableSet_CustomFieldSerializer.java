@@ -31,13 +31,13 @@ public class SingletonImmutableSet_CustomFieldSerializer {
       SerializationStreamReader reader, SingletonImmutableSet<?> instance) {}
 
   public static SingletonImmutableSet<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     Object element = reader.readObject();
     return new SingletonImmutableSet<>(element);
   }
 
   public static void serialize(SerializationStreamWriter writer, SingletonImmutableSet<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.element);
   }
 }

@@ -68,7 +68,7 @@ public final class Closeables {
    *     {@code IOException}.
    */
   public static void close(@Nullable Closeable closeable, boolean swallowIOException)
-      throws IOException {
+  throws IOException {
     if (closeable == null) {
       return;
     }

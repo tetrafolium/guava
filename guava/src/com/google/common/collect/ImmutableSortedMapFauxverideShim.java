@@ -44,7 +44,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
       Function<? super T, ? extends V> valueFunction) {
     throw new UnsupportedOperationException();
   }
-  
+
   /**
    * Not supported. Use {@link ImmutableSortedMap#toImmutableSortedMap}, which offers better
    * type-safety, instead. This method exists only to hide {@link ImmutableMap#toImmutableMap} from

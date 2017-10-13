@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 abstract class WrappingScheduledExecutorService extends WrappingExecutorService
-    implements ScheduledExecutorService {
+  implements ScheduledExecutorService {
   final ScheduledExecutorService delegate;
 
   protected WrappingScheduledExecutorService(ScheduledExecutorService delegate) {

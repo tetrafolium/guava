@@ -15,106 +15,106 @@
  */
 package com.google.common.collect;
 public class LinkedListMultimapTest_gwt extends com.google.gwt.junit.client.GWTTestCase {
-@Override public String getModuleName() {
-  return "com.google.common.collect.testModule";
-}
-public void testCreateFromIllegalSize() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testCreateFromIllegalSize();
-}
+  @Override public String getModuleName() {
+    return "com.google.common.collect.testModule";
+  }
+  public void testCreateFromIllegalSize() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testCreateFromIllegalSize();
+  }
 
-public void testCreateFromMultimap() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testCreateFromMultimap();
-}
+  public void testCreateFromMultimap() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testCreateFromMultimap();
+  }
 
-public void testCreateFromSize() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testCreateFromSize();
-}
+  public void testCreateFromSize() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testCreateFromSize();
+  }
 
-public void testEntriesAfterMultimapUpdate() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testEntriesAfterMultimapUpdate();
-}
+  public void testEntriesAfterMultimapUpdate() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testEntriesAfterMultimapUpdate();
+  }
 
-public void testEquals() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testEquals();
-}
+  public void testEquals() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testEquals();
+  }
 
-public void testGetRandomAccess() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testGetRandomAccess();
-}
+  public void testGetRandomAccess() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testGetRandomAccess();
+  }
 
-public void testLinkedAsMapEntries() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedAsMapEntries();
-}
+  public void testLinkedAsMapEntries() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedAsMapEntries();
+  }
 
-public void testLinkedClear() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedClear();
-}
+  public void testLinkedClear() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedClear();
+  }
 
-public void testLinkedEntries() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedEntries();
-}
+  public void testLinkedEntries() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedEntries();
+  }
 
-public void testLinkedGetAdd() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedGetAdd();
-}
+  public void testLinkedGetAdd() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedGetAdd();
+  }
 
-public void testLinkedGetInsert() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedGetInsert();
-}
+  public void testLinkedGetInsert() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedGetInsert();
+  }
 
-public void testLinkedKeySet() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedKeySet();
-}
+  public void testLinkedKeySet() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedKeySet();
+  }
 
-public void testLinkedKeys() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedKeys();
-}
+  public void testLinkedKeys() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedKeys();
+  }
 
-public void testLinkedPutAllMultimap() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedPutAllMultimap();
-}
+  public void testLinkedPutAllMultimap() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedPutAllMultimap();
+  }
 
-public void testLinkedPutInOrder() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedPutInOrder();
-}
+  public void testLinkedPutInOrder() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedPutInOrder();
+  }
 
-public void testLinkedPutOutOfOrder() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedPutOutOfOrder();
-}
+  public void testLinkedPutOutOfOrder() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedPutOutOfOrder();
+  }
 
-public void testLinkedReplaceValues() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedReplaceValues();
-}
+  public void testLinkedReplaceValues() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedReplaceValues();
+  }
 
-public void testLinkedValues() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testLinkedValues();
-}
+  public void testLinkedValues() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testLinkedValues();
+  }
 
-public void testRemoveAllRandomAccess() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testRemoveAllRandomAccess();
-}
+  public void testRemoveAllRandomAccess() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testRemoveAllRandomAccess();
+  }
 
-public void testReplaceValuesRandomAccess() throws Exception {
-  com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
-  testCase.testReplaceValuesRandomAccess();
-}
+  public void testReplaceValuesRandomAccess() throws Exception {
+    com.google.common.collect.LinkedListMultimapTest testCase = new com.google.common.collect.LinkedListMultimapTest();
+    testCase.testReplaceValuesRandomAccess();
+  }
 }

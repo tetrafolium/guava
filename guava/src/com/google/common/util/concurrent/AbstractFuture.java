@@ -88,7 +88,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     @CanIgnoreReturnValue
     @Override
     public final V get(long timeout, TimeUnit unit)
-        throws InterruptedException, ExecutionException, TimeoutException {
+    throws InterruptedException, ExecutionException, TimeoutException {
       return super.get(timeout, unit);
     }
 
@@ -138,11 +138,11 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       try {
         helper =
             new SafeAtomicHelper(
-                newUpdater(Waiter.class, Thread.class, "thread"),
-                newUpdater(Waiter.class, Waiter.class, "next"),
-                newUpdater(AbstractFuture.class, Waiter.class, "waiters"),
-                newUpdater(AbstractFuture.class, Listener.class, "listeners"),
-                newUpdater(AbstractFuture.class, Object.class, "value"));
+            newUpdater(Waiter.class, Thread.class, "thread"),
+            newUpdater(Waiter.class, Waiter.class, "next"),
+            newUpdater(AbstractFuture.class, Waiter.class, "waiters"),
+            newUpdater(AbstractFuture.class, Listener.class, "listeners"),
+            newUpdater(AbstractFuture.class, Object.class, "value"));
       } catch (Throwable atomicReferenceFieldUpdaterFailure) {
         // Some Android 5.0.x Samsung devices have bugs in JDK reflection APIs that cause
         // getDeclaredField to throw a NoSuchFieldException when the field is definitely there.
@@ -266,12 +266,12 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   private static final class Failure {
     static final Failure FALLBACK_INSTANCE =
         new Failure(
-            new Throwable("Failure occurred while trying to finish a future.") {
-              @Override
-              public synchronized Throwable fillInStackTrace() {
-                return this; // no stack trace
-              }
-            });
+    new Throwable("Failure occurred while trying to finish a future.") {
+      @Override
+      public synchronized Throwable fillInStackTrace() {
+        return this; // no stack trace
+      }
+    });
     final Throwable exception;
 
     Failure(Throwable exception) {
@@ -390,7 +390,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   @CanIgnoreReturnValue
   @Override
   public V get(long timeout, TimeUnit unit)
-      throws InterruptedException, TimeoutException, ExecutionException {
+  throws InterruptedException, TimeoutException, ExecutionException {
     // NOTE: if timeout < 0, remainingNanos will be < 0 and we will fall into the while(true) loop
     // at the bottom and throw a timeoutexception.
     long remainingNanos = unit.toNanos(timeout); // we rely on the implicit null check on unit.
@@ -462,7 +462,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     if (isDone()) {
       throw new TimeoutException(
           "Waited " + timeout + " " + Ascii.toLowerCase(unit.toString())
-              + " but future completed as timeout expired");
+          + " but future completed as timeout expired");
     }
     throw new TimeoutException(
         "Waited " + timeout + " " + Ascii.toLowerCase(unit.toString()) + " for " + futureToString);
@@ -570,11 +570,11 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       // certainly less likely.
       Object valueToSet =
           GENERATE_CANCELLATION_CAUSES
-              ? new Cancellation(
-                  mayInterruptIfRunning, new CancellationException("Future.cancel() was called."))
-              : (mayInterruptIfRunning
-                  ? Cancellation.CAUSELESS_INTERRUPTED
-                  : Cancellation.CAUSELESS_CANCELLED);
+          ? new Cancellation(
+              mayInterruptIfRunning, new CancellationException("Future.cancel() was called."))
+          : (mayInterruptIfRunning
+              ? Cancellation.CAUSELESS_INTERRUPTED
+              : Cancellation.CAUSELESS_CANCELLED);
       AbstractFuture<?> abstractFuture = this;
       while (true) {
         if (ATOMIC_HELPER.casValue(abstractFuture, localValue, valueToSet)) {
@@ -810,8 +810,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
         if (c.wasInterrupted) {
           v =
               c.cause != null
-                  ? new Cancellation(/* wasInterrupted= */ false, c.cause)
-                  : Cancellation.CAUSELESS_CANCELLED;
+              ? new Cancellation(/* wasInterrupted= */ false, c.cause)
+              : Cancellation.CAUSELESS_CANCELLED;
         }
       }
       return v;
@@ -1064,20 +1064,20 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
         try {
           unsafe =
               AccessController.doPrivileged(
-                  new PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                    @Override
-                    public sun.misc.Unsafe run() throws Exception {
-                      Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                      for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                        f.setAccessible(true);
-                        Object x = f.get(null);
-                        if (k.isInstance(x)) {
-                          return k.cast(x);
-                        }
-                      }
-                      throw new NoSuchFieldError("the Unsafe");
-                    }
-                  });
+          new PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+                Object x = f.get(null);
+                if (k.isInstance(x)) {
+                  return k.cast(x);
+                }
+              }
+              throw new NoSuchFieldError("the Unsafe");
+            }
+          });
         } catch (PrivilegedActionException e) {
           throw new RuntimeException("Could not initialize intrinsics", e.getCause());
         }

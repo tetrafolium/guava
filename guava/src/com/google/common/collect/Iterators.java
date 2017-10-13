@@ -838,10 +838,10 @@ public final class Iterators {
     if (!iterator.hasNext()) {
       throw new IndexOutOfBoundsException(
           "position ("
-              + position
-              + ") must be less than the number of elements that remained ("
-              + skipped
-              + ")");
+          + position
+          + ") must be less than the number of elements that remained ("
+          + skipped
+          + ")");
     }
     return iterator.next();
   }
@@ -1309,12 +1309,12 @@ public final class Iterators {
       // A comparator that's used by the heap, allowing the heap
       // to be sorted based on the top of each iterator.
       Comparator<PeekingIterator<T>> heapComparator =
-          new Comparator<PeekingIterator<T>>() {
-            @Override
-            public int compare(PeekingIterator<T> o1, PeekingIterator<T> o2) {
-              return itemComparator.compare(o1.peek(), o2.peek());
-            }
-          };
+      new Comparator<PeekingIterator<T>>() {
+        @Override
+        public int compare(PeekingIterator<T> o1, PeekingIterator<T> o2) {
+          return itemComparator.compare(o1.peek(), o2.peek());
+        }
+      };
 
       queue = new PriorityQueue<>(2, heapComparator);
 

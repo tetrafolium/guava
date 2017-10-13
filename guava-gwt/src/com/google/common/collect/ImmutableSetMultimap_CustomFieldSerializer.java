@@ -34,7 +34,7 @@ public class ImmutableSetMultimap_CustomFieldSerializer {
   // Serialization type safety is at the caller's mercy.
   @SuppressWarnings("unchecked")
   public static ImmutableSetMultimap<Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     Comparator<Object> valueComparator = (Comparator<Object>) reader.readObject();
     ImmutableSetMultimap.Builder<Object, Object> builder = ImmutableSetMultimap.builder();
     if (valueComparator != null) {
@@ -46,7 +46,7 @@ public class ImmutableSetMultimap_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, ImmutableSetMultimap<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.valueComparator());
     Multimap_CustomFieldSerializerBase.serialize(writer, instance);
   }

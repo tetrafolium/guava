@@ -316,7 +316,7 @@ public interface Multiset<E> extends Collection<E> {
    * @since 21.0
    */
   @Beta
-  default void forEachEntry(ObjIntConsumer<? super E> action) {
+default void forEachEntry(ObjIntConsumer<? super E> action) {
     checkNotNull(action);
     entrySet().forEach(entry -> action.accept(entry.getElement(), entry.getCount()));
   }
@@ -486,21 +486,21 @@ public interface Multiset<E> extends Collection<E> {
    * correspondingly many times, though not necessarily sequentially.
    */
   @Override
-  default void forEach(Consumer<? super E> action) {
+default void forEach(Consumer<? super E> action) {
     checkNotNull(action);
     entrySet()
-        .forEach(
-            entry -> {
-              E elem = entry.getElement();
-              int count = entry.getCount();
-              for (int i = 0; i < count; i++) {
-                action.accept(elem);
-              }
-            });
+    .forEach(
+    entry -> {
+      E elem = entry.getElement();
+      int count = entry.getCount();
+      for (int i = 0; i < count; i++) {
+        action.accept(elem);
+      }
+    });
   }
 
   @Override
-  default Spliterator<E> spliterator() {
+default Spliterator<E> spliterator() {
     return Multisets.spliteratorImpl(this);
   }
 }
