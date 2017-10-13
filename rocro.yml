@@ -9,10 +9,7 @@ inspecode:
   ### tools for Java [91.4%]
   astyle:
     auto-fix: true
-    options:
-      --style: google
-      --indent: spaces=2
-      --indent-continuation: 4
+    config-file: rocro-astyle.opts
   checkstyle:
     auto-fix: true
     config-file: rocro-checkstyle.xml

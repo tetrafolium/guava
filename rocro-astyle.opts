@@ -1,0 +1,6 @@
+style=java
+indent=spaces=2
+indent-after-parens
+indent-continuation=2
+keep-one-line-blocks
+keep-one-line-statements
