@@ -49,9 +49,9 @@ public class ForwardingTableTest extends TestCase {
 
   private static <R, C, V> Table<R, C, V> wrap(final Table<R, C, V> delegate) {
     return new ForwardingTable<R, C, V>() {
-      @Override protected Table<R, C, V> delegate() {
-        return delegate;
-      }
+             @Override protected Table<R, C, V> delegate() {
+               return delegate;
+             }
     };
   }
 }

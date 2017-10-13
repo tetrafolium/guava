@@ -78,7 +78,7 @@ public class MultimapsTest extends TestCase {
         ImmutableListMultimap.of("a", 1, "b", 2, "a", 3);
     assertSame(immutable, Multimaps.unmodifiableListMultimap(immutable));
     assertSame(
-        immutable, Multimaps.unmodifiableListMultimap((ListMultimap<String, Integer>) immutable));
+      immutable, Multimaps.unmodifiableListMultimap((ListMultimap<String, Integer>)immutable));
   }
 
   @SuppressWarnings("deprecation")
@@ -91,7 +91,7 @@ public class MultimapsTest extends TestCase {
         ImmutableSetMultimap.of("a", 1, "b", 2, "a", 3);
     assertSame(immutable, Multimaps.unmodifiableSetMultimap(immutable));
     assertSame(
-        immutable, Multimaps.unmodifiableSetMultimap((SetMultimap<String, Integer>) immutable));
+      immutable, Multimaps.unmodifiableSetMultimap((SetMultimap<String, Integer>)immutable));
   }
 
   @SuppressWarnings("deprecation")
@@ -102,13 +102,13 @@ public class MultimapsTest extends TestCase {
     assertSame(unmod, Multimaps.unmodifiableMultimap(unmod));
     ImmutableMultimap<String, Integer> immutable = ImmutableMultimap.of("a", 1, "b", 2, "a", 3);
     assertSame(immutable, Multimaps.unmodifiableMultimap(immutable));
-    assertSame(immutable, Multimaps.unmodifiableMultimap((Multimap<String, Integer>) immutable));
+    assertSame(immutable, Multimaps.unmodifiableMultimap((Multimap<String, Integer>)immutable));
   }
 
   @GwtIncompatible // slow (~10s)
   public void testUnmodifiableArrayListMultimap() {
     checkUnmodifiableMultimap(
-        ArrayListMultimap.<String, Integer>create(), true);
+      ArrayListMultimap.<String, Integer>create(), true);
   }
 
   @GwtIncompatible // SerializableTester
@@ -152,7 +152,7 @@ public class MultimapsTest extends TestCase {
   @GwtIncompatible // slow (~10s)
   public void testUnmodifiableTreeMultimap() {
     checkUnmodifiableMultimap(
-        TreeMultimap.<String, Integer>create(), false, "null", 42);
+      TreeMultimap.<String, Integer>create(), false, "null", 42);
   }
 
   @GwtIncompatible // SerializableTester
@@ -165,28 +165,28 @@ public class MultimapsTest extends TestCase {
   @GwtIncompatible // slow (~10s)
   public void testUnmodifiableSynchronizedArrayListMultimap() {
     checkUnmodifiableMultimap(Multimaps.synchronizedListMultimap(
-            ArrayListMultimap.<String, Integer>create()), true);
+          ArrayListMultimap.<String, Integer>create()), true);
   }
 
   @GwtIncompatible // SerializableTester
   public void testSerializingUnmodifiableSynchronizedArrayListMultimap() {
     Multimap<String, Integer> unmodifiable =
         prepareUnmodifiableTests(Multimaps.synchronizedListMultimap(
-                ArrayListMultimap.<String, Integer>create()), true, null, null);
+          ArrayListMultimap.<String, Integer>create()), true, null, null);
     SerializableTester.reserializeAndAssert(unmodifiable);
   }
 
   @GwtIncompatible // slow (~10s)
   public void testUnmodifiableSynchronizedHashMultimap() {
     checkUnmodifiableMultimap(Multimaps.synchronizedSetMultimap(
-            HashMultimap.<String, Integer>create()), false);
+          HashMultimap.<String, Integer>create()), false);
   }
 
   @GwtIncompatible // SerializableTester
   public void testSerializingUnmodifiableSynchronizedHashMultimap() {
     Multimap<String, Integer> unmodifiable =
         prepareUnmodifiableTests(Multimaps.synchronizedSetMultimap(
-                HashMultimap.<String, Integer>create()), false, null, null);
+          HashMultimap.<String, Integer>create()), false, null, null);
     SerializableTester.reserializeAndAssert(unmodifiable);
   }
 
@@ -231,7 +231,7 @@ public class MultimapsTest extends TestCase {
       entry.setValue(2);
       fail("UnsupportedOperationException expected");
     } catch (UnsupportedOperationException expected) {}
-    entry = (Entry<String, Integer>) unmod.entries().toArray()[0];
+    entry = (Entry<String, Integer>)unmod.entries().toArray()[0];
     try {
       entry.setValue(2);
       fail("UnsupportedOperationException expected");
@@ -252,7 +252,7 @@ public class MultimapsTest extends TestCase {
    * in its stead. The multimap must support null keys and values.
    */
   private static void checkUnmodifiableMultimap(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates) {
+    Multimap<String, Integer> multimap, boolean permitsDuplicates) {
     checkUnmodifiableMultimap(multimap, permitsDuplicates, null, null);
   }
 
@@ -262,25 +262,25 @@ public class MultimapsTest extends TestCase {
    * alternatives may be specified for tests involving nulls.
    */
   private static void checkUnmodifiableMultimap(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates,
-      @Nullable String nullKey, @Nullable Integer nullValue) {
+    Multimap<String, Integer> multimap, boolean permitsDuplicates,
+    @Nullable String nullKey, @Nullable Integer nullValue) {
     Multimap<String, Integer> unmodifiable =
         prepareUnmodifiableTests(multimap, permitsDuplicates, nullKey, nullValue);
 
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(
-        unmodifiable, "test", 123);
+      unmodifiable, "test", 123);
 
     assertUnmodifiableIterableInTandem(
-        unmodifiable.keys(), multimap.keys());
+      unmodifiable.keys(), multimap.keys());
 
     assertUnmodifiableIterableInTandem(
-        unmodifiable.keySet(), multimap.keySet());
+      unmodifiable.keySet(), multimap.keySet());
 
     assertUnmodifiableIterableInTandem(
-        unmodifiable.entries(), multimap.entries());
+      unmodifiable.entries(), multimap.entries());
 
     assertUnmodifiableIterableInTandem(
-        unmodifiable.asMap().entrySet(), multimap.asMap().entrySet());
+      unmodifiable.asMap().entrySet(), multimap.asMap().entrySet());
 
     assertEquals(multimap.toString(), unmodifiable.toString());
     assertEquals(multimap.hashCode(), unmodifiable.hashCode());
@@ -297,8 +297,8 @@ public class MultimapsTest extends TestCase {
    * of the map.
    */
   private static Multimap<String, Integer> prepareUnmodifiableTests(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates,
-      @Nullable String nullKey, @Nullable Integer nullValue) {
+    Multimap<String, Integer> multimap, boolean permitsDuplicates,
+    @Nullable String nullKey, @Nullable Integer nullValue) {
     multimap.clear();
     multimap.put("foo", 1);
     multimap.put("foo", 2);
@@ -319,13 +319,13 @@ public class MultimapsTest extends TestCase {
     Multimap<String, Integer> unmodifiable;
     if (multimap instanceof SortedSetMultimap) {
       unmodifiable = Multimaps.unmodifiableSortedSetMultimap(
-              (SortedSetMultimap<String, Integer>) multimap);
+        (SortedSetMultimap<String, Integer>)multimap);
     } else if (multimap instanceof SetMultimap) {
       unmodifiable = Multimaps.unmodifiableSetMultimap(
-              (SetMultimap<String, Integer>) multimap);
+        (SetMultimap<String, Integer>)multimap);
     } else if (multimap instanceof ListMultimap) {
       unmodifiable = Multimaps.unmodifiableListMultimap(
-              (ListMultimap<String, Integer>) multimap);
+        (ListMultimap<String, Integer>)multimap);
     } else {
       unmodifiable = Multimaps.unmodifiableMultimap(multimap);
     }
@@ -333,11 +333,11 @@ public class MultimapsTest extends TestCase {
   }
 
   private static <T> void assertUnmodifiableIterableInTandem(
-      Iterable<T> unmodifiable, Iterable<T> modifiable) {
+    Iterable<T> unmodifiable, Iterable<T> modifiable) {
     UnmodifiableCollectionTests.assertIteratorIsUnmodifiable(
-        unmodifiable.iterator());
+      unmodifiable.iterator());
     UnmodifiableCollectionTests.assertIteratorsInOrder(
-        unmodifiable.iterator(), modifiable.iterator());
+      unmodifiable.iterator(), modifiable.iterator());
   }
 
   public void testInvertFrom() {
@@ -345,30 +345,30 @@ public class MultimapsTest extends TestCase {
 
     // typical usage example - sad that ArrayListMultimap.create() won't work
     Multimap<String, Integer> multimap = Multimaps.invertFrom(empty,
-            ArrayListMultimap.<String, Integer>create());
+        ArrayListMultimap.<String, Integer>create());
     assertTrue(multimap.isEmpty());
 
     ImmutableMultimap<Integer, String> single
       = new ImmutableMultimap.Builder<Integer, String>()
-    .put(1, "one")
-    .put(2, "two")
-    .build();
+        .put(1, "one")
+        .put(2, "two")
+        .build();
 
     // copy into existing multimap
     assertSame(multimap, Multimaps.invertFrom(single, multimap));
 
     ImmutableMultimap<String, Integer> expected
       = new ImmutableMultimap.Builder<String, Integer>()
-    .put("one", 1)
-    .put("two", 2)
-    .build();
+        .put("one", 1)
+        .put("two", 2)
+        .build();
 
     assertEquals(expected, multimap);
   }
 
   public void testAsMap_multimap() {
     Multimap<String, Integer> multimap = Multimaps.newMultimap(
-            new HashMap<String, Collection<Integer>>(), new QueueSupplier());
+      new HashMap<String, Collection<Integer>>(), new QueueSupplier());
     Map<String, Collection<Integer>> map = Multimaps.asMap(multimap);
     assertSame(multimap.asMap(), map);
   }
@@ -411,7 +411,7 @@ public class MultimapsTest extends TestCase {
     assertFalse(multimapView.equals(multimap2));
     ListMultimap<String, Integer> listMultimap
       = new ImmutableListMultimap.Builder<String, Integer>()
-    .put("foo", 1).put("bar", 2).build();
+        .put("foo", 1).put("bar", 2).build();
     assertFalse("SetMultimap equals ListMultimap",
         multimapView.equals(listMultimap));
     assertEquals(multimap.toString(), multimapView.toString());
@@ -447,7 +447,7 @@ public class MultimapsTest extends TestCase {
     assertThat(multimapView.values()).contains(1);
     assertThat(multimapView.entries()).contains(Maps.immutableEntry("foo", 1));
     assertThat(multimapView.asMap().entrySet())
-    .contains(Maps.immutableEntry("foo", (Collection<Integer>) Collections.singleton(1)));
+    .contains(Maps.immutableEntry("foo", (Collection<Integer>)Collections.singleton(1)));
     multimapView.clear();
     assertFalse(multimapView.containsKey("foo"));
     assertFalse(map.containsKey("foo"));
@@ -498,29 +498,29 @@ public class MultimapsTest extends TestCase {
     assertFalse(entries.contains((Object) 4.5));
     assertFalse(entries.remove((Object) 4.5));
     assertFalse(entries.contains(Maps.immutableEntry("foo",
-                Collections.singletonList(1))));
+        Collections.singletonList(1))));
     assertFalse(entries.remove(Maps.immutableEntry("foo",
-                Collections.singletonList(1))));
+        Collections.singletonList(1))));
     assertFalse(entries.contains(Maps.immutableEntry("foo",
-                Sets.newLinkedHashSet(asList(1, 2)))));
+        Sets.newLinkedHashSet(asList(1, 2)))));
     assertFalse(entries.remove(Maps.immutableEntry("foo",
-                Sets.newLinkedHashSet(asList(1, 2)))));
+        Sets.newLinkedHashSet(asList(1, 2)))));
     assertFalse(entries.contains(Maps.immutableEntry("foo",
-                Collections.singleton(2))));
+        Collections.singleton(2))));
     assertFalse(entries.remove(Maps.immutableEntry("foo",
-                Collections.singleton(2))));
+        Collections.singleton(2))));
     assertTrue(map.containsKey("foo"));
     assertTrue(entries.contains(Maps.immutableEntry("foo",
-                Collections.singleton(1))));
+        Collections.singleton(1))));
     assertTrue(entries.remove(Maps.immutableEntry("foo",
-                Collections.singleton(1))));
+        Collections.singleton(1))));
     assertFalse(map.containsKey("foo"));
   }
 
   public void testForMapGetIteration() {
     IteratorTester<Integer> tester =
         new IteratorTester<Integer>(4, MODIFIABLE, newHashSet(1),
-    IteratorTester.KnownOrder.KNOWN_ORDER) {
+        IteratorTester.KnownOrder.KNOWN_ORDER) {
       private Multimap<String, Integer> multimap;
 
       @Override protected Iterator<Integer> newTargetIterator() {
@@ -567,21 +567,21 @@ public class MultimapsTest extends TestCase {
       public Set<Integer> getImpl() {
         final Set<Integer> backing = super.getImpl();
         return new ForwardingSet<Integer>() {
-          @Override
-          protected Set<Integer> delegate() {
-            return backing;
-          }
+                 @Override
+                 protected Set<Integer> delegate() {
+                   return backing;
+                 }
 
-          @Override
-          public boolean add(Integer element) {
-            checkArgument(element >= 0);
-            return super.add(element);
-          }
+                 @Override
+                 public boolean add(Integer element) {
+                   checkArgument(element >= 0);
+                   return super.add(element);
+                 }
 
-          @Override
-          public boolean addAll(Collection<? extends Integer> collection) {
-            return standardAddAll(collection);
-          }
+                 @Override
+                 public boolean addAll(Collection<? extends Integer> collection) {
+                   return standardAddAll(collection);
+                 }
         };
       }
     };
@@ -601,8 +601,8 @@ public class MultimapsTest extends TestCase {
     } catch (IllegalArgumentException expected) {
     }
     assertThat(multimap.entries()).containsExactly(
-        Maps.immutableEntry(Color.RED, 1),
-        Maps.immutableEntry(Color.BLUE, 2));
+      Maps.immutableEntry(Color.RED, 1),
+      Maps.immutableEntry(Color.BLUE, 2));
   }
 
   public void testNewMultimap() {
@@ -741,49 +741,49 @@ public class MultimapsTest extends TestCase {
   public void testIndex() {
     final Multimap<String, Object> stringToObject =
         new ImmutableMultimap.Builder<String, Object>()
-    .put("1", 1)
-    .put("1", 1L)
-    .put("1", "1")
-    .put("2", 2)
-    .put("2", 2L)
-    .build();
+        .put("1", 1)
+        .put("1", 1L)
+        .put("1", "1")
+        .put("2", 2)
+        .put("2", 2L)
+        .build();
 
     ImmutableMultimap<String, Object> outputMap =
         Multimaps.index(stringToObject.values(),
-            Functions.toStringFunction());
+        Functions.toStringFunction());
     assertEquals(stringToObject, outputMap);
   }
 
   public void testIndexIterator() {
     final Multimap<String, Object> stringToObject =
         new ImmutableMultimap.Builder<String, Object>()
-    .put("1", 1)
-    .put("1", 1L)
-    .put("1", "1")
-    .put("2", 2)
-    .put("2", 2L)
-    .build();
+        .put("1", 1)
+        .put("1", 1L)
+        .put("1", "1")
+        .put("2", 2)
+        .put("2", 2L)
+        .build();
 
     ImmutableMultimap<String, Object> outputMap =
         Multimaps.index(stringToObject.values().iterator(),
-            Functions.toStringFunction());
+        Functions.toStringFunction());
     assertEquals(stringToObject, outputMap);
   }
 
   public void testIndex_ordering() {
     final Multimap<Integer, String> expectedIndex =
         new ImmutableListMultimap.Builder<Integer, String>()
-    .put(4, "Inky")
-    .put(6, "Blinky")
-    .put(5, "Pinky")
-    .put(5, "Pinky")
-    .put(5, "Clyde")
-    .build();
+        .put(4, "Inky")
+        .put(6, "Blinky")
+        .put(5, "Pinky")
+        .put(5, "Pinky")
+        .put(5, "Clyde")
+        .build();
 
     final List<String> badGuys =
         Arrays.asList("Inky", "Blinky", "Pinky", "Pinky", "Clyde");
     final Function<String, Integer> stringLengthFunction =
-    new Function<String, Integer>() {
+        new Function<String, Integer>() {
       @Override
       public Integer apply(String input) {
         return input.length();
@@ -835,7 +835,7 @@ public class MultimapsTest extends TestCase {
     Multimap<String, String> multimap = LinkedListMultimap.create();
     multimap.put("a", "a");
     Multimap<String, Integer> transformed =
-    Multimaps.transformValues(multimap, new Function<String, Integer>() {
+        Multimaps.transformValues(multimap, new Function<String, Integer>() {
 
       @Override public Integer apply(String str) {
         return str.length();
@@ -868,7 +868,7 @@ public class MultimapsTest extends TestCase {
     SetMultimap<String, Integer> multimap =
         ImmutableSetMultimap.of("a", 1, "a", 4, "b", -6);
     EntryTransformer<String, Integer, String> transformer =
-    new EntryTransformer<String, Integer, String>() {
+        new EntryTransformer<String, Integer, String>() {
       @Override
       public String transformEntry(String key, Integer value) {
         return (value >= 0) ? key : "no" + key;
@@ -885,7 +885,7 @@ public class MultimapsTest extends TestCase {
     ListMultimap<String, Integer> multimap =
         ImmutableListMultimap.of("a", 1, "a", 4, "b", 6, "a", 4);
     EntryTransformer<String, Integer, String> transformer =
-    new EntryTransformer<String, Integer, String>() {
+        new EntryTransformer<String, Integer, String>() {
       @Override
       public String transformEntry(String key, Integer value) {
         return key + value;
@@ -894,8 +894,8 @@ public class MultimapsTest extends TestCase {
     ListMultimap<String, String> transformed =
         Multimaps.transformEntries(multimap, transformer);
     assertEquals(
-        ImmutableListMultimap.of("a", "a1", "a", "a4", "a", "a4", "b", "b6"),
-        transformed);
+      ImmutableListMultimap.of("a", "a1", "a", "a4", "a", "a4", "b", "b6"),
+      transformed);
     assertEquals("{a=[a1, a4, a4], b=[b6]}", transformed.toString());
   }
 
@@ -903,7 +903,7 @@ public class MultimapsTest extends TestCase {
     K key = null;
 
     Multimap<K, V> multimap = Multimaps.synchronizedMultimap(
-            HashMultimap.<K, V>create());
+      HashMultimap.<K, V>create());
     Collection<V> values = multimap.get(key);  // Needn't be in synchronized block
     synchronized (multimap) {  // Synchronizing on multimap, not values!
       Iterator<V> i = values.iterator(); // Must be in synchronized block
@@ -923,11 +923,11 @@ public class MultimapsTest extends TestCase {
     multimap.put("bar", 4);
 
     SetMultimap<String, Integer> filtered = Multimaps.filterKeys(
-            multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
+      multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
 
     assertEquals(
-        ImmutableSet.of(),
-        filtered.replaceValues("baz", ImmutableSet.<Integer>of()));
+      ImmutableSet.of(),
+      filtered.replaceValues("baz", ImmutableSet.<Integer>of()));
 
     try {
       filtered.replaceValues("baz", ImmutableSet.of(5));
@@ -944,7 +944,7 @@ public class MultimapsTest extends TestCase {
     multimap.put("bar", 4);
 
     SetMultimap<String, Integer> filtered = Multimaps.filterKeys(
-            multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
+      multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
     Set<Integer> bazSet = filtered.get("baz");
     assertThat(bazSet).isEmpty();
     try {
@@ -967,7 +967,7 @@ public class MultimapsTest extends TestCase {
     multimap.put("bar", 4);
 
     ListMultimap<String, Integer> filtered = Multimaps.filterKeys(
-            multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
+      multimap, Predicates.in(ImmutableSet.of("foo", "bar")));
     List<Integer> bazList = filtered.get("baz");
     assertThat(bazList).isEmpty();
     try {

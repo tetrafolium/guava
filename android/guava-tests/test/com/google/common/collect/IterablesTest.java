@@ -91,10 +91,10 @@ public class IterablesTest extends TestCase {
   private static Iterable<String> iterable(String... elements) {
     final List<String> list = asList(elements);
     return new Iterable<String>() {
-      @Override
-      public Iterator<String> iterator() {
-        return list.iterator();
-      }
+             @Override
+             public Iterator<String> iterator() {
+               return list.iterator();
+             }
     };
   }
 
@@ -249,7 +249,7 @@ public class IterablesTest extends TestCase {
     assertEquals("pants",
         Iterables.find(list, Predicates.equalTo("pants"), "woot"));
     assertEquals("woot", Iterables.find(list,
-            Predicates.alwaysFalse(), "woot"));
+        Predicates.alwaysFalse(), "woot"));
     assertNull(Iterables.find(list, Predicates.alwaysFalse(), null));
     assertEquals("cool",
         Iterables.find(list, Predicates.alwaysTrue(), "woot"));
@@ -281,7 +281,7 @@ public class IterablesTest extends TestCase {
   public void testTransform_iterator() {
     List<String> input = asList("1", "2", "3");
     Iterable<Integer> result = Iterables.transform(input,
-    new Function<String, Integer>() {
+        new Function<String, Integer>() {
       @Override
       public Integer apply(String from) {
         return Integer.valueOf(from);
@@ -298,7 +298,7 @@ public class IterablesTest extends TestCase {
   public void testPoorlyBehavedTransform() {
     List<String> input = asList("1", null, "3");
     Iterable<Integer> result = Iterables.transform(input,
-    new Function<String, Integer>() {
+        new Function<String, Integer>() {
       @Override
       public Integer apply(String from) {
         return Integer.valueOf(from);
@@ -318,7 +318,7 @@ public class IterablesTest extends TestCase {
   public void testNullFriendlyTransform() {
     List<Integer> input = asList(1, 2, null, 3);
     Iterable<String> result = Iterables.transform(input,
-    new Function<Integer, String>() {
+        new Function<Integer, String>() {
       @Override
       public String apply(Integer from) {
         return String.valueOf(from);
@@ -501,7 +501,7 @@ public class IterablesTest extends TestCase {
 
     boolean changed = Iterables.addAll(alreadyThere, freshlyAdded);
     assertThat(alreadyThere).containsExactly(
-        "already", "there", "freshly", "added").inOrder();
+      "already", "there", "freshly", "added").inOrder();
     assertTrue(changed);
   }
 
@@ -650,7 +650,7 @@ public class IterablesTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return skip(newLinkedHashSet(asList(1, 2, 3)), 1).iterator();
       }
-    } .test();
+    }.test();
   }
 
   @GwtIncompatible // slow (~35s)
@@ -660,7 +660,7 @@ public class IterablesTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return skip(newArrayList(1, 2, 3), 1).iterator();
       }
-    } .test();
+    }.test();
   }
 
   public void testSkip_nonStructurallyModifiedList() throws Exception {
@@ -919,7 +919,7 @@ public class IterablesTest extends TestCase {
     ImmutableList<String> immutableList = ImmutableList.of("a", "b", "c");
     assertSame(immutableList, Iterables.unmodifiableIterable(immutableList));
     assertSame(immutableList,
-        Iterables.unmodifiableIterable((List<String>) immutableList));
+        Iterables.unmodifiableIterable((List<String>)immutableList));
   }
 
   public void testFrequency_multiset() {
@@ -1000,7 +1000,7 @@ public class IterablesTest extends TestCase {
   public void testRemoveIf_randomAccess() {
     List<String> list = newArrayList("a", "b", "c", "d", "e");
     assertTrue(Iterables.removeIf(list,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("b") || s.equals("d") || s.equals("f");
@@ -1008,7 +1008,7 @@ public class IterablesTest extends TestCase {
     }));
     assertEquals(newArrayList("a", "c", "e"), list);
     assertFalse(Iterables.removeIf(list,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("x") || s.equals("y") || s.equals("z");
@@ -1024,7 +1024,7 @@ public class IterablesTest extends TestCase {
 
     assertTrue(uniqueList instanceof RandomAccess);
     assertTrue(Iterables.removeIf(uniqueList,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("b") || s.equals("d") || s.equals("f");
@@ -1032,7 +1032,7 @@ public class IterablesTest extends TestCase {
     }));
     assertEquals(newArrayList("a", "c", "e"), uniqueList);
     assertFalse(Iterables.removeIf(uniqueList,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("x") || s.equals("y") || s.equals("z");
@@ -1044,14 +1044,14 @@ public class IterablesTest extends TestCase {
   public void testRemoveIf_transformedList() {
     List<String> list = newArrayList("1", "2", "3", "4", "5");
     List<Integer> transformed = Lists.transform(list,
-    new Function<String, Integer>() {
+        new Function<String, Integer>() {
       @Override
       public Integer apply(String s) {
         return Integer.valueOf(s);
       }
     });
     assertTrue(Iterables.removeIf(transformed,
-    new Predicate<Integer>() {
+        new Predicate<Integer>() {
       @Override
       public boolean apply(Integer n) {
         return (n & 1) == 0;  // isEven()
@@ -1059,7 +1059,7 @@ public class IterablesTest extends TestCase {
     }));
     assertEquals(newArrayList("1", "3", "5"), list);
     assertFalse(Iterables.removeIf(transformed,
-    new Predicate<Integer>() {
+        new Predicate<Integer>() {
       @Override
       public boolean apply(Integer n) {
         return (n & 1) == 0;  // isEven()
@@ -1071,7 +1071,7 @@ public class IterablesTest extends TestCase {
   public void testRemoveIf_noRandomAccess() {
     List<String> list = Lists.newLinkedList(asList("a", "b", "c", "d", "e"));
     assertTrue(Iterables.removeIf(list,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("b") || s.equals("d") || s.equals("f");
@@ -1079,7 +1079,7 @@ public class IterablesTest extends TestCase {
     }));
     assertEquals(newArrayList("a", "c", "e"), list);
     assertFalse(Iterables.removeIf(list,
-    new Predicate<String>() {
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("x") || s.equals("y") || s.equals("z");
@@ -1091,16 +1091,16 @@ public class IterablesTest extends TestCase {
   public void testRemoveIf_iterable() {
     final List<String> list = Lists.newLinkedList(asList("a", "b", "c", "d", "e"));
     Iterable<String> iterable =
-    new Iterable<String>() {
+        new Iterable<String>() {
       @Override
       public Iterator<String> iterator() {
         return list.iterator();
       }
     };
     assertTrue(
-        Iterables.removeIf(
-            iterable,
-    new Predicate<String>() {
+      Iterables.removeIf(
+        iterable,
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("b") || s.equals("d") || s.equals("f");
@@ -1108,9 +1108,9 @@ public class IterablesTest extends TestCase {
     }));
     assertEquals(newArrayList("a", "c", "e"), list);
     assertFalse(
-        Iterables.removeIf(
-            iterable,
-    new Predicate<String>() {
+      Iterables.removeIf(
+        iterable,
+        new Predicate<String>() {
       @Override
       public boolean apply(String s) {
         return s.equals("x") || s.equals("y") || s.equals("z");
@@ -1141,10 +1141,10 @@ public class IterablesTest extends TestCase {
   private static Iterable<String> create(String... strings) {
     final List<String> list = asList(strings);
     return new FluentIterable<String>() {
-      @Override
-      public Iterator<String> iterator() {
-        return list.iterator();
-      }
+             @Override
+             public Iterator<String> iterator() {
+               return list.iterator();
+             }
     };
   }
 
@@ -1193,15 +1193,15 @@ public class IterablesTest extends TestCase {
   public void testConsumingIterable_queue_iterator() {
     final List<Integer> items = ImmutableList.of(4, 8, 15, 16, 23, 42);
     new IteratorTester<Integer>(
-        3,
-        UNMODIFIABLE,
-        items,
-        IteratorTester.KnownOrder.KNOWN_ORDER) {
+      3,
+      UNMODIFIABLE,
+      items,
+      IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override protected Iterator<Integer> newTargetIterator() {
         return Iterables.consumingIterable(Lists.newLinkedList(items))
-            .iterator();
+               .iterator();
       }
-    } .test();
+    }.test();
   }
 
   public void testConsumingIterable_queue_removesFromQueue() {
@@ -1275,7 +1275,7 @@ public class IterablesTest extends TestCase {
   }
 
   private static final Predicate<CharSequence> STARTSWITH_A =
-  new Predicate<CharSequence>() {
+      new Predicate<CharSequence>() {
     @Override public boolean apply(CharSequence input) {
       return (input.length() > 0) && (input.charAt(0) == 'a');
     }

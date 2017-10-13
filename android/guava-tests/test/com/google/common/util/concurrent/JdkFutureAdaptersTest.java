@@ -105,7 +105,7 @@ public class JdkFutureAdaptersTest extends TestCase {
 
   public void testListenInPoolThreadUsesGivenExecutor() throws Exception {
     ExecutorService executorService = newCachedThreadPool(
-            new ThreadFactoryBuilder().setDaemon(true).build());
+      new ThreadFactoryBuilder().setDaemon(true).build());
     NonListenableSettableFuture<String> abstractFuture =
         NonListenableSettableFuture.create();
     ExecutorSpy spy = new ExecutorSpy(executorService);
@@ -133,9 +133,9 @@ public class JdkFutureAdaptersTest extends TestCase {
   throws Exception {
     final CountDownLatch submitSuccessful = new CountDownLatch(1);
     ExecutorService executorService = new ThreadPoolExecutor(
-        0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
-        new SynchronousQueue<Runnable>(),
-    new ThreadFactoryBuilder().setDaemon(true).build()) {
+      0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS,
+      new SynchronousQueue<Runnable>(),
+      new ThreadFactoryBuilder().setDaemon(true).build()) {
       @Override
       protected void beforeExecute(Thread t, Runnable r) {
         submitSuccessful.countDown();

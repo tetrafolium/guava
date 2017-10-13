@@ -56,7 +56,7 @@ public class LoadingCacheSingleThreadBenchmark {
         .concurrencyLevel(segments)
         .maximumSize(maximumSize)
         .build(
-    new CacheLoader<Integer, Integer>() {
+      new CacheLoader<Integer, Integer>() {
       @Override public Integer load(Integer from) {
         return (int) misses.incrementAndGet();
       }

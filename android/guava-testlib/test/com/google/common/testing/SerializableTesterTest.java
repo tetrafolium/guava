@@ -97,7 +97,7 @@ public class SerializableTesterTest extends TestCase {
     @Override
     public boolean equals(Object other) {
       return (other instanceof ObjectWhichIsEqualButChangesClass
-              || other instanceof OtherForm);
+             || other instanceof OtherForm);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class SerializableTesterTest extends TestCase {
       @Override
       public boolean equals(Object other) {
         return (other instanceof ObjectWhichIsEqualButChangesClass
-                || other instanceof OtherForm);
+               || other instanceof OtherForm);
       }
 
       @Override

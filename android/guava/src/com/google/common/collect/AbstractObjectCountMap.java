@@ -167,11 +167,11 @@ abstract class AbstractObjectCountMap<K> {
     @Override
     public Iterator<K> iterator() {
       return new Itr<K>() {
-        @SuppressWarnings("unchecked") // keys only contains Ks
-        @Override
-        K getOutput(int entry) {
-          return (K) keys[entry];
-        }
+               @SuppressWarnings("unchecked") // keys only contains Ks
+               @Override
+               K getOutput(int entry) {
+                 return (K) keys[entry];
+               }
       };
     }
 
@@ -248,7 +248,7 @@ abstract class AbstractObjectCountMap<K> {
     @Override
     public boolean contains(@Nullable Object o) {
       if (o instanceof Entry) {
-        Entry<?> entry = (Entry<?>) o;
+        Entry<?> entry = (Entry<?>)o;
         int index = indexOf(entry.getElement());
         return index != -1 && values[index] == entry.getCount();
       }
@@ -258,7 +258,7 @@ abstract class AbstractObjectCountMap<K> {
     @Override
     public boolean remove(@Nullable Object o) {
       if (o instanceof Entry) {
-        Entry<?> entry = (Entry<?>) o;
+        Entry<?> entry = (Entry<?>)o;
         int index = indexOf(entry.getElement());
         if (index != -1 && values[index] == entry.getCount()) {
           removeEntry(index);

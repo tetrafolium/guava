@@ -35,7 +35,7 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    * value of list or collection but not both.
    */
   protected final List<E> getList() {
-    return (List<E>) collection;
+    return (List<E>)collection;
   }
 
   /**
@@ -68,6 +68,6 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    */
   private String reportContext(List<E> expected) {
     return Platform.format(
-            "expected collection %s; actual collection %s", expected, this.collection);
+      "expected collection %s; actual collection %s", expected, this.collection);
   }
 }

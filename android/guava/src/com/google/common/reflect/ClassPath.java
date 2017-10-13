@@ -79,7 +79,7 @@ public final class ClassPath {
   private static final Logger logger = Logger.getLogger(ClassPath.class.getName());
 
   private static final Predicate<ClassInfo> IS_TOP_LEVEL =
-  new Predicate<ClassInfo>() {
+      new Predicate<ClassInfo>() {
     @Override
     public boolean apply(ClassInfo info) {
       return info.className.indexOf('$') == -1;
@@ -546,7 +546,7 @@ public final class ClassPath {
      *     cycle elimination
      */
     private void scanDirectory(
-        File directory, ClassLoader classloader, String packagePrefix, Set<File> currentPath)
+      File directory, ClassLoader classloader, String packagePrefix, Set<File> currentPath)
     throws IOException {
       File[] files = directory.listFiles();
       if (files == null) {

@@ -301,7 +301,7 @@ public class RangeTest extends TestCase {
     assertFalse(range.containsAll(ImmutableSortedSet.of(3, 3, 4, 5, 6)));
 
     assertTrue(Range.openClosed(3, 3).containsAll(
-            Collections.<Integer>emptySet()));
+          Collections.<Integer>emptySet()));
   }
 
   public void testEncloses_open() {
@@ -535,7 +535,7 @@ public class RangeTest extends TestCase {
   }
 
   static final DiscreteDomain<Integer> UNBOUNDED_DOMAIN =
-  new DiscreteDomain<Integer>() {
+      new DiscreteDomain<Integer>() {
     @Override public Integer next(Integer value) {
       return integers().next(value);
     }
@@ -611,29 +611,29 @@ public class RangeTest extends TestCase {
     new EqualsTester()
     .addEqualityGroup(Range.all())
     .addEqualityGroup(
-        Range.atLeast(1),
-        Range.downTo(1, CLOSED))
+      Range.atLeast(1),
+      Range.downTo(1, CLOSED))
     .addEqualityGroup(
-        Range.greaterThan(1),
-        Range.downTo(1, OPEN))
+      Range.greaterThan(1),
+      Range.downTo(1, OPEN))
     .addEqualityGroup(
-        Range.atMost(7),
-        Range.upTo(7, CLOSED))
+      Range.atMost(7),
+      Range.upTo(7, CLOSED))
     .addEqualityGroup(
-        Range.lessThan(7),
-        Range.upTo(7, OPEN))
+      Range.lessThan(7),
+      Range.upTo(7, OPEN))
     .addEqualityGroup(
-        Range.open(1, 7),
-        Range.range(1, OPEN, 7, OPEN))
+      Range.open(1, 7),
+      Range.range(1, OPEN, 7, OPEN))
     .addEqualityGroup(
-        Range.openClosed(1, 7),
-        Range.range(1, OPEN, 7, CLOSED))
+      Range.openClosed(1, 7),
+      Range.range(1, OPEN, 7, CLOSED))
     .addEqualityGroup(
-        Range.closed(1, 7),
-        Range.range(1, CLOSED, 7, CLOSED))
+      Range.closed(1, 7),
+      Range.range(1, CLOSED, 7, CLOSED))
     .addEqualityGroup(
-        Range.closedOpen(1, 7),
-        Range.range(1, CLOSED, 7, OPEN))
+      Range.closedOpen(1, 7),
+      Range.range(1, CLOSED, 7, OPEN))
     .testEquals();
   }
 }

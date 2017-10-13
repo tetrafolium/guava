@@ -55,9 +55,9 @@ public class AggregateFutureStateFallbackAtomicHelperTest extends TestCase {
    */
   private static final ClassLoader NO_ATOMIC_FIELD_UPDATER =
       getClassLoader(
-          ImmutableSet.of(
-              AtomicIntegerFieldUpdater.class.getName(),
-              AtomicReferenceFieldUpdater.class.getName()));
+    ImmutableSet.of(
+      AtomicIntegerFieldUpdater.class.getName(),
+      AtomicReferenceFieldUpdater.class.getName()));
 
   public static TestSuite suite() {
     // we create a test suite containing a test for every FuturesTest test method and we
@@ -67,8 +67,8 @@ public class AggregateFutureStateFallbackAtomicHelperTest extends TestCase {
     for (Method method : FuturesTest.class.getDeclaredMethods()) {
       if (Modifier.isPublic(method.getModifiers()) && method.getName().startsWith("test")) {
         suite.addTest(
-            TestSuite.createTest(
-                AggregateFutureStateFallbackAtomicHelperTest.class, method.getName()));
+          TestSuite.createTest(
+            AggregateFutureStateFallbackAtomicHelperTest.class, method.getName()));
       }
     }
     return suite;
@@ -114,20 +114,20 @@ public class AggregateFutureStateFallbackAtomicHelperTest extends TestCase {
     ClassLoader classLoader = AggregateFutureStateFallbackAtomicHelperTest.class.getClassLoader();
     // we delegate to the current classloader so both loaders agree on classes like TestCase
     return new URLClassLoader(ClassPathUtil.getClassPathUrls(), classLoader) {
-      @Override
-      public Class<?> loadClass(String name) throws ClassNotFoundException {
-        if (blacklist.contains(name)) {
-          throw new ClassNotFoundException("I'm sorry Dave, I'm afraid I can't do that.");
-        }
-        if (name.startsWith(concurrentPackage)) {
-          Class<?> c = findLoadedClass(name);
-          if (c == null) {
-            return super.findClass(name);
-          }
-          return c;
-        }
-        return super.loadClass(name);
-      }
+             @Override
+             public Class<?> loadClass(String name) throws ClassNotFoundException {
+               if (blacklist.contains(name)) {
+                 throw new ClassNotFoundException("I'm sorry Dave, I'm afraid I can't do that.");
+               }
+               if (name.startsWith(concurrentPackage)) {
+                 Class<?> c = findLoadedClass(name);
+                 if (c == null) {
+                   return super.findClass(name);
+                 }
+                 return c;
+               }
+               return super.loadClass(name);
+             }
     };
   }
 }

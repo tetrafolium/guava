@@ -49,9 +49,9 @@ public class ForwardingMultimapTest extends TestCase {
 
   private static <K, V> Multimap<K, V> wrap(final Multimap<K, V> delegate) {
     return new ForwardingMultimap<K, V>() {
-      @Override protected Multimap<K, V> delegate() {
-        return delegate;
-      }
+             @Override protected Multimap<K, V> delegate() {
+               return delegate;
+             }
     };
   }
 }

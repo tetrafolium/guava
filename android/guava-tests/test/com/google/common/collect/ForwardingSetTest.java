@@ -104,30 +104,30 @@ public class ForwardingSetTest extends TestCase {
 
     suite.addTestSuite(ForwardingSetTest.class);
     suite.addTest(
-        SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      SetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         return new StandardImplForwardingSet<>(Sets.newLinkedHashSet(asList(elements)));
       }
     })
-    .named("ForwardingSet[LinkedHashSet] with standard implementations")
-    .withFeatures(
+      .named("ForwardingSet[LinkedHashSet] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      SetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         return new StandardImplForwardingSet<>(MinimalSet.of(elements));
       }
     })
-    .named("ForwardingSet[MinimalSet] with standard implementations")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+      .named("ForwardingSet[MinimalSet] with standard implementations")
+      .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
+      .createTestSuite());
 
     return suite;
   }
@@ -153,9 +153,9 @@ public class ForwardingSetTest extends TestCase {
 
   private static <T> Set<T> wrap(final Set<T> delegate) {
     return new ForwardingSet<T>() {
-      @Override protected Set<T> delegate() {
-        return delegate;
-      }
+             @Override protected Set<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

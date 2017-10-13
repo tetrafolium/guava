@@ -76,7 +76,7 @@ public class FarmHashFingerprint64Test extends TestCase {
     // greater than 127 (ie with their top bit set).
     // Don't attempt to do this in real code.
     assertEquals(
-        fingerprint(stringA.getBytes(ISO_8859_1)), fingerprint(stringB.getBytes(ISO_8859_1)));
+      fingerprint(stringA.getBytes(ISO_8859_1)), fingerprint(stringB.getBytes(ISO_8859_1)));
   }
 
   public void testPutNonChars() {

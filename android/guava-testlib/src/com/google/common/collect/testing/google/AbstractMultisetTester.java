@@ -28,7 +28,7 @@ import com.google.common.collect.testing.AbstractCollectionTester;
 @GwtCompatible
 public class AbstractMultisetTester<E> extends AbstractCollectionTester<E> {
   protected final Multiset<E> getMultiset() {
-    return (Multiset<E>) collection;
+    return (Multiset<E>)collection;
   }
 
   protected void initThreeCopies() {

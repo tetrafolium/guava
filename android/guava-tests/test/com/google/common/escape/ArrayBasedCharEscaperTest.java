@@ -30,14 +30,14 @@ public class ArrayBasedCharEscaperTest extends TestCase {
   private static final ImmutableMap<Character, String> NO_REPLACEMENTS = ImmutableMap.of();
   private static final ImmutableMap<Character, String> SIMPLE_REPLACEMENTS =
       ImmutableMap.of(
-          '\n', "<newline>",
-          '\t', "<tab>",
-          '&', "<and>");
+    '\n', "<newline>",
+    '\t', "<tab>",
+    '&', "<and>");
 
   public void testSafeRange() throws IOException {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
-    new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'A', 'Z') {
+        new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'A', 'Z') {
       @Override protected char[] escapeUnsafe(char c) {
         return ("{" + c + "}").toCharArray();
       }
@@ -50,7 +50,7 @@ public class ArrayBasedCharEscaperTest extends TestCase {
   public void testSafeRange_maxLessThanMin() throws IOException {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
-    new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'Z', 'A') {
+        new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'Z', 'A') {
       @Override protected char[] escapeUnsafe(char c) {
         return ("{" + c + "}").toCharArray();
       }
@@ -62,7 +62,7 @@ public class ArrayBasedCharEscaperTest extends TestCase {
 
   public void testDeleteUnsafeChars() throws IOException {
     CharEscaper deletingEscaper =
-    new ArrayBasedCharEscaper(NO_REPLACEMENTS, ' ', '~') {
+        new ArrayBasedCharEscaper(NO_REPLACEMENTS, ' ', '~') {
       private final char[] noChars = new char[0];
       @Override protected char[] escapeUnsafe(char c) {
         return noChars;
@@ -71,12 +71,12 @@ public class ArrayBasedCharEscaperTest extends TestCase {
     EscaperAsserts.assertBasic(deletingEscaper);
     assertEquals("Everything outside the printable ASCII range is deleted.",
         deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 " +
-            "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
+        "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
   }
 
   public void testReplacementPriority() throws IOException {
     CharEscaper replacingEscaper =
-    new ArrayBasedCharEscaper(SIMPLE_REPLACEMENTS, ' ', '~') {
+        new ArrayBasedCharEscaper(SIMPLE_REPLACEMENTS, ' ', '~') {
       private final char[] unknown = new char[] { '?' };
       @Override protected char[] escapeUnsafe(char c) {
         return unknown;

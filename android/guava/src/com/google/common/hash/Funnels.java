@@ -187,7 +187,7 @@ public final class Funnels {
     @Override
     public boolean equals(@Nullable Object o) {
       if (o instanceof SequentialFunnel) {
-        SequentialFunnel<?> funnel = (SequentialFunnel<?>) o;
+        SequentialFunnel<?> funnel = (SequentialFunnel<?>)o;
         return elementFunnel.equals(funnel.elementFunnel);
       }
       return false;

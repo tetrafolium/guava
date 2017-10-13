@@ -42,7 +42,7 @@ public class FinalizableReferenceQueueTest extends TestCase {
 
   public void testFinalizeReferentCalled() {
     final MockReference reference = new MockReference(
-        frq = new FinalizableReferenceQueue());
+      frq = new FinalizableReferenceQueue());
 
     GcFinalization.awaitDone(new GcFinalization.FinalizationPredicate() {
       public boolean isDone() {
@@ -108,7 +108,7 @@ public class FinalizableReferenceQueueTest extends TestCase {
   @AndroidIncompatible // no concept of separate ClassLoaders
   public void testDecoupledLoader() {
     FinalizableReferenceQueue.DecoupledLoader decoupledLoader =
-    new FinalizableReferenceQueue.DecoupledLoader() {
+        new FinalizableReferenceQueue.DecoupledLoader() {
       @Override
       URLClassLoader newLoader(URL base) {
         return new DecoupledClassLoader(new URL[] { base });

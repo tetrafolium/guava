@@ -306,7 +306,7 @@ final class AbstractFutureBenchmarks {
        * {@link #get()}.
        */
       V get(long nanos) throws TimeoutException, CancellationException,
-        ExecutionException, InterruptedException {
+      ExecutionException, InterruptedException {
 
         // Attempt to acquire the shared lock with a timeout.
         if (!tryAcquireSharedNanos(-1, nanos)) {
@@ -323,7 +323,7 @@ final class AbstractFutureBenchmarks {
        * an error.
        */
       V get() throws CancellationException, ExecutionException,
-        InterruptedException {
+      InterruptedException {
 
         // Acquire the shared lock allowing interruption.
         acquireSharedInterruptibly(-1);
@@ -348,11 +348,11 @@ final class AbstractFutureBenchmarks {
         case CANCELLED:
         case INTERRUPTED:
           throw cancellationExceptionWithCause(
-              "Task was cancelled.", exception);
+                  "Task was cancelled.", exception);
 
         default:
           throw new IllegalStateException(
-              "Error, synchronizer in invalid state: " + state);
+                  "Error, synchronizer in invalid state: " + state);
         }
       }
 
@@ -431,7 +431,7 @@ final class AbstractFutureBenchmarks {
     }
 
     static final CancellationException cancellationExceptionWithCause(
-        @Nullable String message, @Nullable Throwable cause) {
+      @Nullable String message, @Nullable Throwable cause) {
       CancellationException exception = new CancellationException(message);
       exception.initCause(cause);
       return exception;

@@ -36,7 +36,7 @@ public class SubscriberExceptionContext {
    * @param subscriberMethod the subscribed method.
    */
   SubscriberExceptionContext(
-      EventBus eventBus, Object event, Object subscriber, Method subscriberMethod) {
+    EventBus eventBus, Object event, Object subscriber, Method subscriberMethod) {
     this.eventBus = checkNotNull(eventBus);
     this.event = checkNotNull(event);
     this.subscriber = checkNotNull(subscriber);

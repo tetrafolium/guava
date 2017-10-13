@@ -52,9 +52,9 @@ public class CollectionToStringTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_size1() {
     assertEquals(
-        "size1Collection.toString should return [{element}]",
-        "[" + e0() + "]",
-        collection.toString());
+      "size1Collection.toString should return [{element}]",
+      "[" + e0() + "]",
+      collection.toString());
   }
 
   @CollectionSize.Require(SEVERAL)

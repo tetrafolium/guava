@@ -82,8 +82,8 @@ public class MapMakerTest extends TestCase {
 
     public void testReturnsPlainConcurrentHashMapWhenPossible() {
       Map<?, ?> map = new MapMaker()
-      .initialCapacity(5)
-      .makeMap();
+          .initialCapacity(5)
+          .makeMap();
       assertTrue(map instanceof ConcurrentHashMap);
     }
   }

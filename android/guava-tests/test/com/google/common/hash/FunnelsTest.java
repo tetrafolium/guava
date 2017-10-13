@@ -135,23 +135,23 @@ public class FunnelsTest extends TestCase {
 
   public void testSerialization() {
     assertSame(
-        Funnels.byteArrayFunnel(),
-        SerializableTester.reserialize(Funnels.byteArrayFunnel()));
+      Funnels.byteArrayFunnel(),
+      SerializableTester.reserialize(Funnels.byteArrayFunnel()));
     assertSame(
-        Funnels.integerFunnel(),
-        SerializableTester.reserialize(Funnels.integerFunnel()));
+      Funnels.integerFunnel(),
+      SerializableTester.reserialize(Funnels.integerFunnel()));
     assertSame(
-        Funnels.longFunnel(),
-        SerializableTester.reserialize(Funnels.longFunnel()));
+      Funnels.longFunnel(),
+      SerializableTester.reserialize(Funnels.longFunnel()));
     assertSame(
-        Funnels.unencodedCharsFunnel(),
-        SerializableTester.reserialize(Funnels.unencodedCharsFunnel()));
+      Funnels.unencodedCharsFunnel(),
+      SerializableTester.reserialize(Funnels.unencodedCharsFunnel()));
     assertEquals(
-        Funnels.sequentialFunnel(Funnels.integerFunnel()),
-        SerializableTester.reserialize(Funnels.sequentialFunnel(Funnels.integerFunnel())));
+      Funnels.sequentialFunnel(Funnels.integerFunnel()),
+      SerializableTester.reserialize(Funnels.sequentialFunnel(Funnels.integerFunnel())));
     assertEquals(
-        Funnels.stringFunnel(Charsets.US_ASCII),
-        SerializableTester.reserialize(Funnels.stringFunnel(Charsets.US_ASCII)));
+      Funnels.stringFunnel(Charsets.US_ASCII),
+      SerializableTester.reserialize(Funnels.stringFunnel(Charsets.US_ASCII)));
   }
 
   public void testEquals() {
@@ -164,7 +164,7 @@ public class FunnelsTest extends TestCase {
     .addEqualityGroup(Funnels.stringFunnel(Charsets.US_ASCII))
     .addEqualityGroup(Funnels.sequentialFunnel(Funnels.integerFunnel()),
         SerializableTester.reserialize(Funnels.sequentialFunnel(
-                Funnels.integerFunnel())))
+          Funnels.integerFunnel())))
     .addEqualityGroup(Funnels.sequentialFunnel(Funnels.longFunnel()))
     .testEquals();
   }

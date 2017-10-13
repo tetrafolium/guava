@@ -30,8 +30,9 @@ public class AbstractBiMapTest extends TestCase {
   // removed, since IdentityHashMap throws an exception when that occurs.
   public void testIdentityKeySetIteratorRemove() {
     BiMap<Integer, String> bimap = new AbstractBiMap<Integer, String>(
-        new IdentityHashMap<Integer, String>(),
-    new IdentityHashMap<String, Integer>()) {};
+      new IdentityHashMap<Integer, String>(),
+      new IdentityHashMap<String, Integer>()) {
+    };
     bimap.put(1, "one");
     bimap.put(2, "two");
     bimap.put(3, "three");
@@ -47,8 +48,9 @@ public class AbstractBiMapTest extends TestCase {
 
   public void testIdentityEntrySetIteratorRemove() {
     BiMap<Integer, String> bimap = new AbstractBiMap<Integer, String>(
-        new IdentityHashMap<Integer, String>(),
-    new IdentityHashMap<String, Integer>()) {};
+      new IdentityHashMap<Integer, String>(),
+      new IdentityHashMap<String, Integer>()) {
+    };
     bimap.put(1, "one");
     bimap.put(2, "two");
     bimap.put(3, "three");

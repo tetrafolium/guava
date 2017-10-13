@@ -96,31 +96,31 @@ public class ForwardingCollectionTest extends TestCase {
 
     suite.addTestSuite(ForwardingCollectionTest.class);
     suite.addTest(
-        CollectionTestSuiteBuilder.using(
-    new TestStringCollectionGenerator() {
+      CollectionTestSuiteBuilder.using(
+        new TestStringCollectionGenerator() {
       @Override
       protected Collection<String> create(String[] elements) {
         return new StandardImplForwardingCollection<>(
-                Lists.newLinkedList(asList(elements)));
+          Lists.newLinkedList(asList(elements)));
       }
     })
-    .named("ForwardingCollection[LinkedList] with standard implementations")
-    .withFeatures(
+      .named("ForwardingCollection[LinkedList] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        CollectionTestSuiteBuilder.using(
-    new TestStringCollectionGenerator() {
+      CollectionTestSuiteBuilder.using(
+        new TestStringCollectionGenerator() {
       @Override
       protected Collection<String> create(String[] elements) {
         return new StandardImplForwardingCollection<>(MinimalCollection.of(elements));
       }
     })
-    .named("ForwardingCollection[MinimalCollection] with standard" + " implementations")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+      .named("ForwardingCollection[MinimalCollection] with standard" + " implementations")
+      .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
+      .createTestSuite());
 
     return suite;
   }
@@ -137,9 +137,9 @@ public class ForwardingCollectionTest extends TestCase {
 
   private static <T> Collection<T> wrap(final Collection<T> delegate) {
     return new ForwardingCollection<T>() {
-      @Override protected Collection<T> delegate() {
-        return delegate;
-      }
+             @Override protected Collection<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

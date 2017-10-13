@@ -124,11 +124,11 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     @Override
     public boolean contains(Object o) {
       if (o instanceof Cell) {
-        Cell<?, ?, ?> cell = (Cell<?, ?, ?>) o;
+        Cell<?, ?, ?> cell = (Cell<?, ?, ?>)o;
         Map<C, V> row = Maps.safeGet(rowMap(), cell.getRowKey());
         return row != null
-            && Collections2.safeContains(
-                row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
+               && Collections2.safeContains(
+          row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
       }
       return false;
     }
@@ -136,11 +136,11 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     @Override
     public boolean remove(@Nullable Object o) {
       if (o instanceof Cell) {
-        Cell<?, ?, ?> cell = (Cell<?, ?, ?>) o;
+        Cell<?, ?, ?> cell = (Cell<?, ?, ?>)o;
         Map<C, V> row = Maps.safeGet(rowMap(), cell.getRowKey());
         return row != null
-            && Collections2.safeRemove(
-                row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
+               && Collections2.safeRemove(
+          row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
       }
       return false;
     }
@@ -175,10 +175,10 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
 
   Iterator<V> valuesIterator() {
     return new TransformedIterator<Cell<R, C, V>, V>(cellSet().iterator()) {
-      @Override
-      V transform(Cell<R, C, V> cell) {
-        return cell.getValue();
-      }
+             @Override
+             V transform(Cell<R, C, V> cell) {
+               return cell.getValue();
+             }
     };
   }
 

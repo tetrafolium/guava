@@ -38,7 +38,7 @@ import java.util.Map;
 public class ArrayTableTest extends AbstractTableTest {
 
   @Override protected ArrayTable<String, Integer, Character> create(
-      Object... data) {
+    Object... data) {
     // TODO: Specify different numbers of rows and columns, to detect problems
     // that arise when the wrong size is used.
     ArrayTable<String, Integer, Character> table =

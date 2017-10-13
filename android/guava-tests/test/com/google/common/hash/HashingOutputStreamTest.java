@@ -85,7 +85,7 @@ public class HashingOutputStreamTest extends TestCase {
   public void testChecksForNull() throws Exception {
     NullPointerTester tester = new NullPointerTester();
     tester.testAllPublicInstanceMethods(
-        new HashingOutputStream(Hashing.md5(), new ByteArrayOutputStream()));
+      new HashingOutputStream(Hashing.md5(), new ByteArrayOutputStream()));
     tester.testAllPublicStaticMethods(HashingOutputStream.class);
     tester.testAllPublicConstructors(HashingOutputStream.class);
   }

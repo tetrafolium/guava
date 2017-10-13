@@ -58,58 +58,58 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
     suite.addTest(SetTestSuiteBuilder.using(new ImmutableSetCopyOfGenerator())
         .named(ImmutableSetTest.class.getName())
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new ImmutableSetUnsizedBuilderGenerator())
         .named(ImmutableSetTest.class.getName() + ", with unsized builder")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new ImmutableSetSizedBuilderGenerator())
         .named(ImmutableSetTest.class.getName() + ", with exactly sized builder")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new ImmutableSetTooBigBuilderGenerator())
         .named(ImmutableSetTest.class.getName() + ", with oversized builder")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new ImmutableSetTooSmallBuilderGenerator())
         .named(ImmutableSetTest.class.getName() + ", with undersized builder")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-            new ImmutableSetWithBadHashesGenerator())
+          new ImmutableSetWithBadHashesGenerator())
         .named(ImmutableSetTest.class.getName() + ", with bad hashes")
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(
-            new DegeneratedImmutableSetGenerator())
+          new DegeneratedImmutableSetGenerator())
         .named(ImmutableSetTest.class.getName() + ", degenerate")
         .withFeatures(CollectionSize.ONE, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new ImmutableSetAsListGenerator())
         .named("ImmutableSet.asList")
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTestSuite(ImmutableSetTest.class);
@@ -143,7 +143,7 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
 
   @SuppressWarnings("unchecked")
   @Override protected <E extends Comparable<? super E>> Set<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... rest) {
+    E e1, E e2, E e3, E e4, E e5, E e6, E... rest) {
     return ImmutableSet.of(e1, e2, e3, e4, e5, e6, rest);
   }
 
@@ -152,17 +152,17 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
   }
 
   @Override protected <E extends Comparable<? super E>> Set<E> copyOf(
-      Collection<? extends E> elements) {
+    Collection<? extends E> elements) {
     return ImmutableSet.copyOf(elements);
   }
 
   @Override protected <E extends Comparable<? super E>> Set<E> copyOf(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     return ImmutableSet.copyOf(elements);
   }
 
   @Override protected <E extends Comparable<? super E>> Set<E> copyOf(
-      Iterator<? extends E> elements) {
+    Iterator<? extends E> elements) {
     return ImmutableSet.copyOf(elements);
   }
 
@@ -175,16 +175,16 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
   public void testCreation_oneDuplicate() {
     // now we'll get the varargs overload
     ImmutableSet<String> set = ImmutableSet.of(
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "a");
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "a");
     assertEquals(Lists.newArrayList(
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
+          "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
         Lists.newArrayList(set));
   }
 
   public void testCreation_manyDuplicates() {
     // now we'll get the varargs overload
     ImmutableSet<String> set = ImmutableSet.of(
-            "a", "b", "c", "c", "c", "c", "b", "b", "a", "a", "c", "c", "c", "a");
+      "a", "b", "c", "c", "c", "c", "b", "b", "a", "a", "c", "c", "c", "a");
     assertThat(set).containsExactly("a", "b", "c").inOrder();
   }
 
@@ -212,7 +212,7 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
     assertEquals(4, builder.size);
     Object[] table = builder.hashTable;
     assertNotNull(table);
-    assertSame(table, ((RegularImmutableSet<String>) builder.build()).table);
+    assertSame(table, ((RegularImmutableSet<String>)builder.build()).table);
   }
 
   @GwtIncompatible("Builder impl")
@@ -281,7 +281,7 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
     ImmutableSet<Integer> set = builder.build();
     assertTrue(set instanceof RegularImmutableSet);
     assertEquals("Input size " + inputSize + " and set size " + setSize,
-        tableSize, ((RegularImmutableSet<Integer>) set).table.length);
+        tableSize, ((RegularImmutableSet<Integer>)set).table.length);
   }
 
   public void testCopyOf_copiesImmutableSortedSet() {
@@ -318,7 +318,7 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
       builder.add("foo");
     }
     builder.add("bar");
-    RegularImmutableSet<String> set = (RegularImmutableSet<String>) builder.build();
+    RegularImmutableSet<String> set = (RegularImmutableSet<String>)builder.build();
     assertTrue(set.elements.length <= 2 * set.size());
   }
 
@@ -329,7 +329,7 @@ public class ImmutableSetTest extends AbstractImmutableSetTest {
       builder.add("foo");
     }
     builder.add("bar");
-    RegularImmutableSet<String> set = (RegularImmutableSet<String>) builder.build();
+    RegularImmutableSet<String> set = (RegularImmutableSet<String>)builder.build();
     builder.add("baz");
     assertTrue(set.elements != builder.contents);
   }

@@ -212,8 +212,8 @@ public class ArbitraryInstancesTest extends TestCase {
     assertTrue(ArbitraryInstances.get(TreeSet.class).isEmpty());
     assertTrue(ArbitraryInstances.get(TreeMap.class).isEmpty());
     assertFreshInstanceReturned(
-        LinkedList.class, Deque.class, Queue.class, PriorityQueue.class, BitSet.class,
-        TreeSet.class, TreeMap.class);
+      LinkedList.class, Deque.class, Queue.class, PriorityQueue.class, BitSet.class,
+      TreeSet.class, TreeMap.class);
   }
 
   public void testGet_misc() {
@@ -241,11 +241,11 @@ public class ArbitraryInstancesTest extends TestCase {
     ArbitraryInstances.get(Executor.class).execute(ArbitraryInstances.get(Runnable.class));
     assertNotNull(ArbitraryInstances.get(ThreadFactory.class));
     assertFreshInstanceReturned(
-        BlockingQueue.class, BlockingDeque.class, PriorityBlockingQueue.class,
-        DelayQueue.class, SynchronousQueue.class,
-        ConcurrentMap.class, ConcurrentNavigableMap.class,
-        AtomicReference.class, AtomicBoolean.class,
-        AtomicInteger.class, AtomicLong.class, AtomicDouble.class);
+      BlockingQueue.class, BlockingDeque.class, PriorityBlockingQueue.class,
+      DelayQueue.class, SynchronousQueue.class,
+      ConcurrentMap.class, ConcurrentNavigableMap.class,
+      AtomicReference.class, AtomicBoolean.class,
+      AtomicInteger.class, AtomicLong.class, AtomicDouble.class);
   }
 
   @SuppressWarnings("unchecked") // functor classes have no type parameters
@@ -304,13 +304,13 @@ public class ArbitraryInstancesTest extends TestCase {
     assertThat(ArbitraryInstances.get(StringBuilder.class).toString()).isEmpty();
     assertThat(ArbitraryInstances.get(StringBuffer.class).toString()).isEmpty();
     assertFreshInstanceReturned(
-        ArrayList.class,
-        HashMap.class,
-        Appendable.class,
-        StringBuilder.class,
-        StringBuffer.class,
-        Throwable.class,
-        Exception.class);
+      ArrayList.class,
+      HashMap.class,
+      Appendable.class,
+      StringBuilder.class,
+      StringBuffer.class,
+      Throwable.class,
+      Exception.class);
   }
 
   public void testGet_io() throws IOException {
@@ -331,9 +331,9 @@ public class ArbitraryInstancesTest extends TestCase {
     ArbitraryInstances.get(PrintWriter.class).println("test");
     assertNotNull(ArbitraryInstances.get(File.class));
     assertFreshInstanceReturned(
-        ByteArrayOutputStream.class, OutputStream.class,
-        Writer.class, StringWriter.class,
-        PrintStream.class, PrintWriter.class);
+      ByteArrayOutputStream.class, OutputStream.class,
+      Writer.class, StringWriter.class,
+      PrintStream.class, PrintWriter.class);
     assertEquals(ByteSource.empty(), ArbitraryInstances.get(ByteSource.class));
     assertEquals(CharSource.empty(), ArbitraryInstances.get(CharSource.class));
     assertNotNull(ArbitraryInstances.get(ByteSink.class));

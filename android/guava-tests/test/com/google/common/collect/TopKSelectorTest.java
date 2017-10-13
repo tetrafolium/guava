@@ -104,7 +104,7 @@ public class TopKSelectorTest extends TestCase {
     int k = 200000;
     final long[] compareCalls = {0};
     Comparator<Integer> cmp =
-    new Comparator<Integer>() {
+        new Comparator<Integer>() {
       @Override
       public int compare(Integer o1, Integer o2) {
         compareCalls[0]++;

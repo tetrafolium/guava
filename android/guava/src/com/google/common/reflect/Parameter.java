@@ -38,7 +38,7 @@ public final class Parameter implements AnnotatedElement {
   private final ImmutableList<Annotation> annotations;
 
   Parameter(
-      Invokable<?, ?> declaration, int position, TypeToken<?> type, Annotation[] annotations) {
+    Invokable<?, ?> declaration, int position, TypeToken<?> type, Annotation[] annotations) {
     this.declaration = declaration;
     this.position = position;
     this.type = type;

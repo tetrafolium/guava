@@ -59,5 +59,5 @@ public enum IteratorFeature {
    * {@link ListIterator} interfaces.
    */
   public static final Set<IteratorFeature> MODIFIABLE =
-  Collections.unmodifiableSet(EnumSet.allOf(IteratorFeature.class));
+      Collections.unmodifiableSet(EnumSet.allOf(IteratorFeature.class));
 }

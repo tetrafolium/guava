@@ -61,7 +61,7 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
     Predicate<? super Entry<K, V>> entryPredicate = multimap.entryPredicate();
     for (Iterator<Entry<K, V>> unfilteredItr = multimap.unfiltered().entries().iterator();
         unfilteredItr.hasNext();
-    ) {
+        ) {
       Map.Entry<K, V> entry = unfilteredItr.next();
       if (entryPredicate.apply(entry) && Objects.equal(entry.getValue(), o)) {
         unfilteredItr.remove();
@@ -74,20 +74,20 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   @Override
   public boolean removeAll(Collection<?> c) {
     return Iterables.removeIf(
-            multimap.unfiltered().entries(),
-            // explicit <Entry<K, V>> is required to build with JDK6
-            Predicates.<Entry<K, V>>and(
-                multimap.entryPredicate(), Maps.<V>valuePredicateOnEntries(Predicates.in(c))));
+      multimap.unfiltered().entries(),
+      // explicit <Entry<K, V>> is required to build with JDK6
+      Predicates.<Entry<K, V>>and(
+        multimap.entryPredicate(), Maps.<V>valuePredicateOnEntries(Predicates.in(c))));
   }
 
   @Override
   public boolean retainAll(Collection<?> c) {
     return Iterables.removeIf(
-            multimap.unfiltered().entries(),
-            // explicit <Entry<K, V>> is required to build with JDK6
-            Predicates.<Entry<K, V>>and(
-                multimap.entryPredicate(),
-                Maps.<V>valuePredicateOnEntries(Predicates.not(Predicates.in(c)))));
+      multimap.unfiltered().entries(),
+      // explicit <Entry<K, V>> is required to build with JDK6
+      Predicates.<Entry<K, V>>and(
+        multimap.entryPredicate(),
+        Maps.<V>valuePredicateOnEntries(Predicates.not(Predicates.in(c)))));
   }
 
   @Override

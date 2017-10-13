@@ -31,6 +31,6 @@ public class AbstractSetTester<E> extends AbstractCollectionTester<E> {
    * value of set or collection but not both.
    */
   protected final Set<E> getSet() {
-    return (Set<E>) collection;
+    return (Set<E>)collection;
   }
 }

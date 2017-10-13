@@ -57,8 +57,8 @@ final class ForwardingObjectTester {
         Iterables.getOnlyElement(Arrays.asList(forwarderClass.getInterfaces()));
     new ForwardingWrapperTester()
     .testForwarding(
-        interfaceType,
-    new Function<Object, T>() {
+      interfaceType,
+      new Function<Object, T>() {
       @Override
       public T apply(Object delegate) {
         T mock = mock(forwarderClass, CALLS_REAL_METHODS.get());

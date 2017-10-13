@@ -39,11 +39,11 @@ public abstract class TestStringBiMapGenerator implements TestBiMapGenerator<Str
   @Override
   public SampleElements<Map.Entry<String, String>> samples() {
     return new SampleElements<>(
-            Helpers.mapEntry("one", "January"),
-            Helpers.mapEntry("two", "February"),
-            Helpers.mapEntry("three", "March"),
-            Helpers.mapEntry("four", "April"),
-            Helpers.mapEntry("five", "May"));
+      Helpers.mapEntry("one", "January"),
+      Helpers.mapEntry("two", "February"),
+      Helpers.mapEntry("three", "March"),
+      Helpers.mapEntry("four", "April"),
+      Helpers.mapEntry("five", "May"));
   }
 
   @Override
@@ -53,7 +53,7 @@ public abstract class TestStringBiMapGenerator implements TestBiMapGenerator<Str
     int i = 0;
     for (Object o : entries) {
       @SuppressWarnings("unchecked")
-      Entry<String, String> e = (Entry<String, String>) o;
+      Entry<String, String> e = (Entry<String, String>)o;
       array[i++] = e;
     }
     return create(array);

@@ -35,11 +35,11 @@ import java.util.Map;
 public class MapsMemoryBenchmark {
   static final Map<String, MapsImplEnum> mapEnums =
       uniqueIndex(
-          Iterables.<MapsImplEnum>concat(
-              Arrays.asList(MapImpl.values()),
-              Arrays.asList(SortedMapImpl.values()),
-              Arrays.asList(BiMapImpl.values())),
-          toStringFunction());
+    Iterables.<MapsImplEnum>concat(
+      Arrays.asList(MapImpl.values()),
+      Arrays.asList(SortedMapImpl.values()),
+      Arrays.asList(BiMapImpl.values())),
+    toStringFunction());
 
   @Param({
     "HashMapImpl",

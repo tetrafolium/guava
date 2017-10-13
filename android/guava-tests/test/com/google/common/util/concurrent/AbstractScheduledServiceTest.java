@@ -58,7 +58,7 @@ public class AbstractScheduledServiceTest extends TestCase {
   final ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(10) {
     @Override
     public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay,
-        long delay, TimeUnit unit) {
+      long delay, TimeUnit unit) {
       return future = super.scheduleWithFixedDelay(command, initialDelay, delay, unit);
     }
   };
@@ -337,7 +337,10 @@ public class AbstractScheduledServiceTest extends TestCase {
     private static final TimeUnit unit = TimeUnit.MILLISECONDS;
 
     // Unique runnable object used for comparison.
-    final Runnable testRunnable = new Runnable() {@Override public void run() {}};
+    final Runnable testRunnable = new Runnable() {
+      @Override public void run() {
+      }
+    };
     boolean called = false;
 
     private void assertSingleCallWithCorrectParameters(Runnable command, long initialDelay,
@@ -354,16 +357,16 @@ public class AbstractScheduledServiceTest extends TestCase {
       Scheduler schedule = Scheduler.newFixedRateSchedule(initialDelay, delay, unit);
       Future<?> unused =
           schedule.schedule(
-              null,
-      new ScheduledThreadPoolExecutor(1) {
+        null,
+        new ScheduledThreadPoolExecutor(1) {
         @Override
         public ScheduledFuture<?> scheduleAtFixedRate(
-            Runnable command, long initialDelay, long period, TimeUnit unit) {
+          Runnable command, long initialDelay, long period, TimeUnit unit) {
           assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
           return null;
         }
       },
-      testRunnable);
+        testRunnable);
       assertTrue(called);
     }
 
@@ -371,16 +374,16 @@ public class AbstractScheduledServiceTest extends TestCase {
       Scheduler schedule = newFixedDelaySchedule(initialDelay, delay, unit);
       Future<?> unused =
           schedule.schedule(
-              null,
-      new ScheduledThreadPoolExecutor(10) {
+        null,
+        new ScheduledThreadPoolExecutor(10) {
         @Override
         public ScheduledFuture<?> scheduleWithFixedDelay(
-            Runnable command, long initialDelay, long delay, TimeUnit unit) {
+          Runnable command, long initialDelay, long delay, TimeUnit unit) {
           assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
           return null;
         }
       },
-      testRunnable);
+        testRunnable);
       assertTrue(called);
     }
 
@@ -407,10 +410,10 @@ public class AbstractScheduledServiceTest extends TestCase {
       TestAbstractScheduledCustomService service = new TestAbstractScheduledCustomService() {
         @Override protected Scheduler scheduler() {
           return new AbstractScheduledService.CustomScheduler() {
-            @Override
-            protected Schedule getNextSchedule() throws Exception {
-              return new Schedule(Long.MAX_VALUE, SECONDS);
-            }
+                   @Override
+                   protected Schedule getNextSchedule() throws Exception {
+                     return new Schedule(Long.MAX_VALUE, SECONDS);
+                   }
           };
         }
       };
@@ -483,14 +486,14 @@ public class AbstractScheduledServiceTest extends TestCase {
           @Override protected void runOneIteration() {}
           @Override protected Scheduler scheduler() {
             return new CustomScheduler() {
-              @Override protected Schedule getNextSchedule() throws Exception {
-                if (state() != State.STARTING) {
-                  inGetNextSchedule.await();
-                  Thread.yield();
-                  throw new RuntimeException("boom");
-                }
-                return new Schedule(0, TimeUnit.NANOSECONDS);
-              }
+                     @Override protected Schedule getNextSchedule() throws Exception {
+                       if (state() != State.STARTING) {
+                         inGetNextSchedule.await();
+                         Thread.yield();
+                         throw new RuntimeException("boom");
+                       }
+                       return new Schedule(0, TimeUnit.NANOSECONDS);
+                     }
             };
           }
         };
@@ -504,12 +507,12 @@ public class AbstractScheduledServiceTest extends TestCase {
       TestAbstractScheduledCustomService service = new TestAbstractScheduledCustomService() {
         @Override protected Scheduler scheduler() {
           return new AbstractScheduledService.CustomScheduler() {
-            @Override
-            protected Schedule getNextSchedule() throws Exception {
-              // Explicitly yield to increase the probability of a pathological scheduling.
-              Thread.yield();
-              return new Schedule(0, TimeUnit.SECONDS);
-            }
+                   @Override
+                   protected Schedule getNextSchedule() throws Exception {
+                     // Explicitly yield to increase the probability of a pathological scheduling.
+                     Thread.yield();
+                     return new Schedule(0, TimeUnit.SECONDS);
+                   }
           };
         }
       };
@@ -546,10 +549,10 @@ public class AbstractScheduledServiceTest extends TestCase {
 
       @Override protected Scheduler scheduler() {
         return new CustomScheduler() {
-          @Override
-          protected Schedule getNextSchedule() throws Exception {
-            return new Schedule(delay, unit);
-          }
+                 @Override
+                 protected Schedule getNextSchedule() throws Exception {
+                   return new Schedule(delay, unit);
+                 }
         };
       }
     }
@@ -589,13 +592,13 @@ public class AbstractScheduledServiceTest extends TestCase {
 
       @Override protected Scheduler scheduler() {
         return new CustomScheduler() {
-          @Override
-          protected Schedule getNextSchedule() throws Exception {
-            if (numIterations.get() > 2) {
-              throw new IllegalStateException("Failed");
-            }
-            return new Schedule(delay, unit);
-          }
+                 @Override
+                 protected Schedule getNextSchedule() throws Exception {
+                   if (numIterations.get() > 2) {
+                     throw new IllegalStateException("Failed");
+                   }
+                   return new Schedule(delay, unit);
+                 }
         };
       }
     }

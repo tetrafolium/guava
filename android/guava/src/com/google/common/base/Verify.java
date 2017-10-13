@@ -117,9 +117,9 @@ public final class Verify {
    * @see Preconditions#checkState Preconditions.checkState()
    */
   public static void verify(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object... errorMessageArgs) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object... errorMessageArgs) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, errorMessageArgs));
     }
@@ -176,7 +176,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1) {
+    boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1));
     }
@@ -191,7 +191,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, char p1, char p2) {
+    boolean expression, @Nullable String errorMessageTemplate, char p1, char p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -206,7 +206,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, int p1, char p2) {
+    boolean expression, @Nullable String errorMessageTemplate, int p1, char p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -221,7 +221,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, long p1, char p2) {
+    boolean expression, @Nullable String errorMessageTemplate, long p1, char p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -236,7 +236,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
+    boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, char p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -251,7 +251,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, char p1, int p2) {
+    boolean expression, @Nullable String errorMessageTemplate, char p1, int p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -266,7 +266,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, int p1, int p2) {
+    boolean expression, @Nullable String errorMessageTemplate, int p1, int p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -281,7 +281,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, long p1, int p2) {
+    boolean expression, @Nullable String errorMessageTemplate, long p1, int p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -296,7 +296,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
+    boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, int p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -311,7 +311,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, char p1, long p2) {
+    boolean expression, @Nullable String errorMessageTemplate, char p1, long p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -326,7 +326,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, int p1, long p2) {
+    boolean expression, @Nullable String errorMessageTemplate, int p1, long p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -341,7 +341,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, long p1, long p2) {
+    boolean expression, @Nullable String errorMessageTemplate, long p1, long p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -356,7 +356,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
+    boolean expression, @Nullable String errorMessageTemplate, @Nullable Object p1, long p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -371,7 +371,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
+    boolean expression, @Nullable String errorMessageTemplate, char p1, @Nullable Object p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -386,7 +386,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
+    boolean expression, @Nullable String errorMessageTemplate, int p1, @Nullable Object p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -401,7 +401,7 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
+    boolean expression, @Nullable String errorMessageTemplate, long p1, @Nullable Object p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -416,10 +416,10 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2));
     }
@@ -434,11 +434,11 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2, p3));
     }
@@ -453,12 +453,12 @@ public final class Verify {
    * @since 23.1 (varargs overload since 17.0)
    */
   public static void verify(
-      boolean expression,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object p1,
-      @Nullable Object p2,
-      @Nullable Object p3,
-      @Nullable Object p4) {
+    boolean expression,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object p1,
+    @Nullable Object p2,
+    @Nullable Object p3,
+    @Nullable Object p4) {
     if (!expression) {
       throw new VerifyException(format(errorMessageTemplate, p1, p2, p3, p4));
     }
@@ -494,9 +494,9 @@ public final class Verify {
    */
   @CanIgnoreReturnValue
   public static <T> T verifyNotNull(
-      @Nullable T reference,
-      @Nullable String errorMessageTemplate,
-      @Nullable Object... errorMessageArgs) {
+    @Nullable T reference,
+    @Nullable String errorMessageTemplate,
+    @Nullable Object... errorMessageArgs) {
     verify(reference != null, errorMessageTemplate, errorMessageArgs);
     return reference;
   }

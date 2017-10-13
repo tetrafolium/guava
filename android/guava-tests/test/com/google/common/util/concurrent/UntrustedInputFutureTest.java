@@ -27,7 +27,8 @@ import com.google.common.util.concurrent.AbstractFuture.TrustedFuture;
 public class UntrustedInputFutureTest extends AbstractAbstractFutureTest {
   @Override
   AbstractFuture<Integer> newDelegate() {
-    AbstractFuture<Integer> future = new AbstractFuture<Integer>() {};
+    AbstractFuture<Integer> future = new AbstractFuture<Integer>() {
+    };
     assertFalse(future instanceof TrustedFuture); // sanity check
     return future;
   }

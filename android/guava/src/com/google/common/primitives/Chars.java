@@ -174,7 +174,7 @@ public final class Chars {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -273,7 +273,7 @@ public final class Chars {
    * @param arrays zero or more {@code char} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static char[] concat(char[]... arrays) {
+  public static char[] concat(char[] ... arrays) {
     int length = 0;
     for (char[] array : arrays) {
       length += array.length;
@@ -545,7 +545,7 @@ public final class Chars {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Character)
-          && Chars.indexOf(array, (Character) target, start, end) != -1;
+             && Chars.indexOf(array, (Character) target, start, end) != -1;
     }
 
     @Override

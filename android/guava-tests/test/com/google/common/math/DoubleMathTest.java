@@ -69,13 +69,13 @@ public class DoubleMathTest extends TestCase {
     BigInteger maxDoubleValue = BigDecimal.valueOf(Double.MAX_VALUE).toBigInteger();
     assertTrue(BigIntegerMath.factorial(DoubleMath.MAX_FACTORIAL).compareTo(maxDoubleValue) <= 0);
     assertTrue(
-        BigIntegerMath.factorial(DoubleMath.MAX_FACTORIAL + 1).compareTo(maxDoubleValue) > 0);
+      BigIntegerMath.factorial(DoubleMath.MAX_FACTORIAL + 1).compareTo(maxDoubleValue) > 0);
   }
 
   public void testConstantsEverySixteenthFactorial() {
     for (int i = 0, n = 0; n <= DoubleMath.MAX_FACTORIAL; i++, n += 16) {
       assertEquals(
-          BigIntegerMath.factorial(n).doubleValue(), DoubleMath.everySixteenthFactorial[i]);
+        BigIntegerMath.factorial(n).doubleValue(), DoubleMath.everySixteenthFactorial[i]);
     }
   }
 
@@ -107,9 +107,9 @@ public class DoubleMathTest extends TestCase {
 
         try {
           assertEquals(
-              "Rounding " + d + " with mode " + mode,
-              expected.intValue(),
-              DoubleMath.roundToInt(d, mode));
+            "Rounding " + d + " with mode " + mode,
+            expected.intValue(),
+            DoubleMath.roundToInt(d, mode));
           assertTrue(isInBounds);
         } catch (ArithmeticException e) {
           assertFalse(isInBounds);
@@ -404,7 +404,7 @@ public class DoubleMathTest extends TestCase {
   public void testRoundLog2ThrowsOnZerosInfinitiesAndNaN() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
       for (double d :
-          asList(0.0, -0.0, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
+            asList(0.0, -0.0, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
         try {
           DoubleMath.log2(d, mode);
           fail("Expected IllegalArgumentException");
@@ -436,7 +436,7 @@ public class DoubleMathTest extends TestCase {
   public void testIsPowerOfTwo() {
     for (double x : ALL_DOUBLE_CANDIDATES) {
       boolean expected = x > 0 && !Double.isInfinite(x) && !Double.isNaN(x)
-          && StrictMath.pow(2.0, DoubleMath.log2(x, FLOOR)) == x;
+            && StrictMath.pow(2.0, DoubleMath.log2(x, FLOOR)) == x;
       assertEquals(expected, DoubleMath.isPowerOfTwo(x));
     }
   }
@@ -544,15 +544,15 @@ public class DoubleMathTest extends TestCase {
 
   private static final List<Double> BAD_TOLERANCE_CANDIDATES =
       Doubles.asList(-Double.MIN_VALUE, -Double.MIN_NORMAL, -1, -20, Double.NaN,
-          Double.NEGATIVE_INFINITY, -0.001);
+      Double.NEGATIVE_INFINITY, -0.001);
 
   public void testFuzzyEqualsFinite() {
     for (double a : FINITE_DOUBLE_CANDIDATES) {
       for (double b : FINITE_DOUBLE_CANDIDATES) {
         for (double tolerance : FINITE_TOLERANCE_CANDIDATES) {
           assertEquals(
-              Math.abs(a - b) <= tolerance,
-              DoubleMath.fuzzyEquals(a, b, tolerance));
+            Math.abs(a - b) <= tolerance,
+            DoubleMath.fuzzyEquals(a, b, tolerance));
         }
       }
     }
@@ -607,7 +607,7 @@ public class DoubleMathTest extends TestCase {
       for (double a : ALL_DOUBLE_CANDIDATES) {
         for (double b : ALL_DOUBLE_CANDIDATES) {
           assertEquals(a == b || (Double.isNaN(a) && Double.isNaN(b)),
-              DoubleMath.fuzzyEquals(a, b, zero));
+            DoubleMath.fuzzyEquals(a, b, zero));
         }
       }
     }

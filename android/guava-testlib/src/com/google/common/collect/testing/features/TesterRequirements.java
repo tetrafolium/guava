@@ -42,7 +42,7 @@ public final class TesterRequirements {
   }
 
   public TesterRequirements() {
-    this(Collections.<Feature<?>>emptySet(), Collections.<Feature<?>>emptySet());
+    this(Collections.<Feature<?>>emptySet(), Collections.<Feature<?> >emptySet());
   }
 
   public final Set<Feature<?>> getPresentFeatures() {
@@ -61,7 +61,7 @@ public final class TesterRequirements {
     if (object instanceof TesterRequirements) {
       TesterRequirements that = (TesterRequirements) object;
       return this.presentFeatures.equals(that.presentFeatures)
-          && this.absentFeatures.equals(that.absentFeatures);
+             && this.absentFeatures.equals(that.absentFeatures);
     }
     return false;
   }

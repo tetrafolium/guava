@@ -118,9 +118,9 @@ public final class InetAddresses {
    */
   private static Inet4Address getInet4Address(byte[] bytes) {
     checkArgument(
-        bytes.length == 4,
-        "Byte array has invalid length for an IPv4 address: %s != 4.",
-        bytes.length);
+      bytes.length == 4,
+      "Byte array has invalid length for an IPv4 address: %s != 4.",
+      bytes.length);
 
     // Given a 4-byte array, this cast should always succeed.
     return (Inet4Address) bytesToInetAddress(bytes);
@@ -545,7 +545,7 @@ public final class InetAddresses {
    */
   public static Inet4Address getCompatIPv4Address(Inet6Address ip) {
     checkArgument(
-        isCompatIPv4Address(ip), "Address '%s' is not IPv4-compatible.", toAddrString(ip));
+      isCompatIPv4Address(ip), "Address '%s' is not IPv4-compatible.", toAddrString(ip));
 
     return getInet4Address(Arrays.copyOfRange(ip.getAddress(), 12, 16));
   }
@@ -611,13 +611,13 @@ public final class InetAddresses {
      */
     // TODO: why is this public?
     public TeredoInfo(
-        @Nullable Inet4Address server, @Nullable Inet4Address client, int port, int flags) {
+      @Nullable Inet4Address server, @Nullable Inet4Address client, int port, int flags) {
       checkArgument(
-          (port >= 0) && (port <= 0xffff), "port '%s' is out of range (0 <= port <= 0xffff)", port);
+        (port >= 0) && (port <= 0xffff), "port '%s' is out of range (0 <= port <= 0xffff)", port);
       checkArgument(
-          (flags >= 0) && (flags <= 0xffff),
-          "flags '%s' is out of range (0 <= flags <= 0xffff)",
-          flags);
+        (flags >= 0) && (flags <= 0xffff),
+        "flags '%s' is out of range (0 <= flags <= 0xffff)",
+        flags);
 
       this.server = MoreObjects.firstNonNull(server, ANY4);
       this.client = MoreObjects.firstNonNull(client, ANY4);
@@ -653,9 +653,9 @@ public final class InetAddresses {
   public static boolean isTeredoAddress(Inet6Address ip) {
     byte[] bytes = ip.getAddress();
     return (bytes[0] == (byte) 0x20)
-        && (bytes[1] == (byte) 0x01)
-        && (bytes[2] == 0)
-        && (bytes[3] == 0);
+           && (bytes[1] == (byte) 0x01)
+           && (bytes[2] == 0)
+           && (bytes[3] == 0);
   }
 
   /**
@@ -990,7 +990,7 @@ public final class InetAddresses {
   }
 
   private static IllegalArgumentException formatIllegalArgumentException(
-      String format, Object... args) {
+    String format, Object... args) {
     return new IllegalArgumentException(String.format(Locale.ROOT, format, args));
   }
 }

@@ -45,9 +45,9 @@ public class ResourcesTest extends IoTestCase {
   public static TestSuite suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(ByteSourceTester.tests("Resources.asByteSource[URL]",
-            SourceSinkFactories.urlByteSourceFactory(), true));
+        SourceSinkFactories.urlByteSourceFactory(), true));
     suite.addTest(CharSourceTester.tests("Resources.asCharSource[URL, Charset]",
-            SourceSinkFactories.urlCharSourceFactory(), false));
+        SourceSinkFactories.urlCharSourceFactory(), false));
     suite.addTestSuite(ResourcesTest.class);
     return suite;
   }
@@ -75,7 +75,7 @@ public class ResourcesTest extends IoTestCase {
   public void testReadLines_withLineProcessor() throws IOException {
     URL resource = getClass().getResource("testdata/alice_in_wonderland.txt");
     LineProcessor<List<String>> collectAndLowercaseAndTrim =
-    new LineProcessor<List<String>>() {
+        new LineProcessor<List<String>>() {
       List<String> collector = new ArrayList<>();
 
       @Override
@@ -90,7 +90,7 @@ public class ResourcesTest extends IoTestCase {
       }
     };
     List<String> result = Resources.readLines(resource, Charsets.US_ASCII,
-            collectAndLowercaseAndTrim);
+        collectAndLowercaseAndTrim);
     assertEquals(3600, result.size());
     assertEquals("ALICE'S ADVENTURES IN WONDERLAND", result.get(0));
     assertEquals("THE END", result.get(result.size() - 1));
@@ -114,19 +114,19 @@ public class ResourcesTest extends IoTestCase {
 
   public void testGetResource() {
     assertNotNull(
-        Resources.getResource("com/google/common/io/testdata/i18n.txt"));
+      Resources.getResource("com/google/common/io/testdata/i18n.txt"));
   }
 
   public void testGetResource_relativePath_notFound() {
     try {
       Resources.getResource(
-          getClass(), "com/google/common/io/testdata/i18n.txt");
+        getClass(), "com/google/common/io/testdata/i18n.txt");
       fail();
     } catch (IllegalArgumentException e) {
       assertThat(e)
       .hasMessage(
-          "resource com/google/common/io/testdata/i18n.txt"
-          + " relative to com.google.common.io.ResourcesTest not found.");
+        "resource com/google/common/io/testdata/i18n.txt"
+        + " relative to com.google.common.io.ResourcesTest not found.");
     }
   }
 
@@ -173,7 +173,7 @@ public class ResourcesTest extends IoTestCase {
     try {
       Thread.currentThread().setContextClassLoader(null);
       assertNotNull(
-          Resources.getResource("com/google/common/io/testdata/i18n.txt"));
+        Resources.getResource("com/google/common/io/testdata/i18n.txt"));
       try {
         Resources.getResource("no such resource");
         fail("Should get IllegalArgumentException");

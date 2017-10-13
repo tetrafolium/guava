@@ -62,8 +62,8 @@ public class BloomFilterTest extends TestCase {
 
     LockFreeBitArray bitArray = new LockFreeBitArray(numBits);
     assertTrue(
-        "BitArray.bitSize() must return a positive number, but was " + bitArray.bitSize(),
-        bitArray.bitSize() > 0);
+      "BitArray.bitSize() must return a positive number, but was " + bitArray.bitSize(),
+      bitArray.bitSize() > 0);
 
     // Ideally we would also test the bitSize() overflow of this BF, but it runs out of heap space
     // BloomFilter.create(Funnels.unencodedCharsFunnel(), 244412641, 1e-11);
@@ -81,8 +81,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckMitz32BloomFilterWithKnownFalsePositives() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-            Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
-            BloomFilterStrategies.MURMUR128_MITZ_32);
+      Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
+      BloomFilterStrategies.MURMUR128_MITZ_32);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -98,7 +98,7 @@ public class BloomFilterTest extends TestCase {
     // Now we check for known false positives using a set of known false positives.
     // (These are all of the false positives under 900.)
     ImmutableSet<Integer> falsePositives = ImmutableSet.of(
-            49, 51, 59, 163, 199, 321, 325, 363, 367, 469, 545, 561, 727, 769, 773, 781);
+      49, 51, 59, 163, 199, 321, 325, 363, 367, 469, 545, 561, 727, 769, 773, 781);
     for (int i = 1; i < 900; i += 2) {
       if (!falsePositives.contains(i)) {
         assertFalse("BF should not contain " + i, bf.mightContain(Integer.toString(i)));
@@ -122,8 +122,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckBloomFilterWithKnownFalsePositives64() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-            Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
-            BloomFilterStrategies.MURMUR128_MITZ_64);
+      Funnels.unencodedCharsFunnel(), numInsertions, 0.03,
+      BloomFilterStrategies.MURMUR128_MITZ_64);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -139,7 +139,7 @@ public class BloomFilterTest extends TestCase {
     // Now we check for known false positives using a set of known false positives.
     // (These are all of the false positives under 900.)
     ImmutableSet<Integer> falsePositives = ImmutableSet.of(
-            15, 25, 287, 319, 381, 399, 421, 465, 529, 697, 767, 857);
+      15, 25, 287, 319, 381, 399, 421, 465, 529, 697, 767, 857);
     for (int i = 1; i < 900; i += 2) {
       if (!falsePositives.contains(i)) {
         assertFalse("BF should not contain " + i, bf.mightContain(Integer.toString(i)));
@@ -163,8 +163,8 @@ public class BloomFilterTest extends TestCase {
   public void testCreateAndCheckBloomFilterWithKnownUtf8FalsePositives64() {
     int numInsertions = 1000000;
     BloomFilter<String> bf = BloomFilter.create(
-            Funnels.stringFunnel(UTF_8), numInsertions, 0.03,
-            BloomFilterStrategies.MURMUR128_MITZ_64);
+      Funnels.stringFunnel(UTF_8), numInsertions, 0.03,
+      BloomFilterStrategies.MURMUR128_MITZ_64);
 
     // Insert "numInsertions" even numbers into the BF.
     for (int i = 0; i < numInsertions * 2; i += 2) {
@@ -280,7 +280,7 @@ public class BloomFilterTest extends TestCase {
 
     // and some crazy values (this used to be capped to Integer.MAX_VALUE, now it can go bigger
     assertEquals(3327428144502L, BloomFilter.optimalNumOfBits(
-            Integer.MAX_VALUE, Double.MIN_VALUE));
+          Integer.MAX_VALUE, Double.MIN_VALUE));
     try {
       BloomFilter<String> unused =
           BloomFilter.create(HashTestUtils.BAD_FUNNEL, Integer.MAX_VALUE, Double.MIN_VALUE);
@@ -337,8 +337,8 @@ public class BloomFilterTest extends TestCase {
       long numBits = BloomFilter.optimalNumOfBits(i, fpp);
       int arraySize = Ints.checkedCast(LongMath.divide(numBits, 64, RoundingMode.CEILING));
       assertEquals(
-          arraySize * Long.SIZE,
-          BloomFilter.create(Funnels.unencodedCharsFunnel(), i, fpp).bitSize());
+        arraySize * Long.SIZE,
+        BloomFilter.create(Funnels.unencodedCharsFunnel(), i, fpp).bitSize());
     }
   }
 
@@ -530,7 +530,7 @@ public class BloomFilterTest extends TestCase {
     final Stopwatch stopwatch = Stopwatch.createStarted();
 
     Runnable task =
-    new Runnable() {
+        new Runnable() {
       @Override
       public void run() {
         do {
@@ -567,7 +567,7 @@ public class BloomFilterTest extends TestCase {
     for (int i = 0; i < numThreads; i++) {
       Thread thread = new Thread(task);
       thread.setUncaughtExceptionHandler(
-      new UncaughtExceptionHandler() {
+        new UncaughtExceptionHandler() {
         @Override
         public void uncaughtException(Thread t, Throwable e) {
           exceptions.add(e);

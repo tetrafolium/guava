@@ -212,7 +212,7 @@ public class ByteStreamsTest extends IoTestCase {
 
   public void testNewDataInput_readLine() {
     ByteArrayDataInput in = ByteStreams.newDataInput(
-            "This is a line\r\nThis too\rand this\nand also this".getBytes(Charsets.UTF_8));
+      "This is a line\r\nThis too\rand this\nand also this".getBytes(Charsets.UTF_8));
     assertEquals("This is a line", in.readLine());
     assertEquals("This too", in.readLine());
     assertEquals("and this", in.readLine());
@@ -488,7 +488,7 @@ public class ByteStreamsTest extends IoTestCase {
   public void testReadBytes() throws IOException {
     final byte[] array = newPreFilledByteArray(1000);
     assertEquals(array, ByteStreams.readBytes(
-            new ByteArrayInputStream(array), new TestByteProcessor()));
+          new ByteArrayInputStream(array), new TestByteProcessor()));
   }
 
   private class TestByteProcessor implements ByteProcessor<byte[]> {
@@ -511,12 +511,12 @@ public class ByteStreamsTest extends IoTestCase {
     byte[] array = newPreFilledByteArray(10000);
     assertEquals((Integer) 42,
         ByteStreams.readBytes(new ByteArrayInputStream(array),
-    new ByteProcessor<Integer>() {
+        new ByteProcessor<Integer>() {
       @Override
       public boolean processBytes(byte[] buf, int off, int len) {
         assertEquals(
-            copyOfRange(buf, off, off + len),
-            newPreFilledByteArray(8192));
+          copyOfRange(buf, off, off + len),
+          newPreFilledByteArray(8192));
         return false;
       }
 

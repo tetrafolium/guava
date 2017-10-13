@@ -69,11 +69,11 @@ public class SortedMapGenerators {
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-              mapEntry("foo", 5),
-              mapEntry("bar", 3),
-              mapEntry("baz", 17),
-              mapEntry("quux", 1),
-              mapEntry("toaster", -2));
+        mapEntry("foo", 5),
+        mapEntry("bar", 3),
+        mapEntry("baz", 17),
+        mapEntry("quux", 1),
+        mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -85,11 +85,11 @@ public class SortedMapGenerators {
     @Override
     public Iterable<Entry<String, Integer>> order(List<Entry<String, Integer>> insertionOrder) {
       return new Ordering<Entry<String, Integer>>() {
-        @Override
-        public int compare(Entry<String, Integer> left, Entry<String, Integer> right) {
-          return left.getKey().compareTo(right.getKey());
-        }
-      } .sortedCopy(insertionOrder);
+               @Override
+               public int compare(Entry<String, Integer> left, Entry<String, Integer> right) {
+                 return left.getKey().compareTo(right.getKey());
+               }
+      }.sortedCopy(insertionOrder);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class SortedMapGenerators {
       ImmutableSortedMap.Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
-        Entry<String, Integer> entry = (Entry<String, Integer>) o;
+        Entry<String, Integer> entry = (Entry<String, Integer>)o;
         builder.put(entry);
       }
       return builder.build().entrySet().asList();

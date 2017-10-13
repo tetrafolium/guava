@@ -73,15 +73,15 @@ final class Present<T> extends Optional<T> {
   @Override
   public <V> Optional<V> transform(Function<? super T, V> function) {
     return new Present<V>(
-            checkNotNull(
-                function.apply(reference),
-                "the Function passed to Optional.transform() must not return null."));
+      checkNotNull(
+        function.apply(reference),
+        "the Function passed to Optional.transform() must not return null."));
   }
 
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Present) {
-      Present<?> other = (Present<?>) object;
+      Present<?> other = (Present<?>)object;
       return reference.equals(other.reference);
     }
     return false;

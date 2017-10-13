@@ -43,7 +43,7 @@ public class SimpleTimeLimiterTest extends TestCase {
 
   private static final String GOOD_CALLABLE_RESULT = "good callable result";
   private static final Callable<String> GOOD_CALLABLE =
-  new Callable<String>() {
+      new Callable<String>() {
     @Override
     public String call() throws InterruptedException {
       MILLISECONDS.sleep(DELAY_MS);
@@ -51,7 +51,7 @@ public class SimpleTimeLimiterTest extends TestCase {
     }
   };
   private static final Callable<String> BAD_CALLABLE =
-  new Callable<String>() {
+      new Callable<String>() {
     @Override
     public String call() throws InterruptedException, SampleException {
       MILLISECONDS.sleep(DELAY_MS);
@@ -59,7 +59,7 @@ public class SimpleTimeLimiterTest extends TestCase {
     }
   };
   private static final Runnable GOOD_RUNNABLE =
-  new Runnable() {
+      new Runnable() {
     @Override
     public void run() {
       try {
@@ -70,7 +70,7 @@ public class SimpleTimeLimiterTest extends TestCase {
     }
   };
   private static final Runnable BAD_RUNNABLE =
-  new Runnable() {
+      new Runnable() {
     @Override
     public void run() {
       try {

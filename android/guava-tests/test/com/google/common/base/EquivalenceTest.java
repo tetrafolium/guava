@@ -64,15 +64,15 @@ public class EquivalenceTest extends TestCase {
   public void testWrap() {
     new EqualsTester()
     .addEqualityGroup(
-        LENGTH_EQUIVALENCE.wrap("hello"),
-        LENGTH_EQUIVALENCE.wrap("hello"),
-        LENGTH_EQUIVALENCE.wrap("world"))
+      LENGTH_EQUIVALENCE.wrap("hello"),
+      LENGTH_EQUIVALENCE.wrap("hello"),
+      LENGTH_EQUIVALENCE.wrap("world"))
     .addEqualityGroup(
-        LENGTH_EQUIVALENCE.wrap("hi"),
-        LENGTH_EQUIVALENCE.wrap("yo"))
+      LENGTH_EQUIVALENCE.wrap("hi"),
+      LENGTH_EQUIVALENCE.wrap("yo"))
     .addEqualityGroup(
-        LENGTH_EQUIVALENCE.wrap(null),
-        LENGTH_EQUIVALENCE.wrap(null))
+      LENGTH_EQUIVALENCE.wrap(null),
+      LENGTH_EQUIVALENCE.wrap(null))
     .addEqualityGroup(Equivalence.equals().wrap("hello"))
     .addEqualityGroup(Equivalence.equals().wrap(null))
     .testEquals();
@@ -113,8 +113,8 @@ public class EquivalenceTest extends TestCase {
   public void testOnResultOf_equals() {
     new EqualsTester()
     .addEqualityGroup(
-        Equivalence.identity().onResultOf(Functions.toStringFunction()),
-        Equivalence.identity().onResultOf(Functions.toStringFunction()))
+      Equivalence.identity().onResultOf(Functions.toStringFunction()),
+      Equivalence.identity().onResultOf(Functions.toStringFunction()))
     .addEqualityGroup(Equivalence.equals().onResultOf(Functions.toStringFunction()))
     .addEqualityGroup(Equivalence.identity().onResultOf(Functions.identity()))
     .testEquals();

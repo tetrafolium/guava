@@ -37,7 +37,7 @@ final class FilteredKeySetMultimap<K, V> extends FilteredKeyMultimap<K, V>
 
   @Override
   public SetMultimap<K, V> unfiltered() {
-    return (SetMultimap<K, V>) unfiltered;
+    return (SetMultimap<K, V>)unfiltered;
   }
 
   @Override

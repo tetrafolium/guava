@@ -83,13 +83,13 @@ public class CacheExpirationTest extends TestCase {
       assertFalse("Creator should not have been called @#" + i, loader.wasCalled());
     }
 
-    CacheTesting.expireEntries((LoadingCache<?, ?>) cache, EXPIRING_TIME, ticker);
+    CacheTesting.expireEntries((LoadingCache<?, ?>)cache, EXPIRING_TIME, ticker);
 
     assertEquals("Map must be empty by now", 0, cache.size());
     assertEquals("Eviction notifications must be received", 10,
         removalListener.getCount());
 
-    CacheTesting.expireEntries((LoadingCache<?, ?>) cache, EXPIRING_TIME, ticker);
+    CacheTesting.expireEntries((LoadingCache<?, ?>)cache, EXPIRING_TIME, ticker);
     // ensure that no new notifications are sent
     assertEquals("Eviction notifications must be received", 10,
         removalListener.getCount());
@@ -143,7 +143,7 @@ public class CacheExpirationTest extends TestCase {
     assertEquals(1, Iterators.size(cache.asMap().keySet().iterator()));
     assertEquals(1, Iterators.size(cache.asMap().values().iterator()));
 
-    CacheTesting.expireEntries((LoadingCache<?, ?>) cache, EXPIRING_TIME, ticker);
+    CacheTesting.expireEntries((LoadingCache<?, ?>)cache, EXPIRING_TIME, ticker);
 
     for (int i = 0; i < 11; i++) {
       assertFalse(cache.asMap().containsKey(KEY_PREFIX + i));
@@ -158,11 +158,11 @@ public class CacheExpirationTest extends TestCase {
     }
 
     // expire new values we just created
-    CacheTesting.expireEntries((LoadingCache<?, ?>) cache, EXPIRING_TIME, ticker);
+    CacheTesting.expireEntries((LoadingCache<?, ?>)cache, EXPIRING_TIME, ticker);
     assertEquals("Eviction notifications must be received", 21,
         removalListener.getCount());
 
-    CacheTesting.expireEntries((LoadingCache<?, ?>) cache, EXPIRING_TIME, ticker);
+    CacheTesting.expireEntries((LoadingCache<?, ?>)cache, EXPIRING_TIME, ticker);
     // ensure that no new notifications are sent
     assertEquals("Eviction notifications must be received", 21,
         removalListener.getCount());
@@ -175,7 +175,7 @@ public class CacheExpirationTest extends TestCase {
     final AtomicInteger totalSum = new AtomicInteger();
 
     RemovalListener<Integer, AtomicInteger> removalListener =
-    new RemovalListener<Integer, AtomicInteger>() {
+        new RemovalListener<Integer, AtomicInteger>() {
       @Override
       public void onRemoval(RemovalNotification<Integer, AtomicInteger> notification) {
         if (notification.wasEvicted()) {

@@ -86,7 +86,7 @@ public class LazyStackTraceBenchmark {
 
   private boolean timeFindCaller(int reps, int recurse) {
     return recurse > 0
-        ? timeFindCaller(reps, recurse - 1)
-        : mode.timeIt(reps, breakAt);
+           ? timeFindCaller(reps, recurse - 1)
+           : mode.timeIt(reps, breakAt);
   }
 }

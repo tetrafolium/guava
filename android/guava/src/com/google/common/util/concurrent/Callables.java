@@ -38,10 +38,10 @@ public final class Callables {
    */
   public static <T> Callable<T> returning(@Nullable final T value) {
     return new Callable<T>() {
-      @Override
-      public T call() {
-        return value;
-      }
+             @Override
+             public T call() {
+               return value;
+             }
     };
   }
 
@@ -56,15 +56,15 @@ public final class Callables {
   @Beta
   @GwtIncompatible
   public static <T> AsyncCallable<T> asAsyncCallable(
-      final Callable<T> callable,
-      final ListeningExecutorService listeningExecutorService) {
+    final Callable<T> callable,
+    final ListeningExecutorService listeningExecutorService) {
     checkNotNull(callable);
     checkNotNull(listeningExecutorService);
     return new AsyncCallable<T>() {
-      @Override
-      public ListenableFuture<T> call() throws Exception {
-        return listeningExecutorService.submit(callable);
-      }
+             @Override
+             public ListenableFuture<T> call() throws Exception {
+               return listeningExecutorService.submit(callable);
+             }
     };
   }
 
@@ -79,23 +79,23 @@ public final class Callables {
    */
   @GwtIncompatible // threads
   static <T> Callable<T> threadRenaming(
-      final Callable<T> callable, final Supplier<String> nameSupplier) {
+    final Callable<T> callable, final Supplier<String> nameSupplier) {
     checkNotNull(nameSupplier);
     checkNotNull(callable);
     return new Callable<T>() {
-      @Override
-      public T call() throws Exception {
-        Thread currentThread = Thread.currentThread();
-        String oldName = currentThread.getName();
-        boolean restoreName = trySetName(nameSupplier.get(), currentThread);
-        try {
-          return callable.call();
-        } finally {
-          if (restoreName) {
-            boolean unused = trySetName(oldName, currentThread);
-          }
-        }
-      }
+             @Override
+             public T call() throws Exception {
+               Thread currentThread = Thread.currentThread();
+               String oldName = currentThread.getName();
+               boolean restoreName = trySetName(nameSupplier.get(), currentThread);
+               try {
+                 return callable.call();
+               } finally {
+                 if (restoreName) {
+                   boolean unused = trySetName(oldName, currentThread);
+                 }
+               }
+             }
     };
   }
 
@@ -113,19 +113,19 @@ public final class Callables {
     checkNotNull(nameSupplier);
     checkNotNull(task);
     return new Runnable() {
-      @Override
-      public void run() {
-        Thread currentThread = Thread.currentThread();
-        String oldName = currentThread.getName();
-        boolean restoreName = trySetName(nameSupplier.get(), currentThread);
-        try {
-          task.run();
-        } finally {
-          if (restoreName) {
-            boolean unused = trySetName(oldName, currentThread);
-          }
-        }
-      }
+             @Override
+             public void run() {
+               Thread currentThread = Thread.currentThread();
+               String oldName = currentThread.getName();
+               boolean restoreName = trySetName(nameSupplier.get(), currentThread);
+               try {
+                 task.run();
+               } finally {
+                 if (restoreName) {
+                   boolean unused = trySetName(oldName, currentThread);
+                 }
+               }
+             }
     };
   }
 

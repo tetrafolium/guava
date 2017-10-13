@@ -70,10 +70,10 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T newProxy(
-      final T target,
-      Class<T> interfaceType,
-      final long timeoutDuration,
-      final TimeUnit timeoutUnit) {
+    final T target,
+    Class<T> interfaceType,
+    final long timeoutDuration,
+    final TimeUnit timeoutUnit) {
     checkNotNull(target);
     checkNotNull(interfaceType);
     checkNotNull(timeoutUnit);
@@ -83,7 +83,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     final Set<Method> interruptibleMethods = findInterruptibleMethods(interfaceType);
 
     InvocationHandler handler =
-    new InvocationHandler() {
+        new InvocationHandler() {
       @Override
       public Object invoke(Object obj, final Method method, final Object[] args)
       throws Throwable {
@@ -99,7 +99,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
           }
         };
         return callWithTimeout(
-                callable, timeoutDuration, timeoutUnit, interruptibleMethods.contains(method));
+          callable, timeoutDuration, timeoutUnit, interruptibleMethods.contains(method));
       }
     };
     return newProxy(interfaceType, handler);
@@ -107,7 +107,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   private
   <T> T callWithTimeout(
-      Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit, boolean amInterruptible)
+    Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit, boolean amInterruptible)
   throws Exception {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -156,7 +156,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callUninterruptiblyWithTimeout(
-      Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
+    Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
   throws TimeoutException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -197,7 +197,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public void runUninterruptiblyWithTimeout(
-      Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit) throws TimeoutException {
+    Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit) throws TimeoutException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -258,8 +258,8 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   // TODO: replace with version in common.reflect if and when it's open-sourced
   private static <T> T newProxy(Class<T> interfaceType, InvocationHandler handler) {
     Object object =
-        Proxy.newProxyInstance(
-            interfaceType.getClassLoader(), new Class<?>[] {interfaceType}, handler);
+      Proxy.newProxyInstance(
+      interfaceType.getClassLoader(), new Class<?>[] {interfaceType}, handler);
     return interfaceType.cast(object);
   }
 

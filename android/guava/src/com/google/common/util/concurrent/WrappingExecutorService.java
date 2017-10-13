@@ -62,15 +62,15 @@ abstract class WrappingExecutorService implements ExecutorService {
   protected Runnable wrapTask(Runnable command) {
     final Callable<Object> wrapped = wrapTask(Executors.callable(command, null));
     return new Runnable() {
-      @Override
-      public void run() {
-        try {
-          wrapped.call();
-        } catch (Exception e) {
-          throwIfUnchecked(e);
-          throw new RuntimeException(e);
-        }
-      }
+             @Override
+             public void run() {
+               try {
+                 wrapped.call();
+               } catch (Exception e) {
+                 throwIfUnchecked(e);
+                 throw new RuntimeException(e);
+               }
+             }
     };
   }
 
@@ -116,7 +116,7 @@ abstract class WrappingExecutorService implements ExecutorService {
 
   @Override
   public final <T> List<Future<T>> invokeAll(
-      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+    Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
   throws InterruptedException {
     return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
   }

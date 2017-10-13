@@ -58,7 +58,7 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
     TestSuite suite = suiteForBytes(name, factory, desc, bytes);
     CharSinkFactory charSinkFactory = SourceSinkFactories.asCharSinkFactory(factory);
     suite.addTest(CharSinkTester.suiteForString(name + ".asCharSink[Charset]", charSinkFactory,
-            string, desc));
+        string, desc));
     return suite;
   }
 

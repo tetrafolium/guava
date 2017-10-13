@@ -595,7 +595,7 @@ public class AtomicLongMapTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           threadPool.submit(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           int threadSum = 0;

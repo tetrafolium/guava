@@ -58,7 +58,7 @@ public class FunctionsTest extends TestCase {
     assertEquals("hiya", Functions.toStringFunction().apply("hiya"));
     assertEquals("I'm a string",
         Functions.toStringFunction().apply(
-    new Object() {
+          new Object() {
       @Override public String toString() {
         return "I'm a string";
       }
@@ -142,9 +142,9 @@ public class FunctionsTest extends TestCase {
 
     new EqualsTester()
     .addEqualityGroup(
-        function,
-        Functions.forMap(map, 42),
-        SerializableTester.reserialize(function))
+      function,
+      Functions.forMap(map, 42),
+      SerializableTester.reserialize(function))
     .addEqualityGroup(Functions.forMap(map))
     .addEqualityGroup(Functions.forMap(map, null))
     .addEqualityGroup(Functions.forMap(map, 43))
@@ -230,12 +230,12 @@ public class FunctionsTest extends TestCase {
 
     new EqualsTester()
     .addEqualityGroup(
-        japaneseToSpanish,
-        Functions.compose(integerToSpanish, japaneseToInteger))
+      japaneseToSpanish,
+      Functions.compose(integerToSpanish, japaneseToInteger))
     .addEqualityGroup(japaneseToInteger)
     .addEqualityGroup(integerToSpanish)
     .addEqualityGroup(
-        Functions.compose(japaneseToInteger, integerToSpanish))
+      Functions.compose(japaneseToInteger, integerToSpanish))
     .testEquals();
   }
 
@@ -260,13 +260,13 @@ public class FunctionsTest extends TestCase {
 
     new EqualsTester()
     .addEqualityGroup(
-        japaneseToSpanish,
-        Functions.compose(integerToSpanish, japaneseToInteger),
-        SerializableTester.reserialize(japaneseToSpanish))
+      japaneseToSpanish,
+      Functions.compose(integerToSpanish, japaneseToInteger),
+      SerializableTester.reserialize(japaneseToSpanish))
     .addEqualityGroup(japaneseToInteger)
     .addEqualityGroup(integerToSpanish)
     .addEqualityGroup(
-        Functions.compose(japaneseToInteger, integerToSpanish))
+      Functions.compose(japaneseToInteger, integerToSpanish))
     .testEquals();
   }
 
@@ -290,7 +290,7 @@ public class FunctionsTest extends TestCase {
 
   public void testComposeOfFunctionsIsAssociative() {
     Map<Float, String> m = ImmutableMap.of(
-            4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
+      4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
     Function<? super Integer, Boolean> h = Functions.constant(Boolean.TRUE);
     Function<? super String, Integer> g = new HashCodeFunction();
     Function<Float, String> f = Functions.forMap(m, "F");
@@ -310,7 +310,7 @@ public class FunctionsTest extends TestCase {
 
   public void testComposeOfPredicateAndFunctionIsAssociative() {
     Map<Float, String> m = ImmutableMap.of(
-            4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
+      4.0f, "A", 3.0f, "B", 2.0f, "C", 1.0f, "D");
     Predicate<? super Integer> h = Predicates.equalTo(42);
     Function<? super String, Integer> g = new HashCodeFunction();
     Function<Float, String> f = Functions.forMap(m, "F");
@@ -339,7 +339,7 @@ public class FunctionsTest extends TestCase {
 
     new EqualsTester()
     .addEqualityGroup(
-        alwaysTrue, Functions.forPredicate(Predicates.alwaysTrue()))
+      alwaysTrue, Functions.forPredicate(Predicates.alwaysTrue()))
     .addEqualityGroup(alwaysFalse)
     .addEqualityGroup(Functions.identity())
     .testEquals();

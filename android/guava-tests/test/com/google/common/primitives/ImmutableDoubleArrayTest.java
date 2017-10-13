@@ -118,7 +118,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
 
   public void testCopyOf_iterable_collection_nonempty() {
     List<Double> list = Arrays.asList(0.0, 1.0, 3.0);
-    ImmutableDoubleArray iia = ImmutableDoubleArray.copyOf((Iterable<Double>) list);
+    ImmutableDoubleArray iia = ImmutableDoubleArray.copyOf((Iterable<Double>)list);
     list.set(2, 2.0);
     assertThat(iia.asList()).containsExactly(0.0, 1.0, 3.0).inOrder();
   }
@@ -357,10 +357,10 @@ public class ImmutableDoubleArrayTest extends TestCase {
   private static <T> Iterable<T> iterable(final Collection<T> collection) {
     // return collection::iterator;
     return new Iterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return collection.iterator();
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return collection.iterator();
+             }
     };
   }
 
@@ -368,9 +368,9 @@ public class ImmutableDoubleArrayTest extends TestCase {
     new EqualsTester()
     .addEqualityGroup(ImmutableDoubleArray.of())
     .addEqualityGroup(
-        ImmutableDoubleArray.of(1, 2),
-        reserialize(ImmutableDoubleArray.of(1, 2)),
-        ImmutableDoubleArray.of(0, 1, 2, 3).subArray(1, 3))
+      ImmutableDoubleArray.of(1, 2),
+      reserialize(ImmutableDoubleArray.of(1, 2)),
+      ImmutableDoubleArray.of(0, 1, 2, 3).subArray(1, 3))
     .addEqualityGroup(ImmutableDoubleArray.of(1, 3))
     .addEqualityGroup(ImmutableDoubleArray.of(1, 2, 3))
     .testEquals();
@@ -425,28 +425,28 @@ public class ImmutableDoubleArrayTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Double>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new ImmutableDoubleArrayAsListGenerator())
-            .named("ImmutableDoubleArray.asList"),
-            ListTestSuiteBuilder.using(new ImmutableDoubleArrayHeadSubListAsListGenerator())
-            .named("ImmutableDoubleArray.asList, head subList"),
-            ListTestSuiteBuilder.using(new ImmutableDoubleArrayTailSubListAsListGenerator())
-            .named("ImmutableDoubleArray.asList, tail subList"),
-            ListTestSuiteBuilder.using(new ImmutableDoubleArrayMiddleSubListAsListGenerator())
-            .named("ImmutableDoubleArray.asList, middle subList"));
+      ListTestSuiteBuilder.using(new ImmutableDoubleArrayAsListGenerator())
+      .named("ImmutableDoubleArray.asList"),
+      ListTestSuiteBuilder.using(new ImmutableDoubleArrayHeadSubListAsListGenerator())
+      .named("ImmutableDoubleArray.asList, head subList"),
+      ListTestSuiteBuilder.using(new ImmutableDoubleArrayTailSubListAsListGenerator())
+      .named("ImmutableDoubleArray.asList, tail subList"),
+      ListTestSuiteBuilder.using(new ImmutableDoubleArrayMiddleSubListAsListGenerator())
+      .named("ImmutableDoubleArray.asList, middle subList"));
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Double> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(
-              CollectionSize.ZERO,
-              CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.ALLOWS_NULL_QUERIES,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              CollectionFeature.KNOWN_ORDER,
-              CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
-          .createTestSuite());
+        builder
+        .withFeatures(
+          CollectionSize.ZERO,
+          CollectionSize.ONE,
+          CollectionSize.SEVERAL,
+          CollectionFeature.ALLOWS_NULL_QUERIES,
+          CollectionFeature.RESTRICTS_ELEMENTS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
+        .createTestSuite());
     }
     suite.addTestSuite(ImmutableDoubleArrayTest.class);
     return suite;

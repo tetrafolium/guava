@@ -38,7 +38,7 @@ public class SubMapMultimapAsMapImplementsMapTest
   private TreeMultimap<String, Integer> createMultimap() {
     TreeMultimap<String, Integer> multimap
       = TreeMultimap.create(Ordering.<String>natural().nullsFirst(),
-              Ordering.<Integer>natural().nullsFirst());
+        Ordering.<Integer>natural().nullsFirst());
     multimap.put("a", -1);
     multimap.put("a", -3);
     multimap.put("z", -2);

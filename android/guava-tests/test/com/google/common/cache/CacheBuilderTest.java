@@ -457,7 +457,7 @@ public class CacheBuilderTest extends TestCase {
         .removalListener(listener)
         .concurrencyLevel(20)
         .build(
-            new DelayingIdentityLoader<String>(computationShouldWait, computationLatch));
+      new DelayingIdentityLoader<String>(computationShouldWait, computationLatch));
 
     int nThreads = 100;
     int nTasks = 1000;
@@ -480,7 +480,7 @@ public class CacheBuilderTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           threadPool.submit(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           cache.getUnchecked(s);
@@ -539,7 +539,7 @@ public class CacheBuilderTest extends TestCase {
     final AtomicInteger exceptionCount = new AtomicInteger();
     final AtomicInteger computeNullCount = new AtomicInteger();
     CacheLoader<String, String> countingIdentityLoader =
-    new CacheLoader<String, String>() {
+        new CacheLoader<String, String>() {
       @Override public String load(String key) throws InterruptedException {
         int behavior = random.nextInt(4);
         if (behavior == 0) { // throw an exception
@@ -571,7 +571,7 @@ public class CacheBuilderTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           threadPool.submit(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           for (int j = 0; j < getsPerTask; j++) {

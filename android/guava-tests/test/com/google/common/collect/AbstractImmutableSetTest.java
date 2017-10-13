@@ -51,14 +51,14 @@ public abstract class AbstractImmutableSetTest extends TestCase {
   protected abstract <E extends Comparable<? super E>> Set<E> of(E e1, E e2, E e3, E e4, E e5);
   @SuppressWarnings("unchecked")
   protected abstract <E extends Comparable<? super E>> Set<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... rest);
+    E e1, E e2, E e3, E e4, E e5, E e6, E... rest);
   protected abstract <E extends Comparable<? super E>> Set<E> copyOf(E[] elements);
   protected abstract <E extends Comparable<? super E>> Set<E> copyOf(
-      Collection<? extends E> elements);
+    Collection<? extends E> elements);
   protected abstract <E extends Comparable<? super E>> Set<E> copyOf(
-      Iterable<? extends E> elements);
+    Iterable<? extends E> elements);
   protected abstract <E extends Comparable<? super E>> Set<E> copyOf(
-      Iterator<? extends E> elements);
+    Iterator<? extends E> elements);
 
   public void testCreation_noArgs() {
     Set<String> set = of();
@@ -270,7 +270,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return of("a").iterator();
       }
-    } .test();
+    }.test();
   }
 
   @GwtIncompatible // slow (~30s)
@@ -280,7 +280,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
       @Override protected Iterator<String> newTargetIterator() {
         return of("a", "b", "c").iterator();
       }
-    } .test();
+    }.test();
   }
 
   public void testContainsAll_sameType() {
@@ -307,7 +307,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
         .add("g", "h", "i", "j")
         .build();
     assertThat(set).containsExactly(
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j").inOrder();
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j").inOrder();
   }
 
   public void testReuseBuilderWithNonDuplicateElements() {
@@ -377,14 +377,14 @@ public abstract class AbstractImmutableSetTest extends TestCase {
     ImmutableSet<Integer> addedColor
       = webSafeColorsBuilder.add(LAST_COLOR_ADDED).build();
     assertEquals(
-        "Modifying the builder should not have changed any already built sets",
-        216, webSafeColors.size());
+      "Modifying the builder should not have changed any already built sets",
+      216, webSafeColors.size());
     assertEquals("the new array should be one bigger than webSafeColors",
         217, addedColor.size());
     Integer[] appendColorArray =
         addedColor.toArray(new Integer[addedColor.size()]);
     assertEquals(
-        getComplexBuilderSetLastElement(), (int) appendColorArray[216]);
+      getComplexBuilderSetLastElement(), (int) appendColorArray[216]);
   }
 
   abstract int getComplexBuilderSetLastElement();

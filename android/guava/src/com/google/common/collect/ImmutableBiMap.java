@@ -42,7 +42,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
   // Casting to any type is safe because the set will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableBiMap<K, V> of() {
-    return (ImmutableBiMap<K, V>) RegularImmutableBiMap.EMPTY;
+    return (ImmutableBiMap<K, V>)RegularImmutableBiMap.EMPTY;
   }
 
   /**
@@ -74,7 +74,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     return new RegularImmutableBiMap<K, V>(
-            new Object[] {k1, v1, k2, v2, k3, v3}, 3);
+      new Object[] {k1, v1, k2, v2, k3, v3}, 3);
   }
 
   /**
@@ -88,7 +88,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     checkEntryNotNull(k3, v3);
     checkEntryNotNull(k4, v4);
     return new RegularImmutableBiMap<K, V>(
-            new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
+      new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
   }
 
   /**
@@ -97,14 +97,14 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     checkEntryNotNull(k4, v4);
     checkEntryNotNull(k5, v5);
     return new RegularImmutableBiMap<K, V>(
-            new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
+      new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -286,7 +286,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
   public static <K, V> ImmutableBiMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
     if (map instanceof ImmutableBiMap) {
       @SuppressWarnings("unchecked") // safe since map is not writable
-      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>) map;
+      ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>)map;
       // TODO(lowasser): if we need to make a copy of a BiMap because the
       // forward map is a view, don't make a copy of the non-view delegate map
       if (!bimap.isPartialView()) {
@@ -307,11 +307,11 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    */
   @Beta
   public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     int estimatedSize =
         (entries instanceof Collection)
-        ? ((Collection<?>) entries).size()
-        : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
+        ? ((Collection<?>)entries).size()
+          : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
     return new Builder<K, V>(estimatedSize).putAll(entries).build();
   }
 

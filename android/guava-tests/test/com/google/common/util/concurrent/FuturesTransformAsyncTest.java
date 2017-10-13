@@ -43,7 +43,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
   private CountDownLatch funcCompletionLatch;
 
   @Override protected ListenableFuture<String> buildChainingFuture(
-      ListenableFuture<Integer> inputFuture) {
+    ListenableFuture<Integer> inputFuture) {
     outputFuture = SettableFuture.create();
     funcIsWaitingLatch = new CountDownLatch(1);
     funcCompletionLatch = new CountDownLatch(1);
@@ -129,7 +129,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       public void run() {
         inputFuture.set(SLOW_FUNC_VALID_INPUT_DATA);
       }
-    } .start();
+    }.start();
     funcIsWaitingLatch.await();
 
     assertTrue(resultFuture.cancel(true));

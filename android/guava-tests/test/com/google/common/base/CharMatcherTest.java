@@ -56,7 +56,7 @@ public class CharMatcherTest extends TestCase {
   private static final CharMatcher WHATEVER = new CharMatcher() {
     @Override public boolean matches(char c) {
       throw new AssertionFailedError(
-          "You weren't supposed to actually invoke me!");
+              "You weren't supposed to actually invoke me!");
     }
   };
 

@@ -68,7 +68,7 @@ public class TreeMultimapExplicitTest extends TestCase {
 
   private SetMultimap<String, Integer> create() {
     return TreeMultimap.create(
-            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+      StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
   }
 
   /**
@@ -76,7 +76,7 @@ public class TreeMultimapExplicitTest extends TestCase {
    */
   private TreeMultimap<String, Integer> createPopulate() {
     TreeMultimap<String, Integer> multimap = TreeMultimap.create(
-            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+      StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
     multimap.put("google", 2);
     multimap.put("google", 6);
     multimap.put(null, 3);
@@ -92,7 +92,7 @@ public class TreeMultimapExplicitTest extends TestCase {
    */
   public void testMultimapCreateFromTreeMultimap() {
     TreeMultimap<String, Integer> tree = TreeMultimap.create(
-            StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
+      StringLength.COMPARATOR, DECREASING_INT_COMPARATOR);
     tree.put("google", 2);
     tree.put("google", 6);
     tree.put("tree", 0);
@@ -156,13 +156,13 @@ public class TreeMultimapExplicitTest extends TestCase {
   public void testOrderedEntries() {
     TreeMultimap<String, Integer> multimap = createPopulate();
     assertThat(multimap.entries()).containsExactly(
-        Maps.immutableEntry((String) null, 7),
-        Maps.immutableEntry((String) null, 3),
-        Maps.immutableEntry((String) null, 1),
-        Maps.immutableEntry("tree", (Integer) null),
-        Maps.immutableEntry("tree", 0),
-        Maps.immutableEntry("google", 6),
-        Maps.immutableEntry("google", 2)).inOrder();
+      Maps.immutableEntry((String) null, 7),
+      Maps.immutableEntry((String) null, 3),
+      Maps.immutableEntry((String) null, 1),
+      Maps.immutableEntry("tree", (Integer) null),
+      Maps.immutableEntry("tree", 0),
+      Maps.immutableEntry("google", 6),
+      Maps.immutableEntry("google", 2)).inOrder();
   }
 
   public void testOrderedValues() {

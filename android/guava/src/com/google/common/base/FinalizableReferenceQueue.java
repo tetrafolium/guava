@@ -165,10 +165,10 @@ public class FinalizableReferenceQueue implements Closeable {
       throw new AssertionError(impossible); // startFinalizer() is public
     } catch (Throwable t) {
       logger.log(
-          Level.INFO,
-          "Failed to start reference finalizer thread."
-          + " Reference cleanup will only occur when new references are created.",
-          t);
+        Level.INFO,
+        "Failed to start reference finalizer thread."
+        + " Reference cleanup will only occur when new references are created.",
+        t);
     }
 
     this.threadStarted = threadStarted;
@@ -353,7 +353,7 @@ public class FinalizableReferenceQueue implements Closeable {
   static Method getStartFinalizer(Class<?> finalizer) {
     try {
       return finalizer.getMethod(
-              "startFinalizer", Class.class, ReferenceQueue.class, PhantomReference.class);
+        "startFinalizer", Class.class, ReferenceQueue.class, PhantomReference.class);
     } catch (NoSuchMethodException e) {
       throw new AssertionError(e);
     }

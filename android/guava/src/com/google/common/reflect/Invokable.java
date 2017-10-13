@@ -56,7 +56,7 @@ import javax.annotation.Nullable;
 @Beta
 public abstract class Invokable<T, R> extends Element implements GenericDeclaration {
 
-  <M extends AccessibleObject & Member> Invokable(M member) {
+  <M extends AccessibleObject &Member> Invokable(M member) {
     super(member);
   }
 
@@ -104,7 +104,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   // All subclasses are owned by us and we'll make sure to get the R type right.
   @SuppressWarnings("unchecked")
   public final TypeToken<? extends R> getReturnType() {
-    return (TypeToken<? extends R>) TypeToken.of(getGenericReturnType());
+    return (TypeToken<? extends R>)TypeToken.of(getGenericReturnType());
   }
 
   /**
@@ -129,7 +129,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
       // getGenericExceptionTypes() will never return a type that's not exception
       @SuppressWarnings("unchecked")
       TypeToken<? extends Throwable> exceptionType =
-          (TypeToken<? extends Throwable>) TypeToken.of(type);
+            (TypeToken<? extends Throwable>)TypeToken.of(type);
       builder.add(exceptionType);
     }
     return builder.build();
@@ -149,7 +149,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   public final <R1 extends R> Invokable<T, R1> returning(TypeToken<R1> returnType) {
     if (!returnType.isSupertypeOf(getReturnType())) {
       throw new IllegalArgumentException(
-          "Invokable is known to return " + getReturnType() + ", not " + returnType);
+              "Invokable is known to return " + getReturnType() + ", not " + returnType);
     }
     @SuppressWarnings("unchecked") // guarded by previous check
     Invokable<T, R1> specialized = (Invokable<T, R1>) this;
@@ -167,7 +167,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   @SuppressWarnings("unchecked") // The declaring class is T.
   @Override
   public TypeToken<T> getOwnerType() {
-    return (TypeToken<T>) TypeToken.of(getDeclaringClass());
+    return (TypeToken<T>)TypeToken.of(getDeclaringClass());
   }
 
   abstract Object invokeInternal(@Nullable Object receiver, Object[] args)
@@ -225,9 +225,9 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
     @Override
     public final boolean isOverridable() {
       return !(isFinal()
-              || isPrivate()
-              || isStatic()
-              || Modifier.isFinal(getDeclaringClass().getModifiers()));
+             || isPrivate()
+             || isStatic()
+             || Modifier.isFinal(getDeclaringClass().getModifiers()));
     }
 
     @Override
@@ -311,9 +311,9 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
           new TypeVariable<?>[declaredByClass.length + declaredByConstructor.length];
       System.arraycopy(declaredByClass, 0, result, 0, declaredByClass.length);
       System.arraycopy(
-          declaredByConstructor, 0,
-          result, declaredByClass.length,
-          declaredByConstructor.length);
+        declaredByConstructor, 0,
+        result, declaredByClass.length,
+        declaredByConstructor.length);
       return result;
     }
 
@@ -345,7 +345,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
         // In such case, we may mistakenly think that the class is within a non-static context
         // and the first parameter is the hidden 'this'.
         return declaringClass.getEnclosingClass() != null
-            && !Modifier.isStatic(declaringClass.getModifiers());
+               && !Modifier.isStatic(declaringClass.getModifiers());
       }
     }
   }

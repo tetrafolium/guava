@@ -51,7 +51,7 @@ public class UnsignedBytesTest extends TestCase {
   public void testCheckedCast() {
     for (byte value : VALUES) {
       assertEquals(value,
-          UnsignedBytes.checkedCast(UnsignedBytes.toInt(value)));
+            UnsignedBytes.checkedCast(UnsignedBytes.toInt(value)));
     }
     assertCastFails(256L);
     assertCastFails(-1L);
@@ -62,7 +62,7 @@ public class UnsignedBytesTest extends TestCase {
   public void testSaturatedCast() {
     for (byte value : VALUES) {
       assertEquals(value,
-          UnsignedBytes.saturatedCast(UnsignedBytes.toInt(value)));
+            UnsignedBytes.saturatedCast(UnsignedBytes.toInt(value)));
     }
     assertEquals(GREATEST, UnsignedBytes.saturatedCast(256L));
     assertEquals(LEAST, UnsignedBytes.saturatedCast(-1L));
@@ -107,7 +107,7 @@ public class UnsignedBytesTest extends TestCase {
     assertEquals(LEAST, UnsignedBytes.max(LEAST));
     assertEquals(GREATEST, UnsignedBytes.max(GREATEST));
     assertEquals((byte) 255, UnsignedBytes.max(
-            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+          (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
   }
 
   public void testMin_noArgs() {
@@ -122,9 +122,9 @@ public class UnsignedBytesTest extends TestCase {
     assertEquals(LEAST, UnsignedBytes.min(LEAST));
     assertEquals(GREATEST, UnsignedBytes.min(GREATEST));
     assertEquals((byte) 0, UnsignedBytes.min(
-            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+          (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
     assertEquals((byte) 0, UnsignedBytes.min(
-            (byte) -1, (byte) 127, (byte) 1, (byte) -128, (byte) 0));
+          (byte) -1, (byte) 127, (byte) 1, (byte) -128, (byte) 0));
   }
 
   private static void assertParseFails(String value) {
@@ -221,7 +221,7 @@ public class UnsignedBytesTest extends TestCase {
 
   private static String unsafeComparatorClassName() {
     return UnsignedBytes.LexicographicalComparatorHolder.class.getName()
-        + "$UnsafeComparator";
+           + "$UnsafeComparator";
   }
 
   private static boolean unsafeComparatorAvailable() {
@@ -268,15 +268,15 @@ public class UnsignedBytesTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<byte[]> ordered = Arrays.asList(
-            new byte[] {},
-            new byte[] {LEAST},
-            new byte[] {LEAST, LEAST},
-            new byte[] {LEAST, (byte) 1},
-            new byte[] {(byte) 1},
-            new byte[] {(byte) 1, LEAST},
-            new byte[] {GREATEST, GREATEST - (byte) 1},
-            new byte[] {GREATEST, GREATEST},
-            new byte[] {GREATEST, GREATEST, GREATEST});
+      new byte[] {},
+      new byte[] {LEAST},
+      new byte[] {LEAST, LEAST},
+      new byte[] {LEAST, (byte) 1},
+      new byte[] {(byte) 1},
+      new byte[] {(byte) 1, LEAST},
+      new byte[] {GREATEST, GREATEST - (byte) 1},
+      new byte[] {GREATEST, GREATEST},
+      new byte[] {GREATEST, GREATEST, GREATEST});
 
     // The Unsafe implementation if it's available. Otherwise, the Java implementation.
     Comparator<byte[]> comparator = UnsignedBytes.lexicographicalComparator();
@@ -293,9 +293,9 @@ public class UnsignedBytesTest extends TestCase {
   public void testLexicographicalComparatorLongInputs() {
     Random rnd = new Random();
     for (Comparator<byte[]> comparator : Arrays.asList(
-            UnsignedBytes.lexicographicalComparator(),
-            UnsignedBytes.lexicographicalComparatorJavaImpl())) {
-      for (int trials = 10; trials-- > 0;) {
+          UnsignedBytes.lexicographicalComparator(),
+          UnsignedBytes.lexicographicalComparatorJavaImpl())) {
+      for (int trials = 10; trials-- > 0; ) {
         byte[] left = new byte[1 + rnd.nextInt(32)];
         rnd.nextBytes(left);
         byte[] right = left.clone();
@@ -304,8 +304,8 @@ public class UnsignedBytesTest extends TestCase {
         left[i] ^= (byte) (1 + rnd.nextInt(255));
         assertTrue(comparator.compare(left, right) != 0);
         assertEquals(
-            comparator.compare(left, right) > 0,
-            UnsignedBytes.compare(left[i], right[i]) > 0);
+          comparator.compare(left, right) > 0,
+          UnsignedBytes.compare(left[i], right[i]) > 0);
       }
     }
   }
@@ -342,8 +342,8 @@ public class UnsignedBytesTest extends TestCase {
     testSortDescending(new byte[] {1, 2}, new byte[] {2, 1});
     testSortDescending(new byte[] {1, 3, 1}, new byte[] {3, 1, 1});
     testSortDescending(
-        new byte[] {GREATEST - 1, 1, GREATEST - 2, 2},
-        new byte[] {GREATEST - 1, GREATEST - 2, 2, 1});
+      new byte[] {GREATEST - 1, 1, GREATEST - 2, 2},
+      new byte[] {GREATEST - 1, GREATEST - 2, 2, 1});
   }
 
   public void testSortDescendingIndexed() {
@@ -353,10 +353,10 @@ public class UnsignedBytesTest extends TestCase {
     testSortDescending(new byte[] {1, 3, 1}, 0, 2, new byte[] {3, 1, 1});
     testSortDescending(new byte[] {1, 3, 1}, 0, 1, new byte[] {1, 3, 1});
     testSortDescending(
-        new byte[] {GREATEST - 1, 1, GREATEST - 2, 2},
-        1,
-        3,
-        new byte[] {GREATEST - 1, GREATEST - 2, 1, 2});
+      new byte[] {GREATEST - 1, 1, GREATEST - 2, 2},
+      1,
+      3,
+      new byte[] {GREATEST - 1, GREATEST - 2, 1, 2});
   }
 
   private static void testSortDescending(byte[] input, byte[] expectedOutput) {
@@ -366,7 +366,7 @@ public class UnsignedBytesTest extends TestCase {
   }
 
   private static void testSortDescending(
-      byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
+    byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedBytes.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));

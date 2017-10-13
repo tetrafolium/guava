@@ -45,51 +45,51 @@ public class MultisetsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite();
 
     suite.addTest(MultisetTestSuiteBuilder.using(
-            unmodifiableMultisetGenerator())
+          unmodifiableMultisetGenerator())
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("Multisets.unmodifiableMultiset[LinkedHashMultiset]")
         .createTestSuite());
 
     suite.addTest(SortedMultisetTestSuiteBuilder.using(unmodifiableSortedMultisetGenerator())
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("Multisets.unmodifiableMultiset[TreeMultiset]")
         .createTestSuite());
 
     suite.addTest(MultisetTestSuiteBuilder.using(unionGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.ALLOWS_NULL_VALUES)
+        CollectionFeature.ALLOWS_NULL_VALUES)
         .named("Multisets.union")
         .createTestSuite());
 
     suite.addTest(MultisetTestSuiteBuilder.using(intersectionGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionFeature.KNOWN_ORDER)
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.KNOWN_ORDER)
         .named("Multisets.intersection")
         .createTestSuite());
 
     suite.addTest(MultisetTestSuiteBuilder.using(sumGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.ALLOWS_NULL_VALUES)
+        CollectionFeature.ALLOWS_NULL_VALUES)
         .named("Multisets.sum")
         .createTestSuite());
 
     suite.addTest(MultisetTestSuiteBuilder.using(differenceGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionFeature.KNOWN_ORDER)
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.KNOWN_ORDER)
         .named("Multisets.difference")
         .createTestSuite());
 
     suite.addTest(MultisetTestSuiteBuilder.using(filteredGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.SUPPORTS_ADD,
-            CollectionFeature.SUPPORTS_REMOVE)
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.SUPPORTS_ADD,
+        CollectionFeature.SUPPORTS_REMOVE)
         .named("Multiset.filter[Multiset, Predicate]")
         .createTestSuite());
 
@@ -98,121 +98,121 @@ public class MultisetsCollectionTest extends TestCase {
 
   private static TestStringMultisetGenerator unmodifiableMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override
-      protected Multiset<String> create(String[] elements) {
-        return Multisets.unmodifiableMultiset(LinkedHashMultiset.create(asList(elements)));
-      }
+             @Override
+             protected Multiset<String> create(String[] elements) {
+               return Multisets.unmodifiableMultiset(LinkedHashMultiset.create(asList(elements)));
+             }
 
-      @Override
-      public List<String> order(List<String> insertionOrder) {
-        List<String> order = new ArrayList<>();
-        for (String s : insertionOrder) {
-          int index = order.indexOf(s);
-          if (index == -1) {
-            order.add(s);
-          } else {
-            order.add(index, s);
-          }
-        }
-        return order;
-      }
+             @Override
+             public List<String> order(List<String> insertionOrder) {
+               List<String> order = new ArrayList<>();
+               for (String s : insertionOrder) {
+                 int index = order.indexOf(s);
+                 if (index == -1) {
+                   order.add(s);
+                 } else {
+                   order.add(index, s);
+                 }
+               }
+               return order;
+             }
     };
   }
 
   private static TestStringMultisetGenerator unmodifiableSortedMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        return Multisets.unmodifiableSortedMultiset(
-                TreeMultiset.create(asList(elements)));
-      }
-      @Override public List<String> order(List<String> insertionOrder) {
-        Collections.sort(insertionOrder);
-        return insertionOrder;
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               return Multisets.unmodifiableSortedMultiset(
+                 TreeMultiset.create(asList(elements)));
+             }
+             @Override public List<String> order(List<String> insertionOrder) {
+               Collections.sort(insertionOrder);
+               return insertionOrder;
+             }
     };
   }
 
   private static TestStringMultisetGenerator unionGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override
-      protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset1 = LinkedHashMultiset.create();
-        Multiset<String> multiset2 = LinkedHashMultiset.create();
-        for (int i = 0; i < elements.length; i++) {
-          String element = elements[i];
-          if (multiset1.contains(element) ||
-              multiset2.contains(element)) {
-            // add to both; the one already containing it will have more
-            multiset1.add(element);
-            multiset2.add(element);
-          } else if (i % 2 == 0) {
-            multiset1.add(elements[i]);
-          } else {
-            multiset2.add(elements[i]);
-          }
-        }
-        return Multisets.union(multiset1, multiset2);
-      }
+             @Override
+             protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset1 = LinkedHashMultiset.create();
+               Multiset<String> multiset2 = LinkedHashMultiset.create();
+               for (int i = 0; i < elements.length; i++) {
+                 String element = elements[i];
+                 if (multiset1.contains(element) ||
+                     multiset2.contains(element)) {
+                   // add to both; the one already containing it will have more
+                   multiset1.add(element);
+                   multiset2.add(element);
+                 } else if (i % 2 == 0) {
+                   multiset1.add(elements[i]);
+                 } else {
+                   multiset2.add(elements[i]);
+                 }
+               }
+               return Multisets.union(multiset1, multiset2);
+             }
     };
   }
 
   private static TestStringMultisetGenerator intersectionGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset1 = LinkedHashMultiset.create();
-        Multiset<String> multiset2 = LinkedHashMultiset.create();
-        multiset1.add("only1");
-        multiset2.add("only2");
-        for (int i = 0; i < elements.length; i++) {
-          multiset1.add(elements[i]);
-          multiset2.add(elements[elements.length - 1 - i]);
-        }
-        if (elements.length > 0) {
-          multiset1.add(elements[0]);
-        }
-        if ((elements.length > 1) && (!Objects.equal(elements[0], elements[1]))) {
-          multiset2.add(elements[1], 2);
-        }
-        return Multisets.intersection(multiset1, multiset2);
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset1 = LinkedHashMultiset.create();
+               Multiset<String> multiset2 = LinkedHashMultiset.create();
+               multiset1.add("only1");
+               multiset2.add("only2");
+               for (int i = 0; i < elements.length; i++) {
+                 multiset1.add(elements[i]);
+                 multiset2.add(elements[elements.length - 1 - i]);
+               }
+               if (elements.length > 0) {
+                 multiset1.add(elements[0]);
+               }
+               if ((elements.length > 1) && (!Objects.equal(elements[0], elements[1]))) {
+                 multiset2.add(elements[1], 2);
+               }
+               return Multisets.intersection(multiset1, multiset2);
+             }
     };
   }
 
   private static TestStringMultisetGenerator sumGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset1 = LinkedHashMultiset.create();
-        Multiset<String> multiset2 = LinkedHashMultiset.create();
-        for (int i = 0; i < elements.length; i++) {
-          // add to either; sum should contain all
-          if (i % 2 == 0) {
-            multiset1.add(elements[i]);
-          } else {
-            multiset2.add(elements[i]);
-          }
-        }
-        return Multisets.sum(multiset1, multiset2);
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset1 = LinkedHashMultiset.create();
+               Multiset<String> multiset2 = LinkedHashMultiset.create();
+               for (int i = 0; i < elements.length; i++) {
+                 // add to either; sum should contain all
+                 if (i % 2 == 0) {
+                   multiset1.add(elements[i]);
+                 } else {
+                   multiset2.add(elements[i]);
+                 }
+               }
+               return Multisets.sum(multiset1, multiset2);
+             }
     };
   }
 
   private static TestStringMultisetGenerator differenceGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset1 = LinkedHashMultiset.create();
-        Multiset<String> multiset2 = LinkedHashMultiset.create();
-        multiset1.add("equalIn1");
-        multiset1.add("fewerIn1");
-        multiset2.add("equalIn1");
-        multiset2.add("fewerIn1", 3);
-        multiset2.add("onlyIn2", 2);
-        for (int i = 0; i < elements.length; i++) {
-          // add 1 more copy of each element to multiset1 than multiset2
-          multiset1.add(elements[i], i + 2);
-          multiset2.add(elements[i], i + 1);
-        }
-        return Multisets.difference(multiset1, multiset2);
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset1 = LinkedHashMultiset.create();
+               Multiset<String> multiset2 = LinkedHashMultiset.create();
+               multiset1.add("equalIn1");
+               multiset1.add("fewerIn1");
+               multiset2.add("equalIn1");
+               multiset2.add("fewerIn1", 3);
+               multiset2.add("onlyIn2", 2);
+               for (int i = 0; i < elements.length; i++) {
+                 // add 1 more copy of each element to multiset1 than multiset2
+                 multiset1.add(elements[i], i + 2);
+                 multiset2.add(elements[i], i + 1);
+               }
+               return Multisets.difference(multiset1, multiset2);
+             }
     };
   }
 
@@ -224,18 +224,18 @@ public class MultisetsCollectionTest extends TestCase {
 
   private static TestStringMultisetGenerator filteredGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override
-      protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset = LinkedHashMultiset.create();
-        Collections.addAll(multiset, elements);
-        multiset.addAll(ELEMENTS_TO_FILTER_OUT);
-        return Multisets.filter(multiset, PREDICATE);
-      }
+             @Override
+             protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset = LinkedHashMultiset.create();
+               Collections.addAll(multiset, elements);
+               multiset.addAll(ELEMENTS_TO_FILTER_OUT);
+               return Multisets.filter(multiset, PREDICATE);
+             }
 
-      @Override
-      public List<String> order(List<String> insertionOrder) {
-        return Lists.newArrayList(LinkedHashMultiset.create(insertionOrder));
-      }
+             @Override
+             public List<String> order(List<String> insertionOrder) {
+               return Lists.newArrayList(LinkedHashMultiset.create(insertionOrder));
+             }
     };
   }
 }

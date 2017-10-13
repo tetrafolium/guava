@@ -66,7 +66,7 @@ public class CloseablesTest extends TestCase {
 
   public void testCloseQuietly_inputStreamWithEatenException() throws IOException {
     TestInputStream in = new TestInputStream(
-        new ByteArrayInputStream(new byte[1]), TestOption.CLOSE_THROWS);
+      new ByteArrayInputStream(new byte[1]), TestOption.CLOSE_THROWS);
     Closeables.closeQuietly(in);
     assertTrue(in.closed());
   }

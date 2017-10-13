@@ -34,22 +34,23 @@ public class TypeVisitorTest extends TestCase {
 
   public void testVisitNull() {
     new BaseTypeVisitor().visit(
-        ((ParameterizedType) ArrayList.class.getGenericSuperclass()).getOwnerType());
+      ((ParameterizedType) ArrayList.class.getGenericSuperclass()).getOwnerType());
   }
 
   public void testVisitClass() {
     assertVisited(String.class);
     new BaseTypeVisitor() {
       @Override void visitClass(Class<?> t) {}
-    } .visit(String.class);
+    }.visit(String.class);
   }
 
   public <T> void testVisitTypeVariable() {
-    Type type = new TypeCapture<T>() {} .capture();
+    Type type = new TypeCapture<T>() {
+    }.capture();
     assertVisited(type);
     new BaseTypeVisitor() {
       @Override void visitTypeVariable(TypeVariable<?> t) {}
-    } .visit(type);
+    }.visit(type);
   }
 
   public void testVisitWildcardType() {
@@ -57,27 +58,30 @@ public class TypeVisitorTest extends TestCase {
     assertVisited(type);
     new BaseTypeVisitor() {
       @Override void visitWildcardType(WildcardType t) {}
-    } .visit(type);
+    }.visit(type);
   }
 
   public <T> void testVisitGenericArrayType() {
-    Type type = new TypeCapture<T[]>() {} .capture();
+    Type type = new TypeCapture<T[]>() {
+    }.capture();
     assertVisited(type);
     new BaseTypeVisitor() {
       @Override void visitGenericArrayType(GenericArrayType t) {}
-    } .visit(type);
+    }.visit(type);
   }
 
   public <T> void testVisitParameterizedType() {
-    Type type = new TypeCapture<Iterable<T>>() {} .capture();
+    Type type = new TypeCapture<Iterable<T>>() {
+    }.capture();
     assertVisited(type);
     new BaseTypeVisitor() {
       @Override void visitParameterizedType(ParameterizedType t) {}
-    } .visit(type);
+    }.visit(type);
   }
 
   public <E extends Enum<E>> void testVisitRecursiveTypeBounds() {
-    Type type = new TypeCapture<EnumSet<E>>() {} .capture();
+    Type type = new TypeCapture<EnumSet<E>>() {
+    }.capture();
     assertVisited(type);
     new BaseTypeVisitor() {
       @Override void visitParameterizedType(ParameterizedType t) {
@@ -86,7 +90,7 @@ public class TypeVisitorTest extends TestCase {
       @Override void visitTypeVariable(TypeVariable<?> t) {
         visit(t.getBounds());
       }
-    } .visit(type);
+    }.visit(type);
   }
 
   private static void assertVisited(Type type) {

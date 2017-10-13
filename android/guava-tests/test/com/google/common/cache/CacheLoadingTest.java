@@ -417,7 +417,7 @@ public class CacheLoadingTest extends TestCase {
 
   public void testBulkLoad_extra() throws ExecutionException {
     CacheLoader<Object, Object> loader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) throws Exception {
         return new Object();
@@ -454,7 +454,7 @@ public class CacheLoadingTest extends TestCase {
     final Object extraKey = new Object();
     final Object extraValue = new Object();
     CacheLoader<Object, Object> loader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) throws Exception {
         throw new AssertionError();
@@ -492,7 +492,7 @@ public class CacheLoadingTest extends TestCase {
     final Object extraKey = new Object();
     final Object extraValue = new Object();
     CacheLoader<Object, Object> loader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) throws Exception {
         throw new AssertionError();
@@ -531,7 +531,7 @@ public class CacheLoadingTest extends TestCase {
     final Object extraKey = new Object();
     final Object extraValue = new Object();
     CacheLoader<Object, Object> loader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) throws Exception {
         throw new AssertionError();
@@ -570,7 +570,7 @@ public class CacheLoadingTest extends TestCase {
     final Object extraKey = new Object();
     final Object extraValue = new Object();
     CacheLoader<Object, Object> loader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) throws Exception {
         throw new AssertionError();
@@ -829,7 +829,7 @@ public class CacheLoadingTest extends TestCase {
         CacheBuilder.newBuilder()
         .recordStats()
         .build(
-    new CacheLoader<Object, Object>() {
+      new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) {
         throw new AssertionError();
@@ -1947,7 +1947,7 @@ public class CacheLoadingTest extends TestCase {
     final Object result = new Object();
 
     LoadingCache<String, Object> cache = builder.build(
-    new CacheLoader<String, Object>() {
+      new CacheLoader<String, Object>() {
       @Override public Object load(String key) throws InterruptedException {
         callCount.incrementAndGet();
         startSignal.await();
@@ -1976,7 +1976,7 @@ public class CacheLoadingTest extends TestCase {
     final CountDownLatch startSignal = new CountDownLatch(count + 1);
 
     LoadingCache<String, String> cache = builder.build(
-    new CacheLoader<String, String>() {
+      new CacheLoader<String, String>() {
       @Override public String load(String key) throws InterruptedException {
         callCount.incrementAndGet();
         startSignal.await();
@@ -2006,7 +2006,7 @@ public class CacheLoadingTest extends TestCase {
    * request should call the loader again).
    */
   private static void testConcurrentLoadingUncheckedException(
-      CacheBuilder<Object, Object> builder) throws InterruptedException {
+    CacheBuilder<Object, Object> builder) throws InterruptedException {
 
     int count = 10;
     final AtomicInteger callCount = new AtomicInteger();
@@ -2014,7 +2014,7 @@ public class CacheLoadingTest extends TestCase {
     final RuntimeException e = new RuntimeException();
 
     LoadingCache<String, String> cache = builder.build(
-    new CacheLoader<String, String>() {
+      new CacheLoader<String, String>() {
       @Override public String load(String key) throws InterruptedException {
         callCount.incrementAndGet();
         startSignal.await();
@@ -2047,7 +2047,7 @@ public class CacheLoadingTest extends TestCase {
    * request should call the loader again).
    */
   private static void testConcurrentLoadingCheckedException(
-      CacheBuilder<Object, Object> builder) throws InterruptedException {
+    CacheBuilder<Object, Object> builder) throws InterruptedException {
 
     int count = 10;
     final AtomicInteger callCount = new AtomicInteger();
@@ -2055,7 +2055,7 @@ public class CacheLoadingTest extends TestCase {
     final IOException e = new IOException();
 
     LoadingCache<String, String> cache = builder.build(
-    new CacheLoader<String, String>() {
+      new CacheLoader<String, String>() {
       @Override public String load(String key) throws IOException, InterruptedException {
         callCount.incrementAndGet();
         startSignal.await();
@@ -2175,14 +2175,14 @@ public class CacheLoadingTest extends TestCase {
         cache.getUnchecked(getKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
     new Thread() {
       @Override
       public void run() {
         cache.refresh(refreshKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
 
     getStartedSignal.await();
 
@@ -2231,14 +2231,14 @@ public class CacheLoadingTest extends TestCase {
         cache.getUnchecked(getKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
     new Thread() {
       @Override
       public void run() {
         cache.refresh(refreshKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
 
     computationStarted.await();
     cache.invalidate(getKey);
@@ -2288,14 +2288,14 @@ public class CacheLoadingTest extends TestCase {
         cache.getUnchecked(getKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
     new Thread() {
       @Override
       public void run() {
         cache.refresh(refreshKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
 
     computationStarted.await();
     cache.invalidate(getKey);
@@ -2310,14 +2310,14 @@ public class CacheLoadingTest extends TestCase {
         cache.getUnchecked(getKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
     new Thread() {
       @Override
       public void run() {
         cache.refresh(refreshKey);
         getFinishedSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // let computation complete
     letGetFinishSignal.countDown();
@@ -2369,7 +2369,7 @@ public class CacheLoadingTest extends TestCase {
         result.set(0, cache.getUnchecked(key));
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // wait for computation to start
     secondSignal.await();
@@ -2382,7 +2382,7 @@ public class CacheLoadingTest extends TestCase {
         result.set(1, cache.getUnchecked(key));
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // give the second get a chance to run; it is okay for this to be racy
     // as the end result should be the same either way
@@ -2400,7 +2400,7 @@ public class CacheLoadingTest extends TestCase {
         result.set(2, cache.getUnchecked(key));
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // give the third get a chance to run; it is okay for this to be racy
     // as the end result should be the same either way
@@ -2460,7 +2460,7 @@ public class CacheLoadingTest extends TestCase {
         cache.refresh(key);
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // wait for computation to start
     secondSignal.await();
@@ -2474,7 +2474,7 @@ public class CacheLoadingTest extends TestCase {
         result.set(0, cache.getUnchecked(key));
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // give the second get a chance to run; it is okay for this to be racy
     // as the end result should be the same either way
@@ -2492,7 +2492,7 @@ public class CacheLoadingTest extends TestCase {
         result.set(1, cache.getUnchecked(key));
         doneSignal.countDown();
       }
-    } .start();
+    }.start();
 
     // give the third get a chance to run; it is okay for this to be racy
     // as the end result should be the same either way
@@ -2511,9 +2511,9 @@ public class CacheLoadingTest extends TestCase {
 
   static <T> Callable<T> throwing(final Exception exception) {
     return new Callable<T>() {
-      @Override public T call() throws Exception {
-        throw exception;
-      }
+             @Override public T call() throws Exception {
+               throw exception;
+             }
     };
   }
 }

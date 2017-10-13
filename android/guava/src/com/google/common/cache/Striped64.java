@@ -110,7 +110,7 @@ abstract class Striped64 extends Number {
         UNSAFE = getUnsafe();
         Class<?> ak = Cell.class;
         valueOffset = UNSAFE.objectFieldOffset (
-                k.getDeclaredField("value"));
+          k.getDeclaredField("value"));
       } catch (Exception e) {
         throw new Error(e);
       }
@@ -200,7 +200,7 @@ abstract class Striped64 extends Number {
     } else
       h = hc[0];
     boolean collide = false;                // True if last slot nonempty
-    for (;;) {
+    for (;; ) {
       Cell[] as; Cell a; int n; long v;
       if ((as = cells) != null && (n = as.length) > 0) {
         if ((a = as[(n - 1) & h]) == null) {
@@ -295,9 +295,9 @@ abstract class Striped64 extends Number {
       UNSAFE = getUnsafe();
       Class<?> sk = Striped64.class;
       baseOffset = UNSAFE.objectFieldOffset (
-              k.getDeclaredField("base"));
+        k.getDeclaredField("base"));
       busyOffset = UNSAFE.objectFieldOffset (
-              k.getDeclaredField("busy"));
+        k.getDeclaredField("busy"));
     } catch (Exception e) {
       throw new Error(e);
     }
@@ -316,7 +316,7 @@ abstract class Striped64 extends Number {
     } catch (SecurityException tryReflectionInstead) {}
     try {
       return java.security.AccessController.doPrivileged (
-      ew java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+        ew java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
         public sun.misc.Unsafe run() throws Exception {
           Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
           for (java.lang.reflect.Field f : k.getDeclaredFields()) {
@@ -330,7 +330,7 @@ abstract class Striped64 extends Number {
       });
     } catch (java.security.PrivilegedActionException e) {
       throw new RuntimeException("Could not initialize intrinsics",
-          e.getCause());
+                e.getCause());
     }
   }
 }

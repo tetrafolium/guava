@@ -42,10 +42,10 @@ class CollectionBenchmarkSampleData {
   }
 
   CollectionBenchmarkSampleData(
-      boolean isUserTypeFast,
-      SpecialRandom random,
-      double hitRate,
-      int size) {
+    boolean isUserTypeFast,
+    SpecialRandom random,
+    double hitRate,
+    int size) {
     this.isUserTypeFast = isUserTypeFast;
     this.random = checkNotNull(random);
     this.hitRate = hitRate;
@@ -104,8 +104,8 @@ class CollectionBenchmarkSampleData {
   private Element newElement() {
     int value = random.nextInt();
     return isUserTypeFast
-        ? new Element(value)
-        : new SlowElement(value);
+           ? new Element(value)
+           : new SlowElement(value);
   }
 
   static class Element implements Comparable<Element> {
@@ -115,7 +115,7 @@ class CollectionBenchmarkSampleData {
     }
     @Override public boolean equals(Object obj) {
       return this == obj
-          || (obj instanceof Element && ((Element) obj).hash == hash);
+             || (obj instanceof Element && ((Element) obj).hash == hash);
     }
     @Override public int hashCode() {
       return hash;

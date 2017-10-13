@@ -47,13 +47,13 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testGoodForwarder() {
     tester.testForwarding(Arithmetic.class,
-    new Function<Arithmetic, Arithmetic>() {
+        new Function<Arithmetic, Arithmetic>() {
       @Override public Arithmetic apply(Arithmetic arithmetic) {
         return new ForwardingArithmetic(arithmetic);
       }
     });
     tester.testForwarding(ParameterTypesDifferent.class,
-    new Function<ParameterTypesDifferent, ParameterTypesDifferent>() {
+        new Function<ParameterTypesDifferent, ParameterTypesDifferent>() {
       @Override public ParameterTypesDifferent apply(ParameterTypesDifferent delegate) {
         return new ParameterTypesDifferentForwarder(delegate);
       }
@@ -62,7 +62,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testVoidMethodForwarding() {
     tester.testForwarding(Runnable.class,
-    new Function<Runnable, Runnable>() {
+        new Function<Runnable, Runnable>() {
       @Override public Runnable apply(final Runnable runnable) {
         return new ForwardingRunnable(runnable);
       }
@@ -71,7 +71,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testToStringForwarding() {
     tester.testForwarding(Runnable.class,
-    new Function<Runnable, Runnable>() {
+        new Function<Runnable, Runnable>() {
       @Override public Runnable apply(final Runnable runnable) {
         return new ForwardingRunnable(runnable) {
           @Override public String toString() {
@@ -146,10 +146,11 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testFailsToForward() {
     assertFailure(Runnable.class,
-    new Function<Runnable, Runnable>() {
+        new Function<Runnable, Runnable>() {
       @Override public Runnable apply(Runnable runnable) {
         return new ForwardingRunnable(runnable) {
-          @Override public void run() {}
+          @Override public void run() {
+          }
         };
       }
     }, "run()", "Failed to forward");
@@ -157,7 +158,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testRedundantForwarding() {
     assertFailure(Runnable.class,
-    new Function<Runnable, Runnable>() {
+        new Function<Runnable, Runnable>() {
       @Override public Runnable apply(final Runnable runnable) {
         return new Runnable() {
           @Override public void run() {
@@ -215,8 +216,8 @@ public class ForwardingWrapperTesterTest extends TestCase {
   }
 
   private <T> void assertFailure(
-      Class<T> interfaceType, Function<T, ? extends T> wrapperFunction,
-      String... expectedMessages) {
+    Class<T> interfaceType, Function<T, ? extends T> wrapperFunction,
+    String... expectedMessages) {
     try {
       tester.testForwarding(interfaceType, wrapperFunction);
     } catch (AssertionFailedError expected) {
@@ -362,11 +363,11 @@ public class ForwardingWrapperTesterTest extends TestCase {
     }
 
     @Override public void foo(
-        String s, Runnable r, Number n, Iterable<?> it, boolean b, Equivalence<String> eq,
-        Exception e, InputStream in, Comparable<?> c, Ordering<Integer> ord,
-        Charset charset, TimeUnit unit, Class<?> cls, Joiner joiner,
-        Pattern pattern, UnsignedInteger ui, UnsignedLong ul, StringBuilder sb,
-        Predicate<?> pred, Function<?, ?> func, Object obj) {
+      String s, Runnable r, Number n, Iterable<?> it, boolean b, Equivalence<String> eq,
+      Exception e, InputStream in, Comparable<?> c, Ordering<Integer> ord,
+      Charset charset, TimeUnit unit, Class<?> cls, Joiner joiner,
+      Pattern pattern, UnsignedInteger ui, UnsignedLong ul, StringBuilder sb,
+      Predicate<?> pred, Function<?, ?> func, Object obj) {
       delegate.foo(s,
           r, n, it, b, eq, e, in, c, ord, charset, unit, cls, joiner, pattern,
           ui, ul, sb, pred, func, obj);
@@ -483,7 +484,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testChainingCalls() {
     tester.testForwarding(ChainingCalls.class,
-    new Function<ChainingCalls, ChainingCalls>() {
+        new Function<ChainingCalls, ChainingCalls>() {
       @Override public ChainingCalls apply(ChainingCalls delegate) {
         return new ForwardingChainingCalls(delegate);
       }

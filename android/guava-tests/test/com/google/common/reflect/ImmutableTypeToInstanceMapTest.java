@@ -46,29 +46,29 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
     suite.addTestSuite(ImmutableTypeToInstanceMapTest.class);
 
     suite.addTest(MapTestSuiteBuilder
-    .using(new TestTypeToInstanceMapGenerator() {
+        .using(new TestTypeToInstanceMapGenerator() {
       // Other tests will verify what real, warning-free usage looks like
       // but here we have to do some serious fudging
       @Override
       @SuppressWarnings("unchecked")
-      public Map<TypeToken, Object> create(Object... elements) {
+      public Map<TypeToken, Object> create(Object ... elements) {
         ImmutableTypeToInstanceMap.Builder<Object> builder
           = ImmutableTypeToInstanceMap.builder();
         for (Object object : elements) {
-          Entry<TypeToken, Object> entry = (Entry<TypeToken, Object>) object;
+          Entry<TypeToken, Object> entry = (Entry<TypeToken, Object>)object;
           builder.put(entry.getKey(), entry.getValue());
         }
         return (Map) builder.build();
       }
     })
-    .named("ImmutableTypeToInstanceMap")
-    .withFeatures(
-        MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-        MapFeature.RESTRICTS_KEYS,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES)
-    .createTestSuite());
+        .named("ImmutableTypeToInstanceMap")
+        .withFeatures(
+          MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+          MapFeature.RESTRICTS_KEYS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionSize.ANY,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES)
+        .createTestSuite());
 
     return suite;
   }
@@ -91,7 +91,8 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   }
 
   public void testParameterizedType() {
-    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {};
+    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {
+    };
     ImmutableTypeToInstanceMap<Iterable<?>> map = ImmutableTypeToInstanceMap.<Iterable<?>>builder()
         .put(type, ImmutableList.of(1))
         .build();
@@ -102,18 +103,20 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   public void testGenericArrayType() {
     @SuppressWarnings("unchecked") // Trying to test generic array
     ImmutableList<Integer>[] array = new ImmutableList[] {ImmutableList.of(1)};
-    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {};
+    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {
+    };
     ImmutableTypeToInstanceMap<Iterable<?>[]> map =
         ImmutableTypeToInstanceMap.<Iterable<?>[]>builder()
         .put(type, array)
         .build();
     assertEquals(1, map.size());
     // Redundant cast works around a javac bug.
-    assertThat((Iterable<?>[]) map.getInstance(type)).asList().containsExactly(array[0]);
+    assertThat((Iterable<?>[])map.getInstance(type)).asList().containsExactly(array[0]);
   }
 
   public void testWildcardType() {
-    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {};
+    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {
+    };
     ImmutableTypeToInstanceMap<Iterable<?>> map = ImmutableTypeToInstanceMap.<Iterable<?>>builder()
         .put(type, ImmutableList.of(1))
         .build();
@@ -139,7 +142,8 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   }
 
   private <T> TypeToken<Iterable<T>> anyIterableType() {
-    return new TypeToken<Iterable<T>>() {};
+    return new TypeToken<Iterable<T>>() {
+    };
   }
 
   abstract static class TestTypeToInstanceMapGenerator
@@ -156,11 +160,14 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
     @Override
     public SampleElements<Entry<TypeToken, Object>> samples() {
       return new SampleElements<>(
-              entry(TypeToken.of(Integer.class), 0),
-              entry(TypeToken.of(Number.class), 1),
-      entry(new TypeToken<ImmutableList<Integer>>() {}, ImmutableList.of(2)),
-      entry(new TypeToken<int[]>() {}, new int[] {3}),
-      entry(new TypeToken<Iterable<?>>() {}, ImmutableList.of("4")));
+        entry(TypeToken.of(Integer.class), 0),
+        entry(TypeToken.of(Number.class), 1),
+        entry(new TypeToken<ImmutableList<Integer>>() {
+      }, ImmutableList.of(2)),
+        entry(new TypeToken<int[]>() {
+      }, new int[] {3}),
+        entry(new TypeToken<Iterable<?>>() {
+      }, ImmutableList.of("4")));
     }
 
     private static Entry<TypeToken, Object> entry(TypeToken<?> k, Object v) {

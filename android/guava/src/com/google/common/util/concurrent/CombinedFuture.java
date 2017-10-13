@@ -33,34 +33,34 @@ import javax.annotation.Nullable;
 @GwtCompatible
 final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      AsyncCallable<V> callable) {
+    ImmutableCollection<? extends ListenableFuture<?>> futures,
+    boolean allMustSucceed,
+    Executor listenerExecutor,
+    AsyncCallable<V> callable) {
     init(
-        new CombinedFutureRunningState(
-            futures,
-            allMustSucceed,
-            new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
+      new CombinedFutureRunningState(
+        futures,
+        allMustSucceed,
+        new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
   }
 
   CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      Callable<V> callable) {
+    ImmutableCollection<? extends ListenableFuture<?>> futures,
+    boolean allMustSucceed,
+    Executor listenerExecutor,
+    Callable<V> callable) {
     init(
-        new CombinedFutureRunningState(
-            futures, allMustSucceed, new CallableInterruptibleTask(callable, listenerExecutor)));
+      new CombinedFutureRunningState(
+        futures, allMustSucceed, new CallableInterruptibleTask(callable, listenerExecutor)));
   }
 
   private final class CombinedFutureRunningState extends RunningState {
     private CombinedFutureInterruptibleTask task;
 
     CombinedFutureRunningState(
-        ImmutableCollection<? extends ListenableFuture<?>> futures,
-        boolean allMustSucceed,
-        CombinedFutureInterruptibleTask task) {
+      ImmutableCollection<? extends ListenableFuture<?>> futures,
+      boolean allMustSucceed,
+      CombinedFutureInterruptibleTask task) {
       super(futures, allMustSucceed, false);
       this.task = task;
     }
@@ -150,9 +150,9 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
       thrownByExecute = false;
       ListenableFuture<V> result = callable.call();
       return checkNotNull(
-              result,
-              "AsyncCallable.call returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+        result,
+        "AsyncCallable.call returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
     }
 
     @Override

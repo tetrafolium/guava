@@ -215,7 +215,7 @@ public final class NullPointerTester {
    *     {@code method} is static
    */
   public void testMethodParameter(
-      @Nullable final Object instance, final Method method, int paramIndex) {
+    @Nullable final Object instance, final Method method, int paramIndex) {
     method.setAccessible(true);
     testParameter(instance, invokable(instance, method), paramIndex, method.getDeclaringClass());
   }
@@ -318,7 +318,7 @@ public final class NullPointerTester {
       if (obj instanceof Signature) {
         Signature that = (Signature) obj;
         return name.equals(that.name)
-            && parameterTypes.equals(that.parameterTypes);
+               && parameterTypes.equals(that.parameterTypes);
       }
       return false;
     }
@@ -345,7 +345,7 @@ public final class NullPointerTester {
     Object[] params = buildParamList(invokable, paramIndex);
     try {
       @SuppressWarnings("unchecked") // We'll get a runtime exception if the type is wrong.
-      Invokable<Object, ?> unsafe = (Invokable<Object, ?>) invokable;
+      Invokable<Object, ?> unsafe = (Invokable<Object, ?>)invokable;
       unsafe.invoke(instance, params);
       Assert.fail("No exception thrown for parameter at index " + paramIndex
           + " from " + invokable + Arrays.toString(params) + " for " + testedClass);
@@ -356,15 +356,15 @@ public final class NullPointerTester {
       }
       AssertionFailedError error =
           new AssertionFailedError(
-          String.format(
-              "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
-              + "Full parameters: %s%n"
-              + "Actual exception message: %s",
-              invokable,
-              invokable.getParameters().get(paramIndex).getType(),
-              paramIndex,
-              Arrays.toString(params),
-              cause));
+        String.format(
+          "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
+          + "Full parameters: %s%n"
+          + "Actual exception message: %s",
+          invokable,
+          invokable.getParameters().get(paramIndex).getType(),
+          paramIndex,
+          Arrays.toString(params),
+          cause));
       error.initCause(cause);
       throw error;
     } catch (IllegalAccessException e) {
@@ -381,10 +381,10 @@ public final class NullPointerTester {
       if (i != indexOfParamToSetToNull) {
         args[i] = getDefaultValue(param.getType());
         Assert.assertTrue(
-            "Can't find or create a sample instance for type '"
-            + param.getType()
-            + "'; please provide one using NullPointerTester.setDefault()",
-            args[i] != null || isNullable(param));
+          "Can't find or create a sample instance for type '"
+          + param.getType()
+          + "'; please provide one using NullPointerTester.setDefault()",
+          args[i] != null || isNullable(param));
       }
     }
     return args;
@@ -417,9 +417,9 @@ public final class NullPointerTester {
     }
     if (type.getRawType() == Converter.class) {
       TypeToken<?> convertFromType = type.resolveType(
-              Converter.class.getTypeParameters()[0]);
+        Converter.class.getTypeParameters()[0]);
       TypeToken<?> convertToType = type.resolveType(
-              Converter.class.getTypeParameters()[1]);
+        Converter.class.getTypeParameters()[1]);
       @SuppressWarnings("unchecked") // returns default for both F and T
       T defaultConverter = (T) defaultConverter(convertFromType, convertToType);
       return defaultConverter;
@@ -431,25 +431,25 @@ public final class NullPointerTester {
   }
 
   private <F, T> Converter<F, T> defaultConverter(
-      final TypeToken<F> convertFromType, final TypeToken<T> convertToType) {
+    final TypeToken<F> convertFromType, final TypeToken<T> convertToType) {
     return new Converter<F, T>() {
-      @Override protected T doForward(F a) {
-        return doConvert(convertToType);
-      }
-      @Override protected F doBackward(T b) {
-        return doConvert(convertFromType);
-      }
+             @Override protected T doForward(F a) {
+               return doConvert(convertToType);
+             }
+             @Override protected F doBackward(T b) {
+               return doConvert(convertFromType);
+             }
 
-      private /*static*/ <S> S doConvert(TypeToken<S> type) {
-        return checkNotNull(getDefaultValue(type));
-      }
+             private /*static*/ <S> S doConvert(TypeToken<S> type) {
+               return checkNotNull(getDefaultValue(type));
+             }
     };
   }
 
   private static TypeToken<?> getFirstTypeParameter(Type type) {
     if (type instanceof ParameterizedType) {
       return TypeToken.of(
-              ((ParameterizedType) type).getActualTypeArguments()[0]);
+        ((ParameterizedType) type).getActualTypeArguments()[0]);
     } else {
       return TypeToken.of(Object.class);
     }
@@ -457,10 +457,10 @@ public final class NullPointerTester {
 
   private <T> T newDefaultReturningProxy(final TypeToken<T> type) {
     return new DummyProxy() {
-      @Override <R> R dummyReturnValue(TypeToken<R> returnType) {
-        return getDefaultValue(returnType);
-      }
-    } .newProxy(type);
+             @Override <R> R dummyReturnValue(TypeToken<R> returnType) {
+               return getDefaultValue(returnType);
+             }
+    }.newProxy(type);
   }
 
   private static Invokable<?, ?> invokable(@Nullable Object instance, Method method) {
@@ -477,7 +477,7 @@ public final class NullPointerTester {
 
   private static boolean isNullable(Parameter param) {
     return param.isAnnotationPresent(CheckForNull.class)
-        || param.isAnnotationPresent(Nullable.class);
+           || param.isAnnotationPresent(Nullable.class);
   }
 
   private boolean isIgnored(Member member) {
@@ -527,7 +527,7 @@ public final class NullPointerTester {
       @Override
       public boolean isExpectedType(Throwable cause) {
         return cause instanceof NullPointerException
-        || cause instanceof UnsupportedOperationException;
+               || cause instanceof UnsupportedOperationException;
       }
     },
 
@@ -540,8 +540,8 @@ public final class NullPointerTester {
       @Override
       public boolean isExpectedType(Throwable cause) {
         return cause instanceof NullPointerException
-            || cause instanceof IllegalArgumentException
-            || cause instanceof UnsupportedOperationException;
+               || cause instanceof IllegalArgumentException
+               || cause instanceof UnsupportedOperationException;
       }
     };
 

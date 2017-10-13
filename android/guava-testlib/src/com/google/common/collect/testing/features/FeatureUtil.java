@@ -233,11 +233,11 @@ public class FeatureUtil {
         addImpliedFeatures(Helpers.<Feature<?>>copyToSet(absentFeatures));
     if (!Collections.disjoint(allPresentFeatures, allAbsentFeatures)) {
       throw new ConflictingRequirementsException(
-          "Annotation explicitly or "
-          + "implicitly requires one or more features to be both present "
-          + "and absent.",
-          intersection(allPresentFeatures, allAbsentFeatures),
-          testerAnnotation);
+              "Annotation explicitly or "
+              + "implicitly requires one or more features to be both present "
+              + "and absent.",
+              intersection(allPresentFeatures, allAbsentFeatures),
+              testerAnnotation);
     }
     return new TesterRequirements(allPresentFeatures, allAbsentFeatures);
   }
@@ -254,7 +254,7 @@ public class FeatureUtil {
    *         are inconsistent with the existing requirements
    */
   private static TesterRequirements incorporateRequirements(
-      TesterRequirements requirements, TesterRequirements moreRequirements, Object source)
+    TesterRequirements requirements, TesterRequirements moreRequirements, Object source)
   throws ConflictingRequirementsException {
     Set<Feature<?>> presentFeatures = requirements.getPresentFeatures();
     Set<Feature<?>> absentFeatures = requirements.getAbsentFeatures();
@@ -269,22 +269,22 @@ public class FeatureUtil {
 
   // Used by incorporateRequirements() only
   private static void checkConflict(
-      String earlierRequirement,
-      Set<Feature<?>> earlierFeatures,
-      String newRequirement,
-      Set<Feature<?>> newFeatures,
-      Object source)
+    String earlierRequirement,
+    Set<Feature<?>> earlierFeatures,
+    String newRequirement,
+    Set<Feature<?>> newFeatures,
+    Object source)
   throws ConflictingRequirementsException {
     if (!Collections.disjoint(newFeatures, earlierFeatures)) {
       throw new ConflictingRequirementsException(
-          String.format(
-              Locale.ROOT,
-              "Annotation requires to be %s features that earlier "
-              + "annotations required to be %s.",
-              newRequirement,
-              earlierRequirement),
-          intersection(newFeatures, earlierFeatures),
-          source);
+              String.format(
+                Locale.ROOT,
+                "Annotation requires to be %s features that earlier "
+                + "annotations required to be %s.",
+                newRequirement,
+                earlierRequirement),
+              intersection(newFeatures, earlierFeatures),
+              source);
     }
   }
 

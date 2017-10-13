@@ -119,11 +119,11 @@ public class MapGenerators {
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-              mapEntry("foo", 5),
-              mapEntry("bar", 3),
-              mapEntry("baz", 17),
-              mapEntry("quux", 1),
-              mapEntry("toaster", -2));
+        mapEntry("foo", 5),
+        mapEntry("bar", 3),
+        mapEntry("baz", 17),
+        mapEntry("quux", 1),
+        mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -142,7 +142,7 @@ public class MapGenerators {
       ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
-        Entry<String, Integer> entry = (Entry<String, Integer>) o;
+        Entry<String, Integer> entry = (Entry<String, Integer>)o;
         builder.put(entry);
       }
       return builder.build().entrySet().asList();
@@ -175,11 +175,11 @@ public class MapGenerators {
     public Iterable<Entry<AnEnum, String>> order(List<Entry<AnEnum, String>> insertionOrder) {
       return new Ordering<Entry<AnEnum, String>>() {
 
-        @Override
-        public int compare(Entry<AnEnum, String> left, Entry<AnEnum, String> right) {
-          return left.getKey().compareTo(right.getKey());
-        }
-      } .sortedCopy(insertionOrder);
+               @Override
+               public int compare(Entry<AnEnum, String> left, Entry<AnEnum, String> right) {
+                 return left.getKey().compareTo(right.getKey());
+               }
+      }.sortedCopy(insertionOrder);
     }
   }
 
@@ -189,11 +189,11 @@ public class MapGenerators {
     @Override
     public SampleElements<Entry<String, Collection<Integer>>> samples() {
       return new SampleElements<>(
-              mapEntry("one", collectionOf(10000)),
-              mapEntry("two", collectionOf(-2000)),
-              mapEntry("three", collectionOf(300)),
-              mapEntry("four", collectionOf(-40)),
-              mapEntry("five", collectionOf(5)));
+        mapEntry("one", collectionOf(10000)),
+        mapEntry("two", collectionOf(-2000)),
+        mapEntry("three", collectionOf(300)),
+        mapEntry("four", collectionOf(-40)),
+        mapEntry("five", collectionOf(5)));
     }
 
     // javac7 can't infer the type parameters correctly in samples()
@@ -207,7 +207,7 @@ public class MapGenerators {
       // assumes that each set is a singleton or less (as is done for the samples)
       for (Object elem : elements) {
         @SuppressWarnings("unchecked") // safe by generator contract
-        Entry<String, Collection<Integer>> entry = (Entry<String, Collection<Integer>>) elem;
+        Entry<String, Collection<Integer>> entry = (Entry<String, Collection<Integer>>)elem;
         Integer value = Iterables.getOnlyElement(entry.getValue());
         builder.put(entry.getKey(), value);
       }
@@ -222,7 +222,7 @@ public class MapGenerators {
 
     @Override
     public Iterable<Entry<String, Collection<Integer>>> order(
-        List<Entry<String, Collection<Integer>>> insertionOrder) {
+      List<Entry<String, Collection<Integer>>> insertionOrder) {
       return insertionOrder;
     }
 

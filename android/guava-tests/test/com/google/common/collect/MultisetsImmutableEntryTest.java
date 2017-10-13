@@ -36,7 +36,7 @@ public class MultisetsImmutableEntryTest extends TestCase {
 
   private static <E> Entry<E> control(E element, int count) {
     return HashMultiset.create(Collections.nCopies(count, element))
-        .entrySet().iterator().next();
+           .entrySet().iterator().next();
   }
 
   public void testToString() {

@@ -42,7 +42,7 @@ public class ListenableFutureTaskTest extends TestCase {
   protected volatile boolean throwException = false;
 
   protected final ListenableFutureTask<Integer> task =
-  ListenableFutureTask.create(new Callable<Integer>() {
+      ListenableFutureTask.create(new Callable<Integer>() {
     @Override
     public Integer call() throws Exception {
       runLatch.countDown();

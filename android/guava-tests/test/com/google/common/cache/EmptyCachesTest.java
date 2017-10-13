@@ -338,9 +338,9 @@ public class EmptyCachesTest extends TestCase {
     // lots of different ways to configure a LoadingCache
     CacheBuilderFactory factory = cacheFactory();
     return Iterables.transform(factory.buildAllPermutations(),
-    new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
+               new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
       @Override public LoadingCache<Object, Object> apply(
-          CacheBuilder<Object, Object> builder) {
+        CacheBuilder<Object, Object> builder) {
         return builder.build(identityLoader());
       }
     });
@@ -348,22 +348,22 @@ public class EmptyCachesTest extends TestCase {
 
   private CacheBuilderFactory cacheFactory() {
     return new CacheBuilderFactory()
-        .withKeyStrengths(ImmutableSet.of(Strength.STRONG, Strength.WEAK))
-        .withValueStrengths(ImmutableSet.copyOf(Strength.values()))
-        .withConcurrencyLevels(ImmutableSet.of(1, 4, 16, 64))
-        .withMaximumSizes(ImmutableSet.of(0, 1, 10, 100, 1000))
-        .withInitialCapacities(ImmutableSet.of(0, 1, 10, 100, 1000))
-        .withExpireAfterWrites(ImmutableSet.of(
-                DurationSpec.of(0, SECONDS),
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)))
-        .withExpireAfterAccesses(ImmutableSet.of(
-                DurationSpec.of(0, SECONDS),
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)))
-        .withRefreshes(ImmutableSet.of(
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)));
+           .withKeyStrengths(ImmutableSet.of(Strength.STRONG, Strength.WEAK))
+           .withValueStrengths(ImmutableSet.copyOf(Strength.values()))
+           .withConcurrencyLevels(ImmutableSet.of(1, 4, 16, 64))
+           .withMaximumSizes(ImmutableSet.of(0, 1, 10, 100, 1000))
+           .withInitialCapacities(ImmutableSet.of(0, 1, 10, 100, 1000))
+           .withExpireAfterWrites(ImmutableSet.of(
+                 DurationSpec.of(0, SECONDS),
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)))
+           .withExpireAfterAccesses(ImmutableSet.of(
+                 DurationSpec.of(0, SECONDS),
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)))
+           .withRefreshes(ImmutableSet.of(
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)));
   }
 
   private static void warmUp(LoadingCache<Object, Object> cache, int minimum, int maximum) {

@@ -36,14 +36,14 @@ public class SortedSetMultimapAsMapTester<K, V>
   extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
   public void testAsMapValuesImplementSortedSet() {
     for (Collection<V> valueCollection : multimap().asMap().values()) {
-      SortedSet<V> valueSet = (SortedSet<V>) valueCollection;
+      SortedSet<V> valueSet = (SortedSet<V>)valueCollection;
       assertEquals(multimap().valueComparator(), valueSet.comparator());
     }
   }
 
   public void testAsMapGetImplementsSortedSet() {
     for (K key : multimap().keySet()) {
-      SortedSet<V> valueSet = (SortedSet<V>) multimap().asMap().get(key);
+      SortedSet<V> valueSet = (SortedSet<V>)multimap().asMap().get(key);
       assertEquals(multimap().valueComparator(), valueSet.comparator());
     }
   }
@@ -53,7 +53,7 @@ public class SortedSetMultimapAsMapTester<K, V>
     List<K> keys = new ArrayList<K>(multimap().keySet());
     for (K key : keys) {
       resetCollection();
-      SortedSet<V> valueSet = (SortedSet<V>) multimap().asMap().remove(key);
+      SortedSet<V> valueSet = (SortedSet<V>)multimap().asMap().remove(key);
       assertEquals(multimap().valueComparator(), valueSet.comparator());
     }
   }

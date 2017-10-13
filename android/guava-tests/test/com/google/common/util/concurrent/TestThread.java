@@ -77,7 +77,7 @@ public final class TestThread<L> extends Thread implements TearDown {
 
     if (uncaughtThrowable != null) {
       throw (AssertionFailedError) new AssertionFailedError("Uncaught throwable in " + getName())
-      .initCause(uncaughtThrowable);
+            .initCause(uncaughtThrowable);
     }
   }
 
@@ -187,7 +187,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    */
   private void sendRequest(String methodName, Object... arguments) throws Exception {
     if (!requestQueue.offer(
-            new Request(methodName, arguments), TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
+          new Request(methodName, arguments), TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
       throw new TimeoutException();
     }
   }
@@ -214,7 +214,7 @@ public final class TestThread<L> extends Thread implements TearDown {
   }
 
   private Method getMethod(String methodName, Object... arguments) throws Exception {
-    METHODS: for (Method method : lockLikeObject.getClass().getMethods()) {
+    METHODS : for (Method method : lockLikeObject.getClass().getMethods()) {
       Class<?>[] parameterTypes = method.getParameterTypes();
       if (method.getName().equals(methodName) && (parameterTypes.length == arguments.length)) {
         for (int i = 0; i < arguments.length; i++) {
@@ -240,7 +240,7 @@ public final class TestThread<L> extends Thread implements TearDown {
           return;
         } catch (InvocationTargetException exception) {
           responseQueue.put(
-              new Response(request.methodName, null, exception.getTargetException()));
+            new Response(request.methodName, null, exception.getTargetException()));
           continue;
         } catch (Throwable throwable) {
           responseQueue.put(new Response(request.methodName, null, throwable));

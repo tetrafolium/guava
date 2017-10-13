@@ -66,9 +66,9 @@ public class ListSetTester<E> extends AbstractListTester<E> {
     int index = aValidIndex();
     E initialValue = getList().get(index);
     assertEquals(
-        "set(i, x) should return the old element at position i.",
-        initialValue,
-        getList().set(index, newValue));
+      "set(i, x) should return the old element at position i.",
+      initialValue,
+      getList().set(index, newValue));
     assertEquals("After set(i, x), get(i) should return x", newValue, getList().get(index));
     assertEquals("set() should not change the size of a list.", getNumElements(), getList().size());
   }

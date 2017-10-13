@@ -228,7 +228,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
             }
           } catch (ArithmeticException overflow) {
             throw new IllegalArgumentException(
-                "Overflow adding " + occurrences + " occurrences to a count of " + oldValue);
+                    "Overflow adding " + occurrences + " occurrences to a count of " + oldValue);
           }
         } else {
           // In the case of a concurrent remove, we might observe a zero value, which means another
@@ -427,7 +427,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
         } else {
           AtomicInteger newCounter = new AtomicInteger(newCount);
           return (countMap.putIfAbsent(element, newCounter) == null)
-              || countMap.replace(element, existingCounter, newCounter);
+                 || countMap.replace(element, existingCounter, newCounter);
         }
       } else {
         if (existingCounter.compareAndSet(oldValue, newCount)) {
@@ -449,30 +449,30 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
   Set<E> createElementSet() {
     final Set<E> delegate = countMap.keySet();
     return new ForwardingSet<E>() {
-      @Override
-      protected Set<E> delegate() {
-        return delegate;
-      }
+             @Override
+             protected Set<E> delegate() {
+               return delegate;
+             }
 
-      @Override
-      public boolean contains(@Nullable Object object) {
-        return object != null && Collections2.safeContains(delegate, object);
-      }
+             @Override
+             public boolean contains(@Nullable Object object) {
+               return object != null && Collections2.safeContains(delegate, object);
+             }
 
-      @Override
-      public boolean containsAll(Collection<?> collection) {
-        return standardContainsAll(collection);
-      }
+             @Override
+             public boolean containsAll(Collection<?> collection) {
+               return standardContainsAll(collection);
+             }
 
-      @Override
-      public boolean remove(Object object) {
-        return object != null && Collections2.safeRemove(delegate, object);
-      }
+             @Override
+             public boolean remove(Object object) {
+               return object != null && Collections2.safeRemove(delegate, object);
+             }
 
-      @Override
-      public boolean removeAll(Collection<?> c) {
-        return standardRemoveAll(c);
-      }
+             @Override
+             public boolean removeAll(Collection<?> c) {
+               return standardRemoveAll(c);
+             }
     };
   }
 
@@ -496,9 +496,9 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     // AbstractIterator makes this fairly clean, but it doesn't support remove(). To support
     // remove(), we create an AbstractIterator, and then use ForwardingIterator to delegate to it.
     final Iterator<Entry<E>> readOnlyIterator =
-    new AbstractIterator<Entry<E>>() {
+        new AbstractIterator<Entry<E>>() {
       private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
-          countMap.entrySet().iterator();
+        countMap.entrySet().iterator();
 
       @Override
       protected Entry<E> computeNext() {
@@ -516,25 +516,25 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     };
 
     return new ForwardingIterator<Entry<E>>() {
-      private Entry<E> last;
+             private Entry<E> last;
 
-      @Override
-      protected Iterator<Entry<E>> delegate() {
-        return readOnlyIterator;
-      }
+             @Override
+             protected Iterator<Entry<E>> delegate() {
+               return readOnlyIterator;
+             }
 
-      @Override
-      public Entry<E> next() {
-        last = super.next();
-        return last;
-      }
+             @Override
+             public Entry<E> next() {
+               last = super.next();
+               return last;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(last != null);
-        ConcurrentHashMultiset.this.setCount(last.getElement(), 0);
-        last = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(last != null);
+               ConcurrentHashMultiset.this.setCount(last.getElement(), 0);
+               last = null;
+             }
     };
   }
 
@@ -585,7 +585,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     ConcurrentMap<E, Integer> deserializedCountMap =
-        (ConcurrentMap<E, Integer>) stream.readObject();
+        (ConcurrentMap<E, Integer>)stream.readObject();
     FieldSettersHolder.COUNT_MAP_FIELD_SETTER.set(this, deserializedCountMap);
   }
 

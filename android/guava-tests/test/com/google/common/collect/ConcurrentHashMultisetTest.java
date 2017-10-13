@@ -52,17 +52,17 @@ public class ConcurrentHashMultisetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(MultisetTestSuiteBuilder.using(concurrentHashMultisetGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ConcurrentHashMultiset")
         .createTestSuite());
     suite.addTest(MultisetTestSuiteBuilder.using(concurrentSkipListMultisetGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ConcurrentSkipListMultiset")
         .createTestSuite());
     suite.addTestSuite(ConcurrentHashMultisetTest.class);
@@ -71,26 +71,26 @@ public class ConcurrentHashMultisetTest extends TestCase {
 
   private static TestStringMultisetGenerator concurrentHashMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        return ConcurrentHashMultiset.create(asList(elements));
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               return ConcurrentHashMultiset.create(asList(elements));
+             }
     };
   }
 
   private static TestStringMultisetGenerator concurrentSkipListMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override
-      protected Multiset<String> create(String[] elements) {
-        Multiset<String> multiset =
-            new ConcurrentHashMultiset<>(new ConcurrentSkipListMap<String, AtomicInteger>());
-        Collections.addAll(multiset, elements);
-        return multiset;
-      }
+             @Override
+             protected Multiset<String> create(String[] elements) {
+               Multiset<String> multiset =
+                   new ConcurrentHashMultiset<>(new ConcurrentSkipListMap<String, AtomicInteger>());
+               Collections.addAll(multiset, elements);
+               return multiset;
+             }
 
-      @Override
-      public List<String> order(List<String> insertionOrder) {
-        return Ordering.natural().sortedCopy(insertionOrder);
-      }
+             @Override
+             public List<String> order(List<String> insertionOrder) {
+               return Ordering.natural().sortedCopy(insertionOrder);
+             }
     };
   }
 
@@ -267,7 +267,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     multiset.add(KEY);
 
     int mutations = 0;
-    for (Iterator<String> it = multiset.iterator(); it.hasNext();) {
+    for (Iterator<String> it = multiset.iterator(); it.hasNext(); ) {
       it.next();
       it.remove();
       mutations++;
@@ -327,7 +327,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   }
 
   private void testIdentityKeyEquality(
-      MapMakerInternalMap.Strength keyStrength) {
+    MapMakerInternalMap.Strength keyStrength) {
 
     ConcurrentMap<String, AtomicInteger> map =
         new MapMaker().setKeyStrength(keyStrength).keyEquivalence(Equivalence.identity()).makeMap();
@@ -364,7 +364,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   }
 
   private void testLogicalKeyEquality(
-      MapMakerInternalMap.Strength keyStrength) {
+    MapMakerInternalMap.Strength keyStrength) {
 
     ConcurrentMap<String, AtomicInteger> map =
         new MapMaker().setKeyStrength(keyStrength).keyEquivalence(Equivalence.equals()).makeMap();

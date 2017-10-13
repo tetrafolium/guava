@@ -118,7 +118,7 @@ public class ImmutableLongArrayTest extends TestCase {
 
   public void testCopyOf_iterable_collection_nonempty() {
     List<Long> list = Arrays.asList(0L, 1L, 3L);
-    ImmutableLongArray iia = ImmutableLongArray.copyOf((Iterable<Long>) list);
+    ImmutableLongArray iia = ImmutableLongArray.copyOf((Iterable<Long>)list);
     list.set(2, 2L);
     assertThat(iia.asList()).containsExactly(0L, 1L, 3L).inOrder();
   }
@@ -347,10 +347,10 @@ public class ImmutableLongArrayTest extends TestCase {
   private static <T> Iterable<T> iterable(final Collection<T> collection) {
     // return collection::iterator;
     return new Iterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return collection.iterator();
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return collection.iterator();
+             }
     };
   }
 
@@ -358,9 +358,9 @@ public class ImmutableLongArrayTest extends TestCase {
     new EqualsTester()
     .addEqualityGroup(ImmutableLongArray.of())
     .addEqualityGroup(
-        ImmutableLongArray.of(1, 2),
-        reserialize(ImmutableLongArray.of(1, 2)),
-        ImmutableLongArray.of(0, 1, 2, 3).subArray(1, 3))
+      ImmutableLongArray.of(1, 2),
+      reserialize(ImmutableLongArray.of(1, 2)),
+      ImmutableLongArray.of(0, 1, 2, 3).subArray(1, 3))
     .addEqualityGroup(ImmutableLongArray.of(1, 3))
     .addEqualityGroup(ImmutableLongArray.of(1, 2, 3))
     .testEquals();
@@ -415,28 +415,28 @@ public class ImmutableLongArrayTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Long>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new ImmutableLongArrayAsListGenerator())
-            .named("ImmutableLongArray.asList"),
-            ListTestSuiteBuilder.using(new ImmutableLongArrayHeadSubListAsListGenerator())
-            .named("ImmutableLongArray.asList, head subList"),
-            ListTestSuiteBuilder.using(new ImmutableLongArrayTailSubListAsListGenerator())
-            .named("ImmutableLongArray.asList, tail subList"),
-            ListTestSuiteBuilder.using(new ImmutableLongArrayMiddleSubListAsListGenerator())
-            .named("ImmutableLongArray.asList, middle subList"));
+      ListTestSuiteBuilder.using(new ImmutableLongArrayAsListGenerator())
+      .named("ImmutableLongArray.asList"),
+      ListTestSuiteBuilder.using(new ImmutableLongArrayHeadSubListAsListGenerator())
+      .named("ImmutableLongArray.asList, head subList"),
+      ListTestSuiteBuilder.using(new ImmutableLongArrayTailSubListAsListGenerator())
+      .named("ImmutableLongArray.asList, tail subList"),
+      ListTestSuiteBuilder.using(new ImmutableLongArrayMiddleSubListAsListGenerator())
+      .named("ImmutableLongArray.asList, middle subList"));
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Long> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(
-              CollectionSize.ZERO,
-              CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.ALLOWS_NULL_QUERIES,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              CollectionFeature.KNOWN_ORDER,
-              CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
-          .createTestSuite());
+        builder
+        .withFeatures(
+          CollectionSize.ZERO,
+          CollectionSize.ONE,
+          CollectionSize.SEVERAL,
+          CollectionFeature.ALLOWS_NULL_QUERIES,
+          CollectionFeature.RESTRICTS_ELEMENTS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS)
+        .createTestSuite());
     }
     suite.addTestSuite(ImmutableLongArrayTest.class);
     return suite;

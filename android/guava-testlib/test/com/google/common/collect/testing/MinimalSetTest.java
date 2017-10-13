@@ -30,16 +30,16 @@ import junit.framework.TestCase;
 public class MinimalSetTest extends TestCase {
   public static Test suite() {
     return SetTestSuiteBuilder
-    .using(new TestStringSetGenerator() {
+           .using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return MinimalSet.of(elements);
       }
     })
-    .named("MinimalSet")
-    .withFeatures(
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.NONE,
-        CollectionSize.ANY)
-    .createTestSuite();
+           .named("MinimalSet")
+           .withFeatures(
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.NONE,
+      CollectionSize.ANY)
+           .createTestSuite();
   }
 }

@@ -52,28 +52,28 @@ public class ByteArrayAsListTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Byte>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new BytesAsListGenerator())
-            .named("Bytes.asList"),
+      ListTestSuiteBuilder.using(new BytesAsListGenerator())
+      .named("Bytes.asList"),
 
-            ListTestSuiteBuilder.using(new BytesAsListHeadSubListGenerator())
-            .named("Bytes.asList, head subList"),
+      ListTestSuiteBuilder.using(new BytesAsListHeadSubListGenerator())
+      .named("Bytes.asList, head subList"),
 
-            ListTestSuiteBuilder.using(new BytesAsListTailSubListGenerator())
-            .named("Bytes.asList, tail subList"),
+      ListTestSuiteBuilder.using(new BytesAsListTailSubListGenerator())
+      .named("Bytes.asList, tail subList"),
 
-            ListTestSuiteBuilder.using(new BytesAsListMiddleSubListGenerator())
-            .named("Bytes.asList, middle subList")
-        );
+      ListTestSuiteBuilder.using(new BytesAsListMiddleSubListGenerator())
+      .named("Bytes.asList, middle subList")
+      );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Byte> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              ListFeature.SUPPORTS_SET)
-          .createTestSuite());
+        builder
+        .withFeatures(CollectionSize.ONE,
+        CollectionSize.SEVERAL,
+        CollectionFeature.RESTRICTS_ELEMENTS,
+        ListFeature.SUPPORTS_SET)
+        .createTestSuite());
     }
     return suite;
   }

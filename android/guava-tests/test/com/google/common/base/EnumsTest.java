@@ -95,7 +95,7 @@ public class EnumsTest extends TestCase {
     URLClassLoader shadowLoader = new URLClassLoader(getClassPathUrls(), null);
     @SuppressWarnings("unchecked")
     Class<TestEnum> shadowTestEnum =
-        (Class<TestEnum>) Class.forName(TestEnum.class.getName(), false, shadowLoader);
+        (Class<TestEnum>)Class.forName(TestEnum.class.getName(), false, shadowLoader);
     assertNotSame(shadowTestEnum, TestEnum.class);
     // We can't write Set<TestEnum> because that is a Set of the TestEnum from the original
     // ClassLoader.
@@ -152,8 +152,8 @@ public class EnumsTest extends TestCase {
   @GwtIncompatible // Class.getName()
   public void testStringConverter_toString() {
     assertEquals(
-        "Enums.stringConverter(com.google.common.base.EnumsTest$TestEnum.class)",
-        Enums.stringConverter(TestEnum.class).toString());
+      "Enums.stringConverter(com.google.common.base.EnumsTest$TestEnum.class)",
+      Enums.stringConverter(TestEnum.class).toString());
   }
 
   public void testStringConverter_serialization() {
@@ -189,8 +189,8 @@ public class EnumsTest extends TestCase {
   private URL[] getClassPathUrls() {
     ClassLoader classLoader = getClass().getClassLoader();
     return classLoader instanceof URLClassLoader
-        ? ((URLClassLoader) classLoader).getURLs()
-        : parseJavaClassPath().toArray(new URL[0]);
+           ? ((URLClassLoader) classLoader).getURLs()
+           : parseJavaClassPath().toArray(new URL[0]);
   }
 
   /**

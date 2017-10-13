@@ -248,24 +248,24 @@ class StatsTesting {
 
   static final ImmutableList<Stats> ALL_STATS =
       ImmutableList.of(
-          EMPTY_STATS_VARARGS,
-          EMPTY_STATS_ITERABLE,
-          ONE_VALUE_STATS,
-          OTHER_ONE_VALUE_STATS,
-          TWO_VALUES_STATS,
-          OTHER_TWO_VALUES_STATS,
-          MANY_VALUES_STATS_VARARGS,
-          MANY_VALUES_STATS_ITERABLE,
-          MANY_VALUES_STATS_ITERATOR,
-          MANY_VALUES_STATS_SNAPSHOT,
-          LARGE_VALUES_STATS,
-          OTHER_MANY_VALUES_STATS,
-          INTEGER_MANY_VALUES_STATS_VARARGS,
-          INTEGER_MANY_VALUES_STATS_ITERABLE,
-          LARGE_INTEGER_VALUES_STATS,
-          LONG_MANY_VALUES_STATS_ITERATOR,
-          LONG_MANY_VALUES_STATS_SNAPSHOT,
-          LARGE_LONG_VALUES_STATS);
+    EMPTY_STATS_VARARGS,
+    EMPTY_STATS_ITERABLE,
+    ONE_VALUE_STATS,
+    OTHER_ONE_VALUE_STATS,
+    TWO_VALUES_STATS,
+    OTHER_TWO_VALUES_STATS,
+    MANY_VALUES_STATS_VARARGS,
+    MANY_VALUES_STATS_ITERABLE,
+    MANY_VALUES_STATS_ITERATOR,
+    MANY_VALUES_STATS_SNAPSHOT,
+    LARGE_VALUES_STATS,
+    OTHER_MANY_VALUES_STATS,
+    INTEGER_MANY_VALUES_STATS_VARARGS,
+    INTEGER_MANY_VALUES_STATS_ITERABLE,
+    LARGE_INTEGER_VALUES_STATS,
+    LONG_MANY_VALUES_STATS_ITERATOR,
+    LONG_MANY_VALUES_STATS_SNAPSHOT,
+    LARGE_LONG_VALUES_STATS);
 
   // PairedStats instances:
 
@@ -315,14 +315,14 @@ class StatsTesting {
 
   static final ImmutableList<PairedStats> ALL_PAIRED_STATS =
       ImmutableList.of(
-          EMPTY_PAIRED_STATS,
-          ONE_VALUE_PAIRED_STATS,
-          TWO_VALUES_PAIRED_STATS,
-          MANY_VALUES_PAIRED_STATS,
-          DUPLICATE_MANY_VALUES_PAIRED_STATS,
-          HORIZONTAL_VALUES_PAIRED_STATS,
-          VERTICAL_VALUES_PAIRED_STATS,
-          CONSTANT_VALUES_PAIRED_STATS);
+    EMPTY_PAIRED_STATS,
+    ONE_VALUE_PAIRED_STATS,
+    TWO_VALUES_PAIRED_STATS,
+    MANY_VALUES_PAIRED_STATS,
+    DUPLICATE_MANY_VALUES_PAIRED_STATS,
+    HORIZONTAL_VALUES_PAIRED_STATS,
+    VERTICAL_VALUES_PAIRED_STATS,
+    CONSTANT_VALUES_PAIRED_STATS);
 
   // Helper methods:
 
@@ -372,7 +372,7 @@ class StatsTesting {
    * neither {@code xDelta} nor {@code yDelta} may be zero.
    */
   static void assertDiagonalLinearTransformation(
-      LinearTransformation transformation, double x1, double y1, double xDelta, double yDelta) {
+    LinearTransformation transformation, double x1, double y1, double xDelta, double yDelta) {
     checkArgument(xDelta != 0.0);
     checkArgument(yDelta != 0.0);
     assertThat(transformation.isHorizontal()).isFalse();
@@ -472,7 +472,7 @@ class StatsTesting {
    * values, which must be of the same size.
    */
   static PairedStatsAccumulator createFilledPairedStatsAccumulator(
-      List<Double> xValues, List<Double> yValues) {
+    List<Double> xValues, List<Double> yValues) {
     checkArgument(xValues.size() == yValues.size());
     PairedStatsAccumulator accumulator = new PairedStatsAccumulator();
     for (int index = 0; index < xValues.size(); index++) {
@@ -487,7 +487,7 @@ class StatsTesting {
    * {@link PairedStatsAccumulator#addAll(PairedStats)}.
    */
   static PairedStatsAccumulator createPartitionedFilledPairedStatsAccumulator(
-      List<Double> xValues, List<Double> yValues, int partitionSize) {
+    List<Double> xValues, List<Double> yValues, int partitionSize) {
     checkArgument(xValues.size() == yValues.size());
     checkArgument(partitionSize > 0);
     PairedStatsAccumulator accumulator = new PairedStatsAccumulator();

@@ -30,9 +30,9 @@ public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
   extends NavigableMapTestSuiteBuilder<K, V> {
 
   public static <K, V> ConcurrentNavigableMapTestSuiteBuilder<K, V> using(
-      TestSortedMapGenerator<K, V> generator) {
+    TestSortedMapGenerator<K, V> generator) {
     ConcurrentNavigableMapTestSuiteBuilder<K, V> result =
-        new ConcurrentNavigableMapTestSuiteBuilder<>();
+      new ConcurrentNavigableMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
     return result;
   }

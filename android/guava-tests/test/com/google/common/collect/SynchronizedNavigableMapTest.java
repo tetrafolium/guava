@@ -43,7 +43,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
   @Override protected <K, V> NavigableMap<K, V> create() {
     @SuppressWarnings("unchecked")
     NavigableMap<K, V> innermost =
-        new SafeTreeMap<>((Comparator<? super K>) Ordering.natural().nullsFirst());
+        new SafeTreeMap<>((Comparator<? super K>)Ordering.natural().nullsFirst());
     TestMap<K, V> inner = new TestMap<>(innermost, mutex);
     NavigableMap<K, V> outer = Synchronized.navigableMap(inner, mutex);
     return outer;
@@ -187,7 +187,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     }
 
     @Override public NavigableMap<K, V> subMap(
-        K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
+      K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().subMap(fromKey, fromInclusive, toKey, toInclusive);
     }
@@ -227,8 +227,8 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SynchronizedNavigableMapTest.class);
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       private final Object mutex = new Integer(1);
 
       @Override
@@ -242,14 +242,14 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
         return outer;
       }
     })
-    .named("Maps.synchronizedNavigableMap[SafeTreeMap]")
-    .withFeatures(
+      .named("Maps.synchronizedNavigableMap[SafeTreeMap]")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         MapFeature.GENERAL_PURPOSE,
         MapFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -271,7 +271,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableSet<String> descendingKeySet = map.descendingKeySet();
     assertTrue(descendingKeySet instanceof SynchronizedNavigableSet);
     assertSame(
-        mutex, ((SynchronizedNavigableSet<String>) descendingKeySet).mutex);
+      mutex, ((SynchronizedNavigableSet<String>)descendingKeySet).mutex);
   }
 
   public void testDescendingMap() {
@@ -279,7 +279,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> descendingMap = map.descendingMap();
     assertTrue(descendingMap instanceof SynchronizedNavigableMap);
     assertSame(mutex,
-        ((SynchronizedNavigableMap<String, Integer>) descendingMap).mutex);
+        ((SynchronizedNavigableMap<String, Integer>)descendingMap).mutex);
   }
 
   public void testFirstEntry() {
@@ -304,7 +304,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> map = create();
     SortedMap<String, Integer> headMap = map.headMap("a");
     assertTrue(headMap instanceof SynchronizedSortedMap);
-    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>) headMap).mutex);
+    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>)headMap).mutex);
   }
 
   public void testHeadMap_K_B() {
@@ -312,7 +312,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> headMap = map.headMap("a", true);
     assertTrue(headMap instanceof SynchronizedNavigableMap);
     assertSame(
-        mutex, ((SynchronizedNavigableMap<String, Integer>) headMap).mutex);
+      mutex, ((SynchronizedNavigableMap<String, Integer>)headMap).mutex);
   }
 
   public void testHigherEntry() {
@@ -346,7 +346,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableSet<String> navigableKeySet = map.navigableKeySet();
     assertTrue(navigableKeySet instanceof SynchronizedNavigableSet);
     assertSame(
-        mutex, ((SynchronizedNavigableSet<String>) navigableKeySet).mutex);
+      mutex, ((SynchronizedNavigableSet<String>)navigableKeySet).mutex);
   }
 
   public void testPollFirstEntry() {
@@ -361,7 +361,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> map = create();
     SortedMap<String, Integer> subMap = map.subMap("a", "b");
     assertTrue(subMap instanceof SynchronizedSortedMap);
-    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>) subMap).mutex);
+    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>)subMap).mutex);
   }
 
   public void testSubMap_K_B_K_B() {
@@ -369,14 +369,14 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> subMap = map.subMap("a", true, "b", false);
     assertTrue(subMap instanceof SynchronizedNavigableMap);
     assertSame(
-        mutex, ((SynchronizedNavigableMap<String, Integer>) subMap).mutex);
+      mutex, ((SynchronizedNavigableMap<String, Integer>)subMap).mutex);
   }
 
   public void testTailMap_K() {
     NavigableMap<String, Integer> map = create();
     SortedMap<String, Integer> subMap = map.tailMap("a");
     assertTrue(subMap instanceof SynchronizedSortedMap);
-    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>) subMap).mutex);
+    assertSame(mutex, ((SynchronizedSortedMap<String, Integer>)subMap).mutex);
   }
 
   public void testTailMap_K_B() {
@@ -384,7 +384,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     NavigableMap<String, Integer> subMap = map.tailMap("a", true);
     assertTrue(subMap instanceof SynchronizedNavigableMap);
     assertSame(
-        mutex, ((SynchronizedNavigableMap<String, Integer>) subMap).mutex);
+      mutex, ((SynchronizedNavigableMap<String, Integer>)subMap).mutex);
   }
 
   @Override public void testSerialization() {

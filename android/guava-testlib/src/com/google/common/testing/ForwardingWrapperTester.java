@@ -71,7 +71,7 @@ public final class ForwardingWrapperTester {
    * propagated as is.
    */
   public <T> void testForwarding(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+    Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
     checkNotNull(wrapperFunction);
     checkArgument(interfaceType.isInterface(), "%s isn't an interface", interfaceType);
     Method[] methods = getMostConcreteMethods(interfaceType);
@@ -122,12 +122,12 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testSuccessfulForwarding(
-      Class<T> interfaceType,  Method method, Function<? super T, ? extends T> wrapperFunction) {
+    Class<T> interfaceType,  Method method, Function<? super T, ? extends T> wrapperFunction) {
     new InteractionTester<T>(interfaceType, method).testInteraction(wrapperFunction);
   }
 
   private static <T> void testExceptionPropagation(
-      Class<T> interfaceType, Method method, Function<? super T, ? extends T> wrapperFunction) {
+    Class<T> interfaceType, Method method, Function<? super T, ? extends T> wrapperFunction) {
     final RuntimeException exception = new RuntimeException();
     T proxy = Reflection.newProxy(interfaceType, new AbstractInvocationHandler() {
       @Override protected Object handleInvocation(Object p, Method m, Object[] args)
@@ -149,7 +149,7 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testEquals(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+    Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
     FreshValueGenerator generator = new FreshValueGenerator();
     T instance = generator.newFreshProxy(interfaceType);
     new EqualsTester()
@@ -160,7 +160,7 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testToString(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+    Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
     T proxy = new FreshValueGenerator().newFreshProxy(interfaceType);
     assertEquals("toString() isn't properly forwarded",
         proxy.toString(), wrapperFunction.apply(proxy).toString());

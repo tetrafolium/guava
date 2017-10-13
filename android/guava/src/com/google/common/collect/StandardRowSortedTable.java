@@ -55,12 +55,12 @@ class StandardRowSortedTable<R, C, V> extends StandardTable<R, C, V>
    */
 
   StandardRowSortedTable(
-      SortedMap<R, Map<C, V>> backingMap, Supplier<? extends Map<C, V>> factory) {
+    SortedMap<R, Map<C, V>> backingMap, Supplier<? extends Map<C, V>> factory) {
     super(backingMap, factory);
   }
 
   private SortedMap<R, Map<C, V>> sortedBackingMap() {
-    return (SortedMap<R, Map<C, V>>) backingMap;
+    return (SortedMap<R, Map<C, V>>)backingMap;
   }
 
   /**
@@ -71,7 +71,7 @@ class StandardRowSortedTable<R, C, V> extends StandardTable<R, C, V>
    */
   @Override
   public SortedSet<R> rowKeySet() {
-    return (SortedSet<R>) rowMap().keySet();
+    return (SortedSet<R>)rowMap().keySet();
   }
 
   /**
@@ -121,7 +121,7 @@ class StandardRowSortedTable<R, C, V> extends StandardTable<R, C, V>
     public SortedMap<R, Map<C, V>> headMap(R toKey) {
       checkNotNull(toKey);
       return new StandardRowSortedTable<R, C, V>(sortedBackingMap().headMap(toKey), factory)
-          .rowMap();
+             .rowMap();
     }
 
     @Override
@@ -129,14 +129,14 @@ class StandardRowSortedTable<R, C, V> extends StandardTable<R, C, V>
       checkNotNull(fromKey);
       checkNotNull(toKey);
       return new StandardRowSortedTable<R, C, V>(sortedBackingMap().subMap(fromKey, toKey), factory)
-          .rowMap();
+             .rowMap();
     }
 
     @Override
     public SortedMap<R, Map<C, V>> tailMap(R fromKey) {
       checkNotNull(fromKey);
       return new StandardRowSortedTable<R, C, V>(sortedBackingMap().tailMap(fromKey), factory)
-          .rowMap();
+             .rowMap();
     }
   }
 

@@ -58,7 +58,7 @@ public final class DefaultNetworkImplementationsTest {
   @Parameters
   public static Collection<Object[]> parameters() {
     return Arrays.asList(
-    new Object[][] {
+      new Object[][] {
       { UNDIRECTED },
       { DIRECTED },
     });

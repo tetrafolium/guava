@@ -60,8 +60,8 @@ public class ImmutableEnumMapTest extends TestCase {
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableEnumMapGenerator())
         .named("Maps.immutableEnumMap")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTestSuite(ImmutableEnumMapTest.class);
     return suite;
@@ -88,11 +88,11 @@ public class ImmutableEnumMapTest extends TestCase {
 
   public void testImmutableEnumMapOrdering() {
     ImmutableMap<AnEnum, String> map = Maps.immutableEnumMap(
-            ImmutableMap.of(AnEnum.C, "c", AnEnum.A, "a", AnEnum.E, "e"));
+      ImmutableMap.of(AnEnum.C, "c", AnEnum.A, "a", AnEnum.E, "e"));
 
     assertThat(map.entrySet()).containsExactly(
-        Helpers.mapEntry(AnEnum.A, "a"),
-        Helpers.mapEntry(AnEnum.C, "c"),
-        Helpers.mapEntry(AnEnum.E, "e")).inOrder();
+      Helpers.mapEntry(AnEnum.A, "a"),
+      Helpers.mapEntry(AnEnum.C, "c"),
+      Helpers.mapEntry(AnEnum.E, "e")).inOrder();
   }
 }

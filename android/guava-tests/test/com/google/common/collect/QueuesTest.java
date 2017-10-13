@@ -54,13 +54,13 @@ public class QueuesTest extends TestCase {
 
   public static List<BlockingQueue<Object>> blockingQueues() {
     return ImmutableList.<BlockingQueue<Object>>of(
-            new LinkedBlockingQueue<Object>(),
-            new LinkedBlockingQueue<Object>(10),
-            new SynchronousQueue<Object>(),
-            new ArrayBlockingQueue<Object>(10),
-            new LinkedBlockingDeque<Object>(),
-            new LinkedBlockingDeque<Object>(10),
-            new PriorityBlockingQueue<Object>(10, Ordering.arbitrary()));
+      new LinkedBlockingQueue<Object>(),
+      new LinkedBlockingQueue<Object>(10),
+      new SynchronousQueue<Object>(),
+      new ArrayBlockingQueue<Object>(10),
+      new LinkedBlockingDeque<Object>(),
+      new LinkedBlockingDeque<Object>(10),
+      new PriorityBlockingQueue<Object>(10, Ordering.arbitrary()));
   }
 
   /*
@@ -81,16 +81,16 @@ public class QueuesTest extends TestCase {
   }
 
   private static <T> int drain(
-      BlockingQueue<T> q,
-      Collection<? super T> buffer,
-      int maxElements,
-      long timeout,
-      TimeUnit unit,
-      boolean interruptibly)
+    BlockingQueue<T> q,
+    Collection<? super T> buffer,
+    int maxElements,
+    long timeout,
+    TimeUnit unit,
+    boolean interruptibly)
   throws InterruptedException {
     return interruptibly
-        ? Queues.drain(q, buffer, maxElements, timeout, unit)
-        : Queues.drainUninterruptibly(q, buffer, maxElements, timeout, unit);
+           ? Queues.drain(q, buffer, maxElements, timeout, unit)
+           : Queues.drainUninterruptibly(q, buffer, maxElements, timeout, unit);
   }
 
   public void testMultipleProducers() throws Exception {
@@ -221,7 +221,7 @@ public class QueuesTest extends TestCase {
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError =
         threadPool.submit(
-    new Callable<Void>() {
+      new Callable<Void>() {
       public Void call() throws InterruptedException {
         new Producer(q, 50).call();
         new Interrupter(mainThread).run();

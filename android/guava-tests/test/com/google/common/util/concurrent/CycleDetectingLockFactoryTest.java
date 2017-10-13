@@ -92,7 +92,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
   private <E extends Enum<E>> CycleDetectingLockFactory.WithExplicitOrdering<E>
   newInstanceWithExplicitOrdering(Class<E> enumClass, Policy policy) {
     return new CycleDetectingLockFactory.WithExplicitOrdering<E>(
-            policy, CycleDetectingLockFactory.createNodes(enumClass));
+      policy, CycleDetectingLockFactory.createNodes(enumClass));
   }
 
   public void testDeadlock_twoLocks() {
@@ -147,7 +147,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected, "LockC -> LockA", "LockB -> LockC", "LockA -> LockB");
+        expected, "LockC -> LockA", "LockB -> LockC", "LockA -> LockB");
     }
   }
 
@@ -207,9 +207,9 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "OtherOrder.FIRST -> MyOrder.THIRD",
-          "MyOrder.THIRD -> OtherOrder.FIRST");
+        expected,
+        "OtherOrder.FIRST -> MyOrder.THIRD",
+        "MyOrder.THIRD -> OtherOrder.FIRST");
     }
 
     lockA.lock();
@@ -222,10 +222,10 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "LockB -> OtherOrder.FIRST",
-          "LockA -> LockB",
-          "OtherOrder.FIRST -> LockA");
+        expected,
+        "LockB -> OtherOrder.FIRST",
+        "LockA -> LockB",
+        "OtherOrder.FIRST -> LockA");
     }
   }
 
@@ -241,10 +241,10 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "MyLock -> OtherOrder.FIRST",
-          "OtherOrder.THIRD -> MyLock",
-          "OtherOrder.FIRST -> OtherOrder.THIRD");
+        expected,
+        "MyLock -> OtherOrder.FIRST",
+        "OtherOrder.THIRD -> MyLock",
+        "OtherOrder.FIRST -> OtherOrder.THIRD");
     }
   }
 
@@ -315,10 +315,10 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "ReadWriteC -> ReadWriteA",
-          "LockB -> ReadWriteC",
-          "ReadWriteA -> LockB");
+        expected,
+        "ReadWriteC -> ReadWriteA",
+        "LockB -> ReadWriteC",
+        "ReadWriteA -> LockB");
     }
   }
 
@@ -340,10 +340,10 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "ReadWriteC -> ReadWriteA",
-          "ReadWriteB -> ReadWriteC",
-          "ReadWriteA -> ReadWriteB");
+        expected,
+        "ReadWriteC -> ReadWriteA",
+        "ReadWriteB -> ReadWriteC",
+        "ReadWriteA -> ReadWriteB");
     }
   }
 
@@ -361,7 +361,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected, "LockB -> ReadWriteA", "ReadWriteA -> LockB");
+        expected, "LockB -> ReadWriteA", "ReadWriteA -> LockB");
     }
   }
 
@@ -378,7 +378,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected, "LockB -> ReadWriteA", "ReadWriteA -> LockB");
+        expected, "LockB -> ReadWriteA", "ReadWriteA -> LockB");
     }
   }
 
@@ -401,10 +401,10 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected,
-          "LockC -> ReadWriteA",
-          "LockB -> LockC",
-          "ReadWriteA -> LockB");
+        expected,
+        "LockC -> ReadWriteA",
+        "LockB -> LockC",
+        "ReadWriteA -> LockB");
     }
   }
 
@@ -421,7 +421,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
       fail("Expected PotentialDeadlockException");
     } catch (PotentialDeadlockException expected) {
       checkMessage(
-          expected, "ReadWriteB -> ReadWriteA", "ReadWriteA -> ReadWriteB");
+        expected, "ReadWriteB -> ReadWriteA", "ReadWriteA -> ReadWriteB");
     }
   }
 
@@ -536,13 +536,13 @@ public class CycleDetectingLockFactoryTest extends TestCase {
 
   public void testReentrantReadWriteLock_implDoesNotExposeShadowedLocks() {
     assertEquals(
-        "Unexpected number of public methods in ReentrantReadWriteLock. " +
-        "The correctness of CycleDetectingReentrantReadWriteLock depends on " +
-        "the fact that the shadowed ReadLock and WriteLock are never used or " +
-        "exposed by the superclass implementation. If the implementation has " +
-        "changed, the code must be re-inspected to ensure that the " +
-        "assumption is still valid.",
-        24, ReentrantReadWriteLock.class.getMethods().length);
+      "Unexpected number of public methods in ReentrantReadWriteLock. " +
+      "The correctness of CycleDetectingReentrantReadWriteLock depends on " +
+      "the fact that the shadowed ReadLock and WriteLock are never used or " +
+      "exposed by the superclass implementation. If the implementation has " +
+      "changed, the code must be re-inspected to ensure that the " +
+      "assumption is still valid.",
+      24, ReentrantReadWriteLock.class.getMethods().length);
   }
 
   private enum MyOrder {
@@ -558,7 +558,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
   // Checks that the exception.getMessage() matches a regex of the form:
   // "LockA -> LockB \b.*\b LockB -> LockC \b.*\b LockC -> LockA"
   private void checkMessage(
-      IllegalStateException exception, String... expectedLockCycle) {
+    IllegalStateException exception, String... expectedLockCycle) {
     String regex = Joiner.on("\\b.*\\b").join(expectedLockCycle);
     assertContainsRegex(regex, exception.getMessage());
   }

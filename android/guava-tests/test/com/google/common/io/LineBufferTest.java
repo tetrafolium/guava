@@ -63,7 +63,7 @@ public class LineBufferTest extends IoTestCase {
 
     List<String> expectProcess = Arrays.asList(expect);
     List<String> expectRead = Lists.transform(expectProcess,
-    new Function<String, String>() {
+        new Function<String, String>() {
       @Override
       public String apply(String value) {
         return value.replaceAll("[\\r\\n]", "");
@@ -128,19 +128,19 @@ public class LineBufferTest extends IoTestCase {
   private static Readable getChunkedReadable(String input, int chunk) {
     final Reader reader = getChunkedReader(input, chunk);
     return new Readable() {
-      @Override
-      public int read(CharBuffer cbuf) throws IOException {
-        return reader.read(cbuf);
-      }
+             @Override
+             public int read(CharBuffer cbuf) throws IOException {
+               return reader.read(cbuf);
+             }
     };
   }
 
   private static Reader getChunkedReader(String input, final int chunk) {
     return new FilterReader(new StringReader(input)) {
-      @Override public int read(char[] cbuf, int off, int len)
-      throws IOException {
-        return super.read(cbuf, off, Math.min(chunk, len));
-      }
+             @Override public int read(char[] cbuf, int off, int len)
+             throws IOException {
+               return super.read(cbuf, off, Math.min(chunk, len));
+             }
     };
   }
 }

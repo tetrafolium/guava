@@ -160,9 +160,9 @@ public class PairedStatsTest extends TestCase {
     assertThat(TWO_VALUES_PAIRED_STATS.pearsonsCorrelationCoefficient())
     .isWithin(ALLOWED_ERROR)
     .of(
-        TWO_VALUES_PAIRED_STATS.populationCovariance()
-        / (TWO_VALUES_PAIRED_STATS.xStats().populationStandardDeviation()
-            * TWO_VALUES_PAIRED_STATS.yStats().populationStandardDeviation()));
+      TWO_VALUES_PAIRED_STATS.populationCovariance()
+      / (TWO_VALUES_PAIRED_STATS.xStats().populationStandardDeviation()
+      * TWO_VALUES_PAIRED_STATS.yStats().populationStandardDeviation()));
     // For datasets of many double values, we test many combinations of finite and non-finite
     // y-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -177,9 +177,9 @@ public class PairedStatsTest extends TestCase {
         .named("Pearson's correlation coefficient of " + values)
         .isWithin(ALLOWED_ERROR)
         .of(
-            stats.populationCovariance()
-            / (stats.xStats().populationStandardDeviation()
-                * stats.yStats().populationStandardDeviation()));
+          stats.populationCovariance()
+          / (stats.xStats().populationStandardDeviation()
+          * stats.yStats().populationStandardDeviation()));
       }
     }
     try {
@@ -216,11 +216,11 @@ public class PairedStatsTest extends TestCase {
     } catch (IllegalStateException expected) {
     }
     assertDiagonalLinearTransformation(
-        TWO_VALUES_PAIRED_STATS.leastSquaresFit(),
-        TWO_VALUES_PAIRED_STATS.xStats().mean(),
-        TWO_VALUES_PAIRED_STATS.yStats().mean(),
-        TWO_VALUES_PAIRED_STATS.xStats().populationVariance(),
-        TWO_VALUES_PAIRED_STATS.populationCovariance());
+      TWO_VALUES_PAIRED_STATS.leastSquaresFit(),
+      TWO_VALUES_PAIRED_STATS.xStats().mean(),
+      TWO_VALUES_PAIRED_STATS.yStats().mean(),
+      TWO_VALUES_PAIRED_STATS.xStats().populationVariance(),
+      TWO_VALUES_PAIRED_STATS.populationCovariance());
     // For datasets of many double values, we test many combinations of finite and non-finite
     // x-values:
     for (ManyValues values : ALL_MANY_VALUES) {
@@ -230,19 +230,19 @@ public class PairedStatsTest extends TestCase {
         assertLinearTransformationNaN(fit);
       } else {
         assertDiagonalLinearTransformation(
-            fit,
-            stats.xStats().mean(),
-            stats.yStats().mean(),
-            stats.xStats().populationVariance(),
-            stats.populationCovariance());
+          fit,
+          stats.xStats().mean(),
+          stats.yStats().mean(),
+          stats.xStats().populationVariance(),
+          stats.populationCovariance());
       }
     }
     assertHorizontalLinearTransformation(
-        HORIZONTAL_VALUES_PAIRED_STATS.leastSquaresFit(),
-        HORIZONTAL_VALUES_PAIRED_STATS.yStats().mean());
+      HORIZONTAL_VALUES_PAIRED_STATS.leastSquaresFit(),
+      HORIZONTAL_VALUES_PAIRED_STATS.yStats().mean());
     assertVerticalLinearTransformation(
-        VERTICAL_VALUES_PAIRED_STATS.leastSquaresFit(),
-        VERTICAL_VALUES_PAIRED_STATS.xStats().mean());
+      VERTICAL_VALUES_PAIRED_STATS.leastSquaresFit(),
+      VERTICAL_VALUES_PAIRED_STATS.xStats().mean());
     try {
       CONSTANT_VALUES_PAIRED_STATS.leastSquaresFit();
       fail("Expected IllegalStateException");
@@ -253,22 +253,22 @@ public class PairedStatsTest extends TestCase {
   public void testEqualsAndHashCode() {
     new EqualsTester()
     .addEqualityGroup(
-        MANY_VALUES_PAIRED_STATS,
-        DUPLICATE_MANY_VALUES_PAIRED_STATS,
-        SerializableTester.reserialize(MANY_VALUES_PAIRED_STATS))
+      MANY_VALUES_PAIRED_STATS,
+      DUPLICATE_MANY_VALUES_PAIRED_STATS,
+      SerializableTester.reserialize(MANY_VALUES_PAIRED_STATS))
     .addEqualityGroup(
-        new PairedStats(MANY_VALUES_STATS_ITERABLE, OTHER_MANY_VALUES_STATS, 1.23),
-        new PairedStats(MANY_VALUES_STATS_VARARGS, OTHER_MANY_VALUES_STATS, 1.23))
+      new PairedStats(MANY_VALUES_STATS_ITERABLE, OTHER_MANY_VALUES_STATS, 1.23),
+      new PairedStats(MANY_VALUES_STATS_VARARGS, OTHER_MANY_VALUES_STATS, 1.23))
     .addEqualityGroup(
-        new PairedStats(OTHER_MANY_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
+      new PairedStats(OTHER_MANY_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
     .addEqualityGroup(
-        new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.23))
+      new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.23))
     .addEqualityGroup(
-        new PairedStats(TWO_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
+      new PairedStats(TWO_VALUES_STATS, MANY_VALUES_STATS_ITERABLE, 1.23))
     .addEqualityGroup(
-        new PairedStats(MANY_VALUES_STATS_ITERABLE, ONE_VALUE_STATS, 1.23))
+      new PairedStats(MANY_VALUES_STATS_ITERABLE, ONE_VALUE_STATS, 1.23))
     .addEqualityGroup(
-        new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.234))
+      new PairedStats(MANY_VALUES_STATS_ITERABLE, MANY_VALUES_STATS_ITERABLE, 1.234))
     .testEquals();
   }
 
@@ -281,13 +281,13 @@ public class PairedStatsTest extends TestCase {
     .isEqualTo("PairedStats{xStats=Stats{count=0}, yStats=Stats{count=0}}");
     assertThat(MANY_VALUES_PAIRED_STATS.toString())
     .isEqualTo(
-        "PairedStats{xStats="
-        + MANY_VALUES_PAIRED_STATS.xStats()
-        + ", yStats="
-        + MANY_VALUES_PAIRED_STATS.yStats()
-        + ", populationCovariance="
-        + MANY_VALUES_PAIRED_STATS.populationCovariance()
-        + "}");
+      "PairedStats{xStats="
+      + MANY_VALUES_PAIRED_STATS.xStats()
+      + ", yStats="
+      + MANY_VALUES_PAIRED_STATS.yStats()
+      + ", populationCovariance="
+      + MANY_VALUES_PAIRED_STATS.populationCovariance()
+      + "}");
   }
 
   private PairedStats createSingleStats(double x, double y) {

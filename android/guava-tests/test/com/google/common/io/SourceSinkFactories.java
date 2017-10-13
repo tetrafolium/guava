@@ -101,72 +101,72 @@ public class SourceSinkFactories {
   public static ByteSourceFactory asByteSourceFactory(final CharSourceFactory factory) {
     checkNotNull(factory);
     return new ByteSourceFactory() {
-      @Override
-      public ByteSource createSource(byte[] data) throws IOException {
-        return factory.createSource(new String(data, Charsets.UTF_8))
-            .asByteSource(Charsets.UTF_8);
-      }
+             @Override
+             public ByteSource createSource(byte[] data) throws IOException {
+               return factory.createSource(new String(data, Charsets.UTF_8))
+                      .asByteSource(Charsets.UTF_8);
+             }
 
-      @Override
-      public byte[] getExpected(byte[] data) {
-        return factory.getExpected(new String(data, Charsets.UTF_8)).getBytes(Charsets.UTF_8);
-      }
+             @Override
+             public byte[] getExpected(byte[] data) {
+               return factory.getExpected(new String(data, Charsets.UTF_8)).getBytes(Charsets.UTF_8);
+             }
 
-      @Override
-      public void tearDown() throws IOException {
-        factory.tearDown();
-      }
+             @Override
+             public void tearDown() throws IOException {
+               factory.tearDown();
+             }
     };
   }
 
   public static CharSourceFactory asCharSourceFactory(final ByteSourceFactory factory) {
     checkNotNull(factory);
     return new CharSourceFactory() {
-      @Override
-      public CharSource createSource(String string) throws IOException {
-        return factory.createSource(string.getBytes(Charsets.UTF_8))
-            .asCharSource(Charsets.UTF_8);
-      }
+             @Override
+             public CharSource createSource(String string) throws IOException {
+               return factory.createSource(string.getBytes(Charsets.UTF_8))
+                      .asCharSource(Charsets.UTF_8);
+             }
 
-      @Override
-      public String getExpected(String data) {
-        return new String(factory.getExpected(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
-      }
+             @Override
+             public String getExpected(String data) {
+               return new String(factory.getExpected(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
+             }
 
-      @Override
-      public void tearDown() throws IOException {
-        factory.tearDown();
-      }
+             @Override
+             public void tearDown() throws IOException {
+               factory.tearDown();
+             }
     };
   }
 
   public static CharSinkFactory asCharSinkFactory(final ByteSinkFactory factory) {
     checkNotNull(factory);
     return new CharSinkFactory() {
-      @Override
-      public CharSink createSink() throws IOException {
-        return factory.createSink().asCharSink(Charsets.UTF_8);
-      }
+             @Override
+             public CharSink createSink() throws IOException {
+               return factory.createSink().asCharSink(Charsets.UTF_8);
+             }
 
-      @Override
-      public String getSinkContents() throws IOException {
-        return new String(factory.getSinkContents(), Charsets.UTF_8);
-      }
+             @Override
+             public String getSinkContents() throws IOException {
+               return new String(factory.getSinkContents(), Charsets.UTF_8);
+             }
 
-      @Override
-      public String getExpected(String data) {
-        /*
-         * Get what the byte sink factory would expect for no written bytes, then append expected
-         * string to that.
-         */
-        byte[] factoryExpectedForNothing = factory.getExpected(new byte[0]);
-        return new String(factoryExpectedForNothing, Charsets.UTF_8) + checkNotNull(data);
-      }
+             @Override
+             public String getExpected(String data) {
+               /*
+                * Get what the byte sink factory would expect for no written bytes, then append expected
+                * string to that.
+                */
+               byte[] factoryExpectedForNothing = factory.getExpected(new byte[0]);
+               return new String(factoryExpectedForNothing, Charsets.UTF_8) + checkNotNull(data);
+             }
 
-      @Override
-      public void tearDown() throws IOException {
-        factory.tearDown();
-      }
+             @Override
+             public void tearDown() throws IOException {
+               factory.tearDown();
+             }
     };
   }
 
@@ -174,23 +174,23 @@ public class SourceSinkFactories {
       final long off, final long len) {
     checkNotNull(factory);
     return new ByteSourceFactory() {
-      @Override
-      public ByteSource createSource(byte[] bytes) throws IOException {
-        return factory.createSource(bytes).slice(off, len);
-      }
+             @Override
+             public ByteSource createSource(byte[] bytes) throws IOException {
+               return factory.createSource(bytes).slice(off, len);
+             }
 
-      @Override
-      public byte[] getExpected(byte[] bytes) {
-        byte[] baseExpected = factory.getExpected(bytes);
-        int startOffset = (int) Math.min(off, baseExpected.length);
-        int actualLen = (int) Math.min(len, baseExpected.length - startOffset);
-        return Arrays.copyOfRange(baseExpected, startOffset, startOffset + actualLen);
-      }
+             @Override
+             public byte[] getExpected(byte[] bytes) {
+               byte[] baseExpected = factory.getExpected(bytes);
+               int startOffset = (int) Math.min(off, baseExpected.length);
+               int actualLen = (int) Math.min(len, baseExpected.length - startOffset);
+               return Arrays.copyOfRange(baseExpected, startOffset, startOffset + actualLen);
+             }
 
-      @Override
-      public void tearDown() throws IOException {
-        factory.tearDown();
-      }
+             @Override
+             public void tearDown() throws IOException {
+               factory.tearDown();
+             }
     };
   }
 
@@ -404,8 +404,8 @@ public class SourceSinkFactories {
     public String getExpected(String string) {
       checkNotNull(string);
       return initialString == null
-          ? string
-          : initialString + string;
+             ? string
+             : initialString + string;
     }
 
     @Override

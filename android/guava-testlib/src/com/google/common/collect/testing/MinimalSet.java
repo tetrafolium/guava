@@ -44,7 +44,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
   }
 
   public static <E> MinimalSet<E> ofClassAndContents(
-      Class<? super E> type, E[] emptyArrayForContents, Iterable<? extends E> contents) {
+    Class<? super E> type, E[] emptyArrayForContents, Iterable<? extends E> contents) {
     List<E> setContents = new ArrayList<E>();
     for (E e : contents) {
       if (!setContents.contains(e)) {
@@ -65,7 +65,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
   @Override
   public boolean equals(Object object) {
     if (object instanceof Set) {
-      Set<?> that = (Set<?>) object;
+      Set<?> that = (Set<?>)object;
       return (this.size() == that.size()) && this.containsAll(that);
     }
     return false;

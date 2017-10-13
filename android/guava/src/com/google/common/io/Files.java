@@ -172,7 +172,7 @@ public final class Files {
   static byte[] readFile(InputStream in, long expectedSize) throws IOException {
     if (expectedSize > Integer.MAX_VALUE) {
       throw new OutOfMemoryError(
-          "file is too large to fit in a byte array: " + expectedSize + " bytes");
+              "file is too large to fit in a byte array: " + expectedSize + " bytes");
     }
 
     // some special files may return size 0 but have content, so read
@@ -424,14 +424,14 @@ public final class Files {
       }
     }
     throw new IllegalStateException(
-        "Failed to create directory within "
-        + TEMP_DIR_ATTEMPTS
-        + " attempts (tried "
-        + baseName
-        + "0 to "
-        + baseName
-        + (TEMP_DIR_ATTEMPTS - 1)
-        + ')');
+            "Failed to create directory within "
+            + TEMP_DIR_ATTEMPTS
+            + " attempts (tried "
+            + baseName
+            + "0 to "
+            + baseName
+            + (TEMP_DIR_ATTEMPTS - 1)
+            + ')');
   }
 
   /**
@@ -539,8 +539,8 @@ public final class Files {
     // don't use asCharSource(file, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return asCharSource(file, charset)
-        .readLines(
-    new LineProcessor<List<String>>() {
+           .readLines(
+      new LineProcessor<List<String>>() {
       final List<String> result = Lists.newArrayList();
 
       @Override
@@ -821,7 +821,7 @@ public final class Files {
   }
 
   private static final TreeTraverser<File> FILE_TREE_TRAVERSER =
-  new TreeTraverser<File>() {
+      new TreeTraverser<File>() {
     @Override
     public Iterable<File> children(File file) {
       // check isDirectory() just because it may be faster than listFiles() on a non-directory

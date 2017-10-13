@@ -50,12 +50,12 @@ public class FauxveridesTest extends TestCase {
 
   public void testImmutableListMultimap() {
     doHasAllFauxveridesTest(
-        ImmutableListMultimap.class, ImmutableMultimap.class);
+      ImmutableListMultimap.class, ImmutableMultimap.class);
   }
 
   public void testImmutableSetMultimap() {
     doHasAllFauxveridesTest(
-        ImmutableSetMultimap.class, ImmutableMultimap.class);
+      ImmutableSetMultimap.class, ImmutableMultimap.class);
   }
 
   public void testImmutableSortedMap() {
@@ -113,7 +113,7 @@ public class FauxveridesTest extends TestCase {
     Set<MethodSignature> missing = ImmutableSortedSet.copyOf(difference(required, found));
     if (!missing.isEmpty()) {
       fail(rootLocaleFormat("%s should hide the public static methods declared in %s: %s",
-              descendant.getSimpleName(), ancestor.getSimpleName(), missing));
+          descendant.getSimpleName(), ancestor.getSimpleName(), missing));
     }
   }
 
@@ -122,12 +122,12 @@ public class FauxveridesTest extends TestCase {
   }
 
   private static Set<MethodSignature> getAllFauxveridden(
-      Class<?> descendant, Class<?> ancestor) {
+    Class<?> descendant, Class<?> ancestor) {
     return getPublicStaticMethodsBetween(descendant, ancestor);
   }
 
   private static Set<MethodSignature> getPublicStaticMethodsBetween(
-      Class<?> descendant, Class<?> ancestor) {
+    Class<?> descendant, Class<?> ancestor) {
     Set<MethodSignature> methods = newHashSet();
     for (Class<?> clazz : getClassesBetween(descendant, ancestor)) {
       methods.addAll(getPublicStaticMethods(clazz));
@@ -150,7 +150,7 @@ public class FauxveridesTest extends TestCase {
 
   /** [descendant, ancestor) */
   private static Set<Class<?>> getClassesBetween(
-      Class<?> descendant, Class<?> ancestor) {
+    Class<?> descendant, Class<?> ancestor) {
     Set<Class<?>> classes = newHashSet();
 
     while (!descendant.equals(ancestor)) {
@@ -183,8 +183,8 @@ public class FauxveridesTest extends TestCase {
       if (obj instanceof MethodSignature) {
         MethodSignature other = (MethodSignature) obj;
         return name.equals(other.name)
-            && parameterTypes.equals(other.parameterTypes)
-            && typeSignature.equals(other.typeSignature);
+               && parameterTypes.equals(other.parameterTypes)
+               && typeSignature.equals(other.typeSignature);
       }
 
       return false;
@@ -196,7 +196,7 @@ public class FauxveridesTest extends TestCase {
 
     @Override public String toString() {
       return rootLocaleFormat("%s%s(%s)",
-              typeSignature, name, getTypesString(parameterTypes));
+                 typeSignature, name, getTypesString(parameterTypes));
     }
 
     @Override public int compareTo(MethodSignature o) {
@@ -210,7 +210,7 @@ public class FauxveridesTest extends TestCase {
     TypeSignature(TypeVariable<Method>[] parameters) {
       parameterSignatures =
           transform(Arrays.asList(parameters),
-      new Function<TypeVariable<?>, TypeParameterSignature>() {
+          new Function<TypeVariable<?>, TypeParameterSignature>() {
         @Override
         public TypeParameterSignature apply(TypeVariable<?> from) {
           return new TypeParameterSignature(from);
@@ -233,8 +233,8 @@ public class FauxveridesTest extends TestCase {
 
     @Override public String toString() {
       return (parameterSignatures.isEmpty())
-          ? ""
-          : "<" + Joiner.on(", ").join(parameterSignatures) + "> ";
+             ? ""
+             : "<" + Joiner.on(", ").join(parameterSignatures) + "> ";
     }
   }
 
@@ -266,8 +266,8 @@ public class FauxveridesTest extends TestCase {
 
     @Override public String toString() {
       return (bounds.equals(ImmutableList.of(Object.class)))
-          ? name
-          : name + " extends " + getTypesString(bounds);
+             ? name
+             : name + " extends " + getTypesString(bounds);
     }
   }
 
@@ -277,11 +277,11 @@ public class FauxveridesTest extends TestCase {
   }
 
   private static final Function<Type, String> SIMPLE_NAME_GETTER =
-  new Function<Type, String>() {
+      new Function<Type, String>() {
     @Override
     public String apply(Type from) {
       if (from instanceof Class) {
-        return ((Class<?>) from).getSimpleName();
+        return ((Class<?>)from).getSimpleName();
       }
       return from.toString();
     }

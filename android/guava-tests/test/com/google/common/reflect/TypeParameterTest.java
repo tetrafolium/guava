@@ -30,7 +30,8 @@ import junit.framework.TestCase;
 public class TypeParameterTest extends TestCase {
 
   public <T> void testCaptureTypeParameter() throws Exception {
-    TypeVariable<?> variable = new TypeParameter<T>() {} .typeVariable;
+    TypeVariable<?> variable = new TypeParameter<T>() {
+    }.typeVariable;
     TypeVariable<?> expected = TypeParameterTest.class
         .getDeclaredMethod("testCaptureTypeParameter")
         .getTypeParameters()[0];
@@ -39,7 +40,8 @@ public class TypeParameterTest extends TestCase {
 
   public void testConcreteTypeRejected() {
     try {
-      new TypeParameter<String>() {};
+      new TypeParameter<String>() {
+      };
       fail();
     } catch (IllegalArgumentException expected) {}
   }
@@ -48,8 +50,11 @@ public class TypeParameterTest extends TestCase {
     Method method = TypeParameterTest.class.getDeclaredMethod("testEquals");
     new EqualsTester()
     .addEqualityGroup(
-    new TypeParameter<A>() {}, new TypeParameter<A>() {})
-    .addEqualityGroup(new TypeParameter<B>() {})
+      new TypeParameter<A>() {
+    }, new TypeParameter<A>() {
+    })
+    .addEqualityGroup(new TypeParameter<B>() {
+    })
     .testEquals();
   }
 

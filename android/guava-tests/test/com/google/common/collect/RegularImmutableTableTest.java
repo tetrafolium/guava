@@ -28,9 +28,9 @@ import com.google.common.collect.Table.Cell;
 public class RegularImmutableTableTest extends AbstractImmutableTableTest {
   private static final ImmutableSet<Cell<Character, Integer, String>> CELLS =
       ImmutableSet.of(
-          Tables.immutableCell('a', 1, "foo"),
-          Tables.immutableCell('b', 1, "bar"),
-          Tables.immutableCell('a', 2, "baz"));
+    Tables.immutableCell('a', 1, "foo"),
+    Tables.immutableCell('b', 1, "bar"),
+    Tables.immutableCell('a', 2, "baz"));
 
   private static final ImmutableSet<Character> ROW_SPACE =
       ImmutableSet.of('a', 'b');
@@ -47,7 +47,7 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
   @Override Iterable<ImmutableTable<Character, Integer, String>>
   getTestInstances() {
     return ImmutableList.<ImmutableTable<Character, Integer, String>>of(SPARSE,
-            DENSE);
+               DENSE);
   }
 
   public void testCellSet() {
@@ -94,9 +94,9 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
     assertTrue(RegularImmutableTable.forCells(CELLS) instanceof
         DenseImmutableTable<?, ?, ?>);
     assertTrue(RegularImmutableTable.forCells(ImmutableSet.of(
-                Tables.immutableCell('a', 1, "blah"),
-                Tables.immutableCell('b', 2, "blah"),
-                Tables.immutableCell('c', 3, "blah"))) instanceof
+          Tables.immutableCell('a', 1, "blah"),
+          Tables.immutableCell('b', 2, "blah"),
+          Tables.immutableCell('c', 3, "blah"))) instanceof
         SparseImmutableTable<?, ?, ?>);
   }
 
@@ -115,7 +115,7 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
     for (ImmutableTable<Character, Integer, String> testInstance :
         getTestInstances()) {
       assertEquals(ImmutableMap.of('a', "foo", 'b', "bar"),
-          testInstance.column(1));
+            testInstance.column(1));
       assertEquals(ImmutableMap.of('a', "baz"), testInstance.column(2));
       assertEquals(ImmutableMap.of(), testInstance.column(3));
     }
@@ -132,7 +132,7 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
     for (ImmutableTable<Character, Integer, String> testInstance :
         getTestInstances()) {
       assertEquals(ImmutableMap.of(1, ImmutableMap.of('a', "foo", 'b', "bar"),
-              2, ImmutableMap.of('a', "baz")), testInstance.columnMap());
+            2, ImmutableMap.of('a', "baz")), testInstance.columnMap());
     }
   }
 
@@ -169,7 +169,7 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
     for (ImmutableTable<Character, Integer, String> testInstance :
         getTestInstances()) {
       assertEquals(ImmutableMap.of(1, "foo", 2, "baz"),
-          testInstance.row('a'));
+            testInstance.row('a'));
       assertEquals(ImmutableMap.of(1, "bar"), testInstance.row('b'));
       assertEquals(ImmutableMap.of(), testInstance.row('c'));
     }
@@ -186,7 +186,7 @@ public class RegularImmutableTableTest extends AbstractImmutableTableTest {
     for (ImmutableTable<Character, Integer, String> testInstance :
         getTestInstances()) {
       assertEquals(ImmutableMap.of('a', ImmutableMap.of(1, "foo", 2, "baz"),
-              'b', ImmutableMap.of(1, "bar")), testInstance.rowMap());
+            'b', ImmutableMap.of(1, "bar")), testInstance.rowMap());
     }
   }
 }

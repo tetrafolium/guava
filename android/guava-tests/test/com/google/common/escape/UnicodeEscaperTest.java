@@ -49,9 +49,9 @@ public class UnicodeEscaperTest extends TestCase {
     @Override
     protected char[] escape(int cp) {
       return ('a' <= cp && cp <= 'z') ||
-          ('A' <= cp && cp <= 'Z') ||
-          ('0' <= cp && cp <= '9') ? null :
-          ("[" + String.valueOf(cp) + "]").toCharArray();
+             ('A' <= cp && cp <= 'Z') ||
+             ('0' <= cp && cp <= '9') ? null :
+             ("[" + String.valueOf(cp) + "]").toCharArray();
     }
   };
 
@@ -161,7 +161,7 @@ public class UnicodeEscaperTest extends TestCase {
       @Override
       protected char[] escape(int cp) {
         return ('a' <= cp && cp <= 'z') ?
-            new char[] { Character.toUpperCase((char) cp) } : null;
+               new char[] { Character.toUpperCase((char) cp) } : null;
       }
       // Inefficient implementation that defines all letters as escapable.
       @Override

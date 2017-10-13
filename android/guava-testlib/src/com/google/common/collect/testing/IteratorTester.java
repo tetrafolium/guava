@@ -68,10 +68,10 @@ public abstract class IteratorTester<E> extends AbstractIteratorTester<E, Iterat
    * @param features the features supported by the iterator
    */
   protected IteratorTester(
-      int steps,
-      Iterable<? extends IteratorFeature> features,
-      Iterable<E> expectedElements,
-      KnownOrder knownOrder) {
+    int steps,
+    Iterable<? extends IteratorFeature> features,
+    Iterable<E> expectedElements,
+    KnownOrder knownOrder) {
     super(steps, Collections.<E>singleton(null), features, expectedElements, knownOrder, 0);
   }
 

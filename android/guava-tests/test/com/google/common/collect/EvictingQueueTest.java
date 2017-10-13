@@ -161,7 +161,7 @@ public class EvictingQueueTest extends TestCase {
   public void testAddAll_largeList() {
     final List<String> list = ImmutableList.of("one", "two", "three", "four", "five");
     List<String> misbehavingList =
-    new AbstractList<String>() {
+        new AbstractList<String>() {
       @Override
       public int size() {
         return list.size();

@@ -175,7 +175,7 @@ public class AbstractIdleServiceTest extends TestCase {
     Service service = new TestService() {
       @Override protected Executor executor() {
         return new Executor() {
-          @Override public void execute(Runnable command) {}
+                 @Override public void execute(Runnable command) {}
         };
       }
 

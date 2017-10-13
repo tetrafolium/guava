@@ -39,7 +39,7 @@ public class AbstractFutureCancellationCauseTest extends TestCase {
     System.setProperty("guava.concurrent.generate_cancellation_cause", "true");
     final String concurrentPackage = SettableFuture.class.getPackage().getName();
     classReloader =
-    new URLClassLoader(ClassPathUtil.getClassPathUrls()) {
+        new URLClassLoader(ClassPathUtil.getClassPathUrls()) {
       @Override
       public Class<?> loadClass(String name) throws ClassNotFoundException {
         if (name.startsWith(concurrentPackage)) {
@@ -87,6 +87,6 @@ public class AbstractFutureCancellationCauseTest extends TestCase {
 
   private Future<?> newFutureInstance() throws Exception {
     return (Future<?>)
-        classReloader.loadClass(SettableFuture.class.getName()).getMethod("create").invoke(null);
+           classReloader.loadClass(SettableFuture.class.getName()).getMethod("create").invoke(null);
   }
 }

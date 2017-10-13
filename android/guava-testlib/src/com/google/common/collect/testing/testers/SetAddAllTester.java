@@ -38,7 +38,7 @@ public class SetAddAllTester<E> extends AbstractSetTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAll_supportedSomePresent() {
     assertTrue(
-        "add(somePresent) should return true", getSet().addAll(MinimalCollection.of(e3(), e0())));
+      "add(somePresent) should return true", getSet().addAll(MinimalCollection.of(e3(), e0())));
     expectAdded(e3());
   }
 

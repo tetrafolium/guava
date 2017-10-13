@@ -75,14 +75,14 @@ public class UnmodifiableCollectionTests {
    * <p>This test only works with iterators that iterate over a finite set.
    */
   public static void assertIteratorsInOrder(
-      Iterator<?> expectedIterator, Iterator<?> actualIterator) {
+    Iterator<?> expectedIterator, Iterator<?> actualIterator) {
     int i = 0;
     while (expectedIterator.hasNext()) {
       Object expected = expectedIterator.next();
 
       assertTrue(
-          "index " + i + " expected <" + expected + "., actual is exhausted",
-          actualIterator.hasNext());
+        "index " + i + " expected <" + expected + "., actual is exhausted",
+        actualIterator.hasNext());
 
       Object actual = actualIterator.next();
       assertEquals("index " + i, expected, actual);
@@ -233,8 +233,8 @@ public class UnmodifiableCollectionTests {
     assertCollectionsAreEquivalent(multiset, copy);
 
     assertSetIsUnmodifiable(
-        multiset.entrySet(),
-    new Multiset.Entry<E>() {
+      multiset.entrySet(),
+      new Multiset.Entry<E>() {
       @Override
       public int getCount() {
         return 1;
@@ -268,9 +268,9 @@ public class UnmodifiableCollectionTests {
    * as a key.
    */
   public static <K, V> void assertMultimapIsUnmodifiable(
-      Multimap<K, V> multimap, final K sampleKey, final V sampleValue) {
+    Multimap<K, V> multimap, final K sampleKey, final V sampleValue) {
     List<Entry<K, V>> originalEntries =
-        Collections.unmodifiableList(Lists.newArrayList(multimap.entries()));
+      Collections.unmodifiableList(Lists.newArrayList(multimap.entries()));
 
     assertMultimapRemainsUnmodified(multimap, originalEntries);
 
@@ -287,7 +287,7 @@ public class UnmodifiableCollectionTests {
 
     // Test asMap().entrySet()
     assertSetIsUnmodifiable(
-        multimap.asMap().entrySet(), Maps.immutableEntry(sampleKey, sampleValueAsCollection));
+      multimap.asMap().entrySet(), Maps.immutableEntry(sampleKey, sampleValueAsCollection));
 
     // Test #values()
 
@@ -397,7 +397,7 @@ public class UnmodifiableCollectionTests {
       }
 
       try {
-        ((Collection<?>) multimap.asMap().values().toArray()[0]).clear();
+        ((Collection<?>)multimap.asMap().values().toArray()[0]).clear();
         fail("asMap().values().toArray()[0].clear() succeeded on unmodifiable multimap");
       } catch (UnsupportedOperationException expected) {
       }
@@ -408,12 +408,12 @@ public class UnmodifiableCollectionTests {
   }
 
   private static <E> void assertCollectionsAreEquivalent(
-      Collection<E> expected, Collection<E> actual) {
+    Collection<E> expected, Collection<E> actual) {
     assertIteratorsInOrder(expected.iterator(), actual.iterator());
   }
 
   private static <K, V> void assertMultimapRemainsUnmodified(
-      Multimap<K, V> expected, List<Entry<K, V>> actual) {
+    Multimap<K, V> expected, List<Entry<K, V>> actual) {
     assertIteratorsInOrder(expected.entries().iterator(), actual.iterator());
   }
 }

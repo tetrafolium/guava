@@ -51,7 +51,7 @@ final class RegularImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E>
   }
 
   RegularImmutableSortedMultiset(
-      RegularImmutableSortedSet<E> elementSet, long[] cumulativeCounts, int offset, int length) {
+    RegularImmutableSortedSet<E> elementSet, long[] cumulativeCounts, int offset, int length) {
     this.elementSet = elementSet;
     this.cumulativeCounts = cumulativeCounts;
     this.offset = offset;
@@ -102,7 +102,7 @@ final class RegularImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E>
   @Override
   public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
     return getSubMultiset(
-            elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED), length);
+      elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED), length);
   }
 
   ImmutableSortedMultiset<E> getSubMultiset(int from, int to) {
@@ -114,7 +114,7 @@ final class RegularImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E>
     } else {
       RegularImmutableSortedSet<E> subElementSet = elementSet.getSubSet(from, to);
       return new RegularImmutableSortedMultiset<E>(
-              subElementSet, cumulativeCounts, offset + from, to - from);
+        subElementSet, cumulativeCounts, offset + from, to - from);
     }
   }
 

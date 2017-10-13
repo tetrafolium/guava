@@ -69,11 +69,11 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     @Override
     public SampleElements<BigInteger> samples() {
       return new SampleElements<>(
-              BigInteger.valueOf(1),
-              BigInteger.valueOf(4),
-              BigInteger.valueOf(3),
-              BigInteger.valueOf(2),
-              BigInteger.valueOf(5));
+        BigInteger.valueOf(1),
+        BigInteger.valueOf(4),
+        BigInteger.valueOf(3),
+        BigInteger.valueOf(2),
+        BigInteger.valueOf(5));
     }
 
     @Override
@@ -103,24 +103,24 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     suite.addTest(NavigableSetTestSuiteBuilder.using(new ImmutableRangeSetIntegerAsSetGenerator())
         .named("ImmutableRangeSet.asSet[DiscreteDomain.integers[]]")
         .withFeatures(
-            CollectionSize.ANY,
-            CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.ALLOWS_NULL_QUERIES,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.NON_STANDARD_TOSTRING,
-            CollectionFeature.SERIALIZABLE)
+          CollectionSize.ANY,
+          CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.ALLOWS_NULL_QUERIES,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.NON_STANDARD_TOSTRING,
+          CollectionFeature.SERIALIZABLE)
         .createTestSuite());
 
     suite.addTest(NavigableSetTestSuiteBuilder.using(
-            new ImmutableRangeSetBigIntegerAsSetGenerator())
+          new ImmutableRangeSetBigIntegerAsSetGenerator())
         .named("ImmutableRangeSet.asSet[DiscreteDomain.bigIntegers[]]")
         .withFeatures(
-            CollectionSize.ANY,
-            CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.ALLOWS_NULL_QUERIES,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.NON_STANDARD_TOSTRING,
-            CollectionFeature.SERIALIZABLE)
+          CollectionSize.ANY,
+          CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.ALLOWS_NULL_QUERIES,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.NON_STANDARD_TOSTRING,
+          CollectionFeature.SERIALIZABLE)
         .createTestSuite());
     return suite;
   }
@@ -373,18 +373,18 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
   public void testExhaustive() {
     @SuppressWarnings("unchecked")
     ImmutableSet<Range<Integer>> ranges = ImmutableSet.of(
-            Range.<Integer>all(),
-            Range.<Integer>closedOpen(3, 5),
-            Range.singleton(1),
-            Range.lessThan(2),
-            Range.greaterThan(10),
-            Range.atMost(4),
-            Range.atLeast(3),
-            Range.closed(4, 6),
-            Range.closedOpen(1, 3),
-            Range.openClosed(5, 7),
-            Range.open(3, 4));
-    subsets: for (Set<Range<Integer>> subset : Sets.powerSet(ranges)) {
+      Range.<Integer>all(),
+      Range.<Integer>closedOpen(3, 5),
+      Range.singleton(1),
+      Range.lessThan(2),
+      Range.greaterThan(10),
+      Range.atMost(4),
+      Range.atLeast(3),
+      Range.closed(4, 6),
+      Range.closedOpen(1, 3),
+      Range.openClosed(5, 7),
+      Range.open(3, 4));
+    subsets : for (Set<Range<Integer>> subset : Sets.powerSet(ranges)) {
       assertEquals(TreeRangeSet.create(subset), ImmutableRangeSet.unionOf(subset));
 
       RangeSet<Integer> mutable = TreeRangeSet.create();
@@ -560,9 +560,9 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
       for (Range<Integer> range2 : ranges) {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           ImmutableRangeSet<Integer> rangeSet = ImmutableRangeSet.<Integer>builder()
-              .add(range1)
-              .add(range2)
-              .build();
+            .add(range1)
+            .add(range2)
+            .build();
           for (Range<Integer> subRange : subRanges) {
             RangeSet<Integer> expected = TreeRangeSet.create();
             for (Range<Integer> range : rangeSet.asRanges()) {

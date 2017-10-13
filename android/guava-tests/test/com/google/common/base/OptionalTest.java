@@ -177,7 +177,7 @@ public final class OptionalTest extends TestCase {
       Optional<String> unused =
           Optional.of("a")
           .transform(
-      new Function<String, String>() {
+        new Function<String, String>() {
         @Override
         public String apply(String input) {
           return null;
@@ -191,7 +191,7 @@ public final class OptionalTest extends TestCase {
   public void testTransform_absent_functionReturnsNull() {
     assertEquals(Optional.absent(),
         Optional.absent().transform(
-    new Function<Object, Object>() {
+          new Function<Object, Object>() {
       @Override public Object apply(Object input) {
         return null;
       }

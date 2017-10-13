@@ -126,7 +126,7 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testExceptionAfterEndOfData() {
     Iterator<Integer> iter =
-    new AbstractIterator<Integer>() {
+        new AbstractIterator<Integer>() {
       @Override
       public Integer computeNext() {
         endOfData();
@@ -142,7 +142,7 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testCantRemove() {
     Iterator<Integer> iter =
-    new AbstractIterator<Integer>() {
+        new AbstractIterator<Integer>() {
       boolean haveBeenCalled;
 
       @Override
@@ -177,7 +177,7 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testReentrantHasNext() {
     Iterator<Integer> iter =
-    new AbstractIterator<Integer>() {
+        new AbstractIterator<Integer>() {
       @Override
       protected Integer computeNext() {
         boolean unused = hasNext();

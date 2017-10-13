@@ -41,14 +41,14 @@ public class OpenJdk6ListTests extends TestsForListsInJavaUtil {
 
   @Override protected Collection<Method> suppressForArraysAsList() {
     return Arrays.asList(
-            getToArrayIsPlainObjectArrayMethod());
+      getToArrayIsPlainObjectArrayMethod());
   }
 
   @Override protected Collection<Method> suppressForCheckedList() {
     return Arrays.asList(
-            CollectionAddTester.getAddNullSupportedMethod(),
-            getAddSupportedNullPresentMethod(),
-            ListAddAtIndexTester.getAddNullSupportedMethod(),
-            getSetNullSupportedMethod());
+      CollectionAddTester.getAddNullSupportedMethod(),
+      getAddSupportedNullPresentMethod(),
+      ListAddAtIndexTester.getAddNullSupportedMethod(),
+      getSetNullSupportedMethod());
   }
 }

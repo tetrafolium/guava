@@ -36,7 +36,7 @@ public abstract class AbstractUndirectedGraphTest extends AbstractGraphTest {
     for (Integer node : graph.nodes()) {
       new EqualsTester()
       .addEqualityGroup(
-          graph.predecessors(node), graph.successors(node), graph.adjacentNodes(node))
+        graph.predecessors(node), graph.successors(node), graph.adjacentNodes(node))
       .testEquals();
     }
   }

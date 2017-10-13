@@ -32,7 +32,7 @@ public class MultisetEqualsTester<E> extends AbstractMultisetTester<E> {
   public void testEqualsSameContents() {
     new EqualsTester()
     .addEqualityGroup(
-        getMultiset(), getSubjectGenerator().create(getSampleElements().toArray()))
+      getMultiset(), getSubjectGenerator().create(getSampleElements().toArray()))
     .testEquals();
   }
 
@@ -54,8 +54,8 @@ public class MultisetEqualsTester<E> extends AbstractMultisetTester<E> {
     new EqualsTester()
     .addEqualityGroup(getMultiset())
     .addEqualityGroup(
-        getSubjectGenerator().create(createArrayWithNullElement()),
-        getSubjectGenerator().create(createArrayWithNullElement()))
+      getSubjectGenerator().create(createArrayWithNullElement()),
+      getSubjectGenerator().create(createArrayWithNullElement()))
     .testEquals();
   }
 }

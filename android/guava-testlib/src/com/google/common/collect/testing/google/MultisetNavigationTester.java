@@ -55,7 +55,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
   static <T> SortedMultiset<T> cast(Multiset<T> iterable) {
-    return (SortedMultiset<T>) iterable;
+    return (SortedMultiset<T>)iterable;
   }
 
   @Override
@@ -64,8 +64,8 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     sortedMultiset = cast(getMultiset());
     entries =
         copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+      getSubjectGenerator()
+      .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(entries, sortedMultiset.comparator());
 
     // some tests assume SEVERAL == 3
@@ -88,7 +88,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     container.addAll(Collections.nCopies(a.getCount(), a.getElement()));
     container.addAll(Collections.nCopies(c.getCount(), c.getElement()));
     super.resetContainer(getSubjectGenerator().create(container.toArray()));
-    sortedMultiset = (SortedMultiset<E>) getMultiset();
+    sortedMultiset = (SortedMultiset<E>)getMultiset();
   }
 
   @CollectionSize.Require(ZERO)
@@ -414,34 +414,34 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testAddWithConflictingBounds() {
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(a.getElement(), CLOSED, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(a.getElement(), CLOSED, a.getElement(), OPEN));
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), OPEN));
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), CLOSED));
+      sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), CLOSED));
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), CLOSED));
+      sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), CLOSED));
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), OPEN));
     testEmptyRangeSubMultisetSupportingAdd(
-        sortedMultiset.subMultiset(b.getElement(), OPEN, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(b.getElement(), OPEN, a.getElement(), OPEN));
   }
 
   @CollectionSize.Require(SEVERAL)
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testConflictingBounds() {
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(a.getElement(), CLOSED, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(a.getElement(), CLOSED, a.getElement(), OPEN));
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), OPEN));
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), CLOSED));
+      sortedMultiset.subMultiset(a.getElement(), OPEN, a.getElement(), CLOSED));
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), CLOSED));
+      sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), CLOSED));
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(b.getElement(), CLOSED, a.getElement(), OPEN));
     testEmptyRangeSubMultiset(
-        sortedMultiset.subMultiset(b.getElement(), OPEN, a.getElement(), OPEN));
+      sortedMultiset.subMultiset(b.getElement(), OPEN, a.getElement(), OPEN));
   }
 
   public void testEmptyRangeSubMultiset(SortedMultiset<E> multiset) {
@@ -479,7 +479,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+        SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
         return multiset.tailMultiset(entries.get(targetEntry).getElement(), CLOSED);
       }
     },
@@ -491,7 +491,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+        SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
         return multiset.tailMultiset(entries.get(targetEntry).getElement(), OPEN);
       }
     },
@@ -503,7 +503,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+        SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
         return multiset.headMultiset(entries.get(targetEntry).getElement(), CLOSED);
       }
     },
@@ -515,7 +515,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+        SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
         return multiset.headMultiset(entries.get(targetEntry).getElement(), OPEN);
       }
     };
@@ -523,7 +523,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     abstract <E> List<Entry<E>> expectedEntries(int targetEntry, List<Entry<E>> entries);
 
     abstract <E> SortedMultiset<E> subMultiset(
-        SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry);
+      SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry);
   }
 
   private void testSubMultisetEntrySet(SubMultisetSpec spec) {

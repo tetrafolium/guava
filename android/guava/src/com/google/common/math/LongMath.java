@@ -287,7 +287,7 @@ public final class LongMath {
         throw new AssertionError();
       }
     }
-    for (long accum = 1; ; k >>= 1) {
+    for (long accum = 1;; k >>= 1) {
       switch (k) {
       case 0:
         return accum;
@@ -985,7 +985,7 @@ public final class LongMath {
    */
   private static final int SIEVE_30 =
       ~((1 << 1) | (1 << 7) | (1 << 11) | (1 << 13)
-          | (1 << 17) | (1 << 19) | (1 << 23) | (1 << 29));
+      | (1 << 17) | (1 << 19) | (1 << 23) | (1 << 29));
 
   /**
    * Returns {@code true} if {@code n} is a
@@ -1132,9 +1132,9 @@ public final class LongMath {
         result += aLo * bHi; // aLo * bHi < 2^63, result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(
-                result,
-                UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m),
-                m);
+          result,
+          UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m),
+          m);
       }
 
       @Override
@@ -1158,9 +1158,9 @@ public final class LongMath {
         result += hiLo; // result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(
-                result,
-                UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m),
-                m);
+          result,
+          UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m),
+          m);
       }
     };
 

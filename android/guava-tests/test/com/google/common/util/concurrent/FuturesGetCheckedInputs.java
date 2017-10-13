@@ -67,7 +67,7 @@ final class FuturesGetCheckedInputs {
     private ExceptionWithSomePrivateConstructors(String a, String b, String c, String d) {}
 
     private ExceptionWithSomePrivateConstructors(
-        String a, String b, String c, String d, String e) {}
+      String a, String b, String c, String d, String e) {}
   }
 
   public static final class ExceptionWithManyConstructors extends Exception {
@@ -90,10 +90,10 @@ final class FuturesGetCheckedInputs {
     public ExceptionWithManyConstructors(Throwable a, Throwable b, Throwable c, Throwable d) {}
 
     public ExceptionWithManyConstructors(
-        Throwable a, Throwable b, Throwable c, Throwable d, Throwable e) {}
+      Throwable a, Throwable b, Throwable c, Throwable d, Throwable e) {}
 
     public ExceptionWithManyConstructors(
-        Throwable a, Throwable b, Throwable c, Throwable d, Throwable e, String s, Integer i) {}
+      Throwable a, Throwable b, Throwable c, Throwable d, Throwable e, String s, Integer i) {}
   }
 
   public static final class ExceptionWithoutThrowableConstructor extends Exception {

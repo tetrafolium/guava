@@ -94,7 +94,7 @@ public class ObjectArraysTest extends TestCase {
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatEmptyNonempty() {
     String[] result = ObjectArrays.concat(
-            new String[0], new String[] { "a", "b" }, String.class);
+      new String[0], new String[] { "a", "b" }, String.class);
     assertEquals(String[].class, result.getClass());
     assertThat(result).asList().containsExactly("a", "b").inOrder();
   }
@@ -102,7 +102,7 @@ public class ObjectArraysTest extends TestCase {
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatNonemptyEmpty() {
     String[] result = ObjectArrays.concat(
-            new String[] { "a", "b" }, new String[0], String.class);
+      new String[] { "a", "b" }, new String[0], String.class);
     assertEquals(String[].class, result.getClass());
     assertThat(result).asList().containsExactly("a", "b").inOrder();
   }
@@ -110,7 +110,7 @@ public class ObjectArraysTest extends TestCase {
   @GwtIncompatible // ObjectArrays.concat(Object[], Object[], Class)
   public void testConcatBasic() {
     String[] result = ObjectArrays.concat(
-            new String[] { "a", "b" }, new String[] { "c", "d" }, String.class);
+      new String[] { "a", "b" }, new String[] { "c", "d" }, String.class);
     assertEquals(String[].class, result.getClass());
     assertThat(result).asList().containsExactly("a", "b", "c", "d").inOrder();
   }

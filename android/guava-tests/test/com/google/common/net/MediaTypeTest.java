@@ -91,11 +91,11 @@ public class MediaTypeTest extends TestCase {
   @GwtIncompatible // reflection
   private static FluentIterable<Field> getConstantFields() {
     return FluentIterable.from(asList(MediaType.class.getDeclaredFields()))
-    .filter(new Predicate<Field>() {
+           .filter(new Predicate<Field>() {
       @Override public boolean apply(Field input) {
         int modifiers = input.getModifiers();
         return isPublic(modifiers) && isStatic(modifiers) && isFinal(modifiers)
-            && MediaType.class.equals(input.getType());
+        && MediaType.class.equals(input.getType());
       }
     });
   }
@@ -103,8 +103,8 @@ public class MediaTypeTest extends TestCase {
   @GwtIncompatible // reflection
   private static FluentIterable<MediaType> getConstants() {
     return getConstantFields()
-        .transform(
-    new Function<Field, MediaType>() {
+           .transform(
+      new Function<Field, MediaType>() {
       @Override
       public MediaType apply(Field input) {
         try {
@@ -360,7 +360,7 @@ public class MediaTypeTest extends TestCase {
 
   public void testGetCharset_illegalCharset() {
     MediaType mediaType = MediaType.parse(
-            "text/plain; charset=\"!@#$%^&*()\"");
+      "text/plain; charset=\"!@#$%^&*()\"");
     try {
       mediaType.charset();
       fail();
@@ -369,7 +369,7 @@ public class MediaTypeTest extends TestCase {
 
   public void testGetCharset_unsupportedCharset() {
     MediaType mediaType = MediaType.parse(
-            "text/plain; charset=utf-wtf");
+      "text/plain; charset=utf-wtf");
     try {
       mediaType.charset();
       fail();
@@ -379,38 +379,38 @@ public class MediaTypeTest extends TestCase {
   public void testEquals() {
     new EqualsTester()
     .addEqualityGroup(
-        MediaType.create("text", "plain"),
-        MediaType.create("TEXT", "PLAIN"),
-        MediaType.parse("text/plain"),
-        MediaType.parse("TEXT/PLAIN"),
-        MediaType.create("text", "plain").withParameter("a", "1").withoutParameters())
+      MediaType.create("text", "plain"),
+      MediaType.create("TEXT", "PLAIN"),
+      MediaType.parse("text/plain"),
+      MediaType.parse("TEXT/PLAIN"),
+      MediaType.create("text", "plain").withParameter("a", "1").withoutParameters())
     .addEqualityGroup(
-        MediaType.create("text", "plain").withCharset(UTF_8),
-        MediaType.create("text", "plain").withParameter("CHARSET", "UTF-8"),
-        MediaType.create("text", "plain")
-        .withParameters(ImmutableMultimap.of("charset", "utf-8")),
-        MediaType.parse("text/plain;charset=utf-8"),
-        MediaType.parse("text/plain; charset=utf-8"),
-        MediaType.parse("text/plain;  charset=utf-8"),
-        MediaType.parse("text/plain; \tcharset=utf-8"),
-        MediaType.parse("text/plain; \r\n\tcharset=utf-8"),
-        MediaType.parse("text/plain; CHARSET=utf-8"),
-        MediaType.parse("text/plain; charset=\"utf-8\""),
-        MediaType.parse("text/plain; charset=\"\\u\\tf-\\8\""),
-        MediaType.parse("text/plain; charset=UTF-8"),
-        MediaType.parse("text/plain ; charset=utf-8"))
+      MediaType.create("text", "plain").withCharset(UTF_8),
+      MediaType.create("text", "plain").withParameter("CHARSET", "UTF-8"),
+      MediaType.create("text", "plain")
+      .withParameters(ImmutableMultimap.of("charset", "utf-8")),
+      MediaType.parse("text/plain;charset=utf-8"),
+      MediaType.parse("text/plain; charset=utf-8"),
+      MediaType.parse("text/plain;  charset=utf-8"),
+      MediaType.parse("text/plain; \tcharset=utf-8"),
+      MediaType.parse("text/plain; \r\n\tcharset=utf-8"),
+      MediaType.parse("text/plain; CHARSET=utf-8"),
+      MediaType.parse("text/plain; charset=\"utf-8\""),
+      MediaType.parse("text/plain; charset=\"\\u\\tf-\\8\""),
+      MediaType.parse("text/plain; charset=UTF-8"),
+      MediaType.parse("text/plain ; charset=utf-8"))
     .addEqualityGroup(MediaType.parse("text/plain; charset=utf-8; charset=utf-8"))
     .addEqualityGroup(
-        MediaType.create("text", "plain").withParameter("a", "value"),
-        MediaType.create("text", "plain").withParameter("A", "value"))
+      MediaType.create("text", "plain").withParameter("a", "value"),
+      MediaType.create("text", "plain").withParameter("A", "value"))
     .addEqualityGroup(
-        MediaType.create("text", "plain").withParameter("a", "VALUE"),
-        MediaType.create("text", "plain").withParameter("A", "VALUE"))
+      MediaType.create("text", "plain").withParameter("a", "VALUE"),
+      MediaType.create("text", "plain").withParameter("A", "VALUE"))
     .addEqualityGroup(
-        MediaType.create("text", "plain")
-        .withParameters(ImmutableListMultimap.of("a", "1", "a", "2")),
-        MediaType.create("text", "plain")
-        .withParameters(ImmutableListMultimap.of("a", "2", "a", "1")))
+      MediaType.create("text", "plain")
+      .withParameters(ImmutableListMultimap.of("a", "1", "a", "2")),
+      MediaType.create("text", "plain")
+      .withParameters(ImmutableListMultimap.of("a", "2", "a", "1")))
     .addEqualityGroup(MediaType.create("text", "csv"))
     .addEqualityGroup(MediaType.create("application", "atom+xml"))
     .testEquals();

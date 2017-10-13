@@ -44,7 +44,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
   @SuppressWarnings("unchecked")
   protected <E> NavigableSet<E> create() {
     TestSet<E> inner =
-        new TestSet<>(new TreeSet<E>((Comparator<E>) Ordering.natural().nullsFirst()), MUTEX);
+        new TestSet<>(new TreeSet<E>((Comparator<E>)Ordering.natural().nullsFirst()), MUTEX);
     NavigableSet<E> outer =
         Synchronized.navigableSet(inner, MUTEX);
     return outer;
@@ -112,7 +112,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
         boolean fromInclusive, E toElement, boolean toInclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().subSet(
-              fromElement, fromInclusive, toElement, toInclusive);
+        fromElement, fromInclusive, toElement, toInclusive);
     }
 
     @Override public SortedSet<E> subSet(E fromElement, E toElement) {
@@ -150,8 +150,8 @@ public class SynchronizedNavigableSetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SynchronizedNavigableSetTest.class);
     suite.addTest(
-        NavigableSetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      NavigableSetTestSuiteBuilder.using(
+        new TestStringSortedSetGenerator() {
 
       @Override
       protected NavigableSet<String> create(String[] elements) {
@@ -167,13 +167,13 @@ public class SynchronizedNavigableSetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .named("Sets.synchronizedNavigableSet[SafeTreeSet]")
-    .withFeatures(
+      .named("Sets.synchronizedNavigableSet[SafeTreeSet]")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.SERIALIZABLE)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -182,48 +182,48 @@ public class SynchronizedNavigableSetTest extends TestCase {
     NavigableSet<String> map = create();
     NavigableSet<String> descendingSet = map.descendingSet();
     assertTrue(descendingSet instanceof SynchronizedNavigableSet);
-    assertSame(MUTEX, ((SynchronizedNavigableSet<String>) descendingSet).mutex);
+    assertSame(MUTEX, ((SynchronizedNavigableSet<String>)descendingSet).mutex);
   }
 
   public void testHeadSet_E() {
     NavigableSet<String> map = create();
     SortedSet<String> headSet = map.headSet("a");
     assertTrue(headSet instanceof SynchronizedSortedSet);
-    assertSame(MUTEX, ((SynchronizedSortedSet<String>) headSet).mutex);
+    assertSame(MUTEX, ((SynchronizedSortedSet<String>)headSet).mutex);
   }
 
   public void testHeadSet_E_B() {
     NavigableSet<String> map = create();
     NavigableSet<String> headSet = map.headSet("a", true);
     assertTrue(headSet instanceof SynchronizedNavigableSet);
-    assertSame(MUTEX, ((SynchronizedNavigableSet<String>) headSet).mutex);
+    assertSame(MUTEX, ((SynchronizedNavigableSet<String>)headSet).mutex);
   }
 
   public void testSubSet_E_E() {
     NavigableSet<String> map = create();
     SortedSet<String> subSet = map.subSet("a", "b");
     assertTrue(subSet instanceof SynchronizedSortedSet);
-    assertSame(MUTEX, ((SynchronizedSortedSet<String>) subSet).mutex);
+    assertSame(MUTEX, ((SynchronizedSortedSet<String>)subSet).mutex);
   }
 
   public void testSubSet_E_B_E_B() {
     NavigableSet<String> map = create();
     NavigableSet<String> subSet = map.subSet("a", false, "b", true);
     assertTrue(subSet instanceof SynchronizedNavigableSet);
-    assertSame(MUTEX, ((SynchronizedNavigableSet<String>) subSet).mutex);
+    assertSame(MUTEX, ((SynchronizedNavigableSet<String>)subSet).mutex);
   }
 
   public void testTailSet_E() {
     NavigableSet<String> map = create();
     SortedSet<String> tailSet = map.tailSet("a");
     assertTrue(tailSet instanceof SynchronizedSortedSet);
-    assertSame(MUTEX, ((SynchronizedSortedSet<String>) tailSet).mutex);
+    assertSame(MUTEX, ((SynchronizedSortedSet<String>)tailSet).mutex);
   }
 
   public void testTailSet_E_B() {
     NavigableSet<String> map = create();
     NavigableSet<String> tailSet = map.tailSet("a", true);
     assertTrue(tailSet instanceof SynchronizedNavigableSet);
-    assertSame(MUTEX, ((SynchronizedNavigableSet<String>) tailSet).mutex);
+    assertSame(MUTEX, ((SynchronizedNavigableSet<String>)tailSet).mutex);
   }
 }

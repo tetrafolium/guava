@@ -56,7 +56,7 @@ public class AbstractFutureTest extends TestCase {
       {
         set(value);
       }
-    } .get());
+    }.get());
   }
 
   public void testException() throws InterruptedException {
@@ -139,7 +139,8 @@ public class AbstractFutureTest extends TestCase {
         throw exception;
       }
     };
-    AbstractFuture<String> normalFuture = new AbstractFuture<String>() {};
+    AbstractFuture<String> normalFuture = new AbstractFuture<String>() {
+    };
     normalFuture.setFuture(evilFuture);
     assertTrue(normalFuture.isDone());
     try {
@@ -151,7 +152,8 @@ public class AbstractFutureTest extends TestCase {
   }
 
   public void testRemoveWaiter_interruption() throws Exception {
-    final AbstractFuture<String> future = new AbstractFuture<String>() {};
+    final AbstractFuture<String> future = new AbstractFuture<String>() {
+    };
     WaiterThread waiter1 = new WaiterThread(future);
     waiter1.start();
     waiter1.awaitWaiting();
@@ -175,7 +177,8 @@ public class AbstractFutureTest extends TestCase {
   }
 
   public void testRemoveWaiter_polling() throws Exception {
-    final AbstractFuture<String> future = new AbstractFuture<String>() {};
+    final AbstractFuture<String> future = new AbstractFuture<String>() {
+    };
     WaiterThread waiter = new WaiterThread(future);
     waiter.start();
     waiter.awaitWaiting();
@@ -205,7 +208,7 @@ public class AbstractFutureTest extends TestCase {
 
   public void testToString_notDone() throws Exception {
     AbstractFuture<Object> testFuture =
-    new AbstractFuture<Object>() {
+        new AbstractFuture<Object>() {
       @Override
       public String pendingToString() {
         return "cause=[Because this test isn't done]";
@@ -213,7 +216,7 @@ public class AbstractFutureTest extends TestCase {
     };
     assertThat(testFuture.toString())
     .matches(
-        "[^\\[]+\\[status=PENDING, info=\\[cause=\\[Because this test isn't done\\]\\]\\]");
+      "[^\\[]+\\[status=PENDING, info=\\[cause=\\[Because this test isn't done\\]\\]\\]");
     try {
       testFuture.get(1, TimeUnit.NANOSECONDS);
       fail();
@@ -225,18 +228,19 @@ public class AbstractFutureTest extends TestCase {
 
   public void testToString_completed() throws Exception {
     AbstractFuture<Object> testFuture2 =
-    new AbstractFuture<Object>() {
+        new AbstractFuture<Object>() {
       @Override
       public String pendingToString() {
         return "cause=[Someday...]";
       }
     };
-    AbstractFuture<Object> testFuture3 = new AbstractFuture<Object>() {};
+    AbstractFuture<Object> testFuture3 = new AbstractFuture<Object>() {
+    };
     testFuture3.setFuture(testFuture2);
     assertThat(testFuture3.toString())
     .matches(
-        "[^\\[]+\\[status=PENDING, info=\\[setFuture="
-        + "\\[[^\\[]+\\[status=PENDING, info=\\[cause=\\[Someday...\\]\\]\\]\\]\\]\\]");
+      "[^\\[]+\\[status=PENDING, info=\\[setFuture="
+      + "\\[[^\\[]+\\[status=PENDING, info=\\[cause=\\[Someday...\\]\\]\\]\\]\\]\\]");
     testFuture2.set("result string");
     assertThat(testFuture3.toString())
     .matches("[^\\[]+\\[status=SUCCESS, result=\\[result string\\]\\]");
@@ -254,21 +258,22 @@ public class AbstractFutureTest extends TestCase {
 
   public void testToString_misbehaving() throws Exception {
     assertThat(
-    new AbstractFuture<Object>() {
+      new AbstractFuture<Object>() {
       @Override
       public String pendingToString() {
         throw new RuntimeException("I'm a misbehaving implementation");
       }
-    } .toString())
+    }.toString())
     .matches(
-        "[^\\[]+\\[status=PENDING, info=\\[Exception thrown from implementation: "
-        + "class java.lang.RuntimeException\\]\\]");
+      "[^\\[]+\\[status=PENDING, info=\\[Exception thrown from implementation: "
+      + "class java.lang.RuntimeException\\]\\]");
   }
 
   public void testCompletionFinishesWithDone() {
     ExecutorService executor = Executors.newFixedThreadPool(10);
     for (int i = 0; i < 50000; i++) {
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() {
+      };
       final AtomicReference<String> errorMessage = Atomics.newReference();
       executor.execute(new Runnable() {
         @Override
@@ -317,10 +322,10 @@ public class AbstractFutureTest extends TestCase {
 
   public void testFutureBash() {
     final CyclicBarrier barrier = new CyclicBarrier(
-        6  // for the setter threads
-        + 50 // for the listeners
-        + 50 // for the blocking get threads,
-        + 1); // for the main thread
+      6    // for the setter threads
+      + 50   // for the listeners
+      + 50   // for the blocking get threads,
+      + 1);   // for the main thread
     final ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
     final AtomicReference<AbstractFuture<String>> currentFuture = Atomics.newReference();
     final AtomicInteger numSuccessfulSetCalls = new AtomicInteger();
@@ -384,7 +389,7 @@ public class AbstractFutureTest extends TestCase {
     };
     final Set<Object> finalResults = Collections.synchronizedSet(Sets.newIdentityHashSet());
     Runnable collectResultsRunnable =
-    new Runnable() {
+        new Runnable() {
       @Override
       public void run() {
         try {
@@ -400,7 +405,7 @@ public class AbstractFutureTest extends TestCase {
       }
     };
     Runnable collectResultsTimedGetRunnable =
-    new Runnable() {
+        new Runnable() {
       @Override
       public void run() {
         Future<String> future = currentFuture.get();
@@ -447,7 +452,8 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() {
+      };
       currentFuture.set(future);
       for (Callable<?> task : allTasks) {
         @SuppressWarnings("unused") // go/futurereturn-lsc
@@ -480,10 +486,10 @@ public class AbstractFutureTest extends TestCase {
   public void testSetFutureCancelBash() {
     final int size = 50;
     final CyclicBarrier barrier = new CyclicBarrier(
-        2  // for the setter threads
-        + size // for the listeners
-        + size // for the get threads,
-        + 1); // for the main thread
+      2    // for the setter threads
+      + size   // for the listeners
+      + size   // for the get threads,
+      + 1);   // for the main thread
     final ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
     final AtomicReference<AbstractFuture<String>> currentFuture = Atomics.newReference();
     final AtomicReference<AbstractFuture<String>> setFutureFuture = Atomics.newReference();
@@ -560,8 +566,10 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());  // sanity check
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
-      final AbstractFuture<String> setFuture = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() {
+      };
+      final AbstractFuture<String> setFuture = new AbstractFuture<String>() {
+      };
       currentFuture.set(future);
       setFutureFuture.set(setFuture);
       for (Runnable task : allTasks) {
@@ -604,9 +612,9 @@ public class AbstractFutureTest extends TestCase {
   // return true.
   public void testSetFutureCancelBash_withDoneFuture() {
     final CyclicBarrier barrier = new CyclicBarrier(
-        2  // for the setter threads
-        + 1 // for the blocking get thread,
-        + 1); // for the main thread
+      2    // for the setter threads
+      + 1   // for the blocking get thread,
+      + 1);   // for the main thread
     final ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
     final AtomicReference<AbstractFuture<String>> currentFuture = Atomics.newReference();
     final AtomicBoolean setFutureSuccess = new AtomicBoolean();
@@ -648,7 +656,8 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());  // sanity check
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() {
+      };
       currentFuture.set(future);
       for (Callable<?> task : allTasks) {
         @SuppressWarnings("unused") // go/futurereturn-lsc
@@ -716,7 +725,7 @@ public class AbstractFutureTest extends TestCase {
   private void checkStackTrace(ExecutionException e) {
     // Our call site for get() should be in the trace.
     int index = findStackFrame(
-            e, getClass().getName(), "getExpectingExecutionException");
+      e, getClass().getName(), "getExpectingExecutionException");
 
     assertThat(index).isNotEqualTo(0);
 
@@ -726,7 +735,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   private static int findStackFrame(
-      ExecutionException e, String clazz, String method) {
+    ExecutionException e, String clazz, String method) {
     StackTraceElement[] elements = e.getStackTrace();
     for (int i = 0; i < elements.length; i++) {
       StackTraceElement element = elements[i];
@@ -743,7 +752,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   private ExecutionException getExpectingExecutionException(
-      AbstractFuture<String> future) throws InterruptedException {
+    AbstractFuture<String> future) throws InterruptedException {
     try {
       String got = future.get();
       fail("Expected exception but got " + got);

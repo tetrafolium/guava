@@ -49,9 +49,9 @@ public class ForwardingListMultimapTest extends TestCase {
 
   private static <K, V> ListMultimap<K, V> wrap(final ListMultimap<K, V> delegate) {
     return new ForwardingListMultimap<K, V>() {
-      @Override protected ListMultimap<K, V> delegate() {
-        return delegate;
-      }
+             @Override protected ListMultimap<K, V> delegate() {
+               return delegate;
+             }
     };
   }
 }

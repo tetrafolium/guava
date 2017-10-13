@@ -62,7 +62,7 @@ public final class Suppliers {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof SupplierComposition) {
-        SupplierComposition<?, ?> that = (SupplierComposition<?, ?>) obj;
+        SupplierComposition<?, ?> that = (SupplierComposition<?, ?>)obj;
         return function.equals(that.function) && supplier.equals(that.supplier);
       }
       return false;
@@ -99,12 +99,12 @@ public final class Suppliers {
    */
   public static <T> Supplier<T> memoize(Supplier<T> delegate) {
     if (delegate instanceof NonSerializableMemoizingSupplier
-        || delegate instanceof MemoizingSupplier) {
+      || delegate instanceof MemoizingSupplier) {
       return delegate;
     }
     return delegate instanceof Serializable
-        ? new MemoizingSupplier<T>(delegate)
-        : new NonSerializableMemoizingSupplier<T>(delegate);
+           ? new MemoizingSupplier<T>(delegate)
+           : new NonSerializableMemoizingSupplier<T>(delegate);
   }
 
   @VisibleForTesting
@@ -201,7 +201,7 @@ public final class Suppliers {
    * @since 2.0
    */
   public static <T> Supplier<T> memoizeWithExpiration(
-      Supplier<T> delegate, long duration, TimeUnit unit) {
+    Supplier<T> delegate, long duration, TimeUnit unit) {
     return new ExpiringMemoizingSupplier<T>(delegate, duration, unit);
   }
 
@@ -277,7 +277,7 @@ public final class Suppliers {
     @Override
     public boolean equals(@Nullable Object obj) {
       if (obj instanceof SupplierOfInstance) {
-        SupplierOfInstance<?> that = (SupplierOfInstance<?>) obj;
+        SupplierOfInstance<?> that = (SupplierOfInstance<?>)obj;
         return Objects.equal(instance, that.instance);
       }
       return false;
@@ -336,7 +336,7 @@ public final class Suppliers {
    */
   public static <T> Function<Supplier<T>, T> supplierFunction() {
     @SuppressWarnings("unchecked") // implementation is "fully variant"
-    SupplierFunction<T> sf = (SupplierFunction<T>) SupplierFunctionImpl.INSTANCE;
+    SupplierFunction<T> sf = (SupplierFunction<T>)SupplierFunctionImpl.INSTANCE;
     return sf;
   }
 

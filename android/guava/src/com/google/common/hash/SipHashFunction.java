@@ -52,9 +52,9 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
    */
   SipHashFunction(int c, int d, long k0, long k1) {
     checkArgument(
-        c > 0, "The number of SipRound iterations (c=%s) during Compression must be positive.", c);
+      c > 0, "The number of SipRound iterations (c=%s) during Compression must be positive.", c);
     checkArgument(
-        d > 0, "The number of SipRound iterations (d=%s) during Finalization must be positive.", d);
+      d > 0, "The number of SipRound iterations (d=%s) during Finalization must be positive.", d);
     this.c = c;
     this.d = d;
     this.k0 = k0;
@@ -83,9 +83,9 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
     if (object instanceof SipHashFunction) {
       SipHashFunction other = (SipHashFunction) object;
       return (c == other.c)
-          && (d == other.d)
-          && (k0 == other.k0)
-          && (k1 == other.k1);
+             && (d == other.d)
+             && (k0 == other.k0)
+             && (k1 == other.k1);
     }
     return false;
   }

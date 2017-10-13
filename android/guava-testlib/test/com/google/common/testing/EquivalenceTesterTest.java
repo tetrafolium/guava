@@ -102,8 +102,8 @@ public class EquivalenceTesterTest extends TestCase {
       tester.addEquivalenceGroup(group1Item1, group1Item2).test();
     } catch (AssertionFailedError expected) {
       assertThat(expected.getMessage()).contains(
-          "TestObject{group=1, item=2} [group 1, item 2] must be equivalent to "
-          + "TestObject{group=1, item=1} [group 1, item 1]");
+        "TestObject{group=1, item=2} [group 1, item 2] must be equivalent to "
+        + "TestObject{group=1, item=1} [group 1, item 1]");
       return;
     }
     fail();
@@ -131,8 +131,8 @@ public class EquivalenceTesterTest extends TestCase {
       tester.addEquivalenceGroup(group1Item1, group1Item2, group1Item3).test();
     } catch (AssertionFailedError expected) {
       assertThat(expected.getMessage()).contains(
-          "TestObject{group=1, item=2} [group 1, item 2] must be equivalent to "
-          + "TestObject{group=1, item=3} [group 1, item 3]");
+        "TestObject{group=1, item=2} [group 1, item 2] must be equivalent to "
+        + "TestObject{group=1, item=3} [group 1, item 3]");
       return;
     }
     fail();
@@ -154,8 +154,8 @@ public class EquivalenceTesterTest extends TestCase {
       tester.addEquivalenceGroup(group1Item1).addEquivalenceGroup(group2Item1).test();
     } catch (AssertionFailedError expected) {
       assertThat(expected.getMessage()).contains(
-          "TestObject{group=1, item=1} [group 1, item 1] must not be equivalent to "
-          + "TestObject{group=2, item=1} [group 2, item 1]");
+        "TestObject{group=1, item=1} [group 1, item 1] must not be equivalent to "
+        + "TestObject{group=2, item=1} [group 2, item 1]");
       return;
     }
     fail();
@@ -199,15 +199,15 @@ public class EquivalenceTesterTest extends TestCase {
 
     @Override public String toString() {
       return MoreObjects.toStringHelper("TestObject")
-          .add("group", group)
-          .add("item", item)
-          .toString();
+             .add("group", group)
+             .add("item", item)
+             .toString();
     }
   }
 
   private static final class MockEquivalence extends Equivalence<Object> {
     final ImmutableTable.Builder<Object, Object, Boolean> equivalentExpectationsBuilder =
-        ImmutableTable.builder();
+      ImmutableTable.builder();
     final ImmutableMap.Builder<Object, Integer> hashExpectationsBuilder =
         ImmutableMap.builder();
     ImmutableTable<Object, Object, Boolean> equivalentExpectations;

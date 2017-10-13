@@ -493,7 +493,7 @@ abstract class JSR166TestCase extends TestCase {
   static void delay(long millis) throws InterruptedException {
     long startTime = System.nanoTime();
     long ns = millis * 1000 * 1000;
-    for (;;) {
+    for (;; ) {
       if (millis > 0L)
         Thread.sleep(millis);
       else // too short to sleep
@@ -696,18 +696,18 @@ abstract class JSR166TestCase extends TestCase {
    */
   public static Policy permissivePolicy() {
     return new AdjustablePolicy
-        // Permissions j.u.c. needs directly (
-        ew RuntimePermission("modifyThread"),
-        new RuntimePermission("getClassLoader"),
-        new RuntimePermission("setContextClassLoader"),
-        // Permissions needed to change permissions!
-        new SecurityPermission("getPolicy"),
-        new SecurityPermission("setPolicy"),
-        new RuntimePermission("setSecurityManager"),
-        // Permissions needed by the junit test harness
-        new RuntimePermission("accessDeclaredMembers"),
-        new PropertyPermission("*", "read"),
-        new java.io.FilePermission("<<ALL FILES>>", "read"));
+           // Permissions j.u.c. needs directly (
+           ew RuntimePermission("modifyThread"),
+           new RuntimePermission("getClassLoader"),
+           new RuntimePermission("setContextClassLoader"),
+           // Permissions needed to change permissions!
+           new SecurityPermission("getPolicy"),
+           new SecurityPermission("setPolicy"),
+           new RuntimePermission("setSecurityManager"),
+           // Permissions needed by the junit test harness
+           new RuntimePermission("accessDeclaredMembers"),
+           new PropertyPermission("*", "read"),
+           new java.io.FilePermission("<<ALL FILES>>", "read"));
   }
 
   /**
@@ -731,7 +731,7 @@ abstract class JSR166TestCase extends TestCase {
    */
   void waitForThreadToEnterWaitState(Thread thread, long timeoutMillis) {
     long startTime = System.nanoTime();
-    for (;;) {
+    for (;; ) {
       Thread.State s = thread.getState();
       if (s == Thread.State.BLOCKED ||
           s == Thread.State.WAITING ||
@@ -829,7 +829,7 @@ abstract class JSR166TestCase extends TestCase {
         realRun();
         threadShouldThrow(exceptionClass.getSimpleName());
       } catch (Throwable t) {
-        if (! exceptionClass.isInstance(t))
+        if (!exceptionClass.isInstance(t))
           threadUnexpectedException(t);
       }
     }
@@ -849,7 +849,7 @@ abstract class JSR166TestCase extends TestCase {
         realRun();
         threadShouldThrow(exceptionClass.getSimpleName());
       } catch (Throwable t) {
-        if (! exceptionClass.isInstance(t))
+        if (!exceptionClass.isInstance(t))
           threadUnexpectedException(t);
       }
     }
@@ -917,20 +917,20 @@ abstract class JSR166TestCase extends TestCase {
 
   public Callable<String> latchAwaitingStringTask(final CountDownLatch latch) {
     return new CheckedCallable<String>() {
-      protected String realCall() {
-        try {
-          latch.await();
-        } catch (InterruptedException quittingTime) {}
-        return TEST_STRING;
-      }
+             protected String realCall() {
+               try {
+                 latch.await();
+               } catch (InterruptedException quittingTime) {}
+               return TEST_STRING;
+             }
     };
   }
 
   public Runnable awaiter(final CountDownLatch latch) {
     return new CheckedRunnable() {
-      public void realRun() throws InterruptedException {
-        await(latch);
-      }
+             public void realRun() throws InterruptedException {
+               await(latch);
+             }
     };
   }
 
@@ -1024,11 +1024,11 @@ abstract class JSR166TestCase extends TestCase {
 
   public Runnable possiblyInterruptedRunnable(final long timeoutMillis) {
     return new CheckedRunnable() {
-      protected void realRun() {
-        try {
-          delay(timeoutMillis);
-        } catch (InterruptedException ok) {}
-      }
+             protected void realRun() {
+               try {
+                 delay(timeoutMillis);
+               } catch (InterruptedException ok) {}
+             }
     };
   }
 
@@ -1063,14 +1063,14 @@ abstract class JSR166TestCase extends TestCase {
 
   public static TrackedRunnable trackedRunnable(final long timeoutMillis) {
     return new TrackedRunnable() {
-      private volatile boolean done = false;
-      public boolean isDone() { return done; }
-      public void run() {
-        try {
-          delay(timeoutMillis);
-          done = true;
-        } catch (InterruptedException ok) {}
-      }
+             private volatile boolean done = false;
+             public boolean isDone() { return done; }
+             public void run() {
+               try {
+                 delay(timeoutMillis);
+                 done = true;
+               } catch (InterruptedException ok) {}
+             }
     };
   }
 
@@ -1228,7 +1228,7 @@ abstract class JSR166TestCase extends TestCase {
       oos.flush();
       oos.close();
       ObjectInputStream ois = new ObjectInputStream (
-          ew ByteArrayInputStream(bos.toByteArray()));
+        ew ByteArrayInputStream(bos.toByteArray()));
       T clone = (T) ois.readObject();
       assertSame(o.getClass(), clone.getClass());
       return clone;

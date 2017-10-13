@@ -49,7 +49,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   private int selfLoopCount;
 
   protected AbstractDirectedNetworkConnections(
-      Map<E, N> inEdgeMap, Map<E, N> outEdgeMap, int selfLoopCount) {
+    Map<E, N> inEdgeMap, Map<E, N> outEdgeMap, int selfLoopCount) {
     this.inEdgeMap = checkNotNull(inEdgeMap);
     this.outEdgeMap = checkNotNull(outEdgeMap);
     this.selfLoopCount = checkNonNegative(selfLoopCount);
@@ -64,24 +64,24 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   @Override
   public Set<E> incidentEdges() {
     return new AbstractSet<E>() {
-      @Override
-      public UnmodifiableIterator<E> iterator() {
-        Iterable<E> incidentEdges =
-            (selfLoopCount == 0)
-            ? Iterables.concat(inEdgeMap.keySet(), outEdgeMap.keySet())
-            : Sets.union(inEdgeMap.keySet(), outEdgeMap.keySet());
-        return Iterators.unmodifiableIterator(incidentEdges.iterator());
-      }
+             @Override
+             public UnmodifiableIterator<E> iterator() {
+               Iterable<E> incidentEdges =
+                   (selfLoopCount == 0)
+                   ? Iterables.concat(inEdgeMap.keySet(), outEdgeMap.keySet())
+                   : Sets.union(inEdgeMap.keySet(), outEdgeMap.keySet());
+               return Iterators.unmodifiableIterator(incidentEdges.iterator());
+             }
 
-      @Override
-      public int size() {
-        return IntMath.saturatedAdd(inEdgeMap.size(), outEdgeMap.size() - selfLoopCount);
-      }
+             @Override
+             public int size() {
+               return IntMath.saturatedAdd(inEdgeMap.size(), outEdgeMap.size() - selfLoopCount);
+             }
 
-      @Override
-      public boolean contains(@Nullable Object obj) {
-        return inEdgeMap.containsKey(obj) || outEdgeMap.containsKey(obj);
-      }
+             @Override
+             public boolean contains(@Nullable Object obj) {
+               return inEdgeMap.containsKey(obj) || outEdgeMap.containsKey(obj);
+             }
     };
   }
 

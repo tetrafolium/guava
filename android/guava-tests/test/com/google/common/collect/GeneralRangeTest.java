@@ -95,7 +95,7 @@ public class GeneralRangeTest extends TestCase {
       GeneralRange<Integer> range = GeneralRange.downTo(ORDERING, 3, lBoundType);
       for (Integer i : IN_ORDER_VALUES) {
         assertEquals(ORDERING.compare(i, 3) > 0
-            || (ORDERING.compare(i, 3) == 0 && lBoundType == CLOSED), range.contains(i));
+              || (ORDERING.compare(i, 3) == 0 && lBoundType == CLOSED), range.contains(i));
         assertEquals(ORDERING.compare(i, 3) < 0
             || (ORDERING.compare(i, 3) == 0 && lBoundType == OPEN), range.tooLow(i));
         assertFalse(range.tooHigh(i));
@@ -108,7 +108,7 @@ public class GeneralRangeTest extends TestCase {
       GeneralRange<Integer> range = GeneralRange.upTo(ORDERING, 3, lBoundType);
       for (Integer i : IN_ORDER_VALUES) {
         assertEquals(ORDERING.compare(i, 3) < 0
-            || (ORDERING.compare(i, 3) == 0 && lBoundType == CLOSED), range.contains(i));
+              || (ORDERING.compare(i, 3) == 0 && lBoundType == CLOSED), range.contains(i));
         assertEquals(ORDERING.compare(i, 3) > 0
             || (ORDERING.compare(i, 3) == 0 && lBoundType == OPEN), range.tooHigh(i));
         assertFalse(range.tooLow(i));
@@ -174,7 +174,7 @@ public class GeneralRangeTest extends TestCase {
   public void testFromRangeOneEnd() {
     for (BoundType endpointType : BoundType.values()) {
       assertEquals(GeneralRange.upTo(Ordering.natural(), 3, endpointType),
-          GeneralRange.from(Range.upTo(3, endpointType)));
+            GeneralRange.from(Range.upTo(3, endpointType)));
 
       assertEquals(GeneralRange.downTo(Ordering.natural(), 3, endpointType),
           GeneralRange.from(Range.downTo(3, endpointType)));

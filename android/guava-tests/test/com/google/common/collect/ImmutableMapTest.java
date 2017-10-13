@@ -71,82 +71,82 @@ public class ImmutableMapTest extends TestCase {
 
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableMapGenerator())
         .withFeatures(
-            CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
-            CollectionFeature.KNOWN_ORDER,
-            MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+          CollectionSize.ANY,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
+          CollectionFeature.KNOWN_ORDER,
+          MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap")
         .createTestSuite());
 
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableMapCopyOfGenerator())
         .withFeatures(
-            CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+          CollectionSize.ANY,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap.copyOf[Map]")
         .createTestSuite());
 
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableMapCopyOfEntriesGenerator())
         .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+          CollectionSize.ANY,
+          MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap.copyOf[Iterable<Entry>]")
         .createTestSuite());
 
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableMapCopyOfEnumMapGenerator())
         .withFeatures(
-            CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+          CollectionSize.ANY,
+          CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap.copyOf[EnumMap]")
         .createTestSuite());
 
     suite.addTest(MapTestSuiteBuilder.using(new ImmutableMapValuesAsSingletonSetGenerator())
         .withFeatures(
-            CollectionSize.ANY,
-            MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+          CollectionSize.ANY,
+          MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap.asMultimap.asMap")
         .createTestSuite());
 
     suite.addTest(CollectionTestSuiteBuilder.using(
-            new ImmutableMapUnhashableValuesGenerator())
+          new ImmutableMapUnhashableValuesGenerator())
         .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .named("ImmutableMap.values, unhashable")
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableMapKeyListGenerator())
+          new ImmutableMapKeyListGenerator())
         .named("ImmutableMap.keySet.asList")
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableMapEntryListGenerator())
+          new ImmutableMapEntryListGenerator())
         .named("ImmutableMap.entrySet.asList")
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableMapValueListGenerator())
+          new ImmutableMapValueListGenerator())
         .named("ImmutableMap.values.asList")
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.ALLOWS_NULL_QUERIES)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.ALLOWS_NULL_QUERIES)
         .createTestSuite());
 
     return suite;
@@ -168,7 +168,7 @@ public class ImmutableMapTest extends TestCase {
       // TODO: can these be moved to MapInterfaceTest?
       for (Entry<K, V> entry : map.entrySet()) {
         assertEquals(entry.getKey() + "=" + entry.getValue(),
-            entry.toString());
+              entry.toString());
       }
 
       assertEquals("{" + joiner.join(map.entrySet()) + "}",
@@ -222,7 +222,7 @@ public class ImmutableMapTest extends TestCase {
   public static class ReserializedMapTests extends AbstractMapTests<String, Integer> {
     @Override protected Map<String, Integer> makePopulatedMap() {
       return SerializableTester.reserialize(
-              ImmutableMap.of("one", 1, "two", 2, "three", 3));
+        ImmutableMap.of("one", 1, "two", 2, "three", 3));
     }
 
     @Override protected String getKeyNotInPopulatedMap() {
@@ -244,10 +244,10 @@ public class ImmutableMapTest extends TestCase {
     @Override protected Map<Object, Integer> makePopulatedMap() {
       Colliders colliders = new Colliders();
       return ImmutableMap.of(
-              colliders.e0(), 0,
-              colliders.e1(), 1,
-              colliders.e2(), 2,
-              colliders.e3(), 3);
+        colliders.e0(), 0,
+        colliders.e1(), 1,
+        colliders.e2(), 2,
+        colliders.e3(), 3);
     }
 
     @Override protected Object getKeyNotInPopulatedMap() {
@@ -269,7 +269,7 @@ public class ImmutableMapTest extends TestCase {
     @Override protected Map<Integer, UnhashableObject> makePopulatedMap() {
       Unhashables unhashables = new Unhashables();
       return ImmutableMap.of(
-              0, unhashables.e0(), 1, unhashables.e1(), 2, unhashables.e2());
+        0, unhashables.e0(), 1, unhashables.e1(), 2, unhashables.e2());
     }
 
     @Override protected Integer getKeyNotInPopulatedMap() {
@@ -298,19 +298,19 @@ public class ImmutableMapTest extends TestCase {
 
     public void testSingletonBuilder() {
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .put("one", 1)
-      .build();
+          .put("one", 1)
+          .build();
       assertMapEquals(map, "one", 1);
     }
 
     public void testBuilder() {
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .put("one", 1)
-      .put("two", 2)
-      .put("three", 3)
-      .put("four", 4)
-      .put("five", 5)
-      .build();
+          .put("one", 1)
+          .put("two", 2)
+          .put("three", 3)
+          .put("four", 4)
+          .put("five", 5)
+          .build();
       assertMapEquals(map,
           "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
     }
@@ -324,7 +324,7 @@ public class ImmutableMapTest extends TestCase {
       }
       Object[] builderArrayAfterPuts = builder.alternatingKeysAndValues;
       RegularImmutableMap<Integer, Integer> map =
-          (RegularImmutableMap<Integer, Integer>) builder.build();
+          (RegularImmutableMap<Integer, Integer>)builder.build();
       Object[] mapInternalArray = map.alternatingKeysAndValues;
       assertSame(builderArray, builderArrayAfterPuts);
       assertSame(builderArray, mapInternalArray);
@@ -332,21 +332,21 @@ public class ImmutableMapTest extends TestCase {
 
     public void testBuilder_orderEntriesByValue() {
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .orderEntriesByValue(Ordering.natural())
-      .put("three", 3)
-      .put("one", 1)
-      .put("five", 5)
-      .put("four", 4)
-      .put("two", 2)
-      .build();
+          .orderEntriesByValue(Ordering.natural())
+          .put("three", 3)
+          .put("one", 1)
+          .put("five", 5)
+          .put("four", 4)
+          .put("two", 2)
+          .build();
       assertMapEquals(map,
           "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
     }
 
     public void testBuilder_orderEntriesByValueAfterExactSizeBuild() {
       Builder<String, Integer> builder = new Builder<String, Integer>(2)
-      .put("four", 4)
-      .put("one", 1);
+          .put("four", 4)
+          .put("one", 1);
       ImmutableMap<String, Integer> keyOrdered = builder.build();
       ImmutableMap<String, Integer> valueOrdered =
           builder.orderEntriesByValue(Ordering.natural()).build();
@@ -356,7 +356,7 @@ public class ImmutableMapTest extends TestCase {
 
     public void testBuilder_orderEntriesByValue_usedTwiceFails() {
       ImmutableMap.Builder<String, Integer> builder = new Builder<String, Integer>()
-      .orderEntriesByValue(Ordering.natural());
+          .orderEntriesByValue(Ordering.natural());
       try {
         builder.orderEntriesByValue(Ordering.natural());
         fail("Expected IllegalStateException");
@@ -365,8 +365,8 @@ public class ImmutableMapTest extends TestCase {
 
     public void testBuilder_withImmutableEntry() {
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .put(Maps.immutableEntry("one", 1))
-      .build();
+          .put(Maps.immutableEntry("one", 1))
+          .build();
       assertMapEquals(map, "one", 1);
     }
 
@@ -408,8 +408,8 @@ public class ImmutableMapTest extends TestCase {
 
     public void testBuilderPutAllWithEmptyMap() {
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .putAll(Collections.<String, Integer>emptyMap())
-      .build();
+          .putAll(Collections.<String, Integer>emptyMap())
+          .build();
       assertEquals(Collections.<String, Integer>emptyMap(), map);
     }
 
@@ -423,9 +423,9 @@ public class ImmutableMapTest extends TestCase {
       moreToPut.put("five", 5);
 
       ImmutableMap<String, Integer> map = new Builder<String, Integer>()
-      .putAll(toPut)
-      .putAll(moreToPut)
-      .build();
+          .putAll(toPut)
+          .putAll(moreToPut)
+          .build();
       assertMapEquals(map,
           "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
     }
@@ -534,8 +534,8 @@ public class ImmutableMapTest extends TestCase {
 
     public void testPuttingTheSameKeyTwiceThrowsOnBuild() {
       Builder<String, Integer> builder = new Builder<String, Integer>()
-      .put("one", 1)
-      .put("one", 1); // throwing on this line would be even better
+          .put("one", 1)
+          .put("one", 1); // throwing on this line would be even better
 
       try {
         builder.build();
@@ -546,20 +546,20 @@ public class ImmutableMapTest extends TestCase {
 
     public void testOf() {
       assertMapEquals(
-          ImmutableMap.of("one", 1),
-          "one", 1);
+        ImmutableMap.of("one", 1),
+        "one", 1);
       assertMapEquals(
-          ImmutableMap.of("one", 1, "two", 2),
-          "one", 1, "two", 2);
+        ImmutableMap.of("one", 1, "two", 2),
+        "one", 1, "two", 2);
       assertMapEquals(
-          ImmutableMap.of("one", 1, "two", 2, "three", 3),
-          "one", 1, "two", 2, "three", 3);
+        ImmutableMap.of("one", 1, "two", 2, "three", 3),
+        "one", 1, "two", 2, "three", 3);
       assertMapEquals(
-          ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4),
-          "one", 1, "two", 2, "three", 3, "four", 4);
+        ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4),
+        "one", 1, "two", 2, "three", 3, "four", 4);
       assertMapEquals(
-          ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4, "five", 5),
-          "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
+        ImmutableMap.of("one", 1, "two", 2, "three", 3, "four", 4, "five", 5),
+        "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
     }
 
     public void testOfNullKey() {
@@ -631,9 +631,9 @@ public class ImmutableMapTest extends TestCase {
 
   public void testAsMultimap() {
     ImmutableMap<String, Integer> map = ImmutableMap.of(
-            "one", 1, "won", 1, "two", 2, "too", 2, "three", 3);
+      "one", 1, "won", 1, "two", 2, "too", 2, "three", 3);
     ImmutableSetMultimap<String, Integer> expected = ImmutableSetMultimap.of(
-            "one", 1, "won", 1, "two", 2, "too", 2, "three", 3);
+      "one", 1, "won", 1, "two", 2, "too", 2, "three", 3);
     assertEquals(expected, map.asMultimap());
   }
 
@@ -656,11 +656,11 @@ public class ImmutableMapTest extends TestCase {
     NullPointerTester tester = new NullPointerTester();
     tester.testAllPublicStaticMethods(ImmutableMap.class);
     tester.testAllPublicInstanceMethods(
-        new ImmutableMap.Builder<Object, Object>());
+      new ImmutableMap.Builder<Object, Object>());
     tester.testAllPublicInstanceMethods(ImmutableMap.of());
     tester.testAllPublicInstanceMethods(ImmutableMap.of("one", 1));
     tester.testAllPublicInstanceMethods(
-        ImmutableMap.of("one", 1, "two", 2, "three", 3));
+      ImmutableMap.of("one", 1, "two", 2, "three", 3));
   }
 
   private static <K, V> void assertMapEquals(Map<K, V> map,
@@ -697,7 +697,7 @@ public class ImmutableMapTest extends TestCase {
     Map<String, IntHolder> map = ImmutableMap.of("a", holderA, "b", holderB);
     holderA.value = 3;
     assertTrue(map.entrySet().contains(
-            Maps.immutableEntry("a", new IntHolder(3))));
+          Maps.immutableEntry("a", new IntHolder(3))));
     Map<String, Integer> intMap = ImmutableMap.of("a", 3, "b", 2);
     assertEquals(intMap.hashCode(), map.entrySet().hashCode());
     assertEquals(intMap.hashCode(), map.hashCode());

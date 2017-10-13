@@ -49,9 +49,9 @@ public class ForwardingSetMultimapTest extends TestCase {
 
   private static <K, V> SetMultimap<K, V> wrap(final SetMultimap<K, V> delegate) {
     return new ForwardingSetMultimap<K, V>() {
-      @Override protected SetMultimap<K, V> delegate() {
-        return delegate;
-      }
+             @Override protected SetMultimap<K, V> delegate() {
+               return delegate;
+             }
     };
   }
 }

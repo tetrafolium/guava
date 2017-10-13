@@ -51,11 +51,11 @@ public class NavigableMapNavigationTester<K, V> extends AbstractMapTester<K, V> 
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    navigableMap = (NavigableMap<K, V>) getMap();
+    navigableMap = (NavigableMap<K, V>)getMap();
     entries =
         Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+      getSubjectGenerator()
+      .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(entries, Helpers.<K, V>entryComparator(navigableMap.comparator()));
 
     // some tests assume SEVERAL == 3
@@ -76,7 +76,7 @@ public class NavigableMapNavigationTester<K, V> extends AbstractMapTester<K, V> 
   private void resetWithHole() {
     Entry<K, V>[] entries = new Entry[] {a, c};
     super.resetMap(entries);
-    navigableMap = (NavigableMap<K, V>) getMap();
+    navigableMap = (NavigableMap<K, V>)getMap();
   }
 
   @CollectionSize.Require(ZERO)
@@ -224,7 +224,7 @@ public class NavigableMapNavigationTester<K, V> extends AbstractMapTester<K, V> 
   public void testPollLast() {
     assertEquals(c, navigableMap.pollLastEntry());
     assertEquals(
-        entries.subList(0, entries.size() - 1), Helpers.copyToList(navigableMap.entrySet()));
+      entries.subList(0, entries.size() - 1), Helpers.copyToList(navigableMap.entrySet()));
   }
 
   @MapFeature.Require(absent = SUPPORTS_REMOVE)

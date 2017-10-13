@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 public class MinimalCollectionTest extends TestCase {
   public static Test suite() {
     return CollectionTestSuiteBuilder
-    .using(new TestStringCollectionGenerator() {
+           .using(new TestStringCollectionGenerator() {
       @Override public Collection<String> create(String[] elements) {
         // TODO: MinimalCollection should perhaps throw
         for (Object element : elements) {
@@ -41,10 +41,10 @@ public class MinimalCollectionTest extends TestCase {
         return MinimalCollection.of(elements);
       }
     })
-    .named("MinimalCollection")
-    .withFeatures(
-        CollectionFeature.NONE,
-        CollectionSize.ANY)
-    .createTestSuite();
+           .named("MinimalCollection")
+           .withFeatures(
+      CollectionFeature.NONE,
+      CollectionSize.ANY)
+           .createTestSuite();
   }
 }

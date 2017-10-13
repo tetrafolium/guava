@@ -40,20 +40,20 @@ public abstract class AbstractExecutionThreadService implements Service {
 
   /* use AbstractService for state management */
   private final Service delegate =
-  new AbstractService() {
+      new AbstractService() {
     @Override
     protected final void doStart() {
       Executor executor =
-          MoreExecutors.renamingDecorator(
-              executor(),
-      new Supplier<String>() {
+      MoreExecutors.renamingDecorator(
+        executor(),
+        new Supplier<String>() {
         @Override
         public String get() {
           return serviceName();
         }
       });
       executor.execute(
-      new Runnable() {
+        new Runnable() {
         @Override
         public void run() {
           try {
@@ -72,9 +72,9 @@ public abstract class AbstractExecutionThreadService implements Service {
                   // candidate for a suppressed exception, or maybe we could generalize
                   // Closer.Suppressor
                   logger.log(
-                      Level.WARNING,
-                      "Error while attempting to shut down the service after failure.",
-                      ignored);
+                    Level.WARNING,
+                    "Error while attempting to shut down the service after failure.",
+                    ignored);
                 }
                 notifyFailed(t);
                 return;
@@ -157,10 +157,10 @@ public abstract class AbstractExecutionThreadService implements Service {
    */
   protected Executor executor() {
     return new Executor() {
-      @Override
-      public void execute(Runnable command) {
-        MoreExecutors.newThread(serviceName(), command).start();
-      }
+             @Override
+             public void execute(Runnable command) {
+               MoreExecutors.newThread(serviceName(), command).start();
+             }
     };
   }
 

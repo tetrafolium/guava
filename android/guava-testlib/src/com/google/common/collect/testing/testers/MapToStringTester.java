@@ -74,7 +74,7 @@ public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_formatting() {
     assertEquals(
-        "map.toString() incorrect", expectedToString(getMap().entrySet()), getMap().toString());
+      "map.toString() incorrect", expectedToString(getMap().entrySet()), getMap().toString());
   }
 
   private String expectedToString(Set<Entry<K, V>> entries) {

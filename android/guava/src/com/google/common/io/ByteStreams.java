@@ -592,7 +592,7 @@ public final class ByteStreams {
   }
 
   private static final OutputStream NULL_OUTPUT_STREAM =
-  new OutputStream() {
+      new OutputStream() {
     /** Discards the specified byte. */
     @Override
     public void write(int b) {}
@@ -738,7 +738,7 @@ public final class ByteStreams {
     int read = read(in, b, off, len);
     if (read != len) {
       throw new EOFException(
-          "reached end of stream after reading " + read + " bytes; " + len + " bytes expected");
+              "reached end of stream after reading " + read + " bytes; " + len + " bytes expected");
     }
   }
 
@@ -755,7 +755,7 @@ public final class ByteStreams {
     long skipped = skipUpTo(in, n);
     if (skipped < n) {
       throw new EOFException(
-          "reached end of stream after skipping " + skipped + " bytes; " + n + " bytes expected");
+              "reached end of stream after skipping " + skipped + " bytes; " + n + " bytes expected");
     }
   }
 

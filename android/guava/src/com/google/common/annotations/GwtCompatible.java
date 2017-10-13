@@ -72,7 +72,7 @@ public @interface GwtCompatible {
    *     "http://code.google.com/webtoolkit/doc/latest/DevGuideServerCommunication.html#DevGuideSerializableTypes">
    *     Documentation about GWT serialization</a>
    */
-boolean serializable() default false;
+  boolean serializable() default false;
 
   /**
    * When {@code true}, the annotated type is emulated in GWT. The emulated source (also known as
@@ -82,5 +82,5 @@ boolean serializable() default false;
    *     "http://code.google.com/webtoolkit/doc/latest/DevGuideOrganizingProjects.html#DevGuideModules">
    *     Documentation about GWT emulated source</a>
    */
-boolean emulated() default false;
+  boolean emulated() default false;
 }

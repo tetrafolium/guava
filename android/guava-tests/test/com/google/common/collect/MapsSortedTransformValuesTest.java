@@ -32,7 +32,7 @@ public class MapsSortedTransformValuesTest extends MapsTransformValuesTest {
   @Override
   protected SortedMap<String, String> makeEmptyMap() {
     return Maps.transformValues(Maps.<String, String>newTreeMap(),
-            Functions.<String>identity());
+               Functions.<String>identity());
   }
 
   @Override

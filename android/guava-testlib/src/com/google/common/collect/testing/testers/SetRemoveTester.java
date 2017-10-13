@@ -37,7 +37,7 @@ public class SetRemoveTester<E> extends AbstractSetTester<E> {
   public void testRemove_present() {
     getSet().remove(e0());
     assertFalse(
-        "After remove(present) a set should not contain the removed element.",
-        getSet().contains(e0()));
+      "After remove(present) a set should not contain the removed element.",
+      getSet().contains(e0()));
   }
 }

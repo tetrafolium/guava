@@ -183,7 +183,7 @@ public abstract class AbstractNetworkTest {
         assertThat(network.nodes()).contains(incidentNode);
         for (E adjacentEdge : network.incidentEdges(incidentNode)) {
           assertTrue(
-              edge.equals(adjacentEdge) || network.adjacentEdges(edge).contains(adjacentEdge));
+            edge.equals(adjacentEdge) || network.adjacentEdges(edge).contains(adjacentEdge));
         }
       }
     }
@@ -258,11 +258,11 @@ public abstract class AbstractNetworkTest {
 
       for (N adjacentNode : sanityCheckSet(network.adjacentNodes(node))) {
         assertTrue(
-            network.predecessors(node).contains(adjacentNode)
-            || network.successors(node).contains(adjacentNode));
+          network.predecessors(node).contains(adjacentNode)
+          || network.successors(node).contains(adjacentNode));
         assertTrue(
-            !network.edgesConnecting(node, adjacentNode).isEmpty()
-            || !network.edgesConnecting(adjacentNode, node).isEmpty());
+          !network.edgesConnecting(node, adjacentNode).isEmpty()
+          || !network.edgesConnecting(adjacentNode, node).isEmpty());
       }
 
       for (N predecessor : sanityCheckSet(network.predecessors(node))) {
@@ -277,8 +277,8 @@ public abstract class AbstractNetworkTest {
 
       for (E incidentEdge : sanityCheckSet(network.incidentEdges(node))) {
         assertTrue(
-            network.inEdges(node).contains(incidentEdge)
-            || network.outEdges(node).contains(incidentEdge));
+          network.inEdges(node).contains(incidentEdge)
+          || network.outEdges(node).contains(incidentEdge));
         assertThat(network.edges()).contains(incidentEdge);
         assertThat(network.incidentNodes(incidentEdge)).contains(node);
       }

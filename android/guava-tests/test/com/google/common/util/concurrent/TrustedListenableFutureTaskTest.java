@@ -66,7 +66,7 @@ public class TrustedListenableFutureTaskTest extends TestCase {
   public void testFailed() throws Exception {
     final Exception e = new Exception();
     TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-    new Callable<Integer>() {
+      new Callable<Integer>() {
       @Override public Integer call() throws Exception {
         throw e;
       }
@@ -89,7 +89,7 @@ public class TrustedListenableFutureTaskTest extends TestCase {
     final CountDownLatch enterLatch = new CountDownLatch(1);
     final CountDownLatch exitLatch = new CountDownLatch(1);
     final TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-    new Callable<Integer>() {
+      new Callable<Integer>() {
       @Override public Integer call() throws Exception {
         enterLatch.countDown();
         try {
@@ -136,7 +136,7 @@ public class TrustedListenableFutureTaskTest extends TestCase {
     for (int i = 0; i < 1000; i++) {
       final AtomicInteger counter = new AtomicInteger();
       final TrustedListenableFutureTask<Integer> task = TrustedListenableFutureTask.create(
-      new Callable<Integer>() {
+        new Callable<Integer>() {
         @Override public Integer call() {
           return counter.incrementAndGet();
         }

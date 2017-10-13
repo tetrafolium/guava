@@ -48,11 +48,11 @@ final class UndirectedNetworkConnections<N, E> extends AbstractUndirectedNetwork
 
   @Override
   public Set<N> adjacentNodes() {
-    return Collections.unmodifiableSet(((BiMap<E, N>) incidentEdgeMap).values());
+    return Collections.unmodifiableSet(((BiMap<E, N>)incidentEdgeMap).values());
   }
 
   @Override
   public Set<E> edgesConnecting(N node) {
-    return new EdgesConnecting<E>(((BiMap<E, N>) incidentEdgeMap).inverse(), node);
+    return new EdgesConnecting<E>(((BiMap<E, N>)incidentEdgeMap).inverse(), node);
   }
 }

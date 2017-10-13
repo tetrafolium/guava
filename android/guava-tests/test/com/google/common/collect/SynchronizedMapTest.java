@@ -181,21 +181,21 @@ public class SynchronizedMapTest extends TestCase {
     Map<String, Integer> map = create();
     Set<String> keySet = map.keySet();
     assertTrue(keySet instanceof SynchronizedSet);
-    assertSame(mutex, ((SynchronizedSet<?>) keySet).mutex);
+    assertSame(mutex, ((SynchronizedSet<?>)keySet).mutex);
   }
 
   public void testValues() {
     Map<String, Integer> map = create();
     Collection<Integer> values = map.values();
     assertTrue(values instanceof SynchronizedCollection);
-    assertSame(mutex, ((SynchronizedCollection<?>) values).mutex);
+    assertSame(mutex, ((SynchronizedCollection<?>)values).mutex);
   }
 
   public void testEntrySet() {
     Map<String, Integer> map = create();
     Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
     assertTrue(entrySet instanceof SynchronizedSet);
-    assertSame(mutex, ((SynchronizedSet<?>) entrySet).mutex);
+    assertSame(mutex, ((SynchronizedSet<?>)entrySet).mutex);
   }
 
   public void testEquals() {

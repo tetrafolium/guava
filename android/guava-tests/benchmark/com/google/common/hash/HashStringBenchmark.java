@@ -120,9 +120,9 @@ public class HashStringBenchmark {
     for (int i = 0; i < reps; i++) {
       res +=
           System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .hashString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8));
+        hashFunctionEnum
+        .getHashFunction()
+        .hashString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8));
     }
     return res;
   }
@@ -133,11 +133,11 @@ public class HashStringBenchmark {
     for (int i = 0; i < reps; i++) {
       res +=
           System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .newHasher()
-              .putString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8)
-              .hash());
+        hashFunctionEnum
+        .getHashFunction()
+        .newHasher()
+        .putString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8)
+        .hash());
     }
     return res;
   }
@@ -148,9 +148,9 @@ public class HashStringBenchmark {
     for (int i = 0; i < reps; i++) {
       res +=
           System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .hashBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8)));
+        hashFunctionEnum
+        .getHashFunction()
+        .hashBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8)));
     }
     return res;
   }
@@ -161,11 +161,11 @@ public class HashStringBenchmark {
     for (int i = 0; i < reps; i++) {
       res +=
           System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .newHasher()
-              .putBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8))
-              .hash());
+        hashFunctionEnum
+        .getHashFunction()
+        .newHasher()
+        .putBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8))
+        .hash());
     }
     return res;
   }

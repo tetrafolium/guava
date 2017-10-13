@@ -118,7 +118,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
    * and initially containing the given elements.
    */
   public static <E extends Comparable<E>> MinMaxPriorityQueue<E> create(
-      Iterable<? extends E> initialContents) {
+    Iterable<? extends E> initialContents) {
     return new Builder<E>(Ordering.<E>natural()).create(initialContents);
   }
 
@@ -219,7 +219,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
     public <T extends B> MinMaxPriorityQueue<T> create(Iterable<? extends T> initialContents) {
       MinMaxPriorityQueue<T> queue =
           new MinMaxPriorityQueue<T>(
-          this, initialQueueSize(expectedSize, maximumSize, initialContents));
+        this, initialQueueSize(expectedSize, maximumSize, initialContents));
       for (T element : initialContents) {
         queue.offer(element);
       }
@@ -228,7 +228,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 
     @SuppressWarnings("unchecked") // safe "contravariant cast"
     private <T extends B> Ordering<T> ordering() {
-      return Ordering.from((Comparator<T>) comparator);
+      return Ordering.from((Comparator<T>)comparator);
     }
   }
 
@@ -324,9 +324,9 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
    */
   private int getMaxElementIndex() {
     switch (size) {
-    case 1:
+    case 1 :
       return 0; // The lone element in the queue is the maximum.
-    case 2:
+    case 2 :
       return 1; // The lone element in the maxHeap is the maximum.
     default:
       // The max element must sit on the first level of the maxHeap. It is
@@ -794,7 +794,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
       checkModCount();
       nextNotInSkipMe(cursor + 1);
       return (nextCursor < size())
-          || ((forgetMeNot != null) && !forgetMeNot.isEmpty());
+             || ((forgetMeNot != null) && !forgetMeNot.isEmpty());
     }
 
     @Override
@@ -846,7 +846,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 
     /** Returns true if an exact reference (==) was found and removed from the supplied iterable. */
     private boolean foundAndRemovedExactReference(Iterable<E> elements, E target) {
-      for (Iterator<E> it = elements.iterator(); it.hasNext();) {
+      for (Iterator<E> it = elements.iterator(); it.hasNext(); ) {
         E element = it.next();
         if (element == target) {
           it.remove();
@@ -951,7 +951,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 
   @VisibleForTesting
   static int initialQueueSize(
-      int configuredExpectedSize, int maximumSize, Iterable<?> initialContents) {
+    int configuredExpectedSize, int maximumSize, Iterable<?> initialContents) {
     // Start with what they said, if they said it, otherwise DEFAULT_CAPACITY
     int result =
         (configuredExpectedSize == Builder.UNSET_EXPECTED_SIZE)
@@ -960,7 +960,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 
     // Enlarge to contain initial contents
     if (initialContents instanceof Collection) {
-      int initialSize = ((Collection<?>) initialContents).size();
+      int initialSize = ((Collection<?>)initialContents).size();
       result = Math.max(result, initialSize);
     }
 

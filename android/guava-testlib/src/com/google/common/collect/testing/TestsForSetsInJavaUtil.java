@@ -129,117 +129,117 @@ public class TestsForSetsInJavaUtil {
 
   public Test testsForEmptySet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         return Collections.emptySet();
       }
     })
-    .named("emptySet")
-    .withFeatures(CollectionFeature.SERIALIZABLE, CollectionSize.ZERO)
-    .suppressing(suppressForEmptySet())
-    .createTestSuite();
+           .named("emptySet")
+           .withFeatures(CollectionFeature.SERIALIZABLE, CollectionSize.ZERO)
+           .suppressing(suppressForEmptySet())
+           .createTestSuite();
   }
 
   public Test testsForSingletonSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         return Collections.singleton(elements[0]);
       }
     })
-    .named("singleton")
-    .withFeatures(
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionSize.ONE)
-    .suppressing(suppressForSingletonSet())
-    .createTestSuite();
+           .named("singleton")
+           .withFeatures(
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionSize.ONE)
+           .suppressing(suppressForSingletonSet())
+           .createTestSuite();
   }
 
   public Test testsForHashSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         return new HashSet<>(MinimalCollection.of(elements));
       }
     })
-    .named("HashSet")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionSize.ANY)
-    .suppressing(suppressForHashSet())
-    .createTestSuite();
+           .named("HashSet")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+      CollectionSize.ANY)
+           .suppressing(suppressForHashSet())
+           .createTestSuite();
   }
 
   public Test testsForLinkedHashSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         return new LinkedHashSet<>(MinimalCollection.of(elements));
       }
     })
-    .named("LinkedHashSet")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionSize.ANY)
-    .suppressing(suppressForLinkedHashSet())
-    .createTestSuite();
+           .named("LinkedHashSet")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+      CollectionSize.ANY)
+           .suppressing(suppressForLinkedHashSet())
+           .createTestSuite();
   }
 
   public Test testsForEnumSet() {
     return SetTestSuiteBuilder.using(
-    new TestEnumSetGenerator() {
+      new TestEnumSetGenerator() {
       @Override
       public Set<AnEnum> create(AnEnum[] elements) {
         return (elements.length == 0)
-            ? EnumSet.noneOf(AnEnum.class)
-            : EnumSet.copyOf(MinimalCollection.of(elements));
+        ? EnumSet.noneOf(AnEnum.class)
+        : EnumSet.copyOf(MinimalCollection.of(elements));
       }
     })
-    .named("EnumSet")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.RESTRICTS_ELEMENTS,
-        CollectionSize.ANY)
-    .suppressing(suppressForEnumSet())
-    .createTestSuite();
+           .named("EnumSet")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionFeature.RESTRICTS_ELEMENTS,
+      CollectionSize.ANY)
+           .suppressing(suppressForEnumSet())
+           .createTestSuite();
   }
 
   public Test testsForTreeSetNatural() {
     return NavigableSetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      new TestStringSortedSetGenerator() {
       @Override
       public SortedSet<String> create(String[] elements) {
         return new TreeSet<>(MinimalCollection.of(elements));
       }
     })
-    .named("TreeSet, natural")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionSize.ANY)
-    .suppressing(suppressForTreeSetNatural())
-    .createTestSuite();
+           .named("TreeSet, natural")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+      CollectionSize.ANY)
+           .suppressing(suppressForTreeSetNatural())
+           .createTestSuite();
   }
 
   public Test testsForTreeSetWithComparator() {
     return NavigableSetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      new TestStringSortedSetGenerator() {
       @Override
       public SortedSet<String> create(String[] elements) {
         SortedSet<String> set = new TreeSet<>(arbitraryNullFriendlyComparator());
@@ -247,41 +247,41 @@ public class TestsForSetsInJavaUtil {
         return set;
       }
     })
-    .named("TreeSet, with comparator")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionSize.ANY)
-    .suppressing(suppressForTreeSetWithComparator())
-    .createTestSuite();
+           .named("TreeSet, with comparator")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+      CollectionSize.ANY)
+           .suppressing(suppressForTreeSetWithComparator())
+           .createTestSuite();
   }
 
   public Test testsForCopyOnWriteArraySet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         return new CopyOnWriteArraySet<>(MinimalCollection.of(elements));
       }
     })
-    .named("CopyOnWriteArraySet")
-    .withFeatures(
-        CollectionFeature.SUPPORTS_ADD,
-        CollectionFeature.SUPPORTS_REMOVE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .suppressing(suppressForCopyOnWriteArraySet())
-    .createTestSuite();
+           .named("CopyOnWriteArraySet")
+           .withFeatures(
+      CollectionFeature.SUPPORTS_ADD,
+      CollectionFeature.SUPPORTS_REMOVE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionSize.ANY)
+           .suppressing(suppressForCopyOnWriteArraySet())
+           .createTestSuite();
   }
 
   public Test testsForUnmodifiableSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         Set<String> innerSet = new HashSet<>();
@@ -289,19 +289,19 @@ public class TestsForSetsInJavaUtil {
         return Collections.unmodifiableSet(innerSet);
       }
     })
-    .named("unmodifiableSet/HashSet")
-    .withFeatures(
-        CollectionFeature.NONE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionSize.ANY)
-    .suppressing(suppressForUnmodifiableSet())
-    .createTestSuite();
+           .named("unmodifiableSet/HashSet")
+           .withFeatures(
+      CollectionFeature.NONE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionSize.ANY)
+           .suppressing(suppressForUnmodifiableSet())
+           .createTestSuite();
   }
 
   public Test testsForCheckedSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       public Set<String> create(String[] elements) {
         Set<String> innerSet = new HashSet<>();
@@ -309,20 +309,20 @@ public class TestsForSetsInJavaUtil {
         return Collections.checkedSet(innerSet, String.class);
       }
     })
-    .named("checkedSet/HashSet")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.RESTRICTS_ELEMENTS,
-        CollectionSize.ANY)
-    .suppressing(suppressForCheckedSet())
-    .createTestSuite();
+           .named("checkedSet/HashSet")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.RESTRICTS_ELEMENTS,
+      CollectionSize.ANY)
+           .suppressing(suppressForCheckedSet())
+           .createTestSuite();
   }
 
   public Test testsForCheckedSortedSet() {
     return SortedSetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      new TestStringSortedSetGenerator() {
       @Override
       public SortedSet<String> create(String[] elements) {
         SortedSet<String> innerSet = new TreeSet<>();
@@ -330,21 +330,21 @@ public class TestsForSetsInJavaUtil {
         return Collections.checkedSortedSet(innerSet, String.class);
       }
     })
-    .named("checkedSortedSet/TreeSet, natural")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionFeature.RESTRICTS_ELEMENTS,
-        CollectionSize.ANY)
-    .suppressing(suppressForCheckedSortedSet())
-    .createTestSuite();
+           .named("checkedSortedSet/TreeSet, natural")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+      CollectionFeature.RESTRICTS_ELEMENTS,
+      CollectionSize.ANY)
+           .suppressing(suppressForCheckedSortedSet())
+           .createTestSuite();
   }
 
   public Test testsForAbstractSet() {
     return SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         final String[] deduped = dedupe(elements);
@@ -361,70 +361,70 @@ public class TestsForSetsInJavaUtil {
         };
       }
     })
-    .named("AbstractSet")
-    .withFeatures(
-        CollectionFeature.NONE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.KNOWN_ORDER, // in this case, anyway
-        CollectionSize.ANY)
-    .suppressing(suppressForAbstractSet())
-    .createTestSuite();
+           .named("AbstractSet")
+           .withFeatures(
+      CollectionFeature.NONE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionFeature.KNOWN_ORDER,   // in this case, anyway
+      CollectionSize.ANY)
+           .suppressing(suppressForAbstractSet())
+           .createTestSuite();
   }
 
   public Test testsForBadlyCollidingHashSet() {
     return SetTestSuiteBuilder.using(
-    new TestCollidingSetGenerator() {
+      new TestCollidingSetGenerator() {
       @Override
-      public Set<Object> create(Object... elements) {
+      public Set<Object> create(Object ... elements) {
         return new HashSet<>(MinimalCollection.of(elements));
       }
     })
-    .named("badly colliding HashSet")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionSize.SEVERAL)
-    .suppressing(suppressForHashSet())
-    .createTestSuite();
+           .named("badly colliding HashSet")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.ALLOWS_NULL_VALUES,
+      CollectionSize.SEVERAL)
+           .suppressing(suppressForHashSet())
+           .createTestSuite();
   }
 
   public Test testsForConcurrentSkipListSetNatural() {
     return SetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      new TestStringSortedSetGenerator() {
       @Override
       public SortedSet<String> create(String[] elements) {
         return new ConcurrentSkipListSet<>(MinimalCollection.of(elements));
       }
     })
-    .named("ConcurrentSkipListSet, natural")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .suppressing(suppressForConcurrentSkipListSetNatural())
-    .createTestSuite();
+           .named("ConcurrentSkipListSet, natural")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionSize.ANY)
+           .suppressing(suppressForConcurrentSkipListSetNatural())
+           .createTestSuite();
   }
 
   public Test testsForConcurrentSkipListSetWithComparator() {
     return SetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      new TestStringSortedSetGenerator() {
       @Override
       public SortedSet<String> create(String[] elements) {
         SortedSet<String> set =
-            new ConcurrentSkipListSet<>(arbitraryNullFriendlyComparator());
+        new ConcurrentSkipListSet<>(arbitraryNullFriendlyComparator());
         Collections.addAll(set, elements);
         return set;
       }
     })
-    .named("ConcurrentSkipListSet, with comparator")
-    .withFeatures(
-        SetFeature.GENERAL_PURPOSE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .suppressing(suppressForConcurrentSkipListSetWithComparator())
-    .createTestSuite();
+           .named("ConcurrentSkipListSet, with comparator")
+           .withFeatures(
+      SetFeature.GENERAL_PURPOSE,
+      CollectionFeature.SERIALIZABLE,
+      CollectionFeature.KNOWN_ORDER,
+      CollectionSize.ANY)
+           .suppressing(suppressForConcurrentSkipListSetWithComparator())
+           .createTestSuite();
   }
 
   private static String[] dedupe(String[] elements) {

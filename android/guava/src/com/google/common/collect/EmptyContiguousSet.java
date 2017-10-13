@@ -69,7 +69,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
 
   @Override
   ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+    C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
     return this;
   }
 
@@ -123,7 +123,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Set) {
-      Set<?> that = (Set<?>) object;
+      Set<?> that = (Set<?>)object;
       return that.isEmpty();
     }
     return false;

@@ -108,12 +108,12 @@ public class ExecutionListTest extends TestCase {
     for (int i = 0; i < 10; i++) {
       final int expectedCount = i;
       list.add(
-      new Runnable() {
+        new Runnable() {
         @Override public void run() {
           integer.compareAndSet(expectedCount, expectedCount + 1);
         }
       },
-      MoreExecutors.directExecutor());
+        MoreExecutors.directExecutor());
     }
     list.execute();
     assertEquals(10, integer.get());

@@ -61,11 +61,11 @@ public class ImmutableSortedMultisetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .named("ImmutableSortedMultiset")
-    .withFeatures(CollectionSize.ANY,
+        .named("ImmutableSortedMultiset")
+        .withFeatures(CollectionSize.ANY,
         CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS,
         CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override
@@ -78,11 +78,11 @@ public class ImmutableSortedMultisetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .named("ImmutableSortedMultiset.asList")
-    .withFeatures(CollectionSize.ANY,
+        .named("ImmutableSortedMultiset.asList")
+        .withFeatures(CollectionSize.ANY,
         CollectionFeature.SERIALIZABLE,
         CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
       @Override
@@ -101,12 +101,12 @@ public class ImmutableSortedMultisetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .named("ImmutableSortedMultiset.elementSet.asList")
-    .withFeatures(CollectionSize.ANY,
+        .named("ImmutableSortedMultiset.elementSet.asList")
+        .withFeatures(CollectionSize.ANY,
         CollectionFeature.REJECTS_DUPLICATES_AT_CREATION,
         CollectionFeature.SERIALIZABLE,
         CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+        .createTestSuite());
 
     return suite;
   }
@@ -166,7 +166,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
   public void testCreation_arrayOfArray() {
     Comparator<String[]> comparator =
         Ordering.natural().lexicographical()
-    .onResultOf(new Function<String[], Iterable<Comparable>>() {
+        .onResultOf(new Function<String[], Iterable<Comparable>>() {
       @Override
       public Iterable<Comparable> apply(String[] input) {
         return Arrays.<Comparable>asList(input);
@@ -313,10 +313,10 @@ public class ImmutableSortedMultisetTest extends TestCase {
     assertEquals(HashMultiset.create(asList("a", "b", "a", "c")), multiset1);
     assertEquals(HashMultiset.create(asList("a", "b", "a", "c", "c")), multiset2);
     assertTrue(
-        ((RegularImmutableList<String>)
-            ((RegularImmutableSortedMultiset<String>) multiset1).elementSet.elements)
-        .array
-        != builder.elements);
+      ((RegularImmutableList<String>)
+        ((RegularImmutableSortedMultiset<String>)multiset1).elementSet.elements)
+      .array
+      != builder.elements);
   }
 
   public void testBuilderAddAll() {

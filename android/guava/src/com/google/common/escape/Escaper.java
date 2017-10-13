@@ -83,7 +83,7 @@ public abstract class Escaper {
   public abstract String escape(String string);
 
   private final Function<String, String> asFunction =
-  new Function<String, String>() {
+      new Function<String, String>() {
     @Override
     public String apply(String from) {
       return escape(from);

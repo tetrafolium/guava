@@ -172,13 +172,13 @@ public class SubscriberRegistryTest extends TestCase {
 
   public void testFlattenHierarchy() {
     assertEquals(
-        ImmutableSet.of(
-            Object.class,
-            HierarchyFixtureInterface.class,
-            HierarchyFixtureSubinterface.class,
-            HierarchyFixtureParent.class,
-            HierarchyFixture.class),
-        SubscriberRegistry.flattenHierarchy(HierarchyFixture.class));
+      ImmutableSet.of(
+        Object.class,
+        HierarchyFixtureInterface.class,
+        HierarchyFixtureSubinterface.class,
+        HierarchyFixtureParent.class,
+        HierarchyFixture.class),
+      SubscriberRegistry.flattenHierarchy(HierarchyFixture.class));
   }
 
   private interface HierarchyFixtureInterface {

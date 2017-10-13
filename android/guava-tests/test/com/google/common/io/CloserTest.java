@@ -217,8 +217,8 @@ public class CloserTest extends TestCase {
     assertTrue(c2.isClosed());
 
     assertSuppressed(
-        new Suppression(c2, tryException, c2Exception),
-        new Suppression(c1, tryException, c1Exception));
+      new Suppression(c2, tryException, c2Exception),
+      new Suppression(c1, tryException, c1Exception));
   }
 
   public void testCloseExceptionsSuppressed_whenExceptionThrownClosingFirstCloseable()
@@ -244,8 +244,8 @@ public class CloserTest extends TestCase {
     assertTrue(c3.isClosed());
 
     assertSuppressed(
-        new Suppression(c2, c3Exception, c2Exception),
-        new Suppression(c1, c3Exception, c1Exception));
+      new Suppression(c2, c3Exception, c2Exception),
+      new Suppression(c1, c3Exception, c1Exception));
   }
 
   public void testRuntimeExceptions() throws IOException {
@@ -274,8 +274,8 @@ public class CloserTest extends TestCase {
     assertTrue(c2.isClosed());
 
     assertSuppressed(
-        new Suppression(c2, tryException, c2Exception),
-        new Suppression(c1, tryException, c1Exception));
+      new Suppression(c2, tryException, c2Exception),
+      new Suppression(c1, tryException, c1Exception));
   }
 
   public void testErrors() throws IOException {
@@ -300,8 +300,8 @@ public class CloserTest extends TestCase {
     assertTrue(c3.isClosed());
 
     assertSuppressed(
-        new Suppression(c2, c3Exception, c2Exception),
-        new Suppression(c1, c3Exception, c1Exception));
+      new Suppression(c2, c3Exception, c2Exception),
+      new Suppression(c1, c3Exception, c1Exception));
   }
 
   public static void testLoggingSuppressor() throws IOException {
@@ -424,8 +424,8 @@ public class CloserTest extends TestCase {
       if (obj instanceof Suppression) {
         Suppression other = (Suppression) obj;
         return closeable.equals(other.closeable)
-            && thrown.equals(other.thrown)
-            && suppressed.equals(other.suppressed);
+               && thrown.equals(other.thrown)
+               && suppressed.equals(other.suppressed);
       }
       return false;
     }
@@ -438,10 +438,10 @@ public class CloserTest extends TestCase {
     @Override
     public String toString() {
       return MoreObjects.toStringHelper(this)
-          .add("closeable", closeable)
-          .add("thrown", thrown)
-          .add("suppressed", suppressed)
-          .toString();
+             .add("closeable", closeable)
+             .add("thrown", thrown)
+             .add("suppressed", suppressed)
+             .toString();
     }
   }
 

@@ -255,7 +255,7 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testReentrantHasNext() {
     Iterator<Integer> iter =
-    new AbstractIterator<Integer>() {
+        new AbstractIterator<Integer>() {
       @Override
       protected Integer computeNext() {
         boolean unused = hasNext();

@@ -27,7 +27,7 @@ import com.google.common.annotations.GwtCompatible;
 public final class Runnables {
 
   private static final Runnable EMPTY_RUNNABLE =
-  new Runnable() {
+      new Runnable() {
     @Override
     public void run() {}
   };

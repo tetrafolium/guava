@@ -52,7 +52,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    */
   @SuppressWarnings({"unchecked"}) // fully variant implementation (never actually produces any Es)
   public static <E> ImmutableSet<E> of() {
-    return (ImmutableSet<E>) RegularImmutableSet.EMPTY;
+    return (ImmutableSet<E>)RegularImmutableSet.EMPTY;
   }
 
   /**
@@ -153,7 +153,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     for (int i = 0; i < n; i++) {
       Object element = checkElementNotNull(elements[i], i);
       int hash = element.hashCode();
-      for (int j = Hashing.smear(hash); ; j++) {
+      for (int j = Hashing.smear(hash);; j++) {
         int index = j & mask;
         Object value = table[index];
         if (value == null) {
@@ -239,7 +239,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     // Don't refer to ImmutableSortedSet by name so it won't pull in all that code
     if (elements instanceof ImmutableSet && !(elements instanceof SortedSet)) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableSet<E> set = (ImmutableSet<E>) elements;
+      ImmutableSet<E> set = (ImmutableSet<E>)elements;
       if (!set.isPartialView()) {
         return set;
       }
@@ -262,8 +262,8 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    */
   public static <E> ImmutableSet<E> copyOf(Iterable<? extends E> elements) {
     return (elements instanceof Collection)
-        ? copyOf((Collection<? extends E>) elements)
-        : copyOf(elements.iterator());
+           ? copyOf((Collection<? extends E>)elements)
+             : copyOf(elements.iterator());
   }
 
   /**
@@ -294,7 +294,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    */
   public static <E> ImmutableSet<E> copyOf(E[] elements) {
     switch (elements.length) {
-    case 0:
+    case 0 :
       return of();
     case 1:
       return of(elements[0]);
@@ -316,7 +316,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       return true;
     } else if (object instanceof ImmutableSet
         && isHashCodeFast()
-        && ((ImmutableSet<?>) object).isHashCodeFast()
+        && ((ImmutableSet<?>)object).isHashCodeFast()
         && hashCode() != object.hashCode()) {
       return false;
     }
@@ -358,20 +358,20 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     @Override
     ImmutableList<E> createAsList() {
       return new ImmutableList<E>() {
-        @Override
-        public E get(int index) {
-          return Indexed.this.get(index);
-        }
+               @Override
+               public E get(int index) {
+                 return Indexed.this.get(index);
+               }
 
-        @Override
-        boolean isPartialView() {
-          return Indexed.this.isPartialView();
-        }
+               @Override
+               boolean isPartialView() {
+                 return Indexed.this.isPartialView();
+               }
 
-        @Override
-        public int size() {
-          return Indexed.this.size();
-        }
+               @Override
+               public int size() {
+                 return Indexed.this.size();
+               }
       };
     }
   }
@@ -488,7 +488,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     private void addDeduping(E element) {
       int mask = hashTable.length - 1;
       int hash = element.hashCode();
-      for (int i = Hashing.smear(hash); ; i++) {
+      for (int i = Hashing.smear(hash);; i++) {
         i &= mask;
         Object previous = hashTable[i];
         if (previous == null) {
@@ -574,10 +574,10 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     @Override
     public ImmutableSet<E> build() {
       switch (size) {
-      case 0:
+      case 0 :
         return of();
-      case 1:
-        return (ImmutableSet<E>) of(contents[0]);
+      case 1 :
+        return (ImmutableSet<E>)of(contents[0]);
       default:
         ImmutableSet<E> result;
         if (hashTable != null && chooseTableSize(size) == hashTable.length) {
@@ -585,7 +585,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
               shouldTrim(size, contents.length) ? Arrays.copyOf(contents, size) : contents;
           result =
               new RegularImmutableSet<E>(
-              uniqueElements, hashCode, hashTable, hashTable.length - 1, size);
+            uniqueElements, hashCode, hashTable, hashTable.length - 1, size);
         } else {
           result = construct(size, contents);
           // construct has the side effect of deduping contents, so we update size

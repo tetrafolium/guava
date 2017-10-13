@@ -64,8 +64,8 @@ public final class NetworkMutationTest {
       for (int i = 0; i < NUM_EDGES; ++i) {
         // Parallel edges are allowed, so this should always succeed.
         assertThat(
-            network.addEdge(
-                getRandomElement(nodeList, gen), getRandomElement(nodeList, gen), new Object()))
+          network.addEdge(
+            getRandomElement(nodeList, gen), getRandomElement(nodeList, gen), new Object()))
         .isTrue();
       }
       ArrayList<Object> edgeList = new ArrayList<>(network.edges());
@@ -110,8 +110,8 @@ public final class NetworkMutationTest {
       Collections.shuffle(edgeList, gen);
       for (Object edge : edgeList) {
         assertThat(
-            network.addEdge(
-                getRandomElement(nodeList, gen), getRandomElement(nodeList, gen), edge))
+          network.addEdge(
+            getRandomElement(nodeList, gen), getRandomElement(nodeList, gen), edge))
         .isTrue();
       }
 
@@ -121,7 +121,7 @@ public final class NetworkMutationTest {
     }
   }
 
-  private static <L extends List<T> & RandomAccess, T> T getRandomElement(L list, Random gen) {
+  private static <L extends List<T> &RandomAccess, T> T getRandomElement(L list, Random gen) {
     return list.get(gen.nextInt(list.size()));
   }
 }

@@ -245,13 +245,13 @@ public class PopulatedCachesTest extends TestCase {
       List<Entry<Object, Object>> warmed = warmUp(cache, WARMUP_MIN, WARMUP_MAX);
 
       Set<?> expected = Maps.newHashMap(cache.asMap()).entrySet();
-      assertThat(entries).containsExactlyElementsIn((Collection<Entry<Object, Object>>) expected);
+      assertThat(entries).containsExactlyElementsIn((Collection<Entry<Object, Object>>)expected);
       assertThat(entries.toArray())
       .asList()
-      .containsExactlyElementsIn((Collection<Object>) expected);
+      .containsExactlyElementsIn((Collection<Object>)expected);
       assertThat(entries.toArray(new Entry[0]))
       .asList()
-      .containsExactlyElementsIn((Collection<Entry>) expected);
+      .containsExactlyElementsIn((Collection<Entry>)expected);
 
       new EqualsTester()
       .addEqualityGroup(cache.asMap().entrySet(), entries)
@@ -301,9 +301,9 @@ public class PopulatedCachesTest extends TestCase {
     // lots of different ways to configure a LoadingCache
     CacheBuilderFactory factory = cacheFactory();
     return Iterables.transform(factory.buildAllPermutations(),
-    new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
+               new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
       @Override public LoadingCache<Object, Object> apply(
-          CacheBuilder<Object, Object> builder) {
+        CacheBuilder<Object, Object> builder) {
         return builder.recordStats().build(identityLoader());
       }
     });
@@ -317,23 +317,23 @@ public class PopulatedCachesTest extends TestCase {
     // so more than (maximumSize / #segments) keys could get assigned to the same segment, which
     // would cause one to be evicted.
     return new CacheBuilderFactory()
-        .withKeyStrengths(ImmutableSet.of(Strength.STRONG, Strength.WEAK))
-        .withValueStrengths(ImmutableSet.copyOf(Strength.values()))
-        .withConcurrencyLevels(ImmutableSet.of(1, 4, 16, 64))
-        .withMaximumSizes(ImmutableSet.of(400, 1000))
-        .withInitialCapacities(ImmutableSet.of(0, 1, 10, 100, 1000))
-        .withExpireAfterWrites(ImmutableSet.of(
-                // DurationSpec.of(500, MILLISECONDS),
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)))
-        .withExpireAfterAccesses(ImmutableSet.of(
-                // DurationSpec.of(500, MILLISECONDS),
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)))
-        .withRefreshes(ImmutableSet.of(
-                // DurationSpec.of(500, MILLISECONDS),
-                DurationSpec.of(1, SECONDS),
-                DurationSpec.of(1, DAYS)));
+           .withKeyStrengths(ImmutableSet.of(Strength.STRONG, Strength.WEAK))
+           .withValueStrengths(ImmutableSet.copyOf(Strength.values()))
+           .withConcurrencyLevels(ImmutableSet.of(1, 4, 16, 64))
+           .withMaximumSizes(ImmutableSet.of(400, 1000))
+           .withInitialCapacities(ImmutableSet.of(0, 1, 10, 100, 1000))
+           .withExpireAfterWrites(ImmutableSet.of(
+                 // DurationSpec.of(500, MILLISECONDS),
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)))
+           .withExpireAfterAccesses(ImmutableSet.of(
+                 // DurationSpec.of(500, MILLISECONDS),
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)))
+           .withRefreshes(ImmutableSet.of(
+                 // DurationSpec.of(500, MILLISECONDS),
+                 DurationSpec.of(1, SECONDS),
+                 DurationSpec.of(1, DAYS)));
   }
 
   private List<Map.Entry<Object, Object>> warmUp(LoadingCache<Object, Object> cache) {
@@ -345,7 +345,7 @@ public class PopulatedCachesTest extends TestCase {
    * soft references until the caller drops the reference to the returned entries.
    */
   private List<Map.Entry<Object, Object>> warmUp(
-      LoadingCache<Object, Object> cache, int minimum, int maximum) {
+    LoadingCache<Object, Object> cache, int minimum, int maximum) {
 
     List<Map.Entry<Object, Object>> entries = Lists.newArrayList();
     for (int i = minimum; i < maximum; i++) {

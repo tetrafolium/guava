@@ -151,7 +151,7 @@ public final class Longs {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -250,7 +250,7 @@ public final class Longs {
    * @param arrays zero or more {@code long} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static long[] concat(long[]... arrays) {
+  public static long[] concat(long[] ... arrays) {
     int length = 0;
     for (long[] array : arrays) {
       length += array.length;
@@ -299,7 +299,7 @@ public final class Longs {
   public static long fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(
-            bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
+      bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
   }
 
   /**
@@ -309,15 +309,15 @@ public final class Longs {
    * @since 7.0
    */
   public static long fromBytes(
-      byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+    byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
     return (b1 & 0xFFL) << 56
-        | (b2 & 0xFFL) << 48
-        | (b3 & 0xFFL) << 40
-        | (b4 & 0xFFL) << 32
-        | (b5 & 0xFFL) << 24
-        | (b6 & 0xFFL) << 16
-        | (b7 & 0xFFL) << 8
-        | (b8 & 0xFFL);
+           | (b2 & 0xFFL) << 48
+           | (b3 & 0xFFL) << 40
+           | (b4 & 0xFFL) << 32
+           | (b5 & 0xFFL) << 24
+           | (b6 & 0xFFL) << 16
+           | (b7 & 0xFFL) << 8
+           | (b8 & 0xFFL);
   }
 
   /*
@@ -398,7 +398,7 @@ public final class Longs {
     }
     if (radix < Character.MIN_RADIX || radix > Character.MAX_RADIX) {
       throw new IllegalArgumentException(
-          "radix must be between MIN_RADIX and MAX_RADIX but was " + radix);
+              "radix must be between MIN_RADIX and MAX_RADIX but was " + radix);
     }
     boolean negative = string.charAt(0) == '-';
     int index = negative ? 1 : 0;

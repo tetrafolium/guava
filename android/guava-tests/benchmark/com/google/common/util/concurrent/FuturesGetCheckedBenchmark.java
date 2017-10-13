@@ -87,18 +87,18 @@ public class FuturesGetCheckedBenchmark {
 
   private static final ImmutableSet<Class<? extends Exception>> OTHER_EXCEPTION_TYPES =
       ImmutableSet.of(
-          BackingStoreException.class,
-          BrokenBarrierException.class,
-          CloneNotSupportedException.class,
-          DataFormatException.class,
-          ExecutionException.class,
-          GeneralSecurityException.class,
-          InvalidPreferencesFormatException.class,
-          NotOwnerException.class,
-          RefreshFailedException.class,
-          TimeoutException.class,
-          TooManyListenersException.class,
-          URISyntaxException.class);
+    BackingStoreException.class,
+    BrokenBarrierException.class,
+    CloneNotSupportedException.class,
+    DataFormatException.class,
+    ExecutionException.class,
+    GeneralSecurityException.class,
+    InvalidPreferencesFormatException.class,
+    NotOwnerException.class,
+    RefreshFailedException.class,
+    TimeoutException.class,
+    TooManyListenersException.class,
+    URISyntaxException.class);
 
   @Param
   Validator validator;
@@ -130,7 +130,7 @@ public class FuturesGetCheckedBenchmark {
 
     for (int i = 0; i < otherEntriesInDataStructure; i++) {
       ClassValue<Boolean> classValue =
-      new ClassValue<Boolean>() {
+          new ClassValue<Boolean>() {
         @Override
         protected Boolean computeValue(Class<?> type) {
           return true;

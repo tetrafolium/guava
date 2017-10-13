@@ -80,7 +80,7 @@ public final class MoreExecutors {
   @Beta
   @GwtIncompatible // TODO
   public static ExecutorService getExitingExecutorService(
-      ThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
+    ThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
     return new Application().getExitingExecutorService(executor, terminationTimeout, timeUnit);
   }
 
@@ -100,9 +100,9 @@ public final class MoreExecutors {
   @Beta
   @GwtIncompatible // TODO
   public static ScheduledExecutorService getExitingScheduledExecutorService(
-      ScheduledThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
+    ScheduledThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
     return new Application()
-        .getExitingScheduledExecutorService(executor, terminationTimeout, timeUnit);
+           .getExitingScheduledExecutorService(executor, terminationTimeout, timeUnit);
   }
 
   /**
@@ -119,7 +119,7 @@ public final class MoreExecutors {
   @Beta
   @GwtIncompatible // TODO
   public static void addDelayedShutdownHook(
-      ExecutorService service, long terminationTimeout, TimeUnit timeUnit) {
+    ExecutorService service, long terminationTimeout, TimeUnit timeUnit) {
     new Application().addDelayedShutdownHook(service, terminationTimeout, timeUnit);
   }
 
@@ -158,7 +158,7 @@ public final class MoreExecutors {
   @Beta
   @GwtIncompatible // TODO
   public static ScheduledExecutorService getExitingScheduledExecutorService(
-      ScheduledThreadPoolExecutor executor) {
+    ScheduledThreadPoolExecutor executor) {
     return new Application().getExitingScheduledExecutorService(executor);
   }
 
@@ -168,7 +168,7 @@ public final class MoreExecutors {
   static class Application {
 
     final ExecutorService getExitingExecutorService(
-        ThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
+      ThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
       useDaemonThreadFactory(executor);
       ExecutorService service = Executors.unconfigurableExecutorService(executor);
       addDelayedShutdownHook(executor, terminationTimeout, timeUnit);
@@ -176,7 +176,7 @@ public final class MoreExecutors {
     }
 
     final ScheduledExecutorService getExitingScheduledExecutorService(
-        ScheduledThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
+      ScheduledThreadPoolExecutor executor, long terminationTimeout, TimeUnit timeUnit) {
       useDaemonThreadFactory(executor);
       ScheduledExecutorService service = Executors.unconfigurableScheduledExecutorService(executor);
       addDelayedShutdownHook(executor, terminationTimeout, timeUnit);
@@ -184,13 +184,13 @@ public final class MoreExecutors {
     }
 
     final void addDelayedShutdownHook(
-        final ExecutorService service, final long terminationTimeout, final TimeUnit timeUnit) {
+      final ExecutorService service, final long terminationTimeout, final TimeUnit timeUnit) {
       checkNotNull(service);
       checkNotNull(timeUnit);
       addShutdownHook(
-          MoreExecutors.newThread(
-              "DelayedShutdownHook-for-" + service,
-      new Runnable() {
+        MoreExecutors.newThread(
+          "DelayedShutdownHook-for-" + service,
+          new Runnable() {
         @Override
         public void run() {
           try {
@@ -213,7 +213,7 @@ public final class MoreExecutors {
     }
 
     final ScheduledExecutorService getExitingScheduledExecutorService(
-        ScheduledThreadPoolExecutor executor) {
+      ScheduledThreadPoolExecutor executor) {
       return getExitingScheduledExecutorService(executor, 120, TimeUnit.SECONDS);
     }
 
@@ -226,10 +226,10 @@ public final class MoreExecutors {
   @GwtIncompatible // TODO
   private static void useDaemonThreadFactory(ThreadPoolExecutor executor) {
     executor.setThreadFactory(
-        new ThreadFactoryBuilder()
-        .setDaemon(true)
-        .setThreadFactory(executor.getThreadFactory())
-        .build());
+      new ThreadFactoryBuilder()
+      .setDaemon(true)
+      .setThreadFactory(executor.getThreadFactory())
+      .build());
   }
 
   // See newDirectExecutorService javadoc for behavioral notes.
@@ -450,10 +450,10 @@ public final class MoreExecutors {
   @GwtIncompatible // TODO
   public static ListeningExecutorService listeningDecorator(ExecutorService delegate) {
     return (delegate instanceof ListeningExecutorService)
-        ? (ListeningExecutorService) delegate
-        : (delegate instanceof ScheduledExecutorService)
-        ? new ScheduledListeningDecorator((ScheduledExecutorService) delegate)
-        : new ListeningDecorator(delegate);
+           ? (ListeningExecutorService) delegate
+           : (delegate instanceof ScheduledExecutorService)
+           ? new ScheduledListeningDecorator((ScheduledExecutorService) delegate)
+           : new ListeningDecorator(delegate);
   }
 
   /**
@@ -474,10 +474,10 @@ public final class MoreExecutors {
    */
   @GwtIncompatible // TODO
   public static ListeningScheduledExecutorService listeningDecorator(
-      ScheduledExecutorService delegate) {
+    ScheduledExecutorService delegate) {
     return (delegate instanceof ListeningScheduledExecutorService)
-        ? (ListeningScheduledExecutorService) delegate
-        : new ScheduledListeningDecorator(delegate);
+           ? (ListeningScheduledExecutorService) delegate
+           : new ScheduledListeningDecorator(delegate);
   }
 
   @GwtIncompatible // TODO
@@ -539,7 +539,7 @@ public final class MoreExecutors {
 
     @Override
     public <V> ListenableScheduledFuture<V> schedule(
-        Callable<V> callable, long delay, TimeUnit unit) {
+      Callable<V> callable, long delay, TimeUnit unit) {
       TrustedListenableFutureTask<V> task = TrustedListenableFutureTask.create(callable);
       ScheduledFuture<?> scheduled = delegate.schedule(task, delay, unit);
       return new ListenableScheduledTask<V>(task, scheduled);
@@ -547,7 +547,7 @@ public final class MoreExecutors {
 
     @Override
     public ListenableScheduledFuture<?> scheduleAtFixedRate(
-        Runnable command, long initialDelay, long period, TimeUnit unit) {
+      Runnable command, long initialDelay, long period, TimeUnit unit) {
       NeverSuccessfulListenableFutureTask task = new NeverSuccessfulListenableFutureTask(command);
       ScheduledFuture<?> scheduled = delegate.scheduleAtFixedRate(task, initialDelay, period, unit);
       return new ListenableScheduledTask<>(task, scheduled);
@@ -555,7 +555,7 @@ public final class MoreExecutors {
 
     @Override
     public ListenableScheduledFuture<?> scheduleWithFixedDelay(
-        Runnable command, long initialDelay, long delay, TimeUnit unit) {
+      Runnable command, long initialDelay, long delay, TimeUnit unit) {
       NeverSuccessfulListenableFutureTask task = new NeverSuccessfulListenableFutureTask(command);
       ScheduledFuture<?> scheduled =
           delegate.scheduleWithFixedDelay(task, initialDelay, delay, unit);
@@ -568,7 +568,7 @@ public final class MoreExecutors {
       private final ScheduledFuture<?> scheduledDelegate;
 
       public ListenableScheduledTask(
-          ListenableFuture<V> listenableDelegate, ScheduledFuture<?> scheduledDelegate) {
+        ListenableFuture<V> listenableDelegate, ScheduledFuture<?> scheduledDelegate) {
         super(listenableDelegate);
         this.scheduledDelegate = scheduledDelegate;
       }
@@ -633,11 +633,11 @@ public final class MoreExecutors {
    * implementations.
    */
   @GwtIncompatible static <T> T invokeAnyImpl(
-      ListeningExecutorService executorService,
-      Collection<? extends Callable<T>> tasks,
-      boolean timed,
-      long timeout,
-      TimeUnit unit)
+    ListeningExecutorService executorService,
+    Collection<? extends Callable<T>> tasks,
+    boolean timed,
+    long timeout,
+    TimeUnit unit)
   throws InterruptedException, ExecutionException, TimeoutException {
     checkNotNull(executorService);
     checkNotNull(unit);
@@ -713,18 +713,18 @@ public final class MoreExecutors {
    */
   @GwtIncompatible // TODO
   private static <T> ListenableFuture<T> submitAndAddQueueListener(
-      ListeningExecutorService executorService,
-      Callable<T> task,
-      final BlockingQueue<Future<T>> queue) {
+    ListeningExecutorService executorService,
+    Callable<T> task,
+    final BlockingQueue<Future<T>> queue) {
     final ListenableFuture<T> future = executorService.submit(task);
     future.addListener(
-    new Runnable() {
+      new Runnable() {
       @Override
       public void run() {
         queue.add(future);
       }
     },
-    directExecutor());
+      directExecutor());
     return future;
   }
 
@@ -744,9 +744,9 @@ public final class MoreExecutors {
     }
     try {
       return (ThreadFactory)
-          Class.forName("com.google.appengine.api.ThreadManager")
-          .getMethod("currentRequestThreadFactory")
-          .invoke(null);
+             Class.forName("com.google.appengine.api.ThreadManager")
+             .getMethod("currentRequestThreadFactory")
+             .invoke(null);
     } catch (IllegalAccessException | ClassNotFoundException | NoSuchMethodException e) {
       throw new RuntimeException("Couldn't invoke ThreadManager.currentRequestThreadFactory", e);
     } catch (InvocationTargetException e) {
@@ -762,9 +762,9 @@ public final class MoreExecutors {
     try {
       // If the current environment is null, we're not inside AppEngine.
       return Class.forName("com.google.apphosting.api.ApiProxy")
-          .getMethod("getCurrentEnvironment")
-          .invoke(null)
-          != null;
+             .getMethod("getCurrentEnvironment")
+             .invoke(null)
+             != null;
     } catch (ClassNotFoundException e) {
       // If ApiProxy doesn't exist, we're not on AppEngine at all.
       return false;
@@ -821,10 +821,10 @@ public final class MoreExecutors {
       return executor;
     }
     return new Executor() {
-      @Override
-      public void execute(Runnable command) {
-        executor.execute(Callables.threadRenaming(command, nameSupplier));
-      }
+             @Override
+             public void execute(Runnable command) {
+               executor.execute(Callables.threadRenaming(command, nameSupplier));
+             }
     };
   }
 
@@ -842,7 +842,7 @@ public final class MoreExecutors {
    */
   @GwtIncompatible // concurrency
   static ExecutorService renamingDecorator(
-      final ExecutorService service, final Supplier<String> nameSupplier) {
+    final ExecutorService service, final Supplier<String> nameSupplier) {
     checkNotNull(service);
     checkNotNull(nameSupplier);
     if (isAppEngine()) {
@@ -850,15 +850,15 @@ public final class MoreExecutors {
       return service;
     }
     return new WrappingExecutorService(service) {
-      @Override
-      protected <T> Callable<T> wrapTask(Callable<T> callable) {
-        return Callables.threadRenaming(callable, nameSupplier);
-      }
+             @Override
+             protected <T> Callable<T> wrapTask(Callable<T> callable) {
+               return Callables.threadRenaming(callable, nameSupplier);
+             }
 
-      @Override
-      protected Runnable wrapTask(Runnable command) {
-        return Callables.threadRenaming(command, nameSupplier);
-      }
+             @Override
+             protected Runnable wrapTask(Runnable command) {
+               return Callables.threadRenaming(command, nameSupplier);
+             }
     };
   }
 
@@ -876,7 +876,7 @@ public final class MoreExecutors {
    */
   @GwtIncompatible // concurrency
   static ScheduledExecutorService renamingDecorator(
-      final ScheduledExecutorService service, final Supplier<String> nameSupplier) {
+    final ScheduledExecutorService service, final Supplier<String> nameSupplier) {
     checkNotNull(service);
     checkNotNull(nameSupplier);
     if (isAppEngine()) {
@@ -884,15 +884,15 @@ public final class MoreExecutors {
       return service;
     }
     return new WrappingScheduledExecutorService(service) {
-      @Override
-      protected <T> Callable<T> wrapTask(Callable<T> callable) {
-        return Callables.threadRenaming(callable, nameSupplier);
-      }
+             @Override
+             protected <T> Callable<T> wrapTask(Callable<T> callable) {
+               return Callables.threadRenaming(callable, nameSupplier);
+             }
 
-      @Override
-      protected Runnable wrapTask(Runnable command) {
-        return Callables.threadRenaming(command, nameSupplier);
-      }
+             @Override
+             protected Runnable wrapTask(Runnable command) {
+               return Callables.threadRenaming(command, nameSupplier);
+             }
     };
   }
 
@@ -923,7 +923,7 @@ public final class MoreExecutors {
   @CanIgnoreReturnValue
   @GwtIncompatible // concurrency
   public static boolean shutdownAndAwaitTermination(
-      ExecutorService service, long timeout, TimeUnit unit) {
+    ExecutorService service, long timeout, TimeUnit unit) {
     long halfTimeoutNanos = unit.toNanos(timeout) / 2;
     // Disable new tasks from being submitted
     service.shutdown();
@@ -951,7 +951,7 @@ public final class MoreExecutors {
    * <p>Note, the returned executor can only be used once.
    */
   static Executor rejectionPropagatingExecutor(
-      final Executor delegate, final AbstractFuture<?> future) {
+    final Executor delegate, final AbstractFuture<?> future) {
     checkNotNull(delegate);
     checkNotNull(future);
     if (delegate == directExecutor()) {
@@ -959,28 +959,28 @@ public final class MoreExecutors {
       return delegate;
     }
     return new Executor() {
-      boolean thrownFromDelegate = true;
+             boolean thrownFromDelegate = true;
 
-      @Override
-      public void execute(final Runnable command) {
-        try {
-          delegate.execute(
-          new Runnable() {
+             @Override
+             public void execute(final Runnable command) {
+               try {
+                 delegate.execute(
+                   new Runnable() {
             @Override
             public void run() {
               thrownFromDelegate = false;
               command.run();
             }
           });
-        } catch (RejectedExecutionException e) {
-          if (thrownFromDelegate) {
-            // wrap exception?
-            future.setException(e);
-          }
-          // otherwise it must have been thrown from a transitive call and the delegate runnable
-          // should have handled it.
-        }
-      }
+               } catch (RejectedExecutionException e) {
+                 if (thrownFromDelegate) {
+                   // wrap exception?
+                   future.setException(e);
+                 }
+                 // otherwise it must have been thrown from a transitive call and the delegate runnable
+                 // should have handled it.
+               }
+             }
     };
   }
 }

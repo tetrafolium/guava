@@ -69,19 +69,19 @@ public class ImmutableListMultimapTest extends TestCase {
     suite.addTest(ListMultimapTestSuiteBuilder.using(new ImmutableListMultimapGenerator())
         .named("ImmutableListMultimap")
         .withFeatures(
-            ALLOWS_ANY_NULL_QUERIES,
-            SERIALIZABLE,
-            KNOWN_ORDER,
-            CollectionSize.ANY)
+          ALLOWS_ANY_NULL_QUERIES,
+          SERIALIZABLE,
+          KNOWN_ORDER,
+          CollectionSize.ANY)
         .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(
-            new ImmutableListMultimapCopyOfEntriesGenerator())
+          new ImmutableListMultimapCopyOfEntriesGenerator())
         .named("ImmutableListMultimap.copyOf[Iterable<Entry>]")
         .withFeatures(
-            ALLOWS_ANY_NULL_QUERIES,
-            SERIALIZABLE,
-            KNOWN_ORDER,
-            CollectionSize.ANY)
+          ALLOWS_ANY_NULL_QUERIES,
+          SERIALIZABLE,
+          KNOWN_ORDER,
+          CollectionSize.ANY)
         .createTestSuite());
     suite.addTestSuite(ImmutableListMultimapTest.class);
     return suite;
@@ -89,8 +89,8 @@ public class ImmutableListMultimapTest extends TestCase {
 
   public void testBuilder_withImmutableEntry() {
     ImmutableListMultimap<String, Integer> multimap = new Builder<String, Integer>()
-    .put(Maps.immutableEntry("one", 1))
-    .build();
+        .put(Maps.immutableEntry("one", 1))
+        .build();
     assertEquals(Arrays.asList(1), multimap.get("one"));
   }
 
@@ -411,12 +411,12 @@ public class ImmutableListMultimapTest extends TestCase {
   public void testEmptyMultimapWrites() {
     Multimap<String, Integer> multimap = ImmutableListMultimap.of();
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(
-        multimap, "foo", 1);
+      multimap, "foo", 1);
   }
 
   private Multimap<String, Integer> createMultimap() {
     return ImmutableListMultimap.<String, Integer>builder()
-        .put("foo", 1).put("bar", 2).put("foo", 3).build();
+           .put("foo", 1).put("bar", 2).put("foo", 3).build();
   }
 
   public void testMultimapReads() {
@@ -437,7 +437,7 @@ public class ImmutableListMultimapTest extends TestCase {
   public void testMultimapWrites() {
     Multimap<String, Integer> multimap = createMultimap();
     UnmodifiableCollectionTests.assertMultimapIsUnmodifiable(
-        multimap, "bar", 2);
+      multimap, "bar", 2);
   }
 
   public void testMultimapEquals() {
@@ -462,51 +462,51 @@ public class ImmutableListMultimapTest extends TestCase {
 
   public void testOf() {
     assertMultimapEquals(
-        ImmutableListMultimap.of("one", 1),
-        "one", 1);
+      ImmutableListMultimap.of("one", 1),
+      "one", 1);
     assertMultimapEquals(
-        ImmutableListMultimap.of("one", 1, "two", 2),
-        "one", 1, "two", 2);
+      ImmutableListMultimap.of("one", 1, "two", 2),
+      "one", 1, "two", 2);
     assertMultimapEquals(
-        ImmutableListMultimap.of("one", 1, "two", 2, "three", 3),
-        "one", 1, "two", 2, "three", 3);
+      ImmutableListMultimap.of("one", 1, "two", 2, "three", 3),
+      "one", 1, "two", 2, "three", 3);
     assertMultimapEquals(
-        ImmutableListMultimap.of("one", 1, "two", 2, "three", 3, "four", 4),
-        "one", 1, "two", 2, "three", 3, "four", 4);
+      ImmutableListMultimap.of("one", 1, "two", 2, "three", 3, "four", 4),
+      "one", 1, "two", 2, "three", 3, "four", 4);
     assertMultimapEquals(
-        ImmutableListMultimap.of(
-            "one", 1, "two", 2, "three", 3, "four", 4, "five", 5),
-        "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
+      ImmutableListMultimap.of(
+        "one", 1, "two", 2, "three", 3, "four", 4, "five", 5),
+      "one", 1, "two", 2, "three", 3, "four", 4, "five", 5);
   }
 
   public void testInverse() {
     assertEquals(
-        ImmutableListMultimap.<Integer, String>of(),
-        ImmutableListMultimap.<String, Integer>of().inverse());
+      ImmutableListMultimap.<Integer, String>of(),
+      ImmutableListMultimap.<String, Integer>of().inverse());
     assertEquals(
-        ImmutableListMultimap.of(1, "one"),
-        ImmutableListMultimap.of("one", 1).inverse());
+      ImmutableListMultimap.of(1, "one"),
+      ImmutableListMultimap.of("one", 1).inverse());
     assertEquals(
-        ImmutableListMultimap.of(1, "one", 2, "two"),
-        ImmutableListMultimap.of("one", 1, "two", 2).inverse());
+      ImmutableListMultimap.of(1, "one", 2, "two"),
+      ImmutableListMultimap.of("one", 1, "two", 2).inverse());
     assertEquals(
-        ImmutableListMultimap.of("of", 'o', "of", 'f', "to", 't', "to", 'o').inverse(),
-        ImmutableListMultimap.of('o', "of", 'f', "of", 't', "to", 'o', "to"));
+      ImmutableListMultimap.of("of", 'o', "of", 'f', "to", 't', "to", 'o').inverse(),
+      ImmutableListMultimap.of('o', "of", 'f', "of", 't', "to", 'o', "to"));
     assertEquals(
-        ImmutableListMultimap.of('f', "foo", 'o', "foo", 'o', "foo"),
-        ImmutableListMultimap.of("foo", 'f', "foo", 'o', "foo", 'o').inverse());
+      ImmutableListMultimap.of('f', "foo", 'o', "foo", 'o', "foo"),
+      ImmutableListMultimap.of("foo", 'f', "foo", 'o', "foo", 'o').inverse());
   }
 
   public void testInverseMinimizesWork() {
     ImmutableListMultimap<String, Character> multimap =
         ImmutableListMultimap.<String, Character>builder()
-        .put("foo", 'f')
-        .put("foo", 'o')
-        .put("foo", 'o')
-        .put("poo", 'p')
-        .put("poo", 'o')
-        .put("poo", 'o')
-        .build();
+    .put("foo", 'f')
+    .put("foo", 'o')
+    .put("foo", 'o')
+    .put("poo", 'p')
+    .put("poo", 'o')
+    .put("poo", 'o')
+    .build();
     assertSame(multimap.inverse(), multimap.inverse());
     assertSame(multimap, multimap.inverse().inverse());
   }

@@ -596,7 +596,7 @@ public class FluentIterableTest extends TestCase {
         Collections.addAll(collection, 1, 2, 3);
         return FluentIterable.from(collection).skip(1).iterator();
       }
-    } .test();
+    }.test();
   }
 
   public void testSkip_iteratorList() throws Exception {
@@ -605,7 +605,7 @@ public class FluentIterableTest extends TestCase {
       @Override protected Iterator<Integer> newTargetIterator() {
         return FluentIterable.from(Lists.newArrayList(1, 2, 3)).skip(1).iterator();
       }
-    } .test();
+    }.test();
   }
 
   public void testSkip_nonStructurallyModifiedList() throws Exception {
@@ -733,9 +733,9 @@ public class FluentIterableTest extends TestCase {
   public void testToMap() {
     assertThat(fluent(1, 2, 3).toMap(Functions.toStringFunction()).entrySet())
     .containsExactly(
-        Maps.immutableEntry(1, "1"),
-        Maps.immutableEntry(2, "2"),
-        Maps.immutableEntry(3, "3")).inOrder();
+      Maps.immutableEntry(1, "1"),
+      Maps.immutableEntry(2, "2"),
+      Maps.immutableEntry(3, "3")).inOrder();
   }
 
   public void testToMap_nullKey() {
@@ -757,13 +757,13 @@ public class FluentIterableTest extends TestCase {
   public void testIndex() {
     ImmutableListMultimap<Integer, String> expected =
         ImmutableListMultimap.<Integer, String>builder()
-        .putAll(3, "one", "two")
-        .put(5, "three")
-        .put(4, "four")
-        .build();
+    .putAll(3, "one", "two")
+    .put(5, "three")
+    .put(4, "four")
+    .build();
     ImmutableListMultimap<Integer, String> index =
         FluentIterable.from(asList("one", "two", "three", "four")).index(
-    new Function<String, Integer>() {
+      new Function<String, Integer>() {
       @Override
       public Integer apply(String input) {
         return input.length();
@@ -795,7 +795,7 @@ public class FluentIterableTest extends TestCase {
         ImmutableMap.of(3, "two", 5, "three", 4, "four");
     ImmutableMap<Integer, String> index =
         FluentIterable.from(asList("two", "three", "four")).uniqueIndex(
-    new Function<String, Integer>() {
+      new Function<String, Integer>() {
       @Override
       public Integer apply(String input) {
         return input.length();
@@ -809,7 +809,7 @@ public class FluentIterableTest extends TestCase {
       ImmutableMap<Integer, String> unused =
           FluentIterable.from(asList("one", "two", "three", "four"))
           .uniqueIndex(
-      new Function<String, Integer>() {
+        new Function<String, Integer>() {
         @Override
         public Integer apply(String input) {
           return input.length();
@@ -833,7 +833,7 @@ public class FluentIterableTest extends TestCase {
       ImmutableMap<Object, Integer> unused =
           fluent(1, null, 2)
           .uniqueIndex(
-      new Function<Integer, Object>() {
+        new Function<Integer, Object>() {
         @Override
         public Object apply(@Nullable Integer input) {
           return String.valueOf(input);
@@ -918,10 +918,10 @@ public class FluentIterableTest extends TestCase {
   private static Iterable<String> iterable(String... elements) {
     final List<String> list = asList(elements);
     return new Iterable<String>() {
-      @Override
-      public Iterator<String> iterator() {
-        return list.iterator();
-      }
+             @Override
+             public Iterator<String> iterator() {
+               return list.iterator();
+             }
     };
   }
 }

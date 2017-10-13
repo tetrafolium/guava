@@ -86,30 +86,30 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   Iterator<Entry<E>> entryIterator() {
     final Iterator<Entry<E>> backingEntries = backingMap.entrySet().iterator();
     return new Iterator<Multiset.Entry<E>>() {
-      Entry<E> toRemove;
-      boolean canRemove;
+             Entry<E> toRemove;
+             boolean canRemove;
 
-      @Override
-      public boolean hasNext() {
-        return backingEntries.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return backingEntries.hasNext();
+             }
 
-      @Override
-      public Multiset.Entry<E> next() {
-        final Entry<E> mapEntry = backingEntries.next();
-        toRemove = mapEntry;
-        canRemove = true;
-        return mapEntry;
-      }
+             @Override
+             public Multiset.Entry<E> next() {
+               final Entry<E> mapEntry = backingEntries.next();
+               toRemove = mapEntry;
+               canRemove = true;
+               return mapEntry;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(canRemove);
-        size -= toRemove.getCount();
-        backingEntries.remove();
-        canRemove = false;
-        toRemove = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(canRemove);
+               size -= toRemove.getCount();
+               backingEntries.remove();
+               canRemove = false;
+               toRemove = null;
+             }
     };
   }
 
@@ -177,7 +177,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
       if (frequency == 1) {
         entryIterator.remove();
       } else {
-        ((ObjectCountHashMap.MapEntry) currentEntry).setCount(frequency - 1);
+        ((ObjectCountHashMap.MapEntry)currentEntry).setCount(frequency - 1);
       }
       size--;
       canRemove = false;

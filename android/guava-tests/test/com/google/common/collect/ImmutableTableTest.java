@@ -96,7 +96,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     final StringHolder holder = new StringHolder();
     holder.string = "foo";
     Table.Cell<Character, Integer, String> mutableCell =
-    new Tables.AbstractCell<Character, Integer, String>() {
+        new Tables.AbstractCell<Character, Integer, String>() {
       @Override public Character getRowKey() {
         return 'K';
       }
@@ -121,8 +121,8 @@ public class ImmutableTableTest extends AbstractTableReadTest {
   public void testBuilder_noDuplicates() {
     ImmutableTable.Builder<Character, Integer, String> builder =
         new ImmutableTable.Builder<Character, Integer, String>()
-    .put('a', 1, "foo")
-    .put('a', 1, "bar");
+        .put('a', 1, "foo")
+        .put('a', 1, "bar");
     try {
       builder.build();
       fail();
@@ -165,7 +165,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
   }
 
   private static <R, C, V> void validateViewOrdering(
-      Table<R, C, V> original, Table<R, C, V> copy) {
+    Table<R, C, V> original, Table<R, C, V> copy) {
     assertThat(copy.cellSet()).containsExactlyElementsIn(original.cellSet()).inOrder();
     assertThat(copy.rowKeySet()).containsExactlyElementsIn(original.rowKeySet()).inOrder();
     assertThat(copy.values()).containsExactlyElementsIn(original.values()).inOrder();
@@ -222,8 +222,8 @@ public class ImmutableTableTest extends AbstractTableReadTest {
       = ImmutableTable.builder();
     Table<Character, Integer, String> copy
       = builder.orderRowsBy(Ordering.natural())
-          .orderColumnsBy(Ordering.natural())
-          .putAll(table).build();
+        .orderColumnsBy(Ordering.natural())
+        .putAll(table).build();
     assertThat(copy.rowKeySet()).containsExactly('a', 'b').inOrder();
     assertThat(copy.columnKeySet()).containsExactly(1, 2).inOrder();
     assertThat(copy.values()).containsExactly("baz", "bar", "foo").inOrder();

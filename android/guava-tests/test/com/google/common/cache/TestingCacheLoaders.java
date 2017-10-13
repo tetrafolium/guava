@@ -40,19 +40,19 @@ class TestingCacheLoaders {
   static <K, V> CacheLoader<K, V> bulkLoader(final CacheLoader<K, V> loader) {
     checkNotNull(loader);
     return new CacheLoader<K, V>() {
-      @Override
-      public V load(K key) throws Exception {
-        return loader.load(key);
-      }
+             @Override
+             public V load(K key) throws Exception {
+               return loader.load(key);
+             }
 
-      @Override
-      public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
-        Map<K, V> result = Maps.newHashMap(); // allow nulls
-        for (K key : keys) {
-          result.put(key, load(key));
-        }
-        return result;
-      }
+             @Override
+             public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
+               Map<K, V> result = Maps.newHashMap(); // allow nulls
+               for (K key : keys) {
+                 result.put(key, load(key));
+               }
+               return result;
+             }
     };
   }
 
@@ -76,10 +76,10 @@ class TestingCacheLoaders {
   static <K, V> CacheLoader<K, V> errorLoader(final Error e) {
     checkNotNull(e);
     return new CacheLoader<K, V>() {
-      @Override
-      public V load(K key) {
-        throw e;
-      }
+             @Override
+             public V load(K key) {
+               throw e;
+             }
     };
   }
 
@@ -89,10 +89,10 @@ class TestingCacheLoaders {
   static <K, V> CacheLoader<K, V> exceptionLoader(final Exception e) {
     checkNotNull(e);
     return new CacheLoader<K, V>() {
-      @Override
-      public V load(K key) throws Exception {
-        throw e;
-      }
+             @Override
+             public V load(K key) throws Exception {
+               throw e;
+             }
     };
   }
 

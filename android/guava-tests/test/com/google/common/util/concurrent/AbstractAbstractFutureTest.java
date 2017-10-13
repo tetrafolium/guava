@@ -495,7 +495,8 @@ abstract class AbstractAbstractFutureTest extends TestCase {
   private static void assertCannotSet(AbstractFuture<Integer> future) {
     assertThat(future.set(99)).isFalse();
     assertThat(future.setException(new IndexOutOfBoundsException())).isFalse();
-    assertThat(future.setFuture(new AbstractFuture<Integer>() {})).isFalse();
+    assertThat(future.setFuture(new AbstractFuture<Integer>() {
+    })).isFalse();
     assertThat(future.setFuture(immediateFuture(99))).isFalse();
   }
 

@@ -45,7 +45,7 @@ public final class Escapers {
   // An Escaper that efficiently performs no escaping.
   // Extending CharEscaper (instead of Escaper) makes Escapers.compose() easier.
   private static final Escaper NULL_ESCAPER =
-  new CharEscaper() {
+      new CharEscaper() {
     @Override
     public String escape(String string) {
       return checkNotNull(string);
@@ -151,13 +151,13 @@ public final class Escapers {
      */
     public Escaper build() {
       return new ArrayBasedCharEscaper(replacementMap, safeMin, safeMax) {
-        private final char[] replacementChars =
-            unsafeReplacement != null ? unsafeReplacement.toCharArray() : null;
+               private final char[] replacementChars =
+                   unsafeReplacement != null ? unsafeReplacement.toCharArray() : null;
 
-        @Override
-        protected char[] escapeUnsafe(char c) {
-          return replacementChars;
-        }
+               @Override
+               protected char[] escapeUnsafe(char c) {
+                 return replacementChars;
+               }
       };
     }
   }
@@ -186,7 +186,7 @@ public final class Escapers {
     // In practice this shouldn't happen because it would be very odd not to
     // extend either CharEscaper or UnicodeEscaper for non trivial cases.
     throw new IllegalArgumentException(
-        "Cannot create a UnicodeEscaper from: " + escaper.getClass().getName());
+            "Cannot create a UnicodeEscaper from: " + escaper.getClass().getName());
   }
 
   /**
@@ -222,50 +222,50 @@ public final class Escapers {
   /** Private helper to wrap a CharEscaper as a UnicodeEscaper. */
   private static UnicodeEscaper wrap(final CharEscaper escaper) {
     return new UnicodeEscaper() {
-      @Override
-      protected char[] escape(int cp) {
-        // If a code point maps to a single character, just escape that.
-        if (cp < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-          return escaper.escape((char) cp);
-        }
-        // Convert the code point to a surrogate pair and escape them both.
-        // Note: This code path is horribly slow and typically allocates 4 new
-        // char[] each time it is invoked. However this avoids any
-        // synchronization issues and makes the escaper thread safe.
-        char[] surrogateChars = new char[2];
-        Character.toChars(cp, surrogateChars, 0);
-        char[] hiChars = escaper.escape(surrogateChars[0]);
-        char[] loChars = escaper.escape(surrogateChars[1]);
+             @Override
+             protected char[] escape(int cp) {
+               // If a code point maps to a single character, just escape that.
+               if (cp < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+                 return escaper.escape((char) cp);
+               }
+               // Convert the code point to a surrogate pair and escape them both.
+               // Note: This code path is horribly slow and typically allocates 4 new
+               // char[] each time it is invoked. However this avoids any
+               // synchronization issues and makes the escaper thread safe.
+               char[] surrogateChars = new char[2];
+               Character.toChars(cp, surrogateChars, 0);
+               char[] hiChars = escaper.escape(surrogateChars[0]);
+               char[] loChars = escaper.escape(surrogateChars[1]);
 
-        // If either hiChars or lowChars are non-null, the CharEscaper is trying
-        // to escape the characters of a surrogate pair separately. This is
-        // uncommon and applies only to escapers that assume UCS-2 rather than
-        // UTF-16. See: http://en.wikipedia.org/wiki/UTF-16/UCS-2
-        if (hiChars == null && loChars == null) {
-          // We expect this to be the common code path for most escapers.
-          return null;
-        }
-        // Combine the characters and/or escaped sequences into a single array.
-        int hiCount = hiChars != null ? hiChars.length : 1;
-        int loCount = loChars != null ? loChars.length : 1;
-        char[] output = new char[hiCount + loCount];
-        if (hiChars != null) {
-          // TODO: Is this faster than System.arraycopy() for small arrays?
-          for (int n = 0; n < hiChars.length; ++n) {
-            output[n] = hiChars[n];
-          }
-        } else {
-          output[0] = surrogateChars[0];
-        }
-        if (loChars != null) {
-          for (int n = 0; n < loChars.length; ++n) {
-            output[hiCount + n] = loChars[n];
-          }
-        } else {
-          output[hiCount] = surrogateChars[1];
-        }
-        return output;
-      }
+               // If either hiChars or lowChars are non-null, the CharEscaper is trying
+               // to escape the characters of a surrogate pair separately. This is
+               // uncommon and applies only to escapers that assume UCS-2 rather than
+               // UTF-16. See: http://en.wikipedia.org/wiki/UTF-16/UCS-2
+               if (hiChars == null && loChars == null) {
+                 // We expect this to be the common code path for most escapers.
+                 return null;
+               }
+               // Combine the characters and/or escaped sequences into a single array.
+               int hiCount = hiChars != null ? hiChars.length : 1;
+               int loCount = loChars != null ? loChars.length : 1;
+               char[] output = new char[hiCount + loCount];
+               if (hiChars != null) {
+                 // TODO: Is this faster than System.arraycopy() for small arrays?
+                 for (int n = 0; n < hiChars.length; ++n) {
+                   output[n] = hiChars[n];
+                 }
+               } else {
+                 output[0] = surrogateChars[0];
+               }
+               if (loChars != null) {
+                 for (int n = 0; n < loChars.length; ++n) {
+                   output[hiCount + n] = loChars[n];
+                 }
+               } else {
+                 output[hiCount] = surrogateChars[1];
+               }
+               return output;
+             }
     };
   }
 }

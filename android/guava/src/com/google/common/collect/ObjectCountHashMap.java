@@ -396,10 +396,10 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     @Override
     public Iterator<Entry<K>> iterator() {
       return new Itr<Entry<K>>() {
-        @Override
-        Entry<K> getOutput(int entry) {
-          return new MapEntry(entry);
-        }
+               @Override
+               Entry<K> getOutput(int entry) {
+                 return new MapEntry(entry);
+               }
       };
     }
   }

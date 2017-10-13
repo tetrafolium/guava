@@ -83,9 +83,9 @@ public class ClassSanityTesterTest extends TestCase {
     } catch (AssertionFailedError expected) {
       assertThat(expected)
       .hasMessage(
-          "No public static methods that return java.lang.Object or subtype are found in "
-          + NoPublicStaticMethods.class
-          + ".");
+        "No public static methods that return java.lang.Object or subtype are found in "
+        + NoPublicStaticMethods.class
+        + ".");
       return;
     }
     fail();
@@ -141,9 +141,9 @@ public class ClassSanityTesterTest extends TestCase {
     } catch (AssertionFailedError expected) {
       assertThat(expected)
       .hasMessage(
-          "No public static methods that return java.lang.Iterable or subtype are found in "
-          + BadNullsFactory.class
-          + ".");
+        "No public static methods that return java.lang.Iterable or subtype are found in "
+        + BadNullsFactory.class
+        + ".");
       return;
     }
     fail();
@@ -181,8 +181,8 @@ public class ClassSanityTesterTest extends TestCase {
   public static class BadSerializableFactory {
     public static Object bad() {
       return new Serializable() {
-        @SuppressWarnings("unused")
-        private final Object notSerializable = new Object();
+               @SuppressWarnings("unused")
+               private final Object notSerializable = new Object();
       };
     }
   }
@@ -1073,7 +1073,7 @@ public class ClassSanityTesterTest extends TestCase {
     public BadEqualsWithParameterizedType() {}
 
     public static BadEqualsWithParameterizedType create(
-        @SuppressWarnings("unused") ImmutableList<Iterable<? extends String>> s) {
+      @SuppressWarnings("unused") ImmutableList<Iterable<? extends String>> s) {
       return new BadEqualsWithParameterizedType();
     }
 
@@ -1185,7 +1185,7 @@ public class ClassSanityTesterTest extends TestCase {
     private final Map<NotInstantiable, NotInstantiable> m;
 
     public ConstructorParameterMapOfNotInstantiable(
-        Map<NotInstantiable, NotInstantiable> m) {
+      Map<NotInstantiable, NotInstantiable> m) {
       this.m = checkNotNull(m);
     }
     @Override public boolean equals(@Nullable Object obj) {
@@ -1233,7 +1233,7 @@ public class ClassSanityTesterTest extends TestCase {
     private FactoryMethodParameterNotInstantiable() {}
 
     static FactoryMethodParameterNotInstantiable create(
-        @SuppressWarnings("unused") NotInstantiable x) {
+      @SuppressWarnings("unused") NotInstantiable x) {
       return new FactoryMethodParameterNotInstantiable();
     }
   }

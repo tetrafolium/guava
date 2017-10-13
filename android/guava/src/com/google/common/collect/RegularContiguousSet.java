@@ -42,8 +42,8 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
 
   private ContiguousSet<C> intersectionInCurrentDomain(Range<C> other) {
     return (range.isConnected(other))
-        ? ContiguousSet.create(range.intersection(other), domain)
-        : new EmptyContiguousSet<C>(domain);
+           ? ContiguousSet.create(range.intersection(other), domain)
+           : new EmptyContiguousSet<C>(domain);
   }
 
   @Override
@@ -53,15 +53,15 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
 
   @Override
   ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+    C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
     if (fromElement.compareTo(toElement) == 0 && !fromInclusive && !toInclusive) {
       // Range would reject our attempt to create (x, x).
       return new EmptyContiguousSet<C>(domain);
     }
     return intersectionInCurrentDomain(
-            Range.range(
-                fromElement, BoundType.forBoolean(fromInclusive),
-                toElement, BoundType.forBoolean(toInclusive)));
+      Range.range(
+        fromElement, BoundType.forBoolean(fromInclusive),
+        toElement, BoundType.forBoolean(toInclusive)));
   }
 
   @Override
@@ -78,12 +78,12 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   @Override
   public UnmodifiableIterator<C> iterator() {
     return new AbstractSequentialIterator<C>(first()) {
-      final C last = last();
+             final C last = last();
 
-      @Override
-      protected C computeNext(C previous) {
-        return equalsOrThrow(previous, last) ? null : domain.next(previous);
-      }
+             @Override
+             protected C computeNext(C previous) {
+               return equalsOrThrow(previous, last) ? null : domain.next(previous);
+             }
     };
   }
 
@@ -91,12 +91,12 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   @Override
   public UnmodifiableIterator<C> descendingIterator() {
     return new AbstractSequentialIterator<C>(last()) {
-      final C first = first();
+             final C first = first();
 
-      @Override
-      protected C computeNext(C previous) {
-        return equalsOrThrow(previous, first) ? null : domain.previous(previous);
-      }
+             @Override
+             protected C computeNext(C previous) {
+               return equalsOrThrow(previous, first) ? null : domain.previous(previous);
+             }
     };
   }
 
@@ -123,16 +123,16 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   ImmutableList<C> createAsList() {
     if (domain.supportsFastOffset) {
       return new ImmutableAsList<C>() {
-        @Override
-        ImmutableSortedSet<C> delegateCollection() {
-          return RegularContiguousSet.this;
-        }
+               @Override
+               ImmutableSortedSet<C> delegateCollection() {
+                 return RegularContiguousSet.this;
+               }
 
-        @Override
-        public C get(int i) {
-          checkElementIndex(i, size());
-          return domain.offset(first(), i);
-        }
+               @Override
+               public C get(int i) {
+                 checkElementIndex(i, size());
+                 return domain.offset(first(), i);
+               }
       };
     } else {
       return super.createAsList();
@@ -177,8 +177,8 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
       C lowerEndpoint = Ordering.natural().max(this.first(), other.first());
       C upperEndpoint = Ordering.natural().min(this.last(), other.last());
       return (lowerEndpoint.compareTo(upperEndpoint) <= 0)
-          ? ContiguousSet.create(Range.closed(lowerEndpoint, upperEndpoint), domain)
-          : new EmptyContiguousSet<C>(domain);
+             ? ContiguousSet.create(Range.closed(lowerEndpoint, upperEndpoint), domain)
+             : new EmptyContiguousSet<C>(domain);
     }
   }
 
@@ -190,8 +190,8 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   @Override
   public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
     return Range.create(
-            range.lowerBound.withLowerBoundType(lowerBoundType, domain),
-            range.upperBound.withUpperBoundType(upperBoundType, domain));
+      range.lowerBound.withLowerBoundType(lowerBoundType, domain),
+      range.upperBound.withUpperBoundType(upperBoundType, domain));
   }
 
   @Override
@@ -199,7 +199,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
     if (object == this) {
       return true;
     } else if (object instanceof RegularContiguousSet) {
-      RegularContiguousSet<?> that = (RegularContiguousSet<?>) object;
+      RegularContiguousSet<?> that = (RegularContiguousSet<?>)object;
       if (this.domain.equals(that.domain)) {
         return this.first().equals(that.first()) && this.last().equals(that.last());
       }

@@ -66,7 +66,7 @@ public class ConcurrentHashMultisetBenchmark {
 
   @Benchmark long add(final int reps) throws ExecutionException, InterruptedException {
     return doMultithreadedLoop(
-    new Callable<Long>() {
+      new Callable<Long>() {
       @Override public Long call() {
         return runAddSingleThread(reps);
       }
@@ -75,7 +75,7 @@ public class ConcurrentHashMultisetBenchmark {
 
   @Benchmark long addRemove(final int reps) throws ExecutionException, InterruptedException {
     return doMultithreadedLoop(
-    new Callable<Long>() {
+      new Callable<Long>() {
       @Override public Long call() {
         return runAddRemoveSingleThread(reps);
       }
@@ -202,9 +202,9 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /*
-    * Note: the superclass toArray() methods assume that size() gives a correct
-    * answer, which ours does not.
-    */
+     * Note: the superclass toArray() methods assume that size() gives a correct
+     * answer, which ours does not.
+     */
 
     @Override public Object[] toArray() {
       return snapshot().toArray();
@@ -215,9 +215,9 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /*
-    * We'd love to use 'new ArrayList(this)' or 'list.addAll(this)', but
-    * either of these would recurse back to us again!
-    */
+     * We'd love to use 'new ArrayList(this)' or 'list.addAll(this)', but
+     * either of these would recurse back to us again!
+     */
     private List<E> snapshot() {
       List<E> list = Lists.newArrayListWithExpectedSize(size());
       for (Multiset.Entry<E> entry : entrySet()) {
@@ -368,8 +368,8 @@ public class ConcurrentHashMultisetBenchmark {
     @Override public int setCount(E element, int count) {
       checkNonnegative(count, "count");
       return (count == 0)
-          ? removeAllOccurrences(element)
-          : unbox(countMap.put(element, count));
+             ? removeAllOccurrences(element)
+             : unbox(countMap.put(element, count));
     }
 
     /**
@@ -407,19 +407,19 @@ public class ConcurrentHashMultisetBenchmark {
     @Override Set<E> createElementSet() {
       final Set<E> delegate = countMap.keySet();
       return new ForwardingSet<E>() {
-        @Override
-        protected Set<E> delegate() {
-          return delegate;
-        }
+               @Override
+               protected Set<E> delegate() {
+                 return delegate;
+               }
 
-        @Override
-        public boolean remove(Object object) {
-          try {
-            return delegate.remove(object);
-          } catch (NullPointerException | ClassCastException e) {
-            return false;
-          }
-        }
+               @Override
+               public boolean remove(Object object) {
+                 try {
+                   return delegate.remove(object);
+                 } catch (NullPointerException | ClassCastException e) {
+                   return false;
+                 }
+               }
       };
     }
 
@@ -445,19 +445,19 @@ public class ConcurrentHashMultisetBenchmark {
       final Iterator<Map.Entry<E, Integer>> backingIterator =
           countMap.entrySet().iterator();
       return new Iterator<Entry<E>>() {
-        @Override public boolean hasNext() {
-          return backingIterator.hasNext();
-        }
+               @Override public boolean hasNext() {
+                 return backingIterator.hasNext();
+               }
 
-        @Override public Multiset.Entry<E> next() {
-          Map.Entry<E, Integer> backingEntry = backingIterator.next();
-          return Multisets.immutableEntry(backingEntry.getKey(),
-                  backingEntry.getValue());
-        }
+               @Override public Multiset.Entry<E> next() {
+                 Map.Entry<E, Integer> backingEntry = backingIterator.next();
+                 return Multisets.immutableEntry(backingEntry.getKey(),
+                            backingEntry.getValue());
+               }
 
-        @Override public void remove() {
-          backingIterator.remove();
-        }
+               @Override public void remove() {
+                 backingIterator.remove();
+               }
       };
     }
 
@@ -471,9 +471,9 @@ public class ConcurrentHashMultisetBenchmark {
       }
 
       /*
-      * Note: the superclass toArray() methods assume that size() gives a correct
-      * answer, which ours does not.
-      */
+       * Note: the superclass toArray() methods assume that size() gives a correct
+       * answer, which ours does not.
+       */
 
       @Override public Object[] toArray() {
         return snapshot().toArray();
@@ -492,7 +492,7 @@ public class ConcurrentHashMultisetBenchmark {
 
       @Override public boolean remove(Object object) {
         if (object instanceof Multiset.Entry) {
-          Multiset.Entry<?> entry = (Multiset.Entry<?>) object;
+          Multiset.Entry<?> entry = (Multiset.Entry<?>)object;
           Object element = entry.getElement();
           int entryCount = entry.getCount();
           return countMap.remove(element, entryCount);

@@ -36,7 +36,7 @@ import junit.framework.TestCase;
 public final class HostSpecifierTest extends TestCase {
 
   private static final ImmutableList<String> GOOD_IPS =
-      ImmutableList.of("1.2.3.4", "2001:db8::1", "[2001:db8::1]");
+    ImmutableList.of("1.2.3.4", "2001:db8::1", "[2001:db8::1]");
 
   private static final ImmutableList<String> BAD_IPS =
       ImmutableList.of("1.2.3", "2001:db8::1::::::0", "[2001:db8::1", "[::]:80");
@@ -75,7 +75,7 @@ public final class HostSpecifierTest extends TestCase {
     new EqualsTester()
     .addEqualityGroup(spec("1.2.3.4"), spec("1.2.3.4"))
     .addEqualityGroup(
-        spec("2001:db8::1"), spec("2001:db8::1"), spec("[2001:db8::1]"))
+      spec("2001:db8::1"), spec("2001:db8::1"), spec("[2001:db8::1]"))
     .addEqualityGroup(spec("2001:db8::2"))
     .addEqualityGroup(spec("google.com"), spec("google.com"))
     .addEqualityGroup(spec("www.google.com"))

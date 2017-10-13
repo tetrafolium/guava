@@ -74,7 +74,7 @@ public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K
       resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()), mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
-      List<V> asMapValue = (List<V>) multimap().asMap().get(k0());
+      List<V> asMapValue = (List<V>)multimap().asMap().get(k0());
       asMapValue.remove(i);
       expectedValues.remove(i);
 
@@ -93,7 +93,7 @@ public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K
       List<V> expectedValues = copyToList(values);
 
       Map.Entry<K, Collection<V>> asMapEntry = multimap().asMap().entrySet().iterator().next();
-      List<V> asMapValue = (List<V>) asMapEntry.getValue();
+      List<V> asMapValue = (List<V>)asMapEntry.getValue();
       asMapValue.remove(i);
       expectedValues.remove(i);
 

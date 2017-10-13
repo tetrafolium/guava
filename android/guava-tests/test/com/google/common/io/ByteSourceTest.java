@@ -52,9 +52,9 @@ public class ByteSourceTest extends IoTestCase {
     TestSuite suite = new TestSuite();
     for (boolean asCharSource : new boolean[] {false, true}) {
       suite.addTest(ByteSourceTester.tests("ByteSource.wrap[byte[]]",
-              SourceSinkFactories.byteArraySourceFactory(), asCharSource));
+            SourceSinkFactories.byteArraySourceFactory(), asCharSource));
       suite.addTest(ByteSourceTester.tests("ByteSource.empty[]",
-              SourceSinkFactories.emptyByteSourceFactory(), asCharSource));
+          SourceSinkFactories.emptyByteSourceFactory(), asCharSource));
     }
     suite.addTestSuite(ByteSourceTest.class);
     return suite;
@@ -268,8 +268,8 @@ public class ByteSourceTest extends IoTestCase {
       public int read() throws IOException {
         byte[] b = new byte[1];
         return read(b) == -1
-            ? -1
-            : UnsignedBytes.toInt(b[0]);
+               ? -1
+               : UnsignedBytes.toInt(b[0]);
       }
 
       @Override
@@ -293,7 +293,7 @@ public class ByteSourceTest extends IoTestCase {
    * @param expectRead the number of bytes we expect to read
    */
   private static void assertCorrectSlice(
-      int input, int offset, long length, int expectRead) throws IOException {
+    int input, int offset, long length, int expectRead) throws IOException {
     checkArgument(expectRead == (int) Math.max(0, Math.min(input, offset + length) - offset));
 
     byte[] expected = newPreFilledByteArray(offset, expectRead);
@@ -488,9 +488,9 @@ public class ByteSourceTest extends IoTestCase {
 
   private static ByteSink newNormalByteSink() {
     return new ByteSink() {
-      @Override public OutputStream openStream() {
-        return new ByteArrayOutputStream();
-      }
+             @Override public OutputStream openStream() {
+               return new ByteArrayOutputStream();
+             }
     };
   }
 }

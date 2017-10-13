@@ -144,7 +144,7 @@ public class GeneratedMonitorTest extends TestCase {
 
     final ImmutableList<Timeout> timeouts;
 
-    TimeoutsToUse(Timeout... timeouts) {
+    TimeoutsToUse(Timeout ... timeouts) {
       this.timeouts = ImmutableList.copyOf(timeouts);
     }
 
@@ -225,8 +225,8 @@ public class GeneratedMonitorTest extends TestCase {
   private static boolean isTimed(Method method) {
     Class<?>[] parameterTypes = method.getParameterTypes();
     return parameterTypes.length >= 2
-        && parameterTypes[parameterTypes.length - 2] == long.class
-        && parameterTypes[parameterTypes.length - 1] == TimeUnit.class;
+           && parameterTypes[parameterTypes.length - 2] == long.class
+           && parameterTypes[parameterTypes.length - 1] == TimeUnit.class;
   }
 
   /**
@@ -268,11 +268,11 @@ public class GeneratedMonitorTest extends TestCase {
     assertTrue(desc, isAnyEnter(method) || isWaitFor(method));
 
     switch (method.getParameterTypes().length) {
-    case 0:
+    case 0 :
       assertFalse(desc, isGuarded(method));
       assertFalse(desc, isTimed(method));
       break;
-    case 1:
+    case 1 :
       assertTrue(desc, isGuarded(method));
       assertFalse(desc, isTimed(method));
       break;
@@ -461,7 +461,7 @@ public class GeneratedMonitorTest extends TestCase {
   private final CountDownLatch callCompletedLatch;
 
   private GeneratedMonitorTest(
-      Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
+    Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
     super(nameFor(method, scenario, fair, timeout, expectedOutcome));
     this.method = method;
     this.scenario = scenario;
@@ -475,14 +475,14 @@ public class GeneratedMonitorTest extends TestCase {
   }
 
   private static String nameFor(
-      Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
+    Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
     return String.format(Locale.ROOT,
-            "%s%s(%s)/%s->%s",
-            method.getName(),
-            fair ? "(fair)" : "(nonfair)",
-            (timeout == null) ? "untimed" : timeout,
-            scenario,
-            expectedOutcome);
+               "%s%s(%s)/%s->%s",
+               method.getName(),
+               fair ? "(fair)" : "(nonfair)",
+               (timeout == null) ? "untimed" : timeout,
+               scenario,
+               expectedOutcome);
   }
 
   @Override
@@ -492,14 +492,16 @@ public class GeneratedMonitorTest extends TestCase {
     };
     final FutureTask<Void> task = new FutureTask<>(runChosenTest, null);
     startThread(new Runnable() {
-      @Override public void run() { task.run(); }
+      @Override public void run() {
+        task.run();
+      }
     });
     awaitUninterruptibly(doingCallLatch);
     long hangDelayMillis = (expectedOutcome == Outcome.HANG)
         ? EXPECTED_HANG_DELAY_MILLIS
         : UNEXPECTED_HANG_DELAY_MILLIS;
     boolean hung = !awaitUninterruptibly(
-            callCompletedLatch, hangDelayMillis, TimeUnit.MILLISECONDS);
+      callCompletedLatch, hangDelayMillis, TimeUnit.MILLISECONDS);
     if (hung) {
       assertEquals(expectedOutcome, Outcome.HANG);
     } else {
@@ -724,29 +726,29 @@ public class GeneratedMonitorTest extends TestCase {
       final boolean fair2) {
     final boolean timed = isTimed(method); // Not going to bother with all timeouts, just 0ms.
     return new TestCase(method.getName() + (timed ? "(0ms)" : "()") + "/WrongMonitor->IMSE") {
-      @Override protected void runTest() throws Throwable {
-        Monitor monitor1 = new Monitor(fair1);
-        Monitor monitor2 = new Monitor(fair2);
-        FlagGuard guard = new FlagGuard(monitor2);
-        Object[] arguments =
-            (timed ? new Object[] {guard, 0L, TimeUnit.MILLISECONDS} : new Object[] {guard});
-        boolean occupyMonitor = isWaitFor(method);
-        if (occupyMonitor) {
-          // If we don't already occupy the monitor, we'll get an IMSE regardless of the guard (see
-          // generateWaitForWhenNotOccupyingTestCase).
-          monitor1.enter();
-        }
-        try {
-          method.invoke(monitor1, arguments);
-          fail("expected IllegalMonitorStateException");
-        } catch (InvocationTargetException e) {
-          assertEquals(IllegalMonitorStateException.class, e.getTargetException().getClass());
-        } finally {
-          if (occupyMonitor) {
-            monitor1.leave();
-          }
-        }
-      }
+             @Override protected void runTest() throws Throwable {
+               Monitor monitor1 = new Monitor(fair1);
+               Monitor monitor2 = new Monitor(fair2);
+               FlagGuard guard = new FlagGuard(monitor2);
+               Object[] arguments =
+                   (timed ? new Object[] {guard, 0L, TimeUnit.MILLISECONDS} : new Object[] {guard});
+               boolean occupyMonitor = isWaitFor(method);
+               if (occupyMonitor) {
+                 // If we don't already occupy the monitor, we'll get an IMSE regardless of the guard (see
+                 // generateWaitForWhenNotOccupyingTestCase).
+                 monitor1.enter();
+               }
+               try {
+                 method.invoke(monitor1, arguments);
+                 fail("expected IllegalMonitorStateException");
+               } catch (InvocationTargetException e) {
+                 assertEquals(IllegalMonitorStateException.class, e.getTargetException().getClass());
+               } finally {
+                 if (occupyMonitor) {
+                   monitor1.leave();
+                 }
+               }
+             }
     };
   }
 
@@ -762,18 +764,18 @@ public class GeneratedMonitorTest extends TestCase {
         + (timed ? "(0ms)" : "()")
         + "/NotOccupying->IMSE";
     return new TestCase(testName) {
-      @Override protected void runTest() throws Throwable {
-        Monitor monitor = new Monitor(fair);
-        FlagGuard guard = new FlagGuard(monitor);
-        Object[] arguments =
-            (timed ? new Object[] {guard, 0L, TimeUnit.MILLISECONDS} : new Object[] {guard});
-        try {
-          method.invoke(monitor, arguments);
-          fail("expected IllegalMonitorStateException");
-        } catch (InvocationTargetException e) {
-          assertEquals(IllegalMonitorStateException.class, e.getTargetException().getClass());
-        }
-      }
+             @Override protected void runTest() throws Throwable {
+               Monitor monitor = new Monitor(fair);
+               FlagGuard guard = new FlagGuard(monitor);
+               Object[] arguments =
+                   (timed ? new Object[] {guard, 0L, TimeUnit.MILLISECONDS} : new Object[] {guard});
+               try {
+                 method.invoke(monitor, arguments);
+                 fail("expected IllegalMonitorStateException");
+               } catch (InvocationTargetException e) {
+                 assertEquals(IllegalMonitorStateException.class, e.getTargetException().getClass());
+               }
+             }
     };
   }
 

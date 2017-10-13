@@ -219,8 +219,8 @@ public final class Strings {
   @VisibleForTesting
   static boolean validSurrogatePairAt(CharSequence string, int index) {
     return index >= 0
-        && index <= (string.length() - 2)
-        && Character.isHighSurrogate(string.charAt(index))
-        && Character.isLowSurrogate(string.charAt(index + 1));
+           && index <= (string.length() - 2)
+           && Character.isHighSurrogate(string.charAt(index))
+           && Character.isLowSurrogate(string.charAt(index + 1));
   }
 }

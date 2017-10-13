@@ -46,8 +46,8 @@ public class SimpleAbstractMultisetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SimpleAbstractMultisetTest.class);
     suite.addTest(
-        MultisetTestSuiteBuilder.using(
-    new TestStringMultisetGenerator() {
+      MultisetTestSuiteBuilder.using(
+        new TestStringMultisetGenerator() {
       @Override
       protected Multiset<String> create(String[] elements) {
         Multiset<String> ms = new NoRemoveMultiset<>();
@@ -55,12 +55,12 @@ public class SimpleAbstractMultisetTest extends TestCase {
         return ms;
       }
     })
-    .named("NoRemoveMultiset")
-    .withFeatures(
+      .named("NoRemoveMultiset")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.SUPPORTS_ADD)
-    .createTestSuite());
+      .createTestSuite());
     return suite;
   }
 
@@ -111,27 +111,27 @@ public class SimpleAbstractMultisetTest extends TestCase {
     Iterator<Entry<E>> entryIterator() {
       final Iterator<Map.Entry<E, Integer>> backingEntries = backingMap.entrySet().iterator();
       return new UnmodifiableIterator<Multiset.Entry<E>>() {
-        @Override
-        public boolean hasNext() {
-          return backingEntries.hasNext();
-        }
+               @Override
+               public boolean hasNext() {
+                 return backingEntries.hasNext();
+               }
 
-        @Override
-        public Multiset.Entry<E> next() {
-          final Map.Entry<E, Integer> mapEntry = backingEntries.next();
-          return new Multisets.AbstractEntry<E>() {
-            @Override
-            public E getElement() {
-              return mapEntry.getKey();
-            }
+               @Override
+               public Multiset.Entry<E> next() {
+                 final Map.Entry<E, Integer> mapEntry = backingEntries.next();
+                 return new Multisets.AbstractEntry<E>() {
+                          @Override
+                          public E getElement() {
+                            return mapEntry.getKey();
+                          }
 
-            @Override
-            public int getCount() {
-              Integer frequency = backingMap.get(getElement());
-              return (frequency == null) ? 0 : frequency;
-            }
-          };
-        }
+                          @Override
+                          public int getCount() {
+                            Integer frequency = backingMap.get(getElement());
+                            return (frequency == null) ? 0 : frequency;
+                          }
+                 };
+               }
       };
     }
 

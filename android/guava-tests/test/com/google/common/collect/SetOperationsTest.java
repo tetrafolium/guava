@@ -46,162 +46,162 @@ public class SetOperationsTest extends TestCase {
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.union(
-                Sets.<String>newHashSet(), Sets.<String>newHashSet());
+          Sets.<String>newHashSet(), Sets.<String>newHashSet());
       }
     })
-    .named("empty U empty")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("empty U empty")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         checkArgument(elements.length == 1);
         return Sets.union(
-                Sets.<String>newHashSet(elements), Sets.newHashSet(elements));
+          Sets.<String>newHashSet(elements), Sets.newHashSet(elements));
       }
     })
-    .named("singleton U itself")
-    .withFeatures(CollectionSize.ONE, CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .named("singleton U itself")
+        .withFeatures(CollectionSize.ONE, CollectionFeature.ALLOWS_NULL_VALUES)
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.union(
-                Sets.<String>newHashSet(), Sets.newHashSet(elements));
+          Sets.<String>newHashSet(), Sets.newHashSet(elements));
       }
     })
-    .named("empty U set")
-    .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
+        .named("empty U set")
+        .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.union(
-                Sets.newHashSet(elements), Sets.<String>newHashSet());
+          Sets.newHashSet(elements), Sets.<String>newHashSet());
       }
     })
-    .named("set U empty")
-    .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
+        .named("set U empty")
+        .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         checkArgument(elements.length == 3);
         // Put the sets in different orders for the hell of it
         return Sets.union(
-                Sets.newLinkedHashSet(asList(elements)),
-                Sets.newLinkedHashSet(
-                    asList(elements[1], elements[0], elements[2])));
+          Sets.newLinkedHashSet(asList(elements)),
+          Sets.newLinkedHashSet(
+            asList(elements[1], elements[0], elements[2])));
       }
     })
-    .named("set U itself")
-    .withFeatures(CollectionSize.SEVERAL,
+        .named("set U itself")
+        .withFeatures(CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         checkArgument(elements.length == 3);
         return Sets.union(
-                Sets.newHashSet(elements[0]),
-                Sets.newHashSet(elements[1], elements[2]));
+          Sets.newHashSet(elements[0]),
+          Sets.newHashSet(elements[1], elements[2]));
       }
     })
-    .named("union of disjoint")
-    .withFeatures(CollectionSize.SEVERAL,
+        .named("union of disjoint")
+        .withFeatures(CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.union(
-                Sets.<String>newHashSet(elements[0], elements[1]),
-                Sets.newHashSet(elements[1], elements[2]));
+          Sets.<String>newHashSet(elements[0], elements[1]),
+          Sets.newHashSet(elements[1], elements[2]));
       }
     })
-    .named("venn")
-    .withFeatures(CollectionSize.SEVERAL,
+        .named("venn")
+        .withFeatures(CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.intersection(
-                Sets.<String>newHashSet(), Sets.<String>newHashSet());
+          Sets.<String>newHashSet(), Sets.<String>newHashSet());
       }
     })
-    .named("empty & empty")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("empty & empty")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.intersection(
-                Sets.<String>newHashSet(), Sets.newHashSet((String) null));
+          Sets.<String>newHashSet(), Sets.newHashSet((String) null));
       }
     })
-    .named("empty & singleton")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("empty & singleton")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.intersection(
-                Sets.newHashSet("a", "b"), Sets.newHashSet("c", "d"));
+          Sets.newHashSet("a", "b"), Sets.newHashSet("c", "d"));
       }
     })
-    .named("intersection of disjoint")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("intersection of disjoint")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.intersection(
-                Sets.newHashSet(elements), Sets.newHashSet(elements));
+          Sets.newHashSet(elements), Sets.newHashSet(elements));
       }
     })
-    .named("set & itself")
-    .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
+        .named("set & itself")
+        .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.intersection(
-                Sets.newHashSet("a", elements[0], "b"),
-                Sets.newHashSet("c", elements[0], "d"));
+          Sets.newHashSet("a", elements[0], "b"),
+          Sets.newHashSet("c", elements[0], "d"));
       }
     })
-    .named("intersection with overlap of one")
-    .withFeatures(CollectionSize.ONE, CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .named("intersection with overlap of one")
+        .withFeatures(CollectionSize.ONE, CollectionFeature.ALLOWS_NULL_VALUES)
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.difference(
-                Sets.<String>newHashSet(), Sets.<String>newHashSet());
+          Sets.<String>newHashSet(), Sets.<String>newHashSet());
       }
     })
-    .named("empty - empty")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("empty - empty")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.difference(Sets.newHashSet("a"), Sets.newHashSet("a"));
       }
     })
-    .named("singleton - itself")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("singleton - itself")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
@@ -210,10 +210,10 @@ public class SetOperationsTest extends TestCase {
         return Sets.difference(set, other);
       }
     })
-    .named("set - superset")
-    .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
+        .named("set - superset")
+        .withFeatures(CollectionSize.ZERO, CollectionFeature.NONE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
@@ -224,31 +224,31 @@ public class SetOperationsTest extends TestCase {
         return Sets.difference(set, other);
       }
     })
-    .named("set - set")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES,
+        .named("set - set")
+        .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.difference(
-                Sets.newHashSet(elements), Sets.newHashSet());
+          Sets.newHashSet(elements), Sets.newHashSet());
       }
     })
-    .named("set - empty")
-    .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
+        .named("set - empty")
+        .withFeatures(CollectionSize.ONE, CollectionSize.SEVERAL,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override protected Set<String> create(String[] elements) {
         return Sets.difference(
-                Sets.<String>newHashSet(elements), Sets.newHashSet("xx", "xq"));
+          Sets.<String>newHashSet(elements), Sets.newHashSet("xx", "xq"));
       }
     })
-    .named("set - disjoint")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+        .named("set - disjoint")
+        .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_VALUES)
+        .createTestSuite());
 
     suite.addTestSuite(MoreTests.class);
     return suite;
@@ -318,11 +318,11 @@ public class SetOperationsTest extends TestCase {
       Set<String> enemies = Sets.newHashSet("Dick", "Harry", "Tom");
 
       Set<String> symmetricDifferenceFriendsFirst = Sets.symmetricDifference(
-              friends, enemies);
+        friends, enemies);
       assertEquals(4, symmetricDifferenceFriendsFirst.size());
 
       Set<String> symmetricDifferenceEnemiesFirst = Sets.symmetricDifference(
-              enemies, friends);
+        enemies, friends);
       assertEquals(4, symmetricDifferenceEnemiesFirst.size());
 
       assertEquals(symmetricDifferenceFriendsFirst,

@@ -45,8 +45,8 @@ public class MultisetsTest extends TestCase {
     set.add(new DerivedComparable("foo"), 2);
     set.add(new DerivedComparable("bar"), 3);
     assertThat(set).containsExactly(
-        new DerivedComparable("bar"), new DerivedComparable("bar"), new DerivedComparable("bar"),
-        new DerivedComparable("foo"), new DerivedComparable("foo")).inOrder();
+      new DerivedComparable("bar"), new DerivedComparable("bar"), new DerivedComparable("bar"),
+      new DerivedComparable("foo"), new DerivedComparable("foo")).inOrder();
   }
 
   public void testNewTreeMultisetNonGeneric() {
@@ -93,7 +93,7 @@ public class MultisetsTest extends TestCase {
   public void testUnion() {
     Multiset<String> ms1 = HashMultiset.create(Arrays.asList("a", "b", "a"));
     Multiset<String> ms2 = HashMultiset.create(
-            Arrays.asList("a", "b", "b", "c"));
+      Arrays.asList("a", "b", "b", "c"));
     assertThat(Multisets.union(ms1, ms2)).containsExactly("a", "a", "b", "b", "c");
   }
 
@@ -255,26 +255,26 @@ public class MultisetsTest extends TestCase {
     assertSame(unmod, Multisets.unmodifiableMultiset(unmod));
     ImmutableMultiset<String> immutable = ImmutableMultiset.of("a", "a", "b", "a");
     assertSame(immutable, Multisets.unmodifiableMultiset(immutable));
-    assertSame(immutable, Multisets.unmodifiableMultiset((Multiset<String>) immutable));
+    assertSame(immutable, Multisets.unmodifiableMultiset((Multiset<String>)immutable));
   }
 
   public void testHighestCountFirst() {
     Multiset<String> multiset = HashMultiset.create(
-            Arrays.asList("a", "a", "a", "b", "c", "c"));
+      Arrays.asList("a", "a", "a", "b", "c", "c"));
     ImmutableMultiset<String> sortedMultiset =
         Multisets.copyHighestCountFirst(multiset);
 
     assertThat(sortedMultiset.entrySet()).containsExactly(
-        Multisets.immutableEntry("a", 3), Multisets.immutableEntry("c", 2),
-        Multisets.immutableEntry("b", 1)).inOrder();
+      Multisets.immutableEntry("a", 3), Multisets.immutableEntry("c", 2),
+      Multisets.immutableEntry("b", 1)).inOrder();
 
     assertThat(sortedMultiset).containsExactly(
-        "a",
-        "a",
-        "a",
-        "c",
-        "c",
-        "b").inOrder();
+      "a",
+      "a",
+      "a",
+      "c",
+      "c",
+      "b").inOrder();
 
     assertThat(Multisets.copyHighestCountFirst(ImmutableMultiset.of())).isEmpty();
   }

@@ -49,13 +49,13 @@ public class FilteredCollectionsTest extends TestCase {
 
   private static final ImmutableList<? extends List<Integer>> SAMPLE_INPUTS =
       ImmutableList.of(ImmutableList.<Integer>of(),
-          ImmutableList.of(1),
-          ImmutableList.of(2),
-          ImmutableList.of(2, 3),
-          ImmutableList.of(1, 2),
-          ImmutableList.of(3, 5),
-          ImmutableList.of(2, 4),
-          ImmutableList.of(1, 2, 3, 5, 6, 8, 9));
+      ImmutableList.of(1),
+      ImmutableList.of(2),
+      ImmutableList.of(2, 3),
+      ImmutableList.of(1, 2),
+      ImmutableList.of(3, 5),
+      ImmutableList.of(2, 4),
+      ImmutableList.of(1, 2, 3, 5, 6, 8, 9));
 
   /*
    * We have a whole series of abstract test classes that "stack", so e.g. the tests for filtered
@@ -186,7 +186,7 @@ public class FilteredCollectionsTest extends TestCase {
         C filtered2 = filter(filtered1, PRIME_DIGIT);
 
         C inverseFiltered = filter(createUnfiltered(contents),
-                Predicates.not(Predicates.and(EVEN, PRIME_DIGIT)));
+            Predicates.not(Predicates.and(EVEN, PRIME_DIGIT)));
 
         filtered2.clear();
         assertThat(unfiltered).containsExactlyElementsIn(inverseFiltered);
@@ -245,8 +245,8 @@ public class FilteredCollectionsTest extends TestCase {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int i = 0; i < 10; i++) {
           assertEquals(
-              filter((C) createUnfiltered(contents).headSet(i), EVEN),
-              filter(createUnfiltered(contents), EVEN).headSet(i));
+            filter((C) createUnfiltered(contents).headSet(i), EVEN),
+            filter(createUnfiltered(contents), EVEN).headSet(i));
         }
       }
     }
@@ -256,8 +256,8 @@ public class FilteredCollectionsTest extends TestCase {
       for (List<Integer> contents : SAMPLE_INPUTS) {
         for (int i = 0; i < 10; i++) {
           assertEquals(
-              filter((C) createUnfiltered(contents).tailSet(i), EVEN),
-              filter(createUnfiltered(contents), EVEN).tailSet(i));
+            filter((C) createUnfiltered(contents).tailSet(i), EVEN),
+            filter(createUnfiltered(contents), EVEN).tailSet(i));
         }
       }
     }
@@ -268,8 +268,8 @@ public class FilteredCollectionsTest extends TestCase {
         for (int i = 0; i < 10; i++) {
           for (int j = i; j < 10; j++) {
             assertEquals(
-                filter((C) createUnfiltered(contents).subSet(i, j), EVEN),
-                filter(createUnfiltered(contents), EVEN).subSet(i, j));
+              filter((C) createUnfiltered(contents).subSet(i, j), EVEN),
+              filter(createUnfiltered(contents), EVEN).subSet(i, j));
           }
         }
       }
@@ -284,8 +284,8 @@ public class FilteredCollectionsTest extends TestCase {
         for (int i = 0; i < 10; i++) {
           for (boolean inclusive : ImmutableList.of(true, false)) {
             assertEquals(
-                filter(createUnfiltered(contents).headSet(i, inclusive), EVEN),
-                filter(createUnfiltered(contents), EVEN).headSet(i, inclusive));
+              filter(createUnfiltered(contents).headSet(i, inclusive), EVEN),
+              filter(createUnfiltered(contents), EVEN).headSet(i, inclusive));
           }
         }
       }
@@ -296,8 +296,8 @@ public class FilteredCollectionsTest extends TestCase {
         for (int i = 0; i < 10; i++) {
           for (boolean inclusive : ImmutableList.of(true, false)) {
             assertEquals(
-                filter(createUnfiltered(contents).tailSet(i, inclusive), EVEN),
-                filter(createUnfiltered(contents), EVEN).tailSet(i, inclusive));
+              filter(createUnfiltered(contents).tailSet(i, inclusive), EVEN),
+              filter(createUnfiltered(contents), EVEN).tailSet(i, inclusive));
           }
         }
       }
@@ -310,7 +310,7 @@ public class FilteredCollectionsTest extends TestCase {
             for (boolean fromInclusive : ImmutableList.of(true, false)) {
               for (boolean toInclusive : ImmutableList.of(true, false)) {
                 NavigableSet<Integer> filterSubset = filter(
-                        createUnfiltered(contents).subSet(i, fromInclusive, j, toInclusive), EVEN);
+                  createUnfiltered(contents).subSet(i, fromInclusive, j, toInclusive), EVEN);
                 NavigableSet<Integer> subsetFilter = filter(createUnfiltered(contents), EVEN)
                     .subSet(i, fromInclusive, j, toInclusive);
                 assertEquals(filterSubset, subsetFilter);
@@ -414,10 +414,10 @@ public class FilteredCollectionsTest extends TestCase {
       final TreeSet<Integer> result = Sets.newTreeSet(contents);
       // we have to make the result not Navigable
       return new ForwardingSortedSet<Integer>() {
-        @Override
-        protected SortedSet<Integer> delegate() {
-          return result;
-        }
+               @Override
+               protected SortedSet<Integer> delegate() {
+                 return result;
+               }
       };
     }
 
@@ -435,7 +435,7 @@ public class FilteredCollectionsTest extends TestCase {
 
     @Override
     NavigableSet<Integer> filter(
-        NavigableSet<Integer> elements, Predicate<? super Integer> predicate) {
+      NavigableSet<Integer> elements, Predicate<? super Integer> predicate) {
       return Sets.filter(elements, predicate);
     }
   }

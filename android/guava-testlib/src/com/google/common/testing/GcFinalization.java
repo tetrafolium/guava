@@ -184,7 +184,7 @@ public final class GcFinalization {
       }
     } while (System.nanoTime() - deadline < 0);
     throw formatRuntimeException(
-        "Latch failed to count down within %d second timeout", timeoutSeconds);
+            "Latch failed to count down within %d second timeout", timeoutSeconds);
   }
 
   /**
@@ -192,7 +192,11 @@ public final class GcFinalization {
    * separate method to make it somewhat more likely to be unreachable.
    */
   private static void createUnreachableLatchFinalizer(final CountDownLatch latch) {
-    new Object() { @Override protected void finalize() { latch.countDown(); }};
+    new Object() {
+      @Override protected void finalize() {
+        latch.countDown();
+      }
+    };
   }
 
   /**
@@ -235,7 +239,7 @@ public final class GcFinalization {
       }
     } while (System.nanoTime() - deadline < 0);
     throw formatRuntimeException(
-        "Predicate did not become true within %d second timeout", timeoutSeconds);
+            "Predicate did not become true within %d second timeout", timeoutSeconds);
   }
 
   /**
@@ -286,7 +290,7 @@ public final class GcFinalization {
     final CountDownLatch finalizerRan = new CountDownLatch(1);
     WeakReference<Object> ref =
         new WeakReference<Object>(
-    new Object() {
+      new Object() {
       @Override
       protected void finalize() {
         finalizerRan.countDown();

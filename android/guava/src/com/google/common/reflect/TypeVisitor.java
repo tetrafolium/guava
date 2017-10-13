@@ -71,13 +71,13 @@ abstract class TypeVisitor {
       boolean succeeded = false;
       try {
         if (type instanceof TypeVariable) {
-          visitTypeVariable((TypeVariable<?>) type);
+          visitTypeVariable((TypeVariable<?>)type);
         } else if (type instanceof WildcardType) {
           visitWildcardType((WildcardType) type);
         } else if (type instanceof ParameterizedType) {
           visitParameterizedType((ParameterizedType) type);
         } else if (type instanceof Class) {
-          visitClass((Class<?>) type);
+          visitClass((Class<?>)type);
         } else if (type instanceof GenericArrayType) {
           visitGenericArrayType((GenericArrayType) type);
         } else {

@@ -57,7 +57,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public abstract class FeatureSpecificTestSuiteBuilder<
-  B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
+    B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
   @SuppressWarnings("unchecked")
   protected B self() {
     return (B) this;
@@ -130,8 +130,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
   public B named(String name) {
     if (name.contains("(")) {
       throw new IllegalArgumentException(
-          "Eclipse hides all characters after "
-          + "'('; please use '[]' or other characters instead of parentheses");
+              "Eclipse hides all characters after "
+              + "'('; please use '[]' or other characters instead of parentheses");
     }
     this.name = name;
     return self();
@@ -194,7 +194,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     TestSuite suite = new TestSuite(name);
     for (Class<? extends AbstractTester> testerClass : testers) {
       final TestSuite testerSuite =
-          makeSuiteForTesterClass((Class<? extends AbstractTester<?>>) testerClass);
+            makeSuiteForTesterClass((Class<? extends AbstractTester<?>>)testerClass);
       if (testerSuite.countTestCases() > 0) {
         suite.addTest(testerSuite);
       }
@@ -244,8 +244,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
         Set<Feature<?>> missingFeatures = Helpers.copyToSet(requirements.getPresentFeatures());
         missingFeatures.removeAll(features);
         logger.finer(
-            Platform.format(
-                "%s: skipping because these features are absent: %s", method, missingFeatures));
+          Platform.format(
+            "%s: skipping because these features are absent: %s", method, missingFeatures));
       }
       return false;
     }
@@ -254,8 +254,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
         Set<Feature<?>> unwantedFeatures = Helpers.copyToSet(requirements.getAbsentFeatures());
         unwantedFeatures.retainAll(features);
         logger.finer(
-            Platform.format(
-                "%s: skipping because these features are present: %s", method, unwantedFeatures));
+          Platform.format(
+            "%s: skipping because these features are present: %s", method, unwantedFeatures));
       }
       return false;
     }
@@ -268,7 +268,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
 
   private static Method extractMethod(Test test) {
     if (test instanceof AbstractTester) {
-      AbstractTester<?> tester = (AbstractTester<?>) test;
+      AbstractTester<?> tester = (AbstractTester<?>)test;
       return Helpers.getMethod(tester.getClass(), tester.getTestMethodName());
     } else if (test instanceof TestCase) {
       TestCase testCase = (TestCase) test;
@@ -287,7 +287,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
       Object test = allTests.nextElement();
       if (test instanceof AbstractTester) {
         @SuppressWarnings("unchecked")
-        AbstractTester<? super G> tester = (AbstractTester<? super G>) test;
+        AbstractTester<? super G> tester = (AbstractTester<? super G>)test;
         tester.init(subjectGenerator, name, setUp, tearDown);
       }
     }
@@ -312,7 +312,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     for (Feature<?> feature : features) {
       Object featureAsObject = feature; // to work around bogus JDK warning
       if (featureAsObject instanceof Enum) {
-        Enum<?> f = (Enum<?>) featureAsObject;
+        Enum<?> f = (Enum<?>)featureAsObject;
         temp.add(f.getDeclaringClass().getSimpleName() + "." + feature);
       } else {
         temp.add(feature.toString());

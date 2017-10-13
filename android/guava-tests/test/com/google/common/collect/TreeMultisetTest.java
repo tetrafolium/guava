@@ -53,7 +53,7 @@ public class TreeMultisetTest extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(SortedMultisetTestSuiteBuilder
-    .using(new TestStringMultisetGenerator() {
+        .using(new TestStringMultisetGenerator() {
       @Override
       protected Multiset<String> create(String[] elements) {
         return TreeMultiset.create(Arrays.asList(elements));
@@ -64,15 +64,15 @@ public class TreeMultisetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
+        .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.SERIALIZABLE,
         CollectionFeature.ALLOWS_NULL_QUERIES,
         MultisetFeature.ENTRIES_ARE_VIEWS)
-    .named("TreeMultiset, Ordering.natural")
-    .createTestSuite());
+        .named("TreeMultiset, Ordering.natural")
+        .createTestSuite());
     suite.addTest(SortedMultisetTestSuiteBuilder
-    .using(new TestStringMultisetGenerator() {
+        .using(new TestStringMultisetGenerator() {
       @Override
       protected Multiset<String> create(String[] elements) {
         Multiset<String> result = TreeMultiset.create(NullsBeforeB.INSTANCE);
@@ -86,13 +86,13 @@ public class TreeMultisetTest extends TestCase {
         return insertionOrder;
       }
     })
-    .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
+        .withFeatures(CollectionSize.ANY, CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.SERIALIZABLE,
         CollectionFeature.ALLOWS_NULL_VALUES,
         MultisetFeature.ENTRIES_ARE_VIEWS)
-    .named("TreeMultiset, NullsBeforeB")
-    .createTestSuite());
+        .named("TreeMultiset, NullsBeforeB")
+        .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
@@ -104,12 +104,12 @@ public class TreeMultisetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .named("TreeMultiset[Ordering.natural].elementSet")
-    .withFeatures(
-        CollectionSize.ANY,
-        CollectionFeature.REMOVE_OPERATIONS,
-        CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+        .named("TreeMultiset[Ordering.natural].elementSet")
+        .withFeatures(
+          CollectionSize.ANY,
+          CollectionFeature.REMOVE_OPERATIONS,
+          CollectionFeature.ALLOWS_NULL_QUERIES)
+        .createTestSuite());
     suite.addTestSuite(TreeMultisetTest.class);
     return suite;
   }
@@ -294,7 +294,7 @@ public class TreeMultisetTest extends TestCase {
   }
 
   private static final Comparator<String> DEGENERATE_COMPARATOR =
-  new Comparator<String>() {
+      new Comparator<String>() {
     @Override
     public int compare(String o1, String o2) {
       return o1.length() - o2.length();

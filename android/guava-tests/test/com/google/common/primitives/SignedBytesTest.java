@@ -104,7 +104,7 @@ public class SignedBytesTest extends TestCase {
     assertEquals(LEAST, SignedBytes.max(LEAST));
     assertEquals(GREATEST, SignedBytes.max(GREATEST));
     assertEquals((byte) 127, SignedBytes.max(
-            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+          (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
   }
 
   public void testMin_noArgs() {
@@ -119,7 +119,7 @@ public class SignedBytesTest extends TestCase {
     assertEquals(LEAST, SignedBytes.min(LEAST));
     assertEquals(GREATEST, SignedBytes.min(GREATEST));
     assertEquals((byte) -128, SignedBytes.min(
-            (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
+          (byte) 0, (byte) -128, (byte) -1, (byte) 127, (byte) 1));
   }
 
   public void testJoin() {
@@ -132,15 +132,15 @@ public class SignedBytesTest extends TestCase {
 
   public void testLexicographicalComparator() {
     List<byte[]> ordered = Arrays.asList(
-            new byte[] {},
-            new byte[] {LEAST},
-            new byte[] {LEAST, LEAST},
-            new byte[] {LEAST, (byte) 1},
-            new byte[] {(byte) 1},
-            new byte[] {(byte) 1, LEAST},
-            new byte[] {GREATEST, GREATEST - (byte) 1},
-            new byte[] {GREATEST, GREATEST},
-            new byte[] {GREATEST, GREATEST, GREATEST});
+      new byte[] {},
+      new byte[] {LEAST},
+      new byte[] {LEAST, LEAST},
+      new byte[] {LEAST, (byte) 1},
+      new byte[] {(byte) 1},
+      new byte[] {(byte) 1, LEAST},
+      new byte[] {GREATEST, GREATEST - (byte) 1},
+      new byte[] {GREATEST, GREATEST},
+      new byte[] {GREATEST, GREATEST, GREATEST});
 
     Comparator<byte[]> comparator = SignedBytes.lexicographicalComparator();
     Helpers.testComparator(comparator, ordered);
@@ -176,7 +176,7 @@ public class SignedBytesTest extends TestCase {
   }
 
   private static void testSortDescending(
-      byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
+    byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     SignedBytes.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));

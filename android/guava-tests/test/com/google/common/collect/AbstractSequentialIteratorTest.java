@@ -38,7 +38,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
       protected Iterator<Integer> newTargetIterator() {
         return newDoubler(1, 2);
       }
-    } .test();
+    }.test();
   }
 
   public void testDoubler() {
@@ -103,28 +103,28 @@ public class AbstractSequentialIteratorTest extends TestCase {
 
   private static Iterator<Integer> newDoubler(int first, final int last) {
     return new AbstractSequentialIterator<Integer>(first) {
-      @Override
-      protected Integer computeNext(Integer previous) {
-        return (previous == last) ? null : previous * 2;
-      }
+             @Override
+             protected Integer computeNext(Integer previous) {
+               return (previous == last) ? null : previous * 2;
+             }
     };
   }
 
   private static <T> Iterator<T> newEmpty() {
     return new AbstractSequentialIterator<T>(null) {
-      @Override
-      protected T computeNext(T previous) {
-        throw new AssertionFailedError();
-      }
+             @Override
+             protected T computeNext(T previous) {
+               throw new AssertionFailedError();
+             }
     };
   }
 
   private static Iterator<Object> newBroken() {
     return new AbstractSequentialIterator<Object>("UNUSED") {
-      @Override
-      protected Object computeNext(Object previous) {
-        throw new MyException();
-      }
+             @Override
+             protected Object computeNext(Object previous) {
+               throw new MyException();
+             }
     };
   }
 

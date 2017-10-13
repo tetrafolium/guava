@@ -50,8 +50,8 @@ public class ListLastIndexOfTester<E> extends AbstractListIndexOfTester<E> {
     array[getNumElements() / 2] = e0();
     collection = getSubjectGenerator().create(array);
     assertEquals(
-        "lastIndexOf(duplicate) should return index of last occurrence",
-        getNumElements() / 2,
-        getList().lastIndexOf(e0()));
+      "lastIndexOf(duplicate) should return index of last occurrence",
+      getNumElements() / 2,
+      getList().lastIndexOf(e0()));
   }
 }

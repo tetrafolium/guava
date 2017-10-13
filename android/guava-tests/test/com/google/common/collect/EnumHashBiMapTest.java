@@ -51,7 +51,7 @@ public class EnumHashBiMapTest extends TestCase {
     public BiMap<Country, String> create(Object... entries) {
       BiMap<Country, String> result = EnumHashBiMap.create(Country.class);
       for (Object o : entries) {
-        Entry<Country, String> entry = (Entry<Country, String>) o;
+        Entry<Country, String> entry = (Entry<Country, String>)o;
         result.put(entry.getKey(), entry.getValue());
       }
       return result;
@@ -60,11 +60,11 @@ public class EnumHashBiMapTest extends TestCase {
     @Override
     public SampleElements<Entry<Country, String>> samples() {
       return new SampleElements<>(
-              Maps.immutableEntry(Country.CANADA, "DOLLAR"),
-              Maps.immutableEntry(Country.CHILE, "PESO"),
-              Maps.immutableEntry(Country.UK, "POUND"),
-              Maps.immutableEntry(Country.JAPAN, "YEN"),
-              Maps.immutableEntry(Country.SWITZERLAND, "FRANC"));
+        Maps.immutableEntry(Country.CANADA, "DOLLAR"),
+        Maps.immutableEntry(Country.CHILE, "PESO"),
+        Maps.immutableEntry(Country.UK, "POUND"),
+        Maps.immutableEntry(Country.JAPAN, "YEN"),
+        Maps.immutableEntry(Country.SWITZERLAND, "FRANC"));
     }
 
     @SuppressWarnings("unchecked")
@@ -95,11 +95,11 @@ public class EnumHashBiMapTest extends TestCase {
     suite.addTest(BiMapTestSuiteBuilder.using(new EnumHashBiMapGenerator())
         .named("EnumHashBiMap")
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            MapFeature.ALLOWS_NULL_VALUES,
-            MapFeature.GENERAL_PURPOSE,
-            CollectionFeature.KNOWN_ORDER)
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        MapFeature.ALLOWS_NULL_VALUES,
+        MapFeature.GENERAL_PURPOSE,
+        CollectionFeature.KNOWN_ORDER)
         .createTestSuite());
     suite.addTestSuite(EnumHashBiMapTest.class);
     return suite;
@@ -119,9 +119,9 @@ public class EnumHashBiMapTest extends TestCase {
   public void testCreateFromMap() {
     /* Test with non-empty Map. */
     Map<Currency, String> map = ImmutableMap.of(
-            Currency.DOLLAR, "dollar",
-            Currency.PESO, "peso",
-            Currency.FRANC, "franc");
+      Currency.DOLLAR, "dollar",
+      Currency.PESO, "peso",
+      Currency.FRANC, "franc");
     EnumHashBiMap<Currency, String> bimap
       = EnumHashBiMap.create(map);
     assertEquals("dollar", bimap.get(Currency.DOLLAR));
@@ -130,7 +130,7 @@ public class EnumHashBiMapTest extends TestCase {
     /* Map must have at least one entry if not an EnumHashBiMap. */
     try {
       EnumHashBiMap.create(
-          Collections.<Currency, String>emptyMap());
+        Collections.<Currency, String>emptyMap());
       fail("IllegalArgumentException expected");
     } catch (IllegalArgumentException expected) {}
 
@@ -200,9 +200,9 @@ public class EnumHashBiMapTest extends TestCase {
   public void testEntrySet() {
     // Bug 3168290
     Map<Currency, String> map = ImmutableMap.of(
-            Currency.DOLLAR, "dollar",
-            Currency.PESO, "peso",
-            Currency.FRANC, "franc");
+      Currency.DOLLAR, "dollar",
+      Currency.PESO, "peso",
+      Currency.FRANC, "franc");
     EnumHashBiMap<Currency, String> bimap
       = EnumHashBiMap.create(map);
 

@@ -77,7 +77,7 @@ public class MultisetCountTester<E> extends AbstractMultisetTester<E> {
 
   public void testCount_wrongType() {
     assertEquals(
-        "multiset.count(wrongType) didn't return 0", 0, getMultiset().count(WrongType.VALUE));
+      "multiset.count(wrongType) didn't return 0", 0, getMultiset().count(WrongType.VALUE));
   }
 
   /**

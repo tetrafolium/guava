@@ -52,28 +52,28 @@ public class FloatArrayAsListTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Float>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new FloatsAsListGenerator())
-            .named("Floats.asList"),
+      ListTestSuiteBuilder.using(new FloatsAsListGenerator())
+      .named("Floats.asList"),
 
-            ListTestSuiteBuilder.using(new FloatsAsListHeadSubListGenerator())
-            .named("Floats.asList, head subList"),
+      ListTestSuiteBuilder.using(new FloatsAsListHeadSubListGenerator())
+      .named("Floats.asList, head subList"),
 
-            ListTestSuiteBuilder.using(new FloatsAsListTailSubListGenerator())
-            .named("Floats.asList, tail subList"),
+      ListTestSuiteBuilder.using(new FloatsAsListTailSubListGenerator())
+      .named("Floats.asList, tail subList"),
 
-            ListTestSuiteBuilder.using(new FloatsAsListMiddleSubListGenerator())
-            .named("Floats.asList, middle subList")
-        );
+      ListTestSuiteBuilder.using(new FloatsAsListMiddleSubListGenerator())
+      .named("Floats.asList, middle subList")
+      );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Float> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              ListFeature.SUPPORTS_SET)
-          .createTestSuite());
+        builder
+        .withFeatures(CollectionSize.ONE,
+        CollectionSize.SEVERAL,
+        CollectionFeature.RESTRICTS_ELEMENTS,
+        ListFeature.SUPPORTS_SET)
+        .createTestSuite());
     }
     return suite;
   }

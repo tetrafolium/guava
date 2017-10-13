@@ -32,7 +32,7 @@ import com.google.common.testing.SerializableTester;
 public class HashBasedTableTest extends AbstractTableTest {
 
   @Override protected Table<String, Integer, Character> create(
-      Object... data) {
+    Object... data) {
     Table<String, Integer, Character> table = HashBasedTable.create();
     table.put("foo", 4, 'a');
     table.put("cat", 1, 'b');

@@ -151,12 +151,12 @@ public class ForwardingNavigableSetTest extends TestCase {
 
     suite.addTestSuite(ForwardingNavigableSetTest.class);
     suite.addTest(
-        SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      SetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         return new StandardImplForwardingNavigableSet<>(
-                new SafeTreeSet<String>(Arrays.asList(elements)));
+          new SafeTreeSet<String>(Arrays.asList(elements)));
       }
 
       @Override
@@ -164,15 +164,15 @@ public class ForwardingNavigableSetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .named("ForwardingNavigableSet[SafeTreeSet] with standard implementations")
-    .withFeatures(
+      .named("ForwardingNavigableSet[SafeTreeSet] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      SetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         SafeTreeSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
@@ -185,15 +185,15 @@ public class ForwardingNavigableSetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .named(
+      .named(
         "ForwardingNavigableSet[SafeTreeSet[Ordering.natural.nullsFirst]]"
         + " with standard implementations")
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -219,9 +219,9 @@ public class ForwardingNavigableSetTest extends TestCase {
 
   private static <T> NavigableSet<T> wrap(final NavigableSet<T> delegate) {
     return new ForwardingNavigableSet<T>() {
-      @Override protected NavigableSet<T> delegate() {
-        return delegate;
-      }
+             @Override protected NavigableSet<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

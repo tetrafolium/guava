@@ -49,7 +49,7 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
     for (Map.Entry<String, String> entry : TEST_STRINGS.entrySet()) {
       if (testAsByteSource) {
         suite.addTest(suiteForBytes(factory,
-                entry.getValue().getBytes(Charsets.UTF_8), name, entry.getKey(), true));
+            entry.getValue().getBytes(Charsets.UTF_8), name, entry.getKey(), true));
       } else {
         suite.addTest(suiteForString(factory, entry.getValue(), name, entry.getKey()));
       }
@@ -60,10 +60,10 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
   static TestSuite suiteForBytes(CharSourceFactory factory, byte[] bytes,
       String name, String desc, boolean slice) {
     TestSuite suite = suiteForString(
-            factory, new String(bytes, Charsets.UTF_8), name, desc);
+      factory, new String(bytes, Charsets.UTF_8), name, desc);
     ByteSourceFactory byteSourceFactory = SourceSinkFactories.asByteSourceFactory(factory);
     suite.addTest(ByteSourceTester.suiteForBytes(byteSourceFactory, bytes,
-            name + ".asByteSource[Charset]", desc, slice));
+        name + ".asByteSource[Charset]", desc, slice));
     return suite;
   }
 

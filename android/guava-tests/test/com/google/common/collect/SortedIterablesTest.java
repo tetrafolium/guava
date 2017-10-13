@@ -30,10 +30,10 @@ public class SortedIterablesTest extends TestCase {
     // Before JDK6 (including under GWT), the TreeMap keySet is a plain Set.
     if (Maps.newTreeMap().keySet() instanceof SortedSet) {
       assertTrue(
-          SortedIterables.hasSameComparator(Ordering.natural(), Maps.newTreeMap().keySet()));
+        SortedIterables.hasSameComparator(Ordering.natural(), Maps.newTreeMap().keySet()));
     }
     assertTrue(SortedIterables.hasSameComparator(Ordering.natural().reverse(),
-            Sets.newTreeSet(Ordering.natural().reverse())));
+        Sets.newTreeSet(Ordering.natural().reverse())));
   }
 
   public void testComparator() {

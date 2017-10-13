@@ -119,10 +119,10 @@ final class RelationshipTester<T> {
   private void assertWithTemplate(String template, Item<T> item, Item<T> other, boolean condition) {
     if (!condition) {
       throw new AssertionFailedError(template
-          .replace("$RELATIONSHIP", relationshipName)
-          .replace("$HASH", hashName)
-          .replace("$ITEM", itemReporter.reportItem(item))
-          .replace("$OTHER", itemReporter.reportItem(other)));
+                .replace("$RELATIONSHIP", relationshipName)
+                .replace("$HASH", hashName)
+                .replace("$ITEM", itemReporter.reportItem(item))
+                .replace("$OTHER", itemReporter.reportItem(other)));
     }
   }
 

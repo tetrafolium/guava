@@ -39,23 +39,23 @@ public class MutableClassToInstanceMapTest extends TestCase {
     suite.addTestSuite(MutableClassToInstanceMapTest.class);
 
     suite.addTest(
-        MapTestSuiteBuilder.using(
-    new TestClassToInstanceMapGenerator() {
+      MapTestSuiteBuilder.using(
+        new TestClassToInstanceMapGenerator() {
       // Other tests will verify what real, warning-free usage looks like
       // but here we have to do some serious fudging
       @Override
       @SuppressWarnings("unchecked")
-      public Map<Class, Impl> create(Object... elements) {
+      public Map<Class, Impl> create(Object ... elements) {
         MutableClassToInstanceMap<Impl> map = MutableClassToInstanceMap.create();
         for (Object object : elements) {
-          Entry<Class, Impl> entry = (Entry<Class, Impl>) object;
+          Entry<Class, Impl> entry = (Entry<Class, Impl>)object;
           map.putInstance(entry.getKey(), entry.getValue());
         }
         return (Map) map;
       }
     })
-    .named("MutableClassToInstanceMap")
-    .withFeatures(
+      .named("MutableClassToInstanceMap")
+      .withFeatures(
         MapFeature.GENERAL_PURPOSE,
         MapFeature.RESTRICTS_KEYS,
         MapFeature.ALLOWS_NULL_VALUES,
@@ -63,7 +63,7 @@ public class MutableClassToInstanceMapTest extends TestCase {
         CollectionFeature.SERIALIZABLE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         MapFeature.ALLOWS_ANY_NULL_QUERIES)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }

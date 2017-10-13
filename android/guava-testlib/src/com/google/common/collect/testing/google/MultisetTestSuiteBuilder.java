@@ -121,42 +121,42 @@ public class MultisetTestSuiteBuilder<E>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-      parentBuilder) {
+    FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+    parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     derivedSuites.add(createElementSetTestSuite(parentBuilder));
 
     if (!parentBuilder.getFeatures().contains(NoRecurse.NO_ENTRY_SET)) {
       derivedSuites.add(
-          SetTestSuiteBuilder.using(new EntrySetGenerator<E>(parentBuilder.getSubjectGenerator()))
-          .named(getName() + ".entrySet")
-          .withFeatures(computeEntrySetFeatures(parentBuilder.getFeatures()))
-          .suppressing(parentBuilder.getSuppressedTests())
-          .createTestSuite());
+        SetTestSuiteBuilder.using(new EntrySetGenerator<E>(parentBuilder.getSubjectGenerator()))
+        .named(getName() + ".entrySet")
+        .withFeatures(computeEntrySetFeatures(parentBuilder.getFeatures()))
+        .suppressing(parentBuilder.getSuppressedTests())
+        .createTestSuite());
     }
 
     if (parentBuilder.getFeatures().contains(CollectionFeature.SERIALIZABLE)) {
       derivedSuites.add(
-          MultisetTestSuiteBuilder.using(
-              new ReserializedMultisetGenerator<E>(parentBuilder.getSubjectGenerator()))
-          .named(getName() + " reserialized")
-          .withFeatures(computeReserializedMultisetFeatures(parentBuilder.getFeatures()))
-          .suppressing(parentBuilder.getSuppressedTests())
-          .createTestSuite());
+        MultisetTestSuiteBuilder.using(
+          new ReserializedMultisetGenerator<E>(parentBuilder.getSubjectGenerator()))
+        .named(getName() + " reserialized")
+        .withFeatures(computeReserializedMultisetFeatures(parentBuilder.getFeatures()))
+        .suppressing(parentBuilder.getSuppressedTests())
+        .createTestSuite());
     }
     return derivedSuites;
   }
 
   TestSuite createElementSetTestSuite(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-      parentBuilder) {
+    FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+    parentBuilder) {
     return SetTestSuiteBuilder.using(
-            new ElementSetGenerator<E>(parentBuilder.getSubjectGenerator()))
-        .named(getName() + ".elementSet")
-        .withFeatures(computeElementSetFeatures(parentBuilder.getFeatures()))
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+      new ElementSetGenerator<E>(parentBuilder.getSubjectGenerator()))
+           .named(getName() + ".elementSet")
+           .withFeatures(computeElementSetFeatures(parentBuilder.getFeatures()))
+           .suppressing(parentBuilder.getSuppressedTests())
+           .createTestSuite();
   }
 
   static class ElementSetGenerator<E> implements TestSetGenerator<E> {
@@ -178,7 +178,7 @@ public class MultisetTestSuiteBuilder<E>
         duplicated[i] = elements[i];
         duplicated[i + elements.length] = elements[i];
       }
-      return ((Multiset<E>) gen.create(duplicated)).elementSet();
+      return ((Multiset<E>)gen.create(duplicated)).elementSet();
     }
 
     @Override
@@ -203,11 +203,11 @@ public class MultisetTestSuiteBuilder<E>
     public SampleElements<Multiset.Entry<E>> samples() {
       SampleElements<E> samples = gen.samples();
       return new SampleElements<>(
-              Multisets.immutableEntry(samples.e0(), 3),
-              Multisets.immutableEntry(samples.e1(), 4),
-              Multisets.immutableEntry(samples.e2(), 1),
-              Multisets.immutableEntry(samples.e3(), 5),
-              Multisets.immutableEntry(samples.e4(), 2));
+        Multisets.immutableEntry(samples.e0(), 3),
+        Multisets.immutableEntry(samples.e1(), 4),
+        Multisets.immutableEntry(samples.e2(), 1),
+        Multisets.immutableEntry(samples.e3(), 5),
+        Multisets.immutableEntry(samples.e4(), 2));
     }
 
     @Override
@@ -216,14 +216,14 @@ public class MultisetTestSuiteBuilder<E>
       Set<E> elements = new HashSet<>();
       for (Object o : entries) {
         @SuppressWarnings("unchecked")
-        Multiset.Entry<E> entry = (Entry<E>) o;
+        Multiset.Entry<E> entry = (Entry<E>)o;
         checkArgument(
-            elements.add(entry.getElement()), "Duplicate keys not allowed in EntrySetGenerator");
+          elements.add(entry.getElement()), "Duplicate keys not allowed in EntrySetGenerator");
         for (int i = 0; i < entry.getCount(); i++) {
           contents.add(entry.getElement());
         }
       }
-      return ((Multiset<E>) gen.create(contents.toArray())).entrySet();
+      return ((Multiset<E>)gen.create(contents.toArray())).entrySet();
     }
 
     @SuppressWarnings("unchecked")
@@ -265,7 +265,7 @@ public class MultisetTestSuiteBuilder<E>
 
     @Override
     public Multiset<E> create(Object... elements) {
-      return (Multiset<E>) SerializableTester.reserialize(gen.create(elements));
+      return (Multiset<E>)SerializableTester.reserialize(gen.create(elements));
     }
 
     @Override

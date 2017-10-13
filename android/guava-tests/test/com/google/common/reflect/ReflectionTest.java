@@ -78,9 +78,9 @@ public class ReflectionTest extends TestCase {
     assertEquals(1, classesInitialized);
 
     Reflection.initialize(
-        A.class,  // Already initialized (above)
-        B.class,
-        C.class);
+      A.class,    // Already initialized (above)
+      B.class,
+      C.class);
     assertEquals(3, classesInitialized);
   }
 

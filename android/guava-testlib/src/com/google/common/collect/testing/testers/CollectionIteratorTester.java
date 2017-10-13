@@ -73,7 +73,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
     Object element = iterator.next();
     // If it's an Entry, it may become invalid once it's removed from the Map. Copy it.
     if (element instanceof Entry) {
-      Entry<?, ?> entry = (Entry<?, ?>) element;
+      Entry<?, ?> entry = (Entry<?, ?>)element;
       element = mapEntry(entry.getKey(), entry.getValue());
     }
     assertTrue(collection.contains(element)); // sanity check
@@ -103,9 +103,9 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
   }
 
   private void runIteratorTest(
-      Set<IteratorFeature> features, IteratorTester.KnownOrder knownOrder, Iterable<E> elements) {
+    Set<IteratorFeature> features, IteratorTester.KnownOrder knownOrder, Iterable<E> elements) {
     new IteratorTester<E>(
-        Platform.collectionIteratorTesterNumIterations(), features, elements, knownOrder) {
+      Platform.collectionIteratorTesterNumIterations(), features, elements, knownOrder) {
       @Override
       protected Iterator<E> newTargetIterator() {
         resetCollection();
@@ -116,7 +116,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
       protected void verify(List<E> elements) {
         expectContents(elements);
       }
-    } .test();
+    }.test();
   }
 
   public void testIteratorNoSuchElementException() {

@@ -319,26 +319,26 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
   Iterator<Entry<K, V>> entrySetIterator() {
     final Iterator<Entry<K, V>> iterator = delegate.entrySet().iterator();
     return new Iterator<Entry<K, V>>() {
-      Entry<K, V> entry;
+             Entry<K, V> entry;
 
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public Entry<K, V> next() {
-        entry = iterator.next();
-        return new BiMapEntry(entry);
-      }
+             @Override
+             public Entry<K, V> next() {
+               entry = iterator.next();
+               return new BiMapEntry(entry);
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(entry != null);
-        V value = entry.getValue();
-        iterator.remove();
-        removeFromInverseMap(value);
-      }
+             @Override
+             public void remove() {
+               checkRemove(entry != null);
+               V value = entry.getValue();
+               iterator.remove();
+               removeFromInverseMap(value);
+             }
     };
   }
 
@@ -363,7 +363,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
       }
 
       // safe because esDelegate.contains(object).
-      Entry<?, ?> entry = (Entry<?, ?>) object;
+      Entry<?, ?> entry = (Entry<?, ?>)object;
       inverse.delegate.remove(entry.getValue());
       /*
        * Remove the mapping in inverse before removing from esDelegate because
@@ -450,7 +450,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      setInverse((AbstractBiMap<V, K>) stream.readObject());
+      setInverse((AbstractBiMap<V, K>)stream.readObject());
     }
 
     @GwtIncompatible // Not needed in the emulated source.

@@ -218,7 +218,7 @@ public class WrappingExecutorServiceTest extends TestCase {
 
     @Override
     public <T> List<Future<T>> invokeAll(
-        Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
     throws InterruptedException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAllTimeout";
@@ -296,7 +296,7 @@ public class WrappingExecutorServiceTest extends TestCase {
     }
 
     private static <T> void assertTaskWrapped(
-        Collection<? extends Callable<T>> tasks) {
+      Collection<? extends Callable<T>> tasks) {
       Predicate<Object> p = Predicates.instanceOf(WrappedCallable.class);
       assertTrue(Iterables.all(tasks, p));
     }

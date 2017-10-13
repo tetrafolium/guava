@@ -144,10 +144,10 @@ public class MapMakerInternalMapTest extends TestCase {
   }
 
   private static void checkInitialCapacity(
-      int concurrencyLevel, int initialCapacity, int segmentSize) {
+    int concurrencyLevel, int initialCapacity, int segmentSize) {
     MapMakerInternalMap<Object, Object, ?, ?> map =
         makeMap(
-            createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
+      createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
     for (int i = 0; i < map.segments.length; i++) {
       assertEquals(segmentSize, map.segments[i].table.length());
     }
@@ -181,7 +181,7 @@ public class MapMakerInternalMapTest extends TestCase {
   private static void checkMaximumSize(int concurrencyLevel, int initialCapacity, int maxSize) {
     MapMakerInternalMap<Object, Object, ?, ?> map =
         makeMap(
-            createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
+      createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
     int totalCapacity = 0;
     for (int i = 0; i < map.segments.length; i++) {
       totalCapacity += map.segments[i].maxSegmentSize;
@@ -204,7 +204,7 @@ public class MapMakerInternalMapTest extends TestCase {
   }
 
   private static void checkStrength(
-      MapMakerInternalMap<Object, Object, ?, ?> map, Strength keyStrength, Strength valueStrength) {
+    MapMakerInternalMap<Object, Object, ?, ?> map, Strength keyStrength, Strength valueStrength) {
     assertSame(keyStrength, map.keyStrength());
     assertSame(valueStrength, map.valueStrength());
     assertSame(keyStrength.defaultEquivalence(), map.keyEquivalence);
@@ -874,7 +874,7 @@ public class MapMakerInternalMapTest extends TestCase {
         map.put(keyOne, valueOne);
         @SuppressWarnings("unchecked")
         WeakValueEntry<Object, Object, ?> entry =
-            (WeakValueEntry<Object, Object, ?>) segment.getEntry(keyOne, hashOne);
+            (WeakValueEntry<Object, Object, ?>)segment.getEntry(keyOne, hashOne);
         WeakValueReference<Object, Object, ?> valueReference = entry.getValueReference();
 
         @SuppressWarnings("unchecked")
@@ -935,7 +935,7 @@ public class MapMakerInternalMapTest extends TestCase {
         map.put(keyOne, valueOne);
         @SuppressWarnings("unchecked")
         WeakValueEntry<Object, Object, ?> entry =
-            (WeakValueEntry<Object, Object, ?>) segment.getEntry(keyOne, hashOne);
+            (WeakValueEntry<Object, Object, ?>)segment.getEntry(keyOne, hashOne);
         WeakValueReference<Object, Object, ?> valueReference = entry.getValueReference();
 
         @SuppressWarnings("unchecked")
@@ -958,13 +958,13 @@ public class MapMakerInternalMapTest extends TestCase {
 
   private static Iterable<MapMaker> allWeakKeyStrengthMakers() {
     return ImmutableList.of(
-            createMapMaker().weakKeys(),
-            createMapMaker().weakKeys().weakValues());
+      createMapMaker().weakKeys(),
+      createMapMaker().weakKeys().weakValues());
   }
 
   private static Iterable<MapMaker> allWeakValueStrengthMakers() {
     return ImmutableList.of(
-            createMapMaker().weakValues(), createMapMaker().weakKeys().weakValues());
+      createMapMaker().weakValues(), createMapMaker().weakKeys().weakValues());
   }
 
   public void testNullParameters() throws Exception {

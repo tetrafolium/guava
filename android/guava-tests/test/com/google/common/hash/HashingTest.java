@@ -275,8 +275,8 @@ public class HashingTest extends TestCase {
     assertEquals(HashCode.fromBytes(new byte[] { (byte) 0xa0, 0, 0, 0 }),
         Hashing.combineOrdered(ImmutableList.of(hash32, hash32, hash32)));
     assertFalse(
-        Hashing.combineOrdered(ImmutableList.of(hash31, hash32)).equals(
-            Hashing.combineOrdered(ImmutableList.of(hash32, hash31))));
+      Hashing.combineOrdered(ImmutableList.of(hash31, hash32)).equals(
+        Hashing.combineOrdered(ImmutableList.of(hash32, hash31))));
   }
 
   public void testCombineOrdered_randomHashCodes() {
@@ -317,8 +317,8 @@ public class HashingTest extends TestCase {
     assertEquals(HashCode.fromInt(96),
         Hashing.combineUnordered(ImmutableList.of(hash32, hash32, hash32)));
     assertEquals(
-        Hashing.combineUnordered(ImmutableList.of(hash31, hash32)),
-        Hashing.combineUnordered(ImmutableList.of(hash32, hash31)));
+      Hashing.combineUnordered(ImmutableList.of(hash31, hash32)),
+      Hashing.combineUnordered(ImmutableList.of(hash32, hash31)));
   }
 
   public void testCombineUnordered_randomHashCodes() {
@@ -340,40 +340,40 @@ public class HashingTest extends TestCase {
     .addEqualityGroup(Hashing.concatenating(asList(Hashing.md5())))
     .addEqualityGroup(Hashing.concatenating(asList(Hashing.murmur3_32())))
     .addEqualityGroup(
-        Hashing.concatenating(Hashing.md5(), Hashing.md5()),
-        Hashing.concatenating(asList(Hashing.md5(), Hashing.md5())))
+      Hashing.concatenating(Hashing.md5(), Hashing.md5()),
+      Hashing.concatenating(asList(Hashing.md5(), Hashing.md5())))
     .addEqualityGroup(
-        Hashing.concatenating(Hashing.murmur3_32(), Hashing.md5()),
-        Hashing.concatenating(asList(Hashing.murmur3_32(), Hashing.md5())))
+      Hashing.concatenating(Hashing.murmur3_32(), Hashing.md5()),
+      Hashing.concatenating(asList(Hashing.murmur3_32(), Hashing.md5())))
     .addEqualityGroup(
-        Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32()),
-        Hashing.concatenating(asList(Hashing.md5(), Hashing.murmur3_32())))
+      Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32()),
+      Hashing.concatenating(asList(Hashing.md5(), Hashing.murmur3_32())))
     .testEquals();
   }
 
   public void testConcatenatingIterable_bits() {
     assertEquals(
-        Hashing.md5().bits() + Hashing.md5().bits(),
-        Hashing.concatenating(asList(Hashing.md5(), Hashing.md5())).bits());
+      Hashing.md5().bits() + Hashing.md5().bits(),
+      Hashing.concatenating(asList(Hashing.md5(), Hashing.md5())).bits());
     assertEquals(
-        Hashing.md5().bits() + Hashing.murmur3_32().bits(),
-        Hashing.concatenating(asList(Hashing.md5(), Hashing.murmur3_32())).bits());
+      Hashing.md5().bits() + Hashing.murmur3_32().bits(),
+      Hashing.concatenating(asList(Hashing.md5(), Hashing.murmur3_32())).bits());
     assertEquals(
-        Hashing.md5().bits() + Hashing.murmur3_32().bits() + Hashing.murmur3_128().bits(),
-        Hashing.concatenating(
-            asList(Hashing.md5(), Hashing.murmur3_32(), Hashing.murmur3_128())).bits());
+      Hashing.md5().bits() + Hashing.murmur3_32().bits() + Hashing.murmur3_128().bits(),
+      Hashing.concatenating(
+        asList(Hashing.md5(), Hashing.murmur3_32(), Hashing.murmur3_128())).bits());
   }
 
   public void testConcatenatingVarArgs_bits() {
     assertEquals(
-        Hashing.md5().bits() + Hashing.md5().bits(),
-        Hashing.concatenating(Hashing.md5(), Hashing.md5()).bits());
+      Hashing.md5().bits() + Hashing.md5().bits(),
+      Hashing.concatenating(Hashing.md5(), Hashing.md5()).bits());
     assertEquals(
-        Hashing.md5().bits() + Hashing.murmur3_32().bits(),
-        Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32()).bits());
+      Hashing.md5().bits() + Hashing.murmur3_32().bits(),
+      Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32()).bits());
     assertEquals(
-        Hashing.md5().bits() + Hashing.murmur3_32().bits() + Hashing.murmur3_128().bits(),
-        Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32(), Hashing.murmur3_128()).bits());
+      Hashing.md5().bits() + Hashing.murmur3_32().bits() + Hashing.murmur3_128().bits(),
+      Hashing.concatenating(Hashing.md5(), Hashing.murmur3_32(), Hashing.murmur3_128()).bits());
   }
 
   public void testConcatenatingHashFunction_makeHash() {
@@ -394,8 +394,8 @@ public class HashingTest extends TestCase {
   public void testHashIntReverseBytesVsHashBytesIntsToByteArray() {
     int input = 42;
     assertEquals(
-        Hashing.md5().hashBytes(Ints.toByteArray(input)),
-        Hashing.md5().hashInt(Integer.reverseBytes(input)));
+      Hashing.md5().hashBytes(Ints.toByteArray(input)),
+      Hashing.md5().hashInt(Integer.reverseBytes(input)));
   }
 
   public void testHashIntVsForLoop() {
@@ -417,85 +417,85 @@ public class HashingTest extends TestCase {
 
   private static final ImmutableTable<HashFunction, String, String> KNOWN_HASHES =
       ImmutableTable.<HashFunction, String, String>builder()
-      .put(Hashing.adler32(), EMPTY_STRING, "01000000")
-      .put(Hashing.adler32(), TQBFJOTLD, "da0fdc5b")
-      .put(Hashing.adler32(), TQBFJOTLDP, "0810e46b")
-      .put(Hashing.md5(), EMPTY_STRING, "d41d8cd98f00b204e9800998ecf8427e")
-      .put(Hashing.md5(), TQBFJOTLD, "9e107d9d372bb6826bd81d3542a419d6")
-      .put(Hashing.md5(), TQBFJOTLDP, "e4d909c290d0fb1ca068ffaddf22cbd0")
-      .put(Hashing.murmur3_128(), EMPTY_STRING, "00000000000000000000000000000000")
-      .put(Hashing.murmur3_128(), TQBFJOTLD, "6c1b07bc7bbc4be347939ac4a93c437a")
-      .put(Hashing.murmur3_128(), TQBFJOTLDP, "c902e99e1f4899cde7b68789a3a15d69")
-      .put(Hashing.murmur3_32(), EMPTY_STRING, "00000000")
-      .put(Hashing.murmur3_32(), TQBFJOTLD, "23f74f2e")
-      .put(Hashing.murmur3_32(), TQBFJOTLDP, "fc8bc4d5")
-      .put(Hashing.sha1(), EMPTY_STRING, "da39a3ee5e6b4b0d3255bfef95601890afd80709")
-      .put(Hashing.sha1(), TQBFJOTLD, "2fd4e1c67a2d28fced849ee1bb76e7391b93eb12")
-      .put(Hashing.sha1(), TQBFJOTLDP, "408d94384216f890ff7a0c3528e8bed1e0b01621")
-      .put(
-          Hashing.sha256(),
-          EMPTY_STRING,
-          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
-      .put(
-          Hashing.sha256(),
-          TQBFJOTLD,
-          "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592")
-      .put(
-          Hashing.sha256(),
-          TQBFJOTLDP,
-          "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c")
-      .put(
-          Hashing.sha384(),
-          EMPTY_STRING,
-          "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da2"
-          + "74edebfe76f65fbd51ad2f14898b95b")
-      .put(
-          Hashing.sha384(),
-          TQBFJOTLD,
-          "ca737f1014a48f4c0b6dd43cb177b0afd9e5169367544c494011e3317dbf9a509"
-          + "cb1e5dc1e85a941bbee3d7f2afbc9b1")
-      .put(
-          Hashing.sha384(),
-          TQBFJOTLDP,
-          "ed892481d8272ca6df370bf706e4d7bc1b5739fa2177aae6c50e946678718fc67"
-          + "a7af2819a021c2fc34e91bdb63409d7")
-      .put(
-          Hashing.sha512(),
-          EMPTY_STRING,
-          "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce"
-          + "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e")
-      .put(
-          Hashing.sha512(),
-          TQBFJOTLD,
-          "07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb64"
-          + "2e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6")
-      .put(
-          Hashing.sha512(),
-          TQBFJOTLDP,
-          "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bb"
-          + "c6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
-      .put(Hashing.crc32(), EMPTY_STRING, "00000000")
-      .put(Hashing.crc32(), TQBFJOTLD, "39a34f41")
-      .put(Hashing.crc32(), TQBFJOTLDP, "e9259051")
-      .put(Hashing.sipHash24(), EMPTY_STRING, "310e0edd47db6f72")
-      .put(Hashing.sipHash24(), TQBFJOTLD, "e46f1fdc05612752")
-      .put(Hashing.sipHash24(), TQBFJOTLDP, "9b602581fce4d4f8")
-      .put(Hashing.crc32c(), EMPTY_STRING, "00000000")
-      .put(Hashing.crc32c(), TQBFJOTLD, "04046222")
-      .put(Hashing.crc32c(), TQBFJOTLDP, "b3970019")
-      .put(Hashing.farmHashFingerprint64(), EMPTY_STRING, "4f40902f3b6ae19a")
-      .put(Hashing.farmHashFingerprint64(), TQBFJOTLD, "34511b3bf383beab")
-      .put(Hashing.farmHashFingerprint64(), TQBFJOTLDP, "737d7e5f8660653e")
-      .build();
+  .put(Hashing.adler32(), EMPTY_STRING, "01000000")
+  .put(Hashing.adler32(), TQBFJOTLD, "da0fdc5b")
+  .put(Hashing.adler32(), TQBFJOTLDP, "0810e46b")
+  .put(Hashing.md5(), EMPTY_STRING, "d41d8cd98f00b204e9800998ecf8427e")
+  .put(Hashing.md5(), TQBFJOTLD, "9e107d9d372bb6826bd81d3542a419d6")
+  .put(Hashing.md5(), TQBFJOTLDP, "e4d909c290d0fb1ca068ffaddf22cbd0")
+  .put(Hashing.murmur3_128(), EMPTY_STRING, "00000000000000000000000000000000")
+  .put(Hashing.murmur3_128(), TQBFJOTLD, "6c1b07bc7bbc4be347939ac4a93c437a")
+  .put(Hashing.murmur3_128(), TQBFJOTLDP, "c902e99e1f4899cde7b68789a3a15d69")
+  .put(Hashing.murmur3_32(), EMPTY_STRING, "00000000")
+  .put(Hashing.murmur3_32(), TQBFJOTLD, "23f74f2e")
+  .put(Hashing.murmur3_32(), TQBFJOTLDP, "fc8bc4d5")
+  .put(Hashing.sha1(), EMPTY_STRING, "da39a3ee5e6b4b0d3255bfef95601890afd80709")
+  .put(Hashing.sha1(), TQBFJOTLD, "2fd4e1c67a2d28fced849ee1bb76e7391b93eb12")
+  .put(Hashing.sha1(), TQBFJOTLDP, "408d94384216f890ff7a0c3528e8bed1e0b01621")
+  .put(
+    Hashing.sha256(),
+    EMPTY_STRING,
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+  .put(
+    Hashing.sha256(),
+    TQBFJOTLD,
+    "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592")
+  .put(
+    Hashing.sha256(),
+    TQBFJOTLDP,
+    "ef537f25c895bfa782526529a9b63d97aa631564d5d789c2b765448c8635fb6c")
+  .put(
+    Hashing.sha384(),
+    EMPTY_STRING,
+    "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da2"
+    + "74edebfe76f65fbd51ad2f14898b95b")
+  .put(
+    Hashing.sha384(),
+    TQBFJOTLD,
+    "ca737f1014a48f4c0b6dd43cb177b0afd9e5169367544c494011e3317dbf9a509"
+    + "cb1e5dc1e85a941bbee3d7f2afbc9b1")
+  .put(
+    Hashing.sha384(),
+    TQBFJOTLDP,
+    "ed892481d8272ca6df370bf706e4d7bc1b5739fa2177aae6c50e946678718fc67"
+    + "a7af2819a021c2fc34e91bdb63409d7")
+  .put(
+    Hashing.sha512(),
+    EMPTY_STRING,
+    "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce"
+    + "47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e")
+  .put(
+    Hashing.sha512(),
+    TQBFJOTLD,
+    "07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb64"
+    + "2e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6")
+  .put(
+    Hashing.sha512(),
+    TQBFJOTLDP,
+    "91ea1245f20d46ae9a037a989f54f1f790f0a47607eeb8a14d12890cea77a1bb"
+    + "c6c7ed9cf205e67b7f2b8fd4c7dfd3a7a8617e45f3c463d481c7e586c39ac1ed")
+  .put(Hashing.crc32(), EMPTY_STRING, "00000000")
+  .put(Hashing.crc32(), TQBFJOTLD, "39a34f41")
+  .put(Hashing.crc32(), TQBFJOTLDP, "e9259051")
+  .put(Hashing.sipHash24(), EMPTY_STRING, "310e0edd47db6f72")
+  .put(Hashing.sipHash24(), TQBFJOTLD, "e46f1fdc05612752")
+  .put(Hashing.sipHash24(), TQBFJOTLDP, "9b602581fce4d4f8")
+  .put(Hashing.crc32c(), EMPTY_STRING, "00000000")
+  .put(Hashing.crc32c(), TQBFJOTLD, "04046222")
+  .put(Hashing.crc32c(), TQBFJOTLDP, "b3970019")
+  .put(Hashing.farmHashFingerprint64(), EMPTY_STRING, "4f40902f3b6ae19a")
+  .put(Hashing.farmHashFingerprint64(), TQBFJOTLD, "34511b3bf383beab")
+  .put(Hashing.farmHashFingerprint64(), TQBFJOTLDP, "737d7e5f8660653e")
+  .build();
 
   public void testAllHashFunctionsHaveKnownHashes() throws Exception {
     // The following legacy hashing function methods have been covered by unit testing already.
     List<String> legacyHashingMethodNames = ImmutableList.of("murmur2_64", "fprint96");
     for (Method method : Hashing.class.getDeclaredMethods()) {
       if (method.getReturnType().equals(HashFunction.class) // must return HashFunction
-          && Modifier.isPublic(method.getModifiers()) // only the public methods
-          && method.getParameterTypes().length == 0 // only the seed-less grapes^W hash functions
-          && !legacyHashingMethodNames.contains(method.getName())) {
+            && Modifier.isPublic(method.getModifiers()) // only the public methods
+            && method.getParameterTypes().length == 0 // only the seed-less grapes^W hash functions
+            && !legacyHashingMethodNames.contains(method.getName())) {
         HashFunction hashFunction = (HashFunction) method.invoke(Hashing.class);
         assertTrue("There should be at least 3 entries in KNOWN_HASHES for " + hashFunction,
             KNOWN_HASHES.row(hashFunction).size() >= 3);
@@ -509,16 +509,16 @@ public class HashingTest extends TestCase {
       String input = cell.getColumnKey();
       String expected = cell.getValue();
       assertEquals(
-          String.format(Locale.ROOT, "Known hash for hash(%s, UTF_8) failed", input),
-          expected,
-          func.hashString(input, UTF_8).toString());
+        String.format(Locale.ROOT, "Known hash for hash(%s, UTF_8) failed", input),
+        expected,
+        func.hashString(input, UTF_8).toString());
     }
   }
 
   public void testNullPointers() {
     NullPointerTester tester = new NullPointerTester()
-    .setDefault(byte[].class, "secret key".getBytes(UTF_8))
-    .setDefault(HashCode.class, HashCode.fromLong(0));
+        .setDefault(byte[].class, "secret key".getBytes(UTF_8))
+        .setDefault(HashCode.class, HashCode.fromLong(0));
     tester.testAllPublicStaticMethods(Hashing.class);
   }
 
@@ -563,8 +563,8 @@ public class HashingTest extends TestCase {
   static void assertSeedlessHashFunctionEquals(Class<?> clazz) throws Exception {
     for (Method method : clazz.getDeclaredMethods()) {
       if (method.getReturnType().equals(HashFunction.class) // must return HashFunction
-          && Modifier.isPublic(method.getModifiers()) // only the public methods
-          && method.getParameterTypes().length == 0) { // only the seed-less hash functions
+            && Modifier.isPublic(method.getModifiers()) // only the public methods
+            && method.getParameterTypes().length == 0) { // only the seed-less hash functions
         HashFunction hashFunction1a = (HashFunction) method.invoke(clazz);
         HashFunction hashFunction1b = (HashFunction) method.invoke(clazz);
 
@@ -584,11 +584,11 @@ public class HashingTest extends TestCase {
     Random random = new Random(RANDOM_SEED);
     for (Method method : clazz.getDeclaredMethods()) {
       if (method.getReturnType().equals(HashFunction.class) // must return HashFunction
-          && Modifier.isPublic(method.getModifiers()) // only the public methods
-          && method.getParameterTypes().length != 0 // only the seeded hash functions
-          && !method.getName().equals("concatenating") // don't test Hashing.concatenating()
-          && !method.getName().equals("goodFastHash") // tested in testGoodFastHashEquals
-          && !method.getName().startsWith("hmac")) { // skip hmac functions
+            && Modifier.isPublic(method.getModifiers()) // only the public methods
+            && method.getParameterTypes().length != 0 // only the seeded hash functions
+            && !method.getName().equals("concatenating") // don't test Hashing.concatenating()
+            && !method.getName().equals("goodFastHash") // tested in testGoodFastHashEquals
+            && !method.getName().startsWith("hmac")) { // skip hmac functions
         Object[] params1 = new Object[method.getParameterTypes().length];
         Object[] params2 = new Object[method.getParameterTypes().length];
         for (int i = 0; i < params1.length; i++) {

@@ -35,10 +35,10 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
    */
   public void testExhaustive() {
     List<Hasher> hashers = ImmutableList.of(
-            new StreamingVersion().newHasher(),
-            new StreamingVersion().newHasher(52),
-            new NonStreamingVersion().newHasher(),
-            new NonStreamingVersion().newHasher(123));
+      new StreamingVersion().newHasher(),
+      new StreamingVersion().newHasher(52),
+      new NonStreamingVersion().newHasher(),
+      new NonStreamingVersion().newHasher(123));
     Random random = new Random(0);
     for (int i = 0; i < 200; i++) {
       RandomHasherAction.pickAtRandom(random).performAction(random, hashers);
@@ -66,16 +66,16 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
 
   public void testPutStringWithLowHighSurrogate() {
     assertPutString(new char[] {
-            HashTestUtils.randomLowSurrogate(new Random()),
-            HashTestUtils.randomHighSurrogate(new Random())
-        });
+      HashTestUtils.randomLowSurrogate(new Random()),
+      HashTestUtils.randomHighSurrogate(new Random())
+    });
   }
 
   public void testPutStringWithHighLowSurrogate() {
     assertPutString(new char[] {
-            HashTestUtils.randomHighSurrogate(new Random()),
-            HashTestUtils.randomLowSurrogate(new Random())
-        });
+      HashTestUtils.randomHighSurrogate(new Random()),
+      HashTestUtils.randomLowSurrogate(new Random())
+    });
   }
 
   private static void assertPutString(char[] chars) {
@@ -99,25 +99,25 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
     @Override
     public Hasher newHasher() {
       return new AbstractStreamingHasher(4, 4) {
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        @Override
-        protected HashCode makeHash() {
-          return HashCode.fromBytes(out.toByteArray());
-        }
+               final ByteArrayOutputStream out = new ByteArrayOutputStream();
+               @Override
+               protected HashCode makeHash() {
+                 return HashCode.fromBytes(out.toByteArray());
+               }
 
-        @Override
-        protected void process(ByteBuffer bb) {
-          while (bb.hasRemaining()) {
-            out.write(bb.get());
-          }
-        }
+               @Override
+               protected void process(ByteBuffer bb) {
+                 while (bb.hasRemaining()) {
+                   out.write(bb.get());
+                 }
+               }
 
-        @Override
-        protected void processRemaining(ByteBuffer bb) {
-          while (bb.hasRemaining()) {
-            out.write(bb.get());
-          }
-        }
+               @Override
+               protected void processRemaining(ByteBuffer bb) {
+                 while (bb.hasRemaining()) {
+                   out.write(bb.get());
+                 }
+               }
       };
     }
   }

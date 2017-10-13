@@ -31,7 +31,7 @@ public class ConflictingRequirementsException extends Exception {
   private Object source;
 
   public ConflictingRequirementsException(
-      String message, Set<Feature<?>> conflicts, Object source) {
+    String message, Set<Feature<?>> conflicts, Object source) {
     super(message);
     this.conflicts = conflicts;
     this.source = source;

@@ -72,7 +72,7 @@ public class CollectionContainsTester<E> extends AbstractCollectionTester<E> {
   public void testContains_wrongType() {
     try {
       assertFalse(
-          "contains(wrongType) should return false or throw", collection.contains(WrongType.VALUE));
+        "contains(wrongType) should return false or throw", collection.contains(WrongType.VALUE));
     } catch (ClassCastException tolerated) {
     }
   }

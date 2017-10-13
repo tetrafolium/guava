@@ -70,7 +70,7 @@ final class MathBenchmarking {
       return new BigInteger(1, RANDOM_SOURCE);
     } else {
       return new BigInteger(digits, RANDOM_SOURCE)
-          .setBit(digits);
+             .setBit(digits);
     }
   }
 

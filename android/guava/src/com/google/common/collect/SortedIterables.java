@@ -38,9 +38,9 @@ final class SortedIterables {
     checkNotNull(elements);
     Comparator<?> comparator2;
     if (elements instanceof SortedSet) {
-      comparator2 = comparator((SortedSet<?>) elements);
+      comparator2 = comparator((SortedSet<?>)elements);
     } else if (elements instanceof SortedIterable) {
-      comparator2 = ((SortedIterable<?>) elements).comparator();
+      comparator2 = ((SortedIterable<?>)elements).comparator();
     } else {
       return false;
     }
@@ -52,7 +52,7 @@ final class SortedIterables {
   public static <E> Comparator<? super E> comparator(SortedSet<E> sortedSet) {
     Comparator<? super E> result = sortedSet.comparator();
     if (result == null) {
-      result = (Comparator<? super E>) Ordering.natural();
+      result = (Comparator<? super E>)Ordering.natural();
     }
     return result;
   }

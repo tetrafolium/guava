@@ -36,14 +36,14 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
     private List<Optional<V>> values;
 
     CollectionFutureRunningState(
-        ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-        boolean allMustSucceed) {
+      ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+      boolean allMustSucceed) {
       super(futures, allMustSucceed, true);
 
       this.values =
           futures.isEmpty()
           ? ImmutableList.<Optional<V>>of()
-          : Lists.<Optional<V>>newArrayListWithCapacity(futures.size());
+          : Lists.<Optional<V> >newArrayListWithCapacity(futures.size());
 
       // Populate the results list with null initially.
       for (int i = 0; i < futures.size(); ++i) {
@@ -62,7 +62,7 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
         // have an exception set. This should only happen if allMustSucceed is true or if the output
         // itself has been cancelled.
         checkState(
-            allMustSucceed || isCancelled(), "Future was done before all dependencies completed");
+          allMustSucceed || isCancelled(), "Future was done before all dependencies completed");
       }
     }
 
@@ -88,15 +88,15 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
   /** Used for {@link Futures#allAsList} and {@link Futures#successfulAsList}. */
   static final class ListFuture<V> extends CollectionFuture<V, List<V>> {
     ListFuture(
-        ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-        boolean allMustSucceed) {
+      ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+      boolean allMustSucceed) {
       init(new ListFutureRunningState(futures, allMustSucceed));
     }
 
     private final class ListFutureRunningState extends CollectionFutureRunningState {
       ListFutureRunningState(
-          ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-          boolean allMustSucceed) {
+        ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+        boolean allMustSucceed) {
         super(futures, allMustSucceed);
       }
 

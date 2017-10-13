@@ -96,7 +96,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
   final PriorityQueue<E> q;
   final Monitor monitor = new Monitor(true);
   private final Monitor.Guard notEmpty =
-  new Monitor.Guard(monitor) {
+      new Monitor.Guard(monitor) {
     @Override public boolean isSatisfied() {
       return !q.isEmpty();
     }
@@ -559,7 +559,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
       // not just a .equals element.
       monitor.enter();
       try {
-        for (Iterator<E> it = q.iterator(); it.hasNext();) {
+        for (Iterator<E> it = q.iterator(); it.hasNext(); ) {
           if (it.next() == x) {
             it.remove();
             return;

@@ -97,7 +97,7 @@ public final class Queues {
    */
   @GwtIncompatible // ConcurrentLinkedQueue
   public static <E> ConcurrentLinkedQueue<E> newConcurrentLinkedQueue(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new ConcurrentLinkedQueue<E>(Collections2.cast(elements));
     }
@@ -209,7 +209,7 @@ public final class Queues {
    */
   @GwtIncompatible // PriorityBlockingQueue
   public static <E extends Comparable> PriorityBlockingQueue<E> newPriorityBlockingQueue(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new PriorityBlockingQueue<E>(Collections2.cast(elements));
     }
@@ -239,7 +239,7 @@ public final class Queues {
    * @since 11.0 (requires that {@code E} be {@code Comparable} since 15.0).
    */
   public static <E extends Comparable> PriorityQueue<E> newPriorityQueue(
-      Iterable<? extends E> elements) {
+    Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new PriorityQueue<E>(Collections2.cast(elements));
     }
@@ -275,11 +275,11 @@ public final class Queues {
   @CanIgnoreReturnValue
   @GwtIncompatible // BlockingQueue
   public static <E> int drain(
-      BlockingQueue<E> q,
-      Collection<? super E> buffer,
-      int numElements,
-      long timeout,
-      TimeUnit unit)
+    BlockingQueue<E> q,
+    Collection<? super E> buffer,
+    int numElements,
+    long timeout,
+    TimeUnit unit)
   throws InterruptedException {
     Preconditions.checkNotNull(buffer);
     /*
@@ -322,11 +322,11 @@ public final class Queues {
   @CanIgnoreReturnValue
   @GwtIncompatible // BlockingQueue
   public static <E> int drainUninterruptibly(
-      BlockingQueue<E> q,
-      Collection<? super E> buffer,
-      int numElements,
-      long timeout,
-      TimeUnit unit) {
+    BlockingQueue<E> q,
+    Collection<? super E> buffer,
+    int numElements,
+    long timeout,
+    TimeUnit unit) {
     Preconditions.checkNotNull(buffer);
     long deadline = System.nanoTime() + unit.toNanos(timeout);
     int added = 0;

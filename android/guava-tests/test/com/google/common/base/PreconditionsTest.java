@@ -221,7 +221,7 @@ public class PreconditionsTest extends TestCase {
 
   public void testCheckNotNull_complexMessage_success() {
     String result = Preconditions.checkNotNull(
-            NON_NULL_STRING, "%s", IGNORE_ME);
+      NON_NULL_STRING, "%s", IGNORE_ME);
     assertSame(NON_NULL_STRING, result);
   }
 
@@ -404,7 +404,7 @@ public class PreconditionsTest extends TestCase {
   public void testAllOverloads_checkArgument() throws Exception {
     for (ImmutableList<Class<?>> sig : allSignatures(boolean.class)) {
       Method checkArgumentMethod =
-          Preconditions.class.getMethod("checkArgument", sig.toArray(new Class<?>[] {}));
+            Preconditions.class.getMethod("checkArgument", sig.toArray(new Class<?>[] {}));
       checkArgumentMethod.invoke(null /* static method */, getParametersForSignature(true, sig));
 
       Object[] failingParams = getParametersForSignature(false, sig);
@@ -421,7 +421,7 @@ public class PreconditionsTest extends TestCase {
   public void testAllOverloads_checkState() throws Exception {
     for (ImmutableList<Class<?>> sig : allSignatures(boolean.class)) {
       Method checkArgumentMethod =
-          Preconditions.class.getMethod("checkState", sig.toArray(new Class<?>[] {}));
+            Preconditions.class.getMethod("checkState", sig.toArray(new Class<?>[] {}));
       checkArgumentMethod.invoke(null /* static method */, getParametersForSignature(true, sig));
 
       Object[] failingParams = getParametersForSignature(false, sig);
@@ -438,9 +438,9 @@ public class PreconditionsTest extends TestCase {
   public void testAllOverloads_checkNotNull() throws Exception {
     for (ImmutableList<Class<?>> sig : allSignatures(Object.class)) {
       Method checkArgumentMethod =
-          Preconditions.class.getMethod("checkNotNull", sig.toArray(new Class<?>[] {}));
+            Preconditions.class.getMethod("checkNotNull", sig.toArray(new Class<?>[] {}));
       checkArgumentMethod.invoke(
-          null /* static method */, getParametersForSignature(new Object(), sig));
+        null /* static method */, getParametersForSignature(new Object(), sig));
 
       Object[] failingParams = getParametersForSignature(null, sig);
       try {
@@ -457,7 +457,7 @@ public class PreconditionsTest extends TestCase {
    * the full set of method parameters.
    */
   private void assertFailureCause(
-      Throwable throwable, Class<? extends Throwable> clazz, Object[] params) {
+    Throwable throwable, Class<? extends Throwable> clazz, Object[] params) {
     assertThat(throwable).isInstanceOf(clazz);
     if (params.length == 1) {
       assertThat(throwable).hasMessage(null);
@@ -494,10 +494,10 @@ public class PreconditionsTest extends TestCase {
 
   private static final ImmutableList<Class<?>> possibleParamTypes =
       ImmutableList.of(
-          char.class,
-          int.class,
-          long.class,
-          Object.class);
+    char.class,
+    int.class,
+    long.class,
+    Object.class);
 
   /**
    * Returns a list of parameters for invoking an overload of checkState, checkArgument or
@@ -517,11 +517,11 @@ public class PreconditionsTest extends TestCase {
       typesLists.add(possibleParamTypes);
       for (List<Class<?>> curr : Lists.cartesianProduct(typesLists)) {
         allOverloads.add(
-            ImmutableList.<Class<?>>builder()
-            .add(predicateType)
-            .add(String.class)  // the format string
-            .addAll(curr)
-            .build());
+          ImmutableList.<Class<?>>builder()
+          .add(predicateType)
+          .add(String.class)    // the format string
+          .addAll(curr)
+          .build());
       }
     }
     return allOverloads.build().asList();

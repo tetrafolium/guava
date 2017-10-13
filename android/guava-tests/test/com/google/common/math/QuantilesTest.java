@@ -87,13 +87,13 @@ public class QuantilesTest extends TestCase {
    * each other or identical non-finite values.
    */
   private static final Correspondence<Double, Double> QUANTILE_CORRESPONDENCE =
-  new Correspondence<Double, Double>() {
+      new Correspondence<Double, Double>() {
 
     @Override
     public boolean compare(@Nullable Double actual, @Nullable Double expected) {
       // Test for equality to allow non-finite values to match; otherwise, use the finite test.
       return actual.equals(expected)
-          || FINITE_QUANTILE_CORRESPONDENCE.compare(actual, expected);
+             || FINITE_QUANTILE_CORRESPONDENCE.compare(actual, expected);
     }
 
     @Override
@@ -108,11 +108,11 @@ public class QuantilesTest extends TestCase {
    * The squares of the 16 integers from 0 to 15, in an arbitrary order.
    */
   private static final ImmutableList<Double> SIXTEEN_SQUARES_DOUBLES = ImmutableList.of(25.0, 100.0,
-          0.0, 144.0, 9.0, 121.0, 4.0, 225.0, 169.0, 64.0, 49.0, 16.0, 36.0, 1.0, 81.0, 196.0);
+      0.0, 144.0, 9.0, 121.0, 4.0, 225.0, 169.0, 64.0, 49.0, 16.0, 36.0, 1.0, 81.0, 196.0);
   private static final ImmutableList<Long> SIXTEEN_SQUARES_LONGS = ImmutableList.of(25L, 100L,
-          0L, 144L, 9L, 121L, 4L, 225L, 169L, 64L, 49L, 16L, 36L, 1L, 81L, 196L);
+      0L, 144L, 9L, 121L, 4L, 225L, 169L, 64L, 49L, 16L, 36L, 1L, 81L, 196L);
   private static final ImmutableList<Integer> SIXTEEN_SQUARES_INTEGERS = ImmutableList.of(25, 100,
-          0, 144, 9, 121, 4, 225, 169, 64, 49, 16, 36, 1, 81, 196);
+      0, 144, 9, 121, 4, 225, 169, 64, 49, 16, 36, 1, 81, 196);
   private static final double SIXTEEN_SQUARES_MIN = 0.0;
   private static final double SIXTEEN_SQUARES_DECILE_1 = 0.5 * (1.0 + 4.0);
   private static final double SIXTEEN_SQUARES_QUARTILE_1 = 0.25 * 9.0 + 0.75 * 16.0;
@@ -158,8 +158,8 @@ public class QuantilesTest extends TestCase {
     assertThat(quartiles().indexes(1, 3).computeInPlace(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        1, SIXTEEN_SQUARES_QUARTILE_1,
-        3, SIXTEEN_SQUARES_QUARTILE_3);
+      1, SIXTEEN_SQUARES_QUARTILE_1,
+      3, SIXTEEN_SQUARES_QUARTILE_3);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
@@ -227,11 +227,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_DOUBLES))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_snapshotsIndexes() {
@@ -244,11 +244,11 @@ public class QuantilesTest extends TestCase {
     assertThat(intermediate.compute(SIXTEEN_SQUARES_DOUBLES))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_largeVarargs_compute_doubleCollection() {
@@ -259,10 +259,10 @@ public class QuantilesTest extends TestCase {
     // (1-5/Integer.MAX_VALUE).
     double otherValue = 16.0 * 5.0 / Integer.MAX_VALUE + 25.0 * (1.0 - 5.0 / Integer.MAX_VALUE);
     assertThat(
-        Quantiles.scale(scale).indexes(0, scale, otherIndex).compute(SIXTEEN_SQUARES_DOUBLES))
+      Quantiles.scale(scale).indexes(0, scale, otherIndex).compute(SIXTEEN_SQUARES_DOUBLES))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN, scale, SIXTEEN_SQUARES_MAX, otherIndex, otherValue);
+      0, SIXTEEN_SQUARES_MIN, scale, SIXTEEN_SQUARES_MAX, otherIndex, otherValue);
   }
 
   public void testScale_indexes_varargs_compute_longCollection() {
@@ -270,11 +270,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_LONGS))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_integerCollection() {
@@ -282,11 +282,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(SIXTEEN_SQUARES_INTEGERS))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_varargs_compute_doubleVarargs() {
@@ -294,11 +294,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset)
     .usingExactEquality()
     .containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES)
@@ -310,11 +310,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_LONGS);
   }
 
@@ -323,11 +323,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).compute(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).asList().isEqualTo(SIXTEEN_SQUARES_INTEGERS);
   }
 
@@ -336,11 +336,11 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10, 5, 1, 8, 1).computeInPlace(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
@@ -348,38 +348,38 @@ public class QuantilesTest extends TestCase {
     assertThat(Quantiles.scale(10).indexes(0, 10).computeInPlace(78.9, 12.3, 45.6))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, 12.3,
-        10, 78.9);
+      0, 12.3,
+      10, 78.9);
   }
 
   public void testScale_indexes_collection_compute_doubleCollection() {
     // Note that we specify index 1 twice, which by the method contract should be ignored.
     assertThat(
-        Quantiles.scale(10)
-        .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
-        .compute(SIXTEEN_SQUARES_DOUBLES))
+      Quantiles.scale(10)
+      .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
+      .compute(SIXTEEN_SQUARES_DOUBLES))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
   }
 
   public void testScale_indexes_collection_computeInPlace() {
     double[] dataset = Doubles.toArray(SIXTEEN_SQUARES_DOUBLES);
     assertThat(
-        Quantiles.scale(10)
-        .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
-        .computeInPlace(dataset))
+      Quantiles.scale(10)
+      .indexes(ImmutableList.of(0, 10, 5, 1, 8, 1))
+      .computeInPlace(dataset))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, SIXTEEN_SQUARES_MIN,
-        10, SIXTEEN_SQUARES_MAX,
-        5, SIXTEEN_SQUARES_MEDIAN,
-        1, SIXTEEN_SQUARES_DECILE_1,
-        8, SIXTEEN_SQUARES_DECILE_8);
+      0, SIXTEEN_SQUARES_MIN,
+      10, SIXTEEN_SQUARES_MAX,
+      5, SIXTEEN_SQUARES_MEDIAN,
+      1, SIXTEEN_SQUARES_DECILE_1,
+      8, SIXTEEN_SQUARES_DECILE_8);
     assertThat(dataset).usingExactEquality().containsExactlyElementsIn(SIXTEEN_SQUARES_DOUBLES);
   }
 
@@ -391,23 +391,23 @@ public class QuantilesTest extends TestCase {
       ImmutableList.of(3.0, 5.0, NEGATIVE_INFINITY, 1.0, 4.0, 2.0);
   private static final ImmutableList<Double> NEGATIVE_INFINITY_AND_FIVE_POSITIVE_INFINITIES =
       ImmutableList.of(POSITIVE_INFINITY, POSITIVE_INFINITY, NEGATIVE_INFINITY, POSITIVE_INFINITY,
-          POSITIVE_INFINITY, POSITIVE_INFINITY);
+      POSITIVE_INFINITY, POSITIVE_INFINITY);
   private static final ImmutableList<Double> ONE_TO_FIVE_AND_NAN =
       ImmutableList.of(3.0, 5.0, NaN, 1.0, 4.0, 2.0);
 
   public void testScale_indexes_varargs_compute_doubleCollection_positiveInfinity() {
     assertThat(
-        Quantiles.scale(10)
-        .indexes(0, 1, 2, 8, 9, 10)
-        .compute(ONE_TO_FIVE_AND_POSITIVE_INFINITY))
+      Quantiles.scale(10)
+      .indexes(0, 1, 2, 8, 9, 10)
+      .compute(ONE_TO_FIVE_AND_POSITIVE_INFINITY))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, 1.0,
-        1, 1.5,
-        2, 2.0,
-        8, 5.0,
-        9, POSITIVE_INFINITY, // interpolating between 5.0 and POSITIVE_INFNINITY
-        10, POSITIVE_INFINITY);
+      0, 1.0,
+      1, 1.5,
+      2, 2.0,
+      8, 5.0,
+      9, POSITIVE_INFINITY,   // interpolating between 5.0 and POSITIVE_INFNINITY
+      10, POSITIVE_INFINITY);
   }
 
   public void testScale_index_compute_doubleCollection_positiveInfinity() {
@@ -418,17 +418,17 @@ public class QuantilesTest extends TestCase {
 
   public void testScale_indexes_varargs_compute_doubleCollection_negativeInfinity() {
     assertThat(
-        Quantiles.scale(10)
-        .indexes(0, 1, 2, 8, 9, 10)
-        .compute(ONE_TO_FIVE_AND_NEGATIVE_INFINITY))
+      Quantiles.scale(10)
+      .indexes(0, 1, 2, 8, 9, 10)
+      .compute(ONE_TO_FIVE_AND_NEGATIVE_INFINITY))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, NEGATIVE_INFINITY,
-        1, NEGATIVE_INFINITY, // interpolating between NEGATIVE_INFNINITY and 1.0
-        2, 1.0,
-        8, 4.0,
-        9, 4.5,
-        10, 5.0);
+      0, NEGATIVE_INFINITY,
+      1, NEGATIVE_INFINITY,   // interpolating between NEGATIVE_INFNINITY and 1.0
+      2, 1.0,
+      8, 4.0,
+      9, 4.5,
+      10, 5.0);
   }
 
   public void testScale_index_compute_doubleCollection_negativeInfinity() {
@@ -439,29 +439,29 @@ public class QuantilesTest extends TestCase {
 
   public void testScale_indexes_varargs_compute_doubleCollection_bothInfinities() {
     assertThat(
-        Quantiles.scale(10)
-        .indexes(0, 1, 2, 8, 9, 10)
-        .compute(NEGATIVE_INFINITY_AND_FIVE_POSITIVE_INFINITIES))
+      Quantiles.scale(10)
+      .indexes(0, 1, 2, 8, 9, 10)
+      .compute(NEGATIVE_INFINITY_AND_FIVE_POSITIVE_INFINITIES))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, NEGATIVE_INFINITY,
-        1, NaN, // interpolating between NEGATIVE_ and POSITIVE_INFINITY values
-        2, POSITIVE_INFINITY,
-        8, POSITIVE_INFINITY,
-        9, POSITIVE_INFINITY, // interpolating between two POSITIVE_INFINITY values
-        10, POSITIVE_INFINITY);
+      0, NEGATIVE_INFINITY,
+      1, NaN,   // interpolating between NEGATIVE_ and POSITIVE_INFINITY values
+      2, POSITIVE_INFINITY,
+      8, POSITIVE_INFINITY,
+      9, POSITIVE_INFINITY,   // interpolating between two POSITIVE_INFINITY values
+      10, POSITIVE_INFINITY);
   }
 
   public void testScale_indexes_varargs_compute_doubleCollection_nan() {
     assertThat(Quantiles.scale(10).indexes(0, 1, 2, 8, 9, 10).compute(ONE_TO_FIVE_AND_NAN))
     .comparingValuesUsing(QUANTILE_CORRESPONDENCE)
     .containsExactly(
-        0, NaN,
-        1, NaN,
-        2, NaN,
-        8, NaN,
-        9, NaN,
-        10, NaN);
+      0, NaN,
+      1, NaN,
+      2, NaN,
+      8, NaN,
+      9, NaN,
+      10, NaN);
   }
 
   public void testScale_index_compute_doubleCollection_nan() {

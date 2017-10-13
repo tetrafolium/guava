@@ -29,8 +29,8 @@ import java.util.Random;
 public final class SpecialRandom extends Random {
   public static SpecialRandom valueOf(String s) {
     return (s.length() == 0)
-        ? new SpecialRandom()
-        : new SpecialRandom(Long.parseLong(s));
+           ? new SpecialRandom()
+           : new SpecialRandom(Long.parseLong(s));
   }
 
   private final boolean hasSeed;

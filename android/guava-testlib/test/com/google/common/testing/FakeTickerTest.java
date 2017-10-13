@@ -85,8 +85,8 @@ public class FakeTickerTest extends TestCase {
     for (TimeUnit timeUnit : EnumSet.allOf(TimeUnit.class)) {
       ticker.setAutoIncrementStep(0, timeUnit);
       assertEquals(
-          "Expected no auto-increment when setting autoIncrementStep to 0 " + timeUnit,
-          30, ticker.read());
+        "Expected no auto-increment when setting autoIncrementStep to 0 " + timeUnit,
+        30, ticker.read());
     }
   }
 
@@ -106,7 +106,7 @@ public class FakeTickerTest extends TestCase {
 
     int numberOfThreads = 64;
     runConcurrentTest(numberOfThreads,
-    new Callable<Void>() {
+        new Callable<Void>() {
       @Override
       public Void call() throws Exception {
         // adds two nanoseconds to the ticker
@@ -129,7 +129,7 @@ public class FakeTickerTest extends TestCase {
 
     int numberOfThreads = 64;
     runConcurrentTest(numberOfThreads,
-    new Callable<Void>() {
+        new Callable<Void>() {
       @Override
       public Void call() throws Exception {
         ticker.read();
@@ -153,7 +153,7 @@ public class FakeTickerTest extends TestCase {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError =
           executorService.submit(
-      new Callable<Void>() {
+        new Callable<Void>() {
         @Override
         public Void call() throws Exception {
           startLatch.countDown();

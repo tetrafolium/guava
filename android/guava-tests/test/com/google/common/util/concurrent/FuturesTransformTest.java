@@ -31,7 +31,7 @@ public class FuturesTransformTest extends AbstractChainedListenableFutureTest<St
   private static final String RESULT_DATA = "SUCCESS";
 
   @Override protected ListenableFuture<String> buildChainingFuture(
-      ListenableFuture<Integer> inputFuture) {
+    ListenableFuture<Integer> inputFuture) {
     return transform(inputFuture, new ComposeFunction(), directExecutor());
   }
 

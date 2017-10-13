@@ -32,10 +32,10 @@ import java.util.NoSuchElementException;
 import junit.framework.TestCase;
 
 /**
-  * Unit test for {@link PeekingIterator}.
-  *
-  * @author Mick Killianey
-  */
+ * Unit test for {@link PeekingIterator}.
+ *
+ * @author Mick Killianey
+ */
 @SuppressWarnings("serial") // No serialization is used in this test
 @GwtCompatible(emulated = true)
 public class PeekingIteratorTest extends TestCase {
@@ -56,7 +56,7 @@ public class PeekingIteratorTest extends TestCase {
 
     public PeekingIteratorTester(Collection<T> master) {
       super(master.size() + 3, MODIFIABLE, master,
-          IteratorTester.KnownOrder.KNOWN_ORDER);
+      IteratorTester.KnownOrder.KNOWN_ORDER);
       this.master = master;
     }
     @Override protected Iterator<T> newTargetIterator() {
@@ -82,7 +82,7 @@ public class PeekingIteratorTest extends TestCase {
         Iterator<T> iterator = Collections.unmodifiableList(list).iterator();
         return Iterators.peekingIterator(iterator);
       }
-    } .test();
+    }.test();
   }
 
   public void testPeekingIteratorBehavesLikeIteratorOnEmptyIterable() {
@@ -183,10 +183,10 @@ public class PeekingIteratorTest extends TestCase {
   static class ThrowsAtEndException extends RuntimeException { /* nothing */ }
 
   /**
-    * This Iterator claims to have more elements than the underlying
-    * iterable, but when you try to fetch the extra elements, it throws
-    * an unchecked exception.
-    */
+   * This Iterator claims to have more elements than the underlying
+   * iterable, but when you try to fetch the extra elements, it throws
+   * an unchecked exception.
+   */
   static class ThrowsAtEndIterator<E> implements Iterator<E> {
     Iterator<E> iterator;
     public ThrowsAtEndIterator(Iterable<E> iterable) {

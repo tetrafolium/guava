@@ -38,7 +38,7 @@ public class ListAddAllTester<E> extends AbstractListTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAll_supportedAllPresent() {
     assertTrue(
-        "addAll(allPresent) should return true", getList().addAll(MinimalCollection.of(e0())));
+      "addAll(allPresent) should return true", getList().addAll(MinimalCollection.of(e0())));
     expectAdded(e0());
   }
 

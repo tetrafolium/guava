@@ -116,9 +116,9 @@ public class SetGenerators {
   }
 
   public static class ImmutableSetWithBadHashesGenerator extends TestCollidingSetGenerator
-  // Work around a GWT compiler bug.  Not explicitly listing this will
-  // cause the createArray() method missing in the generated javascript.
-  // TODO: Remove this once the GWT bug is fixed.
+    // Work around a GWT compiler bug.  Not explicitly listing this will
+    // cause the createArray() method missing in the generated javascript.
+    // TODO: Remove this once the GWT bug is fixed.
     implements TestCollectionGenerator<Object> {
     @Override
     public Set<Object> create(Object... elements) {
@@ -132,7 +132,7 @@ public class SetGenerators {
     @SuppressWarnings("cast")
     @Override
     protected Set<String> create(String[] elements) {
-      return (ImmutableSet<String>) ImmutableSet.of(elements[0], elements[0]);
+      return (ImmutableSet<String>)ImmutableSet.of(elements[0], elements[0]);
     }
   }
 
@@ -217,8 +217,8 @@ public class SetGenerators {
     @Override
     protected SortedSet<String> create(String[] elements) {
       return ImmutableSortedSet.<String>reverseOrder()
-          .addAll(Arrays.asList(elements).iterator())
-          .build();
+             .addAll(Arrays.asList(elements).iterator())
+             .build();
     }
 
     @Override
@@ -269,10 +269,10 @@ public class SetGenerators {
     protected List<String> create(String[] elements) {
       Comparator<String> comparator = createExplicitComparator(elements).reverse();
       return ImmutableSortedSet.orderedBy(comparator)
-          .add(elements)
-          .build()
-          .descendingSet()
-          .asList();
+             .add(elements)
+             .build()
+             .descendingSet()
+             .asList();
     }
   }
 
@@ -300,10 +300,10 @@ public class SetGenerators {
       builder.add(AFTER_LAST);
       builder.add(AFTER_LAST_2);
       return builder
-          .build()
-          .subSet(BEFORE_FIRST_2, AFTER_LAST_2)
-          .asList()
-          .subList(1, elements.length + 1);
+             .build()
+             .subSet(BEFORE_FIRST_2, AFTER_LAST_2)
+             .asList()
+             .subList(1, elements.length + 1);
     }
   }
 

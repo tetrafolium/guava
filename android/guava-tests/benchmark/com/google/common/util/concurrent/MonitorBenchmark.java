@@ -43,7 +43,7 @@ public class MonitorBenchmark {
         (useMonitor ? "com.google.common.util.concurrent.MonitorBased" : "java.util.concurrent.");
     String className = prefix + queueType + "BlockingQueue";
     Constructor<?> constructor = Class.forName(className).getConstructor(int.class);
-    queue = (BlockingQueue<String>) constructor.newInstance(capacity);
+    queue = (BlockingQueue<String>)constructor.newInstance(capacity);
 
     strings = new String[capacity];
     for (int i = 0; i < capacity; i++) {

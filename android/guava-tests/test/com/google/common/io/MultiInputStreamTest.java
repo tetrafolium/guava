@@ -54,10 +54,10 @@ public class MultiInputStreamTest extends IoTestCase {
           throw new IllegalStateException("More than one source open");
         }
         return new FilterInputStream(source.openStream()) {
-          @Override public void close() throws IOException {
-            super.close();
-            counter[0]--;
-          }
+                 @Override public void close() throws IOException {
+                   super.close();
+                   counter[0]--;
+                 }
         };
       }
     };
@@ -94,7 +94,7 @@ public class MultiInputStreamTest extends IoTestCase {
   @SuppressWarnings("CheckReturnValue") // these calls to skip always return 0
   public void testSkip() throws Exception {
     MultiInputStream multi = new MultiInputStream(
-    Collections.singleton(new ByteSource() {
+      Collections.singleton(new ByteSource() {
       @Override
       public InputStream openStream() {
         return new ByteArrayInputStream(newPreFilledByteArray(0, 50)) {
@@ -113,10 +113,10 @@ public class MultiInputStreamTest extends IoTestCase {
 
   private static ByteSource newByteSource(final int start, final int size) {
     return new ByteSource() {
-      @Override
-      public InputStream openStream() {
-        return new ByteArrayInputStream(newPreFilledByteArray(start, size));
-      }
+             @Override
+             public InputStream openStream() {
+               return new ByteArrayInputStream(newPreFilledByteArray(start, size));
+             }
     };
   }
 }

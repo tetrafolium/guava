@@ -44,7 +44,7 @@ public class CharStreamsTest extends IoTestCase {
 
   public void testReadLines() throws IOException {
     List<String> lines = CharStreams.readLines(
-            new StringReader("a\nb\nc"));
+      new StringReader("a\nb\nc"));
     assertEquals(ImmutableList.of("a", "b", "c"), lines);
   }
 
@@ -146,14 +146,14 @@ public class CharStreamsTest extends IoTestCase {
     StringBuilder builder = new StringBuilder();
     long copied =
         CharStreams.copy(
-            wrapAsGenericReadable(new StringReader(ASCII)), wrapAsGenericAppendable(builder));
+      wrapAsGenericReadable(new StringReader(ASCII)), wrapAsGenericAppendable(builder));
     assertEquals(ASCII, builder.toString());
     assertEquals(ASCII.length(), copied);
 
     StringBuilder builder2 = new StringBuilder();
     copied =
         CharStreams.copy(
-            wrapAsGenericReadable(new StringReader(I18N)), wrapAsGenericAppendable(builder2));
+      wrapAsGenericReadable(new StringReader(I18N)), wrapAsGenericAppendable(builder2));
     assertEquals(I18N, builder2.toString());
     assertEquals(I18N.length(), copied);
   }
@@ -266,17 +266,17 @@ public class CharStreamsTest extends IoTestCase {
    */
   private static Reader newNonBufferFillingReader(Reader reader) {
     return new FilterReader(reader) {
-      @Override
-      public int read(char[] cbuf, int off, int len) throws IOException {
-        // if a buffer isn't being cleared correctly, this method will eventually start being called
-        // with a len of 0 forever
-        if (len <= 0) {
-          fail("read called with a len of " + len);
-        }
-        // read fewer than the max number of chars to read
-        // shouldn't be a problem unless the buffer is shrinking each call
-        return in.read(cbuf, off, Math.max(len - 1024, 0));
-      }
+             @Override
+             public int read(char[] cbuf, int off, int len) throws IOException {
+               // if a buffer isn't being cleared correctly, this method will eventually start being called
+               // with a len of 0 forever
+               if (len <= 0) {
+                 fail("read called with a len of " + len);
+               }
+               // read fewer than the max number of chars to read
+               // shouldn't be a problem unless the buffer is shrinking each call
+               return in.read(cbuf, off, Math.max(len - 1024, 0));
+             }
     };
   }
 
@@ -286,23 +286,23 @@ public class CharStreamsTest extends IoTestCase {
   private static Appendable wrapAsGenericAppendable(final Appendable a) {
     return new Appendable() {
 
-      @Override
-      public Appendable append(CharSequence csq) throws IOException {
-        a.append(csq);
-        return this;
-      }
+             @Override
+             public Appendable append(CharSequence csq) throws IOException {
+               a.append(csq);
+               return this;
+             }
 
-      @Override
-      public Appendable append(CharSequence csq, int start, int end) throws IOException {
-        a.append(csq, start, end);
-        return this;
-      }
+             @Override
+             public Appendable append(CharSequence csq, int start, int end) throws IOException {
+               a.append(csq, start, end);
+               return this;
+             }
 
-      @Override
-      public Appendable append(char c) throws IOException {
-        a.append(c);
-        return this;
-      }
+             @Override
+             public Appendable append(char c) throws IOException {
+               a.append(c);
+               return this;
+             }
     };
   }
   /**
@@ -310,10 +310,10 @@ public class CharStreamsTest extends IoTestCase {
    */
   private static Readable wrapAsGenericReadable(final Readable a) {
     return new Readable() {
-      @Override
-      public int read(CharBuffer cb) throws IOException {
-        return a.read(cb);
-      }
+             @Override
+             public int read(CharBuffer cb) throws IOException {
+               return a.read(cb);
+             }
     };
   }
 }

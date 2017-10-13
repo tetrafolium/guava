@@ -33,169 +33,181 @@ public class TypeTokenSubtypeTest extends TestCase {
   }
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass() {
-    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
+    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {
+    };
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass();
     assertTrue(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass_typeParameterOfOwnerTypeNotMatch() {
-    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Indoor>().new Shop<Electronics>() {} .getClass();
+    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {
+    };
+    Class<?> subclass = new Mall<Indoor>().new Shop<Electronics>() {
+    }.getClass();
     assertFalse(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public void testSubtypeOfInnerClass_nonStaticAnonymousClass_typeParameterOfInnerTypeNotMatch() {
-    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Grocery>() {} .getClass();
+    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {
+    };
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Grocery>() {
+    }.getClass();
     assertFalse(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public static void testSubtypeOfInnerClass_staticAnonymousClass() {
-    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {};
-    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
+    TypeToken<?> supertype = new TypeToken<Mall<Outdoor>.Shop<Electronics>>() {
+    };
+    Class<?> subclass = new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass();
     assertTrue(TypeToken.of(subclass).isSubtypeOf(supertype));
   }
 
   public static void testSubtypeOfStaticAnonymousClass() {
-    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
+    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass();
     assertTrue(TypeToken.of(superclass).isSubtypeOf(superclass));
-    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {} .getClass())
-    .isSubtypeOf(superclass));
+    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass())
+        .isSubtypeOf(superclass));
   }
 
   public void testSubtypeOfNonStaticAnonymousClass() {
-    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {} .getClass();
+    Class<?> superclass = new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass();
     assertTrue(TypeToken.of(superclass).isSubtypeOf(superclass));
-    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {} .getClass())
-    .isSubtypeOf(superclass));
+    assertFalse(TypeToken.of(new Mall<Outdoor>().new Shop<Electronics>() {
+    }.getClass())
+        .isSubtypeOf(superclass));
   }
 
   private static class OwnerTypeSubtypingTests extends SubtypeTester {
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> innerTypeIsSubtype(
-        Mall<Outdoor>.Retailer<Electronics> retailer) {
+      Mall<Outdoor>.Retailer<Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<Outdoor>.Shop<? extends Electronics> innerTypeIsSubtype_supertypeWithWildcard(
-        Mall<Outdoor>.Retailer<Electronics> retailer) {
+      Mall<Outdoor>.Retailer<Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<?>.Shop<?> innerTypeIsSubtype_withWildcards(
-        Mall<? extends Indoor>.Retailer<? extends Electronics> retailer) {
+      Mall<? extends Indoor>.Retailer<? extends Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> ownerTypeIsSubtype(
-        Outlet<Outdoor>.Shop<Electronics> shop) {
+      Outlet<Outdoor>.Shop<Electronics> shop) {
       return isSubtype(shop);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<? extends Outdoor>.Shop<Electronics> ownerTypeIsSubtype_supertypeWithWildcard(
-        Outlet<Outdoor>.Shop<Electronics> shop) {
+      Outlet<Outdoor>.Shop<Electronics> shop) {
       return isSubtype(shop);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<?>.Shop<Electronics> ownerTypeIsSubtype_withWildcards(
-        Outlet<? extends Outdoor>.Shop<Electronics> shop) {
+      Outlet<? extends Outdoor>.Shop<Electronics> shop) {
       return isSubtype(shop);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> bothOwnerTypeAndInnerTypeAreSubtypes(
-        Outlet<Outdoor>.Retailer<Electronics> retailer) {
+      Outlet<Outdoor>.Retailer<Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<? super Outdoor>.Shop<? extends Electronics>
     bothOwnerTypeAndInnerTypeAreSubtypes_supertypeWithWildcard(
-        Outlet<Outdoor>.Retailer<Electronics> retailer) {
+      Outlet<Outdoor>.Retailer<Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Mall<? super Outdoor>.Shop<? extends Electronics>
     bothOwnerTypeAndInnerTypeAreSubtypes_withWildcards(
-        Outlet<Outdoor>.Retailer<Electronics> retailer) {
+      Outlet<Outdoor>.Retailer<Electronics> retailer) {
       return isSubtype(retailer);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> ownerTypeDoesNotMatch(
-        Mall<Indoor>.Shop<Electronics> shop) {
+      Mall<Indoor>.Shop<Electronics> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> ownerTypeDoesNotMatch_subtypeWithWildcard(
-        Mall<? extends Outdoor>.Shop<Electronics> shop) {
+      Mall<? extends Outdoor>.Shop<Electronics> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Mall<? extends Outdoor>.Shop<Electronics> ownerTypeDoesNotMatch_supertypeWithWildcard(
-        Mall<?>.Shop<Electronics> shop) {
+      Mall<?>.Shop<Electronics> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Retailer<Electronics> innerTypeDoesNotMatch(
-        Mall<Outdoor>.Shop<Grocery> shop) {
+      Mall<Outdoor>.Shop<Grocery> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<Electronics> innerTypeDoesNotMatch_subtypeWithWildcard(
-        Mall<Outdoor>.Shop<? extends Electronics> shop) {
+      Mall<Outdoor>.Shop<? extends Electronics> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Mall<Outdoor>.Shop<? extends Electronics> innerTypeDoesNotMatch_supertypeWithWildcard(
-        Mall<Outdoor>.Shop<Grocery> shop) {
+      Mall<Outdoor>.Shop<Grocery> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype(suppressGetSubtype = true)
     public ConsumerFacing<Electronics> supertypeIsNestedClass(
-        Mall<Indoor>.Retailer<Electronics> shop) {
+      Mall<Indoor>.Retailer<Electronics> shop) {
       return isSubtype(shop);
     }
 
     @TestSubtype
     public ConsumerFacing<Grocery> nestedClassIsNotSupertypeDueToTypeParameter(
-        Mall<Indoor>.Shop<Electronics> shop) {
+      Mall<Indoor>.Shop<Electronics> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public ConsumerFacing<Grocery> nestedClassIsNotSupertype(
-        Mall<Indoor>.Shop<Grocery> shop) {
+      Mall<Indoor>.Shop<Grocery> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype(suppressGetSubtype = true)
     public Comparator<Electronics> supertypeIsTopLevelClass(
-        Mall<Indoor>.Retailer<Electronics> shop) {
+      Mall<Indoor>.Retailer<Electronics> shop) {
       return isSubtype(shop);
     }
 
     @TestSubtype
     public Comparator<Electronics> topLevelClassIsNotSupertypeDueToTypeParameter(
-        Mall<Indoor>.Retailer<Grocery> shop) {
+      Mall<Indoor>.Retailer<Grocery> shop) {
       return notSubtype(shop);
     }
 
     @TestSubtype
     public Comparator<Electronics> topLevelClassIsNotSupertype(
-        Mall<Indoor>.Shop<Electronics> shop) {
+      Mall<Indoor>.Shop<Electronics> shop) {
       return notSubtype(shop);
     }
   }
@@ -233,13 +245,13 @@ public class TypeTokenSubtypeTest extends TestCase {
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public <T> Iterable<? super String> wildcardsMatchByLowerBound(
-        List<? super CharSequence> list) {
+      List<? super CharSequence> list) {
       return isSubtype(list);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public <T> Iterable<? super CharSequence> wildCardsDoNotMatchByLowerBound(
-        List<? super String> list) {
+      List<? super String> list) {
       return notSubtype(list);
     }
 
@@ -247,7 +259,7 @@ public class TypeTokenSubtypeTest extends TestCase {
     // Foo<?> and Foo<? extends Bar> equal for class Foo<T extends Bar>
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public UseIterable<?> explicitTypeBoundIsSubtypeOfImplicitTypeBound(
-        UseIterable<? extends Iterable<?>> obj) {
+      UseIterable<? extends Iterable<?>> obj) {
       return isSubtype(obj);
     }
 
@@ -255,7 +267,7 @@ public class TypeTokenSubtypeTest extends TestCase {
     // Foo<?> and Foo<? extends Bar> equal for class Foo<T extends Bar>
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public UseIterable<? extends Iterable<?>> implicitTypeBoundIsSubtypeOfExplicitTypeBound(
-        UseIterable<?> obj) {
+      UseIterable<?> obj) {
       return isSubtype(obj);
     }
 
@@ -263,19 +275,19 @@ public class TypeTokenSubtypeTest extends TestCase {
     // Foo<?> and Foo<? extends Bar> equal for class Foo<T extends Bar>
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public UseIterable<? extends Iterable<?>> omittedTypeBoundIsSubtypeOfExplicitTypeBound(
-        UseIterable<? extends CharSequence> obj) {
+      UseIterable<? extends CharSequence> obj) {
       return isSubtype(obj);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Enum<? extends Enum<?>> implicitlyBoundedEnumIsSubtypeOfExplicitlyBoundedEnum(
-        Enum<?> obj) {
+      Enum<?> obj) {
       return isSubtype(obj);
     }
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public Enum<?> explicitlyBoundedEnumIsSubtypeOfImplicitlyBoundedEnum(
-        Enum<? extends Enum<?>> obj) {
+      Enum<? extends Enum<?>> obj) {
       return isSubtype(obj);
     }
 
@@ -287,7 +299,7 @@ public class TypeTokenSubtypeTest extends TestCase {
 
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public UseSerializableIterable<?> partialImplicitTypeBoundIsSubtypeOfImplicitTypeBound(
-        UseSerializableIterable<? extends Iterable<?>> obj) {
+      UseSerializableIterable<? extends Iterable<?>> obj) {
       return isSubtype(obj);
     }
 
@@ -300,7 +312,7 @@ public class TypeTokenSubtypeTest extends TestCase {
     @TestSubtype(suppressGetSupertype = true, suppressGetSubtype = true)
     public UseSerializableIterable<? extends CharSequence>
     partialExplicitTypeBoundIsNotSubtypeOfDifferentTypeBound(
-        UseSerializableIterable<? extends Serializable> obj) {
+      UseSerializableIterable<? extends Serializable> obj) {
       return notSubtype(obj);
     }
   }

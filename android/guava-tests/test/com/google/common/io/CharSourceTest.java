@@ -47,9 +47,9 @@ public class CharSourceTest extends IoTestCase {
     TestSuite suite = new TestSuite();
     for (boolean asByteSource : new boolean[] {false, true}) {
       suite.addTest(CharSourceTester.tests("CharSource.wrap[CharSequence]",
-              SourceSinkFactories.stringCharSourceFactory(), asByteSource));
+            SourceSinkFactories.stringCharSourceFactory(), asByteSource));
       suite.addTest(CharSourceTester.tests("CharSource.empty[]",
-              SourceSinkFactories.emptyCharSourceFactory(), asByteSource));
+          SourceSinkFactories.emptyCharSourceFactory(), asByteSource));
     }
     suite.addTestSuite(CharSourceTest.class);
     return suite;
@@ -344,9 +344,9 @@ public class CharSourceTest extends IoTestCase {
 
   private static CharSink newNormalCharSink() {
     return new CharSink() {
-      @Override public Writer openStream() {
-        return new StringWriter();
-      }
+             @Override public Writer openStream() {
+               return new StringWriter();
+             }
     };
   }
 }

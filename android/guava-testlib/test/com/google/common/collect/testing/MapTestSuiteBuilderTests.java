@@ -47,7 +47,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
 
   public static Test suite() {
     TestSuite suite = new TestSuite(
-        MapTestSuiteBuilderTests.class.getSimpleName());
+      MapTestSuiteBuilderTests.class.getSimpleName());
     suite.addTest(testsForHashMapNullKeysForbidden());
     suite.addTest(testsForHashMapNullValuesForbidden());
     return suite;
@@ -56,7 +56,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
   private abstract static class WrappedHashMapGenerator
     extends TestStringMapGenerator {
     @Override protected final Map<String, String> create(
-        Map.Entry<String, String>[] entries) {
+      Map.Entry<String, String>[] entries) {
       HashMap<String, String> map = Maps.newHashMap();
       for (Map.Entry<String, String> entry : entries) {
         map.put(entry.getKey(), entry.getValue());
@@ -68,16 +68,16 @@ public final class MapTestSuiteBuilderTests extends TestCase {
   }
 
   private static TestSuite wrappedHashMapTests(
-      WrappedHashMapGenerator generator, String name, Feature<?>... features) {
+    WrappedHashMapGenerator generator, String name, Feature<?>... features) {
     List<Feature<?>> featuresList = Lists.newArrayList(features);
     Collections.addAll(featuresList,
         MapFeature.GENERAL_PURPOSE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         CollectionSize.ANY);
     return MapTestSuiteBuilder.using(generator)
-        .named(name)
-        .withFeatures(featuresList)
-        .createTestSuite();
+           .named(name)
+           .withFeatures(featuresList)
+           .createTestSuite();
   }
 
   // TODO: consider being null-hostile in these tests

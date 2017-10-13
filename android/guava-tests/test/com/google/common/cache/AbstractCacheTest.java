@@ -57,8 +57,8 @@ public class AbstractCacheTest extends TestCase {
     };
 
     assertEquals(
-        ImmutableMap.of(),
-        cache.getAllPresent(ImmutableList.of(new Object())));
+      ImmutableMap.of(),
+      cache.getAllPresent(ImmutableList.of(new Object())));
   }
 
   public void testGetAllPresent_cached() {
@@ -72,8 +72,8 @@ public class AbstractCacheTest extends TestCase {
     };
 
     assertEquals(
-        ImmutableMap.of(cachedKey, cachedValue),
-        cache.getAllPresent(ImmutableList.of(cachedKey, new Object())));
+      ImmutableMap.of(cachedKey, cachedValue),
+      cache.getAllPresent(ImmutableList.of(cachedKey, new Object())));
   }
 
   public void testInvalidateAll() {

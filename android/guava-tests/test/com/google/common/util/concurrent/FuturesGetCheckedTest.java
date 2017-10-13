@@ -170,7 +170,7 @@ public class FuturesGetCheckedTest extends TestCase {
 
   public void testGetCheckedTimed_success() throws TwoArgConstructorException {
     assertEquals(
-        "foo", getChecked(immediateFuture("foo"), TwoArgConstructorException.class, 0, SECONDS));
+      "foo", getChecked(immediateFuture("foo"), TwoArgConstructorException.class, 0, SECONDS));
   }
 
   public void testGetCheckedTimed_interrupted() {
@@ -274,7 +274,7 @@ public class FuturesGetCheckedTest extends TestCase {
   public void testGetCheckedTimed_badExceptionConstructor_wrapsOriginalChecked() throws Exception {
     try {
       getChecked(
-          FAILED_FUTURE_CHECKED_EXCEPTION, ExceptionWithBadConstructor.class, 1, TimeUnit.SECONDS);
+        FAILED_FUTURE_CHECKED_EXCEPTION, ExceptionWithBadConstructor.class, 1, TimeUnit.SECONDS);
       fail();
     } catch (IllegalArgumentException expected) {
     }
@@ -283,10 +283,10 @@ public class FuturesGetCheckedTest extends TestCase {
   public void testGetCheckedTimed_withGoodAndBadExceptionConstructor() throws Exception {
     try {
       getChecked(
-          FAILED_FUTURE_CHECKED_EXCEPTION,
-          ExceptionWithGoodAndBadConstructor.class,
-          1,
-          TimeUnit.SECONDS);
+        FAILED_FUTURE_CHECKED_EXCEPTION,
+        ExceptionWithGoodAndBadConstructor.class,
+        1,
+        TimeUnit.SECONDS);
       fail();
     } catch (ExceptionWithGoodAndBadConstructor expected) {
       assertSame(CHECKED_EXCEPTION, expected.getCause());

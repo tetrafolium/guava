@@ -53,7 +53,7 @@ public class MapContainsValueTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(absent = ALLOWS_NULL_VALUE_QUERIES)
   public void testContains_nullNotContainedAndUnsupported() {
     expectNullValueMissingWhenNullValuesUnsupported(
-        "containsValue(null) should return false or throw");
+      "containsValue(null) should return false or throw");
   }
 
   @MapFeature.Require(ALLOWS_NULL_VALUES)
@@ -74,8 +74,8 @@ public class MapContainsValueTester<K, V> extends AbstractMapTester<K, V> {
     try {
       //noinspection SuspiciousMethodCalls
       assertFalse(
-          "containsValue(wrongType) should return false or throw",
-          getMap().containsValue(WrongType.VALUE));
+        "containsValue(wrongType) should return false or throw",
+        getMap().containsValue(WrongType.VALUE));
     } catch (ClassCastException tolerated) {
     }
   }

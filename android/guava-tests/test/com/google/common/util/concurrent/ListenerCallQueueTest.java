@@ -37,7 +37,7 @@ import junit.framework.TestCase;
 public class ListenerCallQueueTest extends TestCase {
 
   private static final ListenerCallQueue.Event<Object> THROWING_EVENT =
-  new ListenerCallQueue.Event<Object>() {
+      new ListenerCallQueue.Event<Object>() {
     @Override
     public void call(Object object) {
       throw new RuntimeException();
@@ -126,8 +126,8 @@ public class ListenerCallQueueTest extends TestCase {
 
     assertEquals(1, logHandler.getStoredLogRecords().size());
     assertEquals(
-        "Exception while executing callback: MyListener custom-label",
-        logHandler.getStoredLogRecords().get(0).getMessage());
+      "Exception while executing callback: MyListener custom-label",
+      logHandler.getStoredLogRecords().get(0).getMessage());
   }
 
   public void testEnqueueAndDispatch_multithreaded() throws InterruptedException {
@@ -182,7 +182,7 @@ public class ListenerCallQueueTest extends TestCase {
   }
 
   private ListenerCallQueue.Event<Object> incrementingEvent(
-      Multiset<Object> counters, Object expectedListener, int expectedCount) {
+    Multiset<Object> counters, Object expectedListener, int expectedCount) {
     return incrementingEvent(counters, multiset(expectedListener, expectedCount));
   }
 
@@ -203,32 +203,32 @@ public class ListenerCallQueueTest extends TestCase {
   }
 
   private ListenerCallQueue.Event<Object> incrementingEvent(
-      final Multiset<Object> counters, final Multiset<Object> expected) {
+    final Multiset<Object> counters, final Multiset<Object> expected) {
     return new ListenerCallQueue.Event<Object>() {
-      @Override
-      public void call(Object listener) {
-        counters.add(listener);
-        assertEquals(expected.count(listener), counters.count(listener));
-      }
+             @Override
+             public void call(Object listener) {
+               counters.add(listener);
+               assertEquals(expected.count(listener), counters.count(listener));
+             }
 
-      @Override
-      public String toString() {
-        return "incrementing";
-      }
+             @Override
+             public String toString() {
+               return "incrementing";
+             }
     };
   }
 
   private ListenerCallQueue.Event<Object> countDownEvent(final CountDownLatch latch) {
     return new ListenerCallQueue.Event<Object>() {
-      @Override
-      public void call(Object listener) {
-        latch.countDown();
-      }
+             @Override
+             public void call(Object listener) {
+               latch.countDown();
+             }
 
-      @Override
-      public String toString() {
-        return "countDown";
-      }
+             @Override
+             public String toString() {
+               return "countDown";
+             }
     };
   }
 }

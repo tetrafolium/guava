@@ -54,7 +54,7 @@ public class InternersTest extends TestCase {
         .strong()
         .concurrencyLevel(concurrencyLevel)
         .build();
-    InternerImpl<Object> internerImpl = (InternerImpl<Object>) interner;
+    InternerImpl<Object> internerImpl = (InternerImpl<Object>)interner;
     assertEquals(Strength.STRONG, internerImpl.map.keyStrength());
   }
 
@@ -81,7 +81,7 @@ public class InternersTest extends TestCase {
         .weak()
         .concurrencyLevel(concurrencyLevel)
         .build();
-    InternerImpl<Object> internerImpl = (InternerImpl<Object>) interner;
+    InternerImpl<Object> internerImpl = (InternerImpl<Object>)interner;
     assertEquals(Strength.WEAK, internerImpl.map.keyStrength());
     assertEquals(concurrencyLevel, internerImpl.map.concurrencyLevel);
   }

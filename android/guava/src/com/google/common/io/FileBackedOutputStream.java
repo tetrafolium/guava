@@ -90,7 +90,7 @@ public final class FileBackedOutputStream extends OutputStream {
 
     if (resetOnFinalize) {
       source =
-      new ByteSource() {
+          new ByteSource() {
         @Override
         public InputStream openStream() throws IOException {
           return openInputStream();
@@ -107,7 +107,7 @@ public final class FileBackedOutputStream extends OutputStream {
       };
     } else {
       source =
-      new ByteSource() {
+          new ByteSource() {
         @Override
         public InputStream openStream() throws IOException {
           return openInputStream();

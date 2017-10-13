@@ -52,9 +52,9 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
   @CollectionSize.Require(absent = ZERO)
   public void testPutIfAbsent_supportedPresent() {
     assertEquals(
-        "putIfAbsent(present, value) should return existing value",
-        v0(),
-        getMap().putIfAbsent(k0(), v3()));
+      "putIfAbsent(present, value) should return existing value",
+      v0(),
+      getMap().putIfAbsent(k0(), v3()));
     expectUnchanged();
   }
 
@@ -74,9 +74,9 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
   public void testPutIfAbsent_unsupportedPresentExistingValue() {
     try {
       assertEquals(
-          "putIfAbsent(present, existingValue) should return present or throw",
-          v0(),
-          putIfAbsent(e0()));
+        "putIfAbsent(present, existingValue) should return present or throw",
+        v0(),
+        putIfAbsent(e0()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -101,7 +101,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
     }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
-        "Should not contain null key after unsupported putIfAbsent(null, value)");
+      "Should not contain null key after unsupported putIfAbsent(null, value)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -113,7 +113,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null value after unsupported put(key, null)");
+      "Should not contain null value after unsupported put(key, null)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -125,7 +125,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null after unsupported putIfAbsent(present, null)");
+      "Should not contain null after unsupported putIfAbsent(present, null)");
   }
 
   private V putIfAbsent(Map.Entry<K, V> entry) {

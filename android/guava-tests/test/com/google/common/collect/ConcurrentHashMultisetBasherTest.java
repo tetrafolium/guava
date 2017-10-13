@@ -81,7 +81,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
       }
 
       List<Integer> actualCounts = Lists.transform(keys,
-      new Function<String, Integer>() {
+          new Function<String, Integer>() {
         @Override public Integer apply(String key) {
           return multiset.count(key);
         }

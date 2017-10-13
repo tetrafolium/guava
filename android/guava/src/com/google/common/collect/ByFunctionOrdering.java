@@ -49,7 +49,7 @@ final class ByFunctionOrdering<F, T> extends Ordering<F> implements Serializable
       return true;
     }
     if (object instanceof ByFunctionOrdering) {
-      ByFunctionOrdering<?, ?> that = (ByFunctionOrdering<?, ?>) object;
+      ByFunctionOrdering<?, ?> that = (ByFunctionOrdering<?, ?>)object;
       return this.function.equals(that.function) && this.ordering.equals(that.ordering);
     }
     return false;

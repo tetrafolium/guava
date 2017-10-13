@@ -198,13 +198,13 @@ public class RateLimiterTest extends TestCase {
       limiter.acquire(); // #7
     }
     assertEvents(
-        "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50", // #1
-        "U0.50", // #2
-        "U4.00", // #3
-        "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50", // #4
-        "U0.50", // #5
-        "U2.00", // #6
-        "R0.00, R0.50, R0.50, R0.50, R0.50, R0.50, R0.50, R0.50"); // #7
+      "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50",   // #1
+      "U0.50",   // #2
+      "U4.00",   // #3
+      "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50",   // #4
+      "U0.50",   // #5
+      "U2.00",   // #6
+      "R0.00, R0.50, R0.50, R0.50, R0.50, R0.50, R0.50, R0.50");   // #7
   }
 
   public void testWarmUpWithColdFactor() {
@@ -223,13 +223,13 @@ public class RateLimiterTest extends TestCase {
       limiter.acquire(); // #7
     }
     assertEvents(
-        "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20", // #1
-        "U0.20", // #2
-        "U4.00", // #3
-        "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20", // #4
-        "U0.20", // #5
-        "U1.00", // #6
-        "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20"); // #7
+      "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20",   // #1
+      "U0.20",   // #2
+      "U4.00",   // #3
+      "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20",   // #4
+      "U0.20",   // #5
+      "U1.00",   // #6
+      "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20");   // #7
   }
 
   public void testWarmUpWithColdFactor1() {
@@ -242,9 +242,9 @@ public class RateLimiterTest extends TestCase {
       limiter.acquire(); // #3
     }
     assertEvents(
-        "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20", // #1
-        "U0.34", // #2
-        "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20"); // #3
+      "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20",   // #1
+      "U0.34",   // #2
+      "R0.00, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20, R0.20");   // #3
   }
 
   @AndroidIncompatible // difference in String.format rounding?
@@ -270,14 +270,14 @@ public class RateLimiterTest extends TestCase {
 
     // make sure the areas (times) remain the same, while permits are different
     assertEvents(
-        "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50", // #1
-        "U4.50", // #2
-        "R0.00, R1.38, R1.13", // #3, after that the rate changes
-        "R0.88", // #4, this is what the throttling would be with the old rate
-        "R0.34, R0.28, R0.25, R0.25", // #5
-        "U4.25", // #6
-        "R0.00, R0.72, R0.66, R0.59, R0.53, R0.47, R0.41", // #7
-        "R0.34, R0.28, R0.25, R0.25"); // #7 (cont.), note, this matches #5
+      "R0.00, R1.38, R1.13, R0.88, R0.63, R0.50, R0.50, R0.50",   // #1
+      "U4.50",   // #2
+      "R0.00, R1.38, R1.13",   // #3, after that the rate changes
+      "R0.88",   // #4, this is what the throttling would be with the old rate
+      "R0.34, R0.28, R0.25, R0.25",   // #5
+      "U4.25",   // #6
+      "R0.00, R0.72, R0.66, R0.59, R0.53, R0.47, R0.41",   // #7
+      "R0.34, R0.28, R0.25, R0.25");   // #7 (cont.), note, this matches #5
   }
 
   public void testWarmUpAndUpdateWithColdFactor() {
@@ -302,14 +302,14 @@ public class RateLimiterTest extends TestCase {
 
     // make sure the areas (times) remain the same, while permits are different
     assertEvents(
-        "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20", // #1
-        "U4.20", // #2
-        "R0.00, R1.75, R1.26", // #3, after that the rate changes
-        "R0.76", // #4, this is what the throttling would be with the old rate
-        "R0.20, R0.10, R0.10, R0.10", // #5
-        "U4.10", // #6
-        "R0.00, R0.94, R0.81, R0.69, R0.57, R0.44, R0.32", // #7
-        "R0.20, R0.10, R0.10, R0.10"); // #7 (cont.), note, this matches #5
+      "R0.00, R1.75, R1.26, R0.76, R0.30, R0.20, R0.20, R0.20",   // #1
+      "U4.20",   // #2
+      "R0.00, R1.75, R1.26",   // #3, after that the rate changes
+      "R0.76",   // #4, this is what the throttling would be with the old rate
+      "R0.20, R0.10, R0.10, R0.10",   // #5
+      "U4.10",   // #6
+      "R0.00, R0.94, R0.81, R0.69, R0.57, R0.44, R0.32",   // #7
+      "R0.20, R0.10, R0.10, R0.10");   // #7 (cont.), note, this matches #5
   }
 
   public void testBurstyAndUpdate() {
@@ -385,11 +385,11 @@ public class RateLimiterTest extends TestCase {
     limiter.acquire();
     limiter.acquire();
     assertEvents(
-        "R0.00", // First comes the saved-up burst, which defaults to a 1-second burst (2 requests).
-        "R0.00",
-        "R0.00", // Now comes the free request.
-        "R0.50", // Now it's 0.5 seconds per request.
-        "R0.50");
+      "R0.00",   // First comes the saved-up burst, which defaults to a 1-second burst (2 requests).
+      "R0.00",
+      "R0.00",   // Now comes the free request.
+      "R0.50",   // Now it's 0.5 seconds per request.
+      "R0.50");
 
     limiter.setRate(Double.POSITIVE_INFINITY);
     limiter.acquire();
@@ -407,11 +407,11 @@ public class RateLimiterTest extends TestCase {
       limiter.acquire();
     }
     assertEvents(
-        "R0.00", // First comes the saved-up burst, which defaults to a 1-second burst (2 requests).
-        "R0.00",
-        "R0.00", // Now comes the free request.
-        "R0.50", // Now it's 0.5 seconds per request.
-        "R0.50");
+      "R0.00",   // First comes the saved-up burst, which defaults to a 1-second burst (2 requests).
+      "R0.00",
+      "R0.00",   // Now comes the free request.
+      "R0.50",   // Now it's 0.5 seconds per request.
+      "R0.50");
   }
 
   public void testInfinity_WarmUp() {
@@ -492,9 +492,9 @@ public class RateLimiterTest extends TestCase {
 
   public void testNulls() {
     NullPointerTester tester = new NullPointerTester()
-    .setDefault(SleepingStopwatch.class, stopwatch)
-    .setDefault(int.class, 1)
-    .setDefault(double.class, 1.0d);
+        .setDefault(SleepingStopwatch.class, stopwatch)
+        .setDefault(int.class, 1)
+        .setDefault(double.class, 1.0d);
     tester.testStaticMethods(RateLimiter.class, Visibility.PACKAGE);
     tester.testInstanceMethods(RateLimiter.create(5.0, stopwatch), Visibility.PACKAGE);
   }
@@ -505,7 +505,7 @@ public class RateLimiterTest extends TestCase {
     assertFalse("Should not acquire additional permit", rateLimiter.tryAcquire());
     stopwatch.sleepMillis(5000);
     assertFalse(
-        "Should not acquire additional permit even after sleeping", rateLimiter.tryAcquire());
+      "Should not acquire additional permit even after sleeping", rateLimiter.tryAcquire());
   }
 
   private long measureTotalTimeMillis(RateLimiter rateLimiter, int permits, Random random) {
@@ -585,8 +585,8 @@ public class RateLimiterTest extends TestCase {
   private static void doTestMocking(RateLimiter mock) throws Exception {
     for (Method method : RateLimiter.class.getMethods()) {
       if (!isStatic(method.getModifiers())
-          && !NOT_WORKING_ON_MOCKS.contains(method.getName())
-          && !method.getDeclaringClass().equals(Object.class)) {
+            && !NOT_WORKING_ON_MOCKS.contains(method.getName())
+            && !method.getDeclaringClass().equals(Object.class)) {
         method.invoke(mock, arbitraryParameters(method));
       }
     }

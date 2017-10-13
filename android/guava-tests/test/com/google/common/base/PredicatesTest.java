@@ -47,11 +47,11 @@ public class PredicatesTest extends TestCase {
   private static final Predicate<Integer> TRUE = Predicates.alwaysTrue();
   private static final Predicate<Integer> FALSE = Predicates.alwaysFalse();
   private static final Predicate<Integer> NEVER_REACHED =
-  new Predicate<Integer>() {
+      new Predicate<Integer>() {
     @Override
     public boolean apply(Integer i) {
       throw new AssertionFailedError(
-          "This predicate should never have been evaluated");
+              "This predicate should never have been evaluated");
     }
   };
 
@@ -208,7 +208,7 @@ public class PredicatesTest extends TestCase {
     Object[] notEqualObjects = {Predicates.and(NEVER_REACHED, FALSE)};
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.and(NEVER_REACHED), Predicates.and(NEVER_REACHED))
+      Predicates.and(NEVER_REACHED), Predicates.and(NEVER_REACHED))
     .addEqualityGroup(notEqualObjects)
     .addEqualityGroup(Predicates.and(isOdd()))
     .addEqualityGroup(Predicates.and())
@@ -232,8 +232,8 @@ public class PredicatesTest extends TestCase {
   public void testAnd_equalityBinary() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.and(TRUE, NEVER_REACHED),
-        Predicates.and(TRUE, NEVER_REACHED))
+      Predicates.and(TRUE, NEVER_REACHED),
+      Predicates.and(TRUE, NEVER_REACHED))
     .addEqualityGroup(Predicates.and(NEVER_REACHED, TRUE))
     .addEqualityGroup(Predicates.and(TRUE))
     .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
@@ -257,8 +257,8 @@ public class PredicatesTest extends TestCase {
   public void testAnd_equalityTernary() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.and(TRUE, isOdd(), NEVER_REACHED),
-        Predicates.and(TRUE, isOdd(), NEVER_REACHED))
+      Predicates.and(TRUE, isOdd(), NEVER_REACHED),
+      Predicates.and(TRUE, isOdd(), NEVER_REACHED))
     .addEqualityGroup(Predicates.and(isOdd(), NEVER_REACHED, TRUE))
     .addEqualityGroup(Predicates.and(TRUE))
     .addEqualityGroup(Predicates.or(TRUE, isOdd(), NEVER_REACHED))
@@ -284,9 +284,9 @@ public class PredicatesTest extends TestCase {
   public void testAnd_equalityIterable() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
-        Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
-        Predicates.and(TRUE, NEVER_REACHED))
+      Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
+      Predicates.and(Arrays.asList(TRUE, NEVER_REACHED)),
+      Predicates.and(TRUE, NEVER_REACHED))
     .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
     .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
     .testEquals();
@@ -363,7 +363,7 @@ public class PredicatesTest extends TestCase {
   public void testOr_equalityOneArg() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.or(NEVER_REACHED), Predicates.or(NEVER_REACHED))
+      Predicates.or(NEVER_REACHED), Predicates.or(NEVER_REACHED))
     .addEqualityGroup(Predicates.or(NEVER_REACHED, TRUE))
     .addEqualityGroup(Predicates.or(TRUE))
     .addEqualityGroup(Predicates.or())
@@ -391,8 +391,8 @@ public class PredicatesTest extends TestCase {
   public void testOr_equalityBinary() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.or(FALSE, NEVER_REACHED),
-        Predicates.or(FALSE, NEVER_REACHED))
+      Predicates.or(FALSE, NEVER_REACHED),
+      Predicates.or(FALSE, NEVER_REACHED))
     .addEqualityGroup(Predicates.or(NEVER_REACHED, FALSE))
     .addEqualityGroup(Predicates.or(TRUE))
     .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
@@ -416,8 +416,8 @@ public class PredicatesTest extends TestCase {
   public void testOr_equalityTernary() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.or(FALSE, NEVER_REACHED, TRUE),
-        Predicates.or(FALSE, NEVER_REACHED, TRUE))
+      Predicates.or(FALSE, NEVER_REACHED, TRUE),
+      Predicates.or(FALSE, NEVER_REACHED, TRUE))
     .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED, FALSE))
     .addEqualityGroup(Predicates.or(TRUE))
     .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED, TRUE))
@@ -450,9 +450,9 @@ public class PredicatesTest extends TestCase {
   public void testOr_equalityIterable() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
-        Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
-        Predicates.or(FALSE, NEVER_REACHED))
+      Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
+      Predicates.or(Arrays.asList(FALSE, NEVER_REACHED)),
+      Predicates.or(FALSE, NEVER_REACHED))
     .addEqualityGroup(Predicates.or(TRUE, NEVER_REACHED))
     .addEqualityGroup(Predicates.and(FALSE, NEVER_REACHED))
     .testEquals();
@@ -581,8 +581,8 @@ public class PredicatesTest extends TestCase {
   public void testIsInstanceOf_equality() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.instanceOf(Integer.class),
-        Predicates.instanceOf(Integer.class))
+      Predicates.instanceOf(Integer.class),
+      Predicates.instanceOf(Integer.class))
     .addEqualityGroup(Predicates.instanceOf(Number.class))
     .addEqualityGroup(Predicates.instanceOf(Float.class))
     .testEquals();
@@ -628,9 +628,9 @@ public class PredicatesTest extends TestCase {
   public void testSubtypeOf_equality() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.subtypeOf(Integer.class),
-        Predicates.subtypeOf(Integer.class),
-        Predicates.assignableFrom(Integer.class))
+      Predicates.subtypeOf(Integer.class),
+      Predicates.subtypeOf(Integer.class),
+      Predicates.assignableFrom(Integer.class))
     .addEqualityGroup(Predicates.subtypeOf(Number.class))
     .addEqualityGroup(Predicates.subtypeOf(Float.class))
     .testEquals();
@@ -771,11 +771,11 @@ public class PredicatesTest extends TestCase {
   public void testCascadingSerialization() throws Exception {
     // Eclipse says Predicate<Integer>; javac says Predicate<Object>.
     Predicate<? super Integer> nasty = Predicates.not(Predicates.and(
-                Predicates.or(
-                    Predicates.equalTo((Object) 1), Predicates.equalTo(null),
-                    Predicates.alwaysFalse(), Predicates.alwaysTrue(),
-                    Predicates.isNull(), Predicates.notNull(),
-                    Predicates.in(Arrays.asList(1)))));
+          Predicates.or(
+            Predicates.equalTo((Object) 1), Predicates.equalTo(null),
+            Predicates.alwaysFalse(), Predicates.alwaysTrue(),
+            Predicates.isNull(), Predicates.notNull(),
+            Predicates.in(Arrays.asList(1)))));
     assertEvalsToFalse(nasty);
 
     Predicate<? super Integer> stillNasty =
@@ -873,18 +873,18 @@ public class PredicatesTest extends TestCase {
   public void testContains_equals() {
     new EqualsTester()
     .addEqualityGroup(
-        Predicates.contains(Pattern.compile("foo")),
-        Predicates.containsPattern("foo"))
+      Predicates.contains(Pattern.compile("foo")),
+      Predicates.containsPattern("foo"))
     .addEqualityGroup(
-        Predicates.contains(
-            Pattern.compile("foo", Pattern.CASE_INSENSITIVE)))
+      Predicates.contains(
+        Pattern.compile("foo", Pattern.CASE_INSENSITIVE)))
     .addEqualityGroup(
-        Predicates.containsPattern("bar"))
+      Predicates.containsPattern("bar"))
     .testEquals();
   }
 
   public void assertEqualHashCode(
-      Predicate<? super Integer> expected, Predicate<? super Integer> actual) {
+    Predicate<? super Integer> expected, Predicate<? super Integer> actual) {
     assertEquals(actual + " should hash like " + expected, expected.hashCode(), actual.hashCode());
   }
 
@@ -894,16 +894,16 @@ public class PredicatesTest extends TestCase {
 
     // Make sure that hash codes are not computed per-instance.
     assertEqualHashCode(
-        Predicates.not(p1),
-        Predicates.not(p1));
+      Predicates.not(p1),
+      Predicates.not(p1));
 
     assertEqualHashCode(
-        Predicates.and(p1, p2),
-        Predicates.and(p1, p2));
+      Predicates.and(p1, p2),
+      Predicates.and(p1, p2));
 
     assertEqualHashCode(
-        Predicates.or(p1, p2),
-        Predicates.or(p1, p2));
+      Predicates.or(p1, p2),
+      Predicates.or(p1, p2));
 
     // While not a contractual requirement, we'd like the hash codes for ands
     // & ors of the same predicates to not collide.
@@ -938,17 +938,17 @@ public class PredicatesTest extends TestCase {
   }
 
   private static void assertEvalsLike(
-      Predicate<? super Integer> expected,
-      Predicate<? super Integer> actual) {
+    Predicate<? super Integer> expected,
+    Predicate<? super Integer> actual) {
     assertEvalsLike(expected, actual, 0);
     assertEvalsLike(expected, actual, 1);
     assertEvalsLike(expected, actual, null);
   }
 
   private static <T> void assertEvalsLike(
-      Predicate<? super T> expected,
-      Predicate<? super T> actual,
-      T input) {
+    Predicate<? super T> expected,
+    Predicate<? super T> actual,
+    T input) {
     Boolean expectedResult = null;
     RuntimeException expectedRuntimeException = null;
     try {
@@ -969,8 +969,8 @@ public class PredicatesTest extends TestCase {
     if (expectedRuntimeException != null) {
       assertNotNull(actualRuntimeException);
       assertEquals(
-          expectedRuntimeException.getClass(),
-          actualRuntimeException.getClass());
+        expectedRuntimeException.getClass(),
+        actualRuntimeException.getClass());
     }
   }
 

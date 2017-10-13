@@ -64,12 +64,12 @@ public class AbstractServiceTest extends TestCase {
     assertFalse(service.isRunning());
     assertFalse(service.running);
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.TERMINATED),
+      listener.getStateHistory());
   }
 
   public void testNoOpServiceStartAndWaitStopAndWait() throws Exception {
@@ -102,12 +102,12 @@ public class AbstractServiceTest extends TestCase {
     service.stopAsync();
     assertEquals(State.TERMINATED, service.state());
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.TERMINATED),
+      listener.getStateHistory());
   }
 
   public void testNoOpServiceStopIdempotenceAfterWait() throws Exception {
@@ -187,12 +187,12 @@ public class AbstractServiceTest extends TestCase {
     assertEquals(State.TERMINATED, service.state());
     assertFalse(service.isRunning());
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.TERMINATED),
+      listener.getStateHistory());
 
   }
 
@@ -208,11 +208,11 @@ public class AbstractServiceTest extends TestCase {
     assertFalse(service.doStopCalled);
 
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.TERMINATED),
+      listener.getStateHistory());
   }
 
   public void testManualServiceStopWhileStarting() throws Exception {
@@ -238,11 +238,11 @@ public class AbstractServiceTest extends TestCase {
     assertEquals(State.TERMINATED, service.state());
     assertFalse(service.isRunning());
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.STOPPING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.STOPPING,
+        State.TERMINATED),
+      listener.getStateHistory());
   }
 
   /**
@@ -395,12 +395,12 @@ public class AbstractServiceTest extends TestCase {
 
     throwIfSet(thrownByExecutionThread);
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.TERMINATED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.TERMINATED),
+      listener.getStateHistory());
   }
 
   public void testThreadedServiceStopIdempotence() throws Throwable {
@@ -555,10 +555,10 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(EXCEPTION, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testFailingServiceStopAndWait_stopFailing() throws Exception {
@@ -574,12 +574,12 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(EXCEPTION, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testFailingServiceStopAndWait_runFailing() throws Exception {
@@ -595,11 +595,11 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(EXCEPTION, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testThrowingServiceStartAndWait() throws Exception {
@@ -614,10 +614,10 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(service.exception, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testThrowingServiceStopAndWait_stopThrowing() throws Exception {
@@ -633,12 +633,12 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(service.exception, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.STOPPING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.STOPPING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testThrowingServiceStopAndWait_runThrowing() throws Exception {
@@ -654,11 +654,11 @@ public class AbstractServiceTest extends TestCase {
       assertEquals(service.exception, e.getCause());
     }
     assertEquals(
-        ImmutableList.of(
-            State.STARTING,
-            State.RUNNING,
-            State.FAILED),
-        listener.getStateHistory());
+      ImmutableList.of(
+        State.STARTING,
+        State.RUNNING,
+        State.FAILED),
+      listener.getStateHistory());
   }
 
   public void testFailureCause_throwsIfNotFailed() {
@@ -857,7 +857,7 @@ public class AbstractServiceTest extends TestCase {
         } catch (IllegalStateException expected) {
           assertNull(expected.getCause());
           assertTrue(expected.getMessage().equals(
-                  "Expected the service " + service + " to be RUNNING, but was STOPPING"));
+                "Expected the service " + service + " to be RUNNING, but was STOPPING"));
         }
       }
       assertNotSame(from, service.state());
@@ -874,7 +874,7 @@ public class AbstractServiceTest extends TestCase {
         } catch (IllegalStateException expected) {
           assertNull(expected.getCause());
           assertTrue(expected.getMessage().equals(
-                  "Expected the service " + service + " to be RUNNING, but was TERMINATED"));
+                "Expected the service " + service + " to be RUNNING, but was TERMINATED"));
         }
       }
       completionLatch.countDown();

@@ -132,7 +132,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
       takeIndex = inc(takeIndex);
     } else {
       // slide over all others up through putIndex.
-      for (;;) {
+      for (;; ) {
         int nexti = inc(i);
         if (nexti != putIndex) {
           items[i] = items[nexti];
@@ -414,7 +414,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
     try {
       int i = takeIndex;
       int k = 0;
-      for (;;) {
+      for (;; ) {
         if (k++ >= count)
           return false;
         if (o.equals(items[i])) {

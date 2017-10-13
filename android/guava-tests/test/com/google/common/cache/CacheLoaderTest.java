@@ -54,7 +54,7 @@ public class CacheLoaderTest extends TestCase {
     final AtomicInteger loadAllCount = new AtomicInteger();
 
     CacheLoader<Object, Object> baseLoader =
-    new CacheLoader<Object, Object>() {
+        new CacheLoader<Object, Object>() {
       @Override
       public Object load(Object key) {
         loadCount.incrementAndGet();

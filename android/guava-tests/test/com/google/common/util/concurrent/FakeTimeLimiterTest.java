@@ -44,7 +44,7 @@ public class FakeTimeLimiterTest extends TestCase {
   public void testCallWithTimeout_propagatesReturnValue() throws Exception {
     String result =
         timeLimiter.callWithTimeout(
-            Callables.returning(RETURN_VALUE), DELAY_MS, TimeUnit.MILLISECONDS);
+      Callables.returning(RETURN_VALUE), DELAY_MS, TimeUnit.MILLISECONDS);
 
     assertThat(result).isEqualTo(RETURN_VALUE);
   }
@@ -72,7 +72,7 @@ public class FakeTimeLimiterTest extends TestCase {
   public void testCallUninterruptiblyWithTimeout_propagatesReturnValue() throws Exception {
     String result =
         timeLimiter.callUninterruptiblyWithTimeout(
-            Callables.returning(RETURN_VALUE), DELAY_MS, TimeUnit.MILLISECONDS);
+      Callables.returning(RETURN_VALUE), DELAY_MS, TimeUnit.MILLISECONDS);
 
     assertThat(result).isEqualTo(RETURN_VALUE);
   }
@@ -95,7 +95,7 @@ public class FakeTimeLimiterTest extends TestCase {
     RuntimeException exception = new RuntimeException("test");
     try {
       timeLimiter.runUninterruptiblyWithTimeout(
-          runnableThrowing(exception), DELAY_MS, TimeUnit.MILLISECONDS);
+        runnableThrowing(exception), DELAY_MS, TimeUnit.MILLISECONDS);
       fail("Excpected UncheckedExecutionException");
     } catch (UncheckedExecutionException e) {
       assertThat(e.getCause()).isEqualTo(exception);
@@ -104,19 +104,19 @@ public class FakeTimeLimiterTest extends TestCase {
 
   public static <T> Callable<T> callableThrowing(final Exception exception) {
     return new Callable<T>() {
-      @Override
-      public T call() throws Exception {
-        throw exception;
-      }
+             @Override
+             public T call() throws Exception {
+               throw exception;
+             }
     };
   }
 
   private static Runnable runnableThrowing(final RuntimeException e) {
     return new Runnable() {
-      @Override
-      public void run() {
-        throw e;
-      }
+             @Override
+             public void run() {
+               throw e;
+             }
     };
   }
 

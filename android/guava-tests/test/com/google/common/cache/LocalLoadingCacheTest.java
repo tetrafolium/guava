@@ -41,7 +41,7 @@ import junit.framework.TestCase;
 public class LocalLoadingCacheTest extends TestCase {
 
   private static <K, V> LocalLoadingCache<K, V> makeCache(
-      CacheBuilder<K, V> builder, CacheLoader<? super K, V> loader) {
+    CacheBuilder<K, V> builder, CacheLoader<? super K, V> loader) {
     return new LocalLoadingCache<>(builder, loader);
   }
 
@@ -351,7 +351,8 @@ public class LocalLoadingCacheTest extends TestCase {
     };
     thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
       @Override
-      public void uncaughtException(Thread t, Throwable e) {}
+      public void uncaughtException(Thread t, Throwable e) {
+      }
     });
     thread.start();
 

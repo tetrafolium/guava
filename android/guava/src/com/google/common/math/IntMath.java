@@ -245,7 +245,7 @@ public final class IntMath {
     default:
       // continue below to handle the general case
     }
-    for (int accum = 1; ; k >>= 1) {
+    for (int accum = 1;; k >>= 1) {
       switch (k) {
       case 0:
         return accum;

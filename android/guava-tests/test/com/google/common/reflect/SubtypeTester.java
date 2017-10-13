@@ -71,10 +71,10 @@ abstract class SubtypeTester implements Cloneable {
   @Target(ElementType.METHOD)
   @interface TestSubtype {
     /** Suppresses the assertion on {@link TypeToken#getSubtype}. */
-  boolean suppressGetSubtype() default false;
+    boolean suppressGetSubtype() default false;
 
     /** Suppresses the assertion on {@link TypeToken#getSupertype}. */
-  boolean suppressGetSupertype() default false;
+    boolean suppressGetSupertype() default false;
   }
 
   private Method method = null;

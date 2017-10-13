@@ -140,7 +140,7 @@ public class CacheEvictionTest extends TestCase {
 
     // Even numbers are free, odd are too expensive
     Weigher<Integer, Integer> evensOnly =
-    new Weigher<Integer, Integer>() {
+        new Weigher<Integer, Integer>() {
       @Override public int weigh(Integer k, Integer v) {
         return k % 2;
       }
@@ -260,7 +260,7 @@ public class CacheEvictionTest extends TestCase {
     final LoadingCache<Integer, Integer> cache =
         CacheBuilder.newBuilder().maximumSize(MAX_SIZE).build(loader);
     CacheTesting.checkRecency(cache, MAX_SIZE,
-    new Receiver<ReferenceEntry<Integer, Integer>>() {
+        new Receiver<ReferenceEntry<Integer, Integer>>() {
       @Override
       public void accept(ReferenceEntry<Integer, Integer> entry) {
         cache.getUnchecked(entry.getKey());
@@ -275,7 +275,7 @@ public class CacheEvictionTest extends TestCase {
         .concurrencyLevel(1)
         .build(loader);
     CacheTesting.checkRecency(cache, MAX_SIZE,
-    new Receiver<ReferenceEntry<Integer, Integer>>() {
+        new Receiver<ReferenceEntry<Integer, Integer>>() {
       @Override
       public void accept(ReferenceEntry<Integer, Integer> entry) {
         Integer key = entry.getKey();
@@ -417,9 +417,9 @@ public class CacheEvictionTest extends TestCase {
 
   private Object objectWithHash(final int hash) {
     return new Object() {
-      @Override public int hashCode() {
-        return hash;
-      }
+             @Override public int hashCode() {
+               return hash;
+             }
     };
   }
 }

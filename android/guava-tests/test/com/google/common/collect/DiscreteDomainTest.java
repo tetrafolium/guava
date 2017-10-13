@@ -38,8 +38,8 @@ public class DiscreteDomainTest extends TestCase {
   public void testIntegersOffset() {
     assertEquals(1, DiscreteDomain.integers().offset(0, 1).intValue());
     assertEquals(
-        Integer.MAX_VALUE,
-        DiscreteDomain.integers().offset(Integer.MIN_VALUE, (1L << 32) - 1).intValue());
+      Integer.MAX_VALUE,
+      DiscreteDomain.integers().offset(Integer.MIN_VALUE, (1L << 32) - 1).intValue());
   }
 
   public void testIntegersOffsetExceptions() {
@@ -76,8 +76,8 @@ public class DiscreteDomainTest extends TestCase {
   public void testBigIntegersOffset() {
     assertEquals(BigInteger.ONE, DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, 1));
     assertEquals(
-        BigInteger.valueOf(Long.MAX_VALUE),
-        DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, Long.MAX_VALUE));
+      BigInteger.valueOf(Long.MAX_VALUE),
+      DiscreteDomain.bigIntegers().offset(BigInteger.ZERO, Long.MAX_VALUE));
   }
 
   public void testBigIntegersOffsetExceptions() {

@@ -95,7 +95,7 @@ public class ForwardingListTest extends TestCase {
     }
 
     @Override public boolean addAll(
-        int index, Collection<? extends T> elements) {
+      int index, Collection<? extends T> elements) {
       return standardAddAll(index, elements);
     }
 
@@ -137,32 +137,32 @@ public class ForwardingListTest extends TestCase {
 
     suite.addTestSuite(ForwardingListTest.class);
     suite.addTest(
-        ListTestSuiteBuilder.using(
-    new TestStringListGenerator() {
+      ListTestSuiteBuilder.using(
+        new TestStringListGenerator() {
 
       @Override
       protected List<String> create(String[] elements) {
         return new StandardImplForwardingList<>(Lists.newArrayList(elements));
       }
     })
-    .named("ForwardingList[ArrayList] with standard implementations")
-    .withFeatures(
+      .named("ForwardingList[ArrayList] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         ListFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        ListTestSuiteBuilder.using(
-    new TestStringListGenerator() {
+      ListTestSuiteBuilder.using(
+        new TestStringListGenerator() {
 
       @Override
       protected List<String> create(String[] elements) {
         return new StandardImplForwardingList<>(ImmutableList.copyOf(elements));
       }
     })
-    .named("ForwardingList[ImmutableList] with standard implementations")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+      .named("ForwardingList[ImmutableList] with standard implementations")
+      .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
+      .createTestSuite());
 
     return suite;
   }
@@ -188,9 +188,9 @@ public class ForwardingListTest extends TestCase {
 
   private static <T> List<T> wrap(final List<T> delegate) {
     return new ForwardingList<T>() {
-      @Override protected List<T> delegate() {
-        return delegate;
-      }
+             @Override protected List<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

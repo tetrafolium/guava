@@ -86,8 +86,8 @@ public final class EndpointPairTest {
   public void testAdjacentNode_nodeNotIncident() {
     ImmutableList<MutableNetwork<Integer, String>> testNetworks =
         ImmutableList.of(
-            NetworkBuilder.directed().<Integer, String>build(),
-            NetworkBuilder.undirected().<Integer, String>build());
+      NetworkBuilder.directed().<Integer, String>build(),
+      NetworkBuilder.undirected().<Integer, String>build());
     for (MutableNetwork<Integer, String> network : testNetworks) {
       network.addEdge(1, 2, "1-2");
       EndpointPair<Integer> endpointPair = network.incidentNodes("1-2");
@@ -125,11 +125,11 @@ public final class EndpointPairTest {
     directedGraph.putEdge(N1, N3);
     directedGraph.putEdge(N4, N4);
     containsExactlySanityCheck(
-        directedGraph.edges(),
-        EndpointPair.ordered(N1, N2),
-        EndpointPair.ordered(N2, N1),
-        EndpointPair.ordered(N1, N3),
-        EndpointPair.ordered(N4, N4));
+      directedGraph.edges(),
+      EndpointPair.ordered(N1, N2),
+      EndpointPair.ordered(N2, N1),
+      EndpointPair.ordered(N1, N3),
+      EndpointPair.ordered(N4, N4));
   }
 
   @Test
@@ -141,10 +141,10 @@ public final class EndpointPairTest {
     undirectedGraph.putEdge(N1, N3);
     undirectedGraph.putEdge(N4, N4);
     containsExactlySanityCheck(
-        undirectedGraph.edges(),
-        EndpointPair.unordered(N1, N2),
-        EndpointPair.unordered(N1, N3),
-        EndpointPair.unordered(N4, N4));
+      undirectedGraph.edges(),
+      EndpointPair.unordered(N1, N2),
+      EndpointPair.unordered(N1, N3),
+      EndpointPair.unordered(N4, N4));
   }
 
   @Test
@@ -157,11 +157,11 @@ public final class EndpointPairTest {
     directedNetwork.addEdge(N1, N3, E13);
     directedNetwork.addEdge(N4, N4, E44);
     containsExactlySanityCheck(
-        directedNetwork.asGraph().edges(),
-        EndpointPair.ordered(N1, N2),
-        EndpointPair.ordered(N2, N1),
-        EndpointPair.ordered(N1, N3),
-        EndpointPair.ordered(N4, N4));
+      directedNetwork.asGraph().edges(),
+      EndpointPair.ordered(N1, N2),
+      EndpointPair.ordered(N2, N1),
+      EndpointPair.ordered(N1, N3),
+      EndpointPair.ordered(N4, N4));
   }
 
   @Test
@@ -174,10 +174,10 @@ public final class EndpointPairTest {
     undirectedNetwork.addEdge(N1, N3, E13);
     undirectedNetwork.addEdge(N4, N4, E44);
     containsExactlySanityCheck(
-        undirectedNetwork.asGraph().edges(),
-        EndpointPair.unordered(N1, N2),
-        EndpointPair.unordered(N1, N3),
-        EndpointPair.unordered(N4, N4));
+      undirectedNetwork.asGraph().edges(),
+      EndpointPair.unordered(N1, N2),
+      EndpointPair.unordered(N1, N3),
+      EndpointPair.unordered(N4, N4));
   }
 
   @Test

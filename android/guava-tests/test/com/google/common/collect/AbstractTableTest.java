@@ -31,11 +31,11 @@ import java.util.Map;
 public abstract class AbstractTableTest extends AbstractTableReadTest {
 
   protected void populate(
-      Table<String, Integer, Character> table, Object... data) {
+    Table<String, Integer, Character> table, Object... data) {
     checkArgument(data.length % 3 == 0);
     for (int i = 0; i < data.length; i+= 3) {
       table.put(
-          (String) data[i], (Integer) data[i+1], (Character) data[i+2]);
+        (String) data[i], (Integer) data[i+1], (Character) data[i+2]);
     }
   }
 

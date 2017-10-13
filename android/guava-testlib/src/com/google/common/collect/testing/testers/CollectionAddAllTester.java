@@ -56,7 +56,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   public void testAddAll_unsupportedNothing() {
     try {
       assertFalse(
-          "addAll(nothing) should return false or throw", collection.addAll(emptyCollection()));
+        "addAll(nothing) should return false or throw", collection.addAll(emptyCollection()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -65,7 +65,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testAddAll_supportedNonePresent() {
     assertTrue(
-        "addAll(nonePresent) should return true", collection.addAll(createDisjointCollection()));
+      "addAll(nonePresent) should return true", collection.addAll(createDisjointCollection()));
     expectAdded(e3(), e4());
   }
 
@@ -84,8 +84,8 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAll_supportedSomePresent() {
     assertTrue(
-        "addAll(somePresent) should return true",
-        collection.addAll(MinimalCollection.of(e3(), e0())));
+      "addAll(somePresent) should return true",
+      collection.addAll(MinimalCollection.of(e3(), e0())));
     assertTrue("should contain " + e3(), collection.contains(e3()));
     assertTrue("should contain " + e0(), collection.contains(e0()));
   }
@@ -119,17 +119,17 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   public void testAddAll_unsupportedAllPresent() {
     try {
       assertFalse(
-          "addAll(allPresent) should return false or throw",
-          collection.addAll(MinimalCollection.of(e0())));
+        "addAll(allPresent) should return false or throw",
+        collection.addAll(MinimalCollection.of(e0())));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
   }
 
   @CollectionFeature.Require(
-      value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-      absent = RESTRICTS_ELEMENTS
-  )
+    value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
+    absent = RESTRICTS_ELEMENTS
+    )
   public void testAddAll_nullSupported() {
     List<E> containsNull = singletonList(null);
     assertTrue("addAll(containsNull) should return true", collection.addAll(containsNull));
@@ -150,7 +150,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     }
     expectUnchanged();
     expectNullMissingWhenNullUnsupported(
-        "Should not contain null after unsupported addAll(containsNull)");
+      "Should not contain null after unsupported addAll(containsNull)");
   }
 
   @CollectionFeature.Require(SUPPORTS_ADD)

@@ -140,9 +140,9 @@ public final class MapMaker {
   @CanIgnoreReturnValue
   public MapMaker initialCapacity(int initialCapacity) {
     checkState(
-        this.initialCapacity == UNSET_INT,
-        "initial capacity was already set to %s",
-        this.initialCapacity);
+      this.initialCapacity == UNSET_INT,
+      "initial capacity was already set to %s",
+      this.initialCapacity);
     checkArgument(initialCapacity >= 0);
     this.initialCapacity = initialCapacity;
     return this;
@@ -174,9 +174,9 @@ public final class MapMaker {
   @CanIgnoreReturnValue
   public MapMaker concurrencyLevel(int concurrencyLevel) {
     checkState(
-        this.concurrencyLevel == UNSET_INT,
-        "concurrency level was already set to %s",
-        this.concurrencyLevel);
+      this.concurrencyLevel == UNSET_INT,
+      "concurrency level was already set to %s",
+      this.concurrencyLevel);
     checkArgument(concurrencyLevel > 0);
     this.concurrencyLevel = concurrencyLevel;
     return this;

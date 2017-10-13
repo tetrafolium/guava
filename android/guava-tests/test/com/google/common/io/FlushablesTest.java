@@ -75,7 +75,7 @@ public class FlushablesTest extends TestCase {
     mockFlushable = mock(Flushable.class);
     if (shouldThrowOnFlush) {
       doThrow(new IOException("This should only appear in the "
-              + "logs. It should not be rethrown.")).when(mockFlushable).flush();
+          + "logs. It should not be rethrown.")).when(mockFlushable).flush();
     }
   }
 

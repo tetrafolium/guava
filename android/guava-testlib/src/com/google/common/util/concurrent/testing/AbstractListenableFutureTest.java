@@ -63,7 +63,7 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * has counted down.
    */
   protected abstract <V> ListenableFuture<V> createListenableFuture(
-      V value, Exception except, CountDownLatch waitOn);
+    V value, Exception except, CountDownLatch waitOn);
 
   /**
    * Tests that the {@link Future#get()} method blocks until a value is
@@ -109,7 +109,7 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * correctly.
    */
   public void testTimeoutOnGetWorksCorrectly() throws InterruptedException,
-    ExecutionException {
+  ExecutionException {
 
     // The task thread waits for the latch, so we expect a timeout here.
     try {

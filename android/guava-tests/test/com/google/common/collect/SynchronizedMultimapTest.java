@@ -46,21 +46,21 @@ public class SynchronizedMultimapTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SynchronizedMultimapTest.class);
     suite.addTest(
-        SetMultimapTestSuiteBuilder.using(
-    new TestStringSetMultimapGenerator() {
+      SetMultimapTestSuiteBuilder.using(
+        new TestStringSetMultimapGenerator() {
       @Override
       protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
         TestMultimap<String, String> inner = new TestMultimap<>();
         SetMultimap<String, String> outer =
-            Synchronized.setMultimap(inner, inner.mutex);
+        Synchronized.setMultimap(inner, inner.mutex);
         for (Entry<String, String> entry : entries) {
           outer.put(entry.getKey(), entry.getValue());
         }
         return outer;
       }
     })
-    .named("Synchronized.setMultimap")
-    .withFeatures(
+      .named("Synchronized.setMultimap")
+      .withFeatures(
         MapFeature.GENERAL_PURPOSE,
         CollectionSize.ANY,
         CollectionFeature.SERIALIZABLE,
@@ -68,7 +68,7 @@ public class SynchronizedMultimapTest extends TestCase {
         MapFeature.ALLOWS_NULL_KEYS,
         MapFeature.ALLOWS_NULL_VALUES,
         MapFeature.ALLOWS_ANY_NULL_QUERIES)
-    .createTestSuite());
+      .createTestSuite());
     return suite;
   }
 
@@ -202,7 +202,7 @@ public class SynchronizedMultimapTest extends TestCase {
   public void testSynchronizedListMultimap() {
     ListMultimap<String, Integer> multimap
       = Multimaps.synchronizedListMultimap(
-              ArrayListMultimap.<String, Integer>create());
+      ArrayListMultimap.<String, Integer>create());
     multimap.putAll("foo", Arrays.asList(3, -1, 2, 4, 1));
     multimap.putAll("bar", Arrays.asList(1, 2, 3, 1));
     assertThat(multimap.removeAll("foo")).containsExactly(3, -1, 2, 4, 1).inOrder();
@@ -215,7 +215,7 @@ public class SynchronizedMultimapTest extends TestCase {
   public void testSynchronizedSortedSetMultimap() {
     SortedSetMultimap<String, Integer> multimap
       = Multimaps.synchronizedSortedSetMultimap(
-              TreeMultimap.<String, Integer>create());
+      TreeMultimap.<String, Integer>create());
     multimap.putAll("foo", Arrays.asList(3, -1, 2, 4, 1));
     multimap.putAll("bar", Arrays.asList(1, 2, 3, 1));
     assertThat(multimap.removeAll("foo")).containsExactly(-1, 1, 2, 3, 4).inOrder();

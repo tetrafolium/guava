@@ -39,11 +39,11 @@ import java.util.ListIterator;
 @GwtCompatible
 public abstract class ListIteratorTester<E> extends AbstractIteratorTester<E, ListIterator<E>> {
   protected ListIteratorTester(
-      int steps,
-      Iterable<E> elementsToInsert,
-      Iterable<? extends IteratorFeature> features,
-      Iterable<E> expectedElements,
-      int startIndex) {
+    int steps,
+    Iterable<E> elementsToInsert,
+    Iterable<? extends IteratorFeature> features,
+    Iterable<E> expectedElements,
+    int startIndex) {
     super(steps, elementsToInsert, features, expectedElements, KnownOrder.KNOWN_ORDER, startIndex);
   }
 

@@ -101,7 +101,7 @@ public class ImmutableRangeMapTest extends TestCase {
       for (Range<Integer> range2 : RANGES) {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           ImmutableRangeMap<Integer, Integer> rangeMap =
-              ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
+            ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
 
           for (int i = MIN_BOUND; i <= MAX_BOUND; i++) {
             Integer expectedValue = null;
@@ -129,7 +129,7 @@ public class ImmutableRangeMapTest extends TestCase {
   public void testSpanSingleRange() {
     for (Range<Integer> range : RANGES) {
       RangeMap<Integer, Integer> rangemap =
-          ImmutableRangeMap.<Integer, Integer>builder().put(range, 1).build();
+            ImmutableRangeMap.<Integer, Integer>builder().put(range, 1).build();
       assertEquals(range, rangemap.span());
     }
   }
@@ -139,7 +139,7 @@ public class ImmutableRangeMapTest extends TestCase {
       for (Range<Integer> range2 : RANGES) {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           RangeMap<Integer, Integer> rangemap =
-              ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
+            ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
           assertEquals(range1.span(range2), rangemap.span());
         }
       }
@@ -151,7 +151,7 @@ public class ImmutableRangeMapTest extends TestCase {
       for (Range<Integer> range2 : RANGES) {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           ImmutableRangeMap<Integer, Integer> rangeMap =
-              ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
+            ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
 
           for (int i = MIN_BOUND; i <= MAX_BOUND; i++) {
             Entry<Range<Integer>, Integer> expectedEntry = null;
@@ -185,7 +185,7 @@ public class ImmutableRangeMapTest extends TestCase {
       for (Range<Integer> range2 : RANGES) {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           ImmutableRangeMap<Integer, Integer> rangeMap =
-              ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
+            ImmutableRangeMap.<Integer, Integer>builder().put(range1, 1).put(range2, 2).build();
 
           ImmutableMap<Range<Integer>, Integer> expectedAsMap =
               ImmutableMap.of(range1, 1, range2, 2);
@@ -212,14 +212,14 @@ public class ImmutableRangeMapTest extends TestCase {
         if (!range1.isConnected(range2) || range1.intersection(range2).isEmpty()) {
           for (Range<Integer> subRange : RANGES) {
             ImmutableRangeMap<Integer, Integer> rangeMap =
-                ImmutableRangeMap.<Integer, Integer>builder()
-                .put(range1, 1).put(range2, 2).build();
+            ImmutableRangeMap.<Integer, Integer>builder()
+            .put(range1, 1).put(range2, 2).build();
 
             ImmutableRangeMap.Builder<Integer, Integer> expectedBuilder =
                 ImmutableRangeMap.builder();
             for (Map.Entry<Range<Integer>, Integer> entry : rangeMap.asMapOfRanges().entrySet()) {
               if (entry.getKey().isConnected(subRange)
-                  && !entry.getKey().intersection(subRange).isEmpty()) {
+                    && !entry.getKey().intersection(subRange).isEmpty()) {
                 expectedBuilder.put(entry.getKey().intersection(subRange), entry.getValue());
               }
             }
@@ -238,11 +238,11 @@ public class ImmutableRangeMapTest extends TestCase {
 
     ImmutableRangeMap<Integer, Integer> nonEmptyRangeMap =
         new ImmutableRangeMap.Builder<Integer, Integer>()
-    .put(Range.closed(2, 4), 5)
-    .put(Range.open(6, 7), 3)
-    .put(Range.closedOpen(8, 10), 4)
-    .put(Range.openClosed(15, 17), 2)
-    .build();
+        .put(Range.closed(2, 4), 5)
+        .put(Range.open(6, 7), 3)
+        .put(Range.closedOpen(8, 10), 4)
+        .put(Range.openClosed(15, 17), 2)
+        .build();
 
     ImmutableMap<Range<Integer>, Integer> test = nonEmptyRangeMap.asMapOfRanges();
 

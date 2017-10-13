@@ -288,33 +288,33 @@ public abstract class ForwardingNavigableMap<K, V> extends ForwardingSortedMap<K
     @Override
     protected Iterator<Entry<K, V>> entryIterator() {
       return new Iterator<Entry<K, V>>() {
-        private Entry<K, V> toRemove = null;
-        private Entry<K, V> nextOrNull = forward().lastEntry();
+               private Entry<K, V> toRemove = null;
+               private Entry<K, V> nextOrNull = forward().lastEntry();
 
-        @Override
-        public boolean hasNext() {
-          return nextOrNull != null;
-        }
+               @Override
+               public boolean hasNext() {
+                 return nextOrNull != null;
+               }
 
-        @Override
-        public java.util.Map.Entry<K, V> next() {
-          if (!hasNext()) {
-            throw new NoSuchElementException();
-          }
-          try {
-            return nextOrNull;
-          } finally {
-            toRemove = nextOrNull;
-            nextOrNull = forward().lowerEntry(nextOrNull.getKey());
-          }
-        }
+               @Override
+               public java.util.Map.Entry<K, V> next() {
+                 if (!hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+                 try {
+                   return nextOrNull;
+                 } finally {
+                   toRemove = nextOrNull;
+                   nextOrNull = forward().lowerEntry(nextOrNull.getKey());
+                 }
+               }
 
-        @Override
-        public void remove() {
-          checkRemove(toRemove != null);
-          forward().remove(toRemove.getKey());
-          toRemove = null;
-        }
+               @Override
+               public void remove() {
+                 checkRemove(toRemove != null);
+                 forward().remove(toRemove.getKey());
+                 toRemove = null;
+               }
       };
     }
   }

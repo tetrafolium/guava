@@ -53,28 +53,28 @@ public class IntArrayAsListTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Integer>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new IntsAsListGenerator())
-            .named("Ints.asList"),
+      ListTestSuiteBuilder.using(new IntsAsListGenerator())
+      .named("Ints.asList"),
 
-            ListTestSuiteBuilder.using(new IntsAsListHeadSubListGenerator())
-            .named("Ints.asList, head subList"),
+      ListTestSuiteBuilder.using(new IntsAsListHeadSubListGenerator())
+      .named("Ints.asList, head subList"),
 
-            ListTestSuiteBuilder.using(new IntsAsListTailSubListGenerator())
-            .named("Ints.asList, tail subList"),
+      ListTestSuiteBuilder.using(new IntsAsListTailSubListGenerator())
+      .named("Ints.asList, tail subList"),
 
-            ListTestSuiteBuilder.using(new IntsAsListMiddleSubListGenerator())
-            .named("Ints.asList, middle subList")
-        );
+      ListTestSuiteBuilder.using(new IntsAsListMiddleSubListGenerator())
+      .named("Ints.asList, middle subList")
+      );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Integer> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              ListFeature.SUPPORTS_SET)
-          .createTestSuite());
+        builder
+        .withFeatures(CollectionSize.ONE,
+        CollectionSize.SEVERAL,
+        CollectionFeature.RESTRICTS_ELEMENTS,
+        ListFeature.SUPPORTS_SET)
+        .createTestSuite());
     }
     return suite;
   }

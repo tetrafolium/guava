@@ -131,8 +131,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    */
   public final boolean compareAndSet(double expect, double update) {
     return updater.compareAndSet(this,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+               doubleToRawLongBits(expect),
+               doubleToRawLongBits(update));
   }
 
   /**
@@ -152,8 +152,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    */
   public final boolean weakCompareAndSet(double expect, double update) {
     return updater.weakCompareAndSet(this,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+               doubleToRawLongBits(expect),
+               doubleToRawLongBits(update));
   }
 
   /**

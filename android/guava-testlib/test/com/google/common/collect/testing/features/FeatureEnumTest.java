@@ -33,22 +33,22 @@ import junit.framework.TestCase;
  */
 public class FeatureEnumTest extends TestCase {
   private static void assertGoodTesterAnnotation(
-      Class<? extends Annotation> annotationClass) {
+    Class<? extends Annotation> annotationClass) {
     assertNotNull(
-        rootLocaleFormat("%s must be annotated with @TesterAnnotation.",
-            annotationClass),
-        annotationClass.getAnnotation(TesterAnnotation.class));
+      rootLocaleFormat("%s must be annotated with @TesterAnnotation.",
+      annotationClass),
+      annotationClass.getAnnotation(TesterAnnotation.class));
     final Retention retentionPolicy =
         annotationClass.getAnnotation(Retention.class);
     assertNotNull(
-        rootLocaleFormat("%s must have a @Retention annotation.", annotationClass),
-        retentionPolicy);
+      rootLocaleFormat("%s must have a @Retention annotation.", annotationClass),
+      retentionPolicy);
     assertEquals(
-        rootLocaleFormat("%s must have RUNTIME RetentionPolicy.", annotationClass),
-        RetentionPolicy.RUNTIME, retentionPolicy.value());
+      rootLocaleFormat("%s must have RUNTIME RetentionPolicy.", annotationClass),
+      RetentionPolicy.RUNTIME, retentionPolicy.value());
     assertNotNull(
-        rootLocaleFormat("%s must be inherited.", annotationClass),
-        annotationClass.getAnnotation(Inherited.class));
+      rootLocaleFormat("%s must be inherited.", annotationClass),
+      annotationClass.getAnnotation(Inherited.class));
 
     for (String propertyName : new String[] {"value", "absent"}) {
       Method method = null;
@@ -56,22 +56,22 @@ public class FeatureEnumTest extends TestCase {
         method = annotationClass.getMethod(propertyName);
       } catch (NoSuchMethodException e) {
         fail(rootLocaleFormat("%s must have a property named '%s'.",
-                annotationClass, propertyName));
+            annotationClass, propertyName));
       }
       final Class<?> returnType = method.getReturnType();
       assertTrue(rootLocaleFormat("%s.%s() must return an array.",
-              annotationClass, propertyName),
+          annotationClass, propertyName),
           returnType.isArray());
       assertSame(rootLocaleFormat("%s.%s() must return an array of %s.",
-              annotationClass, propertyName, annotationClass.getDeclaringClass()),
+          annotationClass, propertyName, annotationClass.getDeclaringClass()),
           annotationClass.getDeclaringClass(), returnType.getComponentType());
     }
   }
 
   // This is public so that tests for Feature enums we haven't yet imagined
   // can reuse it.
-  public static <E extends Enum<?> & Feature<?>> void assertGoodFeatureEnum(
-      Class<E> featureEnumClass) {
+  public static <E extends Enum<?> &Feature<?>> void assertGoodFeatureEnum(
+    Class<E> featureEnumClass) {
     final Class<?>[] classes = featureEnumClass.getDeclaredClasses();
     for (Class<?> containedClass : classes) {
       if (containedClass.getSimpleName().equals("Require")) {
@@ -79,22 +79,22 @@ public class FeatureEnumTest extends TestCase {
           assertGoodTesterAnnotation(asAnnotation(containedClass));
         } else {
           fail(rootLocaleFormat("Feature enum %s contains a class named "
-                  + "'Require' but it is not an annotation.", featureEnumClass));
+              + "'Require' but it is not an annotation.", featureEnumClass));
         }
         return;
       }
     }
     fail(rootLocaleFormat("Feature enum %s should contain an "
-            + "annotation named 'Require'.", featureEnumClass));
+        + "annotation named 'Require'.", featureEnumClass));
   }
 
   @SuppressWarnings("unchecked")
   private static Class<? extends Annotation> asAnnotation(Class<?> clazz) {
     if (clazz.isAnnotation()) {
-      return (Class<? extends Annotation>) clazz;
+      return (Class<? extends Annotation>)clazz;
     } else {
       throw new IllegalArgumentException(
-          rootLocaleFormat("%s is not an annotation.", clazz));
+              rootLocaleFormat("%s is not an annotation.", clazz));
     }
   }
 

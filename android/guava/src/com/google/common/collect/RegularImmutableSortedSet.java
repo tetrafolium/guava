@@ -83,7 +83,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
     // TODO(kevinb): see if we can share code with OrderedIterator after it
     // graduates from labs.
     if (targets instanceof Multiset) {
-      targets = ((Multiset<?>) targets).elementSet();
+      targets = ((Multiset<?>)targets).elementSet();
     }
     if (!SortedIterables.hasSameComparator(comparator(), targets) || (targets.size() <= 1)) {
       return super.containsAll(targets);
@@ -151,7 +151,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
       return false;
     }
 
-    Set<?> that = (Set<?>) object;
+    Set<?> that = (Set<?>)object;
     if (size() != that.size()) {
       return false;
     } else if (isEmpty()) {
@@ -235,7 +235,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
 
   @Override
   ImmutableSortedSet<E> subSetImpl(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+    E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
     return tailSetImpl(fromElement, fromInclusive).headSetImpl(toElement, toInclusive);
   }
 
@@ -258,7 +258,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   // throw CCE should call this.
   @SuppressWarnings("unchecked")
   Comparator<Object> unsafeComparator() {
-    return (Comparator<Object>) comparator;
+    return (Comparator<Object>)comparator;
   }
 
   RegularImmutableSortedSet<E> getSubSet(int newFromIndex, int newToIndex) {
@@ -266,7 +266,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
       return this;
     } else if (newFromIndex < newToIndex) {
       return new RegularImmutableSortedSet<E>(
-              elements.subList(newFromIndex, newToIndex), comparator);
+        elements.subList(newFromIndex, newToIndex), comparator);
     } else {
       return emptySet(comparator);
     }
@@ -295,7 +295,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   ImmutableSortedSet<E> createDescendingSet() {
     Comparator<? super E> reversedOrder = Collections.reverseOrder(comparator);
     return isEmpty()
-        ? emptySet(reversedOrder)
-        : new RegularImmutableSortedSet<E>(elements.reverse(), reversedOrder);
+           ? emptySet(reversedOrder)
+           : new RegularImmutableSortedSet<E>(elements.reverse(), reversedOrder);
   }
 }

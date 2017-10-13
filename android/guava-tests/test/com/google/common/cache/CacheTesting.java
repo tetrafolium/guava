@@ -68,7 +68,7 @@ class CacheTesting {
       ValueReference<K, V> valueRef = entry.getValueReference();
       // fail on strong/computing refs
       Preconditions.checkState(valueRef instanceof Reference);
-      Reference<V> ref = (Reference<V>) valueRef;
+      Reference<V> ref = (Reference<V>)valueRef;
       if (ref != null) {
         ref.clear();
       }
@@ -85,7 +85,7 @@ class CacheTesting {
     ReferenceEntry<K, V> entry = getReferenceEntry(cache, key);
 
     Preconditions.checkState(entry instanceof Reference);
-    Reference<?> ref = (Reference<?>) entry;
+    Reference<?> ref = (Reference<?>)entry;
     if (ref != null) {
       ref.clear();
     }
@@ -117,10 +117,10 @@ class CacheTesting {
    */
   static <K, V> LocalCache<K, V> toLocalCache(Cache<K, V> cache) {
     if (cache instanceof LocalLoadingCache) {
-      return ((LocalLoadingCache<K, V>) cache).localCache;
+      return ((LocalLoadingCache<K, V>)cache).localCache;
     }
     throw new IllegalArgumentException("Cache of type " + cache.getClass()
-        + " doesn't have a LocalCache.");
+              + " doesn't have a LocalCache.");
   }
 
   /**
@@ -417,7 +417,7 @@ class CacheTesting {
   }
 
   static void expireEntries(
-      LocalCache<?, ?> cchm, long expiringTime, FakeTicker ticker) {
+    LocalCache<?, ?> cchm, long expiringTime, FakeTicker ticker) {
 
     for (Segment<?, ?> segment : cchm.segments) {
       drainRecencyQueue(segment);
@@ -462,7 +462,7 @@ class CacheTesting {
     assertEquals(ImmutableMap.of().toString(), map.toString());
 
     if (map instanceof LocalCache) {
-      LocalCache<?, ?> cchm = (LocalCache<?, ?>) map;
+      LocalCache<?, ?> cchm = (LocalCache<?, ?>)map;
 
       checkValidState(cchm);
       assertTrue(cchm.isEmpty());

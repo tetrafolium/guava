@@ -41,60 +41,60 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
   @CollectionFeature.Require({SUPPORTS_ITERATOR_REMOVE, KNOWN_ORDER})
   public void testRemovingIteratorKnownOrder() {
     new IteratorTester<E>(
-        4,
-        MODIFIABLE,
-        getSubjectGenerator().order(Arrays.asList(e0(), e1(), e1(), e2())),
-        IteratorTester.KnownOrder.KNOWN_ORDER) {
+      4,
+      MODIFIABLE,
+      getSubjectGenerator().order(Arrays.asList(e0(), e1(), e1(), e2())),
+      IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    } .test();
+    }.test();
   }
 
   @SuppressWarnings("unchecked")
   @CollectionFeature.Require(value = SUPPORTS_ITERATOR_REMOVE, absent = KNOWN_ORDER)
   public void testRemovingIteratorUnknownOrder() {
     new IteratorTester<E>(
-        4,
-        MODIFIABLE,
-        Arrays.asList(e0(), e1(), e1(), e2()),
-        IteratorTester.KnownOrder.UNKNOWN_ORDER) {
+      4,
+      MODIFIABLE,
+      Arrays.asList(e0(), e1(), e1(), e2()),
+      IteratorTester.KnownOrder.UNKNOWN_ORDER) {
       @Override
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    } .test();
+    }.test();
   }
 
   @SuppressWarnings("unchecked")
   @CollectionFeature.Require(value = KNOWN_ORDER, absent = SUPPORTS_ITERATOR_REMOVE)
   public void testIteratorKnownOrder() {
     new IteratorTester<E>(
-        4,
-        UNMODIFIABLE,
-        getSubjectGenerator().order(Arrays.asList(e0(), e1(), e1(), e2())),
-        IteratorTester.KnownOrder.KNOWN_ORDER) {
+      4,
+      UNMODIFIABLE,
+      getSubjectGenerator().order(Arrays.asList(e0(), e1(), e1(), e2())),
+      IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    } .test();
+    }.test();
   }
 
   @SuppressWarnings("unchecked")
   @CollectionFeature.Require(absent = {SUPPORTS_ITERATOR_REMOVE, KNOWN_ORDER})
   public void testIteratorUnknownOrder() {
     new IteratorTester<E>(
-        4,
-        UNMODIFIABLE,
-        Arrays.asList(e0(), e1(), e1(), e2()),
-        IteratorTester.KnownOrder.UNKNOWN_ORDER) {
+      4,
+      UNMODIFIABLE,
+      Arrays.asList(e0(), e1(), e1(), e2()),
+      IteratorTester.KnownOrder.UNKNOWN_ORDER) {
       @Override
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    } .test();
+    }.test();
   }
 
   /**
@@ -104,9 +104,9 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
   @GwtIncompatible // reflection
   public static List<Method> getIteratorDuplicateInitializingMethods() {
     return Arrays.asList(
-            Helpers.getMethod(MultisetIteratorTester.class, "testIteratorKnownOrder"),
-            Helpers.getMethod(MultisetIteratorTester.class, "testIteratorUnknownOrder"),
-            Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorKnownOrder"),
-            Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorUnknownOrder"));
+      Helpers.getMethod(MultisetIteratorTester.class, "testIteratorKnownOrder"),
+      Helpers.getMethod(MultisetIteratorTester.class, "testIteratorUnknownOrder"),
+      Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorKnownOrder"),
+      Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorUnknownOrder"));
   }
 }

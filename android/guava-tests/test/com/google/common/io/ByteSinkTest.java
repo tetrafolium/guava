@@ -107,7 +107,7 @@ public class ByteSinkTest extends IoTestCase {
     TestByteSink okSink = new TestByteSink();
     try {
       TestInputStream in = new TestInputStream(
-          new ByteArrayInputStream(new byte[10]), READ_THROWS);
+        new ByteArrayInputStream(new byte[10]), READ_THROWS);
       okSink.writeFrom(in);
       fail();
     } catch (IOException expected) {

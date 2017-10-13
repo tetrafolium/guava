@@ -87,9 +87,9 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          equalObject1 + " [group 1, item 1] must be Object#equals to "
-          + notEqualObject1 + " [group 1, item 2]");
+        e,
+        equalObject1 + " [group 1, item 1] must be Object#equals to "
+        + notEqualObject1 + " [group 1, item 2]");
       return;
     }
     fail("Should get not equal to equal object error");
@@ -123,7 +123,7 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e, obj + " must be Object#equals to itself");
+        e, obj + " must be Object#equals to itself");
       return;
     }
     fail("Should get non-reflexive error");
@@ -139,7 +139,7 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e, obj + " must not be Object#equals to null");
+        e, obj + " must not be Object#equals to null");
       return;
     }
     fail("Should get equal to null error");
@@ -156,9 +156,9 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          obj
-          + " must not be Object#equals to an arbitrary object of another class");
+        e,
+        obj
+        + " must not be Object#equals to an arbitrary object of another class");
       return;
     }
     fail("Should get equal to incompatible class error");
@@ -192,9 +192,9 @@ public class EqualsTesterTest extends TestCase {
       equalsTester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e, "the Object#hashCode (" + a.hashCode() + ") of " + a
-          + " [group 1, item 1] must be equal to the Object#hashCode ("
-          + b.hashCode() + ") of " + b);
+        e, "the Object#hashCode (" + a.hashCode() + ") of " + a
+        + " [group 1, item 1] must be equal to the Object#hashCode ("
+        + b.hashCode() + ") of " + b);
       return;
     }
     fail("Should get invalid hashCode error");
@@ -220,13 +220,13 @@ public class EqualsTesterTest extends TestCase {
 
   public void testSymmetryBroken() {
     EqualsTester tester = new EqualsTester()
-    .addEqualityGroup(named("foo").addPeers("bar"), named("bar"));
+        .addEqualityGroup(named("foo").addPeers("bar"), named("bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          "bar [group 1, item 2] must be Object#equals to foo [group 1, item 1]");
+        e,
+        "bar [group 1, item 2] must be Object#equals to foo [group 1, item 1]");
       return;
     }
     fail("should failed because symmetry is broken");
@@ -234,16 +234,16 @@ public class EqualsTesterTest extends TestCase {
 
   public void testTransitivityBrokenInEqualityGroup() {
     EqualsTester tester = new EqualsTester()
-    .addEqualityGroup(
-        named("foo").addPeers("bar", "baz"),
-        named("bar").addPeers("foo"),
-        named("baz").addPeers("foo"));
+        .addEqualityGroup(
+      named("foo").addPeers("bar", "baz"),
+      named("bar").addPeers("foo"),
+      named("baz").addPeers("foo"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          "bar [group 1, item 2] must be Object#equals to baz [group 1, item 3]");
+        e,
+        "bar [group 1, item 2] must be Object#equals to baz [group 1, item 3]");
       return;
     }
     fail("should failed because transitivity is broken");
@@ -251,13 +251,13 @@ public class EqualsTesterTest extends TestCase {
 
   public void testUnequalObjectsInEqualityGroup() {
     EqualsTester tester = new EqualsTester()
-    .addEqualityGroup(named("foo"), named("bar"));
+        .addEqualityGroup(named("foo"), named("bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          "foo [group 1, item 1] must be Object#equals to bar [group 1, item 2]");
+        e,
+        "foo [group 1, item 1] must be Object#equals to bar [group 1, item 2]");
       return;
     }
     fail("should failed because of unequal objects in the same equality group");
@@ -265,18 +265,18 @@ public class EqualsTesterTest extends TestCase {
 
   public void testTransitivityBrokenAcrossEqualityGroups() {
     EqualsTester tester = new EqualsTester()
-    .addEqualityGroup(
-        named("foo").addPeers("bar"),
-        named("bar").addPeers("foo", "x"))
-    .addEqualityGroup(
-        named("baz").addPeers("x"),
-        named("x").addPeers("baz", "bar"));
+        .addEqualityGroup(
+      named("foo").addPeers("bar"),
+      named("bar").addPeers("foo", "x"))
+        .addEqualityGroup(
+      named("baz").addPeers("x"),
+      named("x").addPeers("baz", "bar"));
     try {
       tester.testEquals();
     } catch (AssertionFailedError e) {
       assertErrorMessage(
-          e,
-          "bar [group 1, item 2] must not be Object#equals to x [group 2, item 2]");
+        e,
+        "bar [group 1, item 2] must not be Object#equals to x [group 2, item 2]");
       return;
     }
     fail("should failed because transitivity is broken");
@@ -285,7 +285,7 @@ public class EqualsTesterTest extends TestCase {
   public void testEqualityGroups() {
     new EqualsTester()
     .addEqualityGroup(
-        named("foo").addPeers("bar"), named("bar").addPeers("foo"))
+      named("foo").addPeers("bar"), named("bar").addPeers("foo"))
     .addEqualityGroup(named("baz"), named("baz"))
     .testEquals();
   }

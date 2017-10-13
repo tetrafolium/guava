@@ -213,7 +213,7 @@ public class ThrowablesTest extends TestCase {
   throws SomeCheckedException, SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-        SomeOtherCheckedException {
+      SomeOtherCheckedException {
         try {
           methodThatDoesntThrowAnything();
         } catch (Throwable t) {
@@ -233,7 +233,7 @@ public class ThrowablesTest extends TestCase {
   throws SomeCheckedException, SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-        SomeOtherCheckedException {
+      SomeOtherCheckedException {
         try {
           methodThatThrowsUnchecked();
         } catch (Throwable t) {
@@ -257,7 +257,7 @@ public class ThrowablesTest extends TestCase {
   throws SomeOtherCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-        SomeOtherCheckedException {
+      SomeOtherCheckedException {
         try {
           methodThatThrowsChecked();
         } catch (Throwable t) {
@@ -281,7 +281,7 @@ public class ThrowablesTest extends TestCase {
   throws SomeCheckedException {
     Sample sample = new Sample() {
       @Override public void twoDeclared() throws SomeCheckedException,
-        SomeOtherCheckedException {
+      SomeOtherCheckedException {
         try {
           methodThatThrowsOtherChecked();
         } catch (Throwable t) {
@@ -423,7 +423,8 @@ public class ThrowablesTest extends TestCase {
   @GwtIncompatible // throwIfInstanceOf
   public void testThrowIfInstanceOf_CheckedSubclass() {
     try {
-      throwIfInstanceOf(new SomeCheckedException() {}, SomeCheckedException.class);
+      throwIfInstanceOf(new SomeCheckedException() {
+      }, SomeCheckedException.class);
       fail();
     } catch (SomeCheckedException expected) {
     }

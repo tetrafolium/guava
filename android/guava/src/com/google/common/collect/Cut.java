@@ -91,7 +91,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
   public boolean equals(Object obj) {
     if (obj instanceof Cut) {
       // It might not really be a Cut<C>, but we'll catch a CCE if it's not
-      Cut<C> that = (Cut<C>) obj;
+      Cut<C> that = (Cut<C>)obj;
       try {
         int compareResult = compareTo(that);
         return compareResult == 0;
@@ -110,7 +110,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
    */
   @SuppressWarnings("unchecked")
   static <C extends Comparable> Cut<C> belowAll() {
-    return (Cut<C>) BelowAll.INSTANCE;
+    return (Cut<C>)BelowAll.INSTANCE;
   }
 
   private static final long serialVersionUID = 0;
@@ -144,13 +144,13 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
     @Override
     Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+      BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
     @Override
     Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+      BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
@@ -211,7 +211,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
    */
   @SuppressWarnings("unchecked")
   static <C extends Comparable> Cut<C> aboveAll() {
-    return (Cut<C>) AboveAll.INSTANCE;
+    return (Cut<C>)AboveAll.INSTANCE;
   }
 
   private static final class AboveAll extends Cut<Comparable<?>> {
@@ -243,13 +243,13 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
     @Override
     Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+      BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
     @Override
     Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+      BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 

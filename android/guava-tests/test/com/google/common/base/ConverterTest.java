@@ -35,7 +35,7 @@ import junit.framework.TestCase;
 public class ConverterTest extends TestCase {
 
   private static final Converter<String, Long> STR_TO_LONG =
-  new Converter<String, Long>() {
+      new Converter<String, Long>() {
     @Override protected Long doForward(String object) {
       return Long.valueOf(object);
     }
@@ -184,12 +184,12 @@ public class ConverterTest extends TestCase {
 
   private static Converter<String, String> sillyConverter(final boolean handleNullAutomatically) {
     return new Converter<String, String>(handleNullAutomatically) {
-      @Override protected String doForward(String string) {
-        return "forward";
-      }
-      @Override protected String doBackward(String string) {
-        return "backward";
-      }
+             @Override protected String doForward(String string) {
+               return "forward";
+             }
+             @Override protected String doBackward(String string) {
+               return "backward";
+             }
     };
   }
 

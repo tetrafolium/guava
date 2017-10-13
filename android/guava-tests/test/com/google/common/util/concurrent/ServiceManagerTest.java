@@ -76,7 +76,7 @@ public class ServiceManagerTest extends TestCase {
           Uninterruptibles.sleepUninterruptibly(delay, TimeUnit.MILLISECONDS);
           notifyStarted();
         }
-      } .start();
+      }.start();
     }
 
     @Override protected void doStop() {
@@ -85,7 +85,7 @@ public class ServiceManagerTest extends TestCase {
           Uninterruptibles.sleepUninterruptibly(delay, TimeUnit.MILLISECONDS);
           notifyStopped();
         }
-      } .start();
+      }.start();
     }
   }
 
@@ -324,7 +324,7 @@ public class ServiceManagerTest extends TestCase {
   }
 
   private static void assertState(
-      ServiceManager manager, Service.State state, Service... services) {
+    ServiceManager manager, Service.State state, Service... services) {
     Collection<Service> managerServices = manager.servicesByState().get(state);
     for (Service service : services) {
       assertEquals(service.toString(), state, service.state());
@@ -390,14 +390,14 @@ public class ServiceManagerTest extends TestCase {
             Uninterruptibles.awaitUninterruptibly(afterStarted);
             notifyFailed(new Exception("boom"));
           }
-        } .start();
+        }.start();
       }
       @Override protected void doStop() {
         notifyStopped();
       }
     };
     final ServiceManager manager = new ServiceManager(
-        Arrays.asList(failRunService, new NoOpService()));
+      Arrays.asList(failRunService, new NoOpService()));
     manager.addListener(new ServiceManager.Listener() {
       @Override public void failure(Service service) {
         failEnter.countDown();

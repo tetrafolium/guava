@@ -200,8 +200,10 @@ public class GcFinalizationTest extends TestCase {
   public void testAwaitFullGc() {
     final CountDownLatch finalizerRan = new CountDownLatch(1);
     final WeakReference<Object> ref = new WeakReference<Object>(
-    new Object() {
-      @Override protected void finalize() { finalizerRan.countDown(); }
+      new Object() {
+      @Override protected void finalize() {
+        finalizerRan.countDown();
+      }
     });
 
     // Don't copy this into your own test!

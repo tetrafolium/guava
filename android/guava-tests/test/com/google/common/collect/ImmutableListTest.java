@@ -71,54 +71,54 @@ public class ImmutableListTest extends TestCase {
     suite.addTest(ListTestSuiteBuilder.using(new ImmutableListOfGenerator())
         .named("ImmutableList")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(new BuilderAddAllListGenerator())
         .named("ImmutableList, built with Builder.add")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(new BuilderAddAllListGenerator())
         .named("ImmutableList, built with Builder.addAll")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(new BuilderReversedListGenerator())
         .named("ImmutableList, reversed")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableListHeadSubListGenerator())
+          new ImmutableListHeadSubListGenerator())
         .named("ImmutableList, head subList")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableListTailSubListGenerator())
+          new ImmutableListTailSubListGenerator())
         .named("ImmutableList, tail subList")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(
-            new ImmutableListMiddleSubListGenerator())
+          new ImmutableListMiddleSubListGenerator())
         .named("ImmutableList, middle subList")
         .withFeatures(CollectionSize.ANY,
-            SERIALIZABLE,
-            ALLOWS_NULL_QUERIES)
+        SERIALIZABLE,
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(ListTestSuiteBuilder.using(
-            new UnhashableElementsImmutableListGenerator())
+          new UnhashableElementsImmutableListGenerator())
         .suppressing(ListHashCodeTester.getHashCodeMethod())
         .named("ImmutableList, unhashable values")
         .withFeatures(CollectionSize.ANY,
-            ALLOWS_NULL_QUERIES)
+        ALLOWS_NULL_QUERIES)
         .createTestSuite());
     return suite;
   }
@@ -166,54 +166,54 @@ public class ImmutableListTest extends TestCase {
 
     public void testCreation_eightElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h");
+        "a", "b", "c", "d", "e", "f", "g", "h");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h"), list);
+            "a", "b", "c", "d", "e", "f", "g", "h"), list);
     }
 
     public void testCreation_nineElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i"), list);
+            "a", "b", "c", "d", "e", "f", "g", "h", "i"), list);
     }
 
     public void testCreation_tenElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"), list);
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"), list);
     }
 
     public void testCreation_elevenElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"), list);
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"), list);
     }
 
     // Varargs versions
 
     public void testCreation_twelveElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"), list);
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"), list);
     }
 
     public void testCreation_thirteenElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"),
           list);
     }
 
     public void testCreation_fourteenElements() {
       List<String> list = ImmutableList.of(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n");
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n");
       assertEquals(Lists.newArrayList(
-              "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"),
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"),
           list);
     }
 
@@ -351,7 +351,7 @@ public class ImmutableListTest extends TestCase {
           misleading.addAll(expected);
           assertEquals(expected, ImmutableList.copyOf(misleading));
           assertEquals(expected,
-              ImmutableList.copyOf((Iterable<String>) misleading));
+              ImmutableList.copyOf((Iterable<String>)misleading));
         }
       }
     }
@@ -487,12 +487,12 @@ public class ImmutableListTest extends TestCase {
     enum WrapWithIterable { WRAP, NO_WRAP }
 
     private static void runConcurrentlyMutatedTest(
-        Collection<Integer> initialContents,
-        Iterable<ListFrobber> actionsToPerformConcurrently,
-        WrapWithIterable wrap) {
+      Collection<Integer> initialContents,
+      Iterable<ListFrobber> actionsToPerformConcurrently,
+      WrapWithIterable wrap) {
       ConcurrentlyMutatedList<Integer> concurrentlyMutatedList =
           newConcurrentlyMutatedList(
-              initialContents, actionsToPerformConcurrently);
+        initialContents, actionsToPerformConcurrently);
 
       Iterable<Integer> iterableToCopy = wrap == WrapWithIterable.WRAP
           ? unmodifiableIterable(concurrentlyMutatedList)
@@ -511,59 +511,59 @@ public class ImmutableListTest extends TestCase {
        * performing adds and removes in different ways.
        */
       runConcurrentlyMutatedTest(
-          elements(),
-          ops(add(1), add(2)),
-          wrap);
+        elements(),
+        ops(add(1), add(2)),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(),
-          ops(add(1), nop()),
-          wrap);
+        elements(),
+        ops(add(1), nop()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(),
-          ops(add(1), remove()),
-          wrap);
+        elements(),
+        ops(add(1), remove()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(),
-          ops(nop(), add(1)),
-          wrap);
+        elements(),
+        ops(nop(), add(1)),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1),
-          ops(remove(), nop()),
-          wrap);
+        elements(1),
+        ops(remove(), nop()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1),
-          ops(remove(), add(2)),
-          wrap);
+        elements(1),
+        ops(remove(), add(2)),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1, 2),
-          ops(remove(), remove()),
-          wrap);
+        elements(1, 2),
+        ops(remove(), remove()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1, 2),
-          ops(remove(), nop()),
-          wrap);
+        elements(1, 2),
+        ops(remove(), nop()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1, 2),
-          ops(remove(), add(3)),
-          wrap);
+        elements(1, 2),
+        ops(remove(), add(3)),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1, 2),
-          ops(nop(), remove()),
-          wrap);
+        elements(1, 2),
+        ops(nop(), remove()),
+        wrap);
 
       runConcurrentlyMutatedTest(
-          elements(1, 2, 3),
-          ops(remove(), remove()),
-          wrap);
+        elements(1, 2, 3),
+        ops(remove(), remove()),
+        wrap);
     }
 
     private static ImmutableList<Integer> elements(Integer... elements) {
@@ -589,27 +589,27 @@ public class ImmutableListTest extends TestCase {
 
     static ListFrobber add(final int element) {
       return new ListFrobber() {
-        @Override
-        public void perform(List<Integer> list) {
-          list.add(0, element);
-        }
+               @Override
+               public void perform(List<Integer> list) {
+                 list.add(0, element);
+               }
       };
     }
 
     static ListFrobber remove() {
       return new ListFrobber() {
-        @Override
-        public void perform(List<Integer> list) {
-          list.remove(0);
-        }
+               @Override
+               public void perform(List<Integer> list) {
+                 list.remove(0);
+               }
       };
     }
 
     static ListFrobber nop() {
       return new ListFrobber() {
-        @Override
-        public void perform(List<Integer> list) {
-        }
+               @Override
+               public void perform(List<Integer> list) {
+               }
       };
     }
 
@@ -632,12 +632,12 @@ public class ImmutableListTest extends TestCase {
      * same thread as the triggering method call.
      */
     private static ConcurrentlyMutatedList<Integer> newConcurrentlyMutatedList(
-        final Collection<Integer> initialContents,
-        final Iterable<ListFrobber> actionsToPerformConcurrently) {
+      final Collection<Integer> initialContents,
+      final Iterable<ListFrobber> actionsToPerformConcurrently) {
       InvocationHandler invocationHandler =
-      new InvocationHandler() {
+          new InvocationHandler() {
         final CopyOnWriteArrayList<Integer> delegate =
-            new CopyOnWriteArrayList<>(initialContents);
+          new CopyOnWriteArrayList<>(initialContents);
 
         final Method getAllStatesMethod =
             getOnlyElement(asList(ConcurrentlyMutatedList.class.getDeclaredMethods()));
@@ -649,8 +649,8 @@ public class ImmutableListTest extends TestCase {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
           return method.equals(getAllStatesMethod)
-              ? getAllStates()
-              : invokeListMethod(method, args);
+                 ? getAllStates()
+                 : invokeListMethod(method, args);
         }
 
         private Set<List<Integer>> getAllStates() {
@@ -678,9 +678,9 @@ public class ImmutableListTest extends TestCase {
 
       @SuppressWarnings("unchecked")
       ConcurrentlyMutatedList<Integer> list =
-          (ConcurrentlyMutatedList<Integer>) newProxyInstance(
-              ImmutableListTest.CreationTests.class.getClassLoader(),
-              new Class[] {ConcurrentlyMutatedList.class}, invocationHandler);
+          (ConcurrentlyMutatedList<Integer>)newProxyInstance(
+        ImmutableListTest.CreationTests.class.getClassLoader(),
+        new Class[] {ConcurrentlyMutatedList.class}, invocationHandler);
       return list;
     }
   }
@@ -722,11 +722,11 @@ public class ImmutableListTest extends TestCase {
 
     public void testBuilderAdd() {
       ImmutableList<String> list = new ImmutableList.Builder<String>()
-      .add("a")
-      .add("b")
-      .add("a")
-      .add("c")
-      .build();
+          .add("a")
+          .add("b")
+          .add("a")
+          .add("c")
+          .build();
       assertEquals(asList("a", "b", "a", "c"), list);
     }
 
@@ -750,7 +750,7 @@ public class ImmutableListTest extends TestCase {
         builder.add(i);
       }
       Object[] builderArrayAfterAdds = builder.contents;
-      RegularImmutableList<Integer> list = (RegularImmutableList<Integer>) builder.build();
+      RegularImmutableList<Integer> list = (RegularImmutableList<Integer>)builder.build();
       Object[] listInternalArray = list.array;
       assertSame(builderArray, builderArrayAfterAdds);
       assertSame(builderArray, listInternalArray);
@@ -758,8 +758,8 @@ public class ImmutableListTest extends TestCase {
 
     public void testBuilderAdd_varargs() {
       ImmutableList<String> list = new ImmutableList.Builder<String>()
-      .add("a", "b", "a", "c")
-      .build();
+          .add("a", "b", "a", "c")
+          .build();
       assertEquals(asList("a", "b", "a", "c"), list);
     }
 
@@ -767,9 +767,9 @@ public class ImmutableListTest extends TestCase {
       List<String> a = asList("a", "b");
       List<String> b = asList("c", "d");
       ImmutableList<String> list = new ImmutableList.Builder<String>()
-      .addAll(a)
-      .addAll(b)
-      .build();
+          .addAll(a)
+          .addAll(b)
+          .build();
       assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
       assertEquals(asList("a", "b", "c", "d"), list);
@@ -779,9 +779,9 @@ public class ImmutableListTest extends TestCase {
       List<String> a = asList("a", "b");
       List<String> b = asList("c", "d");
       ImmutableList<String> list = new ImmutableList.Builder<String>()
-      .addAll(a.iterator())
-      .addAll(b.iterator())
-      .build();
+          .addAll(a.iterator())
+          .addAll(b.iterator())
+          .build();
       assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
       assertEquals(asList("a", "b", "c", "d"), list);
@@ -891,7 +891,7 @@ public class ImmutableListTest extends TestCase {
         builder.add("foo");
       }
       builder.add("bar");
-      RegularImmutableList<String> list = (RegularImmutableList<String>) builder.build();
+      RegularImmutableList<String> list = (RegularImmutableList<String>)builder.build();
       builder.add("baz");
       assertTrue(list.array != builder.contents);
     }

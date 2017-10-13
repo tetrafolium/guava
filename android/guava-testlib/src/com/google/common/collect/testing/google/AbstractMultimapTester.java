@@ -109,14 +109,14 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
 
   protected SampleElements<K> sampleKeys() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-            getSubjectGenerator().getInnerGenerator())
-        .sampleKeys();
+           getSubjectGenerator().getInnerGenerator())
+           .sampleKeys();
   }
 
   protected SampleElements<V> sampleValues() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-            getSubjectGenerator().getInnerGenerator())
-        .sampleValues();
+           getSubjectGenerator().getInnerGenerator())
+           .sampleValues();
   }
 
   @Override

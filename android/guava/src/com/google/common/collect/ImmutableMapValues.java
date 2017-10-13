@@ -45,17 +45,17 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   @Override
   public UnmodifiableIterator<V> iterator() {
     return new UnmodifiableIterator<V>() {
-      final UnmodifiableIterator<Entry<K, V>> entryItr = map.entrySet().iterator();
+             final UnmodifiableIterator<Entry<K, V>> entryItr = map.entrySet().iterator();
 
-      @Override
-      public boolean hasNext() {
-        return entryItr.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return entryItr.hasNext();
+             }
 
-      @Override
-      public V next() {
-        return entryItr.next().getValue();
-      }
+             @Override
+             public V next() {
+               return entryItr.next().getValue();
+             }
     };
   }
 
@@ -73,20 +73,20 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   public ImmutableList<V> asList() {
     final ImmutableList<Entry<K, V>> entryList = map.entrySet().asList();
     return new ImmutableList<V>() {
-      @Override
-      public V get(int index) {
-        return entryList.get(index).getValue();
-      }
+             @Override
+             public V get(int index) {
+               return entryList.get(index).getValue();
+             }
 
-      @Override
-      boolean isPartialView() {
-        return true;
-      }
+             @Override
+             boolean isPartialView() {
+               return true;
+             }
 
-      @Override
-      public int size() {
-        return entryList.size();
-      }
+             @Override
+             public int size() {
+               return entryList.size();
+             }
     };
   }
 

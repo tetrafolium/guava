@@ -172,8 +172,8 @@ public abstract class AbstractMapTester<K, V>
     for (Entry<K, V> entry : entries) {
       assertFalse("Should not contain entry " + entry, actualContents().contains(entry));
       assertFalse(
-          "Should not contain key " + entry.getKey() + " mapped to value " + entry.getValue(),
-          equal(getMap().get(entry.getKey()), entry.getValue()));
+        "Should not contain key " + entry.getKey() + " mapped to value " + entry.getValue(),
+        equal(getMap().get(entry.getKey()), entry.getValue()));
     }
   }
 
@@ -192,7 +192,7 @@ public abstract class AbstractMapTester<K, V>
     super.expectContents(expected);
     for (Entry<K, V> entry : expected) {
       assertEquals(
-          "Wrong value for key " + entry.getKey(), entry.getValue(), getMap().get(entry.getKey()));
+        "Wrong value for key " + entry.getKey(), entry.getValue(), getMap().get(entry.getKey()));
     }
   }
 
@@ -203,7 +203,7 @@ public abstract class AbstractMapTester<K, V>
   }
 
   private void replaceValue(List<Entry<K, V>> expected, Entry<K, V> newEntry) {
-    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext();) {
+    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext(); ) {
       if (Helpers.equal(i.next().getKey(), newEntry.getKey())) {
         i.set(newEntry);
         return;
@@ -211,7 +211,7 @@ public abstract class AbstractMapTester<K, V>
     }
 
     throw new IllegalArgumentException(
-        Platform.format("key %s not found in entries %s", newEntry.getKey(), expected));
+            Platform.format("key %s not found in entries %s", newEntry.getKey(), expected));
   }
 
   /**

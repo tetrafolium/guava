@@ -45,30 +45,30 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     suite.addTestSuite(MutableTypeToInstanceMapTest.class);
 
     suite.addTest(
-        MapTestSuiteBuilder.using(
-    new TestTypeToInstanceMapGenerator() {
+      MapTestSuiteBuilder.using(
+        new TestTypeToInstanceMapGenerator() {
       // Other tests will verify what real, warning-free usage looks like
       // but here we have to do some serious fudging
       @Override
       @SuppressWarnings("unchecked")
-      public Map<TypeToken, Object> create(Object... elements) {
+      public Map<TypeToken, Object> create(Object ... elements) {
         MutableTypeToInstanceMap<Object> map = new MutableTypeToInstanceMap<>();
         for (Object object : elements) {
-          Entry<TypeToken, Object> entry = (Entry<TypeToken, Object>) object;
+          Entry<TypeToken, Object> entry = (Entry<TypeToken, Object>)object;
           map.putInstance(entry.getKey(), entry.getValue());
         }
         return (Map) map;
       }
     })
-    .named("MutableTypeToInstanceMap")
-    .withFeatures(
+      .named("MutableTypeToInstanceMap")
+      .withFeatures(
         MapFeature.SUPPORTS_REMOVE,
         MapFeature.RESTRICTS_KEYS,
         MapFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         CollectionSize.ANY,
         MapFeature.ALLOWS_ANY_NULL_QUERIES)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -106,7 +106,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   public void testEntrySetToArrayMutationThrows() {
     map.putInstance(String.class, "test");
     @SuppressWarnings("unchecked") // Should get a CCE later if cast is wrong
-    Entry<Object, Object> entry = (Entry<Object, Object>) map.entrySet().toArray()[0];
+    Entry<Object, Object> entry = (Entry<Object, Object>)map.entrySet().toArray()[0];
     assertEquals(TypeToken.of(String.class), entry.getKey());
     assertEquals("test", entry.getValue());
     try {
@@ -179,7 +179,8 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   }
 
   public void testParameterizedType() {
-    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {};
+    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {
+    };
     map.putInstance(type, ImmutableList.of(1));
     assertEquals(1, map.size());
     assertEquals(ImmutableList.of(1), map.getInstance(type));
@@ -188,14 +189,16 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   public void testGenericArrayType() {
     @SuppressWarnings("unchecked") // Trying to test generic array
     ImmutableList<Integer>[] array = new ImmutableList[] {ImmutableList.of(1)};
-    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {};
+    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {
+    };
     map.putInstance(type, array);
     assertEquals(1, map.size());
     assertThat(map.getInstance(type)).asList().containsExactly(array[0]);
   }
 
   public void testWildcardType() {
-    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {};
+    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {
+    };
     map.putInstance(type, ImmutableList.of(1));
     assertEquals(1, map.size());
     assertEquals(ImmutableList.of(1), map.getInstance(type));
@@ -216,6 +219,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   }
 
   private <T> TypeToken<Iterable<T>> anyIterableType() {
-    return new TypeToken<Iterable<T>>() {};
+    return new TypeToken<Iterable<T>>() {
+    };
   }
 }

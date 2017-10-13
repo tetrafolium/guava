@@ -89,15 +89,15 @@ public class OrderingTest extends TestCase {
     // [[null, null], [null], [1, null, 2], [1, 1], [1, 2], [1], [2], [], null]
     assertThat(sorted)
     .containsExactly(
-        Lists.newArrayList(nullInt, nullInt),
-        Lists.newArrayList(nullInt),
-        Lists.newArrayList(1, null, 2),
-        Lists.newArrayList(1, 1),
-        Lists.newArrayList(1, 2),
-        Lists.newArrayList(1),
-        Lists.newArrayList(2),
-        Lists.newArrayList(),
-        null)
+      Lists.newArrayList(nullInt, nullInt),
+      Lists.newArrayList(nullInt),
+      Lists.newArrayList(1, null, 2),
+      Lists.newArrayList(1, 1),
+      Lists.newArrayList(1, 2),
+      Lists.newArrayList(1),
+      Lists.newArrayList(2),
+      Lists.newArrayList(),
+      null)
     .inOrder();
   }
 
@@ -271,30 +271,30 @@ public class OrderingTest extends TestCase {
 
   public void testCompound_static() {
     Comparator<String> comparator = Ordering.compound(ImmutableList.of(
-                byCharAt(0), byCharAt(1), byCharAt(2),
-                byCharAt(3), byCharAt(4), byCharAt(5)));
+          byCharAt(0), byCharAt(1), byCharAt(2),
+          byCharAt(3), byCharAt(4), byCharAt(5)));
     Helpers.testComparator(comparator, ImmutableList.of(
-            "applesauce",
-            "apricot",
-            "artichoke",
-            "banality",
-            "banana",
-            "banquet",
-            "tangelo",
-            "tangerine"));
+          "applesauce",
+          "apricot",
+          "artichoke",
+          "banality",
+          "banana",
+          "banquet",
+          "tangelo",
+          "tangerine"));
     reserializeAndAssert(comparator);
   }
 
   public void testCompound_instance() {
     Comparator<String> comparator = byCharAt(1).compound(byCharAt(0));
     Helpers.testComparator(comparator, ImmutableList.of(
-            "red",
-            "yellow",
-            "violet",
-            "blue",
-            "indigo",
-            "green",
-            "orange"));
+          "red",
+          "yellow",
+          "violet",
+          "blue",
+          "indigo",
+          "green",
+          "orange"));
   }
 
   public void testCompound_instance_generics() {
@@ -375,8 +375,8 @@ public class OrderingTest extends TestCase {
 
     new EqualsTester()
     .addEqualityGroup(
-        comparator,
-        Ordering.natural().onResultOf(StringLengthFunction.StringLength))
+      comparator,
+      Ordering.natural().onResultOf(StringLengthFunction.StringLength))
     .addEqualityGroup(DECREASING_INTEGER)
     .testEquals();
     reserializeAndAssert(comparator);
@@ -386,17 +386,17 @@ public class OrderingTest extends TestCase {
 
   public void testOnResultOf_chained() {
     Comparator<String> comparator = DECREASING_INTEGER.onResultOf(
-            StringLengthFunction.StringLength);
+      StringLengthFunction.StringLength);
     assertTrue(comparator.compare("to", "be") == 0);
     assertTrue(comparator.compare("not", "or") < 0);
     assertTrue(comparator.compare("to", "that") > 0);
 
     new EqualsTester()
     .addEqualityGroup(
-        comparator,
-        DECREASING_INTEGER.onResultOf(StringLengthFunction.StringLength))
+      comparator,
+      DECREASING_INTEGER.onResultOf(StringLengthFunction.StringLength))
     .addEqualityGroup(
-        DECREASING_INTEGER.onResultOf(Functions.constant(1)))
+      DECREASING_INTEGER.onResultOf(Functions.constant(1)))
     .addEqualityGroup(Ordering.natural())
     .testEquals();
     reserializeAndAssert(comparator);
@@ -453,7 +453,7 @@ public class OrderingTest extends TestCase {
 
   public void testSortedCopy() {
     List<Integer> unsortedInts = Collections.unmodifiableList(
-            Arrays.asList(5, 0, 3, null, 0, 9));
+      Arrays.asList(5, 0, 3, null, 0, 9));
     List<Integer> sortedInts =
         numberOrdering.nullsLast().sortedCopy(unsortedInts);
     assertEquals(Arrays.asList(0, 0, 3, 5, 9, null), sortedInts);
@@ -497,7 +497,7 @@ public class OrderingTest extends TestCase {
     assertTrue(numberOrdering.isStrictlyOrdered(asList(0, 3)));
     assertTrue(numberOrdering.isStrictlyOrdered(Collections.singleton(1)));
     assertTrue(numberOrdering.isStrictlyOrdered(
-            Collections.<Integer>emptyList()));
+          Collections.<Integer>emptyList()));
   }
 
   public void testLeastOfIterable_empty_0() {
@@ -509,7 +509,7 @@ public class OrderingTest extends TestCase {
 
   public void testLeastOfIterator_empty_0() {
     List<Integer> result = numberOrdering.leastOf(
-            Iterators.<Integer>emptyIterator(), 0);
+      Iterators.<Integer>emptyIterator(), 0);
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(ImmutableList.<Integer>of(), result);
@@ -524,7 +524,7 @@ public class OrderingTest extends TestCase {
 
   public void testLeastOfIterator_empty_1() {
     List<Integer> result = numberOrdering.leastOf(
-            Iterators.<Integer>emptyIterator(), 1);
+      Iterators.<Integer>emptyIterator(), 1);
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(ImmutableList.<Integer>of(), result);
@@ -555,7 +555,7 @@ public class OrderingTest extends TestCase {
 
   public void testLeastOfIterator_singleton_0() {
     List<Integer> result = numberOrdering.leastOf(
-            Iterators.singletonIterator(3), 0);
+      Iterators.singletonIterator(3), 0);
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(ImmutableList.<Integer>of(), result);
@@ -570,7 +570,7 @@ public class OrderingTest extends TestCase {
 
   public void testLeastOfIterator_simple_0() {
     List<Integer> result = numberOrdering.leastOf(
-            Iterators.forArray(3, 4, 5, -1), 0);
+      Iterators.forArray(3, 4, 5, -1), 0);
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(ImmutableList.<Integer>of(), result);
@@ -585,7 +585,7 @@ public class OrderingTest extends TestCase {
 
   public void testLeastOfIterator_simple_1() {
     List<Integer> result = numberOrdering.leastOf(
-            Iterators.forArray(3, 4, 5, -1), 1);
+      Iterators.forArray(3, 4, 5, -1), 1);
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(ImmutableList.of(-1), result);
@@ -650,7 +650,7 @@ public class OrderingTest extends TestCase {
   public void testLeastOfIterator_simple_n_withNullElement() {
     List<Integer> list = Arrays.asList(3, 4, 5, null, -1);
     List<Integer> result = Ordering.natural().nullsLast().leastOf(
-            list.iterator(), list.size());
+      list.iterator(), list.size());
     assertTrue(result instanceof RandomAccess);
     assertListImmutable(result);
     assertEquals(Arrays.asList(-1, 3, 4, 5, null), result);
@@ -706,7 +706,7 @@ public class OrderingTest extends TestCase {
   }
 
   private static void runLeastOfComparison(
-      int iterations, int elements, int seeds) {
+    int iterations, int elements, int seeds) {
     Random random = new Random(42);
     Ordering<Integer> ordering = Ordering.natural();
 
@@ -898,9 +898,9 @@ public class OrderingTest extends TestCase {
    * test the varargs version of min/max.
    */
   private static <T> void testExhaustively(
-      Ordering<? super T> ordering, T... strictlyOrderedElements) {
+    Ordering<? super T> ordering, T... strictlyOrderedElements) {
     checkArgument(strictlyOrderedElements.length >= 3, "strictlyOrderedElements "
-        + "requires at least 3 elements");
+      + "requires at least 3 elements");
     List<T> list = Arrays.asList(strictlyOrderedElements);
 
     // for use calling Collection.toArray later
@@ -979,7 +979,7 @@ public class OrderingTest extends TestCase {
     void testBinarySearch() {
       for (int i = 0; i < strictlyOrderedList.size(); i++) {
         assertEquals(i, ordering.binarySearch(
-                strictlyOrderedList, strictlyOrderedList.get(i)));
+              strictlyOrderedList, strictlyOrderedList.get(i)));
       }
       List<T> newList = Lists.newArrayList(strictlyOrderedList);
       T valueNotInList = newList.remove(1);
@@ -1039,7 +1039,7 @@ public class OrderingTest extends TestCase {
     ON_RESULT_OF {
       @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         Ordering<Integer> ordering = scenario.ordering.onResultOf(
-        new Function<Integer, T>() {
+          new Function<Integer, T>() {
           @Override
           public T apply(@Nullable Integer from) {
             return scenario.strictlyOrderedList.get(from);
@@ -1077,7 +1077,7 @@ public class OrderingTest extends TestCase {
           composites.add(new Composite<T>(t, 2));
         }
         Ordering<Composite<T>> ordering = Ordering.natural().compound(
-                scenario.ordering.onResultOf(Composite.<T>getValueFunction()));
+          scenario.ordering.onResultOf(Composite.<T>getValueFunction()));
         return new Scenario<Composite<T>>(ordering, composites, new Composite[0]);
       }
     },
@@ -1093,7 +1093,7 @@ public class OrderingTest extends TestCase {
           }
         }
         return new Scenario<Iterable<T>>(
-                scenario.ordering.lexicographical(), words, new Iterable[0]);
+          scenario.ordering.lexicographical(), words, new Iterable[0]);
       }
     },
     ;
@@ -1123,10 +1123,10 @@ public class OrderingTest extends TestCase {
 
     static <T> Function<Composite<T>, T> getValueFunction() {
       return new Function<Composite<T>, T>() {
-        @Override
-        public T apply(Composite<T> from) {
-          return from.value;
-        }
+               @Override
+               public T apply(Composite<T> from) {
+                 return from.value;
+               }
       };
     }
   }

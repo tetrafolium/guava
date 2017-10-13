@@ -179,7 +179,7 @@ public final class Ints {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -278,7 +278,7 @@ public final class Ints {
    * @param arrays zero or more {@code int} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static int[] concat(int[]... arrays) {
+  public static int[] concat(int[] ... arrays) {
     int length = 0;
     for (int[] array : arrays) {
       length += array.length;
@@ -303,8 +303,8 @@ public final class Ints {
    */
   public static byte[] toByteArray(int value) {
     return new byte[] {
-            (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
-        };
+             (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
+    };
   }
 
   /**

@@ -83,7 +83,7 @@ public enum CollectionSize implements Feature<Collection>, Comparable<Collection
   public int getNumElements() {
     if (numElements == null) {
       throw new IllegalStateException(
-          "A compound CollectionSize doesn't specify a number of elements.");
+              "A compound CollectionSize doesn't specify a number of elements.");
     }
     return numElements;
   }
@@ -92,8 +92,8 @@ public enum CollectionSize implements Feature<Collection>, Comparable<Collection
   @Inherited
   @TesterAnnotation
   public @interface Require {
-  CollectionSize[] value() default {};
+    CollectionSize[] value() default {};
 
-  CollectionSize[] absent() default {};
+    CollectionSize[] absent() default {};
   }
 }

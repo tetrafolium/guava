@@ -38,10 +38,10 @@ public class ConcurrentMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, 
 
   static final List<? extends Class<? extends AbstractTester>> TESTERS =
       Arrays.asList(
-          ConcurrentMapPutIfAbsentTester.class,
-          ConcurrentMapRemoveTester.class,
-          ConcurrentMapReplaceTester.class,
-          ConcurrentMapReplaceEntryTester.class);
+    ConcurrentMapPutIfAbsentTester.class,
+    ConcurrentMapRemoveTester.class,
+    ConcurrentMapReplaceTester.class,
+    ConcurrentMapReplaceEntryTester.class);
 
   @Override
   protected List<Class<? extends AbstractTester>> getTesters() {

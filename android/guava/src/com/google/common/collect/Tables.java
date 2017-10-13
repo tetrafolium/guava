@@ -61,7 +61,7 @@ public final class Tables {
    * @param value the value to be associated with the returned cell
    */
   public static <R, C, V> Cell<R, C, V> immutableCell(
-      @Nullable R rowKey, @Nullable C columnKey, @Nullable V value) {
+    @Nullable R rowKey, @Nullable C columnKey, @Nullable V value) {
     return new ImmutableCell<>(rowKey, columnKey, value);
   }
 
@@ -104,10 +104,10 @@ public final class Tables {
         return true;
       }
       if (obj instanceof Cell) {
-        Cell<?, ?, ?> other = (Cell<?, ?, ?>) obj;
+        Cell<?, ?, ?> other = (Cell<?, ?, ?>)obj;
         return Objects.equal(getRowKey(), other.getRowKey())
-            && Objects.equal(getColumnKey(), other.getColumnKey())
-            && Objects.equal(getValue(), other.getValue());
+               && Objects.equal(getColumnKey(), other.getColumnKey())
+               && Objects.equal(getValue(), other.getValue());
       }
       return false;
     }
@@ -139,8 +139,8 @@ public final class Tables {
    */
   public static <R, C, V> Table<C, R, V> transpose(Table<R, C, V> table) {
     return (table instanceof TransposeTable)
-        ? ((TransposeTable<R, C, V>) table).original
-        : new TransposeTable<C, R, V>(table);
+           ? ((TransposeTable<R, C, V>)table).original
+           : new TransposeTable<C, R, V>(table);
   }
 
   private static class TransposeTable<C, R, V> extends AbstractTable<C, R, V> {
@@ -237,7 +237,7 @@ public final class Tables {
 
     // Will cast TRANSPOSE_CELL to a type that always succeeds
     private static final Function<Cell<?, ?, ?>, Cell<?, ?, ?>> TRANSPOSE_CELL =
-    new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
+        new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
       @Override
       public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
         return immutableCell(cell.getColumnKey(), cell.getRowKey(), cell.getValue());
@@ -294,7 +294,7 @@ public final class Tables {
    */
   @Beta
   public static <R, C, V> Table<R, C, V> newCustomTable(
-      Map<R, Map<C, V>> backingMap, Supplier<? extends Map<C, V>> factory) {
+    Map<R, Map<C, V>> backingMap, Supplier<? extends Map<C, V>> factory) {
     checkArgument(backingMap.isEmpty());
     checkNotNull(factory);
     // TODO(jlevy): Wrap factory to validate that the supplied maps are empty?
@@ -329,7 +329,7 @@ public final class Tables {
    */
   @Beta
   public static <R, C, V1, V2> Table<R, C, V2> transformValues(
-      Table<R, C, V1> fromTable, Function<? super V1, V2> function) {
+    Table<R, C, V1> fromTable, Function<? super V1, V2> function) {
     return new TransformedTable<>(fromTable, function);
   }
 
@@ -377,8 +377,8 @@ public final class Tables {
     @Override
     public V2 remove(Object rowKey, Object columnKey) {
       return contains(rowKey, columnKey)
-          ? function.apply(fromTable.remove(rowKey, columnKey))
-          : null;
+             ? function.apply(fromTable.remove(rowKey, columnKey))
+             : null;
     }
 
     @Override
@@ -393,11 +393,11 @@ public final class Tables {
 
     Function<Cell<R, C, V1>, Cell<R, C, V2>> cellFunction() {
       return new Function<Cell<R, C, V1>, Cell<R, C, V2>>() {
-        @Override
-        public Cell<R, C, V2> apply(Cell<R, C, V1> cell) {
-          return immutableCell(
-                  cell.getRowKey(), cell.getColumnKey(), function.apply(cell.getValue()));
-        }
+               @Override
+               public Cell<R, C, V2> apply(Cell<R, C, V1> cell) {
+                 return immutableCell(
+                   cell.getRowKey(), cell.getColumnKey(), function.apply(cell.getValue()));
+               }
       };
     }
 
@@ -424,7 +424,7 @@ public final class Tables {
     @Override
     public Map<R, Map<C, V2>> rowMap() {
       Function<Map<C, V1>, Map<C, V2>> rowFunction =
-      new Function<Map<C, V1>, Map<C, V2>>() {
+          new Function<Map<C, V1>, Map<C, V2>>() {
         @Override
         public Map<C, V2> apply(Map<C, V1> row) {
           return Maps.transformValues(row, function);
@@ -436,7 +436,7 @@ public final class Tables {
     @Override
     public Map<C, Map<R, V2>> columnMap() {
       Function<Map<R, V1>, Map<R, V2>> columnFunction =
-      new Function<Map<R, V1>, Map<R, V2>>() {
+          new Function<Map<R, V1>, Map<R, V2>>() {
         @Override
         public Map<R, V2> apply(Map<R, V1> column) {
           return Maps.transformValues(column, function);
@@ -459,7 +459,7 @@ public final class Tables {
    * @since 11.0
    */
   public static <R, C, V> Table<R, C, V> unmodifiableTable(
-      Table<? extends R, ? extends C, ? extends V> table) {
+    Table<? extends R, ? extends C, ? extends V> table) {
     return new UnmodifiableTable<>(table);
   }
 
@@ -474,7 +474,7 @@ public final class Tables {
     @SuppressWarnings("unchecked") // safe, covariant cast
     @Override
     protected Table<R, C, V> delegate() {
-      return (Table<R, C, V>) delegate;
+      return (Table<R, C, V>)delegate;
     }
 
     @Override
@@ -556,7 +556,7 @@ public final class Tables {
    */
   @Beta
   public static <R, C, V> RowSortedTable<R, C, V> unmodifiableRowSortedTable(
-      RowSortedTable<R, ? extends C, ? extends V> table) {
+    RowSortedTable<R, ? extends C, ? extends V> table) {
     /*
      * It's not ? extends R, because it's technically not covariant in R. Specifically,
      * table.rowMap().comparator() could return a comparator that only works for the ? extends R.
@@ -597,7 +597,7 @@ public final class Tables {
   }
 
   private static final Function<? extends Map<?, ?>, ? extends Map<?, ?>> UNMODIFIABLE_WRAPPER =
-  new Function<Map<Object, Object>, Map<Object, Object>>() {
+      new Function<Map<Object, Object>, Map<Object, Object>>() {
     @Override
     public Map<Object, Object> apply(Map<Object, Object> input) {
       return Collections.unmodifiableMap(input);
@@ -641,7 +641,7 @@ public final class Tables {
     if (obj == table) {
       return true;
     } else if (obj instanceof Table) {
-      Table<?, ?, ?> that = (Table<?, ?, ?>) obj;
+      Table<?, ?, ?> that = (Table<?, ?, ?>)obj;
       return table.cellSet().equals(that.cellSet());
     } else {
       return false;

@@ -86,7 +86,7 @@ public abstract class AbstractChainedListenableFutureTest<T> extends TestCase {
    * the exception to EXCEPTION in all other cases.
    */
   protected abstract ListenableFuture<T> buildChainingFuture(
-      ListenableFuture<Integer> inputFuture);
+    ListenableFuture<Integer> inputFuture);
 
   /**
    * Override to return the result when VALID_INPUT_DATA is passed in to

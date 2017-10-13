@@ -65,7 +65,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @SuppressWarnings("unchecked")
   static <K, V> RegularImmutableMap<K, V> create(int n, Object[] alternatingKeysAndValues) {
     if (n == 0) {
-      return (RegularImmutableMap<K, V>) EMPTY;
+      return (RegularImmutableMap<K, V>)EMPTY;
     } else if (n == 1) {
       checkEntryNotNull(alternatingKeysAndValues[0], alternatingKeysAndValues[1]);
       return new RegularImmutableMap<K, V>(null, alternatingKeysAndValues, 1);
@@ -81,11 +81,11 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
    * values are null.
    */
   static int[] createHashTable(
-      Object[] alternatingKeysAndValues, int n, int tableSize, int keyOffset) {
+    Object[] alternatingKeysAndValues, int n, int tableSize, int keyOffset) {
     if (n == 1) {
       // for n=1 we don't create a hash table, but we need to do the checkEntryNotNull check!
       checkEntryNotNull(
-          alternatingKeysAndValues[keyOffset], alternatingKeysAndValues[keyOffset ^ 1]);
+        alternatingKeysAndValues[keyOffset], alternatingKeysAndValues[keyOffset ^ 1]);
       return null;
     }
     int mask = tableSize - 1;
@@ -95,7 +95,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       Object key = alternatingKeysAndValues[2 * i + keyOffset];
       Object value = alternatingKeysAndValues[2 * i + (keyOffset ^ 1)];
       checkEntryNotNull(key, value);
-      for (int h = Hashing.smear(key.hashCode()); ; h++) {
+      for (int h = Hashing.smear(key.hashCode());; h++) {
         h &= mask;
         int previous = hashTable[h];
         if (previous == ABSENT) {
@@ -103,14 +103,14 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
           break;
         } else if (alternatingKeysAndValues[previous].equals(key)) {
           throw new IllegalArgumentException(
-              "Multiple entries with same key: "
-              + key
-              + "="
-              + value
-              + " and "
-              + alternatingKeysAndValues[previous]
-              + "="
-              + alternatingKeysAndValues[previous ^ 1]);
+                  "Multiple entries with same key: "
+                  + key
+                  + "="
+                  + value
+                  + " and "
+                  + alternatingKeysAndValues[previous]
+                  + "="
+                  + alternatingKeysAndValues[previous ^ 1]);
         }
       }
     }
@@ -136,22 +136,22 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   static Object get(
-      @Nullable int[] hashTable,
-      @Nullable Object[] alternatingKeysAndValues,
-      int size,
-      int keyOffset,
-      @Nullable Object key) {
+    @Nullable int[] hashTable,
+    @Nullable Object[] alternatingKeysAndValues,
+    int size,
+    int keyOffset,
+    @Nullable Object key) {
     if (key == null) {
       return null;
     } else if (size == 1) {
       return alternatingKeysAndValues[keyOffset].equals(key)
-          ? alternatingKeysAndValues[keyOffset ^ 1]
-          : null;
+             ? alternatingKeysAndValues[keyOffset ^ 1]
+             : null;
     } else if (hashTable == null) {
       return null;
     }
     int mask = hashTable.length - 1;
-    for (int h = Hashing.smear(key.hashCode()); ; h++) {
+    for (int h = Hashing.smear(key.hashCode());; h++) {
       h &= mask;
       int index = hashTable[h];
       if (index == ABSENT) {
@@ -188,32 +188,32 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     @Override
     ImmutableList<Entry<K, V>> createAsList() {
       return new ImmutableList<Entry<K, V>>() {
-        @Override
-        public Entry<K, V> get(int index) {
-          checkElementIndex(index, size);
-          @SuppressWarnings("unchecked")
-          K key = (K) alternatingKeysAndValues[2 * index + keyOffset];
-          @SuppressWarnings("unchecked")
-          V value = (V) alternatingKeysAndValues[2 * index + (keyOffset ^ 1)];
-          return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
-        }
+               @Override
+               public Entry<K, V> get(int index) {
+                 checkElementIndex(index, size);
+                 @SuppressWarnings("unchecked")
+                 K key = (K) alternatingKeysAndValues[2 * index + keyOffset];
+                 @SuppressWarnings("unchecked")
+                 V value = (V) alternatingKeysAndValues[2 * index + (keyOffset ^ 1)];
+                 return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
+               }
 
-        @Override
-        public int size() {
-          return size;
-        }
+               @Override
+               public int size() {
+                 return size;
+               }
 
-        @Override
-        public boolean isPartialView() {
-          return true;
-        }
+               @Override
+               public boolean isPartialView() {
+                 return true;
+               }
       };
     }
 
     @Override
     public boolean contains(Object object) {
       if (object instanceof Map.Entry) {
-        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
+        Map.Entry<?, ?> entry = (Map.Entry<?, ?>)object;
         Object k = entry.getKey();
         Object v = entry.getValue();
         return v != null && v.equals(map.get(k));

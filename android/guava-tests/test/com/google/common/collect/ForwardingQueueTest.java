@@ -108,20 +108,20 @@ public class ForwardingQueueTest extends TestCase {
 
     suite.addTestSuite(ForwardingQueueTest.class);
     suite.addTest(
-        QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
+      QueueTestSuiteBuilder.using(
+        new TestStringQueueGenerator() {
 
       @Override
       protected Queue<String> create(String[] elements) {
         return new StandardImplForwardingQueue<>(Lists.newLinkedList(asList(elements)));
       }
     })
-    .named("ForwardingQueue[LinkedList] with standard implementations")
-    .withFeatures(
+      .named("ForwardingQueue[LinkedList] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -138,9 +138,9 @@ public class ForwardingQueueTest extends TestCase {
 
   private static <T> Queue<T> wrap(final Queue<T> delegate) {
     return new ForwardingQueue<T>() {
-      @Override protected Queue<T> delegate() {
-        return delegate;
-      }
+             @Override protected Queue<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

@@ -54,23 +54,23 @@ public class TestCharSink extends CharSink implements TestStreamSupplier {
   public Writer openStream() throws IOException {
     // using TestByteSink's output stream to get option behavior, so flush to it on every write
     return new FilterWriter(new OutputStreamWriter(byteSink.openStream(), UTF_8)) {
-      @Override
-      public void write(int c) throws IOException {
-        super.write(c);
-        flush();
-      }
+             @Override
+             public void write(int c) throws IOException {
+               super.write(c);
+               flush();
+             }
 
-      @Override
-      public void write(char[] cbuf, int off, int len) throws IOException {
-        super.write(cbuf, off, len);
-        flush();
-      }
+             @Override
+             public void write(char[] cbuf, int off, int len) throws IOException {
+               super.write(cbuf, off, len);
+               flush();
+             }
 
-      @Override
-      public void write(String str, int off, int len) throws IOException {
-        super.write(str, off, len);
-        flush();
-      }
+             @Override
+             public void write(String str, int off, int len) throws IOException {
+               super.write(str, off, len);
+               flush();
+             }
     };
   }
 }

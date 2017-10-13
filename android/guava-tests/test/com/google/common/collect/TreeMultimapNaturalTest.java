@@ -68,7 +68,7 @@ public class TreeMultimapNaturalTest extends TestCase {
       @Override
       protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
         SetMultimap<String, String> multimap = TreeMultimap.create(
-                Ordering.natural().nullsFirst(), Ordering.natural().nullsFirst());
+          Ordering.natural().nullsFirst(), Ordering.natural().nullsFirst());
         for (Entry<String, String> entry : entries) {
           multimap.put(entry.getKey(), entry.getValue());
         }
@@ -81,30 +81,30 @@ public class TreeMultimapNaturalTest extends TestCase {
           @Override
           public int compare(Entry<String, String> left, Entry<String, String> right) {
             return ComparisonChain.start()
-                .compare(left.getKey(), right.getKey(), Ordering.natural().nullsFirst())
-                .compare(left.getValue(), right.getValue(), Ordering.natural().nullsFirst())
-                .result();
+            .compare(left.getKey(), right.getKey(), Ordering.natural().nullsFirst())
+            .compare(left.getValue(), right.getValue(), Ordering.natural().nullsFirst())
+            .result();
           }
-        } .sortedCopy(insertionOrder);
+        }.sortedCopy(insertionOrder);
       }
     })
-    .named("TreeMultimap nullsFirst")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionFeature.SERIALIZABLE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("TreeMultimap nullsFirst")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionFeature.SERIALIZABLE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSortedSetGenerator() {
       @Override
       protected NavigableSet<String> create(String[] elements) {
         TreeMultimap<String, Integer> multimap = TreeMultimap.create(
-                Ordering.natural().nullsFirst(), Ordering.natural());
+          Ordering.natural().nullsFirst(), Ordering.natural());
         for (int i = 0; i < elements.length; i++) {
           multimap.put(elements[i], i);
         }
@@ -116,16 +116,16 @@ public class TreeMultimapNaturalTest extends TestCase {
         return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
       }
     })
-    .named("TreeMultimap.keySet")
-    .withFeatures(
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.REMOVE_OPERATIONS,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("TreeMultimap.keySet")
+        .withFeatures(
+          CollectionFeature.ALLOWS_NULL_VALUES,
+          CollectionFeature.REMOVE_OPERATIONS,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestSortedMapGenerator<String, Collection<String>>() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestSortedMapGenerator<String, Collection<String>>() {
 
       @Override
       public String[] createKeyArray(int length) {
@@ -141,15 +141,15 @@ public class TreeMultimapNaturalTest extends TestCase {
       @Override
       public SampleElements<Entry<String, Collection<String>>> samples() {
         return new SampleElements<>(
-                Helpers.mapEntry("a", (Collection<String>) ImmutableSortedSet.of("alex")),
-                Helpers.mapEntry(
-                    "b", (Collection<String>) ImmutableSortedSet.of("bob", "bagel")),
-                Helpers.mapEntry(
-                    "c", (Collection<String>) ImmutableSortedSet.of("carl", "carol")),
-                Helpers.mapEntry(
-                    "d", (Collection<String>) ImmutableSortedSet.of("david", "dead")),
-                Helpers.mapEntry(
-                    "e", (Collection<String>) ImmutableSortedSet.of("eric", "elaine")));
+          Helpers.mapEntry("a", (Collection<String>)ImmutableSortedSet.of("alex")),
+          Helpers.mapEntry(
+            "b", (Collection<String>)ImmutableSortedSet.of("bob", "bagel")),
+          Helpers.mapEntry(
+            "c", (Collection<String>)ImmutableSortedSet.of("carl", "carol")),
+          Helpers.mapEntry(
+            "d", (Collection<String>)ImmutableSortedSet.of("david", "dead")),
+          Helpers.mapEntry(
+            "e", (Collection<String>)ImmutableSortedSet.of("eric", "elaine")));
       }
 
       @SuppressWarnings("unchecked")
@@ -160,22 +160,22 @@ public class TreeMultimapNaturalTest extends TestCase {
 
       @Override
       public Iterable<Entry<String, Collection<String>>> order(
-          List<Entry<String, Collection<String>>> insertionOrder) {
+        List<Entry<String, Collection<String>>> insertionOrder) {
         return new Ordering<Entry<String, ?>>() {
           @Override
           public int compare(Entry<String, ?> left, Entry<String, ?> right) {
             return left.getKey().compareTo(right.getKey());
           }
-        } .sortedCopy(insertionOrder);
+        }.sortedCopy(insertionOrder);
       }
 
       @Override
-      public NavigableMap<String, Collection<String>> create(Object... elements) {
+      public NavigableMap<String, Collection<String>> create(Object ... elements) {
         TreeMultimap<String, String> multimap = TreeMultimap.create();
         for (Object o : elements) {
           @SuppressWarnings("unchecked")
           Entry<String, Collection<String>> entry =
-              (Entry<String, Collection<String>>) o;
+          (Entry<String, Collection<String>>)o;
           checkArgument(!multimap.containsKey(entry.getKey()));
           multimap.putAll(entry.getKey(), entry.getValue());
         }
@@ -185,40 +185,40 @@ public class TreeMultimapNaturalTest extends TestCase {
       @Override
       public Entry<String, Collection<String>> belowSamplesLesser() {
         return Helpers.mapEntry(
-                "-- a", (Collection<String>) ImmutableSortedSet.of("--below"));
+          "-- a", (Collection<String>)ImmutableSortedSet.of("--below"));
       }
 
       @Override
       public Entry<String, Collection<String>> belowSamplesGreater() {
         return Helpers.mapEntry(
-                "-- b", (Collection<String>) ImmutableSortedSet.of("--below"));
+          "-- b", (Collection<String>)ImmutableSortedSet.of("--below"));
       }
 
       @Override
       public Entry<String, Collection<String>> aboveSamplesLesser() {
         return Helpers.mapEntry(
-                "~~ b", (Collection<String>) ImmutableSortedSet.of("~above"));
+          "~~ b", (Collection<String>)ImmutableSortedSet.of("~above"));
       }
 
       @Override
       public Entry<String, Collection<String>> aboveSamplesGreater() {
         return Helpers.mapEntry(
-                "~~ c", (Collection<String>) ImmutableSortedSet.of("~above"));
+          "~~ c", (Collection<String>)ImmutableSortedSet.of("~above"));
       }
     })
-    .named("TreeMultimap.asMap")
-    .withFeatures(
+      .named("TreeMultimap.asMap")
+      .withFeatures(
         MapFeature.SUPPORTS_REMOVE,
         MapFeature.REJECTS_DUPLICATES_AT_CREATION,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         CollectionFeature.KNOWN_ORDER,
         CollectionSize.ANY)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         TreeMultimap<Integer, String> multimap = TreeMultimap.create(
-                Ordering.natural(), Ordering.natural().nullsFirst());
+          Ordering.natural(), Ordering.natural().nullsFirst());
         multimap.putAll(1, Arrays.asList(elements));
         return multimap.get(1);
       }
@@ -228,20 +228,20 @@ public class TreeMultimapNaturalTest extends TestCase {
         return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
       }
     })
-    .named("TreeMultimap.get")
-    .withFeatures(
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.GENERAL_PURPOSE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("TreeMultimap.get")
+        .withFeatures(
+          CollectionFeature.ALLOWS_NULL_VALUES,
+          CollectionFeature.GENERAL_PURPOSE,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         TreeMultimap<Integer, String> multimap = TreeMultimap.create(
-                Ordering.natural(), Ordering.natural().nullsFirst());
+          Ordering.natural(), Ordering.natural().nullsFirst());
         multimap.putAll(1, Arrays.asList(elements));
-        return (Set<String>) multimap.asMap().entrySet().iterator().next().getValue();
+        return (Set<String>)multimap.asMap().entrySet().iterator().next().getValue();
       }
 
       @Override
@@ -249,14 +249,14 @@ public class TreeMultimapNaturalTest extends TestCase {
         return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
       }
     })
-    .named("TreeMultimap.asMap.entrySet collection")
-    .withFeatures(
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.GENERAL_PURPOSE,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ONE,
-        CollectionSize.SEVERAL)
-    .createTestSuite());
+        .named("TreeMultimap.asMap.entrySet collection")
+        .withFeatures(
+          CollectionFeature.ALLOWS_NULL_VALUES,
+          CollectionFeature.GENERAL_PURPOSE,
+          CollectionFeature.KNOWN_ORDER,
+          CollectionSize.ONE,
+          CollectionSize.SEVERAL)
+        .createTestSuite());
     suite.addTestSuite(TreeMultimapNaturalTest.class);
     return suite;
   }
@@ -319,19 +319,19 @@ public class TreeMultimapNaturalTest extends TestCase {
   public void testOrderedEntries() {
     TreeMultimap<String, Integer> multimap = createPopulate();
     assertThat(multimap.entries()).containsExactly(
-        Maps.immutableEntry("foo", 1),
-        Maps.immutableEntry("foo", 3),
-        Maps.immutableEntry("foo", 7),
-        Maps.immutableEntry("google", 2),
-        Maps.immutableEntry("google", 6),
-        Maps.immutableEntry("tree", 0),
-        Maps.immutableEntry("tree", 4)).inOrder();
+      Maps.immutableEntry("foo", 1),
+      Maps.immutableEntry("foo", 3),
+      Maps.immutableEntry("foo", 7),
+      Maps.immutableEntry("google", 2),
+      Maps.immutableEntry("google", 6),
+      Maps.immutableEntry("tree", 0),
+      Maps.immutableEntry("tree", 4)).inOrder();
   }
 
   public void testOrderedValues() {
     TreeMultimap<String, Integer> multimap = createPopulate();
     assertThat(multimap.values()).containsExactly(
-        1, 3, 7, 2, 6, 0, 4).inOrder();
+      1, 3, 7, 2, 6, 0, 4).inOrder();
   }
 
   public void testMultimapConstructor() {
@@ -430,10 +430,10 @@ public class TreeMultimapNaturalTest extends TestCase {
     multimap.put(new DerivedComparable("bar"), new DerivedComparable("a"));
     multimap.put(new DerivedComparable("bar"), new DerivedComparable("r"));
     assertThat(multimap.keySet()).containsExactly(
-        new DerivedComparable("bar"), new DerivedComparable("foo")).inOrder();
+      new DerivedComparable("bar"), new DerivedComparable("foo")).inOrder();
     assertThat(multimap.values()).containsExactly(
-        new DerivedComparable("a"), new DerivedComparable("b"), new DerivedComparable("r"),
-        new DerivedComparable("f"), new DerivedComparable("o")).inOrder();
+      new DerivedComparable("a"), new DerivedComparable("b"), new DerivedComparable("r"),
+      new DerivedComparable("f"), new DerivedComparable("o")).inOrder();
     assertEquals(Ordering.natural(), multimap.keyComparator());
     assertEquals(Ordering.natural(), multimap.valueComparator());
     SerializableTester.reserializeAndAssert(multimap);
@@ -451,13 +451,13 @@ public class TreeMultimapNaturalTest extends TestCase {
     multimap.put(new LegacyComparable("bar"), new LegacyComparable("a"));
     multimap.put(new LegacyComparable("bar"), new LegacyComparable("r"));
     assertThat(multimap.keySet()).containsExactly(
-        new LegacyComparable("bar"), new LegacyComparable("foo")).inOrder();
+      new LegacyComparable("bar"), new LegacyComparable("foo")).inOrder();
     assertThat(multimap.values()).containsExactly(
-        new LegacyComparable("a"),
-        new LegacyComparable("b"),
-        new LegacyComparable("r"),
-        new LegacyComparable("f"),
-        new LegacyComparable("o")).inOrder();
+      new LegacyComparable("a"),
+      new LegacyComparable("b"),
+      new LegacyComparable("r"),
+      new LegacyComparable("f"),
+      new LegacyComparable("o")).inOrder();
     assertEquals(Ordering.natural(), multimap.keyComparator());
     assertEquals(Ordering.natural(), multimap.valueComparator());
     SerializableTester.reserializeAndAssert(multimap);

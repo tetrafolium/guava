@@ -150,7 +150,7 @@ public class EventBusTest extends TestCase {
     final EventBus eventBus = new EventBus(new SubscriberExceptionHandler() {
       @Override
       public void handleException(Throwable exception,
-          SubscriberExceptionContext context) {
+      SubscriberExceptionContext context) {
         throw new RuntimeException();
       }
     });
@@ -266,7 +266,7 @@ public class EventBusTest extends TestCase {
     List<String> expectedEvents = ImmutableList.of(EVENT);
     for (StringCatcher catcher : catchers) {
       assertEquals("One of the registered catchers did not receive an event.",
-          expectedEvents, catcher.getEvents());
+            expectedEvents, catcher.getEvents());
     }
   }
 

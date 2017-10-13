@@ -57,7 +57,7 @@ public class UninterruptiblesTest extends TestCase {
     // Clear any previous interrupt before running the test.
     if (Thread.currentThread().isInterrupted()) {
       throw new AssertionError("Thread interrupted on test entry. "
-          + "Some test probably didn't clear the interrupt state");
+                + "Some test probably didn't clear the interrupt state");
     }
 
     tearDownStack.addTearDown(new TearDown() {
@@ -383,7 +383,7 @@ public class UninterruptiblesTest extends TestCase {
     }
 
     private static void assertAtLeastTimePassed(
-        Stopwatch stopwatch, long expectedMillis) {
+      Stopwatch stopwatch, long expectedMillis) {
       long elapsedMillis = stopwatch.elapsed(MILLISECONDS);
       /*
        * The "+ 5" below is to permit, say, sleep(10) to sleep only 9 milliseconds. We see such
@@ -431,7 +431,7 @@ public class UninterruptiblesTest extends TestCase {
     }
 
     private static void scheduleEnableWrites(
-        BlockingQueue<String> queue, long countdownInMillis) {
+      BlockingQueue<String> queue, long countdownInMillis) {
       Runnable toRun = new EnableWrites(queue, countdownInMillis);
       // TODO(cpovirk): automatically fail the test if this thread throws
       Thread enablerThread = new Thread(toRun);
@@ -472,7 +472,7 @@ public class UninterruptiblesTest extends TestCase {
     }
 
     private static void scheduleEnableReads(
-        BlockingQueue<String> queue, long countdownInMillis) {
+      BlockingQueue<String> queue, long countdownInMillis) {
       Runnable toRun = new EnableReads(queue, countdownInMillis);
       // TODO(cpovirk): automatically fail the test if this thread throws
       Thread enablerThread = new Thread(toRun);

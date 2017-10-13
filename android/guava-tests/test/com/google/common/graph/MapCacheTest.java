@@ -46,7 +46,7 @@ public final class MapCacheTest {
     Comparator<String> nullsLast = Ordering.natural().nullsLast();
 
     return Arrays.asList(
-    new Object[][] {
+      new Object[][] {
       {new MapIteratorCache<String, String>(new HashMap<String, String>())},
       {new MapIteratorCache<String, String>(new TreeMap<String, String>(nullsLast))},
       {new MapRetrievalCache<String, String>(new HashMap<String, String>())},

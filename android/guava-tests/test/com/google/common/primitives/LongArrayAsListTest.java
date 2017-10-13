@@ -52,28 +52,28 @@ public class LongArrayAsListTest extends TestCase {
   public static Test suite() {
     List<ListTestSuiteBuilder<Long>> builders =
         ImmutableList.of(
-            ListTestSuiteBuilder.using(new LongsAsListGenerator())
-            .named("Longs.asList"),
+      ListTestSuiteBuilder.using(new LongsAsListGenerator())
+      .named("Longs.asList"),
 
-            ListTestSuiteBuilder.using(new LongsAsListHeadSubListGenerator())
-            .named("Longs.asList, head subList"),
+      ListTestSuiteBuilder.using(new LongsAsListHeadSubListGenerator())
+      .named("Longs.asList, head subList"),
 
-            ListTestSuiteBuilder.using(new LongsAsListTailSubListGenerator())
-            .named("Longs.asList, tail subList"),
+      ListTestSuiteBuilder.using(new LongsAsListTailSubListGenerator())
+      .named("Longs.asList, tail subList"),
 
-            ListTestSuiteBuilder.using(new LongsAsListMiddleSubListGenerator())
-            .named("Longs.asList, middle subList")
-        );
+      ListTestSuiteBuilder.using(new LongsAsListMiddleSubListGenerator())
+      .named("Longs.asList, middle subList")
+      );
 
     TestSuite suite = new TestSuite();
     for (ListTestSuiteBuilder<Long> builder : builders) {
       suite.addTest(
-          builder
-          .withFeatures(CollectionSize.ONE,
-              CollectionSize.SEVERAL,
-              CollectionFeature.RESTRICTS_ELEMENTS,
-              ListFeature.SUPPORTS_SET)
-          .createTestSuite());
+        builder
+        .withFeatures(CollectionSize.ONE,
+        CollectionSize.SEVERAL,
+        CollectionFeature.RESTRICTS_ELEMENTS,
+        ListFeature.SUPPORTS_SET)
+        .createTestSuite());
     }
     return suite;
   }

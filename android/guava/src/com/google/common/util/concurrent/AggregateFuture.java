@@ -95,9 +95,9 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
     private final boolean collectsValues;
 
     RunningState(
-        ImmutableCollection<? extends ListenableFuture<? extends InputT>> futures,
-        boolean allMustSucceed,
-        boolean collectsValues) {
+      ImmutableCollection<? extends ListenableFuture<? extends InputT>> futures,
+      boolean allMustSucceed,
+      boolean collectsValues) {
       super(futures.size());
       this.futures = checkNotNull(futures);
       this.allMustSucceed = allMustSucceed;
@@ -140,7 +140,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
         for (final ListenableFuture<? extends InputT> listenable : futures) {
           final int index = i++;
           listenable.addListener(
-          new Runnable() {
+            new Runnable() {
             @Override
             public void run() {
               try {
@@ -150,7 +150,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
               }
             }
           },
-          directExecutor());
+            directExecutor());
         }
       } else {
         // We'll only call the callback when all futures complete, regardless of whether some failed
@@ -211,8 +211,8 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
       // The only cases in which this Future should already be done are (a) if it was cancelled or
       // (b) if an input failed and we propagated that immediately because of allMustSucceed.
       checkState(
-          allMustSucceed || !isDone() || isCancelled(),
-          "Future was done before all dependencies completed");
+        allMustSucceed || !isDone() || isCancelled(),
+        "Future was done before all dependencies completed");
 
       try {
         checkState(future.isDone(), "Tried to set value from future which is not done");

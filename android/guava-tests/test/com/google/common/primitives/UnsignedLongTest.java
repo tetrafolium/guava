@@ -60,15 +60,15 @@ public class UnsignedLongTest extends TestCase {
   public void testAsUnsignedAndLongValueAreInverses() {
     for (long value : TEST_LONGS) {
       assertEquals(
-          UnsignedLongs.toString(value), value, UnsignedLong.fromLongBits(value).longValue());
+        UnsignedLongs.toString(value), value, UnsignedLong.fromLongBits(value).longValue());
     }
   }
 
   public void testAsUnsignedBigIntegerValue() {
     for (long value : TEST_LONGS) {
       BigInteger expected = (value >= 0)
-          ? BigInteger.valueOf(value)
-          : BigInteger.valueOf(value).add(BigInteger.ZERO.setBit(64));
+            ? BigInteger.valueOf(value)
+            : BigInteger.valueOf(value).add(BigInteger.ZERO.setBit(64));
       assertEquals(UnsignedLongs.toString(value), expected,
           UnsignedLong.fromLongBits(value).bigIntegerValue());
     }
@@ -91,7 +91,7 @@ public class UnsignedLongTest extends TestCase {
     BigInteger max = UnsignedLong.MAX_VALUE.bigIntegerValue();
     for (BigInteger big : TEST_BIG_INTEGERS) {
       boolean expectSuccess =
-          big.compareTo(min) >= 0 && big.compareTo(max) <= 0;
+            big.compareTo(min) >= 0 && big.compareTo(max) <= 0;
       try {
         assertEquals(big, UnsignedLong.valueOf(big).bigIntegerValue());
         assertTrue(expectSuccess);
@@ -255,7 +255,7 @@ public class UnsignedLongTest extends TestCase {
     EqualsTester equalsTester = new EqualsTester();
     for (long a : TEST_LONGS) {
       BigInteger big =
-          (a >= 0) ? BigInteger.valueOf(a) : BigInteger.valueOf(a).add(BigInteger.ZERO.setBit(64));
+            (a >= 0) ? BigInteger.valueOf(a) : BigInteger.valueOf(a).add(BigInteger.ZERO.setBit(64));
       equalsTester.addEqualityGroup(UnsignedLong.fromLongBits(a), UnsignedLong.valueOf(big),
           UnsignedLong.valueOf(big.toString()), UnsignedLong.valueOf(big.toString(16), 16));
     }

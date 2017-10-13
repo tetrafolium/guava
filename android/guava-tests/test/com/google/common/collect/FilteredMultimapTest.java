@@ -32,11 +32,11 @@ import junit.framework.TestCase;
 public class FilteredMultimapTest extends TestCase {
 
   private static final Predicate<Map.Entry<String, Integer>> ENTRY_PREDICATE
-  = new Predicate<Map.Entry<String, Integer>>() {
+    = new Predicate<Map.Entry<String, Integer>>() {
     @Override public boolean apply(Entry<String, Integer> entry) {
       return !"badkey".equals(entry.getKey()) && !((Integer) 55556).equals(entry.getValue());
     }
-  };
+    };
 
   protected Multimap<String, Integer> create() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();
@@ -46,11 +46,11 @@ public class FilteredMultimapTest extends TestCase {
   }
 
   private static final Predicate<String> KEY_PREDICATE
-  = new Predicate<String>() {
+    = new Predicate<String>() {
     @Override public boolean apply(String key) {
       return !"badkey".equals(key);
     }
-  };
+    };
 
   public void testFilterKeys() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();
@@ -62,11 +62,11 @@ public class FilteredMultimapTest extends TestCase {
   }
 
   private static final Predicate<Integer> VALUE_PREDICATE
-  = new Predicate<Integer>() {
+    = new Predicate<Integer>() {
     @Override public boolean apply(Integer value) {
       return !((Integer) 55556).equals(value);
     }
-  };
+    };
 
   public void testFilterValues() {
     Multimap<String, Integer> unfiltered = HashMultimap.create();

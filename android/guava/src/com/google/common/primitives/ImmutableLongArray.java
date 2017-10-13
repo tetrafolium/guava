@@ -133,8 +133,8 @@ public final class ImmutableLongArray implements Serializable {
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableLongArray copyOf(long[] values) {
     return values.length == 0
-        ? EMPTY
-        : new ImmutableLongArray(Arrays.copyOf(values, values.length));
+           ? EMPTY
+           : new ImmutableLongArray(Arrays.copyOf(values, values.length));
   }
 
   /** Returns an immutable array containing the given values, in order. */
@@ -151,7 +151,7 @@ public final class ImmutableLongArray implements Serializable {
    */
   public static ImmutableLongArray copyOf(Iterable<Long> values) {
     if (values instanceof Collection) {
-      return copyOf((Collection<Long>) values);
+      return copyOf((Collection<Long>)values);
     }
     return builder().addAll(values).build();
   }
@@ -224,7 +224,7 @@ public final class ImmutableLongArray implements Serializable {
      */
     public Builder addAll(Iterable<Long> values) {
       if (values instanceof Collection) {
-        return addAll((Collection<Long>) values);
+        return addAll((Collection<Long>)values);
       }
       for (Long value : values) {
         add(value);
@@ -390,8 +390,8 @@ public final class ImmutableLongArray implements Serializable {
   public ImmutableLongArray subArray(int startIndex, int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
-        ? EMPTY
-        : new ImmutableLongArray(array, start + startIndex, start + endIndex);
+           ? EMPTY
+           : new ImmutableLongArray(array, start + startIndex, start + endIndex);
   }
 
   /**
@@ -459,7 +459,7 @@ public final class ImmutableLongArray implements Serializable {
       if (!(object instanceof List)) {
         return false;
       }
-      List<?> that = (List<?>) object;
+      List<?> that = (List<?>)object;
       if (this.size() != that.size()) {
         return false;
       }

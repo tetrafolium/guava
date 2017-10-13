@@ -30,9 +30,9 @@ public class MultisetSetCountUnconditionallyTester<E> extends AbstractMultisetSe
   @Override
   void setCountCheckReturnValue(E element, int count) {
     assertEquals(
-        "multiset.setCount() should return the old count",
-        getMultiset().count(element),
-        setCount(element, count));
+      "multiset.setCount() should return the old count",
+      getMultiset().count(element),
+      setCount(element, count));
   }
 
   @Override

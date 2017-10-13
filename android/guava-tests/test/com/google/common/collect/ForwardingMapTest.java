@@ -102,12 +102,12 @@ public class ForwardingMapTest extends TestCase {
 
     @Override public Set<Entry<K, V>> entrySet() {
       return new StandardEntrySet() {
-        @Override
-        public Iterator<Entry<K, V>> iterator() {
-          return delegate()
-              .entrySet()
-              .iterator();
-        }
+               @Override
+               public Iterator<Entry<K, V>> iterator() {
+                 return delegate()
+                        .entrySet()
+                        .iterator();
+               }
       };
     }
 
@@ -125,8 +125,8 @@ public class ForwardingMapTest extends TestCase {
 
     suite.addTestSuite(ForwardingMapTest.class);
     suite.addTest(
-        MapTestSuiteBuilder.using(
-    new TestStringMapGenerator() {
+      MapTestSuiteBuilder.using(
+        new TestStringMapGenerator() {
 
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -137,8 +137,8 @@ public class ForwardingMapTest extends TestCase {
         return new StandardImplForwardingMap<>(map);
       }
     })
-    .named("ForwardingMap[LinkedHashMap] with standard implementations")
-    .withFeatures(
+      .named("ForwardingMap[LinkedHashMap] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         MapFeature.ALLOWS_NULL_VALUES,
         MapFeature.ALLOWS_NULL_KEYS,
@@ -146,10 +146,10 @@ public class ForwardingMapTest extends TestCase {
         MapFeature.GENERAL_PURPOSE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         CollectionFeature.KNOWN_ORDER)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        MapTestSuiteBuilder.using(
-    new TestStringMapGenerator() {
+      MapTestSuiteBuilder.using(
+        new TestStringMapGenerator() {
 
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -160,13 +160,13 @@ public class ForwardingMapTest extends TestCase {
         return new StandardImplForwardingMap<>(builder.build());
       }
     })
-    .named("ForwardingMap[ImmutableMap] with standard implementations")
-    .withFeatures(
+      .named("ForwardingMap[ImmutableMap] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         MapFeature.REJECTS_DUPLICATES_AT_CREATION,
         MapFeature.ALLOWS_ANY_NULL_QUERIES,
         CollectionFeature.KNOWN_ORDER)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -195,7 +195,7 @@ public class ForwardingMapTest extends TestCase {
     final Map<String, Boolean> map = mock(Map.class);
 
     Map<String, Boolean> forward =
-    new ForwardingMap<String, Boolean>() {
+        new ForwardingMap<String, Boolean>() {
       @Override
       protected Map<String, Boolean> delegate() {
         return map;
@@ -204,10 +204,10 @@ public class ForwardingMapTest extends TestCase {
       @Override
       public Set<Entry<String, Boolean>> entrySet() {
         return new StandardEntrySet() {
-          @Override
-          public Iterator<Entry<String, Boolean>> iterator() {
-            return Iterators.emptyIterator();
-          }
+                 @Override
+                 public Iterator<Entry<String, Boolean>> iterator() {
+                   return Iterators.emptyIterator();
+                 }
         };
       }
     };
@@ -300,9 +300,9 @@ public class ForwardingMapTest extends TestCase {
 
   private static <K, V> Map<K, V> wrap(final Map<K, V> delegate) {
     return new ForwardingMap<K, V>() {
-      @Override protected Map<K, V> delegate() {
-        return delegate;
-      }
+             @Override protected Map<K, V> delegate() {
+               return delegate;
+             }
     };
   }
 
@@ -355,7 +355,7 @@ public class ForwardingMapTest extends TestCase {
         }
       } catch (Throwable cause) {
         throw new InvocationTargetException(cause,
-            method + " with args: " + Arrays.toString(parameters));
+                  method + " with args: " + Arrays.toString(parameters));
       }
     }
   }

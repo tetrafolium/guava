@@ -51,7 +51,7 @@ final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof CompoundOrdering) {
-      CompoundOrdering<?> that = (CompoundOrdering<?>) object;
+      CompoundOrdering<?> that = (CompoundOrdering<?>)object;
       return Arrays.equals(this.comparators, that.comparators);
     }
     return false;

@@ -41,9 +41,9 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
       // ListenableFuture's contract is that it will not throw unchecked exceptions, so log the bad
       // runnable and/or executor and swallow it.
       log.log(
-          Level.SEVERE,
-          "RuntimeException while executing runnable " + listener + " with executor " + executor,
-          e);
+        Level.SEVERE,
+        "RuntimeException while executing runnable " + listener + " with executor " + executor,
+        e);
     }
   }
 

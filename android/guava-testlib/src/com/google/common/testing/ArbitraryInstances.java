@@ -273,7 +273,7 @@ public final class ArbitraryInstances {
       .put(Range.class, Range.all())
       .put(MapDifference.class, Maps.difference(ImmutableMap.of(), ImmutableMap.of()))
       .put(SortedMapDifference.class,
-          Maps.difference(ImmutableSortedMap.of(), ImmutableSortedMap.of()))
+      Maps.difference(ImmutableSortedMap.of(), ImmutableSortedMap.of()))
       // reflect
       .put(AnnotatedElement.class, Object.class)
       .put(GenericDeclaration.class, Object.class)
@@ -319,7 +319,7 @@ public final class ArbitraryInstances {
   @SuppressWarnings("unchecked") // it's a subtype map
   @Nullable
   private static <T> Class<? extends T> getImplementation(Class<T> type) {
-    return (Class<? extends T>) implementations.get(type);
+    return (Class<? extends T>)implementations.get(type);
   }
 
   private static final Logger logger = Logger.getLogger(ArbitraryInstances.class.getName());
@@ -340,8 +340,8 @@ public final class ArbitraryInstances {
     if (type.isEnum()) {
       T[] enumConstants = type.getEnumConstants();
       return (enumConstants.length == 0)
-          ? null
-          : enumConstants[0];
+             ? null
+             : enumConstants[0];
     }
     if (type.isArray()) {
       return createEmptyArray(type);
@@ -375,9 +375,9 @@ public final class ArbitraryInstances {
     Arrays.sort(fields, BY_FIELD_NAME);
     for (Field field : fields) {
       if ((Modifier.isPublic(field.getModifiers())
-              && Modifier.isStatic(field.getModifiers())
-              && Modifier.isFinal(field.getModifiers())) && (field.getGenericType() == field.getType()
-              && type.isAssignableFrom(field.getType()))) {
+            && Modifier.isStatic(field.getModifiers())
+            && Modifier.isFinal(field.getModifiers())) && (field.getGenericType() == field.getType()
+            && type.isAssignableFrom(field.getType()))) {
         field.setAccessible(true);
         try {
           T constant = type.cast(field.get(null));

@@ -33,7 +33,7 @@ public abstract class AbstractMultimapAsMapImplementsMapTest
   extends MapInterfaceTest<String, Collection<Integer>> {
 
   public AbstractMultimapAsMapImplementsMapTest(
-      boolean modifiable, boolean allowsNulls, boolean supportsIteratorRemove) {
+    boolean modifiable, boolean allowsNulls, boolean supportsIteratorRemove) {
     super(allowsNulls, allowsNulls, false, modifiable, modifiable, supportsIteratorRemove);
   }
 

@@ -70,33 +70,33 @@ public class UnmodifiableListIteratorTest extends TestCase {
     final String[] array = {"a", "b", "c"};
 
     return new UnmodifiableListIterator<String>() {
-      int i;
-      @Override
-      public boolean hasNext() {
-        return i < array.length;
-      }
-      @Override
-      public String next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        return array[i++];
-      }
-      @Override public boolean hasPrevious() {
-        return i > 0;
-      }
-      @Override public int nextIndex() {
-        return i;
-      }
-      @Override public String previous() {
-        if (!hasPrevious()) {
-          throw new NoSuchElementException();
-        }
-        return array[--i];
-      }
-      @Override public int previousIndex() {
-        return i-1;
-      }
+             int i;
+             @Override
+             public boolean hasNext() {
+               return i < array.length;
+             }
+             @Override
+             public String next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               return array[i++];
+             }
+             @Override public boolean hasPrevious() {
+               return i > 0;
+             }
+             @Override public int nextIndex() {
+               return i;
+             }
+             @Override public String previous() {
+               if (!hasPrevious()) {
+                 throw new NoSuchElementException();
+               }
+               return array[--i];
+             }
+             @Override public int previousIndex() {
+               return i-1;
+             }
     };
   }
 }

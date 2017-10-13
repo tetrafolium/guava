@@ -44,8 +44,8 @@ public class ArrayBasedEscaperMapTest extends TestCase {
 
   public void testMapLength() {
     Map<Character, String> map = ImmutableMap.of(
-            'a', "first",
-            'z', "last");
+      'a', "first",
+      'z', "last");
     ArrayBasedEscaperMap fem = ArrayBasedEscaperMap.create(map);
     // Array length is highest character value + 1
     assertEquals('z' + 1, fem.getReplacementArray().length);
@@ -53,11 +53,11 @@ public class ArrayBasedEscaperMapTest extends TestCase {
 
   public void testMapping() {
     Map<Character, String> map = ImmutableMap.of(
-            '\0', "zero",
-            'a', "first",
-            'b', "second",
-            'z', "last",
-            '\uFFFF', "biggest");
+      '\0', "zero",
+      'a', "first",
+      'b', "second",
+      'z', "last",
+      '\uFFFF', "biggest");
     ArrayBasedEscaperMap fem = ArrayBasedEscaperMap.create(map);
     char[][] replacementArray = fem.getReplacementArray();
     // Array length is highest character value + 1

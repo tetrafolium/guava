@@ -67,7 +67,7 @@ public class MultimapRemoveAllTester<K, V> extends AbstractMultimapTester<K, V, 
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRemoveAllMultipleValues() {
     resetContainer(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k0(), v2()));
+      Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k0(), v2()));
 
     assertContentsAnyOrder(multimap().removeAll(k0()), v0(), v1(), v2());
     assertEmpty(multimap());

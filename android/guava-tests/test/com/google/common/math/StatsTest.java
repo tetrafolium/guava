@@ -502,17 +502,17 @@ public class StatsTest extends TestCase {
     assertThat(EMPTY_STATS_VARARGS.toString()).isEqualTo("Stats{count=0}");
     assertThat(MANY_VALUES_STATS_ITERABLE.toString())
     .isEqualTo(
-        "Stats{count="
-        + MANY_VALUES_STATS_ITERABLE.count()
-        + ", mean="
-        + MANY_VALUES_STATS_ITERABLE.mean()
-        + ", populationStandardDeviation="
-        + MANY_VALUES_STATS_ITERABLE.populationStandardDeviation()
-        + ", min="
-        + MANY_VALUES_STATS_ITERABLE.min()
-        + ", max="
-        + MANY_VALUES_STATS_ITERABLE.max()
-        + "}");
+      "Stats{count="
+      + MANY_VALUES_STATS_ITERABLE.count()
+      + ", mean="
+      + MANY_VALUES_STATS_ITERABLE.mean()
+      + ", populationStandardDeviation="
+      + MANY_VALUES_STATS_ITERABLE.populationStandardDeviation()
+      + ", min="
+      + MANY_VALUES_STATS_ITERABLE.min()
+      + ", max="
+      + MANY_VALUES_STATS_ITERABLE.max()
+      + "}");
   }
 
   public void testMeanOf() {

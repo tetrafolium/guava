@@ -111,7 +111,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    * @param columnComparator the comparator that orders the column keys
    */
   public static <R, C, V> TreeBasedTable<R, C, V> create(
-      Comparator<? super R> rowComparator, Comparator<? super C> columnComparator) {
+    Comparator<? super R> rowComparator, Comparator<? super C> columnComparator) {
     checkNotNull(rowComparator);
     checkNotNull(columnComparator);
     return new TreeBasedTable<>(rowComparator, columnComparator);
@@ -123,7 +123,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    */
   public static <R, C, V> TreeBasedTable<R, C, V> create(TreeBasedTable<R, C, ? extends V> table) {
     TreeBasedTable<R, C, V> result =
-        new TreeBasedTable<>(table.rowComparator(), table.columnComparator());
+      new TreeBasedTable<>(table.rowComparator(), table.columnComparator());
     result.putAll(table);
     return result;
   }
@@ -189,7 +189,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
       this.lowerBound = lowerBound;
       this.upperBound = upperBound;
       checkArgument(
-          lowerBound == null || upperBound == null || compare(lowerBound, upperBound) <= 0);
+        lowerBound == null || upperBound == null || compare(lowerBound, upperBound) <= 0);
     }
 
     @Override
@@ -211,8 +211,8 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
 
     boolean rangeContains(@Nullable Object o) {
       return o != null
-          && (lowerBound == null || compare(lowerBound, o) <= 0)
-          && (upperBound == null || compare(upperBound, o) > 0);
+             && (lowerBound == null || compare(lowerBound, o) <= 0)
+             && (upperBound == null || compare(upperBound, o) > 0);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
      */
     SortedMap<C, V> wholeRow() {
       if (wholeRow == null || (wholeRow.isEmpty() && backingMap.containsKey(rowKey))) {
-        wholeRow = (SortedMap<C, V>) backingMap.get(rowKey);
+        wholeRow = (SortedMap<C, V>)backingMap.get(rowKey);
       }
       return wholeRow;
     }
@@ -327,35 +327,35 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
 
     final Iterator<C> merged =
         Iterators.mergeSorted(
-            Iterables.transform(
-                backingMap.values(),
-    new Function<Map<C, V>, Iterator<C>>() {
+      Iterables.transform(
+        backingMap.values(),
+        new Function<Map<C, V>, Iterator<C>>() {
       @Override
       public Iterator<C> apply(Map<C, V> input) {
         return input.keySet().iterator();
       }
     }),
-    comparator);
+      comparator);
 
     return new AbstractIterator<C>() {
-      C lastValue;
+             C lastValue;
 
-      @Override
-      protected C computeNext() {
-        while (merged.hasNext()) {
-          C next = merged.next();
-          boolean duplicate = lastValue != null && comparator.compare(next, lastValue) == 0;
+             @Override
+             protected C computeNext() {
+               while (merged.hasNext()) {
+                 C next = merged.next();
+                 boolean duplicate = lastValue != null && comparator.compare(next, lastValue) == 0;
 
-          // Keep looping till we find a non-duplicate value.
-          if (!duplicate) {
-            lastValue = next;
-            return lastValue;
-          }
-        }
+                 // Keep looping till we find a non-duplicate value.
+                 if (!duplicate) {
+                   lastValue = next;
+                   return lastValue;
+                 }
+               }
 
-        lastValue = null; // clear reference to unused data
-        return endOfData();
-      }
+               lastValue = null; // clear reference to unused data
+               return endOfData();
+             }
     };
   }
 

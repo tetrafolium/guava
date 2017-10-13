@@ -64,7 +64,7 @@ import java.util.List;
   private EquivalenceTester(Equivalence<? super T> equivalence) {
     this.equivalence = checkNotNull(equivalence);
     this.delegate = new RelationshipTester<T>(
-        equivalence, "equivalent", "hash", new ItemReporter());
+      equivalence, "equivalent", "hash", new ItemReporter());
   }
 
   public static <T> EquivalenceTester<T> of(Equivalence<? super T> equivalence) {

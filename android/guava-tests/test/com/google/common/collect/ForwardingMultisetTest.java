@@ -140,33 +140,33 @@ public class ForwardingMultisetTest extends TestCase {
 
     suite.addTestSuite(ForwardingMultisetTest.class);
     suite.addTest(
-        MultisetTestSuiteBuilder.using(
-    new TestStringMultisetGenerator() {
+      MultisetTestSuiteBuilder.using(
+        new TestStringMultisetGenerator() {
 
       @Override
       protected Multiset<String> create(String[] elements) {
         return new StandardImplForwardingMultiset<>(
-                LinkedHashMultiset.create(Arrays.asList(elements)));
+          LinkedHashMultiset.create(Arrays.asList(elements)));
       }
     })
-    .named("ForwardingMultiset[LinkedHashMultiset] with standard " + "implementations")
-    .withFeatures(
+      .named("ForwardingMultiset[LinkedHashMultiset] with standard " + "implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        MultisetTestSuiteBuilder.using(
-    new TestStringMultisetGenerator() {
+      MultisetTestSuiteBuilder.using(
+        new TestStringMultisetGenerator() {
 
       @Override
       protected Multiset<String> create(String[] elements) {
         return new StandardImplForwardingMultiset<>(ImmutableMultiset.copyOf(elements));
       }
     })
-    .named("ForwardingMultiset[ImmutableMultiset] with standard " + "implementations")
-    .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+      .named("ForwardingMultiset[ImmutableMultiset] with standard " + "implementations")
+      .withFeatures(CollectionSize.ANY, CollectionFeature.ALLOWS_NULL_QUERIES)
+      .createTestSuite());
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
 
       /**
@@ -176,7 +176,7 @@ public class ForwardingMultisetTest extends TestCase {
        */
       @Override protected Set<String> create(String[] elements) {
         final Multiset<String> inner =
-            LinkedHashMultiset.create(Arrays.asList(elements));
+        LinkedHashMultiset.create(Arrays.asList(elements));
         return new ForwardingMultiset<String>() {
           @Override protected Multiset<String> delegate() {
             return inner;
@@ -199,7 +199,7 @@ public class ForwardingMultisetTest extends TestCase {
                 throw new UnsupportedOperationException();
               }
               @Override public boolean addAll(
-                  Collection<? extends Entry<String>> collection) {
+                Collection<? extends Entry<String>> collection) {
                 throw new UnsupportedOperationException();
               }
               @Override public void clear() {
@@ -232,7 +232,7 @@ public class ForwardingMultisetTest extends TestCase {
             throw new UnsupportedOperationException();
           }
           @Override public boolean setCount(
-              String element, int oldCount, int newCount) {
+            String element, int oldCount, int newCount) {
             throw new UnsupportedOperationException();
           }
           @Override public int setCount(String element, int count) {
@@ -242,7 +242,7 @@ public class ForwardingMultisetTest extends TestCase {
             throw new UnsupportedOperationException();
           }
           @Override public boolean addAll(
-              Collection<? extends String> collection) {
+            Collection<? extends String> collection) {
             throw new UnsupportedOperationException();
           }
           @Override public Iterator<String> iterator() {
@@ -257,7 +257,7 @@ public class ForwardingMultisetTest extends TestCase {
           @Override public int size() {
             throw new UnsupportedOperationException();
           }
-        } .elementSet();
+        }.elementSet();
       }
     }).named("standardElementSet tripwire").withFeatures(CollectionSize.ANY,
         CollectionFeature.ALLOWS_NULL_VALUES,
@@ -287,9 +287,9 @@ public class ForwardingMultisetTest extends TestCase {
 
   private static <T> Multiset<T> wrap(final Multiset<T> delegate) {
     return new ForwardingMultiset<T>() {
-      @Override protected Multiset<T> delegate() {
-        return delegate;
-      }
+             @Override protected Multiset<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

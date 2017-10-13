@@ -56,7 +56,7 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
         suite.addTest(suiteForString(factory, entry.getValue(), name, entry.getKey()));
       } else {
         suite.addTest(suiteForBytes(factory,
-                entry.getValue().getBytes(Charsets.UTF_8), name, entry.getKey(), true));
+            entry.getValue().getBytes(Charsets.UTF_8), name, entry.getKey(), true));
       }
     }
     return suite;
@@ -65,10 +65,10 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
   static TestSuite suiteForString(ByteSourceFactory factory, String string,
       String name, String desc) {
     TestSuite suite = suiteForBytes(
-            factory, string.getBytes(Charsets.UTF_8), name, desc, true);
+      factory, string.getBytes(Charsets.UTF_8), name, desc, true);
     CharSourceFactory charSourceFactory = SourceSinkFactories.asCharSourceFactory(factory);
     suite.addTest(CharSourceTester.suiteForString(charSourceFactory, string,
-            name + ".asCharSource[Charset]", desc));
+        name + ".asCharSource[Charset]", desc));
     return suite;
   }
 
@@ -89,20 +89,20 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
 
       ByteSourceFactory sliced = SourceSinkFactories.asSlicedByteSourceFactory(factory, off, len);
       suite.addTest(suiteForBytes(sliced, bytes, name + ".slice[long, long]",
-              desc, false));
+          desc, false));
 
       // test a slice() of the ByteSource starting at a random offset with a length of
       // Long.MAX_VALUE
       ByteSourceFactory slicedLongMaxValue = SourceSinkFactories.asSlicedByteSourceFactory(
-              factory, off, Long.MAX_VALUE);
+        factory, off, Long.MAX_VALUE);
       suite.addTest(suiteForBytes(slicedLongMaxValue, bytes, name + ".slice[long, Long.MAX_VALUE]",
-              desc, false));
+          desc, false));
 
       // test a slice() of the ByteSource starting at an offset greater than its size
       ByteSourceFactory slicedOffsetPastEnd = SourceSinkFactories.asSlicedByteSourceFactory(
-              factory, expected.length + 2, expected.length + 10);
+        factory, expected.length + 2, expected.length + 10);
       suite.addTest(suiteForBytes(slicedOffsetPastEnd, bytes, name + ".slice[size + 2, long]",
-              desc, false));
+          desc, false));
     }
 
     return suite;
@@ -183,7 +183,7 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
       @Override
       public InputStream openStream() throws IOException {
         return new RandomAmountInputStream(
-                new ByteArrayInputStream(expected), new Random());
+          new ByteArrayInputStream(expected), new Random());
       }
     }));
   }

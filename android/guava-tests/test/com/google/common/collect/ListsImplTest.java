@@ -93,7 +93,7 @@ public class ListsImplTest extends TestCase {
   @GwtIncompatible // suite sub call
   private static TestSuite createExampleSuite(ListExample example) {
     TestSuite resultSuite = new TestSuite(ListsImplTest.class);
-    for (Enumeration<Test> testEnum = resultSuite.tests(); testEnum.hasMoreElements();) {
+    for (Enumeration<Test> testEnum = resultSuite.tests(); testEnum.hasMoreElements(); ) {
       ListsImplTest test = (ListsImplTest) testEnum.nextElement();
       test.example = example;
     }
@@ -127,7 +127,7 @@ public class ListsImplTest extends TestCase {
     assertThat(Lists.hashCodeImpl(base)).isEqualTo(Lists.hashCodeImpl(copy));
 
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl (
-            utOfOrder));
+          utOfOrder));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffValue));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(diffLength));
     assertThat(Lists.hashCodeImpl(base)).isNotEqualTo(Lists.hashCodeImpl(empty));
@@ -159,16 +159,16 @@ public class ListsImplTest extends TestCase {
     List<String> toTest = createList(String.class);
 
     List<Iterable<String>> toAdd = ImmutableList.of(
-            (Iterable<String>) Collections.singleton("A"),
-            Collections.<String>emptyList(),
-            ImmutableList.of("A", "B", "C"),
-            ImmutableList.of("D", "E"));
+      (Iterable<String>)Collections.singleton("A"),
+      Collections.<String>emptyList(),
+      ImmutableList.of("A", "B", "C"),
+      ImmutableList.of("D", "E"));
     List<Integer> indexes = ImmutableList.of(0, 0, 1, 3);
     List<List<String>> expected = ImmutableList.of(
-            Collections.singletonList("A"),
-            ImmutableList.of("A"),
-            ImmutableList.of("A", "A", "B", "C"),
-            ImmutableList.of("A", "A", "D", "E", "B", "C"));
+      Collections.singletonList("A"),
+      ImmutableList.of("A"),
+      ImmutableList.of("A", "A", "B", "C"),
+      ImmutableList.of("A", "A", "D", "E", "B", "C"));
 
     String format = "Adding %s at %s";
     for (int i = 0; i < toAdd.size(); i++) {

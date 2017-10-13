@@ -101,10 +101,10 @@ public class ForwardingNavigableMapTest extends TestCase {
 
     @Override public Set<Entry<K, V>> entrySet() {
       return new StandardEntrySet() {
-        @Override
-        public Iterator<Entry<K, V>> iterator() {
-          return backingMap.entrySet().iterator();
-        }
+               @Override
+               public Iterator<Entry<K, V>> iterator() {
+                 return backingMap.entrySet().iterator();
+               }
       };
     }
 
@@ -239,8 +239,8 @@ public class ForwardingNavigableMapTest extends TestCase {
 
     suite.addTestSuite(ForwardingNavigableMapTest.class);
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -250,24 +250,24 @@ public class ForwardingNavigableMapTest extends TestCase {
         return new StandardImplForwardingNavigableMap<>(map);
       }
     })
-    .named(
+      .named(
         "ForwardingNavigableMap[SafeTreeMap] with no comparator and standard "
         + "implementations")
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         MapFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         MapFeature.GENERAL_PURPOSE)
-    /*
-     * StandardDescendingMap uses lowerEntry(), and TreeMap.lowerEntry() deliberately
-     * produces immutable entries.
-     *
-     * TODO(cpovirk): Consider making StandardDescendingMap return a ForwardingEntry that
-     * supports setValue().
-     */
-    .suppressing(MapEntrySetTester.getSetValueMethod())
-    .createTestSuite());
+      /*
+       * StandardDescendingMap uses lowerEntry(), and TreeMap.lowerEntry() deliberately
+       * produces immutable entries.
+       *
+       * TODO(cpovirk): Consider making StandardDescendingMap return a ForwardingEntry that
+       * supports setValue().
+       */
+      .suppressing(MapEntrySetTester.getSetValueMethod())
+      .createTestSuite());
     // TODO(lowasser): add forwarding-to-ImmutableSortedMap test
     return suite;
   }
@@ -307,9 +307,9 @@ public class ForwardingNavigableMapTest extends TestCase {
 
   private static <K, V> NavigableMap<K, V> wrap(final NavigableMap<K, V> delegate) {
     return new ForwardingNavigableMap<K, V>() {
-      @Override protected NavigableMap<K, V> delegate() {
-        return delegate;
-      }
+             @Override protected NavigableMap<K, V> delegate() {
+               return delegate;
+             }
     };
   }
 }

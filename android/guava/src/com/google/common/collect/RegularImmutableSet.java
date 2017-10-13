@@ -53,7 +53,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
     if (target == null || table == null) {
       return false;
     }
-    for (int i = Hashing.smearedHash(target); ; i++) {
+    for (int i = Hashing.smearedHash(target);; i++) {
       i &= mask;
       Object candidate = table[i];
       if (candidate == null) {
@@ -71,7 +71,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
 
   @Override
   public UnmodifiableIterator<E> iterator() {
-    return (UnmodifiableIterator<E>) Iterators.forArray(elements, 0, size, 0);
+    return (UnmodifiableIterator<E>)Iterators.forArray(elements, 0, size, 0);
   }
 
   @Override

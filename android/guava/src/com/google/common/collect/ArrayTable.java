@@ -96,7 +96,7 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
    *     contains duplicates or is empty
    */
   public static <R, C, V> ArrayTable<R, C, V> create(
-      Iterable<? extends R> rowKeys, Iterable<? extends C> columnKeys) {
+    Iterable<? extends R> rowKeys, Iterable<? extends C> columnKeys) {
     return new ArrayTable<>(rowKeys, columnKeys);
   }
 
@@ -130,8 +130,8 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
    */
   public static <R, C, V> ArrayTable<R, C, V> create(Table<R, C, V> table) {
     return (table instanceof ArrayTable<?, ?, ?>)
-        ? new ArrayTable<R, C, V>((ArrayTable<R, C, V>) table)
-        : new ArrayTable<R, C, V>(table);
+           ? new ArrayTable<R, C, V>((ArrayTable<R, C, V>)table)
+           : new ArrayTable<R, C, V>(table);
   }
 
   private final ImmutableList<R> rowList;
@@ -220,30 +220,30 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
     Entry<K, V> getEntry(final int index) {
       checkElementIndex(index, size());
       return new AbstractMapEntry<K, V>() {
-        @Override
-        public K getKey() {
-          return ArrayMap.this.getKey(index);
-        }
+               @Override
+               public K getKey() {
+                 return ArrayMap.this.getKey(index);
+               }
 
-        @Override
-        public V getValue() {
-          return ArrayMap.this.getValue(index);
-        }
+               @Override
+               public V getValue() {
+                 return ArrayMap.this.getValue(index);
+               }
 
-        @Override
-        public V setValue(V value) {
-          return ArrayMap.this.setValue(index, value);
-        }
+               @Override
+               public V setValue(V value) {
+                 return ArrayMap.this.setValue(index, value);
+               }
       };
     }
 
     @Override
     Iterator<Entry<K, V>> entryIterator() {
       return new AbstractIndexedListIterator<Entry<K, V>>(size()) {
-        @Override
-        protected Entry<K, V> get(final int index) {
-          return getEntry(index);
-        }
+               @Override
+               protected Entry<K, V> get(final int index) {
+                 return getEntry(index);
+               }
       };
     }
 
@@ -269,7 +269,7 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
       Integer index = keyIndex.get(key);
       if (index == null) {
         throw new IllegalArgumentException(
-            getKeyRole() + " " + key + " not in " + keyIndex.keySet());
+                getKeyRole() + " " + key + " not in " + keyIndex.keySet());
       }
       return setValue(index, value);
     }
@@ -546,32 +546,32 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
   @Override
   Iterator<Cell<R, C, V>> cellIterator() {
     return new AbstractIndexedListIterator<Cell<R, C, V>>(size()) {
-      @Override
-      protected Cell<R, C, V> get(final int index) {
-        return getCell(index);
-      }
+             @Override
+             protected Cell<R, C, V> get(final int index) {
+               return getCell(index);
+             }
     };
   }
 
   private Cell<R, C, V> getCell(final int index) {
     return new Tables.AbstractCell<R, C, V>() {
-      final int rowIndex = index / columnList.size();
-      final int columnIndex = index % columnList.size();
+             final int rowIndex = index / columnList.size();
+             final int columnIndex = index % columnList.size();
 
-      @Override
-      public R getRowKey() {
-        return rowList.get(rowIndex);
-      }
+             @Override
+             public R getRowKey() {
+               return rowList.get(rowIndex);
+             }
 
-      @Override
-      public C getColumnKey() {
-        return columnList.get(columnIndex);
-      }
+             @Override
+             public C getColumnKey() {
+               return columnList.get(columnIndex);
+             }
 
-      @Override
-      public V getValue() {
-        return at(rowIndex, columnIndex);
-      }
+             @Override
+             public V getValue() {
+               return at(rowIndex, columnIndex);
+             }
     };
   }
 
@@ -777,10 +777,10 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
   @Override
   Iterator<V> valuesIterator() {
     return new AbstractIndexedListIterator<V>(size()) {
-      @Override
-      protected V get(int index) {
-        return getValue(index);
-      }
+             @Override
+             protected V get(int index) {
+               return getValue(index);
+             }
     };
   }
 

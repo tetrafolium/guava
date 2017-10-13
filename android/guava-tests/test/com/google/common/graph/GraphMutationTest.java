@@ -113,7 +113,7 @@ public final class GraphMutationTest {
     }
   }
 
-  private static <L extends List<T> & RandomAccess, T> T getRandomElement(L list, Random gen) {
+  private static <L extends List<T> &RandomAccess, T> T getRandomElement(L list, Random gen) {
     return list.get(gen.nextInt(list.size()));
   }
 }

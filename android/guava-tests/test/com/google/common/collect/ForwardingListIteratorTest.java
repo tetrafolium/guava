@@ -40,9 +40,9 @@ public class ForwardingListIteratorTest extends TestCase {
 
   private static <T> ListIterator<T> wrap(final ListIterator<T> delegate) {
     return new ForwardingListIterator<T>() {
-      @Override protected ListIterator<T> delegate() {
-        return delegate;
-      }
+             @Override protected ListIterator<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

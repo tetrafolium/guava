@@ -78,7 +78,7 @@ final class HashTestUtils {
 
     if (expected != verification) {
       throw new AssertionError("Expected: " + Integer.toHexString(expected)
-          + " got: " + Integer.toHexString(verification));
+                + " got: " + Integer.toHexString(verification));
     }
   }
 
@@ -221,8 +221,8 @@ final class HashTestUtils {
     PUT_STRING_LOW_HIGH_SURROGATE() {
       @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
-                randomLowSurrogate(random), randomHighSurrogate(random)
-            });
+          randomLowSurrogate(random), randomHighSurrogate(random)
+        });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
@@ -231,8 +231,8 @@ final class HashTestUtils {
     PUT_STRING_HIGH_LOW_SURROGATE() {
       @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
-                randomHighSurrogate(random), randomLowSurrogate(random)
-            });
+          randomHighSurrogate(random), randomLowSurrogate(random)
+        });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
@@ -492,8 +492,8 @@ final class HashTestUtils {
     ByteBuffer littleEndian = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN);
     ByteBuffer bigEndian = ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN);
     assertEquals(
-        hashFunction.newHasher().putBytes(littleEndian).hash(),
-        hashFunction.newHasher().putBytes(littleEndian).hash());
+      hashFunction.newHasher().putBytes(littleEndian).hash(),
+      hashFunction.newHasher().putBytes(littleEndian).hash());
     assertEquals(ByteOrder.LITTLE_ENDIAN, littleEndian.order());
     assertEquals(ByteOrder.BIG_ENDIAN, littleEndian.order());
   }
@@ -574,13 +574,13 @@ final class HashTestUtils {
     byte[] bytes = new byte[size];
     random.nextBytes(bytes);
     assertEquals(
-        hashFunction.hashBytes(ByteBuffer.wrap(bytes)),
-        hashFunction.newHasher(size).putBytes(ByteBuffer.wrap(bytes)).hash());
+      hashFunction.hashBytes(ByteBuffer.wrap(bytes)),
+      hashFunction.newHasher(size).putBytes(ByteBuffer.wrap(bytes)).hash());
     int off = random.nextInt(size);
     int len = random.nextInt(size - off);
     assertEquals(
-        hashFunction.hashBytes(ByteBuffer.wrap(bytes, off, len)),
-        hashFunction.newHasher(size).putBytes(ByteBuffer.wrap(bytes, off, len)).hash());
+      hashFunction.hashBytes(ByteBuffer.wrap(bytes, off, len)),
+      hashFunction.newHasher(size).putBytes(ByteBuffer.wrap(bytes, off, len)).hash());
   }
 
   private static void assertHashIntEquivalence(HashFunction hashFunction, Random random) {
@@ -596,26 +596,26 @@ final class HashTestUtils {
   }
 
   private static final ImmutableSet<Charset> CHARSETS = ImmutableSet.of(
-          Charsets.ISO_8859_1,
-          Charsets.US_ASCII,
-          Charsets.UTF_16,
-          Charsets.UTF_16BE,
-          Charsets.UTF_16LE,
-          Charsets.UTF_8);
+    Charsets.ISO_8859_1,
+    Charsets.US_ASCII,
+    Charsets.UTF_16,
+    Charsets.UTF_16BE,
+    Charsets.UTF_16LE,
+    Charsets.UTF_8);
 
   private static void assertHashStringEquivalence(HashFunction hashFunction, Random random) {
     // Test that only data and data-order is important, not the individual operations.
     new EqualsTester()
     .addEqualityGroup(
-        hashFunction.hashUnencodedChars("abc"),
-        hashFunction.newHasher().putUnencodedChars("abc").hash(),
-        hashFunction.newHasher().putUnencodedChars("ab").putUnencodedChars("c").hash(),
-        hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("bc").hash(),
-        hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("b")
-        .putUnencodedChars("c").hash(),
-        hashFunction.newHasher().putChar('a').putUnencodedChars("bc").hash(),
-        hashFunction.newHasher().putUnencodedChars("ab").putChar('c').hash(),
-        hashFunction.newHasher().putChar('a').putChar('b').putChar('c').hash())
+      hashFunction.hashUnencodedChars("abc"),
+      hashFunction.newHasher().putUnencodedChars("abc").hash(),
+      hashFunction.newHasher().putUnencodedChars("ab").putUnencodedChars("c").hash(),
+      hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("bc").hash(),
+      hashFunction.newHasher().putUnencodedChars("a").putUnencodedChars("b")
+      .putUnencodedChars("c").hash(),
+      hashFunction.newHasher().putChar('a').putUnencodedChars("bc").hash(),
+      hashFunction.newHasher().putUnencodedChars("ab").putChar('c').hash(),
+      hashFunction.newHasher().putChar('a').putChar('b').putChar('c').hash())
     .testEquals();
 
     int size = random.nextInt(2048);
@@ -626,7 +626,7 @@ final class HashTestUtils {
         hashFunction.newHasher().putUnencodedChars(string).hash());
     for (Charset charset : CHARSETS) {
       assertEquals(hashFunction.hashString(string, charset),
-          hashFunction.newHasher().putString(string, charset).hash());
+            hashFunction.newHasher().putString(string, charset).hash());
     }
   }
 
@@ -636,7 +636,7 @@ final class HashTestUtils {
    * characters. (But doesn't test that they do the right thing - just their consistency).
    */
   private static void assertHashStringWithSurrogatesEquivalence(
-      HashFunction hashFunction, Random random) {
+    HashFunction hashFunction, Random random) {
     int size = random.nextInt(8) + 1;
     char[] chars = new char[size];
     for (int i = 0; i < chars.length; i++) {
@@ -649,11 +649,11 @@ final class HashTestUtils {
 
   static char randomLowSurrogate(Random random) {
     return (char) (Character.MIN_LOW_SURROGATE
-            + random.nextInt(Character.MAX_LOW_SURROGATE - Character.MIN_LOW_SURROGATE + 1));
+           + random.nextInt(Character.MAX_LOW_SURROGATE - Character.MIN_LOW_SURROGATE + 1));
   }
 
   static char randomHighSurrogate(Random random) {
     return (char) (Character.MIN_HIGH_SURROGATE
-            + random.nextInt(Character.MAX_HIGH_SURROGATE - Character.MIN_HIGH_SURROGATE + 1));
+           + random.nextInt(Character.MAX_HIGH_SURROGATE - Character.MIN_HIGH_SURROGATE + 1));
   }
 }

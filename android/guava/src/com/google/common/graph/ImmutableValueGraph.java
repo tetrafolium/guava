@@ -50,8 +50,8 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
   /** Returns an immutable copy of {@code graph}. */
   public static <N, V> ImmutableValueGraph<N, V> copyOf(ValueGraph<N, V> graph) {
     return (graph instanceof ImmutableValueGraph)
-        ? (ImmutableValueGraph<N, V>) graph
-        : new ImmutableValueGraph<N, V>(graph);
+           ? (ImmutableValueGraph<N, V>)graph
+           : new ImmutableValueGraph<N, V>(graph);
   }
 
   /**
@@ -70,7 +70,7 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
   }
 
   private static <N, V> ImmutableMap<N, GraphConnections<N, V>> getNodeConnections(
-      ValueGraph<N, V> graph) {
+    ValueGraph<N, V> graph) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the graph's nodes do, so ImmutableSortedMap is unnecessary even if the
     // input nodes are sorted.
@@ -82,18 +82,18 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
   }
 
   private static <N, V> GraphConnections<N, V> connectionsOf(
-      final ValueGraph<N, V> graph, final N node) {
+    final ValueGraph<N, V> graph, final N node) {
     Function<N, V> successorNodeToValueFn =
-    new Function<N, V>() {
+      new Function<N, V>() {
       @Override
       public V apply(N successorNode) {
         return graph.edgeValueOrDefault(node, successorNode, null);
       }
     };
     return graph.isDirected()
-        ? DirectedGraphConnections.ofImmutable(
-            graph.predecessors(node), Maps.asMap(graph.successors(node), successorNodeToValueFn))
-        : UndirectedGraphConnections.ofImmutable(
-            Maps.asMap(graph.adjacentNodes(node), successorNodeToValueFn));
+           ? DirectedGraphConnections.ofImmutable(
+      graph.predecessors(node), Maps.asMap(graph.successors(node), successorNodeToValueFn))
+           : UndirectedGraphConnections.ofImmutable(
+      Maps.asMap(graph.adjacentNodes(node), successorNodeToValueFn));
   }
 }

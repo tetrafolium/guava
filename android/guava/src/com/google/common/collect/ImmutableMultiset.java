@@ -55,7 +55,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
    */
   @SuppressWarnings("unchecked") // all supported methods are covariant
   public static <E> ImmutableMultiset<E> of() {
-    return (ImmutableMultiset<E>) RegularImmutableMultiset.EMPTY;
+    return (ImmutableMultiset<E>)RegularImmutableMultiset.EMPTY;
   }
 
   /**
@@ -148,7 +148,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   public static <E> ImmutableMultiset<E> copyOf(Iterable<? extends E> elements) {
     if (elements instanceof ImmutableMultiset) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableMultiset<E> result = (ImmutableMultiset<E>) elements;
+      ImmutableMultiset<E> result = (ImmutableMultiset<E>)elements;
       if (!result.isPartialView()) {
         return result;
       }
@@ -165,7 +165,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   static <E> ImmutableMultiset<E> copyFromEntries(
-      Collection<? extends Entry<? extends E>> entries) {
+    Collection<? extends Entry<? extends E>> entries) {
     ImmutableMultiset.Builder<E> builder = new ImmutableMultiset.Builder<E>(entries.size());
     for (Entry<? extends E> entry : entries) {
       builder.addCopies(entry.getElement(), entry.getCount());
@@ -189,24 +189,24 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   public UnmodifiableIterator<E> iterator() {
     final Iterator<Entry<E>> entryIterator = entrySet().iterator();
     return new UnmodifiableIterator<E>() {
-      int remaining;
-      E element;
+             int remaining;
+             E element;
 
-      @Override
-      public boolean hasNext() {
-        return (remaining > 0) || entryIterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return (remaining > 0) || entryIterator.hasNext();
+             }
 
-      @Override
-      public E next() {
-        if (remaining <= 0) {
-          Entry<E> entry = entryIterator.next();
-          element = entry.getElement();
-          remaining = entry.getCount();
-        }
-        remaining--;
-        return element;
-      }
+             @Override
+             public E next() {
+               if (remaining <= 0) {
+                 Entry<E> entry = entryIterator.next();
+                 element = entry.getElement();
+                 remaining = entry.getCount();
+               }
+               remaining--;
+               return element;
+             }
     };
   }
 
@@ -340,7 +340,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     @Override
     public boolean contains(Object o) {
       if (o instanceof Entry) {
-        Entry<?> entry = (Entry<?>) o;
+        Entry<?> entry = (Entry<?>)o;
         if (entry.getCount() <= 0) {
           return false;
         }
@@ -611,7 +611,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
       }
       buildInvoked = true;
       // contents is now ObjectCountHashMap, but still guaranteed to be in insertion order!
-      return new RegularImmutableMultiset<E>((ObjectCountHashMap<E>) contents);
+      return new RegularImmutableMultiset<E>((ObjectCountHashMap<E>)contents);
     }
   }
 }

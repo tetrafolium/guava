@@ -57,7 +57,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   // Casting is safe because the multimap will never hold any elements.
   @SuppressWarnings("unchecked")
   public static <K, V> ImmutableSetMultimap<K, V> of() {
-    return (ImmutableSetMultimap<K, V>) EmptyImmutableSetMultimap.INSTANCE;
+    return (ImmutableSetMultimap<K, V>)EmptyImmutableSetMultimap.INSTANCE;
   }
 
   /**
@@ -100,7 +100,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
    * the first are ignored.
    */
   public static <K, V> ImmutableSetMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
     builder.put(k1, v1);
     builder.put(k2, v2);
@@ -115,7 +115,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
    * the first are ignored.
    */
   public static <K, V> ImmutableSetMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     ImmutableSetMultimap.Builder<K, V> builder = ImmutableSetMultimap.builder();
     builder.put(k1, v1);
     builder.put(k2, v2);
@@ -290,12 +290,12 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
    *     null
    */
   public static <K, V> ImmutableSetMultimap<K, V> copyOf(
-      Multimap<? extends K, ? extends V> multimap) {
+    Multimap<? extends K, ? extends V> multimap) {
     return copyOf(multimap, null);
   }
 
   private static <K, V> ImmutableSetMultimap<K, V> copyOf(
-      Multimap<? extends K, ? extends V> multimap, Comparator<? super V> valueComparator) {
+    Multimap<? extends K, ? extends V> multimap, Comparator<? super V> valueComparator) {
     checkNotNull(multimap); // eager for GWT
     if (multimap.isEmpty() && valueComparator == null) {
       return of();
@@ -303,7 +303,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
 
     if (multimap instanceof ImmutableSetMultimap) {
       @SuppressWarnings("unchecked") // safe since multimap is not writable
-      ImmutableSetMultimap<K, V> kvMultimap = (ImmutableSetMultimap<K, V>) multimap;
+      ImmutableSetMultimap<K, V> kvMultimap = (ImmutableSetMultimap<K, V>)multimap;
       if (!kvMultimap.isPartialView()) {
         return kvMultimap;
       }
@@ -339,7 +339,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
    */
   @Beta
   public static <K, V> ImmutableSetMultimap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     return new Builder<K, V>().putAll(entries).build();
   }
 
@@ -350,9 +350,9 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   private final transient ImmutableSet<V> emptySet;
 
   ImmutableSetMultimap(
-      ImmutableMap<K, ImmutableSet<V>> map,
-      int size,
-      @Nullable Comparator<? super V> valueComparator) {
+    ImmutableMap<K, ImmutableSet<V>> map,
+    int size,
+    @Nullable Comparator<? super V> valueComparator) {
     super(map, size);
     this.emptySet = emptySet(valueComparator);
   }
@@ -368,7 +368,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   @Override
   public ImmutableSet<V> get(@Nullable K key) {
     // This cast is safe as its type is known in constructor.
-    ImmutableSet<V> set = (ImmutableSet<V>) map.get(key);
+    ImmutableSet<V> set = (ImmutableSet<V>)map.get(key);
     return MoreObjects.firstNonNull(set, emptySet);
   }
 
@@ -450,7 +450,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
     @Override
     public boolean contains(@Nullable Object object) {
       if (object instanceof Entry) {
-        Entry<?, ?> entry = (Entry<?, ?>) object;
+        Entry<?, ?> entry = (Entry<?, ?>)object;
         return multimap.containsEntry(entry.getKey(), entry.getValue());
       }
       return false;
@@ -473,23 +473,23 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   }
 
   private static <V> ImmutableSet<V> valueSet(
-      @Nullable Comparator<? super V> valueComparator, Collection<? extends V> values) {
+    @Nullable Comparator<? super V> valueComparator, Collection<? extends V> values) {
     return (valueComparator == null)
-        ? ImmutableSet.copyOf(values)
-        : ImmutableSortedSet.copyOf(valueComparator, values);
+           ? ImmutableSet.copyOf(values)
+           : ImmutableSortedSet.copyOf(valueComparator, values);
   }
 
   private static <V> ImmutableSet<V> emptySet(@Nullable Comparator<? super V> valueComparator) {
     return (valueComparator == null)
-        ? ImmutableSet.<V>of()
-        : ImmutableSortedSet.<V>emptySet(valueComparator);
+           ? ImmutableSet.<V>of()
+           : ImmutableSortedSet.<V>emptySet(valueComparator);
   }
 
   private static <V> ImmutableSet.Builder<V> valuesBuilder(
-      @Nullable Comparator<? super V> valueComparator) {
+    @Nullable Comparator<? super V> valueComparator) {
     return (valueComparator == null)
-        ? new ImmutableSet.Builder<V>()
-        : new ImmutableSortedSet.Builder<V>(valueComparator);
+           ? new ImmutableSet.Builder<V>()
+           : new ImmutableSortedSet.Builder<V>(valueComparator);
   }
 
   /**
@@ -506,8 +506,8 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   @Nullable
   Comparator<? super V> valueComparator() {
     return emptySet instanceof ImmutableSortedSet
-        ? ((ImmutableSortedSet<V>) emptySet).comparator()
-        : null;
+           ? ((ImmutableSortedSet<V>)emptySet).comparator()
+           : null;
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
@@ -515,7 +515,7 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
   @SuppressWarnings("unchecked")
   private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
-    Comparator<Object> valueComparator = (Comparator<Object>) stream.readObject();
+    Comparator<Object> valueComparator = (Comparator<Object>)stream.readObject();
     int keyCount = stream.readInt();
     if (keyCount < 0) {
       throw new InvalidObjectException("Invalid key count " + keyCount);

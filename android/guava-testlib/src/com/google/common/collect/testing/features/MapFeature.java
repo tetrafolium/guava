@@ -61,7 +61,7 @@ public enum MapFeature implements Feature<Map> {
    * @see #ALLOWS_NULL_ENTRY_QUERIES
    */
   ALLOWS_ANY_NULL_QUERIES(
-      ALLOWS_NULL_ENTRY_QUERIES, ALLOWS_NULL_KEY_QUERIES, ALLOWS_NULL_VALUE_QUERIES),
+    ALLOWS_NULL_ENTRY_QUERIES, ALLOWS_NULL_KEY_QUERIES, ALLOWS_NULL_VALUE_QUERIES),
   RESTRICTS_KEYS,
   RESTRICTS_VALUES,
   SUPPORTS_PUT,
@@ -91,8 +91,8 @@ public enum MapFeature implements Feature<Map> {
   @Inherited
   @TesterAnnotation
   public @interface Require {
-  public abstract MapFeature[] value() default {};
+    public abstract MapFeature[] value() default {};
 
-  public abstract MapFeature[] absent() default {};
+    public abstract MapFeature[] absent() default {};
   }
 }

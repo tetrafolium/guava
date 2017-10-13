@@ -171,7 +171,7 @@ public final class ElementOrderTest {
   @Test
   public void customComparator() {
     Comparator<NonComparableSuperClass> comparator =
-    new Comparator<NonComparableSuperClass>() {
+        new Comparator<NonComparableSuperClass>() {
       @Override
       public int compare(NonComparableSuperClass left, NonComparableSuperClass right) {
         return left.value.compareTo(right.value);

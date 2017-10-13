@@ -114,9 +114,9 @@ public class IntMathTest extends TestCase {
   public void testConstantMaxPowerOfSqrt2Unsigned() {
     assertEquals(
 
-        /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Integer.SIZE - 1), FLOOR)
-        .intValue(),
-        /*actual=*/ IntMath.MAX_POWER_OF_SQRT2_UNSIGNED);
+      /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Integer.SIZE - 1), FLOOR)
+      .intValue(),
+      /*actual=*/ IntMath.MAX_POWER_OF_SQRT2_UNSIGNED);
   }
 
   @GwtIncompatible // pow()
@@ -130,8 +130,8 @@ public class IntMathTest extends TestCase {
   public void testMaxLog10ForLeadingZeros() {
     for (int i = 0; i < Integer.SIZE; i++) {
       assertEquals(
-          BigIntegerMath.log10(BigInteger.ONE.shiftLeft(Integer.SIZE - i), FLOOR),
-          IntMath.maxLog10ForLeadingZeros[i]);
+        BigIntegerMath.log10(BigInteger.ONE.shiftLeft(Integer.SIZE - i), FLOOR),
+        IntMath.maxLog10ForLeadingZeros[i]);
     }
   }
 
@@ -153,15 +153,15 @@ public class IntMathTest extends TestCase {
       // int overflows.
     }
     assertFalse(
-        fitsInInt(BigIntegerMath.binomial(
-                2 * IntMath.biggestBinomials.length, IntMath.biggestBinomials.length)));
+      fitsInInt(BigIntegerMath.binomial(
+        2 * IntMath.biggestBinomials.length, IntMath.biggestBinomials.length)));
   }
 
   @GwtIncompatible // sqrt
   public void testPowersSqrtMaxInt() {
     assertEquals(
-        /*expected=*/ IntMath.sqrt(Integer.MAX_VALUE, FLOOR),
-        /*actual=*/ IntMath.FLOOR_SQRT_MAX_INT);
+      /*expected=*/ IntMath.sqrt(Integer.MAX_VALUE, FLOOR),
+      /*actual=*/ IntMath.FLOOR_SQRT_MAX_INT);
   }
 
   @AndroidIncompatible // presumably slow
@@ -539,7 +539,7 @@ public class IntMathTest extends TestCase {
     for (int a : ALL_INTEGER_CANDIDATES) {
       for (int b : ALL_INTEGER_CANDIDATES) {
         assertOperationEquals(
-            a, b, "s+", saturatedCast(valueOf(a).add(valueOf(b))), IntMath.saturatedAdd(a, b));
+          a, b, "s+", saturatedCast(valueOf(a).add(valueOf(b))), IntMath.saturatedAdd(a, b));
       }
     }
   }
@@ -550,11 +550,11 @@ public class IntMathTest extends TestCase {
     for (int a : ALL_INTEGER_CANDIDATES) {
       for (int b : ALL_INTEGER_CANDIDATES) {
         assertOperationEquals(
-            a,
-            b,
-            "s-",
-            saturatedCast(valueOf(a).subtract(valueOf(b))),
-            IntMath.saturatedSubtract(a, b));
+          a,
+          b,
+          "s-",
+          saturatedCast(valueOf(a).subtract(valueOf(b))),
+          IntMath.saturatedSubtract(a, b));
       }
     }
   }
@@ -565,11 +565,11 @@ public class IntMathTest extends TestCase {
     for (int a : ALL_INTEGER_CANDIDATES) {
       for (int b : ALL_INTEGER_CANDIDATES) {
         assertOperationEquals(
-            a,
-            b,
-            "s*",
-            saturatedCast(valueOf(a).multiply(valueOf(b))),
-            IntMath.saturatedMultiply(a, b));
+          a,
+          b,
+          "s*",
+          saturatedCast(valueOf(a).multiply(valueOf(b))),
+          IntMath.saturatedMultiply(a, b));
       }
     }
   }
@@ -579,7 +579,7 @@ public class IntMathTest extends TestCase {
     for (int a : ALL_INTEGER_CANDIDATES) {
       for (int b : EXPONENTS) {
         assertOperationEquals(
-            a, b, "s^", saturatedCast(valueOf(a).pow(b)), IntMath.saturatedPow(a, b));
+          a, b, "s^", saturatedCast(valueOf(a).pow(b)), IntMath.saturatedPow(a, b));
       }
     }
   }
@@ -718,7 +718,7 @@ public class IntMathTest extends TestCase {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
-    .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
+        .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
     // parseInt blows up on overflow as opposed to intValue() which does not.
     return Integer.parseInt(bigMean.toString());
   }

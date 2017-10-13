@@ -62,18 +62,18 @@ public class AbstractInvocationHandlerTest extends TestCase {
     .addEqualityGroup(newDelegatingList(LIST1))
     .addEqualityGroup(newDelegatingList(LIST2))
     .addEqualityGroup(
-        newProxyWithEqualsForInterfaces(List.class, Runnable.class),
-        newProxyWithEqualsForInterfaces(List.class, Runnable.class))
+      newProxyWithEqualsForInterfaces(List.class, Runnable.class),
+      newProxyWithEqualsForInterfaces(List.class, Runnable.class))
     .addEqualityGroup(
-        newProxyWithEqualsForInterfaces(Runnable.class, List.class))
+      newProxyWithEqualsForInterfaces(Runnable.class, List.class))
     .addEqualityGroup(
-        newDelegatingListWithEquals(LIST1),
-        newDelegatingListWithEquals(LIST1),
-        SerializableTester.reserialize(newDelegatingListWithEquals(LIST1)))
+      newDelegatingListWithEquals(LIST1),
+      newDelegatingListWithEquals(LIST1),
+      SerializableTester.reserialize(newDelegatingListWithEquals(LIST1)))
     .addEqualityGroup(
-        newDelegatingListWithEquals(LIST2),
-        newProxyWithSubHandler1(LIST2), // Makes sure type of handler doesn't affect equality
-        newProxyWithSubHandler2(LIST2))
+      newDelegatingListWithEquals(LIST2),
+      newProxyWithSubHandler1(LIST2),   // Makes sure type of handler doesn't affect equality
+      newProxyWithSubHandler2(LIST2))
     .addEqualityGroup(newDelegatingIterableWithEquals(LIST2)) // different interface
     .testEquals();
   }
@@ -104,9 +104,9 @@ public class AbstractInvocationHandlerTest extends TestCase {
   }
 
   private static Object newProxyWithEqualsForInterfaces(
-      Class<?>... interfaces) {
+    Class<?>... interfaces) {
     return Proxy.newProxyInstance(AbstractInvocationHandlerTest.class.getClassLoader(),
-            interfaces, new DelegatingInvocationHandlerWithEquals("a string"));
+               interfaces, new DelegatingInvocationHandlerWithEquals("a string"));
   }
 
   private static class DelegatingInvocationHandler extends AbstractInvocationHandler

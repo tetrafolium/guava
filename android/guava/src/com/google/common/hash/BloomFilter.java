@@ -77,14 +77,14 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
      * <p>Returns whether any bits changed as a result of this operation.
      */
     <T> boolean put(
-        T object, Funnel<? super T> funnel, int numHashFunctions, LockFreeBitArray bits);
+      T object, Funnel<? super T> funnel, int numHashFunctions, LockFreeBitArray bits);
 
     /**
      * Queries {@code numHashFunctions} bits of the given bit array, by hashing a user element;
      * returns {@code true} if and only if all selected bits are set.
      */
     <T> boolean mightContain(
-        T object, Funnel<? super T> funnel, int numHashFunctions, LockFreeBitArray bits);
+      T object, Funnel<? super T> funnel, int numHashFunctions, LockFreeBitArray bits);
 
     /**
      * Identifier used to encode this strategy, when marshalled as part of a BloomFilter. Only
@@ -112,10 +112,10 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
 
   /** Creates a BloomFilter. */
   private BloomFilter(
-      LockFreeBitArray bits, int numHashFunctions, Funnel<? super T> funnel, Strategy strategy) {
+    LockFreeBitArray bits, int numHashFunctions, Funnel<? super T> funnel, Strategy strategy) {
     checkArgument(numHashFunctions > 0, "numHashFunctions (%s) must be > 0", numHashFunctions);
     checkArgument(
-        numHashFunctions <= 255, "numHashFunctions (%s) must be <= 255", numHashFunctions);
+      numHashFunctions <= 255, "numHashFunctions (%s) must be <= 255", numHashFunctions);
     this.bits = checkNotNull(bits);
     this.numHashFunctions = numHashFunctions;
     this.funnel = checkNotNull(funnel);
@@ -201,7 +201,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
      */
     double fractionOfBitsSet = (double) bitCount / bitSize;
     return DoubleMath.roundToLong(
-            -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
+      -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
   }
 
   /**
@@ -230,10 +230,10 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
   public boolean isCompatible(BloomFilter<T> that) {
     checkNotNull(that);
     return (this != that)
-        && (this.numHashFunctions == that.numHashFunctions)
-        && (this.bitSize() == that.bitSize())
-        && (this.strategy.equals(that.strategy))
-        && (this.funnel.equals(that.funnel));
+           && (this.numHashFunctions == that.numHashFunctions)
+           && (this.bitSize() == that.bitSize())
+           && (this.strategy.equals(that.strategy))
+           && (this.funnel.equals(that.funnel));
   }
 
   /**
@@ -249,25 +249,25 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
     checkNotNull(that);
     checkArgument(this != that, "Cannot combine a BloomFilter with itself.");
     checkArgument(
-        this.numHashFunctions == that.numHashFunctions,
-        "BloomFilters must have the same number of hash functions (%s != %s)",
-        this.numHashFunctions,
-        that.numHashFunctions);
+      this.numHashFunctions == that.numHashFunctions,
+      "BloomFilters must have the same number of hash functions (%s != %s)",
+      this.numHashFunctions,
+      that.numHashFunctions);
     checkArgument(
-        this.bitSize() == that.bitSize(),
-        "BloomFilters must have the same size underlying bit arrays (%s != %s)",
-        this.bitSize(),
-        that.bitSize());
+      this.bitSize() == that.bitSize(),
+      "BloomFilters must have the same size underlying bit arrays (%s != %s)",
+      this.bitSize(),
+      that.bitSize());
     checkArgument(
-        this.strategy.equals(that.strategy),
-        "BloomFilters must have equal strategies (%s != %s)",
-        this.strategy,
-        that.strategy);
+      this.strategy.equals(that.strategy),
+      "BloomFilters must have equal strategies (%s != %s)",
+      this.strategy,
+      that.strategy);
     checkArgument(
-        this.funnel.equals(that.funnel),
-        "BloomFilters must have equal funnels (%s != %s)",
-        this.funnel,
-        that.funnel);
+      this.funnel.equals(that.funnel),
+      "BloomFilters must have equal funnels (%s != %s)",
+      this.funnel,
+      that.funnel);
     this.bits.putAll(that.bits);
   }
 
@@ -277,11 +277,11 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
       return true;
     }
     if (object instanceof BloomFilter) {
-      BloomFilter<?> that = (BloomFilter<?>) object;
+      BloomFilter<?> that = (BloomFilter<?>)object;
       return this.numHashFunctions == that.numHashFunctions
-          && this.funnel.equals(that.funnel)
-          && this.bits.equals(that.bits)
-          && this.strategy.equals(that.strategy);
+             && this.funnel.equals(that.funnel)
+             && this.bits.equals(that.bits)
+             && this.strategy.equals(that.strategy);
     }
     return false;
   }
@@ -312,7 +312,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
    * @return a {@code BloomFilter}
    */
   public static <T> BloomFilter<T> create(
-      Funnel<? super T> funnel, int expectedInsertions, double fpp) {
+    Funnel<? super T> funnel, int expectedInsertions, double fpp) {
     return create(funnel, (long) expectedInsertions, fpp);
   }
 
@@ -338,16 +338,16 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
    * @since 19.0
    */
   public static <T> BloomFilter<T> create(
-      Funnel<? super T> funnel, long expectedInsertions, double fpp) {
+    Funnel<? super T> funnel, long expectedInsertions, double fpp) {
     return create(funnel, expectedInsertions, fpp, BloomFilterStrategies.MURMUR128_MITZ_64);
   }
 
   @VisibleForTesting
   static <T> BloomFilter<T> create(
-      Funnel<? super T> funnel, long expectedInsertions, double fpp, Strategy strategy) {
+    Funnel<? super T> funnel, long expectedInsertions, double fpp, Strategy strategy) {
     checkNotNull(funnel);
     checkArgument(
-        expectedInsertions >= 0, "Expected insertions (%s) must be >= 0", expectedInsertions);
+      expectedInsertions >= 0, "Expected insertions (%s) must be >= 0", expectedInsertions);
     checkArgument(fpp > 0.0, "False positive probability (%s) must be > 0.0", fpp);
     checkArgument(fpp < 1.0, "False positive probability (%s) must be < 1.0", fpp);
     checkNotNull(strategy);

@@ -50,12 +50,12 @@ public class SynchronizedSetTest extends TestCase {
         return outer;
       }
     })
-    .named("Synchronized.set")
-    .withFeatures(CollectionFeature.GENERAL_PURPOSE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionSize.ANY,
-        CollectionFeature.SERIALIZABLE)
-    .createTestSuite();
+           .named("Synchronized.set")
+           .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+               CollectionFeature.ALLOWS_NULL_VALUES,
+               CollectionSize.ANY,
+               CollectionFeature.SERIALIZABLE)
+           .createTestSuite();
   }
 
   static class TestSet<E> extends ForwardingSet<E> implements Serializable {

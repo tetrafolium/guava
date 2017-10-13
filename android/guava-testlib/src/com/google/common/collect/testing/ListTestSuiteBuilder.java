@@ -101,18 +101,18 @@ public final class ListTestSuiteBuilder<E>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-      parentBuilder) {
+    FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+    parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     if (parentBuilder.getFeatures().contains(SERIALIZABLE)) {
       derivedSuites.add(
-          ListTestSuiteBuilder.using(
-              new ReserializedListGenerator<E>(parentBuilder.getSubjectGenerator()))
-          .named(getName() + " reserialized")
-          .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
-          .suppressing(parentBuilder.getSuppressedTests())
-          .createTestSuite());
+        ListTestSuiteBuilder.using(
+          new ReserializedListGenerator<E>(parentBuilder.getSubjectGenerator()))
+        .named(getName() + " reserialized")
+        .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
+        .suppressing(parentBuilder.getSuppressedTests())
+        .createTestSuite());
     }
     return derivedSuites;
   }
@@ -131,7 +131,7 @@ public final class ListTestSuiteBuilder<E>
 
     @Override
     public List<E> create(Object... elements) {
-      return (List<E>) SerializableTester.reserialize(gen.create(elements));
+      return (List<E>)SerializableTester.reserialize(gen.create(elements));
     }
 
     @Override

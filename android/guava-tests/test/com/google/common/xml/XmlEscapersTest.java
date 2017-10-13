@@ -103,8 +103,8 @@ public class XmlEscapersTest extends TestCase {
         String input = String.valueOf(ch);
         String escaped = xmlEscaper.escape(input);
         assertEquals(
-            "char 0x" + Integer.toString(ch, 16) + " should not be escaped",
-            input, escaped);
+          "char 0x" + Integer.toString(ch, 16) + " should not be escaped",
+          input, escaped);
       }
     }
 

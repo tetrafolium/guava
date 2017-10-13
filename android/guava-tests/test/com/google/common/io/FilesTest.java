@@ -53,17 +53,17 @@ public class FilesTest extends IoTestCase {
   public static TestSuite suite() {
     TestSuite suite = new TestSuite();
     suite.addTest(ByteSourceTester.tests("Files.asByteSource[File]",
-            SourceSinkFactories.fileByteSourceFactory(), true));
+        SourceSinkFactories.fileByteSourceFactory(), true));
     suite.addTest(ByteSinkTester.tests("Files.asByteSink[File]",
-            SourceSinkFactories.fileByteSinkFactory()));
+        SourceSinkFactories.fileByteSinkFactory()));
     suite.addTest(ByteSinkTester.tests("Files.asByteSink[File, APPEND]",
-            SourceSinkFactories.appendingFileByteSinkFactory()));
+        SourceSinkFactories.appendingFileByteSinkFactory()));
     suite.addTest(CharSourceTester.tests("Files.asCharSource[File, Charset]",
-            SourceSinkFactories.fileCharSourceFactory(), false));
+        SourceSinkFactories.fileCharSourceFactory(), false));
     suite.addTest(CharSinkTester.tests("Files.asCharSink[File, Charset]",
-            SourceSinkFactories.fileCharSinkFactory()));
+        SourceSinkFactories.fileCharSinkFactory()));
     suite.addTest(CharSinkTester.tests("Files.asCharSink[File, Charset, APPEND]",
-            SourceSinkFactories.appendingFileCharSinkFactory()));
+        SourceSinkFactories.appendingFileCharSinkFactory()));
     suite.addTestSuite(FilesTest.class);
     return suite;
   }
@@ -79,11 +79,11 @@ public class FilesTest extends IoTestCase {
     File asciiFile = getTestFile("ascii.txt");
     File i18nFile = getTestFile("i18n.txt");
     assertTrue(Arrays.equals(ASCII.getBytes(Charsets.US_ASCII),
-            Files.toByteArray(asciiFile)));
+        Files.toByteArray(asciiFile)));
     assertTrue(Arrays.equals(I18N.getBytes(Charsets.UTF_8),
-            Files.toByteArray(i18nFile)));
+        Files.toByteArray(i18nFile)));
     assertTrue(Arrays.equals(I18N.getBytes(Charsets.UTF_8),
-            Files.asByteSource(i18nFile).read()));
+        Files.asByteSource(i18nFile).read()));
   }
 
   public void testReadFile_withCorrectSize() throws IOException {
@@ -524,7 +524,7 @@ public class FilesTest extends IoTestCase {
   public void testReadLines_withLineProcessor() throws IOException {
     File temp = createTempFile();
     LineProcessor<List<String>> collect =
-    new LineProcessor<List<String>>() {
+        new LineProcessor<List<String>>() {
       List<String> collector = new ArrayList<>();
 
       @Override
@@ -551,7 +551,7 @@ public class FilesTest extends IoTestCase {
     .containsExactly("hello", "", " world  ", "").inOrder();
 
     LineProcessor<List<String>> collectNonEmptyLines =
-    new LineProcessor<List<String>>() {
+        new LineProcessor<List<String>>() {
       List<String> collector = new ArrayList<>();
 
       @Override
@@ -569,7 +569,7 @@ public class FilesTest extends IoTestCase {
     };
     Files.readLines(temp, Charsets.UTF_8, collectNonEmptyLines);
     assertThat(collectNonEmptyLines.getResult()).containsExactly(
-        "hello", " world  ").inOrder();
+      "hello", " world  ").inOrder();
 
     assertTrue(temp.delete());
   }

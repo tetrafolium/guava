@@ -39,10 +39,10 @@ public class MultiReaderTest extends TestCase {
           throw new IllegalStateException("More than one source open");
         }
         return new FilterReader(source.openStream()) {
-          @Override public void close() throws IOException {
-            super.close();
-            counter[0]--;
-          }
+                 @Override public void close() throws IOException {
+                   super.close();
+                   counter[0]--;
+                 }
         };
       }
     };
@@ -74,10 +74,10 @@ public class MultiReaderTest extends TestCase {
 
   private static CharSource newCharSource(final String text) {
     return new CharSource() {
-      @Override
-      public Reader openStream() {
-        return new StringReader(text);
-      }
+             @Override
+             public Reader openStream() {
+               return new StringReader(text);
+             }
     };
   }
 

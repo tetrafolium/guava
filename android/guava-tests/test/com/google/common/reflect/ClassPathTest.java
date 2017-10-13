@@ -67,10 +67,10 @@ public class ClassPathTest extends TestCase {
     .addEqualityGroup(classInfo(ClassPathTest.class), classInfo(ClassPathTest.class))
     .addEqualityGroup(classInfo(Test.class), classInfo(Test.class, getClass().getClassLoader()))
     .addEqualityGroup(
-        new ResourceInfo("a/b/c.txt", getClass().getClassLoader()),
-        new ResourceInfo("a/b/c.txt", getClass().getClassLoader()))
+      new ResourceInfo("a/b/c.txt", getClass().getClassLoader()),
+      new ResourceInfo("a/b/c.txt", getClass().getClassLoader()))
     .addEqualityGroup(
-        new ResourceInfo("x.txt", getClass().getClassLoader()))
+      new ResourceInfo("x.txt", getClass().getClassLoader()))
     .testEquals();
   }
 
@@ -94,7 +94,8 @@ public class ClassPathTest extends TestCase {
     URL url1 = new URL("file:/a");
     URL url2 = new URL("file:/b");
     URLClassLoader parent = new URLClassLoader(new URL[] {url1}, null);
-    URLClassLoader child = new URLClassLoader(new URL[] {url2}, parent) {};
+    URLClassLoader child = new URLClassLoader(new URL[] {url2}, parent) {
+    };
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
     .containsExactly(new File("/a"), parent, new File("/b"), child)
     .inOrder();
@@ -104,21 +105,24 @@ public class ClassPathTest extends TestCase {
   public void testClassPathEntries_duplicateUri_parentWins() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
-    URLClassLoader child = new URLClassLoader(new URL[] {url}, parent) {};
+    URLClassLoader child = new URLClassLoader(new URL[] {url}, parent) {
+    };
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
     .containsExactly(new File("/a"), parent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
   public void testClassPathEntries_notURLClassLoader_noParent() {
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(null) {})).isEmpty();
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(null) {
+    })).isEmpty();
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
   public void testClassPathEntries_notURLClassLoader_withParent() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {
+    }))
     .containsExactly(new File("/a"), parent);
   }
 
@@ -128,7 +132,8 @@ public class ClassPathTest extends TestCase {
     URL url2 = new URL("file:/b");
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url1}, null);
     URLClassLoader parent = new URLClassLoader(new URL[] {url2}, grandParent);
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {
+    }))
     .containsExactly(new File("/a"), grandParent, new File("/b"), parent);
   }
 
@@ -136,8 +141,10 @@ public class ClassPathTest extends TestCase {
   public void testClassPathEntries_notURLClassLoader_withGrandParent() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url}, null);
-    ClassLoader parent = new ClassLoader(grandParent) {};
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    ClassLoader parent = new ClassLoader(grandParent) {
+    };
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {
+    }))
     .containsExactly(new File("/a"), grandParent);
   }
 
@@ -220,7 +227,7 @@ public class ClassPathTest extends TestCase {
   public void testGetClassPathEntry() throws MalformedURLException, URISyntaxException {
     assertEquals(new File("/usr/test/dep.jar").toURI(),
         ClassPath.Scanner.getClassPathEntry(
-            new File("/home/build/outer.jar"), "file:/usr/test/dep.jar").toURI());
+          new File("/home/build/outer.jar"), "file:/usr/test/dep.jar").toURI());
     assertEquals(new File("/home/build/a.jar").toURI(),
         ClassPath.Scanner.getClassPathEntry(new File("/home/build/outer.jar"), "a.jar").toURI());
     assertEquals(new File("/home/build/x/y/z").toURI(),
@@ -306,9 +313,9 @@ public class ClassPathTest extends TestCase {
     Manifest manifest = manifestClasspath("file:/with/absolute.jar relative.jar  relative/dir");
     assertThat(ClassPath.Scanner.getClassPathFromManifest(jarFile, manifest))
     .containsExactly(
-        fullpath("/with/absolute.jar"),
-        fullpath("base/relative.jar"),
-        fullpath("base/relative/dir"))
+      fullpath("/with/absolute.jar"),
+      fullpath("base/relative.jar"),
+      fullpath("base/relative/dir"))
     .inOrder();
   }
 
@@ -368,13 +375,13 @@ public class ClassPathTest extends TestCase {
     String oldClassPath = JAVA_CLASS_PATH.value();
     System.setProperty(PATH_SEPARATOR.key(), ":");
     System.setProperty(
-        JAVA_CLASS_PATH.key(),
-        Joiner.on(":")
-        .join(
-            "relative/path/to/some.jar",
-            "/absolute/path/to/some.jar",
-            "relative/path/to/class/root",
-            "/absolute/path/to/class/root"));
+      JAVA_CLASS_PATH.key(),
+      Joiner.on(":")
+      .join(
+        "relative/path/to/some.jar",
+        "/absolute/path/to/some.jar",
+        "relative/path/to/class/root",
+        "/absolute/path/to/class/root"));
     try {
       ImmutableList<URL> urls = ClassPath.Scanner.parseJavaClassPath();
 
@@ -437,7 +444,7 @@ public class ClassPathTest extends TestCase {
     }
     assertThat(file).isNotNull();
     SecurityManager disallowFilesSecurityManager =
-    new SecurityManager() {
+        new SecurityManager() {
       @Override
       public void checkPermission(Permission p) {
         if (readClassPathFiles.implies(p)) {
@@ -459,7 +466,7 @@ public class ClassPathTest extends TestCase {
   }
 
   private static ClassPath.ClassInfo findClass(
-      Iterable<ClassPath.ClassInfo> classes, Class<?> cls) {
+    Iterable<ClassPath.ClassInfo> classes, Class<?> cls) {
     for (ClassPath.ClassInfo classInfo : classes) {
       if (classInfo.getName().equals(cls.getName())) {
         return classInfo;

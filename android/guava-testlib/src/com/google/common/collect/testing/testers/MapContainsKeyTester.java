@@ -72,8 +72,8 @@ public class MapContainsKeyTester<K, V> extends AbstractMapTester<K, V> {
     try {
       //noinspection SuspiciousMethodCalls
       assertFalse(
-          "containsKey(wrongType) should return false or throw",
-          getMap().containsKey(WrongType.VALUE));
+        "containsKey(wrongType) should return false or throw",
+        getMap().containsKey(WrongType.VALUE));
     } catch (ClassCastException tolerated) {
     }
   }

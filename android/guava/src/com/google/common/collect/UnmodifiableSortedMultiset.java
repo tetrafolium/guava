@@ -95,9 +95,9 @@ final class UnmodifiableSortedMultiset<E> extends UnmodifiableMultiset<E>
 
   @Override
   public SortedMultiset<E> subMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+    E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
     return Multisets.unmodifiableSortedMultiset(
-            delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType));
+      delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType));
   }
 
   @Override

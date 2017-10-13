@@ -438,7 +438,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
       if (contents.length < minCapacity) {
         this.contents =
             Arrays.copyOf(
-                this.contents, expandedCapacity(contents.length, minCapacity));
+          this.contents, expandedCapacity(contents.length, minCapacity));
         forceCopy = false;
       } else if (forceCopy) {
         this.contents = contents.clone();
@@ -469,7 +469,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
     @Override
     public Builder<E> addAll(Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
-        Collection<?> collection = (Collection<?>) elements;
+        Collection<?> collection = (Collection<?>)elements;
         getReadyToExpandTo(size + collection.size());
       }
       super.addAll(elements);

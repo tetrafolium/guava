@@ -165,34 +165,34 @@ final class BenchmarkHelpers {
     HashMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+        Multimap<K, V> contents) {
         return HashMultimap.create(contents);
       }
     },
     LinkedHashMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+        Multimap<K, V> contents) {
         return LinkedHashMultimap.create(contents);
       }
     },
     TreeMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+        Multimap<K, V> contents) {
         return TreeMultimap.create(contents);
       }
     },
     ImmutableSetMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+        Multimap<K, V> contents) {
         return ImmutableSetMultimap.copyOf(contents);
       }
     };
 
     abstract <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-        Multimap<K, V> contents);
+      Multimap<K, V> contents);
   }
 
   public enum MapImpl implements MapsImplEnum {
@@ -373,14 +373,14 @@ final class BenchmarkHelpers {
     HashBasedTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+        Table<R, C, V> contents) {
         return HashBasedTable.create(contents);
       }
     },
     TreeBasedTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+        Table<R, C, V> contents) {
         Table<R, C, V> table = TreeBasedTable.create();
         table.putAll(contents);
         return table;
@@ -389,7 +389,7 @@ final class BenchmarkHelpers {
     ArrayTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+        Table<R, C, V> contents) {
         if (contents.isEmpty()) {
           return ImmutableTable.of();
         } else {
@@ -400,7 +400,7 @@ final class BenchmarkHelpers {
     ImmutableTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+        Table<R, C, V> contents) {
         return ImmutableTable.copyOf(contents);
       }
     };

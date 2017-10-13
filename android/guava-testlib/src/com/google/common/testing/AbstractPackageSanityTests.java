@@ -117,20 +117,20 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
   /* The names of the expected method that tests null checks. */
   private static final ImmutableList<String> NULL_TEST_METHOD_NAMES = ImmutableList.of(
-          "testNulls", "testNull",
-          "testNullPointers", "testNullPointer",
-          "testNullPointerExceptions", "testNullPointerException");
+    "testNulls", "testNull",
+    "testNullPointers", "testNullPointer",
+    "testNullPointerExceptions", "testNullPointerException");
 
   /* The names of the expected method that tests serializable. */
   private static final ImmutableList<String> SERIALIZABLE_TEST_METHOD_NAMES = ImmutableList.of(
-          "testSerializable", "testSerialization",
-          "testEqualsAndSerializable", "testEqualsAndSerialization");
+    "testSerializable", "testSerialization",
+    "testEqualsAndSerializable", "testEqualsAndSerialization");
 
   /* The names of the expected method that tests equals. */
   private static final ImmutableList<String> EQUALS_TEST_METHOD_NAMES = ImmutableList.of(
-          "testEquals", "testEqualsAndHashCode",
-          "testEqualsAndSerializable", "testEqualsAndSerialization",
-          "testEquality");
+    "testEquals", "testEqualsAndHashCode",
+    "testEqualsAndSerializable", "testEqualsAndSerialization",
+    "testEquality");
 
   private static final Chopper TEST_SUFFIX =
       suffix("Test")
@@ -298,11 +298,11 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   }
 
   private static AssertionFailedError sanityError(
-      Class<?> cls, List<String> explicitTestNames, String description, Throwable e) {
+    Class<?> cls, List<String> explicitTestNames, String description, Throwable e) {
     String message = String.format(Locale.ROOT,
-            "Error in automated %s of %s\n"
-            + "If the class is better tested explicitly, you can add %s() to %sTest",
-            description, cls, explicitTestNames.get(0), cls.getName());
+        "Error in automated %s of %s\n"
+        + "If the class is better tested explicitly, you can add %s() to %sTest",
+        description, cls, explicitTestNames.get(0), cls.getName());
     AssertionFailedError error = new AssertionFailedError(message);
     error.initCause(e);
     return error;
@@ -313,7 +313,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    * whose name is {@code explicitTestName}.
    */
   @VisibleForTesting List<Class<?>> findClassesToTest(
-      Iterable<? extends Class<?>> classes, Iterable<String> explicitTestNames) {
+    Iterable<? extends Class<?>> classes, Iterable<String> explicitTestNames) {
     // "a.b.Foo" -> a.b.Foo.class
     TreeMap<String, Class<?>> classMap = Maps.newTreeMap();
     for (Class<?> cls : classes) {
@@ -334,7 +334,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
       }
     }
     List<Class<?>> result = Lists.newArrayList();
-    NEXT_CANDIDATE: for (Class<?> candidate : Iterables.filter(candidateClasses, classFilter)) {
+    NEXT_CANDIDATE : for (Class<?> candidate : Iterables.filter(candidateClasses, classFilter)) {
       for (Class<?> testClass : testClasses.get(candidate)) {
         if (hasTest(testClass, explicitTestNames)) {
           // covered by explicit test
@@ -391,9 +391,9 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     final Chopper or(final Chopper you) {
       final Chopper i = this;
       return new Chopper() {
-        @Override Optional<String> chop(String str) {
-          return i.chop(str).or(you.chop(str));
-        }
+               @Override Optional<String> chop(String str) {
+                 return i.chop(str).or(you.chop(str));
+               }
       };
     }
 
@@ -401,13 +401,13 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
     static Chopper suffix(final String suffix) {
       return new Chopper() {
-        @Override Optional<String> chop(String str) {
-          if (str.endsWith(suffix)) {
-            return Optional.of(str.substring(0, str.length() - suffix.length()));
-          } else {
-            return Optional.absent();
-          }
-        }
+               @Override Optional<String> chop(String str) {
+                 if (str.endsWith(suffix)) {
+                   return Optional.of(str.substring(0, str.length() - suffix.length()));
+                 } else {
+                   return Optional.absent();
+                 }
+               }
       };
     }
   }

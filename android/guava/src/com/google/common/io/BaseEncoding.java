@@ -173,10 +173,10 @@ public abstract class BaseEncoding {
   public final ByteSink encodingSink(final CharSink encodedSink) {
     checkNotNull(encodedSink);
     return new ByteSink() {
-      @Override
-      public OutputStream openStream() throws IOException {
-        return encodingStream(encodedSink.openStream());
-      }
+             @Override
+             public OutputStream openStream() throws IOException {
+               return encodingStream(encodedSink.openStream());
+             }
     };
   }
 
@@ -221,7 +221,7 @@ public abstract class BaseEncoding {
    *
    * @throws DecodingException if the input is not a valid encoded string according to this
    *     encoding.
-   */ final byte[] decodeChecked(CharSequence chars)
+   */final byte[] decodeChecked(CharSequence chars)
   throws DecodingException {
     chars = trimTrailingPadding(chars);
     byte[] tmp = new byte[maxDecodedSize(chars.length())];
@@ -245,10 +245,10 @@ public abstract class BaseEncoding {
   public final ByteSource decodingSource(final CharSource encodedSource) {
     checkNotNull(encodedSource);
     return new ByteSource() {
-      @Override
-      public InputStream openStream() throws IOException {
-        return decodingStream(encodedSource.openStream());
-      }
+             @Override
+             public InputStream openStream() throws IOException {
+               return decodingStream(encodedSource.openStream());
+             }
     };
   }
 
@@ -315,7 +315,7 @@ public abstract class BaseEncoding {
 
   private static final BaseEncoding BASE64 =
       new Base64Encoding(
-      "base64()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", '=');
+    "base64()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", '=');
 
   /**
    * The "base64" base encoding specified by
@@ -336,7 +336,7 @@ public abstract class BaseEncoding {
 
   private static final BaseEncoding BASE64_URL =
       new Base64Encoding(
-      "base64Url()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", '=');
+    "base64Url()", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_", '=');
 
   /**
    * The "base64url" encoding specified by
@@ -572,9 +572,9 @@ public abstract class BaseEncoding {
     StandardBaseEncoding(Alphabet alphabet, @Nullable Character paddingChar) {
       this.alphabet = checkNotNull(alphabet);
       checkArgument(
-          paddingChar == null || !alphabet.matches(paddingChar),
-          "Padding character %s was already in alphabet",
-          paddingChar);
+        paddingChar == null || !alphabet.matches(paddingChar),
+        "Padding character %s was already in alphabet",
+        paddingChar);
       this.paddingChar = paddingChar;
     }
 
@@ -588,43 +588,43 @@ public abstract class BaseEncoding {
     public OutputStream encodingStream(final Writer out) {
       checkNotNull(out);
       return new OutputStream() {
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int writtenChars = 0;
+               int bitBuffer = 0;
+               int bitBufferLength = 0;
+               int writtenChars = 0;
 
-        @Override
-        public void write(int b) throws IOException {
-          bitBuffer <<= 8;
-          bitBuffer |= b & 0xFF;
-          bitBufferLength += 8;
-          while (bitBufferLength >= alphabet.bitsPerChar) {
-            int charIndex = (bitBuffer >> (bitBufferLength - alphabet.bitsPerChar)) & alphabet.mask;
-            out.write(alphabet.encode(charIndex));
-            writtenChars++;
-            bitBufferLength -= alphabet.bitsPerChar;
-          }
-        }
+               @Override
+               public void write(int b) throws IOException {
+                 bitBuffer <<= 8;
+                 bitBuffer |= b & 0xFF;
+                 bitBufferLength += 8;
+                 while (bitBufferLength >= alphabet.bitsPerChar) {
+                   int charIndex = (bitBuffer >> (bitBufferLength - alphabet.bitsPerChar)) & alphabet.mask;
+                   out.write(alphabet.encode(charIndex));
+                   writtenChars++;
+                   bitBufferLength -= alphabet.bitsPerChar;
+                 }
+               }
 
-        @Override
-        public void flush() throws IOException {
-          out.flush();
-        }
+               @Override
+               public void flush() throws IOException {
+                 out.flush();
+               }
 
-        @Override
-        public void close() throws IOException {
-          if (bitBufferLength > 0) {
-            int charIndex = (bitBuffer << (alphabet.bitsPerChar - bitBufferLength)) & alphabet.mask;
-            out.write(alphabet.encode(charIndex));
-            writtenChars++;
-            if (paddingChar != null) {
-              while (writtenChars % alphabet.charsPerChunk != 0) {
-                out.write(paddingChar.charValue());
-                writtenChars++;
-              }
-            }
-          }
-          out.close();
-        }
+               @Override
+               public void close() throws IOException {
+                 if (bitBufferLength > 0) {
+                   int charIndex = (bitBuffer << (alphabet.bitsPerChar - bitBufferLength)) & alphabet.mask;
+                   out.write(alphabet.encode(charIndex));
+                   writtenChars++;
+                   if (paddingChar != null) {
+                     while (writtenChars % alphabet.charsPerChunk != 0) {
+                       out.write(paddingChar.charValue());
+                       writtenChars++;
+                     }
+                   }
+                 }
+                 out.close();
+               }
       };
     }
 
@@ -728,49 +728,49 @@ public abstract class BaseEncoding {
     public InputStream decodingStream(final Reader reader) {
       checkNotNull(reader);
       return new InputStream() {
-        int bitBuffer = 0;
-        int bitBufferLength = 0;
-        int readChars = 0;
-        boolean hitPadding = false;
+               int bitBuffer = 0;
+               int bitBufferLength = 0;
+               int readChars = 0;
+               boolean hitPadding = false;
 
-        @Override
-        public int read() throws IOException {
-          while (true) {
-            int readChar = reader.read();
-            if (readChar == -1) {
-              if (!hitPadding && !alphabet.isValidPaddingStartPosition(readChars)) {
-                throw new DecodingException("Invalid input length " + readChars);
-              }
-              return -1;
-            }
-            readChars++;
-            char ch = (char) readChar;
-            if (paddingChar != null && paddingChar.charValue() == ch) {
-              if (!hitPadding
-                  && (readChars == 1 || !alphabet.isValidPaddingStartPosition(readChars - 1))) {
-                throw new DecodingException("Padding cannot start at index " + readChars);
-              }
-              hitPadding = true;
-            } else if (hitPadding) {
-              throw new DecodingException(
-                  "Expected padding character but found '" + ch + "' at index " + readChars);
-            } else {
-              bitBuffer <<= alphabet.bitsPerChar;
-              bitBuffer |= alphabet.decode(ch);
-              bitBufferLength += alphabet.bitsPerChar;
+               @Override
+               public int read() throws IOException {
+                 while (true) {
+                   int readChar = reader.read();
+                   if (readChar == -1) {
+                     if (!hitPadding && !alphabet.isValidPaddingStartPosition(readChars)) {
+                       throw new DecodingException("Invalid input length " + readChars);
+                     }
+                     return -1;
+                   }
+                   readChars++;
+                   char ch = (char) readChar;
+                   if (paddingChar != null && paddingChar.charValue() == ch) {
+                     if (!hitPadding
+                         && (readChars == 1 || !alphabet.isValidPaddingStartPosition(readChars - 1))) {
+                       throw new DecodingException("Padding cannot start at index " + readChars);
+                     }
+                     hitPadding = true;
+                   } else if (hitPadding) {
+                     throw new DecodingException(
+                             "Expected padding character but found '" + ch + "' at index " + readChars);
+                   } else {
+                     bitBuffer <<= alphabet.bitsPerChar;
+                     bitBuffer |= alphabet.decode(ch);
+                     bitBufferLength += alphabet.bitsPerChar;
 
-              if (bitBufferLength >= 8) {
-                bitBufferLength -= 8;
-                return (bitBuffer >> bitBufferLength) & 0xFF;
-              }
-            }
-          }
-        }
+                     if (bitBufferLength >= 8) {
+                       bitBufferLength -= 8;
+                       return (bitBuffer >> bitBufferLength) & 0xFF;
+                     }
+                   }
+                 }
+               }
 
-        @Override
-        public void close() throws IOException {
-          reader.close();
-        }
+               @Override
+               public void close() throws IOException {
+                 reader.close();
+               }
       };
     }
 
@@ -793,15 +793,15 @@ public abstract class BaseEncoding {
     public BaseEncoding withSeparator(String separator, int afterEveryChars) {
       for (int i = 0; i < separator.length(); i++) {
         checkArgument(
-            !alphabet.matches(separator.charAt(i)),
-            "Separator (%s) cannot contain alphabet characters",
-            separator);
+          !alphabet.matches(separator.charAt(i)),
+          "Separator (%s) cannot contain alphabet characters",
+          separator);
       }
       if (paddingChar != null) {
         checkArgument(
-            separator.indexOf(paddingChar.charValue()) < 0,
-            "Separator (%s) cannot contain padding character",
-            separator);
+          separator.indexOf(paddingChar.charValue()) < 0,
+          "Separator (%s) cannot contain padding character",
+          separator);
       }
       return new SeparatedBaseEncoding(this, separator, afterEveryChars);
     }
@@ -815,7 +815,7 @@ public abstract class BaseEncoding {
       if (result == null) {
         Alphabet upper = alphabet.upperCase();
         result = upperCase =
-                (upper == alphabet) ? this : newInstance(upper, paddingChar);
+            (upper == alphabet) ? this : newInstance(upper, paddingChar);
       }
       return result;
     }
@@ -826,7 +826,7 @@ public abstract class BaseEncoding {
       if (result == null) {
         Alphabet lower = alphabet.lowerCase();
         result = lowerCase =
-                (lower == alphabet) ? this : newInstance(lower, paddingChar);
+            (lower == alphabet) ? this : newInstance(lower, paddingChar);
       }
       return result;
     }
@@ -854,7 +854,7 @@ public abstract class BaseEncoding {
       if (other instanceof StandardBaseEncoding) {
         StandardBaseEncoding that = (StandardBaseEncoding) other;
         return this.alphabet.equals(that.alphabet)
-            && Objects.equal(this.paddingChar, that.paddingChar);
+               && Objects.equal(this.paddingChar, that.paddingChar);
       }
       return false;
     }
@@ -947,7 +947,7 @@ public abstract class BaseEncoding {
         throw new DecodingException("Invalid input length " + chars.length());
       }
       int bytesWritten = 0;
-      for (int i = 0; i < chars.length();) {
+      for (int i = 0; i < chars.length(); ) {
         int chunk = alphabet.decode(chars.charAt(i++)) << 18;
         chunk |= alphabet.decode(chars.charAt(i++)) << 12;
         target[bytesWritten++] = (byte) (chunk >>> 16);
@@ -974,83 +974,83 @@ public abstract class BaseEncoding {
     checkNotNull(delegate);
     checkNotNull(toIgnore);
     return new Reader() {
-      @Override
-      public int read() throws IOException {
-        int readChar;
-        do {
-          readChar = delegate.read();
-        } while (readChar != -1 && toIgnore.indexOf((char) readChar) >= 0);
-        return readChar;
-      }
+             @Override
+             public int read() throws IOException {
+               int readChar;
+               do {
+                 readChar = delegate.read();
+               } while (readChar != -1 && toIgnore.indexOf((char) readChar) >= 0);
+               return readChar;
+             }
 
-      @Override
-      public int read(char[] cbuf, int off, int len) throws IOException {
-        throw new UnsupportedOperationException();
-      }
+             @Override
+             public int read(char[] cbuf, int off, int len) throws IOException {
+               throw new UnsupportedOperationException();
+             }
 
-      @Override
-      public void close() throws IOException {
-        delegate.close();
-      }
+             @Override
+             public void close() throws IOException {
+               delegate.close();
+             }
     };
   }
 
   static Appendable separatingAppendable(
-      final Appendable delegate, final String separator, final int afterEveryChars) {
+    final Appendable delegate, final String separator, final int afterEveryChars) {
     checkNotNull(delegate);
     checkNotNull(separator);
     checkArgument(afterEveryChars > 0);
     return new Appendable() {
-      int charsUntilSeparator = afterEveryChars;
+             int charsUntilSeparator = afterEveryChars;
 
-      @Override
-      public Appendable append(char c) throws IOException {
-        if (charsUntilSeparator == 0) {
-          delegate.append(separator);
-          charsUntilSeparator = afterEveryChars;
-        }
-        delegate.append(c);
-        charsUntilSeparator--;
-        return this;
-      }
+             @Override
+             public Appendable append(char c) throws IOException {
+               if (charsUntilSeparator == 0) {
+                 delegate.append(separator);
+                 charsUntilSeparator = afterEveryChars;
+               }
+               delegate.append(c);
+               charsUntilSeparator--;
+               return this;
+             }
 
-      @Override
-      public Appendable append(CharSequence chars, int off, int len) throws IOException {
-        throw new UnsupportedOperationException();
-      }
+             @Override
+             public Appendable append(CharSequence chars, int off, int len) throws IOException {
+               throw new UnsupportedOperationException();
+             }
 
-      @Override
-      public Appendable append(CharSequence chars) throws IOException {
-        throw new UnsupportedOperationException();
-      }
+             @Override
+             public Appendable append(CharSequence chars) throws IOException {
+               throw new UnsupportedOperationException();
+             }
     };
   }
 
   @GwtIncompatible // Writer
   static Writer separatingWriter(
-      final Writer delegate, final String separator, final int afterEveryChars) {
+    final Writer delegate, final String separator, final int afterEveryChars) {
     final Appendable seperatingAppendable =
         separatingAppendable(delegate, separator, afterEveryChars);
     return new Writer() {
-      @Override
-      public void write(int c) throws IOException {
-        seperatingAppendable.append((char) c);
-      }
+             @Override
+             public void write(int c) throws IOException {
+               seperatingAppendable.append((char) c);
+             }
 
-      @Override
-      public void write(char[] chars, int off, int len) throws IOException {
-        throw new UnsupportedOperationException();
-      }
+             @Override
+             public void write(char[] chars, int off, int len) throws IOException {
+               throw new UnsupportedOperationException();
+             }
 
-      @Override
-      public void flush() throws IOException {
-        delegate.flush();
-      }
+             @Override
+             public void flush() throws IOException {
+               delegate.flush();
+             }
 
-      @Override
-      public void close() throws IOException {
-        delegate.close();
-      }
+             @Override
+             public void close() throws IOException {
+               delegate.close();
+             }
     };
   }
 
@@ -1064,7 +1064,7 @@ public abstract class BaseEncoding {
       this.separator = checkNotNull(separator);
       this.afterEveryChars = afterEveryChars;
       checkArgument(
-          afterEveryChars > 0, "Cannot add a separator after every %s chars", afterEveryChars);
+        afterEveryChars > 0, "Cannot add a separator after every %s chars", afterEveryChars);
     }
 
     @Override
@@ -1076,7 +1076,7 @@ public abstract class BaseEncoding {
     int maxEncodedSize(int bytes) {
       int unseparatedSize = delegate.maxEncodedSize(bytes);
       return unseparatedSize
-          + separator.length() * divide(Math.max(0, unseparatedSize - 1), afterEveryChars, FLOOR);
+             + separator.length() * divide(Math.max(0, unseparatedSize - 1), afterEveryChars, FLOOR);
     }
 
     @GwtIncompatible // Writer,OutputStream

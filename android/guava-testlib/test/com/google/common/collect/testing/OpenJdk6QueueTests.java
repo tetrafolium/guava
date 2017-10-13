@@ -37,7 +37,7 @@ public class OpenJdk6QueueTests extends TestsForQueuesInJavaUtil {
   }
 
   private static final List<Method> PQ_SUPPRESS = Arrays.asList(
-          getCreateWithNullUnsupportedMethod());
+    getCreateWithNullUnsupportedMethod());
 
   @Override protected Collection<Method> suppressForPriorityBlockingQueue() {
     return PQ_SUPPRESS;

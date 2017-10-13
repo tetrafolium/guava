@@ -39,7 +39,7 @@ public class ThreadFactoryBuilderTest extends TestCase {
   };
 
   private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER =
-  new UncaughtExceptionHandler() {
+      new UncaughtExceptionHandler() {
     @Override public void uncaughtException(Thread t, Throwable e) {
       // No-op
     }
@@ -75,17 +75,17 @@ public class ThreadFactoryBuilderTest extends TestCase {
     Thread thread2 = threadFactory.newThread(monitoredRunnable);
     checkThreadPoolName(thread2, 2);
     assertEquals(
-        thread.getName().substring(0, thread.getName().lastIndexOf('-')),
-        thread2.getName().substring(0, thread.getName().lastIndexOf('-')));
+      thread.getName().substring(0, thread.getName().lastIndexOf('-')),
+      thread2.getName().substring(0, thread.getName().lastIndexOf('-')));
 
     // Building again should give us a different pool ID.
     ThreadFactory threadFactory2 = builder.build();
     Thread thread3 = threadFactory2.newThread(monitoredRunnable);
     checkThreadPoolName(thread3, 1);
     assertThat(
-        thread2.getName().substring(0, thread.getName().lastIndexOf('-')))
+      thread2.getName().substring(0, thread.getName().lastIndexOf('-')))
     .isNotEqualTo(
-        thread3.getName().substring(0, thread.getName().lastIndexOf('-')));
+      thread3.getName().substring(0, thread.getName().lastIndexOf('-')));
   }
 
   private static void checkThreadPoolName(Thread thread, int threadId) {

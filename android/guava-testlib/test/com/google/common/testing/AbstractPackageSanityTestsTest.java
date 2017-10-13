@@ -31,7 +31,8 @@ import junit.framework.TestCase;
  */
 public class AbstractPackageSanityTestsTest extends TestCase {
 
-  private final AbstractPackageSanityTests sanityTests = new AbstractPackageSanityTests() {};
+  private final AbstractPackageSanityTests sanityTests = new AbstractPackageSanityTests() {
+  };
 
   public void testFindClassesToTest_testClass() {
     assertThat(findClassesToTest(ImmutableList.of(EmptyTest.class)))
@@ -120,7 +121,7 @@ public class AbstractPackageSanityTestsTest extends TestCase {
   }
 
   private List<Class<?>> findClassesToTest(
-      Iterable<? extends Class<?>> classes, String... explicitTestNames) {
+    Iterable<? extends Class<?>> classes, String... explicitTestNames) {
     return sanityTests.findClassesToTest(classes, Arrays.asList(explicitTestNames));
   }
 }

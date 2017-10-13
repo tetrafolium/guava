@@ -85,11 +85,11 @@ public class EscapersTest extends TestCase {
 
   public void testAsUnicodeEscaper() throws IOException {
     CharEscaper charEscaper = createSimpleCharEscaper(
-            ImmutableMap.<Character, char[]>builder()
-            .put('x', "<hello>".toCharArray())
-            .put('\uD800', "<hi>".toCharArray())
-            .put('\uDC00', "<lo>".toCharArray())
-            .build());
+      ImmutableMap.<Character, char[]>builder()
+      .put('x', "<hello>".toCharArray())
+      .put('\uD800', "<hi>".toCharArray())
+      .put('\uDC00', "<lo>".toCharArray())
+      .build());
     UnicodeEscaper unicodeEscaper = Escapers.asUnicodeEscaper(charEscaper);
     EscaperAsserts.assertBasic(unicodeEscaper);
     assertEquals("<hello><hi><lo>", charEscaper.escape("x\uD800\uDC00"));
@@ -114,21 +114,21 @@ public class EscapersTest extends TestCase {
 
   // A trival non-optimized escaper for testing.
   static CharEscaper createSimpleCharEscaper(
-      final ImmutableMap<Character, char[]> replacementMap) {
+    final ImmutableMap<Character, char[]> replacementMap) {
     return new CharEscaper() {
-      @Override protected char[] escape(char c) {
-        return replacementMap.get(c);
-      }
+             @Override protected char[] escape(char c) {
+               return replacementMap.get(c);
+             }
     };
   }
 
   // A trival non-optimized escaper for testing.
   static UnicodeEscaper createSimpleUnicodeEscaper(
-      final ImmutableMap<Integer, char[]> replacementMap) {
+    final ImmutableMap<Integer, char[]> replacementMap) {
     return new UnicodeEscaper() {
-      @Override protected char[] escape(int cp) {
-        return replacementMap.get(cp);
-      }
+             @Override protected char[] escape(int cp) {
+               return replacementMap.get(cp);
+             }
     };
   }
 }

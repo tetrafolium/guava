@@ -36,8 +36,8 @@ public class ImmutableMultimapTest extends TestCase {
 
   public void testBuilder_withImmutableEntry() {
     ImmutableMultimap<String, Integer> multimap = new Builder<String, Integer>()
-    .put(Maps.immutableEntry("one", 1))
-    .build();
+        .put(Maps.immutableEntry("one", 1))
+        .build();
     assertEquals(Arrays.asList(1), multimap.get("one"));
   }
 
@@ -98,7 +98,7 @@ public class ImmutableMultimapTest extends TestCase {
   public void testUnhashableSingletonValue() {
     SampleElements<UnhashableObject> unhashables = new Unhashables();
     Multimap<Integer, UnhashableObject> multimap = ImmutableMultimap.of(
-            0, unhashables.e0());
+      0, unhashables.e0());
     assertEquals(1, multimap.get(0).size());
     assertTrue(multimap.get(0).contains(unhashables.e0()));
   }
@@ -106,7 +106,7 @@ public class ImmutableMultimapTest extends TestCase {
   public void testUnhashableMixedValues() {
     SampleElements<UnhashableObject> unhashables = new Unhashables();
     Multimap<Integer, Object> multimap = ImmutableMultimap.<Integer, Object>of(
-            0, unhashables.e0(), 2, "hey you", 0, unhashables.e1());
+      0, unhashables.e0(), 2, "hey you", 0, unhashables.e1());
     assertEquals(2, multimap.get(0).size());
     assertTrue(multimap.get(0).contains(unhashables.e0()));
     assertTrue(multimap.get(0).contains(unhashables.e1()));
@@ -118,8 +118,8 @@ public class ImmutableMultimapTest extends TestCase {
     .addEqualityGroup(ImmutableMultimap.of(), ImmutableMultimap.of())
     .addEqualityGroup(ImmutableMultimap.of(1, "a"), ImmutableMultimap.of(1, "a"))
     .addEqualityGroup(
-        ImmutableMultimap.of(1, "a", 2, "b"),
-        ImmutableMultimap.of(2, "b", 1, "a"))
+      ImmutableMultimap.of(1, "a", 2, "b"),
+      ImmutableMultimap.of(2, "b", 1, "a"))
     .testEquals();
   }
 }

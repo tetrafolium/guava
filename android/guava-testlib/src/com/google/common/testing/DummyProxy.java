@@ -49,9 +49,9 @@ abstract class DummyProxy {
     // Make the proxy serializable to work with SerializableTester
     interfaceClasses.add(Serializable.class);
     Object dummy = Proxy.newProxyInstance(
-            interfaceClasses.iterator().next().getClassLoader(),
-            interfaceClasses.toArray(new Class<?>[interfaceClasses.size()]),
-            new DummyHandler(interfaceType));
+      interfaceClasses.iterator().next().getClassLoader(),
+      interfaceClasses.toArray(new Class<?>[interfaceClasses.size()]),
+      new DummyHandler(interfaceType));
     @SuppressWarnings("unchecked") // interfaceType is T
     T result = (T) dummy;
     return result;
@@ -68,7 +68,7 @@ abstract class DummyProxy {
     }
 
     @Override protected Object handleInvocation(
-        Object proxy, Method method, Object[] args) {
+      Object proxy, Method method, Object[] args) {
       Invokable<?, ?> invokable = interfaceType.method(method);
       ImmutableList<Parameter> params = invokable.getParameters();
       for (int i = 0; i < args.length; i++) {

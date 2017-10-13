@@ -289,7 +289,7 @@ public class AtomicDoubleArrayTest extends JSR166TestCase {
     volatile long counts;
     Counter(AtomicDoubleArray a) { aa = a; }
     public void realRun() {
-      for (;;) {
+      for (;; ) {
         boolean done = true;
         for (int i = 0; i < aa.length(); i++) {
           double v = aa.get(i);

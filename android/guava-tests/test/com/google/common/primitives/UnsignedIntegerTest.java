@@ -59,7 +59,7 @@ public class UnsignedIntegerTest extends TestCase {
   public void testFromIntBitsAndIntValueAreInverses() {
     for (int value : TEST_INTS) {
       assertEquals(UnsignedInts.toString(value), value, UnsignedInteger.fromIntBits(value)
-          .intValue());
+            .intValue());
     }
   }
 

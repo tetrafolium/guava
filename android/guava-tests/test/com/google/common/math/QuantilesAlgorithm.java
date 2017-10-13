@@ -47,7 +47,7 @@ enum QuantilesAlgorithm {
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+      Collection<Integer> indexes, int scale, double[] dataset) {
       Arrays.sort(dataset);
       ImmutableMap.Builder<Integer, Double> builder = ImmutableMap.builder();
       for (int index : indexes) {
@@ -65,7 +65,7 @@ enum QuantilesAlgorithm {
       } else {
         double positionFrac = (double) remainder / scale;
         return dataset[positionFloor]
-            + positionFrac * (dataset[positionFloor + 1] - dataset[positionFloor]);
+               + positionFrac * (dataset[positionFloor + 1] - dataset[positionFloor]);
       }
     }
   },
@@ -87,13 +87,13 @@ enum QuantilesAlgorithm {
         double percentileCeiling = getMinValue(dataset, positionFloor + 1);
         double positionFrac = (double) remainder / scale;
         return percentileFloor
-            + positionFrac * (percentileCeiling - percentileFloor);
+               + positionFrac * (percentileCeiling - percentileFloor);
       }
     }
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+      Collection<Integer> indexes, int scale, double[] dataset) {
       ImmutableMap.Builder<Integer, Double> builder = ImmutableMap.builder();
       for (int index : indexes) {
         builder.put(index, singleQuantile(index, scale, dataset));
@@ -114,7 +114,7 @@ enum QuantilesAlgorithm {
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+      Collection<Integer> indexes, int scale, double[] dataset) {
       return Quantiles.scale(scale).indexes(indexes).computeInPlace(dataset);
     }
   },
@@ -131,7 +131,7 @@ enum QuantilesAlgorithm {
    * {@code Quantiles.scale(scale).indexes(indexes).computeInPlace(dataset)}.
    */
   abstract Map<Integer, Double> multipleQuantiles(
-      Collection<Integer> indexes, int scale, double[] dataset);
+    Collection<Integer> indexes, int scale, double[] dataset);
 
   static double getMinValue(double[] array, int from) {
     // This is basically a copy of com.google.math.Rank#getMinValue, with a small change in the

@@ -54,13 +54,13 @@ public class ForwardingSortedMultisetTest extends TestCase {
     public SortedMultiset<E> descendingMultiset() {
       return new StandardDescendingMultiset() {
 
-        @Override
-        Iterator<Entry<E>> entryIterator() {
-          return backingMultiset
-              .descendingMultiset()
-              .entrySet()
-              .iterator();
-        }
+               @Override
+               Iterator<Entry<E>> entryIterator() {
+                 return backingMultiset
+                        .descendingMultiset()
+                        .entrySet()
+                        .iterator();
+               }
       };
     }
 
@@ -91,7 +91,7 @@ public class ForwardingSortedMultisetTest extends TestCase {
 
     @Override
     public SortedMultiset<E> subMultiset(
-        E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
       return standardSubMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType);
     }
 
@@ -181,12 +181,12 @@ public class ForwardingSortedMultisetTest extends TestCase {
 
     suite.addTestSuite(ForwardingSortedMultisetTest.class);
     suite.addTest(
-        SortedMultisetTestSuiteBuilder.using(
-    new TestStringMultisetGenerator() {
+      SortedMultisetTestSuiteBuilder.using(
+        new TestStringMultisetGenerator() {
       @Override
       protected Multiset<String> create(String[] elements) {
         return new StandardImplForwardingSortedMultiset<>(
-                TreeMultiset.create(Arrays.asList(elements)));
+          TreeMultiset.create(Arrays.asList(elements)));
       }
 
       @Override
@@ -194,13 +194,13 @@ public class ForwardingSortedMultisetTest extends TestCase {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     })
-    .named("ForwardingSortedMultiset with standard impls")
-    .withFeatures(
+      .named("ForwardingSortedMultiset with standard impls")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.ALLOWS_NULL_QUERIES)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -226,9 +226,9 @@ public class ForwardingSortedMultisetTest extends TestCase {
 
   private static <T> SortedMultiset<T> wrap(final SortedMultiset<T> delegate) {
     return new ForwardingSortedMultiset<T>() {
-      @Override protected SortedMultiset<T> delegate() {
-        return delegate;
-      }
+             @Override protected SortedMultiset<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

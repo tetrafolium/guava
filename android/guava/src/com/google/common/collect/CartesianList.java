@@ -57,7 +57,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
       }
     } catch (ArithmeticException e) {
       throw new IllegalArgumentException(
-          "Cartesian product too large; must have size at most Integer.MAX_VALUE");
+              "Cartesian product too large; must have size at most Integer.MAX_VALUE");
     }
     this.axesSizeProduct = axesSizeProduct;
   }
@@ -71,22 +71,22 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
     checkElementIndex(index, size());
     return new ImmutableList<E>() {
 
-      @Override
-      public int size() {
-        return axes.size();
-      }
+             @Override
+             public int size() {
+               return axes.size();
+             }
 
-      @Override
-      public E get(int axis) {
-        checkElementIndex(axis, size());
-        int axisIndex = getAxisIndexForProductIndex(index, axis);
-        return axes.get(axis).get(axisIndex);
-      }
+             @Override
+             public E get(int axis) {
+               checkElementIndex(axis, size());
+               int axisIndex = getAxisIndexForProductIndex(index, axis);
+               return axes.get(axis).get(axisIndex);
+             }
 
-      @Override
-      boolean isPartialView() {
-        return true;
-      }
+             @Override
+             boolean isPartialView() {
+               return true;
+             }
     };
   }
 
@@ -100,7 +100,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
     if (!(o instanceof List)) {
       return false;
     }
-    List<?> list = (List<?>) o;
+    List<?> list = (List<?>)o;
     if (list.size() != axes.size()) {
       return false;
     }

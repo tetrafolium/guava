@@ -51,7 +51,7 @@ public final class JdkFutureAdapters {
    */
   public static <V> ListenableFuture<V> listenInPoolThread(Future<V> future) {
     if (future instanceof ListenableFuture) {
-      return (ListenableFuture<V>) future;
+      return (ListenableFuture<V>)future;
     }
     return new ListenableFutureAdapter<V>(future);
   }
@@ -79,7 +79,7 @@ public final class JdkFutureAdapters {
   public static <V> ListenableFuture<V> listenInPoolThread(Future<V> future, Executor executor) {
     checkNotNull(executor);
     if (future instanceof ListenableFuture) {
-      return (ListenableFuture<V>) future;
+      return (ListenableFuture<V>)future;
     }
     return new ListenableFutureAdapter<V>(future, executor);
   }
@@ -98,9 +98,9 @@ public final class JdkFutureAdapters {
 
     private static final ThreadFactory threadFactory =
         new ThreadFactoryBuilder()
-    .setDaemon(true)
-    .setNameFormat("ListenableFutureAdapter-thread-%d")
-    .build();
+        .setDaemon(true)
+        .setNameFormat("ListenableFutureAdapter-thread-%d")
+        .build();
     private static final Executor defaultAdapterExecutor =
         Executors.newCachedThreadPool(threadFactory);
 
@@ -146,7 +146,7 @@ public final class JdkFutureAdapters {
 
         // TODO(lukes): handle RejectedExecutionException
         adapterExecutor.execute(
-        new Runnable() {
+          new Runnable() {
           @Override
           public void run() {
             try {

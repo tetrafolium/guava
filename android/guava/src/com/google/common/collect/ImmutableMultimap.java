@@ -110,7 +110,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
    * <a href="#iteration">class documentation</a>.
    */
   public static <K, V> ImmutableMultimap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+    K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return ImmutableListMultimap.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5);
   }
 
@@ -270,7 +270,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
     public ImmutableMultimap<K, V> build() {
       if (valueComparator != null) {
         for (Collection<V> values : builderMultimap.asMap().values()) {
-          List<V> list = (List<V>) values;
+          List<V> list = (List<V>)values;
           Collections.sort(list, valueComparator);
         }
       }
@@ -305,7 +305,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
   public static <K, V> ImmutableMultimap<K, V> copyOf(Multimap<? extends K, ? extends V> multimap) {
     if (multimap instanceof ImmutableMultimap) {
       @SuppressWarnings("unchecked") // safe since multimap is not writable
-      ImmutableMultimap<K, V> kvMultimap = (ImmutableMultimap<K, V>) multimap;
+      ImmutableMultimap<K, V> kvMultimap = (ImmutableMultimap<K, V>)multimap;
       if (!kvMultimap.isPartialView()) {
         return kvMultimap;
       }
@@ -324,7 +324,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
    */
   @Beta
   public static <K, V> ImmutableMultimap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     return ImmutableListMultimap.copyOf(entries);
   }
 
@@ -551,7 +551,7 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
     @Override
     public boolean contains(Object object) {
       if (object instanceof Entry) {
-        Entry<?, ?> entry = (Entry<?, ?>) object;
+        Entry<?, ?> entry = (Entry<?, ?>)object;
         return multimap.containsEntry(entry.getKey(), entry.getValue());
       }
       return false;
@@ -586,10 +586,10 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
   @Override
   UnmodifiableIterator<Entry<K, V>> entryIterator() {
     return new Itr<Entry<K, V>>() {
-      @Override
-      Entry<K, V> output(K key, V value) {
-        return Maps.immutableEntry(key, value);
-      }
+             @Override
+             Entry<K, V> output(K key, V value) {
+               return Maps.immutableEntry(key, value);
+             }
     };
   }
 
@@ -662,10 +662,10 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
   @Override
   UnmodifiableIterator<V> valueIterator() {
     return new Itr<V>() {
-      @Override
-      V output(K key, V value) {
-        return value;
-      }
+             @Override
+             V output(K key, V value) {
+               return value;
+             }
     };
   }
 

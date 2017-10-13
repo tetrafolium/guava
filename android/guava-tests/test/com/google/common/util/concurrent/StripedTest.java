@@ -46,16 +46,16 @@ import junit.framework.TestCase;
 public class StripedTest extends TestCase {
   private static List<Striped<?>> strongImplementations() {
     return ImmutableList.of(
-            Striped.readWriteLock(100),
-            Striped.readWriteLock(256),
-            Striped.lock(100),
-            Striped.lock(256),
-            Striped.semaphore(100, 1),
-            Striped.semaphore(256, 1));
+      Striped.readWriteLock(100),
+      Striped.readWriteLock(256),
+      Striped.lock(100),
+      Striped.lock(256),
+      Striped.semaphore(100, 1),
+      Striped.semaphore(256, 1));
   }
 
   private static final Supplier<ReadWriteLock> READ_WRITE_LOCK_SUPPLIER =
-  new Supplier<ReadWriteLock>() {
+      new Supplier<ReadWriteLock>() {
     @Override public ReadWriteLock get() {
       return new ReentrantReadWriteLock();
     }
@@ -75,19 +75,19 @@ public class StripedTest extends TestCase {
 
   private static List<Striped<?>> weakImplementations() {
     return ImmutableList.<Striped<?>>builder()
-        .add(new Striped.SmallLazyStriped<ReadWriteLock>(50, READ_WRITE_LOCK_SUPPLIER))
-        .add(new Striped.SmallLazyStriped<ReadWriteLock>(64, READ_WRITE_LOCK_SUPPLIER))
-        .add(new Striped.LargeLazyStriped<ReadWriteLock>(50, READ_WRITE_LOCK_SUPPLIER))
-        .add(new Striped.LargeLazyStriped<ReadWriteLock>(64, READ_WRITE_LOCK_SUPPLIER))
-        .add(new Striped.SmallLazyStriped<Lock>(50, LOCK_SUPPLER))
-        .add(new Striped.SmallLazyStriped<Lock>(64, LOCK_SUPPLER))
-        .add(new Striped.LargeLazyStriped<Lock>(50, LOCK_SUPPLER))
-        .add(new Striped.LargeLazyStriped<Lock>(64, LOCK_SUPPLER))
-        .add(new Striped.SmallLazyStriped<Semaphore>(50, SEMAPHORE_SUPPLER))
-        .add(new Striped.SmallLazyStriped<Semaphore>(64, SEMAPHORE_SUPPLER))
-        .add(new Striped.LargeLazyStriped<Semaphore>(50, SEMAPHORE_SUPPLER))
-        .add(new Striped.LargeLazyStriped<Semaphore>(64, SEMAPHORE_SUPPLER))
-        .build();
+           .add(new Striped.SmallLazyStriped<ReadWriteLock>(50, READ_WRITE_LOCK_SUPPLIER))
+           .add(new Striped.SmallLazyStriped<ReadWriteLock>(64, READ_WRITE_LOCK_SUPPLIER))
+           .add(new Striped.LargeLazyStriped<ReadWriteLock>(50, READ_WRITE_LOCK_SUPPLIER))
+           .add(new Striped.LargeLazyStriped<ReadWriteLock>(64, READ_WRITE_LOCK_SUPPLIER))
+           .add(new Striped.SmallLazyStriped<Lock>(50, LOCK_SUPPLER))
+           .add(new Striped.SmallLazyStriped<Lock>(64, LOCK_SUPPLER))
+           .add(new Striped.LargeLazyStriped<Lock>(50, LOCK_SUPPLER))
+           .add(new Striped.LargeLazyStriped<Lock>(64, LOCK_SUPPLER))
+           .add(new Striped.SmallLazyStriped<Semaphore>(50, SEMAPHORE_SUPPLER))
+           .add(new Striped.SmallLazyStriped<Semaphore>(64, SEMAPHORE_SUPPLER))
+           .add(new Striped.LargeLazyStriped<Semaphore>(50, SEMAPHORE_SUPPLER))
+           .add(new Striped.LargeLazyStriped<Semaphore>(64, SEMAPHORE_SUPPLER))
+           .build();
   }
 
   private static Iterable<Striped<?>> allImplementations() {
@@ -194,9 +194,9 @@ public class StripedTest extends TestCase {
 
   public void testMaxSize() {
     for (Striped<?> striped : ImmutableList.of(
-            Striped.lazyWeakLock(Integer.MAX_VALUE),
-            Striped.lazyWeakSemaphore(Integer.MAX_VALUE, Integer.MAX_VALUE),
-            Striped.lazyWeakReadWriteLock(Integer.MAX_VALUE))) {
+          Striped.lazyWeakLock(Integer.MAX_VALUE),
+          Striped.lazyWeakSemaphore(Integer.MAX_VALUE, Integer.MAX_VALUE),
+          Striped.lazyWeakReadWriteLock(Integer.MAX_VALUE))) {
       for (int i = 0; i < 3; i++) {
         // doesn't throw exception
         Object unused = striped.getAt(Integer.MAX_VALUE - i);

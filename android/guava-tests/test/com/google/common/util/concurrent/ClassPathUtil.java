@@ -55,7 +55,7 @@ final class ClassPathUtil {
   /** Returns the URLs in the class path. */
   static URL[] getClassPathUrls() {
     return ClassPathUtil.class.getClassLoader() instanceof URLClassLoader
-        ? ((URLClassLoader) ClassPathUtil.class.getClassLoader()).getURLs()
-        : parseJavaClassPath();
+           ? ((URLClassLoader) ClassPathUtil.class.getClassLoader()).getURLs()
+           : parseJavaClassPath();
   }
 }

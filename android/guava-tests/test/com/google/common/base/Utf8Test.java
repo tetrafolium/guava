@@ -66,11 +66,11 @@ public class Utf8Test extends TestCase {
     assertEquals(11, Utf8.encodedLength("Hello world"));
     assertEquals(8, Utf8.encodedLength("Résumé"));
     assertEquals(461, Utf8.encodedLength("威廉·莎士比亞（William Shakespeare，"
-            + "1564年4月26號—1616年4月23號[1]）係隻英國嗰演員、劇作家同詩人，"
-            + "有時間佢簡稱莎翁；中國清末民初哈拕翻譯做舌克斯毕、沙斯皮耳、筛斯比耳、"
-            + "莎基斯庇尔、索士比尔、夏克思芘尔、希哀苦皮阿、叶斯壁、沙克皮尔、"
-            + "狹斯丕爾。[2]莎士比亞編寫過好多作品，佢嗰劇作響西洋文學好有影響，"
-            + "哈都拕人翻譯做好多話。"));
+        + "1564年4月26號—1616年4月23號[1]）係隻英國嗰演員、劇作家同詩人，"
+        + "有時間佢簡稱莎翁；中國清末民初哈拕翻譯做舌克斯毕、沙斯皮耳、筛斯比耳、"
+        + "莎基斯庇尔、索士比尔、夏克思芘尔、希哀苦皮阿、叶斯壁、沙克皮尔、"
+        + "狹斯丕爾。[2]莎士比亞編寫過好多作品，佢嗰劇作響西洋文學好有影響，"
+        + "哈都拕人翻譯做好多話。"));
     // A surrogate pair
     assertEquals(4, Utf8.encodedLength(newString(MIN_HIGH_SURROGATE, MIN_LOW_SURROGATE)));
   }

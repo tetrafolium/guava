@@ -63,8 +63,8 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite();
 
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
         SafeTreeMap<String, String> map = new SafeTreeMap<>();
@@ -72,12 +72,12 @@ public class MapsCollectionTest extends TestCase {
         return Maps.unmodifiableNavigableMap(map);
       }
     })
-    .named("unmodifiableNavigableMap[SafeTreeMap]")
-    .withFeatures(
+      .named("unmodifiableNavigableMap[SafeTreeMap]")
+      .withFeatures(
         CollectionSize.ANY, MapFeature.ALLOWS_NULL_VALUES, CollectionFeature.SERIALIZABLE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(BiMapTestSuiteBuilder
-    .using(new TestStringBiMapGenerator() {
+        .using(new TestStringBiMapGenerator() {
       @Override
       protected BiMap<String, String> create(Entry<String, String>[] entries) {
         BiMap<String, String> bimap = HashBiMap.create(entries.length);
@@ -88,39 +88,39 @@ public class MapsCollectionTest extends TestCase {
         return Maps.unmodifiableBiMap(bimap);
       }
     })
-    .named("unmodifiableBiMap[HashBiMap]")
-    .withFeatures(
-        CollectionSize.ANY,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.REJECTS_DUPLICATES_AT_CREATION,
-        CollectionFeature.SERIALIZABLE)
-    .createTestSuite());
+        .named("unmodifiableBiMap[HashBiMap]")
+        .withFeatures(
+          CollectionSize.ANY,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.REJECTS_DUPLICATES_AT_CREATION,
+          CollectionFeature.SERIALIZABLE)
+        .createTestSuite());
     suite.addTest(
-        MapTestSuiteBuilder.using(
-    new TestMapGenerator<String, Integer>() {
+      MapTestSuiteBuilder.using(
+        new TestMapGenerator<String, Integer>() {
       @Override
       public SampleElements<Entry<String, Integer>> samples() {
         return new SampleElements<>(
-                mapEntry("x", 1),
-                mapEntry("xxx", 3),
-                mapEntry("xx", 2),
-                mapEntry("xxxx", 4),
-                mapEntry("aaaaa", 5));
+          mapEntry("x", 1),
+          mapEntry("xxx", 3),
+          mapEntry("xx", 2),
+          mapEntry("xxxx", 4),
+          mapEntry("aaaaa", 5));
       }
 
       @Override
-      public Map<String, Integer> create(Object... elements) {
+      public Map<String, Integer> create(Object ... elements) {
         Set<String> set = Sets.newLinkedHashSet();
         for (Object e : elements) {
-          Entry<?, ?> entry = (Entry<?, ?>) e;
+          Entry<?, ?> entry = (Entry<?, ?>)e;
           checkNotNull(entry.getValue());
           set.add((String) checkNotNull(entry.getKey()));
         }
         return Maps.asMap(
-                set,
-        new Function<String, Integer>() {
+          set,
+          new Function<String, Integer>() {
           @Override
           public Integer apply(String input) {
             return input.length();
@@ -136,7 +136,7 @@ public class MapsCollectionTest extends TestCase {
 
       @Override
       public Iterable<Entry<String, Integer>> order(
-          List<Entry<String, Integer>> insertionOrder) {
+        List<Entry<String, Integer>> insertionOrder) {
         return insertionOrder;
       }
 
@@ -150,15 +150,15 @@ public class MapsCollectionTest extends TestCase {
         return new Integer[length];
       }
     })
-    .named("Maps.asMap[Set, Function]")
-    .withFeatures(
+      .named("Maps.asMap[Set, Function]")
+      .withFeatures(
         CollectionSize.ANY,
         MapFeature.SUPPORTS_REMOVE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        SortedMapTestSuiteBuilder.using(
-    new TestMapGenerator<String, Integer>() {
+      SortedMapTestSuiteBuilder.using(
+        new TestMapGenerator<String, Integer>() {
       @Override
       public String[] createKeyArray(int length) {
         return new String[length];
@@ -172,24 +172,24 @@ public class MapsCollectionTest extends TestCase {
       @Override
       public SampleElements<Entry<String, Integer>> samples() {
         return new SampleElements<>(
-                mapEntry("a", 1),
-                mapEntry("aa", 2),
-                mapEntry("aba", 3),
-                mapEntry("bbbb", 4),
-                mapEntry("ccccc", 5));
+          mapEntry("a", 1),
+          mapEntry("aa", 2),
+          mapEntry("aba", 3),
+          mapEntry("bbbb", 4),
+          mapEntry("ccccc", 5));
       }
 
       @Override
-      public SortedMap<String, Integer> create(Object... elements) {
+      public SortedMap<String, Integer> create(Object ... elements) {
         SortedSet<String> set = new NonNavigableSortedSet();
         for (Object e : elements) {
-          Entry<?, ?> entry = (Entry<?, ?>) e;
+          Entry<?, ?> entry = (Entry<?, ?>)e;
           checkNotNull(entry.getValue());
           set.add((String) checkNotNull(entry.getKey()));
         }
         return Maps.asMap(
-                set,
-        new Function<String, Integer>() {
+          set,
+          new Function<String, Integer>() {
           @Override
           public Integer apply(String input) {
             return input.length();
@@ -205,10 +205,10 @@ public class MapsCollectionTest extends TestCase {
 
       @Override
       public Iterable<Entry<String, Integer>> order(
-          List<Entry<String, Integer>> insertionOrder) {
+        List<Entry<String, Integer>> insertionOrder) {
         Collections.sort(
-            insertionOrder,
-        new Comparator<Entry<String, Integer>>() {
+          insertionOrder,
+          new Comparator<Entry<String, Integer>>() {
           @Override
           public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
             return o1.getKey().compareTo(o2.getKey());
@@ -217,15 +217,15 @@ public class MapsCollectionTest extends TestCase {
         return insertionOrder;
       }
     })
-    .named("Maps.asMap[SortedSet, Function]")
-    .withFeatures(
+      .named("Maps.asMap[SortedSet, Function]")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         MapFeature.SUPPORTS_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestMapGenerator<String, Integer>() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestMapGenerator<String, Integer>() {
       @Override
       public String[] createKeyArray(int length) {
         return new String[length];
@@ -239,24 +239,24 @@ public class MapsCollectionTest extends TestCase {
       @Override
       public SampleElements<Entry<String, Integer>> samples() {
         return new SampleElements<>(
-                mapEntry("a", 1),
-                mapEntry("aa", 2),
-                mapEntry("aba", 3),
-                mapEntry("bbbb", 4),
-                mapEntry("ccccc", 5));
+          mapEntry("a", 1),
+          mapEntry("aa", 2),
+          mapEntry("aba", 3),
+          mapEntry("bbbb", 4),
+          mapEntry("ccccc", 5));
       }
 
       @Override
-      public NavigableMap<String, Integer> create(Object... elements) {
+      public NavigableMap<String, Integer> create(Object ... elements) {
         NavigableSet<String> set = Sets.newTreeSet(Ordering.natural());
         for (Object e : elements) {
-          Map.Entry<?, ?> entry = (Entry<?, ?>) e;
+          Map.Entry<?, ?> entry = (Entry<?, ?>)e;
           checkNotNull(entry.getValue());
           set.add((String) checkNotNull(entry.getKey()));
         }
         return Maps.asMap(
-                set,
-        new Function<String, Integer>() {
+          set,
+          new Function<String, Integer>() {
           @Override
           public Integer apply(String input) {
             return input.length();
@@ -272,10 +272,10 @@ public class MapsCollectionTest extends TestCase {
 
       @Override
       public Iterable<Entry<String, Integer>> order(
-          List<Entry<String, Integer>> insertionOrder) {
+        List<Entry<String, Integer>> insertionOrder) {
         Collections.sort(
-            insertionOrder,
-        new Comparator<Entry<String, Integer>>() {
+          insertionOrder,
+          new Comparator<Entry<String, Integer>>() {
           @Override
           public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
             return o1.getKey().compareTo(o2.getKey());
@@ -284,12 +284,12 @@ public class MapsCollectionTest extends TestCase {
         return insertionOrder;
       }
     })
-    .named("Maps.asMap[NavigableSet, Function]")
-    .withFeatures(
+      .named("Maps.asMap[NavigableSet, Function]")
+      .withFeatures(
         CollectionSize.ANY,
         MapFeature.SUPPORTS_REMOVE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(filterSuite());
     suite.addTest(transformSuite());
     return suite;
@@ -315,14 +315,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterKeys(map, FILTER_KEYS);
       }
     })
-    .named("Maps.filterKeys[Map, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterKeys[Map, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -332,14 +332,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterValues(map, FILTER_VALUES);
       }
     })
-    .named("Maps.filterValues[Map, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterValues[Map, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -349,14 +349,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterEntries(map, FILTER_ENTRIES);
       }
     })
-    .named("Maps.filterEntries[Map, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterEntries[Map, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -367,14 +367,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterEntries(map, FILTER_ENTRIES_2);
       }
     })
-    .named("Maps.filterEntries[Maps.filterEntries[Map, Predicate], Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterEntries[Maps.filterEntries[Map, Predicate], Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     return suite;
   }
 
@@ -389,13 +389,13 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterKeys(map, FILTER_KEYS);
       }
     })
-    .named("Maps.filterKeys[BiMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterKeys[BiMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(BiMapTestSuiteBuilder.using(new TestStringBiMapGenerator() {
       @Override
       protected BiMap<String, String> create(Entry<String, String>[] entries) {
@@ -405,14 +405,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterValues(map, FILTER_VALUES);
       }
     })
-    .named("Maps.filterValues[BiMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterValues[BiMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(BiMapTestSuiteBuilder.using(new TestStringBiMapGenerator() {
       @Override
       protected BiMap<String, String> create(Entry<String, String>[] entries) {
@@ -422,14 +422,14 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterEntries(map, FILTER_ENTRIES);
       }
     })
-    .named("Maps.filterEntries[BiMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterEntries[BiMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     return suite;
   }
 
@@ -444,12 +444,12 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterKeys(map, FILTER_KEYS);
       }
     })
-    .named("Maps.filterKeys[SortedMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterKeys[SortedMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
@@ -459,12 +459,12 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterValues(map, FILTER_VALUES);
       }
     })
-    .named("Maps.filterValues[SortedMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterValues[SortedMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
@@ -474,20 +474,20 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterEntries(map, FILTER_ENTRIES);
       }
     })
-    .named("Maps.filterEntries[SortedMap, Predicate]")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.GENERAL_PURPOSE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("Maps.filterEntries[SortedMap, Predicate]")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.GENERAL_PURPOSE,
+          CollectionSize.ANY)
+        .createTestSuite());
     return suite;
   }
 
   static TestSuite filterNavigableMapSuite() {
     TestSuite suite = new TestSuite("FilterNavigableMap");
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -497,13 +497,13 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterKeys(map, FILTER_KEYS);
       }
     })
-    .named("Maps.filterKeys[NavigableMap, Predicate]")
-    .withFeatures(
+      .named("Maps.filterKeys[NavigableMap, Predicate]")
+      .withFeatures(
         MapFeature.ALLOWS_NULL_VALUES, MapFeature.GENERAL_PURPOSE, CollectionSize.ANY)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -513,13 +513,13 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterValues(map, FILTER_VALUES);
       }
     })
-    .named("Maps.filterValues[NavigableMap, Predicate]")
-    .withFeatures(
+      .named("Maps.filterValues[NavigableMap, Predicate]")
+      .withFeatures(
         MapFeature.ALLOWS_NULL_VALUES, MapFeature.GENERAL_PURPOSE, CollectionSize.ANY)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -529,10 +529,10 @@ public class MapsCollectionTest extends TestCase {
         return Maps.filterEntries(map, FILTER_ENTRIES);
       }
     })
-    .named("Maps.filterEntries[NavigableMap, Predicate]")
-    .withFeatures(
+      .named("Maps.filterEntries[NavigableMap, Predicate]")
+      .withFeatures(
         MapFeature.ALLOWS_NULL_VALUES, MapFeature.GENERAL_PURPOSE, CollectionSize.ANY)
-    .createTestSuite());
+      .createTestSuite());
     return suite;
   }
 
@@ -557,16 +557,16 @@ public class MapsCollectionTest extends TestCase {
   };
 
   static final Predicate<Entry<String, String>> FILTER_ENTRIES =
-  new Predicate<Entry<String, String>>() {
+      new Predicate<Entry<String, String>>() {
     @Override
     public boolean apply(Entry<String, String> entry) {
       return !Helpers.mapEntry("banana", "toast").equals(entry)
-          && !Helpers.mapEntry("eggplant", "spam").equals(entry);
+             && !Helpers.mapEntry("eggplant", "spam").equals(entry);
     }
   };
 
   static final Predicate<Entry<String, String>> FILTER_ENTRIES_1 =
-  new Predicate<Entry<String, String>>() {
+      new Predicate<Entry<String, String>>() {
     @Override
     public boolean apply(Entry<String, String> entry) {
       return !Helpers.mapEntry("banana", "toast").equals(entry);
@@ -574,7 +574,7 @@ public class MapsCollectionTest extends TestCase {
   };
 
   static final Predicate<Entry<String, String>> FILTER_ENTRIES_2 =
-  new Predicate<Entry<String, String>>() {
+      new Predicate<Entry<String, String>>() {
     @Override
     public boolean apply(Entry<String, String> entry) {
       return !Helpers.mapEntry("eggplant", "spam").equals(entry);
@@ -585,7 +585,7 @@ public class MapsCollectionTest extends TestCase {
       ImmutableMap.of("banana", "toast", "eggplant", "spam");
 
   static final Predicate<Entry<String, String>> NOT_NULL_ENTRY =
-  new Predicate<Entry<String, String>>() {
+      new Predicate<Entry<String, String>>() {
     @Override
     public boolean apply(Entry<String, String> entry) {
       return entry.getKey() != null && entry.getValue() != null;
@@ -626,7 +626,7 @@ public class MapsCollectionTest extends TestCase {
   };
 
   private static final EntryTransformer<String, String, String> DECODE_ENTRY_TRANSFORMER =
-  new EntryTransformer<String, String, String>() {
+      new EntryTransformer<String, String, String>() {
     @Override
     public String transformEntry(String key, String value) {
       return DECODE_FUNCTION.apply(value);
@@ -653,15 +653,15 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformValues(map, DECODE_FUNCTION);
       }
     })
-    .named("Maps.transformValues[Map, Function]")
-    .withFeatures(
-        CollectionSize.ANY,
-        CollectionFeature.KNOWN_ORDER,
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.SUPPORTS_REMOVE,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+        .named("Maps.transformValues[Map, Function]")
+        .withFeatures(
+          CollectionSize.ANY,
+          CollectionFeature.KNOWN_ORDER,
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.SUPPORTS_REMOVE,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+        .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
       @Override
       protected Map<String, String> create(Entry<String, String>[] entries) {
@@ -672,15 +672,15 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformEntries(map, DECODE_ENTRY_TRANSFORMER);
       }
     })
-    .named("Maps.transformEntries[Map, EntryTransformer]")
-    .withFeatures(
-        CollectionSize.ANY,
-        CollectionFeature.KNOWN_ORDER,
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.SUPPORTS_REMOVE,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+        .named("Maps.transformEntries[Map, EntryTransformer]")
+        .withFeatures(
+          CollectionSize.ANY,
+          CollectionFeature.KNOWN_ORDER,
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.SUPPORTS_REMOVE,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+        .createTestSuite());
     return suite;
   }
 
@@ -696,13 +696,13 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformValues(map, DECODE_FUNCTION);
       }
     })
-    .named("Maps.transformValues[SortedMap, Function]")
-    .withFeatures(
-        CollectionSize.ANY,
-        CollectionFeature.KNOWN_ORDER,
-        MapFeature.SUPPORTS_REMOVE,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+        .named("Maps.transformValues[SortedMap, Function]")
+        .withFeatures(
+          CollectionSize.ANY,
+          CollectionFeature.KNOWN_ORDER,
+          MapFeature.SUPPORTS_REMOVE,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+        .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
@@ -713,21 +713,21 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformEntries(map, DECODE_ENTRY_TRANSFORMER);
       }
     })
-    .named("Maps.transformEntries[SortedMap, EntryTransformer]")
-    .withFeatures(
-        CollectionSize.ANY,
-        CollectionFeature.KNOWN_ORDER,
-        MapFeature.SUPPORTS_REMOVE,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+        .named("Maps.transformEntries[SortedMap, EntryTransformer]")
+        .withFeatures(
+          CollectionSize.ANY,
+          CollectionFeature.KNOWN_ORDER,
+          MapFeature.SUPPORTS_REMOVE,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
+        .createTestSuite());
     return suite;
   }
 
   static TestSuite transformNavigableMapSuite() {
     TestSuite suite = new TestSuite("TransformNavigableMap");
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -737,16 +737,16 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformValues(map, DECODE_FUNCTION);
       }
     })
-    .named("Maps.transformValues[NavigableMap, Function]")
-    .withFeatures(
+      .named("Maps.transformValues[NavigableMap, Function]")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         MapFeature.SUPPORTS_REMOVE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>();
@@ -756,13 +756,13 @@ public class MapsCollectionTest extends TestCase {
         return Maps.transformEntries(map, DECODE_ENTRY_TRANSFORMER);
       }
     })
-    .named("Maps.transformEntries[NavigableMap, EntryTransformer]")
-    .withFeatures(
+      .named("Maps.transformEntries[NavigableMap, EntryTransformer]")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         MapFeature.SUPPORTS_REMOVE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE)
-    .createTestSuite());
+      .createTestSuite());
     return suite;
   }
 }

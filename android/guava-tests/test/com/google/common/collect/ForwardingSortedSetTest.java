@@ -108,12 +108,12 @@ public class ForwardingSortedSetTest extends TestCase {
 
     suite.addTestSuite(ForwardingSortedSetTest.class);
     suite.addTest(
-        SortedSetTestSuiteBuilder.using(
-    new TestStringSortedSetGenerator() {
+      SortedSetTestSuiteBuilder.using(
+        new TestStringSortedSetGenerator() {
       @Override
       protected SortedSet<String> create(String[] elements) {
         return new StandardImplForwardingSortedSet<>(
-                new SafeTreeSet<String>(Arrays.asList(elements)));
+          new SafeTreeSet<String>(Arrays.asList(elements)));
       }
 
       @Override
@@ -121,12 +121,12 @@ public class ForwardingSortedSetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .named("ForwardingSortedSet[SafeTreeSet] with standard implementations")
-    .withFeatures(
+      .named("ForwardingSortedSet[SafeTreeSet] with standard implementations")
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE)
-    .createTestSuite());
+      .createTestSuite());
 
     return suite;
   }
@@ -152,9 +152,9 @@ public class ForwardingSortedSetTest extends TestCase {
 
   private static <T> SortedSet<T> wrap(final SortedSet<T> delegate) {
     return new ForwardingSortedSet<T>() {
-      @Override protected SortedSet<T> delegate() {
-        return delegate;
-      }
+             @Override protected SortedSet<T> delegate() {
+               return delegate;
+             }
     };
   }
 }

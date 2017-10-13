@@ -63,7 +63,7 @@ public class FutureCallbackTest extends TestCase {
   public void testCancel() {
     SettableFuture<String> f = SettableFuture.create();
     FutureCallback<String> callback =
-    new FutureCallback<String>() {
+        new FutureCallback<String>() {
       private boolean called = false;
 
       @Override

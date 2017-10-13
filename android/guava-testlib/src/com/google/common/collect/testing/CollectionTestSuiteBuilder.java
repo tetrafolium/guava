@@ -46,18 +46,18 @@ public class CollectionTestSuiteBuilder<E>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-      parentBuilder) {
+    FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+    parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     if (parentBuilder.getFeatures().contains(SERIALIZABLE)) {
       derivedSuites.add(
-          CollectionTestSuiteBuilder.using(
-              new ReserializedCollectionGenerator<E>(parentBuilder.getSubjectGenerator()))
-          .named(getName() + " reserialized")
-          .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
-          .suppressing(parentBuilder.getSuppressedTests())
-          .createTestSuite());
+        CollectionTestSuiteBuilder.using(
+          new ReserializedCollectionGenerator<E>(parentBuilder.getSubjectGenerator()))
+        .named(getName() + " reserialized")
+        .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
+        .suppressing(parentBuilder.getSuppressedTests())
+        .createTestSuite());
     }
     return derivedSuites;
   }

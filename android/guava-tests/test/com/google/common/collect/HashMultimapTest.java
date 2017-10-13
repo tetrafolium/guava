@@ -49,17 +49,17 @@ public class HashMultimapTest extends TestCase {
         return multimap;
       }
     })
-    .named("HashMultimap")
-    .withFeatures(
-        MapFeature.ALLOWS_NULL_KEYS,
-        MapFeature.ALLOWS_NULL_VALUES,
-        MapFeature.ALLOWS_ANY_NULL_QUERIES,
-        MapFeature.GENERAL_PURPOSE,
-        MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-        CollectionFeature.SERIALIZABLE,
-        CollectionSize.ANY)
-    .createTestSuite());
+        .named("HashMultimap")
+        .withFeatures(
+          MapFeature.ALLOWS_NULL_KEYS,
+          MapFeature.ALLOWS_NULL_VALUES,
+          MapFeature.ALLOWS_ANY_NULL_QUERIES,
+          MapFeature.GENERAL_PURPOSE,
+          MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+          CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+          CollectionFeature.SERIALIZABLE,
+          CollectionSize.ANY)
+        .createTestSuite());
     suite.addTestSuite(HashMultimapTest.class);
     return suite;
   }

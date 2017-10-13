@@ -43,7 +43,7 @@ final class Platform {
       ObjectOutputStream out = new ObjectOutputStream(bytes);
       out.writeObject(object);
       ObjectInputStream in = new ObjectInputStream(
-          new ByteArrayInputStream(bytes.toByteArray()));
+        new ByteArrayInputStream(bytes.toByteArray()));
       return (T) in.readObject();
     } catch (IOException | ClassNotFoundException e) {
       throw new RuntimeException(e);

@@ -164,7 +164,7 @@ public final class Floats {
       return 0;
     }
 
-    outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -262,7 +262,7 @@ public final class Floats {
    * @param arrays zero or more {@code float} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static float[] concat(float[]... arrays) {
+  public static float[] concat(float[] ... arrays) {
     int length = 0;
     for (float[] array : arrays) {
       length += array.length;

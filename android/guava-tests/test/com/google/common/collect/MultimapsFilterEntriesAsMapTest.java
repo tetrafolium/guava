@@ -31,11 +31,11 @@ import java.util.Map.Entry;
 public class MultimapsFilterEntriesAsMapTest
   extends AbstractMultimapAsMapImplementsMapTest {
   private static final Predicate<Map.Entry<String, Integer>> PREDICATE
-  = new Predicate<Map.Entry<String, Integer>>() {
+    = new Predicate<Map.Entry<String, Integer>>() {
     @Override public boolean apply(Entry<String, Integer> entry) {
       return !"badkey".equals(entry.getKey()) && 55556 != entry.getValue();
     }
-  };
+    };
 
   public MultimapsFilterEntriesAsMapTest() {
     super(true, true, false);

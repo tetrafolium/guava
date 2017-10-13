@@ -115,7 +115,8 @@ public class InvokableTest extends TestCase {
 
   public void testStaticMethod_returnType() throws Exception {
     Invokable<?, ?> delegate = Prepender.method("prepend", String.class, Iterable.class);
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
   }
 
   public void testStaticMethod_exceptionTypes() throws Exception {
@@ -136,7 +137,8 @@ public class InvokableTest extends TestCase {
     assertEquals(2, parameters.size());
     assertEquals(String.class, parameters.get(0).getType().getType());
     assertTrue(parameters.get(0).isAnnotationPresent(NotBlank.class));
-    assertEquals(new TypeToken<Iterable<String>>() {}, parameters.get(1).getType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, parameters.get(1).getType());
     assertFalse(parameters.get(1).isAnnotationPresent(NotBlank.class));
     new EqualsTester()
     .addEqualityGroup(parameters.get(0))
@@ -154,9 +156,11 @@ public class InvokableTest extends TestCase {
 
   public void testStaticMethod_returning() throws Exception {
     Invokable<?, Iterable<String>> delegate = Prepender.method(
-            "prepend", String.class, Iterable.class)
-    .returning(new TypeToken<Iterable<String>>() {});
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+      "prepend", String.class, Iterable.class)
+        .returning(new TypeToken<Iterable<String>>() {
+    });
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
     Iterable<String> result = delegate.invoke(null, "a", ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "b", "c"), ImmutableList.copyOf(result));
   }
@@ -164,9 +168,10 @@ public class InvokableTest extends TestCase {
   public void testStaticMethod_returningRawType() throws Exception {
     @SuppressWarnings("rawtypes") // the purpose is to test raw type
     Invokable<?, Iterable> delegate = Prepender.method(
-            "prepend", String.class, Iterable.class)
+      "prepend", String.class, Iterable.class)
         .returning(Iterable.class);
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
     @SuppressWarnings("unchecked") // prepend() returns Iterable<String>
     Iterable<String> result = delegate.invoke(null, "a", ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "b", "c"), ImmutableList.copyOf(result));
@@ -175,23 +180,25 @@ public class InvokableTest extends TestCase {
   public void testStaticMethod_invalidReturning() throws Exception {
     Invokable<?, Object> delegate = Prepender.method("prepend", String.class, Iterable.class);
     try {
-      delegate.returning(new TypeToken<Iterable<Integer>>() {});
+      delegate.returning(new TypeToken<Iterable<Integer>>() {
+      });
       fail();
     } catch (IllegalArgumentException expected) {}
   }
 
   public void testInstanceMethod_returnType() throws Exception {
     Invokable<?, ?> delegate = Prepender.method("prepend", Iterable.class);
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
   }
 
   public void testInstanceMethod_exceptionTypes() throws Exception {
     Invokable<?, ?> delegate = Prepender.method("prepend", Iterable.class);
     assertEquals(
-        ImmutableList.of(
-            TypeToken.of(IllegalArgumentException.class),
-            TypeToken.of(NullPointerException.class)),
-        delegate.getExceptionTypes());
+      ImmutableList.of(
+        TypeToken.of(IllegalArgumentException.class),
+        TypeToken.of(NullPointerException.class)),
+      delegate.getExceptionTypes());
   }
 
   public void testInstanceMethod_typeParameters() throws Exception {
@@ -203,7 +210,8 @@ public class InvokableTest extends TestCase {
     Invokable<?, ?> delegate = Prepender.method("prepend", Iterable.class);
     ImmutableList<Parameter> parameters = delegate.getParameters();
     assertEquals(1, parameters.size());
-    assertEquals(new TypeToken<Iterable<String>>() {}, parameters.get(0).getType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, parameters.get(0).getType());
     assertThat(parameters.get(0).getAnnotations()).isEmpty();
     new EqualsTester().addEqualityGroup(parameters.get(0)).testEquals();
   }
@@ -218,9 +226,11 @@ public class InvokableTest extends TestCase {
 
   public void testInstanceMethod_returning() throws Exception {
     Invokable<Prepender, Iterable<String>> delegate = Prepender.method(
-            "prepend", Iterable.class)
-    .returning(new TypeToken<Iterable<String>>() {});
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+      "prepend", Iterable.class)
+        .returning(new TypeToken<Iterable<String>>() {
+    });
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
     Iterable<String> result = delegate.invoke(new Prepender("a", 2), ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "a", "b", "c"), ImmutableList.copyOf(result));
   }
@@ -229,17 +239,19 @@ public class InvokableTest extends TestCase {
     @SuppressWarnings("rawtypes") // the purpose is to test raw type
     Invokable<Prepender, Iterable> delegate = Prepender.method("prepend", Iterable.class)
         .returning(Iterable.class);
-    assertEquals(new TypeToken<Iterable<String>>() {}, delegate.getReturnType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    }, delegate.getReturnType());
     @SuppressWarnings("unchecked") // prepend() returns Iterable<String>
     Iterable<String> result = delegate.invoke(
-            new Prepender("a", 2), ImmutableList.of("b", "c"));
+      new Prepender("a", 2), ImmutableList.of("b", "c"));
     assertEquals(ImmutableList.of("a", "a", "b", "c"), ImmutableList.copyOf(result));
   }
 
   public void testInstanceMethod_invalidReturning() throws Exception {
     Invokable<?, Object> delegate = Prepender.method("prepend", Iterable.class);
     try {
-      delegate.returning(new TypeToken<Iterable<Integer>>() {});
+      delegate.returning(new TypeToken<Iterable<Integer>>() {
+      });
       fail();
     } catch (IllegalArgumentException expected) {}
   }
@@ -309,7 +321,7 @@ public class InvokableTest extends TestCase {
 
   public void testNonFinalMethodInFinalClass_isOverridable() throws Exception {
     Invokable<?, ?> delegate = Invokable.from(
-            FinalClass.class.getDeclaredMethod("notFinalMethod"));
+      FinalClass.class.getDeclaredMethod("notFinalMethod"));
     assertFalse(delegate.isOverridable());
     assertFalse(delegate.isVarArgs());
   }
@@ -366,8 +378,9 @@ public class InvokableTest extends TestCase {
         InnerWithGenericConstructorParameter.class.getDeclaredConstructors() [0];
     Invokable<?, ?> invokable = Invokable.from(constructor);
     assertEquals(2, invokable.getParameters().size());
-    assertEquals(new TypeToken<Iterable<String>>() {},
-    invokable.getParameters().get(0).getType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    },
+        invokable.getParameters().get(0).getType());
     assertEquals(TypeToken.of(String.class),
         invokable.getParameters().get(1).getType());
   }
@@ -379,7 +392,7 @@ public class InvokableTest extends TestCase {
       @Override public void run() {
         System.out.println(s + i);
       }
-    } .getClass();
+    }.getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(0, Invokable.from(constructor).getParameters().size());
   }
@@ -389,7 +402,8 @@ public class InvokableTest extends TestCase {
       @SuppressWarnings("unused") // called by reflection
       Base(String s, int i) {}
     }
-    Class<?> anonymous = new Base("test", 0) {} .getClass();
+    Class<?> anonymous = new Base("test", 0) {
+    }.getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(2, Invokable.from(constructor).getParameters().size());
   }
@@ -417,7 +431,7 @@ public class InvokableTest extends TestCase {
       @Override public void run() {
         System.out.println(s + i);
       }
-    } .getClass();
+    }.getClass();
     Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
     assertEquals(0, Invokable.from(constructor).getParameters().size());
   }
@@ -434,7 +448,7 @@ public class InvokableTest extends TestCase {
         @Override public void run() {
           System.out.println(s + i);
         }
-      } .getClass();
+      }.getClass();
       Constructor<?> constructor = anonymous.getDeclaredConstructors() [0];
       assertEquals(0, Invokable.from(constructor).getParameters().size());
     }
@@ -521,8 +535,9 @@ public class InvokableTest extends TestCase {
         LocalWithGenericConstructorParameter.class.getDeclaredConstructors() [0];
     Invokable<?, ?> invokable = Invokable.from(constructor);
     assertEquals(2, invokable.getParameters().size());
-    assertEquals(new TypeToken<Iterable<String>>() {},
-    invokable.getParameters().get(0).getType());
+    assertEquals(new TypeToken<Iterable<String>>() {
+    },
+        invokable.getParameters().get(0).getType());
     assertEquals(TypeToken.of(String.class),
         invokable.getParameters().get(1).getType());
   }

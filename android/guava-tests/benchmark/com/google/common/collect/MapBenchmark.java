@@ -107,8 +107,8 @@ public class MapBenchmark {
     MapMaker1 {
       @Override Map<Element, Element> create(Collection<Element> keys) {
         Map<Element, Element> map = new MapMaker()
-        .concurrencyLevel(1)
-        .makeMap();
+            .concurrencyLevel(1)
+            .makeMap();
         for (Element element: keys) {
           map.put(element, element);
         }
@@ -118,8 +118,8 @@ public class MapBenchmark {
     MapMaker16 {
       @Override Map<Element, Element> create(Collection<Element> keys) {
         Map<Element, Element> map = new MapMaker()
-        .concurrencyLevel(16)
-        .makeMap();
+            .concurrencyLevel(16)
+            .makeMap();
         for (Element element: keys) {
           map.put(element, element);
         }
@@ -138,7 +138,7 @@ public class MapBenchmark {
     ImmutableSorted {
       @Override Map<Element, Element> create(Collection<Element> keys) {
         ImmutableSortedMap.Builder<Element, Element> builder =
-        ImmutableSortedMap.naturalOrder();
+            ImmutableSortedMap.naturalOrder();
         for (Element element : keys) {
           builder.put(element, element);
         }
@@ -175,7 +175,7 @@ public class MapBenchmark {
   @BeforeExperiment void setUp() {
     CollectionBenchmarkSampleData sampleData =
         new CollectionBenchmarkSampleData(
-        isUserTypeFast, random, hitRate, size);
+      isUserTypeFast, random, hitRate, size);
 
     if (sortedData) {
       List<Element> valueList = newArrayList(sampleData.getValuesInSet());

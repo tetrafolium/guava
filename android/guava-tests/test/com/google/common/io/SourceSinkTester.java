@@ -58,17 +58,17 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
 
   static final ImmutableMap<String, String> TEST_STRINGS
     = ImmutableMap.<String, String>builder()
-        .put("empty", "")
-        .put("1 char", "0")
-        .put("1 word", "hello")
-        .put("2 words", "hello world")
-        .put("\\n line break", "hello\nworld")
-        .put("\\r line break", "hello\rworld")
-        .put("\\r\\n line break", "hello\r\nworld")
-        .put("\\n at EOF", "hello\nworld\n")
-        .put("\\r at EOF", "hello\nworld\r")
-        .put("lorem ipsum", LOREM_IPSUM)
-        .build();
+  .put("empty", "")
+  .put("1 char", "0")
+  .put("1 word", "hello")
+  .put("2 words", "hello world")
+  .put("\\n line break", "hello\nworld")
+  .put("\\r line break", "hello\rworld")
+  .put("\\r\\n line break", "hello\r\nworld")
+  .put("\\n at EOF", "hello\nworld\n")
+  .put("\\r at EOF", "hello\nworld\r")
+  .put("lorem ipsum", LOREM_IPSUM)
+  .build();
 
   protected final F factory;
   protected final T data;
@@ -94,11 +94,11 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
   protected static ImmutableList<String> getLines(final String string) {
     try {
       return new CharSource() {
-        @Override
-        public Reader openStream() throws IOException {
-          return new StringReader(string);
-        }
-      } .readLines();
+               @Override
+               public Reader openStream() throws IOException {
+                 return new StringReader(string);
+               }
+      }.readLines();
     } catch (IOException e) {
       throw new AssertionError();
     }
@@ -113,9 +113,9 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
     List<Method> result = Lists.newArrayList();
     for (Method method : testClass.getDeclaredMethods()) {
       if (Modifier.isPublic(method.getModifiers())
-          && method.getReturnType() == void.class
-          && method.getParameterTypes().length == 0
-          && method.getName().startsWith("test")) {
+            && method.getReturnType() == void.class
+            && method.getParameterTypes().length == 0
+            && method.getName().startsWith("test")) {
         result.add(method);
       }
     }

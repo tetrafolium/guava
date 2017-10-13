@@ -40,10 +40,10 @@ import java.util.TreeMap;
 public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V> {
   @SuppressWarnings("unchecked")
   private static final Comparator<Object> NATURAL_ORDER =
-  new Comparator<Object>() {
+      new Comparator<Object>() {
     @Override
     public int compare(Object o1, Object o2) {
-      return ((Comparable<Object>) o1).compareTo(o2);
+      return ((Comparable<Object>)o1).compareTo(o2);
     }
   };
 
@@ -95,7 +95,7 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   public Comparator<? super K> comparator() {
     Comparator<? super K> comparator = delegate.comparator();
     if (comparator == null) {
-      comparator = (Comparator<? super K>) NATURAL_ORDER;
+      comparator = (Comparator<? super K>)NATURAL_ORDER;
     }
     return comparator;
   }
@@ -127,38 +127,38 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   @Override
   public Set<Entry<K, V>> entrySet() {
     return new AbstractSet<Entry<K, V>>() {
-      private Set<Entry<K, V>> delegate() {
-        return delegate.entrySet();
-      }
+             private Set<Entry<K, V>> delegate() {
+               return delegate.entrySet();
+             }
 
-      @Override
-      public boolean contains(Object object) {
-        try {
-          return delegate().contains(object);
-        } catch (NullPointerException | ClassCastException e) {
-          return false;
-        }
-      }
+             @Override
+             public boolean contains(Object object) {
+               try {
+                 return delegate().contains(object);
+               } catch (NullPointerException | ClassCastException e) {
+                 return false;
+               }
+             }
 
-      @Override
-      public Iterator<Entry<K, V>> iterator() {
-        return delegate().iterator();
-      }
+             @Override
+             public Iterator<Entry<K, V>> iterator() {
+               return delegate().iterator();
+             }
 
-      @Override
-      public int size() {
-        return delegate().size();
-      }
+             @Override
+             public int size() {
+               return delegate().size();
+             }
 
-      @Override
-      public boolean remove(Object o) {
-        return delegate().remove(o);
-      }
+             @Override
+             public boolean remove(Object o) {
+               return delegate().remove(o);
+             }
 
-      @Override
-      public void clear() {
-        delegate().clear();
-      }
+             @Override
+             public void clear() {
+               delegate().clear();
+             }
     };
   }
 
@@ -278,7 +278,7 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   @Override
   public NavigableMap<K, V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
     return new SafeTreeMap<>(
-            delegate.subMap(checkValid(fromKey), fromInclusive, checkValid(toKey), toInclusive));
+      delegate.subMap(checkValid(fromKey), fromInclusive, checkValid(toKey), toInclusive));
   }
 
   @Override

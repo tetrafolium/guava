@@ -116,35 +116,35 @@ public class FreshValueGeneratorTest extends TestCase {
   @AndroidIncompatible // problem with equality of Type objects?
   public void testFreshInstance() {
     assertFreshInstances(
-        String.class, CharSequence.class,
-        Appendable.class, StringBuffer.class, StringBuilder.class,
-        Pattern.class, MatchResult.class,
-        Number.class, int.class, Integer.class,
-        long.class, Long.class,
-        short.class, Short.class,
-        byte.class, Byte.class,
-        boolean.class, Boolean.class,
-        char.class, Character.class,
-        int[].class, Object[].class,
-        UnsignedInteger.class, UnsignedLong.class,
-        BigInteger.class, BigDecimal.class,
-        Throwable.class, Error.class, Exception.class, RuntimeException.class,
-        Charset.class, Locale.class, Currency.class,
-        List.class, Map.Entry.class,
-        Object.class,
-        Equivalence.class, Predicate.class, Function.class,
-        Comparable.class, Comparator.class, Ordering.class,
-        Class.class, Type.class, TypeToken.class,
-        TimeUnit.class, Ticker.class,
-        Joiner.class, Splitter.class, CharMatcher.class,
-        InputStream.class, ByteArrayInputStream.class,
-        Reader.class, Readable.class, StringReader.class,
-        OutputStream.class, ByteArrayOutputStream.class,
-        Writer.class, StringWriter.class, File.class,
-        Buffer.class, ByteBuffer.class, CharBuffer.class,
-        ShortBuffer.class, IntBuffer.class, LongBuffer.class,
-        FloatBuffer.class, DoubleBuffer.class,
-        String[].class, Object[].class, int[].class);
+      String.class, CharSequence.class,
+      Appendable.class, StringBuffer.class, StringBuilder.class,
+      Pattern.class, MatchResult.class,
+      Number.class, int.class, Integer.class,
+      long.class, Long.class,
+      short.class, Short.class,
+      byte.class, Byte.class,
+      boolean.class, Boolean.class,
+      char.class, Character.class,
+      int[].class, Object[].class,
+      UnsignedInteger.class, UnsignedLong.class,
+      BigInteger.class, BigDecimal.class,
+      Throwable.class, Error.class, Exception.class, RuntimeException.class,
+      Charset.class, Locale.class, Currency.class,
+      List.class, Map.Entry.class,
+      Object.class,
+      Equivalence.class, Predicate.class, Function.class,
+      Comparable.class, Comparator.class, Ordering.class,
+      Class.class, Type.class, TypeToken.class,
+      TimeUnit.class, Ticker.class,
+      Joiner.class, Splitter.class, CharMatcher.class,
+      InputStream.class, ByteArrayInputStream.class,
+      Reader.class, Readable.class, StringReader.class,
+      OutputStream.class, ByteArrayOutputStream.class,
+      Writer.class, StringWriter.class, File.class,
+      Buffer.class, ByteBuffer.class, CharBuffer.class,
+      ShortBuffer.class, IntBuffer.class, LongBuffer.class,
+      FloatBuffer.class, DoubleBuffer.class,
+      String[].class, Object[].class, int[].class);
   }
 
   public void testStringArray() {
@@ -162,54 +162,69 @@ public class FreshValueGeneratorTest extends TestCase {
   }
 
   public void testRange() {
-    assertFreshInstance(new TypeToken<Range<String>>() {});
+    assertFreshInstance(new TypeToken<Range<String>>() {
+    });
   }
 
   public void testImmutableList() {
-    assertFreshInstance(new TypeToken<ImmutableList<String>>() {});
+    assertFreshInstance(new TypeToken<ImmutableList<String>>() {
+    });
   }
 
   public void testImmutableSet() {
-    assertFreshInstance(new TypeToken<ImmutableSet<String>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSet<String>>() {
+    });
   }
 
   public void testImmutableSortedSet() {
-    assertFreshInstance(new TypeToken<ImmutableSortedSet<String>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSortedSet<String>>() {
+    });
   }
 
   public void testImmutableMultiset() {
-    assertFreshInstance(new TypeToken<ImmutableSortedSet<String>>() {});
-    assertNotInstantiable(new TypeToken<ImmutableMultiset<EmptyEnum>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSortedSet<String>>() {
+    });
+    assertNotInstantiable(new TypeToken<ImmutableMultiset<EmptyEnum>>() {
+    });
   }
 
   public void testImmutableCollection() {
-    assertFreshInstance(new TypeToken<ImmutableCollection<String>>() {});
-    assertNotInstantiable(new TypeToken<ImmutableCollection<EmptyEnum>>() {});
+    assertFreshInstance(new TypeToken<ImmutableCollection<String>>() {
+    });
+    assertNotInstantiable(new TypeToken<ImmutableCollection<EmptyEnum>>() {
+    });
   }
 
   public void testImmutableMap() {
-    assertFreshInstance(new TypeToken<ImmutableMap<String, Integer>>() {});
+    assertFreshInstance(new TypeToken<ImmutableMap<String, Integer>>() {
+    });
   }
 
   public void testImmutableSortedMap() {
-    assertFreshInstance(new TypeToken<ImmutableSortedMap<String, Integer>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSortedMap<String, Integer>>() {
+    });
   }
 
   public void testImmutableMultimap() {
-    assertFreshInstance(new TypeToken<ImmutableMultimap<String, Integer>>() {});
-    assertNotInstantiable(new TypeToken<ImmutableMultimap<EmptyEnum, String>>() {});
+    assertFreshInstance(new TypeToken<ImmutableMultimap<String, Integer>>() {
+    });
+    assertNotInstantiable(new TypeToken<ImmutableMultimap<EmptyEnum, String>>() {
+    });
   }
 
   public void testImmutableListMultimap() {
-    assertFreshInstance(new TypeToken<ImmutableListMultimap<String, Integer>>() {});
+    assertFreshInstance(new TypeToken<ImmutableListMultimap<String, Integer>>() {
+    });
   }
 
   public void testImmutableSetMultimap() {
-    assertFreshInstance(new TypeToken<ImmutableSetMultimap<String, Integer>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSetMultimap<String, Integer>>() {
+    });
   }
 
   public void testImmutableBiMap() {
-    assertFreshInstance(new TypeToken<ImmutableBiMap<String, Integer>>() {});
+    assertFreshInstance(new TypeToken<ImmutableBiMap<String, Integer>>() {
+    });
   }
 
   public void testImmutableTable() {
@@ -217,154 +232,196 @@ public class FreshValueGeneratorTest extends TestCase {
   }
 
   public void testList() {
-    assertFreshInstance(new TypeToken<List<String>>() {});
-    assertNotInstantiable(new TypeToken<List<EmptyEnum>>() {});
+    assertFreshInstance(new TypeToken<List<String>>() {
+    });
+    assertNotInstantiable(new TypeToken<List<EmptyEnum>>() {
+    });
   }
 
   public void testArrayList() {
-    assertFreshInstance(new TypeToken<ArrayList<String>>() {});
-    assertNotInstantiable(new TypeToken<ArrayList<EmptyEnum>>() {});
+    assertFreshInstance(new TypeToken<ArrayList<String>>() {
+    });
+    assertNotInstantiable(new TypeToken<ArrayList<EmptyEnum>>() {
+    });
   }
 
   public void testLinkedList() {
-    assertFreshInstance(new TypeToken<LinkedList<String>>() {});
+    assertFreshInstance(new TypeToken<LinkedList<String>>() {
+    });
   }
 
   public void testSet() {
-    assertFreshInstance(new TypeToken<Set<String>>() {});
-    assertNotInstantiable(new TypeToken<Set<EmptyEnum>>() {});
+    assertFreshInstance(new TypeToken<Set<String>>() {
+    });
+    assertNotInstantiable(new TypeToken<Set<EmptyEnum>>() {
+    });
   }
 
   public void testHashSet() {
-    assertFreshInstance(new TypeToken<HashSet<String>>() {});
+    assertFreshInstance(new TypeToken<HashSet<String>>() {
+    });
   }
 
   public void testLinkedHashSet() {
-    assertFreshInstance(new TypeToken<LinkedHashSet<String>>() {});
+    assertFreshInstance(new TypeToken<LinkedHashSet<String>>() {
+    });
   }
 
   public void testTreeSet() {
-    assertFreshInstance(new TypeToken<TreeSet<String>>() {});
+    assertFreshInstance(new TypeToken<TreeSet<String>>() {
+    });
   }
 
   public void testSortedSet() {
-    assertFreshInstance(new TypeToken<SortedSet<String>>() {});
+    assertFreshInstance(new TypeToken<SortedSet<String>>() {
+    });
   }
 
   public void testNavigableSet() {
-    assertFreshInstance(new TypeToken<NavigableSet<String>>() {});
+    assertFreshInstance(new TypeToken<NavigableSet<String>>() {
+    });
   }
 
   public void testMultiset() {
-    assertFreshInstance(new TypeToken<Multiset<String>>() {});
+    assertFreshInstance(new TypeToken<Multiset<String>>() {
+    });
   }
 
   public void testSortedMultiset() {
-    assertFreshInstance(new TypeToken<SortedMultiset<String>>() {});
+    assertFreshInstance(new TypeToken<SortedMultiset<String>>() {
+    });
   }
 
   public void testHashMultiset() {
-    assertFreshInstance(new TypeToken<HashMultiset<String>>() {});
+    assertFreshInstance(new TypeToken<HashMultiset<String>>() {
+    });
   }
 
   public void testLinkedHashMultiset() {
-    assertFreshInstance(new TypeToken<LinkedHashMultiset<String>>() {});
+    assertFreshInstance(new TypeToken<LinkedHashMultiset<String>>() {
+    });
   }
 
   public void testTreeMultiset() {
-    assertFreshInstance(new TypeToken<TreeMultiset<String>>() {});
+    assertFreshInstance(new TypeToken<TreeMultiset<String>>() {
+    });
   }
 
   public void testImmutableSortedMultiset() {
-    assertFreshInstance(new TypeToken<ImmutableSortedMultiset<String>>() {});
+    assertFreshInstance(new TypeToken<ImmutableSortedMultiset<String>>() {
+    });
   }
 
   public void testCollection() {
-    assertFreshInstance(new TypeToken<Collection<String>>() {});
+    assertFreshInstance(new TypeToken<Collection<String>>() {
+    });
   }
 
   public void testIterable() {
-    assertFreshInstance(new TypeToken<Iterable<String>>() {});
+    assertFreshInstance(new TypeToken<Iterable<String>>() {
+    });
   }
 
   public void testMap() {
-    assertFreshInstance(new TypeToken<Map<String, ?>>() {});
+    assertFreshInstance(new TypeToken<Map<String, ?>>() {
+    });
   }
 
   public void testHashMap() {
-    assertFreshInstance(new TypeToken<HashMap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<HashMap<String, ?>>() {
+    });
   }
 
   public void testLinkedHashMap() {
-    assertFreshInstance(new TypeToken<LinkedHashMap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<LinkedHashMap<String, ?>>() {
+    });
   }
 
   public void testTreeMap() {
-    assertFreshInstance(new TypeToken<TreeMap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<TreeMap<String, ?>>() {
+    });
   }
 
   public void testSortedMap() {
-    assertFreshInstance(new TypeToken<SortedMap<?, String>>() {});
+    assertFreshInstance(new TypeToken<SortedMap<?, String>>() {
+    });
   }
 
   public void testNavigableMap() {
-    assertFreshInstance(new TypeToken<NavigableMap<?, ?>>() {});
+    assertFreshInstance(new TypeToken<NavigableMap<?, ?>>() {
+    });
   }
 
   public void testConcurrentMap() {
-    assertFreshInstance(new TypeToken<ConcurrentMap<String, ?>>() {});
-    assertCanGenerateOnly(new TypeToken<ConcurrentMap<EmptyEnum, String>>() {},
-    Maps.newConcurrentMap());
+    assertFreshInstance(new TypeToken<ConcurrentMap<String, ?>>() {
+    });
+    assertCanGenerateOnly(new TypeToken<ConcurrentMap<EmptyEnum, String>>() {
+    },
+        Maps.newConcurrentMap());
   }
 
   public void testMultimap() {
-    assertFreshInstance(new TypeToken<Multimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<Multimap<String, ?>>() {
+    });
   }
 
   public void testHashMultimap() {
-    assertFreshInstance(new TypeToken<HashMultimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<HashMultimap<String, ?>>() {
+    });
   }
 
   public void testLinkedHashMultimap() {
-    assertFreshInstance(new TypeToken<LinkedHashMultimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<LinkedHashMultimap<String, ?>>() {
+    });
   }
 
   public void testListMultimap() {
-    assertFreshInstance(new TypeToken<ListMultimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<ListMultimap<String, ?>>() {
+    });
   }
 
   public void testArrayListMultimap() {
-    assertFreshInstance(new TypeToken<ArrayListMultimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<ArrayListMultimap<String, ?>>() {
+    });
   }
 
   public void testSetMultimap() {
-    assertFreshInstance(new TypeToken<SetMultimap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<SetMultimap<String, ?>>() {
+    });
   }
 
   public void testBiMap() {
-    assertFreshInstance(new TypeToken<BiMap<String, ?>>() {});
-    assertNotInstantiable(new TypeToken<BiMap<EmptyEnum, String>>() {});
+    assertFreshInstance(new TypeToken<BiMap<String, ?>>() {
+    });
+    assertNotInstantiable(new TypeToken<BiMap<EmptyEnum, String>>() {
+    });
   }
 
   public void testHashBiMap() {
-    assertFreshInstance(new TypeToken<HashBiMap<String, ?>>() {});
+    assertFreshInstance(new TypeToken<HashBiMap<String, ?>>() {
+    });
   }
 
   public void testTable() {
-    assertFreshInstance(new TypeToken<Table<String, ?, ?>>() {});
-    assertNotInstantiable(new TypeToken<Table<EmptyEnum, String, Integer>>() {});
+    assertFreshInstance(new TypeToken<Table<String, ?, ?>>() {
+    });
+    assertNotInstantiable(new TypeToken<Table<EmptyEnum, String, Integer>>() {
+    });
   }
 
   public void testHashBasedTable() {
-    assertFreshInstance(new TypeToken<HashBasedTable<String, ?, ?>>() {});
+    assertFreshInstance(new TypeToken<HashBasedTable<String, ?, ?>>() {
+    });
   }
 
   public void testRowSortedTable() {
-    assertFreshInstance(new TypeToken<RowSortedTable<String, ?, ?>>() {});
+    assertFreshInstance(new TypeToken<RowSortedTable<String, ?, ?>>() {
+    });
   }
 
   public void testTreeBasedTable() {
-    assertFreshInstance(new TypeToken<TreeBasedTable<String, ?, ?>>() {});
+    assertFreshInstance(new TypeToken<TreeBasedTable<String, ?, ?>>() {
+    });
   }
 
   public void testObject() {
@@ -376,31 +433,38 @@ public class FreshValueGeneratorTest extends TestCase {
     assertEqualInstance(EmptyEnum.class, null);
     assertEqualInstance(OneConstantEnum.class, OneConstantEnum.CONSTANT1);
     assertFreshInstance(TwoConstantEnum.class, 2);
-    assertFreshInstance(new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}, 2);
-    assertFreshInstance(new TypeToken<List<OneConstantEnum>>() {}, 1);
-    assertFreshInstance(new TypeToken<List<TwoConstantEnum>>() {}, 2);
+    assertFreshInstance(new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {
+    }, 2);
+    assertFreshInstance(new TypeToken<List<OneConstantEnum>>() {
+    }, 1);
+    assertFreshInstance(new TypeToken<List<TwoConstantEnum>>() {
+    }, 2);
   }
 
   @AndroidIncompatible // problem with equality of Type objects?
   public void testGoogleOptional() {
     FreshValueGenerator generator = new FreshValueGenerator();
     assertEquals(
-        com.google.common.base.Optional.absent(),
-    generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
+      com.google.common.base.Optional.absent(),
+      generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {
+    }));
     assertEquals(
-        com.google.common.base.Optional.of("2"),
-    generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {}));
+      com.google.common.base.Optional.of("2"),
+      generator.generateFresh(new TypeToken<com.google.common.base.Optional<String>>() {
+    }));
     // Test that the first generated instance for different cgcb.Optional<T> is always absent().
     // Having generated cgcb.Optional<String> instances doesn't prevent absent() from being
     // generated for other cgcb.Optional types.
     assertEquals(
-        com.google.common.base.Optional.absent(),
-        generator.generateFresh(
-    new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
+      com.google.common.base.Optional.absent(),
+      generator.generateFresh(
+        new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {
+    }));
     assertEquals(
-        com.google.common.base.Optional.of(OneConstantEnum.CONSTANT1),
-        generator.generateFresh(
-    new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {}));
+      com.google.common.base.Optional.of(OneConstantEnum.CONSTANT1),
+      generator.generateFresh(
+        new TypeToken<com.google.common.base.Optional<OneConstantEnum>>() {
+    }));
   }
 
   public void testAddSampleInstances_twoInstances() {

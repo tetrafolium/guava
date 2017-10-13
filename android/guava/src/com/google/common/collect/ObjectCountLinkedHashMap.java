@@ -212,41 +212,41 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   @Override
   Set<K> createKeySet() {
     return new KeySetView() {
-      @Override
-      public Object[] toArray() {
-        return ObjectArrays.toArrayImpl(this);
-      }
+             @Override
+             public Object[] toArray() {
+               return ObjectArrays.toArrayImpl(this);
+             }
 
-      @Override
-      public <T> T[] toArray(T[] a) {
-        return ObjectArrays.toArrayImpl(this, a);
-      }
+             @Override
+             public <T> T[] toArray(T[] a) {
+               return ObjectArrays.toArrayImpl(this, a);
+             }
 
-      @Override
-      public Iterator<K> iterator() {
-        return new LinkedItr<K>() {
-          @SuppressWarnings("unchecked") // keys only contains Ks
-          @Override
-          K getOutput(int entry) {
-            return (K) keys[entry];
-          }
-        };
-      }
+             @Override
+             public Iterator<K> iterator() {
+               return new LinkedItr<K>() {
+                        @SuppressWarnings("unchecked") // keys only contains Ks
+                        @Override
+                        K getOutput(int entry) {
+                          return (K) keys[entry];
+                        }
+               };
+             }
     };
   }
 
   @Override
   Set<Entry<K>> createEntrySet() {
     return new EntrySetView() {
-      @Override
-      public Iterator<Entry<K>> iterator() {
-        return new LinkedItr<Entry<K>>() {
-          @Override
-          Entry<K> getOutput(int entry) {
-            return new MapEntry(entry);
-          }
-        };
-      }
+             @Override
+             public Iterator<Entry<K>> iterator() {
+               return new LinkedItr<Entry<K>>() {
+                        @Override
+                        Entry<K> getOutput(int entry) {
+                          return new MapEntry(entry);
+                        }
+               };
+             }
     };
   }
 

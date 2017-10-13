@@ -126,9 +126,9 @@ public class StatsAccumulatorTest extends TestCase {
 
     manyValuesAccumulatorByAddAllStats = new StatsAccumulator();
     manyValuesAccumulatorByAddAllStats.addAll(
-        Stats.of(MANY_VALUES.subList(0, MANY_VALUES.size() / 2)));
+      Stats.of(MANY_VALUES.subList(0, MANY_VALUES.size() / 2)));
     manyValuesAccumulatorByAddAllStats.addAll(
-        Stats.of(MANY_VALUES.subList(MANY_VALUES.size() / 2, MANY_VALUES.size())));
+      Stats.of(MANY_VALUES.subList(MANY_VALUES.size() / 2, MANY_VALUES.size())));
 
     integerManyValuesAccumulatorByAddAllIterable = new StatsAccumulator();
     integerManyValuesAccumulatorByAddAllIterable.addAll(INTEGER_MANY_VALUES);

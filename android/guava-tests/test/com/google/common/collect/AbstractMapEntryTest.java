@@ -33,12 +33,12 @@ public class AbstractMapEntryTest extends TestCase {
 
   private static <K, V> Entry<K, V> entry(final K key, final V value) {
     return new AbstractMapEntry<K, V>() {
-      @Override public K getKey() {
-        return key;
-      }
-      @Override public V getValue() {
-        return value;
-      }
+             @Override public K getKey() {
+               return key;
+             }
+             @Override public V getValue() {
+               return value;
+             }
     };
   }
 

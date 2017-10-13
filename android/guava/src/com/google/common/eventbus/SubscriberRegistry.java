@@ -109,7 +109,7 @@ final class SubscriberRegistry {
         // subscriber was removed, all subscribers on listener for that event type were... after
         // all, the definition of subscribers on a particular class is totally static
         throw new IllegalArgumentException(
-            "missing event subscriber for an annotated method. Is " + listener + " registered?");
+                "missing event subscriber for an annotated method. Is " + listener + " registered?");
       }
 
       // don't try to remove the set if it's empty; that can't be done safely without a lock
@@ -153,7 +153,7 @@ final class SubscriberRegistry {
       CacheBuilder.newBuilder()
       .weakKeys()
       .build(
-  new CacheLoader<Class<?>, ImmutableList<Method>>() {
+    new CacheLoader<Class<?>, ImmutableList<Method>>() {
     @Override
     public ImmutableList<Method> load(Class<?> concreteClass) throws Exception {
       return getAnnotatedMethodsNotCached(concreteClass);
@@ -187,11 +187,11 @@ final class SubscriberRegistry {
           // TODO(cgdecker): Should check for a generic parameter type and error out
           Class<?>[] parameterTypes = method.getParameterTypes();
           checkArgument(
-              parameterTypes.length == 1,
-              "Method %s has @Subscribe annotation but has %s parameters."
-              + "Subscriber methods must have exactly 1 parameter.",
-              method,
-              parameterTypes.length);
+            parameterTypes.length == 1,
+            "Method %s has @Subscribe annotation but has %s parameters."
+            + "Subscriber methods must have exactly 1 parameter.",
+            method,
+            parameterTypes.length);
 
           MethodIdentifier ident = new MethodIdentifier(method);
           if (!identifiers.containsKey(ident)) {
@@ -210,13 +210,13 @@ final class SubscriberRegistry {
       CacheBuilder.newBuilder()
       .weakKeys()
       .build(
-  new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
+    new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
     // <Class<?>> is actually needed to compile
     @SuppressWarnings("RedundantTypeArguments")
     @Override
     public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
       return ImmutableSet.<Class<?>>copyOf(
-              TypeToken.of(concreteClass).getTypes().rawTypes());
+        TypeToken.of(concreteClass).getTypes().rawTypes());
     }
   });
 

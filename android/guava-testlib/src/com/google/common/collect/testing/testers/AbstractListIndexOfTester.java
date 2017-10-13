@@ -44,7 +44,7 @@ public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E>
   @CollectionSize.Require(absent = ZERO)
   public void testFind_yes() {
     assertEquals(
-        getMethodName() + "(firstElement) should return 0", 0, find(getOrderedElements().get(0)));
+      getMethodName() + "(firstElement) should return 0", 0, find(getOrderedElements().get(0)));
   }
 
   public void testFind_no() {
@@ -76,15 +76,15 @@ public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E>
   public void testFind_nullContained() {
     initCollectionWithNullElement();
     assertEquals(
-        getMethodName() + "(null) should return " + getNullLocation(),
-        getNullLocation(),
-        find(null));
+      getMethodName() + "(null) should return " + getNullLocation(),
+      getNullLocation(),
+      find(null));
   }
 
   public void testFind_wrongType() {
     try {
       assertEquals(
-          getMethodName() + "(wrongType) should return -1 or throw", -1, find(WrongType.VALUE));
+        getMethodName() + "(wrongType) should return -1 or throw", -1, find(WrongType.VALUE));
     } catch (ClassCastException tolerated) {
     }
   }

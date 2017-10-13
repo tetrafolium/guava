@@ -97,7 +97,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     };
     final AtomicReference<Throwable> throwableFromOtherThread = new AtomicReference<>(null);
     final Runnable incrementTask =
-    new Runnable() {
+        new Runnable() {
       @Override
       public void run() {
         threadLocalCount.set(threadLocalCount.get() + 1);
@@ -105,7 +105,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     };
 
     Thread otherThread = new Thread(
-    new Runnable() {
+      new Runnable() {
       @Override
       public void run() {
         try {
@@ -409,7 +409,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     future = service.schedule(runnable, 5, TimeUnit.MINUTES);
     future.cancel(true);
     assertTrue(future.isCancelled());
-    delegateFuture = (ScheduledFuture<?>) delegateQueue.element();
+    delegateFuture = (ScheduledFuture<?>)delegateQueue.element();
     assertTrue(delegateFuture.isCancelled());
 
     delegateQueue.clear();
@@ -417,7 +417,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     future = service.scheduleAtFixedRate(runnable, 5, 5, TimeUnit.MINUTES);
     future.cancel(true);
     assertTrue(future.isCancelled());
-    delegateFuture = (ScheduledFuture<?>) delegateQueue.element();
+    delegateFuture = (ScheduledFuture<?>)delegateQueue.element();
     assertTrue(delegateFuture.isCancelled());
 
     delegateQueue.clear();
@@ -425,7 +425,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     future = service.scheduleWithFixedDelay(runnable, 5, 5, TimeUnit.MINUTES);
     future.cancel(true);
     assertTrue(future.isCancelled());
-    delegateFuture = (ScheduledFuture<?>) delegateQueue.element();
+    delegateFuture = (ScheduledFuture<?>)delegateQueue.element();
     assertTrue(delegateFuture.isCancelled());
   }
 
@@ -577,7 +577,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
   public void testGetExitingExcutorService_executorSetToUseDaemonThreads() {
     TestApplication application = new TestApplication();
     ThreadPoolExecutor executor = new ThreadPoolExecutor(
-        1, 2, 3, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
+      1, 2, 3, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
     assertNotNull(application.getExitingExecutorService(executor));
     assertTrue(executor.getThreadFactory().newThread(EMPTY_RUNNABLE).isDaemon());
   }
@@ -637,7 +637,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
 
   public void testThreadRenaming() {
     Executor renamingExecutor = renamingDecorator(newDirectExecutorService(),
-            Suppliers.ofInstance("FooBar"));
+        Suppliers.ofInstance("FooBar"));
     String oldName = Thread.currentThread().getName();
     renamingExecutor.execute(new Runnable() {
       @Override public void run() {

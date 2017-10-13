@@ -123,8 +123,8 @@ public class MinMaxPriorityQueueBenchmark {
       // Need to take absolute value to avoid inverting the value.
       for (double i = 0; i < 100; i += 20) {
         v = v.add(v.multiply(
-                    BigInteger.valueOf(
-                        ((Double) Math.abs(Math.sin(i) * 10.0)).longValue())));
+              BigInteger.valueOf(
+                ((Double) Math.abs(Math.sin(i) * 10.0)).longValue())));
       }
       return v;
     }

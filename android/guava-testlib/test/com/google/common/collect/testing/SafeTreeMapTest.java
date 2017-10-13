@@ -46,8 +46,8 @@ public class SafeTreeMapTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SafeTreeMapTest.class);
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>(Ordering.natural());
@@ -57,18 +57,18 @@ public class SafeTreeMapTest extends TestCase {
         return map;
       }
     })
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.SERIALIZABLE,
         MapFeature.ALLOWS_NULL_VALUES,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         MapFeature.GENERAL_PURPOSE)
-    .named("SafeTreeMap with natural comparator")
-    .createTestSuite());
+      .named("SafeTreeMap with natural comparator")
+      .createTestSuite());
     suite.addTest(
-        NavigableMapTestSuiteBuilder.using(
-    new TestStringSortedMapGenerator() {
+      NavigableMapTestSuiteBuilder.using(
+        new TestStringSortedMapGenerator() {
       @Override
       protected SortedMap<String, String> create(Entry<String, String>[] entries) {
         NavigableMap<String, String> map = new SafeTreeMap<>(NullsBeforeTwo.INSTANCE);
@@ -80,14 +80,14 @@ public class SafeTreeMapTest extends TestCase {
 
       @Override
       public Iterable<Entry<String, String>> order(
-          List<Entry<String, String>> insertionOrder) {
+        List<Entry<String, String>> insertionOrder) {
         sort(
-            insertionOrder,
-            Helpers.<String, String>entryComparator(NullsBeforeTwo.INSTANCE));
+          insertionOrder,
+          Helpers.<String, String>entryComparator(NullsBeforeTwo.INSTANCE));
         return insertionOrder;
       }
     })
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         MapFeature.ALLOWS_NULL_KEYS,
@@ -96,8 +96,8 @@ public class SafeTreeMapTest extends TestCase {
         MapFeature.GENERAL_PURPOSE,
         CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
         CollectionFeature.SERIALIZABLE)
-    .named("SafeTreeMap with null-friendly comparator")
-    .createTestSuite());
+      .named("SafeTreeMap with null-friendly comparator")
+      .createTestSuite());
     return suite;
   }
 

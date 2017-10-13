@@ -179,7 +179,7 @@ public abstract class Striped<L> {
      * be garbage collected after locking them, ending up in a huge mess.
      */
     @SuppressWarnings("unchecked") // we carefully replaced all keys with their respective L's
-    List<L> asList = (List<L>) Arrays.asList(array);
+    List<L> asList = (List<L>)Arrays.asList(array);
     return Collections.unmodifiableList(asList);
   }
 
@@ -194,8 +194,8 @@ public abstract class Striped<L> {
    */
   public static Striped<Lock> lock(int stripes) {
     return new CompactStriped<>(
-            stripes,
-    new Supplier<Lock>() {
+      stripes,
+      new Supplier<Lock>() {
       @Override
       public Lock get() {
         return new PaddedLock();
@@ -212,8 +212,8 @@ public abstract class Striped<L> {
    */
   public static Striped<Lock> lazyWeakLock(int stripes) {
     return lazy(
-            stripes,
-    new Supplier<Lock>() {
+      stripes,
+      new Supplier<Lock>() {
       @Override
       public Lock get() {
         return new ReentrantLock(false);
@@ -223,8 +223,8 @@ public abstract class Striped<L> {
 
   private static <L> Striped<L> lazy(int stripes, Supplier<L> supplier) {
     return stripes < LARGE_LAZY_CUTOFF
-        ? new SmallLazyStriped<L>(stripes, supplier)
-        : new LargeLazyStriped<L>(stripes, supplier);
+           ? new SmallLazyStriped<L>(stripes, supplier)
+           : new LargeLazyStriped<L>(stripes, supplier);
   }
 
   /**
@@ -237,8 +237,8 @@ public abstract class Striped<L> {
    */
   public static Striped<Semaphore> semaphore(int stripes, final int permits) {
     return new CompactStriped<>(
-            stripes,
-    new Supplier<Semaphore>() {
+      stripes,
+      new Supplier<Semaphore>() {
       @Override
       public Semaphore get() {
         return new PaddedSemaphore(permits);
@@ -256,8 +256,8 @@ public abstract class Striped<L> {
    */
   public static Striped<Semaphore> lazyWeakSemaphore(int stripes, final int permits) {
     return lazy(
-            stripes,
-    new Supplier<Semaphore>() {
+      stripes,
+      new Supplier<Semaphore>() {
       @Override
       public Semaphore get() {
         return new Semaphore(permits, false);
@@ -289,7 +289,7 @@ public abstract class Striped<L> {
 
   // ReentrantReadWriteLock is large enough to make padding probably unnecessary
   private static final Supplier<ReadWriteLock> READ_WRITE_LOCK_SUPPLIER =
-  new Supplier<ReadWriteLock>() {
+      new Supplier<ReadWriteLock>() {
     @Override
     public ReadWriteLock get() {
       return new ReentrantReadWriteLock();
@@ -397,7 +397,7 @@ public abstract class Striped<L> {
       Reference<? extends L> ref;
       while ((ref = queue.poll()) != null) {
         // We only ever register ArrayReferences with the queue so this is always safe.
-        ArrayReference<? extends L> arrayRef = (ArrayReference<? extends L>) ref;
+        ArrayReference<? extends L> arrayRef = (ArrayReference<? extends L>)ref;
         // Try to clear out the array slot, n.b. if we fail that is fine, in either case the
         // arrayRef will be out of the array after this step.
         locks.compareAndSet(arrayRef.index, arrayRef, null);

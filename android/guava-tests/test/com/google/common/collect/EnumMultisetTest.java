@@ -49,11 +49,11 @@ public class EnumMultisetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(MultisetTestSuiteBuilder.using(enumMultisetGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.KNOWN_ORDER,
-            CollectionFeature.GENERAL_PURPOSE,
-            CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
-            CollectionFeature.ALLOWS_NULL_QUERIES,
-            MultisetFeature.ENTRIES_ARE_VIEWS)
+        CollectionFeature.KNOWN_ORDER,
+        CollectionFeature.GENERAL_PURPOSE,
+        CollectionFeature.SUPPORTS_ITERATOR_REMOVE,
+        CollectionFeature.ALLOWS_NULL_QUERIES,
+        MultisetFeature.ENTRIES_ARE_VIEWS)
         .named("EnumMultiset")
         .createTestSuite());
     suite.addTestSuite(EnumMultisetTest.class);
@@ -62,11 +62,11 @@ public class EnumMultisetTest extends TestCase {
 
   private static TestEnumMultisetGenerator enumMultisetGenerator() {
     return new TestEnumMultisetGenerator() {
-      @Override protected Multiset<AnEnum> create(AnEnum[] elements) {
-        return (elements.length == 0)
-            ? EnumMultiset.create(AnEnum.class)
-            : EnumMultiset.create(asList(elements));
-      }
+             @Override protected Multiset<AnEnum> create(AnEnum[] elements) {
+               return (elements.length == 0)
+                      ? EnumMultiset.create(AnEnum.class)
+                      : EnumMultiset.create(asList(elements));
+             }
     };
   }
 
@@ -90,7 +90,7 @@ public class EnumMultisetTest extends TestCase {
 
   public void testCollectionCreate() {
     Multiset<Color> ms = EnumMultiset.create(
-            asList(Color.RED, Color.YELLOW, Color.RED));
+      asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(0, ms.count(Color.BLUE));
     assertEquals(1, ms.count(Color.YELLOW));
     assertEquals(2, ms.count(Color.RED));
@@ -128,7 +128,7 @@ public class EnumMultisetTest extends TestCase {
   @GwtIncompatible // SerializableTester
   public void testSerializable() {
     Multiset<Color> ms = EnumMultiset.create(
-            asList(Color.RED, Color.YELLOW, Color.RED));
+      asList(Color.RED, Color.YELLOW, Color.RED));
     assertEquals(ms, SerializableTester.reserialize(ms));
   }
 

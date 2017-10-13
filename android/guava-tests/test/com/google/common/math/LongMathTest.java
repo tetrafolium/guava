@@ -113,17 +113,17 @@ public class LongMathTest extends TestCase {
   public void testConstantMaxPowerOfSqrt2Unsigned() {
     assertEquals(
 
-        /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Long.SIZE - 1), FLOOR)
-        .longValue(),
-        /*actual=*/ LongMath.MAX_POWER_OF_SQRT2_UNSIGNED);
+      /*expected=*/ BigIntegerMath.sqrt(BigInteger.ZERO.setBit(2 * Long.SIZE - 1), FLOOR)
+      .longValue(),
+      /*actual=*/ LongMath.MAX_POWER_OF_SQRT2_UNSIGNED);
   }
 
   @GwtIncompatible // BigIntegerMath // TODO(cpovirk): GWT-enable BigIntegerMath
   public void testMaxLog10ForLeadingZeros() {
     for (int i = 0; i < Long.SIZE; i++) {
       assertEquals(
-          BigIntegerMath.log10(BigInteger.ONE.shiftLeft(Long.SIZE - i), FLOOR),
-          LongMath.maxLog10ForLeadingZeros[i]);
+        BigIntegerMath.log10(BigInteger.ONE.shiftLeft(Long.SIZE - i), FLOOR),
+        LongMath.maxLog10ForLeadingZeros[i]);
     }
   }
 
@@ -152,8 +152,8 @@ public class LongMathTest extends TestCase {
   @GwtIncompatible // TODO
   public void testConstantsSqrtMaxLong() {
     assertEquals(
-        /*expected=*/ LongMath.sqrt(Long.MAX_VALUE, FLOOR),
-        /*actual=*/ LongMath.FLOOR_SQRT_MAX_LONG);
+      /*expected=*/ LongMath.sqrt(Long.MAX_VALUE, FLOOR),
+      /*actual=*/ LongMath.FLOOR_SQRT_MAX_LONG);
   }
 
   @GwtIncompatible // TODO
@@ -164,7 +164,7 @@ public class LongMathTest extends TestCase {
     }
     try {
       LongMath.checkedMultiply(
-          LongMath.factorials[LongMath.factorials.length - 1], LongMath.factorials.length);
+        LongMath.factorials[LongMath.factorials.length - 1], LongMath.factorials.length);
       fail("Expected ArithmeticException");
     } catch (ArithmeticException expect) {}
   }
@@ -421,7 +421,7 @@ public class LongMathTest extends TestCase {
         } catch (ArithmeticException e) {
           if (expectedSuccess) {
             failFormat(
-                "expected divide(%s, %s, UNNECESSARY) to succeed; got ArithmeticException", p, q);
+              "expected divide(%s, %s, UNNECESSARY) to succeed; got ArithmeticException", p, q);
           }
         }
       }
@@ -564,7 +564,7 @@ public class LongMathTest extends TestCase {
         } catch (ArithmeticException e) {
           if (expectedSuccess) {
             failFormat(
-                "expected checkedAdd(%s, %s) = %s; got ArithmeticException", a, b, expectedResult);
+              "expected checkedAdd(%s, %s) = %s; got ArithmeticException", a, b, expectedResult);
           }
         }
       }
@@ -584,10 +584,10 @@ public class LongMathTest extends TestCase {
         } catch (ArithmeticException e) {
           if (expectedSuccess) {
             failFormat(
-                "expected checkedSubtract(%s, %s) = %s; got ArithmeticException",
-                a,
-                b,
-                expectedResult);
+              "expected checkedSubtract(%s, %s) = %s; got ArithmeticException",
+              a,
+              b,
+              expectedResult);
           }
         }
       }
@@ -618,10 +618,10 @@ public class LongMathTest extends TestCase {
         } catch (ArithmeticException e) {
           if (expectedSuccess) {
             failFormat(
-                "expected checkedMultiply(%s, %s) = %s; got ArithmeticException",
-                a,
-                b,
-                expectedResult);
+              "expected checkedMultiply(%s, %s) = %s; got ArithmeticException",
+              a,
+              b,
+              expectedResult);
           }
         }
       }
@@ -640,10 +640,10 @@ public class LongMathTest extends TestCase {
         } catch (ArithmeticException e) {
           if (expectedSuccess) {
             failFormat(
-                "expected checkedPow(%s, %s) = %s; got ArithmeticException",
-                b,
-                exp,
-                expectedResult);
+              "expected checkedPow(%s, %s) = %s; got ArithmeticException",
+              b,
+              exp,
+              expectedResult);
           }
         }
       }
@@ -656,7 +656,7 @@ public class LongMathTest extends TestCase {
     for (long a : ALL_LONG_CANDIDATES) {
       for (long b : ALL_LONG_CANDIDATES) {
         assertOperationEquals(
-            a, b, "s+", saturatedCast(valueOf(a).add(valueOf(b))), LongMath.saturatedAdd(a, b));
+          a, b, "s+", saturatedCast(valueOf(a).add(valueOf(b))), LongMath.saturatedAdd(a, b));
       }
     }
   }
@@ -667,11 +667,11 @@ public class LongMathTest extends TestCase {
     for (long a : ALL_LONG_CANDIDATES) {
       for (long b : ALL_LONG_CANDIDATES) {
         assertOperationEquals(
-            a,
-            b,
-            "s-",
-            saturatedCast(valueOf(a).subtract(valueOf(b))),
-            LongMath.saturatedSubtract(a, b));
+          a,
+          b,
+          "s-",
+          saturatedCast(valueOf(a).subtract(valueOf(b))),
+          LongMath.saturatedSubtract(a, b));
       }
     }
   }
@@ -682,11 +682,11 @@ public class LongMathTest extends TestCase {
     for (long a : ALL_LONG_CANDIDATES) {
       for (long b : ALL_LONG_CANDIDATES) {
         assertOperationEquals(
-            a,
-            b,
-            "s*",
-            saturatedCast(valueOf(a).multiply(valueOf(b))),
-            LongMath.saturatedMultiply(a, b));
+          a,
+          b,
+          "s*",
+          saturatedCast(valueOf(a).multiply(valueOf(b))),
+          LongMath.saturatedMultiply(a, b));
       }
     }
   }
@@ -696,7 +696,7 @@ public class LongMathTest extends TestCase {
     for (long a : ALL_LONG_CANDIDATES) {
       for (int b : EXPONENTS) {
         assertOperationEquals(
-            a, b, "s^", saturatedCast(valueOf(a).pow(b)), LongMath.saturatedPow(a, b));
+          a, b, "s^", saturatedCast(valueOf(a).pow(b)), LongMath.saturatedPow(a, b));
       }
     }
   }
@@ -832,7 +832,7 @@ public class LongMathTest extends TestCase {
 
   /**
    * Helper method that asserts the arithmetic mean of x and y is equal
-   *to the result of computeMeanSafely.
+   * to the result of computeMeanSafely.
    */
   private static void assertMean(long x, long y) {
     long expectedMean = computeMeanSafely(x, y);
@@ -849,7 +849,7 @@ public class LongMathTest extends TestCase {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
-    .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
+        .divide(BigDecimal.valueOf(2), BigDecimal.ROUND_FLOOR);
     // parseInt blows up on overflow as opposed to intValue() which does not.
     return Long.parseLong(bigMean.toString());
   }

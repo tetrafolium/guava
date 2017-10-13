@@ -40,8 +40,8 @@ public class SafeTreeSetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(SafeTreeSetTest.class);
     suite.addTest(
-        NavigableSetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      NavigableSetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         return new SafeTreeSet<>(Arrays.asList(elements));
@@ -52,15 +52,15 @@ public class SafeTreeSetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE)
-    .named("SafeTreeSet with natural comparator")
-    .createTestSuite());
+      .named("SafeTreeSet with natural comparator")
+      .createTestSuite());
     suite.addTest(
-        SetTestSuiteBuilder.using(
-    new TestStringSetGenerator() {
+      SetTestSuiteBuilder.using(
+        new TestStringSetGenerator() {
       @Override
       protected Set<String> create(String[] elements) {
         NavigableSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
@@ -73,13 +73,13 @@ public class SafeTreeSetTest extends TestCase {
         return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
       }
     })
-    .withFeatures(
+      .withFeatures(
         CollectionSize.ANY,
         CollectionFeature.KNOWN_ORDER,
         CollectionFeature.GENERAL_PURPOSE,
         CollectionFeature.ALLOWS_NULL_VALUES)
-    .named("SafeTreeSet with null-friendly comparator")
-    .createTestSuite());
+      .named("SafeTreeSet with null-friendly comparator")
+      .createTestSuite());
     return suite;
   }
 

@@ -38,10 +38,10 @@ public enum ListFeature implements Feature<List> {
   SUPPORTS_REMOVE_WITH_INDEX(CollectionFeature.SUPPORTS_REMOVE),
 
   GENERAL_PURPOSE(
-      CollectionFeature.GENERAL_PURPOSE,
-      SUPPORTS_SET,
-      SUPPORTS_ADD_WITH_INDEX,
-      SUPPORTS_REMOVE_WITH_INDEX),
+    CollectionFeature.GENERAL_PURPOSE,
+    SUPPORTS_SET,
+    SUPPORTS_ADD_WITH_INDEX,
+    SUPPORTS_REMOVE_WITH_INDEX),
 
   /** Features supported by lists where only removal is allowed. */
   REMOVE_OPERATIONS(CollectionFeature.REMOVE_OPERATIONS, SUPPORTS_REMOVE_WITH_INDEX);
@@ -61,8 +61,8 @@ public enum ListFeature implements Feature<List> {
   @Inherited
   @TesterAnnotation
   public @interface Require {
-  ListFeature[] value() default {};
+    ListFeature[] value() default {};
 
-  ListFeature[] absent() default {};
+    ListFeature[] absent() default {};
   }
 }

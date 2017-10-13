@@ -39,15 +39,15 @@ public class MessageDigestHashFunctionTest extends TestCase {
   //  - The algorithm name is not case-sensitive.
   private static final ImmutableMap<String, HashFunction> ALGORITHMS =
       new ImmutableMap.Builder<String, HashFunction>()
-  .put("MD5", Hashing.md5())
-  .put("SHA", Hashing.sha1()) // Not the official name, but still works
-  .put("SHA1", Hashing.sha1()) // Not the official name, but still works
-  .put("sHa-1", Hashing.sha1()) // Not the official name, but still works
-  .put("SHA-1", Hashing.sha1())
-  .put("SHA-256", Hashing.sha256())
-  .put("SHA-384", Hashing.sha384())
-  .put("SHA-512", Hashing.sha512())
-  .build();
+      .put("MD5", Hashing.md5())
+      .put("SHA", Hashing.sha1()) // Not the official name, but still works
+      .put("SHA1", Hashing.sha1()) // Not the official name, but still works
+      .put("sHa-1", Hashing.sha1()) // Not the official name, but still works
+      .put("SHA-1", Hashing.sha1())
+      .put("SHA-256", Hashing.sha256())
+      .put("SHA-384", Hashing.sha384())
+      .put("SHA-512", Hashing.sha512())
+      .build();
 
   public void testHashing() {
     for (String stringToTest : INPUTS) {
@@ -96,12 +96,12 @@ public class MessageDigestHashFunctionTest extends TestCase {
     try {
       MessageDigest digest = MessageDigest.getInstance(algorithmName);
       assertEquals(
-          HashCode.fromBytes(digest.digest(input)),
-          ALGORITHMS.get(algorithmName).hashBytes(input));
+        HashCode.fromBytes(digest.digest(input)),
+        ALGORITHMS.get(algorithmName).hashBytes(input));
       for (int bytes = 4; bytes <= digest.getDigestLength(); bytes++) {
         assertEquals(
-            HashCode.fromBytes(Arrays.copyOf(digest.digest(input), bytes)),
-            new MessageDigestHashFunction(algorithmName, bytes, algorithmName).hashBytes(input));
+          HashCode.fromBytes(Arrays.copyOf(digest.digest(input), bytes)),
+          new MessageDigestHashFunction(algorithmName, bytes, algorithmName).hashBytes(input));
       }
       try {
         int maxSize = digest.getDigestLength();

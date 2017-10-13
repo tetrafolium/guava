@@ -89,7 +89,7 @@ final class InterruptionUtil {
   }
 
   static void repeatedlyInterruptTestThread(
-      long interruptPeriodMillis, TearDownAccepter tearDownAccepter) {
+    long interruptPeriodMillis, TearDownAccepter tearDownAccepter) {
     final Interruptenator interruptingTask =
         new Interruptenator(Thread.currentThread(), interruptPeriodMillis);
     final Thread interruptingThread = new Thread(interruptingTask);
@@ -103,7 +103,7 @@ final class InterruptionUtil {
         if (interruptingThread.isAlive()) {
           // This will be hidden by test-output redirection:
           logger.severe(
-              "InterruptenatorTask did not exit; future tests may be affected");
+            "InterruptenatorTask did not exit; future tests may be affected");
           /*
            * This won't do any good under JUnit 3, but I'll leave it around in
            * case we ever switch to JUnit 4:
@@ -116,7 +116,7 @@ final class InterruptionUtil {
 
   // TODO(cpovirk): promote to Uninterruptibles, and add untimed version
   private static void joinUninterruptibly(
-      Thread thread, long timeout, TimeUnit unit) {
+    Thread thread, long timeout, TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);

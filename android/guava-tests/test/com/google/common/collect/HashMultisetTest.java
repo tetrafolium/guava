@@ -46,11 +46,11 @@ public class HashMultisetTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(MultisetTestSuiteBuilder.using(hashMultisetGenerator())
         .withFeatures(CollectionSize.ANY,
-            CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
-            CollectionFeature.ALLOWS_NULL_VALUES,
-            CollectionFeature.SERIALIZABLE,
-            CollectionFeature.GENERAL_PURPOSE,
-            MultisetFeature.ENTRIES_ARE_VIEWS)
+        CollectionFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION,
+        CollectionFeature.ALLOWS_NULL_VALUES,
+        CollectionFeature.SERIALIZABLE,
+        CollectionFeature.GENERAL_PURPOSE,
+        MultisetFeature.ENTRIES_ARE_VIEWS)
         .named("HashMultiset")
         .createTestSuite());
     suite.addTestSuite(HashMultisetTest.class);
@@ -59,9 +59,9 @@ public class HashMultisetTest extends TestCase {
 
   private static TestStringMultisetGenerator hashMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
-        return HashMultiset.create(asList(elements));
-      }
+             @Override protected Multiset<String> create(String[] elements) {
+               return HashMultiset.create(asList(elements));
+             }
     };
   }
 

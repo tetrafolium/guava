@@ -119,7 +119,7 @@ public final class Interners {
 
     private InternerImpl(MapMaker mapMaker) {
       this.map = MapMakerInternalMap.createWithDummyValues(
-              mapMaker.keyEquivalence(Equivalence.equals()));
+        mapMaker.keyEquivalence(Equivalence.equals()));
     }
 
     @Override
@@ -180,7 +180,7 @@ public final class Interners {
     @Override
     public boolean equals(Object other) {
       if (other instanceof InternerFunction) {
-        InternerFunction<?> that = (InternerFunction<?>) other;
+        InternerFunction<?> that = (InternerFunction<?>)other;
         return interner.equals(that.interner);
       }
 
