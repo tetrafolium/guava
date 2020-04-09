@@ -8,12 +8,13 @@ inspecode:
   - input:       [ "android/**/*.java" ]
     config-file: rocro-astyle.opts
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 721 }
   - input:       [ "guava*/**/*.java" ]
     config-file: rocro-astyle.opts
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 484 }
 
+  #### com.puppycrawl.tools.checkstyle.api.CheckstyleException: cannot initialize module TreeWalker - TreeWalker is not allowed as a parent of LineLength Please review 'Parent Module' section for this Check in web documentation if Check is standard.
   checkstyle:
     config-file: rocro-checkstyle.xml
     auto-fix:    true
@@ -21,22 +22,22 @@ inspecode:
 
   clang-format:
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 999 }    # too many issues detected: 2171 > 1000
 
   cpd:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 832 }
 
   fossology:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 29 }
 
   grep:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 122 }
 
   infer:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 133 }
 
   jscpd:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 121 }
 
   misspell:
     auto-fix:    true
@@ -44,25 +45,27 @@ inspecode:
       -i:
       - "Escapers"
       - "escapers"
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 20 }
 
   pmd:
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 307 }
 
-  spotbugs:
-    auto-fix:    true
-    thresholds:  { num-issues: 999 }
+  #### Classfiles/jarfiles of targets are not specified.
+  #### Please specify targets with the "-targets", "-project" or "-analyzeFromFile" option.
+  #spotbugs:
+  #  auto-fix:    true
+  #  thresholds:  { num-issues: 999 }
 
   uncrustify:
   - input:       [ "android/**/*.java" ]
     config-file: rocro-uncrustify.cfg
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 876 }
   - input:       [ "guava*/**/*.java" ]
     config-file: rocro-uncrustify.cfg
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 563 }
 
   unused:
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 8 }
