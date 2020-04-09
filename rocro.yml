@@ -1,38 +1,68 @@
 inspecode:
 
-  ### file filters
   experimental:
-    input:
-    ignore:      [ "/*test*/" ]
+    ignore:
+    - "/*test*/"
 
-  ### tools for Java [91.4%]
   astyle:
   - input:       [ "android/**/*.java" ]
-    auto-fix:    true
     config-file: rocro-astyle.opts
-  - input:       [ "guava*/**/*.java" ]
     auto-fix:    true
+    thresholds:  { num-issues: 999 }
+  - input:       [ "guava*/**/*.java" ]
     config-file: rocro-astyle.opts
-  checkstyle:
     auto-fix:    true
-    config-file: rocro-checkstyle.xml
-  cpd:
-  #infer:       ## temporary disabled ... takes too long
-  pmd:
-    auto-fix:    true
-  uncrustify:
-  - input:       [ "android/**/*.java" ]
-    auto-fix:    true
-    config-file: rocro-uncrustify.cfg
-  - input:       [ "guava*/**/*.java" ]
-    auto-fix:    true
-    config-file: rocro-uncrustify.cfg
+    thresholds:  { num-issues: 999 }
 
-  ### tools for all Languages
+  checkstyle:
+    config-file: rocro-checkstyle.xml
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+
+  clang-format:
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+
+  cpd:
+    thresholds:  { num-issues: 999 }
+
+  fossology:
+    thresholds:  { num-issues: 999 }
+
   grep:
+    thresholds:  { num-issues: 999 }
+
+  infer:
+    thresholds:  { num-issues: 999 }
+
+  jscpd:
+    thresholds:  { num-issues: 999 }
+
   misspell:
     auto-fix:    true
     options:
       -i:
       - "Escapers"
       - "escapers"
+    thresholds:  { num-issues: 999 }
+
+  pmd:
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+
+  spotbugs:
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+
+  uncrustify:
+  - input:       [ "android/**/*.java" ]
+    config-file: rocro-uncrustify.cfg
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+  - input:       [ "guava*/**/*.java" ]
+    config-file: rocro-uncrustify.cfg
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+
+  unused:
+    thresholds:  { num-issues: 999 }
