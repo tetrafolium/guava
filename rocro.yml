@@ -14,11 +14,10 @@ inspecode:
     auto-fix:    true
     thresholds:  { num-issues: 484 }
 
-  #### com.puppycrawl.tools.checkstyle.api.CheckstyleException: cannot initialize module TreeWalker - TreeWalker is not allowed as a parent of LineLength Please review 'Parent Module' section for this Check in web documentation if Check is standard.
   checkstyle:
     config-file: rocro-checkstyle.xml
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 583 }
 
   clang-format:
     auto-fix:    true
