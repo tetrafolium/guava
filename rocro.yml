@@ -20,8 +20,15 @@ inspecode:
     thresholds:  { num-issues: 583 }
 
   clang-format:
+  - input:       [ 'android/' ]
     auto-fix:    true
-    thresholds:  { num-issues: 999 }    # too many issues detected: 2171 > 1000
+    thresholds:  { num-issues: 999 }
+  - input:       [ 'guava-test*/' ]
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
+  - ignore:      [ 'android/', 'guava-test*/' ]
+    auto-fix:    true
+    thresholds:  { num-issues: 999 }
 
   cpd:
     thresholds:  { num-issues: 832 }
