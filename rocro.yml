@@ -1,46 +1,45 @@
 inspecode:
 
   experimental:
-    ignore:
-    - "**/test/"
+    ignore:      [ "**/test/" ]
 
   astyle:
   - input:       [ "android/" ]
     config-file: rocro-astyle.opts
     auto-fix:    true
-    thresholds:  { num-issues: 721 }
+    thresholds:  { num-issues: 378 }
   - ignore:      [ "android/" ]
     config-file: rocro-astyle.opts
     auto-fix:    true
-    thresholds:  { num-issues: 484 }
+    thresholds:  { num-issues: 471 }
 
   checkstyle:
     config-file: rocro-checkstyle.xml
     auto-fix:    true
-    thresholds:  { num-issues: 583 }
+    thresholds:  { num-issues: 475 }
 
   clang-format:
   - input:       [ "android/" ]
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 850 }
   - ignore:      [ "android/" ]
     auto-fix:    true
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 998 }
 
   cpd:
-    thresholds:  { num-issues: 832 }
+    thresholds:  { num-issues: 951 }
 
   fossology:
-    thresholds:  { num-issues: 29 }
+    thresholds:  { num-issues: 23 }
 
   grep:
-    thresholds:  { num-issues: 122 }
+    thresholds:  { num-issues: 118 }
 
   infer:
-    thresholds:  { num-issues: 133 }
+    thresholds:  { num-issues: 140 }
 
   jscpd:
-    thresholds:  { num-issues: 121 }
+    thresholds:  { num-issues: 23 }
 
   misspell:
     auto-fix:    true
@@ -48,11 +47,11 @@ inspecode:
       -i:
       - "Escapers"
       - "escapers"
-    thresholds:  { num-issues: 20 }
+    thresholds:  { num-issues: 18 }
 
   pmd:
     #auto-fix:    true   # java.lang.StringIndexOutOfBoundsException: begin 10568, end 10559, length 13170
-    thresholds:  { num-issues: 307 }
+    thresholds:  { num-issues: 120 }
 
   #### Classfiles/jarfiles of targets are not specified.
   #### Please specify targets with the "-targets", "-project" or "-analyzeFromFile" option.
@@ -64,11 +63,11 @@ inspecode:
   - input:       [ "android/" ]
     config-file: rocro-uncrustify.cfg
     auto-fix:    true
-    thresholds:  { num-issues: 876 }
+    thresholds:  { num-issues: 503 }
   - ignore:      [ "android/" ]
     config-file: rocro-uncrustify.cfg
     auto-fix:    true
-    thresholds:  { num-issues: 563 }
+    thresholds:  { num-issues: 611 }
 
   unused:
-    thresholds:  { num-issues: 8 }
+    thresholds:  { num-issues: 3 }
