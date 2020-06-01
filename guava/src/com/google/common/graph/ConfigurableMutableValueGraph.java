@@ -108,12 +108,10 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
       return false;
     }
 
-    if (allowsSelfLoops()) {
-      // Remove self-loop (if any) first, so we don't get CME while removing incident edges.
-      if (connections.removeSuccessor(node) != null) {
-        connections.removePredecessor(node);
-        --edgeCount;
-      }
+    // Remove self-loop (if any) first, so we don't get CME while removing incident edges.
+    if ((allowsSelfLoops()) && (connections.removeSuccessor(node) != null)) {
+      connections.removePredecessor(node);
+      --edgeCount;
     }
 
     for (N successor : connections.successors()) {

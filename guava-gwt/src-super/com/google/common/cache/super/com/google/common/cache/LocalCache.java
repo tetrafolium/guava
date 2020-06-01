@@ -203,10 +203,8 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
   @Override
   public boolean containsValue(final Object value) {
     for (Timestamped<V> val : cachingHashMap.values()) {
-      if (val.getValue().equals(value)) {
-        if (!isExpired(val)) {
-          return true;
-        }
+      if ((val.getValue().equals(value)) && (!isExpired(val))) {
+        return true;
       }
     }
     return false;
@@ -484,7 +482,7 @@ public class LocalCache<K, V> implements ConcurrentMap<K, V> {
 
     @Override
     protected boolean removeEldestEntry(final Map.Entry<K, Timestamped<V>> ignored) {
-      boolean removal = (maximumSize == UNSET_INT) ? false : (size() > maximumSize);
+      boolean removal = !((maximumSize == UNSET_INT)) && (size() > maximumSize);
       if ((removalListener != null) && removal) {
         removalListener.onRemoval(RemovalNotification.create(
             ignored.getKey(),
