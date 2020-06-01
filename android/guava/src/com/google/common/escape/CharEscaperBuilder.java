@@ -42,7 +42,7 @@ public final class CharEscaperBuilder {
     private final char[][] replacements;
     private final int replaceLength;
 
-    CharArrayDecorator(char[][] replacements) {
+    CharArrayDecorator(final char[][] replacements) {
       this.replacements = replacements;
       this.replaceLength = replacements.length;
     }
@@ -52,7 +52,7 @@ public final class CharEscaperBuilder {
      * array directly, saving a method call.
      */
     @Override
-    public String escape(String s) {
+    public String escape(final String s) {
       int slen = s.length();
       for (int index = 0; index < slen; index++) {
         char c = s.charAt(index);
@@ -64,7 +64,7 @@ public final class CharEscaperBuilder {
     }
 
     @Override
-    protected char[] escape(char c) {
+    protected char[] escape(final char c) {
       return c < replaceLength ? replacements[c] : null;
     }
   }
@@ -86,7 +86,7 @@ public final class CharEscaperBuilder {
    * Add a new mapping from an index to an object to the escaping.
    */
   @CanIgnoreReturnValue
-  public CharEscaperBuilder addEscape(char c, String r) {
+  public CharEscaperBuilder addEscape(final char c, final String r) {
     map.put(c, checkNotNull(r));
     if (c > max) {
       max = c;
@@ -98,7 +98,7 @@ public final class CharEscaperBuilder {
    * Add multiple mappings at once for a particular index.
    */
   @CanIgnoreReturnValue
-  public CharEscaperBuilder addEscapes(char[] cs, String r) {
+  public CharEscaperBuilder addEscapes(final char[] cs, final String r) {
     checkNotNull(r);
     for (char c : cs) {
       addEscape(c, r);

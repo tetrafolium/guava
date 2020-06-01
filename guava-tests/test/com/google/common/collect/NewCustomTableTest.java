@@ -32,7 +32,7 @@ import java.util.TreeMap;
 public class NewCustomTableTest extends AbstractTableTest {
 
   @Override protected Table<String, Integer, Character> create(
-      Object... data) {
+      final Object... data) {
     Supplier<TreeMap<Integer, Character>> factory
         = new Supplier<TreeMap<Integer, Character>>() {
           @Override

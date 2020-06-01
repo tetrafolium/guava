@@ -102,11 +102,11 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * {@code supportsRemove}.
    */
   protected MapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
+      final boolean allowsNullKeys,
+      final boolean allowsNullValues,
+      final boolean supportsPut,
+      final boolean supportsRemove,
+      final boolean supportsClear) {
     this(
         allowsNullKeys,
         allowsNullValues,
@@ -120,12 +120,12 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * Constructor with an explicit {@code supportsIteratorRemove} parameter.
    */
   protected MapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear,
-      boolean supportsIteratorRemove) {
+      final boolean allowsNullKeys,
+      final boolean allowsNullValues,
+      final boolean supportsPut,
+      final boolean supportsRemove,
+      final boolean supportsClear,
+      final boolean supportsIteratorRemove) {
     this.supportsPut = supportsPut;
     this.supportsRemove = supportsRemove;
     this.supportsClear = supportsClear;
@@ -148,7 +148,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     }
   }
 
-  protected final boolean supportsValuesHashCode(Map<K, V> map) {
+  protected final boolean supportsValuesHashCode(final Map<K, V> map) {
     // get the first non-null value
     Collection<V> values = map.values();
     for (V value : values) {
@@ -172,7 +172,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * @see #assertMoreInvariants
    * @param map the map to check.
    */
-  protected final void assertInvariants(Map<K, V> map) {
+  protected final void assertInvariants(final Map<K, V> map) {
     Set<K> keySet = map.keySet();
     Collection<V> valueCollection = map.values();
     Set<Entry<K, V>> entrySet = map.entrySet();
@@ -257,7 +257,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
   }
 
   @SuppressWarnings("CollectionIncompatibleType")
-  private void assertEntrySetNotContainsString(Set<Entry<K, V>> entrySet) {
+  private void assertEntrySetNotContainsString(final Set<Entry<K, V>> entrySet) {
     // Very unlikely that a buggy collection would ever return true. It might accidentally throw.
     assertFalse(entrySet.contains("foo"));
   }
@@ -269,7 +269,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    *
    * @param map the map whose additional invariants to check.
    */
-  protected void assertMoreInvariants(Map<K, V> map) {}
+  protected void assertMoreInvariants(final Map<K, V> map) { }
 
   public void testClear() {
     final Map<K, V> map;
@@ -1621,7 +1621,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertInvariants(map);
   }
 
-  static <K, V> Entry<K, V> mapEntry(K key, V value) {
+  static <K, V> Entry<K, V> mapEntry(final K key, final V value) {
     return Collections.singletonMap(key, value).entrySet().iterator().next();
   }
 }

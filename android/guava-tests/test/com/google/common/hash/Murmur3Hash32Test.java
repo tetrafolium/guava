@@ -84,13 +84,13 @@ public class Murmur3Hash32Test extends TestCase {
     }
   }
 
-  private static void assertHash(int expected, HashCode actual) {
+  private static void assertHash(final int expected, final HashCode actual) {
     assertEquals(HashCode.fromInt(expected), actual);
   }
 
   public void testParanoidHashBytes() {
     HashFn hf = new HashFn() {
-      @Override public byte[] hash(byte[] input, int seed) {
+      @Override public byte[] hash(final byte[] input, final int seed) {
         return murmur3_32(seed).hashBytes(input).asBytes();
       }
     };
@@ -101,7 +101,7 @@ public class Murmur3Hash32Test extends TestCase {
 
   public void testParanoid() {
     HashFn hf = new HashFn() {
-      @Override public byte[] hash(byte[] input, int seed) {
+      @Override public byte[] hash(final byte[] input, final int seed) {
         Hasher hasher = murmur3_32(seed).newHasher();
         Funnels.byteArrayFunnel().funnel(input, hasher);
         return hasher.hash().asBytes();

@@ -43,11 +43,11 @@ public final class RemovalNotification<K, V> extends SimpleImmutableEntry<K, V> 
    * @since 19.0
    */
   public static <K, V> RemovalNotification<K, V> create(
-      @Nullable K key, @Nullable V value, RemovalCause cause) {
+      final @Nullable K key, final @Nullable V value, final RemovalCause cause) {
     return new RemovalNotification(key, value, cause);
   }
 
-  private RemovalNotification(@Nullable K key, @Nullable V value, RemovalCause cause) {
+  private RemovalNotification(final @Nullable K key, final @Nullable V value, final RemovalCause cause) {
     super(key, value);
     this.cause = checkNotNull(cause);
   }

@@ -31,7 +31,7 @@ import java.util.TreeMap;
  * @author Chris Povirk
  */
 final class ImmutableSortedMap_CustomFieldSerializerBase {
-  static ImmutableSortedMap<Object, Object> instantiate(SerializationStreamReader reader)
+  static ImmutableSortedMap<Object, Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     /*
      * Nothing we can do, but we're already assuming the serialized form is
@@ -46,12 +46,12 @@ final class ImmutableSortedMap_CustomFieldSerializerBase {
     return ImmutableSortedMap.orderedBy(comparator).putAll(entries).build();
   }
 
-  static void serialize(SerializationStreamWriter writer, ImmutableSortedMap<?, ?> instance)
+  static void serialize(final SerializationStreamWriter writer, final ImmutableSortedMap<?, ?> instance)
       throws SerializationException {
     writer.writeObject(instance.comparator());
 
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 
-  private ImmutableSortedMap_CustomFieldSerializerBase() {}
+  private ImmutableSortedMap_CustomFieldSerializerBase() { }
 }

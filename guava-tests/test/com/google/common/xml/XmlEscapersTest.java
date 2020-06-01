@@ -54,8 +54,8 @@ public class XmlEscapersTest extends TestCase {
   }
 
   // Helper to assert common properties of xml escapers.
-  static void assertBasicXmlEscaper(CharEscaper xmlEscaper,
-      boolean shouldEscapeQuotes, boolean shouldEscapeWhitespaceChars) {
+  static void assertBasicXmlEscaper(final CharEscaper xmlEscaper,
+      final boolean shouldEscapeQuotes, final boolean shouldEscapeWhitespaceChars) {
     // Simple examples (smoke tests)
     assertEquals("xxx", xmlEscaper.escape("xxx"));
     assertEquals("test &amp; test &amp; test",
@@ -65,10 +65,10 @@ public class XmlEscapersTest extends TestCase {
     assertEquals("&lt;tab&gt;", xmlEscaper.escape("<tab>"));
 
     // Test all non-escaped ASCII characters.
-    String s = "!@#$%^*()_+=-/?\\|]}[{,.;:" +
-        "abcdefghijklmnopqrstuvwxyz" +
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-        "1234567890";
+    String s = "!@#$%^*()_+=-/?\\|]}[{,.;:"
+        + "abcdefghijklmnopqrstuvwxyz"
+        + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        + "1234567890";
     assertEquals(s, xmlEscaper.escape(s));
 
     // Test ASCII control characters.

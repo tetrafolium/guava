@@ -46,7 +46,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   @VisibleForTesting
   final transient ImmutableList<E> elements;
 
-  RegularImmutableSortedSet(ImmutableList<E> elements, Comparator<? super E> comparator) {
+  RegularImmutableSortedSet(final ImmutableList<E> elements, final Comparator<? super E> comparator) {
     super(comparator);
     this.elements = elements;
   }
@@ -68,7 +68,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  public boolean contains(@Nullable Object o) {
+  public boolean contains(final @Nullable Object o) {
     try {
       return o != null && unsafeBinarySearch(o) >= 0;
     } catch (ClassCastException e) {
@@ -77,7 +77,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  public boolean containsAll(Collection<?> targets) {
+  public boolean containsAll(final Collection<?> targets) {
     // TODO(jlevy): For optimal performance, use a binary search when
     // targets.size() < size() / log(size())
     // TODO(kevinb): see if we can share code with OrderedIterator after it
@@ -128,7 +128,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
     }
   }
 
-  private int unsafeBinarySearch(Object key) throws ClassCastException {
+  private int unsafeBinarySearch(final Object key) throws ClassCastException {
     return Collections.binarySearch(elements, key, unsafeComparator());
   }
 
@@ -138,12 +138,12 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  int copyIntoArray(Object[] dst, int offset) {
+  int copyIntoArray(final Object[] dst, final int offset) {
     return elements.copyIntoArray(dst, offset);
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }
@@ -196,35 +196,35 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  public E lower(E element) {
+  public E lower(final E element) {
     int index = headIndex(element, false) - 1;
     return (index == -1) ? null : elements.get(index);
   }
 
   @Override
-  public E floor(E element) {
+  public E floor(final E element) {
     int index = headIndex(element, true) - 1;
     return (index == -1) ? null : elements.get(index);
   }
 
   @Override
-  public E ceiling(E element) {
+  public E ceiling(final E element) {
     int index = tailIndex(element, true);
     return (index == size()) ? null : elements.get(index);
   }
 
   @Override
-  public E higher(E element) {
+  public E higher(final E element) {
     int index = tailIndex(element, false);
     return (index == size()) ? null : elements.get(index);
   }
 
   @Override
-  ImmutableSortedSet<E> headSetImpl(E toElement, boolean inclusive) {
+  ImmutableSortedSet<E> headSetImpl(final E toElement, final boolean inclusive) {
     return getSubSet(0, headIndex(toElement, inclusive));
   }
 
-  int headIndex(E toElement, boolean inclusive) {
+  int headIndex(final E toElement, final boolean inclusive) {
     int index = Collections.binarySearch(elements, checkNotNull(toElement), comparator());
     if (index >= 0) {
       return inclusive ? index + 1 : index;
@@ -235,16 +235,16 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
 
   @Override
   ImmutableSortedSet<E> subSetImpl(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+      final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
     return tailSetImpl(fromElement, fromInclusive).headSetImpl(toElement, toInclusive);
   }
 
   @Override
-  ImmutableSortedSet<E> tailSetImpl(E fromElement, boolean inclusive) {
+  ImmutableSortedSet<E> tailSetImpl(final E fromElement, final boolean inclusive) {
     return getSubSet(tailIndex(fromElement, inclusive), size());
   }
 
-  int tailIndex(E fromElement, boolean inclusive) {
+  int tailIndex(final E fromElement, final boolean inclusive) {
     int index = Collections.binarySearch(elements, checkNotNull(fromElement), comparator());
     if (index >= 0) {
       return inclusive ? index : index + 1;
@@ -261,7 +261,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
     return (Comparator<Object>) comparator;
   }
 
-  RegularImmutableSortedSet<E> getSubSet(int newFromIndex, int newToIndex) {
+  RegularImmutableSortedSet<E> getSubSet(final int newFromIndex, final int newToIndex) {
     if (newFromIndex == 0 && newToIndex == size()) {
       return this;
     } else if (newFromIndex < newToIndex) {
@@ -273,7 +273,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  int indexOf(@Nullable Object target) {
+  int indexOf(final @Nullable Object target) {
     if (target == null) {
       return -1;
     }

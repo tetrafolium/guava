@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
  */
 public class SourceSinkFactories {
 
-  private SourceSinkFactories() {}
+  private SourceSinkFactories() { }
 
   public static CharSourceFactory stringCharSourceFactory() {
     return new StringSourceFactory();
@@ -102,13 +102,13 @@ public class SourceSinkFactories {
     checkNotNull(factory);
     return new ByteSourceFactory() {
       @Override
-      public ByteSource createSource(byte[] data) throws IOException {
+      public ByteSource createSource(final byte[] data) throws IOException {
         return factory.createSource(new String(data, Charsets.UTF_8))
             .asByteSource(Charsets.UTF_8);
       }
 
       @Override
-      public byte[] getExpected(byte[] data) {
+      public byte[] getExpected(final byte[] data) {
         return factory.getExpected(new String(data, Charsets.UTF_8)).getBytes(Charsets.UTF_8);
       }
 
@@ -123,13 +123,13 @@ public class SourceSinkFactories {
     checkNotNull(factory);
     return new CharSourceFactory() {
       @Override
-      public CharSource createSource(String string) throws IOException {
+      public CharSource createSource(final String string) throws IOException {
         return factory.createSource(string.getBytes(Charsets.UTF_8))
             .asCharSource(Charsets.UTF_8);
       }
 
       @Override
-      public String getExpected(String data) {
+      public String getExpected(final String data) {
         return new String(factory.getExpected(data.getBytes(Charsets.UTF_8)), Charsets.UTF_8);
       }
 
@@ -154,7 +154,7 @@ public class SourceSinkFactories {
       }
 
       @Override
-      public String getExpected(String data) {
+      public String getExpected(final String data) {
         /*
          * Get what the byte sink factory would expect for no written bytes, then append expected
          * string to that.
@@ -175,12 +175,12 @@ public class SourceSinkFactories {
     checkNotNull(factory);
     return new ByteSourceFactory() {
       @Override
-      public ByteSource createSource(byte[] bytes) throws IOException {
+      public ByteSource createSource(final byte[] bytes) throws IOException {
         return factory.createSource(bytes).slice(off, len);
       }
 
       @Override
-      public byte[] getExpected(byte[] bytes) {
+      public byte[] getExpected(final byte[] bytes) {
         byte[] baseExpected = factory.getExpected(bytes);
         int startOffset = (int) Math.min(off, baseExpected.length);
         int actualLen = (int) Math.min(len, baseExpected.length - startOffset);
@@ -197,12 +197,12 @@ public class SourceSinkFactories {
   private static class StringSourceFactory implements CharSourceFactory {
 
     @Override
-    public CharSource createSource(String data) throws IOException {
+    public CharSource createSource(final String data) throws IOException {
       return CharSource.wrap(data);
     }
 
     @Override
-    public String getExpected(String data) {
+    public String getExpected(final String data) {
       return data;
     }
 
@@ -214,12 +214,12 @@ public class SourceSinkFactories {
   private static class ByteArraySourceFactory implements ByteSourceFactory {
 
     @Override
-    public ByteSource createSource(byte[] bytes) throws IOException {
+    public ByteSource createSource(final byte[] bytes) throws IOException {
       return ByteSource.wrap(bytes);
     }
 
     @Override
-    public byte[] getExpected(byte[] bytes) {
+    public byte[] getExpected(final byte[] bytes) {
       return bytes;
     }
 
@@ -231,12 +231,12 @@ public class SourceSinkFactories {
   private static class EmptyCharSourceFactory implements CharSourceFactory {
 
     @Override
-    public CharSource createSource(String data) throws IOException {
+    public CharSource createSource(final String data) throws IOException {
       return CharSource.empty();
     }
 
     @Override
-    public String getExpected(String data) {
+    public String getExpected(final String data) {
       return "";
     }
 
@@ -248,12 +248,12 @@ public class SourceSinkFactories {
   private static class EmptyByteSourceFactory implements ByteSourceFactory {
 
     @Override
-    public ByteSource createSource(byte[] bytes) throws IOException {
+    public ByteSource createSource(final byte[] bytes) throws IOException {
       return ByteSource.empty();
     }
 
     @Override
-    public byte[] getExpected(byte[] bytes) {
+    public byte[] getExpected(final byte[] bytes) {
       return new byte[0];
     }
 
@@ -289,7 +289,7 @@ public class SourceSinkFactories {
   private static class FileByteSourceFactory extends FileFactory implements ByteSourceFactory {
 
     @Override
-    public ByteSource createSource(byte[] bytes) throws IOException {
+    public ByteSource createSource(final byte[] bytes) throws IOException {
       checkNotNull(bytes);
       File file = createFile();
       OutputStream out = new FileOutputStream(file);
@@ -302,7 +302,7 @@ public class SourceSinkFactories {
     }
 
     @Override
-    public byte[] getExpected(byte[] bytes) {
+    public byte[] getExpected(final byte[] bytes) {
       return checkNotNull(bytes);
     }
   }
@@ -311,7 +311,7 @@ public class SourceSinkFactories {
 
     private final byte[] initialBytes;
 
-    private FileByteSinkFactory(@Nullable byte[] initialBytes) {
+    private FileByteSinkFactory(final @Nullable byte[] initialBytes) {
       this.initialBytes = initialBytes;
     }
 
@@ -331,7 +331,7 @@ public class SourceSinkFactories {
     }
 
     @Override
-    public byte[] getExpected(byte[] bytes) {
+    public byte[] getExpected(final byte[] bytes) {
       if (initialBytes == null) {
         return checkNotNull(bytes);
       } else {
@@ -359,7 +359,7 @@ public class SourceSinkFactories {
   private static class FileCharSourceFactory extends FileFactory implements CharSourceFactory {
 
     @Override
-    public CharSource createSource(String string) throws IOException {
+    public CharSource createSource(final String string) throws IOException {
       checkNotNull(string);
       File file = createFile();
       Writer writer = new OutputStreamWriter(new FileOutputStream(file), Charsets.UTF_8);
@@ -372,7 +372,7 @@ public class SourceSinkFactories {
     }
 
     @Override
-    public String getExpected(String string) {
+    public String getExpected(final String string) {
       return checkNotNull(string);
     }
   }
@@ -381,7 +381,7 @@ public class SourceSinkFactories {
 
     private final String initialString;
 
-    private FileCharSinkFactory(@Nullable String initialString) {
+    private FileCharSinkFactory(final @Nullable String initialString) {
       this.initialString = initialString;
     }
 
@@ -401,7 +401,7 @@ public class SourceSinkFactories {
     }
 
     @Override
-    public String getExpected(String string) {
+    public String getExpected(final String string) {
       checkNotNull(string);
       return initialString == null
           ? string
@@ -427,7 +427,7 @@ public class SourceSinkFactories {
 
     @SuppressWarnings("CheckReturnValue") // only using super.createSource to create a file
     @Override
-    public ByteSource createSource(byte[] bytes) throws IOException {
+    public ByteSource createSource(final byte[] bytes) throws IOException {
       super.createSource(bytes);
       return Resources.asByteSource(getFile().toURI().toURL());
     }
@@ -437,7 +437,7 @@ public class SourceSinkFactories {
 
     @SuppressWarnings("CheckReturnValue") // only using super.createSource to create a file
     @Override
-    public CharSource createSource(String string) throws IOException {
+    public CharSource createSource(final String string) throws IOException {
       super.createSource(string); // just ignore returned CharSource
       return Resources.asCharSource(getFile().toURI().toURL(), Charsets.UTF_8);
     }

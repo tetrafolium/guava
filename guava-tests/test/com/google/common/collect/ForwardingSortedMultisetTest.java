@@ -41,7 +41,7 @@ public class ForwardingSortedMultisetTest extends TestCase {
   static class StandardImplForwardingSortedMultiset<E> extends ForwardingSortedMultiset<E> {
     private final SortedMultiset<E> backingMultiset;
 
-    StandardImplForwardingSortedMultiset(SortedMultiset<E> backingMultiset) {
+    StandardImplForwardingSortedMultiset(final SortedMultiset<E> backingMultiset) {
       this.backingMultiset = backingMultiset;
     }
 
@@ -91,17 +91,17 @@ public class ForwardingSortedMultisetTest extends TestCase {
 
     @Override
     public SortedMultiset<E> subMultiset(
-        E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+        final E lowerBound, final BoundType lowerBoundType, final E upperBound, final BoundType upperBoundType) {
       return standardSubMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType);
     }
 
     @Override
-    public int count(@Nullable Object element) {
+    public int count(final @Nullable Object element) {
       return standardCount(element);
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       return standardEquals(object);
     }
 
@@ -111,12 +111,12 @@ public class ForwardingSortedMultisetTest extends TestCase {
     }
 
     @Override
-    public boolean add(E element) {
+    public boolean add(final E element) {
       return standardAdd(element);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> collection) {
+    public boolean addAll(final Collection<? extends E> collection) {
       return standardAddAll(collection);
     }
 
@@ -126,12 +126,12 @@ public class ForwardingSortedMultisetTest extends TestCase {
     }
 
     @Override
-    public boolean contains(@Nullable Object object) {
+    public boolean contains(final @Nullable Object object) {
       return standardContains(object);
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
+    public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
@@ -146,17 +146,17 @@ public class ForwardingSortedMultisetTest extends TestCase {
     }
 
     @Override
-    public boolean remove(@Nullable Object object) {
+    public boolean remove(final @Nullable Object object) {
       return standardRemove(object);
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
+    public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
     @Override
-    public boolean retainAll(Collection<?> collection) {
+    public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -171,7 +171,7 @@ public class ForwardingSortedMultisetTest extends TestCase {
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
   }
@@ -184,13 +184,13 @@ public class ForwardingSortedMultisetTest extends TestCase {
         SortedMultisetTestSuiteBuilder.using(
                 new TestStringMultisetGenerator() {
                   @Override
-                  protected Multiset<String> create(String[] elements) {
+                  protected Multiset<String> create(final String[] elements) {
                     return new StandardImplForwardingSortedMultiset<>(
                         TreeMultiset.create(Arrays.asList(elements)));
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Ordering.natural().sortedCopy(insertionOrder);
                   }
                 })
@@ -209,7 +209,7 @@ public class ForwardingSortedMultisetTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(SortedMultiset.class, new Function<SortedMultiset, SortedMultiset>() {
-          @Override public SortedMultiset apply(SortedMultiset delegate) {
+          @Override public SortedMultiset apply(final SortedMultiset delegate) {
             return wrap(delegate);
           }
         });

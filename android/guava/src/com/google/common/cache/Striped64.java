@@ -96,9 +96,10 @@ abstract class Striped64 extends Number {
         volatile long p0, p1, p2, p3, p4, p5, p6;
         volatile long value;
         volatile long q0, q1, q2, q3, q4, q5, q6;
-        Cell(long x) { value = x; }
+        Cell(final long x) {
+            value = x; }
 
-        final boolean cas(long cmp, long val) {
+        final boolean cas(final long cmp, final long val) {
             return UNSAFE.compareAndSwapLong(this, valueOffset, cmp, val);
         }
 
@@ -158,7 +159,7 @@ abstract class Striped64 extends Number {
     /**
      * CASes the base field.
      */
-    final boolean casBase(long cmp, long val) {
+    final boolean casBase(final long cmp, final long val) {
         return UNSAFE.compareAndSwapLong(this, baseOffset, cmp, val);
     }
 
@@ -191,14 +192,13 @@ abstract class Striped64 extends Number {
      * @param hc the hash code holder
      * @param wasUncontended false if CAS failed before call
      */
-    final void retryUpdate(long x, int[] hc, boolean wasUncontended) {
+    final void retryUpdate(final long x, final int[] hc, final boolean wasUncontended) {
         int h;
         if (hc == null) {
             threadHashCode.set(hc = new int[1]); // Initialize randomly
             int r = rng.nextInt(); // Avoid zero to allow xorShift rehash
             h = hc[0] = (r == 0) ? 1 : r;
-        }
-        else
+        } else
             h = hc[0];
         boolean collide = false;                // True if last slot nonempty
         for (;;) {
@@ -211,9 +211,9 @@ abstract class Striped64 extends Number {
                             boolean created = false;
                             try {               // Recheck under lock
                                 Cell[] rs; int m, j;
-                                if ((rs = cells) != null &&
-                                    (m = rs.length) > 0 &&
-                                    rs[j = (m - 1) & h] == null) {
+                                if ((rs = cells) != null
+                                    && (m = rs.length) > 0
+                                    && rs[j = (m - 1) & h] == null) {
                                     rs[j] = r;
                                     created = true;
                                 }
@@ -226,8 +226,7 @@ abstract class Striped64 extends Number {
                         }
                     }
                     collide = false;
-                }
-                else if (!wasUncontended)       // CAS already known to fail
+                } else if (!wasUncontended)       // CAS already known to fail
                     wasUncontended = true;      // Continue after rehash
                 else if (a.cas(v = a.value, fn(v, x)))
                     break;
@@ -253,8 +252,7 @@ abstract class Striped64 extends Number {
                 h ^= h >>> 17;
                 h ^= h << 5;
                 hc[0] = h;                      // Record index for next time
-            }
-            else if (busy == 0 && cells == as && casBusy()) {
+            } else if (busy == 0 && cells == as && casBusy()) {
                 boolean init = false;
                 try {                           // Initialize table
                     if (cells == as) {
@@ -268,8 +266,7 @@ abstract class Striped64 extends Number {
                 }
                 if (init)
                     break;
-            }
-            else if (casBase(v = base, fn(v, x)))
+            } else if (casBase(v = base, fn(v, x)))
                 break;                          // Fall back on using base
         }
     }
@@ -277,7 +274,7 @@ abstract class Striped64 extends Number {
     /**
      * Sets base and all cells to the given value.
      */
-    final void internalReset(long initialValue) {
+    final void internalReset(final long initialValue) {
         Cell[] as = cells;
         base = initialValue;
         if (as != null) {
@@ -317,7 +314,7 @@ abstract class Striped64 extends Number {
     private static sun.misc.Unsafe getUnsafe() {
         try {
             return sun.misc.Unsafe.getUnsafe();
-        } catch (SecurityException tryReflectionInstead) {}
+        } catch (SecurityException tryReflectionInstead) { }
         try {
             return java.security.AccessController.doPrivileged
             (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {

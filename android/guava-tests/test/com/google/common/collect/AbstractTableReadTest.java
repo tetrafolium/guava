@@ -46,7 +46,7 @@ public abstract class AbstractTableReadTest extends TestCase {
   protected abstract Table<String, Integer, Character>
       create(Object... data);
 
-  protected void assertSize(int expectedSize) {
+  protected void assertSize(final int expectedSize) {
     assertEquals(expectedSize, table.size());
   }
 
@@ -162,7 +162,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     try {
       table.row(null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testColumn() {
@@ -176,7 +176,7 @@ public abstract class AbstractTableReadTest extends TestCase {
     try {
       table.column(null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testColumnSetPartialOverlap() {

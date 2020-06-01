@@ -63,7 +63,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingMap() {}
+  protected ForwardingMap() { }
 
   @Override
   protected abstract Map<K, V> delegate();
@@ -80,7 +80,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
 
   @CanIgnoreReturnValue
   @Override
-  public V remove(Object object) {
+  public V remove(final Object object) {
     return delegate().remove(object);
   }
 
@@ -90,28 +90,28 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   }
 
   @Override
-  public boolean containsKey(@Nullable Object key) {
+  public boolean containsKey(final @Nullable Object key) {
     return delegate().containsKey(key);
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return delegate().containsValue(value);
   }
 
   @Override
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return delegate().get(key);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public V put(K key, V value) {
+  public V put(final K key, final V value) {
     return delegate().put(key, value);
   }
 
   @Override
-  public void putAll(Map<? extends K, ? extends V> map) {
+  public void putAll(final Map<? extends K, ? extends V> map) {
     delegate().putAll(map);
   }
 
@@ -131,7 +131,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return object == this || delegate().equals(object);
   }
 
@@ -148,7 +148,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected void standardPutAll(Map<? extends K, ? extends V> map) {
+  protected void standardPutAll(final Map<? extends K, ? extends V> map) {
     Maps.putAllImpl(this, map);
   }
 
@@ -165,7 +165,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    * @since 7.0
    */
   @Beta
-  protected V standardRemove(@Nullable Object key) {
+  protected V standardRemove(final @Nullable Object key) {
     Iterator<Entry<K, V>> entryIterator = entrySet().iterator();
     while (entryIterator.hasNext()) {
       Entry<K, V> entry = entryIterator.next();
@@ -217,7 +217,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    * @since 7.0
    */
   @Beta
-  protected boolean standardContainsKey(@Nullable Object key) {
+  protected boolean standardContainsKey(final @Nullable Object key) {
     return Maps.containsKeyImpl(this, key);
   }
 
@@ -247,7 +247,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected boolean standardContainsValue(@Nullable Object value) {
+  protected boolean standardContainsValue(final @Nullable Object value) {
     return Maps.containsValueImpl(this, value);
   }
 
@@ -264,7 +264,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   @Beta
   protected abstract class StandardEntrySet extends Maps.EntrySet<K, V> {
     /** Constructor for use by subclasses. */
-    public StandardEntrySet() {}
+    public StandardEntrySet() { }
 
     @Override
     Map<K, V> map() {
@@ -290,7 +290,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected boolean standardEquals(@Nullable Object object) {
+  protected boolean standardEquals(final @Nullable Object object) {
     return Maps.equalsImpl(this, object);
   }
 

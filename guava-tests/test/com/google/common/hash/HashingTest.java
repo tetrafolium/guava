@@ -161,7 +161,7 @@ public class HashingTest extends TestCase {
   }
 
   public void testConsistentHash_correctness() {
-    long[] interestingValues = { -1, 0, 1, 2, Long.MAX_VALUE, Long.MIN_VALUE };
+    long[] interestingValues = {-1, 0, 1, 2, Long.MAX_VALUE, Long.MIN_VALUE };
     for (long h : interestingValues) {
       checkConsistentHashCorrectness(h);
     }
@@ -171,7 +171,7 @@ public class HashingTest extends TestCase {
     }
   }
 
-  private void checkConsistentHashCorrectness(long hashCode) {
+  private void checkConsistentHashCorrectness(final long hashCode) {
     int last = 0;
     for (int shards = 1; shards <= 100000; shards++) {
       int b = Hashing.consistentHash(hashCode, shards);
@@ -194,7 +194,7 @@ public class HashingTest extends TestCase {
     }
   }
 
-  private void countRemaps(long h, AtomicLongMap<Integer> map) {
+  private void countRemaps(final long h, final AtomicLongMap<Integer> map) {
     int last = 0;
     for (int shards = 2; shards <= MAX_SHARDS; shards++) {
       int chosen = Hashing.consistentHash(h, shards);
@@ -222,7 +222,7 @@ public class HashingTest extends TestCase {
     checkSameResult(HashCode.fromInt(0x99999999), 0x0000000099999999L);
   }
 
-  public void checkSameResult(HashCode hashCode, long equivLong) {
+  public void checkSameResult(final HashCode hashCode, final long equivLong) {
     assertEquals(Hashing.consistentHash(equivLong, 5555), Hashing.consistentHash(hashCode, 5555));
   }
 
@@ -232,7 +232,7 @@ public class HashingTest extends TestCase {
    */
   public void testConsistentHash_linearCongruentialGeneratorCompatibility() {
     int[] golden100 =
-        { 0, 55, 62, 8, 45, 59, 86, 97, 82, 59,
+        {0, 55, 62, 8, 45, 59, 86, 97, 82, 59,
           73, 37, 17, 56, 86, 21, 90, 37, 38, 83 };
     for (int i = 0; i < golden100.length; i++) {
       assertEquals(golden100[i], Hashing.consistentHash(i, 100));
@@ -269,9 +269,9 @@ public class HashingTest extends TestCase {
     HashCode hash31 = HashCode.fromInt(31);
     HashCode hash32 = HashCode.fromInt(32);
     assertEquals(hash32, Hashing.combineOrdered(ImmutableList.of(hash32)));
-    assertEquals(HashCode.fromBytes(new byte[] { (byte) 0x80, 0, 0, 0 }),
+    assertEquals(HashCode.fromBytes(new byte[] {(byte) 0x80, 0, 0, 0 }),
         Hashing.combineOrdered(ImmutableList.of(hash32, hash32)));
-    assertEquals(HashCode.fromBytes(new byte[] { (byte) 0xa0, 0, 0, 0 }),
+    assertEquals(HashCode.fromBytes(new byte[] {(byte) 0xa0, 0, 0, 0 }),
         Hashing.combineOrdered(ImmutableList.of(hash32, hash32, hash32)));
     assertFalse(
         Hashing.combineOrdered(ImmutableList.of(hash31, hash32)).equals(
@@ -559,7 +559,7 @@ public class HashingTest extends TestCase {
     assertEquals(hashFunction4a.toString(), hashFunction4b.toString());
   }
 
-  static void assertSeedlessHashFunctionEquals(Class<?> clazz) throws Exception {
+  static void assertSeedlessHashFunctionEquals(final Class<?> clazz) throws Exception {
     for (Method method : clazz.getDeclaredMethods()) {
       if (method.getReturnType().equals(HashFunction.class) // must return HashFunction
           && Modifier.isPublic(method.getModifiers()) // only the public methods
@@ -579,7 +579,7 @@ public class HashingTest extends TestCase {
     }
   }
 
-  static void assertSeededHashFunctionEquals(Class<?> clazz) throws Exception {
+  static void assertSeededHashFunctionEquals(final Class<?> clazz) throws Exception {
     Random random = new Random(RANDOM_SEED);
     for (Method method : clazz.getDeclaredMethods()) {
       if (method.getReturnType().equals(HashFunction.class) // must return HashFunction

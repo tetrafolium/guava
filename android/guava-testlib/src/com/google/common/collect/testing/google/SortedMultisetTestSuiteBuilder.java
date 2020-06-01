@@ -55,7 +55,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<E> {
-  public static <E> SortedMultisetTestSuiteBuilder<E> using(TestMultisetGenerator<E> generator) {
+  public static <E> SortedMultisetTestSuiteBuilder<E> using(final TestMultisetGenerator<E> generator) {
     SortedMultisetTestSuiteBuilder<E> result = new SortedMultisetTestSuiteBuilder<E>();
     result.usingGenerator(generator);
     return result;
@@ -80,7 +80,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
 
   @Override
   TestSuite createElementSetTestSuite(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     // TODO(lowasser): make a SortedElementSetGenerator
     return SetTestSuiteBuilder.using(
@@ -114,7 +114,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     NO_BOUND;
   }
 
-  List<TestSuite> createDerivedSuites(SortedMultisetTestSuiteBuilder<E> parentBuilder) {
+  List<TestSuite> createDerivedSuites(final SortedMultisetTestSuiteBuilder<E> parentBuilder) {
     List<TestSuite> derivedSuites = Lists.newArrayList();
 
     if (!parentBuilder.getFeatures().contains(NoRecurse.DESCENDING)) {
@@ -140,7 +140,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
   }
 
   private TestSuite createSubMultisetSuite(
-      SortedMultisetTestSuiteBuilder<E> parentBuilder, final Bound from, final Bound to) {
+      final SortedMultisetTestSuiteBuilder<E> parentBuilder, final Bound from, final Bound to) {
     final TestMultisetGenerator<E> delegate =
         (TestMultisetGenerator<E>) parentBuilder.getSubjectGenerator();
 
@@ -167,7 +167,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     return SortedMultisetTestSuiteBuilder.using(
             new ForwardingTestMultisetGenerator<E>(delegate) {
               @Override
-              public SortedMultiset<E> create(Object... entries) {
+              public SortedMultiset<E> create(final Object... entries) {
                 @SuppressWarnings("unchecked")
                 // we dangerously assume E is a string
                 List<E> extremeValues = (List) getExtremeValues();
@@ -236,7 +236,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     return result;
   }
 
-  private TestSuite createDescendingSuite(SortedMultisetTestSuiteBuilder<E> parentBuilder) {
+  private TestSuite createDescendingSuite(final SortedMultisetTestSuiteBuilder<E> parentBuilder) {
     final TestMultisetGenerator<E> delegate =
         (TestMultisetGenerator<E>) parentBuilder.getSubjectGenerator();
 
@@ -250,12 +250,12 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     return SortedMultisetTestSuiteBuilder.using(
             new ForwardingTestMultisetGenerator<E>(delegate) {
               @Override
-              public SortedMultiset<E> create(Object... entries) {
+              public SortedMultiset<E> create(final Object... entries) {
                 return ((SortedMultiset<E>) super.create(entries)).descendingMultiset();
               }
 
               @Override
-              public Iterable<E> order(List<E> insertionOrder) {
+              public Iterable<E> order(final List<E> insertionOrder) {
                 return ImmutableList.copyOf(super.order(insertionOrder)).reverse();
               }
             })
@@ -265,7 +265,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
         .createTestSuite();
   }
 
-  private TestSuite createReserializedSuite(SortedMultisetTestSuiteBuilder<E> parentBuilder) {
+  private TestSuite createReserializedSuite(final SortedMultisetTestSuiteBuilder<E> parentBuilder) {
     final TestMultisetGenerator<E> delegate =
         (TestMultisetGenerator<E>) parentBuilder.getSubjectGenerator();
 
@@ -277,7 +277,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     return SortedMultisetTestSuiteBuilder.using(
             new ForwardingTestMultisetGenerator<E>(delegate) {
               @Override
-              public SortedMultiset<E> create(Object... entries) {
+              public SortedMultiset<E> create(final Object... entries) {
                 return SerializableTester.reserialize(((SortedMultiset<E>) super.create(entries)));
               }
             })
@@ -290,7 +290,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
   private static class ForwardingTestMultisetGenerator<E> implements TestMultisetGenerator<E> {
     private final TestMultisetGenerator<E> delegate;
 
-    ForwardingTestMultisetGenerator(TestMultisetGenerator<E> delegate) {
+    ForwardingTestMultisetGenerator(final TestMultisetGenerator<E> delegate) {
       this.delegate = delegate;
     }
 
@@ -300,17 +300,17 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     }
 
     @Override
-    public E[] createArray(int length) {
+    public E[] createArray(final int length) {
       return delegate.createArray(length);
     }
 
     @Override
-    public Iterable<E> order(List<E> insertionOrder) {
+    public Iterable<E> order(final List<E> insertionOrder) {
       return delegate.order(insertionOrder);
     }
 
     @Override
-    public Multiset<E> create(Object... elements) {
+    public Multiset<E> create(final Object... elements) {
       return delegate.create(elements);
     }
   }

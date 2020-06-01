@@ -32,7 +32,7 @@ public class TestCharSink extends CharSink implements TestStreamSupplier {
 
   private final TestByteSink byteSink;
 
-  public TestCharSink(TestOption... options) {
+  public TestCharSink(final TestOption... options) {
     this.byteSink = new TestByteSink(options);
   }
 
@@ -55,19 +55,19 @@ public class TestCharSink extends CharSink implements TestStreamSupplier {
     // using TestByteSink's output stream to get option behavior, so flush to it on every write
     return new FilterWriter(new OutputStreamWriter(byteSink.openStream(), UTF_8)) {
       @Override
-      public void write(int c) throws IOException {
+      public void write(final int c) throws IOException {
         super.write(c);
         flush();
       }
 
       @Override
-      public void write(char[] cbuf, int off, int len) throws IOException {
+      public void write(final char[] cbuf, final int off, final int len) throws IOException {
         super.write(cbuf, off, len);
         flush();
       }
 
       @Override
-      public void write(String str, int off, int len) throws IOException {
+      public void write(final String str, final int off, final int len) throws IOException {
         super.write(str, off, len);
         flush();
       }

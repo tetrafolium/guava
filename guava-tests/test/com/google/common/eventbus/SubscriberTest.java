@@ -98,7 +98,7 @@ public class SubscriberTest extends TestCase {
         .testEquals();
   }
 
-  private Method getTestSubscriberMethod(String name) {
+  private Method getTestSubscriberMethod(final String name) {
     try {
       return getClass().getDeclaredMethod(name, Object.class);
     } catch (NoSuchMethodException e) {
@@ -113,14 +113,14 @@ public class SubscriberTest extends TestCase {
    * @param arg argument to record.
    */
   @Subscribe
-  public void recordingMethod(Object arg) {
+  public void recordingMethod(final Object arg) {
     assertFalse(methodCalled);
     methodCalled = true;
     methodArgument = arg;
   }
 
   @Subscribe
-  public void exceptionThrowingMethod(Object arg) throws Exception {
+  public void exceptionThrowingMethod(final Object arg) throws Exception {
     throw new IntentionalException();
   }
 
@@ -133,12 +133,12 @@ public class SubscriberTest extends TestCase {
   }
 
   @Subscribe
-  public void errorThrowingMethod(Object arg) {
+  public void errorThrowingMethod(final Object arg) {
     throw new JudgmentError();
   }
 
   @Subscribe @AllowConcurrentEvents
-  public void threadSafeMethod(Object arg) {
+  public void threadSafeMethod(final Object arg) {
   }
 
   /**

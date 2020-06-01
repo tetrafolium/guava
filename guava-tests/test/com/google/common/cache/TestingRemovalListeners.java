@@ -57,7 +57,7 @@ class TestingRemovalListeners {
       implements RemovalListener<K, V> {
 
     @Override
-    public void onRemoval(RemovalNotification<K, V> notification) {
+    public void onRemoval(final RemovalNotification<K, V> notification) {
       add(notification);
     }
   }
@@ -71,7 +71,7 @@ class TestingRemovalListeners {
     private volatile RemovalNotification<K, V> lastNotification;
 
     @Override
-    public void onRemoval(RemovalNotification<K, V> notification) {
+    public void onRemoval(final RemovalNotification<K, V> notification) {
       count.incrementAndGet();
       lastNotification = notification;
     }
@@ -98,6 +98,6 @@ class TestingRemovalListeners {
    */
   static class NullRemovalListener<K, V> implements RemovalListener<K, V> {
     @Override
-    public void onRemoval(RemovalNotification<K, V> notification) {}
+    public void onRemoval(final RemovalNotification<K, V> notification) { }
   }
 }

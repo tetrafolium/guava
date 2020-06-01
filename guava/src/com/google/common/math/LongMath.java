@@ -63,7 +63,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long ceilingPowerOfTwo(long x) {
+  public static long ceilingPowerOfTwo(final long x) {
     checkPositive("x", x);
     if (x > MAX_SIGNED_POWER_OF_TWO) {
       throw new ArithmeticException("ceilingPowerOfTwo(" + x + ") is not representable as a long");
@@ -79,7 +79,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long floorPowerOfTwo(long x) {
+  public static long floorPowerOfTwo(final long x) {
     checkPositive("x", x);
 
     // Long.highestOneBit was buggy on GWT.  We've fixed it, but I'm not certain when the fix will
@@ -93,7 +93,7 @@ public final class LongMath {
    * <p>This differs from {@code Long.bitCount(x) == 1}, because
    * {@code Long.bitCount(Long.MIN_VALUE) == 1}, but {@link Long#MIN_VALUE} is not a power of two.
    */
-  public static boolean isPowerOfTwo(long x) {
+  public static boolean isPowerOfTwo(final long x) {
     return x > 0 & (x & (x - 1)) == 0;
   }
 
@@ -103,7 +103,7 @@ public final class LongMath {
    * than the straightforward ternary expression.
    */
   @VisibleForTesting
-  static int lessThanBranchFree(long x, long y) {
+  static int lessThanBranchFree(final long x, final long y) {
     // Returns the sign bit of x - y.
     return (int) (~~(x - y) >>> (Long.SIZE - 1));
   }
@@ -117,7 +117,7 @@ public final class LongMath {
    */
   @SuppressWarnings("fallthrough")
   // TODO(kevinb): remove after this warning is disabled globally
-  public static int log2(long x, RoundingMode mode) {
+  public static int log2(final long x, final RoundingMode mode) {
     checkPositive("x", x);
     switch (mode) {
       case UNNECESSARY:
@@ -159,7 +159,7 @@ public final class LongMath {
   @GwtIncompatible // TODO
   @SuppressWarnings("fallthrough")
   // TODO(kevinb): remove after this warning is disabled globally
-  public static int log10(long x, RoundingMode mode) {
+  public static int log10(final long x, final RoundingMode mode) {
     checkPositive("x", x);
     int logFloor = log10Floor(x);
     long floorPow = powersOf10[logFloor];
@@ -184,7 +184,7 @@ public final class LongMath {
   }
 
   @GwtIncompatible // TODO
-  static int log10Floor(long x) {
+  static int log10Floor(final long x) {
     /*
      * Based on Hacker's Delight Fig. 11-5, the two-table-lookup, branch-free implementation.
      *
@@ -265,7 +265,7 @@ public final class LongMath {
    * @throws IllegalArgumentException if {@code k < 0}
    */
   @GwtIncompatible // TODO
-  public static long pow(long b, int k) {
+  public static long pow(final long b, final int k) {
     checkNonNegative("exponent", k);
     if (-2 <= b && b <= 2) {
       switch ((int) b) {
@@ -309,7 +309,7 @@ public final class LongMath {
    */
   @GwtIncompatible // TODO
   @SuppressWarnings("fallthrough")
-  public static long sqrt(long x, RoundingMode mode) {
+  public static long sqrt(final long x, final RoundingMode mode) {
     checkNonNegative("x", x);
     if (fitsInInt(x)) {
       return IntMath.sqrt((int) x, mode);
@@ -381,7 +381,7 @@ public final class LongMath {
    */
   @GwtIncompatible // TODO
   @SuppressWarnings("fallthrough")
-  public static long divide(long p, long q, RoundingMode mode) {
+  public static long divide(final long p, final long q, final RoundingMode mode) {
     checkNotNull(mode);
     long div = p / q; // throws if q == 0
     long rem = p - q * div; // equals p % q
@@ -453,7 +453,7 @@ public final class LongMath {
    *     Remainder Operator</a>
    */
   @GwtIncompatible // TODO
-  public static int mod(long x, int m) {
+  public static int mod(final long x, final int m) {
     // Cast is safe because the result is guaranteed in the range [0, m)
     return (int) mod(x, (long) m);
   }
@@ -477,7 +477,7 @@ public final class LongMath {
    *     Remainder Operator</a>
    */
   @GwtIncompatible // TODO
-  public static long mod(long x, long m) {
+  public static long mod(final long x, final long m) {
     if (m <= 0) {
       throw new ArithmeticException("Modulus must be positive");
     }
@@ -491,7 +491,7 @@ public final class LongMath {
    *
    * @throws IllegalArgumentException if {@code a < 0} or {@code b < 0}
    */
-  public static long gcd(long a, long b) {
+  public static long gcd(final long a, final long b) {
     /*
      * The reason we require both arguments to be >= 0 is because otherwise, what do you return on
      * gcd(0, Long.MIN_VALUE)? BigInteger.gcd would return positive 2^63, but positive 2^63 isn't an
@@ -542,7 +542,7 @@ public final class LongMath {
    * @throws ArithmeticException if {@code a + b} overflows in signed {@code long} arithmetic
    */
   @GwtIncompatible // TODO
-  public static long checkedAdd(long a, long b) {
+  public static long checkedAdd(final long a, final long b) {
     long result = a + b;
     checkNoOverflow((a ^ b) < 0 | (a ^ result) >= 0);
     return result;
@@ -554,7 +554,7 @@ public final class LongMath {
    * @throws ArithmeticException if {@code a - b} overflows in signed {@code long} arithmetic
    */
   @GwtIncompatible // TODO
-  public static long checkedSubtract(long a, long b) {
+  public static long checkedSubtract(final long a, final long b) {
     long result = a - b;
     checkNoOverflow((a ^ b) >= 0 | (a ^ result) >= 0);
     return result;
@@ -566,7 +566,7 @@ public final class LongMath {
    * @throws ArithmeticException if {@code a * b} overflows in signed {@code long} arithmetic
    */
   @GwtIncompatible // TODO
-  public static long checkedMultiply(long a, long b) {
+  public static long checkedMultiply(final long a, final long b) {
     // Hacker's Delight, Section 2-12
     int leadingZeros =
         Long.numberOfLeadingZeros(a)
@@ -600,7 +600,7 @@ public final class LongMath {
    *     {@code long} arithmetic
    */
   @GwtIncompatible // TODO
-  public static long checkedPow(long b, int k) {
+  public static long checkedPow(final long b, final int k) {
     checkNonNegative("exponent", k);
     if (b >= -2 & b <= 2) {
       switch ((int) b) {
@@ -647,7 +647,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long saturatedAdd(long a, long b) {
+  public static long saturatedAdd(final long a, final long b) {
     long naiveSum = a + b;
     if ((a ^ b) < 0 | (a ^ naiveSum) >= 0) {
       // If a and b have different signs or a has the same sign as the result then there was no
@@ -665,7 +665,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long saturatedSubtract(long a, long b) {
+  public static long saturatedSubtract(final long a, final long b) {
     long naiveDifference = a - b;
     if ((a ^ b) >= 0 | (a ^ naiveDifference) >= 0) {
       // If a and b have the same signs or a has the same sign as the result then there was no
@@ -683,7 +683,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long saturatedMultiply(long a, long b) {
+  public static long saturatedMultiply(final long a, final long b) {
     // see checkedMultiply for explanation
     int leadingZeros =
         Long.numberOfLeadingZeros(a)
@@ -713,7 +713,7 @@ public final class LongMath {
    * @since 20.0
    */
   @Beta
-  public static long saturatedPow(long b, int k) {
+  public static long saturatedPow(final long b, final int k) {
     checkNonNegative("exponent", k);
     if (b >= -2 & b <= 2) {
       switch ((int) b) {
@@ -770,7 +770,7 @@ public final class LongMath {
    * @throws IllegalArgumentException if {@code n < 0}
    */
   @GwtIncompatible // TODO
-  public static long factorial(int n) {
+  public static long factorial(final int n) {
     checkNonNegative("n", n);
     return (n < factorials.length) ? factorials[n] : Long.MAX_VALUE;
   }
@@ -805,7 +805,7 @@ public final class LongMath {
    *
    * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0}, or {@code k > n}
    */
-  public static long binomial(int n, int k) {
+  public static long binomial(final int n, final int k) {
     checkNonNegative("n", n);
     checkNonNegative("k", k);
     checkArgument(k <= n, "k (%s) > n (%s)", k, n);
@@ -868,7 +868,7 @@ public final class LongMath {
   /**
    * Returns (x * numerator / denominator), which is assumed to come out to an integral value.
    */
-  static long multiplyFraction(long x, long numerator, long denominator) {
+  static long multiplyFraction(final long x, final long numerator, final long denominator) {
     if (x == 1) {
       return numerator / denominator;
     }
@@ -961,7 +961,7 @@ public final class LongMath {
   // These values were generated by using checkedMultiply to see when the simple multiply/divide
   // algorithm would lead to an overflow.
 
-  static boolean fitsInInt(long x) {
+  static boolean fitsInInt(final long x) {
     return (int) x == x;
   }
 
@@ -971,7 +971,7 @@ public final class LongMath {
    *
    * @since 14.0
    */
-  public static long mean(long x, long y) {
+  public static long mean(final long x, final long y) {
     // Efficient method for computing the arithmetic mean.
     // The alternative (x + y) / 2 fails for large values.
     // The alternative (x + y) >>> 1 fails for negative values.
@@ -1001,7 +1001,7 @@ public final class LongMath {
    */
   @GwtIncompatible // TODO
   @Beta
-  public static boolean isPrime(long n) {
+  public static boolean isPrime(final long n) {
     if (n < 2) {
       checkNonNegative("n", n);
       return false;
@@ -1069,7 +1069,7 @@ public final class LongMath {
     /** Works for inputs ≤ FLOOR_SQRT_MAX_LONG. */
     SMALL {
       @Override
-      long mulMod(long a, long b, long m) {
+      long mulMod(final long a, final long b, final long m) {
         /*
          * NOTE(lowasser, 2015-Feb-12): Benchmarks suggest that changing this to
          * UnsignedLongs.remainder and increasing the threshold to 2^32 doesn't pay for itself, and
@@ -1080,7 +1080,7 @@ public final class LongMath {
       }
 
       @Override
-      long squareMod(long a, long m) {
+      long squareMod(final long a, final long m) {
         return (a * a) % m;
       }
     },
@@ -1089,14 +1089,14 @@ public final class LongMath {
      */
     LARGE {
       /** Returns (a + b) mod m. Precondition: {@code 0 <= a}, {@code b < m < 2^63}. */
-      private long plusMod(long a, long b, long m) {
+      private long plusMod(final long a, final long b, final long m) {
         return (a >= m - b) ? (a + b - m) : (a + b);
       }
 
       /**
        * Returns (a * 2^32) mod m. a may be any unsigned long.
        */
-      private long times2ToThe32Mod(long a, long m) {
+      private long times2ToThe32Mod(final long a, final long m) {
         int remainingPowersOf2 = 32;
         do {
           int shift = Math.min(remainingPowersOf2, Long.numberOfLeadingZeros(a));
@@ -1109,7 +1109,7 @@ public final class LongMath {
       }
 
       @Override
-      long mulMod(long a, long b, long m) {
+      long mulMod(final long a, final long b, final long m) {
         long aHi = a >>> 32; // < 2^31
         long bHi = b >>> 32; // < 2^31
         long aLo = a & 0xFFFFFFFFL; // < 2^32
@@ -1138,7 +1138,7 @@ public final class LongMath {
       }
 
       @Override
-      long squareMod(long a, long m) {
+      long squareMod(final long a, final long m) {
         long aHi = a >>> 32; // < 2^31
         long aLo = a & 0xFFFFFFFFL; // < 2^32
 
@@ -1164,7 +1164,7 @@ public final class LongMath {
       }
     };
 
-    static boolean test(long base, long n) {
+    static boolean test(final long base, final long n) {
       // Since base will be considered % n, it's okay if base > FLOOR_SQRT_MAX_LONG,
       // so long as n <= FLOOR_SQRT_MAX_LONG.
       return ((n <= FLOOR_SQRT_MAX_LONG) ? SMALL : LARGE).testWitness(base, n);
@@ -1183,7 +1183,7 @@ public final class LongMath {
     /**
      * Returns a^p mod m.
      */
-    private long powMod(long a, long p, long m) {
+    private long powMod(final long a, final long p, final long m) {
       long res = 1;
       for (; p != 0; p >>= 1) {
         if ((p & 1) != 0) {
@@ -1197,7 +1197,7 @@ public final class LongMath {
     /**
      * Returns true if n is a strong probable prime relative to the specified base.
      */
-    private boolean testWitness(long base, long n) {
+    private boolean testWitness(final long base, final long n) {
       int r = Long.numberOfTrailingZeros(n - 1);
       long d = (n - 1) >> r;
       base %= n;
@@ -1223,5 +1223,5 @@ public final class LongMath {
     }
   }
 
-  private LongMath() {}
+  private LongMath() { }
 }

@@ -31,11 +31,11 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 @GwtCompatible
 public class Absent_CustomFieldSerializer {
-  public static void deserialize(SerializationStreamReader reader, Absent<?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final Absent<?> instance) { }
 
-  public static Absent<?> instantiate(SerializationStreamReader reader) {
+  public static Absent<?> instantiate(final SerializationStreamReader reader) {
     return Absent.INSTANCE;
   }
 
-  public static void serialize(SerializationStreamWriter writer, Absent<?> instance) {}
+  public static void serialize(final SerializationStreamWriter writer, final Absent<?> instance) { }
 }

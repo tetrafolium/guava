@@ -46,7 +46,7 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
    * @param chunkSize the number of bytes available per {@link #process(ByteBuffer)} invocation;
    *     must be at least 4
    */
-  protected AbstractStreamingHasher(int chunkSize) {
+  protected AbstractStreamingHasher(final int chunkSize) {
     this(chunkSize, chunkSize);
   }
 
@@ -59,7 +59,7 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
    *     must be at least 4
    * @param bufferSize the size of the internal buffer. Must be a multiple of chunkSize
    */
-  protected AbstractStreamingHasher(int chunkSize, int bufferSize) {
+  protected AbstractStreamingHasher(final int chunkSize, final int bufferSize) {
     // TODO(kevinb): check more preconditions (as bufferSize >= chunkSize) if this is ever public
     checkArgument(bufferSize % chunkSize == 0);
 
@@ -81,7 +81,7 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
    *
    * <p>This implementation simply pads with zeros and delegates to {@link #process(ByteBuffer)}.
    */
-  protected void processRemaining(ByteBuffer bb) {
+  protected void processRemaining(final ByteBuffer bb) {
     bb.position(bb.limit()); // move at the end
     bb.limit(chunkSize + 7); // get ready to pad with longs
     while (bb.position() < chunkSize) {
@@ -93,12 +93,12 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
   }
 
   @Override
-  public final Hasher putBytes(byte[] bytes, int off, int len) {
+  public final Hasher putBytes(final byte[] bytes, final int off, final int len) {
     return putBytesInternal(ByteBuffer.wrap(bytes, off, len).order(ByteOrder.LITTLE_ENDIAN));
   }
 
   @Override
-  public final Hasher putBytes(ByteBuffer readBuffer) {
+  public final Hasher putBytes(final ByteBuffer readBuffer) {
     ByteOrder order = readBuffer.order();
     try {
       readBuffer.order(ByteOrder.LITTLE_ENDIAN);
@@ -108,7 +108,7 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
     }
   }
 
-  private Hasher putBytesInternal(ByteBuffer readBuffer) {
+  private Hasher putBytesInternal(final ByteBuffer readBuffer) {
     // If we have room for all of it, this is easy
     if (readBuffer.remaining() <= buffer.remaining()) {
       buffer.put(readBuffer);
@@ -144,35 +144,35 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
    */
 
   @Override
-  public final Hasher putByte(byte b) {
+  public final Hasher putByte(final byte b) {
     buffer.put(b);
     munchIfFull();
     return this;
   }
 
   @Override
-  public final Hasher putShort(short s) {
+  public final Hasher putShort(final short s) {
     buffer.putShort(s);
     munchIfFull();
     return this;
   }
 
   @Override
-  public final Hasher putChar(char c) {
+  public final Hasher putChar(final char c) {
     buffer.putChar(c);
     munchIfFull();
     return this;
   }
 
   @Override
-  public final Hasher putInt(int i) {
+  public final Hasher putInt(final int i) {
     buffer.putInt(i);
     munchIfFull();
     return this;
   }
 
   @Override
-  public final Hasher putLong(long l) {
+  public final Hasher putLong(final long l) {
     buffer.putLong(l);
     munchIfFull();
     return this;

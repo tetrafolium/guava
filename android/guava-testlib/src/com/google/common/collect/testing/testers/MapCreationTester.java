@@ -132,7 +132,7 @@ public class MapCreationTester<K, V> extends AbstractMapTester<K, V> {
     return entries;
   }
 
-  private void expectFirstRemoved(Entry<K, V>[] entries) {
+  private void expectFirstRemoved(final Entry<K, V>[] entries) {
     resetMap(entries);
 
     List<Entry<K, V>> expectedWithDuplicateRemoved =

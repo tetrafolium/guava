@@ -55,7 +55,7 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
   Optional<Integer> expectedEdgeCount = Optional.absent();
 
   /** Creates a new instance with the specified edge directionality. */
-  private NetworkBuilder(boolean directed) {
+  private NetworkBuilder(final boolean directed) {
     super(directed);
   }
 
@@ -77,7 +77,7 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
    * such as {@link Network#isDirected()}. Other properties, such as {@link
    * #expectedNodeCount(int)}, are not set in the new builder.
    */
-  public static <N, E> NetworkBuilder<N, E> from(Network<N, E> network) {
+  public static <N, E> NetworkBuilder<N, E> from(final Network<N, E> network) {
     return new NetworkBuilder<N, E>(network.isDirected())
         .allowsParallelEdges(network.allowsParallelEdges())
         .allowsSelfLoops(network.allowsSelfLoops())
@@ -89,7 +89,7 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
    * Specifies whether the network will allow parallel edges. Attempting to add a parallel edge to a
    * network that does not allow them will throw an {@link UnsupportedOperationException}.
    */
-  public NetworkBuilder<N, E> allowsParallelEdges(boolean allowsParallelEdges) {
+  public NetworkBuilder<N, E> allowsParallelEdges(final boolean allowsParallelEdges) {
     this.allowsParallelEdges = allowsParallelEdges;
     return this;
   }
@@ -99,7 +99,7 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
    * Attempting to add a self-loop to a network that does not allow them will throw an {@link
    * UnsupportedOperationException}.
    */
-  public NetworkBuilder<N, E> allowsSelfLoops(boolean allowsSelfLoops) {
+  public NetworkBuilder<N, E> allowsSelfLoops(final boolean allowsSelfLoops) {
     this.allowsSelfLoops = allowsSelfLoops;
     return this;
   }
@@ -109,7 +109,7 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
    *
    * @throws IllegalArgumentException if {@code expectedNodeCount} is negative
    */
-  public NetworkBuilder<N, E> expectedNodeCount(int expectedNodeCount) {
+  public NetworkBuilder<N, E> expectedNodeCount(final int expectedNodeCount) {
     this.expectedNodeCount = Optional.of(checkNonNegative(expectedNodeCount));
     return this;
   }
@@ -119,20 +119,20 @@ public final class NetworkBuilder<N, E> extends AbstractGraphBuilder<N> {
    *
    * @throws IllegalArgumentException if {@code expectedEdgeCount} is negative
    */
-  public NetworkBuilder<N, E> expectedEdgeCount(int expectedEdgeCount) {
+  public NetworkBuilder<N, E> expectedEdgeCount(final int expectedEdgeCount) {
     this.expectedEdgeCount = Optional.of(checkNonNegative(expectedEdgeCount));
     return this;
   }
 
   /** Specifies the order of iteration for the elements of {@link Network#nodes()}. */
-  public <N1 extends N> NetworkBuilder<N1, E> nodeOrder(ElementOrder<N1> nodeOrder) {
+  public <N1 extends N> NetworkBuilder<N1, E> nodeOrder(final ElementOrder<N1> nodeOrder) {
     NetworkBuilder<N1, E> newBuilder = cast();
     newBuilder.nodeOrder = checkNotNull(nodeOrder);
     return newBuilder;
   }
 
   /** Specifies the order of iteration for the elements of {@link Network#edges()}. */
-  public <E1 extends E> NetworkBuilder<N, E1> edgeOrder(ElementOrder<E1> edgeOrder) {
+  public <E1 extends E> NetworkBuilder<N, E1> edgeOrder(final ElementOrder<E1> edgeOrder) {
     NetworkBuilder<N, E1> newBuilder = cast();
     newBuilder.edgeOrder = checkNotNull(edgeOrder);
     return newBuilder;

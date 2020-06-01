@@ -59,7 +59,7 @@ public class MapHashCodeTester<K, V> extends AbstractMapTester<K, V> {
     runEntryWithNullTest(entryWithNull);
   }
 
-  private void runEntryWithNullTest(Map.Entry<K, V> entryWithNull) {
+  private void runEntryWithNullTest(final Map.Entry<K, V> entryWithNull) {
     Collection<Map.Entry<K, V>> entries = getSampleEntries(getNumEntries() - 1);
 
     entries.add(entryWithNull);
@@ -77,7 +77,7 @@ public class MapHashCodeTester<K, V> extends AbstractMapTester<K, V> {
         getMap().hashCode());
   }
 
-  private static int hash(Map.Entry<?, ?> e) {
+  private static int hash(final Map.Entry<?, ?> e) {
     return (e.getKey() == null ? 0 : e.getKey().hashCode())
         ^ (e.getValue() == null ? 0 : e.getValue().hashCode());
   }

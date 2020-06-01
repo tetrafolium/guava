@@ -40,7 +40,7 @@ public abstract class AbstractCollectionTester<E>
 
   // TODO: dispose of this once collection is encapsulated.
   @Override
-  protected Collection<E> resetContainer(Collection<E> newContents) {
+  protected Collection<E> resetContainer(final Collection<E> newContents) {
     collection = super.resetContainer(newContents);
     return collection;
   }
@@ -72,7 +72,7 @@ public abstract class AbstractCollectionTester<E>
    *
    * @param message message to use upon assertion failure
    */
-  protected void expectNullMissingWhenNullUnsupported(String message) {
+  protected void expectNullMissingWhenNullUnsupported(final String message) {
     try {
       assertFalse(message, actualContents().contains(null));
     } catch (NullPointerException tolerated) {

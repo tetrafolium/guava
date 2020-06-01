@@ -126,7 +126,7 @@ public class RangeTest extends TestCase {
     assertFalse(Range.closed(3, 5).isConnected(Range.closedOpen(7, 7)));
   }
 
-  private static void checkContains(Range<Integer> range) {
+  private static void checkContains(final Range<Integer> range) {
     assertFalse(range.contains(4));
     assertTrue(range.contains(5));
     assertTrue(range.contains(7));
@@ -249,7 +249,7 @@ public class RangeTest extends TestCase {
     assertSame(range, Range.all());
   }
 
-  private static void assertUnboundedBelow(Range<Integer> range) {
+  private static void assertUnboundedBelow(final Range<Integer> range) {
     assertFalse(range.hasLowerBound());
     try {
       range.lowerEndpoint();
@@ -263,7 +263,7 @@ public class RangeTest extends TestCase {
     }
   }
 
-  private static void assertUnboundedAbove(Range<Integer> range) {
+  private static void assertUnboundedAbove(final Range<Integer> range) {
     assertFalse(range.hasUpperBound());
     try {
       range.upperEndpoint();
@@ -536,15 +536,15 @@ public class RangeTest extends TestCase {
 
   static final DiscreteDomain<Integer> UNBOUNDED_DOMAIN =
       new DiscreteDomain<Integer>() {
-        @Override public Integer next(Integer value) {
+        @Override public Integer next(final Integer value) {
           return integers().next(value);
         }
 
-        @Override public Integer previous(Integer value) {
+        @Override public Integer previous(final Integer value) {
           return integers().previous(value);
         }
 
-        @Override public long distance(Integer start, Integer end) {
+        @Override public long distance(final Integer start, final Integer end) {
           return integers().distance(start, end);
         }
       };
@@ -591,7 +591,7 @@ public class RangeTest extends TestCase {
     try {
       Range.encloseAll(ImmutableSet.<Integer>of());
       fail();
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
   }
 
   public void testEncloseAll_nullValue() {
@@ -599,12 +599,12 @@ public class RangeTest extends TestCase {
     try {
       Range.encloseAll(nullFirst);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     List<Integer> nullNotFirst = Lists.newArrayList(0, null);
     try {
       Range.encloseAll(nullNotFirst);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testEquivalentFactories() {

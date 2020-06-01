@@ -61,7 +61,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
     suite.addTestSuite(MinMaxPriorityQueueTest.class);
     suite.addTest(QueueTestSuiteBuilder
         .using(new TestStringQueueGenerator() {
-          @Override protected Queue<String> create(String[] elements) {
+          @Override protected Queue<String> create(final String[] elements) {
             return MinMaxPriorityQueue.create(Arrays.asList(elements));
           }
         })
@@ -196,11 +196,11 @@ public class MinMaxPriorityQueueTest extends TestCase {
   // TODO: tests that check the weird interplay between expected size,
   // maximum size, size of initial contents, default capacity...
 
-  private static void checkNatural(MinMaxPriorityQueue<Integer> queue) {
+  private static void checkNatural(final MinMaxPriorityQueue<Integer> queue) {
     assertSame(Ordering.natural(), queue.comparator());
   }
 
-  private static void checkUnbounded(MinMaxPriorityQueue<Integer> queue) {
+  private static void checkUnbounded(final MinMaxPriorityQueue<Integer> queue) {
     assertEquals(Integer.MAX_VALUE, queue.maximumSize);
   }
 
@@ -531,7 +531,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
   }
 
   private <T extends Comparable<T>> void runIterator(
-      final List<T> values, int steps) throws Exception {
+      final List<T> values, final int steps) throws Exception {
     IteratorTester<T> tester =
         new IteratorTester<T>(
             steps,
@@ -543,7 +543,7 @@ public class MinMaxPriorityQueueTest extends TestCase {
             mmHeap = MinMaxPriorityQueue.create(values);
             return mmHeap.iterator();
           }
-          @Override protected void verify(List<T> elements) {
+          @Override protected void verify(final List<T> elements) {
             assertEquals(Sets.newHashSet(elements),
                 Sets.newHashSet(mmHeap.iterator()));
             assertTrue("Invalid MinMaxHeap: " + mmHeap, mmHeap.isIntact());
@@ -854,8 +854,8 @@ public class MinMaxPriorityQueueTest extends TestCase {
   /**
    * Returns the seed used for the randomization.
    */
-  private long insertRandomly(ArrayList<Integer> elements,
-      MinMaxPriorityQueue<Integer> q) {
+  private long insertRandomly(final ArrayList<Integer> elements,
+      final MinMaxPriorityQueue<Integer> q) {
     long seed = new Random().nextLong();
     Random random = new Random(seed);
     insertRandomly(elements, q, random);
@@ -863,14 +863,14 @@ public class MinMaxPriorityQueueTest extends TestCase {
   }
 
   private static void insertRandomly(
-      ArrayList<Integer> elements, MinMaxPriorityQueue<Integer> q, Random random) {
+      final ArrayList<Integer> elements, final MinMaxPriorityQueue<Integer> q, final Random random) {
     while (!elements.isEmpty()) {
       int selectedIndex = random.nextInt(elements.size());
       q.offer(elements.remove(selectedIndex));
     }
   }
 
-  private ArrayList<Integer> createOrderedList(int size) {
+  private ArrayList<Integer> createOrderedList(final int size) {
     ArrayList<Integer> elements = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
       elements.add(i);
@@ -932,8 +932,8 @@ public class MinMaxPriorityQueueTest extends TestCase {
   }
 
   private static void insertIntoReplica(
-      Map<Integer, AtomicInteger> replica,
-      int newValue) {
+      final Map<Integer, AtomicInteger> replica,
+      final int newValue) {
     if (replica.containsKey(newValue)) {
       replica.get(newValue).incrementAndGet();
     } else {
@@ -942,23 +942,23 @@ public class MinMaxPriorityQueueTest extends TestCase {
   }
 
   private static void removeMinFromReplica(
-      SortedMap<Integer, AtomicInteger> replica,
-      int minValue) {
+      final SortedMap<Integer, AtomicInteger> replica,
+      final int minValue) {
     Integer replicatedMinValue = replica.firstKey();
     assertEquals(replicatedMinValue, (Integer) minValue);
     removeFromReplica(replica, replicatedMinValue);
   }
 
   private static void removeMaxFromReplica(
-      SortedMap<Integer, AtomicInteger> replica,
-      int maxValue) {
+      final SortedMap<Integer, AtomicInteger> replica,
+      final int maxValue) {
     Integer replicatedMaxValue = replica.lastKey();
     assertTrue("maxValue is incorrect", replicatedMaxValue == maxValue);
     removeFromReplica(replica, replicatedMaxValue);
   }
 
   private static void removeFromReplica(
-      Map<Integer, AtomicInteger> replica, int value) {
+      final Map<Integer, AtomicInteger> replica, final int value) {
     AtomicInteger numOccur = replica.get(value);
     if (numOccur.decrementAndGet() == 0) {
       replica.remove(value);

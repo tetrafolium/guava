@@ -55,7 +55,7 @@ public final class BigIntegerMath {
    * @since 20.0
    */
   @Beta
-  public static BigInteger ceilingPowerOfTwo(BigInteger x) {
+  public static BigInteger ceilingPowerOfTwo(final BigInteger x) {
     return BigInteger.ZERO.setBit(log2(x, RoundingMode.CEILING));
   }
 
@@ -67,14 +67,14 @@ public final class BigIntegerMath {
    * @since 20.0
    */
   @Beta
-  public static BigInteger floorPowerOfTwo(BigInteger x) {
+  public static BigInteger floorPowerOfTwo(final BigInteger x) {
     return BigInteger.ZERO.setBit(log2(x, RoundingMode.FLOOR));
   }
 
   /**
    * Returns {@code true} if {@code x} represents a power of two.
    */
-  public static boolean isPowerOfTwo(BigInteger x) {
+  public static boolean isPowerOfTwo(final BigInteger x) {
     checkNotNull(x);
     return x.signum() > 0 && x.getLowestSetBit() == x.bitLength() - 1;
   }
@@ -88,7 +88,7 @@ public final class BigIntegerMath {
    */
   @SuppressWarnings("fallthrough")
   // TODO(kevinb): remove after this warning is disabled globally
-  public static int log2(BigInteger x, RoundingMode mode) {
+  public static int log2(final BigInteger x, final RoundingMode mode) {
     checkPositive("x", checkNotNull(x));
     int logFloor = x.bitLength() - 1;
     switch (mode) {
@@ -147,7 +147,7 @@ public final class BigIntegerMath {
    */
   @GwtIncompatible // TODO
   @SuppressWarnings("fallthrough")
-  public static int log10(BigInteger x, RoundingMode mode) {
+  public static int log10(final BigInteger x, final RoundingMode mode) {
     checkPositive("x", x);
     if (fitsInLong(x)) {
       return LongMath.log10(x.longValue(), mode);
@@ -225,7 +225,7 @@ public final class BigIntegerMath {
    */
   @GwtIncompatible // TODO
   @SuppressWarnings("fallthrough")
-  public static BigInteger sqrt(BigInteger x, RoundingMode mode) {
+  public static BigInteger sqrt(final BigInteger x, final RoundingMode mode) {
     checkNonNegative("x", x);
     if (fitsInLong(x)) {
       return BigInteger.valueOf(LongMath.sqrt(x.longValue(), mode));
@@ -260,7 +260,7 @@ public final class BigIntegerMath {
   }
 
   @GwtIncompatible // TODO
-  private static BigInteger sqrtFloor(BigInteger x) {
+  private static BigInteger sqrtFloor(final BigInteger x) {
     /*
      * Adapted from Hacker's Delight, Figure 11-1.
      *
@@ -304,7 +304,7 @@ public final class BigIntegerMath {
   }
 
   @GwtIncompatible // TODO
-  private static BigInteger sqrtApproxWithDoubles(BigInteger x) {
+  private static BigInteger sqrtApproxWithDoubles(final BigInteger x) {
     return DoubleMath.roundToBigInteger(Math.sqrt(DoubleUtils.bigToDouble(x)), HALF_EVEN);
   }
 
@@ -316,7 +316,7 @@ public final class BigIntegerMath {
    *     is not an integer multiple of {@code b}
    */
   @GwtIncompatible // TODO
-  public static BigInteger divide(BigInteger p, BigInteger q, RoundingMode mode) {
+  public static BigInteger divide(final BigInteger p, final BigInteger q, final RoundingMode mode) {
     BigDecimal pDec = new BigDecimal(p);
     BigDecimal qDec = new BigDecimal(q);
     return pDec.divide(qDec, 0, mode).toBigIntegerExact();
@@ -334,7 +334,7 @@ public final class BigIntegerMath {
    *
    * @throws IllegalArgumentException if {@code n < 0}
    */
-  public static BigInteger factorial(int n) {
+  public static BigInteger factorial(final int n) {
     checkNonNegative("n", n);
 
     // If the factorial is small enough, just use LongMath to do it.
@@ -389,11 +389,11 @@ public final class BigIntegerMath {
     return listProduct(bignums).shiftLeft(shift);
   }
 
-  static BigInteger listProduct(List<BigInteger> nums) {
+  static BigInteger listProduct(final List<BigInteger> nums) {
     return listProduct(nums, 0, nums.size());
   }
 
-  static BigInteger listProduct(List<BigInteger> nums, int start, int end) {
+  static BigInteger listProduct(final List<BigInteger> nums, final int start, final int end) {
     switch (end - start) {
       case 0:
         return BigInteger.ONE;
@@ -418,7 +418,7 @@ public final class BigIntegerMath {
    *
    * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0}, or {@code k > n}
    */
-  public static BigInteger binomial(int n, int k) {
+  public static BigInteger binomial(final int n, final int k) {
     checkNonNegative("n", n);
     checkNonNegative("k", k);
     checkArgument(k <= n, "k (%s) > n (%s)", k, n);
@@ -468,9 +468,9 @@ public final class BigIntegerMath {
 
   // Returns true if BigInteger.valueOf(x.longValue()).equals(x).
   @GwtIncompatible // TODO
-  static boolean fitsInLong(BigInteger x) {
+  static boolean fitsInLong(final BigInteger x) {
     return x.bitLength() <= Long.SIZE - 1;
   }
 
-  private BigIntegerMath() {}
+  private BigIntegerMath() { }
 }

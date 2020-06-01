@@ -59,7 +59,7 @@ public class FinalizableReferenceQueueClassLoaderUnloadingTest extends TestCase 
    */
 
   public static class MyFinalizableWeakReference extends FinalizableWeakReference<Object> {
-    public MyFinalizableWeakReference(Object x, FinalizableReferenceQueue queue) {
+    public MyFinalizableWeakReference(final Object x, final FinalizableReferenceQueue queue) {
       super(x, queue);
     }
 
@@ -70,7 +70,7 @@ public class FinalizableReferenceQueueClassLoaderUnloadingTest extends TestCase 
 
   private static class PermissivePolicy extends Policy {
     @Override
-    public boolean implies(ProtectionDomain pd, Permission perm) {
+    public boolean implies(final ProtectionDomain pd, final Permission perm) {
       return true;
     }
   }

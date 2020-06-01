@@ -118,7 +118,7 @@ import javax.annotation.Nullable;
 public abstract class BaseEncoding {
   // TODO(lowasser): consider making encodeTo(Appendable, byte[], int, int) public.
 
-  BaseEncoding() {}
+  BaseEncoding() { }
 
   /**
    * Exception indicating invalid base-encoded input encountered while decoding.
@@ -127,11 +127,11 @@ public abstract class BaseEncoding {
    * @since 15.0
    */
   public static final class DecodingException extends IOException {
-    DecodingException(String message) {
+    DecodingException(final String message) {
       super(message);
     }
 
-    DecodingException(Throwable cause) {
+    DecodingException(final Throwable cause) {
       super(cause);
     }
   }
@@ -139,7 +139,7 @@ public abstract class BaseEncoding {
   /**
    * Encodes the specified byte array, and returns the encoded {@code String}.
    */
-  public String encode(byte[] bytes) {
+  public String encode(final byte[] bytes) {
     return encode(bytes, 0, bytes.length);
   }
 
@@ -147,7 +147,7 @@ public abstract class BaseEncoding {
    * Encodes the specified range of the specified byte array, and returns the encoded
    * {@code String}.
    */
-  public final String encode(byte[] bytes, int off, int len) {
+  public final String encode(final byte[] bytes, final int off, final int len) {
     checkPositionIndexes(off, off + len, bytes.length);
     StringBuilder result = new StringBuilder(maxEncodedSize(len));
     try {
@@ -182,7 +182,7 @@ public abstract class BaseEncoding {
 
   // TODO(lowasser): document the extent of leniency, probably after adding ignore(CharMatcher)
 
-  private static byte[] extract(byte[] result, int length) {
+  private static byte[] extract(final byte[] result, final int length) {
     if (length == result.length) {
       return result;
     } else {
@@ -207,7 +207,7 @@ public abstract class BaseEncoding {
    * @throws IllegalArgumentException if the input is not a valid encoded string according to this
    *     encoding.
    */
-  public final byte[] decode(CharSequence chars) {
+  public final byte[] decode(final CharSequence chars) {
     try {
       return decodeChecked(chars);
     } catch (DecodingException badInput) {
@@ -221,7 +221,7 @@ public abstract class BaseEncoding {
    *
    * @throws DecodingException if the input is not a valid encoded string according to this
    *     encoding.
-   */ final byte[] decodeChecked(CharSequence chars)
+   */ final byte[] decodeChecked(final CharSequence chars)
       throws DecodingException {
     chars = trimTrailingPadding(chars);
     byte[] tmp = new byte[maxDecodedSize(chars.length())];
@@ -262,7 +262,7 @@ public abstract class BaseEncoding {
 
   abstract int decodeTo(byte[] target, CharSequence chars) throws DecodingException;
 
-  CharSequence trimTrailingPadding(CharSequence chars) {
+  CharSequence trimTrailingPadding(final CharSequence chars) {
     return checkNotNull(chars);
   }
 
@@ -424,7 +424,7 @@ public abstract class BaseEncoding {
     private final byte[] decodabet;
     private final boolean[] validPadding;
 
-    Alphabet(String name, char[] chars) {
+    Alphabet(final String name, final char[] chars) {
       this.name = checkNotNull(name);
       this.chars = checkNotNull(chars);
       try {
@@ -464,19 +464,19 @@ public abstract class BaseEncoding {
       this.validPadding = validPadding;
     }
 
-    char encode(int bits) {
+    char encode(final int bits) {
       return chars[bits];
     }
 
-    boolean isValidPaddingStartPosition(int index) {
+    boolean isValidPaddingStartPosition(final int index) {
       return validPadding[index % charsPerChunk];
     }
 
-    boolean canDecode(char ch) {
+    boolean canDecode(final char ch) {
       return ch <= Ascii.MAX && decodabet[ch] != -1;
     }
 
-    int decode(char ch) throws DecodingException {
+    int decode(final char ch) throws DecodingException {
       if (ch > Ascii.MAX) {
         throw new DecodingException("Unrecognized character: 0x" + Integer.toHexString(ch));
       }
@@ -535,7 +535,7 @@ public abstract class BaseEncoding {
       }
     }
 
-    public boolean matches(char c) {
+    public boolean matches(final char c) {
       return c < decodabet.length && decodabet[c] != -1;
     }
 
@@ -545,7 +545,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public boolean equals(@Nullable Object other) {
+    public boolean equals(final @Nullable Object other) {
       if (other instanceof Alphabet) {
         Alphabet that = (Alphabet) other;
         return Arrays.equals(this.chars, that.chars);
@@ -565,11 +565,11 @@ public abstract class BaseEncoding {
 
     @Nullable final Character paddingChar;
 
-    StandardBaseEncoding(String name, String alphabetChars, @Nullable Character paddingChar) {
+    StandardBaseEncoding(final String name, final String alphabetChars, final @Nullable Character paddingChar) {
       this(new Alphabet(name, alphabetChars.toCharArray()), paddingChar);
     }
 
-    StandardBaseEncoding(Alphabet alphabet, @Nullable Character paddingChar) {
+    StandardBaseEncoding(final Alphabet alphabet, final @Nullable Character paddingChar) {
       this.alphabet = checkNotNull(alphabet);
       checkArgument(
           paddingChar == null || !alphabet.matches(paddingChar),
@@ -579,7 +579,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int maxEncodedSize(int bytes) {
+    int maxEncodedSize(final int bytes) {
       return alphabet.charsPerChunk * divide(bytes, alphabet.bytesPerChunk, CEILING);
     }
 
@@ -593,7 +593,7 @@ public abstract class BaseEncoding {
         int writtenChars = 0;
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(final int b) throws IOException {
           bitBuffer <<= 8;
           bitBuffer |= b & 0xFF;
           bitBufferLength += 8;
@@ -629,7 +629,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    void encodeTo(Appendable target, byte[] bytes, int off, int len) throws IOException {
+    void encodeTo(final Appendable target, final byte[] bytes, final int off, final int len) throws IOException {
       checkNotNull(target);
       checkPositionIndexes(off, off + len, bytes.length);
       for (int i = 0; i < len; i += alphabet.bytesPerChunk) {
@@ -637,7 +637,7 @@ public abstract class BaseEncoding {
       }
     }
 
-    void encodeChunkTo(Appendable target, byte[] bytes, int off, int len) throws IOException {
+    void encodeChunkTo(final Appendable target, final byte[] bytes, final int off, final int len) throws IOException {
       checkNotNull(target);
       checkPositionIndexes(off, off + len, bytes.length);
       checkArgument(len <= alphabet.bytesPerChunk);
@@ -663,12 +663,12 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int maxDecodedSize(int chars) {
+    int maxDecodedSize(final int chars) {
       return (int) ((alphabet.bitsPerChar * (long) chars + 7L) / 8L);
     }
 
     @Override
-    CharSequence trimTrailingPadding(CharSequence chars) {
+    CharSequence trimTrailingPadding(final CharSequence chars) {
       checkNotNull(chars);
       if (paddingChar == null) {
         return chars;
@@ -684,7 +684,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public boolean canDecode(CharSequence chars) {
+    public boolean canDecode(final CharSequence chars) {
       checkNotNull(chars);
       chars = trimTrailingPadding(chars);
       if (!alphabet.isValidPaddingStartPosition(chars.length())) {
@@ -699,7 +699,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
+    int decodeTo(final byte[] target, final CharSequence chars) throws DecodingException {
       checkNotNull(target);
       chars = trimTrailingPadding(chars);
       if (!alphabet.isValidPaddingStartPosition(chars.length())) {
@@ -780,7 +780,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public BaseEncoding withPadChar(char padChar) {
+    public BaseEncoding withPadChar(final char padChar) {
       if (8 % alphabet.bitsPerChar == 0
           || (paddingChar != null && paddingChar.charValue() == padChar)) {
         return this;
@@ -790,7 +790,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public BaseEncoding withSeparator(String separator, int afterEveryChars) {
+    public BaseEncoding withSeparator(final String separator, final int afterEveryChars) {
       for (int i = 0; i < separator.length(); i++) {
         checkArgument(
             !alphabet.matches(separator.charAt(i)),
@@ -831,7 +831,7 @@ public abstract class BaseEncoding {
       return result;
     }
 
-    BaseEncoding newInstance(Alphabet alphabet, @Nullable Character paddingChar) {
+    BaseEncoding newInstance(final Alphabet alphabet, final @Nullable Character paddingChar) {
       return new StandardBaseEncoding(alphabet, paddingChar);
     }
 
@@ -850,7 +850,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public boolean equals(@Nullable Object other) {
+    public boolean equals(final @Nullable Object other) {
       if (other instanceof StandardBaseEncoding) {
         StandardBaseEncoding that = (StandardBaseEncoding) other;
         return this.alphabet.equals(that.alphabet)
@@ -868,11 +868,11 @@ public abstract class BaseEncoding {
   static final class Base16Encoding extends StandardBaseEncoding {
     final char[] encoding = new char[512];
 
-    Base16Encoding(String name, String alphabetChars) {
+    Base16Encoding(final String name, final String alphabetChars) {
       this(new Alphabet(name, alphabetChars.toCharArray()));
     }
 
-    private Base16Encoding(Alphabet alphabet) {
+    private Base16Encoding(final Alphabet alphabet) {
       super(alphabet, null);
       checkArgument(alphabet.chars.length == 16);
       for (int i = 0; i < 256; ++i) {
@@ -882,7 +882,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    void encodeTo(Appendable target, byte[] bytes, int off, int len) throws IOException {
+    void encodeTo(final Appendable target, final byte[] bytes, final int off, final int len) throws IOException {
       checkNotNull(target);
       checkPositionIndexes(off, off + len, bytes.length);
       for (int i = 0; i < len; ++i) {
@@ -893,7 +893,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
+    int decodeTo(final byte[] target, final CharSequence chars) throws DecodingException {
       checkNotNull(target);
       if (chars.length() % 2 == 1) {
         throw new DecodingException("Invalid input length " + chars.length());
@@ -907,23 +907,23 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    BaseEncoding newInstance(Alphabet alphabet, @Nullable Character paddingChar) {
+    BaseEncoding newInstance(final Alphabet alphabet, final @Nullable Character paddingChar) {
       return new Base16Encoding(alphabet);
     }
   }
 
   static final class Base64Encoding extends StandardBaseEncoding {
-    Base64Encoding(String name, String alphabetChars, @Nullable Character paddingChar) {
+    Base64Encoding(final String name, final String alphabetChars, final @Nullable Character paddingChar) {
       this(new Alphabet(name, alphabetChars.toCharArray()), paddingChar);
     }
 
-    private Base64Encoding(Alphabet alphabet, @Nullable Character paddingChar) {
+    private Base64Encoding(final Alphabet alphabet, final @Nullable Character paddingChar) {
       super(alphabet, paddingChar);
       checkArgument(alphabet.chars.length == 64);
     }
 
     @Override
-    void encodeTo(Appendable target, byte[] bytes, int off, int len) throws IOException {
+    void encodeTo(final Appendable target, final byte[] bytes, final int off, final int len) throws IOException {
       checkNotNull(target);
       checkPositionIndexes(off, off + len, bytes.length);
       int i = off;
@@ -940,7 +940,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
+    int decodeTo(final byte[] target, final CharSequence chars) throws DecodingException {
       checkNotNull(target);
       chars = trimTrailingPadding(chars);
       if (!alphabet.isValidPaddingStartPosition(chars.length())) {
@@ -964,7 +964,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    BaseEncoding newInstance(Alphabet alphabet, @Nullable Character paddingChar) {
+    BaseEncoding newInstance(final Alphabet alphabet, final @Nullable Character paddingChar) {
       return new Base64Encoding(alphabet, paddingChar);
     }
   }
@@ -984,7 +984,7 @@ public abstract class BaseEncoding {
       }
 
       @Override
-      public int read(char[] cbuf, int off, int len) throws IOException {
+      public int read(final char[] cbuf, final int off, final int len) throws IOException {
         throw new UnsupportedOperationException();
       }
 
@@ -1004,7 +1004,7 @@ public abstract class BaseEncoding {
       int charsUntilSeparator = afterEveryChars;
 
       @Override
-      public Appendable append(char c) throws IOException {
+      public Appendable append(final char c) throws IOException {
         if (charsUntilSeparator == 0) {
           delegate.append(separator);
           charsUntilSeparator = afterEveryChars;
@@ -1015,12 +1015,12 @@ public abstract class BaseEncoding {
       }
 
       @Override
-      public Appendable append(CharSequence chars, int off, int len) throws IOException {
+      public Appendable append(final CharSequence chars, final int off, final int len) throws IOException {
         throw new UnsupportedOperationException();
       }
 
       @Override
-      public Appendable append(CharSequence chars) throws IOException {
+      public Appendable append(final CharSequence chars) throws IOException {
         throw new UnsupportedOperationException();
       }
     };
@@ -1033,12 +1033,12 @@ public abstract class BaseEncoding {
         separatingAppendable(delegate, separator, afterEveryChars);
     return new Writer() {
       @Override
-      public void write(int c) throws IOException {
+      public void write(final int c) throws IOException {
         seperatingAppendable.append((char) c);
       }
 
       @Override
-      public void write(char[] chars, int off, int len) throws IOException {
+      public void write(final char[] chars, final int off, final int len) throws IOException {
         throw new UnsupportedOperationException();
       }
 
@@ -1059,7 +1059,7 @@ public abstract class BaseEncoding {
     private final String separator;
     private final int afterEveryChars;
 
-    SeparatedBaseEncoding(BaseEncoding delegate, String separator, int afterEveryChars) {
+    SeparatedBaseEncoding(final BaseEncoding delegate, final String separator, final int afterEveryChars) {
       this.delegate = checkNotNull(delegate);
       this.separator = checkNotNull(separator);
       this.afterEveryChars = afterEveryChars;
@@ -1068,12 +1068,12 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    CharSequence trimTrailingPadding(CharSequence chars) {
+    CharSequence trimTrailingPadding(final CharSequence chars) {
       return delegate.trimTrailingPadding(chars);
     }
 
     @Override
-    int maxEncodedSize(int bytes) {
+    int maxEncodedSize(final int bytes) {
       int unseparatedSize = delegate.maxEncodedSize(bytes);
       return unseparatedSize
           + separator.length() * divide(Math.max(0, unseparatedSize - 1), afterEveryChars, FLOOR);
@@ -1086,17 +1086,17 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    void encodeTo(Appendable target, byte[] bytes, int off, int len) throws IOException {
+    void encodeTo(final Appendable target, final byte[] bytes, final int off, final int len) throws IOException {
       delegate.encodeTo(separatingAppendable(target, separator, afterEveryChars), bytes, off, len);
     }
 
     @Override
-    int maxDecodedSize(int chars) {
+    int maxDecodedSize(final int chars) {
       return delegate.maxDecodedSize(chars);
     }
 
     @Override
-    public boolean canDecode(CharSequence chars) {
+    public boolean canDecode(final CharSequence chars) {
       StringBuilder builder = new StringBuilder();
       for (int i = 0; i < chars.length(); i++) {
         char c = chars.charAt(i);
@@ -1108,7 +1108,7 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    int decodeTo(byte[] target, CharSequence chars) throws DecodingException {
+    int decodeTo(final byte[] target, final CharSequence chars) throws DecodingException {
       StringBuilder stripped = new StringBuilder(chars.length());
       for (int i = 0; i < chars.length(); i++) {
         char c = chars.charAt(i);
@@ -1131,12 +1131,12 @@ public abstract class BaseEncoding {
     }
 
     @Override
-    public BaseEncoding withPadChar(char padChar) {
+    public BaseEncoding withPadChar(final char padChar) {
       return delegate.withPadChar(padChar).withSeparator(separator, afterEveryChars);
     }
 
     @Override
-    public BaseEncoding withSeparator(String separator, int afterEveryChars) {
+    public BaseEncoding withSeparator(final String separator, final int afterEveryChars) {
       throw new UnsupportedOperationException("Already have a separator");
     }
 

@@ -44,23 +44,23 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    *
    * @param out the stream to delegate to
    */
-  public LittleEndianDataOutputStream(OutputStream out) {
+  public LittleEndianDataOutputStream(final OutputStream out) {
     super(new DataOutputStream(Preconditions.checkNotNull(out)));
   }
 
   @Override
-  public void write(byte[] b, int off, int len) throws IOException {
+  public void write(final byte[] b, final int off, final int len) throws IOException {
     // Override slow FilterOutputStream impl
     out.write(b, off, len);
   }
 
   @Override
-  public void writeBoolean(boolean v) throws IOException {
+  public void writeBoolean(final boolean v) throws IOException {
     ((DataOutputStream) out).writeBoolean(v);
   }
 
   @Override
-  public void writeByte(int v) throws IOException {
+  public void writeByte(final int v) throws IOException {
     ((DataOutputStream) out).writeByte(v);
   }
 
@@ -70,7 +70,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    */
   @Deprecated
   @Override
-  public void writeBytes(String s) throws IOException {
+  public void writeBytes(final String s) throws IOException {
     ((DataOutputStream) out).writeBytes(s);
   }
 
@@ -81,7 +81,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeChar(int v) throws IOException {
+  public void writeChar(final int v) throws IOException {
     writeShort(v);
   }
 
@@ -92,7 +92,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeChars(String s) throws IOException {
+  public void writeChars(final String s) throws IOException {
     for (int i = 0; i < s.length(); i++) {
       writeChar(s.charAt(i));
     }
@@ -105,7 +105,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeDouble(double v) throws IOException {
+  public void writeDouble(final double v) throws IOException {
     writeLong(Double.doubleToLongBits(v));
   }
 
@@ -116,7 +116,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeFloat(float v) throws IOException {
+  public void writeFloat(final float v) throws IOException {
     writeInt(Float.floatToIntBits(v));
   }
 
@@ -127,7 +127,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeInt(int v) throws IOException {
+  public void writeInt(final int v) throws IOException {
     out.write(0xFF & v);
     out.write(0xFF & (v >> 8));
     out.write(0xFF & (v >> 16));
@@ -141,7 +141,7 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeLong(long v) throws IOException {
+  public void writeLong(final long v) throws IOException {
     byte[] bytes = Longs.toByteArray(Long.reverseBytes(v));
     write(bytes, 0, bytes.length);
   }
@@ -153,13 +153,13 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
    * @throws IOException if an I/O error occurs
    */
   @Override
-  public void writeShort(int v) throws IOException {
+  public void writeShort(final int v) throws IOException {
     out.write(0xFF & v);
     out.write(0xFF & (v >> 8));
   }
 
   @Override
-  public void writeUTF(String str) throws IOException {
+  public void writeUTF(final String str) throws IOException {
     ((DataOutputStream) out).writeUTF(str);
   }
 

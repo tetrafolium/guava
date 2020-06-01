@@ -110,7 +110,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    * @since 19.0
    */
   public static final Predicate<Class<?>> UNDERSCORE_IN_NAME = new Predicate<Class<?>>() {
-    @Override public boolean apply(Class<?> c) {
+    @Override public boolean apply(final Class<?> c) {
       return c.getSimpleName().contains("_");
     }
   };
@@ -142,7 +142,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   private final ClassSanityTester tester = new ClassSanityTester();
   private Visibility visibility = Visibility.PACKAGE;
   private Predicate<Class<?>> classFilter = new Predicate<Class<?>>() {
-    @Override public boolean apply(Class<?> cls) {
+    @Override public boolean apply(final Class<?> cls) {
       return visibility.isVisible(cls.getModifiers());
     }
   };
@@ -278,7 +278,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    * testing {@link Object#equals} because more than one sample instances are needed for testing
    * inequality.
    */
-  protected final <T> void setDefault(Class<T> type, T value) {
+  protected final <T> void setDefault(final Class<T> type, final T value) {
     tester.setDefault(type, value);
   }
 
@@ -288,17 +288,17 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    *
    * @since 17.0
    */
-  protected final <T> void setDistinctValues(Class<T> type, T value1, T value2) {
+  protected final <T> void setDistinctValues(final Class<T> type, final T value1, final T value2) {
     tester.setDistinctValues(type, value1, value2);
   }
 
   /** Specifies that classes that satisfy the given predicate aren't tested for sanity. */
-  protected final void ignoreClasses(Predicate<? super Class<?>> condition) {
+  protected final void ignoreClasses(final Predicate<? super Class<?>> condition) {
     this.classFilter = and(this.classFilter, not(condition));
   }
 
   private static AssertionFailedError sanityError(
-      Class<?> cls, List<String> explicitTestNames, String description, Throwable e) {
+      final Class<?> cls, final List<String> explicitTestNames, final String description, final Throwable e) {
     String message = String.format(Locale.ROOT,
         "Error in automated %s of %s\n"
             + "If the class is better tested explicitly, you can add %s() to %sTest",
@@ -313,7 +313,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    * whose name is {@code explicitTestName}.
    */
   @VisibleForTesting List<Class<?>> findClassesToTest(
-      Iterable<? extends Class<?>> classes, Iterable<String> explicitTestNames) {
+      final Iterable<? extends Class<?>> classes, final Iterable<String> explicitTestNames) {
     // "a.b.Foo" -> a.b.Foo.class
     TreeMap<String, Class<?>> classMap = Maps.newTreeMap();
     for (Class<?> cls : classes) {
@@ -366,7 +366,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     return classes;
   }
 
-  private static boolean hasTest(Class<?> testClass, Iterable<String> testNames) {
+  private static boolean hasTest(final Class<?> testClass, final Iterable<String> testNames) {
     for (String testName : testNames) {
       try {
         testClass.getMethod(testName);
@@ -378,7 +378,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     return false;
   }
 
-  private static boolean isEqualsDefined(Class<?> cls) {
+  private static boolean isEqualsDefined(final Class<?> cls) {
     try {
       return !cls.getDeclaredMethod("equals", Object.class).isSynthetic();
     } catch (NoSuchMethodException e) {
@@ -391,7 +391,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     final Chopper or(final Chopper you) {
       final Chopper i = this;
       return new Chopper() {
-        @Override Optional<String> chop(String str) {
+        @Override Optional<String> chop(final String str) {
           return i.chop(str).or(you.chop(str));
         }
       };
@@ -401,7 +401,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
     static Chopper suffix(final String suffix) {
       return new Chopper() {
-        @Override Optional<String> chop(String str) {
+        @Override Optional<String> chop(final String str) {
           if (str.endsWith(suffix)) {
             return Optional.of(str.substring(0, str.length() - suffix.length()));
           } else {

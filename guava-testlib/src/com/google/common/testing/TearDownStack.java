@@ -50,12 +50,12 @@ public class TearDownStack implements TearDownAccepter {
     this.suppressThrows = false;
   }
 
-  public TearDownStack(boolean suppressThrows) {
+  public TearDownStack(final boolean suppressThrows) {
     this.suppressThrows = suppressThrows;
   }
 
   @Override
-  public final void addTearDown(TearDown tearDown) {
+  public final void addTearDown(final TearDown tearDown) {
     synchronized (stack) {
       stack.addFirst(checkNotNull(tearDown));
     }

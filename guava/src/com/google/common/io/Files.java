@@ -69,7 +69,7 @@ public final class Files {
   /** Maximum loop count when creating temp directories. */
   private static final int TEMP_DIR_ATTEMPTS = 10000;
 
-  private Files() {}
+  private Files() { }
 
   /**
    * Returns a buffered reader that reads from a file using the given character set.
@@ -82,7 +82,7 @@ public final class Files {
    *     helpful predefined constants
    * @return the buffered reader
    */
-  public static BufferedReader newReader(File file, Charset charset) throws FileNotFoundException {
+  public static BufferedReader newReader(final File file, final Charset charset) throws FileNotFoundException {
     checkNotNull(file);
     checkNotNull(charset);
     return new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
@@ -100,7 +100,7 @@ public final class Files {
    *     helpful predefined constants
    * @return the buffered writer
    */
-  public static BufferedWriter newWriter(File file, Charset charset) throws FileNotFoundException {
+  public static BufferedWriter newWriter(final File file, final Charset charset) throws FileNotFoundException {
     checkNotNull(file);
     checkNotNull(charset);
     return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), charset));
@@ -111,7 +111,7 @@ public final class Files {
    *
    * @since 14.0
    */
-  public static ByteSource asByteSource(File file) {
+  public static ByteSource asByteSource(final File file) {
     return new FileByteSource(file);
   }
 
@@ -119,7 +119,7 @@ public final class Files {
 
     private final File file;
 
-    private FileByteSource(File file) {
+    private FileByteSource(final File file) {
       this.file = checkNotNull(file);
     }
 
@@ -169,7 +169,7 @@ public final class Files {
    * array. This method handles the case where the file size changes between when the size is read
    * and when the contents are read from the stream.
    */
-  static byte[] readFile(InputStream in, long expectedSize) throws IOException {
+  static byte[] readFile(final InputStream in, final long expectedSize) throws IOException {
     if (expectedSize > Integer.MAX_VALUE) {
       throw new OutOfMemoryError(
           "file is too large to fit in a byte array: " + expectedSize + " bytes");
@@ -195,7 +195,7 @@ public final class Files {
    *
    * @since 14.0
    */
-  public static ByteSink asByteSink(File file, FileWriteMode... modes) {
+  public static ByteSink asByteSink(final File file, final FileWriteMode... modes) {
     return new FileByteSink(file, modes);
   }
 
@@ -204,7 +204,7 @@ public final class Files {
     private final File file;
     private final ImmutableSet<FileWriteMode> modes;
 
-    private FileByteSink(File file, FileWriteMode... modes) {
+    private FileByteSink(final File file, final FileWriteMode... modes) {
       this.file = checkNotNull(file);
       this.modes = ImmutableSet.copyOf(modes);
     }
@@ -226,7 +226,7 @@ public final class Files {
    *
    * @since 14.0
    */
-  public static CharSource asCharSource(File file, Charset charset) {
+  public static CharSource asCharSource(final File file, final Charset charset) {
     return asByteSource(file).asCharSource(charset);
   }
 
@@ -238,7 +238,7 @@ public final class Files {
    *
    * @since 14.0
    */
-  public static CharSink asCharSink(File file, Charset charset, FileWriteMode... modes) {
+  public static CharSink asCharSink(final File file, final Charset charset, final FileWriteMode... modes) {
     return asByteSink(file, modes).asCharSink(charset);
   }
 
@@ -253,7 +253,7 @@ public final class Files {
    *     (2^31 - 1)
    * @throws IOException if an I/O error occurs
    */
-  public static byte[] toByteArray(File file) throws IOException {
+  public static byte[] toByteArray(final File file) throws IOException {
     return asByteSource(file).read();
   }
 
@@ -268,7 +268,7 @@ public final class Files {
    * @deprecated Prefer {@code asCharSource(file, charset).read()}.
    */
   @Deprecated
-  public static String toString(File file, Charset charset) throws IOException {
+  public static String toString(final File file, final Charset charset) throws IOException {
     return asCharSource(file, charset).read();
   }
 
@@ -282,7 +282,7 @@ public final class Files {
    * @param to the destination file
    * @throws IOException if an I/O error occurs
    */
-  public static void write(byte[] from, File to) throws IOException {
+  public static void write(final byte[] from, final File to) throws IOException {
     asByteSink(to).write(from);
   }
 
@@ -296,7 +296,7 @@ public final class Files {
    * @param to the output stream
    * @throws IOException if an I/O error occurs
    */
-  public static void copy(File from, OutputStream to) throws IOException {
+  public static void copy(final File from, final OutputStream to) throws IOException {
     asByteSource(from).copyTo(to);
   }
 
@@ -319,7 +319,7 @@ public final class Files {
    * @throws IOException if an I/O error occurs
    * @throws IllegalArgumentException if {@code from.equals(to)}
    */
-  public static void copy(File from, File to) throws IOException {
+  public static void copy(final File from, final File to) throws IOException {
     checkArgument(!from.equals(to), "Source %s and destination %s must be different", from, to);
     asByteSource(from).copyTo(asByteSink(to));
   }
@@ -335,7 +335,7 @@ public final class Files {
    * @deprecated Prefer {@code asCharSink(to, charset).write(from)}.
    */
   @Deprecated
-  public static void write(CharSequence from, File to, Charset charset) throws IOException {
+  public static void write(final CharSequence from, final File to, final Charset charset) throws IOException {
     asCharSink(to, charset).write(from);
   }
 
@@ -350,7 +350,7 @@ public final class Files {
    * @deprecated Prefer {@code asCharSink(to, charset, FileWriteMode.APPEND).write(from)}.
    */
   @Deprecated
-  public static void append(CharSequence from, File to, Charset charset) throws IOException {
+  public static void append(final CharSequence from, final File to, final Charset charset) throws IOException {
     asCharSink(to, charset, FileWriteMode.APPEND).write(from);
   }
 
@@ -365,7 +365,7 @@ public final class Files {
    * @deprecated Prefer {@code asCharSource(from, charset).copyTo(to)}.
    */
   @Deprecated
-  public static void copy(File from, Charset charset, Appendable to) throws IOException {
+  public static void copy(final File from, final Charset charset, final Appendable to) throws IOException {
     asCharSource(from, charset).copyTo(to);
   }
 
@@ -374,7 +374,7 @@ public final class Files {
    *
    * @throws IOException if an I/O error occurs
    */
-  public static boolean equal(File file1, File file2) throws IOException {
+  public static boolean equal(final File file1, final File file2) throws IOException {
     checkNotNull(file1);
     checkNotNull(file2);
     if (file1 == file2 || file1.equals(file2)) {
@@ -441,7 +441,7 @@ public final class Files {
    * @param file the file to create or update
    * @throws IOException if an I/O error occurs
    */
-  public static void touch(File file) throws IOException {
+  public static void touch(final File file) throws IOException {
     checkNotNull(file);
     if (!file.createNewFile() && !file.setLastModified(System.currentTimeMillis())) {
       throw new IOException("Unable to update modification time of " + file);
@@ -457,7 +457,7 @@ public final class Files {
    *     directories of the specified file could not be created.
    * @since 4.0
    */
-  public static void createParentDirs(File file) throws IOException {
+  public static void createParentDirs(final File file) throws IOException {
     checkNotNull(file);
     File parent = file.getCanonicalFile().getParentFile();
     if (parent == null) {
@@ -487,7 +487,7 @@ public final class Files {
    * @throws IOException if an I/O error occurs
    * @throws IllegalArgumentException if {@code from.equals(to)}
    */
-  public static void move(File from, File to) throws IOException {
+  public static void move(final File from, final File to) throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     checkArgument(!from.equals(to), "Source %s and destination %s must be different", from, to);
@@ -515,7 +515,7 @@ public final class Files {
    * @deprecated Prefer {@code asCharSource(file, charset).readFirstLine()}.
    */
   @Deprecated
-  public static String readFirstLine(File file, Charset charset) throws IOException {
+  public static String readFirstLine(final File file, final Charset charset) throws IOException {
     return asCharSource(file, charset).readFirstLine();
   }
 
@@ -535,7 +535,7 @@ public final class Files {
    * @return a mutable {@link List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
-  public static List<String> readLines(File file, Charset charset) throws IOException {
+  public static List<String> readLines(final File file, final Charset charset) throws IOException {
     // don't use asCharSource(file, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return asCharSource(file, charset)
@@ -544,7 +544,7 @@ public final class Files {
               final List<String> result = Lists.newArrayList();
 
               @Override
-              public boolean processLine(String line) {
+              public boolean processLine(final String line) {
                 result.add(line);
                 return true;
               }
@@ -570,7 +570,7 @@ public final class Files {
    */
   @Deprecated
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public static <T> T readLines(File file, Charset charset, LineProcessor<T> callback)
+  public static <T> T readLines(final File file, final Charset charset, final LineProcessor<T> callback)
       throws IOException {
     return asCharSource(file, charset).readLines(callback);
   }
@@ -588,7 +588,7 @@ public final class Files {
    */
   @Deprecated
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public static <T> T readBytes(File file, ByteProcessor<T> processor) throws IOException {
+  public static <T> T readBytes(final File file, final ByteProcessor<T> processor) throws IOException {
     return asByteSource(file).read(processor);
   }
 
@@ -603,7 +603,7 @@ public final class Files {
    * @deprecated Prefer {@code asByteSource(file).hash(hashFunction)}.
    */
   @Deprecated
-  public static HashCode hash(File file, HashFunction hashFunction) throws IOException {
+  public static HashCode hash(final File file, final HashFunction hashFunction) throws IOException {
     return asByteSource(file).hash(hashFunction);
   }
 
@@ -622,7 +622,7 @@ public final class Files {
    * @see FileChannel#map(MapMode, long, long)
    * @since 2.0
    */
-  public static MappedByteBuffer map(File file) throws IOException {
+  public static MappedByteBuffer map(final File file) throws IOException {
     checkNotNull(file);
     return map(file, MapMode.READ_ONLY);
   }
@@ -644,7 +644,7 @@ public final class Files {
    * @see FileChannel#map(MapMode, long, long)
    * @since 2.0
    */
-  public static MappedByteBuffer map(File file, MapMode mode) throws IOException {
+  public static MappedByteBuffer map(final File file, final MapMode mode) throws IOException {
     checkNotNull(file);
     checkNotNull(mode);
     if (!file.exists()) {
@@ -672,7 +672,7 @@ public final class Files {
    * @see FileChannel#map(MapMode, long, long)
    * @since 2.0
    */
-  public static MappedByteBuffer map(File file, MapMode mode, long size)
+  public static MappedByteBuffer map(final File file, final MapMode mode, final long size)
       throws FileNotFoundException, IOException {
     checkNotNull(file);
     checkNotNull(mode);
@@ -689,7 +689,7 @@ public final class Files {
     }
   }
 
-  private static MappedByteBuffer map(RandomAccessFile raf, MapMode mode, long size)
+  private static MappedByteBuffer map(final RandomAccessFile raf, final MapMode mode, final long size)
       throws IOException {
     Closer closer = Closer.create();
     try {
@@ -722,7 +722,7 @@ public final class Files {
    *
    * @since 11.0
    */
-  public static String simplifyPath(String pathname) {
+  public static String simplifyPath(final String pathname) {
     checkNotNull(pathname);
     if (pathname.length() == 0) {
       return ".";
@@ -782,7 +782,7 @@ public final class Files {
    *
    * @since 11.0
    */
-  public static String getFileExtension(String fullName) {
+  public static String getFileExtension(final String fullName) {
     checkNotNull(fullName);
     String fileName = new File(fullName).getName();
     int dotIndex = fileName.lastIndexOf('.');
@@ -799,7 +799,7 @@ public final class Files {
    * @return The file name without its path or extension.
    * @since 14.0
    */
-  public static String getNameWithoutExtension(String file) {
+  public static String getNameWithoutExtension(final String file) {
     checkNotNull(file);
     String fileName = new File(file).getName();
     int dotIndex = fileName.lastIndexOf('.');
@@ -823,7 +823,7 @@ public final class Files {
   private static final TreeTraverser<File> FILE_TREE_TRAVERSER =
       new TreeTraverser<File>() {
         @Override
-        public Iterable<File> children(File file) {
+        public Iterable<File> children(final File file) {
           // check isDirectory() just because it may be faster than listFiles() on a non-directory
           if (file.isDirectory()) {
             File[] files = file.listFiles();
@@ -862,7 +862,7 @@ public final class Files {
   private enum FilePredicate implements Predicate<File> {
     IS_DIRECTORY {
       @Override
-      public boolean apply(File file) {
+      public boolean apply(final File file) {
         return file.isDirectory();
       }
 
@@ -874,7 +874,7 @@ public final class Files {
 
     IS_FILE {
       @Override
-      public boolean apply(File file) {
+      public boolean apply(final File file) {
         return file.isFile();
       }
 

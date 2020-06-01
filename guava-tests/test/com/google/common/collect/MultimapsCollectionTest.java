@@ -97,7 +97,7 @@ public class MultimapsCollectionTest extends TestCase {
       };
 
   static void populateMultimapForGet(
-      Multimap<Integer, String> multimap, String[] elements) {
+      final Multimap<Integer, String> multimap, final String[] elements) {
     multimap.put(2, "foo");
     for (String element : elements) {
       multimap.put(3, element);
@@ -105,7 +105,7 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static void populateMultimapForKeySet(
-      Multimap<String, Integer> multimap, String[] elements) {
+      final Multimap<String, Integer> multimap, final String[] elements) {
     for (String element : elements) {
       multimap.put(element, 2);
       multimap.put(element, 3);
@@ -113,14 +113,14 @@ public class MultimapsCollectionTest extends TestCase {
   }
 
   static void populateMultimapForValues(
-      Multimap<Integer, String> multimap, String[] elements) {
+      final Multimap<Integer, String> multimap, final String[] elements) {
     for (int i = 0; i < elements.length; i++) {
       multimap.put(i % 2, elements[i]);
     }
   }
 
   static void populateMultimapForKeys(
-      Multimap<String, Integer> multimap, String[] elements) {
+      final Multimap<String, Integer> multimap, final String[] elements) {
     for (int i = 0; i < elements.length; i++) {
       multimap.put(elements[i], i);
     }
@@ -152,7 +152,7 @@ public class MultimapsCollectionTest extends TestCase {
           new Class<?>[] {SetMultimap.class},
           new InvocationHandler() {
             @Override
-            public Object invoke(Object proxy, Method method, Object[] args)
+            public Object invoke(final Object proxy, final Method method, final Object[] args)
                 throws Throwable {
               throw new UnsupportedOperationException();
             }
@@ -163,7 +163,7 @@ public class MultimapsCollectionTest extends TestCase {
       return unusableDelegate;
     }
 
-    @Override public boolean put(K key, V value) {
+    @Override public boolean put(final K key, final V value) {
       map.put(key, value);
       return true;
     }
@@ -186,7 +186,7 @@ public class MultimapsCollectionTest extends TestCase {
     }
 
     @Override
-    public Collection<Entry<String, Integer>> create(Object... elements) {
+    public Collection<Entry<String, Integer>> create(final Object... elements) {
       Multimap<String, Integer> multimap = createMultimap();
       for (Object element : elements) {
         @SuppressWarnings("unchecked")
@@ -200,13 +200,13 @@ public class MultimapsCollectionTest extends TestCase {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Entry<String, Integer>[] createArray(int length) {
+    public Entry<String, Integer>[] createArray(final int length) {
       return (Entry<String, Integer>[]) new Entry<?, ?>[length];
     }
 
     @Override
     public List<Entry<String, Integer>> order(
-        List<Entry<String, Integer>> insertionOrder) {
+        final List<Entry<String, Integer>> insertionOrder) {
       return insertionOrder;
     }
   }
@@ -214,21 +214,21 @@ public class MultimapsCollectionTest extends TestCase {
   public abstract static class TestEntriesListGenerator
       extends TestEntriesGenerator
       implements TestListGenerator<Entry<String, Integer>> {
-    @Override public List<Entry<String, Integer>> create(Object... elements) {
+    @Override public List<Entry<String, Integer>> create(final Object... elements) {
       return (List<Entry<String, Integer>>) super.create(elements);
     }
   }
 
   private static final Predicate<Map.Entry<Integer, String>> FILTER_GET_PREDICATE
       = new Predicate<Map.Entry<Integer, String>>() {
-        @Override public boolean apply(Entry<Integer, String> entry) {
+        @Override public boolean apply(final Entry<Integer, String> entry) {
           return !"badvalue".equals(entry.getValue()) && 55556 != entry.getKey();
         }
     };
 
   private static final Predicate<Map.Entry<String, Integer>> FILTER_KEYSET_PREDICATE
     = new Predicate<Map.Entry<String, Integer>>() {
-      @Override public boolean apply(Entry<String, Integer> entry) {
+      @Override public boolean apply(final Entry<String, Integer> entry) {
         return !"badkey".equals(entry.getKey()) && 55556 != entry.getValue();
       }
   };
@@ -241,9 +241,9 @@ public class MultimapsCollectionTest extends TestCase {
 
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TestStringListMultimapGenerator() {
         @Override
-        protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+        protected ListMultimap<String, String> create(final Entry<String, String>[] entries) {
           ListMultimap<String, String> multimap = Multimaps.synchronizedListMultimap(
-              ArrayListMultimap.<String, String> create());
+              ArrayListMultimap.<String, String>create());
           for (Entry<String, String> entry : entries) {
             multimap.put(entry.getKey(), entry.getValue());
           }
@@ -263,7 +263,7 @@ public class MultimapsCollectionTest extends TestCase {
 
     suite.addTest(SetTestSuiteBuilder.using(
         new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             PopulatableMapAsMultimap<Integer, String> multimap
                 = PopulatableMapAsMultimap.create();
             populateMultimapForGet(multimap, elements);
@@ -276,7 +276,7 @@ public class MultimapsCollectionTest extends TestCase {
 
     suite.addTest(SetTestSuiteBuilder.using(
         new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             PopulatableMapAsMultimap<String, Integer> multimap
                 = PopulatableMapAsMultimap.create();
             populateMultimapForKeySet(multimap, elements);
@@ -291,7 +291,7 @@ public class MultimapsCollectionTest extends TestCase {
 
     suite.addTest(MultisetTestSuiteBuilder.using(
         new TestStringMultisetGenerator() {
-          @Override protected Multiset<String> create(String[] elements) {
+          @Override protected Multiset<String> create(final String[] elements) {
             PopulatableMapAsMultimap<String, Integer> multimap
                 = PopulatableMapAsMultimap.create();
             populateMultimapForKeys(multimap, elements);
@@ -316,12 +316,12 @@ public class MultimapsCollectionTest extends TestCase {
       implements TestMultimapGenerator<String, String, M> {
 
     @Override
-    public String[] createKeyArray(int length) {
+    public String[] createKeyArray(final int length) {
       return new String[length];
     }
 
     @Override
-    public String[] createValueArray(int length) {
+    public String[] createValueArray(final int length) {
       return new String[length];
     }
 
@@ -336,7 +336,7 @@ public class MultimapsCollectionTest extends TestCase {
     }
 
     @Override
-    public Collection<String> createCollection(Iterable<? extends String> values) {
+    public Collection<String> createCollection(final Iterable<? extends String> values) {
       return Lists.newArrayList(values);
     }
 
@@ -351,7 +351,7 @@ public class MultimapsCollectionTest extends TestCase {
     }
 
     @Override
-    public M create(Object... elements) {
+    public M create(final Object... elements) {
       Multimap<String, String> multimap = ArrayListMultimap.create();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
@@ -365,18 +365,18 @@ public class MultimapsCollectionTest extends TestCase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<String, String>[] createArray(int length) {
+    public Entry<String, String>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+    public Iterable<Entry<String, String>> order(final List<Entry<String, String>> insertionOrder) {
       return insertionOrder;
     }
 
     static final Function<String, String> FUNCTION = new Function<String, String>() {
       @Override
-      public String apply(String value) {
+      public String apply(final String value) {
         return Ascii.toLowerCase(value);
       }
     };
@@ -384,7 +384,7 @@ public class MultimapsCollectionTest extends TestCase {
     static final EntryTransformer<String, String, String> ENTRY_TRANSFORMER =
         new EntryTransformer<String, String, String>() {
       @Override
-      public String transformEntry(String key, String value) {
+      public String transformEntry(final String key, final String value) {
         return Ascii.toLowerCase(value);
       }
     };
@@ -398,9 +398,9 @@ public class MultimapsCollectionTest extends TestCase {
   private static Test transformSuite() {
     TestSuite suite = new TestSuite("Multimaps.transform*");
     suite.addTest(MultimapTestSuiteBuilder.using(
-        new TransformedMultimapGenerator<Multimap<String,String>>() {
+        new TransformedMultimapGenerator<Multimap<String, String>>() {
           @Override
-          Multimap<String, String> transform(Multimap<String, String> multimap) {
+          Multimap<String, String> transform(final Multimap<String, String> multimap) {
             return Multimaps.transformValues(multimap, FUNCTION);
           }
         })
@@ -413,9 +413,9 @@ public class MultimapsCollectionTest extends TestCase {
             MapFeature.ALLOWS_ANY_NULL_QUERIES)
         .createTestSuite());
     suite.addTest(MultimapTestSuiteBuilder.using(
-        new TransformedMultimapGenerator<Multimap<String,String>>() {
+        new TransformedMultimapGenerator<Multimap<String, String>>() {
           @Override
-          Multimap<String, String> transform(Multimap<String, String> multimap) {
+          Multimap<String, String> transform(final Multimap<String, String> multimap) {
             return Multimaps.transformEntries(multimap, ENTRY_TRANSFORMER);
           }
         })
@@ -429,7 +429,7 @@ public class MultimapsCollectionTest extends TestCase {
         .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TransformedListMultimapGenerator() {
           @Override
-          ListMultimap<String, String> transform(Multimap<String, String> multimap) {
+          ListMultimap<String, String> transform(final Multimap<String, String> multimap) {
             return Multimaps.transformValues((ListMultimap<String, String>) multimap, FUNCTION);
           }
         })
@@ -443,7 +443,7 @@ public class MultimapsCollectionTest extends TestCase {
         .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TransformedListMultimapGenerator() {
           @Override
-          ListMultimap<String, String> transform(Multimap<String, String> multimap) {
+          ListMultimap<String, String> transform(final Multimap<String, String> multimap) {
             return Multimaps.transformEntries(
                 (ListMultimap<String, String>) multimap, ENTRY_TRANSFORMER);
           }
@@ -477,22 +477,22 @@ public class MultimapsCollectionTest extends TestCase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<String, Integer>[] createArray(int length) {
+    public Entry<String, Integer>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<String, Integer>> order(List<Entry<String, Integer>> insertionOrder) {
+    public Iterable<Entry<String, Integer>> order(final List<Entry<String, Integer>> insertionOrder) {
       return insertionOrder;
     }
 
     @Override
-    public String[] createKeyArray(int length) {
+    public String[] createKeyArray(final int length) {
       return new String[length];
     }
 
     @Override
-    public Integer[] createValueArray(int length) {
+    public Integer[] createValueArray(final int length) {
       return new Integer[length];
     }
 
@@ -514,7 +514,7 @@ public class MultimapsCollectionTest extends TestCase {
     abstract SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap);
 
     @Override
-    public SetMultimap<String, Integer> create(Object... elements) {
+    public SetMultimap<String, Integer> create(final Object... elements) {
       SetMultimap<String, Integer> multimap = LinkedHashMultimap.create();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
@@ -525,7 +525,7 @@ public class MultimapsCollectionTest extends TestCase {
     }
 
     @Override
-    public Collection<Integer> createCollection(Iterable<? extends Integer> values) {
+    public Collection<Integer> createCollection(final Iterable<? extends Integer> values) {
       return Sets.newLinkedHashSet(values);
     }
   }
@@ -535,7 +535,7 @@ public class MultimapsCollectionTest extends TestCase {
       implements TestListMultimapGenerator<String, Integer> {
 
     @Override
-    public ListMultimap<String, Integer> create(Object... elements) {
+    public ListMultimap<String, Integer> create(final Object... elements) {
       ListMultimap<String, Integer> multimap = LinkedListMultimap.create();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
@@ -548,7 +548,7 @@ public class MultimapsCollectionTest extends TestCase {
     abstract ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap);
 
     @Override
-    public Collection<Integer> createCollection(Iterable<? extends Integer> values) {
+    public Collection<Integer> createCollection(final Iterable<? extends Integer> values) {
       return Lists.newArrayList(values);
     }
   }
@@ -557,7 +557,7 @@ public class MultimapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("Multimaps.filter*");
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           multimap.put("foo", 17);
           multimap.put("bar", 32);
           multimap.put("foo", 16);
@@ -577,7 +577,7 @@ public class MultimapsCollectionTest extends TestCase {
 
     suite.addTest(ListMultimapTestSuiteBuilder.using(new FilteredListMultimapGenerator() {
         @Override
-        ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
+        ListMultimap<String, Integer> filter(final ListMultimap<String, Integer> multimap) {
           multimap.put("foo", 17);
           multimap.put("bar", 32);
           multimap.put("foo", 16);
@@ -596,7 +596,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(ListMultimapTestSuiteBuilder.using(new FilteredListMultimapGenerator() {
         @Override
-        ListMultimap<String, Integer> filter(ListMultimap<String, Integer> multimap) {
+        ListMultimap<String, Integer> filter(final ListMultimap<String, Integer> multimap) {
           multimap.put("foo", 17);
           multimap.put("bar", 32);
           multimap.put("foo", 16);
@@ -615,7 +615,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           multimap.put("one", 314);
           multimap.put("two", 159);
           multimap.put("one", 265);
@@ -633,7 +633,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           ImmutableSetMultimap<String, Integer> badEntries =
               ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
           multimap.putAll(badEntries);
@@ -651,7 +651,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           ImmutableSetMultimap<String, Integer> badEntries =
               ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
           multimap.putAll(badEntries);
@@ -671,7 +671,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           ImmutableSetMultimap<String, Integer> badEntries =
               ImmutableSetMultimap.of("foo", 314, "one", 159, "two", 265, "bar", 358);
           multimap.putAll(badEntries);
@@ -691,7 +691,7 @@ public class MultimapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SetMultimapTestSuiteBuilder.using(new FilteredSetMultimapGenerator() {
         @Override
-        SetMultimap<String, Integer> filter(SetMultimap<String, Integer> multimap) {
+        SetMultimap<String, Integer> filter(final SetMultimap<String, Integer> multimap) {
           ImmutableSetMultimap<String, Integer> badEntries =
               ImmutableSetMultimap.of("foo", 314, "bar", 358);
           multimap.putAll(badEntries);

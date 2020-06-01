@@ -104,17 +104,17 @@ public class SupplementalMonitorTest extends TestCase {
     verifyOccupiedMethodsInAnotherThread(monitor, false, false, 0);
   }
 
-  private static void verifyOccupiedMethodsInCurrentThread(Monitor monitor,
-      boolean expectedIsOccupied, boolean expectedIsOccupiedByCurrentThread,
-      int expectedOccupiedDepth) {
+  private static void verifyOccupiedMethodsInCurrentThread(final Monitor monitor,
+      final boolean expectedIsOccupied, final boolean expectedIsOccupiedByCurrentThread,
+      final int expectedOccupiedDepth) {
     assertEquals(expectedIsOccupied, monitor.isOccupied());
     assertEquals(expectedIsOccupiedByCurrentThread, monitor.isOccupiedByCurrentThread());
     assertEquals(expectedOccupiedDepth, monitor.getOccupiedDepth());
   }
 
   private static void verifyOccupiedMethodsInAnotherThread(final Monitor monitor,
-      boolean expectedIsOccupied, boolean expectedIsOccupiedByCurrentThread,
-      int expectedOccupiedDepth) {
+      final boolean expectedIsOccupied, final boolean expectedIsOccupiedByCurrentThread,
+      final int expectedOccupiedDepth) {
     final AtomicBoolean actualIsOccupied = new AtomicBoolean();
     final AtomicBoolean actualIsOccupiedByCurrentThread = new AtomicBoolean();
     final AtomicInteger actualOccupiedDepth = new AtomicInteger();

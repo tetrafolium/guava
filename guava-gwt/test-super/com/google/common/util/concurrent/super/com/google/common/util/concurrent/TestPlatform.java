@@ -29,7 +29,7 @@ import java.util.concurrent.TimeoutException;
  * Methods factored out so that they can be emulated differently in GWT.
  */
 final class TestPlatform {
-  static void verifyGetOnPendingFuture(Future<?> future) {
+  static void verifyGetOnPendingFuture(final Future<?> future) {
     try {
       future.get();
       fail();
@@ -39,7 +39,7 @@ final class TestPlatform {
     }
   }
 
-  static void verifyTimedGetOnPendingFuture(Future<?> future) {
+  static void verifyTimedGetOnPendingFuture(final Future<?> future) {
     try {
       future.get(0, SECONDS);
       fail();
@@ -57,7 +57,7 @@ final class TestPlatform {
     // There is no thread interruption in GWT, so there's nothing to do.
   }
 
-  static <V> V getDoneFromTimeoutOverload(Future<V> future) throws ExecutionException {
+  static <V> V getDoneFromTimeoutOverload(final Future<V> future) throws ExecutionException {
     checkState(future.isDone(), "Future was expected to be done: %s", future);
     try {
       return future.get(0, SECONDS);
@@ -68,5 +68,5 @@ final class TestPlatform {
     }
   }
 
-  private TestPlatform() {}
+  private TestPlatform() { }
 }

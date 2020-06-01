@@ -34,7 +34,7 @@ final class SingletonImmutableList<E> extends ForwardingImmutableList<E> {
   // serialized.
   E element;
 
-  SingletonImmutableList(E element) {
+  SingletonImmutableList(final E element) {
     this.delegate = singletonList(checkNotNull(element));
     this.element = element;
   }

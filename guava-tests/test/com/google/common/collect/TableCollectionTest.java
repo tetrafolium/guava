@@ -117,7 +117,7 @@ public class TableCollectionTest extends TestCase {
     // since the transformation doesn't affect the row and column key sets.
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table
                 = ArrayTable.create(
                     ImmutableList.copyOf(elements), ImmutableList.of(1, 2));
@@ -133,7 +133,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             populateForRowKeySet(table, elements);
             return table.rowKeySet();
@@ -145,13 +145,13 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SortedSetTestSuiteBuilder.using(new TestStringSortedSetGenerator() {
-          @Override protected SortedSet<String> create(String[] elements) {
+          @Override protected SortedSet<String> create(final String[] elements) {
             TreeBasedTable<String, Integer, Character> table = TreeBasedTable.create();
             populateForRowKeySet(table, elements);
             return table.rowKeySet();
           }
 
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -162,7 +162,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             populateForRowKeySet(table, elements);
             return Tables.unmodifiableTable(table).rowKeySet();
@@ -173,13 +173,13 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             RowSortedTable<String, Integer, Character> table = TreeBasedTable.create();
             populateForRowKeySet(table, elements);
             return Tables.unmodifiableRowSortedTable(table).rowKeySet();
           }
 
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -189,7 +189,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<Integer, String, Character> table
                 = ArrayTable.create(
                     ImmutableList.of(1, 2), ImmutableList.copyOf(elements));
@@ -205,7 +205,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<Integer, String, Character> table = HashBasedTable.create();
             populateForColumnKeySet(table, elements);
             return table.columnKeySet();
@@ -216,13 +216,13 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<Integer, String, Character> table = TreeBasedTable.create();
             populateForColumnKeySet(table, elements);
             return table.columnKeySet();
           }
 
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -232,7 +232,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<Integer, String, Character> table = HashBasedTable.create();
             populateForColumnKeySet(table, elements);
             return Tables.unmodifiableTable(table).columnKeySet();
@@ -243,13 +243,13 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             RowSortedTable<Integer, String, Character> table = TreeBasedTable.create();
             populateForColumnKeySet(table, elements);
             return Tables.unmodifiableRowSortedTable(table).columnKeySet();
           }
 
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -260,7 +260,7 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             List<Integer> rowKeys = Lists.newArrayList();
             for (int i = 0; i < elements.length; i++) {
               rowKeys.add(i);
@@ -279,7 +279,7 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             Table<Integer, Character, String> table = HashBasedTable.create();
             table.put(1, 'a', "foo");
             table.clear();
@@ -294,7 +294,7 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             Table<Integer, Character, String> table = TreeBasedTable.create();
             table.put(1, 'a', "foo");
             table.clear();
@@ -309,14 +309,14 @@ public class TableCollectionTest extends TestCase {
 
     final Function<String, String> removeFirstCharacter
         = new Function<String, String>() {
-          @Override public String apply(String input) {
+          @Override public String apply(final String input) {
             return input.substring(1);
           }
         };
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             Table<Integer, Character, String> table = HashBasedTable.create();
             for (int i = 0; i < elements.length; i++) {
               table.put(i, 'a', "x" + checkNotNull(elements[i]));
@@ -331,7 +331,7 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             Table<Integer, Character, String> table = HashBasedTable.create();
             table.put(1, 'a', "foo");
             table.clear();
@@ -345,7 +345,7 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override protected Collection<String> create(String[] elements) {
+          @Override protected Collection<String> create(final String[] elements) {
             RowSortedTable<Integer, Character, String> table = TreeBasedTable.create();
             table.put(1, 'a', "foo");
             table.clear();
@@ -371,7 +371,7 @@ public class TableCollectionTest extends TestCase {
                   }
 
                   @Override
-                  public Set<Cell<String, Integer, Character>> create(Object... elements) {
+                  public Set<Cell<String, Integer, Character>> create(final Object... elements) {
                     List<Integer> columnKeys = Lists.newArrayList();
                     for (Object element : elements) {
                       @SuppressWarnings("unchecked")
@@ -442,7 +442,7 @@ public class TableCollectionTest extends TestCase {
           }
           @Override
           public Set<Cell<String, Integer, Character>> create(
-              Object... elements) {
+              final Object... elements) {
             Table<String, Integer, Character> table = createTable();
             for (Object element : elements) {
               @SuppressWarnings("unchecked")
@@ -460,11 +460,11 @@ public class TableCollectionTest extends TestCase {
 
     suite.addTest(SetTestSuiteBuilder.using(new TestCellSetGenerator() {
           @Override Table<String, Integer, Character> createTable() {
-            return Tables.unmodifiableTable(HashBasedTable.<String, Integer, Character> create());
+            return Tables.unmodifiableTable(HashBasedTable.<String, Integer, Character>create());
           }
           @Override
           public Set<Cell<String, Integer, Character>> create(
-              Object... elements) {
+              final Object... elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             for (Object element : elements) {
               @SuppressWarnings("unchecked")
@@ -482,11 +482,11 @@ public class TableCollectionTest extends TestCase {
     suite.addTest(SetTestSuiteBuilder.using(new TestCellSetGenerator() {
           @Override RowSortedTable<String, Integer, Character> createTable() {
             return Tables.unmodifiableRowSortedTable(TreeBasedTable
-                .<String, Integer, Character> create());
+                .<String, Integer, Character>create());
           }
           @Override
           public Set<Cell<String, Integer, Character>> create(
-              Object... elements) {
+              final Object... elements) {
             RowSortedTable<String, Integer, Character> table = TreeBasedTable.create();
             for (Object element : elements) {
               @SuppressWarnings("unchecked")
@@ -502,7 +502,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Iterable<String> rowKeys = ImmutableSet.copyOf(elements);
             Iterable<Integer> columnKeys = ImmutableList.of(1, 2, 3);
             Table<String, Integer, Character> table
@@ -518,7 +518,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             populateForRowKeySet(table, elements);
             return table.column(1).keySet();
@@ -529,12 +529,12 @@ public class TableCollectionTest extends TestCase {
     .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = TreeBasedTable.create();
             populateForRowKeySet(table, elements);
             return table.column(1).keySet();
           }
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -544,7 +544,7 @@ public class TableCollectionTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             populateForRowKeySet(table, elements);
             return Tables.transformValues(table, Functions.toStringFunction()).column(1).keySet();
@@ -555,7 +555,7 @@ public class TableCollectionTest extends TestCase {
     .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Table<String, Integer, Character> table = HashBasedTable.create();
             populateForRowKeySet(table, elements);
             return Tables.unmodifiableTable(table).column(1).keySet();
@@ -566,12 +566,12 @@ public class TableCollectionTest extends TestCase {
     .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             RowSortedTable<String, Integer, Character> table = TreeBasedTable.create();
             populateForRowKeySet(table, elements);
             return Tables.unmodifiableRowSortedTable(table).column(1).keySet();
           }
-          @Override public List<String> order(List<String> insertionOrder) {
+          @Override public List<String> order(final List<String> insertionOrder) {
             Collections.sort(insertionOrder);
             return insertionOrder;
           }
@@ -584,7 +584,7 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static void populateForRowKeySet(
-      Table<String, Integer, Character> table, String[] elements) {
+      final Table<String, Integer, Character> table, final String[] elements) {
     for (String row : elements) {
       table.put(row, 1, 'a');
       table.put(row, 2, 'b');
@@ -592,7 +592,7 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static void populateForColumnKeySet(
-      Table<Integer, String, Character> table, String[] elements) {
+      final Table<Integer, String, Character> table, final String[] elements) {
     for (String column : elements) {
       table.put(1, column, 'a');
       table.put(2, column, 'b');
@@ -600,7 +600,7 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static void populateForValues(
-      Table<Integer, Character, String> table, String[] elements) {
+      final Table<Integer, Character, String> table, final String[] elements) {
     for (int i = 0; i < elements.length; i++) {
       table.put(i, 'a', elements[i]);
     }
@@ -620,7 +620,7 @@ public class TableCollectionTest extends TestCase {
 
     @Override
     public Set<Cell<String, Integer, Character>> create(
-        Object... elements) {
+        final Object... elements) {
       Table<String, Integer, Character> table = createTable();
       for (Object element : elements) {
         @SuppressWarnings("unchecked")
@@ -635,13 +635,13 @@ public class TableCollectionTest extends TestCase {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Cell<String, Integer, Character>[] createArray(int length) {
+    public Cell<String, Integer, Character>[] createArray(final int length) {
       return (Cell<String, Integer, Character>[]) new Cell<?, ?, ?>[length];
     }
 
     @Override
     public List<Cell<String, Integer, Character>> order(
-        List<Cell<String, Integer, Character>> insertionOrder) {
+        final List<Cell<String, Integer, Character>> insertionOrder) {
       return insertionOrder;
     }
   }
@@ -649,8 +649,8 @@ public class TableCollectionTest extends TestCase {
   private static abstract class MapTests
       extends MapInterfaceTest<String, Integer> {
 
-    MapTests(boolean allowsNullValues, boolean supportsPut, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    MapTests(final boolean allowsNullValues, final boolean supportsPut, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(false, allowsNullValues, supportsPut, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }
@@ -665,8 +665,8 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static abstract class RowTests extends MapTests {
-    RowTests(boolean allowsNullValues, boolean supportsPut, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    RowTests(final boolean allowsNullValues, final boolean supportsPut, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(allowsNullValues, supportsPut, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }
@@ -740,7 +740,7 @@ public class TableCollectionTest extends TestCase {
 
   private static final Function<Integer, Integer> DIVIDE_BY_2
       = new Function<Integer, Integer>() {
-        @Override public Integer apply(Integer input) {
+        @Override public Integer apply(final Integer input) {
           return (input == null) ? null : input / 2;
         }
   };
@@ -806,8 +806,8 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static abstract class ColumnTests extends MapTests {
-    ColumnTests(boolean allowsNullValues, boolean supportsPut, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    ColumnTests(final boolean allowsNullValues, final boolean supportsPut, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(allowsNullValues, supportsPut, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }
@@ -942,8 +942,8 @@ public class TableCollectionTest extends TestCase {
   private static abstract class MapMapTests
       extends MapInterfaceTest<String, Map<Integer, Character>> {
 
-    MapMapTests(boolean allowsNullValues, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    MapMapTests(final boolean allowsNullValues, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(false, allowsNullValues, false, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }
@@ -992,8 +992,8 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static abstract class RowMapTests extends MapMapTests {
-    RowMapTests(boolean allowsNullValues, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    RowMapTests(final boolean allowsNullValues, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(allowsNullValues, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }
@@ -1007,7 +1007,7 @@ public class TableCollectionTest extends TestCase {
       return table.rowMap();
     }
 
-    void populateTable(Table<String, Integer, Character> table) {
+    void populateTable(final Table<String, Integer, Character> table) {
       table.put("foo", 1, 'a');
       table.put("bar", 1, 'b');
       table.put("foo", 3, 'c');
@@ -1142,7 +1142,7 @@ public class TableCollectionTest extends TestCase {
   private static final Function<String, Character> FIRST_CHARACTER =
       new Function<String, Character>() {
         @Override
-        public Character apply(String input) {
+        public Character apply(final String input) {
           return input == null ? null : input.charAt(0);
         }
       };
@@ -1208,8 +1208,8 @@ public class TableCollectionTest extends TestCase {
   }
 
   private static abstract class ColumnMapTests extends MapMapTests {
-    ColumnMapTests(boolean allowsNullValues, boolean supportsRemove,
-        boolean supportsClear, boolean supportsIteratorRemove) {
+    ColumnMapTests(final boolean allowsNullValues, final boolean supportsRemove,
+        final boolean supportsClear, final boolean supportsIteratorRemove) {
       super(allowsNullValues, supportsRemove, supportsClear,
           supportsIteratorRemove);
     }

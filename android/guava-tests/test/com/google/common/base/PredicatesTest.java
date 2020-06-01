@@ -49,7 +49,7 @@ public class PredicatesTest extends TestCase {
   private static final Predicate<Integer> NEVER_REACHED =
       new Predicate<Integer>() {
     @Override
-    public boolean apply(Integer i) {
+    public boolean apply(final Integer i) {
       throw new AssertionFailedError(
           "This predicate should never have been evaluated");
     }
@@ -59,13 +59,13 @@ public class PredicatesTest extends TestCase {
   static class IsOdd implements Predicate<Integer>, Serializable {
     private static final long serialVersionUID = 0x150ddL;
     @Override
-    public boolean apply(Integer i) {
+    public boolean apply(final Integer i) {
       return (i.intValue() & 1) == 1;
     }
     @Override public int hashCode() {
       return 0x150dd;
     }
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       return obj instanceof IsOdd;
     }
     @Override public String toString() {
@@ -603,7 +603,7 @@ public class PredicatesTest extends TestCase {
     try {
       isInteger.apply(null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   @GwtIncompatible // Predicates.subtypeOf
@@ -723,7 +723,7 @@ public class PredicatesTest extends TestCase {
     class CollectionThatThrowsNPE<T> extends ArrayList<T> {
       private static final long serialVersionUID = 1L;
 
-      @Override public boolean contains(Object element) {
+      @Override public boolean contains(final Object element) {
         Preconditions.checkNotNull(element);
         return super.contains(element);
       }
@@ -737,7 +737,7 @@ public class PredicatesTest extends TestCase {
     class CollectionThatThrowsCCE<T> extends ArrayList<T> {
       private static final long serialVersionUID = 1L;
 
-      @Override public boolean contains(Object element) {
+      @Override public boolean contains(final Object element) {
         throw new ClassCastException("");
       }
     }
@@ -789,7 +789,7 @@ public class PredicatesTest extends TestCase {
     INSTANCE;
 
     @Override
-    public String apply(String string) {
+    public String apply(final String string) {
       return whitespace().trimFrom(string);
     }
   }
@@ -884,7 +884,7 @@ public class PredicatesTest extends TestCase {
       }
 
   public void assertEqualHashCode(
-      Predicate<? super Integer> expected, Predicate<? super Integer> actual) {
+      final Predicate<? super Integer> expected, final Predicate<? super Integer> actual) {
     assertEquals(actual + " should hash like " + expected, expected.hashCode(), actual.hashCode());
   }
 
@@ -921,34 +921,34 @@ public class PredicatesTest extends TestCase {
     new ClassSanityTester().forAllPublicStaticMethods(Predicates.class).testEqualsAndSerializable();
   }
 
-  private static void assertEvalsToTrue(Predicate<? super Integer> predicate) {
+  private static void assertEvalsToTrue(final Predicate<? super Integer> predicate) {
     assertTrue(predicate.apply(0));
     assertTrue(predicate.apply(1));
     assertTrue(predicate.apply(null));
   }
 
-  private static void assertEvalsToFalse(Predicate<? super Integer> predicate) {
+  private static void assertEvalsToFalse(final Predicate<? super Integer> predicate) {
     assertFalse(predicate.apply(0));
     assertFalse(predicate.apply(1));
     assertFalse(predicate.apply(null));
   }
 
-  private static void assertEvalsLikeOdd(Predicate<? super Integer> predicate) {
+  private static void assertEvalsLikeOdd(final Predicate<? super Integer> predicate) {
     assertEvalsLike(isOdd(), predicate);
   }
 
   private static void assertEvalsLike(
-      Predicate<? super Integer> expected,
-      Predicate<? super Integer> actual) {
+      final Predicate<? super Integer> expected,
+      final Predicate<? super Integer> actual) {
     assertEvalsLike(expected, actual, 0);
     assertEvalsLike(expected, actual, 1);
     assertEvalsLike(expected, actual, null);
   }
 
   private static <T> void assertEvalsLike(
-      Predicate<? super T> expected,
-      Predicate<? super T> actual,
-      T input) {
+      final Predicate<? super T> expected,
+      final Predicate<? super T> actual,
+      final T input) {
     Boolean expectedResult = null;
     RuntimeException expectedRuntimeException = null;
     try {
@@ -975,7 +975,7 @@ public class PredicatesTest extends TestCase {
   }
 
   @GwtIncompatible // SerializableTester
-  private static void checkSerialization(Predicate<? super Integer> predicate) {
+  private static void checkSerialization(final Predicate<? super Integer> predicate) {
     Predicate<? super Integer> reserialized =
         SerializableTester.reserializeAndAssert(predicate);
     assertEvalsLike(predicate, reserialized);

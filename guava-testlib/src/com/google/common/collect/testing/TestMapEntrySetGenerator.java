@@ -31,7 +31,7 @@ public abstract class TestMapEntrySetGenerator<K, V> implements TestSetGenerator
   private final SampleElements<K> keys;
   private final SampleElements<V> values;
 
-  protected TestMapEntrySetGenerator(SampleElements<K> keys, SampleElements<V> values) {
+  protected TestMapEntrySetGenerator(final SampleElements<K> keys, final SampleElements<V> values) {
     this.keys = keys;
     this.values = values;
   }
@@ -42,7 +42,7 @@ public abstract class TestMapEntrySetGenerator<K, V> implements TestSetGenerator
   }
 
   @Override
-  public Set<Map.Entry<K, V>> create(Object... elements) {
+  public Set<Map.Entry<K, V>> create(final Object... elements) {
     Map.Entry<K, V>[] entries = createArray(elements.length);
     System.arraycopy(elements, 0, entries, 0, elements.length);
     return createFromEntries(entries);
@@ -52,13 +52,13 @@ public abstract class TestMapEntrySetGenerator<K, V> implements TestSetGenerator
 
   @Override
   @SuppressWarnings("unchecked") // generic arrays make typesafety sad
-  public Map.Entry<K, V>[] createArray(int length) {
+  public Map.Entry<K, V>[] createArray(final int length) {
     return new Map.Entry[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public List<Map.Entry<K, V>> order(List<Map.Entry<K, V>> insertionOrder) {
+  public List<Map.Entry<K, V>> order(final List<Map.Entry<K, V>> insertionOrder) {
     return insertionOrder;
   }
 }

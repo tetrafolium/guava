@@ -357,7 +357,7 @@ public class UninterruptiblesTest extends TestCase {
     final Stopwatch stopwatch;
     final long expectedCompletionWaitMillis;
 
-    Completion(long expectedCompletionWaitMillis) {
+    Completion(final long expectedCompletionWaitMillis) {
       this.expectedCompletionWaitMillis = expectedCompletionWaitMillis;
       stopwatch = Stopwatch.createStarted();
     }
@@ -376,14 +376,14 @@ public class UninterruptiblesTest extends TestCase {
      * Asserts that at least {@code timeout} has passed but the expected
      * completion time has not.
      */
-    void assertCompletionNotExpected(long timeout) {
+    void assertCompletionNotExpected(final long timeout) {
       Preconditions.checkArgument(timeout < expectedCompletionWaitMillis);
       assertAtLeastTimePassed(stopwatch, timeout);
       assertTimeNotPassed(stopwatch, expectedCompletionWaitMillis);
     }
 
     private static void assertAtLeastTimePassed(
-        Stopwatch stopwatch, long expectedMillis) {
+        final Stopwatch stopwatch, final long expectedMillis) {
       long elapsedMillis = stopwatch.elapsed(MILLISECONDS);
       /*
        * The "+ 5" below is to permit, say, sleep(10) to sleep only 9 milliseconds. We see such
@@ -409,11 +409,11 @@ public class UninterruptiblesTest extends TestCase {
      * Creates a {@link EnableWrites} which open up a spot for a {@code put} to
      * succeed in {@code countdownInMillis}.
      */
-    static TimedPutQueue createWithDelay(long countdownInMillis) {
+    static TimedPutQueue createWithDelay(final long countdownInMillis) {
       return new TimedPutQueue(countdownInMillis);
     }
 
-    private TimedPutQueue(long countdownInMillis) {
+    private TimedPutQueue(final long countdownInMillis) {
       this.queue = new ArrayBlockingQueue<>(1);
       assertTrue(queue.offer("blocksPutCallsUntilRemoved"));
       this.completed = new Completion(countdownInMillis);
@@ -431,7 +431,7 @@ public class UninterruptiblesTest extends TestCase {
     }
 
     private static void scheduleEnableWrites(
-        BlockingQueue<String> queue, long countdownInMillis) {
+        final BlockingQueue<String> queue, final long countdownInMillis) {
       Runnable toRun = new EnableWrites(queue, countdownInMillis);
       // TODO(cpovirk): automatically fail the test if this thread throws
       Thread enablerThread = new Thread(toRun);
@@ -451,11 +451,11 @@ public class UninterruptiblesTest extends TestCase {
      * Creates a {@link EnableReads} which insert an element for a {@code take}
      * to receive in {@code countdownInMillis}.
      */
-    static TimedTakeQueue createWithDelay(long countdownInMillis) {
+    static TimedTakeQueue createWithDelay(final long countdownInMillis) {
       return new TimedTakeQueue(countdownInMillis);
     }
 
-    private TimedTakeQueue(long countdownInMillis) {
+    private TimedTakeQueue(final long countdownInMillis) {
       this.queue = new ArrayBlockingQueue<>(1);
       this.completed = new Completion(countdownInMillis);
       scheduleEnableReads(this.queue, countdownInMillis);
@@ -472,7 +472,7 @@ public class UninterruptiblesTest extends TestCase {
     }
 
     private static void scheduleEnableReads(
-        BlockingQueue<String> queue, long countdownInMillis) {
+        final BlockingQueue<String> queue, final long countdownInMillis) {
       Runnable toRun = new EnableReads(queue, countdownInMillis);
       // TODO(cpovirk): automatically fail the test if this thread throws
       Thread enablerThread = new Thread(toRun);
@@ -491,11 +491,11 @@ public class UninterruptiblesTest extends TestCase {
      * Create a {@link Release} which will release a semaphore permit in
      * {@code countdownInMillis}.
      */
-    static TimedSemaphore createWithDelay(long countdownInMillis) {
+    static TimedSemaphore createWithDelay(final long countdownInMillis) {
       return new TimedSemaphore(countdownInMillis);
     }
 
-    private TimedSemaphore(long countdownInMillis) {
+    private TimedSemaphore(final long countdownInMillis) {
       this.semaphore = new Semaphore(0);
       this.completed = new Completion(countdownInMillis);
       scheduleRelease(countdownInMillis);
@@ -505,7 +505,7 @@ public class UninterruptiblesTest extends TestCase {
      * Requests a permit from the semaphore with a timeout and asserts that operation completed in
      * the expected timeframe.
      */
-    void tryAcquireSuccessfully(long timeoutMillis) {
+    void tryAcquireSuccessfully(final long timeoutMillis) {
       assertTrue(tryAcquireUninterruptibly(semaphore, timeoutMillis, MILLISECONDS));
       completed.assertCompletionExpected();
     }
@@ -514,22 +514,22 @@ public class UninterruptiblesTest extends TestCase {
      * Requests a permit from the semaphore with a timeout and asserts that the wait returned
      * within the expected timeout.
      */
-    private void tryAcquireUnsuccessfully(long timeoutMillis) {
+    private void tryAcquireUnsuccessfully(final long timeoutMillis) {
       assertFalse(tryAcquireUninterruptibly(semaphore, timeoutMillis, MILLISECONDS));
       completed.assertCompletionNotExpected(timeoutMillis);
     }
 
-    void tryAcquireSuccessfully(int permits, long timeoutMillis) {
+    void tryAcquireSuccessfully(final int permits, final long timeoutMillis) {
       assertTrue(tryAcquireUninterruptibly(semaphore, permits, timeoutMillis, MILLISECONDS));
       completed.assertCompletionExpected();
     }
 
-    private void tryAcquireUnsuccessfully(int permits, long timeoutMillis) {
+    private void tryAcquireUnsuccessfully(final int permits, final long timeoutMillis) {
       assertFalse(tryAcquireUninterruptibly(semaphore, permits, timeoutMillis, MILLISECONDS));
       completed.assertCompletionNotExpected(timeoutMillis);
     }
 
-    private void scheduleRelease(long countdownInMillis) {
+    private void scheduleRelease(final long countdownInMillis) {
       DelayedActionRunnable toRun = new Release(semaphore, countdownInMillis);
       // TODO(cpovirk): automatically fail the test if this thread throws
       Thread releaserThread = new Thread(toRun);
@@ -540,7 +540,7 @@ public class UninterruptiblesTest extends TestCase {
   private abstract static class DelayedActionRunnable implements Runnable {
     private final long tMinus;
 
-    protected DelayedActionRunnable(long tMinus) {
+    protected DelayedActionRunnable(final long tMinus) {
       this.tMinus = tMinus;
     }
 
@@ -560,7 +560,7 @@ public class UninterruptiblesTest extends TestCase {
   private static class CountDown extends DelayedActionRunnable {
     private final CountDownLatch latch;
 
-    public CountDown(CountDownLatch latch, long tMinus) {
+    public CountDown(final CountDownLatch latch, final long tMinus) {
       super(tMinus);
       this.latch = latch;
     }
@@ -574,7 +574,7 @@ public class UninterruptiblesTest extends TestCase {
   private static class EnableWrites extends DelayedActionRunnable {
     private final BlockingQueue<String> queue;
 
-    public EnableWrites(BlockingQueue<String> queue, long tMinus) {
+    public EnableWrites(final BlockingQueue<String> queue, final long tMinus) {
       super(tMinus);
       assertFalse(queue.isEmpty());
       assertFalse(queue.offer("shouldBeRejected"));
@@ -590,7 +590,7 @@ public class UninterruptiblesTest extends TestCase {
   private static class EnableReads extends DelayedActionRunnable {
     private final BlockingQueue<String> queue;
 
-    public EnableReads(BlockingQueue<String> queue, long tMinus) {
+    public EnableReads(final BlockingQueue<String> queue, final long tMinus) {
       super(tMinus);
       assertTrue(queue.isEmpty());
       this.queue = queue;
@@ -606,11 +606,11 @@ public class UninterruptiblesTest extends TestCase {
     private final Thread thread;
     private final Completion completed;
 
-    static TimedThread createWithDelay(long countdownInMillis) {
+    static TimedThread createWithDelay(final long countdownInMillis) {
       return new TimedThread(countdownInMillis);
     }
 
-    private TimedThread(long expectedCompletionWaitMillis) {
+    private TimedThread(final long expectedCompletionWaitMillis) {
       completed = new Completion(expectedCompletionWaitMillis);
       thread = new Thread(new JoinTarget(expectedCompletionWaitMillis));
       thread.start();
@@ -622,13 +622,13 @@ public class UninterruptiblesTest extends TestCase {
       assertEquals(Thread.State.TERMINATED, thread.getState());
     }
 
-    void joinSuccessfully(long timeoutMillis) {
+    void joinSuccessfully(final long timeoutMillis) {
       Uninterruptibles.joinUninterruptibly(thread, timeoutMillis, MILLISECONDS);
       completed.assertCompletionExpected();
       assertEquals(Thread.State.TERMINATED, thread.getState());
     }
 
-    void joinUnsuccessfully(long timeoutMillis) {
+    void joinUnsuccessfully(final long timeoutMillis) {
       Uninterruptibles.joinUninterruptibly(thread, timeoutMillis, MILLISECONDS);
       completed.assertCompletionNotExpected(timeoutMillis);
       assertFalse(Thread.State.TERMINATED.equals(thread.getState()));
@@ -636,7 +636,7 @@ public class UninterruptiblesTest extends TestCase {
   }
 
   private static class JoinTarget extends DelayedActionRunnable {
-    public JoinTarget(long tMinus) {
+    public JoinTarget(final long tMinus) {
       super(tMinus);
     }
 
@@ -648,7 +648,7 @@ public class UninterruptiblesTest extends TestCase {
   private static class Release extends DelayedActionRunnable {
     private final Semaphore semaphore;
 
-    public Release(Semaphore semaphore, long tMinus) {
+    public Release(final Semaphore semaphore, final long tMinus) {
       super(tMinus);
       this.semaphore = semaphore;
     }
@@ -659,14 +659,14 @@ public class UninterruptiblesTest extends TestCase {
     }
   }
 
-  private static void sleepSuccessfully(long sleepMillis) {
+  private static void sleepSuccessfully(final long sleepMillis) {
     Completion completed = new Completion(sleepMillis - SLEEP_SLACK);
     Uninterruptibles.sleepUninterruptibly(sleepMillis, MILLISECONDS);
     completed.assertCompletionExpected();
   }
 
-  private static void assertTimeNotPassed(Stopwatch stopwatch,
-      long timelimitMillis) {
+  private static void assertTimeNotPassed(final Stopwatch stopwatch,
+      final long timelimitMillis) {
     long elapsedMillis = stopwatch.elapsed(MILLISECONDS);
     assertTrue(elapsedMillis < timelimitMillis);
   }
@@ -692,7 +692,7 @@ public class UninterruptiblesTest extends TestCase {
     assertFalse(Thread.interrupted());
   }
 
-  private static void requestInterruptIn(long millis) {
+  private static void requestInterruptIn(final long millis) {
     InterruptionUtil.requestInterruptIn(millis, MILLISECONDS);
   }
 }

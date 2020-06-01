@@ -291,7 +291,7 @@ public class FilesSimplifyPathTest extends TestCase {
     doExtensiveTest("testdata/simplifypathnoprefixtests.txt");
   }
 
-  private void doExtensiveTest(String resourceName) throws IOException {
+  private void doExtensiveTest(final String resourceName) throws IOException {
     Splitter splitter = Splitter.on(CharMatcher.whitespace());
     URL url = getClass().getResource(resourceName);
     for (String line : Resources.readLines(url, UTF_8)) {

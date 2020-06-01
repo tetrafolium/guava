@@ -173,7 +173,7 @@ public final class ElementOrderTest {
     Comparator<NonComparableSuperClass> comparator =
         new Comparator<NonComparableSuperClass>() {
           @Override
-          public int compare(NonComparableSuperClass left, NonComparableSuperClass right) {
+          public int compare(final NonComparableSuperClass left, final NonComparableSuperClass right) {
             return left.value.compareTo(right.value);
           }
         };
@@ -214,13 +214,13 @@ public final class ElementOrderTest {
     assertThat(graph.nodes()).containsExactly(node2, node4, node6, node8).inOrder();
   }
 
-  private static void addNodes(MutableGraph<Integer> graph) {
+  private static void addNodes(final MutableGraph<Integer> graph) {
     graph.addNode(3);
     graph.addNode(1);
     graph.addNode(4);
   }
 
-  private static void addEdges(MutableNetwork<Integer, String> network) {
+  private static void addEdges(final MutableNetwork<Integer, String> network) {
     network.addEdge(3, 1, "i");
     network.addEdge(1, 4, "e");
     network.addEdge(4, 3, "p");
@@ -229,7 +229,7 @@ public final class ElementOrderTest {
   private static class NonComparableSuperClass {
     final Integer value;
 
-    NonComparableSuperClass(Integer value) {
+    NonComparableSuperClass(final Integer value) {
       this.value = checkNotNull(value);
     }
 
@@ -242,12 +242,12 @@ public final class ElementOrderTest {
   private static class ComparableSubClass extends NonComparableSuperClass
       implements Comparable<NonComparableSuperClass> {
 
-    ComparableSubClass(Integer value) {
+    ComparableSubClass(final Integer value) {
       super(value);
     }
 
     @Override
-    public int compareTo(NonComparableSuperClass other) {
+    public int compareTo(final NonComparableSuperClass other) {
       return value.compareTo(other.value);
     }
   }

@@ -62,7 +62,7 @@ abstract class TypeVisitor {
    * Visits the given types. Null types are ignored. This allows subclasses to call
    * {@code visit(parameterizedType.getOwnerType())} safely without having to check nulls.
    */
-  public final void visit(Type... types) {
+  public final void visit(final Type... types) {
     for (Type type : types) {
       if (type == null || !visited.add(type)) {
         // null owner type, or already visited;
@@ -92,13 +92,13 @@ abstract class TypeVisitor {
     }
   }
 
-  void visitClass(Class<?> t) {}
+  void visitClass(final Class<?> t) { }
 
-  void visitGenericArrayType(GenericArrayType t) {}
+  void visitGenericArrayType(final GenericArrayType t) { }
 
-  void visitParameterizedType(ParameterizedType t) {}
+  void visitParameterizedType(final ParameterizedType t) { }
 
-  void visitTypeVariable(TypeVariable<?> t) {}
+  void visitTypeVariable(final TypeVariable<?> t) { }
 
-  void visitWildcardType(WildcardType t) {}
+  void visitWildcardType(final WildcardType t) { }
 }

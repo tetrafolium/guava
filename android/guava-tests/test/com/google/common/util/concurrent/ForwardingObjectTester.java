@@ -60,7 +60,7 @@ final class ForwardingObjectTester {
             interfaceType,
             new Function<Object, T>() {
               @Override
-              public T apply(Object delegate) {
+              public T apply(final Object delegate) {
                 T mock = mock(forwarderClass, CALLS_REAL_METHODS.get());
                 try {
                   T stubber = doReturn(delegate).when(mock);

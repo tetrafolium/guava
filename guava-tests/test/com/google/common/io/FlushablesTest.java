@@ -71,7 +71,7 @@ public class FlushablesTest extends TestCase {
 
   // Set up a flushable to expect to be flushed, and optionally to
   // throw an exception.
-  private void setupFlushable(boolean shouldThrowOnFlush) throws IOException {
+  private void setupFlushable(final boolean shouldThrowOnFlush) throws IOException {
     mockFlushable = mock(Flushable.class);
     if (shouldThrowOnFlush) {
       doThrow(new IOException("This should only appear in the "
@@ -82,8 +82,8 @@ public class FlushablesTest extends TestCase {
   // Flush the flushable using the Flushables, passing in the swallowException
   // parameter. expectThrown determines whether we expect an exception to
   // be thrown by Flushables.flush;
-  private void doFlush(Flushable flushable, boolean swallowException,
-      boolean expectThrown) throws IOException {
+  private void doFlush(final Flushable flushable, final boolean swallowException,
+      final boolean expectThrown) throws IOException {
     try {
       Flushables.flush(flushable, swallowException);
       if (expectThrown) {

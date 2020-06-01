@@ -135,11 +135,11 @@ public class AbstractFutureTest extends TestCase {
   public void testEvilFuture_setFuture() throws Exception {
     final RuntimeException exception = new RuntimeException("you didn't say the magic word!");
     AbstractFuture<String> evilFuture = new AbstractFuture<String>() {
-      @Override public void addListener(Runnable r, Executor e) {
+      @Override public void addListener(final Runnable r, final Executor e) {
         throw exception;
       }
     };
-    AbstractFuture<String> normalFuture = new AbstractFuture<String>() {};
+    AbstractFuture<String> normalFuture = new AbstractFuture<String>() { };
     normalFuture.setFuture(evilFuture);
     assertTrue(normalFuture.isDone());
     try {
@@ -151,7 +151,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   public void testRemoveWaiter_interruption() throws Exception {
-    final AbstractFuture<String> future = new AbstractFuture<String>() {};
+    final AbstractFuture<String> future = new AbstractFuture<String>() { };
     WaiterThread waiter1 = new WaiterThread(future);
     waiter1.start();
     waiter1.awaitWaiting();
@@ -175,7 +175,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   public void testRemoveWaiter_polling() throws Exception {
-    final AbstractFuture<String> future = new AbstractFuture<String>() {};
+    final AbstractFuture<String> future = new AbstractFuture<String>() { };
     WaiterThread waiter = new WaiterThread(future);
     waiter.start();
     waiter.awaitWaiting();
@@ -231,7 +231,7 @@ public class AbstractFutureTest extends TestCase {
             return "cause=[Someday...]";
           }
         };
-    AbstractFuture<Object> testFuture3 = new AbstractFuture<Object>() {};
+    AbstractFuture<Object> testFuture3 = new AbstractFuture<Object>() { };
     testFuture3.setFuture(testFuture2);
     assertThat(testFuture3.toString())
         .matches(
@@ -268,7 +268,7 @@ public class AbstractFutureTest extends TestCase {
   public void testCompletionFinishesWithDone() {
     ExecutorService executor = Executors.newFixedThreadPool(10);
     for (int i = 0; i < 50000; i++) {
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() { };
       final AtomicReference<String> errorMessage = Atomics.newReference();
       executor.execute(new Runnable() {
         @Override
@@ -447,7 +447,7 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() { };
       currentFuture.set(future);
       for (Callable<?> task : allTasks) {
         @SuppressWarnings("unused") // go/futurereturn-lsc
@@ -560,8 +560,8 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());  // sanity check
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
-      final AbstractFuture<String> setFuture = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() { };
+      final AbstractFuture<String> setFuture = new AbstractFuture<String>() { };
       currentFuture.set(future);
       setFutureFuture.set(setFuture);
       for (Runnable task : allTasks) {
@@ -648,7 +648,7 @@ public class AbstractFutureTest extends TestCase {
     assertEquals(allTasks.size() + 1, barrier.getParties());  // sanity check
     for (int i = 0; i < 1000; i++) {
       Collections.shuffle(allTasks);
-      final AbstractFuture<String> future = new AbstractFuture<String>() {};
+      final AbstractFuture<String> future = new AbstractFuture<String>() { };
       currentFuture.set(future);
       for (Callable<?> task : allTasks) {
         @SuppressWarnings("unused") // go/futurereturn-lsc
@@ -713,7 +713,7 @@ public class AbstractFutureTest extends TestCase {
     }
   }
 
-  private void checkStackTrace(ExecutionException e) {
+  private void checkStackTrace(final ExecutionException e) {
     // Our call site for get() should be in the trace.
     int index = findStackFrame(
         e, getClass().getName(), "getExpectingExecutionException");
@@ -726,7 +726,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   private static int findStackFrame(
-      ExecutionException e, String clazz, String method) {
+      final ExecutionException e, final String clazz, final String method) {
     StackTraceElement[] elements = e.getStackTrace();
     for (int i = 0; i < elements.length; i++) {
       StackTraceElement element = elements[i];
@@ -743,7 +743,7 @@ public class AbstractFutureTest extends TestCase {
   }
 
   private ExecutionException getExpectingExecutionException(
-      AbstractFuture<String> future) throws InterruptedException {
+      final AbstractFuture<String> future) throws InterruptedException {
     try {
       String got = future.get();
       fail("Expected exception but got " + got);
@@ -758,7 +758,7 @@ public class AbstractFutureTest extends TestCase {
   private static final class WaiterThread extends Thread {
     private final AbstractFuture<?> future;
 
-    private WaiterThread(AbstractFuture<?> future) {
+    private WaiterThread(final AbstractFuture<?> future) {
       this.future = future;
     }
 
@@ -785,7 +785,7 @@ public class AbstractFutureTest extends TestCase {
     private final long timeout;
     private final TimeUnit unit;
 
-    TimedWaiterThread(AbstractFuture<?> future, long timeout, TimeUnit unit) {
+    TimedWaiterThread(final AbstractFuture<?> future, final long timeout, final TimeUnit unit) {
       this.future = future;
       this.timeout = timeout;
       this.unit = unit;
@@ -813,7 +813,7 @@ public class AbstractFutureTest extends TestCase {
     private final AbstractFuture<?> future;
     private final CountDownLatch completedIteration = new CountDownLatch(10);
 
-    private PollingThread(AbstractFuture<?> future) {
+    private PollingThread(final AbstractFuture<?> future) {
       this.future = future;
     }
 

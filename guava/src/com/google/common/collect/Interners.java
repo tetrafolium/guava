@@ -33,7 +33,7 @@ import com.google.common.collect.MapMakerInternalMap.InternalEntry;
 @Beta
 @GwtIncompatible
 public final class Interners {
-  private Interners() {}
+  private Interners() { }
 
   /**
    * Builder for {@link Interner} instances.
@@ -73,7 +73,7 @@ public final class Interners {
      *
      * @see MapMaker#concurrencyLevel(int)
      */
-    public InternerBuilder concurrencyLevel(int concurrencyLevel) {
+    public InternerBuilder concurrencyLevel(final int concurrencyLevel) {
       this.mapMaker.concurrencyLevel(concurrencyLevel);
       return this;
     }
@@ -117,13 +117,13 @@ public final class Interners {
     @VisibleForTesting
     final MapMakerInternalMap<E, Dummy, ?, ?> map;
 
-    private InternerImpl(MapMaker mapMaker) {
+    private InternerImpl(final MapMaker mapMaker) {
       this.map = MapMakerInternalMap.createWithDummyValues(
           mapMaker.keyEquivalence(Equivalence.equals()));
     }
 
     @Override
-    public E intern(E sample) {
+    public E intern(final E sample) {
       while (true) {
         // trying to read the canonical...
         InternalEntry<E, Dummy, ?> entry = map.getEntry(sample);
@@ -155,7 +155,7 @@ public final class Interners {
    *
    * @since 8.0
    */
-  public static <E> Function<E, E> asFunction(Interner<E> interner) {
+  public static <E> Function<E, E> asFunction(final Interner<E> interner) {
     return new InternerFunction<E>(checkNotNull(interner));
   }
 
@@ -163,12 +163,12 @@ public final class Interners {
 
     private final Interner<E> interner;
 
-    public InternerFunction(Interner<E> interner) {
+    public InternerFunction(final Interner<E> interner) {
       this.interner = interner;
     }
 
     @Override
-    public E apply(E input) {
+    public E apply(final E input) {
       return interner.intern(input);
     }
 
@@ -178,7 +178,7 @@ public final class Interners {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
       if (other instanceof InternerFunction) {
         InternerFunction<?> that = (InternerFunction<?>) other;
         return interner.equals(that.interner);

@@ -49,7 +49,7 @@ public class SynchronizedMultimapTest extends TestCase {
         SetMultimapTestSuiteBuilder.using(
                 new TestStringSetMultimapGenerator() {
                   @Override
-                  protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+                  protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
                     TestMultimap<String, String> inner = new TestMultimap<>();
                     SetMultimap<String, String> outer =
                         Synchronized.setMultimap(inner, inner.mutex);
@@ -86,7 +86,7 @@ public class SynchronizedMultimapTest extends TestCase {
       return super.toString();
     }
 
-    @Override public boolean equals(@Nullable Object o) {
+    @Override public boolean equals(final @Nullable Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(o);
     }
@@ -106,57 +106,57 @@ public class SynchronizedMultimapTest extends TestCase {
       return super.isEmpty();
     }
 
-    @Override public boolean containsKey(@Nullable Object key) {
+    @Override public boolean containsKey(final @Nullable Object key) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsKey(key);
     }
 
-    @Override public boolean containsValue(@Nullable Object value) {
+    @Override public boolean containsValue(final @Nullable Object value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsValue(value);
     }
 
-    @Override public boolean containsEntry(@Nullable Object key,
-        @Nullable Object value) {
+    @Override public boolean containsEntry(final @Nullable Object key,
+        final @Nullable Object value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsEntry(key, value);
     }
 
-    @Override public Set<V> get(@Nullable K key) {
+    @Override public Set<V> get(final @Nullable K key) {
       assertTrue(Thread.holdsLock(mutex));
       /* TODO: verify that the Collection is also synchronized? */
       return super.get(key);
     }
 
-    @Override public boolean put(K key, V value) {
+    @Override public boolean put(final K key, final V value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.put(key, value);
     }
 
-    @Override public boolean putAll(@Nullable K key,
-        Iterable<? extends V> values) {
+    @Override public boolean putAll(final @Nullable K key,
+        final Iterable<? extends V> values) {
       assertTrue(Thread.holdsLock(mutex));
       return super.putAll(key, values);
     }
 
-    @Override public boolean putAll(Multimap<? extends K, ? extends V> map) {
+    @Override public boolean putAll(final Multimap<? extends K, ? extends V> map) {
       assertTrue(Thread.holdsLock(mutex));
       return super.putAll(map);
     }
 
-    @Override public Set<V> replaceValues(@Nullable K key,
-        Iterable<? extends V> values) {
+    @Override public Set<V> replaceValues(final @Nullable K key,
+        final Iterable<? extends V> values) {
       assertTrue(Thread.holdsLock(mutex));
       return super.replaceValues(key, values);
     }
 
-    @Override public boolean remove(@Nullable Object key,
-        @Nullable Object value) {
+    @Override public boolean remove(final @Nullable Object key,
+        final @Nullable Object value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.remove(key, value);
     }
 
-    @Override public Set<V> removeAll(@Nullable Object key) {
+    @Override public Set<V> removeAll(final @Nullable Object key) {
       assertTrue(Thread.holdsLock(mutex));
       return super.removeAll(key);
     }

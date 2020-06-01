@@ -34,9 +34,9 @@ import java.math.BigInteger;
  */
 @GwtIncompatible
 final class DoubleUtils {
-  private DoubleUtils() {}
+  private DoubleUtils() { }
 
-  static double nextDown(double d) {
+  static double nextDown(final double d) {
     return -Math.nextUp(-d);
   }
 
@@ -61,7 +61,7 @@ final class DoubleUtils {
    */
   static final long IMPLICIT_BIT = SIGNIFICAND_MASK + 1;
 
-  static long getSignificand(double d) {
+  static long getSignificand(final double d) {
     checkArgument(isFinite(d), "not a normal value");
     int exponent = getExponent(d);
     long bits = doubleToRawLongBits(d);
@@ -71,11 +71,11 @@ final class DoubleUtils {
         : bits | IMPLICIT_BIT;
   }
 
-  static boolean isFinite(double d) {
+  static boolean isFinite(final double d) {
     return getExponent(d) <= MAX_EXPONENT;
   }
 
-  static boolean isNormal(double d) {
+  static boolean isNormal(final double d) {
     return getExponent(d) >= MIN_EXPONENT;
   }
 
@@ -83,12 +83,12 @@ final class DoubleUtils {
    * Returns x scaled by a power of 2 such that it is in the range [1, 2). Assumes x is positive,
    * normal, and finite.
    */
-  static double scaleNormalize(double x) {
+  static double scaleNormalize(final double x) {
     long significand = doubleToRawLongBits(x) & SIGNIFICAND_MASK;
     return longBitsToDouble(significand | ONE_BITS);
   }
 
-  static double bigToDouble(BigInteger x) {
+  static double bigToDouble(final BigInteger x) {
     // This is an extremely fast implementation of BigInteger.doubleValue(). JDK patch pending.
     BigInteger absX = x.abs();
     int exponent = absX.bitLength() - 1;
@@ -135,7 +135,7 @@ final class DoubleUtils {
   /**
    * Returns its argument if it is non-negative, zero if it is negative.
    */
-  static double ensureNonNegative(double value) {
+  static double ensureNonNegative(final double value) {
     checkArgument(!isNaN(value));
     if (value > 0.0) {
       return value;

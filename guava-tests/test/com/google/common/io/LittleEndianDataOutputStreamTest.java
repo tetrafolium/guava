@@ -38,7 +38,7 @@ public class LittleEndianDataOutputStreamTest extends TestCase {
   public void testWriteLittleEndian() throws IOException {
 
     /* Write out various test values in LITTLE ENDIAN FORMAT */
-    out.write(new byte[] { -100, 100 });
+    out.write(new byte[] {-100, 100 });
     out.writeBoolean(true);
     out.writeBoolean(false);
     out.writeByte(100);
@@ -140,7 +140,7 @@ public class LittleEndianDataOutputStreamTest extends TestCase {
     assertEquals(0, actual[11]);
   }
 
-  private static void assertEquals(byte[] expected, byte[] actual) {
+  private static void assertEquals(final byte[] expected, final byte[] actual) {
     assertEquals(Bytes.asList(expected), Bytes.asList(actual));
   }
 }

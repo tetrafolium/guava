@@ -107,7 +107,7 @@ public enum CollectionFeature implements Feature<Collection> {
 
   private final Set<Feature<? super Collection>> implied;
 
-  CollectionFeature(Feature<? super Collection>... implied) {
+  CollectionFeature(final Feature<? super Collection>... implied) {
     this.implied = Helpers.copyToSet(implied);
   }
 

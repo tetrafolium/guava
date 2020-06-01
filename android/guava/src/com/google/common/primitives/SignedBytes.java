@@ -37,7 +37,7 @@ import java.util.Comparator;
 // javadoc?
 @GwtCompatible
 public final class SignedBytes {
-  private SignedBytes() {}
+  private SignedBytes() { }
 
   /**
    * The largest power of two that can be represented as a signed {@code byte}.
@@ -54,7 +54,7 @@ public final class SignedBytes {
    * @throws IllegalArgumentException if {@code value} is greater than {@link Byte#MAX_VALUE} or
    *     less than {@link Byte#MIN_VALUE}
    */
-  public static byte checkedCast(long value) {
+  public static byte checkedCast(final long value) {
     byte result = (byte) value;
     checkArgument(result == value, "Out of range: %s", value);
     return result;
@@ -67,7 +67,7 @@ public final class SignedBytes {
    * @return the same value cast to {@code byte} if it is in the range of the {@code byte} type,
    *     {@link Byte#MAX_VALUE} if it is too large, or {@link Byte#MIN_VALUE} if it is too small
    */
-  public static byte saturatedCast(long value) {
+  public static byte saturatedCast(final long value) {
     if (value > Byte.MAX_VALUE) {
       return Byte.MAX_VALUE;
     }
@@ -90,7 +90,7 @@ public final class SignedBytes {
    */
   // TODO(kevinb): if Ints.compare etc. are ever removed, *maybe* remove this
   // one too, which would leave compare methods only on the Unsigned* classes.
-  public static int compare(byte a, byte b) {
+  public static int compare(final byte a, final byte b) {
     return a - b; // safe due to restricted range
   }
 
@@ -102,7 +102,7 @@ public final class SignedBytes {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static byte min(byte... array) {
+  public static byte min(final byte... array) {
     checkArgument(array.length > 0);
     byte min = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -121,7 +121,7 @@ public final class SignedBytes {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static byte max(byte... array) {
+  public static byte max(final byte... array) {
     checkArgument(array.length > 0);
     byte max = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -140,7 +140,7 @@ public final class SignedBytes {
    *     (but not at the start or end)
    * @param array an array of {@code byte} values, possibly empty
    */
-  public static String join(String separator, byte... array) {
+  public static String join(final String separator, final byte... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -177,7 +177,7 @@ public final class SignedBytes {
     INSTANCE;
 
     @Override
-    public int compare(byte[] left, byte[] right) {
+    public int compare(final byte[] left, final byte[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         int result = SignedBytes.compare(left[i], right[i]);
@@ -199,7 +199,7 @@ public final class SignedBytes {
    *
    * @since 23.1
    */
-  public static void sortDescending(byte[] array) {
+  public static void sortDescending(final byte[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -210,7 +210,7 @@ public final class SignedBytes {
    *
    * @since 23.1
    */
-  public static void sortDescending(byte[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final byte[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     Arrays.sort(array, fromIndex, toIndex);

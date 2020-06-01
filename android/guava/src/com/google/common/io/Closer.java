@@ -111,7 +111,7 @@ public final class Closer implements Closeable {
   private Throwable thrown;
 
   @VisibleForTesting
-  Closer(Suppressor suppressor) {
+  Closer(final Suppressor suppressor) {
     this.suppressor = checkNotNull(suppressor); // checkNotNull to satisfy null tests
   }
 
@@ -123,7 +123,7 @@ public final class Closer implements Closeable {
    */
   // close. this word no longer has any meaning to me.
   @CanIgnoreReturnValue
-  public <C extends Closeable> C register(@Nullable C closeable) {
+  public <C extends Closeable> C register(final @Nullable C closeable) {
     if (closeable != null) {
       stack.addFirst(closeable);
     }
@@ -144,7 +144,7 @@ public final class Closer implements Closeable {
    * @return this method does not return; it always throws
    * @throws IOException when the given throwable is an IOException
    */
-  public RuntimeException rethrow(Throwable e) throws IOException {
+  public RuntimeException rethrow(final Throwable e) throws IOException {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);
@@ -165,7 +165,7 @@ public final class Closer implements Closeable {
    * @throws IOException when the given throwable is an IOException
    * @throws X when the given throwable is of the declared type X
    */
-  public <X extends Exception> RuntimeException rethrow(Throwable e, Class<X> declaredType)
+  public <X extends Exception> RuntimeException rethrow(final Throwable e, final Class<X> declaredType)
       throws IOException, X {
     checkNotNull(e);
     thrown = e;
@@ -190,7 +190,7 @@ public final class Closer implements Closeable {
    * @throws X2 when the given throwable is of the declared type X2
    */
   public <X1 extends Exception, X2 extends Exception> RuntimeException rethrow(
-      Throwable e, Class<X1> declaredType1, Class<X2> declaredType2) throws IOException, X1, X2 {
+      final Throwable e, final Class<X1> declaredType1, final Class<X2> declaredType2) throws IOException, X1, X2 {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);
@@ -251,7 +251,7 @@ public final class Closer implements Closeable {
     static final LoggingSuppressor INSTANCE = new LoggingSuppressor();
 
     @Override
-    public void suppress(Closeable closeable, Throwable thrown, Throwable suppressed) {
+    public void suppress(final Closeable closeable, final Throwable thrown, final Throwable suppressed) {
       // log to the same place as Closeables
       Closeables.logger.log(
           Level.WARNING, "Suppressing exception thrown when closing " + closeable, suppressed);
@@ -282,7 +282,7 @@ public final class Closer implements Closeable {
     }
 
     @Override
-    public void suppress(Closeable closeable, Throwable thrown, Throwable suppressed) {
+    public void suppress(final Closeable closeable, final Throwable thrown, final Throwable suppressed) {
       // ensure no exceptions from addSuppressed
       if (thrown == suppressed) {
         return;

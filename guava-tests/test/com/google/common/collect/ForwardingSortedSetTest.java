@@ -42,7 +42,7 @@ public class ForwardingSortedSetTest extends TestCase {
       extends ForwardingSortedSet<T> {
     private final SortedSet<T> backingSortedSet;
 
-    StandardImplForwardingSortedSet(SortedSet<T> backingSortedSet) {
+    StandardImplForwardingSortedSet(final SortedSet<T> backingSortedSet) {
       this.backingSortedSet = backingSortedSet;
     }
 
@@ -50,7 +50,7 @@ public class ForwardingSortedSetTest extends TestCase {
       return backingSortedSet;
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -58,7 +58,7 @@ public class ForwardingSortedSetTest extends TestCase {
       return standardHashCode();
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -66,23 +66,23 @@ public class ForwardingSortedSetTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -90,7 +90,7 @@ public class ForwardingSortedSetTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -98,7 +98,7 @@ public class ForwardingSortedSetTest extends TestCase {
       return standardToString();
     }
 
-    @Override public SortedSet<T> subSet(T fromElement, T toElement) {
+    @Override public SortedSet<T> subSet(final T fromElement, final T toElement) {
       return standardSubSet(fromElement, toElement);
     }
   }
@@ -111,13 +111,13 @@ public class ForwardingSortedSetTest extends TestCase {
         SortedSetTestSuiteBuilder.using(
                 new TestStringSortedSetGenerator() {
                   @Override
-                  protected SortedSet<String> create(String[] elements) {
+                  protected SortedSet<String> create(final String[] elements) {
                     return new StandardImplForwardingSortedSet<>(
                         new SafeTreeSet<String>(Arrays.asList(elements)));
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
                   }
                 })
@@ -135,7 +135,7 @@ public class ForwardingSortedSetTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(SortedSet.class, new Function<SortedSet, SortedSet>() {
-          @Override public SortedSet apply(SortedSet delegate) {
+          @Override public SortedSet apply(final SortedSet delegate) {
             return wrap(delegate);
           }
         });

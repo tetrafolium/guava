@@ -178,7 +178,7 @@ public class CharSequenceReaderTest extends TestCase {
    * Creates a CharSequenceReader wrapping the given CharSequence and tests that the reader produces
    * the same sequence when read using each type of read method it provides.
    */
-  private static void assertReadsCorrectly(CharSequence charSequence) throws IOException {
+  private static void assertReadsCorrectly(final CharSequence charSequence) throws IOException {
     String expected = charSequence.toString();
 
     // read char by char
@@ -243,14 +243,14 @@ public class CharSequenceReaderTest extends TestCase {
     }
   }
 
-  private static void assertFullyRead(CharSequenceReader reader) throws IOException {
+  private static void assertFullyRead(final CharSequenceReader reader) throws IOException {
     assertEquals(-1, reader.read());
     assertEquals(-1, reader.read(new char[10], 0, 10));
     assertEquals(-1, reader.read(CharBuffer.allocate(10)));
     assertEquals(0, reader.skip(10));
   }
 
-  private static String readFully(CharSequenceReader reader) throws IOException {
+  private static String readFully(final CharSequenceReader reader) throws IOException {
     StringBuilder builder = new StringBuilder();
     int read;
     while ((read = reader.read()) != -1) {

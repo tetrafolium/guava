@@ -52,13 +52,13 @@ public class QuantilesBenchmark {
     }
   }
 
-  private double[] dataset(int i) {
+  private double[] dataset(final int i) {
     // We must test on a fresh clone of the dataset each time. Doing sorts and quickselects on an
     // dataset which is already sorted or partially sorted is cheating.
     return datasets[i & 0xFF].clone();
   }
 
-  @Benchmark double median(int reps) {
+  @Benchmark double median(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(1, 2, dataset(i));
@@ -66,7 +66,7 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentile90(int reps) {
+  @Benchmark double percentile90(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(90, 100, dataset(i));
@@ -74,7 +74,7 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentile99(int reps) {
+  @Benchmark double percentile99(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(99, 100, dataset(i));
@@ -82,7 +82,7 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentiles90And99(int reps) {
+  @Benchmark double percentiles90And99(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.multipleQuantiles(ImmutableSet.of(90, 99), 100, dataset(i)).get(90);
@@ -90,7 +90,7 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double threePercentiles(int reps) {
+  @Benchmark double threePercentiles(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.multipleQuantiles(ImmutableSet.of(90, 95, 99), 100, dataset(i)).get(90);
@@ -98,7 +98,7 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double allDeciles(int reps) {
+  @Benchmark double allDeciles(final int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.multipleQuantiles(ALL_DECILE_INDEXES, 10, dataset(i)).get(9);

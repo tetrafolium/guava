@@ -38,7 +38,7 @@ public class UrlEscapersTest extends TestCase {
    * Helper to assert common expected behaviour of uri escapers. You should call
    * assertBasicUrlEscaper() unless the escaper explicitly does not escape '%'.
    */
-  static void assertBasicUrlEscaperExceptPercent(UnicodeEscaper e) {
+  static void assertBasicUrlEscaperExceptPercent(final UnicodeEscaper e) {
     // URL escapers should throw null pointer exceptions for null input
     try {
       e.escape((String) null);
@@ -77,7 +77,7 @@ public class UrlEscapersTest extends TestCase {
   }
 
   // Helper to assert common expected behaviour of uri escapers.
-  static void assertBasicUrlEscaper(UnicodeEscaper e) {
+  static void assertBasicUrlEscaper(final UnicodeEscaper e) {
     assertBasicUrlEscaperExceptPercent(e);
     // The escape character must always be escaped
     assertEscaping(e, "%25", '%');
@@ -114,7 +114,7 @@ public class UrlEscapersTest extends TestCase {
     assertUnescaped(e, '+');
   }
 
-  static void assertPathEscaper(UnicodeEscaper e) {
+  static void assertPathEscaper(final UnicodeEscaper e) {
     assertBasicUrlEscaper(e);
 
     assertUnescaped(e, '!');

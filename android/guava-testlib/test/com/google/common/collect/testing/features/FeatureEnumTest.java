@@ -33,7 +33,7 @@ import junit.framework.TestCase;
  */
 public class FeatureEnumTest extends TestCase {
   private static void assertGoodTesterAnnotation(
-      Class<? extends Annotation> annotationClass) {
+      final Class<? extends Annotation> annotationClass) {
     assertNotNull(
         rootLocaleFormat("%s must be annotated with @TesterAnnotation.",
             annotationClass),
@@ -71,7 +71,7 @@ public class FeatureEnumTest extends TestCase {
   // This is public so that tests for Feature enums we haven't yet imagined
   // can reuse it.
   public static <E extends Enum<?> & Feature<?>> void assertGoodFeatureEnum(
-      Class<E> featureEnumClass) {
+      final Class<E> featureEnumClass) {
     final Class<?>[] classes = featureEnumClass.getDeclaredClasses();
     for (Class<?> containedClass : classes) {
       if (containedClass.getSimpleName().equals("Require")) {
@@ -89,7 +89,7 @@ public class FeatureEnumTest extends TestCase {
   }
 
   @SuppressWarnings("unchecked")
-  private static Class<? extends Annotation> asAnnotation(Class<?> clazz) {
+  private static Class<? extends Annotation> asAnnotation(final Class<?> clazz) {
     if (clazz.isAnnotation()) {
       return (Class<? extends Annotation>) clazz;
     } else {
@@ -106,7 +106,7 @@ public class FeatureEnumTest extends TestCase {
     assertGoodFeatureEnum(MapFeature.class);
   }
 
-  private static String rootLocaleFormat(String format, Object... args) {
+  private static String rootLocaleFormat(final String format, final Object... args) {
     return String.format(Locale.ROOT, format, args);
   }
 }

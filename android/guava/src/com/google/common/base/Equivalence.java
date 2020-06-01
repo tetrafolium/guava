@@ -42,7 +42,7 @@ public abstract class Equivalence<T> {
   /**
    * Constructor for use by subclasses.
    */
-  protected Equivalence() {}
+  protected Equivalence() { }
 
   /**
    * Returns {@code true} if the given objects are considered equivalent.
@@ -61,7 +61,7 @@ public abstract class Equivalence<T> {
    * <p>Note that all calls to {@code equivalent(x, y)} are expected to return the same result as
    * long as neither {@code x} nor {@code y} is modified.
    */
-  public final boolean equivalent(@Nullable T a, @Nullable T b) {
+  public final boolean equivalent(final @Nullable T a, final @Nullable T b) {
     if (a == b) {
       return true;
     }
@@ -96,7 +96,7 @@ public abstract class Equivalence<T> {
    * <li>{@code hash(null)} is {@code 0}.
    * </ul>
    */
-  public final int hash(@Nullable T t) {
+  public final int hash(final @Nullable T t) {
     if (t == null) {
       return 0;
     }
@@ -137,7 +137,7 @@ public abstract class Equivalence<T> {
    *
    * @since 10.0
    */
-  public final <F> Equivalence<F> onResultOf(Function<F, ? extends T> function) {
+  public final <F> Equivalence<F> onResultOf(final Function<F, ? extends T> function) {
     return new FunctionalEquivalence<>(function, this);
   }
 
@@ -148,7 +148,7 @@ public abstract class Equivalence<T> {
    *
    * @since 10.0
    */
-  public final <S extends T> Wrapper<S> wrap(@Nullable S reference) {
+  public final <S extends T> Wrapper<S> wrap(final @Nullable S reference) {
     return new Wrapper<S>(this, reference);
   }
 
@@ -174,7 +174,7 @@ public abstract class Equivalence<T> {
     private final Equivalence<? super T> equivalence;
     @Nullable private final T reference;
 
-    private Wrapper(Equivalence<? super T> equivalence, @Nullable T reference) {
+    private Wrapper(final Equivalence<? super T> equivalence, final @Nullable T reference) {
       this.equivalence = checkNotNull(equivalence);
       this.reference = reference;
     }
@@ -191,7 +191,7 @@ public abstract class Equivalence<T> {
      * equivalence.
      */
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj == this) {
         return true;
       }
@@ -255,7 +255,7 @@ public abstract class Equivalence<T> {
    *
    * @since 10.0
    */
-  public final Predicate<T> equivalentTo(@Nullable T target) {
+  public final Predicate<T> equivalentTo(final @Nullable T target) {
     return new EquivalentToPredicate<T>(this, target);
   }
 
@@ -264,18 +264,18 @@ public abstract class Equivalence<T> {
     private final Equivalence<T> equivalence;
     @Nullable private final T target;
 
-    EquivalentToPredicate(Equivalence<T> equivalence, @Nullable T target) {
+    EquivalentToPredicate(final Equivalence<T> equivalence, final @Nullable T target) {
       this.equivalence = checkNotNull(equivalence);
       this.target = target;
     }
 
     @Override
-    public boolean apply(@Nullable T input) {
+    public boolean apply(final @Nullable T input) {
       return equivalence.equivalent(input, target);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (this == obj) {
         return true;
       }
@@ -331,12 +331,12 @@ public abstract class Equivalence<T> {
     static final Equals INSTANCE = new Equals();
 
     @Override
-    protected boolean doEquivalent(Object a, Object b) {
+    protected boolean doEquivalent(final Object a, final Object b) {
       return a.equals(b);
     }
 
     @Override
-    protected int doHash(Object o) {
+    protected int doHash(final Object o) {
       return o.hashCode();
     }
 
@@ -352,12 +352,12 @@ public abstract class Equivalence<T> {
     static final Identity INSTANCE = new Identity();
 
     @Override
-    protected boolean doEquivalent(Object a, Object b) {
+    protected boolean doEquivalent(final Object a, final Object b) {
       return false;
     }
 
     @Override
-    protected int doHash(Object o) {
+    protected int doHash(final Object o) {
       return System.identityHashCode(o);
     }
 

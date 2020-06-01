@@ -44,7 +44,7 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
   private static final ImmutableList<Method> testMethods
       = getTestMethods(CharSourceTester.class);
 
-  static TestSuite tests(String name, CharSourceFactory factory, boolean testAsByteSource) {
+  static TestSuite tests(final String name, final CharSourceFactory factory, final boolean testAsByteSource) {
     TestSuite suite = new TestSuite(name);
     for (Map.Entry<String, String> entry : TEST_STRINGS.entrySet()) {
       if (testAsByteSource) {
@@ -57,8 +57,8 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
     return suite;
   }
 
-  static TestSuite suiteForBytes(CharSourceFactory factory, byte[] bytes,
-      String name, String desc, boolean slice) {
+  static TestSuite suiteForBytes(final CharSourceFactory factory, final byte[] bytes,
+      final String name, final String desc, final boolean slice) {
     TestSuite suite = suiteForString(
         factory, new String(bytes, Charsets.UTF_8), name, desc);
     ByteSourceFactory byteSourceFactory = SourceSinkFactories.asByteSourceFactory(factory);
@@ -67,8 +67,8 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
     return suite;
   }
 
-  static TestSuite suiteForString(CharSourceFactory factory, String string,
-      String name, String desc) {
+  static TestSuite suiteForString(final CharSourceFactory factory, final String string,
+      final String name, final String desc) {
     TestSuite suite = new TestSuite(name + " [" + desc + "]");
     for (Method method : testMethods) {
       suite.addTest(new CharSourceTester(factory, string, name, desc, method));
@@ -80,8 +80,8 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
 
   private CharSource source;
 
-  public CharSourceTester(CharSourceFactory factory, String string,
-      String suiteName, String caseDesc, Method method) {
+  public CharSourceTester(final CharSourceFactory factory, final String string,
+      final String suiteName, final String caseDesc, final Method method) {
     super(factory, string, suiteName, caseDesc, method);
     this.expectedLines = getLines(expected);
   }
@@ -174,7 +174,7 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
       List<String> list = Lists.newArrayList();
 
       @Override
-      public boolean processLine(String line) throws IOException {
+      public boolean processLine(final String line) throws IOException {
         list.add(line);
         return true;
       }
@@ -193,7 +193,7 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
       List<String> list = Lists.newArrayList();
 
       @Override
-      public boolean processLine(String line) throws IOException {
+      public boolean processLine(final String line) throws IOException {
         list.add(line);
         return false;
       }
@@ -211,11 +211,11 @@ public class CharSourceTester extends SourceSinkTester<CharSource, String, CharS
     }
   }
 
-  private void assertExpectedString(String string) {
+  private void assertExpectedString(final String string) {
     assertEquals(expected, string);
   }
 
-  private void assertExpectedLines(List<String> list) {
+  private void assertExpectedLines(final List<String> list) {
     assertEquals(expectedLines, list);
   }
 }

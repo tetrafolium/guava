@@ -46,13 +46,13 @@ import java.util.Map;
 @SuppressWarnings("Immutable") // Extends ConfigurableNetwork but uses ImmutableMaps.
 public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
 
-  private ImmutableNetwork(Network<N, E> network) {
+  private ImmutableNetwork(final Network<N, E> network) {
     super(
         NetworkBuilder.from(network), getNodeConnections(network), getEdgeToReferenceNode(network));
   }
 
   /** Returns an immutable copy of {@code network}. */
-  public static <N, E> ImmutableNetwork<N, E> copyOf(Network<N, E> network) {
+  public static <N, E> ImmutableNetwork<N, E> copyOf(final Network<N, E> network) {
     return (network instanceof ImmutableNetwork)
         ? (ImmutableNetwork<N, E>) network
         : new ImmutableNetwork<N, E>(network);
@@ -64,7 +64,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
    * @deprecated no need to use this
    */
   @Deprecated
-  public static <N, E> ImmutableNetwork<N, E> copyOf(ImmutableNetwork<N, E> network) {
+  public static <N, E> ImmutableNetwork<N, E> copyOf(final ImmutableNetwork<N, E> network) {
     return checkNotNull(network);
   }
 
@@ -73,7 +73,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
     return new ImmutableGraph<N>(super.asGraph()); // safe because the view is effectively immutable
   }
 
-  private static <N, E> Map<N, NetworkConnections<N, E>> getNodeConnections(Network<N, E> network) {
+  private static <N, E> Map<N, NetworkConnections<N, E>> getNodeConnections(final Network<N, E> network) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the network's nodes do, so ImmutableSortedMap is unnecessary even if the
     // input nodes are sorted.
@@ -84,7 +84,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
     return nodeConnections.build();
   }
 
-  private static <N, E> Map<E, N> getEdgeToReferenceNode(Network<N, E> network) {
+  private static <N, E> Map<E, N> getEdgeToReferenceNode(final Network<N, E> network) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the network's edges do, so ImmutableSortedMap is unnecessary even if the
     // input edges are sorted.
@@ -95,7 +95,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
     return edgeToReferenceNode.build();
   }
 
-  private static <N, E> NetworkConnections<N, E> connectionsOf(Network<N, E> network, N node) {
+  private static <N, E> NetworkConnections<N, E> connectionsOf(final Network<N, E> network, final N node) {
     if (network.isDirected()) {
       Map<E, N> inEdgeMap = Maps.asMap(network.inEdges(node), sourceNodeFn(network));
       Map<E, N> outEdgeMap = Maps.asMap(network.outEdges(node), targetNodeFn(network));
@@ -115,7 +115,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
   private static <N, E> Function<E, N> sourceNodeFn(final Network<N, E> network) {
     return new Function<E, N>() {
       @Override
-      public N apply(E edge) {
+      public N apply(final E edge) {
         return network.incidentNodes(edge).source();
       }
     };
@@ -124,7 +124,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
   private static <N, E> Function<E, N> targetNodeFn(final Network<N, E> network) {
     return new Function<E, N>() {
       @Override
-      public N apply(E edge) {
+      public N apply(final E edge) {
         return network.incidentNodes(edge).target();
       }
     };
@@ -133,7 +133,7 @@ public final class ImmutableNetwork<N, E> extends ConfigurableNetwork<N, E> {
   private static <N, E> Function<E, N> adjacentNodeFn(final Network<N, E> network, final N node) {
     return new Function<E, N>() {
       @Override
-      public N apply(E edge) {
+      public N apply(final E edge) {
         return network.incidentNodes(edge).adjacentNode(node);
       }
     };

@@ -153,7 +153,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     INSTANCE;
 
     @Override
-    public int compare(String a, String b) {
+    public int compare(final String a, final String b) {
       return a.length() - b.length();
     }
   }
@@ -165,50 +165,50 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     return ImmutableSortedSet.of();
   }
 
-  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(E e) {
+  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(final E e) {
     return ImmutableSortedSet.of(e);
   }
 
-  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(E e1, E e2) {
+  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(final E e1, final E e2) {
     return ImmutableSortedSet.of(e1, e2);
   }
 
-  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(E e1, E e2, E e3) {
+  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(final E e1, final E e2, final E e3) {
     return ImmutableSortedSet.of(e1, e2, e3);
   }
 
   @Override protected <E extends Comparable<? super E>> SortedSet<E> of(
-      E e1, E e2, E e3, E e4) {
+      final E e1, final E e2, final E e3, final E e4) {
     return ImmutableSortedSet.of(e1, e2, e3, e4);
   }
 
   @Override protected <E extends Comparable<? super E>> SortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5) {
+      final E e1, final E e2, final E e3, final E e4, final E e5) {
     return ImmutableSortedSet.of(e1, e2, e3, e4, e5);
   }
 
   @SuppressWarnings("unchecked")
-  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(E e1, E e2, E e3,
-      E e4, E e5, E e6, E... rest) {
+  @Override protected <E extends Comparable<? super E>> SortedSet<E> of(final E e1, final E e2, final E e3,
+      final E e4, final E e5, final E e6, final E... rest) {
     return ImmutableSortedSet.of(e1, e2, e3, e4, e5, e6, rest);
   }
 
-  @Override protected <E extends Comparable<? super E>> SortedSet<E> copyOf(E[] elements) {
+  @Override protected <E extends Comparable<? super E>> SortedSet<E> copyOf(final E[] elements) {
     return ImmutableSortedSet.copyOf(elements);
   }
 
   @Override protected <E extends Comparable<? super E>> SortedSet<E> copyOf(
-      Collection<? extends E> elements) {
+      final Collection<? extends E> elements) {
     return ImmutableSortedSet.copyOf(elements);
   }
 
   @Override protected <E extends Comparable<? super E>> SortedSet<E> copyOf(
-      Iterable<? extends E> elements) {
+      final Iterable<? extends E> elements) {
     return ImmutableSortedSet.copyOf(elements);
   }
 
   @Override protected <E extends Comparable<? super E>> SortedSet<E> copyOf(
-      Iterator<? extends E> elements) {
+      final Iterator<? extends E> elements) {
     return ImmutableSortedSet.copyOf(elements);
   }
 
@@ -354,7 +354,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     static int nextId;
     Integer id = nextId++;
 
-    @Override public int compareTo(Interface other) {
+    @Override public int compareTo(final Interface other) {
       return id.compareTo(((Impl) other).id);
     }
   }
@@ -704,17 +704,17 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
       final int a;
       final int b;
 
-      TypeWithDuplicates(int a, int b) {
+      TypeWithDuplicates(final int a, final int b) {
         this.a = a;
         this.b = b;
       }
 
       @Override
-      public int compareTo(TypeWithDuplicates o) {
+      public int compareTo(final TypeWithDuplicates o) {
         return Integer.compare(a, o.a);
       }
 
-      public boolean fullEquals(TypeWithDuplicates other) {
+      public boolean fullEquals(final TypeWithDuplicates other) {
         return other != null && a == other.a && b == other.b;
       }
     }
@@ -844,7 +844,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
   private static final Comparator<Object> TO_STRING
       = new Comparator<Object>() {
           @Override
-          public int compare(Object o1, Object o2) {
+          public int compare(final Object o1, final Object o2) {
             return o1.toString().compareTo(o2.toString());
           }
         };
@@ -982,7 +982,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     assertEquals(-1, list.lastIndexOf("chicken"));
   }
 
-  private static <E> Iterator<E> asIterator(E... elements) {
+  private static <E> Iterator<E> asIterator(final E... elements) {
     return asList(elements).iterator();
   }
 
@@ -990,7 +990,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
   // throws it, unlike JDK6.  Therefore, we accept ClassCastException as a
   // valid result thrown by java.util.TreeSet#equals.
   private static void assertNotEqualLenient(
-      TreeSet<?> unexpected, SortedSet<?> actual) {
+      final TreeSet<?> unexpected, final SortedSet<?> actual) {
     try {
       assertThat(actual).isNotEqualTo(unexpected);
     } catch (ClassCastException accepted) {
@@ -1093,7 +1093,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     }
   }
 
-  private static ImmutableList<String> sortedNumberNames(int i, int j) {
+  private static ImmutableList<String> sortedNumberNames(final int i, final int j) {
     return ImmutableList.copyOf(SORTED_NUMBER_NAMES.subList(i, j));
   }
 
@@ -1105,7 +1105,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
 
   private static class SelfComparableExample implements Comparable<SelfComparableExample> {
     @Override
-    public int compareTo(SelfComparableExample o) {
+    public int compareTo(final SelfComparableExample o) {
       return 0;
     }
   }
@@ -1118,7 +1118,7 @@ public class ImmutableSortedSetTest extends AbstractImmutableSetTest {
     assertThat(reverse).isNotNull();
   }
 
-  private static class SuperComparableExample extends SelfComparableExample {}
+  private static class SuperComparableExample extends SelfComparableExample { }
 
   public void testBuilderGenerics_SuperComparable() {
     // testing simple creation

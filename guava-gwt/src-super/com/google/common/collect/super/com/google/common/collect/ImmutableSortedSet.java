@@ -59,7 +59,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
       new RegularImmutableSortedSet<Object>(new TreeSet<Object>(NATURAL_ORDER), false);
 
   static <E> ImmutableSortedSet<E> emptySet(
-      Comparator<? super E> comparator) {
+      final Comparator<? super E> comparator) {
     checkNotNull(comparator);
     if (NATURAL_ORDER.equals(comparator)) {
       return of();
@@ -70,7 +70,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
 
   @Beta
   public static <E> Collector<E, ?, ImmutableSortedSet<E>> toImmutableSortedSet(
-      Comparator<? super E> comparator) {
+      final Comparator<? super E> comparator) {
     return CollectCollectors.toImmutableSortedSet(comparator);
   }
 
@@ -80,37 +80,37 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E element) {
+      final E element) {
     return ofInternal(Ordering.natural(), element);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2) {
+      final E e1, final E e2) {
     return ofInternal(Ordering.natural(), e1, e2);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3) {
+      final E e1, final E e2, final E e3) {
     return ofInternal(Ordering.natural(), e1, e2, e3);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4) {
+      final E e1, final E e2, final E e3, final E e4) {
     return ofInternal(Ordering.natural(), e1, e2, e3, e4);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5) {
+      final E e1, final E e2, final E e3, final E e4, final E e5) {
     return ofInternal(Ordering.natural(), e1, e2, e3, e4, e5);
   }
 
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... remaining) {
     int size = remaining.length + 6;
     List<E> all = new ArrayList<E>(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -120,7 +120,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> ofInternal(
-      Comparator<? super E> comparator, E... elements) {
+      final Comparator<? super E> comparator, final E... elements) {
     checkNotNull(elements);
     switch (elements.length) {
       case 0:
@@ -135,43 +135,43 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     }
   }
 
-  public static <E> ImmutableSortedSet<E> copyOf(Collection<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E> copyOf(final Collection<? extends E> elements) {
     return copyOfInternal((Ordering<E>) Ordering.natural(), (Collection) elements, false);
   }
 
-  public static <E> ImmutableSortedSet<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E> copyOf(final Iterable<? extends E> elements) {
     return copyOfInternal((Ordering<E>) Ordering.natural(), (Iterable) elements, false);
   }
 
-  public static <E> ImmutableSortedSet<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E> copyOf(final Iterator<? extends E> elements) {
     return copyOfInternal((Ordering<E>) Ordering.natural(), (Iterator) elements);
   }
 
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E> copyOf(
-      E[] elements) {
+      final E[] elements) {
     return ofInternal(Ordering.natural(), elements);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterable<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Collection<? extends E> elements) {
+      final Comparator<? super E> comparator, final Collection<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements, false);
   }
 
   public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterator<? extends E> elements) {
     checkNotNull(comparator);
     return copyOfInternal(comparator, elements);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSortedSet<E> copyOfSorted(SortedSet<E> sortedSet) {
+  public static <E> ImmutableSortedSet<E> copyOfSorted(final SortedSet<E> sortedSet) {
     Comparator<? super E> comparator = sortedSet.comparator();
     if (comparator == null) {
       comparator = NATURAL_ORDER;
@@ -180,8 +180,8 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> copyOfInternal(
-      Comparator<? super E> comparator, Iterable<? extends E> elements,
-      boolean fromSortedSet) {
+      final Comparator<? super E> comparator, final Iterable<? extends E> elements,
+      final boolean fromSortedSet) {
     checkNotNull(comparator);
 
     boolean hasSameComparator
@@ -201,7 +201,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static <E> ImmutableSortedSet<E> copyOfInternal(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterator<? extends E> elements) {
     checkNotNull(comparator);
     if (!elements.hasNext()) {
       return emptySet(comparator);
@@ -216,7 +216,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static boolean hasSameComparator(
-      Iterable<?> elements, Comparator<?> comparator) {
+      final Iterable<?> elements, final Comparator<?> comparator) {
     if (elements instanceof SortedSet) {
       SortedSet<?> sortedSet = (SortedSet<?>) elements;
       Comparator<?> comparator2 = sortedSet.comparator();
@@ -229,7 +229,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
 
   // Assumes that delegate doesn't have null elements and comparator.
   static <E> ImmutableSortedSet<E> unsafeDelegateSortedSet(
-      SortedSet<E> delegate, boolean isSubset) {
+      final SortedSet<E> delegate, final boolean isSubset) {
     return delegate.isEmpty()
         ? emptySet(delegate.comparator())
         : new RegularImmutableSortedSet<E>(delegate, isSubset);
@@ -250,11 +250,11 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
    * environments UNLESS subclasses are careful to always override all methods
    * implemented in terms of sortedDelegate (except comparator()).
    */
-  ImmutableSortedSet(Comparator<? super E> comparator) {
+  ImmutableSortedSet(final Comparator<? super E> comparator) {
     this(Sets.newTreeSet(comparator));
   }
 
-  ImmutableSortedSet(SortedSet<E> sortedDelegate) {
+  ImmutableSortedSet(final SortedSet<E> sortedDelegate) {
     super(sortedDelegate);
     this.sortedDelegate = Collections.unmodifiableSortedSet(sortedDelegate);
   }
@@ -274,11 +274,11 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   @Override
-  public <T> T[] toArray(T[] other) {
+  public <T> T[] toArray(final T[] other) {
     return ObjectArrays.toArrayImpl(this, other);
   }
 
-  @Override public boolean contains(@Nullable Object object) {
+  @Override public boolean contains(final @Nullable Object object) {
     try {
       // This set never contains null.  We need to explicitly check here
       // because some comparator might throw NPE (e.g. the natural ordering).
@@ -288,7 +288,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     }
   }
 
-  @Override public boolean containsAll(Collection<?> targets) {
+  @Override public boolean containsAll(final Collection<?> targets) {
     for (Object target : targets) {
       if (target == null) {
         // This set never contains null.  We need to explicitly check here
@@ -307,7 +307,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     return sortedDelegate.first();
   }
 
-  public ImmutableSortedSet<E> headSet(E toElement) {
+  public ImmutableSortedSet<E> headSet(final E toElement) {
     checkNotNull(toElement);
     try {
       return unsafeDelegateSortedSet(sortedDelegate.headSet(toElement), true);
@@ -316,7 +316,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     }
   }
 
-  E higher(E e) {
+  E higher(final E e) {
     checkNotNull(e);
     Iterator<E> iterator = tailSet(e).iterator();
     while (iterator.hasNext()) {
@@ -328,7 +328,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     return null;
   }
 
-  ImmutableSortedSet<E> headSet(E toElement, boolean inclusive) {
+  ImmutableSortedSet<E> headSet(final E toElement, final boolean inclusive) {
     checkNotNull(toElement);
     if (inclusive) {
       E tmp = higher(toElement);
@@ -344,12 +344,12 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     return sortedDelegate.last();
   }
 
-  public ImmutableSortedSet<E> subSet(E fromElement, E toElement) {
+  public ImmutableSortedSet<E> subSet(final E fromElement, final E toElement) {
     return subSet(fromElement, true, toElement, false);
   }
 
-  ImmutableSortedSet<E> subSet(E fromElement, boolean fromInclusive, E toElement,
-      boolean toInclusive) {
+  ImmutableSortedSet<E> subSet(final E fromElement, final boolean fromInclusive, final E toElement,
+      final boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     int cmp = comparator().compare(fromElement, toElement);
@@ -360,7 +360,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     return tailSet(fromElement, fromInclusive).headSet(toElement, toInclusive);
   }
 
-  public ImmutableSortedSet<E> tailSet(E fromElement) {
+  public ImmutableSortedSet<E> tailSet(final E fromElement) {
     checkNotNull(fromElement);
     try {
       return unsafeDelegateSortedSet(sortedDelegate.tailSet(fromElement), true);
@@ -369,7 +369,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     }
   }
 
-  ImmutableSortedSet<E> tailSet(E fromElement, boolean inclusive) {
+  ImmutableSortedSet<E> tailSet(final E fromElement, final boolean inclusive) {
     checkNotNull(fromElement);
     if (!inclusive) {
       E tmp = higher(fromElement);
@@ -381,7 +381,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     return tailSet(fromElement);
   }
 
-  public static <E> Builder<E> orderedBy(Comparator<E> comparator) {
+  public static <E> Builder<E> orderedBy(final Comparator<E> comparator) {
     return new Builder<E>(comparator);
   }
 
@@ -396,31 +396,31 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   public static final class Builder<E> extends ImmutableSet.Builder<E> {
     private final Comparator<? super E> comparator;
 
-    public Builder(Comparator<? super E> comparator) {
+    public Builder(final Comparator<? super E> comparator) {
       this.comparator = checkNotNull(comparator);
     }
 
-    @Override public Builder<E> add(E element) {
+    @Override public Builder<E> add(final E element) {
       super.add(element);
       return this;
     }
 
-    @Override public Builder<E> add(E... elements) {
+    @Override public Builder<E> add(final E... elements) {
       super.add(elements);
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterable<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterable<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterator<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterator<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
 
-    Builder<E> combine(Builder<E> builder) {
+    Builder<E> combine(final Builder<E> builder) {
       super.combine(builder);
       return this;
     }

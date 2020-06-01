@@ -39,7 +39,7 @@ final class GeneralRange<T> implements Serializable {
   /**
    * Converts a Range to a GeneralRange.
    */
-  static <T extends Comparable> GeneralRange<T> from(Range<T> range) {
+  static <T extends Comparable> GeneralRange<T> from(final Range<T> range) {
     @Nullable T lowerEndpoint = range.hasLowerBound() ? range.lowerEndpoint() : null;
     BoundType lowerBoundType = range.hasLowerBound() ? range.lowerBoundType() : OPEN;
 
@@ -58,7 +58,7 @@ final class GeneralRange<T> implements Serializable {
   /**
    * Returns the whole range relative to the specified comparator.
    */
-  static <T> GeneralRange<T> all(Comparator<? super T> comparator) {
+  static <T> GeneralRange<T> all(final Comparator<? super T> comparator) {
     return new GeneralRange<T>(comparator, false, null, OPEN, false, null, OPEN);
   }
 
@@ -67,7 +67,7 @@ final class GeneralRange<T> implements Serializable {
    * endpoint behavior.
    */
   static <T> GeneralRange<T> downTo(
-      Comparator<? super T> comparator, @Nullable T endpoint, BoundType boundType) {
+      final Comparator<? super T> comparator, final @Nullable T endpoint, final BoundType boundType) {
     return new GeneralRange<T>(comparator, true, endpoint, boundType, false, null, OPEN);
   }
 
@@ -76,7 +76,7 @@ final class GeneralRange<T> implements Serializable {
    * endpoint behavior.
    */
   static <T> GeneralRange<T> upTo(
-      Comparator<? super T> comparator, @Nullable T endpoint, BoundType boundType) {
+      final Comparator<? super T> comparator, final @Nullable T endpoint, final BoundType boundType) {
     return new GeneralRange<T>(comparator, false, null, OPEN, true, endpoint, boundType);
   }
 
@@ -85,11 +85,11 @@ final class GeneralRange<T> implements Serializable {
    * specified endpoint behavior.
    */
   static <T> GeneralRange<T> range(
-      Comparator<? super T> comparator,
-      @Nullable T lower,
-      BoundType lowerType,
-      @Nullable T upper,
-      BoundType upperType) {
+      final Comparator<? super T> comparator,
+      final @Nullable T lower,
+      final BoundType lowerType,
+      final @Nullable T upper,
+      final BoundType upperType) {
     return new GeneralRange<T>(comparator, true, lower, lowerType, true, upper, upperType);
   }
 
@@ -102,13 +102,13 @@ final class GeneralRange<T> implements Serializable {
   private final BoundType upperBoundType;
 
   private GeneralRange(
-      Comparator<? super T> comparator,
-      boolean hasLowerBound,
-      @Nullable T lowerEndpoint,
-      BoundType lowerBoundType,
-      boolean hasUpperBound,
-      @Nullable T upperEndpoint,
-      BoundType upperBoundType) {
+      final Comparator<? super T> comparator,
+      final boolean hasLowerBound,
+      final @Nullable T lowerEndpoint,
+      final BoundType lowerBoundType,
+      final boolean hasUpperBound,
+      final @Nullable T upperEndpoint,
+      final BoundType upperBoundType) {
     this.comparator = checkNotNull(comparator);
     this.hasLowerBound = hasLowerBound;
     this.hasUpperBound = hasUpperBound;
@@ -151,7 +151,7 @@ final class GeneralRange<T> implements Serializable {
         || (hasLowerBound() && tooHigh(getLowerEndpoint()));
   }
 
-  boolean tooLow(@Nullable T t) {
+  boolean tooLow(final @Nullable T t) {
     if (!hasLowerBound()) {
       return false;
     }
@@ -160,7 +160,7 @@ final class GeneralRange<T> implements Serializable {
     return cmp < 0 | (cmp == 0 & getLowerBoundType() == OPEN);
   }
 
-  boolean tooHigh(@Nullable T t) {
+  boolean tooHigh(final @Nullable T t) {
     if (!hasUpperBound()) {
       return false;
     }
@@ -169,14 +169,14 @@ final class GeneralRange<T> implements Serializable {
     return cmp > 0 | (cmp == 0 & getUpperBoundType() == OPEN);
   }
 
-  boolean contains(@Nullable T t) {
+  boolean contains(final @Nullable T t) {
     return !tooLow(t) && !tooHigh(t);
   }
 
   /**
    * Returns the intersection of the two ranges, or an empty range if their intersection is empty.
    */
-  GeneralRange<T> intersect(GeneralRange<T> other) {
+  GeneralRange<T> intersect(final GeneralRange<T> other) {
     checkNotNull(other);
     checkArgument(comparator.equals(other.comparator));
 
@@ -224,7 +224,7 @@ final class GeneralRange<T> implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj instanceof GeneralRange) {
       GeneralRange<?> r = (GeneralRange<?>) obj;
       return comparator.equals(r.comparator)

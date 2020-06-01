@@ -303,7 +303,7 @@ public class PopulatedCachesTest extends TestCase {
     return Iterables.transform(factory.buildAllPermutations(),
         new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
           @Override public LoadingCache<Object, Object> apply(
-              CacheBuilder<Object, Object> builder) {
+              final CacheBuilder<Object, Object> builder) {
             return builder.recordStats().build(identityLoader());
           }
         });
@@ -336,7 +336,7 @@ public class PopulatedCachesTest extends TestCase {
             DurationSpec.of(1, DAYS)));
   }
 
-  private List<Map.Entry<Object, Object>> warmUp(LoadingCache<Object, Object> cache) {
+  private List<Map.Entry<Object, Object>> warmUp(final LoadingCache<Object, Object> cache) {
     return warmUp(cache, WARMUP_MIN, WARMUP_MAX);
   }
 
@@ -345,7 +345,7 @@ public class PopulatedCachesTest extends TestCase {
    * soft references until the caller drops the reference to the returned entries.
    */
   private List<Map.Entry<Object, Object>> warmUp(
-      LoadingCache<Object, Object> cache, int minimum, int maximum) {
+      final LoadingCache<Object, Object> cache, final int minimum, final int maximum) {
 
     List<Map.Entry<Object, Object>> entries = Lists.newArrayList();
     for (int i = minimum; i < maximum; i++) {
@@ -356,11 +356,11 @@ public class PopulatedCachesTest extends TestCase {
     return entries;
   }
 
-  private Entry<Object, Object> entryOf(Object key, Object value) {
+  private Entry<Object, Object> entryOf(final Object key, final Object value) {
     return Maps.immutableEntry(key, value);
   }
 
-  private void assertMapSize(Map<?, ?> map, int size) {
+  private void assertMapSize(final Map<?, ?> map, final int size) {
     assertEquals(size, map.size());
     if (size > 0) {
       assertFalse(map.isEmpty());
@@ -372,7 +372,7 @@ public class PopulatedCachesTest extends TestCase {
     assertCollectionSize(map.values(), size);
   }
 
-  private void assertCollectionSize(Collection<?> collection, int size) {
+  private void assertCollectionSize(final Collection<?> collection, final int size) {
     assertEquals(size, collection.size());
     if (size > 0) {
       assertFalse(collection.isEmpty());

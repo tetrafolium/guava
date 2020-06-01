@@ -48,7 +48,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    * @deprecated Not supported for ImmutableSortedMap.
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap.Builder<K, V> builderWithExpectedSize(int expectedSize) {
+  public static <K, V> ImmutableSortedMap.Builder<K, V> builderWithExpectedSize(final int expectedSize) {
     throw new UnsupportedOperationException();
   }
 
@@ -62,7 +62,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     ImmutableSortedMap#of(Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1) {
+  public static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1) {
     throw new UnsupportedOperationException();
   }
 
@@ -76,7 +76,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     ImmutableSortedMap#of(Comparable, Object, Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2) {
+  public static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2) {
     throw new UnsupportedOperationException();
   }
 
@@ -91,7 +91,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
+  public static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3) {
     throw new UnsupportedOperationException();
   }
 
@@ -106,7 +106,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     Comparable, Object, Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  public static <K, V> ImmutableSortedMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4) {
     throw new UnsupportedOperationException();
   }
 
@@ -122,7 +122,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    */
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+      final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4, final K k5, final V v5) {
     throw new UnsupportedOperationException();
   }
 

@@ -31,7 +31,7 @@ final class Platform {
    * Format the template with args, only supports the placeholder
    * {@code %s}.
    */
-  static String format(String template, Object... args) {
+  static String format(final String template, final Object... args) {
     return String.format(Locale.ROOT, template, args);
   }
 
@@ -45,5 +45,5 @@ final class Platform {
     return 5;
   }
 
-  private Platform() {}
+  private Platform() { }
 }

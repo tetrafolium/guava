@@ -353,7 +353,7 @@ public class FuturesGetCheckedTest extends TestCase {
 
   // Class unloading test:
 
-  public static final class WillBeUnloadedException extends Exception {}
+  public static final class WillBeUnloadedException extends Exception { }
 
   public void testGetChecked_classUnloading() throws Exception {
     WeakReference<?> classUsedByGetChecked = doTestClassUnloading();

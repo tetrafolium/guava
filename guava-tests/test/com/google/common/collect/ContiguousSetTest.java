@@ -52,17 +52,17 @@ public class ContiguousSetTest extends TestCase {
   private static final DiscreteDomain<Integer> NOT_EQUAL_TO_INTEGERS =
       new DiscreteDomain<Integer>() {
         @Override
-        public Integer next(Integer value) {
+        public Integer next(final Integer value) {
           return integers().next(value);
         }
 
         @Override
-        public Integer previous(Integer value) {
+        public Integer previous(final Integer value) {
           return integers().previous(value);
         }
 
         @Override
-        public long distance(Integer start, Integer end) {
+        public long distance(final Integer start, final Integer end) {
           return integers().distance(start, end);
         }
 
@@ -81,22 +81,22 @@ public class ContiguousSetTest extends TestCase {
     try {
       ContiguousSet.closed(2, 1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       ContiguousSet.closedOpen(2, 1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testInvalidLongRange() {
     try {
       ContiguousSet.closed(2L, 1L);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       ContiguousSet.closedOpen(2L, 1L);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testEquals() {
@@ -158,7 +158,7 @@ public class ContiguousSetTest extends TestCase {
     try {
       ContiguousSet.create(range, RangeTest.UNBOUNDED_DOMAIN);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreate_noMax() {
@@ -166,7 +166,7 @@ public class ContiguousSetTest extends TestCase {
     try {
       ContiguousSet.create(range, RangeTest.UNBOUNDED_DOMAIN);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreate_empty() {
@@ -235,7 +235,7 @@ public class ContiguousSetTest extends TestCase {
     try {
       set.subSet(3, 2);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testSubSet_tooLarge() {

@@ -50,9 +50,9 @@ import java.util.Comparator;
 public final class UnsignedInts {
   static final long INT_MASK = 0xffffffffL;
 
-  private UnsignedInts() {}
+  private UnsignedInts() { }
 
-  static int flip(int value) {
+  static int flip(final int value) {
     return value ^ Integer.MIN_VALUE;
   }
 
@@ -67,7 +67,7 @@ public final class UnsignedInts {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(int a, int b) {
+  public static int compare(final int a, final int b) {
     return Ints.compare(flip(a), flip(b));
   }
 
@@ -76,7 +76,7 @@ public final class UnsignedInts {
    *
    * <p><b>Java 8 users:</b> use {@link Integer#toUnsignedLong(int)} instead.
    */
-  public static long toLong(int value) {
+  public static long toLong(final int value) {
     return value & INT_MASK;
   }
 
@@ -90,7 +90,7 @@ public final class UnsignedInts {
    *     2<sup>32</sup>
    * @since 21.0
    */
-  public static int checkedCast(long value) {
+  public static int checkedCast(final long value) {
     checkArgument((value >> Integer.SIZE) == 0, "out of range: %s", value);
     return (int) value;
   }
@@ -104,7 +104,7 @@ public final class UnsignedInts {
    *     {@code value} cast to {@code int} otherwise
    * @since 21.0
    */
-  public static int saturatedCast(long value) {
+  public static int saturatedCast(final long value) {
     if (value <= 0) {
       return 0;
     } else if (value >= (1L << 32)) {
@@ -122,7 +122,7 @@ public final class UnsignedInts {
    *     the array according to {@link #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static int min(int... array) {
+  public static int min(final int... array) {
     checkArgument(array.length > 0);
     int min = flip(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -142,7 +142,7 @@ public final class UnsignedInts {
    *     in the array according to {@link #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static int max(int... array) {
+  public static int max(final int... array) {
     checkArgument(array.length > 0);
     int max = flip(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -162,7 +162,7 @@ public final class UnsignedInts {
    *     (but not at the start or end)
    * @param array an array of unsigned {@code int} values, possibly empty
    */
-  public static String join(String separator, int... array) {
+  public static String join(final String separator, final int... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -195,7 +195,7 @@ public final class UnsignedInts {
     INSTANCE;
 
     @Override
-    public int compare(int[] left, int[] right) {
+    public int compare(final int[] left, final int[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         if (left[i] != right[i]) {
@@ -215,7 +215,7 @@ public final class UnsignedInts {
    *
    * @since 23.1
    */
-  public static void sort(int[] array) {
+  public static void sort(final int[] array) {
     checkNotNull(array);
     sort(array, 0, array.length);
   }
@@ -226,7 +226,7 @@ public final class UnsignedInts {
    *
    * @since 23.1
    */
-  public static void sort(int[] array, int fromIndex, int toIndex) {
+  public static void sort(final int[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {
@@ -244,7 +244,7 @@ public final class UnsignedInts {
    *
    * @since 23.1
    */
-  public static void sortDescending(int[] array) {
+  public static void sortDescending(final int[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -255,7 +255,7 @@ public final class UnsignedInts {
    *
    * @since 23.1
    */
-  public static void sortDescending(int[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final int[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {
@@ -277,7 +277,7 @@ public final class UnsignedInts {
    * @param divisor the divisor (denominator)
    * @throws ArithmeticException if divisor is 0
    */
-  public static int divide(int dividend, int divisor) {
+  public static int divide(final int dividend, final int divisor) {
     return (int) (toLong(dividend) / toLong(divisor));
   }
 
@@ -291,7 +291,7 @@ public final class UnsignedInts {
    * @param divisor the divisor (denominator)
    * @throws ArithmeticException if divisor is 0
    */
-  public static int remainder(int dividend, int divisor) {
+  public static int remainder(final int dividend, final int divisor) {
     return (int) (toLong(dividend) % toLong(divisor));
   }
 
@@ -311,7 +311,7 @@ public final class UnsignedInts {
    * @since 13.0
    */
   @CanIgnoreReturnValue
-  public static int decode(String stringValue) {
+  public static int decode(final String stringValue) {
     ParseRequest request = ParseRequest.fromString(stringValue);
 
     try {
@@ -334,7 +334,7 @@ public final class UnsignedInts {
    *     {@link Integer#parseInt(String)})
    */
   @CanIgnoreReturnValue
-  public static int parseUnsignedInt(String s) {
+  public static int parseUnsignedInt(final String s) {
     return parseUnsignedInt(s, 10);
   }
 
@@ -352,7 +352,7 @@ public final class UnsignedInts {
    *     {@link Integer#parseInt(String)})
    */
   @CanIgnoreReturnValue
-  public static int parseUnsignedInt(String string, int radix) {
+  public static int parseUnsignedInt(final String string, final int radix) {
     checkNotNull(string);
     long result = Long.parseLong(string, radix);
     if ((result & INT_MASK) != result) {
@@ -367,7 +367,7 @@ public final class UnsignedInts {
    *
    * <p><b>Java 8 users:</b> use {@link Integer#toUnsignedString(int)} instead.
    */
-  public static String toString(int x) {
+  public static String toString(final int x) {
     return toString(x, 10);
   }
 
@@ -382,7 +382,7 @@ public final class UnsignedInts {
    * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX}
    *     and {@link Character#MAX_RADIX}.
    */
-  public static String toString(int x, int radix) {
+  public static String toString(final int x, final int radix) {
     long asLong = x & INT_MASK;
     return Long.toString(asLong, radix);
   }

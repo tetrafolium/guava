@@ -155,19 +155,19 @@ public final class CacheBuilder<K, V> {
       Suppliers.ofInstance(
           new StatsCounter() {
             @Override
-            public void recordHits(int count) {}
+            public void recordHits(final int count) { }
 
             @Override
-            public void recordMisses(int count) {}
+            public void recordMisses(final int count) { }
 
             @Override
-            public void recordLoadSuccess(long loadTime) {}
+            public void recordLoadSuccess(final long loadTime) { }
 
             @Override
-            public void recordLoadException(long loadTime) {}
+            public void recordLoadException(final long loadTime) { }
 
             @Override
-            public void recordEviction() {}
+            public void recordEviction() { }
 
             @Override
             public CacheStats snapshot() {
@@ -188,14 +188,14 @@ public final class CacheBuilder<K, V> {
     INSTANCE;
 
     @Override
-    public void onRemoval(RemovalNotification<Object, Object> notification) {}
+    public void onRemoval(final RemovalNotification<Object, Object> notification) { }
   }
 
   enum OneWeigher implements Weigher<Object, Object> {
     INSTANCE;
 
     @Override
-    public int weigh(Object key, Object value) {
+    public int weigh(final Object key, final Object value) {
       return 1;
     }
   }
@@ -235,7 +235,7 @@ public final class CacheBuilder<K, V> {
 
   Supplier<? extends StatsCounter> statsCounterSupplier = NULL_STATS_COUNTER;
 
-  private CacheBuilder() {}
+  private CacheBuilder() { }
 
   /**
    * Constructs a new {@code CacheBuilder} instance with default settings, including strong keys,
@@ -251,7 +251,7 @@ public final class CacheBuilder<K, V> {
    * @since 12.0
    */
   @GwtIncompatible // To be supported
-  public static CacheBuilder<Object, Object> from(CacheBuilderSpec spec) {
+  public static CacheBuilder<Object, Object> from(final CacheBuilderSpec spec) {
     return spec.toCacheBuilder().lenientParsing();
   }
 
@@ -263,7 +263,7 @@ public final class CacheBuilder<K, V> {
    * @since 12.0
    */
   @GwtIncompatible // To be supported
-  public static CacheBuilder<Object, Object> from(String spec) {
+  public static CacheBuilder<Object, Object> from(final String spec) {
     return from(CacheBuilderSpec.parse(spec));
   }
 
@@ -287,7 +287,7 @@ public final class CacheBuilder<K, V> {
    * @return this {@code CacheBuilder} instance (for chaining)
    */
   @GwtIncompatible // To be supported
-  CacheBuilder<K, V> keyEquivalence(Equivalence<Object> equivalence) {
+  CacheBuilder<K, V> keyEquivalence(final Equivalence<Object> equivalence) {
     checkState(keyEquivalence == null, "key equivalence was already set to %s", keyEquivalence);
     keyEquivalence = checkNotNull(equivalence);
     return this;
@@ -307,7 +307,7 @@ public final class CacheBuilder<K, V> {
    * @return this {@code CacheBuilder} instance (for chaining)
    */
   @GwtIncompatible // To be supported
-  CacheBuilder<K, V> valueEquivalence(Equivalence<Object> equivalence) {
+  CacheBuilder<K, V> valueEquivalence(final Equivalence<Object> equivalence) {
     checkState(
         valueEquivalence == null, "value equivalence was already set to %s", valueEquivalence);
     this.valueEquivalence = checkNotNull(equivalence);
@@ -329,7 +329,7 @@ public final class CacheBuilder<K, V> {
    * @throws IllegalArgumentException if {@code initialCapacity} is negative
    * @throws IllegalStateException if an initial capacity was already set
    */
-  public CacheBuilder<K, V> initialCapacity(int initialCapacity) {
+  public CacheBuilder<K, V> initialCapacity(final int initialCapacity) {
     checkState(
         this.initialCapacity == UNSET_INT,
         "initial capacity was already set to %s",
@@ -374,7 +374,7 @@ public final class CacheBuilder<K, V> {
    * @throws IllegalArgumentException if {@code concurrencyLevel} is nonpositive
    * @throws IllegalStateException if a concurrency level was already set
    */
-  public CacheBuilder<K, V> concurrencyLevel(int concurrencyLevel) {
+  public CacheBuilder<K, V> concurrencyLevel(final int concurrencyLevel) {
     checkState(
         this.concurrencyLevel == UNSET_INT,
         "concurrency level was already set to %s",
@@ -409,7 +409,7 @@ public final class CacheBuilder<K, V> {
    * @throws IllegalArgumentException if {@code maximumSize} is negative
    * @throws IllegalStateException if a maximum size or weight was already set
    */
-  public CacheBuilder<K, V> maximumSize(long maximumSize) {
+  public CacheBuilder<K, V> maximumSize(final long maximumSize) {
     checkState(
         this.maximumSize == UNSET_INT, "maximum size was already set to %s", this.maximumSize);
     checkState(
@@ -450,7 +450,7 @@ public final class CacheBuilder<K, V> {
    * @since 11.0
    */
   @GwtIncompatible // To be supported
-  public CacheBuilder<K, V> maximumWeight(long maximumWeight) {
+  public CacheBuilder<K, V> maximumWeight(final long maximumWeight) {
     checkState(
         this.maximumWeight == UNSET_INT,
         "maximum weight was already set to %s",
@@ -493,7 +493,7 @@ public final class CacheBuilder<K, V> {
    */
   @GwtIncompatible // To be supported
   public <K1 extends K, V1 extends V> CacheBuilder<K1, V1> weigher(
-      Weigher<? super K1, ? super V1> weigher) {
+      final Weigher<? super K1, ? super V1> weigher) {
     checkState(this.weigher == null);
     if (strictParsing) {
       checkState(
@@ -543,7 +543,7 @@ public final class CacheBuilder<K, V> {
     return setKeyStrength(Strength.WEAK);
   }
 
-  CacheBuilder<K, V> setKeyStrength(Strength strength) {
+  CacheBuilder<K, V> setKeyStrength(final Strength strength) {
     checkState(keyStrength == null, "Key strength was already set to %s", keyStrength);
     keyStrength = checkNotNull(strength);
     return this;
@@ -600,7 +600,7 @@ public final class CacheBuilder<K, V> {
     return setValueStrength(Strength.SOFT);
   }
 
-  CacheBuilder<K, V> setValueStrength(Strength strength) {
+  CacheBuilder<K, V> setValueStrength(final Strength strength) {
     checkState(valueStrength == null, "Value strength was already set to %s", valueStrength);
     valueStrength = checkNotNull(strength);
     return this;
@@ -629,7 +629,7 @@ public final class CacheBuilder<K, V> {
    * @throws IllegalArgumentException if {@code duration} is negative
    * @throws IllegalStateException if the time to live or time to idle was already set
    */
-  public CacheBuilder<K, V> expireAfterWrite(long duration, TimeUnit unit) {
+  public CacheBuilder<K, V> expireAfterWrite(final long duration, final TimeUnit unit) {
     checkState(
         expireAfterWriteNanos == UNSET_INT,
         "expireAfterWrite was already set to %s ns",
@@ -665,7 +665,7 @@ public final class CacheBuilder<K, V> {
    * @throws IllegalArgumentException if {@code duration} is negative
    * @throws IllegalStateException if the time to idle or time to live was already set
    */
-  public CacheBuilder<K, V> expireAfterAccess(long duration, TimeUnit unit) {
+  public CacheBuilder<K, V> expireAfterAccess(final long duration, final TimeUnit unit) {
     checkState(
         expireAfterAccessNanos == UNSET_INT,
         "expireAfterAccess was already set to %s ns",
@@ -708,7 +708,7 @@ public final class CacheBuilder<K, V> {
    * @since 11.0
    */
   @GwtIncompatible // To be supported (synchronously).
-  public CacheBuilder<K, V> refreshAfterWrite(long duration, TimeUnit unit) {
+  public CacheBuilder<K, V> refreshAfterWrite(final long duration, final TimeUnit unit) {
     checkNotNull(unit);
     checkState(refreshNanos == UNSET_INT, "refresh was already set to %s ns", refreshNanos);
     checkArgument(duration > 0, "duration must be positive: %s %s", duration, unit);
@@ -730,13 +730,13 @@ public final class CacheBuilder<K, V> {
    * @return this {@code CacheBuilder} instance (for chaining)
    * @throws IllegalStateException if a ticker was already set
    */
-  public CacheBuilder<K, V> ticker(Ticker ticker) {
+  public CacheBuilder<K, V> ticker(final Ticker ticker) {
     checkState(this.ticker == null);
     this.ticker = checkNotNull(ticker);
     return this;
   }
 
-  Ticker getTicker(boolean recordsTime) {
+  Ticker getTicker(final boolean recordsTime) {
     if (ticker != null) {
       return ticker;
     }
@@ -766,7 +766,7 @@ public final class CacheBuilder<K, V> {
    */
   @CheckReturnValue
   public <K1 extends K, V1 extends V> CacheBuilder<K1, V1> removalListener(
-      RemovalListener<? super K1, ? super V1> listener) {
+      final RemovalListener<? super K1, ? super V1> listener) {
     checkState(this.removalListener == null);
 
     // safely limiting the kinds of caches this can produce
@@ -818,7 +818,7 @@ public final class CacheBuilder<K, V> {
    * @return a cache having the requested features
    */
   public <K1 extends K, V1 extends V> LoadingCache<K1, V1> build(
-      CacheLoader<? super K1, V1> loader) {
+      final CacheLoader<? super K1, V1> loader) {
     checkWeightWithWeigher();
     return new LocalCache.LocalLoadingCache<>(this, loader);
   }

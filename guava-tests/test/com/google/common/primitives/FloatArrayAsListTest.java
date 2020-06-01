@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class FloatArrayAsListTest extends TestCase {
 
-  private static List<Float> asList(Float[] values) {
+  private static List<Float> asList(final Float[] values) {
     float[] temp = new float[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class FloatArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class FloatsAsListGenerator extends TestFloatListGenerator {
-    @Override protected List<Float> create(Float[] elements) {
+    @Override protected List<Float> create(final Float[] elements) {
       return asList(elements);
     }
   }
 
   public static final class FloatsAsListHeadSubListGenerator extends TestFloatListGenerator {
-    @Override protected List<Float> create(Float[] elements) {
+    @Override protected List<Float> create(final Float[] elements) {
       Float[] suffix = {Float.MIN_VALUE, Float.MAX_VALUE};
       Float[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class FloatArrayAsListTest extends TestCase {
   }
 
   public static final class FloatsAsListTailSubListGenerator extends TestFloatListGenerator {
-    @Override protected List<Float> create(Float[] elements) {
+    @Override protected List<Float> create(final Float[] elements) {
       Float[] prefix = {(float) 86, (float) 99};
       Float[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class FloatArrayAsListTest extends TestCase {
   }
 
   public static final class FloatsAsListMiddleSubListGenerator extends TestFloatListGenerator {
-    @Override protected List<Float> create(Float[] elements) {
+    @Override protected List<Float> create(final Float[] elements) {
       Float[] prefix = {Float.MIN_VALUE, Float.MAX_VALUE};
       Float[] suffix = {(float) 86, (float) 99};
       Float[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class FloatArrayAsListTest extends TestCase {
     }
   }
 
-  private static Float[] concat(Float[] left, Float[] right) {
+  private static Float[] concat(final Float[] left, final Float[] right) {
     Float[] result = new Float[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class FloatArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Float> create(Object... elements) {
+    public List<Float> create(final Object... elements) {
       Float[] array = new Float[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class FloatArrayAsListTest extends TestCase {
     protected abstract List<Float> create(Float[] elements);
 
     @Override
-    public Float[] createArray(int length) {
+    public Float[] createArray(final int length) {
       return new Float[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Float> order(List<Float> insertionOrder) {
+    public List<Float> order(final List<Float> insertionOrder) {
       return insertionOrder;
     }
   }

@@ -46,7 +46,7 @@ public class ComparatorDelegationOverheadBenchmark {
     }
   }
 
-  @Benchmark int arraysSortNoComparator(int reps) {
+  @Benchmark int arraysSortNoComparator(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();
@@ -56,7 +56,7 @@ public class ComparatorDelegationOverheadBenchmark {
     return tmp;
   }
 
-  @Benchmark int arraysSortOrderingNatural(int reps) {
+  @Benchmark int arraysSortOrderingNatural(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();
@@ -68,12 +68,12 @@ public class ComparatorDelegationOverheadBenchmark {
 
   private static final Comparator<Integer> NATURAL_INTEGER = new Comparator<Integer>() {
     @Override
-    public int compare(Integer o1, Integer o2) {
+    public int compare(final Integer o1, final Integer o2) {
       return o1.compareTo(o2);
     }
   };
 
-  @Benchmark int arraysSortOrderingFromNatural(int reps) {
+  @Benchmark int arraysSortOrderingFromNatural(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();

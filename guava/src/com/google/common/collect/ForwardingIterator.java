@@ -40,7 +40,7 @@ import java.util.Iterator;
 public abstract class ForwardingIterator<T> extends ForwardingObject implements Iterator<T> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingIterator() {}
+  protected ForwardingIterator() { }
 
   @Override
   protected abstract Iterator<T> delegate();

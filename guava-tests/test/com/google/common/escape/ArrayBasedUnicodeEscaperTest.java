@@ -40,7 +40,7 @@ public class ArrayBasedUnicodeEscaperTest extends TestCase {
     // escaping elements from a map you would use a ArrayBasedCharEscaper).
     UnicodeEscaper escaper = new ArrayBasedUnicodeEscaper(SIMPLE_REPLACEMENTS,
         Character.MIN_VALUE, Character.MAX_CODE_POINT, null) {
-          @Override protected char[] escapeUnsafe(int c) {
+          @Override protected char[] escapeUnsafe(final int c) {
             return NO_CHARS;
           }
     };
@@ -66,7 +66,7 @@ public class ArrayBasedUnicodeEscaperTest extends TestCase {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     UnicodeEscaper wrappingEscaper =
         new ArrayBasedUnicodeEscaper(NO_REPLACEMENTS, 'A', 'Z', null) {
-          @Override protected char[] escapeUnsafe(int c) {
+          @Override protected char[] escapeUnsafe(final int c) {
             return ("{" + (char) c + "}").toCharArray();
           }
         };
@@ -78,21 +78,21 @@ public class ArrayBasedUnicodeEscaperTest extends TestCase {
   public void testDeleteUnsafeChars() throws IOException {
     UnicodeEscaper deletingEscaper =
         new ArrayBasedUnicodeEscaper(NO_REPLACEMENTS, ' ', '~', null) {
-          @Override protected char[] escapeUnsafe(int c) {
+          @Override protected char[] escapeUnsafe(final int c) {
             return NO_CHARS;
           }
         };
     EscaperAsserts.assertBasic(deletingEscaper);
     assertEquals("Everything outside the printable ASCII range is deleted.",
-        deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 " +
-            "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
+        deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 "
+            + "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
   }
 
   public void testReplacementPriority() throws IOException {
     UnicodeEscaper replacingEscaper =
         new ArrayBasedUnicodeEscaper(SIMPLE_REPLACEMENTS, ' ', '~', null) {
-          private final char[] unknown = new char[] { '?' };
-          @Override protected char[] escapeUnsafe(int c) {
+          private final char[] unknown = new char[] {'?' };
+          @Override protected char[] escapeUnsafe(final int c) {
             return unknown;
           }
         };
@@ -107,8 +107,8 @@ public class ArrayBasedUnicodeEscaperTest extends TestCase {
   public void testCodePointsFromSurrogatePairs() throws IOException {
     UnicodeEscaper surrogateEscaper =
         new ArrayBasedUnicodeEscaper(NO_REPLACEMENTS, 0, 0x20000, null) {
-          private final char[] escaped = new char[] { 'X' };
-          @Override protected char[] escapeUnsafe(int c) {
+          private final char[] escaped = new char[] {'X' };
+          @Override protected char[] escapeUnsafe(final int c) {
             return escaped;
           }
         };

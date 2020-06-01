@@ -28,17 +28,17 @@ import javax.annotation.Nullable;
 final class ComparatorOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<T> comparator;
 
-  ComparatorOrdering(Comparator<T> comparator) {
+  ComparatorOrdering(final Comparator<T> comparator) {
     this.comparator = checkNotNull(comparator);
   }
 
   @Override
-  public int compare(T a, T b) {
+  public int compare(final T a, final T b) {
     return comparator.compare(a, b);
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

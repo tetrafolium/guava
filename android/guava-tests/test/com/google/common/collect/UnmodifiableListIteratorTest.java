@@ -37,7 +37,7 @@ public class UnmodifiableListIteratorTest extends TestCase {
     try {
       iterator.remove();
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testAdd() {
@@ -50,7 +50,7 @@ public class UnmodifiableListIteratorTest extends TestCase {
     try {
       iterator.add("c");
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testSet() {
@@ -63,7 +63,7 @@ public class UnmodifiableListIteratorTest extends TestCase {
     try {
       iterator.set("c");
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   UnmodifiableListIterator<String> create() {
@@ -95,7 +95,7 @@ public class UnmodifiableListIteratorTest extends TestCase {
         return array[--i];
       }
       @Override public int previousIndex() {
-        return i-1;
+        return i - 1;
       }
     };
   }

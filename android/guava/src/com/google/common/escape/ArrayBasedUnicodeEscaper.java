@@ -70,10 +70,10 @@ public abstract class ArrayBasedUnicodeEscaper extends UnicodeEscaper {
    *     replacement is required
    */
   protected ArrayBasedUnicodeEscaper(
-      Map<Character, String> replacementMap,
-      int safeMin,
-      int safeMax,
-      @Nullable String unsafeReplacement) {
+      final Map<Character, String> replacementMap,
+      final int safeMin,
+      final int safeMax,
+      final @Nullable String unsafeReplacement) {
     this(ArrayBasedEscaperMap.create(replacementMap), safeMin, safeMax, unsafeReplacement);
   }
 
@@ -93,10 +93,10 @@ public abstract class ArrayBasedUnicodeEscaper extends UnicodeEscaper {
    *     replacement is required
    */
   protected ArrayBasedUnicodeEscaper(
-      ArrayBasedEscaperMap escaperMap,
-      int safeMin,
-      int safeMax,
-      @Nullable String unsafeReplacement) {
+      final ArrayBasedEscaperMap escaperMap,
+      final int safeMin,
+      final int safeMax,
+      final @Nullable String unsafeReplacement) {
     checkNotNull(escaperMap); // GWT specific check (do not optimize)
     this.replacements = escaperMap.getReplacementArray();
     this.replacementsLength = replacements.length;
@@ -140,7 +140,7 @@ public abstract class ArrayBasedUnicodeEscaper extends UnicodeEscaper {
    * the speed when processing strings that do not require any escaping.
    */
   @Override
-  public final String escape(String s) {
+  public final String escape(final String s) {
     checkNotNull(s); // GWT specific check (do not optimize)
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
@@ -155,7 +155,7 @@ public abstract class ArrayBasedUnicodeEscaper extends UnicodeEscaper {
 
   /* Overridden for performance. */
   @Override
-  protected final int nextEscapeIndex(CharSequence csq, int index, int end) {
+  protected final int nextEscapeIndex(final CharSequence csq, final int index, final int end) {
     while (index < end) {
       char c = csq.charAt(index);
       if ((c < replacementsLength && replacements[c] != null)
@@ -174,7 +174,7 @@ public abstract class ArrayBasedUnicodeEscaper extends UnicodeEscaper {
    * {@link #escapeUnsafe} is called.
    */
   @Override
-  protected final char[] escape(int cp) {
+  protected final char[] escape(final int cp) {
     if (cp < replacementsLength) {
       char[] chars = replacements[cp];
       if (chars != null) {

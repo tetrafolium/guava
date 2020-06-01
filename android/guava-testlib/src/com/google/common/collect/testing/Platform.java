@@ -28,18 +28,18 @@ import java.util.Locale;
  */
 @GwtCompatible
 final class Platform {
-  static <T> T[] clone(T[] array) {
+  static <T> T[] clone(final T[] array) {
     return array.clone();
   }
 
   // Class.cast is not supported in GWT.  This method is a no-op in GWT.
-  static void checkCast(Class<?> clazz, Object obj) {
+  static void checkCast(final Class<?> clazz, final Object obj) {
     clazz.cast(obj);
   }
 
-  static String format(String template, Object... args) {
+  static String format(final String template, final Object... args) {
     return String.format(Locale.ROOT, template, args);
   }
 
-  private Platform() {}
+  private Platform() { }
 }

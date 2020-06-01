@@ -37,7 +37,7 @@ public class CharSinkTester extends SourceSinkTester<CharSink, String, CharSinkF
   private static final ImmutableList<Method> testMethods
       = getTestMethods(CharSinkTester.class);
 
-  static TestSuite tests(String name, CharSinkFactory factory) {
+  static TestSuite tests(final String name, final CharSinkFactory factory) {
     TestSuite suite = new TestSuite(name);
     for (Map.Entry<String, String> entry : TEST_STRINGS.entrySet()) {
       String desc = entry.getKey();
@@ -47,8 +47,8 @@ public class CharSinkTester extends SourceSinkTester<CharSink, String, CharSinkF
     return suite;
   }
 
-  static TestSuite suiteForString(String name, CharSinkFactory factory,
-      String string, String desc) {
+  static TestSuite suiteForString(final String name, final CharSinkFactory factory,
+      final String string, final String desc) {
     TestSuite stringSuite = new TestSuite(name + " [" + desc + "]");
     for (final Method method : testMethods) {
       stringSuite.addTest(new CharSinkTester(factory, string, name, desc, method));
@@ -61,8 +61,8 @@ public class CharSinkTester extends SourceSinkTester<CharSink, String, CharSinkF
 
   private CharSink sink;
 
-  public CharSinkTester(CharSinkFactory factory, String string,
-      String suiteName, String caseDesc, Method method) {
+  public CharSinkTester(final CharSinkFactory factory, final String string,
+      final String suiteName, final String caseDesc, final Method method) {
     super(factory, string, suiteName, caseDesc, method);
     this.lines = getLines(string);
     this.expectedLines = getLines(expected);
@@ -133,7 +133,7 @@ public class CharSinkTester extends SourceSinkTester<CharSink, String, CharSinkF
     assertEquals(expected, factory.getSinkContents());
   }
 
-  private void assertContainsExpectedLines(String separator) throws IOException {
+  private void assertContainsExpectedLines(final String separator) throws IOException {
     String expected = expectedLines.isEmpty()
         ? ""
         : Joiner.on(separator).join(expectedLines);

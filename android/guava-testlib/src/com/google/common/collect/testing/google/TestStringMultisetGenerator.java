@@ -35,7 +35,7 @@ public abstract class TestStringMultisetGenerator implements TestMultisetGenerat
   }
 
   @Override
-  public Multiset<String> create(Object... elements) {
+  public Multiset<String> create(final Object... elements) {
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -47,13 +47,13 @@ public abstract class TestStringMultisetGenerator implements TestMultisetGenerat
   protected abstract Multiset<String> create(String[] elements);
 
   @Override
-  public String[] createArray(int length) {
+  public String[] createArray(final int length) {
     return new String[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public List<String> order(List<String> insertionOrder) {
+  public List<String> order(final List<String> insertionOrder) {
     return insertionOrder;
   }
 }

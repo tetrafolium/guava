@@ -48,7 +48,7 @@ public enum ListFeature implements Feature<List> {
 
   private final Set<Feature<? super List>> implied;
 
-  ListFeature(Feature<? super List>... implied) {
+  ListFeature(final Feature<? super List>... implied) {
     this.implied = Helpers.copyToSet(implied);
   }
 

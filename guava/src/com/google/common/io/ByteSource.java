@@ -64,7 +64,7 @@ public abstract class ByteSource {
   /**
    * Constructor for use by subclasses.
    */
-  protected ByteSource() {}
+  protected ByteSource() { }
 
   /**
    * Returns a {@link CharSource} view of this byte source that decodes bytes read from this source
@@ -75,7 +75,7 @@ public abstract class ByteSource {
    * returned, rather than round-trip encoding. Subclasses that override this method should behave
    * the same way.
    */
-  public CharSource asCharSource(Charset charset) {
+  public CharSource asCharSource(final Charset charset) {
     return new AsCharSource(charset);
   }
 
@@ -117,7 +117,7 @@ public abstract class ByteSource {
    *
    * @throws IllegalArgumentException if {@code offset} or {@code length} is negative
    */
-  public ByteSource slice(long offset, long length) {
+  public ByteSource slice(final long offset, final long length) {
     return new SlicedByteSource(offset, length);
   }
 
@@ -219,7 +219,7 @@ public abstract class ByteSource {
    * Counts the bytes in the given input stream using skip if possible. Returns SKIP_FAILED if the
    * first call to skip threw, in which case skip may just not be supported.
    */
-  private long countBySkipping(InputStream in) throws IOException {
+  private long countBySkipping(final InputStream in) throws IOException {
     long count = 0;
     long skipped;
     while ((skipped = skipUpTo(in, Integer.MAX_VALUE)) > 0) {
@@ -237,7 +237,7 @@ public abstract class ByteSource {
    *     {@code output}
    */
   @CanIgnoreReturnValue
-  public long copyTo(OutputStream output) throws IOException {
+  public long copyTo(final OutputStream output) throws IOException {
     checkNotNull(output);
 
     Closer closer = Closer.create();
@@ -259,7 +259,7 @@ public abstract class ByteSource {
    *     {@code sink}
    */
   @CanIgnoreReturnValue
-  public long copyTo(ByteSink sink) throws IOException {
+  public long copyTo(final ByteSink sink) throws IOException {
     checkNotNull(sink);
 
     Closer closer = Closer.create();
@@ -302,7 +302,7 @@ public abstract class ByteSource {
    */
   @Beta
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public <T> T read(ByteProcessor<T> processor) throws IOException {
+  public <T> T read(final ByteProcessor<T> processor) throws IOException {
     checkNotNull(processor);
 
     Closer closer = Closer.create();
@@ -321,7 +321,7 @@ public abstract class ByteSource {
    *
    * @throws IOException if an I/O error occurs while reading from this source
    */
-  public HashCode hash(HashFunction hashFunction) throws IOException {
+  public HashCode hash(final HashFunction hashFunction) throws IOException {
     Hasher hasher = hashFunction.newHasher();
     copyTo(Funnels.asOutputStream(hasher));
     return hasher.hash();
@@ -333,7 +333,7 @@ public abstract class ByteSource {
    *
    * @throws IOException if an I/O error occurs while reading from this source or {@code other}
    */
-  public boolean contentEquals(ByteSource other) throws IOException {
+  public boolean contentEquals(final ByteSource other) throws IOException {
     checkNotNull(other);
 
     byte[] buf1 = createBuffer();
@@ -370,7 +370,7 @@ public abstract class ByteSource {
    * @return a {@code ByteSource} containing the concatenated data
    * @since 15.0
    */
-  public static ByteSource concat(Iterable<? extends ByteSource> sources) {
+  public static ByteSource concat(final Iterable<? extends ByteSource> sources) {
     return new ConcatenatedByteSource(sources);
   }
 
@@ -392,7 +392,7 @@ public abstract class ByteSource {
    * @throws NullPointerException if any of {@code sources} is {@code null}
    * @since 15.0
    */
-  public static ByteSource concat(Iterator<? extends ByteSource> sources) {
+  public static ByteSource concat(final Iterator<? extends ByteSource> sources) {
     return concat(ImmutableList.copyOf(sources));
   }
 
@@ -408,7 +408,7 @@ public abstract class ByteSource {
    * @throws NullPointerException if any of {@code sources} is {@code null}
    * @since 15.0
    */
-  public static ByteSource concat(ByteSource... sources) {
+  public static ByteSource concat(final ByteSource... sources) {
     return concat(ImmutableList.copyOf(sources));
   }
 
@@ -418,7 +418,7 @@ public abstract class ByteSource {
    *
    * @since 15.0 (since 14.0 as {@code ByteStreams.asByteSource(byte[])}).
    */
-  public static ByteSource wrap(byte[] b) {
+  public static ByteSource wrap(final byte[] b) {
     return new ByteArrayByteSource(b);
   }
 
@@ -438,12 +438,12 @@ public abstract class ByteSource {
 
     final Charset charset;
 
-    AsCharSource(Charset charset) {
+    AsCharSource(final Charset charset) {
       this.charset = checkNotNull(charset);
     }
 
     @Override
-    public ByteSource asByteSource(Charset charset) {
+    public ByteSource asByteSource(final Charset charset) {
       if (charset.equals(this.charset)) {
         return ByteSource.this;
       }
@@ -481,7 +481,7 @@ public abstract class ByteSource {
     final long offset;
     final long length;
 
-    SlicedByteSource(long offset, long length) {
+    SlicedByteSource(final long offset, final long length) {
       checkArgument(offset >= 0, "offset (%s) may not be negative", offset);
       checkArgument(length >= 0, "length (%s) may not be negative", length);
       this.offset = offset;
@@ -498,7 +498,7 @@ public abstract class ByteSource {
       return sliceStream(ByteSource.this.openBufferedStream());
     }
 
-    private InputStream sliceStream(InputStream in) throws IOException {
+    private InputStream sliceStream(final InputStream in) throws IOException {
       if (offset > 0) {
         long skipped;
         try {
@@ -523,7 +523,7 @@ public abstract class ByteSource {
     }
 
     @Override
-    public ByteSource slice(long offset, long length) {
+    public ByteSource slice(final long offset, final long length) {
       checkArgument(offset >= 0, "offset (%s) may not be negative", offset);
       checkArgument(length >= 0, "length (%s) may not be negative", length);
       long maxLength = this.length - offset;
@@ -558,12 +558,12 @@ public abstract class ByteSource {
     final int offset;
     final int length;
 
-    ByteArrayByteSource(byte[] bytes) {
+    ByteArrayByteSource(final byte[] bytes) {
       this(bytes, 0, bytes.length);
     }
 
     // NOTE: Preconditions are enforced by slice, the only non-trivial caller.
-    ByteArrayByteSource(byte[] bytes, int offset, int length) {
+    ByteArrayByteSource(final byte[] bytes, final int offset, final int length) {
       this.bytes = bytes;
       this.offset = offset;
       this.length = length;
@@ -600,25 +600,25 @@ public abstract class ByteSource {
     }
 
     @Override
-    public long copyTo(OutputStream output) throws IOException {
+    public long copyTo(final OutputStream output) throws IOException {
       output.write(bytes, offset, length);
       return length;
     }
 
     @SuppressWarnings("CheckReturnValue") // it doesn't matter what processBytes returns here
     @Override
-    public <T> T read(ByteProcessor<T> processor) throws IOException {
+    public <T> T read(final ByteProcessor<T> processor) throws IOException {
       processor.processBytes(bytes, offset, length);
       return processor.getResult();
     }
 
     @Override
-    public HashCode hash(HashFunction hashFunction) throws IOException {
+    public HashCode hash(final HashFunction hashFunction) throws IOException {
       return hashFunction.hashBytes(bytes, offset, length);
     }
 
     @Override
-    public ByteSource slice(long offset, long length) {
+    public ByteSource slice(final long offset, final long length) {
       checkArgument(offset >= 0, "offset (%s) may not be negative", offset);
       checkArgument(length >= 0, "length (%s) may not be negative", length);
 
@@ -644,7 +644,7 @@ public abstract class ByteSource {
     }
 
     @Override
-    public CharSource asCharSource(Charset charset) {
+    public CharSource asCharSource(final Charset charset) {
       checkNotNull(charset);
       return CharSource.empty();
     }
@@ -664,7 +664,7 @@ public abstract class ByteSource {
 
     final Iterable<? extends ByteSource> sources;
 
-    ConcatenatedByteSource(Iterable<? extends ByteSource> sources) {
+    ConcatenatedByteSource(final Iterable<? extends ByteSource> sources) {
       this.sources = checkNotNull(sources);
     }
 

@@ -82,7 +82,7 @@ public final class HostSpecifierTest extends TestCase {
         .testEquals();
   }
 
-  private static HostSpecifier spec(String specifier) {
+  private static HostSpecifier spec(final String specifier) {
     return HostSpecifier.fromValid(specifier);
   }
 
@@ -93,13 +93,13 @@ public final class HostSpecifierTest extends TestCase {
     tester.testAllPublicInstanceMethods(HostSpecifier.fromValid("google.com"));
   }
 
-  private void assertGood(String spec) throws ParseException {
+  private void assertGood(final String spec) throws ParseException {
     HostSpecifier.fromValid(spec);  // Throws exception if not working correctly
     HostSpecifier.from(spec);
     assertTrue(HostSpecifier.isValid(spec));
   }
 
-  private void assertBad(String spec) {
+  private void assertBad(final String spec) {
     try {
       HostSpecifier.fromValid(spec);
       fail("Should have thrown IllegalArgumentException: " + spec);

@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetworkConnections<N, E> {
 
   private DirectedMultiNetworkConnections(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+      final Map<E, N> inEdges, final Map<E, N> outEdges, final int selfLoopCount) {
     super(inEdges, outEdges, selfLoopCount);
   }
 
@@ -54,7 +54,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+      final Map<E, N> inEdges, final Map<E, N> outEdges, final int selfLoopCount) {
     return new DirectedMultiNetworkConnections<>(
         ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
   }
@@ -104,7 +104,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   @Override
-  public N removeInEdge(E edge, boolean isSelfLoop) {
+  public N removeInEdge(final E edge, final boolean isSelfLoop) {
     N node = super.removeInEdge(edge, isSelfLoop);
     Multiset<N> predecessors = getReference(predecessorsReference);
     if (predecessors != null) {
@@ -114,7 +114,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   @Override
-  public N removeOutEdge(E edge) {
+  public N removeOutEdge(final E edge) {
     N node = super.removeOutEdge(edge);
     Multiset<N> successors = getReference(successorsReference);
     if (successors != null) {
@@ -124,7 +124,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   @Override
-  public void addInEdge(E edge, N node, boolean isSelfLoop) {
+  public void addInEdge(final E edge, final N node, final boolean isSelfLoop) {
     super.addInEdge(edge, node, isSelfLoop);
     Multiset<N> predecessors = getReference(predecessorsReference);
     if (predecessors != null) {
@@ -133,7 +133,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   @Override
-  public void addOutEdge(E edge, N node) {
+  public void addOutEdge(final E edge, final N node) {
     super.addOutEdge(edge, node);
     Multiset<N> successors = getReference(successorsReference);
     if (successors != null) {
@@ -142,7 +142,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
   }
 
   @Nullable
-  private static <T> T getReference(@Nullable Reference<T> reference) {
+  private static <T> T getReference(final @Nullable Reference<T> reference) {
     return (reference == null) ? null : reference.get();
   }
 }

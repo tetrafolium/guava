@@ -51,7 +51,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   // 'and' with an int to get a table index
   private final transient int mask;
 
-  static <K, V> RegularImmutableMap<K, V> fromEntries(Entry<K, V>... entries) {
+  static <K, V> RegularImmutableMap<K, V> fromEntries(final Entry<K, V>... entries) {
     return fromEntryArray(entries.length, entries);
   }
 
@@ -60,7 +60,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
    * may replace the entries in entryArray with its own entry objects (though they will have the
    * same key/value contents), and may take ownership of entryArray.
    */
-  static <K, V> RegularImmutableMap<K, V> fromEntryArray(int n, Entry<K, V>[] entryArray) {
+  static <K, V> RegularImmutableMap<K, V> fromEntryArray(final int n, final Entry<K, V>[] entryArray) {
     checkPositionIndex(n, entryArray.length);
     if (n == 0) {
       return (RegularImmutableMap<K, V>) EMPTY;
@@ -98,14 +98,14 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     return new RegularImmutableMap<>(entries, table, mask);
   }
 
-  private RegularImmutableMap(Entry<K, V>[] entries, ImmutableMapEntry<K, V>[] table, int mask) {
+  private RegularImmutableMap(final Entry<K, V>[] entries, final ImmutableMapEntry<K, V>[] table, final int mask) {
     this.entries = entries;
     this.table = table;
     this.mask = mask;
   }
 
   static void checkNoConflictInKeyBucket(
-      Object key, Entry<?, ?> entry, @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
+      final Object key, final Entry<?, ?> entry, final @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
     for (; keyBucketHead != null; keyBucketHead = keyBucketHead.getNextInKeyBucket()) {
       checkNoConflict(!key.equals(keyBucketHead.getKey()), "key", entry, keyBucketHead);
     }
@@ -119,12 +119,12 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   private static final double MAX_LOAD_FACTOR = 1.2;
 
   @Override
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return get(key, table, mask);
   }
 
   @Nullable
-  static <V> V get(@Nullable Object key, @Nullable ImmutableMapEntry<?, V>[] keyTable, int mask) {
+  static <V> V get(final @Nullable Object key, final @Nullable ImmutableMapEntry<?, V>[] keyTable, final int mask) {
     if (key == null || keyTable == null) {
       return null;
     }
@@ -148,7 +148,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   @Override
-  public void forEach(BiConsumer<? super K, ? super V> action) {
+  public void forEach(final BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
     for (Entry<K, V> entry : entries) {
       action.accept(entry.getKey(), entry.getValue());
@@ -179,17 +179,17 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   private static final class KeySet<K, V> extends ImmutableSet.Indexed<K> {
     @Weak private final RegularImmutableMap<K, V> map;
 
-    KeySet(RegularImmutableMap<K, V> map) {
+    KeySet(final RegularImmutableMap<K, V> map) {
       this.map = map;
     }
 
     @Override
-    K get(int index) {
+    K get(final int index) {
       return map.entries[index].getKey();
     }
 
     @Override
-    public boolean contains(Object object) {
+    public boolean contains(final Object object) {
       return map.containsKey(object);
     }
 
@@ -213,7 +213,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private static class SerializedForm<K> implements Serializable {
       final ImmutableMap<K, ?> map;
 
-      SerializedForm(ImmutableMap<K, ?> map) {
+      SerializedForm(final ImmutableMap<K, ?> map) {
         this.map = map;
       }
 
@@ -234,12 +234,12 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   private static final class Values<K, V> extends ImmutableList<V> {
     @Weak final RegularImmutableMap<K, V> map;
 
-    Values(RegularImmutableMap<K, V> map) {
+    Values(final RegularImmutableMap<K, V> map) {
       this.map = map;
     }
 
     @Override
-    public V get(int index) {
+    public V get(final int index) {
       return map.entries[index].getValue();
     }
 
@@ -263,7 +263,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private static class SerializedForm<V> implements Serializable {
       final ImmutableMap<?, V> map;
 
-      SerializedForm(ImmutableMap<?, V> map) {
+      SerializedForm(final ImmutableMap<?, V> map) {
         this.map = map;
       }
 

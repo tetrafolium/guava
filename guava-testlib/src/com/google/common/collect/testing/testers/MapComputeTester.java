@@ -171,7 +171,7 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
     assertEquals(getNumElements(), getMap().size());
   }
 
-  static class ExpectedException extends RuntimeException {}
+  static class ExpectedException extends RuntimeException { }
 
   @MapFeature.Require({SUPPORTS_PUT, SUPPORTS_REMOVE})
   @CollectionSize.Require(absent = ZERO)

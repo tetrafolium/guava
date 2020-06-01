@@ -74,7 +74,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
       // Graph<LinkedList>.
       @SuppressWarnings("unchecked")
       @Override
-      public boolean contains(@Nullable Object obj) {
+      public boolean contains(final @Nullable Object obj) {
         if (!(obj instanceof EndpointPair)) {
           return false;
         }
@@ -87,7 +87,7 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
   }
 
   @Override
-  public int degree(N node) {
+  public int degree(final N node) {
     if (isDirected()) {
       return IntMath.saturatedAdd(predecessors(node).size(), successors(node).size());
     } else {
@@ -98,17 +98,17 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
   }
 
   @Override
-  public int inDegree(N node) {
+  public int inDegree(final N node) {
     return isDirected() ? predecessors(node).size() : degree(node);
   }
 
   @Override
-  public int outDegree(N node) {
+  public int outDegree(final N node) {
     return isDirected() ? successors(node).size() : degree(node);
   }
 
   @Override
-  public boolean hasEdgeConnecting(N nodeU, N nodeV) {
+  public boolean hasEdgeConnecting(final N nodeU, final N nodeV) {
     checkNotNull(nodeU);
     checkNotNull(nodeV);
     return nodes().contains(nodeU) && successors(nodeU).contains(nodeV);

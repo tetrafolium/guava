@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public final class Ints {
-  private Ints() {}
+  private Ints() { }
 
   /**
    * The number of bytes required to represent a primitive {@code int} value.
@@ -70,7 +70,7 @@ public final class Ints {
    * @param value a primitive {@code int} value
    * @return a hash code for the value
    */
-  public static int hashCode(int value) {
+  public static int hashCode(final int value) {
     return value;
   }
 
@@ -82,7 +82,7 @@ public final class Ints {
    * @throws IllegalArgumentException if {@code value} is greater than {@link Integer#MAX_VALUE} or
    *     less than {@link Integer#MIN_VALUE}
    */
-  public static int checkedCast(long value) {
+  public static int checkedCast(final long value) {
     int result = (int) value;
     checkArgument(result == value, "Out of range: %s", value);
     return result;
@@ -96,7 +96,7 @@ public final class Ints {
    *     {@link Integer#MAX_VALUE} if it is too large, or {@link Integer#MIN_VALUE} if it is too
    *     small
    */
-  public static int saturatedCast(long value) {
+  public static int saturatedCast(final long value) {
     if (value > Integer.MAX_VALUE) {
       return Integer.MAX_VALUE;
     }
@@ -118,7 +118,7 @@ public final class Ints {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(int a, int b) {
+  public static int compare(final int a, final int b) {
     return (a < b) ? -1 : ((a > b) ? 1 : 0);
   }
 
@@ -130,7 +130,7 @@ public final class Ints {
    * @return {@code true} if {@code array[i] == target} for some value of {@code
    *     i}
    */
-  public static boolean contains(int[] array, int target) {
+  public static boolean contains(final int[] array, final int target) {
     for (int value : array) {
       if (value == target) {
         return true;
@@ -147,12 +147,12 @@ public final class Ints {
    * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int indexOf(int[] array, int target) {
+  public static int indexOf(final int[] array, final int target) {
     return indexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int indexOf(int[] array, int target, int start, int end) {
+  private static int indexOf(final int[] array, final int target, final int start, final int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -172,7 +172,7 @@ public final class Ints {
    * @param array the array to search for the sequence {@code target}
    * @param target the array to search for as a sub-sequence of {@code array}
    */
-  public static int indexOf(int[] array, int[] target) {
+  public static int indexOf(final int[] array, final int[] target) {
     checkNotNull(array, "array");
     checkNotNull(target, "target");
     if (target.length == 0) {
@@ -199,12 +199,12 @@ public final class Ints {
    * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int lastIndexOf(int[] array, int target) {
+  public static int lastIndexOf(final int[] array, final int target) {
     return lastIndexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int lastIndexOf(int[] array, int target, int start, int end) {
+  private static int lastIndexOf(final int[] array, final int target, final int start, final int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -221,7 +221,7 @@ public final class Ints {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static int min(int... array) {
+  public static int min(final int... array) {
     checkArgument(array.length > 0);
     int min = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -240,7 +240,7 @@ public final class Ints {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static int max(int... array) {
+  public static int max(final int... array) {
     checkArgument(array.length > 0);
     int max = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -265,7 +265,7 @@ public final class Ints {
    * @since 21.0
    */
   @Beta
-  public static int constrainToRange(int value, int min, int max) {
+  public static int constrainToRange(final int value, final int min, final int max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
     return Math.min(Math.max(value, min), max);
   }
@@ -278,7 +278,7 @@ public final class Ints {
    * @param arrays zero or more {@code int} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static int[] concat(int[]... arrays) {
+  public static int[] concat(final int[]... arrays) {
     int length = 0;
     for (int[] array : arrays) {
       length += array.length;
@@ -301,7 +301,7 @@ public final class Ints {
    * use a shared {@link java.nio.ByteBuffer} instance, or use
    * {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
-  public static byte[] toByteArray(int value) {
+  public static byte[] toByteArray(final int value) {
     return new byte[] {
       (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
     };
@@ -318,7 +318,7 @@ public final class Ints {
    *
    * @throws IllegalArgumentException if {@code bytes} has fewer than 4 elements
    */
-  public static int fromByteArray(byte[] bytes) {
+  public static int fromByteArray(final byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3]);
   }
@@ -329,7 +329,7 @@ public final class Ints {
    *
    * @since 7.0
    */
-  public static int fromBytes(byte b1, byte b2, byte b3, byte b4) {
+  public static int fromBytes(final byte b1, final byte b2, final byte b3, final byte b4) {
     return b1 << 24 | (b2 & 0xFF) << 16 | (b3 & 0xFF) << 8 | (b4 & 0xFF);
   }
 
@@ -338,12 +338,12 @@ public final class Ints {
     static final IntConverter INSTANCE = new IntConverter();
 
     @Override
-    protected Integer doForward(String value) {
+    protected Integer doForward(final String value) {
       return Integer.decode(value);
     }
 
     @Override
-    protected String doBackward(Integer value) {
+    protected String doBackward(final Integer value) {
       return value.toString();
     }
 
@@ -388,7 +388,7 @@ public final class Ints {
    * @return an array containing the values of {@code array}, with guaranteed minimum length
    *     {@code minLength}
    */
-  public static int[] ensureCapacity(int[] array, int minLength, int padding) {
+  public static int[] ensureCapacity(final int[] array, final int minLength, final int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
@@ -402,7 +402,7 @@ public final class Ints {
    *     (but not at the start or end)
    * @param array an array of {@code int} values, possibly empty
    */
-  public static String join(String separator, int... array) {
+  public static String join(final String separator, final int... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -437,7 +437,7 @@ public final class Ints {
     INSTANCE;
 
     @Override
-    public int compare(int[] left, int[] right) {
+    public int compare(final int[] left, final int[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         int result = Ints.compare(left[i], right[i]);
@@ -459,7 +459,7 @@ public final class Ints {
    *
    * @since 23.1
    */
-  public static void sortDescending(int[] array) {
+  public static void sortDescending(final int[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -470,7 +470,7 @@ public final class Ints {
    *
    * @since 23.1
    */
-  public static void sortDescending(int[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final int[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     Arrays.sort(array, fromIndex, toIndex);
@@ -483,7 +483,7 @@ public final class Ints {
    *
    * @since 23.1
    */
-  public static void reverse(int[] array) {
+  public static void reverse(final int[] array) {
     checkNotNull(array);
     reverse(array, 0, array.length);
   }
@@ -498,7 +498,7 @@ public final class Ints {
    *     {@code toIndex > fromIndex}
    * @since 23.1
    */
-  public static void reverse(int[] array, int fromIndex, int toIndex) {
+  public static void reverse(final int[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
@@ -521,7 +521,7 @@ public final class Ints {
    * @throws NullPointerException if {@code collection} or any of its elements is null
    * @since 1.0 (parameter was {@code Collection<Integer>} before 12.0)
    */
-  public static int[] toArray(Collection<? extends Number> collection) {
+  public static int[] toArray(final Collection<? extends Number> collection) {
     if (collection instanceof IntArrayAsList) {
       return ((IntArrayAsList) collection).toIntArray();
     }
@@ -551,7 +551,7 @@ public final class Ints {
    * @param backingArray the array to back the list
    * @return a list view of the array
    */
-  public static List<Integer> asList(int... backingArray) {
+  public static List<Integer> asList(final int... backingArray) {
     if (backingArray.length == 0) {
       return Collections.emptyList();
     }
@@ -565,11 +565,11 @@ public final class Ints {
     final int start;
     final int end;
 
-    IntArrayAsList(int[] array) {
+    IntArrayAsList(final int[] array) {
       this(array, 0, array.length);
     }
 
-    IntArrayAsList(int[] array, int start, int end) {
+    IntArrayAsList(final int[] array, final int start, final int end) {
       this.array = array;
       this.start = start;
       this.end = end;
@@ -586,19 +586,19 @@ public final class Ints {
     }
 
     @Override
-    public Integer get(int index) {
+    public Integer get(final int index) {
       checkElementIndex(index, size());
       return array[start + index];
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Integer) && Ints.indexOf(array, (Integer) target, start, end) != -1;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Integer) {
         int i = Ints.indexOf(array, (Integer) target, start, end);
@@ -610,7 +610,7 @@ public final class Ints {
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Integer) {
         int i = Ints.lastIndexOf(array, (Integer) target, start, end);
@@ -622,7 +622,7 @@ public final class Ints {
     }
 
     @Override
-    public Integer set(int index, Integer element) {
+    public Integer set(final int index, final Integer element) {
       checkElementIndex(index, size());
       int oldValue = array[start + index];
       // checkNotNull for GWT (do not optimize)
@@ -631,7 +631,7 @@ public final class Ints {
     }
 
     @Override
-    public List<Integer> subList(int fromIndex, int toIndex) {
+    public List<Integer> subList(final int fromIndex, final int toIndex) {
       int size = size();
       checkPositionIndexes(fromIndex, toIndex, size);
       if (fromIndex == toIndex) {
@@ -641,7 +641,7 @@ public final class Ints {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object == this) {
         return true;
       }
@@ -706,7 +706,7 @@ public final class Ints {
   @Beta
   @Nullable
   @CheckForNull
-  public static Integer tryParse(String string) {
+  public static Integer tryParse(final String string) {
     return tryParse(string, 10);
   }
 
@@ -732,7 +732,7 @@ public final class Ints {
   @Beta
   @Nullable
   @CheckForNull
-  public static Integer tryParse(String string, int radix) {
+  public static Integer tryParse(final String string, final int radix) {
     Long result = Longs.tryParse(string, radix);
     if (result == null || result.longValue() != result.intValue()) {
       return null;

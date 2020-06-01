@@ -219,7 +219,7 @@ public final class EndpointPairTest {
     assertThat(edges).doesNotContain(EndpointPair.unordered(N3, N4)); // nodes not in graph
   }
 
-  private static void containsExactlySanityCheck(Collection<?> collection, Object... varargs) {
+  private static void containsExactlySanityCheck(final Collection<?> collection, final Object... varargs) {
     assertThat(collection).hasSize(varargs.length);
     for (Object obj : varargs) {
       assertThat(collection).contains(obj);

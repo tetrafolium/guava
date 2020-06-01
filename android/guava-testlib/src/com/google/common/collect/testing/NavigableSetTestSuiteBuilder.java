@@ -39,7 +39,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBuilder<E> {
-  public static <E> NavigableSetTestSuiteBuilder<E> using(TestSortedSetGenerator<E> generator) {
+  public static <E> NavigableSetTestSuiteBuilder<E> using(final TestSortedSetGenerator<E> generator) {
     NavigableSetTestSuiteBuilder<E> builder = new NavigableSetTestSuiteBuilder<E>();
     builder.usingGenerator(generator);
     return builder;
@@ -47,7 +47,7 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
@@ -68,12 +68,12 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
   public static final class NavigableSetSubsetTestSetGenerator<E>
       extends SortedSetSubsetTestSetGenerator<E> {
     public NavigableSetSubsetTestSetGenerator(
-        TestSortedSetGenerator<E> delegate, Bound to, Bound from) {
+        final TestSortedSetGenerator<E> delegate, final Bound to, final Bound from) {
       super(delegate, to, from);
     }
 
     @Override
-    NavigableSet<E> createSubSet(SortedSet<E> sortedSet, E firstExclusive, E lastExclusive) {
+    NavigableSet<E> createSubSet(final SortedSet<E> sortedSet, final E firstExclusive, final E lastExclusive) {
       NavigableSet<E> set = (NavigableSet<E>) sortedSet;
       if (from == Bound.NO_BOUND && to == Bound.INCLUSIVE) {
         return set.headSet(lastInclusive, true);
@@ -93,7 +93,7 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
 
   @Override
   public NavigableSetTestSuiteBuilder<E> newBuilderUsing(
-      TestSortedSetGenerator<E> delegate, Bound to, Bound from) {
+      final TestSortedSetGenerator<E> delegate, final Bound to, final Bound from) {
     return using(new NavigableSetSubsetTestSetGenerator<E>(delegate, to, from));
   }
 
@@ -120,12 +120,12 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
               }
 
               @Override
-              public E[] createArray(int length) {
+              public E[] createArray(final int length) {
                 return delegate.createArray(length);
               }
 
               @Override
-              public Iterable<E> order(List<E> insertionOrder) {
+              public Iterable<E> order(final List<E> insertionOrder) {
                 List<E> list = new ArrayList<E>();
                 for (E e : delegate.order(insertionOrder)) {
                   list.add(e);
@@ -135,7 +135,7 @@ public final class NavigableSetTestSuiteBuilder<E> extends SortedSetTestSuiteBui
               }
 
               @Override
-              public Set<E> create(Object... elements) {
+              public Set<E> create(final Object... elements) {
                 NavigableSet<E> navigableSet = (NavigableSet<E>) delegate.create(elements);
                 return navigableSet.descendingSet();
               }

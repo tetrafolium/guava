@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 final class UndirectedMultiNetworkConnections<N, E>
     extends AbstractUndirectedNetworkConnections<N, E> {
 
-  private UndirectedMultiNetworkConnections(Map<E, N> incidentEdges) {
+  private UndirectedMultiNetworkConnections(final Map<E, N> incidentEdges) {
     super(incidentEdges);
   }
 
@@ -51,7 +51,7 @@ final class UndirectedMultiNetworkConnections<N, E>
         new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR));
   }
 
-  static <N, E> UndirectedMultiNetworkConnections<N, E> ofImmutable(Map<E, N> incidentEdges) {
+  static <N, E> UndirectedMultiNetworkConnections<N, E> ofImmutable(final Map<E, N> incidentEdges) {
     return new UndirectedMultiNetworkConnections<>(ImmutableMap.copyOf(incidentEdges));
   }
 
@@ -83,7 +83,7 @@ final class UndirectedMultiNetworkConnections<N, E>
   }
 
   @Override
-  public N removeInEdge(E edge, boolean isSelfLoop) {
+  public N removeInEdge(final E edge, final boolean isSelfLoop) {
     if (!isSelfLoop) {
       return removeOutEdge(edge);
     }
@@ -91,7 +91,7 @@ final class UndirectedMultiNetworkConnections<N, E>
   }
 
   @Override
-  public N removeOutEdge(E edge) {
+  public N removeOutEdge(final E edge) {
     N node = super.removeOutEdge(edge);
     Multiset<N> adjacentNodes = getReference(adjacentNodesReference);
     if (adjacentNodes != null) {
@@ -101,14 +101,14 @@ final class UndirectedMultiNetworkConnections<N, E>
   }
 
   @Override
-  public void addInEdge(E edge, N node, boolean isSelfLoop) {
+  public void addInEdge(final E edge, final N node, final boolean isSelfLoop) {
     if (!isSelfLoop) {
       addOutEdge(edge, node);
     }
   }
 
   @Override
-  public void addOutEdge(E edge, N node) {
+  public void addOutEdge(final E edge, final N node) {
     super.addOutEdge(edge, node);
     Multiset<N> adjacentNodes = getReference(adjacentNodesReference);
     if (adjacentNodes != null) {
@@ -117,7 +117,7 @@ final class UndirectedMultiNetworkConnections<N, E>
   }
 
   @Nullable
-  private static <T> T getReference(@Nullable Reference<T> reference) {
+  private static <T> T getReference(final @Nullable Reference<T> reference) {
     return (reference == null) ? null : reference.get();
   }
 }

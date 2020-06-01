@@ -28,12 +28,12 @@ import javax.annotation.Nullable;
 final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
   final Ordering<? super T> forwardOrder;
 
-  ReverseOrdering(Ordering<? super T> forwardOrder) {
+  ReverseOrdering(final Ordering<? super T> forwardOrder) {
     this.forwardOrder = checkNotNull(forwardOrder);
   }
 
   @Override
-  public int compare(T a, T b) {
+  public int compare(final T a, final T b) {
     return forwardOrder.compare(b, a);
   }
 
@@ -46,42 +46,42 @@ final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
   // Override the min/max methods to "hoist" delegation outside loops
 
   @Override
-  public <E extends T> E min(E a, E b) {
+  public <E extends T> E min(final E a, final E b) {
     return forwardOrder.max(a, b);
   }
 
   @Override
-  public <E extends T> E min(E a, E b, E c, E... rest) {
+  public <E extends T> E min(final E a, final E b, final E c, final E... rest) {
     return forwardOrder.max(a, b, c, rest);
   }
 
   @Override
-  public <E extends T> E min(Iterator<E> iterator) {
+  public <E extends T> E min(final Iterator<E> iterator) {
     return forwardOrder.max(iterator);
   }
 
   @Override
-  public <E extends T> E min(Iterable<E> iterable) {
+  public <E extends T> E min(final Iterable<E> iterable) {
     return forwardOrder.max(iterable);
   }
 
   @Override
-  public <E extends T> E max(E a, E b) {
+  public <E extends T> E max(final E a, final E b) {
     return forwardOrder.min(a, b);
   }
 
   @Override
-  public <E extends T> E max(E a, E b, E c, E... rest) {
+  public <E extends T> E max(final E a, final E b, final E c, final E... rest) {
     return forwardOrder.min(a, b, c, rest);
   }
 
   @Override
-  public <E extends T> E max(Iterator<E> iterator) {
+  public <E extends T> E max(final Iterator<E> iterator) {
     return forwardOrder.min(iterator);
   }
 
   @Override
-  public <E extends T> E max(Iterable<E> iterable) {
+  public <E extends T> E max(final Iterable<E> iterable) {
     return forwardOrder.min(iterable);
   }
 
@@ -91,7 +91,7 @@ final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

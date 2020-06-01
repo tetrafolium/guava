@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 public final class Flushables {
   private static final Logger logger = Logger.getLogger(Flushables.class.getName());
 
-  private Flushables() {}
+  private Flushables() { }
 
   /**
    * Flush a {@link Flushable}, with control over whether an {@code IOException} may be thrown.
@@ -47,7 +47,7 @@ public final class Flushables {
    *     an {@code IOException}.
    * @see Closeables#close
    */
-  public static void flush(Flushable flushable, boolean swallowIOException) throws IOException {
+  public static void flush(final Flushable flushable, final boolean swallowIOException) throws IOException {
     try {
       flushable.flush();
     } catch (IOException e) {
@@ -65,7 +65,7 @@ public final class Flushables {
    *
    * @param flushable the {@code Flushable} object to be flushed.
    */
-  public static void flushQuietly(Flushable flushable) {
+  public static void flushQuietly(final Flushable flushable) {
     try {
       flush(flushable, true);
     } catch (IOException e) {

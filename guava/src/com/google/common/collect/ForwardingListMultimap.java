@@ -38,25 +38,25 @@ public abstract class ForwardingListMultimap<K, V> extends ForwardingMultimap<K,
     implements ListMultimap<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingListMultimap() {}
+  protected ForwardingListMultimap() { }
 
   @Override
   protected abstract ListMultimap<K, V> delegate();
 
   @Override
-  public List<V> get(@Nullable K key) {
+  public List<V> get(final @Nullable K key) {
     return delegate().get(key);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public List<V> removeAll(@Nullable Object key) {
+  public List<V> removeAll(final @Nullable Object key) {
     return delegate().removeAll(key);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public List<V> replaceValues(K key, Iterable<? extends V> values) {
+  public List<V> replaceValues(final K key, final Iterable<? extends V> values) {
     return delegate().replaceValues(key, values);
   }
 }

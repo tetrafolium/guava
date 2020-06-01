@@ -101,7 +101,7 @@ public class ClassPathTest extends TestCase {
     URL url1 = new URL("file:/a");
     URL url2 = new URL("file:/b");
     URLClassLoader parent = new URLClassLoader(new URL[] {url1}, null);
-    URLClassLoader child = new URLClassLoader(new URL[] {url2}, parent) {};
+    URLClassLoader child = new URLClassLoader(new URL[] {url2}, parent) { };
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
         .containsExactly(new File("/a"), parent, new File("/b"), child)
         .inOrder();
@@ -111,21 +111,21 @@ public class ClassPathTest extends TestCase {
   public void testClassPathEntries_duplicateUri_parentWins() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
-    URLClassLoader child = new URLClassLoader(new URL[] {url}, parent) {};
+    URLClassLoader child = new URLClassLoader(new URL[] {url}, parent) { };
     assertThat(ClassPath.Scanner.getClassPathEntries(child))
         .containsExactly(new File("/a"), parent);
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
   public void testClassPathEntries_notURLClassLoader_noParent() {
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(null) {})).isEmpty();
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(null) { })).isEmpty();
   }
 
   @AndroidIncompatible // Android forbids null parent ClassLoader
   public void testClassPathEntries_notURLClassLoader_withParent() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader parent = new URLClassLoader(new URL[] {url}, null);
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) { }))
         .containsExactly(new File("/a"), parent);
   }
 
@@ -135,7 +135,7 @@ public class ClassPathTest extends TestCase {
     URL url2 = new URL("file:/b");
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url1}, null);
     URLClassLoader parent = new URLClassLoader(new URL[] {url2}, grandParent);
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) { }))
         .containsExactly(new File("/a"), grandParent, new File("/b"), parent);
   }
 
@@ -143,8 +143,8 @@ public class ClassPathTest extends TestCase {
   public void testClassPathEntries_notURLClassLoader_withGrandParent() throws Exception {
     URL url = new URL("file:/a");
     URLClassLoader grandParent = new URLClassLoader(new URL[] {url}, null);
-    ClassLoader parent = new ClassLoader(grandParent) {};
-    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) {}))
+    ClassLoader parent = new ClassLoader(grandParent) { };
+    assertThat(ClassPath.Scanner.getClassPathEntries(new ClassLoader(parent) { }))
         .containsExactly(new File("/a"), grandParent);
   }
 
@@ -463,11 +463,11 @@ public class ClassPathTest extends TestCase {
     }
   }
 
-  private static boolean contentEquals(URL left, URL right) throws IOException {
+  private static boolean contentEquals(final URL left, final URL right) throws IOException {
     return Resources.asByteSource(left).contentEquals(Resources.asByteSource(right));
   }
 
-  private static class Nested {}
+  private static class Nested { }
 
   public void testNulls() throws IOException {
     new NullPointerTester().testAllPublicStaticMethods(ClassPath.class);
@@ -505,7 +505,7 @@ public class ClassPathTest extends TestCase {
     SecurityManager disallowFilesSecurityManager =
         new SecurityManager() {
           @Override
-          public void checkPermission(Permission p) {
+          public void checkPermission(final Permission p) {
             if (readClassPathFiles.implies(p)) {
               throw new SecurityException("Disallowed: " + p);
             }
@@ -525,7 +525,7 @@ public class ClassPathTest extends TestCase {
   }
 
   private static ClassPath.ClassInfo findClass(
-      Iterable<ClassPath.ClassInfo> classes, Class<?> cls) {
+      final Iterable<ClassPath.ClassInfo> classes, final Class<?> cls) {
     for (ClassPath.ClassInfo classInfo : classes) {
       if (classInfo.getName().equals(cls.getName())) {
         return classInfo;
@@ -534,26 +534,26 @@ public class ClassPathTest extends TestCase {
     throw new AssertionError("failed to find " + cls);
   }
 
-  private static ResourceInfo resourceInfo(Class<?> cls) {
+  private static ResourceInfo resourceInfo(final Class<?> cls) {
     String resource = cls.getName().replace('.', '/') + ".class";
     ClassLoader loader = cls.getClassLoader();
     return ResourceInfo.of(resource, loader);
   }
 
-  private static ClassInfo classInfo(Class<?> cls) {
+  private static ClassInfo classInfo(final Class<?> cls) {
     return classInfo(cls, cls.getClassLoader());
   }
 
-  private static ClassInfo classInfo(Class<?> cls, ClassLoader classLoader) {
+  private static ClassInfo classInfo(final Class<?> cls, final ClassLoader classLoader) {
     String resource = cls.getName().replace('.', '/') + ".class";
     return new ClassInfo(resource, classLoader);
   }
 
-  private static Manifest manifestClasspath(String classpath) throws IOException {
+  private static Manifest manifestClasspath(final String classpath) throws IOException {
     return manifest("Class-Path: " + classpath + "\n");
   }
 
-  private static void writeSelfReferencingJarFile(File jarFile, String... entries)
+  private static void writeSelfReferencingJarFile(final File jarFile, final String... entries)
       throws IOException {
     Manifest manifest = new Manifest();
     // Without version, the manifest is silently ignored. Ugh!
@@ -576,21 +576,21 @@ public class ClassPathTest extends TestCase {
     }
   }
 
-  private static Manifest manifest(String content) throws IOException {
+  private static Manifest manifest(final String content) throws IOException {
     InputStream in = new ByteArrayInputStream(content.getBytes(US_ASCII));
     Manifest manifest = new Manifest();
     manifest.read(in);
     return manifest;
   }
 
-  private static File fullpath(String path) {
+  private static File fullpath(final String path) {
     return new File(new File(path).toURI());
   }
 
   private static class ResourceScanner extends ClassPath.Scanner {
     final Set<String> resources = new HashSet<>();
 
-    @Override protected void scanDirectory(ClassLoader loader, File root) throws IOException {
+    @Override protected void scanDirectory(final ClassLoader loader, final File root) throws IOException {
       URI base = root.toURI();
       for (File entry : Files.fileTreeTraverser().preOrderTraversal(root)) {
         String resourceName = new File(base.relativize(entry.toURI()).getPath()).getPath();
@@ -598,7 +598,7 @@ public class ClassPathTest extends TestCase {
       }
     }
 
-    @Override protected void scanJarFile(ClassLoader loader, JarFile file) throws IOException {
+    @Override protected void scanJarFile(final ClassLoader loader, final JarFile file) throws IOException {
       Enumeration<JarEntry> entries = file.entries();
       while (entries.hasMoreElements()) {
         resources.add(entries.nextElement().getName());
@@ -606,7 +606,7 @@ public class ClassPathTest extends TestCase {
     }
   }
 
-  private static URL makeJarUrlWithName(String name) throws IOException {
+  private static URL makeJarUrlWithName(final String name) throws IOException {
     File fullPath = new File(Files.createTempDir(), name);
     File jarFile = JarFileFinder.pickAnyJarFile();
     Files.copy(jarFile, fullPath);
@@ -627,19 +627,19 @@ public class ClassPathTest extends TestCase {
       }
     }
 
-    @Override protected void scanJarFile(ClassLoader loader, JarFile file) throws IOException {
+    @Override protected void scanJarFile(final ClassLoader loader, final JarFile file) throws IOException {
       this.found = new File(file.getName());
       throw new StopScanningException();
     }
 
-    @Override protected void scanDirectory(ClassLoader loader, File root) {}
+    @Override protected void scanDirectory(final ClassLoader loader, final File root) { }
 
     // Special exception just to terminate the scanning when we get any jar file to use.
-    private static final class StopScanningException extends RuntimeException {}
+    private static final class StopScanningException extends RuntimeException { }
   }
 
   @AndroidIncompatible // Path (for symlink creation)
-  private static void deleteRecursivelyOrLog(java.nio.file.Path path) {
+  private static void deleteRecursivelyOrLog(final java.nio.file.Path path) {
     try {
       deleteRecursively(path);
     } catch (IOException e) {

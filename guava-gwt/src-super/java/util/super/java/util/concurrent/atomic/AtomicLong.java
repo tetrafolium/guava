@@ -26,7 +26,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
 
   private long value;
 
-  public AtomicLong(long initialValue) {
+  public AtomicLong(final long initialValue) {
     this.value = initialValue;
   }
 
@@ -37,21 +37,21 @@ public class AtomicLong extends Number implements java.io.Serializable {
     return value;
   }
 
-  public final void set(long newValue) {
+  public final void set(final long newValue) {
     value = newValue;
   }
 
-  public final void lazySet(long newValue) {
+  public final void lazySet(final long newValue) {
     set(newValue);
   }
 
-  public final long getAndSet(long newValue) {
+  public final long getAndSet(final long newValue) {
     long current = value;
     value = newValue;
     return current;
   }
 
-  public final boolean compareAndSet(long expect, long update) {
+  public final boolean compareAndSet(final long expect, final long update) {
     if (value == expect) {
       value = update;
       return true;
@@ -68,7 +68,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
     return value--;
   }
 
-  public final long getAndAdd(long delta) {
+  public final long getAndAdd(final long delta) {
     long current = value;
     value += delta;
     return current;
@@ -82,7 +82,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
     return --value;
   }
 
-  public final long addAndGet(long delta) {
+  public final long addAndGet(final long delta) {
     value += delta;
     return value;
   }

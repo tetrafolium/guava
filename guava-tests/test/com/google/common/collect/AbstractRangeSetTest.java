@@ -27,12 +27,12 @@ import junit.framework.TestCase;
  */
 @GwtIncompatible // TreeRangeSet
 public abstract class AbstractRangeSetTest extends TestCase {
-  public static void testInvariants(RangeSet<?> rangeSet) {
+  public static void testInvariants(final RangeSet<?> rangeSet) {
     testInvariantsInternal(rangeSet);
     testInvariantsInternal(rangeSet.complement());
   }
 
-  private static <C extends Comparable> void testInvariantsInternal(RangeSet<C> rangeSet) {
+  private static <C extends Comparable> void testInvariantsInternal(final RangeSet<C> rangeSet) {
     assertEquals(rangeSet.asRanges().isEmpty(), rangeSet.isEmpty());
     assertEquals(rangeSet.asDescendingSetOfRanges().isEmpty(), rangeSet.isEmpty());
     assertEquals(!rangeSet.asRanges().iterator().hasNext(), rangeSet.isEmpty());

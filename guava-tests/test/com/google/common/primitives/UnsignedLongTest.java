@@ -209,7 +209,7 @@ public class UnsignedLongTest extends TestCase {
       try {
         UnsignedLong.fromLongBits(a).dividedBy(UnsignedLong.ZERO);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -235,7 +235,7 @@ public class UnsignedLongTest extends TestCase {
       try {
         UnsignedLong.fromLongBits(a).mod(UnsignedLong.ZERO);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 

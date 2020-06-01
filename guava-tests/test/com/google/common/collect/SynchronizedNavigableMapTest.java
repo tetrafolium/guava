@@ -54,7 +54,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     private final Entry<K, V> delegate;
     private final Object mutex;
 
-    TestEntry(Entry<K, V> delegate, Object mutex) {
+    TestEntry(final Entry<K, V> delegate, final Object mutex) {
       this.delegate = delegate;
       this.mutex = mutex;
     }
@@ -63,7 +63,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
       return delegate;
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(object);
     }
@@ -83,7 +83,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
       return super.hashCode();
     }
 
-    @Override public V setValue(V value) {
+    @Override public V setValue(final V value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.setValue(value);
     }
@@ -94,7 +94,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
   static class TestMap<K, V> extends SynchronizedMapTest.TestMap<K, V>
       implements NavigableMap<K, V> {
 
-    public TestMap(NavigableMap<K, V> delegate, Object mutex) {
+    public TestMap(final NavigableMap<K, V> delegate, final Object mutex) {
       super(delegate, mutex);
     }
 
@@ -102,12 +102,12 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
       return (NavigableMap<K, V>) super.delegate();
     }
 
-    @Override public Entry<K, V> ceilingEntry(K key) {
+    @Override public Entry<K, V> ceilingEntry(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().ceilingEntry(key);
     }
 
-    @Override public K ceilingKey(K key) {
+    @Override public K ceilingKey(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().ceilingKey(key);
     }
@@ -127,31 +127,31 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
       return delegate().firstEntry();
     }
 
-    @Override public Entry<K, V> floorEntry(K key) {
+    @Override public Entry<K, V> floorEntry(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().floorEntry(key);
     }
 
-    @Override public K floorKey(K key) {
+    @Override public K floorKey(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().floorKey(key);
     }
 
-    @Override public NavigableMap<K, V> headMap(K toKey, boolean inclusive) {
+    @Override public NavigableMap<K, V> headMap(final K toKey, final boolean inclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().headMap(toKey, inclusive);
     }
 
-    @Override public SortedMap<K, V> headMap(K toKey) {
+    @Override public SortedMap<K, V> headMap(final K toKey) {
       return headMap(toKey, false);
     }
 
-    @Override public Entry<K, V> higherEntry(K key) {
+    @Override public Entry<K, V> higherEntry(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().higherEntry(key);
     }
 
-    @Override public K higherKey(K key) {
+    @Override public K higherKey(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().higherKey(key);
     }
@@ -161,12 +161,12 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
       return delegate().lastEntry();
     }
 
-    @Override public Entry<K, V> lowerEntry(K key) {
+    @Override public Entry<K, V> lowerEntry(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().lowerEntry(key);
     }
 
-    @Override public K lowerKey(K key) {
+    @Override public K lowerKey(final K key) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().lowerKey(key);
     }
@@ -187,21 +187,21 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     }
 
     @Override public NavigableMap<K, V> subMap(
-        K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
+        final K fromKey, final boolean fromInclusive, final K toKey, final boolean toInclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().subMap(fromKey, fromInclusive, toKey, toInclusive);
     }
 
-    @Override public SortedMap<K, V> subMap(K fromKey, K toKey) {
+    @Override public SortedMap<K, V> subMap(final K fromKey, final K toKey) {
       return delegate().subMap(fromKey, true, toKey, false);
     }
 
-    @Override public NavigableMap<K, V> tailMap(K fromKey, boolean inclusive) {
+    @Override public NavigableMap<K, V> tailMap(final K fromKey, final boolean inclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().tailMap(fromKey, inclusive);
     }
 
-    @Override public SortedMap<K, V> tailMap(K fromKey) {
+    @Override public SortedMap<K, V> tailMap(final K fromKey) {
       return tailMap(fromKey, true);
     }
 
@@ -232,7 +232,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
                   private final Object mutex = new Integer(1);
 
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> innermost = new SafeTreeMap<>();
                     for (Entry<String, String> entry : entries) {
                       innermost.put(entry.getKey(), entry.getValue());

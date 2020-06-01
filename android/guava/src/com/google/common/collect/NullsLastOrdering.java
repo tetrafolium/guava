@@ -25,12 +25,12 @@ import javax.annotation.Nullable;
 final class NullsLastOrdering<T> extends Ordering<T> implements Serializable {
   final Ordering<? super T> ordering;
 
-  NullsLastOrdering(Ordering<? super T> ordering) {
+  NullsLastOrdering(final Ordering<? super T> ordering) {
     this.ordering = ordering;
   }
 
   @Override
-  public int compare(@Nullable T left, @Nullable T right) {
+  public int compare(final @Nullable T left, final @Nullable T right) {
     if (left == right) {
       return 0;
     }
@@ -61,7 +61,7 @@ final class NullsLastOrdering<T> extends Ordering<T> implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

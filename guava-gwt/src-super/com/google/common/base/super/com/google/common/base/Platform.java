@@ -27,7 +27,7 @@ import jsinterop.annotations.JsType;
  * @author Jesse Wilson
  */
 final class Platform {
-  static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
+  static CharMatcher precomputeCharMatcher(final CharMatcher matcher) {
     // CharMatcher.precomputed() produces CharMatchers that are maybe a little
     // faster (and that's debatable), but definitely more memory-hungry. We're
     // choosing to turn .precomputed() into a no-op in GWT, because it doesn't
@@ -41,7 +41,7 @@ final class Platform {
     return TimeUnit.MILLISECONDS.toNanos(System.currentTimeMillis());
   }
 
-  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+  static <T extends Enum<T>> Optional<T> getEnumIfPresent(final Class<T> enumClass, final String value) {
     try {
       return Optional.of(Enum.valueOf(enumClass, value));
     } catch (IllegalArgumentException iae) {
@@ -49,7 +49,7 @@ final class Platform {
     }
   }
 
-  static String formatCompact4Digits(double value) {
+  static String formatCompact4Digits(final double value) {
     return "" + ((Number) (Object) value).toPrecision(4);
   }
 
@@ -63,7 +63,7 @@ final class Platform {
     public native double toPrecision(int precision);
   }
 
-  static CommonPattern compilePattern(String pattern) {
+  static CommonPattern compilePattern(final String pattern) {
     throw new UnsupportedOperationException();
   }
 
@@ -71,5 +71,5 @@ final class Platform {
     return false;
   }
 
-  private Platform() {}
+  private Platform() { }
 }

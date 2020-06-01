@@ -108,7 +108,7 @@ public class DoublesTest extends TestCase {
     assertEquals(1, Doubles.indexOf(ARRAY234, (double) 3));
     assertEquals(2, Doubles.indexOf(ARRAY234, (double) 4));
     assertEquals(1, Doubles.indexOf(
-        new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
+        new double[] {(double) 2, (double) 3, (double) 2, (double) 3 },
         (double) 3));
 
     for (double value : NUMBERS) {
@@ -127,28 +127,28 @@ public class DoublesTest extends TestCase {
     assertEquals(0, Doubles.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Doubles.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Doubles.indexOf(
-        ARRAY234, new double[] { (double) 2, (double) 3 }));
+        ARRAY234, new double[] {(double) 2, (double) 3 }));
     assertEquals(1, Doubles.indexOf(
-        ARRAY234, new double[] { (double) 3, (double) 4 }));
-    assertEquals(1, Doubles.indexOf(ARRAY234, new double[] { (double) 3 }));
-    assertEquals(2, Doubles.indexOf(ARRAY234, new double[] { (double) 4 }));
-    assertEquals(1, Doubles.indexOf(new double[] { (double) 2, (double) 3,
+        ARRAY234, new double[] {(double) 3, (double) 4 }));
+    assertEquals(1, Doubles.indexOf(ARRAY234, new double[] {(double) 3 }));
+    assertEquals(2, Doubles.indexOf(ARRAY234, new double[] {(double) 4 }));
+    assertEquals(1, Doubles.indexOf(new double[] {(double) 2, (double) 3,
         (double) 3, (double) 3, (double) 3 },
-        new double[] { (double) 3 }
+        new double[] {(double) 3 }
     ));
     assertEquals(2, Doubles.indexOf(
-        new double[] { (double) 2, (double) 3, (double) 2,
+        new double[] {(double) 2, (double) 3, (double) 2,
             (double) 3, (double) 4, (double) 2, (double) 3},
-        new double[] { (double) 2, (double) 3, (double) 4}
+        new double[] {(double) 2, (double) 3, (double) 4}
     ));
     assertEquals(1, Doubles.indexOf(
-        new double[] { (double) 2, (double) 2, (double) 3,
+        new double[] {(double) 2, (double) 2, (double) 3,
             (double) 4, (double) 2, (double) 3, (double) 4},
-        new double[] { (double) 2, (double) 3, (double) 4}
+        new double[] {(double) 2, (double) 3, (double) 4}
     ));
     assertEquals(-1, Doubles.indexOf(
-        new double[] { (double) 4, (double) 3, (double) 2},
-        new double[] { (double) 2, (double) 3, (double) 4}
+        new double[] {(double) 4, (double) 3, (double) 2},
+        new double[] {(double) 2, (double) 3, (double) 4}
     ));
 
     for (double value : NUMBERS) {
@@ -169,7 +169,7 @@ public class DoublesTest extends TestCase {
     assertEquals(1, Doubles.lastIndexOf(ARRAY234, (double) 3));
     assertEquals(2, Doubles.lastIndexOf(ARRAY234, (double) 4));
     assertEquals(3, Doubles.lastIndexOf(
-        new double[] { (double) 2, (double) 3, (double) 2, (double) 3 },
+        new double[] {(double) 2, (double) 3, (double) 2, (double) 3 },
         (double) 3));
 
     for (double value : NUMBERS) {
@@ -327,14 +327,14 @@ public class DoublesTest extends TestCase {
     testReverse(new double[] {-1, 1, -2, 2}, 1, 3, new double[] {-1, -2, 1, 2});
   }
 
-  private static void testReverse(double[] input, double[] expectedOutput) {
+  private static void testReverse(final double[] input, final double[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Doubles.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testReverse(
-      double[] input, int fromIndex, int toIndex, double[] expectedOutput) {
+      final double[] input, final int fromIndex, final int toIndex, final double[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Doubles.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -362,7 +362,7 @@ public class DoublesTest extends TestCase {
         new double[] {-1, 1, Double.NaN, -2, 2}, 1, 4, new double[] {-1, Double.NaN, 1, -2, 2});
   }
 
-  private static void testSortDescending(double[] input, double[] expectedOutput) {
+  private static void testSortDescending(final double[] input, final double[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Doubles.sortDescending(input);
     // GWT's Arrays.equals doesn't appear to handle NaN correctly, so test each element individually
@@ -372,7 +372,7 @@ public class DoublesTest extends TestCase {
   }
 
   private static void testSortDescending(
-      double[] input, int fromIndex, int toIndex, double[] expectedOutput) {
+      final double[] input, final int fromIndex, final int toIndex, final double[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Doubles.sortDescending(input, fromIndex, toIndex);
     // GWT's Arrays.equals doesn't appear to handle NaN correctly, so test each element individually
@@ -409,7 +409,7 @@ public class DoublesTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Double> list = Doubles.asList(VALUES).subList(0, i);
         Collection<Double> misleadingSize =
@@ -461,23 +461,23 @@ public class DoublesTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    double[] array = { (double) 0, (double) 1, (double) 2 };
+    double[] array = {(double) 0, (double) 1, (double) 2 };
     List<Double> list = Doubles.asList(array);
     double[] newArray = Doubles.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (double) 4);
     assertTrue(Arrays.equals(
-        new double[] { (double) 0, (double) 1, (double) 2 }, newArray));
+        new double[] {(double) 0, (double) 1, (double) 2 }, newArray));
     newArray[1] = (double) 5;
     assertEquals((double) 1, (double) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    double[] array = { (double) 0, (double) 1, (double) 2, (double) 3 };
+    double[] array = {(double) 0, (double) 1, (double) 2, (double) 3 };
     List<Double> list = Doubles.asList(array);
-    assertTrue(Arrays.equals(new double[] { (double) 1, (double) 2 },
+    assertTrue(Arrays.equals(new double[] {(double) 1, (double) 2 },
         Doubles.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new double[] {},
         Doubles.toArray(list.subList(2, 2))));
@@ -491,7 +491,7 @@ public class DoublesTest extends TestCase {
    * A reference implementation for {@code tryParse} that just catches the exception from
    * {@link Double#valueOf}.
    */
-  private static Double referenceTryParse(String input) {
+  private static Double referenceTryParse(final String input) {
     if (input.trim().length() < input.length()) {
       return null;
     }
@@ -503,7 +503,7 @@ public class DoublesTest extends TestCase {
   }
 
   @GwtIncompatible // Doubles.tryParse
-  private static void checkTryParse(String input) {
+  private static void checkTryParse(final String input) {
     Double expected = referenceTryParse(input);
     assertEquals(expected, Doubles.tryParse(input));
     if (expected != null && !Doubles.FLOATING_POINT_PATTERN.matcher(input).matches()) {
@@ -521,7 +521,7 @@ public class DoublesTest extends TestCase {
   }
 
   @GwtIncompatible // Doubles.tryParse
-  private static void checkTryParse(double expected, String input) {
+  private static void checkTryParse(final double expected, final String input) {
     assertEquals(Double.valueOf(expected), Doubles.tryParse(input));
     assertThat(input).matches(Doubles.FLOATING_POINT_PATTERN);
   }
@@ -586,7 +586,7 @@ public class DoublesTest extends TestCase {
   }
 
   private static final String[] BAD_TRY_PARSE_INPUTS =
-    { "", "+-", "+-0", " 5", "32 ", " 55 ", "infinity", "POSITIVE_INFINITY", "0x9A", "0x9A.bE-5",
+    {"", "+-", "+-0", " 5", "32 ", " 55 ", "infinity", "POSITIVE_INFINITY", "0x9A", "0x9A.bE-5",
       ".", ".e5", "NaNd", "InfinityF" };
 
   @GwtIncompatible // Doubles.tryParse

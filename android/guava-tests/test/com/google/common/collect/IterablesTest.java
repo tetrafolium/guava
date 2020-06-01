@@ -88,7 +88,7 @@ public class IterablesTest extends TestCase {
     assertEquals(5, Iterables.size(collection));
   }
 
-  private static Iterable<String> iterable(String... elements) {
+  private static Iterable<String> iterable(final String... elements) {
     final List<String> list = asList(elements);
     return new Iterable<String>() {
       @Override
@@ -265,9 +265,9 @@ public class IterablesTest extends TestCase {
     assertCanIterateAgain(list);
   }
 
-  private static class TypeA {}
-  private interface TypeB {}
-  private static class HasBoth extends TypeA implements TypeB {}
+  private static class TypeA { }
+  private interface TypeB { }
+  private static class HasBoth extends TypeA implements TypeB { }
 
   @GwtIncompatible // Iterables.filter(Iterable, Class)
   public void testFilterByType_iterator() throws Exception {
@@ -283,7 +283,7 @@ public class IterablesTest extends TestCase {
     Iterable<Integer> result = Iterables.transform(input,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String from) {
+          public Integer apply(final String from) {
             return Integer.valueOf(from);
           }
         });
@@ -300,7 +300,7 @@ public class IterablesTest extends TestCase {
     Iterable<Integer> result = Iterables.transform(input,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String from) {
+          public Integer apply(final String from) {
             return Integer.valueOf(from);
           }
         });
@@ -320,7 +320,7 @@ public class IterablesTest extends TestCase {
     Iterable<String> result = Iterables.transform(input,
         new Function<Integer, String>() {
           @Override
-          public String apply(Integer from) {
+          public String apply(final Integer from) {
             return String.valueOf(from);
           }
         });
@@ -394,7 +394,7 @@ public class IterablesTest extends TestCase {
     try {
       Iterables.concat(list1, null, list2);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testConcatPeformingFiniteCycle() {
@@ -505,7 +505,7 @@ public class IterablesTest extends TestCase {
     assertTrue(changed);
   }
 
-  private static void assertCanIterateAgain(Iterable<?> iterable) {
+  private static void assertCanIterateAgain(final Iterable<?> iterable) {
     for (@SuppressWarnings("unused") Object obj : iterable) {
     }
   }
@@ -568,7 +568,7 @@ public class IterablesTest extends TestCase {
     try {
       Iterables.limit(list, -1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testIsEmpty() {
@@ -622,7 +622,7 @@ public class IterablesTest extends TestCase {
     try {
       iterator.remove();
       fail("Expected IllegalStateException");
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testSkip_allOfMutableList_modifiable() {
@@ -631,7 +631,7 @@ public class IterablesTest extends TestCase {
     try {
       iterator.remove();
       fail("Expected IllegalStateException");
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testSkip_allOfImmutableList_modifiable() {
@@ -640,7 +640,7 @@ public class IterablesTest extends TestCase {
     try {
       iterator.remove();
       fail("Expected UnsupportedOperationException");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   @GwtIncompatible // slow (~35s)
@@ -709,32 +709,32 @@ public class IterablesTest extends TestCase {
     try {
       skip(list, -1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
-  private void testGetOnAbc(Iterable<String> iterable) {
+  private void testGetOnAbc(final Iterable<String> iterable) {
     try {
       Iterables.get(iterable, -1);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     assertEquals("a", Iterables.get(iterable, 0));
     assertEquals("b", Iterables.get(iterable, 1));
     assertEquals("c", Iterables.get(iterable, 2));
     try {
       Iterables.get(iterable, 3);
       fail();
-    } catch (IndexOutOfBoundsException nsee) {}
+    } catch (IndexOutOfBoundsException nsee) { }
     try {
       Iterables.get(iterable, 4);
       fail();
-    } catch (IndexOutOfBoundsException nsee) {}
+    } catch (IndexOutOfBoundsException nsee) { }
   }
 
-  private void testGetOnEmpty(Iterable<String> iterable) {
+  private void testGetOnEmpty(final Iterable<String> iterable) {
     try {
       Iterables.get(iterable, 0);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
   public void testGet_list() {
@@ -826,7 +826,7 @@ public class IterablesTest extends TestCase {
     try {
       Iterables.getLast(list);
       fail();
-    } catch (NoSuchElementException e) {}
+    } catch (NoSuchElementException e) { }
   }
 
   public void testGetLast_sortedSet() {
@@ -882,7 +882,7 @@ public class IterablesTest extends TestCase {
     try {
       Iterables.getLast(sortedSet);
       fail();
-    } catch (NoSuchElementException e) {}
+    } catch (NoSuchElementException e) { }
   }
 
   public void testGetLast_iterable() {
@@ -895,7 +895,7 @@ public class IterablesTest extends TestCase {
     try {
       Iterables.getLast(set);
       fail();
-    } catch (NoSuchElementException e) {}
+    } catch (NoSuchElementException e) { }
   }
 
   public void testUnmodifiableIterable() {
@@ -906,7 +906,7 @@ public class IterablesTest extends TestCase {
     try {
       iterator.remove();
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertEquals("[a, b, c]", iterable.toString());
   }
 
@@ -1002,7 +1002,7 @@ public class IterablesTest extends TestCase {
     assertTrue(Iterables.removeIf(list,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("b") || s.equals("d") || s.equals("f");
           }
         }));
@@ -1010,7 +1010,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.removeIf(list,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("x") || s.equals("y") || s.equals("z");
           }
         }));
@@ -1026,7 +1026,7 @@ public class IterablesTest extends TestCase {
     assertTrue(Iterables.removeIf(uniqueList,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("b") || s.equals("d") || s.equals("f");
           }
         }));
@@ -1034,7 +1034,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.removeIf(uniqueList,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("x") || s.equals("y") || s.equals("z");
           }
         }));
@@ -1046,14 +1046,14 @@ public class IterablesTest extends TestCase {
     List<Integer> transformed = Lists.transform(list,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String s) {
+          public Integer apply(final String s) {
             return Integer.valueOf(s);
           }
         });
     assertTrue(Iterables.removeIf(transformed,
         new Predicate<Integer>() {
           @Override
-          public boolean apply(Integer n) {
+          public boolean apply(final Integer n) {
             return (n & 1) == 0;  // isEven()
           }
         }));
@@ -1061,7 +1061,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.removeIf(transformed,
         new Predicate<Integer>() {
           @Override
-          public boolean apply(Integer n) {
+          public boolean apply(final Integer n) {
             return (n & 1) == 0;  // isEven()
           }
         }));
@@ -1073,7 +1073,7 @@ public class IterablesTest extends TestCase {
     assertTrue(Iterables.removeIf(list,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("b") || s.equals("d") || s.equals("f");
           }
         }));
@@ -1081,7 +1081,7 @@ public class IterablesTest extends TestCase {
     assertFalse(Iterables.removeIf(list,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("x") || s.equals("y") || s.equals("z");
           }
         }));
@@ -1102,7 +1102,7 @@ public class IterablesTest extends TestCase {
             iterable,
             new Predicate<String>() {
               @Override
-              public boolean apply(String s) {
+              public boolean apply(final String s) {
                 return s.equals("b") || s.equals("d") || s.equals("f");
               }
             }));
@@ -1112,7 +1112,7 @@ public class IterablesTest extends TestCase {
             iterable,
             new Predicate<String>() {
               @Override
-              public boolean apply(String s) {
+              public boolean apply(final String s) {
                 return s.equals("x") || s.equals("y") || s.equals("z");
               }
             }));
@@ -1138,7 +1138,7 @@ public class IterablesTest extends TestCase {
   }
 
   /** Returns a new iterable over the specified strings. */
-  private static Iterable<String> create(String... strings) {
+  private static Iterable<String> create(final String... strings) {
     final List<String> list = asList(strings);
     return new FluentIterable<String>() {
       @Override
@@ -1234,7 +1234,7 @@ public class IterablesTest extends TestCase {
   private static class UnIterableQueue<T> extends ForwardingQueue<T> {
     private final Queue<T> queue;
 
-    UnIterableQueue(Queue<T> queue) {
+    UnIterableQueue(final Queue<T> queue) {
       this.queue = queue;
     }
 
@@ -1276,7 +1276,7 @@ public class IterablesTest extends TestCase {
 
   private static final Predicate<CharSequence> STARTSWITH_A =
       new Predicate<CharSequence>() {
-        @Override public boolean apply(CharSequence input) {
+        @Override public boolean apply(final CharSequence input) {
           return (input.length() > 0) && (input.charAt(0) == 'a');
         }
       };
@@ -1377,8 +1377,8 @@ public class IterablesTest extends TestCase {
         .testNulls();
   }
 
-  private static void verifyMergeSorted(Iterable<Iterable<Integer>> iterables,
-      Iterable<Integer> unsortedExpected) {
+  private static void verifyMergeSorted(final Iterable<Iterable<Integer>> iterables,
+      final Iterable<Integer> unsortedExpected) {
     Iterable<Integer> expected =
         Ordering.natural().sortedCopy(unsortedExpected);
 

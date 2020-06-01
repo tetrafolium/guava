@@ -47,7 +47,7 @@ public final class Utf8 {
    * @throws IllegalArgumentException if {@code sequence} contains ill-formed UTF-16 (unpaired
    *     surrogates)
    */
-  public static int encodedLength(CharSequence sequence) {
+  public static int encodedLength(final CharSequence sequence) {
     // Warning to maintainers: this implementation is highly optimized.
     int utf16Length = sequence.length();
     int utf8Length = utf16Length;
@@ -77,7 +77,7 @@ public final class Utf8 {
     return utf8Length;
   }
 
-  private static int encodedLengthGeneral(CharSequence sequence, int start) {
+  private static int encodedLengthGeneral(final CharSequence sequence, final int start) {
     int utf16Length = sequence.length();
     int utf8Length = 0;
     for (int i = start; i < utf16Length; i++) {
@@ -109,7 +109,7 @@ public final class Utf8 {
    * <p>This method returns {@code true} if and only if {@code Arrays.equals(bytes, new
    * String(bytes, UTF_8).getBytes(UTF_8))} does, but is more efficient in both time and space.
    */
-  public static boolean isWellFormed(byte[] bytes) {
+  public static boolean isWellFormed(final byte[] bytes) {
     return isWellFormed(bytes, 0, bytes.length);
   }
 
@@ -122,7 +122,7 @@ public final class Utf8 {
    * @param off the offset in the buffer of the first byte to read
    * @param len the number of bytes to read from the buffer
    */
-  public static boolean isWellFormed(byte[] bytes, int off, int len) {
+  public static boolean isWellFormed(final byte[] bytes, final int off, final int len) {
     int end = off + len;
     checkPositionIndexes(off, end, bytes.length);
     // Look for the first non-ASCII character.
@@ -134,7 +134,7 @@ public final class Utf8 {
     return true;
   }
 
-  private static boolean isWellFormedSlowPath(byte[] bytes, int off, int end) {
+  private static boolean isWellFormedSlowPath(final byte[] bytes, final int off, final int end) {
     int index = off;
     while (true) {
       int byte1;
@@ -193,9 +193,9 @@ public final class Utf8 {
     }
   }
 
-  private static String unpairedSurrogateMsg(int i) {
+  private static String unpairedSurrogateMsg(final int i) {
     return "Unpaired surrogate at index " + i;
   }
 
-  private Utf8() {}
+  private Utf8() { }
 }

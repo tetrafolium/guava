@@ -30,7 +30,7 @@ import java.util.Map.Entry;
  */
 final class Table_CustomFieldSerializerBase {
   static <T extends StandardTable<Object, Object, Object>> T populate(
-      SerializationStreamReader reader, T table) throws SerializationException {
+      final SerializationStreamReader reader, final T table) throws SerializationException {
     Map<?, ?> hashMap = (Map<?, ?>) reader.readObject();
     for (Entry<?, ?> row : hashMap.entrySet()) {
       table.row(row.getKey()).putAll((Map<?, ?>) row.getValue());
@@ -38,7 +38,7 @@ final class Table_CustomFieldSerializerBase {
     return table;
   }
 
-  static void serialize(SerializationStreamWriter writer, StandardTable<?, ?, ?> table)
+  static void serialize(final SerializationStreamWriter writer, final StandardTable<?, ?, ?> table)
       throws SerializationException {
     /*
      * The backing map of a {Hash,Tree}BasedTable is a {Hash,Tree}Map of {Hash,Tree}Maps. Therefore,
@@ -48,5 +48,5 @@ final class Table_CustomFieldSerializerBase {
     writer.writeObject(table.backingMap);
   }
 
-  private Table_CustomFieldSerializerBase() {}
+  private Table_CustomFieldSerializerBase() { }
 }

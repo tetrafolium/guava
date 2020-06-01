@@ -53,7 +53,8 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testComputeIfAbsent_supportedPresent() {
     assertEquals("computeIfAbsent(present, function) should return existing value", 
-        v0(), getMap().computeIfAbsent(k0(), k -> { throw new AssertionFailedError(); }));
+        v0(), getMap().computeIfAbsent(k0(), k -> {
+            throw new AssertionFailedError(); }));
     expectUnchanged();
   }
   
@@ -89,7 +90,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     expectAdded(entry(null, v3()));
   }
 
-  static class ExpectedException extends RuntimeException {}
+  static class ExpectedException extends RuntimeException { }
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testComputeIfAbsent_functionThrows() {
@@ -116,7 +117,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
         return v3();
       });
       fail("computeIfAbsent(notPresent, function) should throw");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     expectUnchanged();
   }
 
@@ -131,7 +132,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
             assertEquals(k0(), k);
             return v0();
           }));
-    } catch (UnsupportedOperationException tolerated) {}
+    } catch (UnsupportedOperationException tolerated) { }
     expectUnchanged();
   }
 
@@ -145,7 +146,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
             assertEquals(k0(), k);
             return v3();
           }));
-    } catch (UnsupportedOperationException tolerated) {}
+    } catch (UnsupportedOperationException tolerated) { }
     expectUnchanged();
   }
 
@@ -157,7 +158,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
         return v3();
       });
       fail("computeIfAbsent(null, function) should throw");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
         "Should not contain null key after unsupported computeIfAbsent(null, function)");

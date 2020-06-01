@@ -33,7 +33,7 @@ public class StatsBenchmark {
   enum MeanAlgorithm {
     SIMPLE {
       @Override
-      double mean(double[] values) {
+      double mean(final double[] values) {
         double sum = 0.0;
         for (double value : values) {
           sum += value;
@@ -43,7 +43,7 @@ public class StatsBenchmark {
     },
     KAHAN {
       @Override
-      double mean(double[] values) {
+      double mean(final double[] values) {
         double sum = 0.0;
         double c = 0.0;
         for (double value : values) {
@@ -57,7 +57,7 @@ public class StatsBenchmark {
     },
     KNUTH {
       @Override
-      double mean(double[] values) {
+      double mean(final double[] values) {
         double mean = values[0];
         for (int i = 1; i < values.length; i++) {
           mean = mean + (values[i] - mean) / (i + 1);
@@ -73,7 +73,7 @@ public class StatsBenchmark {
     private final double mean;
     private final double variance;
 
-    MeanAndVariance(double mean, double variance) {
+    MeanAndVariance(final double mean, final double variance) {
       this.mean = mean;
       this.variance = variance;
     }
@@ -87,13 +87,13 @@ public class StatsBenchmark {
   enum VarianceAlgorithm {
     DO_NOT_COMPUTE {
       @Override
-      MeanAndVariance variance(double[] values, MeanAlgorithm meanAlgorithm) {
+      MeanAndVariance variance(final double[] values, final MeanAlgorithm meanAlgorithm) {
         return new MeanAndVariance(meanAlgorithm.mean(values), 0.0);
       }
     },
     SIMPLE {
       @Override
-      MeanAndVariance variance(double[] values, MeanAlgorithm meanAlgorithm) {
+      MeanAndVariance variance(final double[] values, final MeanAlgorithm meanAlgorithm) {
         double mean = meanAlgorithm.mean(values);
         double sumOfSquaresOfDeltas = 0.0;
         for (double value : values) {
@@ -105,7 +105,7 @@ public class StatsBenchmark {
     },
     KAHAN {
       @Override
-      MeanAndVariance variance(double[] values, MeanAlgorithm meanAlgorithm) {
+      MeanAndVariance variance(final double[] values, final MeanAlgorithm meanAlgorithm) {
         double mean = meanAlgorithm.mean(values);
         double sumOfSquaresOfDeltas = 0.0;
         double c = 0.0;
@@ -122,7 +122,7 @@ public class StatsBenchmark {
     },
     KNUTH {
       @Override
-      MeanAndVariance variance(double[] values, MeanAlgorithm meanAlgorithm) {
+      MeanAndVariance variance(final double[] values, final MeanAlgorithm meanAlgorithm) {
         if (meanAlgorithm != MeanAlgorithm.KNUTH) {
           throw new SkipThisScenarioException();
         }
@@ -161,7 +161,7 @@ public class StatsBenchmark {
     }
   }
 
-  @Benchmark int meanAndVariance(int reps) {
+  @Benchmark int meanAndVariance(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += varianceAlgorithm.variance(values[i & 0xFF], meanAlgorithm).hashCode();

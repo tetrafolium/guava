@@ -49,7 +49,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   private int selfLoopCount;
 
   protected AbstractDirectedNetworkConnections(
-      Map<E, N> inEdgeMap, Map<E, N> outEdgeMap, int selfLoopCount) {
+      final Map<E, N> inEdgeMap, final Map<E, N> outEdgeMap, final int selfLoopCount) {
     this.inEdgeMap = checkNotNull(inEdgeMap);
     this.outEdgeMap = checkNotNull(outEdgeMap);
     this.selfLoopCount = checkNonNegative(selfLoopCount);
@@ -79,7 +79,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
       }
 
       @Override
-      public boolean contains(@Nullable Object obj) {
+      public boolean contains(final @Nullable Object obj) {
         return inEdgeMap.containsKey(obj) || outEdgeMap.containsKey(obj);
       }
     };
@@ -96,14 +96,14 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   }
 
   @Override
-  public N adjacentNode(E edge) {
+  public N adjacentNode(final E edge) {
     // Since the reference node is defined to be 'source' for directed graphs,
     // we can assume this edge lives in the set of outgoing edges.
     return checkNotNull(outEdgeMap.get(edge));
   }
 
   @Override
-  public N removeInEdge(E edge, boolean isSelfLoop) {
+  public N removeInEdge(final E edge, final boolean isSelfLoop) {
     if (isSelfLoop) {
       checkNonNegative(--selfLoopCount);
     }
@@ -112,13 +112,13 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   }
 
   @Override
-  public N removeOutEdge(E edge) {
+  public N removeOutEdge(final E edge) {
     N previousNode = outEdgeMap.remove(edge);
     return checkNotNull(previousNode);
   }
 
   @Override
-  public void addInEdge(E edge, N node, boolean isSelfLoop) {
+  public void addInEdge(final E edge, final N node, final boolean isSelfLoop) {
     if (isSelfLoop) {
       checkPositive(++selfLoopCount);
     }
@@ -127,7 +127,7 @@ abstract class AbstractDirectedNetworkConnections<N, E> implements NetworkConnec
   }
 
   @Override
-  public void addOutEdge(E edge, N node) {
+  public void addOutEdge(final E edge, final N node) {
     N previousNode = outEdgeMap.put(edge, node);
     checkState(previousNode == null);
   }

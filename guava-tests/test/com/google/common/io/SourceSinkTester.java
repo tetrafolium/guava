@@ -77,7 +77,7 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
   private final String suiteName;
   private final String caseDesc;
 
-  SourceSinkTester(F factory, T data, String suiteName, String caseDesc, Method method) {
+  SourceSinkTester(final F factory, final T data, final String suiteName, final String caseDesc, final Method method) {
     super(method.getName());
     this.factory = checkNotNull(factory);
     this.data = checkNotNull(data);
@@ -109,7 +109,7 @@ public class SourceSinkTester<S, T, F extends SourceSinkFactory<S, T>> extends T
     factory.tearDown();
   }
 
-  static ImmutableList<Method> getTestMethods(Class<?> testClass) {
+  static ImmutableList<Method> getTestMethods(final Class<?> testClass) {
     List<Method> result = Lists.newArrayList();
     for (Method method : testClass.getDeclaredMethods()) {
       if (Modifier.isPublic(method.getModifiers())

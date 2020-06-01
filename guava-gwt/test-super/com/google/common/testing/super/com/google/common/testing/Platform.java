@@ -28,9 +28,9 @@ final class Platform {
    * Serializes and deserializes the specified object (a no-op under GWT).
    */
   @SuppressWarnings("unchecked")
-  static <T> T reserialize(T object) {
+  static <T> T reserialize(final T object) {
     return checkNotNull(object);
   }
 
-  private Platform() {}
+  private Platform() { }
 }

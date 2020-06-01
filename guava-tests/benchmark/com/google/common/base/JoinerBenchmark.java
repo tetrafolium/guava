@@ -52,7 +52,7 @@ public class JoinerBenchmark {
   /**
    * {@link Joiner} with a string delimiter.
    */
-  @Benchmark int joinerWithStringDelimiter(int reps) {
+  @Benchmark int joinerWithStringDelimiter(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy ^= JOINER_ON_STRING.join(components).length();
@@ -63,7 +63,7 @@ public class JoinerBenchmark {
   /**
    * {@link Joiner} with a character delimiter.
    */
-  @Benchmark int joinerWithCharacterDelimiter(int reps) {
+  @Benchmark int joinerWithCharacterDelimiter(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy ^= JOINER_ON_CHARACTER.join(components).length();
@@ -75,7 +75,7 @@ public class JoinerBenchmark {
    * Mimics what the {@link Joiner} class does internally when no extra options like
    * ignoring {@code null} values are used.
    */
-  @Benchmark int joinerInlined(int reps) {
+  @Benchmark int joinerInlined(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       StringBuilder sb = new StringBuilder();
@@ -97,7 +97,7 @@ public class JoinerBenchmark {
    * Note: this isn't a candidate implementation for Joiner since it fails on leading
    * empty components.
    */
-  @Benchmark int stringBuilderIsEmpty(int reps) {
+  @Benchmark int stringBuilderIsEmpty(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       StringBuilder sb = new StringBuilder();
@@ -116,7 +116,7 @@ public class JoinerBenchmark {
    * Similar to the above, but keeps a boolean flag rather than checking for the string
    * accumulated so far being empty. As a result, it does not have the above-mentioned bug.
    */
-  @Benchmark int booleanIfFirst(int reps) {
+  @Benchmark int booleanIfFirst(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       StringBuilder sb = new StringBuilder();
@@ -137,7 +137,7 @@ public class JoinerBenchmark {
    * Starts with an empty delimiter and changes to the desired value at the end of the
    * iteration.
    */
-  @Benchmark int assignDelimiter(int reps) {
+  @Benchmark int assignDelimiter(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       StringBuilder sb = new StringBuilder();
@@ -156,7 +156,7 @@ public class JoinerBenchmark {
    * Always append the delimiter after the component, and in the very end shortens the buffer
    * to get rid of the extra trailing delimiter.
    */
-  @Benchmark int alwaysAppendThenBackUp(int reps) {
+  @Benchmark int alwaysAppendThenBackUp(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       StringBuilder sb = new StringBuilder();

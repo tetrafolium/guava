@@ -121,7 +121,7 @@ public class JoinerTest extends TestCase {
     checkResult(zeroForNull, ITERABLE_FOUR_NULLS, "0-0-0-0");
   }
 
-  private static void checkNoOutput(Joiner joiner, Iterable<Integer> set) {
+  private static void checkNoOutput(final Joiner joiner, final Iterable<Integer> set) {
     assertEquals("", joiner.join(set));
     assertEquals("", joiner.join(set.iterator()));
 
@@ -161,20 +161,20 @@ public class JoinerTest extends TestCase {
 
   private static final Appendable NASTY_APPENDABLE = new Appendable() {
     @Override
-    public Appendable append(CharSequence csq) throws IOException {
+    public Appendable append(final CharSequence csq) throws IOException {
       throw new IOException();
     }
     @Override
-    public Appendable append(CharSequence csq, int start, int end) throws IOException {
+    public Appendable append(final CharSequence csq, final int start, final int end) throws IOException {
       throw new IOException();
     }
     @Override
-    public Appendable append(char c) throws IOException {
+    public Appendable append(final char c) throws IOException {
       throw new IOException();
     }
   };
 
-  private static void checkResult(Joiner joiner, Iterable<Integer> parts, String expected) {
+  private static void checkResult(final Joiner joiner, final Iterable<Integer> parts, final String expected) {
     assertEquals(expected, joiner.join(parts));
     assertEquals(expected, joiner.join(parts.iterator()));
 
@@ -310,11 +310,11 @@ public class JoinerTest extends TestCase {
       return 3;
     }
     @Override
-    public char charAt(int index) {
+    public char charAt(final int index) {
       return "foo".charAt(index);
     }
     @Override
-    public CharSequence subSequence(int start, int end) {
+    public CharSequence subSequence(final int start, final int end) {
       return "foo".subSequence(start, end);
     }
     @Override public String toString() {

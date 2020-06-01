@@ -31,7 +31,7 @@ public class ComparisonChainTest extends TestCase {
 
   private static class DontCompareMe implements Comparable<DontCompareMe> {
     @Override
-    public int compareTo(DontCompareMe o) {
+    public int compareTo(final DontCompareMe o) {
       throw new AssertionFailedError();
     }
   }

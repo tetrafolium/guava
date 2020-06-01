@@ -54,7 +54,7 @@ public abstract class AbstractService implements Service {
   private static final ListenerCallQueue.Event<Listener> STARTING_EVENT =
       new ListenerCallQueue.Event<Listener>() {
         @Override
-        public void call(Listener listener) {
+        public void call(final Listener listener) {
           listener.starting();
         }
 
@@ -66,7 +66,7 @@ public abstract class AbstractService implements Service {
   private static final ListenerCallQueue.Event<Listener> RUNNING_EVENT =
       new ListenerCallQueue.Event<Listener>() {
         @Override
-        public void call(Listener listener) {
+        public void call(final Listener listener) {
           listener.running();
         }
 
@@ -90,7 +90,7 @@ public abstract class AbstractService implements Service {
   private static ListenerCallQueue.Event<Listener> terminatedEvent(final State from) {
     return new ListenerCallQueue.Event<Listener>() {
       @Override
-      public void call(Listener listener) {
+      public void call(final Listener listener) {
         listener.terminated(from);
       }
 
@@ -104,7 +104,7 @@ public abstract class AbstractService implements Service {
   private static ListenerCallQueue.Event<Listener> stoppingEvent(final State from) {
     return new ListenerCallQueue.Event<Listener>() {
       @Override
-      public void call(Listener listener) {
+      public void call(final Listener listener) {
         listener.stopping(from);
       }
 
@@ -188,7 +188,7 @@ public abstract class AbstractService implements Service {
   private volatile StateSnapshot snapshot = new StateSnapshot(NEW);
 
   /** Constructor for use by subclasses. */
-  protected AbstractService() {}
+  protected AbstractService() { }
 
   /**
    * This method is called by {@link #startAsync} to initiate service startup. The invocation of
@@ -285,7 +285,7 @@ public abstract class AbstractService implements Service {
   }
 
   @Override
-  public final void awaitRunning(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitRunning(final long timeout, final TimeUnit unit) throws TimeoutException {
     if (monitor.enterWhenUninterruptibly(hasReachedRunning, timeout, unit)) {
       try {
         checkCurrentState(RUNNING);
@@ -312,7 +312,7 @@ public abstract class AbstractService implements Service {
   }
 
   @Override
-  public final void awaitTerminated(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitTerminated(final long timeout, final TimeUnit unit) throws TimeoutException {
     if (monitor.enterWhenUninterruptibly(isStopped, timeout, unit)) {
       try {
         checkCurrentState(TERMINATED);
@@ -335,7 +335,7 @@ public abstract class AbstractService implements Service {
 
   /** Checks that the current state is equal to the expected state. */
   @GuardedBy("monitor")
-  private void checkCurrentState(State expected) {
+  private void checkCurrentState(final State expected) {
     State actual = state();
     if (actual != expected) {
       if (actual == FAILED) {
@@ -415,7 +415,7 @@ public abstract class AbstractService implements Service {
    * <b>not be stopped</b> if it is running. Invoke this method when a service has failed critically
    * or otherwise cannot be started nor stopped.
    */
-  protected final void notifyFailed(Throwable cause) {
+  protected final void notifyFailed(final Throwable cause) {
     checkNotNull(cause);
 
     monitor.enter();
@@ -465,7 +465,7 @@ public abstract class AbstractService implements Service {
    * @since 13.0
    */
   @Override
-  public final void addListener(Listener listener, Executor executor) {
+  public final void addListener(final Listener listener, final Executor executor) {
     listeners.addListener(listener, executor);
   }
 
@@ -526,7 +526,7 @@ public abstract class AbstractService implements Service {
     listeners.enqueue(
         new ListenerCallQueue.Event<Listener>() {
           @Override
-          public void call(Listener listener) {
+          public void call(final Listener listener) {
             listener.failed(from, cause);
           }
 
@@ -560,12 +560,12 @@ public abstract class AbstractService implements Service {
      */
     @Nullable final Throwable failure;
 
-    StateSnapshot(State internalState) {
+    StateSnapshot(final State internalState) {
       this(internalState, false, null);
     }
 
     StateSnapshot(
-        State internalState, boolean shutdownWhenStartupFinishes, @Nullable Throwable failure) {
+        final State internalState, final boolean shutdownWhenStartupFinishes, final @Nullable Throwable failure) {
       checkArgument(
           !shutdownWhenStartupFinishes || internalState == STARTING,
           "shutdownWhenStartupFinishes can only be set if state is STARTING. Got %s instead.",

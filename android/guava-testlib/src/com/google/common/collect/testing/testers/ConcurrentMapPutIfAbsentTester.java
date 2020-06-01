@@ -128,7 +128,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
         "Should not contain null after unsupported putIfAbsent(present, null)");
   }
 
-  private V putIfAbsent(Map.Entry<K, V> entry) {
+  private V putIfAbsent(final Map.Entry<K, V> entry) {
     return getMap().putIfAbsent(entry.getKey(), entry.getValue());
   }
 }

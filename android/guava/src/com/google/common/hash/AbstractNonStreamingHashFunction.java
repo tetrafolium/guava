@@ -35,23 +35,23 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   }
 
   @Override
-  public Hasher newHasher(int expectedInputSize) {
+  public Hasher newHasher(final int expectedInputSize) {
     Preconditions.checkArgument(expectedInputSize >= 0);
     return new BufferingHasher(expectedInputSize);
   }
 
   @Override
-  public HashCode hashInt(int input) {
+  public HashCode hashInt(final int input) {
     return hashBytes(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(input).array());
   }
 
   @Override
-  public HashCode hashLong(long input) {
+  public HashCode hashLong(final long input) {
     return hashBytes(ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(input).array());
   }
 
   @Override
-  public HashCode hashUnencodedChars(CharSequence input) {
+  public HashCode hashUnencodedChars(final CharSequence input) {
     int len = input.length();
     ByteBuffer buffer = ByteBuffer.allocate(len * 2).order(ByteOrder.LITTLE_ENDIAN);
     for (int i = 0; i < len; i++) {
@@ -61,7 +61,7 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   }
 
   @Override
-  public HashCode hashString(CharSequence input, Charset charset) {
+  public HashCode hashString(final CharSequence input, final Charset charset) {
     return hashBytes(input.toString().getBytes(charset));
   }
 
@@ -69,7 +69,7 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   public abstract HashCode hashBytes(byte[] input, int off, int len);
 
   @Override
-  public HashCode hashBytes(ByteBuffer input) {
+  public HashCode hashBytes(final ByteBuffer input) {
     return newHasher(input.remaining()).putBytes(input).hash();
   }
 
@@ -77,24 +77,24 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   private final class BufferingHasher extends AbstractHasher {
     final ExposedByteArrayOutputStream stream;
 
-    BufferingHasher(int expectedInputSize) {
+    BufferingHasher(final int expectedInputSize) {
       this.stream = new ExposedByteArrayOutputStream(expectedInputSize);
     }
 
     @Override
-    public Hasher putByte(byte b) {
+    public Hasher putByte(final byte b) {
       stream.write(b);
       return this;
     }
 
     @Override
-    public Hasher putBytes(byte[] bytes, int off, int len) {
+    public Hasher putBytes(final byte[] bytes, final int off, final int len) {
       stream.write(bytes, off, len);
       return this;
     }
 
     @Override
-    public Hasher putBytes(ByteBuffer bytes) {
+    public Hasher putBytes(final ByteBuffer bytes) {
       stream.write(bytes);
       return this;
     }
@@ -107,11 +107,11 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
 
   // Just to access the byte[] without introducing an unnecessary copy
   private static final class ExposedByteArrayOutputStream extends ByteArrayOutputStream {
-    ExposedByteArrayOutputStream(int expectedInputSize) {
+    ExposedByteArrayOutputStream(final int expectedInputSize) {
       super(expectedInputSize);
     }
 
-    void write(ByteBuffer input) {
+    void write(final ByteBuffer input) {
       int remaining = input.remaining();
       if (count + remaining > buf.length) {
         buf = Arrays.copyOf(buf, count + remaining);

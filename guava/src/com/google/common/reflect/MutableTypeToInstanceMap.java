@@ -43,27 +43,27 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
 
   @Nullable
   @Override
-  public <T extends B> T getInstance(Class<T> type) {
+  public <T extends B> T getInstance(final Class<T> type) {
     return trustedGet(TypeToken.of(type));
   }
 
   @Nullable
   @Override
   @CanIgnoreReturnValue
-  public <T extends B> T putInstance(Class<T> type, @Nullable T value) {
+  public <T extends B> T putInstance(final Class<T> type, final @Nullable T value) {
     return trustedPut(TypeToken.of(type), value);
   }
 
   @Nullable
   @Override
-  public <T extends B> T getInstance(TypeToken<T> type) {
+  public <T extends B> T getInstance(final TypeToken<T> type) {
     return trustedGet(type.rejectTypeVariables());
   }
 
   @Nullable
   @Override
   @CanIgnoreReturnValue
-  public <T extends B> T putInstance(TypeToken<T> type, @Nullable T value) {
+  public <T extends B> T putInstance(final TypeToken<T> type, final @Nullable T value) {
     return trustedPut(type.rejectTypeVariables(), value);
   }
 
@@ -76,7 +76,7 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public B put(TypeToken<? extends B> key, B value) {
+  public B put(final TypeToken<? extends B> key, final B value) {
     throw new UnsupportedOperationException("Please use putInstance() instead.");
   }
 
@@ -88,7 +88,7 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
    */
   @Deprecated
   @Override
-  public void putAll(Map<? extends TypeToken<? extends B>, ? extends B> map) {
+  public void putAll(final Map<? extends TypeToken<? extends B>, ? extends B> map) {
     throw new UnsupportedOperationException("Please use putInstance() instead.");
   }
 
@@ -104,13 +104,13 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
 
   @SuppressWarnings("unchecked") // value could not get in if not a T
   @Nullable
-  private <T extends B> T trustedPut(TypeToken<T> type, @Nullable T value) {
+  private <T extends B> T trustedPut(final TypeToken<T> type, final @Nullable T value) {
     return (T) backingMap.put(type, value);
   }
 
   @SuppressWarnings("unchecked") // value could not get in if not a T
   @Nullable
-  private <T extends B> T trustedGet(TypeToken<T> type) {
+  private <T extends B> T trustedGet(final TypeToken<T> type) {
     return (T) backingMap.get(type);
   }
 
@@ -136,24 +136,24 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
         }
 
         @Override
-        public <T> T[] toArray(T[] array) {
+        public <T> T[] toArray(final T[] array) {
           return standardToArray(array);
         }
       };
     }
 
-    private static <K, V> Iterator<Entry<K, V>> transformEntries(Iterator<Entry<K, V>> entries) {
+    private static <K, V> Iterator<Entry<K, V>> transformEntries(final Iterator<Entry<K, V>> entries) {
       return Iterators.transform(
           entries,
           new Function<Entry<K, V>, Entry<K, V>>() {
             @Override
-            public Entry<K, V> apply(Entry<K, V> entry) {
+            public Entry<K, V> apply(final Entry<K, V> entry) {
               return new UnmodifiableEntry<>(entry);
             }
           });
     }
 
-    private UnmodifiableEntry(java.util.Map.Entry<K, V> delegate) {
+    private UnmodifiableEntry(final java.util.Map.Entry<K, V> delegate) {
       this.delegate = checkNotNull(delegate);
     }
 
@@ -163,7 +163,7 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
     }
 
     @Override
-    public V setValue(V value) {
+    public V setValue(final V value) {
       throw new UnsupportedOperationException();
     }
   }

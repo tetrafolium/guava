@@ -254,7 +254,7 @@ public class AbstractServiceTest extends TestCase {
     ManualSwitchedService service = new ManualSwitchedService();
     final AtomicInteger stopppingCount = new AtomicInteger();
     service.addListener(new Listener() {
-      @Override public void stopping(State from) {
+      @Override public void stopping(final State from) {
         stopppingCount.incrementAndGet();
       }
     }, directExecutor());
@@ -512,18 +512,18 @@ public class AbstractServiceTest extends TestCase {
     }
   }
 
-  private void invokeOnExecutionThreadForTest(Runnable runnable) {
+  private void invokeOnExecutionThreadForTest(final Runnable runnable) {
     executionThread = new Thread(runnable);
     executionThread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
       @Override
-      public void uncaughtException(Thread thread, Throwable e) {
+      public void uncaughtException(final Thread thread, final Throwable e) {
         thrownByExecutionThread = e;
       }
     });
     executionThread.start();
   }
 
-  private static void throwIfSet(Throwable t) throws Throwable {
+  private static void throwIfSet(final Throwable t) throws Throwable {
     if (t != null) {
       throw t;
     }
@@ -539,7 +539,7 @@ public class AbstractServiceTest extends TestCase {
     try {
       service.startAsync();
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
     assertEquals(State.TERMINATED, Iterables.getOnlyElement(listener.getStateHistory()));
   }
 
@@ -713,7 +713,7 @@ public class AbstractServiceTest extends TestCase {
   public void testListenerDoesntDeadlockOnStopAndWaitFromTerminated() throws Exception {
     final NoOpThreadedService service = new NoOpThreadedService();
     service.addListener(new Listener() {
-      @Override public void terminated(State from) {
+      @Override public void terminated(final State from) {
         service.stopAsync().awaitTerminated();
       }
     }, directExecutor());
@@ -811,7 +811,7 @@ public class AbstractServiceTest extends TestCase {
   }
 
   private static class RecordingListener extends Listener {
-    static RecordingListener record(Service service) {
+    static RecordingListener record(final Service service) {
       RecordingListener listener = new RecordingListener(service);
       service.addListener(listener, directExecutor());
       return listener;
@@ -819,7 +819,7 @@ public class AbstractServiceTest extends TestCase {
 
     final Service service;
 
-    RecordingListener(Service service) {
+    RecordingListener(final Service service) {
       this.service = service;
     }
 
@@ -847,7 +847,7 @@ public class AbstractServiceTest extends TestCase {
       assertNotSame(State.STARTING, service.state());
     }
 
-    @Override public synchronized void stopping(State from) {
+    @Override public synchronized void stopping(final State from) {
       assertEquals(from, Iterables.getLast(stateHistory));
       stateHistory.add(State.STOPPING);
       if (from == State.STARTING) {
@@ -863,7 +863,7 @@ public class AbstractServiceTest extends TestCase {
       assertNotSame(from, service.state());
     }
 
-    @Override public synchronized void terminated(State from) {
+    @Override public synchronized void terminated(final State from) {
       assertEquals(from, Iterables.getLast(stateHistory, State.NEW));
       stateHistory.add(State.TERMINATED);
       assertEquals(State.TERMINATED, service.state());
@@ -880,7 +880,7 @@ public class AbstractServiceTest extends TestCase {
       completionLatch.countDown();
     }
 
-    @Override public synchronized void failed(State from, Throwable failure) {
+    @Override public synchronized void failed(final State from, final Throwable failure) {
       assertEquals(from, Iterables.getLast(stateHistory));
       stateHistory.add(State.FAILED);
       assertEquals(State.FAILED, service.state());
@@ -908,7 +908,7 @@ public class AbstractServiceTest extends TestCase {
     try {
       service.notifyStarted();
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testNotifyStoppedWhenNotRunning() {
@@ -916,7 +916,7 @@ public class AbstractServiceTest extends TestCase {
     try {
       service.notifyStopped();
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testNotifyFailedWhenNotStarted() {
@@ -924,7 +924,7 @@ public class AbstractServiceTest extends TestCase {
     try {
       service.notifyFailed(new Exception());
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testNotifyFailedWhenTerminated() {
@@ -934,12 +934,12 @@ public class AbstractServiceTest extends TestCase {
     try {
       service.notifyFailed(new Exception());
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   private static class DefaultService extends AbstractService {
-    @Override protected void doStart() {}
-    @Override protected void doStop() {}
+    @Override protected void doStart() { }
+    @Override protected void doStop() { }
   }
 
   private static final Exception EXCEPTION = new Exception();

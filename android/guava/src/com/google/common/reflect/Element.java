@@ -36,7 +36,7 @@ class Element extends AccessibleObject implements Member {
   private final AccessibleObject accessibleObject;
   private final Member member;
 
-  <M extends AccessibleObject & Member> Element(M member) {
+  <M extends AccessibleObject & Member> Element(final M member) {
     checkNotNull(member);
     this.accessibleObject = member;
     this.member = member;
@@ -47,12 +47,12 @@ class Element extends AccessibleObject implements Member {
   }
 
   @Override
-  public final boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+  public final boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass) {
     return accessibleObject.isAnnotationPresent(annotationClass);
   }
 
   @Override
-  public final <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+  public final <A extends Annotation> A getAnnotation(final Class<A> annotationClass) {
     return accessibleObject.getAnnotation(annotationClass);
   }
 
@@ -67,7 +67,7 @@ class Element extends AccessibleObject implements Member {
   }
 
   @Override
-  public final void setAccessible(boolean flag) throws SecurityException {
+  public final void setAccessible(final boolean flag) throws SecurityException {
     accessibleObject.setAccessible(flag);
   }
 
@@ -158,7 +158,7 @@ class Element extends AccessibleObject implements Member {
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj instanceof Element) {
       Element that = (Element) obj;
       return getOwnerType().equals(that.getOwnerType()) && member.equals(that.member);

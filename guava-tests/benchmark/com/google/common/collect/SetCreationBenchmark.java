@@ -47,7 +47,7 @@ public class SetCreationBenchmark {
     sampleData = new CollectionBenchmarkSampleData(true, random, 0.8, size);
   }
 
-  @Benchmark int creation(int reps) {
+  @Benchmark int creation(final int reps) {
     int x = 0;
     for (int i = 0; i < reps; i++) {
       x ^= System.identityHashCode(impl.create(sampleData.getValuesInSet()));

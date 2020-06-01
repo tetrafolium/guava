@@ -34,7 +34,7 @@ public class BinaryTreeTraverserBenchmark {
     final Optional<BinaryNode> left;
     final Optional<BinaryNode> right;
 
-    BinaryNode(int x, Optional<BinaryNode> left, Optional<BinaryNode> right) {
+    BinaryNode(final int x, final Optional<BinaryNode> left, final Optional<BinaryNode> right) {
       this.x = x;
       this.left = left;
       this.right = right;
@@ -44,7 +44,7 @@ public class BinaryTreeTraverserBenchmark {
   enum Topology {
     BALANCED {
       @Override
-      Optional<BinaryNode> createTree(int size, Random rng) {
+      Optional<BinaryNode> createTree(final int size, final Random rng) {
         if (size == 0) {
           return Optional.absent();
         } else {
@@ -57,7 +57,7 @@ public class BinaryTreeTraverserBenchmark {
     },
     ALL_LEFT {
       @Override
-      Optional<BinaryNode> createTree(int size, Random rng) {
+      Optional<BinaryNode> createTree(final int size, final Random rng) {
         Optional<BinaryNode> root = Optional.absent();
         for (int i = 0; i < size; i++) {
           root = Optional.of(new BinaryNode(rng.nextInt(), root, Optional.<BinaryNode>absent()));
@@ -67,7 +67,7 @@ public class BinaryTreeTraverserBenchmark {
     },
     ALL_RIGHT {
       @Override
-      Optional<BinaryNode> createTree(int size, Random rng) {
+      Optional<BinaryNode> createTree(final int size, final Random rng) {
         Optional<BinaryNode> root = Optional.absent();
         for (int i = 0; i < size; i++) {
           root = Optional.of(new BinaryNode(rng.nextInt(), Optional.<BinaryNode>absent(), root));
@@ -81,7 +81,7 @@ public class BinaryTreeTraverserBenchmark {
        * trees of the specified size.
        */
       @Override
-      Optional<BinaryNode> createTree(int size, Random rng) {
+      Optional<BinaryNode> createTree(final int size, final Random rng) {
         int[] keys = new int[size];
         for (int i = 0; i < size; i++) {
           keys[i] = rng.nextInt();
@@ -90,7 +90,7 @@ public class BinaryTreeTraverserBenchmark {
       }
 
       // See http://en.wikipedia.org/wiki/Treap for details on the algorithm.
-      private Optional<BinaryNode> createTreap(List<Integer> keys) {
+      private Optional<BinaryNode> createTreap(final List<Integer> keys) {
         if (keys.isEmpty()) {
           return Optional.absent();
         }
@@ -113,19 +113,19 @@ public class BinaryTreeTraverserBenchmark {
       new BinaryTreeTraverser<BinaryNode>() {
 
     @Override
-    public Optional<BinaryNode> leftChild(BinaryNode node) {
+    public Optional<BinaryNode> leftChild(final BinaryNode node) {
       return node.left;
     }
 
     @Override
-    public Optional<BinaryNode> rightChild(BinaryNode node) {
+    public Optional<BinaryNode> rightChild(final BinaryNode node) {
       return node.right;
     }
   };
 
   private static final TreeTraverser<BinaryNode> VIEWER = new TreeTraverser<BinaryNode>() {
     @Override
-    public Iterable<BinaryNode> children(BinaryNode root) {
+    public Iterable<BinaryNode> children(final BinaryNode root) {
       return BINARY_VIEWER.children(root);
     }
   };
@@ -133,19 +133,19 @@ public class BinaryTreeTraverserBenchmark {
   enum Traversal {
     PRE_ORDER {
       @Override
-      <T> Iterable<T> view(T root, TreeTraverser<T> viewer) {
+      <T> Iterable<T> view(final T root, final TreeTraverser<T> viewer) {
         return viewer.preOrderTraversal(root);
       }
     },
     POST_ORDER {
       @Override
-      <T> Iterable<T> view(T root, TreeTraverser<T> viewer) {
+      <T> Iterable<T> view(final T root, final TreeTraverser<T> viewer) {
         return viewer.postOrderTraversal(root);
       }
     },
     BREADTH_FIRST {
       @Override
-      <T> Iterable<T> view(T root, TreeTraverser<T> viewer) {
+      <T> Iterable<T> view(final T root, final TreeTraverser<T> viewer) {
         return viewer.breadthFirstTraversal(root);
       }
     };
@@ -177,7 +177,7 @@ public class BinaryTreeTraverserBenchmark {
         useBinaryTraverser ? BINARY_VIEWER : VIEWER);
   }
 
-  @Benchmark int traversal(int reps) {
+  @Benchmark int traversal(final int reps) {
     int tmp = 0;
 
     for (int i = 0; i < reps; i++) {

@@ -25,11 +25,11 @@ import java.util.Map;
  */
 final class RegularImmutableMap<K, V> extends ForwardingImmutableMap<K, V> {
 
-  RegularImmutableMap(Map<? extends K, ? extends V> delegate) {
+  RegularImmutableMap(final Map<? extends K, ? extends V> delegate) {
     super(delegate);
   }
 
-  RegularImmutableMap(Entry<? extends K, ? extends V>... entries) {
+  RegularImmutableMap(final Entry<? extends K, ? extends V>... entries) {
     super(entries);
   }
 }

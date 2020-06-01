@@ -39,7 +39,7 @@ public class BytesTest extends TestCase {
       = {(byte) 2, (byte) 3, (byte) 4};
 
   private static final byte[] VALUES =
-      { Byte.MIN_VALUE, -1, 0, 1, Byte.MAX_VALUE };
+      {Byte.MIN_VALUE, -1, 0, 1, Byte.MAX_VALUE };
 
   public void testHashCode() {
     for (byte value : VALUES) {
@@ -67,7 +67,7 @@ public class BytesTest extends TestCase {
     assertEquals(1, Bytes.indexOf(ARRAY234, (byte) 3));
     assertEquals(2, Bytes.indexOf(ARRAY234, (byte) 4));
     assertEquals(1, Bytes.indexOf(
-        new byte[] { (byte) 2, (byte) 3, (byte) 2, (byte) 3 },
+        new byte[] {(byte) 2, (byte) 3, (byte) 2, (byte) 3 },
         (byte) 3));
   }
 
@@ -80,28 +80,28 @@ public class BytesTest extends TestCase {
     assertEquals(0, Bytes.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Bytes.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Bytes.indexOf(
-        ARRAY234, new byte[] { (byte) 2, (byte) 3 }));
+        ARRAY234, new byte[] {(byte) 2, (byte) 3 }));
     assertEquals(1, Bytes.indexOf(
-        ARRAY234, new byte[] { (byte) 3, (byte) 4 }));
-    assertEquals(1, Bytes.indexOf(ARRAY234, new byte[] { (byte) 3 }));
-    assertEquals(2, Bytes.indexOf(ARRAY234, new byte[] { (byte) 4 }));
-    assertEquals(1, Bytes.indexOf(new byte[] { (byte) 2, (byte) 3,
+        ARRAY234, new byte[] {(byte) 3, (byte) 4 }));
+    assertEquals(1, Bytes.indexOf(ARRAY234, new byte[] {(byte) 3 }));
+    assertEquals(2, Bytes.indexOf(ARRAY234, new byte[] {(byte) 4 }));
+    assertEquals(1, Bytes.indexOf(new byte[] {(byte) 2, (byte) 3,
         (byte) 3, (byte) 3, (byte) 3 },
-        new byte[] { (byte) 3 }
+        new byte[] {(byte) 3 }
     ));
     assertEquals(2, Bytes.indexOf(
-        new byte[] { (byte) 2, (byte) 3, (byte) 2,
+        new byte[] {(byte) 2, (byte) 3, (byte) 2,
             (byte) 3, (byte) 4, (byte) 2, (byte) 3},
-        new byte[] { (byte) 2, (byte) 3, (byte) 4}
+        new byte[] {(byte) 2, (byte) 3, (byte) 4}
     ));
     assertEquals(1, Bytes.indexOf(
-        new byte[] { (byte) 2, (byte) 2, (byte) 3,
+        new byte[] {(byte) 2, (byte) 2, (byte) 3,
             (byte) 4, (byte) 2, (byte) 3, (byte) 4},
-        new byte[] { (byte) 2, (byte) 3, (byte) 4}
+        new byte[] {(byte) 2, (byte) 3, (byte) 4}
     ));
     assertEquals(-1, Bytes.indexOf(
-        new byte[] { (byte) 4, (byte) 3, (byte) 2},
-        new byte[] { (byte) 2, (byte) 3, (byte) 4}
+        new byte[] {(byte) 4, (byte) 3, (byte) 2},
+        new byte[] {(byte) 2, (byte) 3, (byte) 4}
     ));
   }
 
@@ -115,7 +115,7 @@ public class BytesTest extends TestCase {
     assertEquals(1, Bytes.lastIndexOf(ARRAY234, (byte) 3));
     assertEquals(2, Bytes.lastIndexOf(ARRAY234, (byte) 4));
     assertEquals(3, Bytes.lastIndexOf(
-        new byte[] { (byte) 2, (byte) 3, (byte) 2, (byte) 3 },
+        new byte[] {(byte) 2, (byte) 3, (byte) 2, (byte) 3 },
         (byte) 3));
   }
 
@@ -174,7 +174,7 @@ public class BytesTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Byte> list = Bytes.asList(VALUES).subList(0, i);
         Collection<Byte> misleadingSize =
@@ -226,23 +226,23 @@ public class BytesTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    byte[] array = { (byte) 0, (byte) 1, (byte) 2 };
+    byte[] array = {(byte) 0, (byte) 1, (byte) 2 };
     List<Byte> list = Bytes.asList(array);
     byte[] newArray = Bytes.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (byte) 4);
     assertTrue(Arrays.equals(
-        new byte[] { (byte) 0, (byte) 1, (byte) 2 }, newArray));
+        new byte[] {(byte) 0, (byte) 1, (byte) 2 }, newArray));
     newArray[1] = (byte) 5;
     assertEquals((byte) 1, (byte) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    byte[] array = { (byte) 0, (byte) 1, (byte) 2, (byte) 3 };
+    byte[] array = {(byte) 0, (byte) 1, (byte) 2, (byte) 3 };
     List<Byte> list = Bytes.asList(array);
-    assertTrue(Arrays.equals(new byte[] { (byte) 1, (byte) 2 },
+    assertTrue(Arrays.equals(new byte[] {(byte) 1, (byte) 2 },
         Bytes.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new byte[] {},
         Bytes.toArray(list.subList(2, 2))));
@@ -269,13 +269,13 @@ public class BytesTest extends TestCase {
     testReverse(new byte[] {-1, 1, -2, 2}, 1, 3, new byte[] {-1, -2, 1, 2});
   }
 
-  private static void testReverse(byte[] input, byte[] expectedOutput) {
+  private static void testReverse(final byte[] input, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Bytes.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
-  private static void testReverse(byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
+  private static void testReverse(final byte[] input, final int fromIndex, final int toIndex, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Bytes.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));

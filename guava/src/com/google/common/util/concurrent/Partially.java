@@ -45,5 +45,5 @@ final class Partially {
     String value();
   }
 
-  private Partially() {}
+  private Partially() { }
 }

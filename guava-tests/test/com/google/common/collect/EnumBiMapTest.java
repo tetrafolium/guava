@@ -55,7 +55,7 @@ public class EnumBiMapTest extends TestCase {
   public static final class EnumBiMapGenerator implements TestBiMapGenerator<Country, Currency> {
     @SuppressWarnings("unchecked")
     @Override
-    public BiMap<Country, Currency> create(Object... entries) {
+    public BiMap<Country, Currency> create(final Object... entries) {
       BiMap<Country, Currency> result = EnumBiMap.create(Country.class, Currency.class);
       for (Object object : entries) {
         Entry<Country, Currency> entry = (Entry<Country, Currency>) object;
@@ -76,22 +76,22 @@ public class EnumBiMapTest extends TestCase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<Country, Currency>[] createArray(int length) {
+    public Entry<Country, Currency>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<Country, Currency>> order(List<Entry<Country, Currency>> insertionOrder) {
+    public Iterable<Entry<Country, Currency>> order(final List<Entry<Country, Currency>> insertionOrder) {
       return orderEntriesByKey(insertionOrder);
     }
 
     @Override
-    public Country[] createKeyArray(int length) {
+    public Country[] createKeyArray(final int length) {
       return new Country[length];
     }
 
     @Override
-    public Currency[] createValueArray(int length) {
+    public Currency[] createValueArray(final int length) {
       return new Currency[length];
     }
   }
@@ -136,12 +136,12 @@ public class EnumBiMapTest extends TestCase {
     try {
       EnumBiMap.create(Collections.<Currency, Country>emptyMap());
       fail("IllegalArgumentException expected");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       EnumBiMap.create(
           EnumHashBiMap.<Currency, Country>create(Currency.class));
       fail("IllegalArgumentException expected");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     /* Map can be empty if it's an EnumBiMap. */
     Map<Currency, Country> emptyBimap =

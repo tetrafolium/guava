@@ -192,7 +192,7 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.log2(0, mode);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -202,7 +202,7 @@ public class IntMathTest extends TestCase {
         try {
           IntMath.log2(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -236,7 +236,7 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.log10(0, mode);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -247,7 +247,7 @@ public class IntMathTest extends TestCase {
         try {
           IntMath.log10(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -301,7 +301,7 @@ public class IntMathTest extends TestCase {
         try {
           IntMath.sqrt(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -395,7 +395,7 @@ public class IntMathTest extends TestCase {
         try {
           IntMath.divide(p, 0, mode);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
   }
@@ -414,7 +414,7 @@ public class IntMathTest extends TestCase {
         try {
           IntMath.mod(x, m);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
   }
@@ -424,7 +424,7 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.mod(x, 0);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -449,11 +449,11 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.gcd(a, 3);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         IntMath.gcd(3, a);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -462,11 +462,11 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.gcd(a, 0);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         IntMath.gcd(0, a);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -587,7 +587,7 @@ public class IntMathTest extends TestCase {
   private static final BigInteger MAX_INT = BigInteger.valueOf(Integer.MAX_VALUE);
   private static final BigInteger MIN_INT = BigInteger.valueOf(Integer.MIN_VALUE);
 
-  private static int saturatedCast(BigInteger big) {
+  private static int saturatedCast(final BigInteger big) {
     if (big.compareTo(MAX_INT) > 0) {
       return Integer.MAX_VALUE;
     }
@@ -597,7 +597,7 @@ public class IntMathTest extends TestCase {
     return big.intValue();
   }
 
-  private void assertOperationEquals(int a, int b, String op, int expected, int actual) {
+  private void assertOperationEquals(final int a, final int b, final String op, final int expected, final int actual) {
     if (expected != actual) {
       fail("Expected for " + a + " " + op + " " + b + " = " + expected + ", but got " + actual);
     }
@@ -617,7 +617,7 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.factorial(n);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -637,11 +637,11 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.binomial(n, -1);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         IntMath.binomial(n, n + 1);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -650,7 +650,7 @@ public class IntMathTest extends TestCase {
       try {
         IntMath.binomial(n, 0);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -693,7 +693,7 @@ public class IntMathTest extends TestCase {
    * Helper method that asserts the arithmetic mean of x and y is equal
    * to the expectedMean.
    */
-  private static void assertMean(int expectedMean, int x, int y) {
+  private static void assertMean(final int expectedMean, final int x, final int y) {
     assertEquals("The expectedMean should be the same as computeMeanSafely",
         expectedMean, computeMeanSafely(x, y));
     assertMean(x, y);
@@ -703,7 +703,7 @@ public class IntMathTest extends TestCase {
    * Helper method that asserts the arithmetic mean of x and y is equal
    * to the result of computeMeanSafely.
    */
-  private static void assertMean(int x, int y) {
+  private static void assertMean(final int x, final int y) {
     int expectedMean = computeMeanSafely(x, y);
     assertEquals(expectedMean, IntMath.mean(x, y));
     assertEquals("The mean of x and y should equal the mean of y and x",
@@ -714,7 +714,7 @@ public class IntMathTest extends TestCase {
    * Computes the mean in a way that is obvious and resilient to
    * overflow by using BigInteger arithmetic.
    */
-  private static int computeMeanSafely(int x, int y) {
+  private static int computeMeanSafely(final int x, final int y) {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
@@ -723,7 +723,7 @@ public class IntMathTest extends TestCase {
     return Integer.parseInt(bigMean.toString());
   }
 
-  private static boolean fitsInInt(BigInteger big) {
+  private static boolean fitsInInt(final BigInteger big) {
     return big.bitLength() <= 31;
   }
 
@@ -751,7 +751,7 @@ public class IntMathTest extends TestCase {
     }
   }
 
-  private static int force32(int value) {
+  private static int force32(final int value) {
     // GWT doesn't consistently overflow values to make them 32-bit, so we need to force it.
     return value & 0xffffffff;
   }

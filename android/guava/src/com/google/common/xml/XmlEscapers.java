@@ -42,7 +42,7 @@ import com.google.common.escape.Escapers;
 @Beta
 @GwtCompatible
 public class XmlEscapers {
-  private XmlEscapers() {}
+  private XmlEscapers() { }
 
   private static final char MIN_ASCII_CONTROL_CHAR = 0x00;
   private static final char MAX_ASCII_CONTROL_CHAR = 0x1F;

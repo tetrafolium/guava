@@ -28,7 +28,7 @@ class ImmutableEntry<K, V> extends AbstractMapEntry<K, V> implements Serializabl
   final K key;
   final V value;
 
-  ImmutableEntry(@Nullable K key, @Nullable V value) {
+  ImmutableEntry(final @Nullable K key, final @Nullable V value) {
     this.key = key;
     this.value = value;
   }
@@ -46,7 +46,7 @@ class ImmutableEntry<K, V> extends AbstractMapEntry<K, V> implements Serializabl
   }
 
   @Override
-  public final V setValue(V value) {
+  public final V setValue(final V value) {
     throw new UnsupportedOperationException();
   }
 

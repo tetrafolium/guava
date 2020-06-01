@@ -116,7 +116,7 @@ public abstract class PerCollectionSizeTestSuiteBuilder<
   }
 
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<T, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<T, E>>
           parentBuilder) {
     return new ArrayList<>();
   }
@@ -127,7 +127,7 @@ public abstract class PerCollectionSizeTestSuiteBuilder<
           OneSizeTestSuiteBuilder<T, E>, OneSizeGenerator<T, E>> {
     private final List<Class<? extends AbstractTester>> testers;
 
-    public OneSizeTestSuiteBuilder(List<Class<? extends AbstractTester>> testers) {
+    public OneSizeTestSuiteBuilder(final List<Class<? extends AbstractTester>> testers) {
       this.testers = testers;
     }
 

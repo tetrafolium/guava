@@ -39,11 +39,11 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
    * {@code supportsRemove}.
    */
   protected MapsTransformValuesTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
+      final boolean allowsNullKeys,
+      final boolean allowsNullValues,
+      final boolean supportsPut,
+      final boolean supportsRemove,
+      final boolean supportsClear) {
     super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove,
         supportsClear, supportsRemove);
   }
@@ -77,7 +77,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
   }
 
   /** Helper assertion comparing two maps */
-  private void assertMapsEqual(Map<?, ?> expected, Map<?, ?> map) {
+  private void assertMapsEqual(final Map<?, ?> expected, final Map<?, ?> map) {
     assertEquals(expected, map);
     assertEquals(expected.hashCode(), map.hashCode());
     assertEquals(expected.entrySet(), map.entrySet());
@@ -151,7 +151,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     Map<String, Boolean> map = Maps.transformValues(underlying,
         new Function<String, Boolean>() {
           @Override
-          public Boolean apply(@Nullable String from) {
+          public Boolean apply(final @Nullable String from) {
             return from == null;
           }
         }
@@ -253,7 +253,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     map = Maps.transformValues(ImmutableMap.of("a", 1, "b", 2, "c", 3),
         new Function<Integer, Integer>() {
           @Override
-          public Integer apply(Integer from) {
+          public Integer apply(final Integer from) {
             return from - 1;
           }
         }
@@ -270,7 +270,7 @@ public class MapsTransformValuesTest extends MapInterfaceTest<String, String> {
     Map<String, Boolean> map = Maps.transformValues(
         underlying, new Function<Boolean, Boolean>() {
           @Override
-          public Boolean apply(@Nullable Boolean from) {
+          public Boolean apply(final @Nullable Boolean from) {
             return (from == null) ? true : null;
           }
         }

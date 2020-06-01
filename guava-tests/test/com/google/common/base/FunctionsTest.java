@@ -283,7 +283,7 @@ public class FunctionsTest extends TestCase {
 
   private static class HashCodeFunction implements Function<Object, Integer> {
     @Override
-    public Integer apply(Object o) {
+    public Integer apply(final Object o) {
       return (o == null) ? 0 : o.hashCode();
     }
   }
@@ -392,7 +392,7 @@ public class FunctionsTest extends TestCase {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof CountingSupplier) {
         return this.value == ((CountingSupplier) obj).value;
       }
@@ -438,7 +438,7 @@ public class FunctionsTest extends TestCase {
   }
 
   @GwtIncompatible // SerializableTester
-  private static <Y> void checkCanReserialize(Function<? super Integer, Y> f) {
+  private static <Y> void checkCanReserialize(final Function<? super Integer, Y> f) {
     Function<? super Integer, Y> g = SerializableTester.reserializeAndAssert(f);
     for (int i = 1; i < 5; i++) {
       // convoluted way to check that the same result happens from each
@@ -458,7 +458,7 @@ public class FunctionsTest extends TestCase {
   }
 
   @GwtIncompatible // SerializableTester
-  private static <Y> void checkCanReserializeSingleton(Function<? super String, Y> f) {
+  private static <Y> void checkCanReserializeSingleton(final Function<? super String, Y> f) {
     Function<? super String, Y> g = SerializableTester.reserializeAndAssert(f);
     assertSame(f, g);
     for (Integer i = 1; i < 5; i++) {

@@ -102,7 +102,7 @@ public class VerifyTest extends TestCase {
 
   private static final String FORMAT = "I ate %s pies.";
 
-  private static void checkMessage(Exception e) {
+  private static void checkMessage(final Exception e) {
     assertThat(e).hasMessage("I ate 5 pies.");
   }
 }

@@ -38,7 +38,7 @@ import junit.framework.TestSuite;
 @GwtIncompatible
 public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
   public static <K, V> SortedMapTestSuiteBuilder<K, V> using(
-      TestSortedMapGenerator<K, V> generator) {
+      final TestSortedMapGenerator<K, V> generator) {
     SortedMapTestSuiteBuilder<K, V> result = new SortedMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
     return result;
@@ -63,7 +63,7 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+      final FeatureSpecificTestSuiteBuilder<
               ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
           parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
@@ -78,7 +78,7 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
   }
 
   @Override
-  protected SetTestSuiteBuilder<K> createDerivedKeySetSuite(TestSetGenerator<K> keySetGenerator) {
+  protected SetTestSuiteBuilder<K> createDerivedKeySetSuite(final TestSetGenerator<K> keySetGenerator) {
     return keySetGenerator instanceof TestSortedSetGenerator
         ? SortedSetTestSuiteBuilder.using((TestSortedSetGenerator<K>) keySetGenerator)
         : SetTestSuiteBuilder.using(keySetGenerator);
@@ -127,7 +127,7 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
 
   /** Like using() but overrideable by NavigableMapTestSuiteBuilder. */
   SortedMapTestSuiteBuilder<K, V> newBuilderUsing(
-      TestSortedMapGenerator<K, V> delegate, Bound to, Bound from) {
+      final TestSortedMapGenerator<K, V> delegate, final Bound to, final Bound from) {
     return using(new SortedMapSubmapTestMapGenerator<K, V>(delegate, to, from));
   }
 }

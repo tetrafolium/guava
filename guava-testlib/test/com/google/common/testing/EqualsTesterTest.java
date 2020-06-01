@@ -54,7 +54,7 @@ public class EqualsTesterTest extends TestCase {
     try {
       equalsTester.addEqualityGroup((Object) null);
       fail("Should fail on null reference");
-    } catch (NullPointerException e) {}
+    } catch (NullPointerException e) { }
   }
 
   /**
@@ -64,7 +64,7 @@ public class EqualsTesterTest extends TestCase {
     try {
       equalsTester.addEqualityGroup(reference, equalObject1, null);
       fail("Should fail on null equal object");
-    } catch (NullPointerException e) {}
+    } catch (NullPointerException e) { }
   }
 
   /**
@@ -74,7 +74,7 @@ public class EqualsTesterTest extends TestCase {
     try {
       equalsTester.addEqualityGroup(reference, (Object[]) null);
       fail("Should fail on null equal object");
-    } catch (NullPointerException e) {}
+    } catch (NullPointerException e) { }
   }
 
   /**
@@ -205,7 +205,7 @@ public class EqualsTesterTest extends TestCase {
     try {
       tester.addEqualityGroup((Object[]) null);
       fail();
-    } catch (NullPointerException e) {}
+    } catch (NullPointerException e) { }
   }
 
   public void testNullObjectInEqualityGroup() {
@@ -290,7 +290,7 @@ public class EqualsTesterTest extends TestCase {
         .testEquals();
   }
 
-  private static void assertErrorMessage(Throwable e, String message) {
+  private static void assertErrorMessage(final Throwable e, final String message) {
     // TODO(kevinb): use a Truth assertion here
     if (!e.getMessage().contains(message)) {
       fail("expected <" + e.getMessage() + "> to contain <" + message + ">");
@@ -305,12 +305,12 @@ public class EqualsTesterTest extends TestCase {
     private int aspect1;
     private int aspect2;
 
-    ValidTestObject(int aspect1, int aspect2) {
+    ValidTestObject(final int aspect1, final int aspect2) {
       this.aspect1 = aspect1;
       this.aspect2 = aspect2;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       if (!(o instanceof ValidTestObject)) {
         return false;
       }
@@ -337,12 +337,12 @@ public class EqualsTesterTest extends TestCase {
     private int aspect1;
     private int aspect2;
 
-    InvalidHashCodeObject(int aspect1, int aspect2) {
+    InvalidHashCodeObject(final int aspect1, final int aspect2) {
       this.aspect1 = aspect1;
       this.aspect2 = aspect2;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       if (!(o instanceof InvalidHashCodeObject)) {
         return false;
       }
@@ -360,7 +360,7 @@ public class EqualsTesterTest extends TestCase {
   /** Test class that violates reflexivity.  It is not equal to itself */
   private static class NonReflexiveObject {
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       return false;
     }
 
@@ -372,7 +372,7 @@ public class EqualsTesterTest extends TestCase {
   /** Test class that returns true if the test object is null */
   private static class InvalidEqualsNullObject {
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       return o == this || o == null;
     }
 
@@ -386,7 +386,7 @@ public class EqualsTesterTest extends TestCase {
    */
   private static class InvalidEqualsIncompatibleClassObject {
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       return o != null;
     }
 
@@ -395,7 +395,7 @@ public class EqualsTesterTest extends TestCase {
     }
   }
 
-  private static NamedObject named(String name) {
+  private static NamedObject named(final String name) {
     return new NamedObject(name);
   }
 
@@ -404,16 +404,16 @@ public class EqualsTesterTest extends TestCase {
 
     private final String name;
 
-    NamedObject(String name) {
+    NamedObject(final String name) {
       this.name = Preconditions.checkNotNull(name);
     }
 
-    NamedObject addPeers(String... names) {
+    NamedObject addPeers(final String... names) {
       peerNames.addAll(ImmutableList.copyOf(names));
       return this;
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof NamedObject) {
         NamedObject that = (NamedObject) obj;
         return name.equals(that.name) || peerNames.contains(that.name);

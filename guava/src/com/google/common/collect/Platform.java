@@ -33,7 +33,7 @@ final class Platform {
    * @param reference any array of the desired type
    * @param length the length of the new array
    */
-  static <T> T[] newArray(T[] reference, int length) {
+  static <T> T[] newArray(final T[] reference, final int length) {
     Class<?> type = reference.getClass().getComponentType();
 
     // the cast is safe because
@@ -49,9 +49,9 @@ final class Platform {
    * server-side code could generate enough volume that reclamation becomes
    * important.
    */
-  static MapMaker tryWeakKeys(MapMaker mapMaker) {
+  static MapMaker tryWeakKeys(final MapMaker mapMaker) {
     return mapMaker.weakKeys();
   }
 
-  private Platform() {}
+  private Platform() { }
 }

@@ -62,7 +62,7 @@ public class ChecksumHashFunctionTest extends TestCase {
     assertHash32(0x5BD90FD9, ADLER_32, "The quick brown fox jumps over the lazy cog");
   }
 
-  private static void assertChecksum(Supplier<Checksum> supplier, String input) {
+  private static void assertChecksum(final Supplier<Checksum> supplier, final String input) {
     byte[] bytes = HashTestUtils.ascii(input);
 
     Checksum checksum = supplier.get();
@@ -75,7 +75,7 @@ public class ChecksumHashFunctionTest extends TestCase {
     assertEquals(value, func.hashBytes(bytes).padToLong());
   }
 
-  private static void assertHash32(int expected, Supplier<Checksum> supplier, String input) {
+  private static void assertHash32(final int expected, final Supplier<Checksum> supplier, final String input) {
     byte[] bytes = HashTestUtils.ascii(input);
     String toString = "name";
     HashFunction func = new ChecksumHashFunction(supplier, 32, toString);

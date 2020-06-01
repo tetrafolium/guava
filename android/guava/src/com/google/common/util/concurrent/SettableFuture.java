@@ -44,22 +44,22 @@ public final class SettableFuture<V> extends AbstractFuture.TrustedFuture<V> {
 
   @CanIgnoreReturnValue
   @Override
-  public boolean set(@Nullable V value) {
+  public boolean set(final @Nullable V value) {
     return super.set(value);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean setException(Throwable throwable) {
+  public boolean setException(final Throwable throwable) {
     return super.setException(throwable);
   }
 
   @Beta
   @CanIgnoreReturnValue
   @Override
-  public boolean setFuture(ListenableFuture<? extends V> future) {
+  public boolean setFuture(final ListenableFuture<? extends V> future) {
     return super.setFuture(future);
   }
 
-  private SettableFuture() {}
+  private SettableFuture() { }
 }

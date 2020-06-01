@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ComparisonChain {
-  private ComparisonChain() {}
+  private ComparisonChain() { }
 
   /**
    * Begins a new chained comparison statement. See example in the class
@@ -74,47 +74,47 @@ public abstract class ComparisonChain {
       new ComparisonChain() {
         @SuppressWarnings("unchecked")
         @Override
-        public ComparisonChain compare(Comparable left, Comparable right) {
+        public ComparisonChain compare(final Comparable left, final Comparable right) {
           return classify(left.compareTo(right));
         }
 
         @Override
         public <T> ComparisonChain compare(
-            @Nullable T left, @Nullable T right, Comparator<T> comparator) {
+            final @Nullable T left, final @Nullable T right, final Comparator<T> comparator) {
           return classify(comparator.compare(left, right));
         }
 
         @Override
-        public ComparisonChain compare(int left, int right) {
+        public ComparisonChain compare(final int left, final int right) {
           return classify(Ints.compare(left, right));
         }
 
         @Override
-        public ComparisonChain compare(long left, long right) {
+        public ComparisonChain compare(final long left, final long right) {
           return classify(Longs.compare(left, right));
         }
 
         @Override
-        public ComparisonChain compare(float left, float right) {
+        public ComparisonChain compare(final float left, final float right) {
           return classify(Float.compare(left, right));
         }
 
         @Override
-        public ComparisonChain compare(double left, double right) {
+        public ComparisonChain compare(final double left, final double right) {
           return classify(Double.compare(left, right));
         }
 
         @Override
-        public ComparisonChain compareTrueFirst(boolean left, boolean right) {
+        public ComparisonChain compareTrueFirst(final boolean left, final boolean right) {
           return classify(Booleans.compare(right, left)); // reversed
         }
 
         @Override
-        public ComparisonChain compareFalseFirst(boolean left, boolean right) {
+        public ComparisonChain compareFalseFirst(final boolean left, final boolean right) {
           return classify(Booleans.compare(left, right));
         }
 
-        ComparisonChain classify(int result) {
+        ComparisonChain classify(final int result) {
           return (result < 0) ? LESS : (result > 0) ? GREATER : ACTIVE;
         }
 
@@ -131,48 +131,48 @@ public abstract class ComparisonChain {
   private static final class InactiveComparisonChain extends ComparisonChain {
     final int result;
 
-    InactiveComparisonChain(int result) {
+    InactiveComparisonChain(final int result) {
       this.result = result;
     }
 
     @Override
-    public ComparisonChain compare(@Nullable Comparable left, @Nullable Comparable right) {
+    public ComparisonChain compare(final @Nullable Comparable left, final @Nullable Comparable right) {
       return this;
     }
 
     @Override
     public <T> ComparisonChain compare(
-        @Nullable T left, @Nullable T right, @Nullable Comparator<T> comparator) {
+        final @Nullable T left, final @Nullable T right, final @Nullable Comparator<T> comparator) {
       return this;
     }
 
     @Override
-    public ComparisonChain compare(int left, int right) {
+    public ComparisonChain compare(final int left, final int right) {
       return this;
     }
 
     @Override
-    public ComparisonChain compare(long left, long right) {
+    public ComparisonChain compare(final long left, final long right) {
       return this;
     }
 
     @Override
-    public ComparisonChain compare(float left, float right) {
+    public ComparisonChain compare(final float left, final float right) {
       return this;
     }
 
     @Override
-    public ComparisonChain compare(double left, double right) {
+    public ComparisonChain compare(final double left, final double right) {
       return this;
     }
 
     @Override
-    public ComparisonChain compareTrueFirst(boolean left, boolean right) {
+    public ComparisonChain compareTrueFirst(final boolean left, final boolean right) {
       return this;
     }
 
     @Override
-    public ComparisonChain compareFalseFirst(boolean left, boolean right) {
+    public ComparisonChain compareFalseFirst(final boolean left, final boolean right) {
       return this;
     }
 
@@ -233,7 +233,7 @@ public abstract class ComparisonChain {
    * @since 19.0
    */
   @Deprecated
-  public final ComparisonChain compare(Boolean left, Boolean right) {
+  public final ComparisonChain compare(final Boolean left, final Boolean right) {
     return compareFalseFirst(left, right);
   }
 

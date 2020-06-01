@@ -49,7 +49,7 @@ public class SafeTreeMapTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>(Ordering.natural());
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -70,7 +70,7 @@ public class SafeTreeMapTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>(NullsBeforeTwo.INSTANCE);
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -80,7 +80,7 @@ public class SafeTreeMapTest extends TestCase {
 
                   @Override
                   public Iterable<Entry<String, String>> order(
-                      List<Entry<String, String>> insertionOrder) {
+                      final List<Entry<String, String>> insertionOrder) {
                     sort(
                         insertionOrder,
                         Helpers.<String, String>entryComparator(NullsBeforeTwo.INSTANCE));

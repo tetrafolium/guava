@@ -59,7 +59,7 @@ public class HashMultisetTest extends TestCase {
 
   private static TestStringMultisetGenerator hashMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
+      @Override protected Multiset<String> create(final String[] elements) {
         return HashMultiset.create(asList(elements));
       }
     };
@@ -100,7 +100,7 @@ public class HashMultisetTest extends TestCase {
   @GwtIncompatible // Only used by @GwtIncompatible code
   private static class MultisetHolder implements Serializable {
     public Multiset<?> member;
-    MultisetHolder(Multiset<?> multiset) {
+    MultisetHolder(final Multiset<?> multiset) {
       this.member = multiset;
     }
     private static final long serialVersionUID = 1L;

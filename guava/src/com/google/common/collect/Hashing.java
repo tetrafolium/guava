@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class Hashing {
-  private Hashing() {}
+  private Hashing() { }
 
   /*
    * These should be ints, but we need to use longs to force GWT to do the multiplications with
@@ -46,17 +46,17 @@ final class Hashing {
    * MurmurHash3 was written by Austin Appleby, and is placed in the public domain. The author
    * hereby disclaims copyright to this source code.
    */
-  static int smear(int hashCode) {
+  static int smear(final int hashCode) {
     return (int) (C2 * Integer.rotateLeft((int) (hashCode * C1), 15));
   }
 
-  static int smearedHash(@Nullable Object o) {
+  static int smearedHash(final @Nullable Object o) {
     return smear((o == null) ? 0 : o.hashCode());
   }
 
   private static final int MAX_TABLE_SIZE = Ints.MAX_POWER_OF_TWO;
 
-  static int closedTableSize(int expectedEntries, double loadFactor) {
+  static int closedTableSize(final int expectedEntries, final double loadFactor) {
     // Get the recommended table size.
     // Round down to the nearest power of 2.
     expectedEntries = Math.max(expectedEntries, 2);
@@ -69,7 +69,7 @@ final class Hashing {
     return tableSize;
   }
 
-  static boolean needsResizing(int size, int tableSize, double loadFactor) {
+  static boolean needsResizing(final int size, final int tableSize, final double loadFactor) {
     return size > loadFactor * tableSize && tableSize < MAX_TABLE_SIZE;
   }
 }

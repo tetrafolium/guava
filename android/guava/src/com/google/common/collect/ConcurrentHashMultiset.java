@@ -97,7 +97,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    *
    * @param elements the elements that the multiset should contain
    */
-  public static <E> ConcurrentHashMultiset<E> create(Iterable<? extends E> elements) {
+  public static <E> ConcurrentHashMultiset<E> create(final Iterable<? extends E> elements) {
     ConcurrentHashMultiset<E> multiset = ConcurrentHashMultiset.create();
     Iterables.addAll(multiset, elements);
     return multiset;
@@ -118,12 +118,12 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    * @since 20.0
    */
   @Beta
-  public static <E> ConcurrentHashMultiset<E> create(ConcurrentMap<E, AtomicInteger> countMap) {
+  public static <E> ConcurrentHashMultiset<E> create(final ConcurrentMap<E, AtomicInteger> countMap) {
     return new ConcurrentHashMultiset<E>(countMap);
   }
 
   @VisibleForTesting
-  ConcurrentHashMultiset(ConcurrentMap<E, AtomicInteger> countMap) {
+  ConcurrentHashMultiset(final ConcurrentMap<E, AtomicInteger> countMap) {
     checkArgument(countMap.isEmpty(), "the backing map (%s) must be empty", countMap);
     this.countMap = countMap;
   }
@@ -137,7 +137,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    * @return the nonnegative number of occurrences of the element
    */
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     AtomicInteger existingCounter = Maps.safeGet(countMap, element);
     return (existingCounter == null) ? 0 : existingCounter.get();
   }
@@ -168,7 +168,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
   }
 
   @Override
-  public <T> T[] toArray(T[] array) {
+  public <T> T[] toArray(final T[] array) {
     return snapshot().toArray(array);
   }
 
@@ -200,7 +200,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    */
   @CanIgnoreReturnValue
   @Override
-  public int add(E element, int occurrences) {
+  public int add(final E element, final int occurrences) {
     checkNotNull(element);
     if (occurrences == 0) {
       return count(element);
@@ -267,7 +267,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    */
   @CanIgnoreReturnValue
   @Override
-  public int remove(@Nullable Object element, int occurrences) {
+  public int remove(final @Nullable Object element, final int occurrences) {
     if (occurrences == 0) {
       return count(element);
     }
@@ -308,7 +308,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    * @throws IllegalArgumentException if {@code occurrences} is negative
    */
   @CanIgnoreReturnValue
-  public boolean removeExactly(@Nullable Object element, int occurrences) {
+  public boolean removeExactly(final @Nullable Object element, final int occurrences) {
     if (occurrences == 0) {
       return true;
     }
@@ -344,7 +344,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    */
   @CanIgnoreReturnValue
   @Override
-  public int setCount(E element, int count) {
+  public int setCount(final E element, final int count) {
     checkNotNull(element);
     checkNonnegative(count, "count");
     while (true) {
@@ -401,7 +401,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
    */
   @CanIgnoreReturnValue
   @Override
-  public boolean setCount(E element, int expectedOldCount, int newCount) {
+  public boolean setCount(final E element, final int expectedOldCount, final int newCount) {
     checkNotNull(element);
     checkNonnegative(expectedOldCount, "oldCount");
     checkNonnegative(newCount, "newCount");
@@ -455,22 +455,22 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
       }
 
       @Override
-      public boolean contains(@Nullable Object object) {
+      public boolean contains(final @Nullable Object object) {
         return object != null && Collections2.safeContains(delegate, object);
       }
 
       @Override
-      public boolean containsAll(Collection<?> collection) {
+      public boolean containsAll(final Collection<?> collection) {
         return standardContainsAll(collection);
       }
 
       @Override
-      public boolean remove(Object object) {
+      public boolean remove(final Object object) {
         return object != null && Collections2.safeRemove(delegate, object);
       }
 
       @Override
-      public boolean removeAll(Collection<?> c) {
+      public boolean removeAll(final Collection<?> c) {
         return standardRemoveAll(c);
       }
     };
@@ -561,7 +561,7 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       return snapshot().toArray(array);
     }
 
@@ -576,12 +576,12 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
   /**
    * @serialData the ConcurrentMap of elements and their counts.
    */
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     stream.writeObject(countMap);
   }
 
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     ConcurrentMap<E, Integer> deserializedCountMap =

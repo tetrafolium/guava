@@ -92,7 +92,7 @@ public final class ArrayListMultimap<K, V>
    * @throws IllegalArgumentException if {@code expectedKeys} or {@code expectedValuesPerKey} is
    *     negative
    */
-  public static <K, V> ArrayListMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
+  public static <K, V> ArrayListMultimap<K, V> create(final int expectedKeys, final int expectedValuesPerKey) {
     return new ArrayListMultimap<>(expectedKeys, expectedValuesPerKey);
   }
 
@@ -104,7 +104,7 @@ public final class ArrayListMultimap<K, V>
    *
    * @param multimap the multimap whose contents are copied to this multimap
    */
-  public static <K, V> ArrayListMultimap<K, V> create(Multimap<? extends K, ? extends V> multimap) {
+  public static <K, V> ArrayListMultimap<K, V> create(final Multimap<? extends K, ? extends V> multimap) {
     return new ArrayListMultimap<>(multimap);
   }
 
@@ -113,13 +113,13 @@ public final class ArrayListMultimap<K, V>
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
   }
 
-  private ArrayListMultimap(int expectedKeys, int expectedValuesPerKey) {
+  private ArrayListMultimap(final int expectedKeys, final int expectedValuesPerKey) {
     super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(expectedKeys));
     checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
     this.expectedValuesPerKey = expectedValuesPerKey;
   }
 
-  private ArrayListMultimap(Multimap<? extends K, ? extends V> multimap) {
+  private ArrayListMultimap(final Multimap<? extends K, ? extends V> multimap) {
     this(
         multimap.keySet().size(),
         (multimap instanceof ArrayListMultimap)
@@ -158,13 +158,13 @@ public final class ArrayListMultimap<K, V>
    *     key's values
    */
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     Serialization.writeMultimap(this, stream);
   }
 
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

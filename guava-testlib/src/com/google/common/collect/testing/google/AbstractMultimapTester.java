@@ -126,12 +126,12 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
 
   // TODO: dispose of this once collection is encapsulated.
   @Override
-  protected M resetContainer(M newContents) {
+  protected M resetContainer(final M newContents) {
     multimap = super.resetContainer(newContents);
     return multimap;
   }
 
-  protected Multimap<K, V> resetContainer(Entry<K, V>... newContents) {
+  protected Multimap<K, V> resetContainer(final Entry<K, V>... newContents) {
     multimap = super.resetContainer(getSubjectGenerator().create((Object[]) newContents));
     return multimap;
   }
@@ -141,11 +141,11 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
     resetContainer();
   }
 
-  protected void assertGet(K key, V... values) {
+  protected void assertGet(final K key, final V... values) {
     assertGet(key, Arrays.asList(values));
   }
 
-  protected void assertGet(K key, Collection<V> values) {
+  protected void assertGet(final K key, final Collection<V> values) {
     assertEqualIgnoringOrder(values, multimap().get(key));
 
     if (!values.isEmpty()) {

@@ -49,7 +49,7 @@ public final class Uninterruptibles {
    * Invokes {@code latch.}{@link CountDownLatch#await() await()} uninterruptibly.
    */
   @GwtIncompatible // concurrency
-  public static void awaitUninterruptibly(CountDownLatch latch) {
+  public static void awaitUninterruptibly(final CountDownLatch latch) {
     boolean interrupted = false;
     try {
       while (true) {
@@ -73,7 +73,7 @@ public final class Uninterruptibles {
    */
   @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
   @GwtIncompatible // concurrency
-  public static boolean awaitUninterruptibly(CountDownLatch latch, long timeout, TimeUnit unit) {
+  public static boolean awaitUninterruptibly(final CountDownLatch latch, final long timeout, final TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);
@@ -99,7 +99,7 @@ public final class Uninterruptibles {
    * Invokes {@code toJoin.}{@link Thread#join() join()} uninterruptibly.
    */
   @GwtIncompatible // concurrency
-  public static void joinUninterruptibly(Thread toJoin) {
+  public static void joinUninterruptibly(final Thread toJoin) {
     boolean interrupted = false;
     try {
       while (true) {
@@ -134,7 +134,7 @@ public final class Uninterruptibles {
    * @throws CancellationException if the computation was cancelled
    */
   @CanIgnoreReturnValue
-  public static <V> V getUninterruptibly(Future<V> future) throws ExecutionException {
+  public static <V> V getUninterruptibly(final Future<V> future) throws ExecutionException {
     boolean interrupted = false;
     try {
       while (true) {
@@ -170,7 +170,7 @@ public final class Uninterruptibles {
    */
   @CanIgnoreReturnValue
   @GwtIncompatible // TODO
-  public static <V> V getUninterruptibly(Future<V> future, long timeout, TimeUnit unit)
+  public static <V> V getUninterruptibly(final Future<V> future, final long timeout, final TimeUnit unit)
       throws ExecutionException, TimeoutException {
     boolean interrupted = false;
     try {
@@ -198,7 +198,7 @@ public final class Uninterruptibles {
    * uninterruptibly.
    */
   @GwtIncompatible // concurrency
-  public static void joinUninterruptibly(Thread toJoin, long timeout, TimeUnit unit) {
+  public static void joinUninterruptibly(final Thread toJoin, final long timeout, final TimeUnit unit) {
     Preconditions.checkNotNull(toJoin);
     boolean interrupted = false;
     try {
@@ -225,7 +225,7 @@ public final class Uninterruptibles {
    * Invokes {@code queue.}{@link BlockingQueue#take() take()} uninterruptibly.
    */
   @GwtIncompatible // concurrency
-  public static <E> E takeUninterruptibly(BlockingQueue<E> queue) {
+  public static <E> E takeUninterruptibly(final BlockingQueue<E> queue) {
     boolean interrupted = false;
     try {
       while (true) {
@@ -251,7 +251,7 @@ public final class Uninterruptibles {
    *     being added to the given queue
    */
   @GwtIncompatible // concurrency
-  public static <E> void putUninterruptibly(BlockingQueue<E> queue, E element) {
+  public static <E> void putUninterruptibly(final BlockingQueue<E> queue, final E element) {
     boolean interrupted = false;
     try {
       while (true) {
@@ -274,7 +274,7 @@ public final class Uninterruptibles {
    * Invokes {@code unit.}{@link TimeUnit#sleep(long) sleep(sleepFor)} uninterruptibly.
    */
   @GwtIncompatible // concurrency
-  public static void sleepUninterruptibly(long sleepFor, TimeUnit unit) {
+  public static void sleepUninterruptibly(final long sleepFor, final TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(sleepFor);
@@ -304,7 +304,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(
-      Semaphore semaphore, long timeout, TimeUnit unit) {
+      final Semaphore semaphore, final long timeout, final TimeUnit unit) {
     return tryAcquireUninterruptibly(semaphore, 1, timeout, unit);
   }
 
@@ -316,7 +316,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(
-      Semaphore semaphore, int permits, long timeout, TimeUnit unit) {
+      final Semaphore semaphore, final int permits, final long timeout, final TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);
@@ -340,5 +340,5 @@ public final class Uninterruptibles {
 
   // TODO(user): Add support for waitUninterruptibly.
 
-  private Uninterruptibles() {}
+  private Uninterruptibles() { }
 }

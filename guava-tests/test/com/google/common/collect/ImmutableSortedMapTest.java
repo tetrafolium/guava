@@ -133,7 +133,7 @@ public class ImmutableSortedMapTest extends TestCase {
 
     private static final Joiner joiner = Joiner.on(", ");
 
-    @Override protected void assertMoreInvariants(Map<K, V> map) {
+    @Override protected void assertMoreInvariants(final Map<K, V> map) {
       // TODO: can these be moved to MapInterfaceTest?
       for (Entry<K, V> entry : map.entrySet()) {
         assertEquals(entry.getKey() + "=" + entry.getValue(),
@@ -311,7 +311,7 @@ public class ImmutableSortedMapTest extends TestCase {
       try {
         builder.orderEntriesByValue(Ordering.natural());
         fail("Expected UnsupportedOperationException");
-      } catch (UnsupportedOperationException expected) {}
+      } catch (UnsupportedOperationException expected) { }
     }
 
     public void testBuilder_withImmutableEntry() {
@@ -590,12 +590,12 @@ public class ImmutableSortedMapTest extends TestCase {
     private static class IntegerDiv10 implements Comparable<IntegerDiv10> {
       final int value;
 
-      IntegerDiv10(int value) {
+      IntegerDiv10(final int value) {
         this.value = value;
       }
 
       @Override
-      public int compareTo(IntegerDiv10 o) {
+      public int compareTo(final IntegerDiv10 o) {
         return value / 10 - o.value / 10;
       }
 
@@ -760,8 +760,8 @@ public class ImmutableSortedMapTest extends TestCase {
     }
   }
 
-  private static <K, V> void assertMapEquals(Map<K, V> map,
-      Object... alternatingKeysAndValues) {
+  private static <K, V> void assertMapEquals(final Map<K, V> map,
+      final Object... alternatingKeysAndValues) {
     assertEquals(map.size(), alternatingKeysAndValues.length / 2);
     int i = 0;
     for (Entry<K, V> entry : map.entrySet()) {
@@ -773,11 +773,11 @@ public class ImmutableSortedMapTest extends TestCase {
   private static class IntHolder implements Serializable {
     public int value;
 
-    public IntHolder(int value) {
+    public IntHolder(final int value) {
       this.value = value;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       return (o instanceof IntHolder) && ((IntHolder) o).value == value;
     }
 
@@ -875,7 +875,7 @@ public class ImmutableSortedMapTest extends TestCase {
 
   private static class SelfComparableExample implements Comparable<SelfComparableExample> {
     @Override
-    public int compareTo(SelfComparableExample o) {
+    public int compareTo(final SelfComparableExample o) {
       return 0;
     }
   }
@@ -888,7 +888,7 @@ public class ImmutableSortedMapTest extends TestCase {
         ImmutableSortedMap.reverseOrder();
   }
 
-  private static class SuperComparableExample extends SelfComparableExample {}
+  private static class SuperComparableExample extends SelfComparableExample { }
 
   public void testBuilderGenerics_SuperComparable() {
     ImmutableSortedMap.Builder<SuperComparableExample, Object> natural =

@@ -29,7 +29,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class CycleDetectingLockFactoryBenchmark {
 
-  @Param({"2","3","4","5","10"}) int lockNestingDepth;
+  @Param({"2", "3", "4", "5", "10"}) int lockNestingDepth;
 
   CycleDetectingLockFactory factory;
   private Lock[] plainLocks;
@@ -49,30 +49,30 @@ public class CycleDetectingLockFactoryBenchmark {
     }
   }
 
-  @Benchmark void unorderedPlainLocks(int reps) {
+  @Benchmark void unorderedPlainLocks(final int reps) {
     lockAndUnlock(new ReentrantLock(), reps);
   }
 
-  @Benchmark void unorderedCycleDetectingLocks(int reps) {
+  @Benchmark void unorderedCycleDetectingLocks(final int reps) {
     lockAndUnlock(factory.newReentrantLock("foo"), reps);
   }
 
-  private static void lockAndUnlock(Lock lock, int reps) {
+  private static void lockAndUnlock(final Lock lock, final int reps) {
     for (int i = 0; i < reps; i++) {
       lock.lock();
       lock.unlock();
     }
   }
 
-  @Benchmark void orderedPlainLocks(int reps) {
+  @Benchmark void orderedPlainLocks(final int reps) {
     lockAndUnlockNested(plainLocks, reps);
   }
 
-  @Benchmark void orderedCycleDetectingLocks(int reps) {
+  @Benchmark void orderedCycleDetectingLocks(final int reps) {
     lockAndUnlockNested(detectingLocks, reps);
   }
 
-  private static void lockAndUnlockNested(Lock[] locks, int reps) {
+  private static void lockAndUnlockNested(final Lock[] locks, final int reps) {
     for (int i = 0; i < reps; i++) {
       for (int j = 0; j < locks.length; j++) {
         locks[j].lock();

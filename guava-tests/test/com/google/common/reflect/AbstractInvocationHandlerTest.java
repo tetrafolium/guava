@@ -47,12 +47,12 @@ public class AbstractInvocationHandlerTest extends TestCase {
     assertEquals(Proxy.getInvocationHandler(proxy).toString(), proxy.toString());
   }
 
-  interface A {}
-  interface B{}
+  interface A { }
+  interface B { }
 
   public void testEquals() {
-    class AB implements A, B {}
-    class BA implements B, A {}
+    class AB implements A, B { }
+    class BA implements B, A { }
     AB ab = new AB();
     BA ba = new BA();
     new EqualsTester()
@@ -79,32 +79,32 @@ public class AbstractInvocationHandlerTest extends TestCase {
   }
 
   @SuppressWarnings("unchecked") // proxy of List<String>
-  private static List<String> newDelegatingList(List<String> delegate) {
+  private static List<String> newDelegatingList(final List<String> delegate) {
     return Reflection.newProxy(List.class, new DelegatingInvocationHandler(delegate));
   }
 
   @SuppressWarnings("unchecked") // proxy of List<String>
-  private static List<String> newDelegatingListWithEquals(List<String> delegate) {
+  private static List<String> newDelegatingListWithEquals(final List<String> delegate) {
     return Reflection.newProxy(List.class, new DelegatingInvocationHandlerWithEquals(delegate));
   }
 
   @SuppressWarnings("unchecked") // proxy of Iterable<String>
-  private static Iterable<String> newDelegatingIterableWithEquals(Iterable<String> delegate) {
+  private static Iterable<String> newDelegatingIterableWithEquals(final Iterable<String> delegate) {
     return Reflection.newProxy(Iterable.class, new DelegatingInvocationHandlerWithEquals(delegate));
   }
 
   @SuppressWarnings("unchecked") // proxy of List<String>
-  private static List<String> newProxyWithSubHandler1(List<String> delegate) {
+  private static List<String> newProxyWithSubHandler1(final List<String> delegate) {
     return Reflection.newProxy(List.class, new SubHandler1(delegate));
   }
 
   @SuppressWarnings("unchecked") // proxy of List<String>
-  private static List<String> newProxyWithSubHandler2(List<String> delegate) {
+  private static List<String> newProxyWithSubHandler2(final List<String> delegate) {
     return Reflection.newProxy(List.class, new SubHandler2(delegate));
   }
 
   private static Object newProxyWithEqualsForInterfaces(
-      Class<?>... interfaces) {
+      final Class<?>... interfaces) {
     return Proxy.newProxyInstance(AbstractInvocationHandlerTest.class.getClassLoader(),
         interfaces, new DelegatingInvocationHandlerWithEquals("a string"));
   }
@@ -113,11 +113,11 @@ public class AbstractInvocationHandlerTest extends TestCase {
       implements Serializable {
     final Object delegate;
 
-    DelegatingInvocationHandler(Object delegate) {
+    DelegatingInvocationHandler(final Object delegate) {
       this.delegate = checkNotNull(delegate);
     }
 
-    @Override protected Object handleInvocation(Object proxy, Method method, Object[] args)
+    @Override protected Object handleInvocation(final Object proxy, final Method method, final Object[] args)
         throws Throwable {
       return method.invoke(delegate, args);
     }
@@ -129,11 +129,11 @@ public class AbstractInvocationHandlerTest extends TestCase {
 
   private static class DelegatingInvocationHandlerWithEquals extends DelegatingInvocationHandler {
 
-    DelegatingInvocationHandlerWithEquals(Object delegate) {
+    DelegatingInvocationHandlerWithEquals(final Object delegate) {
       super(delegate);
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof DelegatingInvocationHandlerWithEquals) {
         DelegatingInvocationHandlerWithEquals that = (DelegatingInvocationHandlerWithEquals) obj;
         return delegate.equals(that.delegate);
@@ -152,13 +152,13 @@ public class AbstractInvocationHandlerTest extends TestCase {
   }
 
   private static class SubHandler1 extends DelegatingInvocationHandlerWithEquals {
-    SubHandler1(Object delegate) {
+    SubHandler1(final Object delegate) {
       super(delegate);
     }
   }
 
   private static class SubHandler2 extends DelegatingInvocationHandlerWithEquals {
-    SubHandler2(Object delegate) {
+    SubHandler2(final Object delegate) {
       super(delegate);
     }
   }

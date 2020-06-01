@@ -172,13 +172,13 @@ public class ImmutableDoubleArrayTest extends TestCase {
   private enum BuilderOp {
     ADD_ONE {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         builder.add(counter.getAndIncrement());
       }
     },
     ADD_ARRAY {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         double[] array = new double[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -188,7 +188,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     },
     ADD_COLLECTION {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         List<Double> list = new ArrayList<>();
         double num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -199,7 +199,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     },
     ADD_ITERABLE {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         List<Double> list = new ArrayList<>();
         double num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -210,7 +210,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     },
     ADD_IIA {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         double[] array = new double[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -220,7 +220,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     },
     ADD_LARGER_ARRAY {
       @Override
-      void doIt(ImmutableDoubleArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableDoubleArray.Builder builder, final AtomicInteger counter) {
         double[] array = new double[RANDOM.nextInt(200) + 200];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -228,7 +228,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
         builder.addAll(array);
       }
     },
-    ;
+;
 
     static final BuilderOp[] values = values();
 
@@ -409,7 +409,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     assertDoesntActuallyTrim(iia2);
   }
 
-  private static void assertActuallyTrims(ImmutableDoubleArray iia) {
+  private static void assertActuallyTrims(final ImmutableDoubleArray iia) {
     ImmutableDoubleArray trimmed = iia.trimmed();
     assertThat(trimmed).isNotSameAs(iia);
 
@@ -417,7 +417,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     assertThat(trimmed.toArray()).isEqualTo(iia.toArray());
   }
 
-  private static void assertDoesntActuallyTrim(ImmutableDoubleArray iia) {
+  private static void assertDoesntActuallyTrim(final ImmutableDoubleArray iia) {
     assertThat(iia.trimmed()).isSameAs(iia);
   }
 
@@ -453,7 +453,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static ImmutableDoubleArray makeArray(Double[] values) {
+  private static ImmutableDoubleArray makeArray(final Double[] values) {
     return ImmutableDoubleArray.copyOf(Arrays.asList(values));
   }
 
@@ -463,7 +463,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   @GwtIncompatible // used only from suite
   public static final class ImmutableDoubleArrayAsListGenerator extends TestDoubleListGenerator {
     @Override
-    protected List<Double> create(Double[] elements) {
+    protected List<Double> create(final Double[] elements) {
       return makeArray(elements).asList();
     }
   }
@@ -472,7 +472,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   public static final class ImmutableDoubleArrayHeadSubListAsListGenerator
       extends TestDoubleListGenerator {
     @Override
-    protected List<Double> create(Double[] elements) {
+    protected List<Double> create(final Double[] elements) {
       Double[] suffix = {Double.MIN_VALUE, Double.MAX_VALUE};
       Double[] all = concat(elements, suffix);
       return makeArray(all).subArray(0, elements.length).asList();
@@ -483,7 +483,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   public static final class ImmutableDoubleArrayTailSubListAsListGenerator
       extends TestDoubleListGenerator {
     @Override
-    protected List<Double> create(Double[] elements) {
+    protected List<Double> create(final Double[] elements) {
       Double[] prefix = {86.0, 99.0};
       Double[] all = concat(prefix, elements);
       return makeArray(all).subArray(2, elements.length + 2).asList();
@@ -494,7 +494,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   public static final class ImmutableDoubleArrayMiddleSubListAsListGenerator
       extends TestDoubleListGenerator {
     @Override
-    protected List<Double> create(Double[] elements) {
+    protected List<Double> create(final Double[] elements) {
       Double[] prefix = {Double.MIN_VALUE, Double.MAX_VALUE};
       Double[] suffix = {86.0, 99.0};
       Double[] all = concat(concat(prefix, elements), suffix);
@@ -503,7 +503,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static Double[] concat(Double[] a, Double[] b) {
+  private static Double[] concat(final Double[] a, final Double[] b) {
     return ObjectArrays.concat(a, b, Double.class);
   }
 
@@ -515,7 +515,7 @@ public class ImmutableDoubleArrayTest extends TestCase {
     }
 
     @Override
-    public List<Double> create(Object... elements) {
+    public List<Double> create(final Object... elements) {
       Double[] array = new Double[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -531,13 +531,13 @@ public class ImmutableDoubleArrayTest extends TestCase {
     protected abstract List<Double> create(Double[] elements);
 
     @Override
-    public Double[] createArray(int length) {
+    public Double[] createArray(final int length) {
       return new Double[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Double> order(List<Double> insertionOrder) {
+    public List<Double> order(final List<Double> insertionOrder) {
       return insertionOrder;
     }
   }

@@ -26,16 +26,16 @@ import java.util.Comparator;
 final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<? super T>[] comparators;
 
-  CompoundOrdering(Comparator<? super T> primary, Comparator<? super T> secondary) {
+  CompoundOrdering(final Comparator<? super T> primary, final Comparator<? super T> secondary) {
     this.comparators = (Comparator<? super T>[]) new Comparator[] {primary, secondary};
   }
 
-  CompoundOrdering(Iterable<? extends Comparator<? super T>> comparators) {
+  CompoundOrdering(final Iterable<? extends Comparator<? super T>> comparators) {
     this.comparators = Iterables.toArray(comparators, new Comparator[0]);
   }
 
   @Override
-  public int compare(T left, T right) {
+  public int compare(final T left, final T right) {
     for (int i = 0; i < comparators.length; i++) {
       int result = comparators[i].compare(left, right);
       if (result != 0) {
@@ -46,7 +46,7 @@ final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
   }
 
   @Override
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     if (object == this) {
       return true;
     }

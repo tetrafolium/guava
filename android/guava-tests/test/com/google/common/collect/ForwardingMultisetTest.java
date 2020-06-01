@@ -46,7 +46,7 @@ public class ForwardingMultisetTest extends TestCase {
       extends ForwardingMultiset<T> {
     private final Multiset<T> backingCollection;
 
-    StandardImplForwardingMultiset(Multiset<T> backingMultiset) {
+    StandardImplForwardingMultiset(final Multiset<T> backingMultiset) {
       this.backingCollection = backingMultiset;
     }
 
@@ -54,11 +54,11 @@ public class ForwardingMultisetTest extends TestCase {
       return backingCollection;
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
-    @Override public boolean add(T element) {
+    @Override public boolean add(final T element) {
       return standardAdd(element);
     }
 
@@ -66,27 +66,27 @@ public class ForwardingMultisetTest extends TestCase {
       standardClear();
     }
 
-    @Override public int count(Object element) {
+    @Override public int count(final Object element) {
       return standardCount(element);
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -94,7 +94,7 @@ public class ForwardingMultisetTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -102,7 +102,7 @@ public class ForwardingMultisetTest extends TestCase {
       return standardToString();
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -110,11 +110,11 @@ public class ForwardingMultisetTest extends TestCase {
       return standardHashCode();
     }
 
-    @Override public boolean setCount(T element, int oldCount, int newCount) {
+    @Override public boolean setCount(final T element, final int oldCount, final int newCount) {
       return standardSetCount(element, oldCount, newCount);
     }
 
-    @Override public int setCount(T element, int count) {
+    @Override public int setCount(final T element, final int count) {
       return standardSetCount(element, count);
     }
 
@@ -144,7 +144,7 @@ public class ForwardingMultisetTest extends TestCase {
                 new TestStringMultisetGenerator() {
 
                   @Override
-                  protected Multiset<String> create(String[] elements) {
+                  protected Multiset<String> create(final String[] elements) {
                     return new StandardImplForwardingMultiset<>(
                         LinkedHashMultiset.create(Arrays.asList(elements)));
                   }
@@ -160,7 +160,7 @@ public class ForwardingMultisetTest extends TestCase {
                 new TestStringMultisetGenerator() {
 
                   @Override
-                  protected Multiset<String> create(String[] elements) {
+                  protected Multiset<String> create(final String[] elements) {
                     return new StandardImplForwardingMultiset<>(ImmutableMultiset.copyOf(elements));
                   }
                 })
@@ -174,7 +174,7 @@ public class ForwardingMultisetTest extends TestCase {
        * method not specifically authorized by the elementSet() or hashCode()
        * docs.
        */
-      @Override protected Set<String> create(String[] elements) {
+      @Override protected Set<String> create(final String[] elements) {
         final Multiset<String> inner =
             LinkedHashMultiset.create(Arrays.asList(elements));
         return new ForwardingMultiset<String>() {
@@ -186,7 +186,7 @@ public class ForwardingMultisetTest extends TestCase {
             return new StandardElementSet();
           }
 
-          @Override public int add(String element, int occurrences) {
+          @Override public int add(final String element, final int occurrences) {
             throw new UnsupportedOperationException();
           }
           @Override public Set<Entry<String>> entrySet() {
@@ -195,63 +195,63 @@ public class ForwardingMultisetTest extends TestCase {
               @Override protected Set<Entry<String>> delegate() {
                 return backingSet;
               }
-              @Override public boolean add(Entry<String> element) {
+              @Override public boolean add(final Entry<String> element) {
                 throw new UnsupportedOperationException();
               }
               @Override public boolean addAll(
-                  Collection<? extends Entry<String>> collection) {
+                  final Collection<? extends Entry<String>> collection) {
                 throw new UnsupportedOperationException();
               }
               @Override public void clear() {
                 throw new UnsupportedOperationException();
               }
-              @Override public boolean contains(Object object) {
+              @Override public boolean contains(final Object object) {
                 throw new UnsupportedOperationException();
               }
-              @Override public boolean containsAll(Collection<?> collection) {
+              @Override public boolean containsAll(final Collection<?> collection) {
                 throw new UnsupportedOperationException();
               }
               @Override public boolean isEmpty() {
                 throw new UnsupportedOperationException();
               }
-              @Override public boolean remove(Object object) {
+              @Override public boolean remove(final Object object) {
                 throw new UnsupportedOperationException();
               }
-              @Override public boolean removeAll(Collection<?> collection) {
+              @Override public boolean removeAll(final Collection<?> collection) {
                 throw new UnsupportedOperationException();
               }
-              @Override public boolean retainAll(Collection<?> collection) {
+              @Override public boolean retainAll(final Collection<?> collection) {
                 throw new UnsupportedOperationException();
               }
             };
           }
-          @Override public boolean equals(Object object) {
+          @Override public boolean equals(final Object object) {
             throw new UnsupportedOperationException();
           }
-          @Override public boolean remove(Object element) {
+          @Override public boolean remove(final Object element) {
             throw new UnsupportedOperationException();
           }
           @Override public boolean setCount(
-              String element, int oldCount, int newCount) {
+              final String element, final int oldCount, final int newCount) {
             throw new UnsupportedOperationException();
           }
-          @Override public int setCount(String element, int count) {
+          @Override public int setCount(final String element, final int count) {
             throw new UnsupportedOperationException();
           }
-          @Override public boolean add(String element) {
+          @Override public boolean add(final String element) {
             throw new UnsupportedOperationException();
           }
           @Override public boolean addAll(
-              Collection<? extends String> collection) {
+              final Collection<? extends String> collection) {
             throw new UnsupportedOperationException();
           }
           @Override public Iterator<String> iterator() {
             throw new UnsupportedOperationException();
           }
-          @Override public boolean removeAll(Collection<?> collection) {
+          @Override public boolean removeAll(final Collection<?> collection) {
             throw new UnsupportedOperationException();
           }
-          @Override public boolean retainAll(Collection<?> collection) {
+          @Override public boolean retainAll(final Collection<?> collection) {
             throw new UnsupportedOperationException();
           }
           @Override public int size() {
@@ -270,7 +270,7 @@ public class ForwardingMultisetTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Multiset.class, new Function<Multiset, Multiset>() {
-          @Override public Multiset apply(Multiset delegate) {
+          @Override public Multiset apply(final Multiset delegate) {
             return wrap(delegate);
           }
         });

@@ -28,7 +28,7 @@ import java.util.concurrent.Executor;
 @GwtIncompatible
 public final class RemovalListeners {
 
-  private RemovalListeners() {}
+  private RemovalListeners() { }
 
   /**
    * Returns a {@code RemovalListener} which processes all eviction notifications using

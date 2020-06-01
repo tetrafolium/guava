@@ -27,15 +27,15 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class HashMultiset_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, HashMultiset<?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final HashMultiset<?> instance) { }
 
-  public static HashMultiset<Object> instantiate(SerializationStreamReader reader)
+  public static HashMultiset<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     return (HashMultiset<Object>)
         Multiset_CustomFieldSerializerBase.populate(reader, HashMultiset.create());
   }
 
-  public static void serialize(SerializationStreamWriter writer, HashMultiset<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final HashMultiset<?> instance)
       throws SerializationException {
     Multiset_CustomFieldSerializerBase.serialize(writer, instance);
   }

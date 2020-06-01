@@ -50,7 +50,7 @@ public class ChainBenchmark {
     }
   }
 
-  @Benchmark int time(int reps) {
+  @Benchmark int time(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       segment.removeEntryFromChain(chain, head);

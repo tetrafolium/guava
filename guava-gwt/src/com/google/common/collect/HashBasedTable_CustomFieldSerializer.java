@@ -24,14 +24,14 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  * @author Hayward Chan
  */
 public class HashBasedTable_CustomFieldSerializer {
-  public static void deserialize(SerializationStreamReader reader, HashBasedTable<?, ?, ?> table) {}
+  public static void deserialize(final SerializationStreamReader reader, final HashBasedTable<?, ?, ?> table) { }
 
-  public static HashBasedTable<Object, Object, Object> instantiate(SerializationStreamReader reader)
+  public static HashBasedTable<Object, Object, Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     return Table_CustomFieldSerializerBase.populate(reader, HashBasedTable.create());
   }
 
-  public static void serialize(SerializationStreamWriter writer, HashBasedTable<?, ?, ?> table)
+  public static void serialize(final SerializationStreamWriter writer, final HashBasedTable<?, ?, ?> table)
       throws SerializationException {
     Table_CustomFieldSerializerBase.serialize(writer, table);
   }

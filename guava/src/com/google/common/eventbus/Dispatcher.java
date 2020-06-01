@@ -101,7 +101,7 @@ abstract class Dispatcher {
         };
 
     @Override
-    void dispatch(Object event, Iterator<Subscriber> subscribers) {
+    void dispatch(final Object event, final Iterator<Subscriber> subscribers) {
       checkNotNull(event);
       checkNotNull(subscribers);
       Queue<Event> queueForThread = queue.get();
@@ -127,7 +127,7 @@ abstract class Dispatcher {
       private final Object event;
       private final Iterator<Subscriber> subscribers;
 
-      private Event(Object event, Iterator<Subscriber> subscribers) {
+      private Event(final Object event, final Iterator<Subscriber> subscribers) {
         this.event = event;
         this.subscribers = subscribers;
       }
@@ -164,7 +164,7 @@ abstract class Dispatcher {
         Queues.newConcurrentLinkedQueue();
 
     @Override
-    void dispatch(Object event, Iterator<Subscriber> subscribers) {
+    void dispatch(final Object event, final Iterator<Subscriber> subscribers) {
       checkNotNull(event);
       while (subscribers.hasNext()) {
         queue.add(new EventWithSubscriber(event, subscribers.next()));
@@ -180,7 +180,7 @@ abstract class Dispatcher {
       private final Object event;
       private final Subscriber subscriber;
 
-      private EventWithSubscriber(Object event, Subscriber subscriber) {
+      private EventWithSubscriber(final Object event, final Subscriber subscriber) {
         this.event = event;
         this.subscriber = subscriber;
       }
@@ -194,7 +194,7 @@ abstract class Dispatcher {
     private static final ImmediateDispatcher INSTANCE = new ImmediateDispatcher();
 
     @Override
-    void dispatch(Object event, Iterator<Subscriber> subscribers) {
+    void dispatch(final Object event, final Iterator<Subscriber> subscribers) {
       checkNotNull(event);
       while (subscribers.hasNext()) {
         subscribers.next().dispatchEvent(event);

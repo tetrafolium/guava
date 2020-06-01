@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class Doubles {
-  private Doubles() {}
+  private Doubles() { }
 
   /**
    * The number of bytes required to represent a primitive {@code double} value.
@@ -69,7 +69,7 @@ public final class Doubles {
    * @param value a primitive {@code double} value
    * @return a hash code for the value
    */
-  public static int hashCode(double value) {
+  public static int hashCode(final double value) {
     return ((Double) value).hashCode();
     // TODO(kevinb): do it this way when we can (GWT problem):
     // long bits = Double.doubleToLongBits(value);
@@ -90,7 +90,7 @@ public final class Doubles {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(double a, double b) {
+  public static int compare(final double a, final double b) {
     return Double.compare(a, b);
   }
 
@@ -102,7 +102,7 @@ public final class Doubles {
    *
    * @since 10.0
    */
-  public static boolean isFinite(double value) {
+  public static boolean isFinite(final double value) {
     return NEGATIVE_INFINITY < value && value < POSITIVE_INFINITY;
   }
 
@@ -115,7 +115,7 @@ public final class Doubles {
    * @return {@code true} if {@code array[i] == target} for some value of {@code
    *     i}
    */
-  public static boolean contains(double[] array, double target) {
+  public static boolean contains(final double[] array, final double target) {
     for (double value : array) {
       if (value == target) {
         return true;
@@ -133,12 +133,12 @@ public final class Doubles {
    * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int indexOf(double[] array, double target) {
+  public static int indexOf(final double[] array, final double target) {
     return indexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int indexOf(double[] array, double target, int start, int end) {
+  private static int indexOf(final double[] array, final double target, final int start, final int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -160,7 +160,7 @@ public final class Doubles {
    * @param array the array to search for the sequence {@code target}
    * @param target the array to search for as a sub-sequence of {@code array}
    */
-  public static int indexOf(double[] array, double[] target) {
+  public static int indexOf(final double[] array, final double[] target) {
     checkNotNull(array, "array");
     checkNotNull(target, "target");
     if (target.length == 0) {
@@ -188,12 +188,12 @@ public final class Doubles {
    * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int lastIndexOf(double[] array, double target) {
+  public static int lastIndexOf(final double[] array, final double target) {
     return lastIndexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int lastIndexOf(double[] array, double target, int start, int end) {
+  private static int lastIndexOf(final double[] array, final double target, final int start, final int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -211,7 +211,7 @@ public final class Doubles {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static double min(double... array) {
+  public static double min(final double... array) {
     checkArgument(array.length > 0);
     double min = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -229,7 +229,7 @@ public final class Doubles {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static double max(double... array) {
+  public static double max(final double... array) {
     checkArgument(array.length > 0);
     double max = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -252,7 +252,7 @@ public final class Doubles {
    * @since 21.0
    */
   @Beta
-  public static double constrainToRange(double value, double min, double max) {
+  public static double constrainToRange(final double value, final double min, final double max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
     return Math.min(Math.max(value, min), max);
   }
@@ -265,7 +265,7 @@ public final class Doubles {
    * @param arrays zero or more {@code double} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static double[] concat(double[]... arrays) {
+  public static double[] concat(final double[]... arrays) {
     int length = 0;
     for (double[] array : arrays) {
       length += array.length;
@@ -284,12 +284,12 @@ public final class Doubles {
     static final DoubleConverter INSTANCE = new DoubleConverter();
 
     @Override
-    protected Double doForward(String value) {
+    protected Double doForward(final String value) {
       return Double.valueOf(value);
     }
 
     @Override
-    protected String doBackward(Double value) {
+    protected String doBackward(final Double value) {
       return value.toString();
     }
 
@@ -329,7 +329,7 @@ public final class Doubles {
    * @return an array containing the values of {@code array}, with guaranteed minimum length
    *     {@code minLength}
    */
-  public static double[] ensureCapacity(double[] array, int minLength, int padding) {
+  public static double[] ensureCapacity(final double[] array, final int minLength, final int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
@@ -347,7 +347,7 @@ public final class Doubles {
    *     (but not at the start or end)
    * @param array an array of {@code double} values, possibly empty
    */
-  public static String join(String separator, double... array) {
+  public static String join(final String separator, final double... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -383,7 +383,7 @@ public final class Doubles {
     INSTANCE;
 
     @Override
-    public int compare(double[] left, double[] right) {
+    public int compare(final double[] left, final double[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         int result = Double.compare(left[i], right[i]);
@@ -408,7 +408,7 @@ public final class Doubles {
    *
    * @since 23.1
    */
-  public static void sortDescending(double[] array) {
+  public static void sortDescending(final double[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -422,7 +422,7 @@ public final class Doubles {
    *
    * @since 23.1
    */
-  public static void sortDescending(double[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final double[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     Arrays.sort(array, fromIndex, toIndex);
@@ -435,7 +435,7 @@ public final class Doubles {
    *
    * @since 23.1
    */
-  public static void reverse(double[] array) {
+  public static void reverse(final double[] array) {
     checkNotNull(array);
     reverse(array, 0, array.length);
   }
@@ -450,7 +450,7 @@ public final class Doubles {
    *     {@code toIndex > fromIndex}
    * @since 23.1
    */
-  public static void reverse(double[] array, int fromIndex, int toIndex) {
+  public static void reverse(final double[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
@@ -473,7 +473,7 @@ public final class Doubles {
    * @throws NullPointerException if {@code collection} or any of its elements is null
    * @since 1.0 (parameter was {@code Collection<Double>} before 12.0)
    */
-  public static double[] toArray(Collection<? extends Number> collection) {
+  public static double[] toArray(final Collection<? extends Number> collection) {
     if (collection instanceof DoubleArrayAsList) {
       return ((DoubleArrayAsList) collection).toDoubleArray();
     }
@@ -506,7 +506,7 @@ public final class Doubles {
    * @param backingArray the array to back the list
    * @return a list view of the array
    */
-  public static List<Double> asList(double... backingArray) {
+  public static List<Double> asList(final double... backingArray) {
     if (backingArray.length == 0) {
       return Collections.emptyList();
     }
@@ -520,11 +520,11 @@ public final class Doubles {
     final int start;
     final int end;
 
-    DoubleArrayAsList(double[] array) {
+    DoubleArrayAsList(final double[] array) {
       this(array, 0, array.length);
     }
 
-    DoubleArrayAsList(double[] array, int start, int end) {
+    DoubleArrayAsList(final double[] array, final int start, final int end) {
       this.array = array;
       this.start = start;
       this.end = end;
@@ -541,20 +541,20 @@ public final class Doubles {
     }
 
     @Override
-    public Double get(int index) {
+    public Double get(final int index) {
       checkElementIndex(index, size());
       return array[start + index];
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Double)
           && Doubles.indexOf(array, (Double) target, start, end) != -1;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Double) {
         int i = Doubles.indexOf(array, (Double) target, start, end);
@@ -566,7 +566,7 @@ public final class Doubles {
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Double) {
         int i = Doubles.lastIndexOf(array, (Double) target, start, end);
@@ -578,7 +578,7 @@ public final class Doubles {
     }
 
     @Override
-    public Double set(int index, Double element) {
+    public Double set(final int index, final Double element) {
       checkElementIndex(index, size());
       double oldValue = array[start + index];
       // checkNotNull for GWT (do not optimize)
@@ -587,7 +587,7 @@ public final class Doubles {
     }
 
     @Override
-    public List<Double> subList(int fromIndex, int toIndex) {
+    public List<Double> subList(final int fromIndex, final int toIndex) {
       int size = size();
       checkPositionIndexes(fromIndex, toIndex, size);
       if (fromIndex == toIndex) {
@@ -597,7 +597,7 @@ public final class Doubles {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object == this) {
         return true;
       }
@@ -681,7 +681,7 @@ public final class Doubles {
   @Nullable
   @CheckForNull
   @GwtIncompatible // regular expressions
-  public static Double tryParse(String string) {
+  public static Double tryParse(final String string) {
     if (FLOATING_POINT_PATTERN.matcher(string).matches()) {
       // TODO(lowasser): could be potentially optimized, but only with
       // extensive testing

@@ -111,7 +111,7 @@ final class Crc32cHashFunction extends AbstractHashFunction {
     private int crc = 0;
 
     @Override
-    public void update(byte b) {
+    public void update(final byte b) {
       crc ^= 0xFFFFFFFF;
       // See Hacker's Delight 2nd Edition, Figure 14-7.
       crc = ~((crc >>> 8) ^ CRC_TABLE[(crc ^ b) & 0xFF]);

@@ -32,7 +32,7 @@ import java.util.Iterator;
 abstract class TransformedIterator<F, T> implements Iterator<T> {
   final Iterator<? extends F> backingIterator;
 
-  TransformedIterator(Iterator<? extends F> backingIterator) {
+  TransformedIterator(final Iterator<? extends F> backingIterator) {
     this.backingIterator = checkNotNull(backingIterator);
   }
 

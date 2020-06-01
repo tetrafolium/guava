@@ -30,7 +30,7 @@ public class ToStringHelperBenchmark {
   private static final String NAME = "abcdefgh";
   private static final String NAME3 = Strings.repeat(NAME, 3);
 
-  private static void addEntries(MoreObjects.ToStringHelper helper) {
+  private static void addEntries(final MoreObjects.ToStringHelper helper) {
     helper
       .add(NAME, 10)
       .addValue(10L)
@@ -41,7 +41,7 @@ public class ToStringHelperBenchmark {
       .add(NAME3, 'x');
   }
 
-  @Benchmark int toString(int reps) {
+  @Benchmark int toString(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       MoreObjects.ToStringHelper helper = MoreObjects.toStringHelper("klass").omitNullValues();

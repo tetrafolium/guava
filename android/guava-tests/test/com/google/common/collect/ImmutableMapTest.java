@@ -164,7 +164,7 @@ public class ImmutableMapTest extends TestCase {
 
     private static final Joiner joiner = Joiner.on(", ");
 
-    @Override protected void assertMoreInvariants(Map<K, V> map) {
+    @Override protected void assertMoreInvariants(final Map<K, V> map) {
       // TODO: can these be moved to MapInterfaceTest?
       for (Entry<K, V> entry : map.entrySet()) {
         assertEquals(entry.getKey() + "=" + entry.getValue(),
@@ -360,7 +360,7 @@ public class ImmutableMapTest extends TestCase {
       try {
         builder.orderEntriesByValue(Ordering.natural());
         fail("Expected IllegalStateException");
-      } catch (IllegalStateException expected) {}
+      } catch (IllegalStateException expected) { }
     }
 
     public void testBuilder_withImmutableEntry() {
@@ -450,7 +450,7 @@ public class ImmutableMapTest extends TestCase {
       try {
         builder.put(null, 1);
         fail();
-      } catch (NullPointerException expected) {}
+      } catch (NullPointerException expected) { }
       builder.put("foo", 2);
       assertMapEquals(builder.build(), "foo", 2);
     }
@@ -460,7 +460,7 @@ public class ImmutableMapTest extends TestCase {
       try {
         builder.put(Maps.immutableEntry((String) null, 1));
         fail();
-      } catch (NullPointerException expected) {}
+      } catch (NullPointerException expected) { }
       builder.put("foo", 2);
       assertMapEquals(builder.build(), "foo", 2);
     }
@@ -470,7 +470,7 @@ public class ImmutableMapTest extends TestCase {
       public K key;
       public V value;
 
-      SimpleEntry(K key, V value) {
+      SimpleEntry(final K key, final V value) {
         this.key = key;
         this.value = value;
       }
@@ -491,7 +491,7 @@ public class ImmutableMapTest extends TestCase {
       try {
         builder.put(new SimpleEntry<String, Integer>(null, 1));
         fail();
-      } catch (NullPointerException expected) {}
+      } catch (NullPointerException expected) { }
       builder.put("foo", 2);
       assertMapEquals(builder.build(), "foo", 2);
     }
@@ -663,8 +663,8 @@ public class ImmutableMapTest extends TestCase {
         ImmutableMap.of("one", 1, "two", 2, "three", 3));
   }
 
-  private static <K, V> void assertMapEquals(Map<K, V> map,
-      Object... alternatingKeysAndValues) {
+  private static <K, V> void assertMapEquals(final Map<K, V> map,
+      final Object... alternatingKeysAndValues) {
     assertEquals(map.size(), alternatingKeysAndValues.length / 2);
     int i = 0;
     for (Entry<K, V> entry : map.entrySet()) {
@@ -676,11 +676,11 @@ public class ImmutableMapTest extends TestCase {
   private static class IntHolder implements Serializable {
     public int value;
 
-    public IntHolder(int value) {
+    public IntHolder(final int value) {
       this.value = value;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override public boolean equals(final Object o) {
       return (o instanceof IntHolder) && ((IntHolder) o).value == value;
     }
 

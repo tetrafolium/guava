@@ -38,20 +38,20 @@ final class SingletonImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   final transient K singleKey;
   final transient V singleValue;
 
-  SingletonImmutableBiMap(K singleKey, V singleValue) {
+  SingletonImmutableBiMap(final K singleKey, final V singleValue) {
     checkEntryNotNull(singleKey, singleValue);
     this.singleKey = singleKey;
     this.singleValue = singleValue;
   }
 
-  private SingletonImmutableBiMap(K singleKey, V singleValue, ImmutableBiMap<V, K> inverse) {
+  private SingletonImmutableBiMap(final K singleKey, final V singleValue, final ImmutableBiMap<V, K> inverse) {
     this.singleKey = singleKey;
     this.singleValue = singleValue;
     this.inverse = inverse;
   }
 
   @Override
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return singleKey.equals(key) ? singleValue : null;
   }
 
@@ -61,17 +61,17 @@ final class SingletonImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   }
 
   @Override
-  public void forEach(BiConsumer<? super K, ? super V> action) {
+  public void forEach(final BiConsumer<? super K, ? super V> action) {
     checkNotNull(action).accept(singleKey, singleValue);
   }
 
   @Override
-  public boolean containsKey(@Nullable Object key) {
+  public boolean containsKey(final @Nullable Object key) {
     return singleKey.equals(key);
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return singleValue.equals(value);
   }
 

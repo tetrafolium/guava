@@ -29,7 +29,7 @@ class LongAdder implements LongAddable {
     value++;
   }
 
-  public void add(long x) {
+  public void add(final long x) {
     value += x;
   }
 

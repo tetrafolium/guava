@@ -52,7 +52,7 @@ public abstract class AbstractChainedListenableFutureTest<T> extends TestCase {
     try {
       resultFuture.get(1L, TimeUnit.MILLISECONDS);
       fail("The data is not yet ready, so a TimeoutException is expected");
-    } catch (TimeoutException expected) {}
+    } catch (TimeoutException expected) { }
   }
 
   public void testFutureGetThrowsWrappedException() throws Exception {

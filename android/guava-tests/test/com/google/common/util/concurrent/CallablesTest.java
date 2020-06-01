@@ -100,7 +100,7 @@ public class CallablesTest extends TestCase {
   public void testRenaming_exceptionalReturn() throws Exception {
     String oldName = Thread.currentThread().getName();
     final Supplier<String> newName = Suppliers.ofInstance("MyCrazyThreadName");
-    class MyException extends Exception {}
+    class MyException extends Exception { }
     Callable<Void> callable = new Callable<Void>() {
       @Override public Void call() throws Exception {
         assertEquals(Thread.currentThread().getName(), newName.get());
@@ -110,7 +110,7 @@ public class CallablesTest extends TestCase {
     try {
       Callables.threadRenaming(callable, newName).call();
       fail();
-    } catch (MyException expected) {}
+    } catch (MyException expected) { }
     assertEquals(oldName, Thread.currentThread().getName());
   }
 
@@ -118,10 +118,10 @@ public class CallablesTest extends TestCase {
 
   public void testRenaming_noPermissions() throws Exception {
     System.setSecurityManager(new SecurityManager() {
-      @Override public void checkAccess(Thread t) {
+      @Override public void checkAccess(final Thread t) {
         throw new SecurityException();
       }
-      @Override public void checkPermission(Permission perm) {
+      @Override public void checkPermission(final Permission perm) {
         // Do nothing so we can clear the security manager at the end
       }
     });

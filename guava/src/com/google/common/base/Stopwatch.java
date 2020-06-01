@@ -100,7 +100,7 @@ public final class Stopwatch {
    *
    * @since 15.0
    */
-  public static Stopwatch createUnstarted(Ticker ticker) {
+  public static Stopwatch createUnstarted(final Ticker ticker) {
     return new Stopwatch(ticker);
   }
 
@@ -118,7 +118,7 @@ public final class Stopwatch {
    *
    * @since 15.0
    */
-  public static Stopwatch createStarted(Ticker ticker) {
+  public static Stopwatch createStarted(final Ticker ticker) {
     return new Stopwatch(ticker).start();
   }
 
@@ -126,7 +126,7 @@ public final class Stopwatch {
     this.ticker = Ticker.systemTicker();
   }
 
-  Stopwatch(Ticker ticker) {
+  Stopwatch(final Ticker ticker) {
     this.ticker = checkNotNull(ticker, "ticker");
   }
 
@@ -197,7 +197,7 @@ public final class Stopwatch {
    *
    * @since 14.0 (since 10.0 as {@code elapsedTime()})
    */
-  public long elapsed(TimeUnit desiredUnit) {
+  public long elapsed(final TimeUnit desiredUnit) {
     return desiredUnit.convert(elapsedNanos(), NANOSECONDS);
   }
 
@@ -225,7 +225,7 @@ public final class Stopwatch {
     return Platform.formatCompact4Digits(value) + " " + abbreviate(unit);
   }
 
-  private static TimeUnit chooseUnit(long nanos) {
+  private static TimeUnit chooseUnit(final long nanos) {
     if (DAYS.convert(nanos, NANOSECONDS) > 0) {
       return DAYS;
     }
@@ -247,7 +247,7 @@ public final class Stopwatch {
     return NANOSECONDS;
   }
 
-  private static String abbreviate(TimeUnit unit) {
+  private static String abbreviate(final TimeUnit unit) {
     switch (unit) {
       case NANOSECONDS:
         return "ns";

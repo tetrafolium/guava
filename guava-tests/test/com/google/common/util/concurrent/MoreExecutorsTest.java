@@ -83,7 +83,7 @@ import org.mockito.Mockito;
 public class MoreExecutorsTest extends JSR166TestCase {
 
   private static final Runnable EMPTY_RUNNABLE = new Runnable() {
-    @Override public void run() {}
+    @Override public void run() { }
   };
 
   public void testDirectExecutorServiceServiceInThreadExecution()
@@ -268,7 +268,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
   }
 
   /** Wait for the given thread to reach the {@link State#TIMED_WAITING} thread state. */
-  void awaitTimedWaiting(Thread thread) {
+  void awaitTimedWaiting(final Thread thread) {
     while (true) {
       switch (thread.getState()) {
         case BLOCKED:
@@ -298,7 +298,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     try {
       executor.execute(EMPTY_RUNNABLE);
       fail();
-    } catch (RejectedExecutionException expected) {}
+    } catch (RejectedExecutionException expected) { }
   }
 
   public <T> void testListeningExecutorServiceInvokeAllJavadocCodeCompiles()
@@ -333,7 +333,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     ListeningExecutorService service = listeningDecorator(delegate);
     Runnable task = new Runnable() {
       @Override
-      public void run() {}
+      public void run() { }
     };
     service.execute(task);
     verify(delegate).execute(task);
@@ -343,7 +343,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     final CountDownLatch completed = new CountDownLatch(1);
     ScheduledThreadPoolExecutor delegate = new ScheduledThreadPoolExecutor(1) {
       @Override
-      protected void afterExecute(Runnable r, Throwable t) {
+      protected void afterExecute(final Runnable r, final Throwable t) {
         completed.countDown();
       }
     };
@@ -401,7 +401,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     ScheduledFuture<?> delegateFuture;
 
     Runnable runnable = new Runnable() {
-      @Override public void run() {}
+      @Override public void run() { }
     };
 
     future = service.schedule(runnable, 5, TimeUnit.MINUTES);
@@ -432,7 +432,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     final RuntimeException thrown;
     int count;
 
-    ThrowingRunnable(int throwAfterCount, RuntimeException thrown) {
+    ThrowingRunnable(final int throwAfterCount, final RuntimeException thrown) {
       this.throwAfterCount = throwAfterCount;
       this.thrown = thrown;
     }
@@ -445,7 +445,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     }
   }
 
-  private static void assertExecutionException(Future<?> future, Exception expectedCause)
+  private static void assertExecutionException(final Future<?> future, final Exception expectedCause)
       throws Exception {
     try {
       future.get();
@@ -537,7 +537,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
     }
   }
 
-  private static void assertListenerRunImmediately(ListenableFuture<?> future) {
+  private static void assertListenerRunImmediately(final ListenableFuture<?> future) {
     CountingRunnable listener = new CountingRunnable();
     future.addListener(listener, directExecutor());
     assertEquals(1, listener.count);
@@ -655,7 +655,7 @@ public class MoreExecutorsTest extends JSR166TestCase {
   private static class TestApplication extends Application {
     private final List<Thread> hooks = Lists.newArrayList();
 
-    @Override synchronized void addShutdownHook(Thread hook) {
+    @Override synchronized void addShutdownHook(final Thread hook) {
       hooks.add(hook);
     }
 

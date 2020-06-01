@@ -341,8 +341,8 @@ public class InetAddressesTest extends TestCase {
       assertFalse(InetAddresses.isCompatIPv4Address((Inet6Address) ip));
       try {
         InetAddresses.getCompatIPv4Address((Inet6Address) ip);
-        fail("IllegalArgumentException expected for '" +
-             nonCompatAddresses[i] + "'");
+        fail("IllegalArgumentException expected for '"
+             + nonCompatAddresses[i] + "'");
       } catch (IllegalArgumentException expected) {
       }
     }
@@ -418,8 +418,8 @@ public class InetAddressesTest extends TestCase {
       try {
         InetAddresses.get6to4IPv4Address(
             (Inet6Address) ip);
-        fail("IllegalArgumentException expected for '" +
-             non6to4Addresses[i] + "'");
+        fail("IllegalArgumentException expected for '"
+             + non6to4Addresses[i] + "'");
       } catch (IllegalArgumentException expected) {
       }
     }
@@ -446,8 +446,8 @@ public class InetAddressesTest extends TestCase {
       assertFalse(InetAddresses.isTeredoAddress((Inet6Address) ip));
       try {
         InetAddresses.getTeredoInfo((Inet6Address) ip);
-        fail("IllegalArgumentException expected for '" +
-             nonTeredoAddresses[i] + "'");
+        fail("IllegalArgumentException expected for '"
+             + nonTeredoAddresses[i] + "'");
       } catch (IllegalArgumentException expected) {
       }
     }
@@ -511,8 +511,8 @@ public class InetAddressesTest extends TestCase {
       assertFalse(InetAddresses.isIsatapAddress((Inet6Address) ip));
       try {
         InetAddresses.getIsatapIPv4Address((Inet6Address) ip);
-        fail("IllegalArgumentException expected for '" +
-             nonIsatapAddresses[i] + "'");
+        fail("IllegalArgumentException expected for '"
+             + nonIsatapAddresses[i] + "'");
       } catch (IllegalArgumentException expected) {
       }
     }
@@ -566,32 +566,32 @@ public class InetAddressesTest extends TestCase {
                      InetAddresses.forString("::")));
 
     // test compat address (should be hashed)
-    assertTrue(InetAddresses.forString("1.2.3.4") !=
-               InetAddresses.getCoercedIPv4Address(
+    assertTrue(InetAddresses.forString("1.2.3.4")
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString("::1.2.3.4")));
 
     // test 6to4 address (should be hashed)
-    assertTrue(InetAddresses.forString("1.2.3.4") !=
-               InetAddresses.getCoercedIPv4Address(
+    assertTrue(InetAddresses.forString("1.2.3.4")
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString("2002:0102:0304::1")));
 
     // 2 6to4 addresses differing in the embedded IPv4 address should
     // hash to the different values.
     assertTrue(InetAddresses.getCoercedIPv4Address(
-                   InetAddresses.forString("2002:0102:0304::1")) !=
-               InetAddresses.getCoercedIPv4Address(
+                   InetAddresses.forString("2002:0102:0304::1"))
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString("2002:0506:0708::1")));
 
     // 2 6to4 addresses NOT differing in the embedded IPv4 address should
     // hash to the same value.
     assertTrue(InetAddresses.getCoercedIPv4Address(
-                   InetAddresses.forString("2002:0102:0304::1")) !=
-               InetAddresses.getCoercedIPv4Address(
+                   InetAddresses.forString("2002:0102:0304::1"))
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString("2002:0102:0304::2")));
 
     // test Teredo address (should be hashed)
-    assertTrue(InetAddresses.forString("192.0.2.45") !=
-               InetAddresses.getCoercedIPv4Address(
+    assertTrue(InetAddresses.forString("192.0.2.45")
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString(
                        "2001:0000:4136:e378:8000:63bf:3fff:fdd2")));
 
@@ -599,8 +599,8 @@ public class InetAddressesTest extends TestCase {
     // hash to the different values.
     assertTrue(InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString(
-                       "2001:0000:4136:e378:8000:63bf:3fff:fdd2")) !=
-               InetAddresses.getCoercedIPv4Address(
+                       "2001:0000:4136:e378:8000:63bf:3fff:fdd2"))
+               != InetAddresses.getCoercedIPv4Address(
                    InetAddresses.forString(
                        "2001:0000:4136:e379:8000:63bf:3fff:fdd2")));
 
@@ -682,7 +682,7 @@ public class InetAddressesTest extends TestCase {
     try {
       address = InetAddresses.increment(address);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testIncrementIPv6() throws UnknownHostException {
@@ -705,7 +705,7 @@ public class InetAddressesTest extends TestCase {
     try {
       address = InetAddresses.increment(address);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testDecrementIPv4() throws UnknownHostException {
@@ -728,7 +728,7 @@ public class InetAddressesTest extends TestCase {
     try {
       address = InetAddresses.decrement(address);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testDecrementIPv6() throws UnknownHostException {
@@ -752,6 +752,6 @@ public class InetAddressesTest extends TestCase {
     try {
       address = InetAddresses.decrement(address);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 }

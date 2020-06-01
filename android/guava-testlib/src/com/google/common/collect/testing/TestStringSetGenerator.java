@@ -34,7 +34,7 @@ public abstract class TestStringSetGenerator implements TestSetGenerator<String>
   }
 
   @Override
-  public Set<String> create(Object... elements) {
+  public Set<String> create(final Object... elements) {
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -46,7 +46,7 @@ public abstract class TestStringSetGenerator implements TestSetGenerator<String>
   protected abstract Set<String> create(String[] elements);
 
   @Override
-  public String[] createArray(int length) {
+  public String[] createArray(final int length) {
     return new String[length];
   }
 
@@ -63,7 +63,7 @@ public abstract class TestStringSetGenerator implements TestSetGenerator<String>
    * the advantage of working for insertion-ordered containers, as well.
    */
   @Override
-  public List<String> order(List<String> insertionOrder) {
+  public List<String> order(final List<String> insertionOrder) {
     return insertionOrder;
   }
 }

@@ -28,7 +28,7 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 public class MultisetSetCountUnconditionallyTester<E> extends AbstractMultisetSetCountTester<E> {
   @Override
-  void setCountCheckReturnValue(E element, int count) {
+  void setCountCheckReturnValue(final E element, final int count) {
     assertEquals(
         "multiset.setCount() should return the old count",
         getMultiset().count(element),
@@ -36,11 +36,11 @@ public class MultisetSetCountUnconditionallyTester<E> extends AbstractMultisetSe
   }
 
   @Override
-  void setCountNoCheckReturnValue(E element, int count) {
+  void setCountNoCheckReturnValue(final E element, final int count) {
     setCount(element, count);
   }
 
-  private int setCount(E element, int count) {
+  private int setCount(final E element, final int count) {
     return getMultiset().setCount(element, count);
   }
 }

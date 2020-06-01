@@ -33,18 +33,18 @@ final class ByFunctionOrdering<F, T> extends Ordering<F> implements Serializable
   final Function<F, ? extends T> function;
   final Ordering<T> ordering;
 
-  ByFunctionOrdering(Function<F, ? extends T> function, Ordering<T> ordering) {
+  ByFunctionOrdering(final Function<F, ? extends T> function, final Ordering<T> ordering) {
     this.function = checkNotNull(function);
     this.ordering = checkNotNull(ordering);
   }
 
   @Override
-  public int compare(F left, F right) {
+  public int compare(final F left, final F right) {
     return ordering.compare(function.apply(left), function.apply(right));
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

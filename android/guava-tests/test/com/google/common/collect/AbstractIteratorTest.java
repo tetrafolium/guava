@@ -276,10 +276,10 @@ public class AbstractIteratorTest extends TestCase {
   /**
    * Throws a undeclared checked exception.
    */
-  private static void sneakyThrow(Throwable t) {
+  private static void sneakyThrow(final Throwable t) {
     class SneakyThrower<T extends Throwable> {
       @SuppressWarnings("unchecked") // not really safe, but that's the point
-      void throwIt(Throwable t) throws T {
+      void throwIt(final Throwable t) throws T {
         throw (T) t;
       }
     }

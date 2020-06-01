@@ -29,9 +29,9 @@ import java.util.List;
  */
 public class RegularImmutableMultiset_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableMultiset<?> instance) {}
+      final SerializationStreamReader reader, final RegularImmutableMultiset<?> instance) { }
 
-  public static RegularImmutableMultiset<Object> instantiate(SerializationStreamReader reader)
+  public static RegularImmutableMultiset<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     List<Object> elements = Lists.newArrayList();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
@@ -45,7 +45,7 @@ public class RegularImmutableMultiset_CustomFieldSerializer {
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableMultiset<?> instance)
+      final SerializationStreamWriter writer, final RegularImmutableMultiset<?> instance)
       throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }

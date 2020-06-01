@@ -33,10 +33,10 @@ import javax.annotation.Nullable;
 @GwtCompatible
 final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      AsyncCallable<V> callable) {
+      final ImmutableCollection<? extends ListenableFuture<?>> futures,
+      final boolean allMustSucceed,
+      final Executor listenerExecutor,
+      final AsyncCallable<V> callable) {
     init(
         new CombinedFutureRunningState(
             futures,
@@ -45,10 +45,10 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   }
 
   CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      Callable<V> callable) {
+      final ImmutableCollection<? extends ListenableFuture<?>> futures,
+      final boolean allMustSucceed,
+      final Executor listenerExecutor,
+      final Callable<V> callable) {
     init(
         new CombinedFutureRunningState(
             futures, allMustSucceed, new CallableInterruptibleTask(callable, listenerExecutor)));
@@ -58,15 +58,15 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
     private CombinedFutureInterruptibleTask task;
 
     CombinedFutureRunningState(
-        ImmutableCollection<? extends ListenableFuture<?>> futures,
-        boolean allMustSucceed,
-        CombinedFutureInterruptibleTask task) {
+        final ImmutableCollection<? extends ListenableFuture<?>> futures,
+        final boolean allMustSucceed,
+        final CombinedFutureInterruptibleTask task) {
       super(futures, allMustSucceed, false);
       this.task = task;
     }
 
     @Override
-    void collectOneValue(boolean allMustSucceed, int index, @Nullable Object returnValue) {}
+    void collectOneValue(final boolean allMustSucceed, final int index, final @Nullable Object returnValue) { }
 
     @Override
     void handleAllCompleted() {
@@ -98,7 +98,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
     private final Executor listenerExecutor;
     boolean thrownByExecute = true;
 
-    public CombinedFutureInterruptibleTask(Executor listenerExecutor) {
+    public CombinedFutureInterruptibleTask(final Executor listenerExecutor) {
       this.listenerExecutor = checkNotNull(listenerExecutor);
     }
 
@@ -118,7 +118,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
     }
 
     @Override
-    final void afterRanInterruptibly(T result, Throwable error) {
+    final void afterRanInterruptibly(final T result, final Throwable error) {
       if (error != null) {
         if (error instanceof ExecutionException) {
           setException(error.getCause());
@@ -140,7 +140,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
       extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
-    public AsyncCallableInterruptibleTask(AsyncCallable<V> callable, Executor listenerExecutor) {
+    public AsyncCallableInterruptibleTask(final AsyncCallable<V> callable, final Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }
@@ -156,7 +156,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
     }
 
     @Override
-    void setValue(ListenableFuture<V> value) {
+    void setValue(final ListenableFuture<V> value) {
       setFuture(value);
     }
 
@@ -170,7 +170,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   private final class CallableInterruptibleTask extends CombinedFutureInterruptibleTask<V> {
     private final Callable<V> callable;
 
-    public CallableInterruptibleTask(Callable<V> callable, Executor listenerExecutor) {
+    public CallableInterruptibleTask(final Callable<V> callable, final Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }
@@ -182,7 +182,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
     }
 
     @Override
-    void setValue(V value) {
+    void setValue(final V value) {
       CombinedFuture.this.set(value);
     }
 

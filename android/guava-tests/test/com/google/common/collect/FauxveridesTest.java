@@ -107,7 +107,7 @@ public class FauxveridesTest extends TestCase {
     }
   }
 
-  private void doHasAllFauxveridesTest(Class<?> descendant, Class<?> ancestor) {
+  private void doHasAllFauxveridesTest(final Class<?> descendant, final Class<?> ancestor) {
     Set<MethodSignature> required = getAllRequiredToFauxveride(ancestor);
     Set<MethodSignature> found = getAllFauxveridden(descendant, ancestor);
     Set<MethodSignature> missing = ImmutableSortedSet.copyOf(difference(required, found));
@@ -117,17 +117,17 @@ public class FauxveridesTest extends TestCase {
     }
   }
 
-  private static Set<MethodSignature> getAllRequiredToFauxveride(Class<?> ancestor) {
+  private static Set<MethodSignature> getAllRequiredToFauxveride(final Class<?> ancestor) {
     return getPublicStaticMethodsBetween(ancestor, Object.class);
   }
 
   private static Set<MethodSignature> getAllFauxveridden(
-      Class<?> descendant, Class<?> ancestor) {
+      final Class<?> descendant, final Class<?> ancestor) {
     return getPublicStaticMethodsBetween(descendant, ancestor);
   }
 
   private static Set<MethodSignature> getPublicStaticMethodsBetween(
-      Class<?> descendant, Class<?> ancestor) {
+      final Class<?> descendant, final Class<?> ancestor) {
     Set<MethodSignature> methods = newHashSet();
     for (Class<?> clazz : getClassesBetween(descendant, ancestor)) {
       methods.addAll(getPublicStaticMethods(clazz));
@@ -135,7 +135,7 @@ public class FauxveridesTest extends TestCase {
     return methods;
   }
 
-  private static Set<MethodSignature> getPublicStaticMethods(Class<?> clazz) {
+  private static Set<MethodSignature> getPublicStaticMethods(final Class<?> clazz) {
     Set<MethodSignature> publicStaticMethods = newHashSet();
 
     for (Method method : clazz.getDeclaredMethods()) {
@@ -150,7 +150,7 @@ public class FauxveridesTest extends TestCase {
 
   /** [descendant, ancestor) */
   private static Set<Class<?>> getClassesBetween(
-      Class<?> descendant, Class<?> ancestor) {
+      final Class<?> descendant, final Class<?> ancestor) {
     Set<Class<?>> classes = newHashSet();
 
     while (!descendant.equals(ancestor)) {
@@ -173,13 +173,13 @@ public class FauxveridesTest extends TestCase {
     final List<Class<?>> parameterTypes;
     final TypeSignature typeSignature;
 
-    MethodSignature(Method method) {
+    MethodSignature(final Method method) {
       name = method.getName();
       parameterTypes = Arrays.asList(method.getParameterTypes());
       typeSignature = new TypeSignature(method.getTypeParameters());
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof MethodSignature) {
         MethodSignature other = (MethodSignature) obj;
         return name.equals(other.name)
@@ -199,7 +199,7 @@ public class FauxveridesTest extends TestCase {
           typeSignature, name, getTypesString(parameterTypes));
     }
 
-    @Override public int compareTo(MethodSignature o) {
+    @Override public int compareTo(final MethodSignature o) {
       return toString().compareTo(o.toString());
     }
   }
@@ -207,18 +207,18 @@ public class FauxveridesTest extends TestCase {
   private static final class TypeSignature {
     final List<TypeParameterSignature> parameterSignatures;
 
-    TypeSignature(TypeVariable<Method>[] parameters) {
+    TypeSignature(final TypeVariable<Method>[] parameters) {
       parameterSignatures =
           transform(Arrays.asList(parameters),
               new Function<TypeVariable<?>, TypeParameterSignature>() {
                 @Override
-                public TypeParameterSignature apply(TypeVariable<?> from) {
+                public TypeParameterSignature apply(final TypeVariable<?> from) {
                   return new TypeParameterSignature(from);
                 }
               });
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof TypeSignature) {
         TypeSignature other = (TypeSignature) obj;
         return parameterSignatures.equals(other.parameterSignatures);
@@ -242,12 +242,12 @@ public class FauxveridesTest extends TestCase {
     final String name;
     final List<Type> bounds;
 
-    TypeParameterSignature(TypeVariable<?> typeParameter) {
+    TypeParameterSignature(final TypeVariable<?> typeParameter) {
       name = typeParameter.getName();
       bounds = Arrays.asList(typeParameter.getBounds());
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof TypeParameterSignature) {
         TypeParameterSignature other = (TypeParameterSignature) obj;
         /*
@@ -271,7 +271,7 @@ public class FauxveridesTest extends TestCase {
     }
   }
 
-  private static String getTypesString(List<? extends Type> types) {
+  private static String getTypesString(final List<? extends Type> types) {
     List<String> names = transform(types, SIMPLE_NAME_GETTER);
     return Joiner.on(", ").join(names);
   }
@@ -279,7 +279,7 @@ public class FauxveridesTest extends TestCase {
   private static final Function<Type, String> SIMPLE_NAME_GETTER =
       new Function<Type, String>() {
         @Override
-        public String apply(Type from) {
+        public String apply(final Type from) {
           if (from instanceof Class) {
             return ((Class<?>) from).getSimpleName();
           }
@@ -287,7 +287,7 @@ public class FauxveridesTest extends TestCase {
         }
       };
 
-  private static String rootLocaleFormat(String format, Object... args) {
+  private static String rootLocaleFormat(final String format, final Object... args) {
     return String.format(Locale.ROOT, format, args);
   }
 }

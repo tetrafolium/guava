@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 @J2ObjCIncompatible // java.nio.file
 public final class InsecureRecursiveDeleteException extends FileSystemException {
 
-  public InsecureRecursiveDeleteException(@Nullable String file) {
+  public InsecureRecursiveDeleteException(final @Nullable String file) {
     super(file, null, "unable to guarantee security of recursive delete");
   }
 }

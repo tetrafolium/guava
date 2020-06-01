@@ -196,14 +196,14 @@ public class BooleansTest extends TestCase {
         new boolean[] {true, true, false, false}, 1, 3, new boolean[] {true, false, true, false});
   }
 
-  private static void testReverse(boolean[] input, boolean[] expectedOutput) {
+  private static void testReverse(final boolean[] input, final boolean[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Booleans.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testReverse(
-      boolean[] input, int fromIndex, int toIndex, boolean[] expectedOutput) {
+      final boolean[] input, final int fromIndex, final int toIndex, final boolean[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Booleans.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -230,7 +230,7 @@ public class BooleansTest extends TestCase {
     boolean[] VALUES = BooleansTest.VALUES;
     VALUES = Booleans.concat(VALUES, VALUES);
 
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Boolean> list = Booleans.asList(VALUES).subList(0, i);
         Collection<Boolean> misleadingSize =

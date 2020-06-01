@@ -265,7 +265,7 @@ public class ArbitraryInstancesTest extends TestCase {
     try {
       comparable.compareTo(null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testGet_array() {
@@ -397,7 +397,7 @@ public class ArbitraryInstancesTest extends TestCase {
     assertNull(ArbitraryInstances.get(NonFinalFieldIgnored.class));
   }
 
-  private static void assertFreshInstanceReturned(Class<?>... mutableClasses) {
+  private static void assertFreshInstanceReturned(final Class<?>... mutableClasses) {
     for (Class<?> mutableClass : mutableClasses) {
       Object instance = ArbitraryInstances.get(mutableClass);
       assertNotNull("Expected to return non-null for: " + mutableClass, instance);
@@ -406,21 +406,21 @@ public class ArbitraryInstancesTest extends TestCase {
     }
   }
 
-  private enum EmptyEnum {}
+  private enum EmptyEnum { }
 
   private enum Direction {
     UP, DOWN
   }
 
-  public interface SomeInterface {}
+  public interface SomeInterface { }
 
   public static abstract class SomeAbstractClass {
-    public static final SomeAbstractClass INSTANCE = new SomeAbstractClass() {};
-    public SomeAbstractClass() {}
+    public static final SomeAbstractClass INSTANCE = new SomeAbstractClass() { };
+    public SomeAbstractClass() { }
   }
 
   static class NonPublicClass {
-    public NonPublicClass() {}
+    public NonPublicClass() { }
   }
 
   private static class WithPrivateConstructor {
@@ -428,7 +428,7 @@ public class ArbitraryInstancesTest extends TestCase {
   }
 
   public static class NoDefaultConstructor {
-    public NoDefaultConstructor(@SuppressWarnings("unused") int i) {}
+    public NoDefaultConstructor(final @SuppressWarnings("unused") int i) { }
   }
 
   public static class WithExceptionalConstructor {
@@ -438,7 +438,7 @@ public class ArbitraryInstancesTest extends TestCase {
     public WithExceptionalConstructor() {
       throw new RuntimeException();
     }
-    private WithExceptionalConstructor(String unused) {}
+    private WithExceptionalConstructor(final String unused) { }
   }
 
   private static class WithPublicConstant {
@@ -446,25 +446,25 @@ public class ArbitraryInstancesTest extends TestCase {
   }
 
   private static class ParentClassHasConstant
-      extends WithPublicConstant {}
+      extends WithPublicConstant { }
 
   public static class WithGenericConstant<T> {
     public static final WithGenericConstant<String> STRING_CONSTANT = new WithGenericConstant<>();
 
-    private WithGenericConstant() {}
+    private WithGenericConstant() { }
   }
 
   public static class WithNullConstant {
     public static final WithNullConstant NULL = null;
 
-    private WithNullConstant() {}
+    private WithNullConstant() { }
   }
 
   public static class WithPublicConstructorAndConstant {
     public static final WithPublicConstructorAndConstant INSTANCE =
         new WithPublicConstructorAndConstant();
 
-    public WithPublicConstructorAndConstant() {}
+    public WithPublicConstructorAndConstant() { }
   }
 
   private static class WithPublicConstants {
@@ -486,14 +486,14 @@ public class ArbitraryInstancesTest extends TestCase {
     public static NonFinalFieldIgnored instance =
         new NonFinalFieldIgnored();
 
-    private NonFinalFieldIgnored() {}
+    private NonFinalFieldIgnored() { }
   }
 
   public static class NonPublicConstantIgnored {
     static final NonPublicConstantIgnored INSTANCE =
         new NonPublicConstantIgnored();
 
-    private NonPublicConstantIgnored() {}
+    private NonPublicConstantIgnored() { }
   }
 
   public static class NonStaticFieldIgnored {
@@ -501,6 +501,6 @@ public class ArbitraryInstancesTest extends TestCase {
     public final NonStaticFieldIgnored instance =
         new NonStaticFieldIgnored();
 
-    private NonStaticFieldIgnored() {}
+    private NonStaticFieldIgnored() { }
   }
 }

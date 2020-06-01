@@ -38,7 +38,7 @@ import com.google.common.collect.ImmutableMap;
 @GwtCompatible
 @Beta
 public final class PublicSuffixPatterns {
-  private PublicSuffixPatterns() {}
+  private PublicSuffixPatterns() { }
 
   /** If a hostname is contained as a key in this map, it is a public suffix. */
   public static final ImmutableMap<String, PublicSuffixType> EXACT =

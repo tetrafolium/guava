@@ -457,7 +457,7 @@ public class PreconditionsTest extends TestCase {
    * the full set of method parameters.
    */
   private void assertFailureCause(
-      Throwable throwable, Class<? extends Throwable> clazz, Object[] params) {
+      final Throwable throwable, final Class<? extends Throwable> clazz, final Object[] params) {
     assertThat(throwable).isInstanceOf(clazz);
     if (params.length == 1) {
       assertThat(throwable).hasMessage(null);
@@ -477,7 +477,7 @@ public class PreconditionsTest extends TestCase {
    * @param sig The method signature
    */
   @GwtIncompatible("ArbitraryInstances")
-  private Object[] getParametersForSignature(Object firstParam, ImmutableList<Class<?>> sig) {
+  private Object[] getParametersForSignature(final Object firstParam, final ImmutableList<Class<?>> sig) {
     Object[] params = new Object[sig.size()];
     params[0] = firstParam;
     if (params.length > 1) {
@@ -505,7 +505,7 @@ public class PreconditionsTest extends TestCase {
    *
    * @param predicateType The first parameter to the method (boolean or Object)
    */
-  private static ImmutableList<ImmutableList<Class<?>>> allSignatures(Class<?> predicateType) {
+  private static ImmutableList<ImmutableList<Class<?>>> allSignatures(final Class<?> predicateType) {
     ImmutableSet.Builder<ImmutableList<Class<?>>> allOverloads = ImmutableSet.builder();
     // The first two are for the overloads that don't take formatting args, e.g.
     // checkArgument(boolean) and checkArgument(boolean, Object)
@@ -579,11 +579,11 @@ public class PreconditionsTest extends TestCase {
 
   private static final String FORMAT = "I ate %s pies.";
 
-  private static void verifySimpleMessage(Exception e) {
+  private static void verifySimpleMessage(final Exception e) {
     assertThat(e).hasMessage("A message");
   }
 
-  private static void verifyComplexMessage(Exception e) {
+  private static void verifyComplexMessage(final Exception e) {
     assertThat(e).hasMessage("I ate 5 pies.");
   }
 }

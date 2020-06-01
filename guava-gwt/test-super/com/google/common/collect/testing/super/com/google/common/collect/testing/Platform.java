@@ -27,15 +27,15 @@ import java.util.Arrays;
  */
 final class Platform {
   // Class.cast is not supported in GWT.
-  static void checkCast(Class<?> clazz, Object obj) {
+  static void checkCast(final Class<?> clazz, final Object obj) {
   }
 
-  static <T> T[] clone(T[] array) {
+  static <T> T[] clone(final T[] array) {
     return (T[]) Arrays.copyOfRange(array, 0, array.length);
   }
 
   // TODO: Consolidate different copies in one single place.
-  static String format(String template, Object... args) {
+  static String format(final String template, final Object... args) {
     // start substituting the arguments into the '%s' placeholders
     StringBuilder builder = new StringBuilder(
         template.length() + 16 * args.length);
@@ -66,5 +66,5 @@ final class Platform {
     return builder.toString();
   }
 
-  private Platform() {}
+  private Platform() { }
 }

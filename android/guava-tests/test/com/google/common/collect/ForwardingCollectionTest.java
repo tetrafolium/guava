@@ -42,7 +42,7 @@ public class ForwardingCollectionTest extends TestCase {
       extends ForwardingCollection<T> {
     private final Collection<T> backingCollection;
 
-    StandardImplForwardingCollection(Collection<T> backingCollection) {
+    StandardImplForwardingCollection(final Collection<T> backingCollection) {
       this.backingCollection = backingCollection;
     }
 
@@ -50,7 +50,7 @@ public class ForwardingCollectionTest extends TestCase {
       return backingCollection;
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -58,23 +58,23 @@ public class ForwardingCollectionTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -82,7 +82,7 @@ public class ForwardingCollectionTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -99,7 +99,7 @@ public class ForwardingCollectionTest extends TestCase {
         CollectionTestSuiteBuilder.using(
                 new TestStringCollectionGenerator() {
                   @Override
-                  protected Collection<String> create(String[] elements) {
+                  protected Collection<String> create(final String[] elements) {
                     return new StandardImplForwardingCollection<>(
                         Lists.newLinkedList(asList(elements)));
                   }
@@ -114,7 +114,7 @@ public class ForwardingCollectionTest extends TestCase {
         CollectionTestSuiteBuilder.using(
                 new TestStringCollectionGenerator() {
                   @Override
-                  protected Collection<String> create(String[] elements) {
+                  protected Collection<String> create(final String[] elements) {
                     return new StandardImplForwardingCollection<>(MinimalCollection.of(elements));
                   }
                 })
@@ -129,7 +129,7 @@ public class ForwardingCollectionTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Collection.class, new Function<Collection, Collection>() {
-          @Override public Collection apply(Collection delegate) {
+          @Override public Collection apply(final Collection delegate) {
             return wrap(delegate);
           }
         });

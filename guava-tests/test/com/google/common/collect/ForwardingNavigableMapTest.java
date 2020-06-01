@@ -51,7 +51,7 @@ public class ForwardingNavigableMapTest extends TestCase {
       extends ForwardingNavigableMap<K, V> {
     private final NavigableMap<K, V> backingMap;
 
-    StandardImplForwardingNavigableMap(NavigableMap<K, V> backingMap) {
+    StandardImplForwardingNavigableMap(final NavigableMap<K, V> backingMap) {
       this.backingMap = backingMap;
     }
 
@@ -59,23 +59,23 @@ public class ForwardingNavigableMapTest extends TestCase {
       return backingMap;
     }
 
-    @Override public boolean containsKey(Object key) {
+    @Override public boolean containsKey(final Object key) {
       return standardContainsKey(key);
     }
 
-    @Override public boolean containsValue(Object value) {
+    @Override public boolean containsValue(final Object value) {
       return standardContainsValue(value);
     }
 
-    @Override public void putAll(Map<? extends K, ? extends V> map) {
+    @Override public void putAll(final Map<? extends K, ? extends V> map) {
       standardPutAll(map);
     }
 
-    @Override public V remove(Object object) {
+    @Override public V remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -116,47 +116,47 @@ public class ForwardingNavigableMapTest extends TestCase {
       return standardIsEmpty();
     }
 
-    @Override public SortedMap<K, V> subMap(K fromKey, K toKey) {
+    @Override public SortedMap<K, V> subMap(final K fromKey, final K toKey) {
       return standardSubMap(fromKey, toKey);
     }
 
     @Override
-    public Entry<K, V> lowerEntry(K key) {
+    public Entry<K, V> lowerEntry(final K key) {
       return standardLowerEntry(key);
     }
 
     @Override
-    public K lowerKey(K key) {
+    public K lowerKey(final K key) {
       return standardLowerKey(key);
     }
 
     @Override
-    public Entry<K, V> floorEntry(K key) {
+    public Entry<K, V> floorEntry(final K key) {
       return standardFloorEntry(key);
     }
 
     @Override
-    public K floorKey(K key) {
+    public K floorKey(final K key) {
       return standardFloorKey(key);
     }
 
     @Override
-    public Entry<K, V> ceilingEntry(K key) {
+    public Entry<K, V> ceilingEntry(final K key) {
       return standardCeilingEntry(key);
     }
 
     @Override
-    public K ceilingKey(K key) {
+    public K ceilingKey(final K key) {
       return standardCeilingKey(key);
     }
 
     @Override
-    public Entry<K, V> higherEntry(K key) {
+    public Entry<K, V> higherEntry(final K key) {
       return standardHigherEntry(key);
     }
 
     @Override
-    public K higherKey(K key) {
+    public K higherKey(final K key) {
       return standardHigherKey(key);
     }
 
@@ -201,7 +201,7 @@ public class ForwardingNavigableMapTest extends TestCase {
     }
 
     @Override
-    public SortedMap<K, V> headMap(K toKey) {
+    public SortedMap<K, V> headMap(final K toKey) {
       return standardHeadMap(toKey);
     }
 
@@ -211,7 +211,7 @@ public class ForwardingNavigableMapTest extends TestCase {
     }
 
     @Override
-    public SortedMap<K, V> tailMap(K fromKey) {
+    public SortedMap<K, V> tailMap(final K fromKey) {
       return standardTailMap(fromKey);
     }
   }
@@ -220,7 +220,7 @@ public class ForwardingNavigableMapTest extends TestCase {
       extends ForwardingNavigableMap<K, V> {
     private final NavigableMap<K, V> backingMap;
 
-    StandardLastEntryForwardingNavigableMap(NavigableMap<K, V> backingMap) {
+    StandardLastEntryForwardingNavigableMap(final NavigableMap<K, V> backingMap) {
       this.backingMap = backingMap;
     }
 
@@ -242,7 +242,7 @@ public class ForwardingNavigableMapTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -290,7 +290,7 @@ public class ForwardingNavigableMapTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(NavigableMap.class, new Function<NavigableMap, NavigableMap>() {
-          @Override public NavigableMap apply(NavigableMap delegate) {
+          @Override public NavigableMap apply(final NavigableMap delegate) {
             return wrap(delegate);
           }
         });

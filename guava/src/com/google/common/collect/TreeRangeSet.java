@@ -55,7 +55,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   /**
    * Returns a {@code TreeRangeSet} initialized with the ranges in the specified range set.
    */
-  public static <C extends Comparable<?>> TreeRangeSet<C> create(RangeSet<C> rangeSet) {
+  public static <C extends Comparable<?>> TreeRangeSet<C> create(final RangeSet<C> rangeSet) {
     TreeRangeSet<C> result = create();
     result.addAll(rangeSet);
     return result;
@@ -70,13 +70,13 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
    *
    * @since 21.0
    */
-  public static <C extends Comparable<?>> TreeRangeSet<C> create(Iterable<Range<C>> ranges) {
+  public static <C extends Comparable<?>> TreeRangeSet<C> create(final Iterable<Range<C>> ranges) {
     TreeRangeSet<C> result = create();
     result.addAll(ranges);
     return result;
   }
 
-  private TreeRangeSet(NavigableMap<Cut<C>, Range<C>> rangesByLowerCut) {
+  private TreeRangeSet(final NavigableMap<Cut<C>, Range<C>> rangesByLowerCut) {
     this.rangesByLowerBound = rangesByLowerCut;
   }
 
@@ -101,7 +101,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     final Collection<Range<C>> delegate;
 
-    AsRanges(Collection<Range<C>> delegate) {
+    AsRanges(final Collection<Range<C>> delegate) {
       this.delegate = delegate;
     }
 
@@ -116,14 +116,14 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
       return Sets.equalsImpl(this, o);
     }
   }
 
   @Override
   @Nullable
-  public Range<C> rangeContaining(C value) {
+  public Range<C> rangeContaining(final C value) {
     checkNotNull(value);
     Entry<Cut<C>, Range<C>> floorEntry = rangesByLowerBound.floorEntry(Cut.belowValue(value));
     if (floorEntry != null && floorEntry.getValue().contains(value)) {
@@ -135,7 +135,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   @Override
-  public boolean intersects(Range<C> range) {
+  public boolean intersects(final Range<C> range) {
     checkNotNull(range);
     Entry<Cut<C>, Range<C>> ceilingEntry = rangesByLowerBound.ceilingEntry(range.lowerBound);
     if (ceilingEntry != null
@@ -150,14 +150,14 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   @Override
-  public boolean encloses(Range<C> range) {
+  public boolean encloses(final Range<C> range) {
     checkNotNull(range);
     Entry<Cut<C>, Range<C>> floorEntry = rangesByLowerBound.floorEntry(range.lowerBound);
     return floorEntry != null && floorEntry.getValue().encloses(range);
   }
 
   @Nullable
-  private Range<C> rangeEnclosing(Range<C> range) {
+  private Range<C> rangeEnclosing(final Range<C> range) {
     checkNotNull(range);
     Entry<Cut<C>, Range<C>> floorEntry = rangesByLowerBound.floorEntry(range.lowerBound);
     return (floorEntry != null && floorEntry.getValue().encloses(range))
@@ -176,7 +176,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   @Override
-  public void add(Range<C> rangeToAdd) {
+  public void add(final Range<C> rangeToAdd) {
     checkNotNull(rangeToAdd);
 
     if (rangeToAdd.isEmpty()) {
@@ -223,7 +223,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   @Override
-  public void remove(Range<C> rangeToRemove) {
+  public void remove(final Range<C> rangeToRemove) {
     checkNotNull(rangeToRemove);
 
     if (rangeToRemove.isEmpty()) {
@@ -265,7 +265,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     rangesByLowerBound.subMap(rangeToRemove.lowerBound, rangeToRemove.upperBound).clear();
   }
 
-  private void replaceRangeWithSameLowerBound(Range<C> range) {
+  private void replaceRangeWithSameLowerBound(final Range<C> range) {
     if (range.isEmpty()) {
       rangesByLowerBound.remove(range.lowerBound);
     } else {
@@ -292,18 +292,18 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
      */
     private final Range<Cut<C>> upperBoundWindow;
 
-    RangesByUpperBound(NavigableMap<Cut<C>, Range<C>> rangesByLowerBound) {
+    RangesByUpperBound(final NavigableMap<Cut<C>, Range<C>> rangesByLowerBound) {
       this.rangesByLowerBound = rangesByLowerBound;
       this.upperBoundWindow = Range.all();
     }
 
     private RangesByUpperBound(
-        NavigableMap<Cut<C>, Range<C>> rangesByLowerBound, Range<Cut<C>> upperBoundWindow) {
+        final NavigableMap<Cut<C>, Range<C>> rangesByLowerBound, final Range<Cut<C>> upperBoundWindow) {
       this.rangesByLowerBound = rangesByLowerBound;
       this.upperBoundWindow = upperBoundWindow;
     }
 
-    private NavigableMap<Cut<C>, Range<C>> subMap(Range<Cut<C>> window) {
+    private NavigableMap<Cut<C>, Range<C>> subMap(final Range<Cut<C>> window) {
       if (window.isConnected(upperBoundWindow)) {
         return new RangesByUpperBound<C>(rangesByLowerBound, window.intersection(upperBoundWindow));
       } else {
@@ -313,7 +313,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     @Override
     public NavigableMap<Cut<C>, Range<C>> subMap(
-        Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
+        final Cut<C> fromKey, final boolean fromInclusive, final Cut<C> toKey, final boolean toInclusive) {
       return subMap(
           Range.range(
               fromKey, BoundType.forBoolean(fromInclusive),
@@ -321,12 +321,12 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> headMap(Cut<C> toKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> headMap(final Cut<C> toKey, final boolean inclusive) {
       return subMap(Range.upTo(toKey, BoundType.forBoolean(inclusive)));
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> tailMap(Cut<C> fromKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> tailMap(final Cut<C> fromKey, final boolean inclusive) {
       return subMap(Range.downTo(fromKey, BoundType.forBoolean(inclusive)));
     }
 
@@ -336,12 +336,12 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public boolean containsKey(@Nullable Object key) {
+    public boolean containsKey(final @Nullable Object key) {
       return get(key) != null;
     }
 
     @Override
-    public Range<C> get(@Nullable Object key) {
+    public Range<C> get(final @Nullable Object key) {
       if (key instanceof Cut) {
         try {
           @SuppressWarnings("unchecked") // we catch CCEs
@@ -459,18 +459,18 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
      */
     private final Range<Cut<C>> complementLowerBoundWindow;
 
-    ComplementRangesByLowerBound(NavigableMap<Cut<C>, Range<C>> positiveRangesByLowerBound) {
+    ComplementRangesByLowerBound(final NavigableMap<Cut<C>, Range<C>> positiveRangesByLowerBound) {
       this(positiveRangesByLowerBound, Range.<Cut<C>>all());
     }
 
     private ComplementRangesByLowerBound(
-        NavigableMap<Cut<C>, Range<C>> positiveRangesByLowerBound, Range<Cut<C>> window) {
+        final NavigableMap<Cut<C>, Range<C>> positiveRangesByLowerBound, final Range<Cut<C>> window) {
       this.positiveRangesByLowerBound = positiveRangesByLowerBound;
       this.positiveRangesByUpperBound = new RangesByUpperBound<C>(positiveRangesByLowerBound);
       this.complementLowerBoundWindow = window;
     }
 
-    private NavigableMap<Cut<C>, Range<C>> subMap(Range<Cut<C>> subWindow) {
+    private NavigableMap<Cut<C>, Range<C>> subMap(final Range<Cut<C>> subWindow) {
       if (!complementLowerBoundWindow.isConnected(subWindow)) {
         return ImmutableSortedMap.of();
       } else {
@@ -481,7 +481,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     @Override
     public NavigableMap<Cut<C>, Range<C>> subMap(
-        Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
+        final Cut<C> fromKey, final boolean fromInclusive, final Cut<C> toKey, final boolean toInclusive) {
       return subMap(
           Range.range(
               fromKey, BoundType.forBoolean(fromInclusive),
@@ -489,12 +489,12 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> headMap(Cut<C> toKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> headMap(final Cut<C> toKey, final boolean inclusive) {
       return subMap(Range.upTo(toKey, BoundType.forBoolean(inclusive)));
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> tailMap(Cut<C> fromKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> tailMap(final Cut<C> fromKey, final boolean inclusive) {
       return subMap(Range.downTo(fromKey, BoundType.forBoolean(inclusive)));
     }
 
@@ -629,7 +629,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     @Override
     @Nullable
-    public Range<C> get(Object key) {
+    public Range<C> get(final Object key) {
       if (key instanceof Cut) {
         try {
           @SuppressWarnings("unchecked")
@@ -647,7 +647,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public boolean containsKey(Object key) {
+    public boolean containsKey(final Object key) {
       return get(key) != null;
     }
   }
@@ -658,17 +658,17 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public void add(Range<C> rangeToAdd) {
+    public void add(final Range<C> rangeToAdd) {
       TreeRangeSet.this.remove(rangeToAdd);
     }
 
     @Override
-    public void remove(Range<C> rangeToRemove) {
+    public void remove(final Range<C> rangeToRemove) {
       TreeRangeSet.this.add(rangeToRemove);
     }
 
     @Override
-    public boolean contains(C value) {
+    public boolean contains(final C value) {
       return !TreeRangeSet.this.contains(value);
     }
 
@@ -696,16 +696,16 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     private final NavigableMap<Cut<C>, Range<C>> rangesByUpperBound;
 
     private SubRangeSetRangesByLowerBound(
-        Range<Cut<C>> lowerBoundWindow,
-        Range<C> restriction,
-        NavigableMap<Cut<C>, Range<C>> rangesByLowerBound) {
+        final Range<Cut<C>> lowerBoundWindow,
+        final Range<C> restriction,
+        final NavigableMap<Cut<C>, Range<C>> rangesByLowerBound) {
       this.lowerBoundWindow = checkNotNull(lowerBoundWindow);
       this.restriction = checkNotNull(restriction);
       this.rangesByLowerBound = checkNotNull(rangesByLowerBound);
       this.rangesByUpperBound = new RangesByUpperBound<C>(rangesByLowerBound);
     }
 
-    private NavigableMap<Cut<C>, Range<C>> subMap(Range<Cut<C>> window) {
+    private NavigableMap<Cut<C>, Range<C>> subMap(final Range<Cut<C>> window) {
       if (!window.isConnected(lowerBoundWindow)) {
         return ImmutableSortedMap.of();
       } else {
@@ -716,7 +716,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     @Override
     public NavigableMap<Cut<C>, Range<C>> subMap(
-        Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
+        final Cut<C> fromKey, final boolean fromInclusive, final Cut<C> toKey, final boolean toInclusive) {
       return subMap(
           Range.range(
               fromKey,
@@ -726,12 +726,12 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> headMap(Cut<C> toKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> headMap(final Cut<C> toKey, final boolean inclusive) {
       return subMap(Range.upTo(toKey, BoundType.forBoolean(inclusive)));
     }
 
     @Override
-    public NavigableMap<Cut<C>, Range<C>> tailMap(Cut<C> fromKey, boolean inclusive) {
+    public NavigableMap<Cut<C>, Range<C>> tailMap(final Cut<C> fromKey, final boolean inclusive) {
       return subMap(Range.downTo(fromKey, BoundType.forBoolean(inclusive)));
     }
 
@@ -741,13 +741,13 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public boolean containsKey(@Nullable Object key) {
+    public boolean containsKey(final @Nullable Object key) {
       return get(key) != null;
     }
 
     @Override
     @Nullable
-    public Range<C> get(@Nullable Object key) {
+    public Range<C> get(final @Nullable Object key) {
       if (key instanceof Cut) {
         try {
           @SuppressWarnings("unchecked") // we catch CCE's
@@ -860,14 +860,14 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   @Override
-  public RangeSet<C> subRangeSet(Range<C> view) {
+  public RangeSet<C> subRangeSet(final Range<C> view) {
     return view.equals(Range.<C>all()) ? this : new SubRangeSet(view);
   }
 
   private final class SubRangeSet extends TreeRangeSet<C> {
     private final Range<C> restriction;
 
-    SubRangeSet(Range<C> restriction) {
+    SubRangeSet(final Range<C> restriction) {
       super(
           new SubRangeSetRangesByLowerBound<C>(
               Range.<Cut<C>>all(), restriction, TreeRangeSet.this.rangesByLowerBound));
@@ -875,7 +875,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public boolean encloses(Range<C> range) {
+    public boolean encloses(final Range<C> range) {
       if (!restriction.isEmpty() && restriction.encloses(range)) {
         Range<C> enclosing = TreeRangeSet.this.rangeEnclosing(range);
         return enclosing != null && !enclosing.intersection(restriction).isEmpty();
@@ -885,7 +885,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
     @Override
     @Nullable
-    public Range<C> rangeContaining(C value) {
+    public Range<C> rangeContaining(final C value) {
       if (!restriction.contains(value)) {
         return null;
       }
@@ -894,7 +894,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public void add(Range<C> rangeToAdd) {
+    public void add(final Range<C> rangeToAdd) {
       checkArgument(
           restriction.encloses(rangeToAdd),
           "Cannot add range %s to subRangeSet(%s)",
@@ -904,14 +904,14 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public void remove(Range<C> rangeToRemove) {
+    public void remove(final Range<C> rangeToRemove) {
       if (rangeToRemove.isConnected(restriction)) {
         TreeRangeSet.this.remove(rangeToRemove.intersection(restriction));
       }
     }
 
     @Override
-    public boolean contains(C value) {
+    public boolean contains(final C value) {
       return restriction.contains(value) && TreeRangeSet.this.contains(value);
     }
 
@@ -921,7 +921,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     }
 
     @Override
-    public RangeSet<C> subRangeSet(Range<C> view) {
+    public RangeSet<C> subRangeSet(final Range<C> view) {
       if (view.encloses(restriction)) {
         return this;
       } else if (view.isConnected(restriction)) {

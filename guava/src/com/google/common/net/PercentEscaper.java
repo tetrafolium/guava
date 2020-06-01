@@ -83,7 +83,7 @@ public final class PercentEscaper extends UnicodeEscaper {
    * @param plusForSpace true if ASCII space should be escaped to {@code +} rather than {@code %20}
    * @throws IllegalArgumentException if any of the parameters were invalid
    */
-  public PercentEscaper(String safeChars, boolean plusForSpace) {
+  public PercentEscaper(final String safeChars, final boolean plusForSpace) {
     // TODO(user): Switch to static factory methods for creation now that class is final.
     // TODO(user): Support escapers where alphanumeric chars are not safe.
     checkNotNull(safeChars); // eager for GWT.
@@ -108,7 +108,7 @@ public final class PercentEscaper extends UnicodeEscaper {
    * safeChars set to true. The array is as small as is required to hold the given character
    * information.
    */
-  private static boolean[] createSafeOctets(String safeChars) {
+  private static boolean[] createSafeOctets(final String safeChars) {
     int maxChar = -1;
     char[] safeCharArray = safeChars.toCharArray();
     for (char c : safeCharArray) {
@@ -126,7 +126,7 @@ public final class PercentEscaper extends UnicodeEscaper {
    * escaper from ~760ns to ~400ns as measured by {@link CharEscapersBenchmark}.
    */
   @Override
-  protected int nextEscapeIndex(CharSequence csq, int index, int end) {
+  protected int nextEscapeIndex(final CharSequence csq, final int index, final int end) {
     checkNotNull(csq);
     for (; index < end; index++) {
       char c = csq.charAt(index);
@@ -142,7 +142,7 @@ public final class PercentEscaper extends UnicodeEscaper {
    * escaper from ~400ns to ~170ns as measured by {@link CharEscapersBenchmark}.
    */
   @Override
-  public String escape(String s) {
+  public String escape(final String s) {
     checkNotNull(s);
     int slen = s.length();
     for (int index = 0; index < slen; index++) {
@@ -158,7 +158,7 @@ public final class PercentEscaper extends UnicodeEscaper {
    * Escapes the given Unicode code point in UTF-8.
    */
   @Override
-  protected char[] escape(int cp) {
+  protected char[] escape(final int cp) {
     // We should never get negative values here but if we do it will throw an
     // IndexOutOfBoundsException, so at least it will get spotted.
     if (cp < safeOctets.length && safeOctets[cp]) {

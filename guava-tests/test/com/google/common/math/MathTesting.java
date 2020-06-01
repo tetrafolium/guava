@@ -57,7 +57,7 @@ public class MathTesting {
   /* Helper function to make a Long value from an Integer. */
   private static final Function<Integer, Long> TO_LONG = new Function<Integer, Long>() {
     @Override
-    public Long apply(Integer n) {
+    public Long apply(final Integer n) {
       return Long.valueOf(n);
     }
   };
@@ -66,21 +66,21 @@ public class MathTesting {
   private static final Function<Long, BigInteger> TO_BIGINTEGER =
       new Function<Long, BigInteger>() {
         @Override
-        public BigInteger apply(Long n) {
+        public BigInteger apply(final Long n) {
           return BigInteger.valueOf(n);
         }
       };
 
   private static final Function<Integer, Integer> NEGATE_INT = new Function<Integer, Integer>() {
     @Override
-    public Integer apply(Integer x) {
+    public Integer apply(final Integer x) {
       return -x;
     }
   };
 
   private static final Function<Long, Long> NEGATE_LONG = new Function<Long, Long>() {
     @Override
-    public Long apply(Long x) {
+    public Long apply(final Long x) {
       return -x;
     }
   };
@@ -88,7 +88,7 @@ public class MathTesting {
   private static final Function<BigInteger, BigInteger> NEGATE_BIGINT =
       new Function<BigInteger, BigInteger>() {
         @Override
-        public BigInteger apply(BigInteger x) {
+        public BigInteger apply(final BigInteger x) {
           return x.negate();
         }
       };
@@ -256,7 +256,7 @@ public class MathTesting {
     POSITIVE_FINITE_DOUBLE_CANDIDATES =
         Iterables.filter(FINITE_DOUBLE_CANDIDATES, new Predicate<Double>() {
           @Override
-          public boolean apply(Double input) {
+          public boolean apply(final Double input) {
             return input.doubleValue() > 0.0;
           }
         });

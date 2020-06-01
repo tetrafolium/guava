@@ -54,7 +54,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
    *
    * @since 19.0
    */
-  public static <B, T extends B> ImmutableClassToInstanceMap<B> of(Class<T> type, T value) {
+  public static <B, T extends B> ImmutableClassToInstanceMap<B> of(final Class<T> type, final T value) {
     ImmutableMap<Class<? extends B>, B> map = ImmutableMap.<Class<? extends B>, B>of(type, value);
     return new ImmutableClassToInstanceMap<B>(map);
   }
@@ -92,7 +92,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
      * keys are not allowed, and will cause {@link #build} to fail.
      */
     @CanIgnoreReturnValue
-    public <T extends B> Builder<B> put(Class<T> key, T value) {
+    public <T extends B> Builder<B> put(final Class<T> key, final T value) {
       mapBuilder.put(key, value);
       return this;
     }
@@ -106,7 +106,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
      *     specified by its key
      */
     @CanIgnoreReturnValue
-    public <T extends B> Builder<B> putAll(Map<? extends Class<? extends T>, ? extends T> map) {
+    public <T extends B> Builder<B> putAll(final Map<? extends Class<? extends T>, ? extends T> map) {
       for (Entry<? extends Class<? extends T>, ? extends T> entry : map.entrySet()) {
         Class<? extends T> type = entry.getKey();
         T value = entry.getValue();
@@ -115,7 +115,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
       return this;
     }
 
-    private static <B, T extends B> T cast(Class<T> type, B value) {
+    private static <B, T extends B> T cast(final Class<T> type, final B value) {
       return Primitives.wrap(type).cast(value);
     }
 
@@ -149,7 +149,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
    *     specified by its key
    */
   public static <B, S extends B> ImmutableClassToInstanceMap<B> copyOf(
-      Map<? extends Class<? extends S>, ? extends S> map) {
+      final Map<? extends Class<? extends S>, ? extends S> map) {
     if (map instanceof ImmutableClassToInstanceMap) {
       @SuppressWarnings("unchecked") // covariant casts safe (unmodifiable)
       // Eclipse won't compile if we cast to the parameterized type.
@@ -161,7 +161,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
 
   private final ImmutableMap<Class<? extends B>, B> delegate;
 
-  private ImmutableClassToInstanceMap(ImmutableMap<Class<? extends B>, B> delegate) {
+  private ImmutableClassToInstanceMap(final ImmutableMap<Class<? extends B>, B> delegate) {
     this.delegate = delegate;
   }
 
@@ -173,7 +173,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
   @Override
   @SuppressWarnings("unchecked") // value could not get in if not a T
   @Nullable
-  public <T extends B> T getInstance(Class<T> type) {
+  public <T extends B> T getInstance(final Class<T> type) {
     return (T) delegate.get(checkNotNull(type));
   }
 
@@ -186,7 +186,7 @@ public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? 
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public <T extends B> T putInstance(Class<T> type, T value) {
+  public <T extends B> T putInstance(final Class<T> type, final T value) {
     throw new UnsupportedOperationException();
   }
 

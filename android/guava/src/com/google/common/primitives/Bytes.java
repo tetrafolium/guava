@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 // javadoc?
 @GwtCompatible
 public final class Bytes {
-  private Bytes() {}
+  private Bytes() { }
 
   /**
    * Returns a hash code for {@code value}; equal to the result of invoking
@@ -56,7 +56,7 @@ public final class Bytes {
    * @param value a primitive {@code byte} value
    * @return a hash code for the value
    */
-  public static int hashCode(byte value) {
+  public static int hashCode(final byte value) {
     return value;
   }
 
@@ -68,7 +68,7 @@ public final class Bytes {
    * @return {@code true} if {@code array[i] == target} for some value of {@code
    *     i}
    */
-  public static boolean contains(byte[] array, byte target) {
+  public static boolean contains(final byte[] array, final byte target) {
     for (byte value : array) {
       if (value == target) {
         return true;
@@ -85,12 +85,12 @@ public final class Bytes {
    * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int indexOf(byte[] array, byte target) {
+  public static int indexOf(final byte[] array, final byte target) {
     return indexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int indexOf(byte[] array, byte target, int start, int end) {
+  private static int indexOf(final byte[] array, final byte target, final int start, final int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -110,7 +110,7 @@ public final class Bytes {
    * @param array the array to search for the sequence {@code target}
    * @param target the array to search for as a sub-sequence of {@code array}
    */
-  public static int indexOf(byte[] array, byte[] target) {
+  public static int indexOf(final byte[] array, final byte[] target) {
     checkNotNull(array, "array");
     checkNotNull(target, "target");
     if (target.length == 0) {
@@ -137,12 +137,12 @@ public final class Bytes {
    * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int lastIndexOf(byte[] array, byte target) {
+  public static int lastIndexOf(final byte[] array, final byte target) {
     return lastIndexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int lastIndexOf(byte[] array, byte target, int start, int end) {
+  private static int lastIndexOf(final byte[] array, final byte target, final int start, final int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -159,7 +159,7 @@ public final class Bytes {
    * @param arrays zero or more {@code byte} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static byte[] concat(byte[]... arrays) {
+  public static byte[] concat(final byte[]... arrays) {
     int length = 0;
     for (byte[] array : arrays) {
       length += array.length;
@@ -186,7 +186,7 @@ public final class Bytes {
    * @return an array containing the values of {@code array}, with guaranteed minimum length
    *     {@code minLength}
    */
-  public static byte[] ensureCapacity(byte[] array, int minLength, int padding) {
+  public static byte[] ensureCapacity(final byte[] array, final int minLength, final int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
@@ -205,7 +205,7 @@ public final class Bytes {
    * @throws NullPointerException if {@code collection} or any of its elements is null
    * @since 1.0 (parameter was {@code Collection<Byte>} before 12.0)
    */
-  public static byte[] toArray(Collection<? extends Number> collection) {
+  public static byte[] toArray(final Collection<? extends Number> collection) {
     if (collection instanceof ByteArrayAsList) {
       return ((ByteArrayAsList) collection).toByteArray();
     }
@@ -232,7 +232,7 @@ public final class Bytes {
    * @param backingArray the array to back the list
    * @return a list view of the array
    */
-  public static List<Byte> asList(byte... backingArray) {
+  public static List<Byte> asList(final byte... backingArray) {
     if (backingArray.length == 0) {
       return Collections.emptyList();
     }
@@ -246,11 +246,11 @@ public final class Bytes {
     final int start;
     final int end;
 
-    ByteArrayAsList(byte[] array) {
+    ByteArrayAsList(final byte[] array) {
       this(array, 0, array.length);
     }
 
-    ByteArrayAsList(byte[] array, int start, int end) {
+    ByteArrayAsList(final byte[] array, final int start, final int end) {
       this.array = array;
       this.start = start;
       this.end = end;
@@ -267,19 +267,19 @@ public final class Bytes {
     }
 
     @Override
-    public Byte get(int index) {
+    public Byte get(final int index) {
       checkElementIndex(index, size());
       return array[start + index];
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Byte) && Bytes.indexOf(array, (Byte) target, start, end) != -1;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Byte) {
         int i = Bytes.indexOf(array, (Byte) target, start, end);
@@ -291,7 +291,7 @@ public final class Bytes {
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Byte) {
         int i = Bytes.lastIndexOf(array, (Byte) target, start, end);
@@ -303,7 +303,7 @@ public final class Bytes {
     }
 
     @Override
-    public Byte set(int index, Byte element) {
+    public Byte set(final int index, final Byte element) {
       checkElementIndex(index, size());
       byte oldValue = array[start + index];
       // checkNotNull for GWT (do not optimize)
@@ -312,7 +312,7 @@ public final class Bytes {
     }
 
     @Override
-    public List<Byte> subList(int fromIndex, int toIndex) {
+    public List<Byte> subList(final int fromIndex, final int toIndex) {
       int size = size();
       checkPositionIndexes(fromIndex, toIndex, size);
       if (fromIndex == toIndex) {
@@ -322,7 +322,7 @@ public final class Bytes {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object == this) {
         return true;
       }
@@ -374,7 +374,7 @@ public final class Bytes {
    *
    * @since 23.1
    */
-  public static void reverse(byte[] array) {
+  public static void reverse(final byte[] array) {
     checkNotNull(array);
     reverse(array, 0, array.length);
   }
@@ -389,7 +389,7 @@ public final class Bytes {
    *     {@code toIndex > fromIndex}
    * @since 23.1
    */
-  public static void reverse(byte[] array, int fromIndex, int toIndex) {
+  public static void reverse(final byte[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {

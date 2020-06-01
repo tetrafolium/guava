@@ -230,19 +230,19 @@ public class MultimapsTest extends TestCase {
     try {
       entry.setValue(2);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     entry = (Entry<String, Integer>) unmod.entries().toArray()[0];
     try {
       entry.setValue(2);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     Entry<String, Integer>[] array
         = (Entry<String, Integer>[]) new Entry<?, ?>[2];
     assertSame(array, unmod.entries().toArray(array));
     try {
       array[0].setValue(2);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertFalse(unmod.entries().contains(nefariousMapEntry("pwnd", 2)));
     assertFalse(unmod.keys().contains("pwnd"));
   }
@@ -252,7 +252,7 @@ public class MultimapsTest extends TestCase {
    * in its stead. The multimap must support null keys and values.
    */
   private static void checkUnmodifiableMultimap(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates) {
+      final Multimap<String, Integer> multimap, final boolean permitsDuplicates) {
     checkUnmodifiableMultimap(multimap, permitsDuplicates, null, null);
   }
 
@@ -262,8 +262,8 @@ public class MultimapsTest extends TestCase {
    * alternatives may be specified for tests involving nulls.
    */
   private static void checkUnmodifiableMultimap(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates,
-      @Nullable String nullKey, @Nullable Integer nullValue) {
+      final Multimap<String, Integer> multimap, final boolean permitsDuplicates,
+      final @Nullable String nullKey, final @Nullable Integer nullValue) {
     Multimap<String, Integer> unmodifiable =
         prepareUnmodifiableTests(multimap, permitsDuplicates, nullKey, nullValue);
 
@@ -297,8 +297,8 @@ public class MultimapsTest extends TestCase {
    * of the map.
    */
   private static Multimap<String, Integer> prepareUnmodifiableTests(
-      Multimap<String, Integer> multimap, boolean permitsDuplicates,
-      @Nullable String nullKey, @Nullable Integer nullValue) {
+      final Multimap<String, Integer> multimap, final boolean permitsDuplicates,
+      final @Nullable String nullKey, final @Nullable Integer nullValue) {
     multimap.clear();
     multimap.put("foo", 1);
     multimap.put("foo", 2);
@@ -333,7 +333,7 @@ public class MultimapsTest extends TestCase {
   }
 
   private static <T> void assertUnmodifiableIterableInTandem(
-      Iterable<T> unmodifiable, Iterable<T> modifiable) {
+      final Iterable<T> unmodifiable, final Iterable<T> modifiable) {
     UnmodifiableCollectionTests.assertIteratorIsUnmodifiable(
         unmodifiable.iterator());
     UnmodifiableCollectionTests.assertIteratorsInOrder(
@@ -425,19 +425,19 @@ public class MultimapsTest extends TestCase {
     try {
       multimapView.put("baz", 3);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       multimapView.putAll("baz", Collections.singleton(3));
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       multimapView.putAll(multimap);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       multimapView.replaceValues("foo", Collections.<Integer>emptySet());
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     multimapView.remove("bar", 2);
     assertFalse(multimapView.containsKey("bar"));
     assertFalse(map.containsKey("bar"));
@@ -531,7 +531,7 @@ public class MultimapsTest extends TestCase {
             return multimap.get("foo").iterator();
           }
 
-          @Override protected void verify(List<Integer> elements) {
+          @Override protected void verify(final List<Integer> elements) {
             assertEquals(newHashSet(elements), multimap.get("foo"));
           }
         };
@@ -539,7 +539,7 @@ public class MultimapsTest extends TestCase {
     tester.test();
   }
 
-  private enum Color {BLUE, RED, YELLOW, GREEN}
+  private enum Color { BLUE, RED, YELLOW, GREEN }
 
   private abstract static class CountingSupplier<E>
       implements Supplier<E>, Serializable {
@@ -573,13 +573,13 @@ public class MultimapsTest extends TestCase {
           }
 
           @Override
-          public boolean add(Integer element) {
+          public boolean add(final Integer element) {
             checkArgument(element >= 0);
             return super.add(element);
           }
 
           @Override
-          public boolean addAll(Collection<? extends Integer> collection) {
+          public boolean addAll(final Collection<? extends Integer> collection) {
             return standardAddAll(collection);
           }
         };
@@ -785,7 +785,7 @@ public class MultimapsTest extends TestCase {
     final Function<String, Integer> stringLengthFunction =
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String input) {
+          public Integer apply(final String input) {
             return input.length();
           }
         };
@@ -820,7 +820,7 @@ public class MultimapsTest extends TestCase {
         ImmutableSetMultimap.of("a", 2, "b", -3, "b", 3, "a", 4, "c", 6);
     Function<Integer, Integer> square = new Function<Integer, Integer>() {
       @Override
-      public Integer apply(Integer in) {
+      public Integer apply(final Integer in) {
         return in * in;
       }
     };
@@ -837,7 +837,7 @@ public class MultimapsTest extends TestCase {
     Multimap<String, Integer> transformed =
         Multimaps.transformValues(multimap, new Function<String, Integer>() {
 
-          @Override public Integer apply(String str) {
+          @Override public Integer apply(final String str) {
             return str.length();
           }
         });
@@ -852,7 +852,7 @@ public class MultimapsTest extends TestCase {
         ImmutableListMultimap.of("a", 2, "b", -3, "b", 3, "a", 4, "c", 6);
     Function<Integer, Integer> square = new Function<Integer, Integer>() {
       @Override
-      public Integer apply(Integer in) {
+      public Integer apply(final Integer in) {
         return in * in;
       }
     };
@@ -870,7 +870,7 @@ public class MultimapsTest extends TestCase {
     EntryTransformer<String, Integer, String> transformer =
         new EntryTransformer<String, Integer, String>() {
           @Override
-          public String transformEntry(String key, Integer value) {
+          public String transformEntry(final String key, final Integer value) {
             return (value >= 0) ? key : "no" + key;
           }
         };
@@ -887,7 +887,7 @@ public class MultimapsTest extends TestCase {
     EntryTransformer<String, Integer, String> transformer =
         new EntryTransformer<String, Integer, String>() {
           @Override
-          public String transformEntry(String key, Integer value) {
+          public String transformEntry(final String key, final Integer value) {
             return key + value;
           }
         };
@@ -913,7 +913,7 @@ public class MultimapsTest extends TestCase {
     }
   }
 
-  private static void foo(Object o) {}
+  private static void foo(final Object o) { }
 
   public void testFilteredKeysSetMultimapReplaceValues() {
     SetMultimap<String, Integer> multimap = LinkedHashMultimap.create();

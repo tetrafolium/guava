@@ -34,7 +34,7 @@ import java.util.Set;
  */
 final class UndirectedNetworkConnections<N, E> extends AbstractUndirectedNetworkConnections<N, E> {
 
-  protected UndirectedNetworkConnections(Map<E, N> incidentEdgeMap) {
+  protected UndirectedNetworkConnections(final Map<E, N> incidentEdgeMap) {
     super(incidentEdgeMap);
   }
 
@@ -42,7 +42,7 @@ final class UndirectedNetworkConnections<N, E> extends AbstractUndirectedNetwork
     return new UndirectedNetworkConnections<>(HashBiMap.<E, N>create(EXPECTED_DEGREE));
   }
 
-  static <N, E> UndirectedNetworkConnections<N, E> ofImmutable(Map<E, N> incidentEdges) {
+  static <N, E> UndirectedNetworkConnections<N, E> ofImmutable(final Map<E, N> incidentEdges) {
     return new UndirectedNetworkConnections<>(ImmutableBiMap.copyOf(incidentEdges));
   }
 
@@ -52,7 +52,7 @@ final class UndirectedNetworkConnections<N, E> extends AbstractUndirectedNetwork
   }
 
   @Override
-  public Set<E> edgesConnecting(N node) {
+  public Set<E> edgesConnecting(final N node) {
     return new EdgesConnecting<E>(((BiMap<E, N>) incidentEdgeMap).inverse(), node);
   }
 }

@@ -52,7 +52,7 @@ import java.io.Serializable;
 public abstract class ForwardingObject {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingObject() {}
+  protected ForwardingObject() { }
 
   /**
    * Returns the backing delegate instance that methods are forwarded to.

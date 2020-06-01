@@ -78,7 +78,7 @@ final class ReaderInputStream extends InputStream {
    * @param bufferSize size of internal input and output buffers
    * @throws IllegalArgumentException if bufferSize is non-positive
    */
-  ReaderInputStream(Reader reader, Charset charset, int bufferSize) {
+  ReaderInputStream(final Reader reader, final Charset charset, final int bufferSize) {
     this(
         reader,
         charset
@@ -97,7 +97,7 @@ final class ReaderInputStream extends InputStream {
    * @param bufferSize size of internal input and output buffers
    * @throws IllegalArgumentException if bufferSize is non-positive
    */
-  ReaderInputStream(Reader reader, CharsetEncoder encoder, int bufferSize) {
+  ReaderInputStream(final Reader reader, final CharsetEncoder encoder, final int bufferSize) {
     this.reader = checkNotNull(reader);
     this.encoder = checkNotNull(encoder);
     checkArgument(bufferSize > 0, "bufferSize must be positive: %s", bufferSize);
@@ -122,7 +122,7 @@ final class ReaderInputStream extends InputStream {
   // TODO(chrisn): Consider trying to encode/flush directly to the argument byte
   // buffer when possible.
   @Override
-  public int read(byte[] b, int off, int len) throws IOException {
+  public int read(final byte[] b, final int off, final int len) throws IOException {
     // Obey InputStream contract.
     checkPositionIndexes(off, off + len, b.length);
     if (len == 0) {
@@ -186,7 +186,7 @@ final class ReaderInputStream extends InputStream {
   }
 
   /** Returns a new CharBuffer identical to buf, except twice the capacity. */
-  private static CharBuffer grow(CharBuffer buf) {
+  private static CharBuffer grow(final CharBuffer buf) {
     char[] copy = Arrays.copyOf(buf.array(), buf.capacity() * 2);
     CharBuffer bigger = CharBuffer.wrap(copy);
     bigger.position(buf.position());
@@ -225,7 +225,7 @@ final class ReaderInputStream extends InputStream {
   }
 
   /** Returns the number of elements between the limit and capacity. */
-  private static int availableCapacity(Buffer buffer) {
+  private static int availableCapacity(final Buffer buffer) {
     return buffer.capacity() - buffer.limit();
   }
 
@@ -234,7 +234,7 @@ final class ReaderInputStream extends InputStream {
    * drain because there was overflow, and there aren't actually any characters to drain, then the
    * overflow must be due to a small output buffer.
    */
-  private void startDraining(boolean overflow) {
+  private void startDraining(final boolean overflow) {
     byteBuffer.flip();
     if (overflow && byteBuffer.remaining() == 0) {
       byteBuffer = ByteBuffer.allocate(byteBuffer.capacity() * 2);
@@ -247,7 +247,7 @@ final class ReaderInputStream extends InputStream {
    * Copy as much of the byte buffer into the output array as possible, returning the (positive)
    * number of characters copied.
    */
-  private int drain(byte[] b, int off, int len) {
+  private int drain(final byte[] b, final int off, final int len) {
     int remaining = Math.min(len, byteBuffer.remaining());
     byteBuffer.get(b, off, remaining);
     return remaining;

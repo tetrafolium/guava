@@ -530,11 +530,11 @@ public class TraverserTest {
     assertThat(graph.requestedNodes).containsExactly('h', 'h', 'd', 'd', 'a', 'a', 'b', 'b');
   }
 
-  private static SuccessorsFunction<Character> createDirectedGraph(String... edges) {
+  private static SuccessorsFunction<Character> createDirectedGraph(final String... edges) {
     return createGraph(/* directed = */ true, edges);
   }
 
-  private static SuccessorsFunction<Character> createUndirectedGraph(String... edges) {
+  private static SuccessorsFunction<Character> createUndirectedGraph(final String... edges) {
     return createGraph(/* directed = */ false, edges);
   }
 
@@ -544,7 +544,7 @@ public class TraverserTest {
    *
    * <p>The {@code successors} are always returned in alphabetical order.
    */
-  private static SuccessorsFunction<Character> createGraph(boolean directed, String... edges) {
+  private static SuccessorsFunction<Character> createGraph(final boolean directed, final String... edges) {
     ImmutableMultimap.Builder<Character, Character> graphMapBuilder = ImmutableMultimap.builder();
     for (String edge : edges) {
       checkArgument(
@@ -560,13 +560,13 @@ public class TraverserTest {
 
     return new SuccessorsFunction<Character>() {
       @Override
-      public Iterable<? extends Character> successors(Character node) {
+      public Iterable<? extends Character> successors(final Character node) {
         return Ordering.natural().immutableSortedCopy(graphMap.get(node));
       }
     };
   }
 
-  private static void assertEqualCharNodes(Iterable<Character> result, String expectedCharacters) {
+  private static void assertEqualCharNodes(final Iterable<Character> result, final String expectedCharacters) {
     assertThat(ImmutableList.copyOf(result))
         .containsExactlyElementsIn(Chars.asList(expectedCharacters.toCharArray()))
         .inOrder();
@@ -576,12 +576,12 @@ public class TraverserTest {
     private final SuccessorsFunction<Character> delegate;
     final Multiset<Character> requestedNodes = HashMultiset.create();
 
-    RequestSavingGraph(SuccessorsFunction<Character> delegate) {
+    RequestSavingGraph(final SuccessorsFunction<Character> delegate) {
       this.delegate = checkNotNull(delegate);
     }
 
     @Override
-    public Iterable<? extends Character> successors(Character node) {
+    public Iterable<? extends Character> successors(final Character node) {
       requestedNodes.add(node);
       return delegate.successors(node);
     }

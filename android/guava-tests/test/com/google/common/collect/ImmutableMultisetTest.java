@@ -60,7 +60,7 @@ public class ImmutableMultisetTest extends TestCase {
 
     suite.addTest(MultisetTestSuiteBuilder.using(
         new TestStringMultisetGenerator() {
-          @Override protected Multiset<String> create(String[] elements) {
+          @Override protected Multiset<String> create(final String[] elements) {
             return ImmutableMultiset.copyOf(elements);
           }
         })
@@ -71,7 +71,7 @@ public class ImmutableMultisetTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return ImmutableMultiset.copyOf(elements).elementSet();
           }
         })
@@ -85,12 +85,12 @@ public class ImmutableMultisetTest extends TestCase {
         ListTestSuiteBuilder.using(
                 new TestStringListGenerator() {
                   @Override
-                  protected List<String> create(String[] elements) {
+                  protected List<String> create(final String[] elements) {
                     return ImmutableMultiset.copyOf(elements).asList();
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     List<String> order = new ArrayList<>();
                     for (String s : insertionOrder) {
                       int index = order.indexOf(s);
@@ -114,7 +114,7 @@ public class ImmutableMultisetTest extends TestCase {
         ListTestSuiteBuilder.using(
                 new TestStringListGenerator() {
                   @Override
-                  protected List<String> create(String[] elements) {
+                  protected List<String> create(final String[] elements) {
                     Set<String> set = new HashSet<>();
                     ImmutableMultiset.Builder<String> builder = ImmutableMultiset.builder();
                     for (String s : elements) {
@@ -190,13 +190,13 @@ public class ImmutableMultisetTest extends TestCase {
   }
 
   public void testCreation_arrayOfOneElement() {
-    String[] array = new String[] { "a" };
+    String[] array = new String[] {"a" };
     Multiset<String> multiset = ImmutableMultiset.copyOf(array);
     assertEquals(HashMultiset.create(asList("a")), multiset);
   }
 
   public void testCreation_arrayOfArray() {
-    String[] array = new String[] { "a" };
+    String[] array = new String[] {"a" };
     Multiset<String[]> multiset = ImmutableMultiset.<String[]>of(array);
     Multiset<String[]> expected = HashMultiset.create();
     expected.add(array);
@@ -204,11 +204,11 @@ public class ImmutableMultisetTest extends TestCase {
   }
 
   public void testCreation_arrayContainingOnlyNull() {
-    String[] array = new String[] { null };
+    String[] array = new String[] {null };
     try {
       ImmutableMultiset.copyOf(array);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_collection_empty() {
@@ -235,7 +235,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       ImmutableMultiset.copyOf(c);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_multiset_empty() {
@@ -261,7 +261,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       ImmutableMultiset.copyOf(c);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_iterator_empty() {
@@ -287,7 +287,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       ImmutableMultiset.copyOf(iterator);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   private static class CountingIterable implements Iterable<String> {
@@ -385,7 +385,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.add((String) null);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddAllHandlesNullsCorrectly() {
@@ -393,14 +393,14 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.addAll((Collection<String>) null);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
 
     builder = ImmutableMultiset.builder();
     List<String> listWithNulls = asList("a", null, "b");
     try {
       builder.addAll(listWithNulls);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
 
     builder = ImmutableMultiset.builder();
     Multiset<String> multisetWithNull
@@ -408,7 +408,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.addAll(multisetWithNull);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddCopiesHandlesNullsCorrectly() {
@@ -416,7 +416,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.addCopies(null, 2);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddCopiesIllegal() {
@@ -424,7 +424,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.addCopies("a", -2);
       fail("expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testBuilderSetCountHandlesNullsCorrectly() {
@@ -432,7 +432,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.setCount(null, 2);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderSetCountIllegal() {
@@ -440,7 +440,7 @@ public class ImmutableMultisetTest extends TestCase {
     try {
       builder.setCount("a", -2);
       fail("expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   @GwtIncompatible // NullPointerTester

@@ -24,15 +24,15 @@ package java.util.concurrent;
 public class ExecutionException extends Exception {
   protected ExecutionException() { }
 
-  protected ExecutionException(String message) {
+  protected ExecutionException(final String message) {
     super(message);
   }
 
-  public ExecutionException(String message, Throwable cause) {
+  public ExecutionException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
-  public ExecutionException(Throwable cause) {
+  public ExecutionException(final Throwable cause) {
     super(cause);
   }
 }

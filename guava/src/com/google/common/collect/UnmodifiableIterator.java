@@ -32,7 +32,7 @@ import java.util.Iterator;
 @GwtCompatible
 public abstract class UnmodifiableIterator<E> implements Iterator<E> {
   /** Constructor for use by subclasses. */
-  protected UnmodifiableIterator() {}
+  protected UnmodifiableIterator() { }
 
   /**
    * Guaranteed to throw an exception and leave the underlying data unmodified.

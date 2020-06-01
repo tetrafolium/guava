@@ -46,7 +46,7 @@ public final class GraphMutationTest {
     testGraphMutation(GraphBuilder.undirected());
   }
 
-  private static void testGraphMutation(GraphBuilder<? super Integer> graphBuilder) {
+  private static void testGraphMutation(final GraphBuilder<? super Integer> graphBuilder) {
     Random gen = new Random(42); // Fixed seed so test results are deterministic.
 
     for (int trial = 0; trial < NUM_TRIALS; ++trial) {
@@ -113,7 +113,7 @@ public final class GraphMutationTest {
     }
   }
 
-  private static <L extends List<T> & RandomAccess, T> T getRandomElement(L list, Random gen) {
+  private static <L extends List<T> & RandomAccess, T> T getRandomElement(final L list, final Random gen) {
     return list.get(gen.nextInt(list.size()));
   }
 }

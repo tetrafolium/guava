@@ -114,7 +114,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
   }
 
   public void testCopyOf_arrayOfOneElement() {
-    String[] array = new String[] { "a" };
+    String[] array = new String[] {"a" };
     Set<String> set = copyOf(array);
     assertEquals(Collections.singleton("a"), set);
   }
@@ -128,7 +128,7 @@ public abstract class AbstractImmutableSetTest extends TestCase {
   }
 
   public void testCopyOf_arrayContainingOnlyNull() {
-    String[] array = new String[] { null };
+    String[] array = new String[] {null };
     try {
       copyOf(array);
       fail();

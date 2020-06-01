@@ -49,7 +49,7 @@ public final class JdkFutureAdapters {
    * ListenableFutureTask}, {@link AbstractFuture}, and other utilities over creating plain {@code
    * Future} instances to be upgraded to {@code ListenableFuture} after the fact.
    */
-  public static <V> ListenableFuture<V> listenInPoolThread(Future<V> future) {
+  public static <V> ListenableFuture<V> listenInPoolThread(final Future<V> future) {
     if (future instanceof ListenableFuture) {
       return (ListenableFuture<V>) future;
     }
@@ -76,7 +76,7 @@ public final class JdkFutureAdapters {
    *
    * @since 12.0
    */
-  public static <V> ListenableFuture<V> listenInPoolThread(Future<V> future, Executor executor) {
+  public static <V> ListenableFuture<V> listenInPoolThread(final Future<V> future, final Executor executor) {
     checkNotNull(executor);
     if (future instanceof ListenableFuture) {
       return (ListenableFuture<V>) future;
@@ -116,11 +116,11 @@ public final class JdkFutureAdapters {
     // The delegate future.
     private final Future<V> delegate;
 
-    ListenableFutureAdapter(Future<V> delegate) {
+    ListenableFutureAdapter(final Future<V> delegate) {
       this(delegate, defaultAdapterExecutor);
     }
 
-    ListenableFutureAdapter(Future<V> delegate, Executor adapterExecutor) {
+    ListenableFutureAdapter(final Future<V> delegate, final Executor adapterExecutor) {
       this.delegate = checkNotNull(delegate);
       this.adapterExecutor = checkNotNull(adapterExecutor);
     }
@@ -131,7 +131,7 @@ public final class JdkFutureAdapters {
     }
 
     @Override
-    public void addListener(Runnable listener, Executor exec) {
+    public void addListener(final Runnable listener, final Executor exec) {
       executionList.add(listener, exec);
 
       // When a listener is first added, we run a task that will wait for the delegate to finish,
@@ -167,5 +167,5 @@ public final class JdkFutureAdapters {
     }
   }
 
-  private JdkFutureAdapters() {}
+  private JdkFutureAdapters() { }
 }

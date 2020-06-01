@@ -172,7 +172,7 @@ public class StreamsTest extends TestCase {
     assertThat(stream(OptionalDouble.of(5.0))).containsExactly(5.0);
   }
 
-  private void testMapWithIndex(Function<Collection<String>, Stream<String>> collectionImpl) {
+  private void testMapWithIndex(final Function<Collection<String>, Stream<String>> collectionImpl) {
     SpliteratorTester.of(
             () ->
                 Streams.mapWithIndex(
@@ -210,7 +210,7 @@ public class StreamsTest extends TestCase {
         Stream.of((Object) null).flatMap(unused -> Stream.of("a", "b", "c")));
   }
 
-  private void testMapWithIndex_closeIsPropagated(Stream<String> source) {
+  private void testMapWithIndex_closeIsPropagated(final Stream<String> source) {
     AtomicInteger stringsCloseCount = new AtomicInteger();
     Stream<String> strings = source.onClose(stringsCloseCount::incrementAndGet);
     Stream<String> withIndex = Streams.mapWithIndex(strings, (str, i) -> str + ":" + i);
@@ -235,7 +235,7 @@ public class StreamsTest extends TestCase {
         IntStream.of(0).flatMap(unused -> IntStream.of(1, 2, 3)));
   }
 
-  private void testMapWithIndex_intStream_closeIsPropagated(IntStream source) {
+  private void testMapWithIndex_intStream_closeIsPropagated(final IntStream source) {
     AtomicInteger intStreamCloseCount = new AtomicInteger();
     IntStream intStream = source.onClose(intStreamCloseCount::incrementAndGet);
     Stream<String> withIndex = Streams.mapWithIndex(intStream, (str, i) -> str + ":" + i);
@@ -260,7 +260,7 @@ public class StreamsTest extends TestCase {
         LongStream.of(0).flatMap(unused -> LongStream.of(1, 2, 3)));
   }
 
-  private void testMapWithIndex_longStream_closeIsPropagated(LongStream source) {
+  private void testMapWithIndex_longStream_closeIsPropagated(final LongStream source) {
     AtomicInteger longStreamCloseCount = new AtomicInteger();
     LongStream longStream = source.onClose(longStreamCloseCount::incrementAndGet);
     Stream<String> withIndex = Streams.mapWithIndex(longStream, (str, i) -> str + ":" + i);
@@ -287,7 +287,7 @@ public class StreamsTest extends TestCase {
         DoubleStream.of(0).flatMap(unused -> DoubleStream.of(1, 2, 3)));
   }
 
-  private void testMapWithIndex_doubleStream_closeIsPropagated(DoubleStream source) {
+  private void testMapWithIndex_doubleStream_closeIsPropagated(final DoubleStream source) {
     AtomicInteger doubleStreamCloseCount = new AtomicInteger();
     DoubleStream doubleStream = source.onClose(doubleStreamCloseCount::incrementAndGet);
     Stream<String> withIndex = Streams.mapWithIndex(doubleStream, (str, i) -> str + ":" + i);
@@ -396,19 +396,19 @@ public class StreamsTest extends TestCase {
   }
 
   // TODO(kevinb): switch to importing Truth's assertThat(Stream) if we get that added
-  private static IterableSubject assertThat(Stream<?> stream) {
+  private static IterableSubject assertThat(final Stream<?> stream) {
     return Truth.assertThat(stream.toArray()).asList();
   }
 
-  private static IterableSubject assertThat(IntStream stream) {
+  private static IterableSubject assertThat(final IntStream stream) {
     return Truth.assertThat(stream.toArray()).asList();
   }
 
-  private static IterableSubject assertThat(LongStream stream) {
+  private static IterableSubject assertThat(final LongStream stream) {
     return Truth.assertThat(stream.toArray()).asList();
   }
 
-  private static IterableSubject assertThat(DoubleStream stream) {
+  private static IterableSubject assertThat(final DoubleStream stream) {
     return Truth.assertThat(Doubles.asList(stream.toArray()));
   }
 }

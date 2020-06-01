@@ -40,11 +40,11 @@ enum HashFunctionEnum {
 
   // Hash functions found in //javatests for comparing against current implementation of CityHash.
   // These can probably be removed sooner or later.
-  ;
+;
 
   private final HashFunction hashFunction;
 
-  private HashFunctionEnum(HashFunction hashFunction) {
+  private HashFunctionEnum(final HashFunction hashFunction) {
     this.hashFunction = hashFunction;
   }
 

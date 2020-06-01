@@ -50,7 +50,7 @@ import com.google.common.base.Optional;
 public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
 
   /** Creates a new instance with the specified edge directionality. */
-  private ValueGraphBuilder(boolean directed) {
+  private ValueGraphBuilder(final boolean directed) {
     super(directed);
   }
 
@@ -72,7 +72,7 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
    * interface, such as {@link ValueGraph#isDirected()}. Other properties, such as {@link
    * #expectedNodeCount(int)}, are not set in the new builder.
    */
-  public static <N, V> ValueGraphBuilder<N, V> from(ValueGraph<N, V> graph) {
+  public static <N, V> ValueGraphBuilder<N, V> from(final ValueGraph<N, V> graph) {
     return new ValueGraphBuilder<N, V>(graph.isDirected())
         .allowsSelfLoops(graph.allowsSelfLoops())
         .nodeOrder(graph.nodeOrder());
@@ -83,7 +83,7 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
    * Attempting to add a self-loop to a graph that does not allow them will throw an {@link
    * UnsupportedOperationException}.
    */
-  public ValueGraphBuilder<N, V> allowsSelfLoops(boolean allowsSelfLoops) {
+  public ValueGraphBuilder<N, V> allowsSelfLoops(final boolean allowsSelfLoops) {
     this.allowsSelfLoops = allowsSelfLoops;
     return this;
   }
@@ -93,13 +93,13 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
    *
    * @throws IllegalArgumentException if {@code expectedNodeCount} is negative
    */
-  public ValueGraphBuilder<N, V> expectedNodeCount(int expectedNodeCount) {
+  public ValueGraphBuilder<N, V> expectedNodeCount(final int expectedNodeCount) {
     this.expectedNodeCount = Optional.of(checkNonNegative(expectedNodeCount));
     return this;
   }
 
   /** Specifies the order of iteration for the elements of {@link Graph#nodes()}. */
-  public <N1 extends N> ValueGraphBuilder<N1, V> nodeOrder(ElementOrder<N1> nodeOrder) {
+  public <N1 extends N> ValueGraphBuilder<N1, V> nodeOrder(final ElementOrder<N1> nodeOrder) {
     ValueGraphBuilder<N1, V> newBuilder = cast();
     newBuilder.nodeOrder = checkNotNull(nodeOrder);
     return newBuilder;

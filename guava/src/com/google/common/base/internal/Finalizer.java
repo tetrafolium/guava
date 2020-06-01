@@ -60,9 +60,9 @@ public class Finalizer implements Runnable {
    *     close() method is called.
    */
   public static void startFinalizer(
-      Class<?> finalizableReferenceClass,
-      ReferenceQueue<Object> queue,
-      PhantomReference<Object> frqReference) {
+      final Class<?> finalizableReferenceClass,
+      final ReferenceQueue<Object> queue,
+      final PhantomReference<Object> frqReference) {
     /*
      * We use FinalizableReference.class for two things:
      *
@@ -123,9 +123,9 @@ public class Finalizer implements Runnable {
 
   /** Constructs a new finalizer thread. */
   private Finalizer(
-      Class<?> finalizableReferenceClass,
-      ReferenceQueue<Object> queue,
-      PhantomReference<Object> frqReference) {
+      final Class<?> finalizableReferenceClass,
+      final ReferenceQueue<Object> queue,
+      final PhantomReference<Object> frqReference) {
     this.queue = queue;
 
     this.finalizableReferenceClassReference =
@@ -158,7 +158,7 @@ public class Finalizer implements Runnable {
    * @return true if the caller should continue, false if the associated FinalizableReferenceQueue
    *     is no longer referenced.
    */
-  private boolean cleanUp(Reference<?> reference) {
+  private boolean cleanUp(final Reference<?> reference) {
     Method finalizeReferentMethod = getFinalizeReferentMethod();
     if (finalizeReferentMethod == null) {
       return false;

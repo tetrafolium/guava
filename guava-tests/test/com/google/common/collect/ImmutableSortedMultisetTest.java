@@ -58,12 +58,12 @@ public class ImmutableSortedMultisetTest extends TestCase {
 
     suite.addTest(SortedMultisetTestSuiteBuilder.using(new TestStringMultisetGenerator() {
         @Override
-        protected Multiset<String> create(String[] elements) {
+        protected Multiset<String> create(final String[] elements) {
           return ImmutableSortedMultiset.copyOf(elements);
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().sortedCopy(insertionOrder);
         }
       })
@@ -75,12 +75,12 @@ public class ImmutableSortedMultisetTest extends TestCase {
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
         @Override
-        protected List<String> create(String[] elements) {
+        protected List<String> create(final String[] elements) {
           return ImmutableSortedMultiset.copyOf(elements).asList();
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().sortedCopy(insertionOrder);
         }
       })
@@ -92,7 +92,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
         @Override
-        protected List<String> create(String[] elements) {
+        protected List<String> create(final String[] elements) {
           Set<String> set = Sets.newHashSet();
           ImmutableSortedMultiset.Builder<String> builder = ImmutableSortedMultiset.naturalOrder();
           for (String s : elements) {
@@ -103,7 +103,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().sortedCopy(insertionOrder);
         }
       })
@@ -174,7 +174,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
         Ordering.natural().lexicographical()
             .onResultOf(new Function<String[], Iterable<Comparable>>() {
               @Override
-              public Iterable<Comparable> apply(String[] input) {
+              public Iterable<Comparable> apply(final String[] input) {
                 return Arrays.<Comparable>asList(input);
               }
             });
@@ -190,7 +190,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       ImmutableSortedMultiset.copyOf(array);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_collection_empty() {
@@ -217,7 +217,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       ImmutableSortedMultiset.copyOf(c);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_multiset_empty() {
@@ -243,7 +243,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       ImmutableSortedMultiset.copyOf(c);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOf_iterator_empty() {
@@ -269,7 +269,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       ImmutableSortedMultiset.copyOf(iterator);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   private static class CountingIterable implements Iterable<String> {
@@ -365,7 +365,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.add((String) null);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddAllHandlesNullsCorrectly() {
@@ -373,21 +373,21 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.addAll((Collection<String>) null);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
 
     builder = ImmutableSortedMultiset.naturalOrder();
     List<String> listWithNulls = asList("a", null, "b");
     try {
       builder.addAll(listWithNulls);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
 
     builder = ImmutableSortedMultiset.naturalOrder();
     Multiset<String> multisetWithNull = LinkedHashMultiset.create(asList("a", null, "b"));
     try {
       builder.addAll(multisetWithNull);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddCopiesHandlesNullsCorrectly() {
@@ -395,7 +395,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.addCopies(null, 2);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderAddCopiesIllegal() {
@@ -403,7 +403,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.addCopies("a", -2);
       fail("expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testBuilderSetCountHandlesNullsCorrectly() {
@@ -412,7 +412,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.setCount(null, 2);
       fail("expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderSetCountIllegal() {
@@ -420,7 +420,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
     try {
       builder.setCount("a", -2);
       fail("expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testToImmutableSortedMultiset() {
@@ -539,7 +539,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
       }
 
       @Override
-      public <T> T[] toArray(T[] a) {
+      public <T> T[] toArray(final T[] a) {
         toArrayCalled = true;
         return super.toArray(a);
       }
@@ -567,7 +567,7 @@ public class ImmutableSortedMultisetTest extends TestCase {
       }
 
       @Override
-      public <T> T[] toArray(T[] a) {
+      public <T> T[] toArray(final T[] a) {
         toArrayCalled = true;
         return super.toArray(a);
       }
@@ -587,12 +587,12 @@ public class ImmutableSortedMultisetTest extends TestCase {
   private static class IntegerDiv10 implements Comparable<IntegerDiv10> {
     final int value;
 
-    IntegerDiv10(int value) {
+    IntegerDiv10(final int value) {
       this.value = value;
     }
 
     @Override
-    public int compareTo(IntegerDiv10 o) {
+    public int compareTo(final IntegerDiv10 o) {
       return value / 10 - o.value / 10;
     }
 

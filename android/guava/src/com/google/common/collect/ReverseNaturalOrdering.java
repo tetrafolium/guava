@@ -29,7 +29,7 @@ final class ReverseNaturalOrdering extends Ordering<Comparable> implements Seria
   static final ReverseNaturalOrdering INSTANCE = new ReverseNaturalOrdering();
 
   @Override
-  public int compare(Comparable left, Comparable right) {
+  public int compare(final Comparable left, final Comparable right) {
     checkNotNull(left); // right null is caught later
     if (left == right) {
       return 0;
@@ -46,42 +46,42 @@ final class ReverseNaturalOrdering extends Ordering<Comparable> implements Seria
   // Override the min/max methods to "hoist" delegation outside loops
 
   @Override
-  public <E extends Comparable> E min(E a, E b) {
+  public <E extends Comparable> E min(final E a, final E b) {
     return NaturalOrdering.INSTANCE.max(a, b);
   }
 
   @Override
-  public <E extends Comparable> E min(E a, E b, E c, E... rest) {
+  public <E extends Comparable> E min(final E a, final E b, final E c, final E... rest) {
     return NaturalOrdering.INSTANCE.max(a, b, c, rest);
   }
 
   @Override
-  public <E extends Comparable> E min(Iterator<E> iterator) {
+  public <E extends Comparable> E min(final Iterator<E> iterator) {
     return NaturalOrdering.INSTANCE.max(iterator);
   }
 
   @Override
-  public <E extends Comparable> E min(Iterable<E> iterable) {
+  public <E extends Comparable> E min(final Iterable<E> iterable) {
     return NaturalOrdering.INSTANCE.max(iterable);
   }
 
   @Override
-  public <E extends Comparable> E max(E a, E b) {
+  public <E extends Comparable> E max(final E a, final E b) {
     return NaturalOrdering.INSTANCE.min(a, b);
   }
 
   @Override
-  public <E extends Comparable> E max(E a, E b, E c, E... rest) {
+  public <E extends Comparable> E max(final E a, final E b, final E c, final E... rest) {
     return NaturalOrdering.INSTANCE.min(a, b, c, rest);
   }
 
   @Override
-  public <E extends Comparable> E max(Iterator<E> iterator) {
+  public <E extends Comparable> E max(final Iterator<E> iterator) {
     return NaturalOrdering.INSTANCE.min(iterator);
   }
 
   @Override
-  public <E extends Comparable> E max(Iterable<E> iterable) {
+  public <E extends Comparable> E max(final Iterable<E> iterable) {
     return NaturalOrdering.INSTANCE.min(iterable);
   }
 
@@ -95,7 +95,7 @@ final class ReverseNaturalOrdering extends Ordering<Comparable> implements Seria
     return "Ordering.natural().reverse()";
   }
 
-  private ReverseNaturalOrdering() {}
+  private ReverseNaturalOrdering() { }
 
   private static final long serialVersionUID = 0;
 }

@@ -51,7 +51,7 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
 
   @VisibleForTesting final int maxSize;
 
-  private EvictingQueue(int maxSize) {
+  private EvictingQueue(final int maxSize) {
     checkArgument(maxSize >= 0, "maxSize (%s) must >= 0", maxSize);
     this.delegate = new ArrayDeque<E>(maxSize);
     this.maxSize = maxSize;
@@ -63,7 +63,7 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
    * <p>When {@code maxSize} is zero, elements will be evicted immediately after being added to the
    * queue.
    */
-  public static <E> EvictingQueue<E> create(int maxSize) {
+  public static <E> EvictingQueue<E> create(final int maxSize) {
     return new EvictingQueue<E>(maxSize);
   }
 
@@ -90,7 +90,7 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
    */
   @Override
   @CanIgnoreReturnValue
-  public boolean offer(E e) {
+  public boolean offer(final E e) {
     return add(e);
   }
 
@@ -102,7 +102,7 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
    */
   @Override
   @CanIgnoreReturnValue
-  public boolean add(E e) {
+  public boolean add(final E e) {
     checkNotNull(e); // check before removing
     if (maxSize == 0) {
       return true;
@@ -116,7 +116,7 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
 
   @Override
   @CanIgnoreReturnValue
-  public boolean addAll(Collection<? extends E> collection) {
+  public boolean addAll(final Collection<? extends E> collection) {
     int size = collection.size();
     if (size >= maxSize) {
       clear();
@@ -126,13 +126,13 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     return delegate().contains(checkNotNull(object));
   }
 
   @Override
   @CanIgnoreReturnValue
-  public boolean remove(Object object) {
+  public boolean remove(final Object object) {
     return delegate().remove(checkNotNull(object));
   }
 

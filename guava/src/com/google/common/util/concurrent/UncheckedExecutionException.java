@@ -38,26 +38,26 @@ public class UncheckedExecutionException extends RuntimeException {
   /**
    * Creates a new instance with {@code null} as its detail message.
    */
-  protected UncheckedExecutionException() {}
+  protected UncheckedExecutionException() { }
 
   /**
    * Creates a new instance with the given detail message.
    */
-  protected UncheckedExecutionException(@Nullable String message) {
+  protected UncheckedExecutionException(final @Nullable String message) {
     super(message);
   }
 
   /**
    * Creates a new instance with the given detail message and cause.
    */
-  public UncheckedExecutionException(@Nullable String message, @Nullable Throwable cause) {
+  public UncheckedExecutionException(final @Nullable String message, final @Nullable Throwable cause) {
     super(message, cause);
   }
 
   /**
    * Creates a new instance with the given cause.
    */
-  public UncheckedExecutionException(@Nullable Throwable cause) {
+  public UncheckedExecutionException(final @Nullable Throwable cause) {
     super(cause);
   }
 

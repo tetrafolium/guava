@@ -45,7 +45,7 @@ public final class ArrayBasedEscaperMap {
    *
    * @param replacements a map of characters to their escaped representations
    */
-  public static ArrayBasedEscaperMap create(Map<Character, String> replacements) {
+  public static ArrayBasedEscaperMap create(final Map<Character, String> replacements) {
     return new ArrayBasedEscaperMap(createReplacementArray(replacements));
   }
 
@@ -53,7 +53,7 @@ public final class ArrayBasedEscaperMap {
   // instances.
   private final char[][] replacementArray;
 
-  private ArrayBasedEscaperMap(char[][] replacementArray) {
+  private ArrayBasedEscaperMap(final char[][] replacementArray) {
     this.replacementArray = replacementArray;
   }
 
@@ -66,7 +66,7 @@ public final class ArrayBasedEscaperMap {
   // linear lookup table of replacement character sequences indexed by the
   // original character value.
   @VisibleForTesting
-  static char[][] createReplacementArray(Map<Character, String> map) {
+  static char[][] createReplacementArray(final Map<Character, String> map) {
     checkNotNull(map); // GWT specific check (do not optimize)
     if (map.isEmpty()) {
       return EMPTY_REPLACEMENT_ARRAY;

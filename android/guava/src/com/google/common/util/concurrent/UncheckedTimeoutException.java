@@ -25,17 +25,17 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public class UncheckedTimeoutException extends RuntimeException {
-  public UncheckedTimeoutException() {}
+  public UncheckedTimeoutException() { }
 
-  public UncheckedTimeoutException(@Nullable String message) {
+  public UncheckedTimeoutException(final @Nullable String message) {
     super(message);
   }
 
-  public UncheckedTimeoutException(@Nullable Throwable cause) {
+  public UncheckedTimeoutException(final @Nullable Throwable cause) {
     super(cause);
   }
 
-  public UncheckedTimeoutException(@Nullable String message, @Nullable Throwable cause) {
+  public UncheckedTimeoutException(final @Nullable String message, final @Nullable Throwable cause) {
     super(message, cause);
   }
 

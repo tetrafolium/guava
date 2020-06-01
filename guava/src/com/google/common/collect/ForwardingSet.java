@@ -52,13 +52,13 @@ public abstract class ForwardingSet<E> extends ForwardingCollection<E> implement
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingSet() {}
+  protected ForwardingSet() { }
 
   @Override
   protected abstract Set<E> delegate();
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return object == this || delegate().equals(object);
   }
 
@@ -76,7 +76,7 @@ public abstract class ForwardingSet<E> extends ForwardingCollection<E> implement
    * @since 7.0 (this version overrides the {@code ForwardingCollection} version as of 12.0)
    */
   @Override
-  protected boolean standardRemoveAll(Collection<?> collection) {
+  protected boolean standardRemoveAll(final Collection<?> collection) {
     return Sets.removeAllImpl(this, checkNotNull(collection)); // for GWT
   }
 
@@ -87,7 +87,7 @@ public abstract class ForwardingSet<E> extends ForwardingCollection<E> implement
    *
    * @since 7.0
    */
-  protected boolean standardEquals(@Nullable Object object) {
+  protected boolean standardEquals(final @Nullable Object object) {
     return Sets.equalsImpl(this, object);
   }
 

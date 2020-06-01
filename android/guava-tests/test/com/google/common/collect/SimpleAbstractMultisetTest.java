@@ -49,7 +49,7 @@ public class SimpleAbstractMultisetTest extends TestCase {
         MultisetTestSuiteBuilder.using(
                 new TestStringMultisetGenerator() {
                   @Override
-                  protected Multiset<String> create(String[] elements) {
+                  protected Multiset<String> create(final String[] elements) {
                     Multiset<String> ms = new NoRemoveMultiset<>();
                     Collections.addAll(ms, elements);
                     return ms;
@@ -68,7 +68,7 @@ public class SimpleAbstractMultisetTest extends TestCase {
     final AtomicInteger addCalls = new AtomicInteger();
     Multiset<String> multiset = new NoRemoveMultiset<String>() {
       @Override
-      public int add(String element, int occurrences) {
+      public int add(final String element, final int occurrences) {
         addCalls.incrementAndGet();
         return super.add(element, occurrences);
       }
@@ -85,7 +85,7 @@ public class SimpleAbstractMultisetTest extends TestCase {
     try {
       multiset.remove("a");
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertTrue(multiset.contains("a"));
   }
 
@@ -93,7 +93,7 @@ public class SimpleAbstractMultisetTest extends TestCase {
       implements Serializable {
     final Map<E, Integer> backingMap = Maps.newHashMap();
 
-    @Override public int add(@Nullable E element, int occurrences) {
+    @Override public int add(final @Nullable E element, final int occurrences) {
       checkArgument(occurrences >= 0);
       Integer frequency = backingMap.get(element);
       if (frequency == null) {

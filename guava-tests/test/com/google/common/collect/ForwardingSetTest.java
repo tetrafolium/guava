@@ -42,7 +42,7 @@ public class ForwardingSetTest extends TestCase {
   static class StandardImplForwardingSet<T> extends ForwardingSet<T> {
     private final Set<T> backingSet;
 
-    StandardImplForwardingSet(Set<T> backingSet) {
+    StandardImplForwardingSet(final Set<T> backingSet) {
       this.backingSet = backingSet;
     }
 
@@ -50,7 +50,7 @@ public class ForwardingSetTest extends TestCase {
       return backingSet;
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -58,7 +58,7 @@ public class ForwardingSetTest extends TestCase {
       return standardHashCode();
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -66,23 +66,23 @@ public class ForwardingSetTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -90,7 +90,7 @@ public class ForwardingSetTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -107,7 +107,7 @@ public class ForwardingSetTest extends TestCase {
         SetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     return new StandardImplForwardingSet<>(Sets.newLinkedHashSet(asList(elements)));
                   }
                 })
@@ -121,7 +121,7 @@ public class ForwardingSetTest extends TestCase {
         SetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     return new StandardImplForwardingSet<>(MinimalSet.of(elements));
                   }
                 })
@@ -136,7 +136,7 @@ public class ForwardingSetTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Set.class, new Function<Set, Set>() {
-          @Override public Set apply(Set delegate) {
+          @Override public Set apply(final Set delegate) {
             return wrap(delegate);
           }
         });

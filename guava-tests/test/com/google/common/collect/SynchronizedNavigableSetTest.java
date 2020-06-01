@@ -52,7 +52,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
   static class TestSet<E> extends SynchronizedSetTest.TestSet<E>
       implements NavigableSet<E> {
 
-    TestSet(NavigableSet<E> delegate, Object mutex) {
+    TestSet(final NavigableSet<E> delegate, final Object mutex) {
       super(delegate, mutex);
     }
 
@@ -60,7 +60,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
       return (NavigableSet<E>) super.delegate();
     }
 
-    @Override public E ceiling(E e) {
+    @Override public E ceiling(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().ceiling(e);
     }
@@ -74,26 +74,26 @@ public class SynchronizedNavigableSetTest extends TestCase {
       return delegate().descendingSet();
     }
 
-    @Override public E floor(E e) {
+    @Override public E floor(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().floor(e);
     }
 
-    @Override public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+    @Override public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().headSet(toElement, inclusive);
     }
 
-    @Override public SortedSet<E> headSet(E toElement) {
+    @Override public SortedSet<E> headSet(final E toElement) {
       return headSet(toElement, false);
     }
 
-    @Override public E higher(E e) {
+    @Override public E higher(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().higher(e);
     }
 
-    @Override public E lower(E e) {
+    @Override public E lower(final E e) {
       return delegate().lower(e);
     }
 
@@ -107,23 +107,23 @@ public class SynchronizedNavigableSetTest extends TestCase {
       return delegate().pollLast();
     }
 
-    @Override public NavigableSet<E> subSet(E fromElement,
-        boolean fromInclusive, E toElement, boolean toInclusive) {
+    @Override public NavigableSet<E> subSet(final E fromElement,
+        final boolean fromInclusive, final E toElement, final boolean toInclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().subSet(
           fromElement, fromInclusive, toElement, toInclusive);
     }
 
-    @Override public SortedSet<E> subSet(E fromElement, E toElement) {
+    @Override public SortedSet<E> subSet(final E fromElement, final E toElement) {
       return subSet(fromElement, true, toElement, false);
     }
 
-    @Override public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+    @Override public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate().tailSet(fromElement, inclusive);
     }
 
-    @Override public SortedSet<E> tailSet(E fromElement) {
+    @Override public SortedSet<E> tailSet(final E fromElement) {
       return tailSet(fromElement, true);
     }
 
@@ -153,7 +153,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
                 new TestStringSortedSetGenerator() {
 
                   @Override
-                  protected NavigableSet<String> create(String[] elements) {
+                  protected NavigableSet<String> create(final String[] elements) {
                     NavigableSet<String> innermost = new SafeTreeSet<>();
                     Collections.addAll(innermost, elements);
                     TestSet<String> inner = new TestSet<>(innermost, null);
@@ -163,7 +163,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Ordering.natural().sortedCopy(insertionOrder);
                   }
                 })

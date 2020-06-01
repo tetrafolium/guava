@@ -46,7 +46,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class Throwables {
-  private Throwables() {}
+  private Throwables() { }
 
   /**
    * Throws {@code throwable} if it is an instance of {@code declaredType}. Example usage:
@@ -70,7 +70,7 @@ public final class Throwables {
    */
   @GwtIncompatible // Class.cast, Class.isInstance
   public static <X extends Throwable> void throwIfInstanceOf(
-      Throwable throwable, Class<X> declaredType) throws X {
+      final Throwable throwable, final Class<X> declaredType) throws X {
     checkNotNull(throwable);
     if (declaredType.isInstance(throwable)) {
       throw declaredType.cast(throwable);
@@ -99,7 +99,7 @@ public final class Throwables {
   @Deprecated
   @GwtIncompatible // throwIfInstanceOf
   public static <X extends Throwable> void propagateIfInstanceOf(
-      @Nullable Throwable throwable, Class<X> declaredType) throws X {
+      final @Nullable Throwable throwable, final Class<X> declaredType) throws X {
     if (throwable != null) {
       throwIfInstanceOf(throwable, declaredType);
     }
@@ -124,7 +124,7 @@ public final class Throwables {
    *
    * @since 20.0
    */
-  public static void throwIfUnchecked(Throwable throwable) {
+  public static void throwIfUnchecked(final Throwable throwable) {
     checkNotNull(throwable);
     if (throwable instanceof RuntimeException) {
       throw (RuntimeException) throwable;
@@ -154,7 +154,7 @@ public final class Throwables {
    */
   @Deprecated
   @GwtIncompatible
-  public static void propagateIfPossible(@Nullable Throwable throwable) {
+  public static void propagateIfPossible(final @Nullable Throwable throwable) {
     if (throwable != null) {
       throwIfUnchecked(throwable);
     }
@@ -180,7 +180,7 @@ public final class Throwables {
    */
   @GwtIncompatible // propagateIfInstanceOf
   public static <X extends Throwable> void propagateIfPossible(
-      @Nullable Throwable throwable, Class<X> declaredType) throws X {
+      final @Nullable Throwable throwable, final Class<X> declaredType) throws X {
     propagateIfInstanceOf(throwable, declaredType);
     propagateIfPossible(throwable);
   }
@@ -198,7 +198,7 @@ public final class Throwables {
    */
   @GwtIncompatible // propagateIfInstanceOf
   public static <X1 extends Throwable, X2 extends Throwable> void propagateIfPossible(
-      @Nullable Throwable throwable, Class<X1> declaredType1, Class<X2> declaredType2)
+      final @Nullable Throwable throwable, final Class<X1> declaredType1, final Class<X2> declaredType2)
       throws X1, X2 {
     checkNotNull(declaredType2);
     propagateIfInstanceOf(throwable, declaredType1);
@@ -236,7 +236,7 @@ public final class Throwables {
   @CanIgnoreReturnValue
   @GwtIncompatible
   @Deprecated
-  public static RuntimeException propagate(Throwable throwable) {
+  public static RuntimeException propagate(final Throwable throwable) {
     throwIfUnchecked(throwable);
     throw new RuntimeException(throwable);
   }
@@ -251,7 +251,7 @@ public final class Throwables {
    *
    * @throws IllegalArgumentException if there is a loop in the causal chain
    */
-  public static Throwable getRootCause(Throwable throwable) {
+  public static Throwable getRootCause(final Throwable throwable) {
     // Keep a second pointer that slowly walks the causal chain. If the fast pointer ever catches
     // the slower pointer, then there's a loop.
     Throwable slowPointer = throwable;
@@ -289,7 +289,7 @@ public final class Throwables {
    * @throws IllegalArgumentException if there is a loop in the causal chain
    */
   @Beta // TODO(kevinb): decide best return type
-  public static List<Throwable> getCausalChain(Throwable throwable) {
+  public static List<Throwable> getCausalChain(final Throwable throwable) {
     checkNotNull(throwable);
     List<Throwable> causes = new ArrayList<>(4);
     causes.add(throwable);
@@ -331,7 +331,7 @@ public final class Throwables {
   @Beta
   @GwtIncompatible // Class.cast(Object)
   public static <X extends Throwable> X getCauseAs(
-      Throwable throwable, Class<X> expectedCauseType) {
+      final Throwable throwable, final Class<X> expectedCauseType) {
     try {
       return expectedCauseType.cast(throwable.getCause());
     } catch (ClassCastException e) {
@@ -347,7 +347,7 @@ public final class Throwables {
    * {@link Throwable#getStackTrace()}.
    */
   @GwtIncompatible // java.io.PrintWriter, java.io.StringWriter
-  public static String getStackTraceAsString(Throwable throwable) {
+  public static String getStackTraceAsString(final Throwable throwable) {
     StringWriter stringWriter = new StringWriter();
     throwable.printStackTrace(new PrintWriter(stringWriter));
     return stringWriter.toString();
@@ -384,7 +384,7 @@ public final class Throwables {
   @Beta
   @GwtIncompatible // lazyStackTraceIsLazy, jlaStackTrace
   // TODO(cpovirk): Consider making this available under GWT (slow implementation only).
-  public static List<StackTraceElement> lazyStackTrace(Throwable throwable) {
+  public static List<StackTraceElement> lazyStackTrace(final Throwable throwable) {
     return lazyStackTraceIsLazy()
         ? jlaStackTrace(throwable)
         : unmodifiableList(asList(throwable.getStackTrace()));
@@ -413,7 +413,7 @@ public final class Throwables {
      */
     return new AbstractList<StackTraceElement>() {
       @Override
-      public StackTraceElement get(int n) {
+      public StackTraceElement get(final int n) {
         return (StackTraceElement)
             invokeAccessibleNonThrowingMethod(getStackTraceElementMethod, jla, t, n);
       }
@@ -427,7 +427,7 @@ public final class Throwables {
 
   @GwtIncompatible // java.lang.reflect
   private static Object invokeAccessibleNonThrowingMethod(
-      Method method, Object receiver, Object... params) {
+      final Method method, final Object receiver, final Object... params) {
     try {
       return method.invoke(receiver, params);
     } catch (IllegalAccessException e) {
@@ -529,7 +529,7 @@ public final class Throwables {
 
   @GwtIncompatible // java.lang.reflect
   @Nullable
-  private static Method getJlaMethod(String name, Class<?>... parameterTypes) throws ThreadDeath {
+  private static Method getJlaMethod(final String name, final Class<?>... parameterTypes) throws ThreadDeath {
     try {
       return Class.forName(JAVA_LANG_ACCESS_CLASSNAME, false, null).getMethod(name, parameterTypes);
     } catch (ThreadDeath death) {

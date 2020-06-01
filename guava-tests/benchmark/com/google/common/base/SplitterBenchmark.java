@@ -41,7 +41,7 @@ public class SplitterBenchmark {
     input = Strings.repeat(text, length);
   }
 
-  @Benchmark void charSplitter(int reps) {
+  @Benchmark void charSplitter(final int reps) {
     int total = 0;
 
     for (int i = 0; i < reps; i++) {
@@ -49,7 +49,7 @@ public class SplitterBenchmark {
     }
   }
 
-  @Benchmark void stringSplitter(int reps) {
+  @Benchmark void stringSplitter(final int reps) {
     int total = 0;
 
     for (int i = 0; i < reps; i++) {

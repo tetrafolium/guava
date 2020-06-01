@@ -39,7 +39,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
   private final transient int hashCode;
   private final transient int size;
 
-  RegularImmutableSet(Object[] elements, int hashCode, Object[] table, int mask, int size) {
+  RegularImmutableSet(final Object[] elements, final int hashCode, final Object[] table, final int mask, final int size) {
     this.elements = elements;
     this.table = table;
     this.mask = mask;
@@ -48,7 +48,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
-  public boolean contains(@Nullable Object target) {
+  public boolean contains(final @Nullable Object target) {
     Object[] table = this.table;
     if (target == null || table == null) {
       return false;
@@ -75,7 +75,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
-  int copyIntoArray(Object[] dst, int offset) {
+  int copyIntoArray(final Object[] dst, final int offset) {
     System.arraycopy(elements, 0, dst, offset, size);
     return offset + size;
   }

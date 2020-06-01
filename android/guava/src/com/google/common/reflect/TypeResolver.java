@@ -59,11 +59,11 @@ public final class TypeResolver {
     this.typeTable = new TypeTable();
   }
 
-  private TypeResolver(TypeTable typeTable) {
+  private TypeResolver(final TypeTable typeTable) {
     this.typeTable = typeTable;
   }
 
-  static TypeResolver accordingTo(Type type) {
+  static TypeResolver accordingTo(final Type type) {
     return new TypeResolver().where(TypeMappingIntrospector.getTypeMappings(type));
   }
 
@@ -86,30 +86,30 @@ public final class TypeResolver {
    *     other type variables, in which case these type variables will be further resolved if
    *     corresponding mappings exist in the current {@code TypeResolver} instance.
    */
-  public TypeResolver where(Type formal, Type actual) {
+  public TypeResolver where(final Type formal, final Type actual) {
     Map<TypeVariableKey, Type> mappings = Maps.newHashMap();
     populateTypeMappings(mappings, checkNotNull(formal), checkNotNull(actual));
     return where(mappings);
   }
 
   /** Returns a new {@code TypeResolver} with {@code variable} mapping to {@code type}. */
-  TypeResolver where(Map<TypeVariableKey, ? extends Type> mappings) {
+  TypeResolver where(final Map<TypeVariableKey, ? extends Type> mappings) {
     return new TypeResolver(typeTable.where(mappings));
   }
 
   private static void populateTypeMappings(
-      final Map<TypeVariableKey, Type> mappings, Type from, final Type to) {
+      final Map<TypeVariableKey, Type> mappings, final Type from, final Type to) {
     if (from.equals(to)) {
       return;
     }
     new TypeVisitor() {
       @Override
-      void visitTypeVariable(TypeVariable<?> typeVariable) {
+      void visitTypeVariable(final TypeVariable<?> typeVariable) {
         mappings.put(new TypeVariableKey(typeVariable), to);
       }
 
       @Override
-      void visitWildcardType(WildcardType fromWildcardType) {
+      void visitWildcardType(final WildcardType fromWildcardType) {
         if (!(to instanceof WildcardType)) {
           return; // okay to say <?> is anything
         }
@@ -133,7 +133,7 @@ public final class TypeResolver {
       }
 
       @Override
-      void visitParameterizedType(ParameterizedType fromParameterizedType) {
+      void visitParameterizedType(final ParameterizedType fromParameterizedType) {
         if (to instanceof WildcardType) {
           return; // Okay to say Foo<A> is <?>
         }
@@ -161,7 +161,7 @@ public final class TypeResolver {
       }
 
       @Override
-      void visitGenericArrayType(GenericArrayType fromArrayType) {
+      void visitGenericArrayType(final GenericArrayType fromArrayType) {
         if (to instanceof WildcardType) {
           return; // Okay to say A[] is <?>
         }
@@ -171,7 +171,7 @@ public final class TypeResolver {
       }
 
       @Override
-      void visitClass(Class<?> fromClass) {
+      void visitClass(final Class<?> fromClass) {
         if (to instanceof WildcardType) {
           return; // Okay to say Foo is <?>
         }
@@ -187,7 +187,7 @@ public final class TypeResolver {
    * Resolves all type variables in {@code type} and all downstream types and returns a
    * corresponding type with type variables resolved.
    */
-  public Type resolveType(Type type) {
+  public Type resolveType(final Type type) {
     checkNotNull(type);
     if (type instanceof TypeVariable) {
       return typeTable.resolve((TypeVariable<?>) type);
@@ -203,7 +203,7 @@ public final class TypeResolver {
     }
   }
 
-  private Type[] resolveTypes(Type[] types) {
+  private Type[] resolveTypes(final Type[] types) {
     Type[] result = new Type[types.length];
     for (int i = 0; i < types.length; i++) {
       result[i] = resolveType(types[i]);
@@ -211,19 +211,19 @@ public final class TypeResolver {
     return result;
   }
 
-  private WildcardType resolveWildcardType(WildcardType type) {
+  private WildcardType resolveWildcardType(final WildcardType type) {
     Type[] lowerBounds = type.getLowerBounds();
     Type[] upperBounds = type.getUpperBounds();
     return new Types.WildcardTypeImpl(resolveTypes(lowerBounds), resolveTypes(upperBounds));
   }
 
-  private Type resolveGenericArrayType(GenericArrayType type) {
+  private Type resolveGenericArrayType(final GenericArrayType type) {
     Type componentType = type.getGenericComponentType();
     Type resolvedComponentType = resolveType(componentType);
     return Types.newArrayType(resolvedComponentType);
   }
 
-  private ParameterizedType resolveParameterizedType(ParameterizedType type) {
+  private ParameterizedType resolveParameterizedType(final ParameterizedType type) {
     Type owner = type.getOwnerType();
     Type resolvedOwner = (owner == null) ? null : resolveType(owner);
     Type resolvedRawType = resolveType(type.getRawType());
@@ -234,7 +234,7 @@ public final class TypeResolver {
         resolvedOwner, (Class<?>) resolvedRawType, resolvedArgs);
   }
 
-  private static <T> T expectArgument(Class<T> type, Object arg) {
+  private static <T> T expectArgument(final Class<T> type, final Object arg) {
     try {
       return type.cast(arg);
     } catch (ClassCastException e) {
@@ -250,12 +250,12 @@ public final class TypeResolver {
       this.map = ImmutableMap.of();
     }
 
-    private TypeTable(ImmutableMap<TypeVariableKey, Type> map) {
+    private TypeTable(final ImmutableMap<TypeVariableKey, Type> map) {
       this.map = map;
     }
 
     /** Returns a new {@code TypeResolver} with {@code variable} mapping to {@code type}. */
-    final TypeTable where(Map<TypeVariableKey, ? extends Type> mappings) {
+    final TypeTable where(final Map<TypeVariableKey, ? extends Type> mappings) {
       ImmutableMap.Builder<TypeVariableKey, Type> builder = ImmutableMap.builder();
       builder.putAll(map);
       for (Map.Entry<TypeVariableKey, ? extends Type> mapping : mappings.entrySet()) {
@@ -272,7 +272,7 @@ public final class TypeResolver {
       TypeTable guarded =
           new TypeTable() {
             @Override
-            public Type resolveInternal(TypeVariable<?> intermediateVar, TypeTable forDependent) {
+            public Type resolveInternal(final TypeVariable<?> intermediateVar, final TypeTable forDependent) {
               if (intermediateVar.getGenericDeclaration().equals(var.getGenericDeclaration())) {
                 return intermediateVar;
               }
@@ -290,7 +290,7 @@ public final class TypeResolver {
      *
      * <p>Should only be called and overridden by {@link #resolve(TypeVariable)}.
      */
-    Type resolveInternal(TypeVariable<?> var, TypeTable forDependants) {
+    Type resolveInternal(final TypeVariable<?> var, final TypeTable forDependants) {
       Type type = map.get(new TypeVariableKey(var));
       if (type == null) {
         Type[] bounds = var.getBounds();
@@ -348,20 +348,20 @@ public final class TypeResolver {
      * Returns type mappings using type parameters and type arguments found in the generic
      * superclass and the super interfaces of {@code contextClass}.
      */
-    static ImmutableMap<TypeVariableKey, Type> getTypeMappings(Type contextType) {
+    static ImmutableMap<TypeVariableKey, Type> getTypeMappings(final Type contextType) {
       TypeMappingIntrospector introspector = new TypeMappingIntrospector();
       introspector.visit(wildcardCapturer.capture(contextType));
       return ImmutableMap.copyOf(introspector.mappings);
     }
 
     @Override
-    void visitClass(Class<?> clazz) {
+    void visitClass(final Class<?> clazz) {
       visit(clazz.getGenericSuperclass());
       visit(clazz.getGenericInterfaces());
     }
 
     @Override
-    void visitParameterizedType(ParameterizedType parameterizedType) {
+    void visitParameterizedType(final ParameterizedType parameterizedType) {
       Class<?> rawClass = (Class<?>) parameterizedType.getRawType();
       TypeVariable<?>[] vars = rawClass.getTypeParameters();
       Type[] typeArgs = parameterizedType.getActualTypeArguments();
@@ -374,12 +374,12 @@ public final class TypeResolver {
     }
 
     @Override
-    void visitTypeVariable(TypeVariable<?> t) {
+    void visitTypeVariable(final TypeVariable<?> t) {
       visit(t.getBounds());
     }
 
     @Override
-    void visitWildcardType(WildcardType t) {
+    void visitWildcardType(final WildcardType t) {
       visit(t.getUpperBounds());
     }
 
@@ -399,7 +399,7 @@ public final class TypeResolver {
           // each type variable resolves deterministically to itself.
           // Otherwise, a F -> T cycle will end up resolving both F and T
           // nondeterministically to either F or T.
-          for (Type x = arg; x != null; x = mappings.remove(TypeVariableKey.forLookup(x))) {}
+          for (Type x = arg; x != null; x = mappings.remove(TypeVariableKey.forLookup(x))) { }
           return;
         }
       }
@@ -422,11 +422,11 @@ public final class TypeResolver {
       this(new AtomicInteger());
     }
 
-    private WildcardCapturer(AtomicInteger id) {
+    private WildcardCapturer(final AtomicInteger id) {
       this.id = id;
     }
 
-    final Type capture(Type type) {
+    final Type capture(final Type type) {
       checkNotNull(type);
       if (type instanceof Class) {
         return type;
@@ -464,7 +464,7 @@ public final class TypeResolver {
       throw new AssertionError("must have been one of the known types");
     }
 
-    TypeVariable<?> captureAsTypeVariable(Type[] upperBounds) {
+    TypeVariable<?> captureAsTypeVariable(final Type[] upperBounds) {
           String name =
               "capture#"
                   + id.incrementAndGet()
@@ -475,7 +475,7 @@ public final class TypeResolver {
 
     private WildcardCapturer forTypeVariable(final TypeVariable<?> typeParam) {
       return new WildcardCapturer(id) {
-        @Override TypeVariable<?> captureAsTypeVariable(Type[] upperBounds) {
+        @Override TypeVariable<?> captureAsTypeVariable(final Type[] upperBounds) {
           Set<Type> combined = new LinkedHashSet<>(asList(upperBounds));
           // Since this is an artifically generated type variable, we don't bother checking
           // subtyping between declared type bound and actual type bound. So it's possible that we
@@ -496,7 +496,7 @@ public final class TypeResolver {
       return new WildcardCapturer(id);
     }
 
-    private Type captureNullable(@Nullable Type type) {
+    private Type captureNullable(final @Nullable Type type) {
       if (type == null) {
         return null;
       }
@@ -520,7 +520,7 @@ public final class TypeResolver {
   static final class TypeVariableKey {
     private final TypeVariable<?> var;
 
-    TypeVariableKey(TypeVariable<?> var) {
+    TypeVariableKey(final TypeVariable<?> var) {
       this.var = checkNotNull(var);
     }
 
@@ -530,7 +530,7 @@ public final class TypeResolver {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof TypeVariableKey) {
         TypeVariableKey that = (TypeVariableKey) obj;
         return equalsTypeVariable(that.var);
@@ -545,7 +545,7 @@ public final class TypeResolver {
     }
 
     /** Wraps {@code t} in a {@code TypeVariableKey} if it's a type variable. */
-    static TypeVariableKey forLookup(Type t) {
+    static TypeVariableKey forLookup(final Type t) {
       if (t instanceof TypeVariable) {
         return new TypeVariableKey((TypeVariable<?>) t);
       } else {
@@ -557,7 +557,7 @@ public final class TypeResolver {
      * Returns true if {@code type} is a {@code TypeVariable} with the same name and declared by the
      * same {@code GenericDeclaration}.
      */
-    boolean equalsType(Type type) {
+    boolean equalsType(final Type type) {
       if (type instanceof TypeVariable) {
         return equalsTypeVariable((TypeVariable<?>) type);
       } else {
@@ -565,7 +565,7 @@ public final class TypeResolver {
       }
     }
 
-    private boolean equalsTypeVariable(TypeVariable<?> that) {
+    private boolean equalsTypeVariable(final TypeVariable<?> that) {
       return var.getGenericDeclaration().equals(that.getGenericDeclaration())
           && var.getName().equals(that.getName());
     }

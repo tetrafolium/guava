@@ -86,7 +86,7 @@ public class MapRemoveEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().remove(k0(), v0());
       fail("Expected UnsupportedOperationException");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     expectUnchanged();
   }
   

@@ -71,7 +71,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
   // Gets run at the conclusion of every test.
   private Runnable tearDown;
 
-  protected B usingGenerator(G subjectGenerator) {
+  protected B usingGenerator(final G subjectGenerator) {
     this.subjectGenerator = subjectGenerator;
     return self();
   }
@@ -80,7 +80,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return subjectGenerator;
   }
 
-  public B withSetUp(Runnable setUp) {
+  public B withSetUp(final Runnable setUp) {
     this.setUp = setUp;
     return self();
   }
@@ -89,7 +89,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return setUp;
   }
 
-  public B withTearDown(Runnable tearDown) {
+  public B withTearDown(final Runnable tearDown) {
     this.tearDown = tearDown;
     return self();
   }
@@ -107,11 +107,11 @@ public abstract class FeatureSpecificTestSuiteBuilder<
    * features.  This method may be called more than once to add features
    * in multiple groups.
    */
-  public B withFeatures(Feature<?>... features) {
+  public B withFeatures(final Feature<?>... features) {
     return withFeatures(Arrays.asList(features));
   }
 
-  public B withFeatures(Iterable<? extends Feature<?>> features) {
+  public B withFeatures(final Iterable<? extends Feature<?>> features) {
     for (Feature<?> feature : features) {
       this.features.add(feature);
     }
@@ -127,7 +127,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
   private String name;
 
   /** Configures this builder produce a TestSuite with the given name. */
-  public B named(String name) {
+  public B named(final String name) {
     if (name.contains("(")) {
       throw new IllegalArgumentException(
           "Eclipse hides all characters after "
@@ -153,11 +153,11 @@ public abstract class FeatureSpecificTestSuiteBuilder<
    * unforeseen ways with the semantics expected by a test, or to keep dependent
    * builds clean in spite of an erroneous test.
    */
-  public B suppressing(Method... methods) {
+  public B suppressing(final Method... methods) {
     return suppressing(Arrays.asList(methods));
   }
 
-  public B suppressing(Collection<Method> methods) {
+  public B suppressing(final Collection<Method> methods) {
     suppressedTests.addAll(methods);
     return self();
   }
@@ -221,7 +221,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
   // Class parameters must be raw.
   protected abstract List<Class<? extends AbstractTester>> getTesters();
 
-  private boolean matches(Test test) {
+  private boolean matches(final Test test) {
     final Method method;
     try {
       method = extractMethod(test);
@@ -262,11 +262,11 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return true;
   }
 
-  private static boolean intersect(Set<?> a, Set<?> b) {
+  private static boolean intersect(final Set<?> a, final Set<?> b) {
     return !disjoint(a, b);
   }
 
-  private static Method extractMethod(Test test) {
+  private static Method extractMethod(final Test test) {
     if (test instanceof AbstractTester) {
       AbstractTester<?> tester = (AbstractTester<?>) test;
       return Helpers.getMethod(tester.getClass(), tester.getTestMethodName());
@@ -278,7 +278,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     }
   }
 
-  protected TestSuite makeSuiteForTesterClass(Class<? extends AbstractTester<?>> testerClass) {
+  protected TestSuite makeSuiteForTesterClass(final Class<? extends AbstractTester<?>> testerClass) {
     final TestSuite candidateTests = new TestSuite(testerClass);
     final TestSuite suite = filterSuite(candidateTests);
 
@@ -295,7 +295,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return suite;
   }
 
-  private TestSuite filterSuite(TestSuite suite) {
+  private TestSuite filterSuite(final TestSuite suite) {
     TestSuite filtered = new TestSuite(suite.getName());
     final Enumeration<?> tests = suite.tests();
     while (tests.hasMoreElements()) {
@@ -307,7 +307,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return filtered;
   }
 
-  protected static String formatFeatureSet(Set<? extends Feature<?>> features) {
+  protected static String formatFeatureSet(final Set<? extends Feature<?>> features) {
     List<String> temp = new ArrayList<>();
     for (Feature<?> feature : features) {
       Object featureAsObject = feature; // to work around bogus JDK warning

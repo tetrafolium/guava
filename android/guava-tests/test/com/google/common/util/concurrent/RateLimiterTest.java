@@ -79,11 +79,11 @@ public class RateLimiterTest extends TestCase {
     try {
       limiter.setRate(0.0);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       limiter.setRate(-10.0);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testAcquireParameterValidation() {
@@ -450,7 +450,7 @@ public class RateLimiterTest extends TestCase {
    */
   public void testWeNeverGetABurstMoreThanOneSec() {
     RateLimiter limiter = RateLimiter.create(1.0, stopwatch);
-    int[] rates = { 1000, 1, 10, 1000000, 10, 1};
+    int[] rates = {1000, 1, 10, 1000000, 10, 1};
     for (int rate : rates) {
       int oneSecWorthOfWork = rate;
       stopwatch.sleepMillis(rate * 1000);
@@ -474,8 +474,8 @@ public class RateLimiterTest extends TestCase {
   public void testTimeToWarmUpIsHonouredEvenWithWeights() {
     Random random = new Random();
     int warmupPermits = 10;
-    double[] coldFactorsToTest = { 2.0, 3.0, 10.0 };
-    double[] qpsToTest = { 4.0, 2.0, 1.0, 0.5, 0.1 };
+    double[] coldFactorsToTest = {2.0, 3.0, 10.0 };
+    double[] qpsToTest = {4.0, 2.0, 1.0, 0.5, 0.1 };
     for (int trial = 0; trial < 100; trial++) {
       for (double coldFactor : coldFactorsToTest) {
         for (double qps : qpsToTest) {
@@ -508,7 +508,7 @@ public class RateLimiterTest extends TestCase {
         "Should not acquire additional permit even after sleeping", rateLimiter.tryAcquire());
   }
 
-  private long measureTotalTimeMillis(RateLimiter rateLimiter, int permits, Random random) {
+  private long measureTotalTimeMillis(final RateLimiter rateLimiter, final int permits, final Random random) {
     long startTime = stopwatch.instant;
     while (permits > 0) {
       int nextPermitsToAcquire = Math.max(1, random.nextInt(permits));
@@ -519,7 +519,7 @@ public class RateLimiterTest extends TestCase {
     return NANOSECONDS.toMillis(stopwatch.instant - startTime);
   }
 
-  private void assertEvents(String... events) {
+  private void assertEvents(final String... events) {
     assertEquals(Arrays.toString(events), stopwatch.readEventsAndClear());
   }
 
@@ -537,17 +537,17 @@ public class RateLimiterTest extends TestCase {
       return NANOSECONDS.toMicros(instant);
     }
 
-    void sleepMillis(int millis) {
+    void sleepMillis(final int millis) {
       sleepMicros("U", MILLISECONDS.toMicros(millis));
     }
 
-    void sleepMicros(String caption, long micros) {
+    void sleepMicros(final String caption, final long micros) {
       instant += MICROSECONDS.toNanos(micros);
       events.add(caption + String.format(Locale.ROOT, "%3.2f", (micros / 1000000.0)));
     }
 
     @Override
-    protected void sleepMicrosUninterruptibly(long micros) {
+    protected void sleepMicrosUninterruptibly(final long micros) {
       sleepMicros("R", micros);
     }
 
@@ -582,7 +582,7 @@ public class RateLimiterTest extends TestCase {
     doTestMocking(mock);
   }
 
-  private static void doTestMocking(RateLimiter mock) throws Exception {
+  private static void doTestMocking(final RateLimiter mock) throws Exception {
     for (Method method : RateLimiter.class.getMethods()) {
       if (!isStatic(method.getModifiers())
           && !NOT_WORKING_ON_MOCKS.contains(method.getName())
@@ -592,7 +592,7 @@ public class RateLimiterTest extends TestCase {
     }
   }
 
-  private static Object[] arbitraryParameters(Method method) {
+  private static Object[] arbitraryParameters(final Method method) {
     Class<?>[] parameterTypes = method.getParameterTypes();
     Object[] params = new Object[parameterTypes.length];
     for (int i = 0; i < parameterTypes.length; i++) {

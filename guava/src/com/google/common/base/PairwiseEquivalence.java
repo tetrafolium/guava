@@ -24,12 +24,12 @@ final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements S
 
   final Equivalence<? super T> elementEquivalence;
 
-  PairwiseEquivalence(Equivalence<? super T> elementEquivalence) {
+  PairwiseEquivalence(final Equivalence<? super T> elementEquivalence) {
     this.elementEquivalence = Preconditions.checkNotNull(elementEquivalence);
   }
 
   @Override
-  protected boolean doEquivalent(Iterable<T> iterableA, Iterable<T> iterableB) {
+  protected boolean doEquivalent(final Iterable<T> iterableA, final Iterable<T> iterableB) {
     Iterator<T> iteratorA = iterableA.iterator();
     Iterator<T> iteratorB = iterableB.iterator();
 
@@ -43,7 +43,7 @@ final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements S
   }
 
   @Override
-  protected int doHash(Iterable<T> iterable) {
+  protected int doHash(final Iterable<T> iterable) {
     int hash = 78721;
     for (T element : iterable) {
       hash = hash * 24943 + elementEquivalence.hash(element);
@@ -52,7 +52,7 @@ final class PairwiseEquivalence<T> extends Equivalence<Iterable<T>> implements S
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof PairwiseEquivalence) {
       PairwiseEquivalence<?> that = (PairwiseEquivalence<?>) object;
       return this.elementEquivalence.equals(that.elementEquivalence);

@@ -57,7 +57,7 @@ public abstract class UnicodeEscaper extends Escaper {
   private static final int DEST_PAD = 32;
 
   /** Constructor for use by subclasses. */
-  protected UnicodeEscaper() {}
+  protected UnicodeEscaper() { }
 
   /**
    * Returns the escaped form of the given Unicode code point, or {@code null} if this code point
@@ -102,7 +102,7 @@ public abstract class UnicodeEscaper extends Escaper {
    * @throws IllegalArgumentException if the scanned sub-sequence of {@code csq} contains invalid
    *     surrogate pairs
    */
-  protected int nextEscapeIndex(CharSequence csq, int start, int end) {
+  protected int nextEscapeIndex(final CharSequence csq, final int start, final int end) {
     int index = start;
     while (index < end) {
       int cp = codePointAt(csq, index, end);
@@ -133,7 +133,7 @@ public abstract class UnicodeEscaper extends Escaper {
    * @throws IllegalArgumentException if invalid surrogate characters are encountered
    */
   @Override
-  public String escape(String string) {
+  public String escape(final String string) {
     checkNotNull(string);
     int end = string.length();
     int index = nextEscapeIndex(string, 0, end);
@@ -155,7 +155,7 @@ public abstract class UnicodeEscaper extends Escaper {
    * @throws NullPointerException if {@code string} is null
    * @throws IllegalArgumentException if invalid surrogate characters are encountered
    */
-  protected final String escapeSlow(String s, int index) {
+  protected final String escapeSlow(final String s, final int index) {
     int end = s.length();
 
     // Get a destination buffer and setup some loop variables.
@@ -242,7 +242,7 @@ public abstract class UnicodeEscaper extends Escaper {
    * @return the Unicode code point for the given index or the negated value of the trailing high
    *     surrogate character at the end of the sequence
    */
-  protected static int codePointAt(CharSequence seq, int index, int end) {
+  protected static int codePointAt(final CharSequence seq, final int index, final int end) {
     checkNotNull(seq);
     if (index < end) {
       char c1 = seq.charAt(index++);
@@ -289,7 +289,7 @@ public abstract class UnicodeEscaper extends Escaper {
    * Helper method to grow the character buffer as needed, this only happens once in a while so it's
    * ok if it's in a method call. If the index passed in is 0 then no copying will be done.
    */
-  private static char[] growBuffer(char[] dest, int index, int size) {
+  private static char[] growBuffer(final char[] dest, final int index, final int size) {
     if (size < 0) { // overflow - should be OutOfMemoryError but GWT/j2cl don't support it
       throw new AssertionError("Cannot increase internal buffer any further");
     }

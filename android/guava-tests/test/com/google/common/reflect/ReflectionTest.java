@@ -48,7 +48,7 @@ public class ReflectionTest extends TestCase {
 
   private static final InvocationHandler X_RETURNER = new InvocationHandler() {
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args)
+    public Object invoke(final Object proxy, final Method method, final Object[] args)
         throws Throwable {
       return "x";
     }

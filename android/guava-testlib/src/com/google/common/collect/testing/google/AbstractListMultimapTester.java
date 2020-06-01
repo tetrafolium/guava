@@ -30,11 +30,11 @@ import java.util.Collection;
 public class AbstractListMultimapTester<K, V>
     extends AbstractMultimapTester<K, V, ListMultimap<K, V>> {
 
-  protected void assertGet(K key, V... values) {
+  protected void assertGet(final K key, final V... values) {
     assertGet(key, Arrays.asList(values));
   }
 
-  protected void assertGet(K key, Collection<V> values) {
+  protected void assertGet(final K key, final Collection<V> values) {
     assertEqualInOrder(values, multimap().get(key));
 
     if (!values.isEmpty()) {

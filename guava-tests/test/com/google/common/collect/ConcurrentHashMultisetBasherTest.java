@@ -57,7 +57,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
     testAddAndRemove(mapMaker.<String, AtomicInteger>makeMap());
   }
 
-  private void testAddAndRemove(ConcurrentMap<String, AtomicInteger> map)
+  private void testAddAndRemove(final ConcurrentMap<String, AtomicInteger> map)
       throws ExecutionException, InterruptedException {
 
     final ConcurrentHashMultiset<String> multiset = new ConcurrentHashMultiset<>(map);
@@ -82,7 +82,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
 
       List<Integer> actualCounts = Lists.transform(keys,
           new Function<String, Integer>() {
-            @Override public Integer apply(String key) {
+            @Override public Integer apply(final String key) {
               return multiset.count(key);
             }
           });
@@ -102,7 +102,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
     private final ImmutableList<String> keys;
     private final Random random = new Random();
 
-    private MutateTask(ConcurrentHashMultiset<String> multiset, ImmutableList<String> keys) {
+    private MutateTask(final ConcurrentHashMultiset<String> multiset, final ImmutableList<String> keys) {
       this.multiset = multiset;
       this.keys = keys;
     }
@@ -161,7 +161,7 @@ public class ConcurrentHashMultisetBasherTest extends TestCase {
       SET_COUNT_IF,
       REMOVE,
       REMOVE_EXACTLY,
-      ;
+;
     }
   }
 }

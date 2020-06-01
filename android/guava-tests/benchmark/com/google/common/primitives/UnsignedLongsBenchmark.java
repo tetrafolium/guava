@@ -48,7 +48,7 @@ public class UnsignedLongsBenchmark {
     }
   }
 
-  @Benchmark long divide(int reps) {
+  @Benchmark long divide(final int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -57,7 +57,7 @@ public class UnsignedLongsBenchmark {
     return tmp;
   }
 
-  @Benchmark long remainder(int reps) {
+  @Benchmark long remainder(final int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -66,7 +66,7 @@ public class UnsignedLongsBenchmark {
     return tmp;
   }
 
-  @Benchmark long parseUnsignedLong(int reps) {
+  @Benchmark long parseUnsignedLong(final int reps) {
     long tmp = 0;
     // Given that we make three calls per pass, we scale reps down in order
     // to do a comparable amount of work to other measurements.
@@ -80,7 +80,7 @@ public class UnsignedLongsBenchmark {
     return tmp;
   }
 
-  @Benchmark long parseDecode10(int reps) {
+  @Benchmark long parseDecode10(final int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -89,7 +89,7 @@ public class UnsignedLongsBenchmark {
     return tmp;
   }
 
-  @Benchmark long parseDecode16(int reps) {
+  @Benchmark long parseDecode16(final int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -98,7 +98,7 @@ public class UnsignedLongsBenchmark {
     return tmp;
   }
 
-  @Benchmark int toString(int reps) {
+  @Benchmark int toString(final int reps) {
     int tmp = 0;
     // Given that we make three calls per pass, we scale reps down in order
     // to do a comparable amount of work to other measurements.
@@ -122,7 +122,7 @@ public class UnsignedLongsBenchmark {
   // trivial because the divisor is bigger than the dividend.
   // Using remainder here does not give us a uniform distribution but it should
   // not have a big impact on the measurement.
-  private static long randomDivisor(long dividend) {
+  private static long randomDivisor(final long dividend) {
     long r = RANDOM_SOURCE.nextLong();
     if (dividend == -1) {
       return r;

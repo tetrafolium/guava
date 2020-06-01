@@ -32,12 +32,12 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
 
   final transient Map<K, V> delegate;
 
-  ForwardingImmutableMap(Map<? extends K, ? extends V> delegate) {
+  ForwardingImmutableMap(final Map<? extends K, ? extends V> delegate) {
     this.delegate = Collections.unmodifiableMap(delegate);
   }
 
   @SuppressWarnings("unchecked")
-  ForwardingImmutableMap(Entry<? extends K, ? extends V>... entries) {
+  ForwardingImmutableMap(final Entry<? extends K, ? extends V>... entries) {
     Map<K, V> delegate = Maps.newLinkedHashMap();
     for (Entry<? extends K, ? extends V> entry : entries) {
       K key = checkNotNull(entry.getKey());
@@ -57,15 +57,15 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
     return delegate.isEmpty();
   }
 
-  public final boolean containsKey(@Nullable Object key) {
+  public final boolean containsKey(final @Nullable Object key) {
     return Maps.safeContainsKey(delegate, key);
   }
 
-  public final boolean containsValue(@Nullable Object value) {
+  public final boolean containsValue(final @Nullable Object value) {
     return delegate.containsValue(value);
   }
 
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return (key == null) ? null : Maps.safeGet(delegate, key);
   }
 
@@ -75,7 +75,7 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
           @Override protected Set<Entry<K, V>> delegate() {
             return delegate.entrySet();
           }
-          @Override public boolean contains(Object object) {
+          @Override public boolean contains(final Object object) {
             if (object instanceof Entry<?, ?>
                 && ((Entry<?, ?>) object).getKey() == null) {
               return false;
@@ -86,7 +86,7 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
               return false;
             }
           }
-          @Override public <T> T[] toArray(T[] array) {
+          @Override public <T> T[] toArray(final T[] array) {
             T[] result = super.toArray(array);
             if (size() < result.length) {
               // It works around a GWT bug where elements after last is not
@@ -110,7 +110,7 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
     return delegate.size();
   }
 
-  @Override public boolean equals(@Nullable Object object) {
+  @Override public boolean equals(final @Nullable Object object) {
     return delegate.equals(object);
   }
 

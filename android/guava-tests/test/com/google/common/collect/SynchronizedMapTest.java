@@ -46,7 +46,7 @@ public class SynchronizedMapTest extends TestCase {
       implements Serializable {
     public final Object mutex;
     private Map<K, V> delegate;
-    public TestMap(Map<K, V> delegate, Object mutex) {
+    public TestMap(final Map<K, V> delegate, final Object mutex) {
       checkNotNull(mutex);
       this.delegate = delegate;
       this.mutex = mutex;
@@ -66,7 +66,7 @@ public class SynchronizedMapTest extends TestCase {
       return super.isEmpty();
     }
 
-    @Override public V remove(Object object) {
+    @Override public V remove(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return super.remove(object);
     }
@@ -76,27 +76,27 @@ public class SynchronizedMapTest extends TestCase {
       super.clear();
     }
 
-    @Override public boolean containsKey(Object key) {
+    @Override public boolean containsKey(final Object key) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsKey(key);
     }
 
-    @Override public boolean containsValue(Object value) {
+    @Override public boolean containsValue(final Object value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsValue(value);
     }
 
-    @Override public V get(Object key) {
+    @Override public V get(final Object key) {
       assertTrue(Thread.holdsLock(mutex));
       return super.get(key);
     }
 
-    @Override public V put(K key, V value) {
+    @Override public V put(final K key, final V value) {
       assertTrue(Thread.holdsLock(mutex));
       return super.put(key, value);
     }
 
-    @Override public void putAll(Map<? extends K, ? extends V> map) {
+    @Override public void putAll(final Map<? extends K, ? extends V> map) {
       assertTrue(Thread.holdsLock(mutex));
       super.putAll(map);
     }
@@ -116,7 +116,7 @@ public class SynchronizedMapTest extends TestCase {
       return super.entrySet();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(obj);
     }

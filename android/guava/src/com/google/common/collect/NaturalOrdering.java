@@ -31,7 +31,7 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
   private transient Ordering<Comparable> nullsLast;
 
   @Override
-  public int compare(Comparable left, Comparable right) {
+  public int compare(final Comparable left, final Comparable right) {
     checkNotNull(left); // for GWT
     checkNotNull(right);
     return left.compareTo(right);
@@ -70,7 +70,7 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
     return "Ordering.natural()";
   }
 
-  private NaturalOrdering() {}
+  private NaturalOrdering() { }
 
   private static final long serialVersionUID = 0;
 }

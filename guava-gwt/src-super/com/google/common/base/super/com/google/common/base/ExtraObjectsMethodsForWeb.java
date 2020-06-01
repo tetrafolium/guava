@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
  * Holder for extra methods of {@code Objects} only in web.
  */
 abstract class ExtraObjectsMethodsForWeb {
-  public static boolean equal(@Nullable String a, @Nullable String b) {
+  public static boolean equal(final @Nullable String a, final @Nullable String b) {
     return a == b;
   }
 }

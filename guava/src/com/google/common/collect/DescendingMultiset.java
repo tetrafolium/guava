@@ -66,20 +66,20 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E> implements So
   }
 
   @Override
-  public SortedMultiset<E> headMultiset(E toElement, BoundType boundType) {
+  public SortedMultiset<E> headMultiset(final E toElement, final BoundType boundType) {
     return forwardMultiset().tailMultiset(toElement, boundType).descendingMultiset();
   }
 
   @Override
   public SortedMultiset<E> subMultiset(
-      E fromElement, BoundType fromBoundType, E toElement, BoundType toBoundType) {
+      final E fromElement, final BoundType fromBoundType, final E toElement, final BoundType toBoundType) {
     return forwardMultiset()
         .subMultiset(toElement, toBoundType, fromElement, fromBoundType)
         .descendingMultiset();
   }
 
   @Override
-  public SortedMultiset<E> tailMultiset(E fromElement, BoundType boundType) {
+  public SortedMultiset<E> tailMultiset(final E fromElement, final BoundType boundType) {
     return forwardMultiset().headMultiset(fromElement, boundType).descendingMultiset();
   }
 
@@ -145,7 +145,7 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E> implements So
   }
 
   @Override
-  public <T> T[] toArray(T[] array) {
+  public <T> T[] toArray(final T[] array) {
     return standardToArray(array);
   }
 

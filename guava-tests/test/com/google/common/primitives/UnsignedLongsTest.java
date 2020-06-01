@@ -114,7 +114,7 @@ public class UnsignedLongsTest extends TestCase {
     testSort(new long[] {2, GREATEST, 1, LEAST}, new long[] {LEAST, 1, 2, GREATEST});
   }
 
-  static void testSort(long[] input, long[] expected) {
+  static void testSort(final long[] input, final long[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedLongs.sort(input);
     assertTrue(Arrays.equals(expected, input));
@@ -127,7 +127,7 @@ public class UnsignedLongsTest extends TestCase {
     testSort(new long[] {2, GREATEST, 1, LEAST}, 1, 4, new long[] {2, LEAST, 1, GREATEST});
   }
 
-  static void testSort(long[] input, int from, int to, long[] expected) {
+  static void testSort(final long[] input, final int from, final int to, final long[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedLongs.sort(input, from, to);
     assertTrue(Arrays.equals(expected, input));
@@ -156,14 +156,14 @@ public class UnsignedLongsTest extends TestCase {
         new long[] {GREATEST - 1, GREATEST - 2, 1, 2});
   }
 
-  private static void testSortDescending(long[] input, long[] expectedOutput) {
+  private static void testSortDescending(final long[] input, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedLongs.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      long[] input, int fromIndex, int toIndex, long[] expectedOutput) {
+      final long[] input, final int fromIndex, final int toIndex, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedLongs.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -327,7 +327,7 @@ public class UnsignedLongsTest extends TestCase {
       "5a4316b8c153ac4d",
       "6cf78a4b139a4e2a"
     };
-    int[] bases = { 2, 5, 7, 8, 10, 16 };
+    int[] bases = {2, 5, 7, 8, 10, 16 };
     for (int base : bases) {
       for (String x : tests) {
         BigInteger xValue = new BigInteger(x, 16);

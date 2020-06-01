@@ -41,7 +41,7 @@ public class HashMultimapTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(SetMultimapTestSuiteBuilder.using(new TestStringSetMultimapGenerator() {
           @Override
-          protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+          protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
             SetMultimap<String, String> multimap = HashMultimap.create();
             for (Entry<String, String> entry : entries) {
               multimap.put(entry.getKey(), entry.getValue());
@@ -100,12 +100,12 @@ public class HashMultimapTest extends TestCase {
     try {
       HashMultimap.create(-20, 15);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       HashMultimap.create(20, -15);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testEmptyMultimapsEqual() {

@@ -60,7 +60,7 @@ public abstract class Traverser<N> {
    *
    * @param graph {@link SuccessorsFunction} representing a general graph that may have cycles.
    */
-  public static <N> Traverser<N> forGraph(SuccessorsFunction<N> graph) {
+  public static <N> Traverser<N> forGraph(final SuccessorsFunction<N> graph) {
     checkNotNull(graph);
     return new GraphTraverser<>(graph);
   }
@@ -129,7 +129,7 @@ public abstract class Traverser<N> {
    * @param tree {@link SuccessorsFunction} representing a directed acyclic graph that has at most
    *     one path between any two nodes
    */
-  public static <N> Traverser<N> forTree(SuccessorsFunction<N> tree) {
+  public static <N> Traverser<N> forTree(final SuccessorsFunction<N> tree) {
     checkNotNull(tree);
     if (tree instanceof BaseGraph) {
       checkArgument(((BaseGraph<?>) tree).isDirected(), "Undirected graphs can never be trees.");
@@ -236,7 +236,7 @@ public abstract class Traverser<N> {
   private static final class GraphTraverser<N> extends Traverser<N> {
     private final SuccessorsFunction<N> graph;
 
-    GraphTraverser(SuccessorsFunction<N> graph) {
+    GraphTraverser(final SuccessorsFunction<N> graph) {
       this.graph = checkNotNull(graph);
     }
 
@@ -274,7 +274,7 @@ public abstract class Traverser<N> {
       private final Queue<N> queue = new ArrayDeque<>();
       private final Set<N> visited = new HashSet<>();
 
-      BreadthFirstIterator(N root) {
+      BreadthFirstIterator(final N root) {
         queue.add(root);
         visited.add(root);
       }
@@ -301,7 +301,7 @@ public abstract class Traverser<N> {
       private final Set<N> visited = new HashSet<>();
       private final Order order;
 
-      DepthFirstIterator(N root, Order order) {
+      DepthFirstIterator(final N root, final Order order) {
         // our invariant is that in computeNext we call next on the iterator at the top first, so we
         // need to start with one additional item on that iterator
         stack.push(withSuccessors(root));
@@ -334,7 +334,7 @@ public abstract class Traverser<N> {
         }
       }
 
-      NodeAndSuccessors withSuccessors(N node) {
+      NodeAndSuccessors withSuccessors(final N node) {
         return new NodeAndSuccessors(node, graph.successors(node));
       }
 
@@ -343,7 +343,7 @@ public abstract class Traverser<N> {
         final N node;
         final Iterator<? extends N> successorIterator;
 
-        NodeAndSuccessors(N node, Iterable<? extends N> successors) {
+        NodeAndSuccessors(final N node, final Iterable<? extends N> successors) {
           this.node = node;
           this.successorIterator = successors.iterator();
         }
@@ -354,7 +354,7 @@ public abstract class Traverser<N> {
   private static final class TreeTraverser<N> extends Traverser<N> {
     private final SuccessorsFunction<N> tree;
 
-    TreeTraverser(SuccessorsFunction<N> tree) {
+    TreeTraverser(final SuccessorsFunction<N> tree) {
       this.tree = checkNotNull(tree);
     }
 
@@ -391,7 +391,7 @@ public abstract class Traverser<N> {
     private final class BreadthFirstIterator extends UnmodifiableIterator<N> {
       private final Queue<N> queue = new ArrayDeque<>();
 
-      BreadthFirstIterator(N root) {
+      BreadthFirstIterator(final N root) {
         queue.add(root);
       }
 
@@ -411,7 +411,7 @@ public abstract class Traverser<N> {
     private final class DepthFirstPreOrderIterator extends UnmodifiableIterator<N> {
       private final Deque<Iterator<? extends N>> stack = new ArrayDeque<>();
 
-      DepthFirstPreOrderIterator(N root) {
+      DepthFirstPreOrderIterator(final N root) {
         stack.addLast(singletonIterator(checkNotNull(root)));
       }
 
@@ -438,7 +438,7 @@ public abstract class Traverser<N> {
     private final class DepthFirstPostOrderIterator extends AbstractIterator<N> {
       private final ArrayDeque<NodeAndChildren> stack = new ArrayDeque<>();
 
-      DepthFirstPostOrderIterator(N root) {
+      DepthFirstPostOrderIterator(final N root) {
         stack.addLast(withChildren(root));
       }
 
@@ -457,7 +457,7 @@ public abstract class Traverser<N> {
         return endOfData();
       }
 
-      NodeAndChildren withChildren(N node) {
+      NodeAndChildren withChildren(final N node) {
         return new NodeAndChildren(node, tree.successors(node));
       }
 
@@ -466,7 +466,7 @@ public abstract class Traverser<N> {
         final N node;
         final Iterator<? extends N> childIterator;
 
-        NodeAndChildren(N node, Iterable<? extends N> children) {
+        NodeAndChildren(final N node, final Iterable<? extends N> children) {
           this.node = node;
           this.childIterator = children.iterator();
         }

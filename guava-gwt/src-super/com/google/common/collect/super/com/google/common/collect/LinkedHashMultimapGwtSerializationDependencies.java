@@ -23,7 +23,7 @@ import java.util.Map;
 @GwtCompatible(emulated = true)
 abstract class LinkedHashMultimapGwtSerializationDependencies<K, V>
     extends AbstractSetMultimap<K, V> {
-  LinkedHashMultimapGwtSerializationDependencies(Map<K, Collection<V>> map) {
+  LinkedHashMultimapGwtSerializationDependencies(final Map<K, Collection<V>> map) {
     super(map);
   }
 

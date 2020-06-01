@@ -43,12 +43,12 @@ public class SafeTreeSetTest extends TestCase {
         NavigableSetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     return new SafeTreeSet<>(Arrays.asList(elements));
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
                   }
                 })
@@ -62,14 +62,14 @@ public class SafeTreeSetTest extends TestCase {
         SetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     NavigableSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
                     Collections.addAll(set, elements);
                     return set;
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
                   }
                 })

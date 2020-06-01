@@ -21,9 +21,9 @@ package java.util.concurrent;
  */
 public class CancellationException extends IllegalStateException {
 
-  public CancellationException() {}
+  public CancellationException() { }
 
-  public CancellationException(String message) {
+  public CancellationException(final String message) {
     super(message);
   }
 }

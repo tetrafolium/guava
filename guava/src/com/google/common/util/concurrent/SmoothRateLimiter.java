@@ -214,14 +214,14 @@ abstract class SmoothRateLimiter extends RateLimiter {
     private double coldFactor;
 
     SmoothWarmingUp(
-        SleepingStopwatch stopwatch, long warmupPeriod, TimeUnit timeUnit, double coldFactor) {
+        final SleepingStopwatch stopwatch, final long warmupPeriod, final TimeUnit timeUnit, final double coldFactor) {
       super(stopwatch);
       this.warmupPeriodMicros = timeUnit.toMicros(warmupPeriod);
       this.coldFactor = coldFactor;
     }
 
     @Override
-    void doSetRate(double permitsPerSecond, double stableIntervalMicros) {
+    void doSetRate(final double permitsPerSecond, final double stableIntervalMicros) {
       double oldMaxPermits = maxPermits;
       double coldIntervalMicros = stableIntervalMicros * coldFactor;
       thresholdPermits = 0.5 * warmupPeriodMicros / stableIntervalMicros;
@@ -240,7 +240,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
     }
 
     @Override
-    long storedPermitsToWaitTime(double storedPermits, double permitsToTake) {
+    long storedPermitsToWaitTime(final double storedPermits, final double permitsToTake) {
       double availablePermitsAboveThreshold = storedPermits - thresholdPermits;
       long micros = 0;
       // measuring the integral on the right part of the function (the climbing line)
@@ -257,7 +257,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
       return micros;
     }
 
-    private double permitsToTime(double permits) {
+    private double permitsToTime(final double permits) {
       return stableIntervalMicros + permits * slope;
     }
 
@@ -277,13 +277,13 @@ abstract class SmoothRateLimiter extends RateLimiter {
     /** The work (permits) of how many seconds can be saved up if this RateLimiter is unused? */
     final double maxBurstSeconds;
 
-    SmoothBursty(SleepingStopwatch stopwatch, double maxBurstSeconds) {
+    SmoothBursty(final SleepingStopwatch stopwatch, final double maxBurstSeconds) {
       super(stopwatch);
       this.maxBurstSeconds = maxBurstSeconds;
     }
 
     @Override
-    void doSetRate(double permitsPerSecond, double stableIntervalMicros) {
+    void doSetRate(final double permitsPerSecond, final double stableIntervalMicros) {
       double oldMaxPermits = this.maxPermits;
       maxPermits = maxBurstSeconds * permitsPerSecond;
       if (oldMaxPermits == Double.POSITIVE_INFINITY) {
@@ -298,7 +298,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
     }
 
     @Override
-    long storedPermitsToWaitTime(double storedPermits, double permitsToTake) {
+    long storedPermitsToWaitTime(final double storedPermits, final double permitsToTake) {
       return 0L;
     }
 
@@ -330,12 +330,12 @@ abstract class SmoothRateLimiter extends RateLimiter {
    */
   private long nextFreeTicketMicros = 0L; // could be either in the past or future
 
-  private SmoothRateLimiter(SleepingStopwatch stopwatch) {
+  private SmoothRateLimiter(final SleepingStopwatch stopwatch) {
     super(stopwatch);
   }
 
   @Override
-  final void doSetRate(double permitsPerSecond, long nowMicros) {
+  final void doSetRate(final double permitsPerSecond, final long nowMicros) {
     resync(nowMicros);
     double stableIntervalMicros = SECONDS.toMicros(1L) / permitsPerSecond;
     this.stableIntervalMicros = stableIntervalMicros;
@@ -350,12 +350,12 @@ abstract class SmoothRateLimiter extends RateLimiter {
   }
 
   @Override
-  final long queryEarliestAvailable(long nowMicros) {
+  final long queryEarliestAvailable(final long nowMicros) {
     return nextFreeTicketMicros;
   }
 
   @Override
-  final long reserveEarliestAvailable(int requiredPermits, long nowMicros) {
+  final long reserveEarliestAvailable(final int requiredPermits, final long nowMicros) {
     resync(nowMicros);
     long returnValue = nextFreeTicketMicros;
     double storedPermitsToSpend = min(requiredPermits, this.storedPermits);
@@ -386,7 +386,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
   /**
    * Updates {@code storedPermits} and {@code nextFreeTicketMicros} based on the current time.
    */
-  void resync(long nowMicros) {
+  void resync(final long nowMicros) {
     // if nextFreeTicket is in the past, resync to now
     if (nowMicros > nextFreeTicketMicros) {
       double newPermits = (nowMicros - nextFreeTicketMicros) / coolDownIntervalMicros();

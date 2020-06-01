@@ -37,7 +37,7 @@ public class TreeTraverserTest extends TestCase {
     final char value;
     final List<Tree> children;
 
-    public Tree(char value, Tree... children) {
+    public Tree(final char value, final Tree... children) {
       this.value = value;
       this.children = Arrays.asList(children);
     }
@@ -50,7 +50,7 @@ public class TreeTraverserTest extends TestCase {
     @Nullable
     final BinaryTree right;
 
-    private BinaryTree(char value, BinaryTree left, BinaryTree right) {
+    private BinaryTree(final char value, final BinaryTree left, final BinaryTree right) {
       this.value = value;
       this.left = left;
       this.right = right;
@@ -59,7 +59,7 @@ public class TreeTraverserTest extends TestCase {
 
   private static final TreeTraverser<Tree> ADAPTER = new TreeTraverser<Tree>() {
     @Override
-    public Iterable<Tree> children(Tree node) {
+    public Iterable<Tree> children(final Tree node) {
       return node.children;
     }
   };
@@ -68,7 +68,7 @@ public class TreeTraverserTest extends TestCase {
       TreeTraverser.using(
           new Function<Tree, Iterable<Tree>>() {
             @Override
-            public Iterable<Tree> apply(Tree node) {
+            public Iterable<Tree> apply(final Tree node) {
               return node.children;
             }
           });
@@ -77,12 +77,12 @@ public class TreeTraverserTest extends TestCase {
       new BinaryTreeTraverser<BinaryTree>() {
 
     @Override
-    public Optional<BinaryTree> leftChild(BinaryTree node) {
+    public Optional<BinaryTree> leftChild(final BinaryTree node) {
       return Optional.fromNullable(node.left);
     }
 
     @Override
-    public Optional<BinaryTree> rightChild(BinaryTree node) {
+    public Optional<BinaryTree> rightChild(final BinaryTree node) {
       return Optional.fromNullable(node.right);
     }
   };
@@ -118,7 +118,7 @@ public class TreeTraverserTest extends TestCase {
   static final BinaryTree be = new BinaryTree('e', null, bf);
   static final BinaryTree bd = new BinaryTree('d', bb, be);
 
-  static String iterationOrder(Iterable<Tree> iterable) {
+  static String iterationOrder(final Iterable<Tree> iterable) {
     StringBuilder builder = new StringBuilder();
     for (Tree t : iterable) {
       builder.append(t.value);
@@ -126,7 +126,7 @@ public class TreeTraverserTest extends TestCase {
     return builder.toString();
   }
 
-  static String binaryIterationOrder(Iterable<BinaryTree> iterable) {
+  static String binaryIterationOrder(final Iterable<BinaryTree> iterable) {
     StringBuilder builder = new StringBuilder();
     for (BinaryTree t : iterable) {
       builder.append(t.value);

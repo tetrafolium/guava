@@ -73,7 +73,7 @@ public abstract class CharSource {
   /**
    * Constructor for use by subclasses.
    */
-  protected CharSource() {}
+  protected CharSource() { }
 
   /**
    * Returns a {@link ByteSource} view of this char source that encodes chars read from this source
@@ -87,7 +87,7 @@ public abstract class CharSource {
    * @since 20.0
    */
   @Beta
-  public ByteSource asByteSource(Charset charset) {
+  public ByteSource asByteSource(final Charset charset) {
     return new AsByteSource(charset);
   }
 
@@ -211,7 +211,7 @@ public abstract class CharSource {
     }
   }
 
-  private long countBySkipping(Reader reader) throws IOException {
+  private long countBySkipping(final Reader reader) throws IOException {
     long count = 0;
     long read;
     while ((read = reader.skip(Long.MAX_VALUE)) != 0) {
@@ -229,7 +229,7 @@ public abstract class CharSource {
    *     {@code appendable}
    */
   @CanIgnoreReturnValue
-  public long copyTo(Appendable appendable) throws IOException {
+  public long copyTo(final Appendable appendable) throws IOException {
     checkNotNull(appendable);
 
     Closer closer = Closer.create();
@@ -251,7 +251,7 @@ public abstract class CharSource {
    *     {@code sink}
    */
   @CanIgnoreReturnValue
-  public long copyTo(CharSink sink) throws IOException {
+  public long copyTo(final CharSink sink) throws IOException {
     checkNotNull(sink);
 
     Closer closer = Closer.create();
@@ -350,7 +350,7 @@ public abstract class CharSource {
    */
   @Beta
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public <T> T readLines(LineProcessor<T> processor) throws IOException {
+  public <T> T readLines(final LineProcessor<T> processor) throws IOException {
     checkNotNull(processor);
 
     Closer closer = Closer.create();
@@ -378,7 +378,7 @@ public abstract class CharSource {
    * @since 22.0
    */
   @Beta
-  public void forEachLine(Consumer<? super String> action) throws IOException {
+  public void forEachLine(final Consumer<? super String> action) throws IOException {
     try (Stream<String> lines = lines()) {
       // The lines should be ordered regardless in most cases, but use forEachOrdered to be sure
       lines.forEachOrdered(action);
@@ -426,7 +426,7 @@ public abstract class CharSource {
    * @return a {@code CharSource} containing the concatenated data
    * @since 15.0
    */
-  public static CharSource concat(Iterable<? extends CharSource> sources) {
+  public static CharSource concat(final Iterable<? extends CharSource> sources) {
     return new ConcatenatedCharSource(sources);
   }
 
@@ -448,7 +448,7 @@ public abstract class CharSource {
    * @throws NullPointerException if any of {@code sources} is {@code null}
    * @since 15.0
    */
-  public static CharSource concat(Iterator<? extends CharSource> sources) {
+  public static CharSource concat(final Iterator<? extends CharSource> sources) {
     return concat(ImmutableList.copyOf(sources));
   }
 
@@ -464,7 +464,7 @@ public abstract class CharSource {
    * @throws NullPointerException if any of {@code sources} is {@code null}
    * @since 15.0
    */
-  public static CharSource concat(CharSource... sources) {
+  public static CharSource concat(final CharSource... sources) {
     return concat(ImmutableList.copyOf(sources));
   }
 
@@ -475,7 +475,7 @@ public abstract class CharSource {
    *
    * @since 15.0 (since 14.0 as {@code CharStreams.asCharSource(String)})
    */
-  public static CharSource wrap(CharSequence charSequence) {
+  public static CharSource wrap(final CharSequence charSequence) {
     return charSequence instanceof String
         ? new StringCharSource((String) charSequence)
         : new CharSequenceCharSource(charSequence);
@@ -497,12 +497,12 @@ public abstract class CharSource {
 
     final Charset charset;
 
-    AsByteSource(Charset charset) {
+    AsByteSource(final Charset charset) {
       this.charset = checkNotNull(charset);
     }
 
     @Override
-    public CharSource asCharSource(Charset charset) {
+    public CharSource asCharSource(final Charset charset) {
       if (charset.equals(this.charset)) {
         return CharSource.this;
       }
@@ -526,7 +526,7 @@ public abstract class CharSource {
 
     protected final CharSequence seq;
 
-    protected CharSequenceCharSource(CharSequence seq) {
+    protected CharSequenceCharSource(final CharSequence seq) {
       this.seq = checkNotNull(seq);
     }
 
@@ -594,7 +594,7 @@ public abstract class CharSource {
     }
 
     @Override
-    public <T> T readLines(LineProcessor<T> processor) throws IOException {
+    public <T> T readLines(final LineProcessor<T> processor) throws IOException {
       Iterator<String> lines = linesIterator();
       while (lines.hasNext()) {
         if (!processor.processLine(lines.next())) {
@@ -626,7 +626,7 @@ public abstract class CharSource {
    * </ul>
    */
   private static class StringCharSource extends CharSequenceCharSource {
-    protected StringCharSource(String seq) {
+    protected StringCharSource(final String seq) {
       super(seq);
     }
 
@@ -636,13 +636,13 @@ public abstract class CharSource {
     }
 
     @Override
-    public long copyTo(Appendable appendable) throws IOException {
+    public long copyTo(final Appendable appendable) throws IOException {
       appendable.append(seq);
       return seq.length();
     }
 
     @Override
-    public long copyTo(CharSink sink) throws IOException {
+    public long copyTo(final CharSink sink) throws IOException {
       checkNotNull(sink);
       Closer closer = Closer.create();
       try {
@@ -675,7 +675,7 @@ public abstract class CharSource {
 
     private final Iterable<? extends CharSource> sources;
 
-    ConcatenatedCharSource(Iterable<? extends CharSource> sources) {
+    ConcatenatedCharSource(final Iterable<? extends CharSource> sources) {
       this.sources = checkNotNull(sources);
     }
 

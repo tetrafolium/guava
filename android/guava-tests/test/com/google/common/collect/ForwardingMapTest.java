@@ -56,7 +56,7 @@ public class ForwardingMapTest extends TestCase {
   static class StandardImplForwardingMap<K, V> extends ForwardingMap<K, V> {
     private final Map<K, V> backingMap;
 
-    StandardImplForwardingMap(Map<K, V> backingMap) {
+    StandardImplForwardingMap(final Map<K, V> backingMap) {
       this.backingMap = backingMap;
     }
 
@@ -64,23 +64,23 @@ public class ForwardingMapTest extends TestCase {
       return backingMap;
     }
 
-    @Override public boolean containsKey(Object key) {
+    @Override public boolean containsKey(final Object key) {
       return standardContainsKey(key);
     }
 
-    @Override public boolean containsValue(Object value) {
+    @Override public boolean containsValue(final Object value) {
       return standardContainsValue(value);
     }
 
-    @Override public void putAll(Map<? extends K, ? extends V> map) {
+    @Override public void putAll(final Map<? extends K, ? extends V> map) {
       standardPutAll(map);
     }
 
-    @Override public V remove(Object object) {
+    @Override public V remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -129,7 +129,7 @@ public class ForwardingMapTest extends TestCase {
                 new TestStringMapGenerator() {
 
                   @Override
-                  protected Map<String, String> create(Entry<String, String>[] entries) {
+                  protected Map<String, String> create(final Entry<String, String>[] entries) {
                     Map<String, String> map = Maps.newLinkedHashMap();
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -152,7 +152,7 @@ public class ForwardingMapTest extends TestCase {
                 new TestStringMapGenerator() {
 
                   @Override
-                  protected Map<String, String> create(Entry<String, String>[] entries) {
+                  protected Map<String, String> create(final Entry<String, String>[] entries) {
                     ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
                     for (Entry<String, String> entry : entries) {
                       builder.put(entry.getKey(), entry.getValue());
@@ -175,7 +175,7 @@ public class ForwardingMapTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Map.class, new Function<Map, Map>() {
-          @Override public Map apply(Map delegate) {
+          @Override public Map apply(final Map delegate) {
             return wrap(delegate);
           }
         });
@@ -306,7 +306,7 @@ public class ForwardingMapTest extends TestCase {
     };
   }
 
-  private static Object getDefaultValue(Class<?> returnType) {
+  private static Object getDefaultValue(final Class<?> returnType) {
     Object defaultValue = ArbitraryInstances.get(returnType);
     if (defaultValue != null) {
       return defaultValue;
@@ -317,7 +317,7 @@ public class ForwardingMapTest extends TestCase {
       // don't like to get null values.  We generate them dynamically
       // using Proxy so that we can have Java 7 compliant code.
       return Reflection.newProxy(returnType, new AbstractInvocationHandler() {
-        @Override public Object handleInvocation(Object proxy, Method method, Object[] args) {
+        @Override public Object handleInvocation(final Object proxy, final Method method, final Object[] args) {
           // Crude, but acceptable until we can use Java 8.  Other
           // methods have default implementations, and it is hard to
           // distinguish.
@@ -332,7 +332,7 @@ public class ForwardingMapTest extends TestCase {
     }
   }
 
-  private static <T> void callAllPublicMethods(Class<T> theClass, T object)
+  private static <T> void callAllPublicMethods(final Class<T> theClass, final T object)
       throws InvocationTargetException {
     for (Method method : theClass.getMethods()) {
       if ((method.getModifiers() & STATIC) != 0) {

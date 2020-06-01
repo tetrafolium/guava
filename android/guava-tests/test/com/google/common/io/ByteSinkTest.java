@@ -85,7 +85,7 @@ public class ByteSinkTest extends IoTestCase {
       try {
         failSource.copyTo(okSink);
         fail();
-      } catch (IOException expected) {}
+      } catch (IOException expected) { }
       // ensure stream was closed IF it was opened (depends on implementation whether or not it's
       // opened at all if source.newInputStream() throws).
       assertTrue("stream not closed when copying from source with option: " + option,

@@ -29,13 +29,13 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
   @Nullable private transient CacheEntry<K, V> cacheEntry1;
   @Nullable private transient CacheEntry<K, V> cacheEntry2;
 
-  MapRetrievalCache(Map<K, V> backingMap) {
+  MapRetrievalCache(final Map<K, V> backingMap) {
     super(backingMap);
   }
 
   @SuppressWarnings("unchecked") // Safe because we only cast if key is found in map.
   @Override
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     V value = getIfCached(key);
     if (value != null) {
       return value;
@@ -51,7 +51,7 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
   // Internal methods ('protected' is still package-visible, but treat as only subclass-visible)
 
   @Override
-  protected V getIfCached(@Nullable Object key) {
+  protected V getIfCached(final @Nullable Object key) {
     V value = super.getIfCached(key);
     if (value != null) {
       return value;
@@ -83,11 +83,11 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
     cacheEntry2 = null;
   }
 
-  private void addToCache(K key, V value) {
+  private void addToCache(final K key, final V value) {
     addToCache(new CacheEntry<K, V>(key, value));
   }
 
-  private void addToCache(CacheEntry<K, V> entry) {
+  private void addToCache(final CacheEntry<K, V> entry) {
     // Slide new entry into first cache position. Drop previous entry in second cache position.
     cacheEntry2 = cacheEntry1;
     cacheEntry1 = entry;
@@ -97,7 +97,7 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
     final K key;
     final V value;
 
-    CacheEntry(K key, V value) {
+    CacheEntry(final K key, final V value) {
       this.key = key;
       this.value = value;
     }

@@ -152,21 +152,21 @@ public class SubscriberRegistryTest extends TestCase {
   public static class StringSubscriber {
 
     @Subscribe
-    public void handle(String s) {
+    public void handle(final String s) {
     }
   }
 
   public static class IntegerSubscriber {
 
     @Subscribe
-    public void handle(Integer i) {
+    public void handle(final Integer i) {
     }
   }
 
   public static class ObjectSubscriber {
 
     @Subscribe
-    public void handle(Object o) {
+    public void handle(final Object o) {
     }
   }
 

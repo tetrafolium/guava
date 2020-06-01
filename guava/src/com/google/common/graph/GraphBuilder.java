@@ -49,7 +49,7 @@ import com.google.common.base.Optional;
 public final class GraphBuilder<N> extends AbstractGraphBuilder<N> {
 
   /** Creates a new instance with the specified edge directionality. */
-  private GraphBuilder(boolean directed) {
+  private GraphBuilder(final boolean directed) {
     super(directed);
   }
 
@@ -70,7 +70,7 @@ public final class GraphBuilder<N> extends AbstractGraphBuilder<N> {
    * such as {@link Graph#isDirected()}. Other properties, such as {@link #expectedNodeCount(int)},
    * are not set in the new builder.
    */
-  public static <N> GraphBuilder<N> from(Graph<N> graph) {
+  public static <N> GraphBuilder<N> from(final Graph<N> graph) {
     return new GraphBuilder<N>(graph.isDirected())
         .allowsSelfLoops(graph.allowsSelfLoops())
         .nodeOrder(graph.nodeOrder());
@@ -81,7 +81,7 @@ public final class GraphBuilder<N> extends AbstractGraphBuilder<N> {
    * Attempting to add a self-loop to a graph that does not allow them will throw an {@link
    * UnsupportedOperationException}.
    */
-  public GraphBuilder<N> allowsSelfLoops(boolean allowsSelfLoops) {
+  public GraphBuilder<N> allowsSelfLoops(final boolean allowsSelfLoops) {
     this.allowsSelfLoops = allowsSelfLoops;
     return this;
   }
@@ -91,13 +91,13 @@ public final class GraphBuilder<N> extends AbstractGraphBuilder<N> {
    *
    * @throws IllegalArgumentException if {@code expectedNodeCount} is negative
    */
-  public GraphBuilder<N> expectedNodeCount(int expectedNodeCount) {
+  public GraphBuilder<N> expectedNodeCount(final int expectedNodeCount) {
     this.expectedNodeCount = Optional.of(checkNonNegative(expectedNodeCount));
     return this;
   }
 
   /** Specifies the order of iteration for the elements of {@link Graph#nodes()}. */
-  public <N1 extends N> GraphBuilder<N1> nodeOrder(ElementOrder<N1> nodeOrder) {
+  public <N1 extends N> GraphBuilder<N1> nodeOrder(final ElementOrder<N1> nodeOrder) {
     GraphBuilder<N1> newBuilder = cast();
     newBuilder.nodeOrder = checkNotNull(nodeOrder);
     return newBuilder;

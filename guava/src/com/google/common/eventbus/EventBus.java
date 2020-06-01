@@ -116,7 +116,7 @@ public class EventBus {
    * @param identifier a brief name for this bus, for logging purposes. Should be a valid Java
    *     identifier.
    */
-  public EventBus(String identifier) {
+  public EventBus(final String identifier) {
     this(
         identifier,
         MoreExecutors.directExecutor(),
@@ -130,7 +130,7 @@ public class EventBus {
    * @param exceptionHandler Handler for subscriber exceptions.
    * @since 16.0
    */
-  public EventBus(SubscriberExceptionHandler exceptionHandler) {
+  public EventBus(final SubscriberExceptionHandler exceptionHandler) {
     this(
         "default",
         MoreExecutors.directExecutor(),
@@ -139,10 +139,10 @@ public class EventBus {
   }
 
   EventBus(
-      String identifier,
-      Executor executor,
-      Dispatcher dispatcher,
-      SubscriberExceptionHandler exceptionHandler) {
+      final String identifier,
+      final Executor executor,
+      final Dispatcher dispatcher,
+      final SubscriberExceptionHandler exceptionHandler) {
     this.identifier = checkNotNull(identifier);
     this.executor = checkNotNull(executor);
     this.dispatcher = checkNotNull(dispatcher);
@@ -168,7 +168,7 @@ public class EventBus {
   /**
    * Handles the given exception thrown by a subscriber with the given context.
    */
-  void handleSubscriberException(Throwable e, SubscriberExceptionContext context) {
+  void handleSubscriberException(final Throwable e, final SubscriberExceptionContext context) {
     checkNotNull(e);
     checkNotNull(context);
     try {
@@ -187,7 +187,7 @@ public class EventBus {
    *
    * @param object object whose subscriber methods should be registered.
    */
-  public void register(Object object) {
+  public void register(final Object object) {
     subscribers.register(object);
   }
 
@@ -197,7 +197,7 @@ public class EventBus {
    * @param object object whose subscriber methods should be unregistered.
    * @throws IllegalArgumentException if the object was not previously registered.
    */
-  public void unregister(Object object) {
+  public void unregister(final Object object) {
     subscribers.unregister(object);
   }
 
@@ -211,7 +211,7 @@ public class EventBus {
    *
    * @param event event to post.
    */
-  public void post(Object event) {
+  public void post(final Object event) {
     Iterator<Subscriber> eventSubscribers = subscribers.getSubscribers(event);
     if (eventSubscribers.hasNext()) {
       dispatcher.dispatch(event, eventSubscribers);
@@ -233,18 +233,18 @@ public class EventBus {
     static final LoggingHandler INSTANCE = new LoggingHandler();
 
     @Override
-    public void handleException(Throwable exception, SubscriberExceptionContext context) {
+    public void handleException(final Throwable exception, final SubscriberExceptionContext context) {
       Logger logger = logger(context);
       if (logger.isLoggable(Level.SEVERE)) {
         logger.log(Level.SEVERE, message(context), exception);
       }
     }
 
-    private static Logger logger(SubscriberExceptionContext context) {
+    private static Logger logger(final SubscriberExceptionContext context) {
       return Logger.getLogger(EventBus.class.getName() + "." + context.getEventBus().identifier());
     }
 
-    private static String message(SubscriberExceptionContext context) {
+    private static String message(final SubscriberExceptionContext context) {
       Method method = context.getSubscriberMethod();
       return "Exception thrown by subscriber method "
           + method.getName()

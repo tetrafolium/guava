@@ -43,7 +43,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public final class Booleans {
-  private Booleans() {}
+  private Booleans() { }
 
   /**
    * Comparators for {@code Boolean} values.
@@ -55,13 +55,13 @@ public final class Booleans {
     private final int trueValue;
     private final String toString;
 
-    BooleanComparator(int trueValue, String toString) {
+    BooleanComparator(final int trueValue, final String toString) {
       this.trueValue = trueValue;
       this.toString = toString;
     }
 
     @Override
-    public int compare(Boolean a, Boolean b) {
+    public int compare(final Boolean a, final Boolean b) {
       int aVal = a ? trueValue : 0;
       int bVal = b ? trueValue : 0;
       return bVal - aVal;
@@ -108,7 +108,7 @@ public final class Booleans {
    * @param value a primitive {@code boolean} value
    * @return a hash code for the value
    */
-  public static int hashCode(boolean value) {
+  public static int hashCode(final boolean value) {
     return value ? 1231 : 1237;
   }
 
@@ -125,7 +125,7 @@ public final class Booleans {
    * @return a positive number if only {@code a} is {@code true}, a negative number if only
    *     {@code b} is true, or zero if {@code a == b}
    */
-  public static int compare(boolean a, boolean b) {
+  public static int compare(final boolean a, final boolean b) {
     return (a == b) ? 0 : (a ? 1 : -1);
   }
 
@@ -141,7 +141,7 @@ public final class Booleans {
    * @return {@code true} if {@code array[i] == target} for some value of {@code
    *     i}
    */
-  public static boolean contains(boolean[] array, boolean target) {
+  public static boolean contains(final boolean[] array, final boolean target) {
     for (boolean value : array) {
       if (value == target) {
         return true;
@@ -161,12 +161,12 @@ public final class Booleans {
    * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int indexOf(boolean[] array, boolean target) {
+  public static int indexOf(final boolean[] array, final boolean target) {
     return indexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int indexOf(boolean[] array, boolean target, int start, int end) {
+  private static int indexOf(final boolean[] array, final boolean target, final int start, final int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -186,7 +186,7 @@ public final class Booleans {
    * @param array the array to search for the sequence {@code target}
    * @param target the array to search for as a sub-sequence of {@code array}
    */
-  public static int indexOf(boolean[] array, boolean[] target) {
+  public static int indexOf(final boolean[] array, final boolean[] target) {
     checkNotNull(array, "array");
     checkNotNull(target, "target");
     if (target.length == 0) {
@@ -213,12 +213,12 @@ public final class Booleans {
    * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int lastIndexOf(boolean[] array, boolean target) {
+  public static int lastIndexOf(final boolean[] array, final boolean target) {
     return lastIndexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int lastIndexOf(boolean[] array, boolean target, int start, int end) {
+  private static int lastIndexOf(final boolean[] array, final boolean target, final int start, final int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -235,7 +235,7 @@ public final class Booleans {
    * @param arrays zero or more {@code boolean} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static boolean[] concat(boolean[]... arrays) {
+  public static boolean[] concat(final boolean[]... arrays) {
     int length = 0;
     for (boolean[] array : arrays) {
       length += array.length;
@@ -262,7 +262,7 @@ public final class Booleans {
    * @return an array containing the values of {@code array}, with guaranteed minimum length
    *     {@code minLength}
    */
-  public static boolean[] ensureCapacity(boolean[] array, int minLength, int padding) {
+  public static boolean[] ensureCapacity(final boolean[] array, final int minLength, final int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
@@ -277,7 +277,7 @@ public final class Booleans {
    *     (but not at the start or end)
    * @param array an array of {@code boolean} values, possibly empty
    */
-  public static String join(String separator, boolean... array) {
+  public static String join(final String separator, final boolean... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -313,7 +313,7 @@ public final class Booleans {
     INSTANCE;
 
     @Override
-    public int compare(boolean[] left, boolean[] right) {
+    public int compare(final boolean[] left, final boolean[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         int result = Booleans.compare(left[i], right[i]);
@@ -344,7 +344,7 @@ public final class Booleans {
    *     to primitives
    * @throws NullPointerException if {@code collection} or any of its elements is null
    */
-  public static boolean[] toArray(Collection<Boolean> collection) {
+  public static boolean[] toArray(final Collection<Boolean> collection) {
     if (collection instanceof BooleanArrayAsList) {
       return ((BooleanArrayAsList) collection).toBooleanArray();
     }
@@ -371,7 +371,7 @@ public final class Booleans {
    * @param backingArray the array to back the list
    * @return a list view of the array
    */
-  public static List<Boolean> asList(boolean... backingArray) {
+  public static List<Boolean> asList(final boolean... backingArray) {
     if (backingArray.length == 0) {
       return Collections.emptyList();
     }
@@ -385,11 +385,11 @@ public final class Booleans {
     final int start;
     final int end;
 
-    BooleanArrayAsList(boolean[] array) {
+    BooleanArrayAsList(final boolean[] array) {
       this(array, 0, array.length);
     }
 
-    BooleanArrayAsList(boolean[] array, int start, int end) {
+    BooleanArrayAsList(final boolean[] array, final int start, final int end) {
       this.array = array;
       this.start = start;
       this.end = end;
@@ -406,20 +406,20 @@ public final class Booleans {
     }
 
     @Override
-    public Boolean get(int index) {
+    public Boolean get(final int index) {
       checkElementIndex(index, size());
       return array[start + index];
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Boolean)
           && Booleans.indexOf(array, (Boolean) target, start, end) != -1;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Boolean) {
         int i = Booleans.indexOf(array, (Boolean) target, start, end);
@@ -431,7 +431,7 @@ public final class Booleans {
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Boolean) {
         int i = Booleans.lastIndexOf(array, (Boolean) target, start, end);
@@ -443,7 +443,7 @@ public final class Booleans {
     }
 
     @Override
-    public Boolean set(int index, Boolean element) {
+    public Boolean set(final int index, final Boolean element) {
       checkElementIndex(index, size());
       boolean oldValue = array[start + index];
       // checkNotNull for GWT (do not optimize)
@@ -452,7 +452,7 @@ public final class Booleans {
     }
 
     @Override
-    public List<Boolean> subList(int fromIndex, int toIndex) {
+    public List<Boolean> subList(final int fromIndex, final int toIndex) {
       int size = size();
       checkPositionIndexes(fromIndex, toIndex, size);
       if (fromIndex == toIndex) {
@@ -462,7 +462,7 @@ public final class Booleans {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object == this) {
         return true;
       }
@@ -514,7 +514,7 @@ public final class Booleans {
    * @since 16.0
    */
   @Beta
-  public static int countTrue(boolean... values) {
+  public static int countTrue(final boolean... values) {
     int count = 0;
     for (boolean value : values) {
       if (value) {
@@ -530,7 +530,7 @@ public final class Booleans {
    *
    * @since 23.1
    */
-  public static void reverse(boolean[] array) {
+  public static void reverse(final boolean[] array) {
     checkNotNull(array);
     reverse(array, 0, array.length);
   }
@@ -545,7 +545,7 @@ public final class Booleans {
    *     {@code toIndex > fromIndex}
    * @since 23.1
    */
-  public static void reverse(boolean[] array, int fromIndex, int toIndex) {
+  public static void reverse(final boolean[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {

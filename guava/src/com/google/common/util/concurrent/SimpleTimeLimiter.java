@@ -49,7 +49,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   private final ExecutorService executor;
 
   private
-  SimpleTimeLimiter(ExecutorService executor) {
+  SimpleTimeLimiter(final ExecutorService executor) {
     this.executor = checkNotNull(executor);
   }
 
@@ -64,14 +64,14 @@ public final class SimpleTimeLimiter implements TimeLimiter {
    *     for example, a {@link Executors#newCachedThreadPool()}.
    * @since 22.0
    */
-  public static SimpleTimeLimiter create(ExecutorService executor) {
+  public static SimpleTimeLimiter create(final ExecutorService executor) {
     return new SimpleTimeLimiter(executor);
   }
 
   @Override
   public <T> T newProxy(
       final T target,
-      Class<T> interfaceType,
+      final Class<T> interfaceType,
       final long timeoutDuration,
       final TimeUnit timeoutUnit) {
     checkNotNull(target);
@@ -85,7 +85,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     InvocationHandler handler =
         new InvocationHandler() {
           @Override
-          public Object invoke(Object obj, final Method method, final Object[] args)
+          public Object invoke(final Object obj, final Method method, final Object[] args)
               throws Throwable {
             Callable<Object> callable =
                 new Callable<Object>() {
@@ -107,7 +107,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   private
   <T> T callWithTimeout(
-      Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit, boolean amInterruptible)
+      final Callable<T> callable, final long timeoutDuration, final TimeUnit timeoutUnit, final boolean amInterruptible)
       throws Exception {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -135,7 +135,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   }
 
   @Override
-  public <T> T callWithTimeout(Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
+  public <T> T callWithTimeout(final Callable<T> callable, final long timeoutDuration, final TimeUnit timeoutUnit)
       throws TimeoutException, InterruptedException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -156,7 +156,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callUninterruptiblyWithTimeout(
-      Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
+      final Callable<T> callable, final long timeoutDuration, final TimeUnit timeoutUnit)
       throws TimeoutException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -176,7 +176,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   }
 
   @Override
-  public void runWithTimeout(Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit)
+  public void runWithTimeout(final Runnable runnable, final long timeoutDuration, final TimeUnit timeoutUnit)
       throws TimeoutException, InterruptedException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
@@ -197,7 +197,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public void runUninterruptiblyWithTimeout(
-      Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit) throws TimeoutException {
+      final Runnable runnable, final long timeoutDuration, final TimeUnit timeoutUnit) throws TimeoutException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -215,7 +215,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     }
   }
 
-  private static Exception throwCause(Exception e, boolean combineStackTraces) throws Exception {
+  private static Exception throwCause(final Exception e, final boolean combineStackTraces) throws Exception {
     Throwable cause = e.getCause();
     if (cause == null) {
       throw e;
@@ -235,7 +235,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     throw e;
   }
 
-  private static Set<Method> findInterruptibleMethods(Class<?> interfaceType) {
+  private static Set<Method> findInterruptibleMethods(final Class<?> interfaceType) {
     Set<Method> set = Sets.newHashSet();
     for (Method m : interfaceType.getMethods()) {
       if (declaresInterruptedEx(m)) {
@@ -245,7 +245,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     return set;
   }
 
-  private static boolean declaresInterruptedEx(Method method) {
+  private static boolean declaresInterruptedEx(final Method method) {
     for (Class<?> exType : method.getExceptionTypes()) {
       // debate: == or isAssignableFrom?
       if (exType == InterruptedException.class) {
@@ -256,14 +256,14 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   }
 
   // TODO: replace with version in common.reflect if and when it's open-sourced
-  private static <T> T newProxy(Class<T> interfaceType, InvocationHandler handler) {
+  private static <T> T newProxy(final Class<T> interfaceType, final InvocationHandler handler) {
     Object object =
         Proxy.newProxyInstance(
             interfaceType.getClassLoader(), new Class<?>[] {interfaceType}, handler);
     return interfaceType.cast(object);
   }
 
-  private void wrapAndThrowExecutionExceptionOrError(Throwable cause) throws ExecutionException {
+  private void wrapAndThrowExecutionExceptionOrError(final Throwable cause) throws ExecutionException {
     if (cause instanceof Error) {
       throw new ExecutionError((Error) cause);
     } else if (cause instanceof RuntimeException) {
@@ -273,7 +273,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     }
   }
 
-  private void wrapAndThrowRuntimeExecutionExceptionOrError(Throwable cause) {
+  private void wrapAndThrowRuntimeExecutionExceptionOrError(final Throwable cause) {
     if (cause instanceof Error) {
       throw new ExecutionError((Error) cause);
     } else {
@@ -281,7 +281,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     }
   }
 
-  private static void checkPositiveTimeout(long timeoutDuration) {
+  private static void checkPositiveTimeout(final long timeoutDuration) {
     checkArgument(timeoutDuration > 0, "timeout must be positive: %s", timeoutDuration);
   }
 }

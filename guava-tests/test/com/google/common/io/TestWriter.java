@@ -30,29 +30,29 @@ public class TestWriter extends FilterWriter {
 
   private final TestOutputStream out;
 
-  public TestWriter(TestOption... options) throws IOException {
+  public TestWriter(final TestOption... options) throws IOException {
     this(new TestOutputStream(ByteStreams.nullOutputStream(), options));
   }
 
-  public TestWriter(TestOutputStream out) {
+  public TestWriter(final TestOutputStream out) {
     super(new OutputStreamWriter(checkNotNull(out), UTF_8));
     this.out = out;
   }
 
   @Override
-  public void write(int c) throws IOException {
+  public void write(final int c) throws IOException {
     super.write(c);
     flush(); // flush write to TestOutputStream to get its behavior
   }
 
   @Override
-  public void write(char[] cbuf, int off, int len) throws IOException {
+  public void write(final char[] cbuf, final int off, final int len) throws IOException {
     super.write(cbuf, off, len);
     flush();
   }
 
   @Override
-  public void write(String str, int off, int len) throws IOException {
+  public void write(final String str, final int off, final int len) throws IOException {
     super.write(str, off, len);
     flush();
   }

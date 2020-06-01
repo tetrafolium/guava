@@ -52,7 +52,8 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
     /**
      * Version of plus for use in retryUpdate
      */
-    final long fn(long v, long x) { return v + x; }
+    final long fn(final long v, final long x) {
+        return v + x; }
 
     /**
      * Creates a new adder with initial sum of zero.
@@ -65,14 +66,14 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
      *
      * @param x the value to add
      */
-    public void add(long x) {
+    public void add(final long x) {
         Cell[] as; long b, v; int[] hc; Cell a; int n;
         if ((as = cells) != null || !casBase(b = base, b + x)) {
             boolean uncontended = true;
-            if ((hc = threadHashCode.get()) == null ||
-                as == null || (n = as.length) < 1 ||
-                (a = as[(n - 1) & hc[0]]) == null ||
-                !(uncontended = a.cas(v = a.value, v + x)))
+            if ((hc = threadHashCode.get()) == null
+                || as == null || (n = as.length) < 1
+                || (a = as[(n - 1) & hc[0]]) == null
+                || !(uncontended = a.cas(v = a.value, v + x)))
                 retryUpdate(x, hc, uncontended);
         }
     }
@@ -174,7 +175,7 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
      * primitive conversion.
      */
     public int intValue() {
-        return (int)sum();
+        return (int) sum();
     }
 
     /**
@@ -182,7 +183,7 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
      * after a widening primitive conversion.
      */
     public float floatValue() {
-        return (float)sum();
+        return (float) sum();
     }
 
     /**
@@ -190,15 +191,15 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
      * primitive conversion.
      */
     public double doubleValue() {
-        return (double)sum();
+        return (double) sum();
     }
 
-    private void writeObject(ObjectOutputStream s) throws IOException {
+    private void writeObject(final ObjectOutputStream s) throws IOException {
         s.defaultWriteObject();
         s.writeLong(sum());
     }
 
-    private void readObject(ObjectInputStream s)
+    private void readObject(final ObjectInputStream s)
             throws IOException, ClassNotFoundException {
         s.defaultReadObject();
         busy = 0;

@@ -72,41 +72,41 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
   }
 
   @Override
-  public boolean awaitTermination(long timeout, TimeUnit unit)
+  public boolean awaitTermination(final long timeout, final TimeUnit unit)
       throws InterruptedException {
     Preconditions.checkNotNull(unit, "unit must not be null!");
     return delegate.awaitTermination(timeout, unit);
   }
 
   @Override
-  public <T> ListenableFuture<T> submit(Callable<T> task) {
+  public <T> ListenableFuture<T> submit(final Callable<T> task) {
     Preconditions.checkNotNull(task, "task must not be null!");
     return delegate.submit(task);
   }
 
   @Override
-  public <T> ListenableFuture<T> submit(Runnable task, T result) {
+  public <T> ListenableFuture<T> submit(final Runnable task, final T result) {
     Preconditions.checkNotNull(task, "task must not be null!");
     Preconditions.checkNotNull(result, "result must not be null!");
     return delegate.submit(task, result);
   }
 
   @Override
-  public ListenableFuture<?> submit(Runnable task) {
+  public ListenableFuture<?> submit(final Runnable task) {
     Preconditions.checkNotNull(task, "task must not be null!");
     return delegate.submit(task);
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(
-      Collection<? extends Callable<T>> tasks) throws InterruptedException {
+      final Collection<? extends Callable<T>> tasks) throws InterruptedException {
     Preconditions.checkNotNull(tasks, "tasks must not be null!");
     return delegate.invokeAll(tasks);
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(
-      Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+      final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit)
       throws InterruptedException {
     Preconditions.checkNotNull(tasks, "tasks must not be null!");
     Preconditions.checkNotNull(unit, "unit must not be null!");
@@ -114,15 +114,15 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
   }
 
   @Override
-  public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+  public <T> T invokeAny(final Collection<? extends Callable<T>> tasks)
       throws InterruptedException, ExecutionException {
     Preconditions.checkNotNull(tasks, "tasks must not be null!");
     return delegate.invokeAny(tasks);
   }
 
   @Override
-  public <T> T invokeAny(Collection<? extends Callable<T>> tasks,
-      long timeout, TimeUnit unit)
+  public <T> T invokeAny(final Collection<? extends Callable<T>> tasks,
+      final long timeout, final TimeUnit unit)
       throws InterruptedException, ExecutionException, TimeoutException {
     Preconditions.checkNotNull(tasks, "tasks must not be null!");
     Preconditions.checkNotNull(unit, "unit must not be null!");
@@ -130,14 +130,14 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
   }
 
   @Override
-  public void execute(Runnable command) {
+  public void execute(final Runnable command) {
     Preconditions.checkNotNull(command, "command must not be null!");
     delegate.execute(command);
   }
 
   @Override
-  public ListenableScheduledFuture<?> schedule(Runnable command, long delay,
-      TimeUnit unit) {
+  public ListenableScheduledFuture<?> schedule(final Runnable command, final long delay,
+      final TimeUnit unit) {
     Preconditions.checkNotNull(command, "command must not be null");
     Preconditions.checkNotNull(unit, "unit must not be null!");
     return schedule(java.util.concurrent.Executors.callable(command),
@@ -149,25 +149,25 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
       implements ListenableScheduledFuture<V> {
     private ExecutionException exception;
 
-    protected ImmediateScheduledFuture(ListenableFuture<V> future) {
+    protected ImmediateScheduledFuture(final ListenableFuture<V> future) {
       super(future);
     }
 
     @Override
-    public V get(long timeout, TimeUnit unit)
+    public V get(final long timeout, final TimeUnit unit)
         throws InterruptedException, ExecutionException, TimeoutException {
       Preconditions.checkNotNull(unit, "unit must not be null!");
       return get();
     }
 
     @Override
-    public long getDelay(TimeUnit unit) {
+    public long getDelay(final TimeUnit unit) {
       Preconditions.checkNotNull(unit, "unit must not be null!");
       return 0;
     }
 
     @Override
-    public int compareTo(Delayed other) {
+    public int compareTo(final Delayed other) {
       Preconditions.checkNotNull(other, "other must not be null!");
       return 0;
     }
@@ -175,7 +175,7 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
 
   @Override
   public <V> ListenableScheduledFuture<V> schedule(final Callable<V> callable,
-      long delay, TimeUnit unit) {
+      final long delay, final TimeUnit unit) {
     Preconditions.checkNotNull(callable, "callable must not be null!");
     Preconditions.checkNotNull(unit, "unit must not be null!");
     ListenableFuture<V> delegateFuture = submit(callable);
@@ -183,15 +183,15 @@ class SameThreadScheduledExecutorService extends AbstractExecutorService
   }
 
   @Override
-  public ListenableScheduledFuture<?> scheduleAtFixedRate(Runnable command,
-      long initialDelay, long period, TimeUnit unit) {
+  public ListenableScheduledFuture<?> scheduleAtFixedRate(final Runnable command,
+      final long initialDelay, final long period, final TimeUnit unit) {
     throw new UnsupportedOperationException(
         "scheduleAtFixedRate is not supported.");
   }
 
   @Override
-  public ListenableScheduledFuture<?> scheduleWithFixedDelay(Runnable command,
-      long initialDelay, long delay, TimeUnit unit) {
+  public ListenableScheduledFuture<?> scheduleWithFixedDelay(final Runnable command,
+      final long initialDelay, final long delay, final TimeUnit unit) {
     throw new UnsupportedOperationException(
         "scheduleWithFixedDelay is not supported.");
   }

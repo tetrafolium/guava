@@ -58,7 +58,7 @@ public class BiMapInverseTester<K, V> extends AbstractBiMapTester<K, V> {
     final BiMap<K, V> forward;
     final BiMap<V, K> backward;
 
-    BiMapPair(BiMap<K, V> original) {
+    BiMapPair(final BiMap<K, V> original) {
       this.forward = original;
       this.backward = original.inverse();
     }
@@ -76,7 +76,7 @@ public class BiMapInverseTester<K, V> extends AbstractBiMapTester<K, V> {
   }
 
   @GwtIncompatible // reflection
-  private static Method getMethod(String methodName) {
+  private static Method getMethod(final String methodName) {
     return Helpers.getMethod(BiMapInverseTester.class, methodName);
   }
 }

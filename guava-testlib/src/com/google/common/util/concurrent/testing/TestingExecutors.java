@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @Beta
 @GwtIncompatible
 public final class TestingExecutors {
-  private TestingExecutors() {}
+  private TestingExecutors() { }
 
   /**
    * Returns a {@link ScheduledExecutorService} that never executes anything.
@@ -122,29 +122,29 @@ public final class TestingExecutors {
       return shutdown;
     }
 
-    @Override public boolean awaitTermination(long timeout, TimeUnit unit) {
+    @Override public boolean awaitTermination(final long timeout, final TimeUnit unit) {
       return true;
     }
 
-    @Override public void execute(Runnable runnable) {}
+    @Override public void execute(final Runnable runnable) { }
 
     @Override public <V> ListenableScheduledFuture<V> schedule(
-        Callable<V> callable, long delay, TimeUnit unit) {
+        final Callable<V> callable, final long delay, final TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     @Override public ListenableScheduledFuture<?> schedule(
-        Runnable command, long delay, TimeUnit unit) {
+        final Runnable command, final long delay, final TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     @Override public ListenableScheduledFuture<?> scheduleAtFixedRate(
-        Runnable command, long initialDelay, long period, TimeUnit unit) {
+        final Runnable command, final long initialDelay, final long period, final TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     @Override public ListenableScheduledFuture<?> scheduleWithFixedDelay(
-        Runnable command, long initialDelay, long delay, TimeUnit unit) {
+        final Runnable command, final long initialDelay, final long delay, final TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
@@ -155,11 +155,11 @@ public final class TestingExecutors {
         return new NeverScheduledFuture<V>();
       }
 
-      @Override public long getDelay(TimeUnit unit) {
+      @Override public long getDelay(final TimeUnit unit) {
         return Long.MAX_VALUE;
       }
 
-      @Override public int compareTo(Delayed other) {
+      @Override public int compareTo(final Delayed other) {
         return Longs.compare(getDelay(TimeUnit.NANOSECONDS), other.getDelay(TimeUnit.NANOSECONDS));
       }
     }

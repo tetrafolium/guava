@@ -45,7 +45,7 @@ import junit.framework.TestSuite;
 @GwtIncompatible
 public class SetTestSuiteBuilder<E>
     extends AbstractCollectionTestSuiteBuilder<SetTestSuiteBuilder<E>, E> {
-  public static <E> SetTestSuiteBuilder<E> using(TestSetGenerator<E> generator) {
+  public static <E> SetTestSuiteBuilder<E> using(final TestSetGenerator<E> generator) {
     return new SetTestSuiteBuilder<E>().usingGenerator(generator);
   }
 
@@ -68,7 +68,7 @@ public class SetTestSuiteBuilder<E>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
@@ -87,7 +87,7 @@ public class SetTestSuiteBuilder<E>
   static class ReserializedSetGenerator<E> implements TestSetGenerator<E> {
     final OneSizeTestContainerGenerator<Collection<E>, E> gen;
 
-    private ReserializedSetGenerator(OneSizeTestContainerGenerator<Collection<E>, E> gen) {
+    private ReserializedSetGenerator(final OneSizeTestContainerGenerator<Collection<E>, E> gen) {
       this.gen = gen;
     }
 
@@ -97,22 +97,22 @@ public class SetTestSuiteBuilder<E>
     }
 
     @Override
-    public Set<E> create(Object... elements) {
+    public Set<E> create(final Object... elements) {
       return (Set<E>) SerializableTester.reserialize(gen.create(elements));
     }
 
     @Override
-    public E[] createArray(int length) {
+    public E[] createArray(final int length) {
       return gen.createArray(length);
     }
 
     @Override
-    public Iterable<E> order(List<E> insertionOrder) {
+    public Iterable<E> order(final List<E> insertionOrder) {
       return gen.order(insertionOrder);
     }
   }
 
-  private static Set<Feature<?>> computeReserializedCollectionFeatures(Set<Feature<?>> features) {
+  private static Set<Feature<?>> computeReserializedCollectionFeatures(final Set<Feature<?>> features) {
     Set<Feature<?>> derivedFeatures = new HashSet<>();
     derivedFeatures.addAll(features);
     derivedFeatures.remove(SERIALIZABLE);

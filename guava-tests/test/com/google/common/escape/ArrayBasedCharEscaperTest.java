@@ -38,7 +38,7 @@ public class ArrayBasedCharEscaperTest extends TestCase {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
         new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'A', 'Z') {
-          @Override protected char[] escapeUnsafe(char c) {
+          @Override protected char[] escapeUnsafe(final char c) {
             return ("{" + c + "}").toCharArray();
           }
         };
@@ -51,7 +51,7 @@ public class ArrayBasedCharEscaperTest extends TestCase {
     // Basic escaping of unsafe chars (wrap them in {,}'s)
     CharEscaper wrappingEscaper =
         new ArrayBasedCharEscaper(NO_REPLACEMENTS, 'Z', 'A') {
-          @Override protected char[] escapeUnsafe(char c) {
+          @Override protected char[] escapeUnsafe(final char c) {
             return ("{" + c + "}").toCharArray();
           }
         };
@@ -64,21 +64,21 @@ public class ArrayBasedCharEscaperTest extends TestCase {
     CharEscaper deletingEscaper =
         new ArrayBasedCharEscaper(NO_REPLACEMENTS, ' ', '~') {
           private final char[] noChars = new char[0];
-          @Override protected char[] escapeUnsafe(char c) {
+          @Override protected char[] escapeUnsafe(final char c) {
             return noChars;
           }
         };
     EscaperAsserts.assertBasic(deletingEscaper);
     assertEquals("Everything outside the printable ASCII range is deleted.",
-        deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 " +
-            "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
+        deletingEscaper.escape("\tEverything\0 outside the\uD800\uDC00 "
+            + "printable ASCII \uFFFFrange is \u007Fdeleted.\n"));
   }
 
   public void testReplacementPriority() throws IOException {
     CharEscaper replacingEscaper =
         new ArrayBasedCharEscaper(SIMPLE_REPLACEMENTS, ' ', '~') {
-          private final char[] unknown = new char[] { '?' };
-          @Override protected char[] escapeUnsafe(char c) {
+          private final char[] unknown = new char[] {'?' };
+          @Override protected char[] escapeUnsafe(final char c) {
             return unknown;
           }
         };

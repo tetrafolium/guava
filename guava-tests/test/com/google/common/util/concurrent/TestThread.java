@@ -60,7 +60,7 @@ public final class TestThread<L> extends Thread implements TearDown {
 
   private Throwable uncaughtThrowable = null;
 
-  public TestThread(L lockLikeObject, String threadName) {
+  public TestThread(final L lockLikeObject, final String threadName) {
     super(threadName);
     this.lockLikeObject = checkNotNull(lockLikeObject);
     start();
@@ -84,7 +84,7 @@ public final class TestThread<L> extends Thread implements TearDown {
   /**
    * Causes this thread to call the named void method, and asserts that the call returns normally.
    */
-  public void callAndAssertReturns(String methodName, Object... arguments) throws Exception {
+  public void callAndAssertReturns(final String methodName, final Object... arguments) throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
     sendRequest(methodName, arguments);
@@ -95,7 +95,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * Causes this thread to call the named method, and asserts that the call returns the expected
    * boolean value.
    */
-  public void callAndAssertReturns(boolean expected, String methodName, Object... arguments)
+  public void callAndAssertReturns(final boolean expected, final String methodName, final Object... arguments)
       throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
@@ -107,7 +107,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * Causes this thread to call the named method, and asserts that the call returns the expected
    * int value.
    */
-  public void callAndAssertReturns(int expected, String methodName, Object... arguments)
+  public void callAndAssertReturns(final int expected, final String methodName, final Object... arguments)
       throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
@@ -119,8 +119,8 @@ public final class TestThread<L> extends Thread implements TearDown {
    * Causes this thread to call the named method, and asserts that the call throws the expected
    * type of throwable.
    */
-  public void callAndAssertThrows(Class<? extends Throwable> expected,
-      String methodName, Object... arguments) throws Exception {
+  public void callAndAssertThrows(final Class<? extends Throwable> expected,
+      final String methodName, final Object... arguments) throws Exception {
     checkNotNull(expected);
     checkNotNull(methodName);
     checkNotNull(arguments);
@@ -133,7 +133,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * the lock-like object. The lock-like object must have a method equivalent to {@link
    * java.util.concurrent.locks.ReentrantLock#hasQueuedThread(Thread)}.
    */
-  public void callAndAssertBlocks(String methodName, Object... arguments) throws Exception {
+  public void callAndAssertBlocks(final String methodName, final Object... arguments) throws Exception {
     checkNotNull(methodName);
     checkNotNull(arguments);
     assertEquals(false, invokeMethod("hasQueuedThread", this));
@@ -150,7 +150,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * except that the method parameter must accept whatever condition-like object is passed into
    * this method.
    */
-  public void callAndAssertWaits(String methodName, Object conditionLikeObject)
+  public void callAndAssertWaits(final String methodName, final Object conditionLikeObject)
       throws Exception {
     checkNotNull(methodName);
     checkNotNull(conditionLikeObject);
@@ -166,7 +166,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * Asserts that a prior call that had caused this thread to block or wait has since returned
    * normally.
    */
-  public void assertPriorCallReturns(@Nullable String methodName) throws Exception {
+  public void assertPriorCallReturns(final @Nullable String methodName) throws Exception {
     assertEquals(null, getResponse(methodName).getResult());
   }
 
@@ -174,7 +174,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * Asserts that a prior call that had caused this thread to block or wait has since returned
    * the expected boolean value.
    */
-  public void assertPriorCallReturns(boolean expected, @Nullable String methodName)
+  public void assertPriorCallReturns(final boolean expected, final @Nullable String methodName)
       throws Exception {
     assertEquals(expected, getResponse(methodName).getResult());
   }
@@ -185,7 +185,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * @throws TimeoutException if this thread does not accept the request within a reasonable amount
    *         of time
    */
-  private void sendRequest(String methodName, Object... arguments) throws Exception {
+  private void sendRequest(final String methodName, final Object... arguments) throws Exception {
     if (!requestQueue.offer(
         new Request(methodName, arguments), TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
       throw new TimeoutException();
@@ -200,7 +200,7 @@ public final class TestThread<L> extends Thread implements TearDown {
    * @throws AssertionFailedError if the given method name does not match the name of the method
    *         this thread has called most recently
    */
-  private Response getResponse(String methodName) throws Exception {
+  private Response getResponse(final String methodName) throws Exception {
     Response response = responseQueue.poll(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
     if (response == null) {
       throw new TimeoutException();
@@ -209,11 +209,11 @@ public final class TestThread<L> extends Thread implements TearDown {
     return response;
   }
 
-  private Object invokeMethod(String methodName, Object... arguments) throws Exception {
+  private Object invokeMethod(final String methodName, final Object... arguments) throws Exception {
     return getMethod(methodName, arguments).invoke(lockLikeObject, arguments);
   }
 
-  private Method getMethod(String methodName, Object... arguments) throws Exception {
+  private Method getMethod(final String methodName, final Object... arguments) throws Exception {
     METHODS: for (Method method : lockLikeObject.getClass().getMethods()) {
       Class<?>[] parameterTypes = method.getParameterTypes();
       if (method.getName().equals(methodName) && (parameterTypes.length == arguments.length)) {
@@ -261,7 +261,7 @@ public final class TestThread<L> extends Thread implements TearDown {
     final String methodName;
     final Object[] arguments;
 
-    Request(String methodName, Object[] arguments) {
+    Request(final String methodName, final Object[] arguments) {
       this.methodName = checkNotNull(methodName);
       this.arguments = checkNotNull(arguments);
     }
@@ -272,7 +272,7 @@ public final class TestThread<L> extends Thread implements TearDown {
     final Object result;
     final Throwable throwable;
 
-    Response(String methodName, Object result, Throwable throwable) {
+    Response(final String methodName, final Object result, final Throwable throwable) {
       this.methodName = methodName;
       this.result = result;
       this.throwable = throwable;

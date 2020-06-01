@@ -51,7 +51,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
                   // but here we have to do some serious fudging
                   @Override
                   @SuppressWarnings("unchecked")
-                  public Map<Class, Impl> create(Object... elements) {
+                  public Map<Class, Impl> create(final Object... elements) {
                     ImmutableClassToInstanceMap.Builder<Impl> builder =
                         ImmutableClassToInstanceMap.builder();
                     for (Object object : elements) {
@@ -165,12 +165,12 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
   abstract static class TestClassToInstanceMapGenerator implements TestMapGenerator<Class, Impl> {
 
     @Override
-    public Class[] createKeyArray(int length) {
+    public Class[] createKeyArray(final int length) {
       return new Class[length];
     }
 
     @Override
-    public Impl[] createValueArray(int length) {
+    public Impl[] createValueArray(final int length) {
       return new Impl[length];
     }
 
@@ -186,35 +186,35 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Entry<Class, Impl>[] createArray(int length) {
+    public Entry<Class, Impl>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<Class, Impl>> order(List<Entry<Class, Impl>> insertionOrder) {
+    public Iterable<Entry<Class, Impl>> order(final List<Entry<Class, Impl>> insertionOrder) {
       return insertionOrder;
     }
   }
 
-  private interface One {}
+  private interface One { }
 
-  private interface Two {}
+  private interface Two { }
 
-  private interface Three {}
+  private interface Three { }
 
-  private interface Four {}
+  private interface Four { }
 
-  private interface Five {}
+  private interface Five { }
 
   static final class Impl implements One, Two, Three, Four, Five, Serializable {
     final int value;
 
-    Impl(int value) {
+    Impl(final int value) {
       this.value = value;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       return obj instanceof Impl && value == ((Impl) obj).value;
     }
 

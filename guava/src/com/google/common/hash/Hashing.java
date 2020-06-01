@@ -61,7 +61,7 @@ public final class Hashing {
    * @return a hash function, described above, that produces hash codes of length {@code
    *     minimumBits} or greater
    */
-  public static HashFunction goodFastHash(int minimumBits) {
+  public static HashFunction goodFastHash(final int minimumBits) {
     int bits = checkPositiveAndMakeMultipleOf32(minimumBits);
 
     if (bits == 32) {
@@ -96,7 +96,7 @@ public final class Hashing {
    *
    * <p>The exact C++ equivalent is the MurmurHash3_x86_32 function (Murmur3A).
    */
-  public static HashFunction murmur3_32(int seed) {
+  public static HashFunction murmur3_32(final int seed) {
     return new Murmur3_32HashFunction(seed);
   }
 
@@ -118,7 +118,7 @@ public final class Hashing {
    *
    * <p>The exact C++ equivalent is the MurmurHash3_x64_128 function (Murmur3F).
    */
-  public static HashFunction murmur3_128(int seed) {
+  public static HashFunction murmur3_128(final int seed) {
     return new Murmur3_128HashFunction(seed);
   }
 
@@ -149,7 +149,7 @@ public final class Hashing {
    *
    * @since 15.0
    */
-  public static HashFunction sipHash24(long k0, long k1) {
+  public static HashFunction sipHash24(final long k0, final long k1) {
     return new SipHashFunction(2, 4, k0, k1);
   }
 
@@ -238,7 +238,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if the given key is inappropriate for initializing this MAC
    * @since 20.0
    */
-  public static HashFunction hmacMd5(Key key) {
+  public static HashFunction hmacMd5(final Key key) {
     return new MacHashFunction("HmacMD5", key, hmacToString("hmacMd5", key));
   }
 
@@ -251,7 +251,7 @@ public final class Hashing {
    * @param key the key material of the secret key
    * @since 20.0
    */
-  public static HashFunction hmacMd5(byte[] key) {
+  public static HashFunction hmacMd5(final byte[] key) {
     return hmacMd5(new SecretKeySpec(checkNotNull(key), "HmacMD5"));
   }
 
@@ -264,7 +264,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if the given key is inappropriate for initializing this MAC
    * @since 20.0
    */
-  public static HashFunction hmacSha1(Key key) {
+  public static HashFunction hmacSha1(final Key key) {
     return new MacHashFunction("HmacSHA1", key, hmacToString("hmacSha1", key));
   }
 
@@ -277,7 +277,7 @@ public final class Hashing {
    * @param key the key material of the secret key
    * @since 20.0
    */
-  public static HashFunction hmacSha1(byte[] key) {
+  public static HashFunction hmacSha1(final byte[] key) {
     return hmacSha1(new SecretKeySpec(checkNotNull(key), "HmacSHA1"));
   }
 
@@ -290,7 +290,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if the given key is inappropriate for initializing this MAC
    * @since 20.0
    */
-  public static HashFunction hmacSha256(Key key) {
+  public static HashFunction hmacSha256(final Key key) {
     return new MacHashFunction("HmacSHA256", key, hmacToString("hmacSha256", key));
   }
 
@@ -303,7 +303,7 @@ public final class Hashing {
    * @param key the key material of the secret key
    * @since 20.0
    */
-  public static HashFunction hmacSha256(byte[] key) {
+  public static HashFunction hmacSha256(final byte[] key) {
     return hmacSha256(new SecretKeySpec(checkNotNull(key), "HmacSHA256"));
   }
 
@@ -316,7 +316,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if the given key is inappropriate for initializing this MAC
    * @since 20.0
    */
-  public static HashFunction hmacSha512(Key key) {
+  public static HashFunction hmacSha512(final Key key) {
     return new MacHashFunction("HmacSHA512", key, hmacToString("hmacSha512", key));
   }
 
@@ -329,11 +329,11 @@ public final class Hashing {
    * @param key the key material of the secret key
    * @since 20.0
    */
-  public static HashFunction hmacSha512(byte[] key) {
+  public static HashFunction hmacSha512(final byte[] key) {
     return hmacSha512(new SecretKeySpec(checkNotNull(key), "HmacSHA512"));
   }
 
-  private static String hmacToString(String methodName, Key key) {
+  private static String hmacToString(final String methodName, final Key key) {
     return String.format(
         "Hashing.%s(Key[algorithm=%s, format=%s])",
         methodName,
@@ -403,7 +403,7 @@ public final class Hashing {
 
     public final HashFunction hashFunction;
 
-    ChecksumType(String toString) {
+    ChecksumType(final String toString) {
       this.hashFunction = new ChecksumHashFunction(this, 32, toString);
     }
   }
@@ -461,7 +461,7 @@ public final class Hashing {
    * <p>See the <a href="http://en.wikipedia.org/wiki/Consistent_hashing">Wikipedia article on
    * consistent hashing</a> for more information.
    */
-  public static int consistentHash(HashCode hashCode, int buckets) {
+  public static int consistentHash(final HashCode hashCode, final int buckets) {
     return consistentHash(hashCode.padToLong(), buckets);
   }
 
@@ -496,7 +496,7 @@ public final class Hashing {
    * <p>See the <a href="http://en.wikipedia.org/wiki/Consistent_hashing">Wikipedia article on
    * consistent hashing</a> for more information.
    */
-  public static int consistentHash(long input, int buckets) {
+  public static int consistentHash(final long input, final int buckets) {
     checkArgument(buckets > 0, "buckets must be positive: %s", buckets);
     LinearCongruentialGenerator generator = new LinearCongruentialGenerator(input);
     int candidate = 0;
@@ -522,7 +522,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if {@code hashCodes} is empty, or the hash codes do not all
    *     have the same bit length
    */
-  public static HashCode combineOrdered(Iterable<HashCode> hashCodes) {
+  public static HashCode combineOrdered(final Iterable<HashCode> hashCodes) {
     Iterator<HashCode> iterator = hashCodes.iterator();
     checkArgument(iterator.hasNext(), "Must be at least 1 hash code to combine.");
     int bits = iterator.next().bits();
@@ -547,7 +547,7 @@ public final class Hashing {
    * @throws IllegalArgumentException if {@code hashCodes} is empty, or the hash codes do not all
    *     have the same bit length
    */
-  public static HashCode combineUnordered(Iterable<HashCode> hashCodes) {
+  public static HashCode combineUnordered(final Iterable<HashCode> hashCodes) {
     Iterator<HashCode> iterator = hashCodes.iterator();
     checkArgument(iterator.hasNext(), "Must be at least 1 hash code to combine.");
     byte[] resultBytes = new byte[iterator.next().bits() / 8];
@@ -565,7 +565,7 @@ public final class Hashing {
   /**
    * Checks that the passed argument is positive, and ceils it to a multiple of 32.
    */
-  static int checkPositiveAndMakeMultipleOf32(int bits) {
+  static int checkPositiveAndMakeMultipleOf32(final int bits) {
     checkArgument(bits > 0, "Number of bits must be positive");
     return (bits + 31) & ~31;
   }
@@ -581,7 +581,7 @@ public final class Hashing {
    * @since 19.0
    */
   public static HashFunction concatenating(
-      HashFunction first, HashFunction second, HashFunction... rest) {
+      final HashFunction first, final HashFunction second, final HashFunction... rest) {
     // We can't use Lists.asList() here because there's no hash->collect dependency
     List<HashFunction> list = new ArrayList<>();
     list.add(first);
@@ -600,7 +600,7 @@ public final class Hashing {
    *
    * @since 19.0
    */
-  public static HashFunction concatenating(Iterable<HashFunction> hashFunctions) {
+  public static HashFunction concatenating(final Iterable<HashFunction> hashFunctions) {
     checkNotNull(hashFunctions);
     // We can't use Iterables.toArray() here because there's no hash->collect dependency
     List<HashFunction> list = new ArrayList<>();
@@ -614,7 +614,7 @@ public final class Hashing {
   private static final class ConcatenatedHashFunction extends AbstractCompositeHashFunction {
     private final int bits;
 
-    private ConcatenatedHashFunction(HashFunction... functions) {
+    private ConcatenatedHashFunction(final HashFunction... functions) {
       super(functions);
       int bitSum = 0;
       for (HashFunction function : functions) {
@@ -629,7 +629,7 @@ public final class Hashing {
     }
 
     @Override
-    HashCode makeHash(Hasher[] hashers) {
+    HashCode makeHash(final Hasher[] hashers) {
       byte[] bytes = new byte[bits / 8];
       int i = 0;
       for (Hasher hasher : hashers) {
@@ -645,7 +645,7 @@ public final class Hashing {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof ConcatenatedHashFunction) {
         ConcatenatedHashFunction other = (ConcatenatedHashFunction) object;
         return Arrays.equals(functions, other.functions);
@@ -666,7 +666,7 @@ public final class Hashing {
   private static final class LinearCongruentialGenerator {
     private long state;
 
-    public LinearCongruentialGenerator(long seed) {
+    public LinearCongruentialGenerator(final long seed) {
       this.state = seed;
     }
 
@@ -676,5 +676,5 @@ public final class Hashing {
     }
   }
 
-  private Hashing() {}
+  private Hashing() { }
 }

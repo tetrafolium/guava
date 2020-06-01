@@ -74,7 +74,7 @@ public class CharsTest extends TestCase {
     assertEquals(LEAST, Chars.saturatedCast(Long.MIN_VALUE));
   }
 
-  private void assertCastFails(long value) {
+  private void assertCastFails(final long value) {
     try {
       Chars.checkedCast(value);
       fail("Cast to char should have failed: " + value);
@@ -115,7 +115,7 @@ public class CharsTest extends TestCase {
     assertEquals(1, Chars.indexOf(ARRAY234, (char) 3));
     assertEquals(2, Chars.indexOf(ARRAY234, (char) 4));
     assertEquals(1, Chars.indexOf(
-        new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
+        new char[] {(char) 2, (char) 3, (char) 2, (char) 3 },
         (char) 3));
   }
 
@@ -128,28 +128,28 @@ public class CharsTest extends TestCase {
     assertEquals(0, Chars.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Chars.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Chars.indexOf(
-        ARRAY234, new char[] { (char) 2, (char) 3 }));
+        ARRAY234, new char[] {(char) 2, (char) 3 }));
     assertEquals(1, Chars.indexOf(
-        ARRAY234, new char[] { (char) 3, (char) 4 }));
-    assertEquals(1, Chars.indexOf(ARRAY234, new char[] { (char) 3 }));
-    assertEquals(2, Chars.indexOf(ARRAY234, new char[] { (char) 4 }));
-    assertEquals(1, Chars.indexOf(new char[] { (char) 2, (char) 3,
+        ARRAY234, new char[] {(char) 3, (char) 4 }));
+    assertEquals(1, Chars.indexOf(ARRAY234, new char[] {(char) 3 }));
+    assertEquals(2, Chars.indexOf(ARRAY234, new char[] {(char) 4 }));
+    assertEquals(1, Chars.indexOf(new char[] {(char) 2, (char) 3,
         (char) 3, (char) 3, (char) 3 },
-        new char[] { (char) 3 }
+        new char[] {(char) 3 }
     ));
     assertEquals(2, Chars.indexOf(
-        new char[] { (char) 2, (char) 3, (char) 2,
+        new char[] {(char) 2, (char) 3, (char) 2,
             (char) 3, (char) 4, (char) 2, (char) 3},
-        new char[] { (char) 2, (char) 3, (char) 4}
+        new char[] {(char) 2, (char) 3, (char) 4}
     ));
     assertEquals(1, Chars.indexOf(
-        new char[] { (char) 2, (char) 2, (char) 3,
+        new char[] {(char) 2, (char) 2, (char) 3,
             (char) 4, (char) 2, (char) 3, (char) 4},
-        new char[] { (char) 2, (char) 3, (char) 4}
+        new char[] {(char) 2, (char) 3, (char) 4}
     ));
     assertEquals(-1, Chars.indexOf(
-        new char[] { (char) 4, (char) 3, (char) 2},
-        new char[] { (char) 2, (char) 3, (char) 4}
+        new char[] {(char) 4, (char) 3, (char) 2},
+        new char[] {(char) 2, (char) 3, (char) 4}
     ));
   }
 
@@ -163,7 +163,7 @@ public class CharsTest extends TestCase {
     assertEquals(1, Chars.lastIndexOf(ARRAY234, (char) 3));
     assertEquals(2, Chars.lastIndexOf(ARRAY234, (char) 4));
     assertEquals(3, Chars.lastIndexOf(
-        new char[] { (char) 2, (char) 3, (char) 2, (char) 3 },
+        new char[] {(char) 2, (char) 3, (char) 2, (char) 3 },
         (char) 3));
   }
 
@@ -348,13 +348,13 @@ public class CharsTest extends TestCase {
     testReverse(new char[] {'A', '1', 'B', '2'}, 1, 3, new char[] {'A', 'B', '1', '2'});
   }
 
-  private static void testReverse(char[] input, char[] expectedOutput) {
+  private static void testReverse(final char[] input, final char[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Chars.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
-  private static void testReverse(char[] input, int fromIndex, int toIndex, char[] expectedOutput) {
+  private static void testReverse(final char[] input, final int fromIndex, final int toIndex, final char[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Chars.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -377,14 +377,14 @@ public class CharsTest extends TestCase {
     testSortDescending(new char[] {'A', '1', 'B', '2'}, 1, 3, new char[] {'A', 'B', '1', '2'});
   }
 
-  private static void testSortDescending(char[] input, char[] expectedOutput) {
+  private static void testSortDescending(final char[] input, final char[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Chars.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      char[] input, int fromIndex, int toIndex, char[] expectedOutput) {
+      final char[] input, final int fromIndex, final int toIndex, final char[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Chars.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -407,7 +407,7 @@ public class CharsTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Character> list = Chars.asList(VALUES).subList(0, i);
         Collection<Character> misleadingSize =
@@ -441,23 +441,23 @@ public class CharsTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    char[] array = { (char) 0, (char) 1, (char) 2 };
+    char[] array = {(char) 0, (char) 1, (char) 2 };
     List<Character> list = Chars.asList(array);
     char[] newArray = Chars.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (char) 4);
     assertTrue(Arrays.equals(
-        new char[] { (char) 0, (char) 1, (char) 2 }, newArray));
+        new char[] {(char) 0, (char) 1, (char) 2 }, newArray));
     newArray[1] = (char) 5;
     assertEquals((char) 1, (char) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    char[] array = { (char) 0, (char) 1, (char) 2, (char) 3 };
+    char[] array = {(char) 0, (char) 1, (char) 2, (char) 3 };
     List<Character> list = Chars.asList(array);
-    assertTrue(Arrays.equals(new char[] { (char) 1, (char) 2 },
+    assertTrue(Arrays.equals(new char[] {(char) 1, (char) 2 },
         Chars.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new char[] {},
         Chars.toArray(list.subList(2, 2))));

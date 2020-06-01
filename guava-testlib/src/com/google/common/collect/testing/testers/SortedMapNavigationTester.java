@@ -172,7 +172,7 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
           new Comparator<K>() {
             @SuppressWarnings("unchecked")
             @Override
-            public int compare(K o1, K o2) {
+            public int compare(final K o1, final K o2) {
               return ((Comparable) o1).compareTo(o2);
             }
           };

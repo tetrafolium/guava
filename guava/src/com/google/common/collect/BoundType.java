@@ -33,14 +33,14 @@ public enum BoundType {
 
   final boolean inclusive;
 
-  BoundType(boolean inclusive) {
+  BoundType(final boolean inclusive) {
     this.inclusive = inclusive;
   }
 
   /**
    * Returns the bound type corresponding to a boolean value for inclusivity.
    */
-  static BoundType forBoolean(boolean inclusive) {
+  static BoundType forBoolean(final boolean inclusive) {
     return inclusive ? CLOSED : OPEN;
   }
 

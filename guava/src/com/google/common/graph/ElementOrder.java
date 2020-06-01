@@ -68,7 +68,7 @@ public final class ElementOrder<T> {
     SORTED
   }
 
-  private ElementOrder(Type type, @Nullable Comparator<T> comparator) {
+  private ElementOrder(final Type type, final @Nullable Comparator<T> comparator) {
     this.type = checkNotNull(type);
     this.comparator = comparator;
     checkState((type == Type.SORTED) == (comparator != null));
@@ -95,7 +95,7 @@ public final class ElementOrder<T> {
    * Returns an instance which specifies that the ordering of the elements is guaranteed to be
    * determined by {@code comparator}.
    */
-  public static <S> ElementOrder<S> sorted(Comparator<S> comparator) {
+  public static <S> ElementOrder<S> sorted(final Comparator<S> comparator) {
     return new ElementOrder<S>(Type.SORTED, comparator);
   }
 
@@ -117,7 +117,7 @@ public final class ElementOrder<T> {
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj == this) {
       return true;
     }
@@ -144,7 +144,7 @@ public final class ElementOrder<T> {
   }
 
   /** Returns an empty mutable map whose keys will respect this {@link ElementOrder}. */
-  <K extends T, V> Map<K, V> createMap(int expectedSize) {
+  <K extends T, V> Map<K, V> createMap(final int expectedSize) {
     switch (type) {
       case UNORDERED:
         return Maps.newHashMapWithExpectedSize(expectedSize);

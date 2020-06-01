@@ -42,7 +42,7 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
   private static final ImmutableList<Method> testMethods
       = getTestMethods(ByteSinkTester.class);
 
-  static TestSuite tests(String name, ByteSinkFactory factory) {
+  static TestSuite tests(final String name, final ByteSinkFactory factory) {
     TestSuite suite = new TestSuite(name);
     for (Map.Entry<String, String> entry : TEST_STRINGS.entrySet()) {
       String desc = entry.getKey();
@@ -52,8 +52,8 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
     return suite;
   }
 
-  private static TestSuite suiteForString(String name, ByteSinkFactory factory,
-      String string, String desc) {
+  private static TestSuite suiteForString(final String name, final ByteSinkFactory factory,
+      final String string, final String desc) {
     byte[] bytes = string.getBytes(Charsets.UTF_8);
     TestSuite suite = suiteForBytes(name, factory, desc, bytes);
     CharSinkFactory charSinkFactory = SourceSinkFactories.asCharSinkFactory(factory);
@@ -62,8 +62,8 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
     return suite;
   }
 
-  private static TestSuite suiteForBytes(String name, ByteSinkFactory factory,
-      String desc, byte[] bytes) {
+  private static TestSuite suiteForBytes(final String name, final ByteSinkFactory factory,
+      final String desc, final byte[] bytes) {
     TestSuite suite = new TestSuite(name + " [" + desc + "]");
     for (final Method method : testMethods) {
       suite.addTest(new ByteSinkTester(factory, bytes, name, desc, method));
@@ -73,8 +73,8 @@ public class ByteSinkTester extends SourceSinkTester<ByteSink, byte[], ByteSinkF
 
   private ByteSink sink;
 
-  ByteSinkTester(ByteSinkFactory factory, byte[] data, String suiteName,
-      String caseDesc, Method method) {
+  ByteSinkTester(final ByteSinkFactory factory, final byte[] data, final String suiteName,
+      final String caseDesc, final Method method) {
     super(factory, data, suiteName, caseDesc, method);
   }
 

@@ -104,12 +104,12 @@ public class AbstractFutureFallbackAtomicHelperTest extends TestCase {
     }
   }
 
-  private void runTestMethod(ClassLoader classLoader) throws Exception {
+  private void runTestMethod(final ClassLoader classLoader) throws Exception {
     Class<?> test = classLoader.loadClass(AbstractFutureTest.class.getName());
     test.getMethod(getName()).invoke(test.newInstance());
   }
 
-  private void checkHelperVersion(ClassLoader classLoader, String expectedHelperClassName)
+  private void checkHelperVersion(final ClassLoader classLoader, final String expectedHelperClassName)
       throws Exception {
     // Make sure we are actually running with the expected helper implementation
     Class<?> abstractFutureClass = classLoader.loadClass(AbstractFuture.class.getName());
@@ -124,7 +124,7 @@ public class AbstractFutureFallbackAtomicHelperTest extends TestCase {
     // we delegate to the current classloader so both loaders agree on classes like TestCase
     return new URLClassLoader(ClassPathUtil.getClassPathUrls(), classLoader) {
       @Override
-      public Class<?> loadClass(String name) throws ClassNotFoundException {
+      public Class<?> loadClass(final String name) throws ClassNotFoundException {
         if (blacklist.contains(name)) {
           throw new ClassNotFoundException("I'm sorry Dave, I'm afraid I can't do that.");
         }

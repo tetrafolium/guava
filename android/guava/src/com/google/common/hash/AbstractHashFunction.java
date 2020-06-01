@@ -27,49 +27,49 @@ import java.nio.charset.Charset;
  */
 abstract class AbstractHashFunction implements HashFunction {
   @Override
-  public <T> HashCode hashObject(T instance, Funnel<? super T> funnel) {
+  public <T> HashCode hashObject(final T instance, final Funnel<? super T> funnel) {
     return newHasher().putObject(instance, funnel).hash();
   }
 
   @Override
-  public HashCode hashUnencodedChars(CharSequence input) {
+  public HashCode hashUnencodedChars(final CharSequence input) {
     int len = input.length();
     return newHasher(len * 2).putUnencodedChars(input).hash();
   }
 
   @Override
-  public HashCode hashString(CharSequence input, Charset charset) {
+  public HashCode hashString(final CharSequence input, final Charset charset) {
     return newHasher().putString(input, charset).hash();
   }
 
   @Override
-  public HashCode hashInt(int input) {
+  public HashCode hashInt(final int input) {
     return newHasher(4).putInt(input).hash();
   }
 
   @Override
-  public HashCode hashLong(long input) {
+  public HashCode hashLong(final long input) {
     return newHasher(8).putLong(input).hash();
   }
 
   @Override
-  public HashCode hashBytes(byte[] input) {
+  public HashCode hashBytes(final byte[] input) {
     return hashBytes(input, 0, input.length);
   }
 
   @Override
-  public HashCode hashBytes(byte[] input, int off, int len) {
+  public HashCode hashBytes(final byte[] input, final int off, final int len) {
     checkPositionIndexes(off, off + len, input.length);
     return newHasher(len).putBytes(input, off, len).hash();
   }
 
   @Override
-  public HashCode hashBytes(ByteBuffer input) {
+  public HashCode hashBytes(final ByteBuffer input) {
     return newHasher(input.remaining()).putBytes(input).hash();
   }
 
   @Override
-  public Hasher newHasher(int expectedInputSize) {
+  public Hasher newHasher(final int expectedInputSize) {
     checkArgument(
         expectedInputSize >= 0, "expectedInputSize must be >= 0 but was %s", expectedInputSize);
     return newHasher();

@@ -35,7 +35,7 @@ public abstract class TestUnhashableCollectionGenerator<T extends Collection<Unh
   }
 
   @Override
-  public T create(Object... elements) {
+  public T create(final Object... elements) {
     UnhashableObject[] array = createArray(elements.length);
     int i = 0;
     for (Object e : elements) {
@@ -51,12 +51,12 @@ public abstract class TestUnhashableCollectionGenerator<T extends Collection<Unh
   protected abstract T create(UnhashableObject[] elements);
 
   @Override
-  public UnhashableObject[] createArray(int length) {
+  public UnhashableObject[] createArray(final int length) {
     return new UnhashableObject[length];
   }
 
   @Override
-  public Iterable<UnhashableObject> order(List<UnhashableObject> insertionOrder) {
+  public Iterable<UnhashableObject> order(final List<UnhashableObject> insertionOrder) {
     return insertionOrder;
   }
 }

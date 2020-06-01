@@ -30,7 +30,7 @@ class ForwardingImmutableCollection<E> extends ImmutableCollection<E> {
 
   transient final Collection<E> delegate;
 
-  ForwardingImmutableCollection(Collection<E> delegate) {
+  ForwardingImmutableCollection(final Collection<E> delegate) {
     this.delegate = delegate;
   }
 
@@ -38,11 +38,11 @@ class ForwardingImmutableCollection<E> extends ImmutableCollection<E> {
     return Iterators.unmodifiableIterator(delegate.iterator());
   }
 
-  @Override public boolean contains(@Nullable Object object) {
+  @Override public boolean contains(final @Nullable Object object) {
     return object != null && delegate.contains(object);
   }
 
-  @Override public boolean containsAll(Collection<?> targets) {
+  @Override public boolean containsAll(final Collection<?> targets) {
     return delegate.containsAll(targets);
   }
 
@@ -58,7 +58,7 @@ class ForwardingImmutableCollection<E> extends ImmutableCollection<E> {
     return delegate.toArray();
   }
 
-  @Override public <T> T[] toArray(T[] other) {
+  @Override public <T> T[] toArray(final T[] other) {
     return delegate.toArray(other);
   }
 

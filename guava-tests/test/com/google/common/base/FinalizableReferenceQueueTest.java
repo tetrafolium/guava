@@ -55,7 +55,7 @@ public class FinalizableReferenceQueueTest extends TestCase {
 
     volatile boolean finalizeReferentCalled;
 
-    MockReference(FinalizableReferenceQueue frq) {
+    MockReference(final FinalizableReferenceQueue frq) {
       super(new Object(), frq);
     }
 
@@ -110,8 +110,8 @@ public class FinalizableReferenceQueueTest extends TestCase {
     FinalizableReferenceQueue.DecoupledLoader decoupledLoader =
         new FinalizableReferenceQueue.DecoupledLoader() {
           @Override
-          URLClassLoader newLoader(URL base) {
-            return new DecoupledClassLoader(new URL[] { base });
+          URLClassLoader newLoader(final URL base) {
+            return new DecoupledClassLoader(new URL[] {base });
           }
         };
 
@@ -125,12 +125,12 @@ public class FinalizableReferenceQueueTest extends TestCase {
 
   static class DecoupledClassLoader extends URLClassLoader {
 
-    public DecoupledClassLoader(URL[] urls) {
+    public DecoupledClassLoader(final URL[] urls) {
       super(urls);
     }
 
     @Override
-    protected synchronized Class<?> loadClass(String name, boolean resolve)
+    protected synchronized Class<?> loadClass(final String name, final boolean resolve)
         throws ClassNotFoundException {
       // Force Finalizer to load from this class loader, not its parent.
       if (name.equals(Finalizer.class.getName())) {

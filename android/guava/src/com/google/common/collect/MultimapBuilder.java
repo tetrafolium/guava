@@ -74,7 +74,7 @@ public abstract class MultimapBuilder<K0, V0> {
    * parameters to be left implicit more often. CacheBuilder uses the same technique.
    */
 
-  private MultimapBuilder() {}
+  private MultimapBuilder() { }
 
   private static final int DEFAULT_EXPECTED_KEYS = 8;
 
@@ -190,7 +190,7 @@ public abstract class MultimapBuilder<K0, V0> {
   private static final class ArrayListSupplier<V> implements Supplier<List<V>>, Serializable {
     private final int expectedValuesPerKey;
 
-    ArrayListSupplier(int expectedValuesPerKey) {
+    ArrayListSupplier(final int expectedValuesPerKey) {
       this.expectedValuesPerKey = checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
     }
 
@@ -219,7 +219,7 @@ public abstract class MultimapBuilder<K0, V0> {
   private static final class HashSetSupplier<V> implements Supplier<Set<V>>, Serializable {
     private final int expectedValuesPerKey;
 
-    HashSetSupplier(int expectedValuesPerKey) {
+    HashSetSupplier(final int expectedValuesPerKey) {
       this.expectedValuesPerKey = checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
     }
 
@@ -232,7 +232,7 @@ public abstract class MultimapBuilder<K0, V0> {
   private static final class LinkedHashSetSupplier<V> implements Supplier<Set<V>>, Serializable {
     private final int expectedValuesPerKey;
 
-    LinkedHashSetSupplier(int expectedValuesPerKey) {
+    LinkedHashSetSupplier(final int expectedValuesPerKey) {
       this.expectedValuesPerKey = checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
     }
 
@@ -245,7 +245,7 @@ public abstract class MultimapBuilder<K0, V0> {
   private static final class TreeSetSupplier<V> implements Supplier<SortedSet<V>>, Serializable {
     private final Comparator<? super V> comparator;
 
-    TreeSetSupplier(Comparator<? super V> comparator) {
+    TreeSetSupplier(final Comparator<? super V> comparator) {
       this.comparator = checkNotNull(comparator);
     }
 
@@ -259,7 +259,7 @@ public abstract class MultimapBuilder<K0, V0> {
       implements Supplier<Set<V>>, Serializable {
     private final Class<V> clazz;
 
-    EnumSetSupplier(Class<V> clazz) {
+    EnumSetSupplier(final Class<V> clazz) {
       this.clazz = checkNotNull(clazz);
     }
 
@@ -279,7 +279,7 @@ public abstract class MultimapBuilder<K0, V0> {
 
     private static final int DEFAULT_EXPECTED_VALUES_PER_KEY = 2;
 
-    MultimapBuilderWithKeys() {}
+    MultimapBuilderWithKeys() { }
 
     abstract <K extends K0, V> Map<K, Collection<V>> createMap();
 
@@ -425,7 +425,7 @@ public abstract class MultimapBuilder<K0, V0> {
    * {@code multimap}.
    */
   public <K extends K0, V extends V0> Multimap<K, V> build(
-      Multimap<? extends K, ? extends V> multimap) {
+      final Multimap<? extends K, ? extends V> multimap) {
     Multimap<K, V> result = build();
     result.putAll(multimap);
     return result;
@@ -435,14 +435,14 @@ public abstract class MultimapBuilder<K0, V0> {
    * A specialization of {@link MultimapBuilder} that generates {@link ListMultimap} instances.
    */
   public abstract static class ListMultimapBuilder<K0, V0> extends MultimapBuilder<K0, V0> {
-    ListMultimapBuilder() {}
+    ListMultimapBuilder() { }
 
     @Override
     public abstract <K extends K0, V extends V0> ListMultimap<K, V> build();
 
     @Override
     public <K extends K0, V extends V0> ListMultimap<K, V> build(
-        Multimap<? extends K, ? extends V> multimap) {
+        final Multimap<? extends K, ? extends V> multimap) {
       return (ListMultimap<K, V>) super.build(multimap);
     }
   }
@@ -451,14 +451,14 @@ public abstract class MultimapBuilder<K0, V0> {
    * A specialization of {@link MultimapBuilder} that generates {@link SetMultimap} instances.
    */
   public abstract static class SetMultimapBuilder<K0, V0> extends MultimapBuilder<K0, V0> {
-    SetMultimapBuilder() {}
+    SetMultimapBuilder() { }
 
     @Override
     public abstract <K extends K0, V extends V0> SetMultimap<K, V> build();
 
     @Override
     public <K extends K0, V extends V0> SetMultimap<K, V> build(
-        Multimap<? extends K, ? extends V> multimap) {
+        final Multimap<? extends K, ? extends V> multimap) {
       return (SetMultimap<K, V>) super.build(multimap);
     }
   }
@@ -467,14 +467,14 @@ public abstract class MultimapBuilder<K0, V0> {
    * A specialization of {@link MultimapBuilder} that generates {@link SortedSetMultimap} instances.
    */
   public abstract static class SortedSetMultimapBuilder<K0, V0> extends SetMultimapBuilder<K0, V0> {
-    SortedSetMultimapBuilder() {}
+    SortedSetMultimapBuilder() { }
 
     @Override
     public abstract <K extends K0, V extends V0> SortedSetMultimap<K, V> build();
 
     @Override
     public <K extends K0, V extends V0> SortedSetMultimap<K, V> build(
-        Multimap<? extends K, ? extends V> multimap) {
+        final Multimap<? extends K, ? extends V> multimap) {
       return (SortedSetMultimap<K, V>) super.build(multimap);
     }
   }

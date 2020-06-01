@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  */
 @GwtCompatible(emulated = true)
 public final class Queues {
-  private Queues() {}
+  private Queues() { }
 
   // ArrayBlockingQueue
 
@@ -51,7 +51,7 @@ public final class Queues {
    * and nonfair access policy.
    */
   @GwtIncompatible // ArrayBlockingQueue
-  public static <E> ArrayBlockingQueue<E> newArrayBlockingQueue(int capacity) {
+  public static <E> ArrayBlockingQueue<E> newArrayBlockingQueue(final int capacity) {
     return new ArrayBlockingQueue<E>(capacity);
   }
 
@@ -72,7 +72,7 @@ public final class Queues {
    *
    * @since 12.0
    */
-  public static <E> ArrayDeque<E> newArrayDeque(Iterable<? extends E> elements) {
+  public static <E> ArrayDeque<E> newArrayDeque(final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new ArrayDeque<E>(Collections2.cast(elements));
     }
@@ -97,7 +97,7 @@ public final class Queues {
    */
   @GwtIncompatible // ConcurrentLinkedQueue
   public static <E> ConcurrentLinkedQueue<E> newConcurrentLinkedQueue(
-      Iterable<? extends E> elements) {
+      final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new ConcurrentLinkedQueue<E>(Collections2.cast(elements));
     }
@@ -125,7 +125,7 @@ public final class Queues {
    * @since 12.0
    */
   @GwtIncompatible // LinkedBlockingDeque
-  public static <E> LinkedBlockingDeque<E> newLinkedBlockingDeque(int capacity) {
+  public static <E> LinkedBlockingDeque<E> newLinkedBlockingDeque(final int capacity) {
     return new LinkedBlockingDeque<E>(capacity);
   }
 
@@ -137,7 +137,7 @@ public final class Queues {
    * @since 12.0
    */
   @GwtIncompatible // LinkedBlockingDeque
-  public static <E> LinkedBlockingDeque<E> newLinkedBlockingDeque(Iterable<? extends E> elements) {
+  public static <E> LinkedBlockingDeque<E> newLinkedBlockingDeque(final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new LinkedBlockingDeque<E>(Collections2.cast(elements));
     }
@@ -162,7 +162,7 @@ public final class Queues {
    * @throws IllegalArgumentException if {@code capacity} is less than 1
    */
   @GwtIncompatible // LinkedBlockingQueue
-  public static <E> LinkedBlockingQueue<E> newLinkedBlockingQueue(int capacity) {
+  public static <E> LinkedBlockingQueue<E> newLinkedBlockingQueue(final int capacity) {
     return new LinkedBlockingQueue<E>(capacity);
   }
 
@@ -175,7 +175,7 @@ public final class Queues {
    * @return a new {@code LinkedBlockingQueue} containing those elements
    */
   @GwtIncompatible // LinkedBlockingQueue
-  public static <E> LinkedBlockingQueue<E> newLinkedBlockingQueue(Iterable<? extends E> elements) {
+  public static <E> LinkedBlockingQueue<E> newLinkedBlockingQueue(final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new LinkedBlockingQueue<E>(Collections2.cast(elements));
     }
@@ -209,7 +209,7 @@ public final class Queues {
    */
   @GwtIncompatible // PriorityBlockingQueue
   public static <E extends Comparable> PriorityBlockingQueue<E> newPriorityBlockingQueue(
-      Iterable<? extends E> elements) {
+      final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new PriorityBlockingQueue<E>(Collections2.cast(elements));
     }
@@ -239,7 +239,7 @@ public final class Queues {
    * @since 11.0 (requires that {@code E} be {@code Comparable} since 15.0).
    */
   public static <E extends Comparable> PriorityQueue<E> newPriorityQueue(
-      Iterable<? extends E> elements) {
+      final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new PriorityQueue<E>(Collections2.cast(elements));
     }
@@ -275,11 +275,11 @@ public final class Queues {
   @CanIgnoreReturnValue
   @GwtIncompatible // BlockingQueue
   public static <E> int drain(
-      BlockingQueue<E> q,
-      Collection<? super E> buffer,
-      int numElements,
-      long timeout,
-      TimeUnit unit)
+      final BlockingQueue<E> q,
+      final Collection<? super E> buffer,
+      final int numElements,
+      final long timeout,
+      final TimeUnit unit)
       throws InterruptedException {
     Preconditions.checkNotNull(buffer);
     /*
@@ -322,11 +322,11 @@ public final class Queues {
   @CanIgnoreReturnValue
   @GwtIncompatible // BlockingQueue
   public static <E> int drainUninterruptibly(
-      BlockingQueue<E> q,
-      Collection<? super E> buffer,
-      int numElements,
-      long timeout,
-      TimeUnit unit) {
+      final BlockingQueue<E> q,
+      final Collection<? super E> buffer,
+      final int numElements,
+      final long timeout,
+      final TimeUnit unit) {
     Preconditions.checkNotNull(buffer);
     long deadline = System.nanoTime() + unit.toNanos(timeout);
     int added = 0;
@@ -388,7 +388,7 @@ public final class Queues {
    * @return a synchronized view of the specified queue
    * @since 14.0
    */
-  public static <E> Queue<E> synchronizedQueue(Queue<E> queue) {
+  public static <E> Queue<E> synchronizedQueue(final Queue<E> queue) {
     return Synchronized.queue(queue, null);
   }
 
@@ -419,7 +419,7 @@ public final class Queues {
    * @return a synchronized view of the specified deque
    * @since 15.0
    */
-  public static <E> Deque<E> synchronizedDeque(Deque<E> deque) {
+  public static <E> Deque<E> synchronizedDeque(final Deque<E> deque) {
     return Synchronized.deque(deque, null);
   }
 }

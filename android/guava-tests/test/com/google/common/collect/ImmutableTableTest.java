@@ -29,7 +29,7 @@ import com.google.common.testing.SerializableTester;
  */
 @GwtCompatible(emulated = true)
 public class ImmutableTableTest extends AbstractTableReadTest {
-  @Override protected Table<String, Integer, Character> create(Object... data) {
+  @Override protected Table<String, Integer, Character> create(final Object... data) {
     ImmutableTable.Builder<String, Integer, Character> builder =
         ImmutableTable.builder();
     for (int i = 0; i < data.length; i = i + 3) {
@@ -153,7 +153,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     }
   }
 
-  private static <R, C, V> void validateTableCopies(Table<R, C, V> original) {
+  private static <R, C, V> void validateTableCopies(final Table<R, C, V> original) {
     Table<R, C, V> copy = ImmutableTable.copyOf(original);
     assertEquals(original, copy);
     validateViewOrdering(original, copy);
@@ -165,7 +165,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
   }
 
   private static <R, C, V> void validateViewOrdering(
-      Table<R, C, V> original, Table<R, C, V> copy) {
+      final Table<R, C, V> original, final Table<R, C, V> copy) {
     assertThat(copy.cellSet()).containsExactlyElementsIn(original.cellSet()).inOrder();
     assertThat(copy.rowKeySet()).containsExactlyElementsIn(original.rowKeySet()).inOrder();
     assertThat(copy.values()).containsExactlyElementsIn(original.values()).inOrder();
@@ -449,7 +449,7 @@ public class ImmutableTableTest extends AbstractTableReadTest {
     validateReserialization(table);
   }
 
-  private static <R, C, V> void validateReserialization(Table<R, C, V> original) {
+  private static <R, C, V> void validateReserialization(final Table<R, C, V> original) {
     Table<R, C, V> copy = SerializableTester.reserializeAndAssert(original);
     assertThat(copy.cellSet()).containsExactlyElementsIn(original.cellSet()).inOrder();
     assertThat(copy.rowKeySet()).containsExactlyElementsIn(original.rowKeySet()).inOrder();

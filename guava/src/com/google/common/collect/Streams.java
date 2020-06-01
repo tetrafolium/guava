@@ -58,7 +58,7 @@ public final class Streams {
    * Returns a sequential {@link Stream} of the contents of {@code iterable}, delegating to {@link
    * Collection#stream} if possible.
    */
-  public static <T> Stream<T> stream(Iterable<T> iterable) {
+  public static <T> Stream<T> stream(final Iterable<T> iterable) {
     return (iterable instanceof Collection)
         ? ((Collection<T>) iterable).stream()
         : StreamSupport.stream(iterable.spliterator(), false);
@@ -70,7 +70,7 @@ public final class Streams {
    * @deprecated There is no reason to use this; just invoke {@code collection.stream()} directly.
    */
   @Deprecated
-  public static <T> Stream<T> stream(Collection<T> collection) {
+  public static <T> Stream<T> stream(final Collection<T> collection) {
     return collection.stream();
   }
 
@@ -78,7 +78,7 @@ public final class Streams {
    * Returns a sequential {@link Stream} of the remaining contents of {@code iterator}. Do not use
    * {@code iterator} directly after passing it to this method.
    */
-  public static <T> Stream<T> stream(Iterator<T> iterator) {
+  public static <T> Stream<T> stream(final Iterator<T> iterator) {
     return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), false);
   }
 
@@ -86,7 +86,7 @@ public final class Streams {
    * If a value is present in {@code optional}, returns a stream containing only that element,
    * otherwise returns an empty stream.
    */
-  public static <T> Stream<T> stream(com.google.common.base.Optional<T> optional) {
+  public static <T> Stream<T> stream(final com.google.common.base.Optional<T> optional) {
     return optional.isPresent() ? Stream.of(optional.get()) : Stream.of();
   }
 
@@ -96,7 +96,7 @@ public final class Streams {
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
-  public static <T> Stream<T> stream(java.util.Optional<T> optional) {
+  public static <T> Stream<T> stream(final java.util.Optional<T> optional) {
     return optional.isPresent() ? Stream.of(optional.get()) : Stream.of();
   }
 
@@ -106,7 +106,7 @@ public final class Streams {
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
-  public static IntStream stream(OptionalInt optional) {
+  public static IntStream stream(final OptionalInt optional) {
     return optional.isPresent() ? IntStream.of(optional.getAsInt()) : IntStream.empty();
   }
 
@@ -116,7 +116,7 @@ public final class Streams {
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
-  public static LongStream stream(OptionalLong optional) {
+  public static LongStream stream(final OptionalLong optional) {
     return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
   }
 
@@ -126,7 +126,7 @@ public final class Streams {
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
-  public static DoubleStream stream(OptionalDouble optional) {
+  public static DoubleStream stream(final OptionalDouble optional) {
     return optional.isPresent() ? DoubleStream.of(optional.getAsDouble()) : DoubleStream.empty();
   }
 
@@ -140,7 +140,7 @@ public final class Streams {
    * @see Stream#concat(Stream, Stream)
    */
   @SafeVarargs
-  public static <T> Stream<T> concat(Stream<? extends T>... streams) {
+  public static <T> Stream<T> concat(final Stream<? extends T>... streams) {
     // TODO(lowasser): consider an implementation that can support SUBSIZED
     boolean isParallel = false;
     int characteristics = Spliterator.ORDERED | Spliterator.SIZED | Spliterator.NONNULL;
@@ -178,7 +178,7 @@ public final class Streams {
    *
    * @see IntStream#concat(IntStream, IntStream)
    */
-  public static IntStream concat(IntStream... streams) {
+  public static IntStream concat(final IntStream... streams) {
     // TODO(lowasser): optimize this later
     return Stream.of(streams).flatMapToInt(stream -> stream);
   }
@@ -192,7 +192,7 @@ public final class Streams {
    *
    * @see LongStream#concat(LongStream, LongStream)
    */
-  public static LongStream concat(LongStream... streams) {
+  public static LongStream concat(final LongStream... streams) {
     // TODO(lowasser): optimize this later
     return Stream.of(streams).flatMapToLong(stream -> stream);
   }
@@ -206,7 +206,7 @@ public final class Streams {
    *
    * @see DoubleStream#concat(DoubleStream, DoubleStream)
    */
-  public static DoubleStream concat(DoubleStream... streams) {
+  public static DoubleStream concat(final DoubleStream... streams) {
     // TODO(lowasser): optimize this later
     return Stream.of(streams).flatMapToDouble(stream -> stream);
   }
@@ -237,7 +237,7 @@ public final class Streams {
    * This may harm parallel performance.
    */
   public static <A, B, R> Stream<R> zip(
-      Stream<A> streamA, Stream<B> streamB, BiFunction<? super A, ? super B, R> function) {
+      final Stream<A> streamA, final Stream<B> streamB, final BiFunction<? super A, ? super B, R> function) {
     checkNotNull(streamA);
     checkNotNull(streamB);
     checkNotNull(function);
@@ -254,7 +254,7 @@ public final class Streams {
             new AbstractSpliterator<R>(
                 Math.min(splitrA.estimateSize(), splitrB.estimateSize()), characteristics) {
               @Override
-              public boolean tryAdvance(Consumer<? super R> action) {
+              public boolean tryAdvance(final Consumer<? super R> action) {
                 if (itrA.hasNext() && itrB.hasNext()) {
                   action.accept(function.apply(itrA.next(), itrB.next()));
                   return true;
@@ -298,7 +298,7 @@ public final class Streams {
    * @since 22.0
    */
   public static <A, B> void forEachPair(
-      Stream<A> streamA, Stream<B> streamB, BiConsumer<? super A, ? super B> consumer) {
+      final Stream<A> streamA, final Stream<B> streamB, final BiConsumer<? super A, ? super B> consumer) {
     checkNotNull(consumer);
 
     if (streamA.isParallel() || streamB.isParallel()) {
@@ -317,7 +317,7 @@ public final class Streams {
     final A a;
     final B b;
 
-    TemporaryPair(A a, B b) {
+    TemporaryPair(final A a, final B b) {
       this.a = a;
       this.b = b;
     }
@@ -346,7 +346,7 @@ public final class Streams {
    * was defined.
    */
   public static <T, R> Stream<R> mapWithIndex(
-      Stream<T> stream, FunctionWithIndex<? super T, ? extends R> function) {
+      final Stream<T> stream, final FunctionWithIndex<? super T, ? extends R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -361,7 +361,7 @@ public final class Streams {
             long index = 0;
 
             @Override
-            public boolean tryAdvance(Consumer<? super R> action) {
+            public boolean tryAdvance(final Consumer<? super R> action) {
               if (fromIterator.hasNext()) {
                 action.accept(function.apply(fromIterator.next(), index++));
                 return true;
@@ -374,17 +374,17 @@ public final class Streams {
     class Splitr extends MapWithIndexSpliterator<Spliterator<T>, R, Splitr> implements Consumer<T> {
       T holder;
 
-      Splitr(Spliterator<T> splitr, long index) {
+      Splitr(final Spliterator<T> splitr, final long index) {
         super(splitr, index);
       }
 
       @Override
-      public void accept(@Nullable T t) {
+      public void accept(final @Nullable T t) {
         this.holder = t;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super R> action) {
+      public boolean tryAdvance(final Consumer<? super R> action) {
         if (fromSpliterator.tryAdvance(this)) {
           try {
             action.accept(function.apply(holder, index++));
@@ -397,7 +397,7 @@ public final class Streams {
       }
 
       @Override
-      Splitr createSplit(Spliterator<T> from, long i) {
+      Splitr createSplit(final Spliterator<T> from, final long i) {
         return new Splitr(from, i);
       }
     }
@@ -424,7 +424,7 @@ public final class Streams {
     final F fromSpliterator;
     long index;
 
-    MapWithIndexSpliterator(F fromSpliterator, long index) {
+    MapWithIndexSpliterator(final F fromSpliterator, final long index) {
       this.fromSpliterator = fromSpliterator;
       this.index = index;
     }
@@ -477,7 +477,7 @@ public final class Streams {
    * <p>The order of the resulting stream is defined if and only if the order of the original stream
    * was defined.
    */
-  public static <R> Stream<R> mapWithIndex(IntStream stream, IntFunctionWithIndex<R> function) {
+  public static <R> Stream<R> mapWithIndex(final IntStream stream, final IntFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -492,7 +492,7 @@ public final class Streams {
                 long index = 0;
 
                 @Override
-                public boolean tryAdvance(Consumer<? super R> action) {
+                public boolean tryAdvance(final Consumer<? super R> action) {
                   if (fromIterator.hasNext()) {
                     action.accept(function.apply(fromIterator.nextInt(), index++));
                     return true;
@@ -507,17 +507,17 @@ public final class Streams {
         implements IntConsumer, Spliterator<R> {
       int holder;
 
-      Splitr(Spliterator.OfInt splitr, long index) {
+      Splitr(final Spliterator.OfInt splitr, final long index) {
         super(splitr, index);
       }
 
       @Override
-      public void accept(int t) {
+      public void accept(final int t) {
         this.holder = t;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super R> action) {
+      public boolean tryAdvance(final Consumer<? super R> action) {
         if (fromSpliterator.tryAdvance(this)) {
           action.accept(function.apply(holder, index++));
           return true;
@@ -526,7 +526,7 @@ public final class Streams {
       }
 
       @Override
-      Splitr createSplit(Spliterator.OfInt from, long i) {
+      Splitr createSplit(final Spliterator.OfInt from, final long i) {
         return new Splitr(from, i);
       }
     }
@@ -569,7 +569,7 @@ public final class Streams {
    * <p>The order of the resulting stream is defined if and only if the order of the original stream
    * was defined.
    */
-  public static <R> Stream<R> mapWithIndex(LongStream stream, LongFunctionWithIndex<R> function) {
+  public static <R> Stream<R> mapWithIndex(final LongStream stream, final LongFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -584,7 +584,7 @@ public final class Streams {
                 long index = 0;
 
                 @Override
-                public boolean tryAdvance(Consumer<? super R> action) {
+                public boolean tryAdvance(final Consumer<? super R> action) {
                   if (fromIterator.hasNext()) {
                     action.accept(function.apply(fromIterator.nextLong(), index++));
                     return true;
@@ -599,17 +599,17 @@ public final class Streams {
         implements LongConsumer, Spliterator<R> {
       long holder;
 
-      Splitr(Spliterator.OfLong splitr, long index) {
+      Splitr(final Spliterator.OfLong splitr, final long index) {
         super(splitr, index);
       }
 
       @Override
-      public void accept(long t) {
+      public void accept(final long t) {
         this.holder = t;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super R> action) {
+      public boolean tryAdvance(final Consumer<? super R> action) {
         if (fromSpliterator.tryAdvance(this)) {
           action.accept(function.apply(holder, index++));
           return true;
@@ -618,7 +618,7 @@ public final class Streams {
       }
 
       @Override
-      Splitr createSplit(Spliterator.OfLong from, long i) {
+      Splitr createSplit(final Spliterator.OfLong from, final long i) {
         return new Splitr(from, i);
       }
     }
@@ -662,7 +662,7 @@ public final class Streams {
    * was defined.
    */
   public static <R> Stream<R> mapWithIndex(
-      DoubleStream stream, DoubleFunctionWithIndex<R> function) {
+      final DoubleStream stream, final DoubleFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -677,7 +677,7 @@ public final class Streams {
                 long index = 0;
 
                 @Override
-                public boolean tryAdvance(Consumer<? super R> action) {
+                public boolean tryAdvance(final Consumer<? super R> action) {
                   if (fromIterator.hasNext()) {
                     action.accept(function.apply(fromIterator.nextDouble(), index++));
                     return true;
@@ -692,17 +692,17 @@ public final class Streams {
         implements DoubleConsumer, Spliterator<R> {
       double holder;
 
-      Splitr(Spliterator.OfDouble splitr, long index) {
+      Splitr(final Spliterator.OfDouble splitr, final long index) {
         super(splitr, index);
       }
 
       @Override
-      public void accept(double t) {
+      public void accept(final double t) {
         this.holder = t;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super R> action) {
+      public boolean tryAdvance(final Consumer<? super R> action) {
         if (fromSpliterator.tryAdvance(this)) {
           action.accept(function.apply(holder, index++));
           return true;
@@ -711,7 +711,7 @@ public final class Streams {
       }
 
       @Override
-      Splitr createSplit(Spliterator.OfDouble from, long i) {
+      Splitr createSplit(final Spliterator.OfDouble from, final long i) {
         return new Splitr(from, i);
       }
     }
@@ -747,12 +747,12 @@ public final class Streams {
    * @see Stream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
    */
-  public static <T> java.util.Optional<T> findLast(Stream<T> stream) {
+  public static <T> java.util.Optional<T> findLast(final Stream<T> stream) {
     class OptionalState {
       boolean set = false;
       T value = null;
 
-      void set(@Nullable T value) {
+      void set(final @Nullable T value) {
         this.set = true;
         this.value = value;
       }
@@ -821,7 +821,7 @@ public final class Streams {
    * @see IntStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
    */
-  public static OptionalInt findLast(IntStream stream) {
+  public static OptionalInt findLast(final IntStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Integer> boxedLast = findLast(stream.boxed());
     return boxedLast.isPresent() ? OptionalInt.of(boxedLast.get()) : OptionalInt.empty();
@@ -839,7 +839,7 @@ public final class Streams {
    * @see LongStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
    */
-  public static OptionalLong findLast(LongStream stream) {
+  public static OptionalLong findLast(final LongStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Long> boxedLast = findLast(stream.boxed());
     return boxedLast.isPresent() ? OptionalLong.of(boxedLast.get()) : OptionalLong.empty();
@@ -857,11 +857,11 @@ public final class Streams {
    * @see DoubleStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
    */
-  public static OptionalDouble findLast(DoubleStream stream) {
+  public static OptionalDouble findLast(final DoubleStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Double> boxedLast = findLast(stream.boxed());
     return boxedLast.isPresent() ? OptionalDouble.of(boxedLast.get()) : OptionalDouble.empty();
   }
 
-  private Streams() {}
+  private Streams() { }
 }

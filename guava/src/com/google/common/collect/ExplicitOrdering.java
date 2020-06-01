@@ -26,20 +26,20 @@ import javax.annotation.Nullable;
 final class ExplicitOrdering<T> extends Ordering<T> implements Serializable {
   final ImmutableMap<T, Integer> rankMap;
 
-  ExplicitOrdering(List<T> valuesInOrder) {
+  ExplicitOrdering(final List<T> valuesInOrder) {
     this(Maps.indexMap(valuesInOrder));
   }
 
-  ExplicitOrdering(ImmutableMap<T, Integer> rankMap) {
+  ExplicitOrdering(final ImmutableMap<T, Integer> rankMap) {
     this.rankMap = rankMap;
   }
 
   @Override
-  public int compare(T left, T right) {
+  public int compare(final T left, final T right) {
     return rank(left) - rank(right); // safe because both are nonnegative
   }
 
-  private int rank(T value) {
+  private int rank(final T value) {
     Integer rank = rankMap.get(value);
     if (rank == null) {
       throw new IncomparableValueException(value);
@@ -48,7 +48,7 @@ final class ExplicitOrdering<T> extends Ordering<T> implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof ExplicitOrdering) {
       ExplicitOrdering<?> that = (ExplicitOrdering<?>) object;
       return this.rankMap.equals(that.rankMap);

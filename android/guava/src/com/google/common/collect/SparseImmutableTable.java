@@ -38,9 +38,9 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   private final int[] cellColumnInRowIndices;
 
   SparseImmutableTable(
-      ImmutableList<Cell<R, C, V>> cellList,
-      ImmutableSet<R> rowSpace,
-      ImmutableSet<C> columnSpace) {
+      final ImmutableList<Cell<R, C, V>> cellList,
+      final ImmutableSet<R> rowSpace,
+      final ImmutableSet<C> columnSpace) {
     Map<R, Integer> rowIndex = Maps.indexMap(rowSpace);
     Map<R, Map<C, V>> rows = Maps.newLinkedHashMap();
     for (R row : rowSpace) {
@@ -106,7 +106,7 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   }
 
   @Override
-  Cell<R, C, V> getCell(int index) {
+  Cell<R, C, V> getCell(final int index) {
     int rowIndex = cellRowIndices[index];
     Map.Entry<R, Map<C, V>> rowEntry = rowMap.entrySet().asList().get(rowIndex);
     ImmutableMap<C, V> row = (ImmutableMap<C, V>) rowEntry.getValue();
@@ -116,7 +116,7 @@ final class SparseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V>
   }
 
   @Override
-  V getValue(int index) {
+  V getValue(final int index) {
     int rowIndex = cellRowIndices[index];
     ImmutableMap<C, V> row = (ImmutableMap<C, V>) rowMap.values().asList().get(rowIndex);
     int columnIndex = cellColumnInRowIndices[index];

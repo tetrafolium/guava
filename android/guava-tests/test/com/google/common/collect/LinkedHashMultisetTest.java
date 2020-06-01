@@ -59,12 +59,12 @@ public class LinkedHashMultisetTest extends TestCase {
 
   private static TestStringMultisetGenerator linkedHashMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
+      @Override protected Multiset<String> create(final String[] elements) {
         return LinkedHashMultiset.create(asList(elements));
       }
 
       @Override
-      public List<String> order(List<String> insertionOrder) {
+      public List<String> order(final List<String> insertionOrder) {
         List<String> order = Lists.newArrayList();
         for (String s : insertionOrder) {
           int index = order.indexOf(s);

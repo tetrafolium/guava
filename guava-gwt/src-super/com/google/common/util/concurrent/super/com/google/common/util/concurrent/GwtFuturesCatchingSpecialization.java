@@ -35,34 +35,34 @@ abstract class GwtFuturesCatchingSpecialization {
   /** @deprecated Use the overload that requires an executor. */
   @Deprecated
   public static <V> ListenableFuture<V> catching(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      Function<? super Throwable, ? extends V> fallback) {
+      final ListenableFuture<? extends V> input,
+      final Class<Throwable> exceptionType,
+      final Function<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, directExecutor());
   }
 
   public static <V> ListenableFuture<V> catching(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      Function<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+      final ListenableFuture<? extends V> input,
+      final Class<Throwable> exceptionType,
+      final Function<? super Throwable, ? extends V> fallback,
+      final Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, executor);
   }
 
   /** @deprecated Use the overload that requires an executor. */
   @Deprecated
   public static <V> ListenableFuture<V> catchingAsync(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      AsyncFunction<? super Throwable, ? extends V> fallback) {
+      final ListenableFuture<? extends V> input,
+      final Class<Throwable> exceptionType,
+      final AsyncFunction<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, directExecutor());
   }
 
   public static <V> ListenableFuture<V> catchingAsync(
-      ListenableFuture<? extends V> input,
-      Class<Throwable> exceptionType,
-      AsyncFunction<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+      final ListenableFuture<? extends V> input,
+      final Class<Throwable> exceptionType,
+      final AsyncFunction<? super Throwable, ? extends V> fallback,
+      final Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback, executor);
   }
 }

@@ -55,7 +55,7 @@ import junit.framework.TestSuite;
 @GwtIncompatible
 public class MultisetTestSuiteBuilder<E>
     extends AbstractCollectionTestSuiteBuilder<MultisetTestSuiteBuilder<E>, E> {
-  public static <E> MultisetTestSuiteBuilder<E> using(TestMultisetGenerator<E> generator) {
+  public static <E> MultisetTestSuiteBuilder<E> using(final TestMultisetGenerator<E> generator) {
     return new MultisetTestSuiteBuilder<E>().usingGenerator(generator);
   }
 
@@ -88,7 +88,7 @@ public class MultisetTestSuiteBuilder<E>
     return testers;
   }
 
-  private static Set<Feature<?>> computeEntrySetFeatures(Set<Feature<?>> features) {
+  private static Set<Feature<?>> computeEntrySetFeatures(final Set<Feature<?>> features) {
     Set<Feature<?>> derivedFeatures = new HashSet<>();
     derivedFeatures.addAll(features);
     derivedFeatures.remove(CollectionFeature.GENERAL_PURPOSE);
@@ -101,7 +101,7 @@ public class MultisetTestSuiteBuilder<E>
     return derivedFeatures;
   }
 
-  static Set<Feature<?>> computeElementSetFeatures(Set<Feature<?>> features) {
+  static Set<Feature<?>> computeElementSetFeatures(final Set<Feature<?>> features) {
     Set<Feature<?>> derivedFeatures = new HashSet<>();
     derivedFeatures.addAll(features);
     derivedFeatures.remove(CollectionFeature.GENERAL_PURPOSE);
@@ -112,7 +112,7 @@ public class MultisetTestSuiteBuilder<E>
     return derivedFeatures;
   }
 
-  private static Set<Feature<?>> computeReserializedMultisetFeatures(Set<Feature<?>> features) {
+  private static Set<Feature<?>> computeReserializedMultisetFeatures(final Set<Feature<?>> features) {
     Set<Feature<?>> derivedFeatures = new HashSet<>();
     derivedFeatures.addAll(features);
     derivedFeatures.remove(CollectionFeature.SERIALIZABLE);
@@ -122,7 +122,7 @@ public class MultisetTestSuiteBuilder<E>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
@@ -150,7 +150,7 @@ public class MultisetTestSuiteBuilder<E>
   }
 
   TestSuite createElementSetTestSuite(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     return SetTestSuiteBuilder.using(
             new ElementSetGenerator<E>(parentBuilder.getSubjectGenerator()))
@@ -163,7 +163,7 @@ public class MultisetTestSuiteBuilder<E>
   static class ElementSetGenerator<E> implements TestSetGenerator<E> {
     final OneSizeTestContainerGenerator<Collection<E>, E> gen;
 
-    ElementSetGenerator(OneSizeTestContainerGenerator<Collection<E>, E> gen) {
+    ElementSetGenerator(final OneSizeTestContainerGenerator<Collection<E>, E> gen) {
       this.gen = gen;
     }
 
@@ -173,7 +173,7 @@ public class MultisetTestSuiteBuilder<E>
     }
 
     @Override
-    public Set<E> create(Object... elements) {
+    public Set<E> create(final Object... elements) {
       Object[] duplicated = new Object[elements.length * 2];
       for (int i = 0; i < elements.length; i++) {
         duplicated[i] = elements[i];
@@ -183,12 +183,12 @@ public class MultisetTestSuiteBuilder<E>
     }
 
     @Override
-    public E[] createArray(int length) {
+    public E[] createArray(final int length) {
       return gen.createArray(length);
     }
 
     @Override
-    public Iterable<E> order(List<E> insertionOrder) {
+    public Iterable<E> order(final List<E> insertionOrder) {
       return gen.order(new ArrayList<E>(new LinkedHashSet<E>(insertionOrder)));
     }
   }
@@ -196,7 +196,7 @@ public class MultisetTestSuiteBuilder<E>
   static class EntrySetGenerator<E> implements TestSetGenerator<Multiset.Entry<E>> {
     final OneSizeTestContainerGenerator<Collection<E>, E> gen;
 
-    private EntrySetGenerator(OneSizeTestContainerGenerator<Collection<E>, E> gen) {
+    private EntrySetGenerator(final OneSizeTestContainerGenerator<Collection<E>, E> gen) {
       this.gen = gen;
     }
 
@@ -212,7 +212,7 @@ public class MultisetTestSuiteBuilder<E>
     }
 
     @Override
-    public Set<Multiset.Entry<E>> create(Object... entries) {
+    public Set<Multiset.Entry<E>> create(final Object... entries) {
       List<Object> contents = new ArrayList<>();
       Set<E> elements = new HashSet<>();
       for (Object o : entries) {
@@ -229,12 +229,12 @@ public class MultisetTestSuiteBuilder<E>
 
     @SuppressWarnings("unchecked")
     @Override
-    public Multiset.Entry<E>[] createArray(int length) {
+    public Multiset.Entry<E>[] createArray(final int length) {
       return new Multiset.Entry[length];
     }
 
     @Override
-    public Iterable<Entry<E>> order(List<Entry<E>> insertionOrder) {
+    public Iterable<Entry<E>> order(final List<Entry<E>> insertionOrder) {
       // We mimic the order from gen.
       Map<E, Entry<E>> map = new LinkedHashMap<>();
       for (Entry<E> entry : insertionOrder) {
@@ -255,7 +255,7 @@ public class MultisetTestSuiteBuilder<E>
   static class ReserializedMultisetGenerator<E> implements TestMultisetGenerator<E> {
     final OneSizeTestContainerGenerator<Collection<E>, E> gen;
 
-    private ReserializedMultisetGenerator(OneSizeTestContainerGenerator<Collection<E>, E> gen) {
+    private ReserializedMultisetGenerator(final OneSizeTestContainerGenerator<Collection<E>, E> gen) {
       this.gen = gen;
     }
 
@@ -265,17 +265,17 @@ public class MultisetTestSuiteBuilder<E>
     }
 
     @Override
-    public Multiset<E> create(Object... elements) {
+    public Multiset<E> create(final Object... elements) {
       return (Multiset<E>) SerializableTester.reserialize(gen.create(elements));
     }
 
     @Override
-    public E[] createArray(int length) {
+    public E[] createArray(final int length) {
       return gen.createArray(length);
     }
 
     @Override
-    public Iterable<E> order(List<E> insertionOrder) {
+    public Iterable<E> order(final List<E> insertionOrder) {
       return gen.order(insertionOrder);
     }
   }

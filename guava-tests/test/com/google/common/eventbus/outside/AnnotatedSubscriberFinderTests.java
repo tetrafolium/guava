@@ -67,12 +67,12 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> nonSubscriberEvents = Lists.newArrayList();
       final List<Object> subscriberEvents = Lists.newArrayList();
 
-      public void notASubscriber(Object o) {
+      public void notASubscriber(final Object o) {
         nonSubscriberEvents.add(o);
       }
 
       @Subscribe
-      public void subscriber(Object o) {
+      public void subscriber(final Object o) {
         subscriberEvents.add(o);
       }
     }
@@ -107,12 +107,12 @@ public class AnnotatedSubscriberFinderTests {
 
       @Subscribe
       @Override
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         overriddenAndAnnotatedInSubclassEvents.add(o);
       }
 
       @Override
-      public void overriddenInSubclass(Object o) {
+      public void overriddenInSubclass(final Object o) {
         overriddenInSubclassEvents.add(o);
       }
     }
@@ -142,28 +142,28 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> differentlyOverriddenAnnotatedInSubclassBadEvents = Lists.newArrayList();
 
       @Subscribe
-      public void notOverriddenInSubclass(Object o) {
+      public void notOverriddenInSubclass(final Object o) {
         notOverriddenInSubclassEvents.add(o);
       }
 
       @Subscribe
-      public void overriddenNotAnnotatedInSubclass(Object o) {
+      public void overriddenNotAnnotatedInSubclass(final Object o) {
         overriddenNotAnnotatedInSubclassEvents.add(o);
       }
 
       @Subscribe
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         overriddenAndAnnotatedInSubclassEvents.add(o);
       }
 
       @Subscribe
-      public void differentlyOverriddenNotAnnotatedInSubclass(Object o) {
+      public void differentlyOverriddenNotAnnotatedInSubclass(final Object o) {
         // the subclass overrides this and does *not* call super.dONAIS(o)
         differentlyOverriddenNotAnnotatedInSubclassBadEvents.add(o);
       }
 
       @Subscribe
-      public void differentlyOverriddenAnnotatedInSubclass(Object o) {
+      public void differentlyOverriddenAnnotatedInSubclass(final Object o) {
         // the subclass overrides this and does *not* call super.dOAIS(o)
         differentlyOverriddenAnnotatedInSubclassBadEvents.add(o);
       }
@@ -175,24 +175,24 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> differentlyOverriddenAnnotatedInSubclassGoodEvents = Lists.newArrayList();
 
       @Override
-      public void overriddenNotAnnotatedInSubclass(Object o) {
+      public void overriddenNotAnnotatedInSubclass(final Object o) {
         super.overriddenNotAnnotatedInSubclass(o);
       }
 
       @Subscribe
       @Override
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         super.overriddenAndAnnotatedInSubclass(o);
       }
 
       @Override
-      public void differentlyOverriddenNotAnnotatedInSubclass(Object o) {
+      public void differentlyOverriddenNotAnnotatedInSubclass(final Object o) {
         differentlyOverriddenNotAnnotatedInSubclassGoodEvents.add(o);
       }
 
       @Subscribe
       @Override
-      public void differentlyOverriddenAnnotatedInSubclass(Object o) {
+      public void differentlyOverriddenAnnotatedInSubclass(final Object o) {
         differentlyOverriddenAnnotatedInSubclassGoodEvents.add(o);
       }
     }
@@ -240,13 +240,13 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> overriddenAndAnnotatedInSubclassEvents = Lists.newArrayList();
 
       @Override
-      public void overriddenInSubclassNowhereAnnotated(Object o) {
+      public void overriddenInSubclassNowhereAnnotated(final Object o) {
         overriddenInSubclassNowhereAnnotatedEvents.add(o);
       }
 
       @Subscribe
       @Override
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         overriddenAndAnnotatedInSubclassEvents.add(o);
       }
     }
@@ -272,28 +272,28 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> overriddenInSubclassNowhereAnnotatedEvents = Lists.newArrayList();
       final List<Object> overriddenAndAnnotatedInSubclassEvents = Lists.newArrayList();
 
-      public void neitherOverriddenNorAnnotated(Object o) {
+      public void neitherOverriddenNorAnnotated(final Object o) {
         neitherOverriddenNorAnnotatedEvents.add(o);
       }
 
-      public void overriddenInSubclassNowhereAnnotated(Object o) {
+      public void overriddenInSubclassNowhereAnnotated(final Object o) {
         overriddenInSubclassNowhereAnnotatedEvents.add(o);
       }
 
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         overriddenAndAnnotatedInSubclassEvents.add(o);
       }
     }
 
     static class SubClass extends SuperClass {
       @Override
-      public void overriddenInSubclassNowhereAnnotated(Object o) {
+      public void overriddenInSubclassNowhereAnnotated(final Object o) {
         super.overriddenInSubclassNowhereAnnotated(o);
       }
 
       @Subscribe
       @Override
-      public void overriddenAndAnnotatedInSubclass(Object o) {
+      public void overriddenAndAnnotatedInSubclass(final Object o) {
         super.overriddenAndAnnotatedInSubclass(o);
       }
     }
@@ -365,45 +365,45 @@ public class AnnotatedSubscriberFinderTests {
       final List<Object> nowhereAnnotatedEvents = Lists.newArrayList();
 
       @Override
-      public void annotatedIn1(Object o) {
+      public void annotatedIn1(final Object o) {
         annotatedIn1Events.add(o);
       }
 
       @Subscribe
       @Override
-      public void declaredIn1AnnotatedInClass(Object o) {
+      public void declaredIn1AnnotatedInClass(final Object o) {
         declaredIn1AnnotatedInClassEvents.add(o);
       }
 
       @Override
-      public void declaredIn1AnnotatedIn2(Object o) {
+      public void declaredIn1AnnotatedIn2(final Object o) {
         declaredIn1AnnotatedIn2Events.add(o);
       }
 
       @Override
-      public void annotatedIn1And2(Object o) {
+      public void annotatedIn1And2(final Object o) {
         annotatedIn1And2Events.add(o);
       }
 
       @Subscribe
       @Override
-      public void annotatedIn1And2AndClass(Object o) {
+      public void annotatedIn1And2AndClass(final Object o) {
         annotatedIn1And2AndClassEvents.add(o);
       }
 
       @Subscribe
       @Override
-      public void declaredIn2AnnotatedInClass(Object o) {
+      public void declaredIn2AnnotatedInClass(final Object o) {
         declaredIn2AnnotatedInClassEvents.add(o);
       }
 
       @Override
-      public void annotatedIn2(Object o) {
+      public void annotatedIn2(final Object o) {
         annotatedIn2Events.add(o);
       }
 
       @Override
-      public void nowhereAnnotated(Object o) {
+      public void nowhereAnnotated(final Object o) {
         nowhereAnnotatedEvents.add(o);
       }
     }

@@ -40,7 +40,7 @@ final class CharSequenceReader extends Reader {
   /**
    * Creates a new reader wrapping the given character sequence.
    */
-  public CharSequenceReader(CharSequence seq) {
+  public CharSequenceReader(final CharSequence seq) {
     this.seq = checkNotNull(seq);
   }
 
@@ -59,7 +59,7 @@ final class CharSequenceReader extends Reader {
   }
 
   @Override
-  public synchronized int read(CharBuffer target) throws IOException {
+  public synchronized int read(final CharBuffer target) throws IOException {
     checkNotNull(target);
     checkOpen();
     if (!hasRemaining()) {
@@ -79,7 +79,7 @@ final class CharSequenceReader extends Reader {
   }
 
   @Override
-  public synchronized int read(char[] cbuf, int off, int len) throws IOException {
+  public synchronized int read(final char[] cbuf, final int off, final int len) throws IOException {
     checkPositionIndexes(off, off + len, cbuf.length);
     checkOpen();
     if (!hasRemaining()) {
@@ -93,7 +93,7 @@ final class CharSequenceReader extends Reader {
   }
 
   @Override
-  public synchronized long skip(long n) throws IOException {
+  public synchronized long skip(final long n) throws IOException {
     checkArgument(n >= 0, "n (%s) may not be negative", n);
     checkOpen();
     int charsToSkip = (int) Math.min(remaining(), n); // safe because remaining is an int
@@ -113,7 +113,7 @@ final class CharSequenceReader extends Reader {
   }
 
   @Override
-  public synchronized void mark(int readAheadLimit) throws IOException {
+  public synchronized void mark(final int readAheadLimit) throws IOException {
     checkArgument(readAheadLimit >= 0, "readAheadLimit (%s) may not be negative", readAheadLimit);
     checkOpen();
     mark = pos;

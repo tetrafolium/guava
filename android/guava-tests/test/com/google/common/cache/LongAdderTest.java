@@ -20,5 +20,5 @@ package com.google.common.cache;
  * because we don't want diffs from jsr166e.
  */
 public class LongAdderTest {
-  public void testNulls() {}
+  public void testNulls() { }
 }

@@ -43,8 +43,8 @@ public class HttpHeadersTest extends TestCase {
   }
 
   // Visible for other tests to use
-  static void assertConstantNameMatchesString(Class<?> clazz,
-      ImmutableBiMap<String, String> specialCases, ImmutableSet<String> uppercaseAcronyms)
+  static void assertConstantNameMatchesString(final Class<?> clazz,
+      final ImmutableBiMap<String, String> specialCases, final ImmutableSet<String> uppercaseAcronyms)
       throws IllegalAccessException {
     for (Field field : relevantFields(clazz)) {
       assertEquals(upperToHttpHeaderName(field.getName(), specialCases, uppercaseAcronyms),
@@ -53,7 +53,7 @@ public class HttpHeadersTest extends TestCase {
   }
 
   // Visible for other tests to use
-  static ImmutableSet<Field> relevantFields(Class<?> cls) {
+  static ImmutableSet<Field> relevantFields(final Class<?> cls) {
     ImmutableSet.Builder<Field> builder = ImmutableSet.builder();
     for (Field field : cls.getDeclaredFields()) {
       /*
@@ -71,8 +71,8 @@ public class HttpHeadersTest extends TestCase {
   private static final Splitter SPLITTER = Splitter.on('_');
   private static final Joiner JOINER = Joiner.on('-');
 
-  private static String upperToHttpHeaderName(String constantName,
-      ImmutableBiMap<String, String> specialCases, ImmutableSet<String> uppercaseAcronyms) {
+  private static String upperToHttpHeaderName(final String constantName,
+      final ImmutableBiMap<String, String> specialCases, final ImmutableSet<String> uppercaseAcronyms) {
     if (specialCases.containsKey(constantName)) {
       return specialCases.get(constantName);
     }

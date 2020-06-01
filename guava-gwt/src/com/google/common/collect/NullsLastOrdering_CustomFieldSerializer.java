@@ -27,15 +27,15 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class NullsLastOrdering_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, NullsLastOrdering<?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final NullsLastOrdering<?> instance) { }
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
-  public static NullsLastOrdering<Object> instantiate(SerializationStreamReader reader)
+  public static NullsLastOrdering<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     return new NullsLastOrdering<>((Ordering<Object>) reader.readObject());
   }
 
-  public static void serialize(SerializationStreamWriter writer, NullsLastOrdering<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final NullsLastOrdering<?> instance)
       throws SerializationException {
     writer.writeObject(instance.ordering);
   }

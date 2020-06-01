@@ -47,7 +47,7 @@ public class ShortsTest extends TestCase {
   private static final short GREATEST = Short.MAX_VALUE;
 
   private static final short[] VALUES =
-      { LEAST, (short) -1, (short) 0, (short) 1, GREATEST };
+      {LEAST, (short) -1, (short) 0, (short) 1, GREATEST };
 
   public void testHashCode() {
     for (short value : VALUES) {
@@ -75,7 +75,7 @@ public class ShortsTest extends TestCase {
     assertEquals(LEAST, Shorts.saturatedCast(Long.MIN_VALUE));
   }
 
-  private static void assertCastFails(long value) {
+  private static void assertCastFails(final long value) {
     try {
       Shorts.checkedCast(value);
       fail("Cast to short should have failed: " + value);
@@ -124,7 +124,7 @@ public class ShortsTest extends TestCase {
     assertEquals(1, Shorts.indexOf(ARRAY234, (short) 3));
     assertEquals(2, Shorts.indexOf(ARRAY234, (short) 4));
     assertEquals(1, Shorts.indexOf(
-        new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
+        new short[] {(short) 2, (short) 3, (short) 2, (short) 3 },
         (short) 3));
   }
 
@@ -137,28 +137,28 @@ public class ShortsTest extends TestCase {
     assertEquals(0, Shorts.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Shorts.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Shorts.indexOf(
-        ARRAY234, new short[] { (short) 2, (short) 3 }));
+        ARRAY234, new short[] {(short) 2, (short) 3 }));
     assertEquals(1, Shorts.indexOf(
-        ARRAY234, new short[] { (short) 3, (short) 4 }));
-    assertEquals(1, Shorts.indexOf(ARRAY234, new short[] { (short) 3 }));
-    assertEquals(2, Shorts.indexOf(ARRAY234, new short[] { (short) 4 }));
-    assertEquals(1, Shorts.indexOf(new short[] { (short) 2, (short) 3,
+        ARRAY234, new short[] {(short) 3, (short) 4 }));
+    assertEquals(1, Shorts.indexOf(ARRAY234, new short[] {(short) 3 }));
+    assertEquals(2, Shorts.indexOf(ARRAY234, new short[] {(short) 4 }));
+    assertEquals(1, Shorts.indexOf(new short[] {(short) 2, (short) 3,
         (short) 3, (short) 3, (short) 3 },
-        new short[] { (short) 3 }
+        new short[] {(short) 3 }
     ));
     assertEquals(2, Shorts.indexOf(
-        new short[] { (short) 2, (short) 3, (short) 2,
+        new short[] {(short) 2, (short) 3, (short) 2,
             (short) 3, (short) 4, (short) 2, (short) 3},
-        new short[] { (short) 2, (short) 3, (short) 4}
+        new short[] {(short) 2, (short) 3, (short) 4}
     ));
     assertEquals(1, Shorts.indexOf(
-        new short[] { (short) 2, (short) 2, (short) 3,
+        new short[] {(short) 2, (short) 2, (short) 3,
             (short) 4, (short) 2, (short) 3, (short) 4},
-        new short[] { (short) 2, (short) 3, (short) 4}
+        new short[] {(short) 2, (short) 3, (short) 4}
     ));
     assertEquals(-1, Shorts.indexOf(
-        new short[] { (short) 4, (short) 3, (short) 2},
-        new short[] { (short) 2, (short) 3, (short) 4}
+        new short[] {(short) 4, (short) 3, (short) 2},
+        new short[] {(short) 2, (short) 3, (short) 4}
     ));
   }
 
@@ -172,7 +172,7 @@ public class ShortsTest extends TestCase {
     assertEquals(1, Shorts.lastIndexOf(ARRAY234, (short) 3));
     assertEquals(2, Shorts.lastIndexOf(ARRAY234, (short) 4));
     assertEquals(3, Shorts.lastIndexOf(
-        new short[] { (short) 2, (short) 3, (short) 2, (short) 3 },
+        new short[] {(short) 2, (short) 3, (short) 2, (short) 3 },
         (short) 3));
   }
 
@@ -354,14 +354,14 @@ public class ShortsTest extends TestCase {
     testReverse(new short[] {-1, 1, -2, 2}, 1, 3, new short[] {-1, -2, 1, 2});
   }
 
-  private static void testReverse(short[] input, short[] expectedOutput) {
+  private static void testReverse(final short[] input, final short[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Shorts.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testReverse(
-      short[] input, int fromIndex, int toIndex, short[] expectedOutput) {
+      final short[] input, final int fromIndex, final int toIndex, final short[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Shorts.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -384,14 +384,14 @@ public class ShortsTest extends TestCase {
     testSortDescending(new short[] {-1, -2, 1, 2}, 1, 3, new short[] {-1, 1, -2, 2});
   }
 
-  private static void testSortDescending(short[] input, short[] expectedOutput) {
+  private static void testSortDescending(final short[] input, final short[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Shorts.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      short[] input, int fromIndex, int toIndex, short[] expectedOutput) {
+      final short[] input, final int fromIndex, final int toIndex, final short[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Shorts.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -419,7 +419,7 @@ public class ShortsTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Short> list = Shorts.asList(VALUES).subList(0, i);
         Collection<Short> misleadingSize =
@@ -471,23 +471,23 @@ public class ShortsTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    short[] array = { (short) 0, (short) 1, (short) 2 };
+    short[] array = {(short) 0, (short) 1, (short) 2 };
     List<Short> list = Shorts.asList(array);
     short[] newArray = Shorts.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (short) 4);
     assertTrue(Arrays.equals(
-        new short[] { (short) 0, (short) 1, (short) 2 }, newArray));
+        new short[] {(short) 0, (short) 1, (short) 2 }, newArray));
     newArray[1] = (short) 5;
     assertEquals((short) 1, (short) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    short[] array = { (short) 0, (short) 1, (short) 2, (short) 3 };
+    short[] array = {(short) 0, (short) 1, (short) 2, (short) 3 };
     List<Short> list = Shorts.asList(array);
-    assertTrue(Arrays.equals(new short[] { (short) 1, (short) 2 },
+    assertTrue(Arrays.equals(new short[] {(short) 1, (short) 2 },
         Shorts.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new short[] {},
         Shorts.toArray(list.subList(2, 2))));

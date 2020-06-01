@@ -44,7 +44,7 @@ public class SetOperationsTest extends TestCase {
     TestSuite suite = new TestSuite();
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.union(
                 Sets.<String>newHashSet(), Sets.<String>newHashSet());
           }
@@ -55,7 +55,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             checkArgument(elements.length == 1);
             return Sets.union(
                 Sets.<String>newHashSet(elements), Sets.newHashSet(elements));
@@ -66,7 +66,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.union(
                 Sets.<String>newHashSet(), Sets.newHashSet(elements));
           }
@@ -77,7 +77,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.union(
                 Sets.newHashSet(elements), Sets.<String>newHashSet());
           }
@@ -88,7 +88,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             checkArgument(elements.length == 3);
             // Put the sets in different orders for the hell of it
             return Sets.union(
@@ -103,7 +103,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             checkArgument(elements.length == 3);
             return Sets.union(
                 Sets.newHashSet(elements[0]),
@@ -116,7 +116,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.union(
                 Sets.<String>newHashSet(elements[0], elements[1]),
                 Sets.newHashSet(elements[1], elements[2]));
@@ -128,7 +128,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.intersection(
                 Sets.<String>newHashSet(), Sets.<String>newHashSet());
           }
@@ -139,7 +139,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.intersection(
                 Sets.<String>newHashSet(), Sets.newHashSet((String) null));
           }
@@ -150,7 +150,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.intersection(
                 Sets.newHashSet("a", "b"), Sets.newHashSet("c", "d"));
           }
@@ -161,7 +161,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.intersection(
                 Sets.newHashSet(elements), Sets.newHashSet(elements));
           }
@@ -172,7 +172,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.intersection(
                 Sets.newHashSet("a", elements[0], "b"),
                 Sets.newHashSet("c", elements[0], "d"));
@@ -183,7 +183,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.difference(
                 Sets.<String>newHashSet(), Sets.<String>newHashSet());
           }
@@ -194,7 +194,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.difference(Sets.newHashSet("a"), Sets.newHashSet("a"));
           }
         })
@@ -204,7 +204,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Set<String> set = Sets.newHashSet("b", "c");
             Set<String> other = Sets.newHashSet("a", "b", "c", "d");
             return Sets.difference(set, other);
@@ -216,7 +216,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             Set<String> set = Sets.newHashSet(elements);
             Set<String> other = Sets.newHashSet("wz", "xq");
             set.addAll(other);
@@ -230,7 +230,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.difference(
                 Sets.newHashSet(elements), Sets.newHashSet());
           }
@@ -241,7 +241,7 @@ public class SetOperationsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(SetTestSuiteBuilder.using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return Sets.difference(
                 Sets.<String>newHashSet(elements), Sets.newHashSet("xx", "xq"));
           }

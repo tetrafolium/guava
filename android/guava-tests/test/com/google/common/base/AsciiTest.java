@@ -102,22 +102,22 @@ public class AsciiTest extends TestCase {
     try {
       truncated = Ascii.truncate("foobar", 2, "...");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       truncated = Ascii.truncate("foobar", 8, "1234567890");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       truncated = Ascii.truncate("foobar", -1, "...");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       truncated = Ascii.truncate("foobar", -1, "");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testEqualsIgnoreCase() {

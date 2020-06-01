@@ -62,7 +62,7 @@ public class ListSetTester<E> extends AbstractListTester<E> {
     doTestSet(e3());
   }
 
-  private void doTestSet(E newValue) {
+  private void doTestSet(final E newValue) {
     int index = aValidIndex();
     E initialValue = getList().get(index);
     assertEquals(

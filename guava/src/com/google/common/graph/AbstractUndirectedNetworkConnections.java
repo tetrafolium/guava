@@ -34,7 +34,7 @@ abstract class AbstractUndirectedNetworkConnections<N, E> implements NetworkConn
   /** Keys are edges incident to the origin node, values are the node at the other end. */
   protected final Map<E, N> incidentEdgeMap;
 
-  protected AbstractUndirectedNetworkConnections(Map<E, N> incidentEdgeMap) {
+  protected AbstractUndirectedNetworkConnections(final Map<E, N> incidentEdgeMap) {
     this.incidentEdgeMap = checkNotNull(incidentEdgeMap);
   }
 
@@ -64,12 +64,12 @@ abstract class AbstractUndirectedNetworkConnections<N, E> implements NetworkConn
   }
 
   @Override
-  public N adjacentNode(E edge) {
+  public N adjacentNode(final E edge) {
     return checkNotNull(incidentEdgeMap.get(edge));
   }
 
   @Override
-  public N removeInEdge(E edge, boolean isSelfLoop) {
+  public N removeInEdge(final E edge, final boolean isSelfLoop) {
     if (!isSelfLoop) {
       return removeOutEdge(edge);
     }
@@ -77,20 +77,20 @@ abstract class AbstractUndirectedNetworkConnections<N, E> implements NetworkConn
   }
 
   @Override
-  public N removeOutEdge(E edge) {
+  public N removeOutEdge(final E edge) {
     N previousNode = incidentEdgeMap.remove(edge);
     return checkNotNull(previousNode);
   }
 
   @Override
-  public void addInEdge(E edge, N node, boolean isSelfLoop) {
+  public void addInEdge(final E edge, final N node, final boolean isSelfLoop) {
     if (!isSelfLoop) {
       addOutEdge(edge, node);
     }
   }
 
   @Override
-  public void addOutEdge(E edge, N node) {
+  public void addOutEdge(final E edge, final N node) {
     N previousNode = incidentEdgeMap.put(edge, node);
     checkState(previousNode == null);
   }

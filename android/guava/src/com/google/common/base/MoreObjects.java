@@ -52,7 +52,7 @@ public final class MoreObjects {
    * @throws NullPointerException if both {@code first} and {@code second} are null
    * @since 18.0 (since 3.0 as {@code Objects.firstNonNull()}).
    */
-  public static <T> T firstNonNull(@Nullable T first, @Nullable T second) {
+  public static <T> T firstNonNull(final @Nullable T first, final @Nullable T second) {
     return first != null ? first : checkNotNull(second);
   }
 
@@ -96,7 +96,7 @@ public final class MoreObjects {
    *     class name
    * @since 18.0 (since 2.0 as {@code Objects.toStringHelper()}).
    */
-  public static ToStringHelper toStringHelper(Object self) {
+  public static ToStringHelper toStringHelper(final Object self) {
     return new ToStringHelper(self.getClass().getSimpleName());
   }
 
@@ -110,7 +110,7 @@ public final class MoreObjects {
    * @param clazz the {@link Class} of the instance
    * @since 18.0 (since 7.0 as {@code Objects.toStringHelper()}).
    */
-  public static ToStringHelper toStringHelper(Class<?> clazz) {
+  public static ToStringHelper toStringHelper(final Class<?> clazz) {
     return new ToStringHelper(clazz.getSimpleName());
   }
 
@@ -122,7 +122,7 @@ public final class MoreObjects {
    * @param className the name of the instance type
    * @since 18.0 (since 7.0 as {@code Objects.toStringHelper()}).
    */
-  public static ToStringHelper toStringHelper(String className) {
+  public static ToStringHelper toStringHelper(final String className) {
     return new ToStringHelper(className);
   }
 
@@ -141,7 +141,7 @@ public final class MoreObjects {
     /**
      * Use {@link MoreObjects#toStringHelper(Object)} to create an instance.
      */
-    private ToStringHelper(String className) {
+    private ToStringHelper(final String className) {
       this.className = checkNotNull(className);
     }
 
@@ -164,7 +164,7 @@ public final class MoreObjects {
      * called, in which case this name/value pair will not be added.
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, @Nullable Object value) {
+    public ToStringHelper add(final String name, final @Nullable Object value) {
       return addHolder(name, value);
     }
 
@@ -174,7 +174,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, boolean value) {
+    public ToStringHelper add(final String name, final boolean value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -184,7 +184,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, char value) {
+    public ToStringHelper add(final String name, final char value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -194,7 +194,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, double value) {
+    public ToStringHelper add(final String name, final double value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -204,7 +204,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, float value) {
+    public ToStringHelper add(final String name, final float value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -214,7 +214,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, int value) {
+    public ToStringHelper add(final String name, final int value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -224,7 +224,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.add()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper add(String name, long value) {
+    public ToStringHelper add(final String name, final long value) {
       return addHolder(name, String.valueOf(value));
     }
 
@@ -235,7 +235,7 @@ public final class MoreObjects {
      * readable name.
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(@Nullable Object value) {
+    public ToStringHelper addValue(final @Nullable Object value) {
       return addHolder(value);
     }
 
@@ -248,7 +248,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(boolean value) {
+    public ToStringHelper addValue(final boolean value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -261,7 +261,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(char value) {
+    public ToStringHelper addValue(final char value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -274,7 +274,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(double value) {
+    public ToStringHelper addValue(final double value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -287,7 +287,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(float value) {
+    public ToStringHelper addValue(final float value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -300,7 +300,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(int value) {
+    public ToStringHelper addValue(final int value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -313,7 +313,7 @@ public final class MoreObjects {
      * @since 18.0 (since 11.0 as {@code Objects.ToStringHelper.addValue()}).
      */
     @CanIgnoreReturnValue
-    public ToStringHelper addValue(long value) {
+    public ToStringHelper addValue(final long value) {
       return addHolder(String.valueOf(value));
     }
 
@@ -360,13 +360,13 @@ public final class MoreObjects {
       return valueHolder;
     }
 
-    private ToStringHelper addHolder(@Nullable Object value) {
+    private ToStringHelper addHolder(final @Nullable Object value) {
       ValueHolder valueHolder = addHolder();
       valueHolder.value = value;
       return this;
     }
 
-    private ToStringHelper addHolder(String name, @Nullable Object value) {
+    private ToStringHelper addHolder(final String name, final @Nullable Object value) {
       ValueHolder valueHolder = addHolder();
       valueHolder.value = value;
       valueHolder.name = checkNotNull(name);
@@ -380,5 +380,5 @@ public final class MoreObjects {
     }
   }
 
-  private MoreObjects() {}
+  private MoreObjects() { }
 }

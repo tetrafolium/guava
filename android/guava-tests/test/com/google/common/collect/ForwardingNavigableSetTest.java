@@ -45,7 +45,7 @@ public class ForwardingNavigableSetTest extends TestCase {
       extends ForwardingNavigableSet<T> {
     private final NavigableSet<T> backingSet;
 
-    StandardImplForwardingNavigableSet(NavigableSet<T> backingSet) {
+    StandardImplForwardingNavigableSet(final NavigableSet<T> backingSet) {
       this.backingSet = backingSet;
     }
 
@@ -53,7 +53,7 @@ public class ForwardingNavigableSetTest extends TestCase {
       return backingSet;
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -61,7 +61,7 @@ public class ForwardingNavigableSetTest extends TestCase {
       return standardHashCode();
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -69,23 +69,23 @@ public class ForwardingNavigableSetTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -93,7 +93,7 @@ public class ForwardingNavigableSetTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -101,27 +101,27 @@ public class ForwardingNavigableSetTest extends TestCase {
       return standardToString();
     }
 
-    @Override public SortedSet<T> subSet(T fromElement, T toElement) {
+    @Override public SortedSet<T> subSet(final T fromElement, final T toElement) {
       return standardSubSet(fromElement, toElement);
     }
 
     @Override
-    public T lower(T e) {
+    public T lower(final T e) {
       return standardLower(e);
     }
 
     @Override
-    public T floor(T e) {
+    public T floor(final T e) {
       return standardFloor(e);
     }
 
     @Override
-    public T ceiling(T e) {
+    public T ceiling(final T e) {
       return standardCeiling(e);
     }
 
     @Override
-    public T higher(T e) {
+    public T higher(final T e) {
       return standardHigher(e);
     }
 
@@ -136,12 +136,12 @@ public class ForwardingNavigableSetTest extends TestCase {
     }
 
     @Override
-    public SortedSet<T> headSet(T toElement) {
+    public SortedSet<T> headSet(final T toElement) {
       return standardHeadSet(toElement);
     }
 
     @Override
-    public SortedSet<T> tailSet(T fromElement) {
+    public SortedSet<T> tailSet(final T fromElement) {
       return standardTailSet(fromElement);
     }
   }
@@ -154,13 +154,13 @@ public class ForwardingNavigableSetTest extends TestCase {
         SetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     return new StandardImplForwardingNavigableSet<>(
                         new SafeTreeSet<String>(Arrays.asList(elements)));
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
                   }
                 })
@@ -174,14 +174,14 @@ public class ForwardingNavigableSetTest extends TestCase {
         SetTestSuiteBuilder.using(
                 new TestStringSetGenerator() {
                   @Override
-                  protected Set<String> create(String[] elements) {
+                  protected Set<String> create(final String[] elements) {
                     SafeTreeSet<String> set = new SafeTreeSet<>(Ordering.natural().nullsFirst());
                     Collections.addAll(set, elements);
                     return new StandardImplForwardingNavigableSet<>(set);
                   }
 
                   @Override
-                  public List<String> order(List<String> insertionOrder) {
+                  public List<String> order(final List<String> insertionOrder) {
                     return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
                   }
                 })
@@ -202,7 +202,7 @@ public class ForwardingNavigableSetTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(NavigableSet.class, new Function<NavigableSet, NavigableSet>() {
-          @Override public NavigableSet apply(NavigableSet delegate) {
+          @Override public NavigableSet apply(final NavigableSet delegate) {
             return wrap(delegate);
           }
         });

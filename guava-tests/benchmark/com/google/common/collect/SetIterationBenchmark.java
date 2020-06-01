@@ -50,7 +50,7 @@ public class SetIterationBenchmark {
     setToTest = (Set<Element>) impl.create(sampleData.getValuesInSet());
   }
 
-  @Benchmark int iteration(int reps) {
+  @Benchmark int iteration(final int reps) {
     int x = 0;
 
     for (int i = 0; i < reps; i++) {

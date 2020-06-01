@@ -58,49 +58,49 @@ final class BenchmarkHelpers {
   public enum SetImpl implements CollectionsImplEnum {
     HashSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return new HashSet<E>(contents);
       }
     },
     LinkedHashSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return new LinkedHashSet<E>(contents);
       }
     },
     TreeSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return new TreeSet<E>(contents);
       }
     },
     UnmodifiableSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return Collections.unmodifiableSet(new HashSet<E>(contents));
       }
     },
     SynchronizedSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return Collections.synchronizedSet(new HashSet<E>(contents));
       }
     },
     ImmutableSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return ImmutableSet.copyOf(contents);
       }
     },
     ImmutableSortedSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return ImmutableSortedSet.copyOf(contents);
       }
     },
     ContiguousSetImpl {
       @Override
-      public <E extends Comparable<E>> Set<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Set<E> create(final Collection<E> contents) {
         return ContiguousSet.copyOf(contents);
       }
     },
@@ -118,25 +118,25 @@ final class BenchmarkHelpers {
 //        return CompactLinkedHashSet.create(contents);
 //      }
 //    },
-    ;
+;
   }
 
   public enum ListMultimapImpl {
     ArrayListMultimapImpl {
       @Override
-      <K, V> ListMultimap<K, V> create(Multimap<K, V> contents) {
+      <K, V> ListMultimap<K, V> create(final Multimap<K, V> contents) {
         return ArrayListMultimap.create(contents);
       }
     },
     LinkedListMultimapImpl {
       @Override
-      <K, V> ListMultimap<K, V> create(Multimap<K, V> contents) {
+      <K, V> ListMultimap<K, V> create(final Multimap<K, V> contents) {
         return LinkedListMultimap.create(contents);
       }
     },
     ImmutableListMultimapImpl {
       @Override
-      <K, V> ListMultimap<K, V> create(Multimap<K, V> contents) {
+      <K, V> ListMultimap<K, V> create(final Multimap<K, V> contents) {
         return ImmutableListMultimap.copyOf(contents);
       }
     };
@@ -147,13 +147,13 @@ final class BenchmarkHelpers {
   public enum RangeSetImpl {
     TreeRangeSetImpl {
       @Override
-      <K extends Comparable<K>> RangeSet<K> create(RangeSet<K> contents) {
+      <K extends Comparable<K>> RangeSet<K> create(final RangeSet<K> contents) {
         return TreeRangeSet.create(contents);
       }
     },
     ImmutableRangeSetImpl {
       @Override
-      <K extends Comparable<K>> RangeSet<K> create(RangeSet<K> contents) {
+      <K extends Comparable<K>> RangeSet<K> create(final RangeSet<K> contents) {
         return ImmutableRangeSet.copyOf(contents);
       }
     };
@@ -165,28 +165,28 @@ final class BenchmarkHelpers {
     HashMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+          final Multimap<K, V> contents) {
         return HashMultimap.create(contents);
       }
     },
     LinkedHashMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+          final Multimap<K, V> contents) {
         return LinkedHashMultimap.create(contents);
       }
     },
     TreeMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+          final Multimap<K, V> contents) {
         return TreeMultimap.create(contents);
       }
     },
     ImmutableSetMultimapImpl {
       @Override
       <K extends Comparable<K>, V extends Comparable<V>> SetMultimap<K, V> create(
-          Multimap<K, V> contents) {
+          final Multimap<K, V> contents) {
         return ImmutableSetMultimap.copyOf(contents);
       }
     };
@@ -198,19 +198,19 @@ final class BenchmarkHelpers {
   public enum MapImpl implements MapsImplEnum {
     HashMapImpl {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         return Maps.newHashMap(map);
       }
     },
     LinkedHashMapImpl {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         return Maps.newLinkedHashMap(map);
       }
     },
     ConcurrentHashMapImpl {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         return new ConcurrentHashMap<>(map);
       }
     },
@@ -234,13 +234,13 @@ final class BenchmarkHelpers {
 //    },
     ImmutableMapImpl {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         return ImmutableMap.copyOf(map);
       }
     },
     MapMakerStrongKeysStrongValues {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         // We use a "custom" equivalence to force MapMaker to make a MapMakerInternalMap.
         ConcurrentMap<K, V> newMap = new MapMaker().keyEquivalence(Equivalence.equals()).makeMap();
         checkState(newMap instanceof MapMakerInternalMap);
@@ -250,7 +250,7 @@ final class BenchmarkHelpers {
     },
     MapMakerStrongKeysWeakValues {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         ConcurrentMap<K, V> newMap = new MapMaker().weakValues().makeMap();
         checkState(newMap instanceof MapMakerInternalMap);
         newMap.putAll(map);
@@ -259,7 +259,7 @@ final class BenchmarkHelpers {
     },
     MapMakerWeakKeysStrongValues {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         ConcurrentMap<K, V> newMap = new MapMaker().weakKeys().makeMap();
         checkState(newMap instanceof MapMakerInternalMap);
         newMap.putAll(map);
@@ -268,7 +268,7 @@ final class BenchmarkHelpers {
     },
     MapMakerWeakKeysWeakValues {
       @Override
-      public <K extends Comparable<K>, V> Map<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> Map<K, V> create(final Map<K, V> map) {
         ConcurrentMap<K, V> newMap = new MapMaker().weakKeys().weakValues().makeMap();
         checkState(newMap instanceof MapMakerInternalMap);
         newMap.putAll(map);
@@ -280,7 +280,7 @@ final class BenchmarkHelpers {
   enum SortedMapImpl implements MapsImplEnum {
     TreeMapImpl {
       @Override
-      public <K extends Comparable<K>, V> SortedMap<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> SortedMap<K, V> create(final Map<K, V> map) {
         SortedMap<K, V> result = Maps.newTreeMap();
         result.putAll(map);
         return result;
@@ -288,13 +288,13 @@ final class BenchmarkHelpers {
     },
     ConcurrentSkipListImpl {
       @Override
-      public <K extends Comparable<K>, V> SortedMap<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> SortedMap<K, V> create(final Map<K, V> map) {
         return new ConcurrentSkipListMap<>(map);
       }
     },
     ImmutableSortedMapImpl {
       @Override
-      public <K extends Comparable<K>, V> SortedMap<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> SortedMap<K, V> create(final Map<K, V> map) {
         return ImmutableSortedMap.copyOf(map);
       }
     };
@@ -303,13 +303,13 @@ final class BenchmarkHelpers {
   enum BiMapImpl implements MapsImplEnum {
     HashBiMapImpl {
       @Override
-      public <K extends Comparable<K>, V> BiMap<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> BiMap<K, V> create(final Map<K, V> map) {
         return HashBiMap.create(map);
       }
     },
     ImmutableBiMapImpl {
       @Override
-      public <K extends Comparable<K>, V> BiMap<K, V> create(Map<K, V> map) {
+      public <K extends Comparable<K>, V> BiMap<K, V> create(final Map<K, V> map) {
         return ImmutableBiMap.copyOf(map);
       }
     };
@@ -321,25 +321,25 @@ final class BenchmarkHelpers {
   enum MultisetImpl implements CollectionsImplEnum {
     HashMultisetImpl {
       @Override
-      public <E extends Comparable<E>> Multiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Multiset<E> create(final Collection<E> contents) {
         return HashMultiset.create(contents);
       }
     },
     LinkedHashMultisetImpl {
       @Override
-      public <E extends Comparable<E>> Multiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Multiset<E> create(final Collection<E> contents) {
         return LinkedHashMultiset.create(contents);
       }
     },
     ConcurrentHashMultisetImpl {
       @Override
-      public <E extends Comparable<E>> Multiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Multiset<E> create(final Collection<E> contents) {
         return ConcurrentHashMultiset.create(contents);
       }
     },
     ImmutableMultisetImpl {
       @Override
-      public <E extends Comparable<E>> Multiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Multiset<E> create(final Collection<E> contents) {
         return ImmutableMultiset.copyOf(contents);
       }
     };
@@ -348,13 +348,13 @@ final class BenchmarkHelpers {
   enum SortedMultisetImpl implements CollectionsImplEnum {
     TreeMultisetImpl {
       @Override
-      public <E extends Comparable<E>> SortedMultiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> SortedMultiset<E> create(final Collection<E> contents) {
         return TreeMultiset.create(contents);
       }
     },
     ImmutableSortedMultisetImpl {
       @Override
-      public <E extends Comparable<E>> SortedMultiset<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> SortedMultiset<E> create(final Collection<E> contents) {
         return ImmutableSortedMultiset.copyOf(contents);
       }
     };
@@ -363,7 +363,7 @@ final class BenchmarkHelpers {
   enum QueueImpl implements CollectionsImplEnum {
     MinMaxPriorityQueueImpl {
       @Override
-      public <E extends Comparable<E>> Queue<E> create(Collection<E> contents) {
+      public <E extends Comparable<E>> Queue<E> create(final Collection<E> contents) {
         return MinMaxPriorityQueue.create(contents);
       }
     };
@@ -373,14 +373,14 @@ final class BenchmarkHelpers {
     HashBasedTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+          final Table<R, C, V> contents) {
         return HashBasedTable.create(contents);
       }
     },
     TreeBasedTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+          final Table<R, C, V> contents) {
         Table<R, C, V> table = TreeBasedTable.create();
         table.putAll(contents);
         return table;
@@ -389,7 +389,7 @@ final class BenchmarkHelpers {
     ArrayTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+          final Table<R, C, V> contents) {
         if (contents.isEmpty()) {
           return ImmutableTable.of();
         } else {
@@ -400,7 +400,7 @@ final class BenchmarkHelpers {
     ImmutableTableImpl {
       @Override
       <R extends Comparable<R>, C extends Comparable<C>, V> Table<R, C, V> create(
-          Table<R, C, V> contents) {
+          final Table<R, C, V> contents) {
         return ImmutableTable.copyOf(contents);
       }
     };
@@ -412,7 +412,7 @@ final class BenchmarkHelpers {
   public enum InternerImpl implements InternerImplEnum {
     WeakInternerImpl {
       @Override
-      public <E> Interner<E> create(Collection<E> contents) {
+      public <E> Interner<E> create(final Collection<E> contents) {
         Interner<E> interner = Interners.newWeakInterner();
         for (E e : contents) {
           interner.intern(e);
@@ -422,7 +422,7 @@ final class BenchmarkHelpers {
     },
     StrongInternerImpl {
       @Override
-      public <E> Interner<E> create(Collection<E> contents) {
+      public <E> Interner<E> create(final Collection<E> contents) {
         Interner<E> interner = Interners.newStrongInterner();
         for (E e : contents) {
           interner.intern(e);
@@ -445,12 +445,12 @@ final class BenchmarkHelpers {
     final int min;
     final int max;
 
-    private ListSizeDistribution(int min, int max) {
+    private ListSizeDistribution(final int min, final int max) {
       this.min = min;
       this.max = max;
     }
 
-    public int chooseSize(Random random) {
+    public int chooseSize(final Random random) {
       return random.nextInt(max - min + 1) + min;
     }
   }

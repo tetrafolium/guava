@@ -485,7 +485,7 @@ public class SplitterTest extends TestCase {
         Splitter.on(Pattern.compile(",")).split("a,b").iterator());
   }
 
-  private void assertIteratorIsUnmodifiable(Iterator<?> iterator) {
+  private void assertIteratorIsUnmodifiable(final Iterator<?> iterator) {
     iterator.next();
     try {
       iterator.remove();
@@ -515,7 +515,7 @@ public class SplitterTest extends TestCase {
    * This test really pushes the boundaries of what we support. In general the splitter's behaviour
    * is not well defined if the char sequence it's splitting is mutated during iteration.
    */
-  private void assertSplitterIterableIsLazy(Splitter splitter) {
+  private void assertSplitterIterableIsLazy(final Splitter splitter) {
     StringBuilder builder = new StringBuilder();
     Iterator<String> iterator = splitter.split(builder).iterator();
 

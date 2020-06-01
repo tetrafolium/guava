@@ -146,7 +146,7 @@ public class CharSourceTest extends IoTestCase {
       List<String> list = Lists.newArrayList();
 
       @Override
-      public boolean processLine(String line) throws IOException {
+      public boolean processLine(final String line) throws IOException {
         list.add(line);
         return true;
       }
@@ -166,7 +166,7 @@ public class CharSourceTest extends IoTestCase {
       List<String> list = Lists.newArrayList();
 
       @Override
-      public boolean processLine(String line) throws IOException {
+      public boolean processLine(final String line) throws IOException {
         list.add(line);
         return false;
       }
@@ -341,13 +341,13 @@ public class CharSourceTest extends IoTestCase {
     }
   }
 
-  private static int getAndResetRecords(TestLogHandler logHandler) {
+  private static int getAndResetRecords(final TestLogHandler logHandler) {
     int records = logHandler.getStoredLogRecords().size();
     logHandler.clear();
     return records;
   }
 
-  private static void runFailureTest(CharSource in, CharSink out) {
+  private static void runFailureTest(final CharSource in, final CharSink out) {
     try {
       in.copyTo(out);
       fail();
@@ -358,7 +358,7 @@ public class CharSourceTest extends IoTestCase {
   /**
    * @return the number of exceptions that were suppressed on the expected thrown exception
    */
-  private static int runSuppressionFailureTest(CharSource in, CharSink out) {
+  private static int runSuppressionFailureTest(final CharSource in, final CharSink out) {
     try {
       in.copyTo(out);
       fail();

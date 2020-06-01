@@ -34,12 +34,12 @@ public enum CaseFormat {
    */
   LOWER_HYPHEN(CharMatcher.is('-'), "-") {
     @Override
-    String normalizeWord(String word) {
+    String normalizeWord(final String word) {
       return Ascii.toLowerCase(word);
     }
 
     @Override
-    String convert(CaseFormat format, String s) {
+    String convert(final CaseFormat format, final String s) {
       if (format == LOWER_UNDERSCORE) {
         return s.replace('-', '_');
       }
@@ -55,12 +55,12 @@ public enum CaseFormat {
    */
   LOWER_UNDERSCORE(CharMatcher.is('_'), "_") {
     @Override
-    String normalizeWord(String word) {
+    String normalizeWord(final String word) {
       return Ascii.toLowerCase(word);
     }
 
     @Override
-    String convert(CaseFormat format, String s) {
+    String convert(final CaseFormat format, final String s) {
       if (format == LOWER_HYPHEN) {
         return s.replace('_', '-');
       }
@@ -76,7 +76,7 @@ public enum CaseFormat {
    */
   LOWER_CAMEL(CharMatcher.inRange('A', 'Z'), "") {
     @Override
-    String normalizeWord(String word) {
+    String normalizeWord(final String word) {
       return firstCharOnlyToUpper(word);
     }
   },
@@ -86,7 +86,7 @@ public enum CaseFormat {
    */
   UPPER_CAMEL(CharMatcher.inRange('A', 'Z'), "") {
     @Override
-    String normalizeWord(String word) {
+    String normalizeWord(final String word) {
       return firstCharOnlyToUpper(word);
     }
   },
@@ -96,12 +96,12 @@ public enum CaseFormat {
    */
   UPPER_UNDERSCORE(CharMatcher.is('_'), "_") {
     @Override
-    String normalizeWord(String word) {
+    String normalizeWord(final String word) {
       return Ascii.toUpperCase(word);
     }
 
     @Override
-    String convert(CaseFormat format, String s) {
+    String convert(final CaseFormat format, final String s) {
       if (format == LOWER_HYPHEN) {
         return Ascii.toLowerCase(s.replace('_', '-'));
       }
@@ -115,7 +115,7 @@ public enum CaseFormat {
   private final CharMatcher wordBoundary;
   private final String wordSeparator;
 
-  CaseFormat(CharMatcher wordBoundary, String wordSeparator) {
+  CaseFormat(final CharMatcher wordBoundary, final String wordSeparator) {
     this.wordBoundary = wordBoundary;
     this.wordSeparator = wordSeparator;
   }
@@ -125,7 +125,7 @@ public enum CaseFormat {
    * "best effort" approach is taken; if {@code str} does not conform to the assumed format, then
    * the behavior of this method is undefined but we make a reasonable effort at converting anyway.
    */
-  public final String to(CaseFormat format, String str) {
+  public final String to(final CaseFormat format, final String str) {
     checkNotNull(format);
     checkNotNull(str);
     return (format == this) ? str : convert(format, str);
@@ -134,7 +134,7 @@ public enum CaseFormat {
   /**
    * Enum values can override for performance reasons.
    */
-  String convert(CaseFormat format, String s) {
+  String convert(final CaseFormat format, final String s) {
     // deal with camel conversion
     StringBuilder out = null;
     int i = 0;
@@ -160,7 +160,7 @@ public enum CaseFormat {
    *
    * @since 16.0
    */
-  public Converter<String, String> converterTo(CaseFormat targetFormat) {
+  public Converter<String, String> converterTo(final CaseFormat targetFormat) {
     return new StringConverter(this, targetFormat);
   }
 
@@ -170,23 +170,23 @@ public enum CaseFormat {
     private final CaseFormat sourceFormat;
     private final CaseFormat targetFormat;
 
-    StringConverter(CaseFormat sourceFormat, CaseFormat targetFormat) {
+    StringConverter(final CaseFormat sourceFormat, final CaseFormat targetFormat) {
       this.sourceFormat = checkNotNull(sourceFormat);
       this.targetFormat = checkNotNull(targetFormat);
     }
 
     @Override
-    protected String doForward(String s) {
+    protected String doForward(final String s) {
       return sourceFormat.to(targetFormat, s);
     }
 
     @Override
-    protected String doBackward(String s) {
+    protected String doBackward(final String s) {
       return targetFormat.to(sourceFormat, s);
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof StringConverter) {
         StringConverter that = (StringConverter) object;
         return sourceFormat.equals(that.sourceFormat) && targetFormat.equals(that.targetFormat);
@@ -209,11 +209,11 @@ public enum CaseFormat {
 
   abstract String normalizeWord(String word);
 
-  private String normalizeFirstWord(String word) {
+  private String normalizeFirstWord(final String word) {
     return (this == LOWER_CAMEL) ? Ascii.toLowerCase(word) : normalizeWord(word);
   }
 
-  private static String firstCharOnlyToUpper(String word) {
+  private static String firstCharOnlyToUpper(final String word) {
     return (word.isEmpty())
         ? word
         : Ascii.toUpperCase(word.charAt(0)) + Ascii.toLowerCase(word.substring(1));

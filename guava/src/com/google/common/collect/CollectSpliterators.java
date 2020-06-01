@@ -35,34 +35,34 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class CollectSpliterators {
-  private CollectSpliterators() {}
+  private CollectSpliterators() { }
 
-  static <T> Spliterator<T> indexed(int size, int extraCharacteristics, IntFunction<T> function) {
+  static <T> Spliterator<T> indexed(final int size, final int extraCharacteristics, final IntFunction<T> function) {
     return indexed(size, extraCharacteristics, function, null);
   }
 
   static <T> Spliterator<T> indexed(
-      int size,
-      int extraCharacteristics,
-      IntFunction<T> function,
-      Comparator<? super T> comparator) {
+      final int size,
+      final int extraCharacteristics,
+      final IntFunction<T> function,
+      final Comparator<? super T> comparator) {
     if (comparator != null) {
       checkArgument((extraCharacteristics & (Spliterator.SORTED)) != 0);
     }
     class WithCharacteristics implements Spliterator<T> {
       private final Spliterator.OfInt delegate;
 
-      WithCharacteristics(Spliterator.OfInt delegate) {
+      WithCharacteristics(final Spliterator.OfInt delegate) {
         this.delegate = delegate;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super T> action) {
+      public boolean tryAdvance(final Consumer<? super T> action) {
         return delegate.tryAdvance((IntConsumer) i -> action.accept(function.apply(i)));
       }
 
       @Override
-      public void forEachRemaining(Consumer<? super T> action) {
+      public void forEachRemaining(final Consumer<? super T> action) {
         delegate.forEachRemaining((IntConsumer) i -> action.accept(function.apply(i)));
       }
 
@@ -103,19 +103,19 @@ final class CollectSpliterators {
    * function}.
    */
   static <F, T> Spliterator<T> map(
-      Spliterator<F> fromSpliterator, Function<? super F, ? extends T> function) {
+      final Spliterator<F> fromSpliterator, final Function<? super F, ? extends T> function) {
     checkNotNull(fromSpliterator);
     checkNotNull(function);
     return new Spliterator<T>() {
 
       @Override
-      public boolean tryAdvance(Consumer<? super T> action) {
+      public boolean tryAdvance(final Consumer<? super T> action) {
         return fromSpliterator.tryAdvance(
             fromElement -> action.accept(function.apply(fromElement)));
       }
 
       @Override
-      public void forEachRemaining(Consumer<? super T> action) {
+      public void forEachRemaining(final Consumer<? super T> action) {
         fromSpliterator.forEachRemaining(fromElement -> action.accept(function.apply(fromElement)));
       }
 
@@ -139,19 +139,19 @@ final class CollectSpliterators {
   }
   
   /** Returns a {@code Spliterator} filtered by the specified predicate. */
-  static <T> Spliterator<T> filter(Spliterator<T> fromSpliterator, Predicate<? super T> predicate) {
+  static <T> Spliterator<T> filter(final Spliterator<T> fromSpliterator, final Predicate<? super T> predicate) {
     checkNotNull(fromSpliterator);
     checkNotNull(predicate);
     class Splitr implements Spliterator<T>, Consumer<T> {
       T holder = null;
 
       @Override
-      public void accept(T t) {
+      public void accept(final T t) {
         this.holder = t;
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super T> action) {
+      public boolean tryAdvance(final Consumer<? super T> action) {
         while (fromSpliterator.tryAdvance(this)) {
           try {
             if (predicate.test(holder)) {
@@ -198,10 +198,10 @@ final class CollectSpliterators {
    * applying {@code function} to the elements of {@code fromSpliterator}.
    */
   static <F, T> Spliterator<T> flatMap(
-      Spliterator<F> fromSpliterator,
-      Function<? super F, Spliterator<T>> function,
-      int topCharacteristics,
-      long topSize) {
+      final Spliterator<F> fromSpliterator,
+      final Function<? super F, Spliterator<T>> function,
+      final int topCharacteristics,
+      final long topSize) {
     checkArgument(
         (topCharacteristics & Spliterator.SUBSIZED) == 0,
         "flatMap does not support SUBSIZED characteristic");
@@ -217,7 +217,7 @@ final class CollectSpliterators {
       long estimatedSize;
 
       FlatMapSpliterator(
-          Spliterator<T> prefix, Spliterator<F> from, int characteristics, long estimatedSize) {
+          final Spliterator<T> prefix, final Spliterator<F> from, final int characteristics, final long estimatedSize) {
         this.prefix = prefix;
         this.from = from;
         this.characteristics = characteristics;
@@ -225,7 +225,7 @@ final class CollectSpliterators {
       }
 
       @Override
-      public boolean tryAdvance(Consumer<? super T> action) {
+      public boolean tryAdvance(final Consumer<? super T> action) {
         while (true) {
           if (prefix != null && prefix.tryAdvance(action)) {
             if (estimatedSize != Long.MAX_VALUE) {
@@ -242,7 +242,7 @@ final class CollectSpliterators {
       }
 
       @Override
-      public void forEachRemaining(Consumer<? super T> action) {
+      public void forEachRemaining(final Consumer<? super T> action) {
         if (prefix != null) {
           prefix.forEachRemaining(action);
           prefix = null;

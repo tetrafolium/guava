@@ -49,7 +49,7 @@ public class ListToArrayTester<E> extends AbstractListTester<E> {
     assertArrayEquals("toArray(largeEnough) order should match list", createOrderedArray(), actual);
   }
 
-  private static void assertArrayEquals(String message, Object[] expected, Object[] actual) {
+  private static void assertArrayEquals(final String message, final Object[] expected, final Object[] actual) {
     assertEquals(message, Arrays.asList(expected), Arrays.asList(actual));
   }
 }

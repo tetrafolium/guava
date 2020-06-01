@@ -35,7 +35,7 @@ public class AsyncEventBus extends EventBus {
    * @param executor Executor to use to dispatch events. It is the caller's responsibility to shut
    *     down the executor after the last event has been posted to this event bus.
    */
-  public AsyncEventBus(String identifier, Executor executor) {
+  public AsyncEventBus(final String identifier, final Executor executor) {
     super(identifier, executor, Dispatcher.legacyAsync(), LoggingHandler.INSTANCE);
   }
 
@@ -48,7 +48,7 @@ public class AsyncEventBus extends EventBus {
    *     See {@link SubscriberExceptionHandler} for more information.
    * @since 16.0
    */
-  public AsyncEventBus(Executor executor, SubscriberExceptionHandler subscriberExceptionHandler) {
+  public AsyncEventBus(final Executor executor, final SubscriberExceptionHandler subscriberExceptionHandler) {
     super("default", executor, Dispatcher.legacyAsync(), subscriberExceptionHandler);
   }
 
@@ -58,7 +58,7 @@ public class AsyncEventBus extends EventBus {
    * @param executor Executor to use to dispatch events. It is the caller's responsibility to shut
    *     down the executor after the last event has been posted to this event bus.
    */
-  public AsyncEventBus(Executor executor) {
+  public AsyncEventBus(final Executor executor) {
     super("default", executor, Dispatcher.legacyAsync(), LoggingHandler.INSTANCE);
   }
 }

@@ -161,7 +161,7 @@ public class TrustedListenableFutureTaskTest extends TestCase {
   }
 
   @GwtIncompatible // used only in GwtIncomaptible tests
-  private void awaitUnchecked(CyclicBarrier barrier) {
+  private void awaitUnchecked(final CyclicBarrier barrier) {
     try {
       barrier.await();
     } catch (Exception e) {

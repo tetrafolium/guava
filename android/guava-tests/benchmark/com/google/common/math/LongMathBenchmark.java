@@ -54,7 +54,7 @@ public class LongMathBenchmark {
     }
   }
 
-  @Benchmark int pow(int reps) {
+  @Benchmark int pow(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -63,7 +63,7 @@ public class LongMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int mod(int reps) {
+  @Benchmark int mod(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -72,7 +72,7 @@ public class LongMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int gCD(int reps) {
+  @Benchmark int gCD(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -81,7 +81,7 @@ public class LongMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int factorial(int reps) {
+  @Benchmark int factorial(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -90,7 +90,7 @@ public class LongMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int binomial(int reps) {
+  @Benchmark int binomial(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -99,7 +99,7 @@ public class LongMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int isPrime(int reps) {
+  @Benchmark int isPrime(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;

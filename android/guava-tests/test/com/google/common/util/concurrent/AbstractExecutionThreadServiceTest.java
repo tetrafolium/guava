@@ -46,11 +46,11 @@ public class AbstractExecutionThreadServiceTest extends TestCase {
   private Throwable thrownByExecutionThread;
   private final Executor exceptionCatchingExecutor = new Executor() {
     @Override
-    public void execute(Runnable command) {
+    public void execute(final Runnable command) {
       executionThread = new Thread(command);
       executionThread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
         @Override
-        public void uncaughtException(Thread thread, Throwable e) {
+        public void uncaughtException(final Thread thread, final Throwable e) {
           thrownByExecutionThread = e;
         }
       });
@@ -296,7 +296,7 @@ public class AbstractExecutionThreadServiceTest extends TestCase {
   private class TimeoutOnStartUp extends AbstractExecutionThreadService {
     @Override protected Executor executor() {
       return new Executor() {
-        @Override public void execute(Runnable command) {
+        @Override public void execute(final Runnable command) {
         }
       };
     }
@@ -343,7 +343,7 @@ public class AbstractExecutionThreadServiceTest extends TestCase {
   public void testTimeout() {
     // Create a service whose executor will never run its commands
     Service service = new AbstractExecutionThreadService() {
-      @Override protected void run() throws Exception {}
+      @Override protected void run() throws Exception { }
 
       @Override protected ScheduledExecutorService executor() {
         return TestingExecutors.noOpScheduledExecutor();

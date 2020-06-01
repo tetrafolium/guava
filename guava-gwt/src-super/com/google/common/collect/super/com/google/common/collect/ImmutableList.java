@@ -43,7 +43,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   static final ImmutableList<Object> EMPTY =
       new RegularImmutableList<Object>(Collections.emptyList());
 
-  ImmutableList() {}
+  ImmutableList() { }
 
   @Beta
   public static <E> Collector<E, ?, ImmutableList<E>> toImmutableList() {
@@ -56,68 +56,68 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return (ImmutableList<E>) EMPTY;
   }
 
-  public static <E> ImmutableList<E> of(E element) {
+  public static <E> ImmutableList<E> of(final E element) {
     return new SingletonImmutableList<E>(checkNotNull(element));
   }
 
-  public static <E> ImmutableList<E> of(E e1, E e2) {
+  public static <E> ImmutableList<E> of(final E e1, final E e2) {
     return new RegularImmutableList<E>(
         ImmutableList.<E>nullCheckedList(e1, e2));
   }
 
-  public static <E> ImmutableList<E> of(E e1, E e2, E e3) {
+  public static <E> ImmutableList<E> of(final E e1, final E e2, final E e3) {
     return new RegularImmutableList<E>(
         ImmutableList.<E>nullCheckedList(e1, e2, e3));
   }
 
-  public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4) {
+  public static <E> ImmutableList<E> of(final E e1, final E e2, final E e3, final E e4) {
     return new RegularImmutableList<E>(
         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4));
   }
 
-  public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableList<E> of(final E e1, final E e2, final E e3, final E e4, final E e5) {
     return new RegularImmutableList<E>(
         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5));
   }
 
-  public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
+  public static <E> ImmutableList<E> of(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6) {
     return new RegularImmutableList<E>(
         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7) {
     return new RegularImmutableList<E>(
          ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8) {
     return new RegularImmutableList<E>(
          ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8, final E e9) {
     return new RegularImmutableList<E>(
          ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8, e9));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8, final E e9, final E e10) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
         e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8, final E e9, final E e10, final E e11) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
         e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
   }
 
   public static <E> ImmutableList<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11,
-      E e12, E... others) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E e7, final E e8, final E e9, final E e10, final E e11,
+      final E e12, final E... others) {
     final int paramCount = 12;
     Object[] array = new Object[paramCount + others.length];
     arrayCopy(array, 0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12);
@@ -125,22 +125,22 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(array));
   }
 
-  private static void arrayCopy(Object[] dest, int pos, Object... source) {
+  private static void arrayCopy(final Object[] dest, final int pos, final Object... source) {
     System.arraycopy(source, 0, dest, pos, source.length);
   }
 
-  public static <E> ImmutableList<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableList<E> copyOf(final Iterable<? extends E> elements) {
     checkNotNull(elements); // for GWT
     return (elements instanceof Collection)
         ? copyOf((Collection<? extends E>) elements)
         : copyOf(elements.iterator());
   }
 
-  public static <E> ImmutableList<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableList<E> copyOf(final Iterator<? extends E> elements) {
     return copyFromCollection(Lists.newArrayList(elements));
   }
 
-  public static <E> ImmutableList<E> copyOf(Collection<? extends E> elements) {
+  public static <E> ImmutableList<E> copyOf(final Collection<? extends E> elements) {
     if (elements instanceof ImmutableCollection) {
       /*
        * TODO: When given an ImmutableList that's a sublist, copy the referenced
@@ -153,13 +153,13 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return copyFromCollection(elements);
   }
 
-  public static <E> ImmutableList<E> copyOf(E[] elements) {
+  public static <E> ImmutableList<E> copyOf(final E[] elements) {
     checkNotNull(elements); // eager for GWT
     return copyOf(Arrays.asList(elements));
   }
 
   private static <E> ImmutableList<E> copyFromCollection(
-      Collection<? extends E> collection) {
+      final Collection<? extends E> collection) {
     Object[] elements = collection.toArray();
     switch (elements.length) {
       case 0:
@@ -173,7 +173,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
 
   // Factory method that skips the null checks.  Used only when the elements
   // are guaranteed to be non-null.
-  static <E> ImmutableList<E> unsafeDelegateList(List<? extends E> list) {
+  static <E> ImmutableList<E> unsafeDelegateList(final List<? extends E> list) {
     switch (list.size()) {
       case 0:
         return of();
@@ -192,12 +192,12 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
    * <p>The array must be internally created.
    */
   @SuppressWarnings("unchecked") // caller is reponsible for getting this right
-  static <E> ImmutableList<E> asImmutableList(Object[] elements) {
+  static <E> ImmutableList<E> asImmutableList(final Object[] elements) {
     return unsafeDelegateList((List) Arrays.asList(elements));
   }
 
   public static <E extends Comparable<? super E>> ImmutableList<E> sortedCopyOf(
-      Iterable<? extends E> elements) {
+      final Iterable<? extends E> elements) {
     Comparable[] array = Iterables.toArray(elements, new Comparable[0]);
     checkElementsNotNull(array);
     Arrays.sort(array);
@@ -205,7 +205,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   }
 
   public static <E> ImmutableList<E> sortedCopyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterable<? extends E> elements) {
     checkNotNull(comparator);
     @SuppressWarnings("unchecked") // all supported methods are covariant
     E[] array = (E[]) Iterables.toArray(elements);
@@ -214,7 +214,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return asImmutableList(array);
   }
 
-  private static <E> List<E> nullCheckedList(Object... array) {
+  private static <E> List<E> nullCheckedList(final Object... array) {
     for (int i = 0, len = array.length; i < len; i++) {
       if (array[i] == null) {
         throw new NullPointerException("at index " + i);
@@ -226,28 +226,28 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   }
 
   @Override
-  public int indexOf(@Nullable Object object) {
+  public int indexOf(final @Nullable Object object) {
     return (object == null) ? -1 : Lists.indexOfImpl(this, object);
   }
 
   @Override
-  public int lastIndexOf(@Nullable Object object) {
+  public int lastIndexOf(final @Nullable Object object) {
     return (object == null) ? -1 : Lists.lastIndexOfImpl(this, object);
   }
 
-  public final boolean addAll(int index, Collection<? extends E> newElements) {
+  public final boolean addAll(final int index, final Collection<? extends E> newElements) {
     throw new UnsupportedOperationException();
   }
 
-  public final E set(int index, E element) {
+  public final E set(final int index, final E element) {
     throw new UnsupportedOperationException();
   }
 
-  public final void add(int index, E element) {
+  public final void add(final int index, final E element) {
     throw new UnsupportedOperationException();
   }
 
-  public final E remove(int index) {
+  public final E remove(final int index) {
     throw new UnsupportedOperationException();
   }
 
@@ -255,7 +255,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return listIterator();
   }
 
-  @Override public ImmutableList<E> subList(int fromIndex, int toIndex) {
+  @Override public ImmutableList<E> subList(final int fromIndex, final int toIndex) {
     return unsafeDelegateList(Lists.subListImpl(this, fromIndex, toIndex));
   }
 
@@ -263,10 +263,10 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return listIterator(0);
   }
 
-  @Override public UnmodifiableListIterator<E> listIterator(int index) {
+  @Override public UnmodifiableListIterator<E> listIterator(final int index) {
     return new AbstractIndexedListIterator<E>(size(), index) {
       @Override
-      protected E get(int index) {
+      protected E get(final int index) {
         return ImmutableList.this.get(index);
       }
     };
@@ -277,7 +277,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     return Lists.equalsImpl(this, obj);
   }
 
@@ -296,7 +296,7 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
     return new Builder<E>();
   }
 
-  public static <E> Builder<E> builderWithExpectedSize(int expectedSize) {
+  public static <E> Builder<E> builderWithExpectedSize(final int expectedSize) {
     return new Builder<E>(expectedSize);
   }
 
@@ -307,37 +307,37 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
       contents = Lists.newArrayList();
     }
 
-    Builder(int capacity) {
+    Builder(final int capacity) {
       contents = Lists.newArrayListWithCapacity(capacity);
     }
 
     @CanIgnoreReturnValue
-    @Override public Builder<E> add(E element) {
+    @Override public Builder<E> add(final E element) {
       contents.add(checkNotNull(element));
       return this;
     }
 
     @CanIgnoreReturnValue
-    @Override public Builder<E> addAll(Iterable<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterable<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
 
     @CanIgnoreReturnValue
-    @Override public Builder<E> add(E... elements) {
+    @Override public Builder<E> add(final E... elements) {
       checkNotNull(elements);  // for GWT
       super.add(elements);
       return this;
     }
 
     @CanIgnoreReturnValue
-    @Override public Builder<E> addAll(Iterator<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterator<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
 
     @CanIgnoreReturnValue
-    Builder<E> combine(Builder<E> builder) {
+    Builder<E> combine(final Builder<E> builder) {
       checkNotNull(builder);
       contents.addAll(builder.contents);
       return this;

@@ -36,11 +36,11 @@ public class TestInputStream extends FilterInputStream {
   private final ImmutableSet<TestOption> options;
   private boolean closed;
 
-  public TestInputStream(InputStream in, TestOption... options) throws IOException {
+  public TestInputStream(final InputStream in, final TestOption... options) throws IOException {
     this(in, Arrays.asList(options));
   }
 
-  public TestInputStream(InputStream in, Iterable<TestOption> options) throws IOException {
+  public TestInputStream(final InputStream in, final Iterable<TestOption> options) throws IOException {
     super(checkNotNull(in));
     this.options = ImmutableSet.copyOf(options);
     throwIf(OPEN_THROWS);
@@ -58,14 +58,14 @@ public class TestInputStream extends FilterInputStream {
   }
 
   @Override
-  public int read(byte[] b, int off, int len) throws IOException {
+  public int read(final byte[] b, final int off, final int len) throws IOException {
     throwIf(closed);
     throwIf(READ_THROWS);
     return in.read(b, off, len);
   }
 
   @Override
-  public long skip(long n) throws IOException {
+  public long skip(final long n) throws IOException {
     throwIf(closed);
     throwIf(SKIP_THROWS);
     return in.skip(n);
@@ -84,11 +84,11 @@ public class TestInputStream extends FilterInputStream {
     in.close();
   }
 
-  private void throwIf(TestOption option) throws IOException {
+  private void throwIf(final TestOption option) throws IOException {
     throwIf(options.contains(option));
   }
 
-  private static void throwIf(boolean condition) throws IOException {
+  private static void throwIf(final boolean condition) throws IOException {
     if (condition) {
       throw new IOException();
     }

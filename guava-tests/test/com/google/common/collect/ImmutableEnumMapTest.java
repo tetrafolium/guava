@@ -49,7 +49,7 @@ import junit.framework.TestSuite;
 public class ImmutableEnumMapTest extends TestCase {
   public static class ImmutableEnumMapGenerator extends TestEnumMapGenerator {
     @Override
-    protected Map<AnEnum, String> create(Entry<AnEnum, String>[] entries) {
+    protected Map<AnEnum, String> create(final Entry<AnEnum, String>[] entries) {
       Map<AnEnum, String> map = Maps.newHashMap();
       for (Entry<AnEnum, String> entry : entries) {
         map.put(entry.getKey(), entry.getValue());
@@ -75,7 +75,7 @@ public class ImmutableEnumMapTest extends TestCase {
     Map<AnEnum, AnEnum> map = Maps.asMap(ImmutableSet.of(AnEnum.A), new Function<AnEnum, AnEnum>() {
       boolean used = false;
       
-      @Override public AnEnum apply(AnEnum ae) {
+      @Override public AnEnum apply(final AnEnum ae) {
         checkState(!used, "should not be applied more than once");
         used = true;
         return ae;

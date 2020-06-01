@@ -27,4 +27,4 @@ import java.util.concurrent.ScheduledFuture;
  */
 @Beta
 @GwtCompatible
-public interface ListenableScheduledFuture<V> extends ScheduledFuture<V>, ListenableFuture<V> {}
+public interface ListenableScheduledFuture<V> extends ScheduledFuture<V>, ListenableFuture<V> { }

@@ -170,7 +170,7 @@ import javax.annotation.Nullable;
 public final class ArbitraryInstances {
 
   private static final Ordering<Field> BY_FIELD_NAME = new Ordering<Field>() {
-    @Override public int compare(Field left, Field right) {
+    @Override public int compare(final Field left, final Field right) {
       return left.getName().compareTo(right.getName());
     }
   };
@@ -286,7 +286,7 @@ public final class ArbitraryInstances {
    */
   private static final ConcurrentMap<Class<?>, Class<?>> implementations = Maps.newConcurrentMap();
 
-  private static <T> void setImplementation(Class<T> type, Class<? extends T> implementation) {
+  private static <T> void setImplementation(final Class<T> type, final Class<? extends T> implementation) {
     checkArgument(type != implementation, "Don't register %s to itself!", type);
     checkArgument(!DEFAULTS.containsKey(type),
         "A default value was already registered for %s", type);
@@ -318,7 +318,7 @@ public final class ArbitraryInstances {
 
   @SuppressWarnings("unchecked") // it's a subtype map
   @Nullable
-  private static <T> Class<? extends T> getImplementation(Class<T> type) {
+  private static <T> Class<? extends T> getImplementation(final Class<T> type) {
     return (Class<? extends T>) implementations.get(type);
   }
 
@@ -328,7 +328,7 @@ public final class ArbitraryInstances {
    * Returns an arbitrary instance for {@code type}, or {@code null} if no arbitrary instance can
    * be determined.
    */
-  @Nullable public static <T> T get(Class<T> type) {
+  @Nullable public static <T> T get(final Class<T> type) {
     T defaultValue = DEFAULTS.getInstance(type);
     if (defaultValue != null) {
       return defaultValue;
@@ -370,7 +370,7 @@ public final class ArbitraryInstances {
     }
   }
 
-  @Nullable private static <T> T arbitraryConstantInstanceOrNull(Class<T> type) {
+  @Nullable private static <T> T arbitraryConstantInstanceOrNull(final Class<T> type) {
     Field[] fields = type.getDeclaredFields();
     Arrays.sort(fields, BY_FIELD_NAME);
     for (Field field : fields) {
@@ -394,7 +394,7 @@ public final class ArbitraryInstances {
     return null;
   }
 
-  private static <T> T createEmptyArray(Class<T> arrayType) {
+  private static <T> T createEmptyArray(final Class<T> arrayType) {
     return arrayType.cast(Array.newInstance(arrayType.getComponentType(), 0));
   }
 
@@ -432,17 +432,17 @@ public final class ArbitraryInstances {
     }
 
     public static final class DummyRunnable implements Runnable, Serializable {
-      @Override public void run() {}
+      @Override public void run() { }
     }
 
     public static final class DummyThreadFactory implements ThreadFactory, Serializable {
-      @Override public Thread newThread(Runnable r) {
+      @Override public Thread newThread(final Runnable r) {
         return new Thread(r);
       }
     }
 
     public static final class DummyExecutor implements Executor, Serializable {
-      @Override public void execute(Runnable command) {}
+      @Override public void execute(final Runnable command) { }
     }
   }
 
@@ -460,7 +460,7 @@ public final class ArbitraryInstances {
   private static final class ByToString implements Comparable<Object>, Serializable {
     private static final ByToString INSTANCE = new ByToString();
 
-    @Override public int compareTo(Object o) {
+    @Override public int compareTo(final Object o) {
       return toString().compareTo(o.toString());
     }
 
@@ -477,7 +477,7 @@ public final class ArbitraryInstances {
   private static final class AlwaysEqual extends Ordering<Object> implements Serializable {
     private static final AlwaysEqual INSTANCE = new AlwaysEqual();
 
-    @Override public int compare(Object o1, Object o2) {
+    @Override public int compare(final Object o1, final Object o2) {
       return 0;
     }
 
@@ -490,5 +490,5 @@ public final class ArbitraryInstances {
     }
   }
 
-  private ArbitraryInstances() {}
+  private ArbitraryInstances() { }
 }

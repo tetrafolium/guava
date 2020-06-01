@@ -33,7 +33,7 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public final class HttpHeaders {
-  private HttpHeaders() {}
+  private HttpHeaders() { }
 
   // HTTP Request and Response header fields
 

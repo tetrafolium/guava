@@ -34,7 +34,7 @@ import com.google.common.collect.testing.features.CollectionSize;
 @GwtCompatible
 public class ListLastIndexOfTester<E> extends AbstractListIndexOfTester<E> {
   @Override
-  protected int find(Object o) {
+  protected int find(final Object o) {
     return getList().lastIndexOf(o);
   }
 

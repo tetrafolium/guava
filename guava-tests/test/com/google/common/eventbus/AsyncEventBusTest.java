@@ -71,7 +71,7 @@ public class AsyncEventBusTest extends TestCase {
     List<Runnable> tasks = Lists.newArrayList();
 
     @Override
-    public void execute(Runnable task) {
+    public void execute(final Runnable task) {
       tasks.add(task);
     }
 

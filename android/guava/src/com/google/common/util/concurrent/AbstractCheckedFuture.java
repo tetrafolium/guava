@@ -46,7 +46,7 @@ public abstract class AbstractCheckedFuture<V, X extends Exception>
   /**
    * Constructs an {@code AbstractCheckedFuture} that wraps a delegate.
    */
-  protected AbstractCheckedFuture(ListenableFuture<V> delegate) {
+  protected AbstractCheckedFuture(final ListenableFuture<V> delegate) {
     super(delegate);
   }
 
@@ -106,7 +106,7 @@ public abstract class AbstractCheckedFuture<V, X extends Exception>
    */
   @CanIgnoreReturnValue
   @Override
-  public V checkedGet(long timeout, TimeUnit unit) throws TimeoutException, X {
+  public V checkedGet(final long timeout, final TimeUnit unit) throws TimeoutException, X {
     try {
       return get(timeout, unit);
     } catch (InterruptedException e) {

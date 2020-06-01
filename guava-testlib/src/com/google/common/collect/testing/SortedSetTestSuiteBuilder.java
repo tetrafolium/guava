@@ -33,7 +33,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
-  public static <E> SortedSetTestSuiteBuilder<E> using(TestSortedSetGenerator<E> generator) {
+  public static <E> SortedSetTestSuiteBuilder<E> using(final TestSortedSetGenerator<E> generator) {
     SortedSetTestSuiteBuilder<E> builder = new SortedSetTestSuiteBuilder<E>();
     builder.usingGenerator(generator);
     return builder;
@@ -58,7 +58,7 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      final FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
           parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
@@ -101,7 +101,7 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
 
   /** Like using() but overrideable by NavigableSetTestSuiteBuilder. */
   SortedSetTestSuiteBuilder<E> newBuilderUsing(
-      TestSortedSetGenerator<E> delegate, Bound to, Bound from) {
+      final TestSortedSetGenerator<E> delegate, final Bound to, final Bound from) {
     return using(new SortedSetSubsetTestSetGenerator<E>(delegate, to, from));
   }
 }

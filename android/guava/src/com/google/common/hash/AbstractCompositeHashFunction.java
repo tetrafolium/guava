@@ -30,7 +30,7 @@ import java.nio.charset.Charset;
 abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
   final HashFunction[] functions;
 
-  AbstractCompositeHashFunction(HashFunction... functions) {
+  AbstractCompositeHashFunction(final HashFunction... functions) {
     for (HashFunction function : functions) {
       checkNotNull(function);
     }
@@ -55,7 +55,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
   }
 
   @Override
-  public Hasher newHasher(int expectedInputSize) {
+  public Hasher newHasher(final int expectedInputSize) {
     checkArgument(expectedInputSize >= 0);
     Hasher[] hashers = new Hasher[functions.length];
     for (int i = 0; i < hashers.length; i++) {
@@ -67,7 +67,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
   private Hasher fromHashers(final Hasher[] hashers) {
     return new Hasher() {
       @Override
-      public Hasher putByte(byte b) {
+      public Hasher putByte(final byte b) {
         for (Hasher hasher : hashers) {
           hasher.putByte(b);
         }
@@ -75,7 +75,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putBytes(byte[] bytes) {
+      public Hasher putBytes(final byte[] bytes) {
         for (Hasher hasher : hashers) {
           hasher.putBytes(bytes);
         }
@@ -83,7 +83,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putBytes(byte[] bytes, int off, int len) {
+      public Hasher putBytes(final byte[] bytes, final int off, final int len) {
         for (Hasher hasher : hashers) {
           hasher.putBytes(bytes, off, len);
         }
@@ -91,7 +91,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putBytes(ByteBuffer bytes) {
+      public Hasher putBytes(final ByteBuffer bytes) {
         int pos = bytes.position();
         for (Hasher hasher : hashers) {
           bytes.position(pos);
@@ -101,7 +101,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putShort(short s) {
+      public Hasher putShort(final short s) {
         for (Hasher hasher : hashers) {
           hasher.putShort(s);
         }
@@ -109,7 +109,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putInt(int i) {
+      public Hasher putInt(final int i) {
         for (Hasher hasher : hashers) {
           hasher.putInt(i);
         }
@@ -117,7 +117,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putLong(long l) {
+      public Hasher putLong(final long l) {
         for (Hasher hasher : hashers) {
           hasher.putLong(l);
         }
@@ -125,7 +125,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putFloat(float f) {
+      public Hasher putFloat(final float f) {
         for (Hasher hasher : hashers) {
           hasher.putFloat(f);
         }
@@ -133,7 +133,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putDouble(double d) {
+      public Hasher putDouble(final double d) {
         for (Hasher hasher : hashers) {
           hasher.putDouble(d);
         }
@@ -141,7 +141,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putBoolean(boolean b) {
+      public Hasher putBoolean(final boolean b) {
         for (Hasher hasher : hashers) {
           hasher.putBoolean(b);
         }
@@ -149,7 +149,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putChar(char c) {
+      public Hasher putChar(final char c) {
         for (Hasher hasher : hashers) {
           hasher.putChar(c);
         }
@@ -157,7 +157,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putUnencodedChars(CharSequence chars) {
+      public Hasher putUnencodedChars(final CharSequence chars) {
         for (Hasher hasher : hashers) {
           hasher.putUnencodedChars(chars);
         }
@@ -165,7 +165,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public Hasher putString(CharSequence chars, Charset charset) {
+      public Hasher putString(final CharSequence chars, final Charset charset) {
         for (Hasher hasher : hashers) {
           hasher.putString(chars, charset);
         }
@@ -173,7 +173,7 @@ abstract class AbstractCompositeHashFunction extends AbstractHashFunction {
       }
 
       @Override
-      public <T> Hasher putObject(T instance, Funnel<? super T> funnel) {
+      public <T> Hasher putObject(final T instance, final Funnel<? super T> funnel) {
         for (Hasher hasher : hashers) {
           hasher.putObject(instance, funnel);
         }

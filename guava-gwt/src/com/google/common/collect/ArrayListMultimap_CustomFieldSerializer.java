@@ -27,15 +27,15 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class ArrayListMultimap_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader in, ArrayListMultimap<?, ?> out) {}
+  public static void deserialize(final SerializationStreamReader in, final ArrayListMultimap<?, ?> out) { }
 
-  public static ArrayListMultimap<Object, Object> instantiate(SerializationStreamReader in)
+  public static ArrayListMultimap<Object, Object> instantiate(final SerializationStreamReader in)
       throws SerializationException {
     return (ArrayListMultimap<Object, Object>)
         Multimap_CustomFieldSerializerBase.populate(in, ArrayListMultimap.create());
   }
 
-  public static void serialize(SerializationStreamWriter out, ArrayListMultimap<?, ?> multimap)
+  public static void serialize(final SerializationStreamWriter out, final ArrayListMultimap<?, ?> multimap)
       throws SerializationException {
     Multimap_CustomFieldSerializerBase.serialize(out, multimap);
   }

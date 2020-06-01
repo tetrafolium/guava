@@ -49,7 +49,7 @@ public class HashFunctionBenchmark {
     random.nextBytes(testBytes);
   }
 
-  @Benchmark int hasher(int reps) {
+  @Benchmark int hasher(final int reps) {
     HashFunction hashFunction = hashFunctionEnum.getHashFunction();
     int result = 37;
     for (int i = 0; i < reps; i++) {
@@ -58,7 +58,7 @@ public class HashFunctionBenchmark {
     return result;
   }
 
-  @Benchmark int hashFunction(int reps) {
+  @Benchmark int hashFunction(final int reps) {
     HashFunction hashFunction = hashFunctionEnum.getHashFunction();
     int result = 37;
     for (int i = 0; i < reps; i++) {
@@ -67,7 +67,7 @@ public class HashFunctionBenchmark {
     return result;
   }
 
-  @Benchmark int hashFunctionWithOffset(int reps) {
+  @Benchmark int hashFunctionWithOffset(final int reps) {
     HashFunction hashFunction = hashFunctionEnum.getHashFunction();
     int result = 37;
     for (int i = 0; i < reps; i++) {

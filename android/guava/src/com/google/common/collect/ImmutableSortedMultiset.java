@@ -63,7 +63,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
   /**
    * Returns an immutable sorted multiset containing a single element.
    */
-  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(E element) {
+  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(final E element) {
     RegularImmutableSortedSet<E> elementSet =
         (RegularImmutableSortedSet<E>) ImmutableSortedSet.of(element);
     long[] cumulativeCounts = {0, 1};
@@ -77,7 +77,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(E e1, E e2) {
+  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(final E e1, final E e2) {
     return copyOf(Ordering.natural(), Arrays.asList(e1, e2));
   }
 
@@ -88,7 +88,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(E e1, E e2, E e3) {
+  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(final E e1, final E e2, final E e3) {
     return copyOf(Ordering.natural(), Arrays.asList(e1, e2, e3));
   }
 
@@ -100,7 +100,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    */
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4) {
+      final E e1, final E e2, final E e3, final E e4) {
     return copyOf(Ordering.natural(), Arrays.asList(e1, e2, e3, e4));
   }
 
@@ -112,7 +112,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    */
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4, E e5) {
+      final E e1, final E e2, final E e3, final E e4, final E e5) {
     return copyOf(Ordering.natural(), Arrays.asList(e1, e2, e3, e4, e5));
   }
 
@@ -124,7 +124,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    */
   @SuppressWarnings("unchecked")
   public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... remaining) {
     int size = remaining.length + 6;
     List<E> all = Lists.newArrayListWithCapacity(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -138,7 +138,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    *
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> copyOf(E[] elements) {
+  public static <E extends Comparable<? super E>> ImmutableSortedMultiset<E> copyOf(final E[] elements) {
     return copyOf(Ordering.natural(), Arrays.asList(elements));
   }
 
@@ -164,7 +164,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    * @throws ClassCastException if the elements are not mutually comparable
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSortedMultiset<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableSortedMultiset<E> copyOf(final Iterable<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedMultisetFauxverideShim.
     @SuppressWarnings("unchecked")
@@ -182,7 +182,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    * @throws ClassCastException if the elements are not mutually comparable
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSortedMultiset<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableSortedMultiset<E> copyOf(final Iterator<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedMultisetFauxverideShim.
     @SuppressWarnings("unchecked")
@@ -197,7 +197,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    * @throws NullPointerException if {@code comparator} or any of {@code elements} is null
    */
   public static <E> ImmutableSortedMultiset<E> copyOf(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterator<? extends E> elements) {
     checkNotNull(comparator);
     return new Builder<E>(comparator).addAll(elements).build();
   }
@@ -214,7 +214,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    */
   @SuppressWarnings("unchecked")
   public static <E> ImmutableSortedMultiset<E> copyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+      final Comparator<? super E> comparator, final Iterable<? extends E> elements) {
     if (elements instanceof ImmutableSortedMultiset) {
       @SuppressWarnings("unchecked") // immutable collections are always safe for covariant casts
       ImmutableSortedMultiset<E> multiset = (ImmutableSortedMultiset<E>) elements;
@@ -243,13 +243,13 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    *
    * @throws NullPointerException if {@code sortedMultiset} or any of its elements is null
    */
-  public static <E> ImmutableSortedMultiset<E> copyOfSorted(SortedMultiset<E> sortedMultiset) {
+  public static <E> ImmutableSortedMultiset<E> copyOfSorted(final SortedMultiset<E> sortedMultiset) {
     return copyOfSortedEntries(
         sortedMultiset.comparator(), Lists.newArrayList(sortedMultiset.entrySet()));
   }
 
   private static <E> ImmutableSortedMultiset<E> copyOfSortedEntries(
-      Comparator<? super E> comparator, Collection<Entry<E>> entries) {
+      final Comparator<? super E> comparator, final Collection<Entry<E>> entries) {
     if (entries.isEmpty()) {
       return emptyMultiset(comparator);
     }
@@ -269,7 +269,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
   }
 
   @SuppressWarnings("unchecked")
-  static <E> ImmutableSortedMultiset<E> emptyMultiset(Comparator<? super E> comparator) {
+  static <E> ImmutableSortedMultiset<E> emptyMultiset(final Comparator<? super E> comparator) {
     if (Ordering.natural().equals(comparator)) {
       return (ImmutableSortedMultiset<E>) RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
     } else {
@@ -277,7 +277,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
     }
   }
 
-  ImmutableSortedMultiset() {}
+  ImmutableSortedMultiset() { }
 
   @Override
   public final Comparator<? super E> comparator() {
@@ -337,7 +337,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
 
   @Override
   public ImmutableSortedMultiset<E> subMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+      final E lowerBound, final BoundType lowerBoundType, final E upperBound, final BoundType upperBoundType) {
     checkArgument(
         comparator().compare(lowerBound, upperBound) <= 0,
         "Expected lowerBound <= upperBound but %s > %s",
@@ -357,7 +357,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
    *
    * @throws NullPointerException if {@code comparator} is null
    */
-  public static <E> Builder<E> orderedBy(Comparator<E> comparator) {
+  public static <E> Builder<E> orderedBy(final Comparator<E> comparator) {
     return new Builder<E>(comparator);
   }
 
@@ -434,7 +434,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      * {@link ImmutableSortedMultiset#orderedBy(Comparator)}.
      */
     @SuppressWarnings("unchecked")
-    public Builder(Comparator<? super E> comparator) {
+    public Builder(final Comparator<? super E> comparator) {
       super(true); // doesn't allocate hash table in supertype
       this.comparator = checkNotNull(comparator);
       this.elements = (E[]) new Object[ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY];
@@ -455,7 +455,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
       forceCopyElements = false;
     }
 
-    private void dedupAndCoalesce(boolean maybeExpand) {
+    private void dedupAndCoalesce(final boolean maybeExpand) {
       if (length == 0) {
         return;
       }
@@ -499,7 +499,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> add(E element) {
+    public Builder<E> add(final E element) {
       return addCopies(element, 1);
     }
 
@@ -516,7 +516,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addCopies(E element, int occurrences) {
+    public Builder<E> addCopies(final E element, final int occurrences) {
       checkNotNull(element);
       CollectPreconditions.checkNonnegative(occurrences, "occurrences");
       if (occurrences == 0) {
@@ -541,7 +541,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> setCount(E element, int count) {
+    public Builder<E> setCount(final E element, final int count) {
       checkNotNull(element);
       CollectPreconditions.checkNonnegative(count, "count");
       maintenance();
@@ -560,7 +560,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> add(E... elements) {
+    public Builder<E> add(final E... elements) {
       for (E element : elements) {
         add(element);
       }
@@ -576,7 +576,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addAll(Iterable<? extends E> elements) {
+    public Builder<E> addAll(final Iterable<? extends E> elements) {
       if (elements instanceof Multiset) {
         for (Entry<? extends E> entry : ((Multiset<? extends E>) elements).entrySet()) {
           addCopies(entry.getElement(), entry.getCount());
@@ -598,7 +598,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addAll(Iterator<? extends E> elements) {
+    public Builder<E> addAll(final Iterator<? extends E> elements) {
       while (elements.hasNext()) {
         add(elements.next());
       }
@@ -650,7 +650,7 @@ public abstract class ImmutableSortedMultiset<E> extends ImmutableSortedMultiset
     final int[] counts;
 
     @SuppressWarnings("unchecked")
-    SerializedForm(SortedMultiset<E> multiset) {
+    SerializedForm(final SortedMultiset<E> multiset) {
       this.comparator = multiset.comparator();
       int n = multiset.entrySet().size();
       elements = (E[]) new Object[n];

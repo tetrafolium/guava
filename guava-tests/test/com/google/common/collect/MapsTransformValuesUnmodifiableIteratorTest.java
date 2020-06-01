@@ -44,7 +44,7 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
   private static class UnmodifiableIteratorMap<K, V> extends ForwardingMap<K, V> {
     final Map<K, V> delegate;
 
-    UnmodifiableIteratorMap(Map<K, V> delegate) {
+    UnmodifiableIteratorMap(final Map<K, V> delegate) {
       this.delegate = delegate;
     }
 
@@ -60,10 +60,10 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
         @Override public Iterator<K> iterator() {
           return Iterators.unmodifiableIterator(delegate.keySet().iterator());
         }
-        @Override public boolean removeAll(Collection<?> c) {
+        @Override public boolean removeAll(final Collection<?> c) {
           return delegate.keySet().removeAll(c);
         }
-        @Override public boolean retainAll(Collection<?> c) {
+        @Override public boolean retainAll(final Collection<?> c) {
           return delegate.keySet().retainAll(c);
         }
       };
@@ -77,10 +77,10 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
         @Override public Iterator<V> iterator() {
           return Iterators.unmodifiableIterator(delegate.values().iterator());
         }
-        @Override public boolean removeAll(Collection<?> c) {
+        @Override public boolean removeAll(final Collection<?> c) {
           return delegate.values().removeAll(c);
         }
-        @Override public boolean retainAll(Collection<?> c) {
+        @Override public boolean retainAll(final Collection<?> c) {
           return delegate.values().retainAll(c);
         }
       };
@@ -94,10 +94,10 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
         @Override public Iterator<Entry<K, V>> iterator() {
           return Iterators.unmodifiableIterator(delegate.entrySet().iterator());
         }
-        @Override public boolean removeAll(Collection<?> c) {
+        @Override public boolean removeAll(final Collection<?> c) {
           return delegate.entrySet().removeAll(c);
         }
-        @Override public boolean retainAll(Collection<?> c) {
+        @Override public boolean retainAll(final Collection<?> c) {
           return delegate.entrySet().retainAll(c);
         }
       };
@@ -130,7 +130,7 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
   }
 
   /** Helper assertion comparing two maps */
-  private void assertMapsEqual(Map<?, ?> expected, Map<?, ?> map) {
+  private void assertMapsEqual(final Map<?, ?> expected, final Map<?, ?> map) {
     assertEquals(expected, map);
     assertEquals(expected.hashCode(), map.hashCode());
     assertEquals(expected.entrySet(), map.entrySet());
@@ -204,7 +204,7 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
     Map<String, Boolean> map = Maps.transformValues(underlying,
         new Function<String, Boolean>() {
           @Override
-          public Boolean apply(@Nullable String from) {
+          public Boolean apply(final @Nullable String from) {
             return from == null;
           }
         }
@@ -306,7 +306,7 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
     map = Maps.transformValues(ImmutableMap.of("a", 1, "b", 2, "c", 3),
         new Function<Integer, Integer>() {
           @Override
-          public Integer apply(Integer from) {
+          public Integer apply(final Integer from) {
             return from - 1;
           }
         }
@@ -323,7 +323,7 @@ public class MapsTransformValuesUnmodifiableIteratorTest extends MapInterfaceTes
     Map<String, Boolean> map = Maps.transformValues(
         underlying, new Function<Boolean, Boolean>() {
           @Override
-          public Boolean apply(@Nullable Boolean from) {
+          public Boolean apply(final @Nullable Boolean from) {
             return (from == null) ? true : null;
           }
         }

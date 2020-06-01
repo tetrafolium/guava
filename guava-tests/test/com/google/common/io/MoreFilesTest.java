@@ -90,13 +90,13 @@ public class MoreFilesTest extends TestCase {
       // delete tempDir and its contents
       Files.walkFileTree(tempDir, new SimpleFileVisitor<Path>() {
         @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
           Files.deleteIfExists(file);
           return FileVisitResult.CONTINUE;
         }
 
         @Override
-        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+        public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
           if (exc != null) {
             return FileVisitResult.TERMINATE;
           }
@@ -405,7 +405,7 @@ public class MoreFilesTest extends TestCase {
    *      symlinktodir -> work/dir
    * </pre>
    */
-  static FileSystem newTestFileSystem(Feature... supportedFeatures) throws IOException {
+  static FileSystem newTestFileSystem(final Feature... supportedFeatures) throws IOException {
     FileSystem fs = Jimfs.newFileSystem(Configuration.unix().toBuilder()
         .setSupportedFeatures(ObjectArrays.concat(SYMBOLIC_LINKS, supportedFeatures))
         .build());
@@ -625,7 +625,7 @@ public class MoreFilesTest extends TestCase {
    * the symlink should have.
    */
   private static void startDirectorySymlinkSwitching(
-      final Path file, final Path target, ExecutorService executor) {
+      final Path file, final Path target, final ExecutorService executor) {
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError =
         executor.submit(
@@ -660,24 +660,24 @@ public class MoreFilesTest extends TestCase {
   private enum DirectoryDeleteMethod {
     DELETE_DIRECTORY_CONTENTS {
       @Override
-      public void delete(Path path, RecursiveDeleteOption... options) throws IOException {
+      public void delete(final Path path, final RecursiveDeleteOption... options) throws IOException {
         MoreFiles.deleteDirectoryContents(path, options);
       }
 
       @Override
-      public void assertDeleteSucceeded(Path path) throws IOException {
+      public void assertDeleteSucceeded(final Path path) throws IOException {
         assertEquals("contents of directory " + path + " not deleted with delete method " + this,
             0, MoreFiles.listFiles(path).size());
       }
     },
     DELETE_RECURSIVELY {
       @Override
-      public void delete(Path path, RecursiveDeleteOption... options) throws IOException {
+      public void delete(final Path path, final RecursiveDeleteOption... options) throws IOException {
         MoreFiles.deleteRecursively(path, options);
       }
 
       @Override
-      public void assertDeleteSucceeded(Path path) throws IOException {
+      public void assertDeleteSucceeded(final Path path) throws IOException {
         assertFalse("file " + path + " not deleted with delete method " + this,
             Files.exists(path));
       }

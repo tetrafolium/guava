@@ -30,12 +30,12 @@ import javax.annotation.Nullable;
 final class LexicographicalOrdering<T> extends Ordering<Iterable<T>> implements Serializable {
   final Comparator<? super T> elementOrder;
 
-  LexicographicalOrdering(Comparator<? super T> elementOrder) {
+  LexicographicalOrdering(final Comparator<? super T> elementOrder) {
     this.elementOrder = elementOrder;
   }
 
   @Override
-  public int compare(Iterable<T> leftIterable, Iterable<T> rightIterable) {
+  public int compare(final Iterable<T> leftIterable, final Iterable<T> rightIterable) {
     Iterator<T> left = leftIterable.iterator();
     Iterator<T> right = rightIterable.iterator();
     while (left.hasNext()) {
@@ -54,7 +54,7 @@ final class LexicographicalOrdering<T> extends Ordering<Iterable<T>> implements 
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

@@ -102,7 +102,7 @@ public abstract class AbstractNetworkTest {
    * @return {@code true} iff the graph was modified as a result of this call
    */
   @CanIgnoreReturnValue
-  protected boolean addNode(Integer n) {
+  protected boolean addNode(final Integer n) {
     return network.addNode(n);
   }
 
@@ -123,7 +123,7 @@ public abstract class AbstractNetworkTest {
    * @return {@code true} iff the graph was modified as a result of this call
    */
   @CanIgnoreReturnValue
-  protected boolean addEdge(Integer n1, Integer n2, String e) {
+  protected boolean addEdge(final Integer n1, final Integer n2, final String e) {
     network.addNode(n1);
     network.addNode(n2);
     return network.addEdge(n1, n2, e);
@@ -139,7 +139,7 @@ public abstract class AbstractNetworkTest {
     validateNetwork(network);
   }
 
-  static <N, E> void validateNetwork(Network<N, E> network) {
+  static <N, E> void validateNetwork(final Network<N, E> network) {
     assertStronglyEquivalent(network, Graphs.copyOf(network));
     assertStronglyEquivalent(network, ImmutableNetwork.copyOf(network));
 
@@ -230,7 +230,7 @@ public abstract class AbstractNetworkTest {
               try {
                 network.edgeConnectingOrNull(node, otherNode);
                 fail();
-              } catch (IllegalArgumentException expected) {}
+              } catch (IllegalArgumentException expected) { }
         }
 
         boolean isSelfLoop = node.equals(otherNode);

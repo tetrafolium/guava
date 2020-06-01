@@ -58,7 +58,7 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
    * @param distinctElements the expected number of distinct elements
    * @throws IllegalArgumentException if {@code distinctElements} is negative
    */
-  public static <E> LinkedHashMultiset<E> create(int distinctElements) {
+  public static <E> LinkedHashMultiset<E> create(final int distinctElements) {
     return new LinkedHashMultiset<E>(distinctElements);
   }
 
@@ -70,7 +70,7 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
    *
    * @param elements the elements that the multiset should contain
    */
-  public static <E> LinkedHashMultiset<E> create(Iterable<? extends E> elements) {
+  public static <E> LinkedHashMultiset<E> create(final Iterable<? extends E> elements) {
     LinkedHashMultiset<E> multiset = create(Multisets.inferDistinctElements(elements));
     Iterables.addAll(multiset, elements);
     return multiset;
@@ -80,7 +80,7 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
     super(new LinkedHashMap<E, Count>());
   }
 
-  private LinkedHashMultiset(int distinctElements) {
+  private LinkedHashMultiset(final int distinctElements) {
     super(Maps.<E, Count>newLinkedHashMapWithExpectedSize(distinctElements));
   }
 
@@ -89,13 +89,13 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
    *     the second element, its count, and so on
    */
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     Serialization.writeMultiset(this, stream);
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     int distinctElements = Serialization.readCount(stream);
     setBackingMap(new LinkedHashMap<E, Count>());

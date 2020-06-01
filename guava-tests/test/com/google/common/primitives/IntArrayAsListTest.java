@@ -41,7 +41,7 @@ import junit.framework.TestSuite;
 @SuppressWarnings("cast") // redundant casts are intentional and harmless
 public class IntArrayAsListTest extends TestCase {
 
-  private static List<Integer> asList(Integer[] values) {
+  private static List<Integer> asList(final Integer[] values) {
     int[] temp = new int[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -83,13 +83,13 @@ public class IntArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class IntsAsListGenerator extends TestIntegerListGenerator {
-    @Override protected List<Integer> create(Integer[] elements) {
+    @Override protected List<Integer> create(final Integer[] elements) {
       return asList(elements);
     }
   }
 
   public static final class IntsAsListHeadSubListGenerator extends TestIntegerListGenerator {
-    @Override protected List<Integer> create(Integer[] elements) {
+    @Override protected List<Integer> create(final Integer[] elements) {
       Integer[] suffix = {Integer.MIN_VALUE, Integer.MAX_VALUE};
       Integer[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -97,7 +97,7 @@ public class IntArrayAsListTest extends TestCase {
   }
 
   public static final class IntsAsListTailSubListGenerator extends TestIntegerListGenerator {
-    @Override protected List<Integer> create(Integer[] elements) {
+    @Override protected List<Integer> create(final Integer[] elements) {
       Integer[] prefix = {(int) 86, (int) 99};
       Integer[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -105,7 +105,7 @@ public class IntArrayAsListTest extends TestCase {
   }
 
   public static final class IntsAsListMiddleSubListGenerator extends TestIntegerListGenerator {
-    @Override protected List<Integer> create(Integer[] elements) {
+    @Override protected List<Integer> create(final Integer[] elements) {
       Integer[] prefix = {Integer.MIN_VALUE, Integer.MAX_VALUE};
       Integer[] suffix = {(int) 86, (int) 99};
       Integer[] all = concat(concat(prefix, elements), suffix);
@@ -113,7 +113,7 @@ public class IntArrayAsListTest extends TestCase {
     }
   }
 
-  private static Integer[] concat(Integer[] left, Integer[] right) {
+  private static Integer[] concat(final Integer[] left, final Integer[] right) {
     Integer[] result = new Integer[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -128,7 +128,7 @@ public class IntArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Integer> create(Object... elements) {
+    public List<Integer> create(final Object... elements) {
       Integer[] array = new Integer[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class IntArrayAsListTest extends TestCase {
      */
     protected abstract List<Integer> create(Integer[] elements);
 
-    @Override public Integer[] createArray(int length) {
+    @Override public Integer[] createArray(final int length) {
       return new Integer[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Integer> order(List<Integer> insertionOrder) {
+    public List<Integer> order(final List<Integer> insertionOrder) {
       return insertionOrder;
     }
   }

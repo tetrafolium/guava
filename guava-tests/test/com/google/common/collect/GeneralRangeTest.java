@@ -42,7 +42,7 @@ public class GeneralRangeTest extends TestCase {
         try {
           GeneralRange.range(ORDERING, 4, lboundType, 2, uboundType);
           fail("Expected IAE");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -52,7 +52,7 @@ public class GeneralRangeTest extends TestCase {
       try {
         GeneralRange.range(ORDERING, i, OPEN, i, OPEN);
         fail("Expected IAE");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 

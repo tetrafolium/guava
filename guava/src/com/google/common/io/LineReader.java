@@ -46,7 +46,7 @@ public final class LineReader {
   private final LineBuffer lineBuf =
       new LineBuffer() {
         @Override
-        protected void handleLine(String line, String end) {
+        protected void handleLine(final String line, final String end) {
           lines.add(line);
         }
       };
@@ -54,7 +54,7 @@ public final class LineReader {
   /**
    * Creates a new instance that will read lines from the given {@code Readable} object.
    */
-  public LineReader(Readable readable) {
+  public LineReader(final Readable readable) {
     this.readable = checkNotNull(readable);
     this.reader = (readable instanceof Reader) ? (Reader) readable : null;
   }

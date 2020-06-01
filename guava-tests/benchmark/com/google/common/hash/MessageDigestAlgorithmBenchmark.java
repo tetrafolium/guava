@@ -44,19 +44,19 @@ public class MessageDigestAlgorithmBenchmark {
 
   private enum HashMethod {
     MESSAGE_DIGEST_API() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
+      @Override public byte[] hash(final Algorithm algorithm, final byte[] input) {
         MessageDigest md = algorithm.getMessageDigest();
         md.update(input);
         return md.digest();
       }
     },
     HASH_FUNCTION_DIRECT() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
+      @Override public byte[] hash(final Algorithm algorithm, final byte[] input) {
         return algorithm.getHashFunction().hashBytes(input).asBytes();
       }
     },
     HASH_FUNCTION_VIA_HASHER() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
+      @Override public byte[] hash(final Algorithm algorithm, final byte[] input) {
         return algorithm.getHashFunction().newHasher().putBytes(input).hash().asBytes();
       }
     };;
@@ -72,7 +72,7 @@ public class MessageDigestAlgorithmBenchmark {
 
     private final String algorithmName;
     private final HashFunction hashFn;
-    Algorithm(String algorithmName, HashFunction hashFn) {
+    Algorithm(final String algorithmName, final HashFunction hashFn) {
       this.algorithmName = algorithmName;
       this.hashFn = hashFn;
     }
@@ -98,7 +98,7 @@ public class MessageDigestAlgorithmBenchmark {
     new Random(RANDOM_SEED).nextBytes(testBytes);
   }
 
-  @Benchmark byte hashing(int reps) {
+  @Benchmark byte hashing(final int reps) {
     byte result = 0x01;
     HashMethod hashMethod = this.hashMethod;
     Algorithm algorithm = this.algorithm;

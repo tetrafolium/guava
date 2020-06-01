@@ -165,7 +165,7 @@ public class StripedTest extends TestCase {
     }
   }
 
-  private static void assertBasicInvariants(Striped<?> striped) {
+  private static void assertBasicInvariants(final Striped<?> striped) {
     Set<Object> observed = Sets.newIdentityHashSet(); // for the sake of weakly referenced locks.
     // this gets the stripes with #getAt(index)
     for (int i = 0; i < striped.size(); i++) {
@@ -184,12 +184,12 @@ public class StripedTest extends TestCase {
     try {
       striped.getAt(-1);
       fail();
-    } catch (RuntimeException expected) {}
+    } catch (RuntimeException expected) { }
 
     try {
       striped.getAt(striped.size());
       fail();
-    } catch (RuntimeException expected) {}
+    } catch (RuntimeException expected) { }
   }
 
   public void testMaxSize() {

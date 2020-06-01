@@ -261,7 +261,7 @@ public class MacHashFunctionTest extends TestCase {
   }
 
   private static void assertMacHashing(
-      byte[] input, String algorithm, SecretKey key, HashFunction hashFunc) throws Exception {
+      final byte[] input, final String algorithm, final SecretKey key, final HashFunction hashFunc) throws Exception {
     Mac mac = Mac.getInstance(algorithm);
     mac.init(key);
     mac.update(input);
@@ -370,27 +370,27 @@ public class MacHashFunctionTest extends TestCase {
     checkMd5("6f630fad67cda0ee1fb1f562db3aa53e", key, data);
   }
 
-  private static void checkSha1(String expected, byte[] key, String data) {
+  private static void checkSha1(final String expected, final byte[] key, final String data) {
     checkSha1(expected, key, data.getBytes(UTF_8));
   }
 
-  private static void checkSha1(String expected, byte[] key, byte[] data) {
+  private static void checkSha1(final String expected, final byte[] key, final byte[] data) {
     checkHmac(expected, Hashing.hmacSha1(key), data);
   }
 
-  private static void checkMd5(String expected, byte[] key, String data) {
+  private static void checkMd5(final String expected, final byte[] key, final String data) {
     checkMd5(expected, key, data.getBytes(UTF_8));
   }
 
-  private static void checkMd5(String expected, byte[] key, byte[] data) {
+  private static void checkMd5(final String expected, final byte[] key, final byte[] data) {
     checkHmac(expected, Hashing.hmacMd5(key), data);
   }
 
-  private static void checkHmac(String expected, HashFunction hashFunc, byte[] data) {
+  private static void checkHmac(final String expected, final HashFunction hashFunc, final byte[] data) {
     assertEquals(HashCode.fromString(expected), hashFunc.hashBytes(data));
   }
 
-  private static byte[] fillByteArray(int size, int toFillWith) {
+  private static byte[] fillByteArray(final int size, final int toFillWith) {
     byte[] array = new byte[size];
     Arrays.fill(array, (byte) toFillWith);
     return array;

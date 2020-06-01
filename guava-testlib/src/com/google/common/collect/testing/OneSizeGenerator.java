@@ -33,7 +33,7 @@ public final class OneSizeGenerator<T, E> implements OneSizeTestContainerGenerat
   private final TestContainerGenerator<T, E> generator;
   private final CollectionSize collectionSize;
 
-  public OneSizeGenerator(TestContainerGenerator<T, E> generator, CollectionSize collectionSize) {
+  public OneSizeGenerator(final TestContainerGenerator<T, E> generator, final CollectionSize collectionSize) {
     this.generator = generator;
     this.collectionSize = collectionSize;
   }
@@ -49,12 +49,12 @@ public final class OneSizeGenerator<T, E> implements OneSizeTestContainerGenerat
   }
 
   @Override
-  public T create(Object... elements) {
+  public T create(final Object... elements) {
     return generator.create(elements);
   }
 
   @Override
-  public E[] createArray(int length) {
+  public E[] createArray(final int length) {
     return generator.createArray(length);
   }
 
@@ -65,7 +65,7 @@ public final class OneSizeGenerator<T, E> implements OneSizeTestContainerGenerat
   }
 
   @Override
-  public Collection<E> getSampleElements(int howMany) {
+  public Collection<E> getSampleElements(final int howMany) {
     SampleElements<E> samples = samples();
     @SuppressWarnings("unchecked")
     List<E> allSampleElements =
@@ -79,7 +79,7 @@ public final class OneSizeGenerator<T, E> implements OneSizeTestContainerGenerat
   }
 
   @Override
-  public Iterable<E> order(List<E> insertionOrder) {
+  public Iterable<E> order(final List<E> insertionOrder) {
     return generator.order(insertionOrder);
   }
 }

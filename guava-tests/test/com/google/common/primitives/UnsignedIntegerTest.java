@@ -33,7 +33,7 @@ public class UnsignedIntegerTest extends TestCase {
   private static final ImmutableSet<Integer> TEST_INTS;
   private static final ImmutableSet<Long> TEST_LONGS;
 
-  private static int force32(int value) {
+  private static int force32(final int value) {
     // GWT doesn't consistently overflow values to make them 32-bit, so we need to force it.
     return value & 0xffffffff;
   }
@@ -201,7 +201,7 @@ public class UnsignedIntegerTest extends TestCase {
         UnsignedInteger unused =
             UnsignedInteger.fromIntBits(a).dividedBy(UnsignedInteger.ZERO);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -225,7 +225,7 @@ public class UnsignedIntegerTest extends TestCase {
       try {
         UnsignedInteger.fromIntBits(a).mod(UnsignedInteger.ZERO);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 

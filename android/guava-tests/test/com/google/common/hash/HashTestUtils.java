@@ -39,12 +39,12 @@ import org.junit.Assert;
  * @author Kurt Alfred Kluever
  */
 final class HashTestUtils {
-  private HashTestUtils() {}
+  private HashTestUtils() { }
 
   /**
    * Converts a string, which should contain only ascii-representable characters, to a byte[].
    */
-  static byte[] ascii(String string) {
+  static byte[] ascii(final String string) {
     byte[] bytes = new byte[string.length()];
     for (int i = 0; i < string.length(); i++) {
       bytes[i] = (byte) string.charAt(i);
@@ -56,7 +56,7 @@ final class HashTestUtils {
     byte[] hash(byte[] input, int seed);
   }
 
-  static void verifyHashFunction(HashFn hashFunction, int hashbits, int expected) {
+  static void verifyHashFunction(final HashFn hashFunction, final int hashbits, final int expected) {
     int hashBytes = hashbits / 8;
 
     byte[] key = new byte[256];
@@ -83,14 +83,14 @@ final class HashTestUtils {
   }
 
   static final Funnel<Object> BAD_FUNNEL = new Funnel<Object>() {
-    @Override public void funnel(Object object, PrimitiveSink bytePrimitiveSink) {
+    @Override public void funnel(final Object object, final PrimitiveSink bytePrimitiveSink) {
       bytePrimitiveSink.putInt(object.hashCode());
     }
   };
 
   enum RandomHasherAction {
     PUT_BOOLEAN() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         boolean value = random.nextBoolean();
         for (PrimitiveSink sink : sinks) {
           sink.putBoolean(value);
@@ -98,7 +98,7 @@ final class HashTestUtils {
       }
     },
     PUT_BYTE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         int value = random.nextInt();
         for (PrimitiveSink sink : sinks) {
           sink.putByte((byte) value);
@@ -106,7 +106,7 @@ final class HashTestUtils {
       }
     },
     PUT_SHORT() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         short value = (short) random.nextInt();
         for (PrimitiveSink sink : sinks) {
           sink.putShort(value);
@@ -114,7 +114,7 @@ final class HashTestUtils {
       }
     },
     PUT_CHAR() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         char value = (char) random.nextInt();
         for (PrimitiveSink sink : sinks) {
           sink.putChar(value);
@@ -122,7 +122,7 @@ final class HashTestUtils {
       }
     },
     PUT_INT() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         int value = random.nextInt();
         for (PrimitiveSink sink : sinks) {
           sink.putInt(value);
@@ -130,7 +130,7 @@ final class HashTestUtils {
       }
     },
     PUT_LONG() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         long value = random.nextLong();
         for (PrimitiveSink sink : sinks) {
           sink.putLong(value);
@@ -138,7 +138,7 @@ final class HashTestUtils {
       }
     },
     PUT_FLOAT() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         float value = random.nextFloat();
         for (PrimitiveSink sink : sinks) {
           sink.putFloat(value);
@@ -146,7 +146,7 @@ final class HashTestUtils {
       }
     },
     PUT_DOUBLE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         double value = random.nextDouble();
         for (PrimitiveSink sink : sinks) {
           sink.putDouble(value);
@@ -154,7 +154,7 @@ final class HashTestUtils {
       }
     },
     PUT_BYTES() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         byte[] value = new byte[random.nextInt(128)];
         random.nextBytes(value);
         for (PrimitiveSink sink : sinks) {
@@ -163,7 +163,7 @@ final class HashTestUtils {
       }
     },
     PUT_BYTES_INT_INT() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         byte[] value = new byte[random.nextInt(128)];
         random.nextBytes(value);
         int off = random.nextInt(value.length + 1);
@@ -175,7 +175,7 @@ final class HashTestUtils {
     },
     PUT_BYTE_BUFFER() {
       @Override
-      void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         byte[] value = new byte[random.nextInt(128)];
         random.nextBytes(value);
         int pos = random.nextInt(value.length + 1);
@@ -191,7 +191,7 @@ final class HashTestUtils {
       }
     },
     PUT_STRING() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         char[] value = new char[random.nextInt(128)];
         for (int i = 0; i < value.length; i++) {
           value[i] = (char) random.nextInt();
@@ -203,23 +203,23 @@ final class HashTestUtils {
       }
     },
     PUT_STRING_LOW_SURROGATE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
-        String s = new String(new char[] { randomLowSurrogate(random) });
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
+        String s = new String(new char[] {randomLowSurrogate(random) });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
       }
     },
     PUT_STRING_HIGH_SURROGATE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
-        String s = new String(new char[] { randomHighSurrogate(random) });
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
+        String s = new String(new char[] {randomHighSurrogate(random) });
         for (PrimitiveSink sink : sinks) {
           sink.putUnencodedChars(s);
         }
       }
     },
     PUT_STRING_LOW_HIGH_SURROGATE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
             randomLowSurrogate(random), randomHighSurrogate(random)});
         for (PrimitiveSink sink : sinks) {
@@ -228,7 +228,7 @@ final class HashTestUtils {
       }
     },
     PUT_STRING_HIGH_LOW_SURROGATE() {
-      @Override void performAction(Random random, Iterable<? extends PrimitiveSink> sinks) {
+      @Override void performAction(final Random random, final Iterable<? extends PrimitiveSink> sinks) {
         String s = new String(new char[] {
             randomHighSurrogate(random), randomLowSurrogate(random)});
         for (PrimitiveSink sink : sinks) {
@@ -241,7 +241,7 @@ final class HashTestUtils {
 
     private static final RandomHasherAction[] actions = values();
 
-    static RandomHasherAction pickAtRandom(Random random) {
+    static RandomHasherAction pickAtRandom(final Random random) {
       return actions[random.nextInt(actions.length)];
     }
   }
@@ -260,7 +260,7 @@ final class HashTestUtils {
    * except bit(i). One pair must differ in output bit(j), and one pair must not. This proves that
    * input bit(i) can alter output bit(j).
    */
-  static void checkNoFunnels(HashFunction function) {
+  static void checkNoFunnels(final HashFunction function) {
     Random rand = new Random(0);
     int keyBits = 32;
     int hashBits = function.bits();
@@ -288,10 +288,10 @@ final class HashTestUtils {
         // check whether we've exceeded the probabilistically
         // likely number of trials to have proven no funneling
         if (count > maxCount) {
-          Assert.fail("input bit(" + i + ") was found not to affect all " +
-               hashBits + " output bits; The unaffected bits are " +
-               "as follows: " + ~(same & diff) + ". This was " +
-               "determined after " + count + " trials.");
+          Assert.fail("input bit(" + i + ") was found not to affect all "
+               + hashBits + " output bits; The unaffected bits are "
+               + "as follows: " + ~(same & diff) + ". This was "
+               + "determined after " + count + " trials.");
         }
       }
     }
@@ -303,7 +303,7 @@ final class HashTestUtils {
    *
    * <p>For more information: http://burtleburtle.net/bob/hash/avalanche.html
    */
-  static void checkAvalanche(HashFunction function, int trials, double epsilon) {
+  static void checkAvalanche(final HashFunction function, final int trials, final double epsilon) {
     Random rand = new Random(0);
     int keyBits = 32;
     int hashBits = function.bits();
@@ -343,7 +343,7 @@ final class HashTestUtils {
    * <p>There is more general code provided by Bob Jenkins to test arbitrarily sized characteristics
    * using the magic of gaussian elimination: http://burtleburtle.net/bob/crypto/findingc.html.
    */
-  static void checkNo2BitCharacteristics(HashFunction function) {
+  static void checkNo2BitCharacteristics(final HashFunction function) {
     Random rand = new Random(0);
     int keyBits = 32;
 
@@ -377,9 +377,9 @@ final class HashTestUtils {
           // is not a characteristic
           count++;
           if (count > maxCount) {
-            Assert.fail("2-bit delta (" + i + ", " + j + ") is likely a " +
-                 "characteristic for this hash. This was " +
-                 "determined after " + count + " trials");
+            Assert.fail("2-bit delta (" + i + ", " + j + ") is likely a "
+                 + "characteristic for this hash. This was "
+                 + "determined after " + count + " trials");
           }
         }
       }
@@ -390,7 +390,7 @@ final class HashTestUtils {
    * Test for avalanche with 2-bit deltas. Most probabilities of output bit(j) differing are well
    * within 50%.
    */
-  static void check2BitAvalanche(HashFunction function, int trials, double epsilon) {
+  static void check2BitAvalanche(final HashFunction function, final int trials, final double epsilon) {
     Random rand = new Random(0);
     int keyBits = 32;
     int hashBits = function.bits();
@@ -429,7 +429,7 @@ final class HashTestUtils {
    * Checks that a Hasher returns the same HashCode when given the same input, and also
    * that the collision rate looks sane.
    */
-  static void assertInvariants(HashFunction hashFunction) {
+  static void assertInvariants(final HashFunction hashFunction) {
     int objects = 100;
     Set<HashCode> hashcodes = Sets.newHashSetWithExpectedSize(objects);
     Random random = new Random(314159);
@@ -449,21 +449,21 @@ final class HashTestUtils {
     assertShortcutsAreEquivalent(hashFunction, 512);
   }
 
-  static void assertHashByteBufferInvariants(HashFunction hashFunction) {
+  static void assertHashByteBufferInvariants(final HashFunction hashFunction) {
     assertHashByteBufferMatchesBytes(hashFunction);
     assertHashByteBufferExhaustsBuffer(hashFunction);
     assertHashByteBufferPreservesByteOrder(hashFunction);
     assertHasherByteBufferPreservesByteOrder(hashFunction);
   }
 
-  static void assertHashByteBufferMatchesBytes(HashFunction hashFunction) {
+  static void assertHashByteBufferMatchesBytes(final HashFunction hashFunction) {
     Random rng = new Random(0L);
     byte[] bytes = new byte[rng.nextInt(256) + 1];
     rng.nextBytes(bytes);
     assertEquals(hashFunction.hashBytes(bytes), hashFunction.hashBytes(ByteBuffer.wrap(bytes)));
   }
 
-  static void assertHashByteBufferExhaustsBuffer(HashFunction hashFunction) {
+  static void assertHashByteBufferExhaustsBuffer(final HashFunction hashFunction) {
     Random rng = new Random(0L);
     byte[] bytes = new byte[rng.nextInt(256) + 1];
     rng.nextBytes(bytes);
@@ -472,7 +472,7 @@ final class HashTestUtils {
     assertFalse(buffer.hasRemaining());
   }
 
-  static void assertHashByteBufferPreservesByteOrder(HashFunction hashFunction) {
+  static void assertHashByteBufferPreservesByteOrder(final HashFunction hashFunction) {
     Random rng = new Random(0L);
     byte[] bytes = new byte[rng.nextInt(256) + 1];
     rng.nextBytes(bytes);
@@ -483,7 +483,7 @@ final class HashTestUtils {
     assertEquals(ByteOrder.BIG_ENDIAN, littleEndian.order());
   }
 
-  static void assertHasherByteBufferPreservesByteOrder(HashFunction hashFunction) {
+  static void assertHasherByteBufferPreservesByteOrder(final HashFunction hashFunction) {
     Random rng = new Random(0L);
     byte[] bytes = new byte[rng.nextInt(256) + 1];
     rng.nextBytes(bytes);
@@ -496,7 +496,7 @@ final class HashTestUtils {
     assertEquals(ByteOrder.BIG_ENDIAN, littleEndian.order());
   }
 
-  static void assertHashBytesThrowsCorrectExceptions(HashFunction hashFunction) {
+  static void assertHashBytesThrowsCorrectExceptions(final HashFunction hashFunction) {
     {
       HashCode unused = hashFunction.hashBytes(new byte[64], 0, 0);
     }
@@ -504,18 +504,18 @@ final class HashTestUtils {
     try {
       hashFunction.hashBytes(new byte[128], -1, 128);
       Assert.fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       hashFunction.hashBytes(new byte[128], 64, 256 /* too long len */);
       Assert.fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       hashFunction.hashBytes(new byte[64], 0, -1);
       Assert.fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
-  static void assertIndependentHashers(HashFunction hashFunction) {
+  static void assertIndependentHashers(final HashFunction hashFunction) {
     int numActions = 100;
     // hashcodes from non-overlapping hash computations
     HashCode expected1 = randomHash(hashFunction, new Random(1L), numActions);
@@ -535,7 +535,7 @@ final class HashTestUtils {
     Assert.assertEquals(expected2, hasher2.hash());
   }
 
-  static HashCode randomHash(HashFunction hashFunction, Random random, int numActions) {
+  static HashCode randomHash(final HashFunction hashFunction, final Random random, final int numActions) {
     Hasher hasher = hashFunction.newHasher();
     for (int i = 0; i < numActions; i++) {
       RandomHasherAction.pickAtRandom(random).performAction(random, ImmutableSet.of(hasher));
@@ -543,7 +543,7 @@ final class HashTestUtils {
     return hasher.hash();
   }
 
-  private static void assertShortcutsAreEquivalent(HashFunction hashFunction, int trials) {
+  private static void assertShortcutsAreEquivalent(final HashFunction hashFunction, final int trials) {
     Random random = new Random(42085L);
     for (int i = 0; i < trials; i++) {
       assertHashBytesEquivalence(hashFunction, random);
@@ -555,7 +555,7 @@ final class HashTestUtils {
     }
   }
 
-  private static void assertHashBytesEquivalence(HashFunction hashFunction, Random random) {
+  private static void assertHashBytesEquivalence(final HashFunction hashFunction, final Random random) {
     int size = random.nextInt(2048);
     byte[] bytes = new byte[size];
     random.nextBytes(bytes);
@@ -567,7 +567,7 @@ final class HashTestUtils {
         hashFunction.newHasher(size).putBytes(bytes, off, len).hash());
   }
 
-  private static void assertHashByteBufferEquivalence(HashFunction hashFunction, Random random) {
+  private static void assertHashByteBufferEquivalence(final HashFunction hashFunction, final Random random) {
     int size = random.nextInt(2048);
     byte[] bytes = new byte[size];
     random.nextBytes(bytes);
@@ -581,13 +581,13 @@ final class HashTestUtils {
         hashFunction.newHasher(size).putBytes(ByteBuffer.wrap(bytes, off, len)).hash());
   }
 
-  private static void assertHashIntEquivalence(HashFunction hashFunction, Random random) {
+  private static void assertHashIntEquivalence(final HashFunction hashFunction, final Random random) {
     int i = random.nextInt();
     assertEquals(hashFunction.hashInt(i),
         hashFunction.newHasher().putInt(i).hash());
   }
 
-  private static void assertHashLongEquivalence(HashFunction hashFunction, Random random) {
+  private static void assertHashLongEquivalence(final HashFunction hashFunction, final Random random) {
     long l = random.nextLong();
     assertEquals(hashFunction.hashLong(l),
         hashFunction.newHasher().putLong(l).hash());
@@ -601,7 +601,7 @@ final class HashTestUtils {
       Charsets.UTF_16LE,
       Charsets.UTF_8);
 
-  private static void assertHashStringEquivalence(HashFunction hashFunction, Random random) {
+  private static void assertHashStringEquivalence(final HashFunction hashFunction, final Random random) {
     // Test that only data and data-order is important, not the individual operations.
     new EqualsTester()
         .addEqualityGroup(
@@ -634,7 +634,7 @@ final class HashTestUtils {
    * characters. (But doesn't test that they do the right thing - just their consistency).
    */
   private static void assertHashStringWithSurrogatesEquivalence(
-      HashFunction hashFunction, Random random) {
+      final HashFunction hashFunction, final Random random) {
     int size = random.nextInt(8) + 1;
     char[] chars = new char[size];
     for (int i = 0; i < chars.length; i++) {
@@ -645,12 +645,12 @@ final class HashTestUtils {
         hashFunction.newHasher().putUnencodedChars(string).hash());
   }
 
-  static char randomLowSurrogate(Random random) {
+  static char randomLowSurrogate(final Random random) {
     return (char) (Character.MIN_LOW_SURROGATE
         + random.nextInt(Character.MAX_LOW_SURROGATE - Character.MIN_LOW_SURROGATE + 1));
   }
 
-  static char randomHighSurrogate(Random random) {
+  static char randomHighSurrogate(final Random random) {
     return (char) (Character.MIN_HIGH_SURROGATE
         + random.nextInt(Character.MAX_HIGH_SURROGATE - Character.MIN_HIGH_SURROGATE + 1));
   }

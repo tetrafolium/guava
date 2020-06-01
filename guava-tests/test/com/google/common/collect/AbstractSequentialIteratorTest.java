@@ -56,7 +56,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
       @Override
       public Iterator<Integer> iterator() {
         Iterator<Integer> powersOfTwo = new AbstractSequentialIterator<Integer>(1) {
-          protected Integer computeNext(Integer previous) {
+          protected Integer computeNext(final Integer previous) {
             return (previous == 1 << 30) ? null : previous * 2;
           }
         };
@@ -101,10 +101,10 @@ public class AbstractSequentialIteratorTest extends TestCase {
     }
   }
 
-  private static Iterator<Integer> newDoubler(int first, final int last) {
+  private static Iterator<Integer> newDoubler(final int first, final int last) {
     return new AbstractSequentialIterator<Integer>(first) {
       @Override
-      protected Integer computeNext(Integer previous) {
+      protected Integer computeNext(final Integer previous) {
         return (previous == last) ? null : previous * 2;
       }
     };
@@ -113,7 +113,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
   private static <T> Iterator<T> newEmpty() {
     return new AbstractSequentialIterator<T>(null) {
       @Override
-      protected T computeNext(T previous) {
+      protected T computeNext(final T previous) {
         throw new AssertionFailedError();
       }
     };
@@ -122,11 +122,11 @@ public class AbstractSequentialIteratorTest extends TestCase {
   private static Iterator<Object> newBroken() {
     return new AbstractSequentialIterator<Object>("UNUSED") {
       @Override
-      protected Object computeNext(Object previous) {
+      protected Object computeNext(final Object previous) {
         throw new MyException();
       }
     };
   }
 
-  private static class MyException extends RuntimeException {}
+  private static class MyException extends RuntimeException { }
 }

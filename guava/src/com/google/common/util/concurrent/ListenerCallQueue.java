@@ -71,7 +71,7 @@ final class ListenerCallQueue<L> {
    * Adds a listener that will be called using the given executor when events are later {@link
    * #enqueue enqueued} and {@link #dispatch dispatched}.
    */
-  public void addListener(L listener, Executor executor) {
+  public void addListener(final L listener, final Executor executor) {
     checkNotNull(listener, "listener");
     checkNotNull(executor, "executor");
     listeners.add(new PerListenerQueue<>(listener, executor));
@@ -85,7 +85,7 @@ final class ListenerCallQueue<L> {
    *
    * @param event the callback to execute on {@link #dispatch}
    */
-  public void enqueue(Event<L> event) {
+  public void enqueue(final Event<L> event) {
     enqueueHelper(event, event);
   }
 
@@ -95,11 +95,11 @@ final class ListenerCallQueue<L> {
    * @param event the callback to execute on {@link #dispatch}
    * @param label a description of the event to use in the case of an error
    */
-  public void enqueue(Event<L> event, String label) {
+  public void enqueue(final Event<L> event, final String label) {
     enqueueHelper(event, label);
   }
 
-  private void enqueueHelper(Event<L> event, Object label) {
+  private void enqueueHelper(final Event<L> event, final Object label) {
     checkNotNull(event, "event");
     checkNotNull(label, "label");
     synchronized (listeners) {
@@ -141,13 +141,13 @@ final class ListenerCallQueue<L> {
     @GuardedBy("this")
     boolean isThreadScheduled;
 
-    PerListenerQueue(L listener, Executor executor) {
+    PerListenerQueue(final L listener, final Executor executor) {
       this.listener = checkNotNull(listener);
       this.executor = checkNotNull(executor);
     }
 
     /** Enqueues a event to be run. */
-    synchronized void add(ListenerCallQueue.Event<L> event, Object label) {
+    synchronized void add(final ListenerCallQueue.Event<L> event, final Object label) {
       waitQueue.add(event);
       labelQueue.add(label);
     }

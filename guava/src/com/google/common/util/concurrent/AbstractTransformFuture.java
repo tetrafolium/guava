@@ -35,9 +35,9 @@ import javax.annotation.Nullable;
 abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.TrustedFuture<O>
     implements Runnable {
   static <I, O> ListenableFuture<O> create(
-      ListenableFuture<I> input,
-      AsyncFunction<? super I, ? extends O> function,
-      Executor executor) {
+      final ListenableFuture<I> input,
+      final AsyncFunction<? super I, ? extends O> function,
+      final Executor executor) {
     checkNotNull(executor);
     AsyncTransformFuture<I, O> output = new AsyncTransformFuture<>(input, function);
     input.addListener(output, rejectionPropagatingExecutor(executor, output));
@@ -45,7 +45,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
   }
 
   static <I, O> ListenableFuture<O> create(
-      ListenableFuture<I> input, Function<? super I, ? extends O> function, Executor executor) {
+      final ListenableFuture<I> input, final Function<? super I, ? extends O> function, final Executor executor) {
     checkNotNull(function);
     TransformFuture<I, O> output = new TransformFuture<>(input, function);
     input.addListener(output, rejectionPropagatingExecutor(executor, output));
@@ -59,7 +59,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
   @Nullable ListenableFuture<? extends I> inputFuture;
   @Nullable F function;
 
-  AbstractTransformFuture(ListenableFuture<? extends I> inputFuture, F function) {
+  AbstractTransformFuture(final ListenableFuture<? extends I> inputFuture, final F function) {
     this.inputFuture = checkNotNull(inputFuture);
     this.function = checkNotNull(function);
   }
@@ -196,13 +196,13 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
       extends AbstractTransformFuture<
           I, O, AsyncFunction<? super I, ? extends O>, ListenableFuture<? extends O>> {
     AsyncTransformFuture(
-        ListenableFuture<? extends I> inputFuture, AsyncFunction<? super I, ? extends O> function) {
+        final ListenableFuture<? extends I> inputFuture, final AsyncFunction<? super I, ? extends O> function) {
       super(inputFuture, function);
     }
 
     @Override
     ListenableFuture<? extends O> doTransform(
-        AsyncFunction<? super I, ? extends O> function, @Nullable I input) throws Exception {
+        final AsyncFunction<? super I, ? extends O> function, final @Nullable I input) throws Exception {
       ListenableFuture<? extends O> outputFuture = function.apply(input);
       checkNotNull(
           outputFuture,
@@ -212,7 +212,7 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
     }
 
     @Override
-    void setResult(ListenableFuture<? extends O> result) {
+    void setResult(final ListenableFuture<? extends O> result) {
       setFuture(result);
     }
   }
@@ -224,19 +224,19 @@ abstract class AbstractTransformFuture<I, O, F, T> extends AbstractFuture.Truste
   private static final class TransformFuture<I, O>
       extends AbstractTransformFuture<I, O, Function<? super I, ? extends O>, O> {
     TransformFuture(
-        ListenableFuture<? extends I> inputFuture, Function<? super I, ? extends O> function) {
+        final ListenableFuture<? extends I> inputFuture, final Function<? super I, ? extends O> function) {
       super(inputFuture, function);
     }
 
     @Override
     @Nullable
-    O doTransform(Function<? super I, ? extends O> function, @Nullable I input) {
+    O doTransform(final Function<? super I, ? extends O> function, final @Nullable I input) {
       return function.apply(input);
       // TODO(lukes): move the UndeclaredThrowable catch block here?
     }
 
     @Override
-    void setResult(@Nullable O result) {
+    void setResult(final @Nullable O result) {
       set(result);
     }
   }

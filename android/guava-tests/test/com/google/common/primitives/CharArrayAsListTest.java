@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class CharArrayAsListTest extends TestCase {
 
-  private static List<Character> asList(Character[] values) {
+  private static List<Character> asList(final Character[] values) {
     char[] temp = new char[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class CharArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class CharsAsListGenerator extends TestCharListGenerator {
-    @Override protected List<Character> create(Character[] elements) {
+    @Override protected List<Character> create(final Character[] elements) {
       return asList(elements);
     }
   }
 
   public static final class CharsAsListHeadSubListGenerator extends TestCharListGenerator {
-    @Override protected List<Character> create(Character[] elements) {
+    @Override protected List<Character> create(final Character[] elements) {
       Character[] suffix = {Character.MIN_VALUE, Character.MAX_VALUE};
       Character[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class CharArrayAsListTest extends TestCase {
   }
 
   public static final class CharsAsListTailSubListGenerator extends TestCharListGenerator {
-    @Override protected List<Character> create(Character[] elements) {
+    @Override protected List<Character> create(final Character[] elements) {
       Character[] prefix = {(char) 86, (char) 99};
       Character[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class CharArrayAsListTest extends TestCase {
   }
 
   public static final class CharsAsListMiddleSubListGenerator extends TestCharListGenerator {
-    @Override protected List<Character> create(Character[] elements) {
+    @Override protected List<Character> create(final Character[] elements) {
       Character[] prefix = {Character.MIN_VALUE, Character.MAX_VALUE};
       Character[] suffix = {(char) 86, (char) 99};
       Character[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class CharArrayAsListTest extends TestCase {
     }
   }
 
-  private static Character[] concat(Character[] left, Character[] right) {
+  private static Character[] concat(final Character[] left, final Character[] right) {
     Character[] result = new Character[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class CharArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Character> create(Object... elements) {
+    public List<Character> create(final Object... elements) {
       Character[] array = new Character[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class CharArrayAsListTest extends TestCase {
     protected abstract List<Character> create(Character[] elements);
 
     @Override
-    public Character[] createArray(int length) {
+    public Character[] createArray(final int length) {
       return new Character[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Character> order(List<Character> insertionOrder) {
+    public List<Character> order(final List<Character> insertionOrder) {
       return insertionOrder;
     }
   }

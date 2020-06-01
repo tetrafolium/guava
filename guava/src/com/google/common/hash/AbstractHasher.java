@@ -28,22 +28,22 @@ import java.nio.charset.Charset;
 @CanIgnoreReturnValue
 abstract class AbstractHasher implements Hasher {
   @Override
-  public final Hasher putBoolean(boolean b) {
+  public final Hasher putBoolean(final boolean b) {
     return putByte(b ? (byte) 1 : (byte) 0);
   }
 
   @Override
-  public final Hasher putDouble(double d) {
+  public final Hasher putDouble(final double d) {
     return putLong(Double.doubleToRawLongBits(d));
   }
 
   @Override
-  public final Hasher putFloat(float f) {
+  public final Hasher putFloat(final float f) {
     return putInt(Float.floatToRawIntBits(f));
   }
 
   @Override
-  public Hasher putUnencodedChars(CharSequence charSequence) {
+  public Hasher putUnencodedChars(final CharSequence charSequence) {
     for (int i = 0, len = charSequence.length(); i < len; i++) {
       putChar(charSequence.charAt(i));
     }
@@ -51,17 +51,17 @@ abstract class AbstractHasher implements Hasher {
   }
 
   @Override
-  public Hasher putString(CharSequence charSequence, Charset charset) {
+  public Hasher putString(final CharSequence charSequence, final Charset charset) {
     return putBytes(charSequence.toString().getBytes(charset));
   }
 
   @Override
-  public Hasher putBytes(byte[] bytes) {
+  public Hasher putBytes(final byte[] bytes) {
     return putBytes(bytes, 0, bytes.length);
   }
 
   @Override
-  public Hasher putBytes(byte[] bytes, int off, int len) {
+  public Hasher putBytes(final byte[] bytes, final int off, final int len) {
     Preconditions.checkPositionIndexes(off, off + len, bytes.length);
     for (int i = 0; i < len; i++) {
       putByte(bytes[off + i]);
@@ -70,7 +70,7 @@ abstract class AbstractHasher implements Hasher {
   }
 
   @Override
-  public Hasher putBytes(ByteBuffer b) {
+  public Hasher putBytes(final ByteBuffer b) {
     if (b.hasArray()) {
       putBytes(b.array(), b.arrayOffset() + b.position(), b.remaining());
       b.position(b.limit());
@@ -83,14 +83,14 @@ abstract class AbstractHasher implements Hasher {
   }
 
   @Override
-  public Hasher putShort(short s) {
+  public Hasher putShort(final short s) {
     putByte((byte) s);
     putByte((byte) (s >>> 8));
     return this;
   }
 
   @Override
-  public Hasher putInt(int i) {
+  public Hasher putInt(final int i) {
     putByte((byte) i);
     putByte((byte) (i >>> 8));
     putByte((byte) (i >>> 16));
@@ -99,7 +99,7 @@ abstract class AbstractHasher implements Hasher {
   }
 
   @Override
-  public Hasher putLong(long l) {
+  public Hasher putLong(final long l) {
     for (int i = 0; i < 64; i += 8) {
       putByte((byte) (l >>> i));
     }
@@ -107,14 +107,14 @@ abstract class AbstractHasher implements Hasher {
   }
 
   @Override
-  public Hasher putChar(char c) {
+  public Hasher putChar(final char c) {
     putByte((byte) c);
     putByte((byte) (c >>> 8));
     return this;
   }
 
   @Override
-  public <T> Hasher putObject(T instance, Funnel<? super T> funnel) {
+  public <T> Hasher putObject(final T instance, final Funnel<? super T> funnel) {
     funnel.funnel(instance, this);
     return this;
   }

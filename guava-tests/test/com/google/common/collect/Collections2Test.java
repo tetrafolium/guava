@@ -64,21 +64,21 @@ public class Collections2Test extends TestCase {
 
   static final Predicate<String> NOT_YYY_ZZZ = new Predicate<String>() {
       @Override
-      public boolean apply(String input) {
+      public boolean apply(final String input) {
         return !"yyy".equals(input) && !"zzz".equals(input);
       }
   };
 
   static final Predicate<String> LENGTH_1 = new Predicate<String>() {
     @Override
-    public boolean apply(String input) {
+    public boolean apply(final String input) {
       return input.length() == 1;
     }
   };
 
   static final Predicate<String> STARTS_WITH_VOWEL = new Predicate<String>() {
     @Override
-    public boolean apply(String input) {
+    public boolean apply(final String input) {
       return asList('a', 'e', 'i', 'o', 'u').contains(input.charAt(0));
     }
   };
@@ -87,7 +87,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForFilter() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> unfiltered = newArrayList();
             unfiltered.add("yyy");
             Collections.addAll(unfiltered, elements);
@@ -109,7 +109,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForFilterAll() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> unfiltered = newArrayList();
             Collections.addAll(unfiltered, elements);
             return Collections2.filter(unfiltered, NOT_YYY_ZZZ);
@@ -129,7 +129,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForFilterLinkedList() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> unfiltered = newLinkedList();
             unfiltered.add("yyy");
             Collections.addAll(unfiltered, elements);
@@ -151,7 +151,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForFilterNoNulls() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> unfiltered = newArrayList();
             unfiltered.add("yyy");
             unfiltered.addAll(ImmutableList.copyOf(elements));
@@ -173,7 +173,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForFilterFiltered() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> unfiltered = newArrayList();
             unfiltered.add("yyy");
             unfiltered.addAll(ImmutableList.copyOf(elements));
@@ -196,7 +196,7 @@ public class Collections2Test extends TestCase {
   private static final Function<String, String> REMOVE_FIRST_CHAR
       = new Function<String, String>() {
         @Override
-        public String apply(String from) {
+        public String apply(final String from) {
           return ((from == null) || "".equals(from))
               ? null : from.substring(1);
         }
@@ -206,7 +206,7 @@ public class Collections2Test extends TestCase {
   private static Test testsForTransform() {
     return CollectionTestSuiteBuilder.using(
         new TestStringCollectionGenerator() {
-          @Override public Collection<String> create(String[] elements) {
+          @Override public Collection<String> create(final String[] elements) {
             List<String> list = newArrayList();
             for (String element : elements) {
               list.add((element == null) ? null : "q" + element);
@@ -326,16 +326,16 @@ public class Collections2Test extends TestCase {
         Collections2.permutations(Collections.<Integer>emptyList());
 
     assertEquals(1, permutationSet.size());
-    assertTrue(permutationSet.contains(Collections.<Integer> emptyList()));
+    assertTrue(permutationSet.contains(Collections.<Integer>emptyList()));
 
     Iterator<List<Integer>> permutations = permutationSet.iterator();
-    assertNextPermutation(Collections.<Integer> emptyList(), permutations);
+    assertNextPermutation(Collections.<Integer>emptyList(), permutations);
     assertNoMorePermutations(permutations);
   }
 
   public void testPermutationSetOneElement() {
     Iterator<List<Integer>> permutations =
-        Collections2.permutations(Collections.<Integer> singletonList(1))
+        Collections2.permutations(Collections.<Integer>singletonList(1))
         .iterator();
     assertNextPermutation(newArrayList(1), permutations);
     assertNoMorePermutations(permutations);
@@ -461,25 +461,25 @@ public class Collections2Test extends TestCase {
     assertFalse(permutationSet.contains(null));
   }
 
-  private <T> void assertNextPermutation(List<T> expectedPermutation,
-      Iterator<List<T>> permutations) {
+  private <T> void assertNextPermutation(final List<T> expectedPermutation,
+      final Iterator<List<T>> permutations) {
     assertTrue("Expected another permutation, but there was none.",
         permutations.hasNext());
     assertEquals(expectedPermutation, permutations.next());
   }
 
   private <T> void assertNoMorePermutations(
-      Iterator<List<T>> permutations) {
+      final Iterator<List<T>> permutations) {
     assertFalse("Expected no more permutations, but there was one.",
         permutations.hasNext());
     try {
       permutations.next();
       fail("Expected NoSuchElementException.");
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
   }
 
-  private <T> void assertPermutationsCount(int expected,
-      Collection<List<T>> permutationSet) {
+  private <T> void assertPermutationsCount(final int expected,
+      final Collection<List<T>> permutationSet) {
     assertEquals(expected, permutationSet.size());
     Iterator<List<T>> permutations = permutationSet.iterator();
     for (int i = 0; i < expected; i++) {

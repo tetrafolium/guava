@@ -33,13 +33,13 @@ public class UnicodeEscaperTest extends TestCase {
       "" + Character.MAX_HIGH_SURROGATE + Character.MAX_LOW_SURROGATE;
 
   private static final String TEST_STRING =
-      "\0abyz\u0080\u0100\u0800\u1000ABYZ\uffff" +
-      SMALLEST_SURROGATE + "0189" +  LARGEST_SURROGATE;
+      "\0abyz\u0080\u0100\u0800\u1000ABYZ\uffff"
+      + SMALLEST_SURROGATE + "0189" +  LARGEST_SURROGATE;
 
   // Escapes nothing
   private static final UnicodeEscaper NOP_ESCAPER = new UnicodeEscaper() {
     @Override
-    protected char[] escape(int c) {
+    protected char[] escape(final int c) {
       return null;
     }
   };
@@ -47,11 +47,11 @@ public class UnicodeEscaperTest extends TestCase {
   // Escapes everything except [a-zA-Z0-9]
   private static final UnicodeEscaper SIMPLE_ESCAPER = new UnicodeEscaper() {
     @Override
-    protected char[] escape(int cp) {
-      return ('a' <= cp && cp <= 'z') ||
-             ('A' <= cp && cp <= 'Z') ||
-             ('0' <= cp && cp <= '9') ? null :
-          ("[" + String.valueOf(cp) + "]").toCharArray();
+    protected char[] escape(final int cp) {
+      return ('a' <= cp && cp <= 'z')
+             || ('A' <= cp && cp <= 'Z')
+             || ('0' <= cp && cp <= '9') ? null
+          : ("[" + String.valueOf(cp) + "]").toCharArray();
     }
   };
 
@@ -63,9 +63,9 @@ public class UnicodeEscaperTest extends TestCase {
   public void testSimpleEscaper() {
     UnicodeEscaper e = SIMPLE_ESCAPER;
     String expected =
-        "[0]abyz[128][256][2048][4096]ABYZ[65535]" +
-        "[" + Character.MIN_SUPPLEMENTARY_CODE_POINT + "]" +
-        "0189[" + Character.MAX_CODE_POINT + "]";
+        "[0]abyz[128][256][2048][4096]ABYZ[65535]"
+        + "[" + Character.MIN_SUPPLEMENTARY_CODE_POINT + "]"
+        + "0189[" + Character.MAX_CODE_POINT + "]";
     assertEquals(expected, escapeAsString(e, TEST_STRING));
   }
 
@@ -159,13 +159,13 @@ public class UnicodeEscaperTest extends TestCase {
     UnicodeEscaper e = new UnicodeEscaper() {
       // Canonical escaper method that only escapes lower case ASCII letters.
       @Override
-      protected char[] escape(int cp) {
-        return ('a' <= cp && cp <= 'z') ?
-            new char[] { Character.toUpperCase((char) cp) } : null;
+      protected char[] escape(final int cp) {
+        return ('a' <= cp && cp <= 'z')
+            ? new char[] {Character.toUpperCase((char) cp) } : null;
       }
       // Inefficient implementation that defines all letters as escapable.
       @Override
-      protected int nextEscapeIndex(CharSequence csq, int index, int end) {
+      protected int nextEscapeIndex(final CharSequence csq, final int index, final int end) {
         while (index < end && !Character.isLetter(csq.charAt(index))) {
           index++;
         }
@@ -184,7 +184,7 @@ public class UnicodeEscaperTest extends TestCase {
     }
   }
 
-  private static String escapeAsString(Escaper e, String s) {
+  private static String escapeAsString(final Escaper e, final String s) {
     return e.escape(s);
   }
 }

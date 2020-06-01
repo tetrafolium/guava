@@ -68,7 +68,7 @@ public class MultipleSetContainsBenchmark {
     }
   }
 
-  @Benchmark public boolean contains(int reps) {
+  @Benchmark public boolean contains(final int reps) {
     ImmutableSet<Object>[] sets = this.sets;
     Object[] queries = this.queries;
     boolean result = false;

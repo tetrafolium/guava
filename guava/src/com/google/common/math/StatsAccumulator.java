@@ -47,7 +47,7 @@ public final class StatsAccumulator {
   /**
    * Adds the given value to the dataset.
    */
-  public void add(double value) {
+  public void add(final double value) {
     if (count == 0) {
       count = 1;
       mean = value;
@@ -78,7 +78,7 @@ public final class StatsAccumulator {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision)
    */
-  public void addAll(Iterable<? extends Number> values) {
+  public void addAll(final Iterable<? extends Number> values) {
     for (Number value : values) {
       add(value.doubleValue());
     }
@@ -90,7 +90,7 @@ public final class StatsAccumulator {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision)
    */
-  public void addAll(Iterator<? extends Number> values) {
+  public void addAll(final Iterator<? extends Number> values) {
     while (values.hasNext()) {
       add(values.next().doubleValue());
     }
@@ -101,7 +101,7 @@ public final class StatsAccumulator {
    *
    * @param values a series of values
    */
-  public void addAll(double... values) {
+  public void addAll(final double... values) {
     for (double value : values) {
       add(value);
     }
@@ -112,7 +112,7 @@ public final class StatsAccumulator {
    *
    * @param values a series of values
    */
-  public void addAll(int... values) {
+  public void addAll(final int... values) {
     for (int value : values) {
       add(value);
     }
@@ -124,7 +124,7 @@ public final class StatsAccumulator {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision for longs of magnitude over 2^53 (slightly over 9e15))
    */
-  public void addAll(long... values) {
+  public void addAll(final long... values) {
     for (long value : values) {
       add(value);
     }
@@ -134,7 +134,7 @@ public final class StatsAccumulator {
    * Adds the given statistics to the dataset, as if the individual values used to compute the
    * statistics had been added directly.
    */
-  public void addAll(Stats values) {
+  public void addAll(final Stats values) {
     if (values.count() == 0) {
       return;
     }
@@ -351,7 +351,7 @@ public final class StatsAccumulator {
    * Calculates the new value for the accumulated mean when a value is added, in the case where at
    * least one of the previous mean and the value is non-finite.
    */
-  static double calculateNewMeanNonFinite(double previousMean, double value) {
+  static double calculateNewMeanNonFinite(final double previousMean, final double value) {
     /*
      * Desired behaviour is to match the results of applying the naive mean formula. In particular,
      * the update formula can subtract infinities in cases where the naive formula would add them.

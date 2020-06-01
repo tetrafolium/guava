@@ -27,72 +27,72 @@ import javax.annotation.Nullable;
 @GwtCompatible
 @CanIgnoreReturnValue
 final class MathPreconditions {
-  static int checkPositive(@Nullable String role, int x) {
+  static int checkPositive(final @Nullable String role, final int x) {
     if (x <= 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be > 0");
     }
     return x;
   }
 
-  static long checkPositive(@Nullable String role, long x) {
+  static long checkPositive(final @Nullable String role, final long x) {
     if (x <= 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be > 0");
     }
     return x;
   }
 
-  static BigInteger checkPositive(@Nullable String role, BigInteger x) {
+  static BigInteger checkPositive(final @Nullable String role, final BigInteger x) {
     if (x.signum() <= 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be > 0");
     }
     return x;
   }
 
-  static int checkNonNegative(@Nullable String role, int x) {
+  static int checkNonNegative(final @Nullable String role, final int x) {
     if (x < 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be >= 0");
     }
     return x;
   }
 
-  static long checkNonNegative(@Nullable String role, long x) {
+  static long checkNonNegative(final @Nullable String role, final long x) {
     if (x < 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be >= 0");
     }
     return x;
   }
 
-  static BigInteger checkNonNegative(@Nullable String role, BigInteger x) {
+  static BigInteger checkNonNegative(final @Nullable String role, final BigInteger x) {
     if (x.signum() < 0) {
       throw new IllegalArgumentException(role + " (" + x + ") must be >= 0");
     }
     return x;
   }
 
-  static double checkNonNegative(@Nullable String role, double x) {
+  static double checkNonNegative(final @Nullable String role, final double x) {
     if (!(x >= 0)) { // not x < 0, to work with NaN.
       throw new IllegalArgumentException(role + " (" + x + ") must be >= 0");
     }
     return x;
   }
 
-  static void checkRoundingUnnecessary(boolean condition) {
+  static void checkRoundingUnnecessary(final boolean condition) {
     if (!condition) {
       throw new ArithmeticException("mode was UNNECESSARY, but rounding was necessary");
     }
   }
 
-  static void checkInRange(boolean condition) {
+  static void checkInRange(final boolean condition) {
     if (!condition) {
       throw new ArithmeticException("not in range");
     }
   }
 
-  static void checkNoOverflow(boolean condition) {
+  static void checkNoOverflow(final boolean condition) {
     if (!condition) {
       throw new ArithmeticException("overflow");
     }
   }
 
-  private MathPreconditions() {}
+  private MathPreconditions() { }
 }

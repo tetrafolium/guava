@@ -54,7 +54,7 @@ public abstract class ForwardingMapEntry<K, V> extends ForwardingObject implemen
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingMapEntry() {}
+  protected ForwardingMapEntry() { }
 
   @Override
   protected abstract Map.Entry<K, V> delegate();
@@ -70,12 +70,12 @@ public abstract class ForwardingMapEntry<K, V> extends ForwardingObject implemen
   }
 
   @Override
-  public V setValue(V value) {
+  public V setValue(final V value) {
     return delegate().setValue(value);
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return delegate().equals(object);
   }
 
@@ -92,7 +92,7 @@ public abstract class ForwardingMapEntry<K, V> extends ForwardingObject implemen
    *
    * @since 7.0
    */
-  protected boolean standardEquals(@Nullable Object object) {
+  protected boolean standardEquals(final @Nullable Object object) {
     if (object instanceof Entry) {
       Entry<?, ?> that = (Entry<?, ?>) object;
       return Objects.equal(this.getKey(), that.getKey())

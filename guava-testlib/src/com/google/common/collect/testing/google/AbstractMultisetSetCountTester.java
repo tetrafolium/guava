@@ -56,7 +56,7 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
    * though we also allow it to "succeed" if neither is permitted.
    */
 
-  private void assertSetCount(E element, int count) {
+  private void assertSetCount(final E element, final int count) {
     setCountCheckReturnValue(element, count);
 
     assertEquals(
@@ -91,7 +91,7 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
    */
   abstract void setCountNoCheckReturnValue(E element, int count);
 
-  private void assertSetCountIncreasingFailure(E element, int count) {
+  private void assertSetCountIncreasingFailure(final E element, final int count) {
     try {
       setCountNoCheckReturnValue(element, count);
       fail("a call to multiset.setCount() to increase an element's count should throw");
@@ -99,7 +99,7 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
     }
   }
 
-  private void assertSetCountDecreasingFailure(E element, int count) {
+  private void assertSetCountDecreasingFailure(final E element, final int count) {
     try {
       setCountNoCheckReturnValue(element, count);
       fail("a call to multiset.setCount() to decrease an element's count should throw");
@@ -398,7 +398,7 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
   }
 
   @GwtIncompatible // reflection
-  private static Method getMethod(String methodName) {
+  private static Method getMethod(final String methodName) {
     return Helpers.getMethod(AbstractMultisetSetCountTester.class, methodName);
   }
 }

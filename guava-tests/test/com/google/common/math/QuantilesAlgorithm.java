@@ -40,14 +40,14 @@ enum QuantilesAlgorithm {
   SORTING {
 
     @Override
-    double singleQuantile(int index, int scale, double[] dataset) {
+    double singleQuantile(final int index, final int scale, final double[] dataset) {
       Arrays.sort(dataset);
       return singleQuantileFromSorted(index, scale, dataset);
     }
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+        final Collection<Integer> indexes, final int scale, final double[] dataset) {
       Arrays.sort(dataset);
       ImmutableMap.Builder<Integer, Double> builder = ImmutableMap.builder();
       for (int index : indexes) {
@@ -56,7 +56,7 @@ enum QuantilesAlgorithm {
       return builder.build();
     }
 
-    private double singleQuantileFromSorted(int index, int scale, double[] dataset) {
+    private double singleQuantileFromSorted(final int index, final int scale, final double[] dataset) {
       long numerator = (long) index * (dataset.length - 1);
       int positionFloor = (int) LongMath.divide(numerator, scale, RoundingMode.DOWN);
       int remainder = (int) (numerator - positionFloor * scale);
@@ -76,7 +76,7 @@ enum QuantilesAlgorithm {
   QUICKSELECT {
 
     @Override
-    double singleQuantile(int index, int scale, double[] dataset) {
+    double singleQuantile(final int index, final int scale, final double[] dataset) {
       long numerator = (long) index * (dataset.length - 1);
       int positionFloor = (int) LongMath.divide(numerator, scale, RoundingMode.DOWN);
       int remainder = (int) (numerator - positionFloor * scale);
@@ -93,7 +93,7 @@ enum QuantilesAlgorithm {
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+        final Collection<Integer> indexes, final int scale, final double[] dataset) {
       ImmutableMap.Builder<Integer, Double> builder = ImmutableMap.builder();
       for (int index : indexes) {
         builder.put(index, singleQuantile(index, scale, dataset));
@@ -108,17 +108,17 @@ enum QuantilesAlgorithm {
   TARGET {
 
     @Override
-    double singleQuantile(int index, int scale, double[] dataset) {
+    double singleQuantile(final int index, final int scale, final double[] dataset) {
       return Quantiles.scale(scale).index(index).computeInPlace(dataset);
     }
 
     @Override
     Map<Integer, Double> multipleQuantiles(
-        Collection<Integer> indexes, int scale, double[] dataset) {
+        final Collection<Integer> indexes, final int scale, final double[] dataset) {
       return Quantiles.scale(scale).indexes(indexes).computeInPlace(dataset);
     }
   },
-  ;
+;
 
   /**
    * Calculates a single quantile. Equivalent to
@@ -133,7 +133,7 @@ enum QuantilesAlgorithm {
   abstract Map<Integer, Double> multipleQuantiles(
       Collection<Integer> indexes, int scale, double[] dataset);
 
-  static double getMinValue(double[] array, int from) {
+  static double getMinValue(final double[] array, final int from) {
     // This is basically a copy of com.google.math.Rank#getMinValue, with a small change in the
     // method signature: we always search to the end of the array.
     int min = from;
@@ -145,7 +145,7 @@ enum QuantilesAlgorithm {
     return array[min];
   }
 
-  static double select(int k, double[] array) {
+  static double select(final int k, final double[] array) {
     // This is basically a copy of com.google.math.Rank#select, with a small change in the method
     // signature: we make k 0-based rather than 1-based; and we drop from and to, and always work on
     // the whole array.
@@ -210,7 +210,7 @@ enum QuantilesAlgorithm {
     }
   }
 
-  private static void swap(double[] array, int i, int j) {
+  private static void swap(final double[] array, final int i, final int j) {
     // This is a copy of com.google.math.Rank#swap.
     double temp = array[i];
     array[i] = array[j];

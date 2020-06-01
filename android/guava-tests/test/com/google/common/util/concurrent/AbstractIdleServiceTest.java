@@ -40,8 +40,8 @@ public class AbstractIdleServiceTest extends TestCase {
   public static class FunctionalTest extends TestCase {
 
     private static class DefaultService extends AbstractIdleService {
-      @Override protected void startUp() throws Exception {}
-      @Override protected void shutDown() throws Exception {}
+      @Override protected void startUp() throws Exception { }
+      @Override protected void shutDown() throws Exception { }
     }
 
     public void testServiceStartStop() throws Exception {
@@ -175,7 +175,7 @@ public class AbstractIdleServiceTest extends TestCase {
     Service service = new TestService() {
       @Override protected Executor executor() {
         return new Executor() {
-          @Override public void execute(Runnable command) {}
+          @Override public void execute(final Runnable command) { }
         };
       }
 

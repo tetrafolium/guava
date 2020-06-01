@@ -65,7 +65,7 @@ public abstract class AbstractIterator<T> extends UnmodifiableIterator<T> {
   private State state = State.NOT_READY;
 
   /** Constructor for use by subclasses. */
-  protected AbstractIterator() {}
+  protected AbstractIterator() { }
 
   private enum State {
     /** We have computed the next element and haven't returned it yet. */

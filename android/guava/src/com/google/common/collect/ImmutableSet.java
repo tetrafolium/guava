@@ -60,7 +60,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * Collections#singleton} for code consistency, {@code null} rejection, and because the return
    * type conveys the immutability guarantee.
    */
-  public static <E> ImmutableSet<E> of(E element) {
+  public static <E> ImmutableSet<E> of(final E element) {
     return new SingletonImmutableSet<E>(element);
   }
 
@@ -69,7 +69,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * first specified. That is, if multiple elements are {@linkplain Object#equals equal}, all except
    * the first are ignored.
    */
-  public static <E> ImmutableSet<E> of(E e1, E e2) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2) {
     return construct(2, e1, e2);
   }
 
@@ -78,7 +78,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * first specified. That is, if multiple elements are {@linkplain Object#equals equal}, all except
    * the first are ignored.
    */
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3) {
     return construct(3, e1, e2, e3);
   }
 
@@ -87,7 +87,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * first specified. That is, if multiple elements are {@linkplain Object#equals equal}, all except
    * the first are ignored.
    */
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4) {
     return construct(4, e1, e2, e3, e4);
   }
 
@@ -96,7 +96,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * first specified. That is, if multiple elements are {@linkplain Object#equals equal}, all except
    * the first are ignored.
    */
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5) {
     return construct(5, e1, e2, e3, e4, e5);
   }
 
@@ -108,7 +108,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * @since 3.0 (source-compatible since 2.0)
    */
   @SafeVarargs // For Eclipse. For internal javac we have disabled this pointless type of warning.
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... others) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... others) {
     final int paramCount = 6;
     Object[] elements = new Object[paramCount + others.length];
     elements[0] = e1;
@@ -134,7 +134,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    *
    * @throws NullPointerException if any of the first {@code n} elements of {@code elements} is null
    */
-  private static <E> ImmutableSet<E> construct(int n, Object... elements) {
+  private static <E> ImmutableSet<E> construct(final int n, final Object... elements) {
     switch (n) {
       case 0:
         return of();
@@ -183,7 +183,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
   
-  private static boolean shouldTrim(int actualUnique, int expectedUnique) {
+  private static boolean shouldTrim(final int actualUnique, final int expectedUnique) {
     return actualUnique < (expectedUnique >> 1) + (expectedUnique >> 2);
   }
 
@@ -202,7 +202,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * can hold setSize elements with the desired load factor.  Always returns at least setSize + 2.
    */
   @VisibleForTesting
-  static int chooseTableSize(int setSize) {
+  static int chooseTableSize(final int setSize) {
     setSize = Math.max(setSize, 2);
     // Correct the size for open addressing to match desired load factor.
     if (setSize < CUTOFF) {
@@ -231,7 +231,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * @throws NullPointerException if any of {@code elements} is null
    * @since 7.0 (source-compatible since 2.0)
    */
-  public static <E> ImmutableSet<E> copyOf(Collection<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Collection<? extends E> elements) {
     /*
      * TODO(lowasser): consider checking for ImmutableAsList here
      * TODO(lowasser): consider checking for Multiset here
@@ -260,7 +260,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    *
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSet<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Iterable<? extends E> elements) {
     return (elements instanceof Collection)
         ? copyOf((Collection<? extends E>) elements)
         : copyOf(elements.iterator());
@@ -272,7 +272,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    *
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSet<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Iterator<? extends E> elements) {
     // We special-case for 0 or 1 elements, but anything further is madness.
     if (!elements.hasNext()) {
       return of();
@@ -292,7 +292,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * @throws NullPointerException if any of {@code elements} is null
    * @since 3.0
    */
-  public static <E> ImmutableSet<E> copyOf(E[] elements) {
+  public static <E> ImmutableSet<E> copyOf(final E[] elements) {
     switch (elements.length) {
       case 0:
         return of();
@@ -303,7 +303,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  ImmutableSet() {}
+  ImmutableSet() { }
 
   /** Returns {@code true} if the {@code hashCode()} method runs quickly. */
   boolean isHashCodeFast() {
@@ -311,7 +311,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     } else if (object instanceof ImmutableSet
@@ -359,7 +359,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     ImmutableList<E> createAsList() {
       return new ImmutableList<E>() {
         @Override
-        public E get(int index) {
+        public E get(final int index) {
           return Indexed.this.get(index);
         }
 
@@ -386,7 +386,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   private static class SerializedForm implements Serializable {
     final Object[] elements;
 
-    SerializedForm(Object[] elements) {
+    SerializedForm(final Object[] elements) {
       this.elements = elements;
     }
 
@@ -423,7 +423,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
    * @since 23.1
    */
   @Beta
-  public static <E> Builder<E> builderWithExpectedSize(int expectedSize) {
+  public static <E> Builder<E> builderWithExpectedSize(final int expectedSize) {
     checkNonnegative(expectedSize, "expectedSize");
     return new Builder<E>(expectedSize);
   }
@@ -457,7 +457,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       super(DEFAULT_INITIAL_CAPACITY);
     }
 
-    Builder(int capacity) {
+    Builder(final int capacity) {
       super(capacity);
       this.hashTable = new Object[chooseTableSize(capacity)];
     }
@@ -473,7 +473,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> add(E element) {
+    public Builder<E> add(final E element) {
       checkNotNull(element);
       if (hashTable != null && chooseTableSize(size) <= hashTable.length) {
         addDeduping(element);
@@ -485,7 +485,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       }
     }
     
-    private void addDeduping(E element) {
+    private void addDeduping(final E element) {
       int mask = hashTable.length - 1;
       int hash = element.hashCode();
       for (int i = Hashing.smear(hash); ; i++) {
@@ -513,7 +513,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> add(E... elements) {
+    public Builder<E> add(final E... elements) {
       if (hashTable != null) {
         for (E e : elements) {
           add(e);
@@ -535,7 +535,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addAll(Iterable<? extends E> elements) {
+    public Builder<E> addAll(final Iterable<? extends E> elements) {
       checkNotNull(elements);
       if (hashTable != null) {
         for (E e : elements) {
@@ -558,7 +558,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addAll(Iterator<? extends E> elements) {
+    public Builder<E> addAll(final Iterator<? extends E> elements) {
       checkNotNull(elements);
       while (elements.hasNext()) {
         add(elements.next());

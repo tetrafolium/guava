@@ -35,18 +35,18 @@ import com.google.common.collect.testing.features.CollectionSize;
 @GwtCompatible
 public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetCountTester<E> {
   @Override
-  void setCountCheckReturnValue(E element, int count) {
+  void setCountCheckReturnValue(final E element, final int count) {
     assertTrue(
         "setCount() with the correct expected present count should return true",
         setCount(element, count));
   }
 
   @Override
-  void setCountNoCheckReturnValue(E element, int count) {
+  void setCountNoCheckReturnValue(final E element, final int count) {
     setCount(element, count);
   }
 
-  private boolean setCount(E element, int count) {
+  private boolean setCount(final E element, final int count) {
     return getMultiset().setCount(element, getMultiset().count(element), count);
   }
 

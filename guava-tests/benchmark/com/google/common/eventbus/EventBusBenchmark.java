@@ -34,14 +34,14 @@ public class EventBusBenchmark {
     eventBus.register(this);
   }
 
-  @Benchmark void postStrings(int reps) {
+  @Benchmark void postStrings(final int reps) {
     for (int i = 0; i < reps; i++) {
       eventBus.post("hello there");
     }
   }
 
   @Subscribe
-  public void handleStrings(String string) {
+  public void handleStrings(final String string) {
     // Nothing to do here.
   }
 }

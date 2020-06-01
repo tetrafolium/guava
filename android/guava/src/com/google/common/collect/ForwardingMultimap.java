@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
 public abstract class ForwardingMultimap<K, V> extends ForwardingObject implements Multimap<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingMultimap() {}
+  protected ForwardingMultimap() { }
 
   @Override
   protected abstract Multimap<K, V> delegate();
@@ -56,17 +56,17 @@ public abstract class ForwardingMultimap<K, V> extends ForwardingObject implemen
   }
 
   @Override
-  public boolean containsEntry(@Nullable Object key, @Nullable Object value) {
+  public boolean containsEntry(final @Nullable Object key, final @Nullable Object value) {
     return delegate().containsEntry(key, value);
   }
 
   @Override
-  public boolean containsKey(@Nullable Object key) {
+  public boolean containsKey(final @Nullable Object key) {
     return delegate().containsKey(key);
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return delegate().containsValue(value);
   }
 
@@ -76,7 +76,7 @@ public abstract class ForwardingMultimap<K, V> extends ForwardingObject implemen
   }
 
   @Override
-  public Collection<V> get(@Nullable K key) {
+  public Collection<V> get(final @Nullable K key) {
     return delegate().get(key);
   }
 
@@ -97,37 +97,37 @@ public abstract class ForwardingMultimap<K, V> extends ForwardingObject implemen
 
   @CanIgnoreReturnValue
   @Override
-  public boolean put(K key, V value) {
+  public boolean put(final K key, final V value) {
     return delegate().put(key, value);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean putAll(K key, Iterable<? extends V> values) {
+  public boolean putAll(final K key, final Iterable<? extends V> values) {
     return delegate().putAll(key, values);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean putAll(Multimap<? extends K, ? extends V> multimap) {
+  public boolean putAll(final Multimap<? extends K, ? extends V> multimap) {
     return delegate().putAll(multimap);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean remove(@Nullable Object key, @Nullable Object value) {
+  public boolean remove(final @Nullable Object key, final @Nullable Object value) {
     return delegate().remove(key, value);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public Collection<V> removeAll(@Nullable Object key) {
+  public Collection<V> removeAll(final @Nullable Object key) {
     return delegate().removeAll(key);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public Collection<V> replaceValues(K key, Iterable<? extends V> values) {
+  public Collection<V> replaceValues(final K key, final Iterable<? extends V> values) {
     return delegate().replaceValues(key, values);
   }
 
@@ -142,7 +142,7 @@ public abstract class ForwardingMultimap<K, V> extends ForwardingObject implemen
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return object == this || delegate().equals(object);
   }
 

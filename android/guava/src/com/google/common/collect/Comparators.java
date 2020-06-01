@@ -41,7 +41,7 @@ import java.util.Iterator;
 @Beta
 @GwtCompatible
 public final class Comparators {
-  private Comparators() {}
+  private Comparators() { }
 
   /**
    * Returns a new comparator which sorts iterables by comparing corresponding elements pairwise
@@ -57,7 +57,7 @@ public final class Comparators {
   // Note: 90% of the time we don't add type parameters or wildcards that serve only to "tweak" the
   // desired return type. However, *nested* generics introduce a special class of problems that we
   // think tip it over into being worthwhile.
-  public static <T, S extends T> Comparator<Iterable<S>> lexicographical(Comparator<T> comparator) {
+  public static <T, S extends T> Comparator<Iterable<S>> lexicographical(final Comparator<T> comparator) {
     return new LexicographicalOrdering<S>(checkNotNull(comparator));
   }
 
@@ -66,7 +66,7 @@ public final class Comparators {
    * equal to the element that preceded it, according to the specified comparator. Note that this
    * is always true when the iterable has fewer than two elements.
    */
-  public static <T> boolean isInOrder(Iterable<? extends T> iterable, Comparator<T> comparator) {
+  public static <T> boolean isInOrder(final Iterable<? extends T> iterable, final Comparator<T> comparator) {
     checkNotNull(comparator);
     Iterator<? extends T> it = iterable.iterator();
     if (it.hasNext()) {
@@ -88,7 +88,7 @@ public final class Comparators {
    * this is always true when the iterable has fewer than two elements.
    */
   public static <T> boolean isInStrictOrder(
-      Iterable<? extends T> iterable, Comparator<T> comparator) {
+      final Iterable<? extends T> iterable, final Comparator<T> comparator) {
     checkNotNull(comparator);
     Iterator<? extends T> it = iterable.iterator();
     if (it.hasNext()) {

@@ -71,7 +71,7 @@ public final class ForwardingWrapperTester {
    * propagated as is.
    */
   public <T> void testForwarding(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+      final Class<T> interfaceType, final Function<? super T, ? extends T> wrapperFunction) {
     checkNotNull(wrapperFunction);
     checkArgument(interfaceType.isInterface(), "%s isn't an interface", interfaceType);
     Method[] methods = getMostConcreteMethods(interfaceType);
@@ -108,7 +108,7 @@ public final class ForwardingWrapperTester {
   }
 
   /** Returns the most concrete public methods from {@code type}. */
-  private static Method[] getMostConcreteMethods(Class<?> type) {
+  private static Method[] getMostConcreteMethods(final Class<?> type) {
     Method[] methods = type.getMethods();
     for (int i = 0; i < methods.length; i++) {
       try {
@@ -122,15 +122,15 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testSuccessfulForwarding(
-      Class<T> interfaceType,  Method method, Function<? super T, ? extends T> wrapperFunction) {
+      final Class<T> interfaceType,  final Method method, final Function<? super T, ? extends T> wrapperFunction) {
     new InteractionTester<T>(interfaceType, method).testInteraction(wrapperFunction);
   }
 
   private static <T> void testExceptionPropagation(
-      Class<T> interfaceType, Method method, Function<? super T, ? extends T> wrapperFunction) {
+      final Class<T> interfaceType, final Method method, final Function<? super T, ? extends T> wrapperFunction) {
     final RuntimeException exception = new RuntimeException();
     T proxy = Reflection.newProxy(interfaceType, new AbstractInvocationHandler() {
-      @Override protected Object handleInvocation(Object p, Method m, Object[] args)
+      @Override protected Object handleInvocation(final Object p, final Method m, final Object[] args)
           throws Throwable {
         throw exception;
       }
@@ -149,7 +149,7 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testEquals(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+      final Class<T> interfaceType, final Function<? super T, ? extends T> wrapperFunction) {
     FreshValueGenerator generator = new FreshValueGenerator();
     T instance = generator.newFreshProxy(interfaceType);
     new EqualsTester()
@@ -160,13 +160,13 @@ public final class ForwardingWrapperTester {
   }
 
   private static <T> void testToString(
-      Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
+      final Class<T> interfaceType, final Function<? super T, ? extends T> wrapperFunction) {
     T proxy = new FreshValueGenerator().newFreshProxy(interfaceType);
     assertEquals("toString() isn't properly forwarded",
         proxy.toString(), wrapperFunction.apply(proxy).toString());
   }
 
-  private static Object[] getParameterValues(Method method) {
+  private static Object[] getParameterValues(final Method method) {
     FreshValueGenerator paramValues = new FreshValueGenerator();
     final List<Object> passedArgs = Lists.newArrayList();
     for (Class<?> paramType : method.getParameterTypes()) {
@@ -184,14 +184,14 @@ public final class ForwardingWrapperTester {
     private final Object returnValue;
     private final AtomicInteger called = new AtomicInteger();
 
-    InteractionTester(Class<T> interfaceType, Method method) {
+    InteractionTester(final Class<T> interfaceType, final Method method) {
       this.interfaceType = interfaceType;
       this.method = method;
       this.passedArgs = getParameterValues(method);
       this.returnValue = new FreshValueGenerator().generateFresh(method.getReturnType());
     }
 
-    @Override protected Object handleInvocation(Object p, Method calledMethod, Object[] args)
+    @Override protected Object handleInvocation(final Object p, final Method calledMethod, final Object[] args)
         throws Throwable {
       assertEquals(method, calledMethod);
       assertEquals(method + " invoked more than once.", 0, called.get());
@@ -203,7 +203,7 @@ public final class ForwardingWrapperTester {
       return returnValue;
     }
 
-    void testInteraction(Function<? super T, ? extends T> wrapperFunction) {
+    void testInteraction(final Function<? super T, ? extends T> wrapperFunction) {
       T proxy = Reflection.newProxy(interfaceType, this);
       T wrapper = wrapperFunction.apply(proxy);
       boolean isPossibleChainingCall = interfaceType.isAssignableFrom(method.getReturnType());

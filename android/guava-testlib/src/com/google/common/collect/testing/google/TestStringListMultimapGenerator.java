@@ -55,12 +55,12 @@ public abstract class TestStringListMultimapGenerator
   }
 
   @Override
-  public Collection<String> createCollection(Iterable<? extends String> values) {
+  public Collection<String> createCollection(final Iterable<? extends String> values) {
     return Helpers.copyToList(values);
   }
 
   @Override
-  public final ListMultimap<String, String> create(Object... entries) {
+  public final ListMultimap<String, String> create(final Object... entries) {
     @SuppressWarnings("unchecked")
     Entry<String, String>[] array = new Entry[entries.length];
     int i = 0;
@@ -76,23 +76,23 @@ public abstract class TestStringListMultimapGenerator
 
   @Override
   @SuppressWarnings("unchecked")
-  public final Entry<String, String>[] createArray(int length) {
+  public final Entry<String, String>[] createArray(final int length) {
     return new Entry[length];
   }
 
   @Override
-  public final String[] createKeyArray(int length) {
+  public final String[] createKeyArray(final int length) {
     return new String[length];
   }
 
   @Override
-  public final String[] createValueArray(int length) {
+  public final String[] createValueArray(final int length) {
     return new String[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+  public Iterable<Entry<String, String>> order(final List<Entry<String, String>> insertionOrder) {
     return insertionOrder;
   }
 }

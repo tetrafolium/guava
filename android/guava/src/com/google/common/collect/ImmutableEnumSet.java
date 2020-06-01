@@ -32,7 +32,7 @@ import java.util.EnumSet;
 @SuppressWarnings("serial") // we're overriding default serialization
 final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   @SuppressWarnings("rawtypes") // necessary to compile against Java 8
-  static ImmutableSet asImmutable(EnumSet set) {
+  static ImmutableSet asImmutable(final EnumSet set) {
     switch (set.size()) {
       case 0:
         return ImmutableSet.of();
@@ -53,7 +53,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
    */
   private final transient EnumSet<E> delegate;
 
-  private ImmutableEnumSet(EnumSet<E> delegate) {
+  private ImmutableEnumSet(final EnumSet<E> delegate) {
     this.delegate = delegate;
   }
 
@@ -73,12 +73,12 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     return delegate.contains(object);
   }
 
   @Override
-  public boolean containsAll(Collection<?> collection) {
+  public boolean containsAll(final Collection<?> collection) {
     if (collection instanceof ImmutableEnumSet<?>) {
       collection = ((ImmutableEnumSet<?>) collection).delegate;
     }
@@ -91,7 +91,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   }
 
   @Override
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     if (object == this) {
       return true;
     }
@@ -132,7 +132,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   private static class EnumSerializedForm<E extends Enum<E>> implements Serializable {
     final EnumSet<E> delegate;
 
-    EnumSerializedForm(EnumSet<E> delegate) {
+    EnumSerializedForm(final EnumSet<E> delegate) {
       this.delegate = delegate;
     }
 

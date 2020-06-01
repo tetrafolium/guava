@@ -61,13 +61,13 @@ import java.util.List;
   private final RelationshipTester<T> delegate;
   private final List<T> items = Lists.newArrayList();
 
-  private EquivalenceTester(Equivalence<? super T> equivalence) {
+  private EquivalenceTester(final Equivalence<? super T> equivalence) {
     this.equivalence = checkNotNull(equivalence);
     this.delegate = new RelationshipTester<T>(
         equivalence, "equivalent", "hash", new ItemReporter());
   }
 
-  public static <T> EquivalenceTester<T> of(Equivalence<? super T> equivalence) {
+  public static <T> EquivalenceTester<T> of(final Equivalence<? super T> equivalence) {
     return new EquivalenceTester<T>(equivalence);
   }
 
@@ -76,12 +76,12 @@ import java.util.List;
    * and not equivalent to objects in any other equivalence group added to this
    * tester.
    */
-  public EquivalenceTester<T> addEquivalenceGroup(T first, T... rest) {
+  public EquivalenceTester<T> addEquivalenceGroup(final T first, final T... rest) {
     addEquivalenceGroup(Lists.asList(first, rest));
     return this;
   }
 
-  public EquivalenceTester<T> addEquivalenceGroup(Iterable<T> group) {
+  public EquivalenceTester<T> addEquivalenceGroup(final Iterable<T> group) {
     delegate.addRelatedGroup(group);
     items.addAll(ImmutableList.copyOf(group));
     return this;

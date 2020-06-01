@@ -43,7 +43,7 @@ public class HashBiMapTest extends TestCase {
 
   public static final class HashBiMapGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       BiMap<String, String> result = HashBiMap.create();
       for (Entry<String, String> entry : entries) {
         result.put(entry.getKey(), entry.getValue());

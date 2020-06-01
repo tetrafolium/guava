@@ -86,7 +86,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
   }
 
   @Override
-  UnmodifiableIterator<T> preOrderIterator(T root) {
+  UnmodifiableIterator<T> preOrderIterator(final T root) {
     return new PreOrderIterator(root);
   }
 
@@ -97,7 +97,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
       implements PeekingIterator<T> {
     private final Deque<T> stack;
 
-    PreOrderIterator(T root) {
+    PreOrderIterator(final T root) {
       this.stack = new ArrayDeque<T>(8);
       stack.addLast(root);
     }
@@ -122,7 +122,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
   }
 
   @Override
-  UnmodifiableIterator<T> postOrderIterator(T root) {
+  UnmodifiableIterator<T> postOrderIterator(final T root) {
     return new PostOrderIterator(root);
   }
 
@@ -133,7 +133,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     private final Deque<T> stack;
     private final BitSet hasExpanded;
 
-    PostOrderIterator(T root) {
+    PostOrderIterator(final T root) {
       this.stack = new ArrayDeque<T>(8);
       stack.addLast(root);
       this.hasExpanded = new BitSet();
@@ -178,7 +178,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     private final Deque<T> stack;
     private final BitSet hasExpandedLeft;
 
-    InOrderIterator(T root) {
+    InOrderIterator(final T root) {
       this.stack = new ArrayDeque<T>(8);
       this.hasExpandedLeft = new BitSet();
       stack.addLast(root);
@@ -202,7 +202,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     }
   }
 
-  private static <T> void pushIfPresent(Deque<T> stack, Optional<T> node) {
+  private static <T> void pushIfPresent(final Deque<T> stack, final Optional<T> node) {
     if (node.isPresent()) {
       stack.addLast(node.get());
     }

@@ -32,7 +32,7 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   // Although this reference is non-final, it doesn't change after set creation.
   E element;
 
-  SingletonImmutableSet(E element) {
+  SingletonImmutableSet(final E element) {
     this.element = checkNotNull(element);
   }
 
@@ -47,7 +47,7 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     return element.equals(object);
   }
 }

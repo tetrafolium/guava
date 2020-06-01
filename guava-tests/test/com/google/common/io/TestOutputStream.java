@@ -35,11 +35,11 @@ public class TestOutputStream extends FilterOutputStream {
   private final ImmutableSet<TestOption> options;
   private boolean closed;
 
-  public TestOutputStream(OutputStream out, TestOption... options) throws IOException {
+  public TestOutputStream(final OutputStream out, final TestOption... options) throws IOException {
     this(out, Arrays.asList(options));
   }
 
-  public TestOutputStream(OutputStream out, Iterable<TestOption> options) throws IOException {
+  public TestOutputStream(final OutputStream out, final Iterable<TestOption> options) throws IOException {
     super(checkNotNull(out));
     this.options = ImmutableSet.copyOf(options);
     throwIf(OPEN_THROWS);
@@ -50,14 +50,14 @@ public class TestOutputStream extends FilterOutputStream {
   }
 
   @Override
-  public void write(byte[] b, int off, int len) throws IOException {
+  public void write(final byte[] b, final int off, final int len) throws IOException {
     throwIf(closed);
     throwIf(WRITE_THROWS);
     super.write(b, off, len);
   }
 
   @Override
-  public void write(int b) throws IOException {
+  public void write(final int b) throws IOException {
     throwIf(closed);
     throwIf(WRITE_THROWS);
     super.write(b);
@@ -70,11 +70,11 @@ public class TestOutputStream extends FilterOutputStream {
     throwIf(CLOSE_THROWS);
   }
 
-  private void throwIf(TestOption option) throws IOException {
+  private void throwIf(final TestOption option) throws IOException {
     throwIf(options.contains(option));
   }
 
-  private static void throwIf(boolean condition) throws IOException {
+  private static void throwIf(final boolean condition) throws IOException {
     if (condition) {
       throw new IOException();
     }

@@ -67,12 +67,12 @@ public class FutureCallbackTest extends TestCase {
           private boolean called = false;
 
           @Override
-          public void onSuccess(String result) {
+          public void onSuccess(final String result) {
             fail("Was not expecting onSuccess() to be called.");
           }
 
           @Override
-          public synchronized void onFailure(Throwable t) {
+          public synchronized void onFailure(final Throwable t) {
             assertFalse(called);
             assertThat(t).isInstanceOf(CancellationException.class);
             called = true;
@@ -113,7 +113,7 @@ public class FutureCallbackTest extends TestCase {
 
   @GwtIncompatible // Mockito
   public void testOnSuccessThrowsError() throws Exception {
-    class TestError extends Error {}
+    class TestError extends Error { }
     TestError error = new TestError();
     String result = "result";
     SettableFuture<String> future = SettableFuture.create();
@@ -137,10 +137,10 @@ public class FutureCallbackTest extends TestCase {
     ListenableFuture<?> f = settable;
     FutureCallback<Object> callback = new FutureCallback<Object>() {
       @Override
-      public void onSuccess(Object result) {}
+      public void onSuccess(final Object result) { }
 
       @Override
-      public void onFailure(Throwable t) {}
+      public void onFailure(final Throwable t) { }
     };
     addCallback(f, callback, directExecutor());
   }
@@ -148,7 +148,7 @@ public class FutureCallbackTest extends TestCase {
   private class CountingSameThreadExecutor implements Executor {
     int runCount = 0;
     @Override
-    public void execute(Runnable command) {
+    public void execute(final Runnable command) {
       command.run();
       runCount++;
     }
@@ -159,23 +159,23 @@ public class FutureCallbackTest extends TestCase {
     @Nullable private Throwable failure = null;
     private boolean wasCalled = false;
 
-    MockCallback(String expectedValue) {
+    MockCallback(final String expectedValue) {
       this.value = expectedValue;
     }
 
-    public MockCallback(Throwable expectedFailure) {
+    public MockCallback(final Throwable expectedFailure) {
       this.failure = expectedFailure;
     }
 
     @Override
-    public synchronized void onSuccess(String result) {
+    public synchronized void onSuccess(final String result) {
       assertFalse(wasCalled);
       wasCalled = true;
       assertEquals(value, result);
     }
 
     @Override
-    public synchronized void onFailure(Throwable t) {
+    public synchronized void onFailure(final Throwable t) {
       assertFalse(wasCalled);
       wasCalled = true;
       assertEquals(failure, t);

@@ -79,7 +79,7 @@ public class ResourcesTest extends IoTestCase {
           List<String> collector = new ArrayList<>();
 
           @Override
-          public boolean processLine(String line) {
+          public boolean processLine(final String line) {
             collector.add(whitespace().trimFrom(line));
             return true;
           }
@@ -190,7 +190,7 @@ public class ResourcesTest extends IoTestCase {
         .testAllPublicStaticMethods(Resources.class);
   }
 
-  private static URL classfile(Class<?> c) {
+  private static URL classfile(final Class<?> c) {
     return c.getResource(c.getSimpleName() + ".class");
   }
 }

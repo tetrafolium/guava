@@ -259,21 +259,21 @@ public class SimpleTimeLimiterTest extends TestCase {
   }
 
   @SuppressWarnings("serial")
-  private static class SampleException extends Exception {}
+  private static class SampleException extends Exception { }
 
   @SuppressWarnings("serial")
-  private static class SampleRuntimeException extends RuntimeException {}
+  private static class SampleRuntimeException extends RuntimeException { }
 
   private static class SampleImpl implements Sample {
     final long delayMillis;
     boolean finished;
 
-    SampleImpl(long delayMillis) {
+    SampleImpl(final long delayMillis) {
       this.delayMillis = delayMillis;
     }
 
     @Override
-    public String sleepThenReturnInput(String input) {
+    public String sleepThenReturnInput(final String input) {
       try {
         MILLISECONDS.sleep(delayMillis);
         finished = true;

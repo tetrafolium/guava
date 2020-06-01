@@ -32,7 +32,7 @@ public class ForwardingListIteratorTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(ListIterator.class, new Function<ListIterator, ListIterator>() {
-          @Override public ListIterator apply(ListIterator delegate) {
+          @Override public ListIterator apply(final ListIterator delegate) {
             return wrap(delegate);
           }
         });

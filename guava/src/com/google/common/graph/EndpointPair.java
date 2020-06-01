@@ -43,29 +43,29 @@ public abstract class EndpointPair<N> implements Iterable<N> {
   private final N nodeU;
   private final N nodeV;
 
-  private EndpointPair(N nodeU, N nodeV) {
+  private EndpointPair(final N nodeU, final N nodeV) {
     this.nodeU = checkNotNull(nodeU);
     this.nodeV = checkNotNull(nodeV);
   }
 
   /** Returns an {@link EndpointPair} representing the endpoints of a directed edge. */
-  public static <N> EndpointPair<N> ordered(N source, N target) {
+  public static <N> EndpointPair<N> ordered(final N source, final N target) {
     return new Ordered<N>(source, target);
   }
 
   /** Returns an {@link EndpointPair} representing the endpoints of an undirected edge. */
-  public static <N> EndpointPair<N> unordered(N nodeU, N nodeV) {
+  public static <N> EndpointPair<N> unordered(final N nodeU, final N nodeV) {
     // Swap nodes on purpose to prevent callers from relying on the "ordering" of an unordered pair.
     return new Unordered<N>(nodeV, nodeU);
   }
 
   /** Returns an {@link EndpointPair} representing the endpoints of an edge in {@code graph}. */
-  static <N> EndpointPair<N> of(Graph<?> graph, N nodeU, N nodeV) {
+  static <N> EndpointPair<N> of(final Graph<?> graph, final N nodeU, final N nodeV) {
     return graph.isDirected() ? ordered(nodeU, nodeV) : unordered(nodeU, nodeV);
   }
 
   /** Returns an {@link EndpointPair} representing the endpoints of an edge in {@code network}. */
-  static <N> EndpointPair<N> of(Network<?, ?> network, N nodeU, N nodeV) {
+  static <N> EndpointPair<N> of(final Network<?, ?> network, final N nodeU, final N nodeV) {
     return network.isDirected() ? ordered(nodeU, nodeV) : unordered(nodeU, nodeV);
   }
 
@@ -104,7 +104,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
    *
    * @throws IllegalArgumentException if this {@link EndpointPair} does not contain {@code node}
    */
-  public final N adjacentNode(Object node) {
+  public final N adjacentNode(final Object node) {
     if (node.equals(nodeU)) {
       return nodeV;
     } else if (node.equals(nodeV)) {
@@ -143,7 +143,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
   public abstract int hashCode();
 
   private static final class Ordered<N> extends EndpointPair<N> {
-    private Ordered(N source, N target) {
+    private Ordered(final N source, final N target) {
       super(source, target);
     }
 
@@ -163,7 +163,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj == this) {
         return true;
       }
@@ -191,7 +191,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
   }
 
   private static final class Unordered<N> extends EndpointPair<N> {
-    private Unordered(N nodeU, N nodeV) {
+    private Unordered(final N nodeU, final N nodeV) {
       super(nodeU, nodeV);
     }
 
@@ -211,7 +211,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj == this) {
         return true;
       }

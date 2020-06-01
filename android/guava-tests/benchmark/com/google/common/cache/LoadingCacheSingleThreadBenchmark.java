@@ -57,7 +57,7 @@ public class LoadingCacheSingleThreadBenchmark {
         .maximumSize(maximumSize)
         .build(
             new CacheLoader<Integer, Integer>() {
-              @Override public Integer load(Integer from) {
+              @Override public Integer load(final Integer from) {
                 return (int) misses.incrementAndGet();
               }
             });
@@ -66,13 +66,13 @@ public class LoadingCacheSingleThreadBenchmark {
     // Each miss both increments the counter and causes the map to grow by one,
     // so until evictions begin, the size of the map is the greatest return
     // value seen so far
-    while (cache.getUnchecked(nextRandomKey()) < maximumSize) {}
+    while (cache.getUnchecked(nextRandomKey()) < maximumSize) { }
 
     requests.set(0);
     misses.set(0);
   }
 
-  @Benchmark int time(int reps) {
+  @Benchmark int time(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy += cache.getUnchecked(nextRandomKey());

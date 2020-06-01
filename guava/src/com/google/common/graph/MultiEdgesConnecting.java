@@ -40,7 +40,7 @@ abstract class MultiEdgesConnecting<E> extends AbstractSet<E> {
   private final Map<E, ?> outEdgeToNode;
   private final Object targetNode;
 
-  MultiEdgesConnecting(Map<E, ?> outEdgeToNode, Object targetNode) {
+  MultiEdgesConnecting(final Map<E, ?> outEdgeToNode, final Object targetNode) {
     this.outEdgeToNode = checkNotNull(outEdgeToNode);
     this.targetNode = checkNotNull(targetNode);
   }
@@ -63,7 +63,7 @@ abstract class MultiEdgesConnecting<E> extends AbstractSet<E> {
   }
 
   @Override
-  public boolean contains(@Nullable Object edge) {
+  public boolean contains(final @Nullable Object edge) {
     return targetNode.equals(outEdgeToNode.get(edge));
   }
 }

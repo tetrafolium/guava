@@ -127,8 +127,8 @@ public class DispatcherTest extends TestCase {
   }
 
   private static Subscriber subscriber(
-      EventBus bus, Object target,
-      String methodName, Class<?> eventType) {
+      final EventBus bus, final Object target,
+      final String methodName, final Class<?> eventType) {
     try {
       return Subscriber.create(bus, target, target.getClass().getMethod(methodName, eventType));
     } catch (NoSuchMethodException e) {
@@ -139,12 +139,12 @@ public class DispatcherTest extends TestCase {
   public final class IntegerSubscriber {
     private final String name;
 
-    public IntegerSubscriber(String name) {
+    public IntegerSubscriber(final String name) {
       this.name = name;
     }
 
     @Subscribe
-    public void handleInteger(Integer integer) {
+    public void handleInteger(final Integer integer) {
       dispatchedSubscribers.add(this);
       dispatcher.dispatch("hello", stringSubscribers.iterator());
     }
@@ -158,12 +158,12 @@ public class DispatcherTest extends TestCase {
   public final class StringSubscriber {
     private final String name;
 
-    public StringSubscriber(String name) {
+    public StringSubscriber(final String name) {
       this.name = name;
     }
 
     @Subscribe
-    public void handleString(String string) {
+    public void handleString(final String string) {
       dispatchedSubscribers.add(this);
     }
 

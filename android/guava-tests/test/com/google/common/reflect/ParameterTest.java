@@ -47,8 +47,8 @@ public class ParameterTest extends TestCase {
   }
 
   @SuppressWarnings("unused")
-  private void someMethod(int i, int j) {}
+  private void someMethod(final int i, final int j) { }
 
   @SuppressWarnings("unused")
-  private void anotherMethod(int i, String s) {}
+  private void anotherMethod(final int i, final String s) { }
 }

@@ -49,7 +49,7 @@ final class MathBenchmarking {
    * Generates values in a distribution equivalent to randomNonNegativeBigInteger
    * but omitting zero.
    */
-  static BigInteger randomPositiveBigInteger(int numBits) {
+  static BigInteger randomPositiveBigInteger(final int numBits) {
     BigInteger result;
     do {
       result = randomNonNegativeBigInteger(numBits);
@@ -63,7 +63,7 @@ final class MathBenchmarking {
    * [0, numBits), and then the result is chosen in that range uniformly at random.
    * Zero is treated as having log2 == 0.
    */
-  static BigInteger randomNonNegativeBigInteger(int numBits) {
+  static BigInteger randomNonNegativeBigInteger(final int numBits) {
     int digits = RANDOM_SOURCE.nextInt(numBits);
     if (digits == 0) {
       return new BigInteger(1, RANDOM_SOURCE);
@@ -77,7 +77,7 @@ final class MathBenchmarking {
    * Equivalent to calling randomPositiveBigInteger(numBits) and then flipping
    * the sign with 50% probability.
    */
-  static BigInteger randomNonZeroBigInteger(int numBits) {
+  static BigInteger randomNonZeroBigInteger(final int numBits) {
     BigInteger result = randomPositiveBigInteger(numBits);
     return RANDOM_SOURCE.nextBoolean() ? result : result.negate();
   }
@@ -86,7 +86,7 @@ final class MathBenchmarking {
    * Chooses a number in (-2^numBits, 2^numBits) at random, with density
    * concentrated in numbers of lower magnitude.
    */
-  static BigInteger randomBigInteger(int numBits) {
+  static BigInteger randomBigInteger(final int numBits) {
     while (true) {
       if (RANDOM_SOURCE.nextBoolean()) {
         return randomNonNegativeBigInteger(numBits);
@@ -106,7 +106,7 @@ final class MathBenchmarking {
    *
    * Zero is treated as having log2 == 0.
    */
-  static double randomDouble(int maxExponent) {
+  static double randomDouble(final int maxExponent) {
     double result = RANDOM_SOURCE.nextDouble();
     result = Math.scalb(result, RANDOM_SOURCE.nextInt(maxExponent + 1));
     return RANDOM_SOURCE.nextBoolean() ? result : -result;

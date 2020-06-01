@@ -54,7 +54,7 @@ public class PeekingIteratorTest extends TestCase {
     private Iterable<T> master;
     private List<T> targetList;
 
-    public PeekingIteratorTester(Collection<T> master) {
+    public PeekingIteratorTester(final Collection<T> master) {
       super(master.size() + 3, MODIFIABLE, master,
           IteratorTester.KnownOrder.KNOWN_ORDER);
       this.master = master;
@@ -65,7 +65,7 @@ public class PeekingIteratorTest extends TestCase {
       Iterator<T> iterator = targetList.iterator();
       return Iterators.peekingIterator(iterator);
     }
-    @Override protected void verify(List<T> elements) {
+    @Override protected void verify(final List<T> elements) {
       // verify same objects were removed from reference and target
       assertEquals(elements, targetList);
     }
@@ -189,7 +189,7 @@ public class PeekingIteratorTest extends TestCase {
     */
   static class ThrowsAtEndIterator<E> implements Iterator<E> {
     Iterator<E> iterator;
-    public ThrowsAtEndIterator(Iterable<E> iterable) {
+    public ThrowsAtEndIterator(final Iterable<E> iterable) {
       this.iterator = iterable.iterator();
     }
     @Override
@@ -237,7 +237,7 @@ public class PeekingIteratorTest extends TestCase {
     assertNextThrows(iterator);
   }
 
-  private void assertNextThrows(Iterator<?> iterator) {
+  private void assertNextThrows(final Iterator<?> iterator) {
     try {
       iterator.next();
       fail();

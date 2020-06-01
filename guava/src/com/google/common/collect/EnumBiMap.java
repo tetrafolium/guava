@@ -52,7 +52,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
    * @param valueType the value type
    */
   public static <K extends Enum<K>, V extends Enum<V>> EnumBiMap<K, V> create(
-      Class<K> keyType, Class<V> valueType) {
+      final Class<K> keyType, final Class<V> valueType) {
     return new EnumBiMap<>(keyType, valueType);
   }
 
@@ -66,13 +66,13 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
    * @throws IllegalArgumentException if map is not an {@code EnumBiMap}
    *     instance and contains no mappings
    */
-  public static <K extends Enum<K>, V extends Enum<V>> EnumBiMap<K, V> create(Map<K, V> map) {
+  public static <K extends Enum<K>, V extends Enum<V>> EnumBiMap<K, V> create(final Map<K, V> map) {
     EnumBiMap<K, V> bimap = create(inferKeyType(map), inferValueType(map));
     bimap.putAll(map);
     return bimap;
   }
 
-  private EnumBiMap(Class<K> keyType, Class<V> valueType) {
+  private EnumBiMap(final Class<K> keyType, final Class<V> valueType) {
     super(
         WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
         WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
@@ -80,7 +80,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
     this.valueType = valueType;
   }
 
-  static <K extends Enum<K>> Class<K> inferKeyType(Map<K, ?> map) {
+  static <K extends Enum<K>> Class<K> inferKeyType(final Map<K, ?> map) {
     if (map instanceof EnumBiMap) {
       return ((EnumBiMap<K, ?>) map).keyType();
     }
@@ -91,7 +91,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
     return map.keySet().iterator().next().getDeclaringClass();
   }
 
-  private static <V extends Enum<V>> Class<V> inferValueType(Map<?, V> map) {
+  private static <V extends Enum<V>> Class<V> inferValueType(final Map<?, V> map) {
     if (map instanceof EnumBiMap) {
       return ((EnumBiMap<?, V>) map).valueType;
     }
@@ -110,12 +110,12 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
   }
 
   @Override
-  K checkKey(K key) {
+  K checkKey(final K key) {
     return checkNotNull(key);
   }
 
   @Override
-  V checkValue(V value) {
+  V checkValue(final V value) {
     return checkNotNull(value);
   }
 
@@ -124,7 +124,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
    *     value, second key, second value, and so on.
    */
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     stream.writeObject(keyType);
     stream.writeObject(valueType);
@@ -133,7 +133,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>> extends Abstr
 
   @SuppressWarnings("unchecked") // reading fields populated by writeObject
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     keyType = (Class<K>) stream.readObject();
     valueType = (Class<V>) stream.readObject();

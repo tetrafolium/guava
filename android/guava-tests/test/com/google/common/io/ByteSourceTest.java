@@ -126,7 +126,7 @@ public class ByteSourceTest extends IoTestCase {
       int pos;
 
       @Override
-      public boolean processBytes(byte[] buf, int off, int len) throws IOException {
+      public boolean processBytes(final byte[] buf, final int off, final int len) throws IOException {
         System.arraycopy(buf, off, processedBytes, pos, len);
         pos += len;
         return true;
@@ -149,7 +149,7 @@ public class ByteSourceTest extends IoTestCase {
       boolean firstCall = true;
 
       @Override
-      public boolean processBytes(byte[] buf, int off, int len) throws IOException {
+      public boolean processBytes(final byte[] buf, final int off, final int len) throws IOException {
         assertTrue("consume() called twice", firstCall);
         firstCall = false;
         return false;
@@ -246,7 +246,7 @@ public class ByteSourceTest extends IoTestCase {
   private static class AppendableByteSource extends ByteSource {
     private byte[] bytes;
 
-    public AppendableByteSource(byte[] initialBytes) {
+    public AppendableByteSource(final byte[] initialBytes) {
       this.bytes = initialBytes.clone();
     }
 
@@ -255,7 +255,7 @@ public class ByteSourceTest extends IoTestCase {
       return new In();
     }
 
-    public void append(byte[] b) {
+    public void append(final byte[] b) {
       byte[] newBytes = Arrays.copyOf(bytes, bytes.length + b.length);
       System.arraycopy(b, 0, newBytes, bytes.length, b.length);
       bytes = newBytes;
@@ -273,7 +273,7 @@ public class ByteSourceTest extends IoTestCase {
       }
 
       @Override
-      public int read(byte[] b, int off, int len) {
+      public int read(final byte[] b, final int off, final int len) {
         if (pos >= bytes.length) {
           return -1;
         }
@@ -293,7 +293,7 @@ public class ByteSourceTest extends IoTestCase {
    * @param expectRead the number of bytes we expect to read
    */
   private static void assertCorrectSlice(
-      int input, int offset, long length, int expectRead) throws IOException {
+      final int input, final int offset, final long length, final int expectRead) throws IOException {
     checkArgument(expectRead == (int) Math.max(0, Math.min(input, offset + length) - offset));
 
     byte[] expected = newPreFilledByteArray(offset, expectRead);
@@ -455,13 +455,13 @@ public class ByteSourceTest extends IoTestCase {
     }
   }
 
-  private static int getAndResetRecords(TestLogHandler logHandler) {
+  private static int getAndResetRecords(final TestLogHandler logHandler) {
     int records = logHandler.getStoredLogRecords().size();
     logHandler.clear();
     return records;
   }
 
-  private static void runFailureTest(ByteSource in, ByteSink out) {
+  private static void runFailureTest(final ByteSource in, final ByteSink out) {
     try {
       in.copyTo(out);
       fail();
@@ -472,7 +472,7 @@ public class ByteSourceTest extends IoTestCase {
   /**
    * @return the number of exceptions that were suppressed on the expected thrown exception
    */
-  private static int runSuppressionFailureTest(ByteSource in, ByteSink out) {
+  private static int runSuppressionFailureTest(final ByteSource in, final ByteSink out) {
     try {
       in.copyTo(out);
       fail();

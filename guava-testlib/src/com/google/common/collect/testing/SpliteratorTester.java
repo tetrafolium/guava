@@ -61,13 +61,13 @@ public final class SpliteratorTester<E> {
   enum SpliteratorDecompositionStrategy {
     NO_SPLIT_FOR_EACH_REMAINING {
       @Override
-      <E> void forEach(Spliterator<E> spliterator, Consumer<? super E> consumer) {
+      <E> void forEach(final Spliterator<E> spliterator, final Consumer<? super E> consumer) {
         spliterator.forEachRemaining(consumer);
       }
     },
     NO_SPLIT_TRY_ADVANCE {
       @Override
-      <E> void forEach(Spliterator<E> spliterator, Consumer<? super E> consumer) {
+      <E> void forEach(final Spliterator<E> spliterator, final Consumer<? super E> consumer) {
         while (spliterator.tryAdvance(consumer)) {
           // do nothing
         }
@@ -75,7 +75,7 @@ public final class SpliteratorTester<E> {
     },
     MAXIMUM_SPLIT {
       @Override
-      <E> void forEach(Spliterator<E> spliterator, Consumer<? super E> consumer) {
+      <E> void forEach(final Spliterator<E> spliterator, final Consumer<? super E> consumer) {
         for (Spliterator<E> prefix = trySplitTestingSize(spliterator);
             prefix != null;
             prefix = trySplitTestingSize(spliterator)) {
@@ -94,7 +94,7 @@ public final class SpliteratorTester<E> {
     },
     ALTERNATE_ADVANCE_AND_SPLIT {
       @Override
-      <E> void forEach(Spliterator<E> spliterator, Consumer<? super E> consumer) {
+      <E> void forEach(final Spliterator<E> spliterator, final Consumer<? super E> consumer) {
         while (spliterator.tryAdvance(consumer)) {
           Spliterator<E> prefix = trySplitTestingSize(spliterator);
           if (prefix != null) {
@@ -108,7 +108,7 @@ public final class SpliteratorTester<E> {
   }
 
   @Nullable
-  private static <E> Spliterator<E> trySplitTestingSize(Spliterator<E> spliterator) {
+  private static <E> Spliterator<E> trySplitTestingSize(final Spliterator<E> spliterator) {
     boolean subsized = spliterator.hasCharacteristics(Spliterator.SUBSIZED);
     long originalSize = spliterator.estimateSize();
     Spliterator<E> trySplit = spliterator.trySplit();
@@ -144,28 +144,28 @@ public final class SpliteratorTester<E> {
     return trySplit;
   }
 
-  public static <E> SpliteratorTester<E> of(Supplier<Spliterator<E>> spliteratorSupplier) {
+  public static <E> SpliteratorTester<E> of(final Supplier<Spliterator<E>> spliteratorSupplier) {
     return new SpliteratorTester<E>(spliteratorSupplier);
   }
 
   private final Supplier<Spliterator<E>> spliteratorSupplier;
 
-  private SpliteratorTester(Supplier<Spliterator<E>> spliteratorSupplier) {
+  private SpliteratorTester(final Supplier<Spliterator<E>> spliteratorSupplier) {
     this.spliteratorSupplier = checkNotNull(spliteratorSupplier);
   }
 
   @SafeVarargs
-  public final Ordered expect(Object... elements) {
+  public final Ordered expect(final Object... elements) {
     return expect(Arrays.asList(elements));
   }
 
-  public final Ordered expect(Iterable<?> elements) {
+  public final Ordered expect(final Iterable<?> elements) {
     List<List<E>> resultsForAllStrategies = new ArrayList<>();
     Spliterator<E> spliterator = spliteratorSupplier.get();
     int characteristics = spliterator.characteristics();
     long estimatedSize = spliterator.estimateSize();
-    for (SpliteratorDecompositionStrategy strategy :
-        EnumSet.allOf(SpliteratorDecompositionStrategy.class)) {
+    for (SpliteratorDecompositionStrategy strategy
+        : EnumSet.allOf(SpliteratorDecompositionStrategy.class)) {
       List<E> resultsForStrategy = new ArrayList<>();
       strategy.forEach(spliteratorSupplier.get(), resultsForStrategy::add);
 

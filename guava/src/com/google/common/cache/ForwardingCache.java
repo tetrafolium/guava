@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 public abstract class ForwardingCache<K, V> extends ForwardingObject implements Cache<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingCache() {}
+  protected ForwardingCache() { }
 
   @Override
   protected abstract Cache<K, V> delegate();
@@ -46,7 +46,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    */
   @Override
   @Nullable
-  public V getIfPresent(Object key) {
+  public V getIfPresent(final Object key) {
     return delegate().getIfPresent(key);
   }
 
@@ -54,7 +54,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 11.0
    */
   @Override
-  public V get(K key, Callable<? extends V> valueLoader) throws ExecutionException {
+  public V get(final K key, final Callable<? extends V> valueLoader) throws ExecutionException {
     return delegate().get(key, valueLoader);
   }
 
@@ -62,7 +62,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 11.0
    */
   @Override
-  public ImmutableMap<K, V> getAllPresent(Iterable<?> keys) {
+  public ImmutableMap<K, V> getAllPresent(final Iterable<?> keys) {
     return delegate().getAllPresent(keys);
   }
 
@@ -70,7 +70,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 11.0
    */
   @Override
-  public void put(K key, V value) {
+  public void put(final K key, final V value) {
     delegate().put(key, value);
   }
 
@@ -78,12 +78,12 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 12.0
    */
   @Override
-  public void putAll(Map<? extends K, ? extends V> m) {
+  public void putAll(final Map<? extends K, ? extends V> m) {
     delegate().putAll(m);
   }
 
   @Override
-  public void invalidate(Object key) {
+  public void invalidate(final Object key) {
     delegate().invalidate(key);
   }
 
@@ -91,7 +91,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 11.0
    */
   @Override
-  public void invalidateAll(Iterable<?> keys) {
+  public void invalidateAll(final Iterable<?> keys) {
     delegate().invalidateAll(keys);
   }
 
@@ -129,7 +129,7 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
   public abstract static class SimpleForwardingCache<K, V> extends ForwardingCache<K, V> {
     private final Cache<K, V> delegate;
 
-    protected SimpleForwardingCache(Cache<K, V> delegate) {
+    protected SimpleForwardingCache(final Cache<K, V> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 

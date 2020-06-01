@@ -42,7 +42,8 @@ public class GcFinalizationTest extends TestCase {
   public void testAwait_CountDownLatch() {
     final CountDownLatch latch = new CountDownLatch(1);
     Object x = new Object() {
-      @Override protected void finalize() { latch.countDown(); }
+      @Override protected void finalize() {
+          latch.countDown(); }
     };
     x = null;  // Hint to the JIT that x is unreachable
     GcFinalization.await(latch);
@@ -52,7 +53,8 @@ public class GcFinalizationTest extends TestCase {
   public void testAwaitDone_Future() {
     final SettableFuture<Void> future = SettableFuture.create();
     Object x = new Object() {
-      @Override protected void finalize() { future.set(null); }
+      @Override protected void finalize() {
+          future.set(null); }
     };
     x = null;  // Hint to the JIT that x is unreachable
     GcFinalization.awaitDone(future);
@@ -63,7 +65,8 @@ public class GcFinalizationTest extends TestCase {
   public void testAwaitDone_Future_Cancel() {
     final SettableFuture<Void> future = SettableFuture.create();
     Object x = new Object() {
-      @Override protected void finalize() { future.cancel(false); }
+      @Override protected void finalize() {
+          future.cancel(false); }
     };
     x = null;  // Hint to the JIT that x is unreachable
     GcFinalization.awaitDone(future);
@@ -117,7 +120,7 @@ public class GcFinalizationTest extends TestCase {
     }
   }
 
-  void assertWrapsInterruptedException(RuntimeException e) {
+  void assertWrapsInterruptedException(final RuntimeException e) {
     assertThat(e.getMessage()).contains("Unexpected interrupt");
     assertThat(e.getCause()).isInstanceOf(InterruptedException.class);
   }
@@ -199,7 +202,8 @@ public class GcFinalizationTest extends TestCase {
     final CountDownLatch finalizerRan = new CountDownLatch(1);
     final WeakReference<Object> ref = new WeakReference<Object>(
         new Object() {
-          @Override protected void finalize() { finalizerRan.countDown(); }
+          @Override protected void finalize() {
+              finalizerRan.countDown(); }
         });
 
     // Don't copy this into your own test!

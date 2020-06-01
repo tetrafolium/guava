@@ -46,43 +46,43 @@ class CacheBuilderFactory {
   private Set<Strength> keyStrengths = Sets.newHashSet((Strength) null);
   private Set<Strength> valueStrengths = Sets.newHashSet((Strength) null);
 
-  CacheBuilderFactory withConcurrencyLevels(Set<Integer> concurrencyLevels) {
+  CacheBuilderFactory withConcurrencyLevels(final Set<Integer> concurrencyLevels) {
     this.concurrencyLevels = Sets.newLinkedHashSet(concurrencyLevels);
     return this;
   }
 
-  CacheBuilderFactory withInitialCapacities(Set<Integer> initialCapacities) {
+  CacheBuilderFactory withInitialCapacities(final Set<Integer> initialCapacities) {
     this.initialCapacities = Sets.newLinkedHashSet(initialCapacities);
     return this;
   }
 
-  CacheBuilderFactory withMaximumSizes(Set<Integer> maximumSizes) {
+  CacheBuilderFactory withMaximumSizes(final Set<Integer> maximumSizes) {
     this.maximumSizes = Sets.newLinkedHashSet(maximumSizes);
     return this;
   }
 
-  CacheBuilderFactory withExpireAfterWrites(Set<DurationSpec> durations) {
+  CacheBuilderFactory withExpireAfterWrites(final Set<DurationSpec> durations) {
     this.expireAfterWrites = Sets.newLinkedHashSet(durations);
     return this;
   }
 
-  CacheBuilderFactory withExpireAfterAccesses(Set<DurationSpec> durations) {
+  CacheBuilderFactory withExpireAfterAccesses(final Set<DurationSpec> durations) {
     this.expireAfterAccesses = Sets.newLinkedHashSet(durations);
     return this;
   }
 
-  CacheBuilderFactory withRefreshes(Set<DurationSpec> durations) {
+  CacheBuilderFactory withRefreshes(final Set<DurationSpec> durations) {
     this.refreshes = Sets.newLinkedHashSet(durations);
     return this;
   }
 
-  CacheBuilderFactory withKeyStrengths(Set<Strength> keyStrengths) {
+  CacheBuilderFactory withKeyStrengths(final Set<Strength> keyStrengths) {
     this.keyStrengths = Sets.newLinkedHashSet(keyStrengths);
     Preconditions.checkArgument(!this.keyStrengths.contains(Strength.SOFT));
     return this;
   }
 
-  CacheBuilderFactory withValueStrengths(Set<Strength> valueStrengths) {
+  CacheBuilderFactory withValueStrengths(final Set<Strength> valueStrengths) {
     this.valueStrengths = Sets.newLinkedHashSet(valueStrengths);
     return this;
   }
@@ -94,7 +94,7 @@ class CacheBuilderFactory {
         keyStrengths, valueStrengths);
     return Iterables.transform(combinations,
         new Function<List<Object>, CacheBuilder<Object, Object>>() {
-          @Override public CacheBuilder<Object, Object> apply(List<Object> combination) {
+          @Override public CacheBuilder<Object, Object> apply(final List<Object> combination) {
             return createCacheBuilder(
                 (Integer) combination.get(0),
                 (Integer) combination.get(1),
@@ -110,14 +110,14 @@ class CacheBuilderFactory {
 
   private static final Function<Object, Optional<?>> NULLABLE_TO_OPTIONAL =
       new Function<Object, Optional<?>>() {
-        @Override public Optional<?> apply(@Nullable Object obj) {
+        @Override public Optional<?> apply(final @Nullable Object obj) {
           return Optional.fromNullable(obj);
         }
       };
 
   private static final Function<Optional<?>, Object> OPTIONAL_TO_NULLABLE =
       new Function<Optional<?>, Object>() {
-        @Override public Object apply(Optional<?> optional) {
+        @Override public Object apply(final Optional<?> optional) {
           return optional.orNull();
         }
       };
@@ -129,7 +129,7 @@ class CacheBuilderFactory {
    * Optionals, calls Sets.cartesianProduct with those, then transforms the result to unwrap
    * the Optionals.
    */
-  private Iterable<List<Object>> buildCartesianProduct(Set<?>... sets) {
+  private Iterable<List<Object>> buildCartesianProduct(final Set<?>... sets) {
     List<Set<Optional<?>>> optionalSets = Lists.newArrayListWithExpectedSize(sets.length);
     for (Set<?> set : sets) {
       Set<Optional<?>> optionalSet =
@@ -139,16 +139,16 @@ class CacheBuilderFactory {
     Set<List<Optional<?>>> cartesianProduct = Sets.cartesianProduct(optionalSets);
     return Iterables.transform(cartesianProduct,
         new Function<List<Optional<?>>, List<Object>>() {
-          @Override public List<Object> apply(List<Optional<?>> objs) {
+          @Override public List<Object> apply(final List<Optional<?>> objs) {
             return Lists.transform(objs, OPTIONAL_TO_NULLABLE);
           }
         });
   }
 
   private CacheBuilder<Object, Object> createCacheBuilder(
-      Integer concurrencyLevel, Integer initialCapacity, Integer maximumSize,
-      DurationSpec expireAfterWrite, DurationSpec expireAfterAccess, DurationSpec refresh,
-      Strength keyStrength, Strength valueStrength) {
+      final Integer concurrencyLevel, final Integer initialCapacity, final Integer maximumSize,
+      final DurationSpec expireAfterWrite, final DurationSpec expireAfterAccess, final DurationSpec refresh,
+      final Strength keyStrength, final Strength valueStrength) {
 
     CacheBuilder<Object, Object> builder = CacheBuilder.newBuilder();
     if (concurrencyLevel != null) {
@@ -182,12 +182,12 @@ class CacheBuilderFactory {
     private final long duration;
     private final TimeUnit unit;
 
-    private DurationSpec(long duration, TimeUnit unit) {
+    private DurationSpec(final long duration, final TimeUnit unit) {
       this.duration = duration;
       this.unit = unit;
     }
 
-    public static DurationSpec of(long duration, TimeUnit unit) {
+    public static DurationSpec of(final long duration, final TimeUnit unit) {
       return new DurationSpec(duration, unit);
     }
 
@@ -197,7 +197,7 @@ class CacheBuilderFactory {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       if (o instanceof DurationSpec) {
         DurationSpec that = (DurationSpec) o;
         return unit.toNanos(duration) == that.unit.toNanos(that.duration);

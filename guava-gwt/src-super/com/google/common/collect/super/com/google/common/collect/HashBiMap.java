@@ -48,7 +48,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
    * @throws IllegalArgumentException if the specified expected size is
    *     negative
    */
-  public static <K, V> HashBiMap<K, V> create(int expectedSize) {
+  public static <K, V> HashBiMap<K, V> create(final int expectedSize) {
     return new HashBiMap<K, V>(expectedSize);
   }
 
@@ -58,7 +58,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
    * in the specified map.
    */
   public static <K, V> HashBiMap<K, V> create(
-      Map<? extends K, ? extends V> map) {
+      final Map<? extends K, ? extends V> map) {
     HashBiMap<K, V> bimap = create(map.size());
     bimap.putAll(map);
     return bimap;
@@ -69,7 +69,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
     super(new LinkedHashMap<K, V>(), new HashMap<V, K>());
   }
 
-  private HashBiMap(int expectedSize) {
+  private HashBiMap(final int expectedSize) {
     // we only care about the forward-direction order, so only that direction needs to be an LHM
     super(
         Maps.<K, V>newLinkedHashMapWithExpectedSize(expectedSize),
@@ -77,7 +77,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
   }
 
   @Override
-  AbstractBiMap<V, K> makeInverse(Map<V, K> backward) {
+  AbstractBiMap<V, K> makeInverse(final Map<V, K> backward) {
     return new Inverse<V, K>(backward, this) {
       @Override
       Iterator<Entry<V, K>> entrySetIterator() {
@@ -99,7 +99,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
               }
 
               @Override
-              public K setValue(K newKey) {
+              public K setValue(final K newKey) {
                 // Preconditions keep the map and inverse consistent.
                 checkState(entrySet().contains(this), "entry no longer in map");
                 K oldKey = getValue();
@@ -119,11 +119,11 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
   // Override these two methods to show that keys and values may be null
 
   @Override
-  public V put(@Nullable K key, @Nullable V value) {
+  public V put(final @Nullable K key, final @Nullable V value) {
     return super.put(key, value);
   }
 
-  @Override public V forcePut(@Nullable K key, @Nullable V value) {
+  @Override public V forcePut(final @Nullable K key, final @Nullable V value) {
     return super.forcePut(key, value);
   }
 }

@@ -42,7 +42,7 @@ public class ListenableFutureTester {
   private final ListenableFuture<?> future;
   private final CountDownLatch latch;
 
-  public ListenableFutureTester(ListenableFuture<?> future) {
+  public ListenableFutureTester(final ListenableFuture<?> future) {
     this.exec = Executors.newCachedThreadPool();
     this.future = checkNotNull(future);
     this.latch = new CountDownLatch(1);
@@ -64,7 +64,7 @@ public class ListenableFutureTester {
     exec.shutdown();
   }
 
-  public void testCompletedFuture(@Nullable Object expectedValue)
+  public void testCompletedFuture(final @Nullable Object expectedValue)
       throws InterruptedException, ExecutionException {
     assertTrue(future.isDone());
     assertFalse(future.isCancelled());
@@ -88,10 +88,10 @@ public class ListenableFutureTester {
     try {
       future.get();
       fail("Future should throw CancellationException on cancel.");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
-  public void testFailedFuture(@Nullable String message)
+  public void testFailedFuture(final @Nullable String message)
       throws InterruptedException {
     assertTrue(future.isDone());
     assertFalse(future.isCancelled());

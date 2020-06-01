@@ -180,11 +180,11 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         collection.toArray(array));
   }
 
-  private void expectArrayContentsAnyOrder(Object[] expected, Object[] actual) {
+  private void expectArrayContentsAnyOrder(final Object[] expected, final Object[] actual) {
     Helpers.assertEqualIgnoringOrder(Arrays.asList(expected), Arrays.asList(actual));
   }
 
-  private void expectArrayContentsInOrder(List<E> expected, Object[] actual) {
+  private void expectArrayContentsInOrder(final List<E> expected, final Object[] actual) {
     assertEquals("toArray() ordered contents: ", expected, Arrays.asList(actual));
   }
 

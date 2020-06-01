@@ -41,11 +41,11 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   @LazyInit
   private transient int cachedHashCode;
 
-  SingletonImmutableSet(E element) {
+  SingletonImmutableSet(final E element) {
     this.element = Preconditions.checkNotNull(element);
   }
 
-  SingletonImmutableSet(E element, int hashCode) {
+  SingletonImmutableSet(final E element, final int hashCode) {
     // Guaranteed to be non-null by the presence of the pre-computed hash code.
     this.element = element;
     cachedHashCode = hashCode;
@@ -57,7 +57,7 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
-  public boolean contains(Object target) {
+  public boolean contains(final Object target) {
     return element.equals(target);
   }
 
@@ -77,7 +77,7 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   }
 
   @Override
-  int copyIntoArray(Object[] dst, int offset) {
+  int copyIntoArray(final Object[] dst, final int offset) {
     dst[offset] = element;
     return offset + 1;
   }

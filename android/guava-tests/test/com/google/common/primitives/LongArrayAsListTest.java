@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class LongArrayAsListTest extends TestCase {
 
-  private static List<Long> asList(Long[] values) {
+  private static List<Long> asList(final Long[] values) {
     long[] temp = new long[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class LongArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class LongsAsListGenerator extends TestLongListGenerator {
-    @Override protected List<Long> create(Long[] elements) {
+    @Override protected List<Long> create(final Long[] elements) {
       return asList(elements);
     }
   }
 
   public static final class LongsAsListHeadSubListGenerator extends TestLongListGenerator {
-    @Override protected List<Long> create(Long[] elements) {
+    @Override protected List<Long> create(final Long[] elements) {
       Long[] suffix = {Long.MIN_VALUE, Long.MAX_VALUE};
       Long[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class LongArrayAsListTest extends TestCase {
   }
 
   public static final class LongsAsListTailSubListGenerator extends TestLongListGenerator {
-    @Override protected List<Long> create(Long[] elements) {
+    @Override protected List<Long> create(final Long[] elements) {
       Long[] prefix = {(long) 86, (long) 99};
       Long[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class LongArrayAsListTest extends TestCase {
   }
 
   public static final class LongsAsListMiddleSubListGenerator extends TestLongListGenerator {
-    @Override protected List<Long> create(Long[] elements) {
+    @Override protected List<Long> create(final Long[] elements) {
       Long[] prefix = {Long.MIN_VALUE, Long.MAX_VALUE};
       Long[] suffix = {(long) 86, (long) 99};
       Long[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class LongArrayAsListTest extends TestCase {
     }
   }
 
-  private static Long[] concat(Long[] left, Long[] right) {
+  private static Long[] concat(final Long[] left, final Long[] right) {
     Long[] result = new Long[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class LongArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Long> create(Object... elements) {
+    public List<Long> create(final Object... elements) {
       Long[] array = new Long[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class LongArrayAsListTest extends TestCase {
     protected abstract List<Long> create(Long[] elements);
 
     @Override
-    public Long[] createArray(int length) {
+    public Long[] createArray(final int length) {
       return new Long[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Long> order(List<Long> insertionOrder) {
+    public List<Long> order(final List<Long> insertionOrder) {
       return insertionOrder;
     }
   }

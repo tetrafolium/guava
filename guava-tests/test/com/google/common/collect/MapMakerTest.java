@@ -43,11 +43,11 @@ public class MapMakerTest extends TestCase {
   static final class DelayingIdentityLoader<T> implements Function<T, T> {
     private final CountDownLatch delayLatch;
 
-    DelayingIdentityLoader(CountDownLatch delayLatch) {
+    DelayingIdentityLoader(final CountDownLatch delayLatch) {
       this.delayLatch = delayLatch;
     }
 
-    @Override public T apply(T key) {
+    @Override public T apply(final T key) {
       awaitUninterruptibly(delayLatch);
       return key;
     }

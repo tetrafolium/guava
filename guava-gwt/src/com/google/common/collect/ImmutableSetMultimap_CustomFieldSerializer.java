@@ -29,11 +29,11 @@ import java.util.Comparator;
 public class ImmutableSetMultimap_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, ImmutableSetMultimap<?, ?> instance) {}
+      final SerializationStreamReader reader, final ImmutableSetMultimap<?, ?> instance) { }
 
   // Serialization type safety is at the caller's mercy.
   @SuppressWarnings("unchecked")
-  public static ImmutableSetMultimap<Object, Object> instantiate(SerializationStreamReader reader)
+  public static ImmutableSetMultimap<Object, Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     Comparator<Object> valueComparator = (Comparator<Object>) reader.readObject();
     ImmutableSetMultimap.Builder<Object, Object> builder = ImmutableSetMultimap.builder();
@@ -45,7 +45,7 @@ public class ImmutableSetMultimap_CustomFieldSerializer {
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, ImmutableSetMultimap<?, ?> instance)
+      final SerializationStreamWriter writer, final ImmutableSetMultimap<?, ?> instance)
       throws SerializationException {
     writer.writeObject(instance.valueComparator());
     Multimap_CustomFieldSerializerBase.serialize(writer, instance);

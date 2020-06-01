@@ -116,7 +116,7 @@ public class EscapersTest extends TestCase {
   static CharEscaper createSimpleCharEscaper(
       final ImmutableMap<Character, char[]> replacementMap) {
     return new CharEscaper() {
-      @Override protected char[] escape(char c) {
+      @Override protected char[] escape(final char c) {
         return replacementMap.get(c);
       }
     };
@@ -126,7 +126,7 @@ public class EscapersTest extends TestCase {
   static UnicodeEscaper createSimpleUnicodeEscaper(
       final ImmutableMap<Integer, char[]> replacementMap) {
     return new UnicodeEscaper() {
-      @Override protected char[] escape(int cp) {
+      @Override protected char[] escape(final int cp) {
         return replacementMap.get(cp);
       }
     };

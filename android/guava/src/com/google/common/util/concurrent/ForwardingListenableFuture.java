@@ -35,13 +35,13 @@ public abstract class ForwardingListenableFuture<V> extends ForwardingFuture<V>
     implements ListenableFuture<V> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingListenableFuture() {}
+  protected ForwardingListenableFuture() { }
 
   @Override
   protected abstract ListenableFuture<? extends V> delegate();
 
   @Override
-  public void addListener(Runnable listener, Executor exec) {
+  public void addListener(final Runnable listener, final Executor exec) {
     delegate().addListener(listener, exec);
   }
 
@@ -56,7 +56,7 @@ public abstract class ForwardingListenableFuture<V> extends ForwardingFuture<V>
       extends ForwardingListenableFuture<V> {
     private final ListenableFuture<V> delegate;
 
-    protected SimpleForwardingListenableFuture(ListenableFuture<V> delegate) {
+    protected SimpleForwardingListenableFuture(final ListenableFuture<V> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 

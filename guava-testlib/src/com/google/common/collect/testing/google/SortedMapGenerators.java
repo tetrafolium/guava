@@ -45,7 +45,7 @@ import java.util.SortedMap;
 public class SortedMapGenerators {
   public static class ImmutableSortedMapGenerator extends TestStringSortedMapGenerator {
     @Override
-    public SortedMap<String, String> create(Entry<String, String>[] entries) {
+    public SortedMap<String, String> create(final Entry<String, String>[] entries) {
       ImmutableSortedMap.Builder<String, String> builder = ImmutableSortedMap.naturalOrder();
       for (Entry<String, String> entry : entries) {
         checkNotNull(entry);
@@ -58,7 +58,7 @@ public class SortedMapGenerators {
   public static class ImmutableSortedMapCopyOfEntriesGenerator
       extends TestStringSortedMapGenerator {
     @Override
-    public SortedMap<String, String> create(Entry<String, String>[] entries) {
+    public SortedMap<String, String> create(final Entry<String, String>[] entries) {
       return ImmutableSortedMap.copyOf(Arrays.asList(entries));
     }
   }
@@ -78,22 +78,22 @@ public class SortedMapGenerators {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<String, Integer>[] createArray(int length) {
+    public Entry<String, Integer>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<String, Integer>> order(List<Entry<String, Integer>> insertionOrder) {
+    public Iterable<Entry<String, Integer>> order(final List<Entry<String, Integer>> insertionOrder) {
       return new Ordering<Entry<String, Integer>>() {
         @Override
-        public int compare(Entry<String, Integer> left, Entry<String, Integer> right) {
+        public int compare(final Entry<String, Integer> left, final Entry<String, Integer> right) {
           return left.getKey().compareTo(right.getKey());
         }
       }.sortedCopy(insertionOrder);
     }
 
     @Override
-    public List<Entry<String, Integer>> create(Object... elements) {
+    public List<Entry<String, Integer>> create(final Object... elements) {
       ImmutableSortedMap.Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
@@ -106,7 +106,7 @@ public class SortedMapGenerators {
 
   public static class ImmutableSortedMapKeyListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       ImmutableSortedMap.Builder<String, Integer> builder = ImmutableSortedMap.naturalOrder();
       for (int i = 0; i < elements.length; i++) {
         builder.put(elements[i], i);
@@ -115,14 +115,14 @@ public class SortedMapGenerators {
     }
 
     @Override
-    public List<String> order(List<String> insertionOrder) {
+    public List<String> order(final List<String> insertionOrder) {
       return Ordering.natural().sortedCopy(insertionOrder);
     }
   }
 
   public static class ImmutableSortedMapValueListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       ImmutableSortedMap.Builder<Integer, String> builder = ImmutableSortedMap.naturalOrder();
       for (int i = 0; i < elements.length; i++) {
         builder.put(i, elements[i]);

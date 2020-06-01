@@ -35,33 +35,33 @@ final class Platform {
   private static final Logger logger = Logger.getLogger(Platform.class.getName());
   private static final PatternCompiler patternCompiler = loadPatternCompiler();
 
-  private Platform() {}
+  private Platform() { }
 
   /** Calls {@link System#nanoTime()}. */
   static long systemNanoTime() {
     return System.nanoTime();
   }
 
-  static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
+  static CharMatcher precomputeCharMatcher(final CharMatcher matcher) {
     return matcher.precomputedInternal();
   }
 
-  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+  static <T extends Enum<T>> Optional<T> getEnumIfPresent(final Class<T> enumClass, final String value) {
     WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
     return ref == null
         ? Optional.<T>absent()
         : Optional.of(enumClass.cast(ref.get()));
   }
 
-  static String formatCompact4Digits(double value) {
+  static String formatCompact4Digits(final double value) {
     return String.format(Locale.ROOT, "%.4g", value);
   }
 
-  static boolean stringIsNullOrEmpty(@Nullable String string) {
+  static boolean stringIsNullOrEmpty(final @Nullable String string) {
     return string == null || string.isEmpty();
   }
 
-  static CommonPattern compilePattern(String pattern) {
+  static CommonPattern compilePattern(final String pattern) {
     Preconditions.checkNotNull(pattern);
     return patternCompiler.compile(pattern);
   }
@@ -88,13 +88,13 @@ final class Platform {
     return new JdkPatternCompiler();
   }
 
-  private static void logPatternCompilerError(ServiceConfigurationError e) {
+  private static void logPatternCompilerError(final ServiceConfigurationError e) {
     logger.log(Level.WARNING, "Error loading regex compiler, falling back to next option", e);
   }
 
   private static final class JdkPatternCompiler implements PatternCompiler {
     @Override
-    public CommonPattern compile(String pattern) {
+    public CommonPattern compile(final String pattern) {
       return new JdkPattern(Pattern.compile(pattern));
     }
   }

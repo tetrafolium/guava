@@ -39,7 +39,7 @@ public class ListenerCallQueueTest extends TestCase {
   private static final ListenerCallQueue.Event<Object> THROWING_EVENT =
       new ListenerCallQueue.Event<Object>() {
         @Override
-        public void call(Object object) {
+        public void call(final Object object) {
           throw new RuntimeException();
         }
 
@@ -182,19 +182,19 @@ public class ListenerCallQueueTest extends TestCase {
   }
 
   private ListenerCallQueue.Event<Object> incrementingEvent(
-      Multiset<Object> counters, Object expectedListener, int expectedCount) {
+      final Multiset<Object> counters, final Object expectedListener, final int expectedCount) {
     return incrementingEvent(counters, multiset(expectedListener, expectedCount));
   }
 
-  private static <T> ImmutableMultiset<T> multiset(T value, int count) {
+  private static <T> ImmutableMultiset<T> multiset(final T value, final int count) {
     return multiset(ImmutableMap.of(value, count));
   }
 
-  private static <T> ImmutableMultiset<T> multiset(T value1, int count1, T value2, int count2) {
+  private static <T> ImmutableMultiset<T> multiset(final T value1, final int count1, final T value2, final int count2) {
     return multiset(ImmutableMap.of(value1, count1, value2, count2));
   }
 
-  private static <T> ImmutableMultiset<T> multiset(Map<T, Integer> counts) {
+  private static <T> ImmutableMultiset<T> multiset(final Map<T, Integer> counts) {
     ImmutableMultiset.Builder<T> builder = ImmutableMultiset.builder();
     for (Map.Entry<T, Integer> entry : counts.entrySet()) {
       builder.addCopies(entry.getKey(), entry.getValue());
@@ -206,7 +206,7 @@ public class ListenerCallQueueTest extends TestCase {
       final Multiset<Object> counters, final Multiset<Object> expected) {
     return new ListenerCallQueue.Event<Object>() {
       @Override
-      public void call(Object listener) {
+      public void call(final Object listener) {
         counters.add(listener);
         assertEquals(expected.count(listener), counters.count(listener));
       }
@@ -221,7 +221,7 @@ public class ListenerCallQueueTest extends TestCase {
   private ListenerCallQueue.Event<Object> countDownEvent(final CountDownLatch latch) {
     return new ListenerCallQueue.Event<Object>() {
       @Override
-      public void call(Object listener) {
+      public void call(final Object listener) {
         latch.countDown();
       }
 

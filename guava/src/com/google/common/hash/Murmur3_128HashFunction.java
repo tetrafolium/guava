@@ -48,7 +48,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
   // TODO(user): when the shortcuts are implemented, update BloomFilterStrategies
   private final int seed;
 
-  Murmur3_128HashFunction(int seed) {
+  Murmur3_128HashFunction(final int seed) {
     this.seed = seed;
   }
 
@@ -68,7 +68,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Murmur3_128HashFunction) {
       Murmur3_128HashFunction other = (Murmur3_128HashFunction) object;
       return seed == other.seed;
@@ -89,7 +89,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
     private long h2;
     private int length;
 
-    Murmur3_128Hasher(int seed) {
+    Murmur3_128Hasher(final int seed) {
       super(CHUNK_SIZE);
       this.h1 = seed;
       this.h2 = seed;
@@ -97,14 +97,14 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
     }
 
     @Override
-    protected void process(ByteBuffer bb) {
+    protected void process(final ByteBuffer bb) {
       long k1 = bb.getLong();
       long k2 = bb.getLong();
       bmix64(k1, k2);
       length += CHUNK_SIZE;
     }
 
-    private void bmix64(long k1, long k2) {
+    private void bmix64(final long k1, final long k2) {
       h1 ^= mixK1(k1);
 
       h1 = Long.rotateLeft(h1, 27);
@@ -119,7 +119,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
     }
 
     @Override
-    protected void processRemaining(ByteBuffer bb) {
+    protected void processRemaining(final ByteBuffer bb) {
       long k1 = 0;
       long k2 = 0;
       length += bb.remaining();
@@ -185,7 +185,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
               .array());
     }
 
-    private static long fmix64(long k) {
+    private static long fmix64(final long k) {
       k ^= k >>> 33;
       k *= 0xff51afd7ed558ccdL;
       k ^= k >>> 33;
@@ -194,14 +194,14 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
       return k;
     }
 
-    private static long mixK1(long k1) {
+    private static long mixK1(final long k1) {
       k1 *= C1;
       k1 = Long.rotateLeft(k1, 31);
       k1 *= C2;
       return k1;
     }
 
-    private static long mixK2(long k2) {
+    private static long mixK2(final long k2) {
       k2 *= C2;
       k2 = Long.rotateLeft(k2, 33);
       k2 *= C1;

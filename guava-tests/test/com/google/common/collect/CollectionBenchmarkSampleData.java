@@ -37,15 +37,15 @@ class CollectionBenchmarkSampleData {
   private final Set<Element> valuesInSet;
   private final Element[] queries;
 
-  CollectionBenchmarkSampleData(int size) {
+  CollectionBenchmarkSampleData(final int size) {
     this(true, new SpecialRandom(), 1.0, size);
   }
 
   CollectionBenchmarkSampleData(
-      boolean isUserTypeFast,
-      SpecialRandom random,
-      double hitRate,
-      int size) {
+      final boolean isUserTypeFast,
+      final SpecialRandom random,
+      final double hitRate,
+      final int size) {
     this.isUserTypeFast = isUserTypeFast;
     this.random = checkNotNull(random);
     this.hitRate = hitRate;
@@ -63,7 +63,7 @@ class CollectionBenchmarkSampleData {
     return queries;
   }
 
-  private Element[] createQueries(Set<Element> elementsInSet, int numQueries) {
+  private Element[] createQueries(final Set<Element> elementsInSet, final int numQueries) {
     List<Element> queryList = Lists.newArrayListWithCapacity(numQueries);
 
     int numGoodQueries = (int) (numQueries * hitRate + 0.5);
@@ -110,10 +110,10 @@ class CollectionBenchmarkSampleData {
 
   static class Element implements Comparable<Element> {
     final int hash;
-    Element(int hash) {
+    Element(final int hash) {
       this.hash = hash;
     }
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       return this == obj
           || (obj instanceof Element && ((Element) obj).hash == hash);
     }
@@ -121,7 +121,7 @@ class CollectionBenchmarkSampleData {
       return hash;
     }
     @Override
-    public int compareTo(Element that) {
+    public int compareTo(final Element that) {
       return Ints.compare(hash, that.hash);
     }
     @Override public String toString() {
@@ -130,16 +130,16 @@ class CollectionBenchmarkSampleData {
   }
 
   static class SlowElement extends Element {
-    SlowElement(int hash) {
+    SlowElement(final int hash) {
       super(hash);
     }
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       return slowItDown() != 1 && super.equals(obj);
     }
     @Override public int hashCode() {
       return slowItDown() + hash;
     }
-    @Override public int compareTo(Element e) {
+    @Override public int compareTo(final Element e) {
       int x = slowItDown();
       return x + super.compareTo(e) - x; // silly attempt to prevent opt
     }

@@ -69,7 +69,7 @@ import junit.framework.TestSuite;
 public class MapTestSuiteBuilder<K, V>
     extends PerCollectionSizeTestSuiteBuilder<
         MapTestSuiteBuilder<K, V>, TestMapGenerator<K, V>, Map<K, V>, Map.Entry<K, V>> {
-  public static <K, V> MapTestSuiteBuilder<K, V> using(TestMapGenerator<K, V> generator) {
+  public static <K, V> MapTestSuiteBuilder<K, V> using(final TestMapGenerator<K, V> generator) {
     return new MapTestSuiteBuilder<K, V>().usingGenerator(generator);
   }
 
@@ -107,7 +107,7 @@ public class MapTestSuiteBuilder<K, V>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+      final FeatureSpecificTestSuiteBuilder<
               ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>>>
           parentBuilder) {
     // TODO: Once invariant support is added, supply invariants to each of the
@@ -153,27 +153,27 @@ public class MapTestSuiteBuilder<K, V>
   }
 
   protected SetTestSuiteBuilder<Map.Entry<K, V>> createDerivedEntrySetSuite(
-      TestSetGenerator<Map.Entry<K, V>> entrySetGenerator) {
+      final TestSetGenerator<Map.Entry<K, V>> entrySetGenerator) {
     return SetTestSuiteBuilder.using(entrySetGenerator);
   }
 
-  protected SetTestSuiteBuilder<K> createDerivedKeySetSuite(TestSetGenerator<K> keySetGenerator) {
+  protected SetTestSuiteBuilder<K> createDerivedKeySetSuite(final TestSetGenerator<K> keySetGenerator) {
     return SetTestSuiteBuilder.using(keySetGenerator);
   }
 
   protected CollectionTestSuiteBuilder<V> createDerivedValueCollectionSuite(
-      TestCollectionGenerator<V> valueCollectionGenerator) {
+      final TestCollectionGenerator<V> valueCollectionGenerator) {
     return CollectionTestSuiteBuilder.using(valueCollectionGenerator);
   }
 
-  private static Set<Feature<?>> computeReserializedMapFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeReserializedMapFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> derivedFeatures = Helpers.copyToSet(mapFeatures);
     derivedFeatures.remove(CollectionFeature.SERIALIZABLE);
     derivedFeatures.remove(CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS);
     return derivedFeatures;
   }
 
-  private static Set<Feature<?>> computeEntrySetFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeEntrySetFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> entrySetFeatures = computeCommonDerivedCollectionFeatures(mapFeatures);
     if (mapFeatures.contains(MapFeature.ALLOWS_NULL_ENTRY_QUERIES)) {
       entrySetFeatures.add(CollectionFeature.ALLOWS_NULL_QUERIES);
@@ -181,7 +181,7 @@ public class MapTestSuiteBuilder<K, V>
     return entrySetFeatures;
   }
 
-  private static Set<Feature<?>> computeKeySetFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeKeySetFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> keySetFeatures = computeCommonDerivedCollectionFeatures(mapFeatures);
 
     // TODO(lowasser): make this trigger only if the map is a submap
@@ -196,7 +196,7 @@ public class MapTestSuiteBuilder<K, V>
     return keySetFeatures;
   }
 
-  private static Set<Feature<?>> computeValuesCollectionFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeValuesCollectionFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> valuesCollectionFeatures = computeCommonDerivedCollectionFeatures(mapFeatures);
     if (mapFeatures.contains(MapFeature.ALLOWS_NULL_VALUE_QUERIES)) {
       valuesCollectionFeatures.add(CollectionFeature.ALLOWS_NULL_QUERIES);
@@ -209,7 +209,7 @@ public class MapTestSuiteBuilder<K, V>
   }
 
   public static Set<Feature<?>> computeCommonDerivedCollectionFeatures(
-      Set<Feature<?>> mapFeatures) {
+      final Set<Feature<?>> mapFeatures) {
     mapFeatures = new HashSet<>(mapFeatures);
     Set<Feature<?>> derivedFeatures = new HashSet<>();
     mapFeatures.remove(CollectionFeature.SERIALIZABLE);
@@ -244,7 +244,7 @@ public class MapTestSuiteBuilder<K, V>
     private final OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>> mapGenerator;
 
     public ReserializedMapGenerator(
-        OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>> mapGenerator) {
+        final OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>> mapGenerator) {
       this.mapGenerator = mapGenerator;
     }
 
@@ -254,27 +254,27 @@ public class MapTestSuiteBuilder<K, V>
     }
 
     @Override
-    public Map.Entry<K, V>[] createArray(int length) {
+    public Map.Entry<K, V>[] createArray(final int length) {
       return mapGenerator.createArray(length);
     }
 
     @Override
-    public Iterable<Map.Entry<K, V>> order(List<Map.Entry<K, V>> insertionOrder) {
+    public Iterable<Map.Entry<K, V>> order(final List<Map.Entry<K, V>> insertionOrder) {
       return mapGenerator.order(insertionOrder);
     }
 
     @Override
-    public Map<K, V> create(Object... elements) {
+    public Map<K, V> create(final Object... elements) {
       return SerializableTester.reserialize(mapGenerator.create(elements));
     }
 
     @Override
-    public K[] createKeyArray(int length) {
+    public K[] createKeyArray(final int length) {
       return ((TestMapGenerator<K, V>) mapGenerator.getInnerGenerator()).createKeyArray(length);
     }
 
     @Override
-    public V[] createValueArray(int length) {
+    public V[] createValueArray(final int length) {
       return ((TestMapGenerator<K, V>) mapGenerator.getInnerGenerator()).createValueArray(length);
     }
   }

@@ -41,7 +41,7 @@ public class PackageSanityTests extends AbstractPackageSanityTests {
     private final EventBus eventBus = new EventBus();
 
     @Subscribe
-    public void handle(@Nullable Object anything) {
+    public void handle(final @Nullable Object anything) {
     }
 
     Subscriber toSubscriber() throws Exception {

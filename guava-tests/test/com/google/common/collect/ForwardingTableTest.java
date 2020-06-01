@@ -32,7 +32,7 @@ public class ForwardingTableTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Table.class, new Function<Table, Table>() {
-          @Override public Table apply(Table delegate) {
+          @Override public Table apply(final Table delegate) {
             return wrap(delegate);
           }
         });

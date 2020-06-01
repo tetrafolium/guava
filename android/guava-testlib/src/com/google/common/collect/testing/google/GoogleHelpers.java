@@ -29,9 +29,9 @@ import com.google.common.collect.Multimap;
 @GwtCompatible
 final class GoogleHelpers {
 
-  private GoogleHelpers() {}
+  private GoogleHelpers() { }
 
-  static void assertEmpty(Multimap<?, ?> multimap) {
+  static void assertEmpty(final Multimap<?, ?> multimap) {
     if (!multimap.isEmpty()) {
       fail("Not true that " + multimap + " is empty");
     }

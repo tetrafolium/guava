@@ -39,7 +39,7 @@ public class CacheLoaderTest extends TestCase {
     private LinkedList<Runnable> tasks = Lists.newLinkedList();
 
     @Override
-    public void execute(Runnable task) {
+    public void execute(final Runnable task) {
       tasks.add(task);
     }
 
@@ -56,19 +56,19 @@ public class CacheLoaderTest extends TestCase {
     CacheLoader<Object, Object> baseLoader =
         new CacheLoader<Object, Object>() {
           @Override
-          public Object load(Object key) {
+          public Object load(final Object key) {
             loadCount.incrementAndGet();
             return new Object();
           }
 
           @Override
-          public ListenableFuture<Object> reload(Object key, Object oldValue) {
+          public ListenableFuture<Object> reload(final Object key, final Object oldValue) {
             reloadCount.incrementAndGet();
             return Futures.immediateFuture(new Object());
           }
 
           @Override
-          public Map<Object, Object> loadAll(Iterable<?> keys) {
+          public Map<Object, Object> loadAll(final Iterable<?> keys) {
             loadAllCount.incrementAndGet();
             return ImmutableMap.of();
           }

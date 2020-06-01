@@ -37,26 +37,26 @@ final class UncheckedThrowingFuture<V> implements ListenableFuture<V> {
   private final Error error;
   private final RuntimeException runtime;
 
-  public static <V> ListenableFuture<V> throwingError(Error error) {
+  public static <V> ListenableFuture<V> throwingError(final Error error) {
     return new UncheckedThrowingFuture<V>(error);
   }
 
-  public static <V> ListenableFuture<V> throwingRuntimeException(RuntimeException e) {
+  public static <V> ListenableFuture<V> throwingRuntimeException(final RuntimeException e) {
     return new UncheckedThrowingFuture<V>(e);
   }
 
-  private UncheckedThrowingFuture(Error error) {
+  private UncheckedThrowingFuture(final Error error) {
     this.error = checkNotNull(error);
     this.runtime = null;
   }
 
-  public UncheckedThrowingFuture(RuntimeException e) {
+  public UncheckedThrowingFuture(final RuntimeException e) {
     this.runtime = checkNotNull(e);
     this.error = null;
   }
 
   @Override
-  public boolean cancel(boolean mayInterruptIfRunning) {
+  public boolean cancel(final boolean mayInterruptIfRunning) {
     return false;
   }
 
@@ -77,14 +77,14 @@ final class UncheckedThrowingFuture<V> implements ListenableFuture<V> {
   }
 
   @Override
-  public V get(long timeout, TimeUnit unit) {
+  public V get(final long timeout, final TimeUnit unit) {
     checkNotNull(unit);
     throwOnGet();
     throw new AssertionError();
   }
 
   @Override
-  public void addListener(Runnable listener, Executor executor) {
+  public void addListener(final Runnable listener, final Executor executor) {
     checkNotNull(listener);
     // TODO(cpovirk): Catch RuntimeExceptions
     executor.execute(listener);

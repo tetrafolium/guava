@@ -137,7 +137,7 @@ public class UninterruptibleFutureTest extends TestCase {
     final int millis;
     volatile boolean completed;
 
-    public SleepingRunnable(int millis) {
+    public SleepingRunnable(final int millis) {
       this.millis = millis;
     }
     @Override
@@ -181,7 +181,7 @@ public class UninterruptibleFutureTest extends TestCase {
     runTimedInterruptsTest(38);
   }
 
-  private static void runUntimedInterruptsTest(int times)
+  private static void runUntimedInterruptsTest(final int times)
       throws InterruptedException, ExecutionException, TimeoutException {
     SettableFuture<String> future = SettableFuture.create();
     FutureTask<Boolean> interruptReporter =
@@ -190,7 +190,7 @@ public class UninterruptibleFutureTest extends TestCase {
     runNInterruptsTest(times, future, interruptReporter);
   }
 
-  private static void runTimedInterruptsTest(int times)
+  private static void runTimedInterruptsTest(final int times)
       throws InterruptedException, ExecutionException, TimeoutException {
     SettableFuture<String> future = SettableFuture.create();
     FutureTask<Boolean> interruptReporter =
@@ -199,8 +199,8 @@ public class UninterruptibleFutureTest extends TestCase {
     runNInterruptsTest(times, future, interruptReporter);
   }
 
-  private static void runNInterruptsTest(int times, SettableFuture<String> future,
-      FutureTask<Boolean> interruptReporter)
+  private static void runNInterruptsTest(final int times, final SettableFuture<String> future,
+      final FutureTask<Boolean> interruptReporter)
       throws InterruptedException, ExecutionException, TimeoutException {
     Thread waitingThread = new Thread(interruptReporter);
     waitingThread.start();

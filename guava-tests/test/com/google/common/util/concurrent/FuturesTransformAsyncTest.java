@@ -43,7 +43,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
   private CountDownLatch funcCompletionLatch;
 
   @Override protected ListenableFuture<String> buildChainingFuture(
-      ListenableFuture<Integer> inputFuture) {
+      final ListenableFuture<Integer> inputFuture) {
     outputFuture = SettableFuture.create();
     funcIsWaitingLatch = new CountDownLatch(1);
     funcCompletionLatch = new CountDownLatch(1);
@@ -56,7 +56,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
 
   private class ChainingFunction implements AsyncFunction<Integer, String> {
     @Override
-    public ListenableFuture<String> apply(Integer input) {
+    public ListenableFuture<String> apply(final Integer input) {
       switch (input) {
         case VALID_INPUT_DATA: outputFuture.set(RESULT_DATA); break;
         case SLOW_OUTPUT_VALID_INPUT_DATA: break;  // do nothing to the result
@@ -82,7 +82,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       resultFuture.get();
       fail("Result future must throw CancellationException"
           + " if input future is cancelled.");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   public void testFutureGetThrowsCancellationIfOutputCancelled()
@@ -93,7 +93,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       resultFuture.get();
       fail("Result future must throw CancellationException"
           + " if function output future is cancelled.");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   public void testFutureCancelBeforeInputCompletion() throws Exception {
@@ -105,7 +105,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       resultFuture.get();
       fail("Result future is cancelled and should have thrown a"
           + " CancellationException");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   public void testFutureCancellableBeforeOutputCompletion() throws Exception {
@@ -118,7 +118,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       resultFuture.get();
       fail("Result future is cancelled and should have thrown a"
           + " CancellationException");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   public void testFutureCancellableBeforeFunctionCompletion() throws Exception {
@@ -140,14 +140,14 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
       resultFuture.get();
       fail("Result future is cancelled and should have thrown a"
           + " CancellationException");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
 
     funcCompletionLatch.countDown();  // allow the function to complete
     try {
       outputFuture.get();
       fail("The function output future is cancelled and should have thrown a"
           + " CancellationException");
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   public void testFutureCancelAfterCompletion() throws Exception {
@@ -175,7 +175,7 @@ public class FuturesTransformAsyncTest extends AbstractChainedListenableFutureTe
    */
   public static class BadFuture
       extends SimpleForwardingListenableFuture<Integer> {
-    protected BadFuture(ListenableFuture<Integer> delegate) {
+    protected BadFuture(final ListenableFuture<Integer> delegate) {
       super(delegate);
     }
 

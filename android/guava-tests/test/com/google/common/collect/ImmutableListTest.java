@@ -240,7 +240,7 @@ public class ImmutableListTest extends TestCase {
     }
 
     public void testCreation_arrayOfArray() {
-      String[] array = new String[] { "a" };
+      String[] array = new String[] {"a" };
       List<String[]> list = ImmutableList.<String[]>of(array);
       assertEquals(Collections.singletonList(array), list);
     }
@@ -252,7 +252,7 @@ public class ImmutableListTest extends TestCase {
     }
 
     public void testCopyOf_arrayOfOneElement() {
-      String[] array = new String[] { "a" };
+      String[] array = new String[] {"a" };
       List<String> list = ImmutableList.copyOf(array);
       assertEquals(Collections.singletonList("a"), list);
     }
@@ -266,7 +266,7 @@ public class ImmutableListTest extends TestCase {
     }
 
     public void testCopyOf_arrayContainingOnlyNull() {
-      String[] array = new String[] { null };
+      String[] array = new String[] {null };
       try {
         ImmutableList.copyOf(array);
         fail();
@@ -397,7 +397,7 @@ public class ImmutableListTest extends TestCase {
       ImmutableList.Builder<String> builder = ImmutableList.builder();
       try {
         builder.add(elements);
-        fail ("Expected NullPointerException");
+        fail("Expected NullPointerException");
       } catch (NullPointerException expected) {
       }
       ImmutableList<String> result = builder.build();
@@ -418,7 +418,7 @@ public class ImmutableListTest extends TestCase {
       ImmutableList.Builder<String> builder = ImmutableList.builder();
       try {
         builder.addAll(elements);
-        fail ("Expected NullPointerException");
+        fail("Expected NullPointerException");
       } catch (NullPointerException expected) {
       }
       ImmutableList<String> result = builder.build();
@@ -487,9 +487,9 @@ public class ImmutableListTest extends TestCase {
     enum WrapWithIterable { WRAP, NO_WRAP }
 
     private static void runConcurrentlyMutatedTest(
-        Collection<Integer> initialContents,
-        Iterable<ListFrobber> actionsToPerformConcurrently,
-        WrapWithIterable wrap) {
+        final Collection<Integer> initialContents,
+        final Iterable<ListFrobber> actionsToPerformConcurrently,
+        final WrapWithIterable wrap) {
       ConcurrentlyMutatedList<Integer> concurrentlyMutatedList =
           newConcurrentlyMutatedList(
               initialContents, actionsToPerformConcurrently);
@@ -505,7 +505,7 @@ public class ImmutableListTest extends TestCase {
           .contains(copyOfIterable));
     }
 
-    private static void runConcurrentlyMutatedTest(WrapWithIterable wrap) {
+    private static void runConcurrentlyMutatedTest(final WrapWithIterable wrap) {
       /*
        * TODO: Iterate over many array sizes and all possible operation lists,
        * performing adds and removes in different ways.
@@ -566,11 +566,11 @@ public class ImmutableListTest extends TestCase {
           wrap);
     }
 
-    private static ImmutableList<Integer> elements(Integer... elements) {
+    private static ImmutableList<Integer> elements(final Integer... elements) {
       return ImmutableList.copyOf(elements);
     }
 
-    private static ImmutableList<ListFrobber> ops(ListFrobber... elements) {
+    private static ImmutableList<ListFrobber> ops(final ListFrobber... elements) {
       return ImmutableList.copyOf(elements);
     }
 
@@ -590,7 +590,7 @@ public class ImmutableListTest extends TestCase {
     static ListFrobber add(final int element) {
       return new ListFrobber() {
         @Override
-        public void perform(List<Integer> list) {
+        public void perform(final List<Integer> list) {
           list.add(0, element);
         }
       };
@@ -599,7 +599,7 @@ public class ImmutableListTest extends TestCase {
     static ListFrobber remove() {
       return new ListFrobber() {
         @Override
-        public void perform(List<Integer> list) {
+        public void perform(final List<Integer> list) {
           list.remove(0);
         }
       };
@@ -608,7 +608,7 @@ public class ImmutableListTest extends TestCase {
     static ListFrobber nop() {
       return new ListFrobber() {
         @Override
-        public void perform(List<Integer> list) {
+        public void perform(final List<Integer> list) {
         }
       };
     }
@@ -647,7 +647,7 @@ public class ImmutableListTest extends TestCase {
             final Set<List<Integer>> allStates = newHashSet();
 
             @Override
-            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
               return method.equals(getAllStatesMethod)
                   ? getAllStates()
                   : invokeListMethod(method, args);
@@ -657,7 +657,7 @@ public class ImmutableListTest extends TestCase {
               return allStates;
             }
 
-            private Object invokeListMethod(Method method, Object[] args) throws Throwable {
+            private Object invokeListMethod(final Method method, final Object[] args) throws Throwable {
               try {
                 Object returnValue = method.invoke(delegate, args);
                 mutateDelegate();
@@ -770,9 +770,9 @@ public class ImmutableListTest extends TestCase {
           .addAll(a)
           .addAll(b)
           .build();
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
     }
 
     public void testBuilderAddAll_iterator() {
@@ -782,9 +782,9 @@ public class ImmutableListTest extends TestCase {
           .addAll(a.iterator())
           .addAll(b.iterator())
           .build();
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
       b.set(0, "f");
-      assertEquals(asList( "a", "b", "c", "d"), list);
+      assertEquals(asList("a", "b", "c", "d"), list);
     }
 
     public void testComplexBuilder() {

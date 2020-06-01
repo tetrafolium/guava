@@ -37,7 +37,7 @@ class Subscriber {
   /**
    * Creates a {@code Subscriber} for {@code method} on {@code listener}.
    */
-  static Subscriber create(EventBus bus, Object listener, Method method) {
+  static Subscriber create(final EventBus bus, final Object listener, final Method method) {
     return isDeclaredThreadSafe(method)
         ? new Subscriber(bus, listener, method)
         : new SynchronizedSubscriber(bus, listener, method);
@@ -55,7 +55,7 @@ class Subscriber {
   /** Executor to use for dispatching events to this subscriber. */
   private final Executor executor;
 
-  private Subscriber(EventBus bus, Object target, Method method) {
+  private Subscriber(final EventBus bus, final Object target, final Method method) {
     this.bus = bus;
     this.target = checkNotNull(target);
     this.method = method;
@@ -86,7 +86,7 @@ class Subscriber {
    * synchronized.
    */
   @VisibleForTesting
-  void invokeSubscriberMethod(Object event) throws InvocationTargetException {
+  void invokeSubscriberMethod(final Object event) throws InvocationTargetException {
     try {
       method.invoke(target, checkNotNull(event));
     } catch (IllegalArgumentException e) {
@@ -104,7 +104,7 @@ class Subscriber {
   /**
    * Gets the context for the given event.
    */
-  private SubscriberExceptionContext context(Object event) {
+  private SubscriberExceptionContext context(final Object event) {
     return new SubscriberExceptionContext(bus, event, target, method);
   }
 
@@ -114,7 +114,7 @@ class Subscriber {
   }
 
   @Override
-  public final boolean equals(@Nullable Object obj) {
+  public final boolean equals(final @Nullable Object obj) {
     if (obj instanceof Subscriber) {
       Subscriber that = (Subscriber) obj;
       // Use == so that different equal instances will still receive events.
@@ -129,7 +129,7 @@ class Subscriber {
    * Checks whether {@code method} is thread-safe, as indicated by the presence of the
    * {@link AllowConcurrentEvents} annotation.
    */
-  private static boolean isDeclaredThreadSafe(Method method) {
+  private static boolean isDeclaredThreadSafe(final Method method) {
     return method.getAnnotation(AllowConcurrentEvents.class) != null;
   }
 
@@ -140,12 +140,12 @@ class Subscriber {
   @VisibleForTesting
   static final class SynchronizedSubscriber extends Subscriber {
 
-    private SynchronizedSubscriber(EventBus bus, Object target, Method method) {
+    private SynchronizedSubscriber(final EventBus bus, final Object target, final Method method) {
       super(bus, target, method);
     }
 
     @Override
-    void invokeSubscriberMethod(Object event) throws InvocationTargetException {
+    void invokeSubscriberMethod(final Object event) throws InvocationTargetException {
       synchronized (this) {
         super.invokeSubscriberMethod(event);
       }

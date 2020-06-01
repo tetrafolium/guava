@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public final class Defaults {
-  private Defaults() {}
+  private Defaults() { }
 
   private static final Double DOUBLE_DEFAULT = Double.valueOf(0d);
   private static final Float FLOAT_DEFAULT = Float.valueOf(0f);
@@ -39,7 +39,7 @@ public final class Defaults {
    */
   @Nullable
   @SuppressWarnings("unchecked")
-  public static <T> T defaultValue(Class<T> type) {
+  public static <T> T defaultValue(final Class<T> type) {
     checkNotNull(type);
     if (type == boolean.class) {
       return (T) Boolean.FALSE;

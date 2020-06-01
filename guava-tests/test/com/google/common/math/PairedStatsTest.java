@@ -290,7 +290,7 @@ public class PairedStatsTest extends TestCase {
                 + "}");
   }
 
-  private PairedStats createSingleStats(double x, double y) {
+  private PairedStats createSingleStats(final double x, final double y) {
     return createPairedStatsOf(ImmutableList.of(x), ImmutableList.of(y));
   }
 

@@ -32,7 +32,7 @@ public abstract class MonitorTestCase extends TestCase {
   public class TestGuard extends Monitor.Guard {
     private volatile boolean satisfied;
 
-    public TestGuard(boolean satisfied) {
+    public TestGuard(final boolean satisfied) {
       super(MonitorTestCase.this.monitor);
       this.satisfied = satisfied;
     }
@@ -41,7 +41,7 @@ public abstract class MonitorTestCase extends TestCase {
       return this.satisfied;
     }
 
-    public void setSatisfied(boolean satisfied) {
+    public void setSatisfied(final boolean satisfied) {
       this.satisfied = satisfied;
     }
   }
@@ -52,7 +52,7 @@ public abstract class MonitorTestCase extends TestCase {
   private TestThread<Monitor> thread1;
   private TestThread<Monitor> thread2;
 
-  protected MonitorTestCase(boolean interruptible) {
+  protected MonitorTestCase(final boolean interruptible) {
     this.interruptible = interruptible;
   }
 
@@ -125,7 +125,7 @@ public abstract class MonitorTestCase extends TestCase {
     checkSystemStateMethods(0);
   }
 
-  private void checkSystemStateMethods(int enterCount) throws Exception {
+  private void checkSystemStateMethods(final int enterCount) throws Exception {
     thread1.callAndAssertReturns(enterCount != 0, "isOccupied");
     thread1.callAndAssertReturns(enterCount != 0, "isOccupiedByCurrentThread");
     thread1.callAndAssertReturns(enterCount, "getOccupiedDepth");

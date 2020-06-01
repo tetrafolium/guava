@@ -32,7 +32,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
   private final boolean containsZero;
   private final long filter;
 
-  private SmallCharMatcher(char[] table, long filter, boolean containsZero, String description) {
+  private SmallCharMatcher(final char[] table, final long filter, final boolean containsZero, final String description) {
     super(description);
     this.table = table;
     this.filter = filter;
@@ -50,11 +50,11 @@ final class SmallCharMatcher extends NamedFastMatcher {
    * MurmurHash3 was written by Austin Appleby, and is placed in the public domain. The author
    * hereby disclaims copyright to this source code.
    */
-  static int smear(int hashCode) {
+  static int smear(final int hashCode) {
     return C2 * Integer.rotateLeft(hashCode * C1, 15);
   }
 
-  private boolean checkFilter(int c) {
+  private boolean checkFilter(final int c) {
     return 1 == (1 & (filter >> c));
   }
 
@@ -70,7 +70,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
    * can hold setSize elements with the desired load factor.
    */
   @VisibleForTesting
-  static int chooseTableSize(int setSize) {
+  static int chooseTableSize(final int setSize) {
     if (setSize == 1) {
       return 2;
     }
@@ -83,7 +83,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
     return tableSize;
   }
 
-  static CharMatcher from(BitSet chars, String description) {
+  static CharMatcher from(final BitSet chars, final String description) {
     // Compute the filter.
     long filter = 0;
     int size = chars.cardinality();
@@ -109,7 +109,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
   }
 
   @Override
-  public boolean matches(char c) {
+  public boolean matches(final char c) {
     if (c == 0) {
       return containsZero;
     }
@@ -133,7 +133,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
   }
 
   @Override
-  void setBits(BitSet table) {
+  void setBits(final BitSet table) {
     if (containsZero) {
       table.set(0);
     }

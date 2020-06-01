@@ -40,7 +40,7 @@ public class BaseEncodingBenchmark {
 
     final BaseEncoding encoding;
 
-    EncodingOption(BaseEncoding encoding) {
+    EncodingOption(final BaseEncoding encoding) {
       this.encoding = encoding;
     }
   }
@@ -64,7 +64,7 @@ public class BaseEncodingBenchmark {
     }
   }
 
-  @Benchmark public int encode(int reps) {
+  @Benchmark public int encode(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += System.identityHashCode(encoding.encoding.encode(encodingInputs[i & INPUTS_MASK]));
@@ -72,7 +72,7 @@ public class BaseEncodingBenchmark {
     return tmp;
   }
 
-  @Benchmark public int decode(int reps) {
+  @Benchmark public int decode(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += System.identityHashCode(encoding.encoding.decode(decodingInputs[i & INPUTS_MASK]));
@@ -80,7 +80,7 @@ public class BaseEncodingBenchmark {
     return tmp;
   }
 
-  @Benchmark public int encodingStream(int reps) throws IOException {
+  @Benchmark public int encodingStream(final int reps) throws IOException {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       StringWriter target = new StringWriter(2 * n);
@@ -92,7 +92,7 @@ public class BaseEncodingBenchmark {
     return tmp;
   }
 
-  @Benchmark public int decodingStream(int reps) throws IOException {
+  @Benchmark public int decodingStream(final int reps) throws IOException {
     int tmp = 0;
     byte[] target = new byte[n];
     for (int i = 0; i < reps; i++) {

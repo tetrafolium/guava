@@ -43,7 +43,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
      * we can't) because they are already final in AbstractFuture itself under GWT.
      */
     @Override
-    public final boolean cancel(boolean mayInterruptIfRunning) {
+    public final boolean cancel(final boolean mayInterruptIfRunning) {
       return super.cancel(mayInterruptIfRunning);
     }
   }
@@ -63,7 +63,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   }
 
   @Override
-  public boolean cancel(boolean mayInterruptIfRunning) {
+  public boolean cancel(final boolean mayInterruptIfRunning) {
     if (!state.permitsPublicUserToTransitionTo(State.CANCELLED)) {
       return false;
     }
@@ -80,7 +80,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     return true;
   }
 
-  protected void interruptTask() {}
+  protected void interruptTask() { }
 
   @Override
   public final boolean isCancelled() {
@@ -103,14 +103,14 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   }
 
   @Override
-  public final V get(long timeout, TimeUnit unit)
+  public final V get(final long timeout, final TimeUnit unit)
       throws InterruptedException, ExecutionException, TimeoutException {
     checkNotNull(unit);
     return get();
   }
 
   @Override
-  public final void addListener(Runnable runnable, Executor executor) {
+  public final void addListener(final Runnable runnable, final Executor executor) {
     Listener listener = new Listener(runnable, executor);
     if (isDone()) {
       listener.execute();
@@ -119,7 +119,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     }
   }
 
-  protected boolean setException(Throwable throwable) {
+  protected boolean setException(final Throwable throwable) {
     checkNotNull(throwable);
     if (!state.permitsPublicUserToTransitionTo(State.FAILURE)) {
       return false;
@@ -129,13 +129,13 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     return true;
   }
 
-  private void forceSetException(Throwable throwable) {
+  private void forceSetException(final Throwable throwable) {
     this.throwable = throwable;
     this.state = State.FAILURE;
     notifyAndClearListeners();
   }
 
-  protected boolean set(V value) {
+  protected boolean set(final V value) {
     if (!state.permitsPublicUserToTransitionTo(State.VALUE)) {
       return false;
     }
@@ -144,13 +144,13 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     return true;
   }
 
-  private void forceSet(V value) {
+  private void forceSet(final V value) {
     this.value = value;
     this.state = State.VALUE;
     notifyAndClearListeners();
   }
 
-  protected boolean setFuture(ListenableFuture<? extends V> future) {
+  protected boolean setFuture(final ListenableFuture<? extends V> future) {
     checkNotNull(future);
 
     // If this future is already cancelled, cancel the delegate.
@@ -185,14 +185,14 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     listeners = null;
   }
 
-  protected void afterDone() {}
+  protected void afterDone() { }
 
   final Throwable trustedGetException() {
     checkState(state == State.FAILURE);
     return throwable;
   }
 
-  final void maybePropagateCancellationTo(@Nullable Future<?> related) {
+  final void maybePropagateCancellationTo(final @Nullable Future<?> related) {
     if (related != null & isCancelled()) {
       related.cancel(wasInterrupted());
     }
@@ -241,7 +241,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     return null;
   }
 
-  private void addDoneString(StringBuilder builder) {
+  private void addDoneString(final StringBuilder builder) {
     try {
       V value = getDone(this);
       builder.append("SUCCESS, result=[").append(value).append("]");
@@ -262,12 +262,12 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       }
 
       @Override
-      void maybeThrowOnGet(Throwable cause) throws ExecutionException {
+      void maybeThrowOnGet(final Throwable cause) throws ExecutionException {
         throw new IllegalStateException("Cannot get() on a pending future.");
       }
 
       @Override
-      boolean permitsPublicUserToTransitionTo(State state) {
+      boolean permitsPublicUserToTransitionTo(final State state) {
         return !state.equals(PENDING);
       }
     },
@@ -278,18 +278,18 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       }
 
       @Override
-      void maybeThrowOnGet(Throwable cause) throws ExecutionException {
+      void maybeThrowOnGet(final Throwable cause) throws ExecutionException {
         throw new IllegalStateException("Cannot get() on a pending future.");
       }
 
-      boolean permitsPublicUserToTransitionTo(State state) {
+      boolean permitsPublicUserToTransitionTo(final State state) {
         return state.equals(CANCELLED);
       }
     },
     VALUE,
     FAILURE {
       @Override
-      void maybeThrowOnGet(Throwable cause) throws ExecutionException {
+      void maybeThrowOnGet(final Throwable cause) throws ExecutionException {
         throw new ExecutionException(cause);
       }
     },
@@ -300,7 +300,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       }
 
       @Override
-      void maybeThrowOnGet(Throwable cause) throws ExecutionException {
+      void maybeThrowOnGet(final Throwable cause) throws ExecutionException {
         // TODO(cpovirk): chain in a CancellationException created at the cancel() call?
         throw new CancellationException();
       }
@@ -314,9 +314,9 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       return false;
     }
 
-    void maybeThrowOnGet(Throwable cause) throws ExecutionException {}
+    void maybeThrowOnGet(final Throwable cause) throws ExecutionException { }
 
-    boolean permitsPublicUserToTransitionTo(State state) {
+    boolean permitsPublicUserToTransitionTo(final State state) {
       return false;
     }
   }
@@ -325,7 +325,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     final Runnable command;
     final Executor executor;
 
-    Listener(Runnable command, Executor executor) {
+    Listener(final Runnable command, final Executor executor) {
       this.command = checkNotNull(command);
       this.executor = checkNotNull(executor);
     }
@@ -343,7 +343,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   private final class SetFuture implements Runnable {
     final ListenableFuture<? extends V> delegate;
 
-    SetFuture(ListenableFuture<? extends V> delegate) {
+    SetFuture(final ListenableFuture<? extends V> delegate) {
       this.delegate = delegate;
     }
 

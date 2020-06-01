@@ -32,23 +32,23 @@ import java.util.concurrent.Callable;
 public abstract class ForwardingListeningExecutorService extends ForwardingExecutorService
     implements ListeningExecutorService {
   /** Constructor for use by subclasses. */
-  protected ForwardingListeningExecutorService() {}
+  protected ForwardingListeningExecutorService() { }
 
   @Override
   protected abstract ListeningExecutorService delegate();
 
   @Override
-  public <T> ListenableFuture<T> submit(Callable<T> task) {
+  public <T> ListenableFuture<T> submit(final Callable<T> task) {
     return delegate().submit(task);
   }
 
   @Override
-  public ListenableFuture<?> submit(Runnable task) {
+  public ListenableFuture<?> submit(final Runnable task) {
     return delegate().submit(task);
   }
 
   @Override
-  public <T> ListenableFuture<T> submit(Runnable task, T result) {
+  public <T> ListenableFuture<T> submit(final Runnable task, final T result) {
     return delegate().submit(task, result);
   }
 }

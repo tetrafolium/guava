@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 abstract class AbstractIterator<T> implements Iterator<T> {
   private State state = State.NOT_READY;
 
-  protected AbstractIterator() {}
+  protected AbstractIterator() { }
 
   private enum State {
     READY,

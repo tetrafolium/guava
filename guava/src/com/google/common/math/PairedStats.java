@@ -57,7 +57,7 @@ public final class PairedStats implements Serializable {
    *   <li>If that {@code count} is more than 1, {@code sumOfProductsOfDeltas} must be finite.
    * </ul>
    */
-  PairedStats(Stats xStats, Stats yStats, double sumOfProductsOfDeltas) {
+  PairedStats(final Stats xStats, final Stats yStats, final double sumOfProductsOfDeltas) {
     this.xStats = xStats;
     this.yStats = yStats;
     this.sumOfProductsOfDeltas = sumOfProductsOfDeltas;
@@ -219,7 +219,7 @@ public final class PairedStats implements Serializable {
    * guarantees {@code strictfp}-like semantics.)
    */
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj == null) {
       return false;
     }
@@ -264,7 +264,7 @@ public final class PairedStats implements Serializable {
     return sumOfProductsOfDeltas;
   }
 
-  private static double ensurePositive(double value) {
+  private static double ensurePositive(final double value) {
     if (value > 0.0) {
       return value;
     } else {
@@ -272,7 +272,7 @@ public final class PairedStats implements Serializable {
     }
   }
 
-  private static double ensureInUnitRange(double value) {
+  private static double ensureInUnitRange(final double value) {
     if (value >= 1.0) {
       return 1.0;
     }
@@ -310,7 +310,7 @@ public final class PairedStats implements Serializable {
    * <p><b>Note:</b> No guarantees are made regarding stability of the representation between
    * versions.
    */
-  public static PairedStats fromByteArray(byte[] byteArray) {
+  public static PairedStats fromByteArray(final byte[] byteArray) {
     checkNotNull(byteArray);
     checkArgument(
         byteArray.length == BYTES,

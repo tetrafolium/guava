@@ -92,7 +92,7 @@ public class MessageDigestHashFunctionTest extends TestCase {
     assertEquals("Hashing.sha512()", Hashing.sha512().toString());
   }
 
-  private static void assertMessageDigestHashing(byte[] input, String algorithmName) {
+  private static void assertMessageDigestHashing(final byte[] input, final String algorithmName) {
     try {
       MessageDigest digest = MessageDigest.getInstance(algorithmName);
       assertEquals(

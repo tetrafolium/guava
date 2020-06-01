@@ -48,7 +48,7 @@ public class ServiceTest extends TestCase {
     assertLessThan(STOPPING, TERMINATED);
   }
 
-  private static <T extends Comparable<? super T>> void assertLessThan(T a, T b) {
+  private static <T extends Comparable<? super T>> void assertLessThan(final T a, final T b) {
     if (a.compareTo(b) >= 0) {
       fail(String.format(Locale.ROOT, "Expected %s to be less than %s", a, b));
     }

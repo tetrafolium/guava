@@ -50,12 +50,12 @@ public final class NetworkEquivalenceTest {
     return Arrays.asList(new Object[][] {{EdgeType.UNDIRECTED}, {EdgeType.DIRECTED}});
   }
 
-  public NetworkEquivalenceTest(EdgeType edgeType) {
+  public NetworkEquivalenceTest(final EdgeType edgeType) {
     this.edgeType = edgeType;
     this.network = createNetwork(edgeType);
   }
 
-  private static MutableNetwork<Integer, String> createNetwork(EdgeType edgeType) {
+  private static MutableNetwork<Integer, String> createNetwork(final EdgeType edgeType) {
     switch (edgeType) {
       case UNDIRECTED:
         return NetworkBuilder.undirected().allowsSelfLoops(true).build();
@@ -66,7 +66,7 @@ public final class NetworkEquivalenceTest {
     }
   }
 
-  private static EdgeType oppositeType(EdgeType edgeType) {
+  private static EdgeType oppositeType(final EdgeType edgeType) {
     switch (edgeType) {
       case UNDIRECTED:
         return EdgeType.DIRECTED;

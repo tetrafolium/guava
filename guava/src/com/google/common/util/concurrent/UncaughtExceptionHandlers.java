@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 @GwtIncompatible
 public final class UncaughtExceptionHandlers {
-  private UncaughtExceptionHandlers() {}
+  private UncaughtExceptionHandlers() { }
 
   /**
    * Returns an exception handler that exits the system. This is particularly useful for the main
@@ -58,12 +58,12 @@ public final class UncaughtExceptionHandlers {
 
     private final Runtime runtime;
 
-    Exiter(Runtime runtime) {
+    Exiter(final Runtime runtime) {
       this.runtime = runtime;
     }
 
     @Override
-    public void uncaughtException(Thread t, Throwable e) {
+    public void uncaughtException(final Thread t, final Throwable e) {
       try {
         // cannot use FormattingLogger due to a dependency loop
         logger.log(

@@ -30,7 +30,7 @@ import java.util.ListIterator;
 public abstract class UnmodifiableListIterator<E> extends UnmodifiableIterator<E>
     implements ListIterator<E> {
   /** Constructor for use by subclasses. */
-  protected UnmodifiableListIterator() {}
+  protected UnmodifiableListIterator() { }
 
   /**
    * Guaranteed to throw an exception and leave the underlying data unmodified.
@@ -40,7 +40,7 @@ public abstract class UnmodifiableListIterator<E> extends UnmodifiableIterator<E
    */
   @Deprecated
   @Override
-  public final void add(E e) {
+  public final void add(final E e) {
     throw new UnsupportedOperationException();
   }
 
@@ -52,7 +52,7 @@ public abstract class UnmodifiableListIterator<E> extends UnmodifiableIterator<E
    */
   @Deprecated
   @Override
-  public final void set(E e) {
+  public final void set(final E e) {
     throw new UnsupportedOperationException();
   }
 }

@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class ShortArrayAsListTest extends TestCase {
 
-  private static List<Short> asList(Short[] values) {
+  private static List<Short> asList(final Short[] values) {
     short[] temp = new short[values.length];
     for (short i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class ShortArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class ShortsAsListGenerator extends TestShortListGenerator {
-    @Override protected List<Short> create(Short[] elements) {
+    @Override protected List<Short> create(final Short[] elements) {
       return asList(elements);
     }
   }
 
   public static final class ShortsAsListHeadSubListGenerator extends TestShortListGenerator {
-    @Override protected List<Short> create(Short[] elements) {
+    @Override protected List<Short> create(final Short[] elements) {
       Short[] suffix = {Short.MIN_VALUE, Short.MAX_VALUE};
       Short[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class ShortArrayAsListTest extends TestCase {
   }
 
   public static final class ShortsAsListTailSubListGenerator extends TestShortListGenerator {
-    @Override protected List<Short> create(Short[] elements) {
+    @Override protected List<Short> create(final Short[] elements) {
       Short[] prefix = {(short) 86, (short) 99};
       Short[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class ShortArrayAsListTest extends TestCase {
   }
 
   public static final class ShortsAsListMiddleSubListGenerator extends TestShortListGenerator {
-    @Override protected List<Short> create(Short[] elements) {
+    @Override protected List<Short> create(final Short[] elements) {
       Short[] prefix = {Short.MIN_VALUE, Short.MAX_VALUE};
       Short[] suffix = {(short) 86, (short) 99};
       Short[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class ShortArrayAsListTest extends TestCase {
     }
   }
 
-  private static Short[] concat(Short[] left, Short[] right) {
+  private static Short[] concat(final Short[] left, final Short[] right) {
     Short[] result = new Short[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class ShortArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Short> create(Object... elements) {
+    public List<Short> create(final Object... elements) {
       Short[] array = new Short[elements.length];
       short i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class ShortArrayAsListTest extends TestCase {
     protected abstract List<Short> create(Short[] elements);
 
     @Override
-    public Short[] createArray(int length) {
+    public Short[] createArray(final int length) {
       return new Short[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Short> order(List<Short> insertionOrder) {
+    public List<Short> order(final List<Short> insertionOrder) {
       return insertionOrder;
     }
   }

@@ -31,7 +31,7 @@ import com.google.common.escape.Escaper;
  */
 @GwtCompatible
 public final class UrlEscapers {
-  private UrlEscapers() {}
+  private UrlEscapers() { }
 
   // For each xxxEscaper() method, please add links to external reference pages
   // that are considered authoritative for the behavior of that escaper.

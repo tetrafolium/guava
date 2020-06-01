@@ -96,11 +96,11 @@ public final class Splitter {
   private final Strategy strategy;
   private final int limit;
 
-  private Splitter(Strategy strategy) {
+  private Splitter(final Strategy strategy) {
     this(strategy, false, CharMatcher.none(), Integer.MAX_VALUE);
   }
 
-  private Splitter(Strategy strategy, boolean omitEmptyStrings, CharMatcher trimmer, int limit) {
+  private Splitter(final Strategy strategy, final boolean omitEmptyStrings, final CharMatcher trimmer, final int limit) {
     this.strategy = strategy;
     this.omitEmptyStrings = omitEmptyStrings;
     this.trimmer = trimmer;
@@ -115,7 +115,7 @@ public final class Splitter {
    * @param separator the character to recognize as a separator
    * @return a splitter, with default settings, that recognizes that separator
    */
-  public static Splitter on(char separator) {
+  public static Splitter on(final char separator) {
     return on(CharMatcher.is(separator));
   }
 
@@ -135,15 +135,15 @@ public final class Splitter {
     return new Splitter(
         new Strategy() {
           @Override
-          public SplittingIterator iterator(Splitter splitter, final CharSequence toSplit) {
+          public SplittingIterator iterator(final Splitter splitter, final CharSequence toSplit) {
             return new SplittingIterator(splitter, toSplit) {
               @Override
-              int separatorStart(int start) {
+              int separatorStart(final int start) {
                 return separatorMatcher.indexIn(toSplit, start);
               }
 
               @Override
-              int separatorEnd(int separatorPosition) {
+              int separatorEnd(final int separatorPosition) {
                 return separatorPosition + 1;
               }
             };
@@ -167,10 +167,10 @@ public final class Splitter {
     return new Splitter(
         new Strategy() {
           @Override
-          public SplittingIterator iterator(Splitter splitter, CharSequence toSplit) {
+          public SplittingIterator iterator(final Splitter splitter, final CharSequence toSplit) {
             return new SplittingIterator(splitter, toSplit) {
               @Override
-              public int separatorStart(int start) {
+              public int separatorStart(final int start) {
                 int separatorLength = separator.length();
 
                 positions:
@@ -186,7 +186,7 @@ public final class Splitter {
               }
 
               @Override
-              public int separatorEnd(int separatorPosition) {
+              public int separatorEnd(final int separatorPosition) {
                 return separatorPosition + separator.length();
               }
             };
@@ -205,7 +205,7 @@ public final class Splitter {
    * @throws IllegalArgumentException if {@code separatorPattern} matches the empty string
    */
   @GwtIncompatible // java.util.regex
-  public static Splitter on(Pattern separatorPattern) {
+  public static Splitter on(final Pattern separatorPattern) {
     return on(new JdkPattern(separatorPattern));
   }
 
@@ -218,16 +218,16 @@ public final class Splitter {
     return new Splitter(
         new Strategy() {
           @Override
-          public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
+          public SplittingIterator iterator(final Splitter splitter, final CharSequence toSplit) {
             final CommonMatcher matcher = separatorPattern.matcher(toSplit);
             return new SplittingIterator(splitter, toSplit) {
               @Override
-              public int separatorStart(int start) {
+              public int separatorStart(final int start) {
                 return matcher.find(start) ? matcher.start() : -1;
               }
 
               @Override
-              public int separatorEnd(int separatorPosition) {
+              public int separatorEnd(final int separatorPosition) {
                 return matcher.end();
               }
             };
@@ -248,7 +248,7 @@ public final class Splitter {
    *     malformed expression
    */
   @GwtIncompatible // java.util.regex
-  public static Splitter onPattern(String separatorPattern) {
+  public static Splitter onPattern(final String separatorPattern) {
     return on(Platform.compilePattern(separatorPattern));
   }
 
@@ -275,16 +275,16 @@ public final class Splitter {
     return new Splitter(
         new Strategy() {
           @Override
-          public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
+          public SplittingIterator iterator(final Splitter splitter, final CharSequence toSplit) {
             return new SplittingIterator(splitter, toSplit) {
               @Override
-              public int separatorStart(int start) {
+              public int separatorStart(final int start) {
                 int nextChunkStart = start + length;
                 return (nextChunkStart < toSplit.length() ? nextChunkStart : -1);
               }
 
               @Override
-              public int separatorEnd(int separatorPosition) {
+              public int separatorEnd(final int separatorPosition) {
                 return separatorPosition;
               }
             };
@@ -329,7 +329,7 @@ public final class Splitter {
    * @return a splitter with the desired configuration
    * @since 9.0
    */
-  public Splitter limit(int limit) {
+  public Splitter limit(final int limit) {
     checkArgument(limit > 0, "must be greater than zero: %s", limit);
     return new Splitter(strategy, omitEmptyStrings, trimmer, limit);
   }
@@ -359,7 +359,7 @@ public final class Splitter {
    * @return a splitter with the desired configuration
    */
   // TODO(kevinb): throw if a trimmer was already specified!
-  public Splitter trimResults(CharMatcher trimmer) {
+  public Splitter trimResults(final CharMatcher trimmer) {
     checkNotNull(trimmer);
     return new Splitter(strategy, omitEmptyStrings, trimmer, limit);
   }
@@ -391,7 +391,7 @@ public final class Splitter {
     };
   }
 
-  private Iterator<String> splittingIterator(CharSequence sequence) {
+  private Iterator<String> splittingIterator(final CharSequence sequence) {
     return strategy.iterator(this, sequence);
   }
 
@@ -404,7 +404,7 @@ public final class Splitter {
    * @since 15.0
    */
   @Beta
-  public List<String> splitToList(CharSequence sequence) {
+  public List<String> splitToList(final CharSequence sequence) {
     checkNotNull(sequence);
 
     Iterator<String> iterator = splittingIterator(sequence);
@@ -424,7 +424,7 @@ public final class Splitter {
    * @since 10.0
    */
   @Beta
-  public MapSplitter withKeyValueSeparator(String separator) {
+  public MapSplitter withKeyValueSeparator(final String separator) {
     return withKeyValueSeparator(on(separator));
   }
 
@@ -435,7 +435,7 @@ public final class Splitter {
    * @since 14.0
    */
   @Beta
-  public MapSplitter withKeyValueSeparator(char separator) {
+  public MapSplitter withKeyValueSeparator(final char separator) {
     return withKeyValueSeparator(on(separator));
   }
 
@@ -446,7 +446,7 @@ public final class Splitter {
    * @since 10.0
    */
   @Beta
-  public MapSplitter withKeyValueSeparator(Splitter keyValueSplitter) {
+  public MapSplitter withKeyValueSeparator(final Splitter keyValueSplitter) {
     return new MapSplitter(this, keyValueSplitter);
   }
 
@@ -464,7 +464,7 @@ public final class Splitter {
     private final Splitter outerSplitter;
     private final Splitter entrySplitter;
 
-    private MapSplitter(Splitter outerSplitter, Splitter entrySplitter) {
+    private MapSplitter(final Splitter outerSplitter, final Splitter entrySplitter) {
       this.outerSplitter = outerSplitter; // only "this" is passed
       this.entrySplitter = checkNotNull(entrySplitter);
     }
@@ -480,7 +480,7 @@ public final class Splitter {
      * @throws IllegalArgumentException if the specified sequence does not split into valid map
      *     entries, or if there are duplicate keys
      */
-    public Map<String, String> split(CharSequence sequence) {
+    public Map<String, String> split(final CharSequence sequence) {
       Map<String, String> map = new LinkedHashMap<>();
       for (String entry : outerSplitter.split(sequence)) {
         Iterator<String> entryFields = entrySplitter.splittingIterator(entry);
@@ -524,7 +524,7 @@ public final class Splitter {
     int offset = 0;
     int limit;
 
-    protected SplittingIterator(Splitter splitter, CharSequence toSplit) {
+    protected SplittingIterator(final Splitter splitter, final CharSequence toSplit) {
       this.trimmer = splitter.trimmer;
       this.omitEmptyStrings = splitter.omitEmptyStrings;
       this.limit = splitter.limit;

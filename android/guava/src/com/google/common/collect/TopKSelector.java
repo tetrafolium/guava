@@ -59,7 +59,7 @@ import javax.annotation.Nullable;
    *
    * @throws IllegalArgumentException if {@code k < 0}
    */
-  public static <T extends Comparable<? super T>> TopKSelector<T> least(int k) {
+  public static <T extends Comparable<? super T>> TopKSelector<T> least(final int k) {
     return least(k, Ordering.natural());
   }
 
@@ -70,7 +70,7 @@ import javax.annotation.Nullable;
    *
    * @throws IllegalArgumentException if {@code k < 0}
    */
-  public static <T extends Comparable<? super T>> TopKSelector<T> greatest(int k) {
+  public static <T extends Comparable<? super T>> TopKSelector<T> greatest(final int k) {
     return greatest(k, Ordering.natural());
   }
 
@@ -80,7 +80,7 @@ import javax.annotation.Nullable;
    *
    * @throws IllegalArgumentException if {@code k < 0}
    */
-  public static <T> TopKSelector<T> least(int k, Comparator<? super T> comparator) {
+  public static <T> TopKSelector<T> least(final int k, final Comparator<? super T> comparator) {
     return new TopKSelector<T>(comparator, k);
   }
 
@@ -90,7 +90,7 @@ import javax.annotation.Nullable;
    *
    * @throws IllegalArgumentException if {@code k < 0}
    */
-  public static <T> TopKSelector<T> greatest(int k, Comparator<? super T> comparator) {
+  public static <T> TopKSelector<T> greatest(final int k, final Comparator<? super T> comparator) {
     return new TopKSelector<T>(Ordering.from(comparator).reverse(), k);
   }
 
@@ -111,7 +111,7 @@ import javax.annotation.Nullable;
    */
   private T threshold;
 
-  private TopKSelector(Comparator<? super T> comparator, int k) {
+  private TopKSelector(final Comparator<? super T> comparator, final int k) {
     this.comparator = checkNotNull(comparator, "comparator");
     this.k = k;
     checkArgument(k >= 0, "k must be nonnegative, was %s", k);
@@ -124,7 +124,7 @@ import javax.annotation.Nullable;
    * Adds {@code elem} as a candidate for the top {@code k} elements. This operation takes
    * amortized O(1) time.
    */
-  public void offer(@Nullable T elem) {
+  public void offer(final @Nullable T elem) {
     if (k == 0) {
       return;
     } else if (bufferSize == 0) {
@@ -195,7 +195,7 @@ import javax.annotation.Nullable;
    * pivotNewIndex, so that everything in [left, pivotNewIndex] is ≤ pivotValue and everything in
    * (pivotNewIndex, right] is greater than pivotValue.
    */
-  private int partition(int left, int right, int pivotIndex) {
+  private int partition(final int left, final int right, final int pivotIndex) {
     T pivotValue = buffer[pivotIndex];
     buffer[pivotIndex] = buffer[right];
 
@@ -211,7 +211,7 @@ import javax.annotation.Nullable;
     return pivotNewIndex;
   }
 
-  private void swap(int i, int j) {
+  private void swap(final int i, final int j) {
     T tmp = buffer[i];
     buffer[i] = buffer[j];
     buffer[j] = tmp;
@@ -225,7 +225,7 @@ import javax.annotation.Nullable;
    * prefer {@link Ordering#leastOf(Iterable, int)}, which provides a simpler API for that use
    * case.
    */
-  public void offerAll(Iterable<? extends T> elements) {
+  public void offerAll(final Iterable<? extends T> elements) {
     offerAll(elements.iterator());
   }
 
@@ -238,7 +238,7 @@ import javax.annotation.Nullable;
    * prefer {@link Ordering#leastOf(Iterator, int)}, which provides a simpler API for that use
    * case.
    */
-  public void offerAll(Iterator<? extends T> elements) {
+  public void offerAll(final Iterator<? extends T> elements) {
     while (elements.hasNext()) {
       offer(elements.next());
     }

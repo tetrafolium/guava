@@ -38,7 +38,7 @@ public final class HashingInputStream extends FilterInputStream {
    *
    * <p>The {@link InputStream} should not be read from before or after the hand-off.
    */
-  public HashingInputStream(HashFunction hashFunction, InputStream in) {
+  public HashingInputStream(final HashFunction hashFunction, final InputStream in) {
     super(checkNotNull(in));
     this.hasher = checkNotNull(hashFunction.newHasher());
   }
@@ -63,7 +63,7 @@ public final class HashingInputStream extends FilterInputStream {
    */
   @Override
   @CanIgnoreReturnValue
-  public int read(byte[] bytes, int off, int len) throws IOException {
+  public int read(final byte[] bytes, final int off, final int len) throws IOException {
     int numOfBytesRead = in.read(bytes, off, len);
     if (numOfBytesRead != -1) {
       hasher.putBytes(bytes, off, numOfBytesRead);
@@ -85,7 +85,7 @@ public final class HashingInputStream extends FilterInputStream {
    * mark() is not supported for HashingInputStream
    */
   @Override
-  public void mark(int readlimit) {}
+  public void mark(final int readlimit) { }
 
   /**
    * reset() is not supported for HashingInputStream.

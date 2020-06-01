@@ -106,7 +106,7 @@ public class TopKSelectorTest extends TestCase {
     Comparator<Integer> cmp =
         new Comparator<Integer>() {
           @Override
-          public int compare(Integer o1, Integer o2) {
+          public int compare(final Integer o1, final Integer o2) {
             compareCalls[0]++;
             return o1.compareTo(o2);
           }

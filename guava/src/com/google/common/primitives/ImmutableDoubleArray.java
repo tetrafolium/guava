@@ -97,33 +97,33 @@ public final class ImmutableDoubleArray implements Serializable {
   }
 
   /** Returns an immutable array containing a single value. */
-  public static ImmutableDoubleArray of(double e0) {
+  public static ImmutableDoubleArray of(final double e0) {
     return new ImmutableDoubleArray(new double[] {e0});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray of(double e0, double e1) {
+  public static ImmutableDoubleArray of(final double e0, final double e1) {
     return new ImmutableDoubleArray(new double[] {e0, e1});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray of(double e0, double e1, double e2) {
+  public static ImmutableDoubleArray of(final double e0, final double e1, final double e2) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray of(double e0, double e1, double e2, double e3) {
+  public static ImmutableDoubleArray of(final double e0, final double e1, final double e2, final double e3) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray of(double e0, double e1, double e2, double e3, double e4) {
+  public static ImmutableDoubleArray of(final double e0, final double e1, final double e2, final double e3, final double e4) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3, e4});
   }
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray of(
-      double e0, double e1, double e2, double e3, double e4, double e5) {
+      final double e0, final double e1, final double e2, final double e3, final double e4, final double e5) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -132,7 +132,7 @@ public final class ImmutableDoubleArray implements Serializable {
   /** Returns an immutable array containing the given values, in order. */
   // Use (first, rest) so that `of(someDoubleArray)` won't compile (they should use copyOf), which
   // is okay since we have to copy the just-created array anyway.
-  public static ImmutableDoubleArray of(double first, double... rest) {
+  public static ImmutableDoubleArray of(final double first, final double... rest) {
     double[] array = new double[rest.length + 1];
     array[0] = first;
     System.arraycopy(rest, 0, array, 1, rest.length);
@@ -140,14 +140,14 @@ public final class ImmutableDoubleArray implements Serializable {
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray copyOf(double[] values) {
+  public static ImmutableDoubleArray copyOf(final double[] values) {
     return values.length == 0
         ? EMPTY
         : new ImmutableDoubleArray(Arrays.copyOf(values, values.length));
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableDoubleArray copyOf(Collection<Double> values) {
+  public static ImmutableDoubleArray copyOf(final Collection<Double> values) {
     return values.isEmpty() ? EMPTY : new ImmutableDoubleArray(Doubles.toArray(values));
   }
 
@@ -158,7 +158,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * values} is a {@link Collection}. Otherwise it creates a {@link #builder} and uses {@link
    * Builder#addAll(Iterable)}, with all the performance implications associated with that.
    */
-  public static ImmutableDoubleArray copyOf(Iterable<Double> values) {
+  public static ImmutableDoubleArray copyOf(final Iterable<Double> values) {
     if (values instanceof Collection) {
       return copyOf((Collection<Double>) values);
     }
@@ -166,7 +166,7 @@ public final class ImmutableDoubleArray implements Serializable {
   }
 
   /** Returns an immutable array containing all the values from {@code stream}, in order. */
-  public static ImmutableDoubleArray copyOf(DoubleStream stream) {
+  public static ImmutableDoubleArray copyOf(final DoubleStream stream) {
     // Note this uses very different growth behavior from copyOf(Iterable) and the builder.
     double[] array = stream.toArray();
     return (array.length == 0) ? EMPTY : new ImmutableDoubleArray(array);
@@ -182,7 +182,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * ImmutableDoubleArray} that is built will very likely occupy more memory than strictly
    * necessary; to trim memory usage, build using {@code builder.build().trimmed()}.
    */
-  public static Builder builder(int initialCapacity) {
+  public static Builder builder(final int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s", initialCapacity);
     return new Builder(initialCapacity);
   }
@@ -208,7 +208,7 @@ public final class ImmutableDoubleArray implements Serializable {
     private double[] array;
     private int count = 0; // <= array.length
 
-    Builder(int initialCapacity) {
+    Builder(final int initialCapacity) {
       array = new double[initialCapacity];
     }
 
@@ -216,7 +216,7 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends {@code value} to the end of the values the built {@link ImmutableDoubleArray} will
      * contain.
      */
-    public Builder add(double value) {
+    public Builder add(final double value) {
       ensureRoomFor(1);
       array[count] = value;
       count += 1;
@@ -227,7 +227,7 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableDoubleArray} will contain.
      */
-    public Builder addAll(double[] values) {
+    public Builder addAll(final double[] values) {
       ensureRoomFor(values.length);
       System.arraycopy(values, 0, array, count, values.length);
       count += values.length;
@@ -238,7 +238,7 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableDoubleArray} will contain.
      */
-    public Builder addAll(Iterable<Double> values) {
+    public Builder addAll(final Iterable<Double> values) {
       if (values instanceof Collection) {
         return addAll((Collection<Double>) values);
       }
@@ -252,7 +252,7 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableDoubleArray} will contain.
      */
-    public Builder addAll(Collection<Double> values) {
+    public Builder addAll(final Collection<Double> values) {
       ensureRoomFor(values.size());
       for (Double value : values) {
         array[count++] = value;
@@ -264,7 +264,7 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends all values from {@code stream}, in order, to the end of the values the built {@link
      * ImmutableDoubleArray} will contain.
      */
-    public Builder addAll(DoubleStream stream) {
+    public Builder addAll(final DoubleStream stream) {
       Spliterator.OfDouble spliterator = stream.spliterator();
       long size = spliterator.getExactSizeIfKnown();
       if (size > 0) { // known *and* nonempty
@@ -278,14 +278,14 @@ public final class ImmutableDoubleArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableDoubleArray} will contain.
      */
-    public Builder addAll(ImmutableDoubleArray values) {
+    public Builder addAll(final ImmutableDoubleArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count, values.length());
       count += values.length();
       return this;
     }
 
-    private void ensureRoomFor(int numberToAdd) {
+    private void ensureRoomFor(final int numberToAdd) {
       int newCount = count + numberToAdd; // TODO(kevinb): check overflow now?
       if (newCount > array.length) {
         double[] newArray = new double[expandedCapacity(array.length, newCount)];
@@ -295,7 +295,7 @@ public final class ImmutableDoubleArray implements Serializable {
     }
 
     // Unfortunately this is pasted from ImmutableCollection.Builder.
-    private static int expandedCapacity(int oldCapacity, int minCapacity) {
+    private static int expandedCapacity(final int oldCapacity, final int minCapacity) {
       if (minCapacity < 0) {
         throw new AssertionError("cannot store more than MAX_VALUE elements");
       }
@@ -340,11 +340,11 @@ public final class ImmutableDoubleArray implements Serializable {
   private final transient int start; // it happens that we only serialize instances where this is 0
   private final int end; // exclusive
 
-  private ImmutableDoubleArray(double[] array) {
+  private ImmutableDoubleArray(final double[] array) {
     this(array, 0, array.length);
   }
 
-  private ImmutableDoubleArray(double[] array, int start, int end) {
+  private ImmutableDoubleArray(final double[] array, final int start, final int end) {
     this.array = array;
     this.start = start;
     this.end = end;
@@ -366,7 +366,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * @throws IndexOutOfBoundsException if {@code index} is negative, or greater than or equal to
    *     {@link #length}
    */
-  public double get(int index) {
+  public double get(final int index) {
     Preconditions.checkElementIndex(index, length());
     return array[start + index];
   }
@@ -376,7 +376,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * such index exists. Values are compared as if by {@link Double#equals}. Equivalent to {@code
    * asList().indexOf(target)}.
    */
-  public int indexOf(double target) {
+  public int indexOf(final double target) {
     for (int i = start; i < end; i++) {
       if (areEqual(array[i], target)) {
         return i - start;
@@ -390,7 +390,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * such index exists. Values are compared as if by {@link Double#equals}. Equivalent to {@code
    * asList().lastIndexOf(target)}.
    */
-  public int lastIndexOf(double target) {
+  public int lastIndexOf(final double target) {
     for (int i = end - 1; i >= start; i--) {
       if (areEqual(array[i], target)) {
         return i - start;
@@ -403,12 +403,12 @@ public final class ImmutableDoubleArray implements Serializable {
    * Returns {@code true} if {@code target} is present at any index in this array. Values are
    * compared as if by {@link Double#equals}. Equivalent to {@code asList().contains(target)}.
    */
-  public boolean contains(double target) {
+  public boolean contains(final double target) {
     return indexOf(target) >= 0;
   }
 
   /** Invokes {@code consumer} for each value contained in this array, in order. */
-  public void forEach(DoubleConsumer consumer) {
+  public void forEach(final DoubleConsumer consumer) {
     checkNotNull(consumer);
     for (int i = start; i < end; i++) {
       consumer.accept(array[i]);
@@ -432,7 +432,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * does (no actual copying is performed). To reduce memory usage, use {@code subArray(start,
    * end).trimmed()}.
    */
-  public ImmutableDoubleArray subArray(int startIndex, int endIndex) {
+  public ImmutableDoubleArray subArray(final int startIndex, final int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
         ? EMPTY
@@ -462,7 +462,7 @@ public final class ImmutableDoubleArray implements Serializable {
   static class AsList extends AbstractList<Double> implements RandomAccess, Serializable {
     private final ImmutableDoubleArray parent;
 
-    private AsList(ImmutableDoubleArray parent) {
+    private AsList(final ImmutableDoubleArray parent) {
       this.parent = parent;
     }
 
@@ -474,27 +474,27 @@ public final class ImmutableDoubleArray implements Serializable {
     }
 
     @Override
-    public Double get(int index) {
+    public Double get(final int index) {
       return parent.get(index);
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       return indexOf(target) >= 0;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       return target instanceof Double ? parent.indexOf((Double) target) : -1;
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       return target instanceof Double ? parent.lastIndexOf((Double) target) : -1;
     }
 
     @Override
-    public List<Double> subList(int fromIndex, int toIndex) {
+    public List<Double> subList(final int fromIndex, final int toIndex) {
       return parent.subArray(fromIndex, toIndex).asList();
     }
 
@@ -505,7 +505,7 @@ public final class ImmutableDoubleArray implements Serializable {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof AsList) {
         AsList that = (AsList) object;
         return this.parent.equals(that.parent);
@@ -545,7 +545,7 @@ public final class ImmutableDoubleArray implements Serializable {
    * values as this one, in the same order. Values are compared as if by {@link Double#equals}.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }
@@ -565,7 +565,7 @@ public final class ImmutableDoubleArray implements Serializable {
   }
 
   // Match the behavior of Double.equals()
-  private static boolean areEqual(double a, double b) {
+  private static boolean areEqual(final double a, final double b) {
     return Double.doubleToLongBits(a) == Double.doubleToLongBits(b);
   }
 

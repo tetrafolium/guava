@@ -15,14 +15,14 @@ package java.util.concurrent;
  */
 public class Executors {
 
-  public static <T> Callable<T> callable(Runnable task, T result) {
+  public static <T> Callable<T> callable(final Runnable task, final T result) {
     if (task == null) {
       throw new NullPointerException();
     }
     return new RunnableAdapter<T>(task, result);
   }
 
-  public static Callable<Object> callable(Runnable task) {
+  public static Callable<Object> callable(final Runnable task) {
     if (task == null) {
       throw new NullPointerException();
     }
@@ -34,7 +34,7 @@ public class Executors {
     final Runnable task;
     final T result;
 
-    RunnableAdapter(Runnable task, T result) {
+    RunnableAdapter(final Runnable task, final T result) {
       this.task = task;
       this.result = result;
     }

@@ -121,5 +121,5 @@ public class FakeTimeLimiterTest extends TestCase {
   }
 
   @SuppressWarnings("serial")
-  private static class SampleCheckedException extends Exception {}
+  private static class SampleCheckedException extends Exception { }
 }

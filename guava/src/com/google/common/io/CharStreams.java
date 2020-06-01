@@ -57,7 +57,7 @@ public final class CharStreams {
     return CharBuffer.allocate(DEFAULT_BUF_SIZE);
   }
 
-  private CharStreams() {}
+  private CharStreams() { }
 
   /**
    * Copies all characters between the {@link Readable} and {@link Appendable} objects. Does not
@@ -69,7 +69,7 @@ public final class CharStreams {
    * @throws IOException if an I/O error occurs
    */
   @CanIgnoreReturnValue
-  public static long copy(Readable from, Appendable to) throws IOException {
+  public static long copy(final Readable from, final Appendable to) throws IOException {
     // The most common case is that from is a Reader (like InputStreamReader or StringReader) so
     // take advantage of that.
     if (from instanceof Reader) {
@@ -113,7 +113,7 @@ public final class CharStreams {
    * @throws IOException if an I/O error occurs
    */
   @CanIgnoreReturnValue
-  static long copyReaderToBuilder(Reader from, StringBuilder to) throws IOException {
+  static long copyReaderToBuilder(final Reader from, final StringBuilder to) throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     char[] buf = new char[DEFAULT_BUF_SIZE];
@@ -141,7 +141,7 @@ public final class CharStreams {
    * @throws IOException if an I/O error occurs
    */
   @CanIgnoreReturnValue
-  static long copyReaderToWriter(Reader from, Writer to) throws IOException {
+  static long copyReaderToWriter(final Reader from, final Writer to) throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     char[] buf = new char[DEFAULT_BUF_SIZE];
@@ -162,7 +162,7 @@ public final class CharStreams {
    * @return a string containing all the characters
    * @throws IOException if an I/O error occurs
    */
-  public static String toString(Readable r) throws IOException {
+  public static String toString(final Readable r) throws IOException {
     return toStringBuilder(r).toString();
   }
 
@@ -174,7 +174,7 @@ public final class CharStreams {
    * @return a {@link StringBuilder} containing all the characters
    * @throws IOException if an I/O error occurs
    */
-  private static StringBuilder toStringBuilder(Readable r) throws IOException {
+  private static StringBuilder toStringBuilder(final Readable r) throws IOException {
     StringBuilder sb = new StringBuilder();
     if (r instanceof Reader) {
       copyReaderToBuilder((Reader) r, sb);
@@ -195,7 +195,7 @@ public final class CharStreams {
    * @return a mutable {@link List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
-  public static List<String> readLines(Readable r) throws IOException {
+  public static List<String> readLines(final Readable r) throws IOException {
     List<String> result = new ArrayList<>();
     LineReader lineReader = new LineReader(r);
     String line;
@@ -215,7 +215,7 @@ public final class CharStreams {
    * @since 14.0
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public static <T> T readLines(Readable readable, LineProcessor<T> processor) throws IOException {
+  public static <T> T readLines(final Readable readable, final LineProcessor<T> processor) throws IOException {
     checkNotNull(readable);
     checkNotNull(processor);
 
@@ -236,7 +236,7 @@ public final class CharStreams {
    * @since 20.0
    */
   @CanIgnoreReturnValue
-  public static long exhaust(Readable readable) throws IOException {
+  public static long exhaust(final Readable readable) throws IOException {
     long total = 0;
     long read;
     CharBuffer buf = createBuffer();
@@ -256,7 +256,7 @@ public final class CharStreams {
    * @throws EOFException if this stream reaches the end before skipping all the characters
    * @throws IOException if an I/O error occurs
    */
-  public static void skipFully(Reader reader, long n) throws IOException {
+  public static void skipFully(final Reader reader, final long n) throws IOException {
     checkNotNull(reader);
     while (n > 0) {
       long amt = reader.skip(n);
@@ -281,50 +281,50 @@ public final class CharStreams {
     private static final NullWriter INSTANCE = new NullWriter();
 
     @Override
-    public void write(int c) {}
+    public void write(final int c) { }
 
     @Override
-    public void write(char[] cbuf) {
+    public void write(final char[] cbuf) {
       checkNotNull(cbuf);
     }
 
     @Override
-    public void write(char[] cbuf, int off, int len) {
+    public void write(final char[] cbuf, final int off, final int len) {
       checkPositionIndexes(off, off + len, cbuf.length);
     }
 
     @Override
-    public void write(String str) {
+    public void write(final String str) {
       checkNotNull(str);
     }
 
     @Override
-    public void write(String str, int off, int len) {
+    public void write(final String str, final int off, final int len) {
       checkPositionIndexes(off, off + len, str.length());
     }
 
     @Override
-    public Writer append(CharSequence csq) {
+    public Writer append(final CharSequence csq) {
       checkNotNull(csq);
       return this;
     }
 
     @Override
-    public Writer append(CharSequence csq, int start, int end) {
+    public Writer append(final CharSequence csq, final int start, final int end) {
       checkPositionIndexes(start, end, csq.length());
       return this;
     }
 
     @Override
-    public Writer append(char c) {
+    public Writer append(final char c) {
       return this;
     }
 
     @Override
-    public void flush() {}
+    public void flush() { }
 
     @Override
-    public void close() {}
+    public void close() { }
 
     @Override
     public String toString() {
@@ -340,7 +340,7 @@ public final class CharStreams {
    * @param target the object to which output will be sent
    * @return a new Writer object, unless target is a Writer, in which case the target is returned
    */
-  public static Writer asWriter(Appendable target) {
+  public static Writer asWriter(final Appendable target) {
     if (target instanceof Writer) {
       return (Writer) target;
     }

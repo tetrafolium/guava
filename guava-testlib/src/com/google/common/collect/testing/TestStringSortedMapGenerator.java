@@ -52,7 +52,7 @@ public abstract class TestStringSortedMapGenerator extends TestStringMapGenerato
   }
 
   @Override
-  public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+  public Iterable<Entry<String, String>> order(final List<Entry<String, String>> insertionOrder) {
     return orderEntriesByKey(insertionOrder);
   }
 
@@ -60,7 +60,7 @@ public abstract class TestStringSortedMapGenerator extends TestStringMapGenerato
   protected abstract SortedMap<String, String> create(Entry<String, String>[] entries);
 
   @Override
-  public SortedMap<String, String> create(Object... entries) {
+  public SortedMap<String, String> create(final Object... entries) {
     return (SortedMap<String, String>) super.create(entries);
   }
 }

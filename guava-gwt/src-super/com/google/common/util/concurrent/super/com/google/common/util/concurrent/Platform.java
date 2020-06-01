@@ -20,7 +20,7 @@ package com.google.common.util.concurrent;
  * Methods factored out so that they can be emulated differently in GWT.
  */
 final class Platform {
-  static boolean isInstanceOfThrowableClass(Throwable t, Class<? extends Throwable> expectedClass) {
+  static boolean isInstanceOfThrowableClass(final Throwable t, final Class<? extends Throwable> expectedClass) {
     /*
      * This method is used only by CatchingFuture, and CatchingFuture accepts only Throwable.class
      * under GWT.
@@ -28,5 +28,5 @@ final class Platform {
     return true;
   }
 
-  private Platform() {}
+  private Platform() { }
 }

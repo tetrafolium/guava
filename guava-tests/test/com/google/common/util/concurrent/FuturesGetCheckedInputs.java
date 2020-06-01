@@ -39,92 +39,92 @@ final class FuturesGetCheckedInputs {
   static final Future<String> ERROR_FUTURE = UncheckedThrowingFuture.throwingError(ERROR);
 
   public static final class TwoArgConstructorException extends Exception {
-    public TwoArgConstructorException(String message, Throwable cause) {
+    public TwoArgConstructorException(final String message, final Throwable cause) {
       super(message, cause);
     }
   }
 
   public static final class TwoArgConstructorRuntimeException extends RuntimeException {
-    public TwoArgConstructorRuntimeException(String message, Throwable cause) {
+    public TwoArgConstructorRuntimeException(final String message, final Throwable cause) {
       super(message, cause);
     }
   }
 
   public static final class ExceptionWithPrivateConstructor extends Exception {
-    private ExceptionWithPrivateConstructor(String message, Throwable cause) {
+    private ExceptionWithPrivateConstructor(final String message, final Throwable cause) {
       super(message, cause);
     }
   }
 
   @SuppressWarnings("unused") // we're testing that they're not used
   public static final class ExceptionWithSomePrivateConstructors extends Exception {
-    private ExceptionWithSomePrivateConstructors(String a) {}
+    private ExceptionWithSomePrivateConstructors(final String a) { }
 
-    private ExceptionWithSomePrivateConstructors(String a, String b) {}
+    private ExceptionWithSomePrivateConstructors(final String a, final String b) { }
 
-    public ExceptionWithSomePrivateConstructors(String a, String b, String c) {}
+    public ExceptionWithSomePrivateConstructors(final String a, final String b, final String c) { }
 
-    private ExceptionWithSomePrivateConstructors(String a, String b, String c, String d) {}
+    private ExceptionWithSomePrivateConstructors(final String a, final String b, final String c, final String d) { }
 
     private ExceptionWithSomePrivateConstructors(
-        String a, String b, String c, String d, String e) {}
+        final String a, final String b, final String c, final String d, final String e) { }
   }
 
   public static final class ExceptionWithManyConstructors extends Exception {
     boolean usedExpectedConstructor;
 
-    public ExceptionWithManyConstructors() {}
+    public ExceptionWithManyConstructors() { }
 
-    public ExceptionWithManyConstructors(Integer i) {}
+    public ExceptionWithManyConstructors(final Integer i) { }
 
-    public ExceptionWithManyConstructors(Throwable a) {}
+    public ExceptionWithManyConstructors(final Throwable a) { }
 
-    public ExceptionWithManyConstructors(Throwable a, Throwable b) {}
+    public ExceptionWithManyConstructors(final Throwable a, final Throwable b) { }
 
-    public ExceptionWithManyConstructors(String s, Throwable b) {
+    public ExceptionWithManyConstructors(final String s, final Throwable b) {
       usedExpectedConstructor = true;
     }
 
-    public ExceptionWithManyConstructors(Throwable a, Throwable b, Throwable c) {}
+    public ExceptionWithManyConstructors(final Throwable a, final Throwable b, final Throwable c) { }
 
-    public ExceptionWithManyConstructors(Throwable a, Throwable b, Throwable c, Throwable d) {}
-
-    public ExceptionWithManyConstructors(
-        Throwable a, Throwable b, Throwable c, Throwable d, Throwable e) {}
+    public ExceptionWithManyConstructors(final Throwable a, final Throwable b, final Throwable c, final Throwable d) { }
 
     public ExceptionWithManyConstructors(
-        Throwable a, Throwable b, Throwable c, Throwable d, Throwable e, String s, Integer i) {}
+        final Throwable a, final Throwable b, final Throwable c, final Throwable d, final Throwable e) { }
+
+    public ExceptionWithManyConstructors(
+        final Throwable a, final Throwable b, final Throwable c, final Throwable d, final Throwable e, final String s, final Integer i) { }
   }
 
   public static final class ExceptionWithoutThrowableConstructor extends Exception {
-    public ExceptionWithoutThrowableConstructor(String s) {
+    public ExceptionWithoutThrowableConstructor(final String s) {
       super(s);
     }
   }
 
   public static final class ExceptionWithWrongTypesConstructor extends Exception {
-    public ExceptionWithWrongTypesConstructor(Integer i, String s) {
+    public ExceptionWithWrongTypesConstructor(final Integer i, final String s) {
       super(s);
     }
   }
 
   static final class ExceptionWithGoodAndBadConstructor extends Exception {
-    public ExceptionWithGoodAndBadConstructor(String message, Throwable cause) {
+    public ExceptionWithGoodAndBadConstructor(final String message, final Throwable cause) {
       throw new RuntimeException("bad constructor");
     }
 
-    public ExceptionWithGoodAndBadConstructor(Throwable cause) {
+    public ExceptionWithGoodAndBadConstructor(final Throwable cause) {
       super(cause);
     }
   }
 
   static final class ExceptionWithBadConstructor extends Exception {
-    public ExceptionWithBadConstructor(String message, Throwable cause) {
+    public ExceptionWithBadConstructor(final String message, final Throwable cause) {
       throw new RuntimeException("bad constructor");
     }
   }
 
-  static final class OtherThrowable extends Throwable {}
+  static final class OtherThrowable extends Throwable { }
 
-  private FuturesGetCheckedInputs() {}
+  private FuturesGetCheckedInputs() { }
 }

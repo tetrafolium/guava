@@ -49,7 +49,7 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
   private static final ImmutableList<Method> testMethods
       = getTestMethods(ByteSourceTester.class);
 
-  static TestSuite tests(String name, ByteSourceFactory factory, boolean testAsCharSource) {
+  static TestSuite tests(final String name, final ByteSourceFactory factory, final boolean testAsCharSource) {
     TestSuite suite = new TestSuite(name);
     for (Map.Entry<String, String> entry : TEST_STRINGS.entrySet()) {
       if (testAsCharSource) {
@@ -62,8 +62,8 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
     return suite;
   }
 
-  static TestSuite suiteForString(ByteSourceFactory factory, String string,
-      String name, String desc) {
+  static TestSuite suiteForString(final ByteSourceFactory factory, final String string,
+      final String name, final String desc) {
     TestSuite suite = suiteForBytes(
         factory, string.getBytes(Charsets.UTF_8), name, desc, true);
     CharSourceFactory charSourceFactory = SourceSinkFactories.asCharSourceFactory(factory);
@@ -72,8 +72,8 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
     return suite;
   }
 
-  static TestSuite suiteForBytes(ByteSourceFactory factory, byte[] bytes,
-      String name, String desc, boolean slice) {
+  static TestSuite suiteForBytes(final ByteSourceFactory factory, final byte[] bytes,
+      final String name, final String desc, final boolean slice) {
     TestSuite suite = new TestSuite(name + " [" + desc + "]");
     for (Method method : testMethods) {
       suite.addTest(new ByteSourceTester(factory, bytes, name, desc, method));
@@ -110,8 +110,8 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
 
   private ByteSource source;
 
-  public ByteSourceTester(ByteSourceFactory factory, byte[] bytes,
-      String suiteName, String caseDesc, Method method) {
+  public ByteSourceTester(final ByteSourceFactory factory, final byte[] bytes,
+      final String suiteName, final String caseDesc, final Method method) {
     super(factory, bytes, suiteName, caseDesc, method);
   }
 
@@ -193,7 +193,7 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
       final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
       @Override
-      public boolean processBytes(byte[] buf, int off, int len) throws IOException {
+      public boolean processBytes(final byte[] buf, final int off, final int len) throws IOException {
         out.write(buf, off, len);
         return true;
       }
@@ -237,7 +237,7 @@ public class ByteSourceTester extends SourceSinkTester<ByteSource, byte[], ByteS
     }
   }
 
-  private void assertExpectedBytes(byte[] readBytes) {
+  private void assertExpectedBytes(final byte[] readBytes) {
     assertArrayEquals(expected, readBytes);
   }
 }

@@ -55,7 +55,7 @@ public final class ExecutionList {
   private boolean executed;
 
   /** Creates a new, empty {@link ExecutionList}. */
-  public ExecutionList() {}
+  public ExecutionList() { }
 
   /**
    * Adds the {@code Runnable} and accompanying {@code Executor} to the list of listeners to
@@ -65,7 +65,7 @@ public final class ExecutionList {
    * the discussion in the {@link ListenableFuture#addListener ListenableFuture.addListener}
    * documentation.
    */
-  public void add(Runnable runnable, Executor executor) {
+  public void add(final Runnable runnable, final Executor executor) {
     // Fail fast on a null. We throw NPE here because the contract of Executor states that it throws
     // NPE on null listener, so we propagate that contract up into the add method as well.
     checkNotNull(runnable, "Runnable was null.");
@@ -136,7 +136,7 @@ public final class ExecutionList {
    * Submits the given runnable to the given {@link Executor} catching and logging all {@linkplain
    * RuntimeException runtime exceptions} thrown by the executor.
    */
-  private static void executeListener(Runnable runnable, Executor executor) {
+  private static void executeListener(final Runnable runnable, final Executor executor) {
     try {
       executor.execute(runnable);
     } catch (RuntimeException e) {
@@ -155,7 +155,7 @@ public final class ExecutionList {
     final Executor executor;
     @Nullable RunnableExecutorPair next;
 
-    RunnableExecutorPair(Runnable runnable, Executor executor, RunnableExecutorPair next) {
+    RunnableExecutorPair(final Runnable runnable, final Executor executor, final RunnableExecutorPair next) {
       this.runnable = runnable;
       this.executor = executor;
       this.next = next;

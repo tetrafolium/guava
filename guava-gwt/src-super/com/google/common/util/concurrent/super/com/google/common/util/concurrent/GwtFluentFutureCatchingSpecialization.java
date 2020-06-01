@@ -30,16 +30,16 @@ abstract class GwtFluentFutureCatchingSpecialization<V> implements ListenableFut
    */
 
   public final FluentFuture<V> catching(
-      Class<Throwable> exceptionType,
-      Function<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+      final Class<Throwable> exceptionType,
+      final Function<? super Throwable, ? extends V> fallback,
+      final Executor executor) {
     return (FluentFuture<V>) Futures.catching(this, exceptionType, fallback, executor);
   }
 
   public final FluentFuture<V> catchingAsync(
-      Class<Throwable> exceptionType,
-      AsyncFunction<? super Throwable, ? extends V> fallback,
-      Executor executor) {
+      final Class<Throwable> exceptionType,
+      final AsyncFunction<? super Throwable, ? extends V> fallback,
+      final Executor executor) {
     return (FluentFuture<V>) Futures.catchingAsync(this, exceptionType, fallback, executor);
   }
 }

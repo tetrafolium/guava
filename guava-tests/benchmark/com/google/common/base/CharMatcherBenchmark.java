@@ -82,7 +82,7 @@ public class CharMatcherBenchmark {
 
   // Caliper recognizes int-parameter methods beginning with "time"
 
-  @Benchmark int trimAndCollapseFromString(int reps) {
+  @Benchmark int trimAndCollapseFromString(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy += matcher.trimAndCollapseFrom(string, '!').length();
@@ -90,7 +90,7 @@ public class CharMatcherBenchmark {
     return dummy;
   }
 
-  @Benchmark int matches(int reps) {
+  @Benchmark int matches(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy += matcher.matches(string.charAt(i % string.length())) ? 1 : 0;
@@ -101,8 +101,8 @@ public class CharMatcherBenchmark {
   private static final String NONMATCHING_CHARS =
       "abcdefghijklmnopqrstuvwxyz0123456789";
 
-  private static String checkString(int length, int percent,
-      String matchingChars, Random rand, boolean forceSlow, boolean web) {
+  private static String checkString(final int length, final int percent,
+      final String matchingChars, final Random rand, final boolean forceSlow, final boolean web) {
     // Check whether we should ignore everything else and pull from the web.
     if (web) {
       StringBuilder builder = new StringBuilder(length);
@@ -137,7 +137,7 @@ public class CharMatcherBenchmark {
     return builder.toString();
   }
 
-  private static char randomCharFrom(String s, Random rand) {
+  private static char randomCharFrom(final String s, final Random rand) {
     return s.charAt(rand.nextInt(s.length()));
   }
 
@@ -159,7 +159,7 @@ public class CharMatcherBenchmark {
 
    private final Random random;
 
-   public CharSamples(Random random) {
+   public CharSamples(final Random random) {
      this.random = random;
    }
    public int nextCodePoint() {

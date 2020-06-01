@@ -47,7 +47,7 @@ public final class HostSpecifier {
 
   private final String canonicalForm;
 
-  private HostSpecifier(String canonicalForm) {
+  private HostSpecifier(final String canonicalForm) {
     this.canonicalForm = canonicalForm;
   }
 
@@ -66,7 +66,7 @@ public final class HostSpecifier {
    *
    * @throws IllegalArgumentException if the specifier is not valid.
    */
-  public static HostSpecifier fromValid(String specifier) {
+  public static HostSpecifier fromValid(final String specifier) {
     // Verify that no port was specified, and strip optional brackets from
     // IPv6 literals.
     final HostAndPort parsedHost = HostAndPort.fromString(specifier);
@@ -108,7 +108,7 @@ public final class HostSpecifier {
    *
    * @throws ParseException if the specifier is not valid.
    */
-  public static HostSpecifier from(String specifier) throws ParseException {
+  public static HostSpecifier from(final String specifier) throws ParseException {
     try {
       return fromValid(specifier);
     } catch (IllegalArgumentException e) {
@@ -126,7 +126,7 @@ public final class HostSpecifier {
    * Determines whether {@code specifier} represents a valid {@link HostSpecifier} as described in
    * the documentation for {@link #fromValid(String)}.
    */
-  public static boolean isValid(String specifier) {
+  public static boolean isValid(final String specifier) {
     try {
       fromValid(specifier);
       return true;
@@ -136,7 +136,7 @@ public final class HostSpecifier {
   }
 
   @Override
-  public boolean equals(@Nullable Object other) {
+  public boolean equals(final @Nullable Object other) {
     if (this == other) {
       return true;
     }

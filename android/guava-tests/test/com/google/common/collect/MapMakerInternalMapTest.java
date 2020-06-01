@@ -40,7 +40,7 @@ public class MapMakerInternalMapTest extends TestCase {
 
   private static <K, V>
       MapMakerInternalMap<K, V, ? extends InternalEntry<K, V, ?>, ? extends Segment<K, V, ?, ?>>
-          makeMap(MapMaker maker) {
+          makeMap(final MapMaker maker) {
     return MapMakerInternalMap.create(maker);
   }
 
@@ -74,12 +74,12 @@ public class MapMakerInternalMapTest extends TestCase {
   public void testSetKeyEquivalence() {
     Equivalence<Object> testEquivalence = new Equivalence<Object>() {
       @Override
-      protected boolean doEquivalent(Object a, Object b) {
+      protected boolean doEquivalent(final Object a, final Object b) {
         return false;
       }
 
       @Override
-      protected int doHash(Object t) {
+      protected int doHash(final Object t) {
         return 0;
       }
     };
@@ -103,7 +103,7 @@ public class MapMakerInternalMapTest extends TestCase {
     checkConcurrencyLevel(8, 8);
   }
 
-  private static void checkConcurrencyLevel(int concurrencyLevel, int segmentCount) {
+  private static void checkConcurrencyLevel(final int concurrencyLevel, final int segmentCount) {
     MapMakerInternalMap<Object, Object, ?, ?> map =
         makeMap(createMapMaker().concurrencyLevel(concurrencyLevel));
     assertThat(map.segments).hasLength(segmentCount);
@@ -144,7 +144,7 @@ public class MapMakerInternalMapTest extends TestCase {
   }
 
   private static void checkInitialCapacity(
-      int concurrencyLevel, int initialCapacity, int segmentSize) {
+      final int concurrencyLevel, final int initialCapacity, final int segmentSize) {
     MapMakerInternalMap<Object, Object, ?, ?> map =
         makeMap(
             createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
@@ -178,7 +178,7 @@ public class MapMakerInternalMapTest extends TestCase {
     }
   }
 
-  private static void checkMaximumSize(int concurrencyLevel, int initialCapacity, int maxSize) {
+  private static void checkMaximumSize(final int concurrencyLevel, final int initialCapacity, final int maxSize) {
     MapMakerInternalMap<Object, Object, ?, ?> map =
         makeMap(
             createMapMaker().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
@@ -204,7 +204,7 @@ public class MapMakerInternalMapTest extends TestCase {
   }
 
   private static void checkStrength(
-      MapMakerInternalMap<Object, Object, ?, ?> map, Strength keyStrength, Strength valueStrength) {
+      final MapMakerInternalMap<Object, Object, ?, ?> map, final Strength keyStrength, final Strength valueStrength) {
     assertSame(keyStrength, map.keyStrength());
     assertSame(valueStrength, map.valueStrength());
     assertSame(keyStrength.defaultEquivalence(), map.keyEquivalence);
@@ -731,7 +731,7 @@ public class MapMakerInternalMapTest extends TestCase {
     }
   }
 
-  private static <K, V> int countLiveEntries(MapMakerInternalMap<K, V, ?, ?> map) {
+  private static <K, V> int countLiveEntries(final MapMakerInternalMap<K, V, ?, ?> map) {
     int result = 0;
     for (Segment<K, V, ?, ?> segment : map.segments) {
       AtomicReferenceArray<? extends InternalEntry<K, V, ?>> table = segment.table;

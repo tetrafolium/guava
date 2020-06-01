@@ -45,12 +45,12 @@ public final class GraphEquivalenceTest {
     return Arrays.asList(new Object[][] {{EdgeType.UNDIRECTED}, {EdgeType.DIRECTED}});
   }
 
-  public GraphEquivalenceTest(EdgeType edgeType) {
+  public GraphEquivalenceTest(final EdgeType edgeType) {
     this.edgeType = edgeType;
     this.graph = createGraph(edgeType);
   }
 
-  private static MutableGraph<Integer> createGraph(EdgeType edgeType) {
+  private static MutableGraph<Integer> createGraph(final EdgeType edgeType) {
     switch (edgeType) {
       case UNDIRECTED:
         return GraphBuilder.undirected().allowsSelfLoops(true).build();
@@ -61,7 +61,7 @@ public final class GraphEquivalenceTest {
     }
   }
 
-  private static EdgeType oppositeType(EdgeType edgeType) {
+  private static EdgeType oppositeType(final EdgeType edgeType) {
     switch (edgeType) {
       case UNDIRECTED:
         return EdgeType.DIRECTED;

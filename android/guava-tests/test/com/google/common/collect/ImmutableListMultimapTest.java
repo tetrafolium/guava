@@ -47,7 +47,7 @@ import junit.framework.TestSuite;
 public class ImmutableListMultimapTest extends TestCase {
   public static class ImmutableListMultimapGenerator extends TestStringListMultimapGenerator {
     @Override
-    protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+    protected ListMultimap<String, String> create(final Entry<String, String>[] entries) {
       ImmutableListMultimap.Builder<String, String> builder = ImmutableListMultimap.builder();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -58,7 +58,7 @@ public class ImmutableListMultimapTest extends TestCase {
   public static class ImmutableListMultimapCopyOfEntriesGenerator
       extends TestStringListMultimapGenerator {
     @Override
-    protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+    protected ListMultimap<String, String> create(final Entry<String, String>[] entries) {
       return ImmutableListMultimap.copyOf(Arrays.asList(entries));
     }
   }
@@ -228,19 +228,19 @@ public class ImmutableListMultimapTest extends TestCase {
     try {
       builder.put(null, 1);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(null, Arrays.asList(1, 2, 3));
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(null, 1, 2, 3);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(toPut);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderPutNullValue() {
@@ -251,19 +251,19 @@ public class ImmutableListMultimapTest extends TestCase {
     try {
       builder.put("foo", null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll("foo", Arrays.asList(1, null, 3));
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll("foo", 1, null, 3);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(toPut);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderOrderKeysBy() {
@@ -291,7 +291,7 @@ public class ImmutableListMultimapTest extends TestCase {
     builder.put("a", 5);
     builder.orderKeysBy(new Ordering<String>() {
       @Override
-      public int compare(String left, String right) {
+      public int compare(final String left, final String right) {
         return left.length() - right.length();
       }
     });
@@ -379,7 +379,7 @@ public class ImmutableListMultimapTest extends TestCase {
     try {
       ImmutableListMultimap.copyOf(input);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOfNullValue() {
@@ -388,7 +388,7 @@ public class ImmutableListMultimapTest extends TestCase {
     try {
       ImmutableListMultimap.copyOf(input);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testEmptyMultimapReads() {
@@ -511,8 +511,8 @@ public class ImmutableListMultimapTest extends TestCase {
     assertSame(multimap, multimap.inverse().inverse());
   }
 
-  private static <K, V> void assertMultimapEquals(Multimap<K, V> multimap,
-      Object... alternatingKeysAndValues) {
+  private static <K, V> void assertMultimapEquals(final Multimap<K, V> multimap,
+      final Object... alternatingKeysAndValues) {
     assertEquals(multimap.size(), alternatingKeysAndValues.length / 2);
     int i = 0;
     for (Entry<K, V> entry : multimap.entries()) {

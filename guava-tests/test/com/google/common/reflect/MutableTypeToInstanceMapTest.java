@@ -51,7 +51,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
                   // but here we have to do some serious fudging
                   @Override
                   @SuppressWarnings("unchecked")
-                  public Map<TypeToken, Object> create(Object... elements) {
+                  public Map<TypeToken, Object> create(final Object... elements) {
                     MutableTypeToInstanceMap<Object> map = new MutableTypeToInstanceMap<>();
                     for (Object object : elements) {
                       Entry<TypeToken, Object> entry = (Entry<TypeToken, Object>) object;
@@ -83,14 +83,14 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     try {
       map.put(TypeToken.of(Integer.class), new Integer(5));
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testPutAllThrows() {
     try {
       map.putAll(ImmutableMap.of(TypeToken.of(Integer.class), new Integer(5)));
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testEntrySetMutationThrows() {
@@ -100,7 +100,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     try {
       map.entrySet().iterator().next().setValue(1);
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testEntrySetToArrayMutationThrows() {
@@ -112,7 +112,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     try {
       entry.setValue(1);
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testEntrySetToTypedArrayMutationThrows() {
@@ -124,7 +124,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     try {
       entry.setValue(1);
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testPutAndGetInstance() {
@@ -179,7 +179,7 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   }
 
   public void testParameterizedType() {
-    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {};
+    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() { };
     map.putInstance(type, ImmutableList.of(1));
     assertEquals(1, map.size());
     assertEquals(ImmutableList.of(1), map.getInstance(type));
@@ -188,14 +188,14 @@ public class MutableTypeToInstanceMapTest extends TestCase {
   public void testGenericArrayType() {
     @SuppressWarnings("unchecked") // Trying to test generic array
     ImmutableList<Integer>[] array = new ImmutableList[] {ImmutableList.of(1)};
-    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {};
+    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() { };
     map.putInstance(type, array);
     assertEquals(1, map.size());
     assertThat(map.getInstance(type)).asList().containsExactly(array[0]);
   }
 
   public void testWildcardType() {
-    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {};
+    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() { };
     map.putInstance(type, ImmutableList.of(1));
     assertEquals(1, map.size());
     assertEquals(ImmutableList.of(1), map.getInstance(type));
@@ -205,17 +205,17 @@ public class MutableTypeToInstanceMapTest extends TestCase {
     try {
       map.getInstance(this.<Number>anyIterableType());
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testPutInstance_withTypeVariable() {
     try {
       map.putInstance(this.<Integer>anyIterableType(), ImmutableList.of(1));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   private <T> TypeToken<Iterable<T>> anyIterableType() {
-    return new TypeToken<Iterable<T>>() {};
+    return new TypeToken<Iterable<T>>() { };
   }
 }

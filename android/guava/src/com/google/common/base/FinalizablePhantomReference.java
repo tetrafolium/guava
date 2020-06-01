@@ -37,7 +37,7 @@ public abstract class FinalizablePhantomReference<T> extends PhantomReference<T>
    * @param referent to phantom reference
    * @param queue that should finalize the referent
    */
-  protected FinalizablePhantomReference(T referent, FinalizableReferenceQueue queue) {
+  protected FinalizablePhantomReference(final T referent, final FinalizableReferenceQueue queue) {
     super(referent, queue.queue);
     queue.cleanUp();
   }

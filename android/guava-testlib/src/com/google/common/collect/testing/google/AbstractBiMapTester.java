@@ -36,12 +36,12 @@ public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> 
     return (BiMap<K, V>) super.getMap();
   }
 
-  static <K, V> Entry<V, K> reverseEntry(Entry<K, V> entry) {
+  static <K, V> Entry<V, K> reverseEntry(final Entry<K, V> entry) {
     return Helpers.mapEntry(entry.getValue(), entry.getKey());
   }
 
   @Override
-  protected void expectContents(Collection<Entry<K, V>> expected) {
+  protected void expectContents(final Collection<Entry<K, V>> expected) {
     super.expectContents(expected);
     List<Entry<V, K>> reversedEntries = new ArrayList<>();
     for (Entry<K, V> entry : expected) {
@@ -58,7 +58,7 @@ public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> 
   }
 
   @Override
-  protected void expectMissing(Entry<K, V>... entries) {
+  protected void expectMissing(final Entry<K, V>... entries) {
     super.expectMissing(entries);
     for (Entry<K, V> entry : entries) {
       Entry<V, K> reversed = reverseEntry(entry);

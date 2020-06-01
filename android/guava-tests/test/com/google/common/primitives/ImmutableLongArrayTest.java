@@ -172,13 +172,13 @@ public class ImmutableLongArrayTest extends TestCase {
   private enum BuilderOp {
     ADD_ONE {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         builder.add(counter.getAndIncrement());
       }
     },
     ADD_ARRAY {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         long[] array = new long[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -188,7 +188,7 @@ public class ImmutableLongArrayTest extends TestCase {
     },
     ADD_COLLECTION {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         List<Long> list = new ArrayList<>();
         long num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -199,7 +199,7 @@ public class ImmutableLongArrayTest extends TestCase {
     },
     ADD_ITERABLE {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         List<Long> list = new ArrayList<>();
         long num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -210,7 +210,7 @@ public class ImmutableLongArrayTest extends TestCase {
     },
     ADD_IIA {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         long[] array = new long[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -220,7 +220,7 @@ public class ImmutableLongArrayTest extends TestCase {
     },
     ADD_LARGER_ARRAY {
       @Override
-      void doIt(ImmutableLongArray.Builder builder, AtomicLong counter) {
+      void doIt(final ImmutableLongArray.Builder builder, final AtomicLong counter) {
         long[] array = new long[RANDOM.nextInt(200) + 200];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -228,7 +228,7 @@ public class ImmutableLongArrayTest extends TestCase {
         builder.addAll(array);
       }
     },
-    ;
+;
 
     static final BuilderOp[] values = values();
 
@@ -399,7 +399,7 @@ public class ImmutableLongArrayTest extends TestCase {
     assertDoesntActuallyTrim(iia2);
   }
 
-  private static void assertActuallyTrims(ImmutableLongArray iia) {
+  private static void assertActuallyTrims(final ImmutableLongArray iia) {
     ImmutableLongArray trimmed = iia.trimmed();
     assertThat(trimmed).isNotSameAs(iia);
 
@@ -407,7 +407,7 @@ public class ImmutableLongArrayTest extends TestCase {
     assertThat(trimmed.toArray()).isEqualTo(iia.toArray());
   }
 
-  private static void assertDoesntActuallyTrim(ImmutableLongArray iia) {
+  private static void assertDoesntActuallyTrim(final ImmutableLongArray iia) {
     assertThat(iia.trimmed()).isSameAs(iia);
   }
 
@@ -443,7 +443,7 @@ public class ImmutableLongArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static ImmutableLongArray makeArray(Long[] values) {
+  private static ImmutableLongArray makeArray(final Long[] values) {
     return ImmutableLongArray.copyOf(Arrays.asList(values));
   }
 
@@ -453,7 +453,7 @@ public class ImmutableLongArrayTest extends TestCase {
   @GwtIncompatible // used only from suite
   public static final class ImmutableLongArrayAsListGenerator extends TestLongListGenerator {
     @Override
-    protected List<Long> create(Long[] elements) {
+    protected List<Long> create(final Long[] elements) {
       return makeArray(elements).asList();
     }
   }
@@ -462,7 +462,7 @@ public class ImmutableLongArrayTest extends TestCase {
   public static final class ImmutableLongArrayHeadSubListAsListGenerator
       extends TestLongListGenerator {
     @Override
-    protected List<Long> create(Long[] elements) {
+    protected List<Long> create(final Long[] elements) {
       Long[] suffix = {Long.MIN_VALUE, Long.MAX_VALUE};
       Long[] all = concat(elements, suffix);
       return makeArray(all).subArray(0, elements.length).asList();
@@ -473,7 +473,7 @@ public class ImmutableLongArrayTest extends TestCase {
   public static final class ImmutableLongArrayTailSubListAsListGenerator
       extends TestLongListGenerator {
     @Override
-    protected List<Long> create(Long[] elements) {
+    protected List<Long> create(final Long[] elements) {
       Long[] prefix = {86L, 99L};
       Long[] all = concat(prefix, elements);
       return makeArray(all).subArray(2, elements.length + 2).asList();
@@ -484,7 +484,7 @@ public class ImmutableLongArrayTest extends TestCase {
   public static final class ImmutableLongArrayMiddleSubListAsListGenerator
       extends TestLongListGenerator {
     @Override
-    protected List<Long> create(Long[] elements) {
+    protected List<Long> create(final Long[] elements) {
       Long[] prefix = {Long.MIN_VALUE, Long.MAX_VALUE};
       Long[] suffix = {86L, 99L};
       Long[] all = concat(concat(prefix, elements), suffix);
@@ -493,7 +493,7 @@ public class ImmutableLongArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static Long[] concat(Long[] a, Long[] b) {
+  private static Long[] concat(final Long[] a, final Long[] b) {
     return ObjectArrays.concat(a, b, Long.class);
   }
 
@@ -505,7 +505,7 @@ public class ImmutableLongArrayTest extends TestCase {
     }
 
     @Override
-    public List<Long> create(Object... elements) {
+    public List<Long> create(final Object... elements) {
       Long[] array = new Long[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -521,13 +521,13 @@ public class ImmutableLongArrayTest extends TestCase {
     protected abstract List<Long> create(Long[] elements);
 
     @Override
-    public Long[] createArray(int length) {
+    public Long[] createArray(final int length) {
       return new Long[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Long> order(List<Long> insertionOrder) {
+    public List<Long> order(final List<Long> insertionOrder) {
       return insertionOrder;
     }
   }

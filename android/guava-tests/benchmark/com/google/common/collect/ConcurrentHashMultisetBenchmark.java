@@ -82,7 +82,7 @@ public class ConcurrentHashMultisetBenchmark {
         });
   }
 
-  private long doMultithreadedLoop(Callable<Long> task)
+  private long doMultithreadedLoop(final Callable<Long> task)
       throws InterruptedException, ExecutionException {
 
     List<Future<Long>> futures = Lists.newArrayListWithCapacity(threads);
@@ -96,7 +96,7 @@ public class ConcurrentHashMultisetBenchmark {
     return total;
   }
 
-  private long runAddSingleThread(int reps) {
+  private long runAddSingleThread(final int reps) {
     Random random = new Random();
     int nKeys = keys.size();
     long blah = 0;
@@ -109,7 +109,7 @@ public class ConcurrentHashMultisetBenchmark {
     return blah;
   }
 
-  private long runAddRemoveSingleThread(int reps) {
+  private long runAddRemoveSingleThread(final int reps) {
     Random random = new Random();
     int nKeys = keys.size();
     long blah = 0;
@@ -144,7 +144,7 @@ public class ConcurrentHashMultisetBenchmark {
         return Synchronized.multiset(HashMultiset.<Integer>create(), null);
       }
     },
-    ;
+;
 
     abstract Multiset<Integer> get();
   }
@@ -165,7 +165,7 @@ public class ConcurrentHashMultisetBenchmark {
       return new OldConcurrentHashMultiset<E>(new ConcurrentHashMap<E, Integer>());
     }
 
-    @VisibleForTesting OldConcurrentHashMultiset(ConcurrentMap<E, Integer> countMap) {
+    @VisibleForTesting OldConcurrentHashMultiset(final ConcurrentMap<E, Integer> countMap) {
       checkArgument(countMap.isEmpty());
       this.countMap = countMap;
     }
@@ -178,7 +178,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @param element the element to look for
      * @return the nonnegative number of occurrences of the element
      */
-    @Override public int count(@Nullable Object element) {
+    @Override public int count(final @Nullable Object element) {
       try {
         return unbox(countMap.get(element));
       } catch (NullPointerException | ClassCastException e) {
@@ -210,7 +210,7 @@ public class ConcurrentHashMultisetBenchmark {
       return snapshot().toArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return snapshot().toArray(array);
     }
 
@@ -241,7 +241,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @throws IllegalArgumentException if {@code occurrences} is negative, or if
      *     the resulting amount would exceed {@link Integer#MAX_VALUE}
      */
-    @Override public int add(E element, int occurrences) {
+    @Override public int add(final E element, final int occurrences) {
       if (occurrences == 0) {
         return count(element);
       }
@@ -276,7 +276,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @return the count of the element before the operation; possibly zero
      * @throws IllegalArgumentException if {@code occurrences} is negative
      */
-    @Override public int remove(@Nullable Object element, int occurrences) {
+    @Override public int remove(final @Nullable Object element, final int occurrences) {
       if (occurrences == 0) {
         return count(element);
       }
@@ -312,7 +312,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @param element the element whose occurrences should all be removed
      * @return the number of occurrences successfully removed, possibly zero
      */
-    private int removeAllOccurrences(@Nullable Object element) {
+    private int removeAllOccurrences(final @Nullable Object element) {
       try {
         return unbox(countMap.remove(element));
       } catch (NullPointerException | ClassCastException e) {
@@ -332,7 +332,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @return {@code true} if the removal was possible (including if {@code
      *     occurrences} is zero)
      */
-    public boolean removeExactly(@Nullable Object element, int occurrences) {
+    public boolean removeExactly(final @Nullable Object element, final int occurrences) {
       if (occurrences == 0) {
         return true;
       }
@@ -365,7 +365,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @return the count of {@code element} in the multiset before this call
      * @throws IllegalArgumentException if {@code count} is negative
      */
-    @Override public int setCount(E element, int count) {
+    @Override public int setCount(final E element, final int count) {
       checkNonnegative(count, "count");
       return (count == 0)
           ? removeAllOccurrences(element)
@@ -385,7 +385,7 @@ public class ConcurrentHashMultisetBenchmark {
      * @throws IllegalArgumentException if {@code oldCount} or {@code newCount} is
      *     negative
      */
-    @Override public boolean setCount(E element, int oldCount, int newCount) {
+    @Override public boolean setCount(final E element, final int oldCount, final int newCount) {
       checkNonnegative(oldCount, "oldCount");
       checkNonnegative(newCount, "newCount");
       if (newCount == 0) {
@@ -413,7 +413,7 @@ public class ConcurrentHashMultisetBenchmark {
         }
 
         @Override
-        public boolean remove(Object object) {
+        public boolean remove(final Object object) {
           try {
             return delegate.remove(object);
           } catch (NullPointerException | ClassCastException e) {
@@ -479,7 +479,7 @@ public class ConcurrentHashMultisetBenchmark {
         return snapshot().toArray();
       }
 
-      @Override public <T> T[] toArray(T[] array) {
+      @Override public <T> T[] toArray(final T[] array) {
         return snapshot().toArray(array);
       }
 
@@ -490,7 +490,7 @@ public class ConcurrentHashMultisetBenchmark {
         return list;
       }
 
-      @Override public boolean remove(Object object) {
+      @Override public boolean remove(final Object object) {
         if (object instanceof Multiset.Entry) {
           Multiset.Entry<?> entry = (Multiset.Entry<?>) object;
           Object element = entry.getElement();
@@ -511,7 +511,7 @@ public class ConcurrentHashMultisetBenchmark {
     /**
      * We use a special form of unboxing that treats null as zero.
      */
-    private static int unbox(@Nullable Integer i) {
+    private static int unbox(final @Nullable Integer i) {
       return (i == null) ? 0 : i;
     }
   }

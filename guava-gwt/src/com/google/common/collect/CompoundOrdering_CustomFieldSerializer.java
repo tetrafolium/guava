@@ -30,10 +30,10 @@ import java.util.List;
  */
 public class CompoundOrdering_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, CompoundOrdering<?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final CompoundOrdering<?> instance) { }
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
-  public static CompoundOrdering<Object> instantiate(SerializationStreamReader reader)
+  public static CompoundOrdering<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     int n = reader.readInt();
     List<Comparator<Object>> comparators = new ArrayList<>(n);
@@ -43,7 +43,7 @@ public class CompoundOrdering_CustomFieldSerializer {
     return new CompoundOrdering<>(comparators);
   }
 
-  public static void serialize(SerializationStreamWriter writer, CompoundOrdering<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final CompoundOrdering<?> instance)
       throws SerializationException {
     writer.writeInt(instance.comparators.length);
     for (Comparator<?> comparator : instance.comparators) {

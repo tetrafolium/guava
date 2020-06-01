@@ -47,7 +47,7 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
    *
    * @param in the stream to delegate to
    */
-  public LittleEndianDataInputStream(InputStream in) {
+  public LittleEndianDataInputStream(final InputStream in) {
     super(Preconditions.checkNotNull(in));
   }
 
@@ -61,17 +61,17 @@ public final class LittleEndianDataInputStream extends FilterInputStream impleme
   }
 
   @Override
-  public void readFully(byte[] b) throws IOException {
+  public void readFully(final byte[] b) throws IOException {
     ByteStreams.readFully(this, b);
   }
 
   @Override
-  public void readFully(byte[] b, int off, int len) throws IOException {
+  public void readFully(final byte[] b, final int off, final int len) throws IOException {
     ByteStreams.readFully(this, b, off, len);
   }
 
   @Override
-  public int skipBytes(int n) throws IOException {
+  public int skipBytes(final int n) throws IOException {
     return (int) in.skip(n);
   }
 

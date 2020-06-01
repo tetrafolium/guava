@@ -75,7 +75,7 @@ class StatsTesting {
 
     private final ImmutableList<Double> values;
 
-    ManyValues(double[] values) {
+    ManyValues(final double[] values) {
       this.values = ImmutableList.copyOf(Doubles.asList(values));
     }
 
@@ -326,7 +326,7 @@ class StatsTesting {
 
   // Helper methods:
 
-  static void assertStatsApproxEqual(Stats expectedStats, Stats actualStats) {
+  static void assertStatsApproxEqual(final Stats expectedStats, final Stats actualStats) {
     assertThat(actualStats.count()).isEqualTo(expectedStats.count());
     if (expectedStats.count() == 0) {
       try {
@@ -372,7 +372,7 @@ class StatsTesting {
    * neither {@code xDelta} nor {@code yDelta} may be zero.
    */
   static void assertDiagonalLinearTransformation(
-      LinearTransformation transformation, double x1, double y1, double xDelta, double yDelta) {
+      final LinearTransformation transformation, final double x1, final double y1, final double xDelta, final double yDelta) {
     checkArgument(xDelta != 0.0);
     checkArgument(yDelta != 0.0);
     assertThat(transformation.isHorizontal()).isFalse();
@@ -397,7 +397,7 @@ class StatsTesting {
    * assertion that {@link LinearTransformation#transform} and {@link LinearTransformation#slope}
    * on its inverse throws as expected.
    */
-  static void assertHorizontalLinearTransformation(LinearTransformation transformation, double y) {
+  static void assertHorizontalLinearTransformation(final LinearTransformation transformation, final double y) {
     assertThat(transformation.isHorizontal()).isTrue();
     assertThat(transformation.isVertical()).isFalse();
     assertThat(transformation.inverse().isHorizontal()).isFalse();
@@ -425,7 +425,7 @@ class StatsTesting {
    * assertions that {@link LinearTransformation#slope} and {@link LinearTransformation#transform}
    * throw as expected.
    */
-  static void assertVerticalLinearTransformation(LinearTransformation transformation, double x) {
+  static void assertVerticalLinearTransformation(final LinearTransformation transformation, final double x) {
     assertThat(transformation.isHorizontal()).isFalse();
     assertThat(transformation.isVertical()).isTrue();
     assertThat(transformation.inverse().isHorizontal()).isTrue();
@@ -451,7 +451,7 @@ class StatsTesting {
    * Asserts that {@code transformation} behaves as expected for
    * {@link LinearTransformation#forNaN}.
    */
-  static void assertLinearTransformationNaN(LinearTransformation transformation) {
+  static void assertLinearTransformationNaN(final LinearTransformation transformation) {
     assertThat(transformation.isHorizontal()).isFalse();
     assertThat(transformation.isVertical()).isFalse();
     assertThat(transformation.slope()).isNaN();
@@ -463,7 +463,7 @@ class StatsTesting {
    * Creates a {@link PairedStats} from with the given lists of {@code x} and {@code y} values,
    * which must be of the same size.
    */
-  static PairedStats createPairedStatsOf(List<Double> xValues, List<Double> yValues) {
+  static PairedStats createPairedStatsOf(final List<Double> xValues, final List<Double> yValues) {
     return createFilledPairedStatsAccumulator(xValues, yValues).snapshot();
   }
 
@@ -472,7 +472,7 @@ class StatsTesting {
    * values, which must be of the same size.
    */
   static PairedStatsAccumulator createFilledPairedStatsAccumulator(
-      List<Double> xValues, List<Double> yValues) {
+      final List<Double> xValues, final List<Double> yValues) {
     checkArgument(xValues.size() == yValues.size());
     PairedStatsAccumulator accumulator = new PairedStatsAccumulator();
     for (int index = 0; index < xValues.size(); index++) {
@@ -487,7 +487,7 @@ class StatsTesting {
    * {@link PairedStatsAccumulator#addAll(PairedStats)}.
    */
   static PairedStatsAccumulator createPartitionedFilledPairedStatsAccumulator(
-      List<Double> xValues, List<Double> yValues, int partitionSize) {
+      final List<Double> xValues, final List<Double> yValues, final int partitionSize) {
     checkArgument(xValues.size() == yValues.size());
     checkArgument(partitionSize > 0);
     PairedStatsAccumulator accumulator = new PairedStatsAccumulator();
@@ -499,5 +499,5 @@ class StatsTesting {
     return accumulator;
   }
 
-  private StatsTesting() {}
+  private StatsTesting() { }
 }

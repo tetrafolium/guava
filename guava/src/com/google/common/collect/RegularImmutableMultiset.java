@@ -45,7 +45,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   @LazyInit
   private transient ImmutableSet<E> elementSet;
 
-  RegularImmutableMultiset(Collection<? extends Entry<? extends E>> entries) {
+  RegularImmutableMultiset(final Collection<? extends Entry<? extends E>> entries) {
     int distinct = entries.size();
     @SuppressWarnings("unchecked")
     Multisets.ImmutableEntry<E>[] entryArray = new Multisets.ImmutableEntry[distinct];
@@ -96,7 +96,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   private static final class NonTerminalEntry<E> extends Multisets.ImmutableEntry<E> {
     private final Multisets.ImmutableEntry<E> nextInBucket;
 
-    NonTerminalEntry(E element, int count, ImmutableEntry<E> nextInBucket) {
+    NonTerminalEntry(final E element, final int count, final ImmutableEntry<E> nextInBucket) {
       super(element, count);
       this.nextInBucket = nextInBucket;
     }
@@ -113,7 +113,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     Multisets.ImmutableEntry<E>[] hashTable = this.hashTable;
     if (element == null || hashTable == null) {
       return 0;
@@ -145,12 +145,12 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   private final class ElementSet extends ImmutableSet.Indexed<E> {
 
     @Override
-    E get(int index) {
+    E get(final int index) {
       return entries[index].getElement();
     }
 
     @Override
-    public boolean contains(@Nullable Object object) {
+    public boolean contains(final @Nullable Object object) {
       return RegularImmutableMultiset.this.contains(object);
     }
 
@@ -166,7 +166,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   }
 
   @Override
-  Entry<E> getEntry(int index) {
+  Entry<E> getEntry(final int index) {
     return entries[index];
   }
 

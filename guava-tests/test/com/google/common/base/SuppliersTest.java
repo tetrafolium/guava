@@ -66,7 +66,7 @@ public class SuppliersTest extends TestCase {
     private static final long serialVersionUID = 0L;
   }
 
-  static void checkMemoize(CountingSupplier countingSupplier, Supplier<Integer> memoizedSupplier) {
+  static void checkMemoize(final CountingSupplier countingSupplier, final Supplier<Integer> memoizedSupplier) {
     // the underlying supplier hasn't executed yet
     assertEquals(0, countingSupplier.calls);
 
@@ -86,7 +86,7 @@ public class SuppliersTest extends TestCase {
     memoizeTest(new SerializableCountingSupplier());
   }
 
-  private void memoizeTest(CountingSupplier countingSupplier) {
+  private void memoizeTest(final CountingSupplier countingSupplier) {
     Supplier<Integer> memoizedSupplier = Suppliers.memoize(countingSupplier);
     checkMemoize(countingSupplier, memoizedSupplier);
   }
@@ -96,7 +96,7 @@ public class SuppliersTest extends TestCase {
     memoize_redudantlyTest(new SerializableCountingSupplier());
   }
 
-  private void memoize_redudantlyTest(CountingSupplier countingSupplier) {
+  private void memoize_redudantlyTest(final CountingSupplier countingSupplier) {
     Supplier<Integer> memoizedSupplier = Suppliers.memoize(countingSupplier);
     assertSame(memoizedSupplier, Suppliers.memoize(memoizedSupplier));
   }
@@ -106,7 +106,7 @@ public class SuppliersTest extends TestCase {
     memoizeExceptionThrownTest(new SerializableThrowingSupplier());
   }
 
-  private void memoizeExceptionThrownTest(ThrowingSupplier memoizedSupplier) {
+  private void memoizeExceptionThrownTest(final ThrowingSupplier memoizedSupplier) {
     // call get() twice to make sure that memoization doesn't interfere
     // with throwing the exception
     for (int i = 0; i < 2; i++) {
@@ -163,7 +163,7 @@ public class SuppliersTest extends TestCase {
     Function<Number, Integer> intValueFunction =
         new Function<Number, Integer>() {
           @Override
-          public Integer apply(Number x) {
+          public Integer apply(final Number x) {
             return x.intValue();
           }
         };
@@ -186,7 +186,7 @@ public class SuppliersTest extends TestCase {
     Function<List<Integer>, List<Integer>> addElementFunction =
         new Function<List<Integer>, List<Integer>>() {
           @Override
-          public List<Integer> apply(List<Integer> list) {
+          public List<Integer> apply(final List<Integer> list) {
             ArrayList<Integer> result = Lists.newArrayList(list);
             result.add(1);
             return result;
@@ -230,7 +230,7 @@ public class SuppliersTest extends TestCase {
 
   @GwtIncompatible // Thread.sleep
   private void checkExpiration(
-      CountingSupplier countingSupplier, Supplier<Integer> memoizedSupplier)
+      final CountingSupplier countingSupplier, final Supplier<Integer> memoizedSupplier)
       throws InterruptedException {
     // the underlying supplier hasn't executed yet
     assertEquals(0, countingSupplier.calls);
@@ -257,8 +257,8 @@ public class SuppliersTest extends TestCase {
   public void testOfInstanceSuppliesSameInstance() {
     Object toBeSupplied = new Object();
     Supplier<Object> objectSupplier = Suppliers.ofInstance(toBeSupplied);
-    assertSame(toBeSupplied,objectSupplier.get());
-    assertSame(toBeSupplied,objectSupplier.get()); // idempotent
+    assertSame(toBeSupplied, objectSupplier.get());
+    assertSame(toBeSupplied, objectSupplier.get()); // idempotent
   }
 
   public void testOfInstanceSuppliesNull() {
@@ -271,7 +271,7 @@ public class SuppliersTest extends TestCase {
   public void testExpiringMemoizedSupplierThreadSafe() throws Throwable {
     Function<Supplier<Boolean>, Supplier<Boolean>> memoizer =
         new Function<Supplier<Boolean>, Supplier<Boolean>>() {
-      @Override public Supplier<Boolean> apply(Supplier<Boolean> supplier) {
+      @Override public Supplier<Boolean> apply(final Supplier<Boolean> supplier) {
         return Suppliers.memoizeWithExpiration(
             supplier, Long.MAX_VALUE, TimeUnit.NANOSECONDS);
       }
@@ -284,7 +284,7 @@ public class SuppliersTest extends TestCase {
   public void testMemoizedSupplierThreadSafe() throws Throwable {
     Function<Supplier<Boolean>, Supplier<Boolean>> memoizer =
         new Function<Supplier<Boolean>, Supplier<Boolean>>() {
-      @Override public Supplier<Boolean> apply(Supplier<Boolean> supplier) {
+      @Override public Supplier<Boolean> apply(final Supplier<Boolean> supplier) {
         return Suppliers.memoize(supplier);
       }
     };
@@ -292,7 +292,7 @@ public class SuppliersTest extends TestCase {
   }
 
   @GwtIncompatible // Thread
-  public void testSupplierThreadSafe(Function<Supplier<Boolean>, Supplier<Boolean>> memoizer)
+  public void testSupplierThreadSafe(final Function<Supplier<Boolean>, Supplier<Boolean>> memoizer)
       throws Throwable {
     final AtomicInteger count = new AtomicInteger(0);
     final AtomicReference<Throwable> thrown = new AtomicReference<>(null);
@@ -301,7 +301,7 @@ public class SuppliersTest extends TestCase {
     final long timeout = TimeUnit.SECONDS.toNanos(60);
 
     final Supplier<Boolean> supplier = new Supplier<Boolean>() {
-      boolean isWaiting(Thread thread) {
+      boolean isWaiting(final Thread thread) {
         switch (thread.getState()) {
           case BLOCKED:
           case WAITING:
@@ -330,8 +330,8 @@ public class SuppliersTest extends TestCase {
         while (waitingThreads() != numThreads - 1) {
           if (System.nanoTime() - t0 > timeout) {
             thrown.set(new TimeoutException(
-                "timed out waiting for other threads to block" +
-                " synchronizing on supplier"));
+                "timed out waiting for other threads to block"
+                + " synchronizing on supplier"));
             break;
           }
           Thread.yield();

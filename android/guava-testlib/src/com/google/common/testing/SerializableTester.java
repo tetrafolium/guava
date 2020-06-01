@@ -37,7 +37,7 @@ import junit.framework.AssertionFailedError;
 @Beta
 @GwtCompatible // but no-op!
 public final class SerializableTester {
-  private SerializableTester() {}
+  private SerializableTester() { }
 
   /**
    * Serializes and deserializes the specified object.
@@ -56,7 +56,7 @@ public final class SerializableTester {
    *     serialized or deserialized
    */
   @SuppressWarnings("unchecked")
-  public static <T> T reserialize(T object) {
+  public static <T> T reserialize(final T object) {
     return Platform.reserialize(object);
   }
 
@@ -90,7 +90,7 @@ public final class SerializableTester {
    * @throws AssertionFailedError if the re-serialized object is not equal to
    *     the original object, or if the hashcodes are different.
    */
-  public static <T> T reserializeAndAssert(T object) {
+  public static <T> T reserializeAndAssert(final T object) {
     T copy = reserialize(object);
     new EqualsTester()
         .addEqualityGroup(object, copy)

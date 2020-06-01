@@ -51,14 +51,14 @@ public class MinMaxPriorityQueueBenchmark {
     }
   }
 
-  @Benchmark void pollAndAdd(int reps) {
+  @Benchmark void pollAndAdd(final int reps) {
     for (int i = 0; i < reps; i++) {
       // TODO(kevinb): precompute random #s?
       queue.add(queue.poll() ^ random.nextInt());
     }
   }
 
-  @Benchmark void populate(int reps) {
+  @Benchmark void populate(final int reps) {
     for (int i = 0; i < reps; i++) {
       queue.clear();
       for (int j = 0; j < size; j++) {
@@ -73,9 +73,9 @@ public class MinMaxPriorityQueueBenchmark {
    * a MinMaxPriorityQueue, except poll, which is forwarded to pollMax. That way
    * we can benchmark pollMax using the same code that benchmarks poll.
    */
-  static final class InvertedMinMaxPriorityQueue <T> extends ForwardingQueue<T> {
+  static final class InvertedMinMaxPriorityQueue<T> extends ForwardingQueue<T> {
     MinMaxPriorityQueue<T> mmHeap;
-    public InvertedMinMaxPriorityQueue(Comparator<T> comparator) {
+    public InvertedMinMaxPriorityQueue(final Comparator<T> comparator) {
       mmHeap = MinMaxPriorityQueue.orderedBy(comparator).create();
     }
 
@@ -93,17 +93,17 @@ public class MinMaxPriorityQueueBenchmark {
 
   public enum HeapType {
     MIN_MAX {
-      @Override public Queue<Integer> create(Comparator<Integer> comparator) {
+      @Override public Queue<Integer> create(final Comparator<Integer> comparator) {
         return MinMaxPriorityQueue.orderedBy(comparator).create();
       }
     },
     PRIORITY_QUEUE {
-      @Override public Queue<Integer> create(Comparator<Integer> comparator) {
+      @Override public Queue<Integer> create(final Comparator<Integer> comparator) {
         return new PriorityQueue<>(11, comparator);
       }
     },
     INVERTED_MIN_MAX {
-      @Override public Queue<Integer> create(Comparator<Integer> comparator) {
+      @Override public Queue<Integer> create(final Comparator<Integer> comparator) {
         return new InvertedMinMaxPriorityQueue<>(comparator);
       }
     };
@@ -117,7 +117,7 @@ public class MinMaxPriorityQueueBenchmark {
    */
   static class ExpensiveComputation implements Function<Integer, BigInteger> {
     @Override
-    public BigInteger apply(Integer from) {
+    public BigInteger apply(final Integer from) {
       BigInteger v = BigInteger.valueOf(from);
       // Math.sin is very slow for values outside 4*pi
       // Need to take absolute value to avoid inverting the value.

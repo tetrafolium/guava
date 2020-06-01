@@ -36,7 +36,7 @@ final class Platform {
    * Serializes and deserializes the specified object.
    */
   @SuppressWarnings("unchecked")
-  static <T> T reserialize(T object) {
+  static <T> T reserialize(final T object) {
     checkNotNull(object);
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     try {
@@ -50,5 +50,5 @@ final class Platform {
     }
   }
 
-  private Platform() {}
+  private Platform() { }
 }

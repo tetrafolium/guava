@@ -72,7 +72,7 @@ public class SynchronizedBiMapTest extends SynchronizedMapTest {
 
   public static final class SynchronizedHashBiMapGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       Object mutex = new Object();
       BiMap<String, String> result = HashBiMap.create();
       for (Entry<String, String> entry : entries) {
@@ -85,7 +85,7 @@ public class SynchronizedBiMapTest extends SynchronizedMapTest {
 
   public static final class SynchTestingBiMapGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       Object mutex = new Object();
       BiMap<String, String> backing = new TestBiMap<>(HashBiMap.<String, String>create(), mutex);
       BiMap<String, String> result = Synchronized.biMap(backing, mutex);
@@ -100,13 +100,13 @@ public class SynchronizedBiMapTest extends SynchronizedMapTest {
   static class TestBiMap<K, V> extends TestMap<K, V> implements BiMap<K, V> {
     private final BiMap<K, V> delegate;
 
-    public TestBiMap(BiMap<K, V> delegate, Object mutex) {
+    public TestBiMap(final BiMap<K, V> delegate, final Object mutex) {
       super(delegate, mutex);
       this.delegate = delegate;
     }
 
     @Override
-    public V forcePut(K key, V value) {
+    public V forcePut(final K key, final V value) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.forcePut(key, value);
     }

@@ -82,7 +82,7 @@ public abstract class TreeTraverser<T> {
     checkNotNull(nodeToChildrenFunction);
     return new TreeTraverser<T>() {
       @Override
-      public Iterable<T> children(T root) {
+      public Iterable<T> children(final T root) {
         return nodeToChildrenFunction.apply(root);
       }
     };
@@ -109,11 +109,11 @@ public abstract class TreeTraverser<T> {
       }
 
       @Override
-      public void forEach(Consumer<? super T> action) {
+      public void forEach(final Consumer<? super T> action) {
         checkNotNull(action);
         new Consumer<T>() {
           @Override
-          public void accept(T t) {
+          public void accept(final T t) {
             action.accept(t);
             children(t).forEach(this);
           }
@@ -123,14 +123,14 @@ public abstract class TreeTraverser<T> {
   }
 
   // overridden in BinaryTreeTraverser
-  UnmodifiableIterator<T> preOrderIterator(T root) {
+  UnmodifiableIterator<T> preOrderIterator(final T root) {
     return new PreOrderIterator(root);
   }
 
   private final class PreOrderIterator extends UnmodifiableIterator<T> {
     private final Deque<Iterator<T>> stack;
 
-    PreOrderIterator(T root) {
+    PreOrderIterator(final T root) {
       this.stack = new ArrayDeque<>();
       stack.addLast(Iterators.singletonIterator(checkNotNull(root)));
     }
@@ -171,11 +171,11 @@ public abstract class TreeTraverser<T> {
       }
 
       @Override
-      public void forEach(Consumer<? super T> action) {
+      public void forEach(final Consumer<? super T> action) {
         checkNotNull(action);
         new Consumer<T>() {
           @Override
-          public void accept(T t) {
+          public void accept(final T t) {
             children(t).forEach(this);
             action.accept(t);
           }
@@ -185,7 +185,7 @@ public abstract class TreeTraverser<T> {
   }
 
   // overridden in BinaryTreeTraverser
-  UnmodifiableIterator<T> postOrderIterator(T root) {
+  UnmodifiableIterator<T> postOrderIterator(final T root) {
     return new PostOrderIterator(root);
   }
 
@@ -193,7 +193,7 @@ public abstract class TreeTraverser<T> {
     final T root;
     final Iterator<T> childIterator;
 
-    PostOrderNode(T root, Iterator<T> childIterator) {
+    PostOrderNode(final T root, final Iterator<T> childIterator) {
       this.root = checkNotNull(root);
       this.childIterator = checkNotNull(childIterator);
     }
@@ -202,7 +202,7 @@ public abstract class TreeTraverser<T> {
   private final class PostOrderIterator extends AbstractIterator<T> {
     private final ArrayDeque<PostOrderNode<T>> stack;
 
-    PostOrderIterator(T root) {
+    PostOrderIterator(final T root) {
       this.stack = new ArrayDeque<>();
       stack.addLast(expand(root));
     }
@@ -222,7 +222,7 @@ public abstract class TreeTraverser<T> {
       return endOfData();
     }
 
-    private PostOrderNode<T> expand(T t) {
+    private PostOrderNode<T> expand(final T t) {
       return new PostOrderNode<T>(t, children(t).iterator());
     }
   }
@@ -248,7 +248,7 @@ public abstract class TreeTraverser<T> {
       implements PeekingIterator<T> {
     private final Queue<T> queue;
 
-    BreadthFirstIterator(T root) {
+    BreadthFirstIterator(final T root) {
       this.queue = new ArrayDeque<T>();
       queue.add(root);
     }

@@ -34,17 +34,17 @@ import java.util.Set;
 public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
 
   @SuppressWarnings("unchecked") // empty Object[] as E[]
-  public static <E> MinimalSet<E> of(E... contents) {
+  public static <E> MinimalSet<E> of(final E... contents) {
     return ofClassAndContents(Object.class, (E[]) new Object[0], Arrays.asList(contents));
   }
 
   @SuppressWarnings("unchecked") // empty Object[] as E[]
-  public static <E> MinimalSet<E> from(Collection<? extends E> contents) {
+  public static <E> MinimalSet<E> from(final Collection<? extends E> contents) {
     return ofClassAndContents(Object.class, (E[]) new Object[0], contents);
   }
 
   public static <E> MinimalSet<E> ofClassAndContents(
-      Class<? super E> type, E[] emptyArrayForContents, Iterable<? extends E> contents) {
+      final Class<? super E> type, final E[] emptyArrayForContents, final Iterable<? extends E> contents) {
     List<E> setContents = new ArrayList<E>();
     for (E e : contents) {
       if (!setContents.contains(e)) {
@@ -54,7 +54,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
     return new MinimalSet<E>(type, setContents.toArray(emptyArrayForContents));
   }
 
-  private MinimalSet(Class<? super E> type, E... contents) {
+  private MinimalSet(final Class<? super E> type, final E... contents) {
     super(type, true, contents);
   }
 
@@ -63,7 +63,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
    */
 
   @Override
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     if (object instanceof Set) {
       Set<?> that = (Set<?>) object;
       return (this.size() == that.size()) && this.containsAll(that);

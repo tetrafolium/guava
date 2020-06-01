@@ -49,7 +49,7 @@ public class ListenableFutureTask<V> extends FutureTask<V> implements Listenable
    * @param callable the callable task
    * @since 10.0
    */
-  public static <V> ListenableFutureTask<V> create(Callable<V> callable) {
+  public static <V> ListenableFutureTask<V> create(final Callable<V> callable) {
     return new ListenableFutureTask<V>(callable);
   }
 
@@ -63,20 +63,20 @@ public class ListenableFutureTask<V> extends FutureTask<V> implements Listenable
    *     ListenableFutureTask.create(runnable, null)}
    * @since 10.0
    */
-  public static <V> ListenableFutureTask<V> create(Runnable runnable, @Nullable V result) {
+  public static <V> ListenableFutureTask<V> create(final Runnable runnable, final @Nullable V result) {
     return new ListenableFutureTask<V>(runnable, result);
   }
 
-  ListenableFutureTask(Callable<V> callable) {
+  ListenableFutureTask(final Callable<V> callable) {
     super(callable);
   }
 
-  ListenableFutureTask(Runnable runnable, @Nullable V result) {
+  ListenableFutureTask(final Runnable runnable, final @Nullable V result) {
     super(runnable, result);
   }
 
   @Override
-  public void addListener(Runnable listener, Executor exec) {
+  public void addListener(final Runnable listener, final Executor exec) {
     executionList.add(listener, exec);
   }
 

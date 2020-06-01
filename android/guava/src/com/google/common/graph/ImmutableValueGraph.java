@@ -43,12 +43,12 @@ import com.google.errorprone.annotations.Immutable;
 @SuppressWarnings("Immutable") // Extends ConfigurableValueGraph but uses ImmutableMaps.
 public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V> {
 
-  private ImmutableValueGraph(ValueGraph<N, V> graph) {
+  private ImmutableValueGraph(final ValueGraph<N, V> graph) {
     super(ValueGraphBuilder.from(graph), getNodeConnections(graph), graph.edges().size());
   }
 
   /** Returns an immutable copy of {@code graph}. */
-  public static <N, V> ImmutableValueGraph<N, V> copyOf(ValueGraph<N, V> graph) {
+  public static <N, V> ImmutableValueGraph<N, V> copyOf(final ValueGraph<N, V> graph) {
     return (graph instanceof ImmutableValueGraph)
         ? (ImmutableValueGraph<N, V>) graph
         : new ImmutableValueGraph<N, V>(graph);
@@ -60,7 +60,7 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
    * @deprecated no need to use this
    */
   @Deprecated
-  public static <N, V> ImmutableValueGraph<N, V> copyOf(ImmutableValueGraph<N, V> graph) {
+  public static <N, V> ImmutableValueGraph<N, V> copyOf(final ImmutableValueGraph<N, V> graph) {
     return checkNotNull(graph);
   }
 
@@ -70,7 +70,7 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
   }
 
   private static <N, V> ImmutableMap<N, GraphConnections<N, V>> getNodeConnections(
-      ValueGraph<N, V> graph) {
+      final ValueGraph<N, V> graph) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the graph's nodes do, so ImmutableSortedMap is unnecessary even if the
     // input nodes are sorted.
@@ -86,7 +86,7 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
     Function<N, V> successorNodeToValueFn =
         new Function<N, V>() {
           @Override
-          public V apply(N successorNode) {
+          public V apply(final N successorNode) {
             return graph.edgeValueOrDefault(node, successorNode, null);
           }
         };

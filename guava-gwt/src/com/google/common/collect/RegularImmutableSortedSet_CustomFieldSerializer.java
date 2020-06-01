@@ -32,9 +32,9 @@ import java.util.List;
  */
 public class RegularImmutableSortedSet_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableSortedSet<?> instance) {}
+      final SerializationStreamReader reader, final RegularImmutableSortedSet<?> instance) { }
 
-  public static RegularImmutableSortedSet<Object> instantiate(SerializationStreamReader reader)
+  public static RegularImmutableSortedSet<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     /*
      * Nothing we can do, but we're already assuming the serialized form is
@@ -55,7 +55,7 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableSortedSet<?> instance)
+      final SerializationStreamWriter writer, final RegularImmutableSortedSet<?> instance)
       throws SerializationException {
     writer.writeObject(instance.comparator());
 

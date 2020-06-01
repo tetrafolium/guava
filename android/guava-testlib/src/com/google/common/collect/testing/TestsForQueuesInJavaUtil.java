@@ -96,7 +96,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new ArrayDeque<>(MinimalCollection.of(elements));
               }
             })
@@ -111,7 +111,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new LinkedList<>(MinimalCollection.of(elements));
               }
             })
@@ -130,7 +130,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new ArrayBlockingQueue<>(100, false, MinimalCollection.of(elements));
               }
             })
@@ -145,7 +145,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new ConcurrentLinkedQueue<>(MinimalCollection.of(elements));
               }
             })
@@ -160,7 +160,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new LinkedBlockingDeque<>(MinimalCollection.of(elements));
               }
             })
@@ -175,7 +175,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new LinkedBlockingQueue<>(MinimalCollection.of(elements));
               }
             })
@@ -195,7 +195,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new PriorityBlockingQueue<>(MinimalCollection.of(elements));
               }
             })
@@ -209,7 +209,7 @@ public class TestsForQueuesInJavaUtil {
     return QueueTestSuiteBuilder.using(
             new TestStringQueueGenerator() {
               @Override
-              public Queue<String> create(String[] elements) {
+              public Queue<String> create(final String[] elements) {
                 return new PriorityQueue<>(MinimalCollection.of(elements));
               }
             })

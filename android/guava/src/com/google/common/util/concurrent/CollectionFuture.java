@@ -36,8 +36,8 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
     private List<Optional<V>> values;
 
     CollectionFutureRunningState(
-        ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-        boolean allMustSucceed) {
+        final ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+        final boolean allMustSucceed) {
       super(futures, allMustSucceed, true);
 
       this.values =
@@ -52,7 +52,7 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
     }
 
     @Override
-    final void collectOneValue(boolean allMustSucceed, int index, @Nullable V returnValue) {
+    final void collectOneValue(final boolean allMustSucceed, final int index, final @Nullable V returnValue) {
       List<Optional<V>> localValues = values;
 
       if (localValues != null) {
@@ -88,20 +88,20 @@ abstract class CollectionFuture<V, C> extends AggregateFuture<V, C> {
   /** Used for {@link Futures#allAsList} and {@link Futures#successfulAsList}. */
   static final class ListFuture<V> extends CollectionFuture<V, List<V>> {
     ListFuture(
-        ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-        boolean allMustSucceed) {
+        final ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+        final boolean allMustSucceed) {
       init(new ListFutureRunningState(futures, allMustSucceed));
     }
 
     private final class ListFutureRunningState extends CollectionFutureRunningState {
       ListFutureRunningState(
-          ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
-          boolean allMustSucceed) {
+          final ImmutableCollection<? extends ListenableFuture<? extends V>> futures,
+          final boolean allMustSucceed) {
         super(futures, allMustSucceed);
       }
 
       @Override
-      public List<V> combine(List<Optional<V>> values) {
+      public List<V> combine(final List<Optional<V>> values) {
         List<V> result = newArrayListWithCapacity(values.size());
         for (Optional<V> element : values) {
           result.add(element != null ? element.orNull() : null);

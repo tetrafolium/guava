@@ -38,7 +38,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   @LazyInit
   private transient ImmutableSet<E> elementSet;
 
-  RegularImmutableMultiset(ObjectCountHashMap<E> contents) {
+  RegularImmutableMultiset(final ObjectCountHashMap<E> contents) {
     this.contents = contents;
     long size = 0;
     for (int i = 0; i < contents.size(); i++) {
@@ -53,7 +53,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     return contents.get(element);
   }
 
@@ -72,12 +72,12 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   private final class ElementSet extends ImmutableSet.Indexed<E> {
 
     @Override
-    E get(int index) {
+    E get(final int index) {
       return contents.getKey(index);
     }
 
     @Override
-    public boolean contains(@Nullable Object object) {
+    public boolean contains(final @Nullable Object object) {
       return RegularImmutableMultiset.this.contains(object);
     }
 
@@ -93,7 +93,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   }
 
   @Override
-  Entry<E> getEntry(int index) {
+  Entry<E> getEntry(final int index) {
     return contents.getEntry(index);
   }
 }

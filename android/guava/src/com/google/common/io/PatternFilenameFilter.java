@@ -43,7 +43,7 @@ public final class PatternFilenameFilter implements FilenameFilter {
    *
    * @throws PatternSyntaxException if pattern compilation fails (runtime)
    */
-  public PatternFilenameFilter(String patternStr) {
+  public PatternFilenameFilter(final String patternStr) {
     this(Pattern.compile(patternStr));
   }
 
@@ -52,12 +52,12 @@ public final class PatternFilenameFilter implements FilenameFilter {
    *
    * @param pattern the pattern on which to filter file names
    */
-  public PatternFilenameFilter(Pattern pattern) {
+  public PatternFilenameFilter(final Pattern pattern) {
     this.pattern = Preconditions.checkNotNull(pattern);
   }
 
   @Override
-  public boolean accept(@Nullable File dir, String fileName) {
+  public boolean accept(final @Nullable File dir, final String fileName) {
     return pattern.matcher(fileName).matches();
   }
 }

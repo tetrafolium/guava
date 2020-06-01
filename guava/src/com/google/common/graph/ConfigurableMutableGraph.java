@@ -32,7 +32,7 @@ final class ConfigurableMutableGraph<N> extends ForwardingGraph<N> implements Mu
   private final MutableValueGraph<N, Presence> backingValueGraph;
 
   /** Constructs a {@link MutableGraph} with the properties specified in {@code builder}. */
-  ConfigurableMutableGraph(AbstractGraphBuilder<? super N> builder) {
+  ConfigurableMutableGraph(final AbstractGraphBuilder<? super N> builder) {
     this.backingValueGraph = new ConfigurableMutableValueGraph<>(builder);
   }
 
@@ -42,22 +42,22 @@ final class ConfigurableMutableGraph<N> extends ForwardingGraph<N> implements Mu
   }
 
   @Override
-  public boolean addNode(N node) {
+  public boolean addNode(final N node) {
     return backingValueGraph.addNode(node);
   }
 
   @Override
-  public boolean putEdge(N nodeU, N nodeV) {
+  public boolean putEdge(final N nodeU, final N nodeV) {
     return backingValueGraph.putEdgeValue(nodeU, nodeV, Presence.EDGE_EXISTS) == null;
   }
 
   @Override
-  public boolean removeNode(N node) {
+  public boolean removeNode(final N node) {
     return backingValueGraph.removeNode(node);
   }
 
   @Override
-  public boolean removeEdge(N nodeU, N nodeV) {
+  public boolean removeEdge(final N nodeU, final N nodeV) {
     return backingValueGraph.removeEdge(nodeU, nodeV) != null;
   }
 }

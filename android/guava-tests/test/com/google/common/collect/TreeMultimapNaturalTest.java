@@ -66,7 +66,7 @@ public class TreeMultimapNaturalTest extends TestCase {
     // TODO(lowasser): should we force TreeMultimap to be more thorough about checking nulls?
     suite.addTest(SortedSetMultimapTestSuiteBuilder.using(new TestStringSetMultimapGenerator() {
         @Override
-        protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+        protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
           SetMultimap<String, String> multimap = TreeMultimap.create(
               Ordering.natural().nullsFirst(), Ordering.natural().nullsFirst());
           for (Entry<String, String> entry : entries) {
@@ -76,10 +76,10 @@ public class TreeMultimapNaturalTest extends TestCase {
         }
 
         @Override
-        public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+        public Iterable<Entry<String, String>> order(final List<Entry<String, String>> insertionOrder) {
           return new Ordering<Entry<String, String>>() {
             @Override
-            public int compare(Entry<String, String> left, Entry<String, String> right) {
+            public int compare(final Entry<String, String> left, final Entry<String, String> right) {
               return ComparisonChain.start()
                   .compare(left.getKey(), right.getKey(), Ordering.natural().nullsFirst())
                   .compare(left.getValue(), right.getValue(), Ordering.natural().nullsFirst())
@@ -102,7 +102,7 @@ public class TreeMultimapNaturalTest extends TestCase {
       .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSortedSetGenerator() {
         @Override
-        protected NavigableSet<String> create(String[] elements) {
+        protected NavigableSet<String> create(final String[] elements) {
           TreeMultimap<String, Integer> multimap = TreeMultimap.create(
               Ordering.natural().nullsFirst(), Ordering.natural());
           for (int i = 0; i < elements.length; i++) {
@@ -112,7 +112,7 @@ public class TreeMultimapNaturalTest extends TestCase {
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
         }
       })
@@ -128,13 +128,13 @@ public class TreeMultimapNaturalTest extends TestCase {
                 new TestSortedMapGenerator<String, Collection<String>>() {
 
                   @Override
-                  public String[] createKeyArray(int length) {
+                  public String[] createKeyArray(final int length) {
                     return new String[length];
                   }
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Collection<String>[] createValueArray(int length) {
+                  public Collection<String>[] createValueArray(final int length) {
                     return new Collection[length];
                   }
 
@@ -154,23 +154,23 @@ public class TreeMultimapNaturalTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<String, Collection<String>>[] createArray(int length) {
+                  public Entry<String, Collection<String>>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<String, Collection<String>>> order(
-                      List<Entry<String, Collection<String>>> insertionOrder) {
+                      final List<Entry<String, Collection<String>>> insertionOrder) {
                     return new Ordering<Entry<String, ?>>() {
                       @Override
-                      public int compare(Entry<String, ?> left, Entry<String, ?> right) {
+                      public int compare(final Entry<String, ?> left, final Entry<String, ?> right) {
                         return left.getKey().compareTo(right.getKey());
                       }
                     }.sortedCopy(insertionOrder);
                   }
 
                   @Override
-                  public NavigableMap<String, Collection<String>> create(Object... elements) {
+                  public NavigableMap<String, Collection<String>> create(final Object... elements) {
                     TreeMultimap<String, String> multimap = TreeMultimap.create();
                     for (Object o : elements) {
                       @SuppressWarnings("unchecked")
@@ -216,7 +216,7 @@ public class TreeMultimapNaturalTest extends TestCase {
             .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
         @Override
-        protected Set<String> create(String[] elements) {
+        protected Set<String> create(final String[] elements) {
           TreeMultimap<Integer, String> multimap = TreeMultimap.create(
               Ordering.natural(), Ordering.natural().nullsFirst());
           multimap.putAll(1, Arrays.asList(elements));
@@ -224,7 +224,7 @@ public class TreeMultimapNaturalTest extends TestCase {
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
         }
       })
@@ -237,7 +237,7 @@ public class TreeMultimapNaturalTest extends TestCase {
       .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
         @Override
-        protected Set<String> create(String[] elements) {
+        protected Set<String> create(final String[] elements) {
           TreeMultimap<Integer, String> multimap = TreeMultimap.create(
               Ordering.natural(), Ordering.natural().nullsFirst());
           multimap.putAll(1, Arrays.asList(elements));
@@ -245,7 +245,7 @@ public class TreeMultimapNaturalTest extends TestCase {
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Ordering.natural().nullsFirst().sortedCopy(insertionOrder);
         }
       })

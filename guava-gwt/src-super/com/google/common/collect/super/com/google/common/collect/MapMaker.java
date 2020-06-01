@@ -36,17 +36,17 @@ public final class MapMaker {
       implements ConcurrentMap<K, V> {
     private final Function<? super K, ? extends V> computer;
 
-    ComputingMap(int initialCapacity) {
+    ComputingMap(final int initialCapacity) {
       this(null, initialCapacity);
     }
 
-    ComputingMap(Function<? super K, ? extends V> computer, int initialCapacity) {
+    ComputingMap(final Function<? super K, ? extends V> computer, final int initialCapacity) {
       super(initialCapacity, /* ignored loadFactor */ 0.75f, true);
       this.computer = computer;
     }
 
     @Override
-    public V putIfAbsent(K key, V value) {
+    public V putIfAbsent(final K key, final V value) {
       if (!containsKey(key)) {
         return put(key, value);
       } else {
@@ -55,7 +55,7 @@ public final class MapMaker {
     }
 
     @Override
-    public boolean remove(Object key, Object value) {
+    public boolean remove(final Object key, final Object value) {
       if (containsKey(key) && get(key).equals(value)) {
         remove(key);
         return true;
@@ -64,7 +64,7 @@ public final class MapMaker {
     }
 
     @Override
-    public boolean replace(K key, V oldValue, V newValue) {
+    public boolean replace(final K key, final V oldValue, final V newValue) {
       if (containsKey(key) && get(key).equals(oldValue)) {
         put(key, newValue);
         return true;
@@ -73,12 +73,12 @@ public final class MapMaker {
     }
 
     @Override
-    public V replace(K key, V value) {
+    public V replace(final K key, final V value) {
       return containsKey(key) ? put(key, value) : null;
     }
 
     @Override
-    public V get(Object k) {
+    public V get(final Object k) {
       // from CustomConcurrentHashMap
       V result = super.get(k);
       if (result == null && computer != null) {
@@ -98,7 +98,7 @@ public final class MapMaker {
       return result;
     }
 
-    private V compute(K key) {
+    private V compute(final K key) {
       // from MapMaker
       V value;
       try {
@@ -119,9 +119,9 @@ public final class MapMaker {
   private int initialCapacity = 16;
   private boolean useCustomMap;
 
-  public MapMaker() {}
+  public MapMaker() { }
 
-  public MapMaker initialCapacity(int initialCapacity) {
+  public MapMaker initialCapacity(final int initialCapacity) {
     if (initialCapacity < 0) {
       throw new IllegalArgumentException();
     }
@@ -129,7 +129,7 @@ public final class MapMaker {
     return this;
   }
 
-  public MapMaker concurrencyLevel(int concurrencyLevel) {
+  public MapMaker concurrencyLevel(final int concurrencyLevel) {
     if (concurrencyLevel < 1) {
       throw new IllegalArgumentException("GWT only supports a concurrency level of 1");
     }
@@ -144,7 +144,7 @@ public final class MapMaker {
         : new ConcurrentHashMap<K, V>(initialCapacity);
   }
 
-  public <K, V> ConcurrentMap<K, V> makeComputingMap(Function<? super K, ? extends V> computer) {
+  public <K, V> ConcurrentMap<K, V> makeComputingMap(final Function<? super K, ? extends V> computer) {
     return new ComputingMap<K, V>(computer, initialCapacity);
   }
 }

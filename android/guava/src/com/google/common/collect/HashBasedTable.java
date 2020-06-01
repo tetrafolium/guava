@@ -57,7 +57,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
   private static class Factory<C, V> implements Supplier<Map<C, V>>, Serializable {
     final int expectedSize;
 
-    Factory(int expectedSize) {
+    Factory(final int expectedSize) {
       this.expectedSize = expectedSize;
     }
 
@@ -86,7 +86,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
    *     expectedCellsPerRow} is negative
    */
   public static <R, C, V> HashBasedTable<R, C, V> create(
-      int expectedRows, int expectedCellsPerRow) {
+      final int expectedRows, final int expectedCellsPerRow) {
     checkNonnegative(expectedCellsPerRow, "expectedCellsPerRow");
     Map<R, Map<C, V>> backingMap = Maps.newLinkedHashMapWithExpectedSize(expectedRows);
     return new HashBasedTable<>(backingMap, new Factory<C, V>(expectedCellsPerRow));
@@ -101,51 +101,51 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
    *     in {@code table} is null
    */
   public static <R, C, V> HashBasedTable<R, C, V> create(
-      Table<? extends R, ? extends C, ? extends V> table) {
+      final Table<? extends R, ? extends C, ? extends V> table) {
     HashBasedTable<R, C, V> result = create();
     result.putAll(table);
     return result;
   }
 
-  HashBasedTable(Map<R, Map<C, V>> backingMap, Factory<C, V> factory) {
+  HashBasedTable(final Map<R, Map<C, V>> backingMap, final Factory<C, V> factory) {
     super(backingMap, factory);
   }
 
   // Overriding so NullPointerTester test passes.
 
   @Override
-  public boolean contains(@Nullable Object rowKey, @Nullable Object columnKey) {
+  public boolean contains(final @Nullable Object rowKey, final @Nullable Object columnKey) {
     return super.contains(rowKey, columnKey);
   }
 
   @Override
-  public boolean containsColumn(@Nullable Object columnKey) {
+  public boolean containsColumn(final @Nullable Object columnKey) {
     return super.containsColumn(columnKey);
   }
 
   @Override
-  public boolean containsRow(@Nullable Object rowKey) {
+  public boolean containsRow(final @Nullable Object rowKey) {
     return super.containsRow(rowKey);
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return super.containsValue(value);
   }
 
   @Override
-  public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
+  public V get(final @Nullable Object rowKey, final @Nullable Object columnKey) {
     return super.get(rowKey, columnKey);
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     return super.equals(obj);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public V remove(@Nullable Object rowKey, @Nullable Object columnKey) {
+  public V remove(final @Nullable Object rowKey, final @Nullable Object columnKey) {
     return super.remove(rowKey, columnKey);
   }
 

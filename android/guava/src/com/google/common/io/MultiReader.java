@@ -32,7 +32,7 @@ class MultiReader extends Reader {
   private final Iterator<? extends CharSource> it;
   private Reader current;
 
-  MultiReader(Iterator<? extends CharSource> readers) throws IOException {
+  MultiReader(final Iterator<? extends CharSource> readers) throws IOException {
     this.it = readers;
     advance();
   }
@@ -48,7 +48,7 @@ class MultiReader extends Reader {
   }
 
   @Override
-  public int read(@Nullable char cbuf[], int off, int len) throws IOException {
+  public int read(final @Nullable char cbuf[], final int off, final int len) throws IOException {
     if (current == null) {
       return -1;
     }
@@ -61,7 +61,7 @@ class MultiReader extends Reader {
   }
 
   @Override
-  public long skip(long n) throws IOException {
+  public long skip(final long n) throws IOException {
     Preconditions.checkArgument(n >= 0, "n is negative");
     if (n > 0) {
       while (current != null) {

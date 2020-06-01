@@ -67,7 +67,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * {@link Collections#singletonMap} but will not accept a null key or value. It is preferable
    * mainly for consistency and maintainability of your code.
    */
-  public static <K, V> ImmutableMap<K, V> of(K k1, V v1) {
+  public static <K, V> ImmutableMap<K, V> of(final K k1, final V v1) {
     checkEntryNotNull(k1, v1);
     return RegularImmutableMap.create(1, new Object[] {k1, v1});
   }
@@ -77,7 +77,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * @throws IllegalArgumentException if duplicate keys are provided
    */
-  public static <K, V> ImmutableMap<K, V> of(K k1, V v1, K k2, V v2) {
+  public static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     return RegularImmutableMap.create(2, new Object[] {k1, v1, k2, v2});
@@ -88,7 +88,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * @throws IllegalArgumentException if duplicate keys are provided
    */
-  public static <K, V> ImmutableMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
+  public static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -100,7 +100,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * @throws IllegalArgumentException if duplicate keys are provided
    */
-  public static <K, V> ImmutableMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  public static <K, V> ImmutableMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -114,7 +114,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * @throws IllegalArgumentException if duplicate keys are provided
    */
   public static <K, V> ImmutableMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+      final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4, final K k5, final V v5) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -131,7 +131,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * <p>A call to {@link Map.Entry#setValue} on the returned entry will always
    * throw {@link UnsupportedOperationException}.
    */
-  static <K, V> Entry<K, V> entryOf(K key, V value) {
+  static <K, V> Entry<K, V> entryOf(final K key, final V value) {
     checkEntryNotNull(key, value);
     return new AbstractMap.SimpleImmutableEntry<>(key, value);
   }
@@ -157,13 +157,13 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    * @since 23.1
    */
   @Beta
-  public static <K, V> Builder<K, V> builderWithExpectedSize(int expectedSize) {
+  public static <K, V> Builder<K, V> builderWithExpectedSize(final int expectedSize) {
     checkNonnegative(expectedSize, "expectedSize");
     return new Builder<>(expectedSize);
   }
 
   static void checkNoConflict(
-      boolean safe, String conflictDescription, Entry<?, ?> entry1, Entry<?, ?> entry2) {
+      final boolean safe, final String conflictDescription, final Entry<?, ?> entry1, final Entry<?, ?> entry2) {
     if (!safe) {
       throw new IllegalArgumentException(
           "Multiple entries with same " + conflictDescription + ": " + entry1 + " and " + entry2);
@@ -214,13 +214,13 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     }
 
     @SuppressWarnings("unchecked")
-    Builder(int initialCapacity) {
+    Builder(final int initialCapacity) {
       this.alternatingKeysAndValues = new Object[2 * initialCapacity];
       this.size = 0;
       this.entriesUsed = false;
     }
 
-    private void ensureCapacity(int minCapacity) {
+    private void ensureCapacity(final int minCapacity) {
       if (minCapacity * 2 > alternatingKeysAndValues.length) {
         alternatingKeysAndValues =
             Arrays.copyOf(
@@ -236,7 +236,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
      * and will cause {@link #build} to fail.
      */
     @CanIgnoreReturnValue
-    public Builder<K, V> put(K key, V value) {
+    public Builder<K, V> put(final K key, final V value) {
       ensureCapacity(size + 1);
       checkEntryNotNull(key, value);
       alternatingKeysAndValues[2 * size] = key;
@@ -252,7 +252,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
      * @since 11.0
      */
     @CanIgnoreReturnValue
-    public Builder<K, V> put(Entry<? extends K, ? extends V> entry) {
+    public Builder<K, V> put(final Entry<? extends K, ? extends V> entry) {
       return put(entry.getKey(), entry.getValue());
     }
 
@@ -263,7 +263,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
      * @throws NullPointerException if any key or value in {@code map} is null
      */
     @CanIgnoreReturnValue
-    public Builder<K, V> putAll(Map<? extends K, ? extends V> map) {
+    public Builder<K, V> putAll(final Map<? extends K, ? extends V> map) {
       return putAll(map.entrySet());
     }
 
@@ -276,7 +276,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
      */
     @CanIgnoreReturnValue
     @Beta
-    public Builder<K, V> putAll(Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    public Builder<K, V> putAll(final Iterable<? extends Entry<? extends K, ? extends V>> entries) {
       if (entries instanceof Collection) {
         ensureCapacity(size + ((Collection<?>) entries).size());
       }
@@ -298,7 +298,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
      */
     @CanIgnoreReturnValue
     @Beta
-    public Builder<K, V> orderEntriesByValue(Comparator<? super V> valueComparator) {
+    public Builder<K, V> orderEntriesByValue(final Comparator<? super V> valueComparator) {
       checkState(this.valueComparator == null, "valueComparator was already set");
       this.valueComparator = checkNotNull(valueComparator, "valueComparator");
       return this;
@@ -364,7 +364,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    *
    * @throws NullPointerException if any key or value in {@code map} is null
    */
-  public static <K, V> ImmutableMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
+  public static <K, V> ImmutableMap<K, V> copyOf(final Map<? extends K, ? extends V> map) {
     if ((map instanceof ImmutableMap) && !(map instanceof SortedMap)) {
       @SuppressWarnings("unchecked") // safe since map is not writable
       ImmutableMap<K, V> kvMap = (ImmutableMap<K, V>) map;
@@ -385,7 +385,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    */
   @Beta
   public static <K, V> ImmutableMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+      final Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     int initialCapacity =
         (entries instanceof Collection)
             ? ((Collection<?>) entries).size()
@@ -428,7 +428,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     }
   }
 
-  ImmutableMap() {}
+  ImmutableMap() { }
 
   /**
    * Guaranteed to throw an exception and leave the map unmodified.
@@ -439,7 +439,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final V put(K k, V v) {
+  public final V put(final K k, final V v) {
     throw new UnsupportedOperationException();
   }
 
@@ -452,7 +452,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final V remove(Object o) {
+  public final V remove(final Object o) {
     throw new UnsupportedOperationException();
   }
 
@@ -464,7 +464,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
    */
   @Deprecated
   @Override
-  public final void putAll(Map<? extends K, ? extends V> map) {
+  public final void putAll(final Map<? extends K, ? extends V> map) {
     throw new UnsupportedOperationException();
   }
 
@@ -486,12 +486,12 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
   }
 
   @Override
-  public boolean containsKey(@Nullable Object key) {
+  public boolean containsKey(final @Nullable Object key) {
     return get(key) != null;
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return values().contains(value);
   }
 
@@ -600,12 +600,12 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     }
 
     @Override
-    public boolean containsKey(@Nullable Object key) {
+    public boolean containsKey(final @Nullable Object key) {
       return ImmutableMap.this.containsKey(key);
     }
 
     @Override
-    public ImmutableSet<V> get(@Nullable Object key) {
+    public ImmutableSet<V> get(final @Nullable Object key) {
       V outerValue = ImmutableMap.this.get(key);
       return (outerValue == null) ? null : ImmutableSet.of(outerValue);
     }
@@ -655,7 +655,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return Maps.equalsImpl(this, object);
   }
 
@@ -684,7 +684,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
     private final Object[] keys;
     private final Object[] values;
 
-    SerializedForm(ImmutableMap<?, ?> map) {
+    SerializedForm(final ImmutableMap<?, ?> map) {
       keys = new Object[map.size()];
       values = new Object[map.size()];
       int i = 0;
@@ -700,7 +700,7 @@ public abstract class ImmutableMap<K, V> implements Map<K, V>, Serializable {
       return createMap(builder);
     }
 
-    Object createMap(Builder<Object, Object> builder) {
+    Object createMap(final Builder<Object, Object> builder) {
       for (int i = 0; i < keys.length; i++) {
         builder.put(keys[i], values[i]);
       }

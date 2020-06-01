@@ -42,18 +42,18 @@ public class LazyStackTraceBenchmark {
   enum Mode {
     LAZY_STACK_TRACE {
       @Override
-      List<StackTraceElement> getStackTrace(Throwable t) {
+      List<StackTraceElement> getStackTrace(final Throwable t) {
         return lazyStackTrace(t);
       }
     },
     GET_STACK_TRACE {
       @Override
-      List<StackTraceElement> getStackTrace(Throwable t) {
+      List<StackTraceElement> getStackTrace(final Throwable t) {
         return asList(t.getStackTrace());
       }
     };
 
-    boolean timeIt(int reps, int breakAt) {
+    boolean timeIt(final int reps, final int breakAt) {
       boolean dummy = false;
       for (int i = 0; i < reps; i++) {
         int f = 0;
@@ -80,11 +80,11 @@ public class LazyStackTraceBenchmark {
   }
 
   @Benchmark
-  public boolean timeFindCaller(int reps) {
+  public boolean timeFindCaller(final int reps) {
     return timeFindCaller(reps, recursionCount);
   }
 
-  private boolean timeFindCaller(int reps, int recurse) {
+  private boolean timeFindCaller(final int reps, final int recurse) {
     return recurse > 0
         ? timeFindCaller(reps, recurse - 1)
         : mode.timeIt(reps, breakAt);

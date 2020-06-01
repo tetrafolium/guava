@@ -71,7 +71,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
 
   private static TestStringMultisetGenerator concurrentHashMultisetGenerator() {
     return new TestStringMultisetGenerator() {
-      @Override protected Multiset<String> create(String[] elements) {
+      @Override protected Multiset<String> create(final String[] elements) {
         return ConcurrentHashMultiset.create(asList(elements));
       }
     };
@@ -80,7 +80,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   private static TestStringMultisetGenerator concurrentSkipListMultisetGenerator() {
     return new TestStringMultisetGenerator() {
       @Override
-      protected Multiset<String> create(String[] elements) {
+      protected Multiset<String> create(final String[] elements) {
         Multiset<String> multiset =
             new ConcurrentHashMultiset<>(new ConcurrentSkipListMap<String, AtomicInteger>());
         Collections.addAll(multiset, elements);
@@ -88,7 +88,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
       }
 
       @Override
-      public List<String> order(List<String> insertionOrder) {
+      public List<String> order(final List<String> insertionOrder) {
         return Ordering.natural().sortedCopy(insertionOrder);
       }
     };
@@ -243,7 +243,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
     try {
       cms.removeExactly("a", -2);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     assertTrue(cms.removeExactly("a", 0));
     assertEquals(2, cms.count("a"));
@@ -327,7 +327,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   }
 
   private void testIdentityKeyEquality(
-      MapMakerInternalMap.Strength keyStrength) {
+      final MapMakerInternalMap.Strength keyStrength) {
 
     ConcurrentMap<String, AtomicInteger> map =
         new MapMaker().setKeyStrength(keyStrength).keyEquivalence(Equivalence.identity()).makeMap();
@@ -364,7 +364,7 @@ public class ConcurrentHashMultisetTest extends TestCase {
   }
 
   private void testLogicalKeyEquality(
-      MapMakerInternalMap.Strength keyStrength) {
+      final MapMakerInternalMap.Strength keyStrength) {
 
     ConcurrentMap<String, AtomicInteger> map =
         new MapMaker().setKeyStrength(keyStrength).keyEquivalence(Equivalence.equals()).makeMap();

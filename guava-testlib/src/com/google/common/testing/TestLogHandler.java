@@ -62,15 +62,15 @@ public class TestLogHandler extends Handler {
    * Adds the most recently logged record to our list.
    */
   @Override
-  public synchronized void publish(@Nullable LogRecord record) {
+  public synchronized void publish(final @Nullable LogRecord record) {
     list.add(record);
   }
 
   @Override
-  public void flush() {}
+  public void flush() { }
 
   @Override
-  public void close() {}
+  public void close() { }
 
   public synchronized void clear() {
     list.clear();

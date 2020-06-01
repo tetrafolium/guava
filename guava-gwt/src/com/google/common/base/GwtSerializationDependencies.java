@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class GwtSerializationDependencies {
-  private GwtSerializationDependencies() {}
+  private GwtSerializationDependencies() { }
 
   static final class OptionalDependencies<T> extends Optional<T> {
     T value;
@@ -51,17 +51,17 @@ final class GwtSerializationDependencies {
     }
 
     @Override
-    public T or(T defaultValue) {
+    public T or(final T defaultValue) {
       throw new AssertionError();
     }
 
     @Override
-    public Optional<T> or(Optional<? extends T> secondChoice) {
+    public Optional<T> or(final Optional<? extends T> secondChoice) {
       throw new AssertionError();
     }
 
     @Override
-    public T or(Supplier<? extends T> supplier) {
+    public T or(final Supplier<? extends T> supplier) {
       throw new AssertionError();
     }
 
@@ -76,12 +76,12 @@ final class GwtSerializationDependencies {
     }
 
     @Override
-    public <V> Optional<V> transform(Function<? super T, V> function) {
+    public <V> Optional<V> transform(final Function<? super T, V> function) {
       throw new AssertionError();
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       throw new AssertionError();
     }
 

@@ -34,7 +34,7 @@ class RegularImmutableList<E> extends ImmutableList<E> {
   @VisibleForTesting
   final transient Object[] array;
 
-  RegularImmutableList(Object[] array) {
+  RegularImmutableList(final Object[] array) {
     this.array = array;
   }
 
@@ -49,7 +49,7 @@ class RegularImmutableList<E> extends ImmutableList<E> {
   }
 
   @Override
-  int copyIntoArray(Object[] dst, int dstOff) {
+  int copyIntoArray(final Object[] dst, final int dstOff) {
     System.arraycopy(array, 0, dst, dstOff, array.length);
     return dstOff + array.length;
   }
@@ -57,13 +57,13 @@ class RegularImmutableList<E> extends ImmutableList<E> {
   // The fake cast to E is safe because the creation methods only allow E's
   @Override
   @SuppressWarnings("unchecked")
-  public E get(int index) {
+  public E get(final int index) {
     return (E) array[index];
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public UnmodifiableListIterator<E> listIterator(int index) {
+  public UnmodifiableListIterator<E> listIterator(final int index) {
     // for performance
     // The fake cast to E is safe because the creation methods only allow E's
     return (UnmodifiableListIterator<E>) Iterators.forArray(array, 0, array.length, index);

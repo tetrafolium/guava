@@ -479,7 +479,7 @@ public class CacheBuilderSpecTest extends TestCase {
     try {
       builder.build(CacheLoader.from(Suppliers.ofInstance(null)));
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testMaximumSize_withWeigher() {
@@ -521,7 +521,7 @@ public class CacheBuilderSpecTest extends TestCase {
     assertCacheBuilderEquivalence(expected, fromString);
   }
 
-  private static void assertCacheBuilderEquivalence(CacheBuilder<?, ?> a, CacheBuilder<?, ?> b) {
+  private static void assertCacheBuilderEquivalence(final CacheBuilder<?, ?> a, final CacheBuilder<?, ?> b) {
     assertEquals("concurrencyLevel", a.concurrencyLevel, b.concurrencyLevel);
     assertEquals("expireAfterAccessNanos", a.expireAfterAccessNanos, b.expireAfterAccessNanos);
     assertEquals("expireAfterWriteNanos", a.expireAfterWriteNanos, b.expireAfterWriteNanos);

@@ -57,13 +57,13 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   private transient long size;
 
   /** Standard constructor. */
-  protected AbstractMapBasedMultiset(Map<E, Count> backingMap) {
+  protected AbstractMapBasedMultiset(final Map<E, Count> backingMap) {
     this.backingMap = checkNotNull(backingMap);
     this.size = super.size();
   }
 
   /** Used during deserialization only. The backing map must be empty. */
-  void setBackingMap(Map<E, Count> backingMap) {
+  void setBackingMap(final Map<E, Count> backingMap) {
     this.backingMap = backingMap;
   }
 
@@ -126,7 +126,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     };
   }
 
-  @Override public void forEachEntry(ObjIntConsumer<? super E> action) {
+  @Override public void forEachEntry(final ObjIntConsumer<? super E> action) {
     checkNotNull(action);
     backingMap.forEach((element, count) -> action.accept(element, count.get()));
   }
@@ -204,7 +204,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     Count frequency = Maps.safeGet(backingMap, element);
     return (frequency == null) ? 0 : frequency.get();
   }
@@ -220,7 +220,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
    */
   @CanIgnoreReturnValue
   @Override
-  public int add(@Nullable E element, int occurrences) {
+  public int add(final @Nullable E element, final int occurrences) {
     if (occurrences == 0) {
       return count(element);
     }
@@ -242,7 +242,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
 
   @CanIgnoreReturnValue
   @Override
-  public int remove(@Nullable Object element, int occurrences) {
+  public int remove(final @Nullable Object element, final int occurrences) {
     if (occurrences == 0) {
       return count(element);
     }
@@ -270,7 +270,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   // Roughly a 33% performance improvement over AbstractMultiset.setCount().
   @CanIgnoreReturnValue
   @Override
-  public int setCount(@Nullable E element, int count) {
+  public int setCount(final @Nullable E element, final int count) {
     checkNonnegative(count, "count");
 
     Count existingCounter;
@@ -291,7 +291,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     return oldCount;
   }
 
-  private static int getAndSet(@Nullable Count i, int count) {
+  private static int getAndSet(final @Nullable Count i, final int count) {
     if (i == null) {
       return 0;
     }

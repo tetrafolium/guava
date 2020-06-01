@@ -85,7 +85,7 @@ public class SerializableTesterTest extends TestCase {
     private static final long serialVersionUID = 2L;
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
       return (other instanceof ClassWhichIsAlwaysEqualButHasDifferentHashcodes);
     }
   }
@@ -95,7 +95,7 @@ public class SerializableTesterTest extends TestCase {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
       return (other instanceof ObjectWhichIsEqualButChangesClass
           || other instanceof OtherForm);
     }
@@ -111,7 +111,7 @@ public class SerializableTesterTest extends TestCase {
 
     private static class OtherForm implements Serializable {
       @Override
-      public boolean equals(Object other) {
+      public boolean equals(final Object other) {
         return (other instanceof ObjectWhichIsEqualButChangesClass
             || other instanceof OtherForm);
       }
@@ -123,7 +123,7 @@ public class SerializableTesterTest extends TestCase {
     }
   }
 
-  private static void assertContains(String expectedSubstring, String actual) {
+  private static void assertContains(final String expectedSubstring, final String actual) {
     // TODO(kevinb): use a Truth assertion here
     if (!actual.contains(expectedSubstring)) {
       fail("expected <" + actual + "> to contain <" + expectedSubstring + ">");

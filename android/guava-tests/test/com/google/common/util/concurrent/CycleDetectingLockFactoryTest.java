@@ -90,7 +90,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
   // graph nodes (as opposed to using the static per-Enum map) to avoid
   // conflicts across different test runs.
   private <E extends Enum<E>> CycleDetectingLockFactory.WithExplicitOrdering<E>
-      newInstanceWithExplicitOrdering(Class<E> enumClass, Policy policy) {
+      newInstanceWithExplicitOrdering(final Class<E> enumClass, final Policy policy) {
     return new CycleDetectingLockFactory.WithExplicitOrdering<E>(
         policy, CycleDetectingLockFactory.createNodes(enumClass));
   }
@@ -506,7 +506,7 @@ public class CycleDetectingLockFactoryTest extends TestCase {
     final CountDownLatch finishLatch = new CountDownLatch(1);
     final Lock lock;
 
-    LockingThread(Lock lock) {
+    LockingThread(final Lock lock) {
       this.lock = lock;
     }
 
@@ -536,12 +536,12 @@ public class CycleDetectingLockFactoryTest extends TestCase {
 
   public void testReentrantReadWriteLock_implDoesNotExposeShadowedLocks() {
     assertEquals(
-        "Unexpected number of public methods in ReentrantReadWriteLock. " +
-        "The correctness of CycleDetectingReentrantReadWriteLock depends on " +
-        "the fact that the shadowed ReadLock and WriteLock are never used or " +
-        "exposed by the superclass implementation. If the implementation has " +
-        "changed, the code must be re-inspected to ensure that the " +
-        "assumption is still valid.",
+        "Unexpected number of public methods in ReentrantReadWriteLock. "
+        + "The correctness of CycleDetectingReentrantReadWriteLock depends on "
+        + "the fact that the shadowed ReadLock and WriteLock are never used or "
+        + "exposed by the superclass implementation. If the implementation has "
+        + "changed, the code must be re-inspected to ensure that the "
+        + "assumption is still valid.",
         24, ReentrantReadWriteLock.class.getMethods().length);
   }
 
@@ -558,13 +558,13 @@ public class CycleDetectingLockFactoryTest extends TestCase {
   // Checks that the exception.getMessage() matches a regex of the form:
   // "LockA -> LockB \b.*\b LockB -> LockC \b.*\b LockC -> LockA"
   private void checkMessage(
-      IllegalStateException exception, String... expectedLockCycle) {
+      final IllegalStateException exception, final String... expectedLockCycle) {
     String regex = Joiner.on("\\b.*\\b").join(expectedLockCycle);
     assertContainsRegex(regex, exception.getMessage());
   }
 
   // TODO(cpovirk): consider adding support for regex to Truth
-  private static void assertContainsRegex(String expectedRegex, String actual) {
+  private static void assertContainsRegex(final String expectedRegex, final String actual) {
     Pattern pattern = Pattern.compile(expectedRegex);
     Matcher matcher = pattern.matcher(actual);
     if (!matcher.find()) {

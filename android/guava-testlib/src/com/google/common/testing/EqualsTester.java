@@ -91,7 +91,7 @@ public final class EqualsTester {
     this(new RelationshipTester.ItemReporter());
   }
 
-  EqualsTester(RelationshipTester.ItemReporter itemReporter) {
+  EqualsTester(final RelationshipTester.ItemReporter itemReporter) {
     this.itemReporter = checkNotNull(itemReporter);
   }
 
@@ -99,7 +99,7 @@ public final class EqualsTester {
    * Adds {@code equalityGroup} with objects that are supposed to be equal to
    * each other and not equal to any other equality groups added to this tester.
    */
-  public EqualsTester addEqualityGroup(Object... equalityGroup) {
+  public EqualsTester addEqualityGroup(final Object... equalityGroup) {
     checkNotNull(equalityGroup);
     equalityGroups.add(ImmutableList.copyOf(equalityGroup));
     return this;

@@ -72,7 +72,7 @@ public class ListsTest extends TestCase {
   private static final class RemoveFirstFunction
       implements Function<String, String>, Serializable {
     @Override
-    public String apply(String from) {
+    public String apply(final String from) {
       return (from.length() == 0) ? from : from.substring(1);
     }
   }
@@ -100,7 +100,7 @@ public class ListsTest extends TestCase {
   private static class SomeFunction
       implements Function<Number, String>, Serializable {
     @Override
-    public String apply(Number n) {
+    public String apply(final Number n) {
       return String.valueOf(n);
     }
     private static final long serialVersionUID = 0;
@@ -112,7 +112,7 @@ public class ListsTest extends TestCase {
     suite.addTestSuite(ListsTest.class);
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             String[] rest = new String[elements.length - 1];
             System.arraycopy(elements, 1, rest, 0, elements.length - 1);
             return Lists.asList(elements[0], rest);
@@ -125,7 +125,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             String[] rest = new String[elements.length - 2];
             System.arraycopy(elements, 2, rest, 0, elements.length - 2);
             return Lists.asList(elements[0], elements[1], rest);
@@ -141,7 +141,7 @@ public class ListsTest extends TestCase {
         = new RemoveFirstFunction();
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             List<String> fromList = Lists.newArrayList();
             for (String element : elements) {
               fromList.add("q" + checkNotNull(element));
@@ -157,7 +157,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             List<String> fromList = Lists.newLinkedList();
             for (String element : elements) {
               fromList.add("q" + checkNotNull(element));
@@ -173,7 +173,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             List<String> fromList = Lists.newArrayList(elements);
             return Lists.transform(fromList, Functions.<String>identity());
           }
@@ -186,7 +186,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-          @Override protected List<String> create(String[] elements) {
+          @Override protected List<String> create(final String[] elements) {
             List<String> fromList =
                 Lists.newLinkedList(asList(elements));
             return Lists.transform(fromList, Functions.<String>identity());
@@ -200,7 +200,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-      @Override protected List<String> create(String[] elements) {
+      @Override protected List<String> create(final String[] elements) {
         List<String> list = Lists.newArrayList();
         for (int i = elements.length - 1; i >= 0; i--)
           list.add(elements[i]);
@@ -211,7 +211,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-      @Override protected List<String> create(String[] elements) {
+      @Override protected List<String> create(final String[] elements) {
         String[] reverseElements = new String[elements.length];
         for (int i = elements.length - 1, j = 0; i >= 0; i--, j++)
           reverseElements[j] = elements[i];
@@ -222,7 +222,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-      @Override protected List<String> create(String[] elements) {
+      @Override protected List<String> create(final String[] elements) {
         List<String> list = Lists.newLinkedList();
         for (int i = elements.length - 1; i >= 0; i--)
           list.add(elements[i]);
@@ -233,7 +233,7 @@ public class ListsTest extends TestCase {
         .createTestSuite());
 
     suite.addTest(ListTestSuiteBuilder.using(new TestStringListGenerator() {
-      @Override protected List<String> create(String[] elements) {
+      @Override protected List<String> create(final String[] elements) {
         ImmutableList.Builder<String> builder = ImmutableList.builder();
         for (int i = elements.length - 1; i >= 0; i--)
           builder.add(elements[i]);
@@ -402,7 +402,7 @@ public class ListsTest extends TestCase {
 
   @GwtIncompatible // SerializableTester
   public void testAsList1() {
-    List<String> list = Lists.asList("foo", new String[] { "bar", "baz" });
+    List<String> list = Lists.asList("foo", new String[] {"bar", "baz" });
     checkFooBarBazList(list);
     SerializableTester.reserializeAndAssert(list);
     assertTrue(list instanceof RandomAccess);
@@ -416,7 +416,7 @@ public class ListsTest extends TestCase {
     }.test();
   }
 
-  private void checkFooBarBazList(List<String> list) {
+  private void checkFooBarBazList(final List<String> list) {
     assertThat(list).containsExactly("foo", "bar", "baz").inOrder();
     assertEquals(3, list.size());
     assertIndexIsOutOfBounds(list, -1);
@@ -444,7 +444,7 @@ public class ListsTest extends TestCase {
   }
 
   public void testAsList2() {
-    List<String> list = Lists.asList("foo", "bar", new String[] { "baz" });
+    List<String> list = Lists.asList("foo", "bar", new String[] {"baz" });
     checkFooBarBazList(list);
     assertTrue(list instanceof RandomAccess);
 
@@ -476,7 +476,7 @@ public class ListsTest extends TestCase {
     }.test();
   }
 
-  private static void assertIndexIsOutOfBounds(List<String> list, int index) {
+  private static void assertIndexIsOutOfBounds(final List<String> list, final int index) {
     try {
       list.get(index);
       fail();
@@ -496,8 +496,8 @@ public class ListsTest extends TestCase {
     assertReverseView(fromList, toList);
   }
 
-  private static void assertReverseView(List<Integer> fromList,
-      List<Integer> toList) {
+  private static void assertReverseView(final List<Integer> fromList,
+      final List<Integer> toList) {
     /* fromList modifications reflected in toList */
     fromList.set(0, 5);
     assertEquals(asList(4, 3, 2, 5), toList);
@@ -526,7 +526,7 @@ public class ListsTest extends TestCase {
   }
 
   @SafeVarargs
-  private static <E> List<E> list(E... elements) {
+  private static <E> List<E> list(final E... elements) {
     return ImmutableList.copyOf(elements);
   }
 
@@ -584,7 +584,7 @@ public class ListsTest extends TestCase {
     try {
       Lists.cartesianProduct(list, list, list, list, list);
       fail("Expected IAE");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testTransformHashCodeRandomAccess() {
@@ -609,11 +609,11 @@ public class ListsTest extends TestCase {
     assertTransformModifiable(list);
   }
 
-  private static void assertTransformModifiable(List<String> list) {
+  private static void assertTransformModifiable(final List<String> list) {
     try {
       list.add("5");
       fail("transformed list is addable");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     list.remove(0);
     assertEquals(asList("2", "3", "4"), list);
     list.remove("3");
@@ -621,7 +621,7 @@ public class ListsTest extends TestCase {
     try {
       list.set(0, "5");
       fail("transformed list is setable");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     list.clear();
     assertEquals(Collections.emptyList(), list);
   }
@@ -638,8 +638,8 @@ public class ListsTest extends TestCase {
     assertTransformView(fromList, toList);
   }
 
-  private static void assertTransformView(List<Integer> fromList,
-      List<String> toList) {
+  private static void assertTransformView(final List<Integer> fromList,
+      final List<String> toList) {
     /* fromList modifications reflected in toList */
     fromList.set(0, 5);
     assertEquals(asList("5", "2", "3", "4"), toList);
@@ -685,7 +685,7 @@ public class ListsTest extends TestCase {
     try {
       Lists.transform(ImmutableList.of("foo", "bar"), new Function<String, String>() {
         @Override
-        public String apply(String input) {
+        public String apply(final String input) {
           throw new IndexOutOfBoundsException();
         }
       }).toArray();
@@ -695,7 +695,7 @@ public class ListsTest extends TestCase {
     }
   }
 
-  private static void assertTransformListIterator(List<String> list) {
+  private static void assertTransformListIterator(final List<String> list) {
     ListIterator<String> iterator = list.listIterator(1);
     assertEquals(1, iterator.nextIndex());
     assertEquals("2", iterator.next());
@@ -705,7 +705,7 @@ public class ListsTest extends TestCase {
     try {
       iterator.next();
       fail("did not detect end of list");
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
     assertEquals(3, iterator.previousIndex());
     assertEquals("4", iterator.previous());
     assertEquals("3", iterator.previous());
@@ -717,7 +717,7 @@ public class ListsTest extends TestCase {
     try {
       iterator.previous();
       fail("did not detect beginning of list");
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
     iterator.remove();
     assertEquals(asList("2", "3", "4"), list);
     assertFalse(list.isEmpty());
@@ -727,12 +727,12 @@ public class ListsTest extends TestCase {
       iterator.add("1");
       fail("transformed list iterator is addable");
     } catch (UnsupportedOperationException expected) {
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
     try {
       iterator.set("1");
       fail("transformed list iterator is settable");
     } catch (UnsupportedOperationException expected) {
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testTransformIteratorRandomAccess() {
@@ -767,7 +767,7 @@ public class ListsTest extends TestCase {
         transform, Lists.transform(randomAccessList, SOME_FUNCTION)));
   }
 
-  private static void assertTransformIterator(List<String> list) {
+  private static void assertTransformIterator(final List<String> list) {
     Iterator<String> iterator = list.iterator();
     assertTrue(iterator.hasNext());
     assertEquals("1", iterator.next());
@@ -781,7 +781,7 @@ public class ListsTest extends TestCase {
     try {
       iterator.next();
       fail("did not detect end of list");
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
     iterator.remove();
     assertEquals(asList("1", "2", "3"), list);
     assertFalse(iterator.hasNext());

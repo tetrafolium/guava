@@ -196,7 +196,7 @@ public final class OptionalTest extends TestCase {
               .transform(
                   new Function<String, String>() {
                     @Override
-                    public String apply(String input) {
+                    public String apply(final String input) {
                       return null;
                     }
                   });
@@ -209,7 +209,7 @@ public final class OptionalTest extends TestCase {
     assertEquals(Optional.absent(),
         Optional.absent().transform(
           new Function<Object, Object>() {
-            @Override public Object apply(Object input) {
+            @Override public Object apply(final Object input) {
               return null;
             }
           }));

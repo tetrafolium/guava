@@ -43,12 +43,12 @@ public class FakeTicker extends Ticker {
   private volatile long autoIncrementStepNanos;
 
   /** Advances the ticker value by {@code time} in {@code timeUnit}. */
-  public FakeTicker advance(long time, TimeUnit timeUnit) {
+  public FakeTicker advance(final long time, final TimeUnit timeUnit) {
     return advance(timeUnit.toNanos(time));
   }
 
   /** Advances the ticker value by {@code nanoseconds}. */
-  public FakeTicker advance(long nanoseconds) {
+  public FakeTicker advance(final long nanoseconds) {
     nanos.addAndGet(nanoseconds);
     return this;
   }
@@ -59,7 +59,7 @@ public class FakeTicker extends Ticker {
    * <p>The default behavior is to auto increment by zero. i.e: The ticker is left unchanged when
    * queried.
    */
-  public FakeTicker setAutoIncrementStep(long autoIncrementStep, TimeUnit timeUnit) {
+  public FakeTicker setAutoIncrementStep(final long autoIncrementStep, final TimeUnit timeUnit) {
     checkArgument(autoIncrementStep >= 0, "May not auto-increment by a negative amount");
     this.autoIncrementStepNanos = timeUnit.toNanos(autoIncrementStep);
     return this;

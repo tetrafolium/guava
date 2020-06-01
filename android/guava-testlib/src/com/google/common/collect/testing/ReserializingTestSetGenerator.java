@@ -30,16 +30,16 @@ import java.util.Set;
 public class ReserializingTestSetGenerator<E> extends ReserializingTestCollectionGenerator<E>
     implements TestSetGenerator<E> {
 
-  ReserializingTestSetGenerator(TestSetGenerator<E> delegate) {
+  ReserializingTestSetGenerator(final TestSetGenerator<E> delegate) {
     super(delegate);
   }
 
-  public static <E> TestSetGenerator<E> newInstance(TestSetGenerator<E> delegate) {
+  public static <E> TestSetGenerator<E> newInstance(final TestSetGenerator<E> delegate) {
     return new ReserializingTestSetGenerator<E>(delegate);
   }
 
   @Override
-  public Set<E> create(Object... elements) {
+  public Set<E> create(final Object... elements) {
     return (Set<E>) super.create(elements);
   }
 }

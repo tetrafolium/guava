@@ -39,7 +39,7 @@ import junit.framework.TestCase;
 public class SequentialExecutorTest extends TestCase {
   private static class FakeExecutor implements Executor {
     Queue<Runnable> tasks = Queues.newArrayDeque();
-    @Override public void execute(Runnable command) {
+    @Override public void execute(final Runnable command) {
       tasks.add(command);
     }
 
@@ -115,7 +115,7 @@ public class SequentialExecutorTest extends TestCase {
     class FakeOp implements Runnable {
       final int op;
 
-      FakeOp(int op) {
+      FakeOp(final int op) {
         this.op = op;
       }
 
@@ -178,7 +178,7 @@ public class SequentialExecutorTest extends TestCase {
     final AtomicBoolean reject = new AtomicBoolean(true);
     final SequentialExecutor executor = new SequentialExecutor(
         new Executor() {
-          @Override public void execute(Runnable r) {
+          @Override public void execute(final Runnable r) {
             if (reject.get()) {
               throw new RejectedExecutionException();
             }
@@ -194,7 +194,7 @@ public class SequentialExecutorTest extends TestCase {
     try {
       executor.execute(task);
       fail();
-    } catch (RejectedExecutionException expected) {}
+    } catch (RejectedExecutionException expected) { }
     assertEquals(0, numCalls.get());
     reject.set(false);
     executor.execute(task);
@@ -202,7 +202,7 @@ public class SequentialExecutorTest extends TestCase {
   }
 
   public void testTaskThrowsError() throws Exception {
-    class MyError extends Error {}
+    class MyError extends Error { }
     final CyclicBarrier barrier = new CyclicBarrier(2);
     // we need to make sure the error gets thrown on a different thread.
     ExecutorService service = Executors.newSingleThreadExecutor();

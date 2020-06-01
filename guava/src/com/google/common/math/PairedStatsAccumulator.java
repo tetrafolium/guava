@@ -42,7 +42,7 @@ public final class PairedStatsAccumulator {
   /**
    * Adds the given pair of values to the dataset.
    */
-  public void add(double x, double y) {
+  public void add(final double x, final double y) {
     // We extend the recursive expression for the one-variable case at Art of Computer Programming
     // vol. 2, Knuth, 4.2.2, (16) to the two-variable case. We have two value series x_i and y_i.
     // We define the arithmetic means X_n = 1/n \sum_{i=1}^n x_i, and Y_n = 1/n \sum_{i=1}^n y_i.
@@ -69,7 +69,7 @@ public final class PairedStatsAccumulator {
    * Adds the given statistics to the dataset, as if the individual values used to compute the
    * statistics had been added directly.
    */
-  public void addAll(PairedStats values) {
+  public void addAll(final PairedStats values) {
     if (values.count() == 0) {
       return;
     }
@@ -237,7 +237,7 @@ public final class PairedStatsAccumulator {
     }
   }
 
-  private double ensurePositive(double value) {
+  private double ensurePositive(final double value) {
     if (value > 0.0) {
       return value;
     } else {
@@ -245,7 +245,7 @@ public final class PairedStatsAccumulator {
     }
   }
 
-  private static double ensureInUnitRange(double value) {
+  private static double ensureInUnitRange(final double value) {
     if (value >= 1.0) {
       return 1.0;
     }

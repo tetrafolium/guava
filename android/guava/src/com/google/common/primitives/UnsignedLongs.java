@@ -51,7 +51,7 @@ import java.util.Comparator;
 @Beta
 @GwtCompatible
 public final class UnsignedLongs {
-  private UnsignedLongs() {}
+  private UnsignedLongs() { }
 
   public static final long MAX_VALUE = -1L; // Equivalent to 2^64 - 1
 
@@ -60,7 +60,7 @@ public final class UnsignedLongs {
    * longs, that is, {@code a <= b} as unsigned longs if and only if {@code flip(a) <= flip(b)} as
    * signed longs.
    */
-  private static long flip(long a) {
+  private static long flip(final long a) {
     return a ^ Long.MIN_VALUE;
   }
 
@@ -75,7 +75,7 @@ public final class UnsignedLongs {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(long a, long b) {
+  public static int compare(final long a, final long b) {
     return Longs.compare(flip(a), flip(b));
   }
 
@@ -87,7 +87,7 @@ public final class UnsignedLongs {
    *     the array according to {@link #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static long min(long... array) {
+  public static long min(final long... array) {
     checkArgument(array.length > 0);
     long min = flip(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -107,7 +107,7 @@ public final class UnsignedLongs {
    *     in the array according to {@link #compare}
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static long max(long... array) {
+  public static long max(final long... array) {
     checkArgument(array.length > 0);
     long max = flip(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -127,7 +127,7 @@ public final class UnsignedLongs {
    *     (but not at the start or end)
    * @param array an array of unsigned {@code long} values, possibly empty
    */
-  public static String join(String separator, long... array) {
+  public static String join(final String separator, final long... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -161,7 +161,7 @@ public final class UnsignedLongs {
     INSTANCE;
 
     @Override
-    public int compare(long[] left, long[] right) {
+    public int compare(final long[] left, final long[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         if (left[i] != right[i]) {
@@ -181,7 +181,7 @@ public final class UnsignedLongs {
    *
    * @since 23.1
    */
-  public static void sort(long[] array) {
+  public static void sort(final long[] array) {
     checkNotNull(array);
     sort(array, 0, array.length);
   }
@@ -192,7 +192,7 @@ public final class UnsignedLongs {
    *
    * @since 23.1
    */
-  public static void sort(long[] array, int fromIndex, int toIndex) {
+  public static void sort(final long[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {
@@ -210,7 +210,7 @@ public final class UnsignedLongs {
    *
    * @since 23.1
    */
-  public static void sortDescending(long[] array) {
+  public static void sortDescending(final long[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -221,7 +221,7 @@ public final class UnsignedLongs {
    *
    * @since 23.1
    */
-  public static void sortDescending(long[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final long[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {
@@ -243,7 +243,7 @@ public final class UnsignedLongs {
    * @param divisor the divisor (denominator)
    * @throws ArithmeticException if divisor is 0
    */
-  public static long divide(long dividend, long divisor) {
+  public static long divide(final long dividend, final long divisor) {
     if (divisor < 0) { // i.e., divisor >= 2^63:
       if (compare(dividend, divisor) < 0) {
         return 0; // dividend < divisor
@@ -279,7 +279,7 @@ public final class UnsignedLongs {
    * @throws ArithmeticException if divisor is 0
    * @since 11.0
    */
-  public static long remainder(long dividend, long divisor) {
+  public static long remainder(final long dividend, final long divisor) {
     if (divisor < 0) { // i.e., divisor >= 2^63:
       if (compare(dividend, divisor) < 0) {
         return dividend; // dividend < divisor
@@ -315,7 +315,7 @@ public final class UnsignedLongs {
    *     {@link Long#parseLong(String)})
    */
   @CanIgnoreReturnValue
-  public static long parseUnsignedLong(String string) {
+  public static long parseUnsignedLong(final String string) {
     return parseUnsignedLong(string, 10);
   }
 
@@ -336,7 +336,7 @@ public final class UnsignedLongs {
    * @since 13.0
    */
   @CanIgnoreReturnValue
-  public static long decode(String stringValue) {
+  public static long decode(final String stringValue) {
     ParseRequest request = ParseRequest.fromString(stringValue);
 
     try {
@@ -363,7 +363,7 @@ public final class UnsignedLongs {
    *     {@link Long#parseLong(String)})
    */
   @CanIgnoreReturnValue
-  public static long parseUnsignedLong(String string, int radix) {
+  public static long parseUnsignedLong(final String string, final int radix) {
     checkNotNull(string);
     if (string.length() == 0) {
       throw new NumberFormatException("empty string");
@@ -393,7 +393,7 @@ public final class UnsignedLongs {
    * unless the user is actually calling a parse method.
    */
   private static final class ParseOverflowDetection {
-    private ParseOverflowDetection() {}
+    private ParseOverflowDetection() { }
     
     // calculated as 0xffffffffffffffff / radix
     static final long[] maxValueDivs = new long[Character.MAX_RADIX + 1];
@@ -415,7 +415,7 @@ public final class UnsignedLongs {
      * a number. Does not verify whether supplied radix is valid, passing an invalid radix will give
      * undefined results or an ArrayIndexOutOfBoundsException.
      */
-    static boolean overflowInParse(long current, int digit, int radix) {
+    static boolean overflowInParse(final long current, final int digit, final int radix) {
       if (current >= 0) {
         if (current < maxValueDivs[radix]) {
           return false;
@@ -437,7 +437,7 @@ public final class UnsignedLongs {
    *
    * <p><b>Java 8 users:</b> use {@link Long#toUnsignedString(long)} instead.
    */
-  public static String toString(long x) {
+  public static String toString(final long x) {
     return toString(x, 10);
   }
 
@@ -452,7 +452,7 @@ public final class UnsignedLongs {
    * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX}
    *     and {@link Character#MAX_RADIX}.
    */
-  public static String toString(long x, int radix) {
+  public static String toString(final long x, final int radix) {
     checkArgument(
         radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
         "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",

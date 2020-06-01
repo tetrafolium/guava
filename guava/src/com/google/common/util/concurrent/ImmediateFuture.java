@@ -32,7 +32,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   private static final Logger log = Logger.getLogger(ImmediateFuture.class.getName());
 
   @Override
-  public void addListener(Runnable listener, Executor executor) {
+  public void addListener(final Runnable listener, final Executor executor) {
     checkNotNull(listener, "Runnable was null.");
     checkNotNull(executor, "Executor was null.");
     try {
@@ -48,7 +48,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   }
 
   @Override
-  public boolean cancel(boolean mayInterruptIfRunning) {
+  public boolean cancel(final boolean mayInterruptIfRunning) {
     return false;
   }
 
@@ -56,7 +56,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   public abstract V get() throws ExecutionException;
 
   @Override
-  public V get(long timeout, TimeUnit unit) throws ExecutionException {
+  public V get(final long timeout, final TimeUnit unit) throws ExecutionException {
     checkNotNull(unit);
     return get();
   }
@@ -75,7 +75,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
     static final ImmediateSuccessfulFuture<Object> NULL = new ImmediateSuccessfulFuture<>(null);
     @Nullable private final V value;
 
-    ImmediateSuccessfulFuture(@Nullable V value) {
+    ImmediateSuccessfulFuture(final @Nullable V value) {
       this.value = value;
     }
 
@@ -97,7 +97,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
       implements CheckedFuture<V, X> {
     @Nullable private final V value;
 
-    ImmediateSuccessfulCheckedFuture(@Nullable V value) {
+    ImmediateSuccessfulCheckedFuture(final @Nullable V value) {
       this.value = value;
     }
 
@@ -112,7 +112,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
     }
 
     @Override
-    public V checkedGet(long timeout, TimeUnit unit) {
+    public V checkedGet(final long timeout, final TimeUnit unit) {
       checkNotNull(unit);
       return value;
     }
@@ -125,7 +125,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   }
 
   static final class ImmediateFailedFuture<V> extends TrustedFuture<V> {
-    ImmediateFailedFuture(Throwable thrown) {
+    ImmediateFailedFuture(final Throwable thrown) {
       setException(thrown);
     }
   }
@@ -141,7 +141,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
       implements CheckedFuture<V, X> {
     private final X thrown;
 
-    ImmediateFailedCheckedFuture(X thrown) {
+    ImmediateFailedCheckedFuture(final X thrown) {
       this.thrown = thrown;
     }
 
@@ -156,7 +156,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
     }
 
     @Override
-    public V checkedGet(long timeout, TimeUnit unit) throws X {
+    public V checkedGet(final long timeout, final TimeUnit unit) throws X {
       checkNotNull(unit);
       throw thrown;
     }

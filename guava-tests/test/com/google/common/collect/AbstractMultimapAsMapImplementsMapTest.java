@@ -33,11 +33,11 @@ public abstract class AbstractMultimapAsMapImplementsMapTest
     extends MapInterfaceTest<String, Collection<Integer>> {
 
   public AbstractMultimapAsMapImplementsMapTest(
-      boolean modifiable, boolean allowsNulls, boolean supportsIteratorRemove) {
+      final boolean modifiable, final boolean allowsNulls, final boolean supportsIteratorRemove) {
     super(allowsNulls, allowsNulls, false, modifiable, modifiable, supportsIteratorRemove);
   }
 
-  protected void populate(Multimap<String, Integer> multimap) {
+  protected void populate(final Multimap<String, Integer> multimap) {
     multimap.put("one", 1);
     multimap.put("two", 2);
     multimap.put("two", 22);

@@ -137,7 +137,7 @@ public class JdkFutureAdaptersTest extends TestCase {
         new SynchronousQueue<Runnable>(),
         new ThreadFactoryBuilder().setDaemon(true).build()) {
       @Override
-      protected void beforeExecute(Thread t, Runnable r) {
+      protected void beforeExecute(final Thread t, final Runnable r) {
         submitSuccessful.countDown();
       }
     };
@@ -184,7 +184,7 @@ public class JdkFutureAdaptersTest extends TestCase {
       return delegate;
     }
 
-    void set(V value) {
+    void set(final V value) {
       delegate.set(value);
     }
   }
@@ -194,7 +194,7 @@ public class JdkFutureAdaptersTest extends TestCase {
     final CountDownLatch allowGetToComplete = new CountDownLatch(1);
 
     @Override
-    public boolean cancel(boolean mayInterruptIfRunning) {
+    public boolean cancel(final boolean mayInterruptIfRunning) {
       throw new AssertionFailedError();
     }
 
@@ -209,7 +209,7 @@ public class JdkFutureAdaptersTest extends TestCase {
     }
 
     @Override
-    public V get(long timeout, TimeUnit unit) {
+    public V get(final long timeout, final TimeUnit unit) {
       throw new AssertionFailedError();
     }
 

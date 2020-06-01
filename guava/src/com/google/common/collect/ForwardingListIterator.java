@@ -41,13 +41,13 @@ public abstract class ForwardingListIterator<E> extends ForwardingIterator<E>
     implements ListIterator<E> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingListIterator() {}
+  protected ForwardingListIterator() { }
 
   @Override
   protected abstract ListIterator<E> delegate();
 
   @Override
-  public void add(E element) {
+  public void add(final E element) {
     delegate().add(element);
   }
 
@@ -73,7 +73,7 @@ public abstract class ForwardingListIterator<E> extends ForwardingIterator<E>
   }
 
   @Override
-  public void set(E element) {
+  public void set(final E element) {
     delegate().set(element);
   }
 }

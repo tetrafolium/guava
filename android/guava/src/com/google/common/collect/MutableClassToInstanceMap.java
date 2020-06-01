@@ -57,13 +57,13 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
    * empty {@code backingMap}. The caller surrenders control of the backing map,
    * and thus should not allow any direct references to it to remain accessible.
    */
-  public static <B> MutableClassToInstanceMap<B> create(Map<Class<? extends B>, B> backingMap) {
+  public static <B> MutableClassToInstanceMap<B> create(final Map<Class<? extends B>, B> backingMap) {
     return new MutableClassToInstanceMap<B>(backingMap);
   }
 
   private final Map<Class<? extends B>, B> delegate;
 
-  private MutableClassToInstanceMap(Map<Class<? extends B>, B> delegate) {
+  private MutableClassToInstanceMap(final Map<Class<? extends B>, B> delegate) {
     this.delegate = checkNotNull(delegate);
   }
 
@@ -80,7 +80,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
       }
 
       @Override
-      public B setValue(B value) {
+      public B setValue(final B value) {
         return super.setValue(cast(getKey(), value));
       }
     };
@@ -100,7 +100,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
         return new TransformedIterator<Entry<Class<? extends B>, B>, Entry<Class<? extends B>, B>>(
             delegate().iterator()) {
           @Override
-          Entry<Class<? extends B>, B> transform(Entry<Class<? extends B>, B> from) {
+          Entry<Class<? extends B>, B> transform(final Entry<Class<? extends B>, B> from) {
             return checkedEntry(from);
           }
         };
@@ -112,7 +112,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
       }
 
       @Override
-      public <T> T[] toArray(T[] array) {
+      public <T> T[] toArray(final T[] array) {
         return standardToArray(array);
       }
     };
@@ -120,12 +120,12 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
 
   @Override
   @CanIgnoreReturnValue
-  public B put(Class<? extends B> key, B value) {
+  public B put(final Class<? extends B> key, final B value) {
     return super.put(key, cast(key, value));
   }
 
   @Override
-  public void putAll(Map<? extends Class<? extends B>, ? extends B> map) {
+  public void putAll(final Map<? extends Class<? extends B>, ? extends B> map) {
     Map<Class<? extends B>, B> copy = new LinkedHashMap<>(map);
     for (Entry<? extends Class<? extends B>, B> entry : copy.entrySet()) {
       cast(entry.getKey(), entry.getValue());
@@ -135,17 +135,17 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
 
   @CanIgnoreReturnValue
   @Override
-  public <T extends B> T putInstance(Class<T> type, T value) {
+  public <T extends B> T putInstance(final Class<T> type, final T value) {
     return cast(type, put(type, value));
   }
 
   @Override
-  public <T extends B> T getInstance(Class<T> type) {
+  public <T extends B> T getInstance(final Class<T> type) {
     return cast(type, get(type));
   }
 
   @CanIgnoreReturnValue
-  private static <B, T extends B> T cast(Class<T> type, B value) {
+  private static <B, T extends B> T cast(final Class<T> type, final B value) {
     return Primitives.wrap(type).cast(value);
   }
 
@@ -159,7 +159,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
   private static final class SerializedForm<B> implements Serializable {
     private final Map<Class<? extends B>, B> backingMap;
 
-    SerializedForm(Map<Class<? extends B>, B> backingMap) {
+    SerializedForm(final Map<Class<? extends B>, B> backingMap) {
       this.backingMap = backingMap;
     }
 

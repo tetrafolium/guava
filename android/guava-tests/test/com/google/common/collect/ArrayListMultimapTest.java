@@ -47,7 +47,7 @@ public class ArrayListMultimapTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(ListMultimapTestSuiteBuilder.using(new TestStringListMultimapGenerator() {
         @Override
-        protected ListMultimap<String, String> create(Entry<String, String>[] entries) {
+        protected ListMultimap<String, String> create(final Entry<String, String>[] entries) {
           ListMultimap<String, String> multimap = ArrayListMultimap.create();
           for (Entry<String, String> entry : entries) {
             multimap.put(entry.getKey(), entry.getValue());
@@ -128,7 +128,7 @@ public class ArrayListMultimapTest extends TestCase {
     try {
       sublist.isEmpty();
       fail("Expected ConcurrentModificationException");
-    } catch (ConcurrentModificationException expected) {}
+    } catch (ConcurrentModificationException expected) { }
   }
 
   public void testCreateFromMultimap() {
@@ -157,12 +157,12 @@ public class ArrayListMultimapTest extends TestCase {
     try {
       ArrayListMultimap.create(15, -2);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       ArrayListMultimap.create(-15, 2);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateFromHashMultimap() {

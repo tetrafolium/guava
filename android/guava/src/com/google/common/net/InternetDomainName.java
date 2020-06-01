@@ -121,7 +121,7 @@ public final class InternetDomainName {
   /**
    * Constructor used to implement {@link #from(String)}, and from subclasses.
    */
-  InternetDomainName(String name) {
+  InternetDomainName(final String name) {
     // Normalize:
     // * ASCII characters to lowercase
     // * All dot-like characters to '.'
@@ -192,7 +192,7 @@ public final class InternetDomainName {
    *     {@link #isValid}
    * @since 10.0 (previously named {@code fromLenient})
    */
-  public static InternetDomainName from(String domain) {
+  public static InternetDomainName from(final String domain) {
     return new InternetDomainName(checkNotNull(domain));
   }
 
@@ -202,7 +202,7 @@ public final class InternetDomainName {
    *
    * @return Is the domain name syntactically valid?
    */
-  private static boolean validateSyntax(List<String> parts) {
+  private static boolean validateSyntax(final List<String> parts) {
     final int lastIndex = parts.size() - 1;
 
     // Validate the last part specially, as it has different syntax rules.
@@ -234,7 +234,7 @@ public final class InternetDomainName {
    * @param isFinalPart Is this the final (rightmost) domain part?
    * @return Whether the part is valid
    */
-  private static boolean validatePart(String part, boolean isFinalPart) {
+  private static boolean validatePart(final String part, final boolean isFinalPart) {
 
     // These tests could be collapsed into one big boolean expression, but
     // they have been left as independent tests for clarity.
@@ -420,7 +420,7 @@ public final class InternetDomainName {
    *
    * <p>TODO: Reasonable candidate for addition to public API.
    */
-  private InternetDomainName ancestor(int levels) {
+  private InternetDomainName ancestor(final int levels) {
     return from(DOT_JOINER.join(parts.subList(levels, parts.size())));
   }
 
@@ -434,7 +434,7 @@ public final class InternetDomainName {
    * @throws NullPointerException if leftParts is null
    * @throws IllegalArgumentException if the resulting name is not valid
    */
-  public InternetDomainName child(String leftParts) {
+  public InternetDomainName child(final String leftParts) {
     return from(checkNotNull(leftParts) + "." + name);
   }
 
@@ -459,7 +459,7 @@ public final class InternetDomainName {
    *
    * @since 8.0 (previously named {@code isValidLenient})
    */
-  public static boolean isValid(String name) {
+  public static boolean isValid(final String name) {
     try {
       from(name);
       return true;
@@ -471,7 +471,7 @@ public final class InternetDomainName {
   /**
    * Does the domain name match one of the "wildcard" patterns (e.g. {@code "*.ar"})?
    */
-  private static boolean matchesWildcardPublicSuffix(String domain) {
+  private static boolean matchesWildcardPublicSuffix(final String domain) {
     final String[] pieces = domain.split(DOT_REGEX, 2);
     return pieces.length == 2 && PublicSuffixPatterns.UNDER.containsKey(pieces[1]);
   }
@@ -491,7 +491,7 @@ public final class InternetDomainName {
    *
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

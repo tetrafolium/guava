@@ -73,7 +73,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    * @deprecated Not supported by ImmutableSortedSet.
    */
   @Deprecated
-  public static <E> ImmutableSortedSet.Builder<E> builderWithExpectedSize(int expectedSize) {
+  public static <E> ImmutableSortedSet.Builder<E> builderWithExpectedSize(final int expectedSize) {
     throw new UnsupportedOperationException();
   }
 
@@ -87,7 +87,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     ImmutableSortedSet#of(Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E element) {
+  public static <E> ImmutableSortedSet<E> of(final E element) {
     throw new UnsupportedOperationException();
   }
 
@@ -101,7 +101,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     ImmutableSortedSet#of(Comparable, Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2) {
+  public static <E> ImmutableSortedSet<E> of(final E e1, final E e2) {
     throw new UnsupportedOperationException();
   }
 
@@ -115,7 +115,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     ImmutableSortedSet#of(Comparable, Comparable, Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3) {
+  public static <E> ImmutableSortedSet<E> of(final E e1, final E e2, final E e3) {
     throw new UnsupportedOperationException();
   }
 
@@ -130,7 +130,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    * </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4) {
+  public static <E> ImmutableSortedSet<E> of(final E e1, final E e2, final E e3, final E e4) {
     throw new UnsupportedOperationException();
   }
 
@@ -145,7 +145,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     Comparable, Comparable, Comparable, Comparable, Comparable)}. </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableSortedSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5) {
     throw new UnsupportedOperationException();
   }
 
@@ -160,7 +160,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     Comparable, Comparable, Comparable...)}. </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+  public static <E> ImmutableSortedSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... remaining) {
     throw new UnsupportedOperationException();
   }
 
@@ -174,7 +174,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     ImmutableSortedSet#copyOf(Comparable[])}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> copyOf(E[] elements) {
+  public static <E> ImmutableSortedSet<E> copyOf(final E[] elements) {
     throw new UnsupportedOperationException();
   }
 

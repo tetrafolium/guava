@@ -43,7 +43,7 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 public abstract class CharEscaper extends Escaper {
   /** Constructor for use by subclasses. */
-  protected CharEscaper() {}
+  protected CharEscaper() { }
 
   /**
    * Returns the escaped form of a given literal string.
@@ -53,7 +53,7 @@ public abstract class CharEscaper extends Escaper {
    * @throws NullPointerException if {@code string} is null
    */
   @Override
-  public String escape(String string) {
+  public String escape(final String string) {
     checkNotNull(string); // GWT specific check (do not optimize)
     // Inlineable fast-path loop which hands off to escapeSlow() only if needed
     int length = string.length();
@@ -76,7 +76,7 @@ public abstract class CharEscaper extends Escaper {
    * @return the escaped form of {@code string}
    * @throws NullPointerException if {@code string} is null
    */
-  protected final String escapeSlow(String s, int index) {
+  protected final String escapeSlow(final String s, final int index) {
     int slen = s.length();
 
     // Get a destination buffer and setup some loop variables.
@@ -159,7 +159,7 @@ public abstract class CharEscaper extends Escaper {
    * Helper method to grow the character buffer as needed, this only happens once in a while so it's
    * ok if it's in a method call. If the index passed in is 0 then no copying will be done.
    */
-  private static char[] growBuffer(char[] dest, int index, int size) {
+  private static char[] growBuffer(final char[] dest, final int index, final int size) {
     if (size < 0) { // overflow - should be OutOfMemoryError but GWT/j2cl don't support it
       throw new AssertionError("Cannot increase internal buffer any further");
     }

@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 public abstract class ForwardingImmutableSet<E> extends ImmutableSet<E> {
   private final transient Set<E> delegate;
 
-  ForwardingImmutableSet(Set<E> delegate) {
+  ForwardingImmutableSet(final Set<E> delegate) {
     // TODO(cpovirk): are we over-wrapping?
     this.delegate = Collections.unmodifiableSet(delegate);
   }
@@ -39,11 +39,11 @@ public abstract class ForwardingImmutableSet<E> extends ImmutableSet<E> {
     return Iterators.unmodifiableIterator(delegate.iterator());
   }
 
-  @Override public boolean contains(@Nullable Object object) {
+  @Override public boolean contains(final @Nullable Object object) {
     return object != null && delegate.contains(object);
   }
 
-  @Override public boolean containsAll(Collection<?> targets) {
+  @Override public boolean containsAll(final Collection<?> targets) {
     return delegate.containsAll(targets);
   }
 
@@ -59,7 +59,7 @@ public abstract class ForwardingImmutableSet<E> extends ImmutableSet<E> {
     return delegate.toArray();
   }
 
-  @Override public <T> T[] toArray(T[] other) {
+  @Override public <T> T[] toArray(final T[] other) {
     return delegate.toArray(other);
   }
 

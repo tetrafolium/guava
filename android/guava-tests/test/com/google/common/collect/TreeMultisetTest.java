@@ -55,12 +55,12 @@ public class TreeMultisetTest extends TestCase {
     suite.addTest(SortedMultisetTestSuiteBuilder
         .using(new TestStringMultisetGenerator() {
           @Override
-          protected Multiset<String> create(String[] elements) {
+          protected Multiset<String> create(final String[] elements) {
             return TreeMultiset.create(Arrays.asList(elements));
           }
 
           @Override
-          public List<String> order(List<String> insertionOrder) {
+          public List<String> order(final List<String> insertionOrder) {
             return Ordering.natural().sortedCopy(insertionOrder);
           }
         })
@@ -74,14 +74,14 @@ public class TreeMultisetTest extends TestCase {
     suite.addTest(SortedMultisetTestSuiteBuilder
         .using(new TestStringMultisetGenerator() {
           @Override
-          protected Multiset<String> create(String[] elements) {
+          protected Multiset<String> create(final String[] elements) {
             Multiset<String> result = TreeMultiset.create(NullsBeforeB.INSTANCE);
             Collections.addAll(result, elements);
             return result;
           }
 
           @Override
-          public List<String> order(List<String> insertionOrder) {
+          public List<String> order(final List<String> insertionOrder) {
             sort(insertionOrder, NullsBeforeB.INSTANCE);
             return insertionOrder;
           }
@@ -95,12 +95,12 @@ public class TreeMultisetTest extends TestCase {
         .createTestSuite());
     suite.addTest(NavigableSetTestSuiteBuilder.using(new TestStringSetGenerator() {
         @Override
-        protected Set<String> create(String[] elements) {
+        protected Set<String> create(final String[] elements) {
           return TreeMultiset.create(Arrays.asList(elements)).elementSet();
         }
 
         @Override
-        public List<String> order(List<String> insertionOrder) {
+        public List<String> order(final List<String> insertionOrder) {
           return Lists.newArrayList(Sets.newTreeSet(insertionOrder));
         }
       })
@@ -254,7 +254,7 @@ public class TreeMultisetTest extends TestCase {
   public void testCustomComparator() throws Exception {
     Comparator<String> comparator = new Comparator<String>() {
       @Override
-      public int compare(String o1, String o2) {
+      public int compare(final String o1, final String o2) {
         return o2.compareTo(o1);
       }
     };
@@ -296,7 +296,7 @@ public class TreeMultisetTest extends TestCase {
   private static final Comparator<String> DEGENERATE_COMPARATOR =
       new Comparator<String>() {
         @Override
-        public int compare(String o1, String o2) {
+        public int compare(final String o1, final String o2) {
           return o1.length() - o2.length();
         }
       };

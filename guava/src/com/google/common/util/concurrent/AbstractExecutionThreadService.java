@@ -104,14 +104,14 @@ public abstract class AbstractExecutionThreadService implements Service {
   /**
    * Constructor for use by subclasses.
    */
-  protected AbstractExecutionThreadService() {}
+  protected AbstractExecutionThreadService() { }
 
   /**
    * Start the service. This method is invoked on the execution thread.
    *
    * <p>By default this method does nothing.
    */
-  protected void startUp() throws Exception {}
+  protected void startUp() throws Exception { }
 
   /**
    * Run the service. This method is invoked on the execution thread. Implementations must respond
@@ -136,14 +136,14 @@ public abstract class AbstractExecutionThreadService implements Service {
    * <p>By default this method does nothing.
    */
   // TODO: consider supporting a TearDownTestCase-like API
-  protected void shutDown() throws Exception {}
+  protected void shutDown() throws Exception { }
 
   /**
    * Invoked to request the service to stop.
    *
    * <p>By default this method does nothing.
    */
-  protected void triggerShutdown() {}
+  protected void triggerShutdown() { }
 
   /**
    * Returns the {@link Executor} that will be used to run this service. Subclasses may override
@@ -158,7 +158,7 @@ public abstract class AbstractExecutionThreadService implements Service {
   protected Executor executor() {
     return new Executor() {
       @Override
-      public void execute(Runnable command) {
+      public void execute(final Runnable command) {
         MoreExecutors.newThread(serviceName(), command).start();
       }
     };
@@ -183,7 +183,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    * @since 13.0
    */
   @Override
-  public final void addListener(Listener listener, Executor executor) {
+  public final void addListener(final Listener listener, final Executor executor) {
     delegate.addListener(listener, executor);
   }
 
@@ -227,7 +227,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitRunning(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitRunning(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -243,7 +243,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitTerminated(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitTerminated(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 

@@ -32,7 +32,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   private Comparator<E> unusedComparatorForSerialization;
   private E unusedElementForSerialization;
 
-  RegularImmutableSortedSet(SortedSet<E> delegate, boolean isSubset) {
+  RegularImmutableSortedSet(final SortedSet<E> delegate, final boolean isSubset) {
     super(delegate);
     this.isSubset = isSubset;
   }

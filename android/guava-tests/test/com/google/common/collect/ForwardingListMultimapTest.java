@@ -32,7 +32,7 @@ public class ForwardingListMultimapTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(ListMultimap.class, new Function<ListMultimap, ListMultimap>() {
-          @Override public ListMultimap apply(ListMultimap delegate) {
+          @Override public ListMultimap apply(final ListMultimap delegate) {
             return wrap(delegate);
           }
         });

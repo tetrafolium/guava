@@ -66,7 +66,7 @@ public class ServiceManagerTest extends TestCase {
   private static class NoOpDelayedService extends NoOpService {
     private long delay;
 
-    public NoOpDelayedService(long delay) {
+    public NoOpDelayedService(final long delay) {
       this.delay = delay;
     }
 
@@ -315,7 +315,7 @@ public class ServiceManagerTest extends TestCase {
     Service b = new NoOpService();
     final ServiceManager manager = new ServiceManager(asList(a, b));
     manager.addListener(new Listener() {
-      @Override public void failure(Service service) {
+      @Override public void failure(final Service service) {
         manager.stopAsync();
       }});
     manager.startAsync();
@@ -323,7 +323,7 @@ public class ServiceManagerTest extends TestCase {
   }
 
   private static void assertState(
-      ServiceManager manager, Service.State state, Service... services) {
+      final ServiceManager manager, final Service.State state, final Service... services) {
     Collection<Service> managerServices = manager.servicesByState().get(state);
     for (Service service : services) {
       assertEquals(service.toString(), state, service.state());
@@ -361,7 +361,7 @@ public class ServiceManagerTest extends TestCase {
     assertTrue(manager.servicesByState().isEmpty());
     assertTrue(manager.startupTimes().isEmpty());
     Formatter logFormatter = new Formatter() {
-      @Override public String format(LogRecord record) {
+      @Override public String format(final LogRecord record) {
         return formatMessage(record);
       }
     };
@@ -398,7 +398,7 @@ public class ServiceManagerTest extends TestCase {
     final ServiceManager manager = new ServiceManager(
         Arrays.asList(failRunService, new NoOpService()));
     manager.addListener(new ServiceManager.Listener() {
-      @Override public void failure(Service service) {
+      @Override public void failure(final Service service) {
         failEnter.countDown();
         // block until after the service manager is shutdown
         Uninterruptibles.awaitUninterruptibly(failLeave);
@@ -440,7 +440,7 @@ public class ServiceManagerTest extends TestCase {
     try {
       new ServiceManager(Arrays.asList(service));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     service.stopAsync();
     // Nothing was logged!
     assertEquals(0, logHandler.getStoredLogRecords().size());
@@ -454,7 +454,7 @@ public class ServiceManagerTest extends TestCase {
     // started asynchronously.
     Service service2 = new Service() {
       final NoOpService delegate = new NoOpService();
-      @Override public final void addListener(Listener listener, Executor executor) {
+      @Override public final void addListener(final Listener listener, final Executor executor) {
         service1.startAsync();
         delegate.addListener(listener, executor);
       }
@@ -471,7 +471,7 @@ public class ServiceManagerTest extends TestCase {
         delegate.awaitRunning();
       }
 
-      @Override public final void awaitRunning(long timeout, TimeUnit unit)
+      @Override public final void awaitRunning(final long timeout, final TimeUnit unit)
           throws TimeoutException {
         delegate.awaitRunning(timeout, unit);
       }
@@ -480,7 +480,7 @@ public class ServiceManagerTest extends TestCase {
         delegate.awaitTerminated();
       }
 
-      @Override public final void awaitTerminated(long timeout, TimeUnit unit)
+      @Override public final void awaitTerminated(final long timeout, final TimeUnit unit)
           throws TimeoutException {
         delegate.awaitTerminated(timeout, unit);
       }
@@ -535,7 +535,7 @@ public class ServiceManagerTest extends TestCase {
     final int index;
     final CountDownLatch latch = new CountDownLatch(1);
 
-    SnappyShutdownService(int index) {
+    SnappyShutdownService(final int index) {
       this.index = index;
     }
 
@@ -572,7 +572,7 @@ public class ServiceManagerTest extends TestCase {
       stoppedCalled = true;
     }
 
-    @Override public void failure(Service service) {
+    @Override public void failure(final Service service) {
       failedServices.add(service);
     }
   }

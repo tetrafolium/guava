@@ -33,13 +33,13 @@ public class ByteSourceAsCharSourceReadBenchmark {
   enum ReadStrategy {
     TO_BYTE_ARRAY_NEW_STRING {
       @Override
-      String read(ByteSource byteSource, Charset cs) throws IOException {
+      String read(final ByteSource byteSource, final Charset cs) throws IOException {
         return new String(byteSource.read(), cs);
       }
     },
     USING_CHARSTREAMS_COPY {
       @Override
-      String read(ByteSource byteSource, Charset cs) throws IOException {
+      String read(final ByteSource byteSource, final Charset cs) throws IOException {
         StringBuilder sb = new StringBuilder();
         try (InputStreamReader reader = new InputStreamReader(byteSource.openStream(), cs)) {
           CharStreams.copy(reader, sb);
@@ -54,7 +54,7 @@ public class ByteSourceAsCharSourceReadBenchmark {
     // come close.
     USING_DECODER_WITH_SIZE_HINT {
       @Override
-      String read(ByteSource byteSource, Charset cs) throws IOException {
+      String read(final ByteSource byteSource, final Charset cs) throws IOException {
         Optional<Long> size = byteSource.sizeIfKnown();
         // if we know the size and it fits in an int
         if (size.isPresent() && size.get().longValue() == size.get().intValue()) {
@@ -124,7 +124,7 @@ public class ByteSourceAsCharSourceReadBenchmark {
   }
 
   @Benchmark
-  public int timeCopy(int reps) throws IOException {
+  public int timeCopy(final int reps) throws IOException {
     int r = 0;
     final Charset localCharset = charset;
     final ByteSource localData = data;

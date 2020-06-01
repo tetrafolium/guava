@@ -20,11 +20,11 @@ package java.lang.reflect;
  * GWT emulation of UndeclaredThrowableException.
  */
 public class UndeclaredThrowableException extends RuntimeException {
-  public UndeclaredThrowableException(Throwable undeclaredThrowable) {
+  public UndeclaredThrowableException(final Throwable undeclaredThrowable) {
     super(undeclaredThrowable);
   }
 
-  public UndeclaredThrowableException(Throwable undeclaredThrowable, String message) {
+  public UndeclaredThrowableException(final Throwable undeclaredThrowable, final String message) {
     super(message, undeclaredThrowable);
   }
 

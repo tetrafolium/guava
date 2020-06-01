@@ -35,7 +35,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
   private final transient ImmutableList<List<E>> axes;
   private final transient int[] axesSizeProduct;
 
-  static <E> List<List<E>> create(List<? extends List<? extends E>> lists) {
+  static <E> List<List<E>> create(final List<? extends List<? extends E>> lists) {
     ImmutableList.Builder<List<E>> axesBuilder = new ImmutableList.Builder<>(lists.size());
     for (List<? extends E> list : lists) {
       List<E> copy = ImmutableList.copyOf(list);
@@ -47,7 +47,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
     return new CartesianList<E>(axesBuilder.build());
   }
 
-  CartesianList(ImmutableList<List<E>> axes) {
+  CartesianList(final ImmutableList<List<E>> axes) {
     this.axes = axes;
     int[] axesSizeProduct = new int[axes.size() + 1];
     axesSizeProduct[axes.size()] = 1;
@@ -62,7 +62,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
     this.axesSizeProduct = axesSizeProduct;
   }
 
-  private int getAxisIndexForProductIndex(int index, int axis) {
+  private int getAxisIndexForProductIndex(final int index, final int axis) {
     return (index / axesSizeProduct[axis + 1]) % axes.get(axis).size();
   }
 
@@ -77,7 +77,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
       }
 
       @Override
-      public E get(int axis) {
+      public E get(final int axis) {
         checkElementIndex(axis, size());
         int axisIndex = getAxisIndexForProductIndex(index, axis);
         return axes.get(axis).get(axisIndex);
@@ -96,7 +96,7 @@ final class CartesianList<E> extends AbstractList<List<E>> implements RandomAcce
   }
 
   @Override
-  public boolean contains(@Nullable Object o) {
+  public boolean contains(final @Nullable Object o) {
     if (!(o instanceof List)) {
       return false;
     }

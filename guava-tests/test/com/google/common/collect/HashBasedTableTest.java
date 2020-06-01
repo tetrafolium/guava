@@ -32,7 +32,7 @@ import com.google.common.testing.SerializableTester;
 public class HashBasedTableTest extends AbstractTableTest {
 
   @Override protected Table<String, Integer, Character> create(
-      Object... data) {
+      final Object... data) {
     Table<String, Integer, Character> table = HashBasedTable.create();
     table.put("foo", 4, 'a');
     table.put("cat", 1, 'b');
@@ -73,12 +73,12 @@ public class HashBasedTableTest extends AbstractTableTest {
     try {
       HashBasedTable.create(100, -5);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       HashBasedTable.create(-5, 20);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateCopy() {

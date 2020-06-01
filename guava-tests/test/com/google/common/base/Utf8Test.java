@@ -115,7 +115,7 @@ public class Utf8Test extends TestCase {
     testEncodedLengthFails(newString(MIN_HIGH_SURROGATE, MIN_HIGH_SURROGATE), 0);
   }
 
-  private static void testEncodedLengthFails(String invalidString, int invalidCodePointIndex) {
+  private static void testEncodedLengthFails(final String invalidString, final int invalidCodePointIndex) {
     try {
       Utf8.encodedLength(invalidString);
       fail();
@@ -139,8 +139,8 @@ public class Utf8Test extends TestCase {
   // 18,304
   private static final long EXPECTED_TWO_BYTE_ROUNDTRIPPABLE_COUNT =
       // Both bytes are one byte characters
-      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 2) +
-      // The possible number of two byte characters
+      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 2)
+      + // The possible number of two byte characters
       TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS;
 
   // 2048
@@ -153,11 +153,11 @@ public class Utf8Test extends TestCase {
   // 2,650,112
   private static final long EXPECTED_THREE_BYTE_ROUNDTRIPPABLE_COUNT =
       // All one byte characters
-      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 3) +
-      // One two byte character and a one byte character
-      2 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
-       // Three byte characters
+      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 3)
+      + // One two byte character and a one byte character
+      2 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS
+          * ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS
+       + // Three byte characters
       THREE_BYTE_ROUNDTRIPPABLE_CHARACTERS;
 
   // 1,048,576 [chars 0x10000L to 0x10FFFF]
@@ -167,17 +167,17 @@ public class Utf8Test extends TestCase {
   // 289,571,839
   private static final long EXPECTED_FOUR_BYTE_ROUNDTRIPPABLE_COUNT =
       // All one byte characters
-      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 4) +
-      // One and three byte characters
-      2 * THREE_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
-      // Two two byte characters
-      TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS +
-      // Permutations of one and two byte characters
-      3 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS *
-          ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS +
-      // Four byte characters
+      (long) Math.pow(EXPECTED_ONE_BYTE_ROUNDTRIPPABLE_COUNT, 4)
+      + // One and three byte characters
+      2 * THREE_BYTE_ROUNDTRIPPABLE_CHARACTERS
+          * ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS
+      + // Two two byte characters
+      TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS
+      + // Permutations of one and two byte characters
+      3 * TWO_BYTE_ROUNDTRIPPABLE_CHARACTERS
+          * ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS
+          * ONE_BYTE_ROUNDTRIPPABLE_CHARACTERS
+      + // Four byte characters
       FOUR_BYTE_ROUNDTRIPPABLE_CHARACTERS;
 
   /** Tests that round tripping of all two byte permutations work. */
@@ -246,11 +246,11 @@ public class Utf8Test extends TestCase {
     assertEquals(EXPECTED_FOUR_BYTE_ROUNDTRIPPABLE_COUNT, actual);
   }
 
-  private static String newString(char... chars) {
+  private static String newString(final char... chars) {
     return new String(chars);
   }
 
-  private static byte[] toByteArray(int... bytes) {
+  private static byte[] toByteArray(final int... bytes) {
     byte[] realBytes = new byte[bytes.length];
     for (int i = 0; i < bytes.length; i++) {
       realBytes[i] = (byte) bytes[i];
@@ -258,11 +258,11 @@ public class Utf8Test extends TestCase {
     return realBytes;
   }
 
-  private static void assertWellFormed(int... bytes) {
+  private static void assertWellFormed(final int... bytes) {
     assertTrue(Utf8.isWellFormed(toByteArray(bytes)));
   }
 
-  private static void assertNotWellFormed(int... bytes) {
+  private static void assertNotWellFormed(final int... bytes) {
     assertFalse(Utf8.isWellFormed(toByteArray(bytes)));
   }
 
@@ -299,7 +299,7 @@ public class Utf8Test extends TestCase {
    * @param expectedCount the expected number of roundtrippable permutations
    */
   @GwtIncompatible // java.nio.charset.Charset
-  private static void testBytes(int numBytes, long expectedCount) {
+  private static void testBytes(final int numBytes, final long expectedCount) {
     testBytes(numBytes, expectedCount, 0, -1);
   }
 
@@ -315,7 +315,7 @@ public class Utf8Test extends TestCase {
    *     or -1 to mean the max limit for numBytes
    */
   @GwtIncompatible // java.nio.charset.Charset
-  private static void testBytes(int numBytes, long expectedCount, long start, long lim) {
+  private static void testBytes(final int numBytes, final long expectedCount, final long start, final long lim) {
     byte[] bytes = new byte[numBytes];
     if (lim == -1) {
       lim = 1L << (numBytes * 8);

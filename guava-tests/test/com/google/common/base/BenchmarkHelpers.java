@@ -72,11 +72,11 @@ class BenchmarkHelpers {
     public final CharMatcher matcher;
     public final String matchingChars;
 
-    SampleMatcherConfig(String matchingChars) {
+    SampleMatcherConfig(final String matchingChars) {
       this(CharMatcher.anyOf(matchingChars), matchingChars);
     }
 
-    SampleMatcherConfig(CharMatcher matcher, String matchingChars) {
+    SampleMatcherConfig(final CharMatcher matcher, final String matchingChars) {
       this.matcher = matcher;
       this.matchingChars = matchingChars;
     }

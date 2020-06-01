@@ -60,7 +60,7 @@ public class ExecutionListBenchmark {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
           final ExecutionList list = new ExecutionList();
-          @Override public void add(Runnable runnable, Executor executor) {
+          @Override public void add(final Runnable runnable, final Executor executor) {
             list.add(runnable, executor);
           }
 
@@ -78,7 +78,7 @@ public class ExecutionListBenchmark {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
           final ExecutionListCAS list = new ExecutionListCAS();
-          @Override public void add(Runnable runnable, Executor executor) {
+          @Override public void add(final Runnable runnable, final Executor executor) {
             list.add(runnable, executor);
           }
 
@@ -96,7 +96,7 @@ public class ExecutionListBenchmark {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
           final NewExecutionListQueue list = new NewExecutionListQueue();
-          @Override public void add(Runnable runnable, Executor executor) {
+          @Override public void add(final Runnable runnable, final Executor executor) {
             list.add(runnable, executor);
           }
 
@@ -114,7 +114,7 @@ public class ExecutionListBenchmark {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
           final NewExecutionListWithoutReverse list = new NewExecutionListWithoutReverse();
-          @Override public void add(Runnable runnable, Executor executor) {
+          @Override public void add(final Runnable runnable, final Executor executor) {
             list.add(runnable, executor);
           }
 
@@ -132,7 +132,7 @@ public class ExecutionListBenchmark {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
           final OldExecutionList list = new OldExecutionList();
-          @Override public void add(Runnable runnable, Executor executor) {
+          @Override public void add(final Runnable runnable, final Executor executor) {
             list.add(runnable, executor);
           }
 
@@ -149,8 +149,8 @@ public class ExecutionListBenchmark {
     ABSTRACT_FUTURE {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
-          final AbstractFuture<?> future = new AbstractFuture<Object>() {};
-          @Override public void add(Runnable runnable, Executor executor) {
+          final AbstractFuture<?> future = new AbstractFuture<Object>() { };
+          @Override public void add(final Runnable runnable, final Executor executor) {
             future.addListener(runnable, executor);
           }
 
@@ -167,8 +167,8 @@ public class ExecutionListBenchmark {
     OLD_ABSTRACT_FUTURE {
       @Override ExecutionListWrapper newExecutionList() {
         return new ExecutionListWrapper() {
-          final OldAbstractFuture<Object> future = new OldAbstractFuture<Object>() {};
-          @Override public void add(Runnable runnable, Executor executor) {
+          final OldAbstractFuture<Object> future = new OldAbstractFuture<Object>() { };
+          @Override public void add(final Runnable runnable, final Executor executor) {
             future.addListener(runnable, executor);
           }
 
@@ -233,7 +233,7 @@ public class ExecutionListBenchmark {
     return list.getImpl();
   }
 
-  @Benchmark int addThenExecute_singleThreaded(int reps) {
+  @Benchmark int addThenExecute_singleThreaded(final int reps) {
     int returnValue = 0;
     for (int i = 0; i < reps; i++) {
       list = impl.newExecutionList();
@@ -248,7 +248,7 @@ public class ExecutionListBenchmark {
     return returnValue;
   }
 
-  @Benchmark int executeThenAdd_singleThreaded(int reps) {
+  @Benchmark int executeThenAdd_singleThreaded(final int reps) {
     int returnValue = 0;
     for (int i = 0; i < reps; i++) {
       list = impl.newExecutionList();
@@ -323,7 +323,7 @@ public class ExecutionListBenchmark {
     final Queue<OldExecutionList.RunnableExecutorPair> runnables = Lists.newLinkedList();
     boolean executed = false;
 
-    public void add(Runnable runnable, Executor executor) {
+    public void add(final Runnable runnable, final Executor executor) {
       Preconditions.checkNotNull(runnable, "Runnable was null.");
       Preconditions.checkNotNull(executor, "Executor was null.");
 
@@ -359,7 +359,7 @@ public class ExecutionListBenchmark {
       final Runnable runnable;
       final Executor executor;
 
-      RunnableExecutorPair(Runnable runnable, Executor executor) {
+      RunnableExecutorPair(final Runnable runnable, final Executor executor) {
         this.runnable = runnable;
         this.executor = executor;
       }
@@ -384,7 +384,7 @@ public class ExecutionListBenchmark {
     @GuardedBy("this")
     private boolean executed;
 
-    public void add(Runnable runnable, Executor executor) {
+    public void add(final Runnable runnable, final Executor executor) {
       Preconditions.checkNotNull(runnable, "Runnable was null.");
       Preconditions.checkNotNull(executor, "Executor was null.");
 
@@ -413,7 +413,7 @@ public class ExecutionListBenchmark {
       }
     }
 
-    private static void executeListener(Runnable runnable, Executor executor) {
+    private static void executeListener(final Runnable runnable, final Executor executor) {
       try {
         executor.execute(runnable);
       } catch (RuntimeException e) {
@@ -427,7 +427,7 @@ public class ExecutionListBenchmark {
       final Executor executor;
       @Nullable RunnableExecutorPair next;
 
-      RunnableExecutorPair(Runnable runnable, Executor executor, RunnableExecutorPair next) {
+      RunnableExecutorPair(final Runnable runnable, final Executor executor, final RunnableExecutorPair next) {
         this.runnable = runnable;
         this.executor = executor;
         this.next = next;
@@ -447,7 +447,7 @@ public class ExecutionListBenchmark {
     @GuardedBy("this")
     private boolean executed;
 
-    public void add(Runnable runnable, Executor executor) {
+    public void add(final Runnable runnable, final Executor executor) {
       Preconditions.checkNotNull(runnable, "Runnable was null.");
       Preconditions.checkNotNull(executor, "Executor was null.");
 
@@ -484,7 +484,7 @@ public class ExecutionListBenchmark {
       }
     }
 
-    private static void executeListener(Runnable runnable, Executor executor) {
+    private static void executeListener(final Runnable runnable, final Executor executor) {
       try {
         executor.execute(runnable);
       } catch (RuntimeException e) {
@@ -498,7 +498,7 @@ public class ExecutionListBenchmark {
       Executor executor;
       @Nullable RunnableExecutorPair next;
 
-      RunnableExecutorPair(Runnable runnable, Executor executor) {
+      RunnableExecutorPair(final Runnable runnable, final Executor executor) {
         this.runnable = runnable;
         this.executor = executor;
       }
@@ -533,7 +533,7 @@ public class ExecutionListBenchmark {
     private static sun.misc.Unsafe getUnsafe() {
         try {
             return sun.misc.Unsafe.getUnsafe();
-        } catch (SecurityException tryReflectionInstead) {}
+        } catch (SecurityException tryReflectionInstead) { }
         try {
             return java.security.AccessController.doPrivileged
             (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
@@ -554,7 +554,7 @@ public class ExecutionListBenchmark {
     }
     private volatile RunnableExecutorPair head = NULL_PAIR;
 
-    public void add(Runnable runnable, Executor executor) {
+    public void add(final Runnable runnable, final Executor executor) {
       Preconditions.checkNotNull(runnable, "Runnable was null.");
       Preconditions.checkNotNull(executor, "Executor was null.");
 
@@ -604,7 +604,7 @@ public class ExecutionListBenchmark {
       // Volatile because this is written on one thread and read on another with no synchronization.
       @Nullable volatile RunnableExecutorPair next;
 
-      RunnableExecutorPair(Runnable runnable, Executor executor) {
+      RunnableExecutorPair(final Runnable runnable, final Executor executor) {
         this.runnable = runnable;
         this.executor = executor;
       }

@@ -37,7 +37,7 @@ import junit.framework.AssertionFailedError;
  */
 @GwtCompatible(emulated = true)
 final class TestPlatform {
-  static void verifyGetOnPendingFuture(Future<?> future) {
+  static void verifyGetOnPendingFuture(final Future<?> future) {
     checkNotNull(future);
     try {
       pseudoTimedGetUninterruptibly(future, 10, MILLISECONDS);
@@ -48,7 +48,7 @@ final class TestPlatform {
     }
   }
 
-  static void verifyTimedGetOnPendingFuture(Future<?> future) {
+  static void verifyTimedGetOnPendingFuture(final Future<?> future) {
     try {
       getUninterruptibly(future, 0, SECONDS);
       fail();
@@ -70,7 +70,7 @@ final class TestPlatform {
    * Retrieves the result of a {@code Future} known to be done but uses the {@code get(long,
    * TimeUnit)} overload in order to test that method.
    */
-  static <V> V getDoneFromTimeoutOverload(Future<V> future) throws ExecutionException {
+  static <V> V getDoneFromTimeoutOverload(final Future<V> future) throws ExecutionException {
     checkState(future.isDone(), "Future was expected to be done: %s", future);
     try {
       return getUninterruptibly(future, 0, SECONDS);
@@ -81,5 +81,5 @@ final class TestPlatform {
     }
   }
 
-  private TestPlatform() {}
+  private TestPlatform() { }
 }

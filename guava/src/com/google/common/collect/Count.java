@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 final class Count implements Serializable {
   private int value;
 
-  Count(int value) {
+  Count(final int value) {
     this.value = value;
   }
 
@@ -35,19 +35,19 @@ final class Count implements Serializable {
     return value;
   }
 
-  public void add(int delta) {
+  public void add(final int delta) {
     value += delta;
   }
 
-  public int addAndGet(int delta) {
+  public int addAndGet(final int delta) {
     return value += delta;
   }
 
-  public void set(int newValue) {
+  public void set(final int newValue) {
     value = newValue;
   }
 
-  public int getAndSet(int newValue) {
+  public int getAndSet(final int newValue) {
     int result = value;
     value = newValue;
     return result;
@@ -59,7 +59,7 @@ final class Count implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     return obj instanceof Count && ((Count) obj).value == value;
   }
 

@@ -40,31 +40,31 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
   static final ImmutableCollection<Object> EMPTY_IMMUTABLE_COLLECTION
       = new ForwardingImmutableCollection<Object>(Collections.emptyList());
 
-  ImmutableCollection() {}
+  ImmutableCollection() { }
 
   public abstract UnmodifiableIterator<E> iterator();
 
-  public boolean contains(@Nullable Object object) {
+  public boolean contains(final @Nullable Object object) {
     return object != null && super.contains(object);
   }
 
-  public final boolean add(E e) {
+  public final boolean add(final E e) {
     throw new UnsupportedOperationException();
   }
 
-  public final boolean remove(Object object) {
+  public final boolean remove(final Object object) {
     throw new UnsupportedOperationException();
   }
 
-  public final boolean addAll(Collection<? extends E> newElements) {
+  public final boolean addAll(final Collection<? extends E> newElements) {
     throw new UnsupportedOperationException();
   }
 
-  public final boolean removeAll(Collection<?> oldElements) {
+  public final boolean removeAll(final Collection<?> oldElements) {
     throw new UnsupportedOperationException();
   }
 
-  public final boolean retainAll(Collection<?> elementsToKeep) {
+  public final boolean retainAll(final Collection<?> elementsToKeep) {
     throw new UnsupportedOperationException();
   }
 
@@ -89,7 +89,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
         return new RegularImmutableAsList<E>(this, toArray());
     }
   }
-  static <E> ImmutableCollection<E> unsafeDelegate(Collection<E> delegate) {
+  static <E> ImmutableCollection<E> unsafeDelegate(final Collection<E> delegate) {
     return new ForwardingImmutableCollection<E>(delegate);
   }
 
@@ -102,11 +102,11 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
    */
   public abstract static class Builder<E> {
 
-    Builder() {}
+    Builder() { }
 
     public abstract Builder<E> add(E element);
 
-    public Builder<E> add(E... elements) {
+    public Builder<E> add(final E... elements) {
       checkNotNull(elements); // for GWT
       for (E element : elements) {
         add(checkNotNull(element));
@@ -114,7 +114,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
       return this;
     }
 
-    public Builder<E> addAll(Iterable<? extends E> elements) {
+    public Builder<E> addAll(final Iterable<? extends E> elements) {
       checkNotNull(elements); // for GWT
       for (E element : elements) {
         add(checkNotNull(element));
@@ -122,7 +122,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
       return this;
     }
 
-    public Builder<E> addAll(Iterator<? extends E> elements) {
+    public Builder<E> addAll(final Iterator<? extends E> elements) {
       checkNotNull(elements); // for GWT
       while (elements.hasNext()) {
         add(checkNotNull(elements.next()));

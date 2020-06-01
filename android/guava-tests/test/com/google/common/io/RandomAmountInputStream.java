@@ -27,12 +27,12 @@ import java.util.Random;
 class RandomAmountInputStream extends FilterInputStream {
   private final Random random;
 
-  public RandomAmountInputStream(InputStream in, Random random) {
+  public RandomAmountInputStream(final InputStream in, final Random random) {
     super(checkNotNull(in));
     this.random = checkNotNull(random);
   }
 
-  @Override public int read(byte[] b, int off, int len) throws IOException {
+  @Override public int read(final byte[] b, final int off, final int len) throws IOException {
     return super.read(b, off, random.nextInt(len) + 1);
   }
 }

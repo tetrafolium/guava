@@ -182,7 +182,7 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
     return Collections.emptyMap();
   }
 
-  private void putAll(Iterable<Entry<K, V>> entries) {
+  private void putAll(final Iterable<Entry<K, V>> entries) {
     Map<K, V> map = new LinkedHashMap<>();
     for (Entry<K, V> entry : entries) {
       map.put(entry.getKey(), entry.getValue());

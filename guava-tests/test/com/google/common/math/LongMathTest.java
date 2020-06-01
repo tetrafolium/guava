@@ -135,7 +135,7 @@ public class LongMathTest extends TestCase {
     try {
       LongMath.checkedPow(10, LongMath.powersOf10.length);
       fail("Expected ArithmeticException");
-    } catch (ArithmeticException expected) {}
+    } catch (ArithmeticException expected) { }
   }
 
   @GwtIncompatible // TODO
@@ -166,7 +166,7 @@ public class LongMathTest extends TestCase {
       LongMath.checkedMultiply(
           LongMath.factorials[LongMath.factorials.length - 1], LongMath.factorials.length);
       fail("Expected ArithmeticException");
-    } catch (ArithmeticException expect) {}
+    } catch (ArithmeticException expect) { }
   }
 
   @GwtIncompatible // TODO
@@ -193,7 +193,7 @@ public class LongMathTest extends TestCase {
         try {
           simpleBinomial(LongMath.biggestSimpleBinomials[k] + 1, k);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
     try {
@@ -201,7 +201,7 @@ public class LongMathTest extends TestCase {
       simpleBinomial(2 * k, k);
       // 2 * k is the smallest value for which we don't replace k with (n-k).
       fail("Expected ArithmeticException");
-    } catch (ArithmeticException expected) {}
+    } catch (ArithmeticException expected) { }
   }
 
   @AndroidIncompatible // slow
@@ -220,7 +220,7 @@ public class LongMathTest extends TestCase {
 
   // Throws an ArithmeticException if "the simple implementation" of binomial coefficients overflows
   @GwtIncompatible // TODO
-  private long simpleBinomial(int n, int k) {
+  private long simpleBinomial(final int n, final int k) {
     long accum = 1;
     for (int i = 0; i < k; i++) {
       accum = LongMath.checkedMultiply(accum, n - i);
@@ -244,7 +244,7 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.log2(0L, mode);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -254,7 +254,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.log2(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -289,7 +289,7 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.log10(0L, mode);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -300,7 +300,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.log10(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -347,7 +347,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.sqrt(x, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -444,7 +444,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.divide(p, 0L, mode);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
   }
@@ -467,7 +467,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.mod(x, m);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
   }
@@ -478,7 +478,7 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.mod(x, 0);
         fail("Expected AE");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -501,7 +501,7 @@ public class LongMathTest extends TestCase {
         try {
           LongMath.mod(x, m);
           fail("Expected ArithmeticException");
-        } catch (ArithmeticException expected) {}
+        } catch (ArithmeticException expected) { }
       }
     }
   }
@@ -529,11 +529,11 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.gcd(a, 3);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         LongMath.gcd(3, a);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -543,11 +543,11 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.gcd(a, 0);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         LongMath.gcd(0, a);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -701,7 +701,7 @@ public class LongMathTest extends TestCase {
     }
   }
 
-  private void assertOperationEquals(long a, long b, String op, long expected, long actual) {
+  private void assertOperationEquals(final long a, final long b, final String op, final long expected, final long actual) {
     if (expected != actual) {
       fail("Expected for " + a + " " + op + " " + b + " = " + expected + ", but got " + actual);
     }
@@ -723,7 +723,7 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.factorial(n);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -754,11 +754,11 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.binomial(n, -1);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       try {
         LongMath.binomial(n, n + 1);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -767,7 +767,7 @@ public class LongMathTest extends TestCase {
       try {
         LongMath.binomial(n, 0);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -824,7 +824,7 @@ public class LongMathTest extends TestCase {
    * Helper method that asserts the arithmetic mean of x and y is equal
    * to the expectedMean.
    */
-  private static void assertMean(long expectedMean, long x, long y) {
+  private static void assertMean(final long expectedMean, final long x, final long y) {
     assertEquals("The expectedMean should be the same as computeMeanSafely",
         expectedMean, computeMeanSafely(x, y));
     assertMean(x, y);
@@ -834,7 +834,7 @@ public class LongMathTest extends TestCase {
    * Helper method that asserts the arithmetic mean of x and y is equal
    *to the result of computeMeanSafely.
    */
-  private static void assertMean(long x, long y) {
+  private static void assertMean(final long x, final long y) {
     long expectedMean = computeMeanSafely(x, y);
     assertEquals(expectedMean, LongMath.mean(x, y));
     assertEquals("The mean of x and y should equal the mean of y and x",
@@ -845,7 +845,7 @@ public class LongMathTest extends TestCase {
    * Computes the mean in a way that is obvious and resilient to
    * overflow by using BigInteger arithmetic.
    */
-  private static long computeMeanSafely(long x, long y) {
+  private static long computeMeanSafely(final long x, final long y) {
     BigInteger bigX = BigInteger.valueOf(x);
     BigInteger bigY = BigInteger.valueOf(y);
     BigDecimal bigMean = new BigDecimal(bigX.add(bigY))
@@ -854,14 +854,14 @@ public class LongMathTest extends TestCase {
     return Long.parseLong(bigMean.toString());
   }
 
-  private static boolean fitsInLong(BigInteger big) {
+  private static boolean fitsInLong(final BigInteger big) {
     return big.bitLength() <= 63;
   }
 
   private static final BigInteger MAX_LONG = BigInteger.valueOf(Long.MAX_VALUE);
   private static final BigInteger MIN_LONG = BigInteger.valueOf(Long.MIN_VALUE);
 
-  private static long saturatedCast(BigInteger big) {
+  private static long saturatedCast(final BigInteger big) {
     if (big.compareTo(MAX_LONG) > 0) {
       return Long.MAX_VALUE;
     }
@@ -936,11 +936,11 @@ public class LongMathTest extends TestCase {
     try {
       LongMath.isPrime(-1);
       fail("Expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   @GwtIncompatible // String.format
-  private static void failFormat(String template, Object... args) {
+  private static void failFormat(final String template, final Object... args) {
     fail(String.format(template, args));
   }
 }

@@ -65,7 +65,7 @@ public class MultiInputStreamTest extends IoTestCase {
     assertEquals(150, result.length);
   }
 
-  private void joinHelper(Integer... spans) throws Exception {
+  private void joinHelper(final Integer... spans) throws Exception {
     List<ByteSource> sources = Lists.newArrayList();
     int start = 0;
     for (Integer span : spans) {
@@ -98,7 +98,7 @@ public class MultiInputStreamTest extends IoTestCase {
           @Override
           public InputStream openStream() {
             return new ByteArrayInputStream(newPreFilledByteArray(0, 50)) {
-              @Override public long skip(long n) {
+              @Override public long skip(final long n) {
                 return 0;
               }
             };

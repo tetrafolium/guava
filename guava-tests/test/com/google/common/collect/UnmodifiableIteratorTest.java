@@ -52,6 +52,6 @@ public class UnmodifiableIteratorTest extends TestCase {
     try {
       iterator.remove();
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 }

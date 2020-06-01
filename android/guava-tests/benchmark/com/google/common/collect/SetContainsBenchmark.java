@@ -58,11 +58,11 @@ public class SetContainsBenchmark {
         new CollectionBenchmarkSampleData(
             isUserTypeFast, random, hitRate, size);
 
-    this.setToTest = (Set<Element>)impl.create(sampleData.getValuesInSet());
+    this.setToTest = (Set<Element>) impl.create(sampleData.getValuesInSet());
     this.queries = sampleData.getQueries();
   }
 
-  @Benchmark boolean contains(int reps) {
+  @Benchmark boolean contains(final int reps) {
     // Paranoia: acting on hearsay that accessing fields might be slow
     // Should write a benchmark to test that!
     Set<Element> set = setToTest;

@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
 public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
     implements Serializable {
   /** Creates an empty {@code EnumMultiset}. */
-  public static <E extends Enum<E>> EnumMultiset<E> create(Class<E> type) {
+  public static <E extends Enum<E>> EnumMultiset<E> create(final Class<E> type) {
     return new EnumMultiset<E>(type);
   }
 
@@ -60,7 +60,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
    * @param elements the elements that the multiset should contain
    * @throws IllegalArgumentException if {@code elements} is empty
    */
-  public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements) {
+  public static <E extends Enum<E>> EnumMultiset<E> create(final Iterable<E> elements) {
     Iterator<E> iterator = elements.iterator();
     checkArgument(iterator.hasNext(), "EnumMultiset constructor passed empty Iterable");
     EnumMultiset<E> multiset = new EnumMultiset<>(iterator.next().getDeclaringClass());
@@ -74,7 +74,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
    *
    * @since 14.0
    */
-  public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements, Class<E> type) {
+  public static <E extends Enum<E>> EnumMultiset<E> create(final Iterable<E> elements, final Class<E> type) {
     EnumMultiset<E> result = create(type);
     Iterables.addAll(result, elements);
     return result;
@@ -87,14 +87,14 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   private transient long size;
 
   /** Creates an empty {@code EnumMultiset}. */
-  private EnumMultiset(Class<E> type) {
+  private EnumMultiset(final Class<E> type) {
     this.type = type;
     checkArgument(type.isEnum());
     this.enumConstants = type.getEnumConstants();
     this.counts = new int[enumConstants.length];
   }
   
-  private boolean isActuallyE(@Nullable Object o) {
+  private boolean isActuallyE(final @Nullable Object o) {
     if (o instanceof Enum) {
       Enum<?> e = (Enum<?>) o;
       int index = e.ordinal();
@@ -108,7 +108,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
    * Otherwise, throws either a NullPointerException or a ClassCastException as appropriate.
    */
   @SuppressWarnings("unchecked")
-  void checkIsE(@Nullable Object element) {
+  void checkIsE(final @Nullable Object element) {
     checkNotNull(element);
     if (!isActuallyE(element)) {
       throw new ClassCastException("Expected an " + type + " but got " + element);
@@ -126,7 +126,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     if (element == null || !isActuallyE(element)) {
       return 0;
     }
@@ -137,7 +137,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   // Modification Operations
   @CanIgnoreReturnValue
   @Override
-  public int add(E element, int occurrences) {
+  public int add(final E element, final int occurrences) {
     checkIsE(element);
     checkNonnegative(occurrences, "occurrences");
     if (occurrences == 0) {
@@ -158,7 +158,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   // Modification Operations
   @CanIgnoreReturnValue
   @Override
-  public int remove(@Nullable Object element, int occurrences) {
+  public int remove(final @Nullable Object element, final int occurrences) {
     if (element == null || !isActuallyE(element)) {
       return 0;
     }
@@ -185,7 +185,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   // Modification Operations
   @CanIgnoreReturnValue
   @Override
-  public int setCount(E element, int count) {
+  public int setCount(final E element, final int count) {
     checkIsE(element);
     checkNonnegative(count, "count");
     int index = element.ordinal();
@@ -254,7 +254,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
       public Iterator<E> iterator() {
         return new Itr<E>() {
           @Override
-          E output(int index) {
+          E output(final int index) {
             return enumConstants[index];
           }
         };
@@ -283,7 +283,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
   }
 
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     stream.writeObject(type);
     Serialization.writeMultiset(this, stream);
@@ -294,7 +294,7 @@ public final class EnumMultiset<E extends Enum<E>> extends AbstractMultiset<E>
    *     element, its count, the second element, its count, and so on
    */
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     Class<E> localType = (Class<E>) stream.readObject();

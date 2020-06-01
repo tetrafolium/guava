@@ -40,6 +40,6 @@ abstract class InterruptibleTask<V> implements Runnable {
 
   abstract void afterRanInterruptibly(V result, Throwable error);
 
-  final void interruptTask() {}
+  final void interruptTask() { }
 
 }

@@ -45,7 +45,7 @@ public final class DerivedGoogleCollectionGenerators {
     private final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> generator;
 
     public MapGenerator(
-        OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> oneSizeTestContainerGenerator) {
+        final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> oneSizeTestContainerGenerator) {
       this.generator = oneSizeTestContainerGenerator;
     }
 
@@ -55,29 +55,29 @@ public final class DerivedGoogleCollectionGenerators {
     }
 
     @Override
-    public Map<K, V> create(Object... elements) {
+    public Map<K, V> create(final Object... elements) {
       return generator.create(elements);
     }
 
     @Override
-    public Map.Entry<K, V>[] createArray(int length) {
+    public Map.Entry<K, V>[] createArray(final int length) {
       return generator.createArray(length);
     }
 
     @Override
-    public Iterable<Map.Entry<K, V>> order(List<Map.Entry<K, V>> insertionOrder) {
+    public Iterable<Map.Entry<K, V>> order(final List<Map.Entry<K, V>> insertionOrder) {
       return generator.order(insertionOrder);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public K[] createKeyArray(int length) {
+    public K[] createKeyArray(final int length) {
       return (K[]) new Object[length];
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public V[] createValueArray(int length) {
+    public V[] createValueArray(final int length) {
       return (V[]) new Object[length];
     }
 
@@ -92,7 +92,7 @@ public final class DerivedGoogleCollectionGenerators {
     private final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> generator;
 
     public InverseBiMapGenerator(
-        OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> oneSizeTestContainerGenerator) {
+        final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> oneSizeTestContainerGenerator) {
       this.generator = oneSizeTestContainerGenerator;
     }
 
@@ -107,13 +107,13 @@ public final class DerivedGoogleCollectionGenerators {
           reverse(samples.e4()));
     }
 
-    private Map.Entry<V, K> reverse(Map.Entry<K, V> entry) {
+    private Map.Entry<V, K> reverse(final Map.Entry<K, V> entry) {
       return Helpers.mapEntry(entry.getValue(), entry.getKey());
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public BiMap<V, K> create(Object... elements) {
+    public BiMap<V, K> create(final Object... elements) {
       Entry<?, ?>[] entries = new Entry<?, ?>[elements.length];
       for (int i = 0; i < elements.length; i++) {
         entries[i] = reverse((Entry<K, V>) elements[i]);
@@ -123,24 +123,24 @@ public final class DerivedGoogleCollectionGenerators {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Map.Entry<V, K>[] createArray(int length) {
+    public Map.Entry<V, K>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<V, K>> order(List<Entry<V, K>> insertionOrder) {
+    public Iterable<Entry<V, K>> order(final List<Entry<V, K>> insertionOrder) {
       return insertionOrder;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public V[] createKeyArray(int length) {
+    public V[] createKeyArray(final int length) {
       return (V[]) new Object[length];
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public K[] createValueArray(int length) {
+    public K[] createValueArray(final int length) {
       return (K[]) new Object[length];
     }
 
@@ -155,7 +155,7 @@ public final class DerivedGoogleCollectionGenerators {
     private final SampleElements<V> samples;
 
     public BiMapValueSetGenerator(
-        OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> mapGenerator) {
+        final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> mapGenerator) {
       this.mapGenerator = mapGenerator;
       final SampleElements<Map.Entry<K, V>> mapSamples = this.mapGenerator.samples();
       this.samples =
@@ -173,7 +173,7 @@ public final class DerivedGoogleCollectionGenerators {
     }
 
     @Override
-    public Set<V> create(Object... elements) {
+    public Set<V> create(final Object... elements) {
       @SuppressWarnings("unchecked")
       V[] valuesArray = (V[]) elements;
 
@@ -191,14 +191,14 @@ public final class DerivedGoogleCollectionGenerators {
     }
 
     @Override
-    public V[] createArray(int length) {
+    public V[] createArray(final int length) {
       final V[] vs =
           ((TestBiMapGenerator<K, V>) mapGenerator.getInnerGenerator()).createValueArray(length);
       return vs;
     }
 
     @Override
-    public Iterable<V> order(List<V> insertionOrder) {
+    public Iterable<V> order(final List<V> insertionOrder) {
       return insertionOrder;
     }
 
@@ -207,5 +207,5 @@ public final class DerivedGoogleCollectionGenerators {
     }
   }
 
-  private DerivedGoogleCollectionGenerators() {}
+  private DerivedGoogleCollectionGenerators() { }
 }

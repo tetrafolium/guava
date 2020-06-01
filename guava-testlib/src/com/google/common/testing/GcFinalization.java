@@ -104,7 +104,7 @@ import java.util.concurrent.TimeoutException;
 @GwtIncompatible
 @J2ObjCIncompatible // gc
 public final class GcFinalization {
-  private GcFinalization() {}
+  private GcFinalization() { }
 
   /**
    * 10 seconds ought to be long enough for any object to be GC'ed and finalized.  Unless we have a
@@ -131,7 +131,7 @@ public final class GcFinalization {
    *
    * @throws RuntimeException if timed out or interrupted while waiting
    */
-  public static void awaitDone(Future<?> future) {
+  public static void awaitDone(final Future<?> future) {
     if (future.isDone()) {
       return;
     }
@@ -163,7 +163,7 @@ public final class GcFinalization {
    *
    * @throws RuntimeException if timed out or interrupted while waiting
    */
-  public static void await(CountDownLatch latch) {
+  public static void await(final CountDownLatch latch) {
     if (latch.getCount() == 0) {
       return;
     }
@@ -192,7 +192,8 @@ public final class GcFinalization {
    * separate method to make it somewhat more likely to be unreachable.
    */
   private static void createUnreachableLatchFinalizer(final CountDownLatch latch) {
-    new Object() { @Override protected void finalize() { latch.countDown(); }};
+    new Object() { @Override protected void finalize() {
+        latch.countDown(); }};
   }
 
   /**
@@ -216,7 +217,7 @@ public final class GcFinalization {
    *
    * @throws RuntimeException if timed out or interrupted while waiting
    */
-  public static void awaitDone(FinalizationPredicate predicate) {
+  public static void awaitDone(final FinalizationPredicate predicate) {
     if (predicate.isDone()) {
       return;
     }
@@ -300,7 +301,7 @@ public final class GcFinalization {
     System.runFinalization();
   }
 
-  private static RuntimeException formatRuntimeException(String format, Object... args) {
+  private static RuntimeException formatRuntimeException(final String format, final Object... args) {
     return new RuntimeException(String.format(Locale.ROOT, format, args));
   }
 }

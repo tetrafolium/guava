@@ -61,7 +61,7 @@ final class LongAddables {
     }
 
     @Override
-    public void add(long x) {
+    public void add(final long x) {
       getAndAdd(x);
     }
 

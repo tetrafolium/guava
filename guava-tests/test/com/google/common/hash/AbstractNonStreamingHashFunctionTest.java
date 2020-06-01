@@ -55,13 +55,13 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
   public void testPutStringWithLowSurrogate() {
     // we pad because the dummy hash function we use to test this, merely copies the input into
     // the output, so the input must be at least 32 bits, since the output has to be that long
-    assertPutString(new char[] { 'p', HashTestUtils.randomLowSurrogate(new Random()) });
+    assertPutString(new char[] {'p', HashTestUtils.randomLowSurrogate(new Random()) });
   }
 
   public void testPutStringWithHighSurrogate() {
     // we pad because the dummy hash function we use to test this, merely copies the input into
     // the output, so the input must be at least 32 bits, since the output has to be that long
-    assertPutString(new char[] { 'p', HashTestUtils.randomHighSurrogate(new Random()) });
+    assertPutString(new char[] {'p', HashTestUtils.randomHighSurrogate(new Random()) });
   }
 
   public void testPutStringWithLowHighSurrogate() {
@@ -76,7 +76,7 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
         HashTestUtils.randomLowSurrogate(new Random()) });
   }
 
-  private static void assertPutString(char[] chars) {
+  private static void assertPutString(final char[] chars) {
     Hasher h1 = new NonStreamingVersion().newHasher();
     Hasher h2 = new NonStreamingVersion().newHasher();
     String s = new String(chars);
@@ -104,14 +104,14 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
         }
 
         @Override
-        protected void process(ByteBuffer bb) {
+        protected void process(final ByteBuffer bb) {
           while (bb.hasRemaining()) {
             out.write(bb.get());
           }
         }
 
         @Override
-        protected void processRemaining(ByteBuffer bb) {
+        protected void processRemaining(final ByteBuffer bb) {
           while (bb.hasRemaining()) {
             out.write(bb.get());
           }
@@ -127,7 +127,7 @@ public class AbstractNonStreamingHashFunctionTest extends TestCase {
     }
 
     @Override
-    public HashCode hashBytes(byte[] input, int off, int len) {
+    public HashCode hashBytes(final byte[] input, final int off, final int len) {
       return HashCode.fromBytes(Arrays.copyOfRange(input, off, off + len));
     }
   }

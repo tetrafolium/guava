@@ -67,7 +67,7 @@ public class EventBusTest extends TestCase {
     final List<Object> objectEvents = Lists.newArrayList();
     Object objCatcher = new Object() {
       @SuppressWarnings("unused")
-      @Subscribe public void eat(Object food) {
+      @Subscribe public void eat(final Object food) {
         objectEvents.add(food);
       }
     };
@@ -75,7 +75,7 @@ public class EventBusTest extends TestCase {
     final List<Comparable<?>> compEvents = Lists.newArrayList();
     Object compCatcher = new Object() {
       @SuppressWarnings("unused")
-      @Subscribe public void eat(Comparable<?> food) {
+      @Subscribe public void eat(final Comparable<?> food) {
         compEvents.add(food);
       }
     };
@@ -117,7 +117,7 @@ public class EventBusTest extends TestCase {
         compEvent, compEvents.get(1));
   }
 
-  public void testSubscriberThrowsException() throws Exception{
+  public void testSubscriberThrowsException() throws Exception {
     final RecordingSubscriberExceptionHandler handler =
         new RecordingSubscriberExceptionHandler();
     final EventBus eventBus = new EventBus(handler);
@@ -125,7 +125,7 @@ public class EventBusTest extends TestCase {
         new RuntimeException("but culottes have a tendancy to ride up!");
     final Object subscriber = new Object() {
       @Subscribe
-      public void throwExceptionOn(String message) {
+      public void throwExceptionOn(final String message) {
         throw exception;
       }
     };
@@ -146,17 +146,17 @@ public class EventBusTest extends TestCase {
         handler.context.getSubscriberMethod());
   }
 
-  public void testSubscriberThrowsExceptionHandlerThrowsException() throws Exception{
+  public void testSubscriberThrowsExceptionHandlerThrowsException() throws Exception {
     final EventBus eventBus = new EventBus(new SubscriberExceptionHandler() {
       @Override
-      public void handleException(Throwable exception,
-          SubscriberExceptionContext context) {
+      public void handleException(final Throwable exception,
+          final SubscriberExceptionContext context) {
         throw new RuntimeException();
       }
     });
     final Object subscriber = new Object() {
       @Subscribe
-      public void throwExceptionOn(String message) {
+      public void throwExceptionOn(final String message) {
         throw new RuntimeException();
       }
     };
@@ -287,7 +287,7 @@ public class EventBusTest extends TestCase {
     bus.register(new Callback<String>() {
       @Subscribe
       @Override
-      public void call(String s) {
+      public void call(final String s) {
         calls.incrementAndGet();
       }
     });
@@ -307,8 +307,8 @@ public class EventBusTest extends TestCase {
     public Throwable exception;
 
     @Override
-    public void handleException(Throwable exception,
-        SubscriberExceptionContext context) {
+    public void handleException(final Throwable exception,
+        final SubscriberExceptionContext context) {
       this.exception = exception;
       this.context = context;
     }
@@ -322,7 +322,7 @@ public class EventBusTest extends TestCase {
     private final EventBus bus;
     private final List<StringCatcher> catchers;
 
-    Registrator(EventBus bus, List<StringCatcher> catchers) {
+    Registrator(final EventBus bus, final List<StringCatcher> catchers) {
       this.bus = bus;
       this.catchers = catchers;
     }
@@ -345,7 +345,7 @@ public class EventBusTest extends TestCase {
     private List<DeadEvent> events = Lists.newArrayList();
 
     @Subscribe
-    public void ohNoesIHaveDied(DeadEvent event) {
+    public void ohNoesIHaveDied(final DeadEvent event) {
       events.add(event);
     }
 

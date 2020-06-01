@@ -42,7 +42,7 @@ public class StreamsBenchmark {
 
     final Supplier<Collection<Object>> supplier;
 
-    private CollectionType(Supplier<Collection<Object>> supplier) {
+    private CollectionType(final Supplier<Collection<Object>> supplier) {
       this.supplier = supplier;
     }
   }
@@ -52,13 +52,13 @@ public class StreamsBenchmark {
   enum Operation {
     FIND_FIRST {
       @Override
-      Object operate(Stream<?> stream) {
+      Object operate(final Stream<?> stream) {
         return stream.findFirst();
       }
     },
     STREAMS_ONLY_ELEMENT {
       @Override
-      Object operate(Stream<?> stream) {
+      Object operate(final Stream<?> stream) {
         try {
           return stream.collect(MoreCollectors.onlyElement());
         } catch (IllegalArgumentException | NoSuchElementException e) {
@@ -68,19 +68,19 @@ public class StreamsBenchmark {
     },
     STREAMS_FIND_LAST {
       @Override
-      Object operate(Stream<?> stream) {
+      Object operate(final Stream<?> stream) {
         return Streams.findLast(stream);
       }
     },
     REDUCE_LAST {
       @Override
-      Object operate(Stream<?> stream) {
+      Object operate(final Stream<?> stream) {
         return stream.reduce((a, b) -> b);
       }
     },
     REDUCE_LAST_PARALLEL {
       @Override
-      Object operate(Stream<?> stream) {
+      Object operate(final Stream<?> stream) {
         return stream.parallel().reduce((a, b) -> b);
       }
     };
@@ -101,7 +101,7 @@ public class StreamsBenchmark {
   }
 
   @Benchmark
-  int runOperation(int reps) {
+  int runOperation(final int reps) {
     int result = 0;
     for (int i = 0; i < reps; i++) {
       result += System.identityHashCode(operation.operate(collection.stream()));

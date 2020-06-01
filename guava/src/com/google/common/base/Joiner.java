@@ -63,24 +63,24 @@ public class Joiner {
   /**
    * Returns a joiner which automatically places {@code separator} between consecutive elements.
    */
-  public static Joiner on(String separator) {
+  public static Joiner on(final String separator) {
     return new Joiner(separator);
   }
 
   /**
    * Returns a joiner which automatically places {@code separator} between consecutive elements.
    */
-  public static Joiner on(char separator) {
+  public static Joiner on(final char separator) {
     return new Joiner(String.valueOf(separator));
   }
 
   private final String separator;
 
-  private Joiner(String separator) {
+  private Joiner(final String separator) {
     this.separator = checkNotNull(separator);
   }
 
-  private Joiner(Joiner prototype) {
+  private Joiner(final Joiner prototype) {
     this.separator = prototype.separator;
   }
 
@@ -89,7 +89,7 @@ public class Joiner {
    * separator between each, to {@code appendable}.
    */
   @CanIgnoreReturnValue
-  public <A extends Appendable> A appendTo(A appendable, Iterable<?> parts) throws IOException {
+  public <A extends Appendable> A appendTo(final A appendable, final Iterable<?> parts) throws IOException {
     return appendTo(appendable, parts.iterator());
   }
 
@@ -100,7 +100,7 @@ public class Joiner {
    * @since 11.0
    */
   @CanIgnoreReturnValue
-  public <A extends Appendable> A appendTo(A appendable, Iterator<?> parts) throws IOException {
+  public <A extends Appendable> A appendTo(final A appendable, final Iterator<?> parts) throws IOException {
     checkNotNull(appendable);
     if (parts.hasNext()) {
       appendable.append(toString(parts.next()));
@@ -117,7 +117,7 @@ public class Joiner {
    * separator between each, to {@code appendable}.
    */
   @CanIgnoreReturnValue
-  public final <A extends Appendable> A appendTo(A appendable, Object[] parts) throws IOException {
+  public final <A extends Appendable> A appendTo(final A appendable, final Object[] parts) throws IOException {
     return appendTo(appendable, Arrays.asList(parts));
   }
 
@@ -126,7 +126,7 @@ public class Joiner {
    */
   @CanIgnoreReturnValue
   public final <A extends Appendable> A appendTo(
-      A appendable, @Nullable Object first, @Nullable Object second, Object... rest)
+      final A appendable, final @Nullable Object first, final @Nullable Object second, final Object... rest)
       throws IOException {
     return appendTo(appendable, iterable(first, second, rest));
   }
@@ -137,7 +137,7 @@ public class Joiner {
    * {@link #appendTo(Appendable, Iterable)}, except that it does not throw {@link IOException}.
    */
   @CanIgnoreReturnValue
-  public final StringBuilder appendTo(StringBuilder builder, Iterable<?> parts) {
+  public final StringBuilder appendTo(final StringBuilder builder, final Iterable<?> parts) {
     return appendTo(builder, parts.iterator());
   }
 
@@ -149,7 +149,7 @@ public class Joiner {
    * @since 11.0
    */
   @CanIgnoreReturnValue
-  public final StringBuilder appendTo(StringBuilder builder, Iterator<?> parts) {
+  public final StringBuilder appendTo(final StringBuilder builder, final Iterator<?> parts) {
     try {
       appendTo((Appendable) builder, parts);
     } catch (IOException impossible) {
@@ -164,7 +164,7 @@ public class Joiner {
    * {@link #appendTo(Appendable, Iterable)}, except that it does not throw {@link IOException}.
    */
   @CanIgnoreReturnValue
-  public final StringBuilder appendTo(StringBuilder builder, Object[] parts) {
+  public final StringBuilder appendTo(final StringBuilder builder, final Object[] parts) {
     return appendTo(builder, Arrays.asList(parts));
   }
 
@@ -175,7 +175,7 @@ public class Joiner {
    */
   @CanIgnoreReturnValue
   public final StringBuilder appendTo(
-      StringBuilder builder, @Nullable Object first, @Nullable Object second, Object... rest) {
+      final StringBuilder builder, final @Nullable Object first, final @Nullable Object second, final Object... rest) {
     return appendTo(builder, iterable(first, second, rest));
   }
 
@@ -183,7 +183,7 @@ public class Joiner {
    * Returns a string containing the string representation of each of {@code parts}, using the
    * previously configured separator between each.
    */
-  public final String join(Iterable<?> parts) {
+  public final String join(final Iterable<?> parts) {
     return join(parts.iterator());
   }
 
@@ -193,7 +193,7 @@ public class Joiner {
    *
    * @since 11.0
    */
-  public final String join(Iterator<?> parts) {
+  public final String join(final Iterator<?> parts) {
     return appendTo(new StringBuilder(), parts).toString();
   }
 
@@ -201,7 +201,7 @@ public class Joiner {
    * Returns a string containing the string representation of each of {@code parts}, using the
    * previously configured separator between each.
    */
-  public final String join(Object[] parts) {
+  public final String join(final Object[] parts) {
     return join(Arrays.asList(parts));
   }
 
@@ -209,7 +209,7 @@ public class Joiner {
    * Returns a string containing the string representation of each argument, using the previously
    * configured separator between each.
    */
-  public final String join(@Nullable Object first, @Nullable Object second, Object... rest) {
+  public final String join(final @Nullable Object first, final @Nullable Object second, final Object... rest) {
     return join(iterable(first, second, rest));
   }
 
@@ -221,12 +221,12 @@ public class Joiner {
     checkNotNull(nullText);
     return new Joiner(this) {
       @Override
-      CharSequence toString(@Nullable Object part) {
+      CharSequence toString(final @Nullable Object part) {
         return (part == null) ? nullText : Joiner.this.toString(part);
       }
 
       @Override
-      public Joiner useForNull(String nullText) {
+      public Joiner useForNull(final String nullText) {
         throw new UnsupportedOperationException("already specified useForNull");
       }
 
@@ -244,7 +244,7 @@ public class Joiner {
   public Joiner skipNulls() {
     return new Joiner(this) {
       @Override
-      public <A extends Appendable> A appendTo(A appendable, Iterator<?> parts) throws IOException {
+      public <A extends Appendable> A appendTo(final A appendable, final Iterator<?> parts) throws IOException {
         checkNotNull(appendable, "appendable");
         checkNotNull(parts, "parts");
         while (parts.hasNext()) {
@@ -265,12 +265,12 @@ public class Joiner {
       }
 
       @Override
-      public Joiner useForNull(String nullText) {
+      public Joiner useForNull(final String nullText) {
         throw new UnsupportedOperationException("already specified skipNulls");
       }
 
       @Override
-      public MapJoiner withKeyValueSeparator(String kvs) {
+      public MapJoiner withKeyValueSeparator(final String kvs) {
         throw new UnsupportedOperationException("can't use .skipNulls() with maps");
       }
     };
@@ -282,7 +282,7 @@ public class Joiner {
    *
    * @since 20.0
    */
-  public MapJoiner withKeyValueSeparator(char keyValueSeparator) {
+  public MapJoiner withKeyValueSeparator(final char keyValueSeparator) {
     return withKeyValueSeparator(String.valueOf(keyValueSeparator));
   }
 
@@ -290,7 +290,7 @@ public class Joiner {
    * Returns a {@code MapJoiner} using the given key-value separator, and the same configuration as
    * this {@code Joiner} otherwise.
    */
-  public MapJoiner withKeyValueSeparator(String keyValueSeparator) {
+  public MapJoiner withKeyValueSeparator(final String keyValueSeparator) {
     return new MapJoiner(this, keyValueSeparator);
   }
 
@@ -316,7 +316,7 @@ public class Joiner {
     private final Joiner joiner;
     private final String keyValueSeparator;
 
-    private MapJoiner(Joiner joiner, String keyValueSeparator) {
+    private MapJoiner(final Joiner joiner, final String keyValueSeparator) {
       this.joiner = joiner; // only "this" is ever passed, so don't checkNotNull
       this.keyValueSeparator = checkNotNull(keyValueSeparator);
     }
@@ -326,7 +326,7 @@ public class Joiner {
      * configured separator and key-value separator, to {@code appendable}.
      */
     @CanIgnoreReturnValue
-    public <A extends Appendable> A appendTo(A appendable, Map<?, ?> map) throws IOException {
+    public <A extends Appendable> A appendTo(final A appendable, final Map<?, ?> map) throws IOException {
       return appendTo(appendable, map.entrySet());
     }
 
@@ -336,7 +336,7 @@ public class Joiner {
      * {@link #appendTo(Appendable, Map)}, except that it does not throw {@link IOException}.
      */
     @CanIgnoreReturnValue
-    public StringBuilder appendTo(StringBuilder builder, Map<?, ?> map) {
+    public StringBuilder appendTo(final StringBuilder builder, final Map<?, ?> map) {
       return appendTo(builder, map.entrySet());
     }
 
@@ -344,7 +344,7 @@ public class Joiner {
      * Returns a string containing the string representation of each entry of {@code map}, using the
      * previously configured separator and key-value separator.
      */
-    public String join(Map<?, ?> map) {
+    public String join(final Map<?, ?> map) {
       return join(map.entrySet());
     }
 
@@ -356,7 +356,7 @@ public class Joiner {
      */
     @Beta
     @CanIgnoreReturnValue
-    public <A extends Appendable> A appendTo(A appendable, Iterable<? extends Entry<?, ?>> entries)
+    public <A extends Appendable> A appendTo(final A appendable, final Iterable<? extends Entry<?, ?>> entries)
         throws IOException {
       return appendTo(appendable, entries.iterator());
     }
@@ -369,7 +369,7 @@ public class Joiner {
      */
     @Beta
     @CanIgnoreReturnValue
-    public <A extends Appendable> A appendTo(A appendable, Iterator<? extends Entry<?, ?>> parts)
+    public <A extends Appendable> A appendTo(final A appendable, final Iterator<? extends Entry<?, ?>> parts)
         throws IOException {
       checkNotNull(appendable);
       if (parts.hasNext()) {
@@ -397,7 +397,7 @@ public class Joiner {
      */
     @Beta
     @CanIgnoreReturnValue
-    public StringBuilder appendTo(StringBuilder builder, Iterable<? extends Entry<?, ?>> entries) {
+    public StringBuilder appendTo(final StringBuilder builder, final Iterable<? extends Entry<?, ?>> entries) {
       return appendTo(builder, entries.iterator());
     }
 
@@ -410,7 +410,7 @@ public class Joiner {
      */
     @Beta
     @CanIgnoreReturnValue
-    public StringBuilder appendTo(StringBuilder builder, Iterator<? extends Entry<?, ?>> entries) {
+    public StringBuilder appendTo(final StringBuilder builder, final Iterator<? extends Entry<?, ?>> entries) {
       try {
         appendTo((Appendable) builder, entries);
       } catch (IOException impossible) {
@@ -426,7 +426,7 @@ public class Joiner {
      * @since 10.0
      */
     @Beta
-    public String join(Iterable<? extends Entry<?, ?>> entries) {
+    public String join(final Iterable<? extends Entry<?, ?>> entries) {
       return join(entries.iterator());
     }
 
@@ -437,7 +437,7 @@ public class Joiner {
      * @since 11.0
      */
     @Beta
-    public String join(Iterator<? extends Entry<?, ?>> entries) {
+    public String join(final Iterator<? extends Entry<?, ?>> entries) {
       return appendTo(new StringBuilder(), entries).toString();
     }
 
@@ -445,12 +445,12 @@ public class Joiner {
      * Returns a map joiner with the same behavior as this one, except automatically substituting
      * {@code nullText} for any provided null keys or values.
      */
-    public MapJoiner useForNull(String nullText) {
+    public MapJoiner useForNull(final String nullText) {
       return new MapJoiner(joiner.useForNull(nullText), keyValueSeparator);
     }
   }
 
-  CharSequence toString(Object part) {
+  CharSequence toString(final Object part) {
     checkNotNull(part); // checkNotNull for GWT (do not optimize).
     return (part instanceof CharSequence) ? (CharSequence) part : part.toString();
   }
@@ -465,7 +465,7 @@ public class Joiner {
       }
 
       @Override
-      public Object get(int index) {
+      public Object get(final int index) {
         switch (index) {
           case 0:
             return first;

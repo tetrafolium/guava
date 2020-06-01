@@ -32,9 +32,9 @@ import java.util.ArrayList;
 public class RegularImmutableAsList_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableAsList<?> instance) {}
+      final SerializationStreamReader reader, final RegularImmutableAsList<?> instance) { }
 
-  public static RegularImmutableAsList<Object> instantiate(SerializationStreamReader reader)
+  public static RegularImmutableAsList<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     ArrayList<Object> elements = new ArrayList<>();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
@@ -42,7 +42,7 @@ public class RegularImmutableAsList_CustomFieldSerializer {
     return new RegularImmutableAsList<>(delegate, delegate);
   }
 
-  public static void serialize(SerializationStreamWriter writer, RegularImmutableAsList<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final RegularImmutableAsList<?> instance)
       throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }

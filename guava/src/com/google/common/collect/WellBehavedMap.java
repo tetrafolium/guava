@@ -38,7 +38,7 @@ final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
   private final Map<K, V> delegate;
   private Set<Entry<K, V>> entrySet;
 
-  private WellBehavedMap(Map<K, V> delegate) {
+  private WellBehavedMap(final Map<K, V> delegate) {
     this.delegate = delegate;
   }
 
@@ -48,7 +48,7 @@ final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
    * {@code Set<K> keySet()} and transforming it to
    * {@code Set<Entry<K, V>>}. All other invocations are delegated as-is.
    */
-  static <K, V> WellBehavedMap<K, V> wrap(Map<K, V> delegate) {
+  static <K, V> WellBehavedMap<K, V> wrap(final Map<K, V> delegate) {
     return new WellBehavedMap<>(delegate);
   }
 
@@ -90,7 +90,7 @@ final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
             }
 
             @Override
-            public V setValue(V value) {
+            public V setValue(final V value) {
               return put(key, value);
             }
           };

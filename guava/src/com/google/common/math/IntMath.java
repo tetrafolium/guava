@@ -63,7 +63,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int ceilingPowerOfTwo(int x) {
+  public static int ceilingPowerOfTwo(final int x) {
     checkPositive("x", x);
     if (x > MAX_SIGNED_POWER_OF_TWO) {
       throw new ArithmeticException("ceilingPowerOfTwo(" + x + ") not representable as an int");
@@ -79,7 +79,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int floorPowerOfTwo(int x) {
+  public static int floorPowerOfTwo(final int x) {
     checkPositive("x", x);
     return Integer.highestOneBit(x);
   }
@@ -91,7 +91,7 @@ public final class IntMath {
    * {@code Integer.bitCount(Integer.MIN_VALUE) == 1}, but {@link Integer#MIN_VALUE} is not a power
    * of two.
    */
-  public static boolean isPowerOfTwo(int x) {
+  public static boolean isPowerOfTwo(final int x) {
     return x > 0 & (x & (x - 1)) == 0;
   }
 
@@ -101,7 +101,7 @@ public final class IntMath {
    * narrowly) faster than the straightforward ternary expression.
    */
   @VisibleForTesting
-  static int lessThanBranchFree(int x, int y) {
+  static int lessThanBranchFree(final int x, final int y) {
     // The double negation is optimized away by normal Java, but is necessary for GWT
     // to make sure bit twiddling works as expected.
     return ~~(x - y) >>> (Integer.SIZE - 1);
@@ -116,7 +116,7 @@ public final class IntMath {
    */
   @SuppressWarnings("fallthrough")
   // TODO(kevinb): remove after this warning is disabled globally
-  public static int log2(int x, RoundingMode mode) {
+  public static int log2(final int x, final RoundingMode mode) {
     checkPositive("x", x);
     switch (mode) {
       case UNNECESSARY:
@@ -157,7 +157,7 @@ public final class IntMath {
    */
   @GwtIncompatible // need BigIntegerMath to adequately test
   @SuppressWarnings("fallthrough")
-  public static int log10(int x, RoundingMode mode) {
+  public static int log10(final int x, final RoundingMode mode) {
     checkPositive("x", x);
     int logFloor = log10Floor(x);
     int floorPow = powersOf10[logFloor];
@@ -181,7 +181,7 @@ public final class IntMath {
     }
   }
 
-  private static int log10Floor(int x) {
+  private static int log10Floor(final int x) {
     /*
      * Based on Hacker's Delight Fig. 11-5, the two-table-lookup, branch-free implementation.
      *
@@ -225,7 +225,7 @@ public final class IntMath {
    * @throws IllegalArgumentException if {@code k < 0}
    */
   @GwtIncompatible // failing tests
-  public static int pow(int b, int k) {
+  public static int pow(final int b, final int k) {
     checkNonNegative("exponent", k);
     switch (b) {
       case 0:
@@ -267,7 +267,7 @@ public final class IntMath {
    */
   @GwtIncompatible // need BigIntegerMath to adequately test
   @SuppressWarnings("fallthrough")
-  public static int sqrt(int x, RoundingMode mode) {
+  public static int sqrt(final int x, final RoundingMode mode) {
     checkNonNegative("x", x);
     int sqrtFloor = sqrtFloor(x);
     switch (mode) {
@@ -300,7 +300,7 @@ public final class IntMath {
     }
   }
 
-  private static int sqrtFloor(int x) {
+  private static int sqrtFloor(final int x) {
     // There is no loss of precision in converting an int to a double, according to
     // http://java.sun.com/docs/books/jls/third_edition/html/conversions.html#5.1.2
     return (int) Math.sqrt(x);
@@ -314,7 +314,7 @@ public final class IntMath {
    *     is not an integer multiple of {@code b}
    */
   @SuppressWarnings("fallthrough")
-  public static int divide(int p, int q, RoundingMode mode) {
+  public static int divide(final int p, final int q, final RoundingMode mode) {
     checkNotNull(mode);
     if (q == 0) {
       throw new ArithmeticException("/ by zero"); // for GWT
@@ -386,7 +386,7 @@ public final class IntMath {
    * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.17.3">
    *     Remainder Operator</a>
    */
-  public static int mod(int x, int m) {
+  public static int mod(final int x, final int m) {
     if (m <= 0) {
       throw new ArithmeticException("Modulus " + m + " must be > 0");
     }
@@ -400,7 +400,7 @@ public final class IntMath {
    *
    * @throws IllegalArgumentException if {@code a < 0} or {@code b < 0}
    */
-  public static int gcd(int a, int b) {
+  public static int gcd(final int a, final int b) {
     /*
      * The reason we require both arguments to be >= 0 is because otherwise, what do you return on
      * gcd(0, Integer.MIN_VALUE)? BigInteger.gcd would return positive 2^31, but positive 2^31 isn't
@@ -450,7 +450,7 @@ public final class IntMath {
    *
    * @throws ArithmeticException if {@code a + b} overflows in signed {@code int} arithmetic
    */
-  public static int checkedAdd(int a, int b) {
+  public static int checkedAdd(final int a, final int b) {
     long result = (long) a + b;
     checkNoOverflow(result == (int) result);
     return (int) result;
@@ -461,7 +461,7 @@ public final class IntMath {
    *
    * @throws ArithmeticException if {@code a - b} overflows in signed {@code int} arithmetic
    */
-  public static int checkedSubtract(int a, int b) {
+  public static int checkedSubtract(final int a, final int b) {
     long result = (long) a - b;
     checkNoOverflow(result == (int) result);
     return (int) result;
@@ -472,7 +472,7 @@ public final class IntMath {
    *
    * @throws ArithmeticException if {@code a * b} overflows in signed {@code int} arithmetic
    */
-  public static int checkedMultiply(int a, int b) {
+  public static int checkedMultiply(final int a, final int b) {
     long result = (long) a * b;
     checkNoOverflow(result == (int) result);
     return (int) result;
@@ -486,7 +486,7 @@ public final class IntMath {
    * @throws ArithmeticException if {@code b} to the {@code k}th power overflows in signed
    *     {@code int} arithmetic
    */
-  public static int checkedPow(int b, int k) {
+  public static int checkedPow(final int b, final int k) {
     checkNonNegative("exponent", k);
     switch (b) {
       case 0:
@@ -531,7 +531,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int saturatedAdd(int a, int b) {
+  public static int saturatedAdd(final int a, final int b) {
     return Ints.saturatedCast((long) a + b);
   }
 
@@ -542,7 +542,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int saturatedSubtract(int a, int b) {
+  public static int saturatedSubtract(final int a, final int b) {
     return Ints.saturatedCast((long) a - b);
   }
 
@@ -553,7 +553,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int saturatedMultiply(int a, int b) {
+  public static int saturatedMultiply(final int a, final int b) {
     return Ints.saturatedCast((long) a * b);
   }
 
@@ -564,7 +564,7 @@ public final class IntMath {
    * @since 20.0
    */
   @Beta
-  public static int saturatedPow(int b, int k) {
+  public static int saturatedPow(final int b, final int k) {
     checkNonNegative("exponent", k);
     switch (b) {
       case 0:
@@ -618,7 +618,7 @@ public final class IntMath {
    *
    * @throws IllegalArgumentException if {@code n < 0}
    */
-  public static int factorial(int n) {
+  public static int factorial(final int n) {
     checkNonNegative("n", n);
     return (n < factorials.length) ? factorials[n] : Integer.MAX_VALUE;
   }
@@ -645,7 +645,7 @@ public final class IntMath {
    *
    * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0} or {@code k > n}
    */
-  public static int binomial(int n, int k) {
+  public static int binomial(final int n, final int k) {
     checkNonNegative("n", n);
     checkNonNegative("k", k);
     checkArgument(k <= n, "k (%s) > n (%s)", k, n);
@@ -698,7 +698,7 @@ public final class IntMath {
    *
    * @since 14.0
    */
-  public static int mean(int x, int y) {
+  public static int mean(final int x, final int y) {
     // Efficient method for computing the arithmetic mean.
     // The alternative (x + y) / 2 fails for large values.
     // The alternative (x + y) >>> 1 fails for negative values.
@@ -719,9 +719,9 @@ public final class IntMath {
    */
   @GwtIncompatible // TODO
   @Beta
-  public static boolean isPrime(int n) {
+  public static boolean isPrime(final int n) {
     return LongMath.isPrime(n);
   }
 
-  private IntMath() {}
+  private IntMath() { }
 }

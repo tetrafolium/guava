@@ -41,7 +41,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    * @param map place to store the mapping from each key to its corresponding
    *     values
    */
-  protected AbstractListMultimap(Map<K, Collection<V>> map) {
+  protected AbstractListMultimap(final Map<K, Collection<V>> map) {
     super(map);
   }
 
@@ -63,7 +63,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    * {@link Collection} specified in the {@link Multimap} interface.
    */
   @Override
-  public List<V> get(@Nullable K key) {
+  public List<V> get(final @Nullable K key) {
     return (List<V>) super.get(key);
   }
 
@@ -76,7 +76,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public List<V> removeAll(@Nullable Object key) {
+  public List<V> removeAll(final @Nullable Object key) {
     return (List<V>) super.removeAll(key);
   }
 
@@ -89,7 +89,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public List<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
+  public List<V> replaceValues(final @Nullable K key, final Iterable<? extends V> values) {
     return (List<V>) super.replaceValues(key, values);
   }
 
@@ -102,7 +102,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public boolean put(@Nullable K key, @Nullable V value) {
+  public boolean put(final @Nullable K key, final @Nullable V value) {
     return super.put(key, value);
   }
 
@@ -125,7 +125,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    * the multimaps will not be considered equal.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return super.equals(object);
   }
 

@@ -24,7 +24,7 @@ public class TestingWeighers {
   /**
    * Returns a {@link Weigher} that returns the given {@code constant} for every request.
    */
-  static Weigher<Object, Object> constantWeigher(int constant) {
+  static Weigher<Object, Object> constantWeigher(final int constant) {
     return new ConstantWeigher(constant);
   }
 
@@ -45,26 +45,26 @@ public class TestingWeighers {
   static final class ConstantWeigher implements Weigher<Object, Object> {
     private final int constant;
 
-    ConstantWeigher(int constant) {
+    ConstantWeigher(final int constant) {
       this.constant = constant;
     }
 
     @Override
-    public int weigh(Object key, Object value) {
+    public int weigh(final Object key, final Object value) {
       return constant;
     }
   }
 
   static final class IntKeyWeigher implements Weigher<Integer, Object> {
     @Override
-    public int weigh(Integer key, Object value) {
+    public int weigh(final Integer key, final Object value) {
       return key;
     }
   }
 
   static final class IntValueWeigher implements Weigher<Object, Integer> {
     @Override
-    public int weigh(Object key, Integer value) {
+    public int weigh(final Object key, final Integer value) {
       return value;
     }
   }

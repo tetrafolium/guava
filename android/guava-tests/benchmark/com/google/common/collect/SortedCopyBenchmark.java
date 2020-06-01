@@ -42,12 +42,12 @@ public class SortedCopyBenchmark {
 
   enum InputOrder {
     SORTED {
-      @Override void arrange(List<Integer> list) {
+      @Override void arrange(final List<Integer> list) {
         Collections.sort(list);
       }
     },
     ALMOST_SORTED {
-      @Override void arrange(List<Integer> list) {
+      @Override void arrange(final List<Integer> list) {
         Collections.sort(list);
         if (list.size() > 1) {
           int i = (list.size() - 1) / 2;
@@ -56,7 +56,7 @@ public class SortedCopyBenchmark {
       }
     },
     RANDOM {
-      @Override void arrange(List<Integer> list) {}
+      @Override void arrange(final List<Integer> list) { }
     };
 
     abstract void arrange(List<Integer> list);
@@ -79,7 +79,7 @@ public class SortedCopyBenchmark {
   }
 
   @Benchmark
-  int collections(int reps) {
+  int collections(final int reps) {
     int dummy = 0;
     // Yes, this could be done more elegantly
     if (mutable) {
@@ -99,7 +99,7 @@ public class SortedCopyBenchmark {
   }
 
   @Benchmark
-  int ordering(int reps) {
+  int ordering(final int reps) {
     int dummy = 0;
     if (mutable) {
       for (int i = 0; i < reps; i++) {
@@ -114,7 +114,7 @@ public class SortedCopyBenchmark {
   }
 
   @Benchmark
-  int sortedSet(int reps) {
+  int sortedSet(final int reps) {
     int dummy = 0;
     if (mutable) {
       for (int i = 0; i < reps; i++) {

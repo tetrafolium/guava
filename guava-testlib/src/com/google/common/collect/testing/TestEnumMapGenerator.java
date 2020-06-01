@@ -42,7 +42,7 @@ public abstract class TestEnumMapGenerator implements TestMapGenerator<AnEnum, S
   }
 
   @Override
-  public final Map<AnEnum, String> create(Object... entries) {
+  public final Map<AnEnum, String> create(final Object... entries) {
     @SuppressWarnings("unchecked")
     Entry<AnEnum, String>[] array = new Entry[entries.length];
     int i = 0;
@@ -58,23 +58,23 @@ public abstract class TestEnumMapGenerator implements TestMapGenerator<AnEnum, S
 
   @Override
   @SuppressWarnings("unchecked")
-  public final Entry<AnEnum, String>[] createArray(int length) {
+  public final Entry<AnEnum, String>[] createArray(final int length) {
     return new Entry[length];
   }
 
   @Override
-  public final AnEnum[] createKeyArray(int length) {
+  public final AnEnum[] createKeyArray(final int length) {
     return new AnEnum[length];
   }
 
   @Override
-  public final String[] createValueArray(int length) {
+  public final String[] createValueArray(final int length) {
     return new String[length];
   }
 
   /** Returns the elements sorted in natural order. */
   @Override
-  public Iterable<Entry<AnEnum, String>> order(List<Entry<AnEnum, String>> insertionOrder) {
+  public Iterable<Entry<AnEnum, String>> order(final List<Entry<AnEnum, String>> insertionOrder) {
     return orderEntriesByKey(insertionOrder);
   }
 }

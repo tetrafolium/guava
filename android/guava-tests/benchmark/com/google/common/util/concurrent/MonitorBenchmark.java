@@ -51,7 +51,7 @@ public class MonitorBenchmark {
     }
   }
 
-  @Benchmark void addsAndRemoves(int reps) {
+  @Benchmark void addsAndRemoves(final int reps) {
     int capacity = this.capacity;
     BlockingQueue<String> queue = this.queue;
     String[] strings = this.strings;

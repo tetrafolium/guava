@@ -71,7 +71,7 @@ abstract class AggregateFutureState {
     }
   }
 
-  AggregateFutureState(int remainingFutures) {
+  AggregateFutureState(final int remainingFutures) {
     this.remaining = remainingFutures;
   }
 
@@ -136,20 +136,20 @@ abstract class AggregateFutureState {
     final AtomicIntegerFieldUpdater<AggregateFutureState> remainingCountUpdater;
 
     SafeAtomicHelper(
-        AtomicReferenceFieldUpdater seenExceptionsUpdater,
-        AtomicIntegerFieldUpdater remainingCountUpdater) {
+        final AtomicReferenceFieldUpdater seenExceptionsUpdater,
+        final AtomicIntegerFieldUpdater remainingCountUpdater) {
       this.seenExceptionsUpdater = seenExceptionsUpdater;
       this.remainingCountUpdater = remainingCountUpdater;
     }
 
     @Override
     void compareAndSetSeenExceptions(
-        AggregateFutureState state, Set<Throwable> expect, Set<Throwable> update) {
+        final AggregateFutureState state, final Set<Throwable> expect, final Set<Throwable> update) {
       seenExceptionsUpdater.compareAndSet(state, expect, update);
     }
 
     @Override
-    int decrementAndGetRemainingCount(AggregateFutureState state) {
+    int decrementAndGetRemainingCount(final AggregateFutureState state) {
       return remainingCountUpdater.decrementAndGet(state);
     }
   }
@@ -157,7 +157,7 @@ abstract class AggregateFutureState {
   private static final class SynchronizedAtomicHelper extends AtomicHelper {
     @Override
     void compareAndSetSeenExceptions(
-        AggregateFutureState state, Set<Throwable> expect, Set<Throwable> update) {
+        final AggregateFutureState state, final Set<Throwable> expect, final Set<Throwable> update) {
       synchronized (state) {
         if (state.seenExceptions == expect) {
           state.seenExceptions = update;
@@ -166,7 +166,7 @@ abstract class AggregateFutureState {
     }
 
     @Override
-    int decrementAndGetRemainingCount(AggregateFutureState state) {
+    int decrementAndGetRemainingCount(final AggregateFutureState state) {
       synchronized (state) {
         state.remaining--;
         return state.remaining;

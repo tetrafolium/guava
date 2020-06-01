@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
 @GwtCompatible(emulated = true)
 final class Platform {
   static boolean isInstanceOfThrowableClass(
-      @Nullable Throwable t, Class<? extends Throwable> expectedClass) {
+      final @Nullable Throwable t, final Class<? extends Throwable> expectedClass) {
     return expectedClass.isInstance(t);
   }
 
-  private Platform() {}
+  private Platform() { }
 }

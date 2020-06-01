@@ -49,14 +49,14 @@ import java.util.Queue;
 public abstract class ForwardingQueue<E> extends ForwardingCollection<E> implements Queue<E> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingQueue() {}
+  protected ForwardingQueue() { }
 
   @Override
   protected abstract Queue<E> delegate();
 
   @CanIgnoreReturnValue // TODO(cpovirk): Consider removing this?
   @Override
-  public boolean offer(E o) {
+  public boolean offer(final E o) {
     return delegate().offer(o);
   }
 
@@ -89,7 +89,7 @@ public abstract class ForwardingQueue<E> extends ForwardingCollection<E> impleme
    *
    * @since 7.0
    */
-  protected boolean standardOffer(E e) {
+  protected boolean standardOffer(final E e) {
     try {
       return add(e);
     } catch (IllegalStateException caught) {

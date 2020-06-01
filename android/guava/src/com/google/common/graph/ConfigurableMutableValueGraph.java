@@ -42,13 +42,13 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
     implements MutableValueGraph<N, V> {
 
   /** Constructs a mutable graph with the properties specified in {@code builder}. */
-  ConfigurableMutableValueGraph(AbstractGraphBuilder<? super N> builder) {
+  ConfigurableMutableValueGraph(final AbstractGraphBuilder<? super N> builder) {
     super(builder);
   }
 
   @Override
   @CanIgnoreReturnValue
-  public boolean addNode(N node) {
+  public boolean addNode(final N node) {
     checkNotNull(node, "node");
 
     if (containsNode(node)) {
@@ -65,7 +65,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
    * @throws IllegalStateException if {@code node} is already present
    */
   @CanIgnoreReturnValue
-  private GraphConnections<N, V> addNodeInternal(N node) {
+  private GraphConnections<N, V> addNodeInternal(final N node) {
     GraphConnections<N, V> connections = newConnections();
     checkState(nodeConnections.put(node, connections) == null);
     return connections;
@@ -73,7 +73,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
 
   @Override
   @CanIgnoreReturnValue
-  public V putEdgeValue(N nodeU, N nodeV, V value) {
+  public V putEdgeValue(final N nodeU, final N nodeV, final V value) {
     checkNotNull(nodeU, "nodeU");
     checkNotNull(nodeV, "nodeV");
     checkNotNull(value, "value");
@@ -100,7 +100,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
 
   @Override
   @CanIgnoreReturnValue
-  public boolean removeNode(N node) {
+  public boolean removeNode(final N node) {
     checkNotNull(node, "node");
 
     GraphConnections<N, V> connections = nodeConnections.get(node);
@@ -133,7 +133,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
 
   @Override
   @CanIgnoreReturnValue
-  public V removeEdge(N nodeU, N nodeV) {
+  public V removeEdge(final N nodeU, final N nodeV) {
     checkNotNull(nodeU, "nodeU");
     checkNotNull(nodeV, "nodeV");
 

@@ -39,18 +39,18 @@ import java.util.List;
 @GwtCompatible
 public final class ListGenerators {
 
-  private ListGenerators() {}
+  private ListGenerators() { }
 
   public static class ImmutableListOfGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       return ImmutableList.copyOf(elements);
     }
   }
 
   public static class BuilderAddListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       ImmutableList.Builder<String> builder = ImmutableList.<String>builder();
       for (String element : elements) {
         builder.add(element);
@@ -61,14 +61,14 @@ public final class ListGenerators {
 
   public static class BuilderAddAllListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       return ImmutableList.<String>builder().addAll(asList(elements)).build();
     }
   }
 
   public static class BuilderReversedListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       List<String> list = asList(elements);
       Collections.reverse(list);
       return ImmutableList.copyOf(list).reverse();
@@ -77,7 +77,7 @@ public final class ListGenerators {
 
   public static class ImmutableListHeadSubListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       String[] suffix = {"f", "g"};
       String[] all = new String[elements.length + suffix.length];
       System.arraycopy(elements, 0, all, 0, elements.length);
@@ -88,7 +88,7 @@ public final class ListGenerators {
 
   public static class ImmutableListTailSubListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       String[] prefix = {"f", "g"};
       String[] all = new String[elements.length + prefix.length];
       System.arraycopy(prefix, 0, all, 0, 2);
@@ -99,7 +99,7 @@ public final class ListGenerators {
 
   public static class ImmutableListMiddleSubListGenerator extends TestStringListGenerator {
     @Override
-    protected List<String> create(String[] elements) {
+    protected List<String> create(final String[] elements) {
       String[] prefix = {"f", "g"};
       String[] suffix = {"h", "i"};
 
@@ -114,7 +114,7 @@ public final class ListGenerators {
 
   public static class CharactersOfStringGenerator extends TestCharacterListGenerator {
     @Override
-    public List<Character> create(Character[] elements) {
+    public List<Character> create(final Character[] elements) {
       char[] chars = Chars.toArray(Arrays.asList(elements));
       return Lists.charactersOf(String.copyValueOf(chars));
     }
@@ -122,7 +122,7 @@ public final class ListGenerators {
 
   public static class CharactersOfCharSequenceGenerator extends TestCharacterListGenerator {
     @Override
-    public List<Character> create(Character[] elements) {
+    public List<Character> create(final Character[] elements) {
       char[] chars = Chars.toArray(Arrays.asList(elements));
       StringBuilder str = new StringBuilder();
       str.append(chars);
@@ -132,11 +132,11 @@ public final class ListGenerators {
 
   private abstract static class TestUnhashableListGenerator
       extends TestUnhashableCollectionGenerator<List<UnhashableObject>>
-      implements TestListGenerator<UnhashableObject> {}
+      implements TestListGenerator<UnhashableObject> { }
 
   public static class UnhashableElementsImmutableListGenerator extends TestUnhashableListGenerator {
     @Override
-    public List<UnhashableObject> create(UnhashableObject[] elements) {
+    public List<UnhashableObject> create(final UnhashableObject[] elements) {
       return ImmutableList.copyOf(elements);
     }
   }

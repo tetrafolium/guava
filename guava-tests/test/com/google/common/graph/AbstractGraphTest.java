@@ -76,7 +76,7 @@ public abstract class AbstractGraphTest {
    * @return {@code true} iff the graph was modified as a result of this call
    */
   @CanIgnoreReturnValue
-  protected boolean addNode(Integer n) {
+  protected boolean addNode(final Integer n) {
     return graph.addNode(n);
   }
 
@@ -97,7 +97,7 @@ public abstract class AbstractGraphTest {
    * @return {@code true} iff the graph was modified as a result of this call
    */
   @CanIgnoreReturnValue
-  protected boolean putEdge(Integer n1, Integer n2) {
+  protected boolean putEdge(final Integer n1, final Integer n2) {
     graph.addNode(n1);
     graph.addNode(n2);
     return graph.putEdge(n1, n2);
@@ -113,7 +113,7 @@ public abstract class AbstractGraphTest {
     validateGraph(graph);
   }
 
-  static <N> void validateGraph(Graph<N> graph) {
+  static <N> void validateGraph(final Graph<N> graph) {
     assertStronglyEquivalent(graph, Graphs.copyOf(graph));
     assertStronglyEquivalent(graph, ImmutableGraph.copyOf(graph));
 

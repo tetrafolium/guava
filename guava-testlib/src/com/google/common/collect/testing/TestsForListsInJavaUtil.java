@@ -126,7 +126,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return Collections.emptyList();
               }
             })
@@ -140,7 +140,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return Collections.singletonList(elements[0]);
               }
             })
@@ -157,7 +157,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return Arrays.asList(elements.clone());
               }
             })
@@ -175,7 +175,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return new ArrayList<>(MinimalCollection.of(elements));
               }
             })
@@ -194,7 +194,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return new LinkedList<>(MinimalCollection.of(elements));
               }
             })
@@ -213,7 +213,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 return new CopyOnWriteArrayList<>(MinimalCollection.of(elements));
               }
             })
@@ -235,7 +235,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 List<String> innerList = new ArrayList<>();
                 Collections.addAll(innerList, elements);
                 return Collections.unmodifiableList(innerList);
@@ -254,7 +254,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              public List<String> create(String[] elements) {
+              public List<String> create(final String[] elements) {
                 List<String> innerList = new ArrayList<>();
                 Collections.addAll(innerList, elements);
                 return Collections.checkedList(innerList, String.class);
@@ -283,7 +283,7 @@ public class TestsForListsInJavaUtil {
                   }
 
                   @Override
-                  public String get(int index) {
+                  public String get(final int index) {
                     return elements[index];
                   }
                 };
@@ -311,7 +311,7 @@ public class TestsForListsInJavaUtil {
                   }
 
                   @Override
-                  public ListIterator<String> listIterator(int index) {
+                  public ListIterator<String> listIterator(final int index) {
                     return list.listIterator(index);
                   }
                 };
@@ -328,7 +328,7 @@ public class TestsForListsInJavaUtil {
     return ListTestSuiteBuilder.using(
             new TestStringListGenerator() {
               @Override
-              protected List<String> create(String[] elements) {
+              protected List<String> create(final String[] elements) {
                 return new Vector<>(MinimalCollection.of(elements));
               }
             })

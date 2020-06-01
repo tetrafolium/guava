@@ -42,9 +42,9 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   private final int[] cellColumnIndices;
 
   DenseImmutableTable(
-      ImmutableList<Cell<R, C, V>> cellList,
-      ImmutableSet<R> rowSpace,
-      ImmutableSet<C> columnSpace) {
+      final ImmutableList<Cell<R, C, V>> cellList,
+      final ImmutableSet<R> rowSpace,
+      final ImmutableSet<C> columnSpace) {
     @SuppressWarnings("unchecked")
     V[][] array = (V[][]) new Object[rowSpace.size()][columnSpace.size()];
     this.values = array;
@@ -80,7 +80,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   private abstract static class ImmutableArrayMap<K, V> extends IteratorBasedImmutableMap<K, V> {
     private final int size;
 
-    ImmutableArrayMap(int size) {
+    ImmutableArrayMap(final int size) {
       this.size = size;
     }
 
@@ -91,7 +91,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
       return size == keyToIndex().size();
     }
 
-    K getKey(int index) {
+    K getKey(final int index) {
       return keyToIndex().keySet().asList().get(index);
     }
 
@@ -109,7 +109,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
     }
 
     @Override
-    public V get(@Nullable Object key) {
+    public V get(final @Nullable Object key) {
       Integer keyIndex = keyToIndex().get(key);
       return (keyIndex == null) ? null : getValue(keyIndex);
     }
@@ -137,7 +137,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   private final class Row extends ImmutableArrayMap<C, V> {
     private final int rowIndex;
 
-    Row(int rowIndex) {
+    Row(final int rowIndex) {
       super(rowCounts[rowIndex]);
       this.rowIndex = rowIndex;
     }
@@ -148,7 +148,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
     }
 
     @Override
-    V getValue(int keyIndex) {
+    V getValue(final int keyIndex) {
       return values[rowIndex][keyIndex];
     }
 
@@ -161,7 +161,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   private final class Column extends ImmutableArrayMap<R, V> {
     private final int columnIndex;
 
-    Column(int columnIndex) {
+    Column(final int columnIndex) {
       super(columnCounts[columnIndex]);
       this.columnIndex = columnIndex;
     }
@@ -172,7 +172,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
     }
 
     @Override
-    V getValue(int keyIndex) {
+    V getValue(final int keyIndex) {
       return values[keyIndex][columnIndex];
     }
 
@@ -194,7 +194,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
     }
 
     @Override
-    Map<C, V> getValue(int keyIndex) {
+    Map<C, V> getValue(final int keyIndex) {
       return new Row(keyIndex);
     }
 
@@ -216,7 +216,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
     }
 
     @Override
-    Map<R, V> getValue(int keyIndex) {
+    Map<R, V> getValue(final int keyIndex) {
       return new Column(keyIndex);
     }
 
@@ -237,7 +237,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   }
 
   @Override
-  public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
+  public V get(final @Nullable Object rowKey, final @Nullable Object columnKey) {
     Integer rowIndex = rowKeyToIndex.get(rowKey);
     Integer columnIndex = columnKeyToIndex.get(columnKey);
     return ((rowIndex == null) || (columnIndex == null)) ? null : values[rowIndex][columnIndex];
@@ -249,7 +249,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   }
 
   @Override
-  Cell<R, C, V> getCell(int index) {
+  Cell<R, C, V> getCell(final int index) {
     int rowIndex = cellRowIndices[index];
     int columnIndex = cellColumnIndices[index];
     R rowKey = rowKeySet().asList().get(rowIndex);
@@ -259,7 +259,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   }
 
   @Override
-  V getValue(int index) {
+  V getValue(final int index) {
     return values[cellRowIndices[index]][cellColumnIndices[index]];
   }
 

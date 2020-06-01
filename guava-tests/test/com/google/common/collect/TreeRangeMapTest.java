@@ -56,7 +56,7 @@ public class TreeRangeMapTest extends TestCase {
                   }
 
                   @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
+                  public Map<Range<Integer>, String> create(final Object... elements) {
                     RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
                     for (Object o : elements) {
                       @SuppressWarnings("unchecked")
@@ -68,24 +68,24 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
+                  public Entry<Range<Integer>, String>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
+                      final List<Entry<Range<Integer>, String>> insertionOrder) {
                     return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
                   }
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Range<Integer>[] createKeyArray(int length) {
+                  public Range<Integer>[] createKeyArray(final int length) {
                     return new Range[length];
                   }
 
                   @Override
-                  public String[] createValueArray(int length) {
+                  public String[] createValueArray(final int length) {
                     return new String[length];
                   }
                 })
@@ -112,7 +112,7 @@ public class TreeRangeMapTest extends TestCase {
                   }
 
                   @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
+                  public Map<Range<Integer>, String> create(final Object... elements) {
                     RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
                     for (Object o : elements) {
                       @SuppressWarnings("unchecked")
@@ -124,24 +124,24 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
+                  public Entry<Range<Integer>, String>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
+                      final List<Entry<Range<Integer>, String>> insertionOrder) {
                     return Range.<Integer>rangeLexOrdering().onKeys().sortedCopy(insertionOrder);
                   }
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Range<Integer>[] createKeyArray(int length) {
+                  public Range<Integer>[] createKeyArray(final int length) {
                     return new Range[length];
                   }
 
                   @Override
-                  public String[] createValueArray(int length) {
+                  public String[] createValueArray(final int length) {
                     return new String[length];
                   }
                 })
@@ -167,7 +167,7 @@ public class TreeRangeMapTest extends TestCase {
                   }
 
                   @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
+                  public Map<Range<Integer>, String> create(final Object... elements) {
                     RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
                     for (Object o : elements) {
                       @SuppressWarnings("unchecked")
@@ -179,13 +179,13 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
+                  public Entry<Range<Integer>, String>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
+                      final List<Entry<Range<Integer>, String>> insertionOrder) {
                     return Range.<Integer>rangeLexOrdering()
                         .reverse()
                         .onKeys()
@@ -194,12 +194,12 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Range<Integer>[] createKeyArray(int length) {
+                  public Range<Integer>[] createKeyArray(final int length) {
                     return new Range[length];
                   }
 
                   @Override
-                  public String[] createValueArray(int length) {
+                  public String[] createValueArray(final int length) {
                     return new String[length];
                   }
                 })
@@ -226,7 +226,7 @@ public class TreeRangeMapTest extends TestCase {
                   }
 
                   @Override
-                  public Map<Range<Integer>, String> create(Object... elements) {
+                  public Map<Range<Integer>, String> create(final Object... elements) {
                     RangeMap<Integer, String> rangeMap = TreeRangeMap.create();
                     for (Object o : elements) {
                       @SuppressWarnings("unchecked")
@@ -238,13 +238,13 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<Range<Integer>, String>[] createArray(int length) {
+                  public Entry<Range<Integer>, String>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<Range<Integer>, String>> order(
-                      List<Entry<Range<Integer>, String>> insertionOrder) {
+                      final List<Entry<Range<Integer>, String>> insertionOrder) {
                     return Range.<Integer>rangeLexOrdering()
                         .reverse()
                         .onKeys()
@@ -253,12 +253,12 @@ public class TreeRangeMapTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Range<Integer>[] createKeyArray(int length) {
+                  public Range<Integer>[] createKeyArray(final int length) {
                     return new Range[length];
                   }
 
                   @Override
-                  public String[] createValueArray(int length) {
+                  public String[] createValueArray(final int length) {
                     return new String[length];
                   }
                 })
@@ -682,7 +682,7 @@ public class TreeRangeMapTest extends TestCase {
         rangeMap.asMapOfRanges());
   }
 
-  private void verify(Map<Integer, Integer> model, RangeMap<Integer, Integer> test) {
+  private void verify(final Map<Integer, Integer> model, final RangeMap<Integer, Integer> test) {
     for (int i = MIN_BOUND - 1; i <= MAX_BOUND + 1; i++) {
       assertEquals(model.get(i), test.get(i));
 
@@ -697,7 +697,7 @@ public class TreeRangeMapTest extends TestCase {
     }
   }
 
-  private static void putModel(Map<Integer, Integer> model, Range<Integer> range, int value) {
+  private static void putModel(final Map<Integer, Integer> model, final Range<Integer> range, final int value) {
     for (int i = MIN_BOUND - 1; i <= MAX_BOUND + 1; i++) {
       if (range.contains(i)) {
         model.put(i, value);
@@ -705,7 +705,7 @@ public class TreeRangeMapTest extends TestCase {
     }
   }
 
-  private static void removeModel(Map<Integer, Integer> model, Range<Integer> range) {
+  private static void removeModel(final Map<Integer, Integer> model, final Range<Integer> range) {
     for (int i = MIN_BOUND - 1; i <= MAX_BOUND + 1; i++) {
       if (range.contains(i)) {
         model.remove(i);

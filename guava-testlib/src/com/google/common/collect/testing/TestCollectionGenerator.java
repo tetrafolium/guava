@@ -25,4 +25,4 @@ import java.util.Collection;
  * @author Kevin Bourrillion
  */
 @GwtCompatible
-public interface TestCollectionGenerator<E> extends TestContainerGenerator<Collection<E>, E> {}
+public interface TestCollectionGenerator<E> extends TestContainerGenerator<Collection<E>, E> { }

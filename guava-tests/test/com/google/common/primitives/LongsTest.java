@@ -48,7 +48,7 @@ public class LongsTest extends TestCase {
       = {(long) 2, (long) 3, (long) 4};
 
   private static final long[] VALUES =
-      { MIN_VALUE, (long) -1, (long) 0, (long) 1, MAX_VALUE };
+      {MIN_VALUE, (long) -1, (long) 0, (long) 1, MAX_VALUE };
 
   @GwtIncompatible // Long.hashCode returns different values in GWT.
   public void testHashCode() {
@@ -89,7 +89,7 @@ public class LongsTest extends TestCase {
     assertEquals(1, Longs.indexOf(ARRAY234, (long) 3));
     assertEquals(2, Longs.indexOf(ARRAY234, (long) 4));
     assertEquals(1, Longs.indexOf(
-        new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
+        new long[] {(long) 2, (long) 3, (long) 2, (long) 3 },
         (long) 3));
   }
 
@@ -102,28 +102,28 @@ public class LongsTest extends TestCase {
     assertEquals(0, Longs.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Longs.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Longs.indexOf(
-        ARRAY234, new long[] { (long) 2, (long) 3 }));
+        ARRAY234, new long[] {(long) 2, (long) 3 }));
     assertEquals(1, Longs.indexOf(
-        ARRAY234, new long[] { (long) 3, (long) 4 }));
-    assertEquals(1, Longs.indexOf(ARRAY234, new long[] { (long) 3 }));
-    assertEquals(2, Longs.indexOf(ARRAY234, new long[] { (long) 4 }));
-    assertEquals(1, Longs.indexOf(new long[] { (long) 2, (long) 3,
+        ARRAY234, new long[] {(long) 3, (long) 4 }));
+    assertEquals(1, Longs.indexOf(ARRAY234, new long[] {(long) 3 }));
+    assertEquals(2, Longs.indexOf(ARRAY234, new long[] {(long) 4 }));
+    assertEquals(1, Longs.indexOf(new long[] {(long) 2, (long) 3,
         (long) 3, (long) 3, (long) 3 },
-        new long[] { (long) 3 }
+        new long[] {(long) 3 }
     ));
     assertEquals(2, Longs.indexOf(
-        new long[] { (long) 2, (long) 3, (long) 2,
+        new long[] {(long) 2, (long) 3, (long) 2,
             (long) 3, (long) 4, (long) 2, (long) 3},
-        new long[] { (long) 2, (long) 3, (long) 4}
+        new long[] {(long) 2, (long) 3, (long) 4}
     ));
     assertEquals(1, Longs.indexOf(
-        new long[] { (long) 2, (long) 2, (long) 3,
+        new long[] {(long) 2, (long) 2, (long) 3,
             (long) 4, (long) 2, (long) 3, (long) 4},
-        new long[] { (long) 2, (long) 3, (long) 4}
+        new long[] {(long) 2, (long) 3, (long) 4}
     ));
     assertEquals(-1, Longs.indexOf(
-        new long[] { (long) 4, (long) 3, (long) 2},
-        new long[] { (long) 2, (long) 3, (long) 4}
+        new long[] {(long) 4, (long) 3, (long) 2},
+        new long[] {(long) 2, (long) 3, (long) 4}
     ));
   }
 
@@ -137,7 +137,7 @@ public class LongsTest extends TestCase {
     assertEquals(1, Longs.lastIndexOf(ARRAY234, (long) 3));
     assertEquals(2, Longs.lastIndexOf(ARRAY234, (long) 4));
     assertEquals(3, Longs.lastIndexOf(
-        new long[] { (long) 2, (long) 3, (long) 2, (long) 3 },
+        new long[] {(long) 2, (long) 3, (long) 2, (long) 3 },
         (long) 3));
   }
 
@@ -201,7 +201,7 @@ public class LongsTest extends TestCase {
         Longs.concat(ARRAY1, ARRAY234)));
   }
 
-  private static void assertByteArrayEquals(byte[] expected, byte[] actual) {
+  private static void assertByteArrayEquals(final byte[] expected, final byte[] actual) {
     assertTrue(
         "Expected: " + Arrays.toString(expected) + ", but got: " + Arrays.toString(actual),
         Arrays.equals(expected, actual));
@@ -329,13 +329,13 @@ public class LongsTest extends TestCase {
     testReverse(new long[] {-1, 1, -2, 2}, 1, 3, new long[] {-1, -2, 1, 2});
   }
 
-  private static void testReverse(long[] input, long[] expectedOutput) {
+  private static void testReverse(final long[] input, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Longs.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
-  private static void testReverse(long[] input, int fromIndex, int toIndex, long[] expectedOutput) {
+  private static void testReverse(final long[] input, final int fromIndex, final int toIndex, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Longs.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -358,14 +358,14 @@ public class LongsTest extends TestCase {
     testSortDescending(new long[] {-1, -2, 1, 2}, 1, 3, new long[] {-1, 1, -2, 2});
   }
 
-  private static void testSortDescending(long[] input, long[] expectedOutput) {
+  private static void testSortDescending(final long[] input, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Longs.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      long[] input, int fromIndex, int toIndex, long[] expectedOutput) {
+      final long[] input, final int fromIndex, final int toIndex, final long[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Longs.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -393,7 +393,7 @@ public class LongsTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Long> list = Longs.asList(VALUES).subList(0, i);
         Collection<Long> misleadingSize =
@@ -445,23 +445,23 @@ public class LongsTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    long[] array = { (long) 0, (long) 1, (long) 2 };
+    long[] array = {(long) 0, (long) 1, (long) 2 };
     List<Long> list = Longs.asList(array);
     long[] newArray = Longs.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (long) 4);
     assertTrue(Arrays.equals(
-        new long[] { (long) 0, (long) 1, (long) 2 }, newArray));
+        new long[] {(long) 0, (long) 1, (long) 2 }, newArray));
     newArray[1] = (long) 5;
     assertEquals((long) 1, (long) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    long[] array = { (long) 0, (long) 1, (long) 2, (long) 3 };
+    long[] array = {(long) 0, (long) 1, (long) 2, (long) 3 };
     List<Long> list = Longs.asList(array);
-    assertTrue(Arrays.equals(new long[] { (long) 1, (long) 2 },
+    assertTrue(Arrays.equals(new long[] {(long) 1, (long) 2 },
         Longs.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new long[] {},
         Longs.toArray(list.subList(2, 2))));
@@ -546,7 +546,7 @@ public class LongsTest extends TestCase {
    * Applies {@link Longs#tryParse(String)} to the given string and asserts that
    * the result is as expected.
    */
-  private static void tryParseAndAssertEquals(Long expected, String value) {
+  private static void tryParseAndAssertEquals(final Long expected, final String value) {
     assertEquals(expected, Longs.tryParse(value));
   }
 
@@ -573,7 +573,7 @@ public class LongsTest extends TestCase {
    * {@link Longs#tryParse(String, int)} to parse the result. Asserts the result
    * is the same as what we started with.
    */
-  private static void radixEncodeParseAndAssertEquals(Long value, int radix) {
+  private static void radixEncodeParseAndAssertEquals(final Long value, final int radix) {
     assertEquals("Radix: " + radix, value,
         Longs.tryParse(Long.toString(value, radix), radix));
   }

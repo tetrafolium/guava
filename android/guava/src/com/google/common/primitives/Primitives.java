@@ -31,7 +31,7 @@ import java.util.Set;
  */
 @GwtIncompatible
 public final class Primitives {
-  private Primitives() {}
+  private Primitives() { }
 
   /** A map from primitive types to their corresponding wrapper types. */
   private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER_TYPE;
@@ -60,10 +60,10 @@ public final class Primitives {
   }
 
   private static void add(
-      Map<Class<?>, Class<?>> forward,
-      Map<Class<?>, Class<?>> backward,
-      Class<?> key,
-      Class<?> value) {
+      final Map<Class<?>, Class<?>> forward,
+      final Map<Class<?>, Class<?>> backward,
+      final Class<?> key,
+      final Class<?> value) {
     forward.put(key, value);
     backward.put(value, key);
   }
@@ -94,7 +94,7 @@ public final class Primitives {
    *
    * @see Class#isPrimitive
    */
-  public static boolean isWrapperType(Class<?> type) {
+  public static boolean isWrapperType(final Class<?> type) {
     return WRAPPER_TO_PRIMITIVE_TYPE.containsKey(checkNotNull(type));
   }
 
@@ -108,7 +108,7 @@ public final class Primitives {
    *     wrap(String.class) == String.class
    * </pre>
    */
-  public static <T> Class<T> wrap(Class<T> type) {
+  public static <T> Class<T> wrap(final Class<T> type) {
     checkNotNull(type);
 
     // cast is safe: long.class and Long.class are both of type Class<Long>
@@ -127,7 +127,7 @@ public final class Primitives {
    *     unwrap(String.class) == String.class
    * </pre>
    */
-  public static <T> Class<T> unwrap(Class<T> type) {
+  public static <T> Class<T> unwrap(final Class<T> type) {
     checkNotNull(type);
 
     // cast is safe: long.class and Long.class are both of type Class<Long>

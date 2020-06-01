@@ -54,7 +54,7 @@ public class CharMatcherTest extends TestCase {
   }
 
   private static final CharMatcher WHATEVER = new CharMatcher() {
-    @Override public boolean matches(char c) {
+    @Override public boolean matches(final char c) {
       throw new AssertionFailedError(
           "You weren't supposed to actually invoke me!");
     }
@@ -128,7 +128,7 @@ public class CharMatcherTest extends TestCase {
   }
 
   @GwtIncompatible // java.util.BitSet
-  private void doTestSetBits(CharMatcher matcher) {
+  private void doTestSetBits(final CharMatcher matcher) {
     BitSet bitset = new BitSet();
     matcher.setBits(bitset);
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; i++) {
@@ -165,13 +165,13 @@ public class CharMatcherTest extends TestCase {
     doTestNull(forPredicate(Predicates.equalTo('c')));
   }
 
-  private void doTestEmpty(CharMatcher matcher) throws Exception {
+  private void doTestEmpty(final CharMatcher matcher) throws Exception {
     reallyTestEmpty(matcher);
     reallyTestEmpty(matcher.negate());
     reallyTestEmpty(matcher.precomputed());
   }
 
-  private void reallyTestEmpty(CharMatcher matcher) throws Exception {
+  private void reallyTestEmpty(final CharMatcher matcher) throws Exception {
     assertEquals(-1, matcher.indexIn(""));
     assertEquals(-1, matcher.indexIn("", 0));
     try {
@@ -196,7 +196,7 @@ public class CharMatcherTest extends TestCase {
   }
 
   @GwtIncompatible // NullPointerTester
-  private static void doTestNull(CharMatcher matcher) throws Exception {
+  private static void doTestNull(final CharMatcher matcher) throws Exception {
     NullPointerTester tester = new NullPointerTester();
     tester.testAllPublicInstanceMethods(matcher);
   }
@@ -219,7 +219,7 @@ public class CharMatcherTest extends TestCase {
     doTestNoMatches(CharMatcher.singleWidth(), "\u05bf\u3000");
   }
 
-  private void doTestNoMatches(CharMatcher matcher, String s) {
+  private void doTestNoMatches(final CharMatcher matcher, final String s) {
     reallyTestNoMatches(matcher, s);
     reallyTestAllMatches(matcher.negate(), s);
     reallyTestNoMatches(matcher.precomputed(), s);
@@ -246,7 +246,7 @@ public class CharMatcherTest extends TestCase {
     doTestAllMatches(CharMatcher.singleWidth(), "\t0123ABCdef~\u00A0\u2111");
   }
 
-  private void doTestAllMatches(CharMatcher matcher, String s) {
+  private void doTestAllMatches(final CharMatcher matcher, final String s) {
     reallyTestAllMatches(matcher, s);
     reallyTestNoMatches(matcher.negate(), s);
     reallyTestAllMatches(matcher.precomputed(), s);
@@ -257,7 +257,7 @@ public class CharMatcherTest extends TestCase {
     reallyTestAllMatches(matcher, new StringBuilder(s));
   }
 
-  private void reallyTestNoMatches(CharMatcher matcher, CharSequence s) {
+  private void reallyTestNoMatches(final CharMatcher matcher, final CharSequence s) {
     assertFalse(matcher.matches(s.charAt(0)));
     assertEquals(-1, matcher.indexIn(s));
     assertEquals(-1, matcher.indexIn(s, 0));
@@ -285,7 +285,7 @@ public class CharMatcherTest extends TestCase {
     assertEquals(0, matcher.countIn(s));
   }
 
-  private void reallyTestAllMatches(CharMatcher matcher, CharSequence s) {
+  private void reallyTestAllMatches(final CharMatcher matcher, final CharSequence s) {
     assertTrue(matcher.matches(s.charAt(0)));
     assertEquals(0, matcher.indexIn(s));
     assertEquals(0, matcher.indexIn(s, 0));
@@ -314,14 +314,14 @@ public class CharMatcherTest extends TestCase {
     doTestGeneral(inRange('p', 'x'), 'q', 'z');
   }
 
-  private void doTestGeneral(CharMatcher matcher, char match, char noMatch) {
+  private void doTestGeneral(final CharMatcher matcher, final char match, final char noMatch) {
     doTestOneCharMatch(matcher, "" + match);
     doTestOneCharNoMatch(matcher, "" + noMatch);
     doTestMatchThenNoMatch(matcher, "" + match + noMatch);
     doTestNoMatchThenMatch(matcher, "" + noMatch + match);
   }
 
-  private void doTestOneCharMatch(CharMatcher matcher, String s) {
+  private void doTestOneCharMatch(final CharMatcher matcher, final String s) {
     reallyTestOneCharMatch(matcher, s);
     reallyTestOneCharNoMatch(matcher.negate(), s);
     reallyTestOneCharMatch(matcher.precomputed(), s);
@@ -329,7 +329,7 @@ public class CharMatcherTest extends TestCase {
     reallyTestOneCharNoMatch(matcher.precomputed().negate(), s);
   }
 
-  private void doTestOneCharNoMatch(CharMatcher matcher, String s) {
+  private void doTestOneCharNoMatch(final CharMatcher matcher, final String s) {
     reallyTestOneCharNoMatch(matcher, s);
     reallyTestOneCharMatch(matcher.negate(), s);
     reallyTestOneCharNoMatch(matcher.precomputed(), s);
@@ -337,7 +337,7 @@ public class CharMatcherTest extends TestCase {
     reallyTestOneCharMatch(matcher.precomputed().negate(), s);
   }
 
-  private void doTestMatchThenNoMatch(CharMatcher matcher, String s) {
+  private void doTestMatchThenNoMatch(final CharMatcher matcher, final String s) {
     reallyTestMatchThenNoMatch(matcher, s);
     reallyTestNoMatchThenMatch(matcher.negate(), s);
     reallyTestMatchThenNoMatch(matcher.precomputed(), s);
@@ -345,7 +345,7 @@ public class CharMatcherTest extends TestCase {
     reallyTestNoMatchThenMatch(matcher.precomputed().negate(), s);
   }
 
-  private void doTestNoMatchThenMatch(CharMatcher matcher, String s) {
+  private void doTestNoMatchThenMatch(final CharMatcher matcher, final String s) {
     reallyTestNoMatchThenMatch(matcher, s);
     reallyTestMatchThenNoMatch(matcher.negate(), s);
     reallyTestNoMatchThenMatch(matcher.precomputed(), s);
@@ -354,7 +354,7 @@ public class CharMatcherTest extends TestCase {
   }
 
   @SuppressWarnings("deprecation") // intentionally testing apply() method
-  private void reallyTestOneCharMatch(CharMatcher matcher, String s) {
+  private void reallyTestOneCharMatch(final CharMatcher matcher, final String s) {
     assertTrue(matcher.matches(s.charAt(0)));
     assertTrue(matcher.apply(s.charAt(0)));
     assertEquals(0, matcher.indexIn(s));
@@ -372,7 +372,7 @@ public class CharMatcherTest extends TestCase {
   }
 
   @SuppressWarnings("deprecation") // intentionally testing apply() method
-  private void reallyTestOneCharNoMatch(CharMatcher matcher, String s) {
+  private void reallyTestOneCharNoMatch(final CharMatcher matcher, final String s) {
     assertFalse(matcher.matches(s.charAt(0)));
     assertFalse(matcher.apply(s.charAt(0)));
     assertEquals(-1, matcher.indexIn(s));
@@ -390,7 +390,7 @@ public class CharMatcherTest extends TestCase {
     assertSame(0, matcher.countIn(s));
   }
 
-  private void reallyTestMatchThenNoMatch(CharMatcher matcher, String s) {
+  private void reallyTestMatchThenNoMatch(final CharMatcher matcher, final String s) {
     assertEquals(0, matcher.indexIn(s));
     assertEquals(0, matcher.indexIn(s, 0));
     assertEquals(-1, matcher.indexIn(s, 1));
@@ -406,7 +406,7 @@ public class CharMatcherTest extends TestCase {
     assertEquals(1, matcher.countIn(s));
   }
 
-  private void reallyTestNoMatchThenMatch(CharMatcher matcher, String s) {
+  private void reallyTestNoMatchThenMatch(final CharMatcher matcher, final String s) {
     assertEquals(1, matcher.indexIn(s));
     assertEquals(1, matcher.indexIn(s, 0));
     assertEquals(1, matcher.indexIn(s, 1));
@@ -427,7 +427,7 @@ public class CharMatcherTest extends TestCase {
    * equals to expected, then out is successfully optimized to be
    * identical to in, i.e. that "in" is simply returned.
    */
-  private void assertEqualsSame(String expected, String in, String out) {
+  private void assertEqualsSame(final String expected, final String in, final String out) {
     if (expected.equals(in)) {
       assertSame(in, out);
     } else {
@@ -463,10 +463,10 @@ public class CharMatcherTest extends TestCase {
     doTestCollapseWithNoChange("xx");
   }
 
-  private void doTestCollapse(String in, String out) {
+  private void doTestCollapse(final String in, final String out) {
     // Try a few different matchers which all match '-' and not 'x'
     // Try replacement chars that both do and do not change the value.
-    for (char replacement : new char[] { '_', '-' }) {
+    for (char replacement : new char[] {'_', '-' }) {
       String expected = out.replace('_', replacement);
       assertEqualsSame(expected, in, is('-').collapseFrom(in, replacement));
       assertEqualsSame(expected, in, is('-').collapseFrom(in, replacement));
@@ -479,7 +479,7 @@ public class CharMatcherTest extends TestCase {
     }
   }
 
-  private void doTestCollapseWithNoChange(String inout) {
+  private void doTestCollapseWithNoChange(final String inout) {
     assertSame(inout, is('-').collapseFrom(inout, '_'));
     assertSame(inout, is('-').or(is('#')).collapseFrom(inout, '_'));
     assertSame(inout, isNot('x').collapseFrom(inout, '_'));
@@ -521,7 +521,7 @@ public class CharMatcherTest extends TestCase {
     assertEquals("cat", anyOf("ab").trimFrom("abacatbab"));
   }
 
-  private void doTestTrimFrom(String in, String out) {
+  private void doTestTrimFrom(final String in, final String out) {
     // Try a few different matchers which all match '-' and not 'x'
     assertEquals(out, is('-').trimFrom(in));
     assertEquals(out, is('-').or(is('#')).trimFrom(in));
@@ -556,7 +556,7 @@ public class CharMatcherTest extends TestCase {
     assertEquals("catbab", anyOf("ab").trimLeadingFrom("abacatbab"));
   }
 
-  private void doTestTrimLeadingFrom(String in, String out) {
+  private void doTestTrimLeadingFrom(final String in, final String out) {
     // Try a few different matchers which all match '-' and not 'x'
     assertEquals(out, is('-').trimLeadingFrom(in));
     assertEquals(out, is('-').or(is('#')).trimLeadingFrom(in));
@@ -590,7 +590,7 @@ public class CharMatcherTest extends TestCase {
     assertEquals("abacat", anyOf("ab").trimTrailingFrom("abacatbab"));
   }
 
-  private void doTestTrimTrailingFrom(String in, String out) {
+  private void doTestTrimTrailingFrom(final String in, final String out) {
     // Try a few different matchers which all match '-' and not 'x'
     assertEquals(out, is('-').trimTrailingFrom(in));
     assertEquals(out, is('-').or(is('#')).trimTrailingFrom(in));
@@ -624,9 +624,9 @@ public class CharMatcherTest extends TestCase {
     doTestTrimAndCollapse("x-x--xx---x----x", "x_x_xx_x_x");
   }
 
-  private void doTestTrimAndCollapse(String in, String out) {
+  private void doTestTrimAndCollapse(final String in, final String out) {
     // Try a few different matchers which all match '-' and not 'x'
-    for (char replacement : new char[] { '_', '-' }) {
+    for (char replacement : new char[] {'_', '-' }) {
       String expected = out.replace('_', replacement);
       assertEqualsSame(expected, in, is('-').trimAndCollapseFrom(in, replacement));
       assertEqualsSame(expected, in, is('-').or(is('#')).trimAndCollapseFrom(in, replacement));
@@ -667,12 +667,12 @@ public class CharMatcherTest extends TestCase {
   }
 
   @GwtIncompatible // java.util.BitSet
-  private static BitSet bitSet(String chars) {
+  private static BitSet bitSet(final String chars) {
     return bitSet(chars.toCharArray());
   }
 
   @GwtIncompatible // java.util.BitSet
-  private static BitSet bitSet(char[] chars) {
+  private static BitSet bitSet(final char[] chars) {
     BitSet tmp = new BitSet();
     for (char c : chars) {
       tmp.set(c);
@@ -715,7 +715,7 @@ public class CharMatcherTest extends TestCase {
     }
   }
 
-  static void checkExactMatches(CharMatcher m, char[] chars) {
+  static void checkExactMatches(final CharMatcher m, final char[] chars) {
     Set<Character> positive = Sets.newHashSetWithExpectedSize(chars.length);
     for (char c : chars) {
       positive.add(c);
@@ -725,7 +725,7 @@ public class CharMatcherTest extends TestCase {
     }
   }
 
-  static char[] randomChars(Random rand, int size) {
+  static char[] randomChars(final Random rand, final int size) {
     Set<Character> chars = new HashSet<>(size);
     for (int i = 0; i < size; i++) {
       char c;
@@ -757,7 +757,7 @@ public class CharMatcherTest extends TestCase {
         CharMatcher.inRange('1', '3'));
   }
 
-  private static void assertToStringWorks(String expected, CharMatcher matcher) {
+  private static void assertToStringWorks(final String expected, final CharMatcher matcher) {
     assertEquals(expected, matcher.toString());
     assertEquals(expected, matcher.precomputed().toString());
     assertEquals(expected, matcher.negate().negate().toString());

@@ -165,7 +165,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   static final int SPLITERATOR_CHARACTERISTICS =
       Spliterator.IMMUTABLE | Spliterator.NONNULL | Spliterator.ORDERED;
 
-  ImmutableCollection() {}
+  ImmutableCollection() { }
 
   /**
    * Returns an unmodifiable iterator across the elements in this collection.
@@ -193,7 +193,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
 
   @CanIgnoreReturnValue
   @Override
-  public final <T> T[] toArray(T[] other) {
+  public final <T> T[] toArray(final T[] other) {
     checkNotNull(other);
     int size = size();
     if (other.length < size) {
@@ -217,7 +217,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final boolean add(E e) {
+  public final boolean add(final E e) {
     throw new UnsupportedOperationException();
   }
 
@@ -230,7 +230,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final boolean remove(Object object) {
+  public final boolean remove(final Object object) {
     throw new UnsupportedOperationException();
   }
 
@@ -243,7 +243,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final boolean addAll(Collection<? extends E> newElements) {
+  public final boolean addAll(final Collection<? extends E> newElements) {
     throw new UnsupportedOperationException();
   }
 
@@ -256,7 +256,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final boolean removeAll(Collection<?> oldElements) {
+  public final boolean removeAll(final Collection<?> oldElements) {
     throw new UnsupportedOperationException();
   }
 
@@ -269,7 +269,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final boolean removeIf(Predicate<? super E> filter) {
+  public final boolean removeIf(final Predicate<? super E> filter) {
     throw new UnsupportedOperationException();
   }
 
@@ -281,7 +281,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
    */
   @Deprecated
   @Override
-  public final boolean retainAll(Collection<?> elementsToKeep) {
+  public final boolean retainAll(final Collection<?> elementsToKeep) {
     throw new UnsupportedOperationException();
   }
 
@@ -331,7 +331,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
    * offset.  Returns {@code offset + size()}.
    */
   @CanIgnoreReturnValue
-  int copyIntoArray(Object[] dst, int offset) {
+  int copyIntoArray(final Object[] dst, final int offset) {
     for (E e : this) {
       dst[offset++] = e;
     }
@@ -351,7 +351,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   public abstract static class Builder<E> {
     static final int DEFAULT_INITIAL_CAPACITY = 4;
 
-    static int expandedCapacity(int oldCapacity, int minCapacity) {
+    static int expandedCapacity(final int oldCapacity, final int minCapacity) {
       if (minCapacity < 0) {
         throw new AssertionError("cannot store more than MAX_VALUE elements");
       }
@@ -367,7 +367,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
       return newCapacity;
     }
 
-    Builder() {}
+    Builder() { }
 
     /**
      * Adds {@code element} to the {@code ImmutableCollection} being built.
@@ -395,7 +395,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
      *     null element
      */
     @CanIgnoreReturnValue
-    public Builder<E> add(E... elements) {
+    public Builder<E> add(final E... elements) {
       for (E element : elements) {
         add(element);
       }
@@ -415,7 +415,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
      *     null element
      */
     @CanIgnoreReturnValue
-    public Builder<E> addAll(Iterable<? extends E> elements) {
+    public Builder<E> addAll(final Iterable<? extends E> elements) {
       for (E element : elements) {
         add(element);
       }
@@ -435,7 +435,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
      *     null element
      */
     @CanIgnoreReturnValue
-    public Builder<E> addAll(Iterator<? extends E> elements) {
+    public Builder<E> addAll(final Iterator<? extends E> elements) {
       while (elements.hasNext()) {
         add(elements.next());
       }
@@ -457,7 +457,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
     int size;
     boolean forceCopy;
 
-    ArrayBasedBuilder(int initialCapacity) {
+    ArrayBasedBuilder(final int initialCapacity) {
       checkNonnegative(initialCapacity, "initialCapacity");
       this.contents = new Object[initialCapacity];
       this.size = 0;
@@ -468,7 +468,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
      * elements without being resized. Also, if we've already built a collection backed by the
      * current array, create a new array.
      */
-    private void getReadyToExpandTo(int minCapacity) {
+    private void getReadyToExpandTo(final int minCapacity) {
       if (contents.length < minCapacity) {
         this.contents =
             Arrays.copyOf(
@@ -482,7 +482,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
 
     @CanIgnoreReturnValue
     @Override
-    public ArrayBasedBuilder<E> add(E element) {
+    public ArrayBasedBuilder<E> add(final E element) {
       checkNotNull(element);
       getReadyToExpandTo(size + 1);
       contents[size++] = element;
@@ -491,7 +491,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
 
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> add(E... elements) {
+    public Builder<E> add(final E... elements) {
       checkElementsNotNull(elements);
       getReadyToExpandTo(size + elements.length);
       System.arraycopy(elements, 0, contents, size, elements.length);
@@ -501,7 +501,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
     
     @CanIgnoreReturnValue
     @Override
-    public Builder<E> addAll(Iterable<? extends E> elements) {
+    public Builder<E> addAll(final Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
         Collection<?> collection = (Collection<?>) elements;
         getReadyToExpandTo(size + collection.size());
@@ -511,7 +511,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
     }
 
     @CanIgnoreReturnValue
-    ArrayBasedBuilder<E> combine(ArrayBasedBuilder<E> builder) {
+    ArrayBasedBuilder<E> combine(final ArrayBasedBuilder<E> builder) {
       checkNotNull(builder);
       getReadyToExpandTo(size + builder.size);
       System.arraycopy(builder.contents, 0, this.contents, size, builder.size);

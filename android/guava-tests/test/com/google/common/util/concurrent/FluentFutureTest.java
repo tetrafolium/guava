@@ -46,7 +46,7 @@ public class FluentFutureTest extends TestCase {
 
   public void testFromNonFluentFuture() throws Exception {
     ListenableFuture<String> f =
-        new SimpleForwardingListenableFuture<String>(immediateFuture("a")) {};
+        new SimpleForwardingListenableFuture<String>(immediateFuture("a")) { };
     verify(!(f instanceof FluentFuture));
     assertThat(FluentFuture.from(f).get()).isEqualTo("a");
     // TODO(cpovirk): Test forwarding more extensively.
@@ -58,12 +58,12 @@ public class FluentFutureTest extends TestCase {
     f.addCallback(
         new FutureCallback<String>() {
           @Override
-          public void onSuccess(String result) {
+          public void onSuccess(final String result) {
             called[0] = true;
           }
 
           @Override
-          public void onFailure(Throwable t) {}
+          public void onFailure(final Throwable t) { }
         },
         directExecutor());
     assertThat(called[0]).isTrue();
@@ -76,7 +76,7 @@ public class FluentFutureTest extends TestCase {
                 Throwable.class,
                 new Function<Throwable, Class<?>>() {
                   @Override
-                  public Class<?> apply(Throwable input) {
+                  public Class<?> apply(final Throwable input) {
                     return input.getClass();
                   }
                 },
@@ -91,7 +91,7 @@ public class FluentFutureTest extends TestCase {
                 Throwable.class,
                 new AsyncFunction<Throwable, Class<?>>() {
                   @Override
-                  public ListenableFuture<Class<?>> apply(Throwable input) {
+                  public ListenableFuture<Class<?>> apply(final Throwable input) {
                     return Futures.<Class<?>>immediateFuture(input.getClass());
                   }
                 },
@@ -105,7 +105,7 @@ public class FluentFutureTest extends TestCase {
             .transform(
                 new Function<Integer, Integer>() {
                   @Override
-                  public Integer apply(Integer input) {
+                  public Integer apply(final Integer input) {
                     return input + 1;
                   }
                 },
@@ -119,7 +119,7 @@ public class FluentFutureTest extends TestCase {
             .transformAsync(
                 new AsyncFunction<Integer, Integer>() {
                   @Override
-                  public ListenableFuture<Integer> apply(Integer input) {
+                  public ListenableFuture<Integer> apply(final Integer input) {
                     return immediateFuture(input + 1);
                   }
                 },

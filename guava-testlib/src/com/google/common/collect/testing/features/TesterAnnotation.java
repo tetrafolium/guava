@@ -33,4 +33,4 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 @GwtCompatible
-public @interface TesterAnnotation {}
+public @interface TesterAnnotation { }

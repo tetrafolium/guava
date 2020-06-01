@@ -31,7 +31,7 @@ final class ChecksumHashFunction extends AbstractHashFunction implements Seriali
   private final int bits;
   private final String toString;
 
-  ChecksumHashFunction(Supplier<? extends Checksum> checksumSupplier, int bits, String toString) {
+  ChecksumHashFunction(final Supplier<? extends Checksum> checksumSupplier, final int bits, final String toString) {
     this.checksumSupplier = checkNotNull(checksumSupplier);
     checkArgument(bits == 32 || bits == 64, "bits (%s) must be either 32 or 64", bits);
     this.bits = bits;
@@ -59,17 +59,17 @@ final class ChecksumHashFunction extends AbstractHashFunction implements Seriali
   private final class ChecksumHasher extends AbstractByteHasher {
     private final Checksum checksum;
 
-    private ChecksumHasher(Checksum checksum) {
+    private ChecksumHasher(final Checksum checksum) {
       this.checksum = checkNotNull(checksum);
     }
 
     @Override
-    protected void update(byte b) {
+    protected void update(final byte b) {
       checksum.update(b);
     }
 
     @Override
-    protected void update(byte[] bytes, int off, int len) {
+    protected void update(final byte[] bytes, final int off, final int len) {
       checksum.update(bytes, off, len);
     }
 

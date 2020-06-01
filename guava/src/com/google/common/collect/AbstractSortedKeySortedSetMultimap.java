@@ -33,7 +33,7 @@ import java.util.SortedSet;
 @GwtCompatible
 abstract class AbstractSortedKeySortedSetMultimap<K, V> extends AbstractSortedSetMultimap<K, V> {
 
-  AbstractSortedKeySortedSetMultimap(SortedMap<K, Collection<V>> map) {
+  AbstractSortedKeySortedSetMultimap(final SortedMap<K, Collection<V>> map) {
     super(map);
   }
 

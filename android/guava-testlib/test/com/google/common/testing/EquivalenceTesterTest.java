@@ -48,7 +48,7 @@ public class EquivalenceTesterTest extends TestCase {
     try {
       EquivalenceTester.of(null);
       fail("Should fail on null reference");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testTest_NoData() {
@@ -192,7 +192,7 @@ public class EquivalenceTesterTest extends TestCase {
     final int group;
     final int item;
 
-    TestObject(int group , int item) {
+    TestObject(final int group, final int item) {
       this.group = group;
       this.item = item;
     }
@@ -213,17 +213,17 @@ public class EquivalenceTesterTest extends TestCase {
     ImmutableTable<Object, Object, Boolean> equivalentExpectations;
     ImmutableMap<Object, Integer> hashExpectations;
 
-    void expectEquivalent(Object a, Object b) {
+    void expectEquivalent(final Object a, final Object b) {
       checkRecording();
       equivalentExpectationsBuilder.put(a, b, true);
     }
 
-    void expectDistinct(Object a, Object b) {
+    void expectDistinct(final Object a, final Object b) {
       checkRecording();
       equivalentExpectationsBuilder.put(a, b, false);
     }
 
-    void expectHash(Object object, int hash) {
+    void expectHash(final Object object, final int hash) {
       checkRecording();
       hashExpectationsBuilder.put(object, hash);
     }
@@ -234,11 +234,11 @@ public class EquivalenceTesterTest extends TestCase {
       hashExpectations = hashExpectationsBuilder.build();
     }
 
-    @Override protected boolean doEquivalent(Object a, Object b) {
+    @Override protected boolean doEquivalent(final Object a, final Object b) {
       return equivalentExpectations.get(a, b);
     }
 
-    @Override protected int doHash(Object object) {
+    @Override protected int doHash(final Object object) {
       return hashExpectations.get(object);
     }
 

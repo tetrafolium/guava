@@ -48,7 +48,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
   /**
    * Returns an immutable bimap containing a single entry.
    */
-  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1) {
+  public static <K, V> ImmutableBiMap<K, V> of(final K k1, final V v1) {
     checkEntryNotNull(k1, v1);
     return new RegularImmutableBiMap<>(new Object[] {k1, v1}, 1);
   }
@@ -58,7 +58,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    *
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
-  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2) {
+  public static <K, V> ImmutableBiMap<K, V> of(final K k1, final V v1, final K k2, final V v2) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     return new RegularImmutableBiMap<K, V>(new Object[] {k1, v1, k2, v2}, 2);
@@ -69,7 +69,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    *
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
-  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
+  public static <K, V> ImmutableBiMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -82,7 +82,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    *
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
-  public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  public static <K, V> ImmutableBiMap<K, V> of(final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -97,7 +97,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+      final K k1, final V v1, final K k2, final V v2, final K k3, final V v3, final K k4, final V v4, final K k5, final V v5) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
@@ -130,7 +130,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    * @since 23.1
    */
   @Beta
-  public static <K, V> Builder<K, V> builderWithExpectedSize(int expectedSize) {
+  public static <K, V> Builder<K, V> builderWithExpectedSize(final int expectedSize) {
     checkNonnegative(expectedSize, "expectedSize");
     return new Builder<>(expectedSize);
   }
@@ -172,7 +172,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
       super();
     }
 
-    Builder(int size) {
+    Builder(final int size) {
       super(size);
     }
     
@@ -182,7 +182,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<K, V> put(K key, V value) {
+    public Builder<K, V> put(final K key, final V value) {
       super.put(key, value);
       return this;
     }
@@ -195,7 +195,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<K, V> put(Entry<? extends K, ? extends V> entry) {
+    public Builder<K, V> put(final Entry<? extends K, ? extends V> entry) {
       super.put(entry);
       return this;
     }
@@ -209,7 +209,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
      */
     @CanIgnoreReturnValue
     @Override
-    public Builder<K, V> putAll(Map<? extends K, ? extends V> map) {
+    public Builder<K, V> putAll(final Map<? extends K, ? extends V> map) {
       super.putAll(map);
       return this;
     }
@@ -224,7 +224,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     @CanIgnoreReturnValue
     @Beta
     @Override
-    public Builder<K, V> putAll(Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+    public Builder<K, V> putAll(final Iterable<? extends Entry<? extends K, ? extends V>> entries) {
       super.putAll(entries);
       return this;
     }
@@ -243,7 +243,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     @CanIgnoreReturnValue
     @Beta
     @Override
-    public Builder<K, V> orderEntriesByValue(Comparator<? super V> valueComparator) {
+    public Builder<K, V> orderEntriesByValue(final Comparator<? super V> valueComparator) {
       super.orderEntriesByValue(valueComparator);
       return this;
     }
@@ -283,7 +283,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    *     key
    * @throws NullPointerException if any key or value in {@code map} is null
    */
-  public static <K, V> ImmutableBiMap<K, V> copyOf(Map<? extends K, ? extends V> map) {
+  public static <K, V> ImmutableBiMap<K, V> copyOf(final Map<? extends K, ? extends V> map) {
     if (map instanceof ImmutableBiMap) {
       @SuppressWarnings("unchecked") // safe since map is not writable
       ImmutableBiMap<K, V> bimap = (ImmutableBiMap<K, V>) map;
@@ -307,7 +307,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    */
   @Beta
   public static <K, V> ImmutableBiMap<K, V> copyOf(
-      Iterable<? extends Entry<? extends K, ? extends V>> entries) {
+      final Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     int estimatedSize =
         (entries instanceof Collection)
             ? ((Collection<?>) entries).size()
@@ -315,7 +315,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     return new Builder<K, V>(estimatedSize).putAll(entries).build();
   }
 
-  ImmutableBiMap() {}
+  ImmutableBiMap() { }
 
   /**
    * {@inheritDoc}
@@ -349,7 +349,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public V forcePut(K key, V value) {
+  public V forcePut(final K key, final V value) {
     throw new UnsupportedOperationException();
   }
 
@@ -363,7 +363,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
    * AbstractBiMap does.
    */
   private static class SerializedForm extends ImmutableMap.SerializedForm {
-    SerializedForm(ImmutableBiMap<?, ?> bimap) {
+    SerializedForm(final ImmutableBiMap<?, ?> bimap) {
       super(bimap);
     }
 

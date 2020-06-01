@@ -38,7 +38,7 @@ public final class Parameter implements AnnotatedElement {
   private final ImmutableList<Annotation> annotations;
 
   Parameter(
-      Invokable<?, ?> declaration, int position, TypeToken<?> type, Annotation[] annotations) {
+      final Invokable<?, ?> declaration, final int position, final TypeToken<?> type, final Annotation[] annotations) {
     this.declaration = declaration;
     this.position = position;
     this.type = type;
@@ -56,13 +56,13 @@ public final class Parameter implements AnnotatedElement {
   }
 
   @Override
-  public boolean isAnnotationPresent(Class<? extends Annotation> annotationType) {
+  public boolean isAnnotationPresent(final Class<? extends Annotation> annotationType) {
     return getAnnotation(annotationType) != null;
   }
 
   @Override
   @Nullable
-  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+  public <A extends Annotation> A getAnnotation(final Class<A> annotationType) {
     checkNotNull(annotationType);
     for (Annotation annotation : annotations) {
       if (annotationType.isInstance(annotation)) {
@@ -81,7 +81,7 @@ public final class Parameter implements AnnotatedElement {
    * @since 18.0
    */
   // @Override on JDK8
-  public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
+  public <A extends Annotation> A[] getAnnotationsByType(final Class<A> annotationType) {
     return getDeclaredAnnotationsByType(annotationType);
   }
 
@@ -99,7 +99,7 @@ public final class Parameter implements AnnotatedElement {
    */
   // @Override on JDK8
   @Nullable
-  public <A extends Annotation> A getDeclaredAnnotation(Class<A> annotationType) {
+  public <A extends Annotation> A getDeclaredAnnotation(final Class<A> annotationType) {
     checkNotNull(annotationType);
     return FluentIterable.from(annotations).filter(annotationType).first().orNull();
   }
@@ -108,12 +108,12 @@ public final class Parameter implements AnnotatedElement {
    * @since 18.0
    */
   // @Override on JDK8
-  public <A extends Annotation> A[] getDeclaredAnnotationsByType(Class<A> annotationType) {
+  public <A extends Annotation> A[] getDeclaredAnnotationsByType(final Class<A> annotationType) {
     return FluentIterable.from(annotations).filter(annotationType).toArray(annotationType);
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj instanceof Parameter) {
       Parameter that = (Parameter) obj;
       return position == that.position && declaration.equals(that.declaration);

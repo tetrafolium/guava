@@ -33,7 +33,7 @@ final class Absent<T> extends Optional<T> {
     return (Optional<T>) INSTANCE;
   }
 
-  private Absent() {}
+  private Absent() { }
 
   @Override
   public boolean isPresent() {
@@ -46,18 +46,18 @@ final class Absent<T> extends Optional<T> {
   }
 
   @Override
-  public T or(T defaultValue) {
+  public T or(final T defaultValue) {
     return checkNotNull(defaultValue, "use Optional.orNull() instead of Optional.or(null)");
   }
 
   @SuppressWarnings("unchecked") // safe covariant cast
   @Override
-  public Optional<T> or(Optional<? extends T> secondChoice) {
+  public Optional<T> or(final Optional<? extends T> secondChoice) {
     return (Optional<T>) checkNotNull(secondChoice);
   }
 
   @Override
-  public T or(Supplier<? extends T> supplier) {
+  public T or(final Supplier<? extends T> supplier) {
     return checkNotNull(
         supplier.get(), "use Optional.orNull() instead of a Supplier that returns null");
   }
@@ -74,13 +74,13 @@ final class Absent<T> extends Optional<T> {
   }
 
   @Override
-  public <V> Optional<V> transform(Function<? super T, V> function) {
+  public <V> Optional<V> transform(final Function<? super T, V> function) {
     checkNotNull(function);
     return Optional.absent();
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return object == this;
   }
 

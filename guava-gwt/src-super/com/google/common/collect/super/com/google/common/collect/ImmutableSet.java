@@ -39,7 +39,7 @@ import java.util.stream.Collector;
  */
 @SuppressWarnings("serial") // Serialization only done in GWT.
 public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements Set<E> {
-  ImmutableSet() {}
+  ImmutableSet() { }
 
   @Beta
   public static <E> Collector<E, ?, ImmutableSet<E>> toImmutableSet() {
@@ -52,32 +52,32 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     return (ImmutableSet<E>) RegularImmutableSet.EMPTY;
   }
 
-  public static <E> ImmutableSet<E> of(E element) {
+  public static <E> ImmutableSet<E> of(final E element) {
     return new SingletonImmutableSet<E>(element);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2) {
     return create(e1, e2);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3) {
     return create(e1, e2, e3);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4) {
     return create(e1, e2, e3, e4);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5) {
     return create(e1, e2, e3, e4, e5);
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... others) {
+  public static <E> ImmutableSet<E> of(final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... others) {
     int size = others.length + 6;
     List<E> all = new ArrayList<E>(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -85,7 +85,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     return copyOf(all.iterator());
   }
 
-  public static <E> ImmutableSet<E> copyOf(E[] elements) {
+  public static <E> ImmutableSet<E> copyOf(final E[] elements) {
     checkNotNull(elements);
     switch (elements.length) {
       case 0:
@@ -97,12 +97,12 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  public static <E> ImmutableSet<E> copyOf(Collection<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Collection<? extends E> elements) {
     Iterable<? extends E> iterable = elements;
     return copyOf(iterable);
   }
 
-  public static <E> ImmutableSet<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Iterable<? extends E> elements) {
     if (elements instanceof ImmutableSet && !(elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
       ImmutableSet<E> set = (ImmutableSet<E>) elements;
@@ -111,7 +111,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     return copyOf(elements.iterator());
   }
 
-  public static <E> ImmutableSet<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableSet<E> copyOf(final Iterator<? extends E> elements) {
     if (!elements.hasNext()) {
       return of();
     }
@@ -132,7 +132,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
 
   // Factory methods that skips the null checks on elements, only used when
   // the elements are known to be non-null.
-  static <E> ImmutableSet<E> unsafeDelegate(Set<E> delegate) {
+  static <E> ImmutableSet<E> unsafeDelegate(final Set<E> delegate) {
     switch (delegate.size()) {
       case 0:
         return of();
@@ -143,7 +143,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  private static <E> ImmutableSet<E> create(E... elements) {
+  private static <E> ImmutableSet<E> create(final E... elements) {
     // Create the set first, to remove duplicates if necessary.
     Set<E> set = Sets.newLinkedHashSet();
     Collections.addAll(set, elements);
@@ -161,7 +161,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  @Override public boolean equals(Object obj) {
+  @Override public boolean equals(final Object obj) {
     return Sets.equalsImpl(this, obj);
   }
 
@@ -186,7 +186,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     ImmutableList<E> createAsList() {
       return new ImmutableAsList<E>() {
         @Override
-        public E get(int index) {
+        public E get(final int index) {
           return Indexed.this.get(index);
         }
 
@@ -202,7 +202,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     return new Builder<E>();
   }
 
-  public static <E> Builder<E> builderWithExpectedSize(int size) {
+  public static <E> Builder<E> builderWithExpectedSize(final int size) {
     return new Builder<E>(size);
   }
 
@@ -214,23 +214,23 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       this.contents = Lists.newArrayList();
     }
 
-    Builder(int initialCapacity) {
+    Builder(final int initialCapacity) {
       this.contents = Lists.newArrayListWithCapacity(initialCapacity);
     }
 
-    @Override public Builder<E> add(E element) {
+    @Override public Builder<E> add(final E element) {
       contents.add(checkNotNull(element));
       return this;
     }
 
-    @Override public Builder<E> add(E... elements) {
+    @Override public Builder<E> add(final E... elements) {
       checkNotNull(elements); // for GWT
       contents.ensureCapacity(contents.size() + elements.length);
       super.add(elements);
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterable<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
         Collection<?> collection = (Collection<?>) elements;
         contents.ensureCapacity(contents.size() + collection.size());
@@ -239,12 +239,12 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterator<? extends E> elements) {
+    @Override public Builder<E> addAll(final Iterator<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
 
-    Builder<E> combine(Builder<E> builder) {
+    Builder<E> combine(final Builder<E> builder) {
       contents.addAll(builder.contents);
       return this;
     }

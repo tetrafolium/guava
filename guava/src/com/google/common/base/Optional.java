@@ -101,7 +101,7 @@ public abstract class Optional<T> implements Serializable {
    *
    * @throws NullPointerException if {@code reference} is null
    */
-  public static <T> Optional<T> of(T reference) {
+  public static <T> Optional<T> of(final T reference) {
     return new Present<T>(checkNotNull(reference));
   }
 
@@ -112,7 +112,7 @@ public abstract class Optional<T> implements Serializable {
    * <p><b>Comparison to {@code java.util.Optional}:</b> this method is equivalent to Java 8's
    * {@code Optional.ofNullable}.
    */
-  public static <T> Optional<T> fromNullable(@Nullable T nullableReference) {
+  public static <T> Optional<T> fromNullable(final @Nullable T nullableReference) {
     return (nullableReference == null)
         ? Optional.<T>absent()
         : new Present<T>(nullableReference);
@@ -125,7 +125,7 @@ public abstract class Optional<T> implements Serializable {
    * @since 21.0
    */
   @Nullable
-  public static <T> Optional<T> fromJavaUtil(@Nullable java.util.Optional<T> javaUtilOptional) {
+  public static <T> Optional<T> fromJavaUtil(final @Nullable java.util.Optional<T> javaUtilOptional) {
     return (javaUtilOptional == null) ? null : fromNullable(javaUtilOptional.orElse(null));
   }
 
@@ -143,11 +143,11 @@ public abstract class Optional<T> implements Serializable {
    * @since 21.0
    */
   @Nullable
-  public static <T> java.util.Optional<T> toJavaUtil(@Nullable Optional<T> googleOptional) {
+  public static <T> java.util.Optional<T> toJavaUtil(final @Nullable Optional<T> googleOptional) {
     return googleOptional == null ? null : googleOptional.toJavaUtil();
   }
 
-  Optional() {}
+  Optional() { }
 
   /**
    * Returns {@code true} if this holder contains a (non-null) instance.

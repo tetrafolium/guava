@@ -35,7 +35,7 @@ import junit.framework.AssertionFailedError;
 final class RelationshipTester<T> {
 
   static class ItemReporter {
-    String reportItem(Item<?> item) {
+    String reportItem(final Item<?> item) {
       return item.toString();
     }
   }
@@ -53,8 +53,8 @@ final class RelationshipTester<T> {
   private final ItemReporter itemReporter;
   private final List<ImmutableList<T>> groups = Lists.newArrayList();
 
-  RelationshipTester(Equivalence<? super T> equivalence, String relationshipName, String hashName,
-      ItemReporter itemReporter) {
+  RelationshipTester(final Equivalence<? super T> equivalence, final String relationshipName, final String hashName,
+      final ItemReporter itemReporter) {
     this.equivalence = checkNotNull(equivalence);
     this.relationshipName = checkNotNull(relationshipName);
     this.hashName = checkNotNull(hashName);
@@ -62,7 +62,7 @@ final class RelationshipTester<T> {
   }
 
   // TODO(cpovirk): should we reject null items, since the tests already check null automatically?
-  public RelationshipTester<T> addRelatedGroup(Iterable<? extends T> group) {
+  public RelationshipTester<T> addRelatedGroup(final Iterable<? extends T> group) {
     groups.add(ImmutableList.copyOf(group));
     return this;
   }
@@ -92,7 +92,7 @@ final class RelationshipTester<T> {
     }
   }
 
-  private void assertRelated(int groupNumber, int itemNumber, int relatedItemNumber) {
+  private void assertRelated(final int groupNumber, final int itemNumber, final int relatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> relatedInfo = getItem(groupNumber, relatedItemNumber);
 
@@ -107,8 +107,8 @@ final class RelationshipTester<T> {
         + relatedHash + ") of $OTHER", itemInfo, relatedInfo, itemHash == relatedHash);
   }
 
-  private void assertUnrelated(int groupNumber, int itemNumber, int unrelatedGroupNumber,
-      int unrelatedItemNumber) {
+  private void assertUnrelated(final int groupNumber, final int itemNumber, final int unrelatedGroupNumber,
+      final int unrelatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> unrelatedInfo = getItem(unrelatedGroupNumber, unrelatedItemNumber);
 
@@ -116,7 +116,7 @@ final class RelationshipTester<T> {
         !equivalence.equivalent(itemInfo.value, unrelatedInfo.value));
   }
 
-  private void assertWithTemplate(String template, Item<T> item, Item<T> other, boolean condition) {
+  private void assertWithTemplate(final String template, final Item<T> item, final Item<T> other, final boolean condition) {
     if (!condition) {
       throw new AssertionFailedError(template
           .replace("$RELATIONSHIP", relationshipName)
@@ -126,7 +126,7 @@ final class RelationshipTester<T> {
     }
   }
 
-  private Item<T> getItem(int groupNumber, int itemNumber) {
+  private Item<T> getItem(final int groupNumber, final int itemNumber) {
     return new Item<T>(groups.get(groupNumber).get(itemNumber), groupNumber, itemNumber);
   }
 
@@ -135,7 +135,7 @@ final class RelationshipTester<T> {
     final int groupNumber;
     final int itemNumber;
 
-    Item(T value, int groupNumber, int itemNumber) {
+    Item(final T value, final int groupNumber, final int itemNumber) {
       this.value = value;
       this.groupNumber = groupNumber;
       this.itemNumber = itemNumber;

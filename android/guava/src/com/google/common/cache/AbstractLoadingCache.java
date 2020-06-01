@@ -42,10 +42,10 @@ public abstract class AbstractLoadingCache<K, V> extends AbstractCache<K, V>
     implements LoadingCache<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected AbstractLoadingCache() {}
+  protected AbstractLoadingCache() { }
 
   @Override
-  public V getUnchecked(K key) {
+  public V getUnchecked(final K key) {
     try {
       return get(key);
     } catch (ExecutionException e) {
@@ -54,7 +54,7 @@ public abstract class AbstractLoadingCache<K, V> extends AbstractCache<K, V>
   }
 
   @Override
-  public ImmutableMap<K, V> getAll(Iterable<? extends K> keys) throws ExecutionException {
+  public ImmutableMap<K, V> getAll(final Iterable<? extends K> keys) throws ExecutionException {
     Map<K, V> result = Maps.newLinkedHashMap();
     for (K key : keys) {
       if (!result.containsKey(key)) {
@@ -65,12 +65,12 @@ public abstract class AbstractLoadingCache<K, V> extends AbstractCache<K, V>
   }
 
   @Override
-  public final V apply(K key) {
+  public final V apply(final K key) {
     return getUnchecked(key);
   }
 
   @Override
-  public void refresh(K key) {
+  public void refresh(final K key) {
     throw new UnsupportedOperationException();
   }
 }

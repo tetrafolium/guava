@@ -59,14 +59,14 @@ public final class DefaultNetworkImplementationsTest {
   public static Collection<Object[]> parameters() {
     return Arrays.asList(
         new Object[][] {
-          { UNDIRECTED },
-          { DIRECTED },
+          {UNDIRECTED },
+          {DIRECTED },
         });
   }
 
   private final EdgeType edgeType;
 
-  public DefaultNetworkImplementationsTest(EdgeType edgeType) {
+  public DefaultNetworkImplementationsTest(final EdgeType edgeType) {
     this.edgeType = edgeType;
   }
 
@@ -169,11 +169,11 @@ public final class DefaultNetworkImplementationsTest {
   private static class NetworkForTest<N, E> extends AbstractNetwork<N, E> {
     private final Network<N, E> network;
 
-    NetworkForTest(Network<N, E> network) {
+    NetworkForTest(final Network<N, E> network) {
       this.network = network;
     }
 
-    static <N, E> NetworkForTest<N, E> from(Network<N, E> network) {
+    static <N, E> NetworkForTest<N, E> from(final Network<N, E> network) {
       return new NetworkForTest<>(network);
     }
 
@@ -213,42 +213,42 @@ public final class DefaultNetworkImplementationsTest {
     }
 
     @Override
-    public Set<N> adjacentNodes(N node) {
+    public Set<N> adjacentNodes(final N node) {
       return network.adjacentNodes(node);
     }
 
     @Override
-    public Set<N> predecessors(N node) {
+    public Set<N> predecessors(final N node) {
       return network.predecessors(node);
     }
 
     @Override
-    public Set<N> successors(N node) {
+    public Set<N> successors(final N node) {
       return network.successors(node);
     }
 
     @Override
-    public Set<E> incidentEdges(N node) {
+    public Set<E> incidentEdges(final N node) {
       return network.incidentEdges(node);
     }
 
     @Override
-    public Set<E> inEdges(N node) {
+    public Set<E> inEdges(final N node) {
       return network.inEdges(node);
     }
 
     @Override
-    public Set<E> outEdges(N node) {
+    public Set<E> outEdges(final N node) {
       return network.outEdges(node);
     }
 
     @Override
-    public EndpointPair<N> incidentNodes(E edge) {
+    public EndpointPair<N> incidentNodes(final E edge) {
       return network.incidentNodes(edge);
     }
 
     @Override
-    public Set<E> adjacentEdges(E edge) {
+    public Set<E> adjacentEdges(final E edge) {
       return network.adjacentEdges(edge);
     }
 

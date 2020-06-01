@@ -58,7 +58,7 @@ public class FuturesGetCheckedBenchmark {
 
     final GetCheckedTypeValidator validator;
 
-    Validator(GetCheckedTypeValidator validator) {
+    Validator(final GetCheckedTypeValidator validator) {
       this.validator = validator;
     }
   }
@@ -69,7 +69,7 @@ public class FuturesGetCheckedBenchmark {
 
     final Future<Object> future;
 
-    Result(Future<Object> result) {
+    Result(final Future<Object> result) {
       this.future = result;
     }
   }
@@ -80,7 +80,7 @@ public class FuturesGetCheckedBenchmark {
 
     final Class<? extends Exception> exceptionType;
 
-    ExceptionType(Class<? extends Exception> exceptionType) {
+    ExceptionType(final Class<? extends Exception> exceptionType) {
       this.exceptionType = exceptionType;
     }
   }
@@ -123,8 +123,8 @@ public class FuturesGetCheckedBenchmark {
     GetCheckedTypeValidator validator = this.validator.validator;
     Class<? extends Exception> exceptionType = this.exceptionType.exceptionType;
 
-    for (Class<? extends Exception> exceptionClass :
-          OTHER_EXCEPTION_TYPES.asList().subList(0, otherEntriesInDataStructure)) {
+    for (Class<? extends Exception> exceptionClass
+          : OTHER_EXCEPTION_TYPES.asList().subList(0, otherEntriesInDataStructure)) {
       getChecked(validator, immediateFuture(""), exceptionClass);
     }
 
@@ -132,7 +132,7 @@ public class FuturesGetCheckedBenchmark {
       ClassValue<Boolean> classValue =
           new ClassValue<Boolean>() {
             @Override
-            protected Boolean computeValue(Class<?> type) {
+            protected Boolean computeValue(final Class<?> type) {
               return true;
             }
           };
@@ -142,7 +142,7 @@ public class FuturesGetCheckedBenchmark {
   }
 
   @Benchmark
-  int benchmarkGetChecked(int reps) {
+  int benchmarkGetChecked(final int reps) {
     int tmp = 0;
     GetCheckedTypeValidator validator = this.validator.validator;
     Future<Object> future = this.result.future;
@@ -165,7 +165,7 @@ public class FuturesGetCheckedBenchmark {
     INSTANCE;
 
     @Override
-    public void validateClass(Class<? extends Exception> exceptionClass) {
+    public void validateClass(final Class<? extends Exception> exceptionClass) {
       checkArgument(isCheckedException(exceptionClass),
           "Futures.getChecked exception type (%s) must not be a RuntimeException", exceptionClass);
     }
@@ -179,7 +179,7 @@ public class FuturesGetCheckedBenchmark {
     INSTANCE;
 
     @Override
-    public void validateClass(Class<? extends Exception> exceptionClass) {
+    public void validateClass(final Class<? extends Exception> exceptionClass) {
       checkExceptionClassValidity(exceptionClass);
     }
   }

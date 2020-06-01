@@ -30,7 +30,7 @@ import java.util.Set;
 final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>
     implements FilteredSetMultimap<K, V> {
 
-  FilteredEntrySetMultimap(SetMultimap<K, V> unfiltered, Predicate<? super Entry<K, V>> predicate) {
+  FilteredEntrySetMultimap(final SetMultimap<K, V> unfiltered, final Predicate<? super Entry<K, V>> predicate) {
     super(unfiltered, predicate);
   }
 
@@ -40,17 +40,17 @@ final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>
   }
 
   @Override
-  public Set<V> get(K key) {
+  public Set<V> get(final K key) {
     return (Set<V>) super.get(key);
   }
 
   @Override
-  public Set<V> removeAll(Object key) {
+  public Set<V> removeAll(final Object key) {
     return (Set<V>) super.removeAll(key);
   }
 
   @Override
-  public Set<V> replaceValues(K key, Iterable<? extends V> values) {
+  public Set<V> replaceValues(final K key, final Iterable<? extends V> values) {
     return (Set<V>) super.replaceValues(key, values);
   }
 

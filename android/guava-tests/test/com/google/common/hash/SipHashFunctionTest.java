@@ -125,8 +125,8 @@ public class SipHashFunctionTest extends TestCase {
 
   // From https://github.com/BrandonHaynes/siphash-csharp/blob/master/tests/Tests.cs
   public void testKnownValues() {
-    assertSip(new byte[] { }, 0x726fdb47dd0e0e31L);
-    assertSip(new byte[] { 0x61 }, 0x2ba3e8e9a71148caL);
+    assertSip(new byte[] {}, 0x726fdb47dd0e0e31L);
+    assertSip(new byte[] {0x61 }, 0x2ba3e8e9a71148caL);
     assertSip(new byte[1000000], 0x28205108397aa742L);
     assertSip("12345678", 0x02130609caea37ebL);
     assertSip("abcdef", 0x2a6e77e733c7c05dL);
@@ -143,9 +143,9 @@ public class SipHashFunctionTest extends TestCase {
   // (3) 00 01 02 03 04 05 06 07 ff (or anything in between)
   // A fault implementation will generate collisions for these inputs.
   public void testCollisionsDueToIncorrectSignExtension() {
-    byte[] col1 = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0x80 };
-    byte[] col2 = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0x81 };
-    byte[] col3 = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0xff };
+    byte[] col1 = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0x80 };
+    byte[] col2 = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0x81 };
+    byte[] col3 = new byte[] {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, (byte) 0xff };
 
     ImmutableSet<HashCode> hashCodes = ImmutableSet.of(
         SIP_WITH_KEY.hashBytes(col1),
@@ -160,14 +160,14 @@ public class SipHashFunctionTest extends TestCase {
     assertEquals("Hashing.sipHash24(20, 13)", Hashing.sipHash24(20, 13).toString());
   }
 
-  private static void assertSip(String input, long expected) {
+  private static void assertSip(final String input, final long expected) {
     assertEquals(expected, SIP_WITH_KEY.hashString(input, UTF_8).asLong());
     assertEquals(expected, SIP_WITH_KEY.newHasher().putString(input, UTF_8).hash().asLong());
     assertEquals(expected, SIP_WITHOUT_KEY.hashString(input, UTF_8).asLong());
     assertEquals(expected, SIP_WITHOUT_KEY.newHasher().putString(input, UTF_8).hash().asLong());
   }
 
-  private static void assertSip(byte[] input, long expected) {
+  private static void assertSip(final byte[] input, final long expected) {
     assertEquals(expected, SIP_WITH_KEY.hashBytes(input).asLong());
     assertEquals(expected, SIP_WITH_KEY.newHasher().putBytes(input).hash().asLong());
     assertEquals(expected, SIP_WITHOUT_KEY.hashBytes(input).asLong());

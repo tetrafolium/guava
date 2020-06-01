@@ -38,7 +38,7 @@ public class WhitespaceMatcherBenchmark {
       + "\u0000\u0000\u0000\u0000\u0000\u205f\u1680\u0000\u0000\u180e\u0000\u0000\u0000";
 
   public static final CharMatcher OLD_WHITESPACE = new CharMatcher() {
-    @Override public boolean matches(char c) {
+    @Override public boolean matches(final char c) {
       return OLD_WHITESPACE_TABLE.charAt(c % 79) == c;
     }
   };
@@ -52,7 +52,7 @@ public class WhitespaceMatcherBenchmark {
   private String teststring;
   private CharMatcher matcher;
 
-  public static void main(String[] args) throws Exception {
+  public static void main(final String[] args) throws Exception {
     CaliperMain.main(WhitespaceMatcherBenchmark.class, new String[] {});
   }
 
@@ -68,7 +68,7 @@ public class WhitespaceMatcherBenchmark {
     teststring = newTestString(new Random(1), bitSet, percentMatching);
   }
 
-  @Benchmark public int countIn(int reps) {
+  @Benchmark public int countIn(final int reps) {
     int result = 0;
     CharMatcher matcher = this.matcher;
     String teststring = this.teststring;
@@ -78,7 +78,7 @@ public class WhitespaceMatcherBenchmark {
     return result;
   }
 
-  @Benchmark public int collapseFrom(int reps) {
+  @Benchmark public int collapseFrom(final int reps) {
     int result = 0;
     CharMatcher matcher = this.matcher;
     String teststring = this.teststring;
@@ -88,7 +88,7 @@ public class WhitespaceMatcherBenchmark {
     return result;
   }
 
-  private static String allMatchingChars(BitSet bitSet) {
+  private static String allMatchingChars(final BitSet bitSet) {
     final char[] result = new char[bitSet.cardinality()];
     for (int j = 0, c = bitSet.nextSetBit(0); j < result.length; ++j) {
       result[j] = (char) c;
@@ -97,7 +97,7 @@ public class WhitespaceMatcherBenchmark {
     return new String(result);
   }
 
-  private static String newTestString(Random random, BitSet bitSet, int percentMatching) {
+  private static String newTestString(final Random random, final BitSet bitSet, final int percentMatching) {
     final String allMatchingChars = allMatchingChars(bitSet);
     final char[] result = new char[STRING_LENGTH];
     // Fill with matching chars.

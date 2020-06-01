@@ -63,7 +63,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    */
   @Deprecated
   public static <T, E> Collector<T, ?, ImmutableMultiset<E>> toImmutableMultiset(
-      Function<? super T, ? extends E> elementFunction, ToIntFunction<? super T> countFunction) {
+      final Function<? super T, ? extends E> elementFunction, final ToIntFunction<? super T> countFunction) {
     throw new UnsupportedOperationException();
   }
 
@@ -90,7 +90,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             {@link ImmutableSortedMultiset#of(Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E element) {
+  public static <E> ImmutableSortedMultiset<E> of(final E element) {
     throw new UnsupportedOperationException();
   }
 
@@ -104,7 +104,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             {@link ImmutableSortedMultiset#of(Comparable, Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2) {
+  public static <E> ImmutableSortedMultiset<E> of(final E e1, final E e2) {
     throw new UnsupportedOperationException();
   }
 
@@ -118,7 +118,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             {@link ImmutableSortedMultiset#of(Comparable, Comparable, Comparable)}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3) {
+  public static <E> ImmutableSortedMultiset<E> of(final E e1, final E e2, final E e3) {
     throw new UnsupportedOperationException();
   }
 
@@ -132,7 +132,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             ImmutableSortedMultiset#of(Comparable, Comparable, Comparable, Comparable)}. </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4) {
+  public static <E> ImmutableSortedMultiset<E> of(final E e1, final E e2, final E e3, final E e4) {
     throw new UnsupportedOperationException();
   }
 
@@ -147,7 +147,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             Comparable)} . </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4, E e5) {
+  public static <E> ImmutableSortedMultiset<E> of(final E e1, final E e2, final E e3, final E e4, final E e5) {
     throw new UnsupportedOperationException();
   }
 
@@ -163,7 +163,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    */
   @Deprecated
   public static <E> ImmutableSortedMultiset<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+      final E e1, final E e2, final E e3, final E e4, final E e5, final E e6, final E... remaining) {
     throw new UnsupportedOperationException();
   }
 
@@ -177,7 +177,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E> extends ImmutableMultise
    *             {@link ImmutableSortedMultiset#copyOf(Comparable[])}.</b>
    */
   @Deprecated
-  public static <E> ImmutableSortedMultiset<E> copyOf(E[] elements) {
+  public static <E> ImmutableSortedMultiset<E> copyOf(final E[] elements) {
     throw new UnsupportedOperationException();
   }
 

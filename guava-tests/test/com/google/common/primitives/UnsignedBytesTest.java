@@ -70,7 +70,7 @@ public class UnsignedBytesTest extends TestCase {
     assertEquals(LEAST, UnsignedBytes.saturatedCast(Long.MIN_VALUE));
   }
 
-  private static void assertCastFails(long value) {
+  private static void assertCastFails(final long value) {
     try {
       UnsignedBytes.checkedCast(value);
       fail("Cast to byte should have failed: " + value);
@@ -127,7 +127,7 @@ public class UnsignedBytesTest extends TestCase {
         (byte) -1, (byte) 127, (byte) 1, (byte) -128, (byte) 0));
   }
 
-  private static void assertParseFails(String value) {
+  private static void assertParseFails(final String value) {
     try {
       UnsignedBytes.parseUnsignedByte(value);
       fail();
@@ -151,7 +151,7 @@ public class UnsignedBytesTest extends TestCase {
         .compare(UnsignedBytes.MAX_VALUE, (byte) (UnsignedBytes.MAX_VALUE + 1)) > 0);
   }
 
-  private static void assertParseFails(String value, int radix) {
+  private static void assertParseFails(final String value, final int radix) {
     try {
       UnsignedBytes.parseUnsignedByte(value, radix);
       fail();
@@ -317,7 +317,7 @@ public class UnsignedBytesTest extends TestCase {
     testSort(new byte[] {2, GREATEST, 1, LEAST}, new byte[] {LEAST, 1, 2, GREATEST});
   }
 
-  static void testSort(byte[] input, byte[] expected) {
+  static void testSort(final byte[] input, final byte[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedBytes.sort(input);
     assertTrue(Arrays.equals(expected, input));
@@ -330,7 +330,7 @@ public class UnsignedBytesTest extends TestCase {
     testSort(new byte[] {2, GREATEST, 1, LEAST}, 1, 4, new byte[] {2, LEAST, 1, GREATEST});
   }
 
-  static void testSort(byte[] input, int from, int to, byte[] expected) {
+  static void testSort(final byte[] input, final int from, final int to, final byte[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedBytes.sort(input, from, to);
     assertTrue(Arrays.equals(expected, input));
@@ -359,14 +359,14 @@ public class UnsignedBytesTest extends TestCase {
         new byte[] {GREATEST - 1, GREATEST - 2, 1, 2});
   }
 
-  private static void testSortDescending(byte[] input, byte[] expectedOutput) {
+  private static void testSortDescending(final byte[] input, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedBytes.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
+      final byte[] input, final int fromIndex, final int toIndex, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedBytes.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));

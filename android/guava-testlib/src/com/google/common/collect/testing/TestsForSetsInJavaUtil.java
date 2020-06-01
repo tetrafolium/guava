@@ -131,7 +131,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 return Collections.emptySet();
               }
             })
@@ -145,7 +145,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 return Collections.singleton(elements[0]);
               }
             })
@@ -162,7 +162,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 return new HashSet<>(MinimalCollection.of(elements));
               }
             })
@@ -181,7 +181,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 return new LinkedHashSet<>(MinimalCollection.of(elements));
               }
             })
@@ -201,7 +201,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestEnumSetGenerator() {
               @Override
-              public Set<AnEnum> create(AnEnum[] elements) {
+              public Set<AnEnum> create(final AnEnum[] elements) {
                 return (elements.length == 0)
                     ? EnumSet.noneOf(AnEnum.class)
                     : EnumSet.copyOf(MinimalCollection.of(elements));
@@ -222,7 +222,7 @@ public class TestsForSetsInJavaUtil {
     return NavigableSetTestSuiteBuilder.using(
             new TestStringSortedSetGenerator() {
               @Override
-              public SortedSet<String> create(String[] elements) {
+              public SortedSet<String> create(final String[] elements) {
                 return new TreeSet<>(MinimalCollection.of(elements));
               }
             })
@@ -241,7 +241,7 @@ public class TestsForSetsInJavaUtil {
     return NavigableSetTestSuiteBuilder.using(
             new TestStringSortedSetGenerator() {
               @Override
-              public SortedSet<String> create(String[] elements) {
+              public SortedSet<String> create(final String[] elements) {
                 SortedSet<String> set = new TreeSet<>(arbitraryNullFriendlyComparator());
                 Collections.addAll(set, elements);
                 return set;
@@ -263,7 +263,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 return new CopyOnWriteArraySet<>(MinimalCollection.of(elements));
               }
             })
@@ -283,7 +283,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 Set<String> innerSet = new HashSet<>();
                 Collections.addAll(innerSet, elements);
                 return Collections.unmodifiableSet(innerSet);
@@ -303,7 +303,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              public Set<String> create(String[] elements) {
+              public Set<String> create(final String[] elements) {
                 Set<String> innerSet = new HashSet<>();
                 Collections.addAll(innerSet, elements);
                 return Collections.checkedSet(innerSet, String.class);
@@ -324,7 +324,7 @@ public class TestsForSetsInJavaUtil {
     return SortedSetTestSuiteBuilder.using(
             new TestStringSortedSetGenerator() {
               @Override
-              public SortedSet<String> create(String[] elements) {
+              public SortedSet<String> create(final String[] elements) {
                 SortedSet<String> innerSet = new TreeSet<>();
                 Collections.addAll(innerSet, elements);
                 return Collections.checkedSortedSet(innerSet, String.class);
@@ -346,7 +346,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              protected Set<String> create(String[] elements) {
+              protected Set<String> create(final String[] elements) {
                 final String[] deduped = dedupe(elements);
                 return new AbstractSet<String>() {
                   @Override
@@ -375,7 +375,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestCollidingSetGenerator() {
               @Override
-              public Set<Object> create(Object... elements) {
+              public Set<Object> create(final Object... elements) {
                 return new HashSet<>(MinimalCollection.of(elements));
               }
             })
@@ -392,7 +392,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSortedSetGenerator() {
               @Override
-              public SortedSet<String> create(String[] elements) {
+              public SortedSet<String> create(final String[] elements) {
                 return new ConcurrentSkipListSet<>(MinimalCollection.of(elements));
               }
             })
@@ -410,7 +410,7 @@ public class TestsForSetsInJavaUtil {
     return SetTestSuiteBuilder.using(
             new TestStringSortedSetGenerator() {
               @Override
-              public SortedSet<String> create(String[] elements) {
+              public SortedSet<String> create(final String[] elements) {
                 SortedSet<String> set =
                     new ConcurrentSkipListSet<>(arbitraryNullFriendlyComparator());
                 Collections.addAll(set, elements);
@@ -427,7 +427,7 @@ public class TestsForSetsInJavaUtil {
         .createTestSuite();
   }
 
-  private static String[] dedupe(String[] elements) {
+  private static String[] dedupe(final String[] elements) {
     Set<String> tmp = new LinkedHashSet<>();
     Collections.addAll(tmp, elements);
     return tmp.toArray(new String[0]);
@@ -439,7 +439,7 @@ public class TestsForSetsInJavaUtil {
 
   private static final class NullFriendlyComparator<T> implements Comparator<T>, Serializable {
     @Override
-    public int compare(T left, T right) {
+    public int compare(final T left, final T right) {
       return String.valueOf(left).compareTo(String.valueOf(right));
     }
   }

@@ -37,7 +37,7 @@ public final class TestByteSource extends ByteSource implements TestStreamSuppli
   private boolean inputStreamOpened;
   private boolean inputStreamClosed;
 
-  TestByteSource(byte[] bytes, TestOption... options) {
+  TestByteSource(final byte[] bytes, final TestOption... options) {
     this.bytes = checkNotNull(bytes);
     this.options = ImmutableSet.copyOf(options);
   }

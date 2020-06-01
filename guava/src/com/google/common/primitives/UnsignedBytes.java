@@ -44,7 +44,7 @@ import sun.misc.Unsafe;
  */
 @GwtIncompatible
 public final class UnsignedBytes {
-  private UnsignedBytes() {}
+  private UnsignedBytes() { }
 
   /**
    * The largest power of two that can be represented as an unsigned {@code
@@ -71,7 +71,7 @@ public final class UnsignedBytes {
    *
    * @since 6.0
    */
-  public static int toInt(byte value) {
+  public static int toInt(final byte value) {
     return value & UNSIGNED_MASK;
   }
 
@@ -84,7 +84,7 @@ public final class UnsignedBytes {
    * @throws IllegalArgumentException if {@code value} is negative or greater than 255
    */
   @CanIgnoreReturnValue
-  public static byte checkedCast(long value) {
+  public static byte checkedCast(final long value) {
     checkArgument(value >> Byte.SIZE == 0, "out of range: %s", value);
     return (byte) value;
   }
@@ -97,7 +97,7 @@ public final class UnsignedBytes {
    * @return {@code (byte) 255} if {@code value >= 255}, {@code (byte) 0} if {@code value <= 0}, and
    *     {@code value} cast to {@code byte} otherwise
    */
-  public static byte saturatedCast(long value) {
+  public static byte saturatedCast(final long value) {
     if (value > toInt(MAX_VALUE)) {
       return MAX_VALUE; // -1
     }
@@ -117,7 +117,7 @@ public final class UnsignedBytes {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(byte a, byte b) {
+  public static int compare(final byte a, final byte b) {
     return toInt(a) - toInt(b);
   }
 
@@ -129,7 +129,7 @@ public final class UnsignedBytes {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static byte min(byte... array) {
+  public static byte min(final byte... array) {
     checkArgument(array.length > 0);
     int min = toInt(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -149,7 +149,7 @@ public final class UnsignedBytes {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static byte max(byte... array) {
+  public static byte max(final byte... array) {
     checkArgument(array.length > 0);
     int max = toInt(array[0]);
     for (int i = 1; i < array.length; i++) {
@@ -167,7 +167,7 @@ public final class UnsignedBytes {
    * @since 13.0
    */
   @Beta
-  public static String toString(byte x) {
+  public static String toString(final byte x) {
     return toString(x, 10);
   }
 
@@ -182,7 +182,7 @@ public final class UnsignedBytes {
    * @since 13.0
    */
   @Beta
-  public static String toString(byte x, int radix) {
+  public static String toString(final byte x, final int radix) {
     checkArgument(
         radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
         "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
@@ -202,7 +202,7 @@ public final class UnsignedBytes {
    */
   @Beta
   @CanIgnoreReturnValue
-  public static byte parseUnsignedByte(String string) {
+  public static byte parseUnsignedByte(final String string) {
     return parseUnsignedByte(string, 10);
   }
 
@@ -220,7 +220,7 @@ public final class UnsignedBytes {
    */
   @Beta
   @CanIgnoreReturnValue
-  public static byte parseUnsignedByte(String string, int radix) {
+  public static byte parseUnsignedByte(final String string, final int radix) {
     int parse = Integer.parseInt(checkNotNull(string), radix);
     // We need to throw a NumberFormatException, so we have to duplicate checkedCast. =(
     if (parse >> Byte.SIZE == 0) {
@@ -239,7 +239,7 @@ public final class UnsignedBytes {
    *     (but not at the start or end)
    * @param array an array of {@code byte} values, possibly empty
    */
-  public static String join(String separator, byte... array) {
+  public static String join(final String separator, final byte... array) {
     checkNotNull(separator);
     if (array.length == 0) {
       return "";
@@ -363,7 +363,7 @@ public final class UnsignedBytes {
       }
 
       @Override
-      public int compare(byte[] left, byte[] right) {
+      public int compare(final byte[] left, final byte[] right) {
         final int stride = 8;
         int minLength = Math.min(left.length, right.length);
         int strideLimit = minLength & ~(stride - 1);
@@ -413,7 +413,7 @@ public final class UnsignedBytes {
       INSTANCE;
 
       @Override
-      public int compare(byte[] left, byte[] right) {
+      public int compare(final byte[] left, final byte[] right) {
         int minLength = Math.min(left.length, right.length);
         for (int i = 0; i < minLength; i++) {
           int result = UnsignedBytes.compare(left[i], right[i]);
@@ -448,7 +448,7 @@ public final class UnsignedBytes {
     }
   }
   
-  private static byte flip(byte b) {
+  private static byte flip(final byte b) {
     return (byte) (b ^ 0x80);
   }
 
@@ -457,7 +457,7 @@ public final class UnsignedBytes {
    *
    * @since 23.1
    */
-  public static void sort(byte[] array) {
+  public static void sort(final byte[] array) {
     checkNotNull(array);
     sort(array, 0, array.length);
   }
@@ -468,7 +468,7 @@ public final class UnsignedBytes {
    *
    * @since 23.1
    */
-  public static void sort(byte[] array, int fromIndex, int toIndex) {
+  public static void sort(final byte[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {
@@ -486,7 +486,7 @@ public final class UnsignedBytes {
    *
    * @since 23.1
    */
-  public static void sortDescending(byte[] array) {
+  public static void sortDescending(final byte[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -497,7 +497,7 @@ public final class UnsignedBytes {
    *
    * @since 23.1
    */
-  public static void sortDescending(byte[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final byte[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex; i < toIndex; i++) {

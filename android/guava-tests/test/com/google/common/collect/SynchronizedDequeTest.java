@@ -40,7 +40,7 @@ public class SynchronizedDequeTest extends TestCase {
     public final Object mutex = new Integer(1); // something Serializable
 
     @Override
-    public boolean offer(E o) {
+    public boolean offer(final E o) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.offer(o);
     }
@@ -83,7 +83,7 @@ public class SynchronizedDequeTest extends TestCase {
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
+    public boolean removeAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.removeAll(collection);
     }
@@ -95,37 +95,37 @@ public class SynchronizedDequeTest extends TestCase {
     }
 
     @Override
-    public boolean contains(Object object) {
+    public boolean contains(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.contains(object);
     }
 
     @Override
-    public boolean add(E element) {
+    public boolean add(final E element) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.add(element);
     }
 
     @Override
-    public boolean remove(Object object) {
+    public boolean remove(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.remove(object);
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
+    public boolean containsAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.containsAll(collection);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> collection) {
+    public boolean addAll(final Collection<? extends E> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.addAll(collection);
     }
 
     @Override
-    public boolean retainAll(Collection<?> collection) {
+    public boolean retainAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.retainAll(collection);
     }
@@ -143,31 +143,31 @@ public class SynchronizedDequeTest extends TestCase {
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.toArray(array);
     }
 
     @Override
-    public void addFirst(E e) {
+    public void addFirst(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       delegate.addFirst(e);
     }
 
     @Override
-    public void addLast(E e) {
+    public void addLast(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       delegate.addLast(e);
     }
 
     @Override
-    public boolean offerFirst(E e) {
+    public boolean offerFirst(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.offerFirst(e);
     }
 
     @Override
-    public boolean offerLast(E e) {
+    public boolean offerLast(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.offerLast(e);
     }
@@ -221,19 +221,19 @@ public class SynchronizedDequeTest extends TestCase {
     }
 
     @Override
-    public boolean removeFirstOccurrence(Object o) {
+    public boolean removeFirstOccurrence(final Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.removeFirstOccurrence(o);
     }
 
     @Override
-    public boolean removeLastOccurrence(Object o) {
+    public boolean removeLastOccurrence(final Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.removeLastOccurrence(o);
     }
 
     @Override
-    public void push(E e) {
+    public void push(final E e) {
       assertTrue(Thread.holdsLock(mutex));
       delegate.push(e);
     }
@@ -273,7 +273,7 @@ public class SynchronizedDequeTest extends TestCase {
     create().retainAll(ImmutableList.of("foo"));
     create().size();
     create().toArray();
-    create().toArray(new String[] { "foo" });
+    create().toArray(new String[] {"foo" });
     create().addFirst("e");
     create().addLast("e");
     create().offerFirst("e");

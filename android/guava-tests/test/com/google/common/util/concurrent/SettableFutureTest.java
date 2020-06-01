@@ -45,7 +45,7 @@ public class SettableFutureTest extends TestCase {
     try {
       future.get(5, TimeUnit.MILLISECONDS);
       fail();
-    } catch (TimeoutException expected) {}
+    } catch (TimeoutException expected) { }
   }
 
   public void testSetValue() throws Exception {
@@ -134,8 +134,8 @@ public class SettableFutureTest extends TestCase {
     assertEquals("foo", future.get());
   }
 
-  private static class Foo {}
-  private static class FooChild extends Foo {}
+  private static class Foo { }
+  private static class FooChild extends Foo { }
 
   public void testSetFuture_genericsHierarchy() throws Exception {
     SettableFuture<Foo> future = SettableFuture.create();

@@ -50,13 +50,13 @@ public abstract class ByteSink {
   /**
    * Constructor for use by subclasses.
    */
-  protected ByteSink() {}
+  protected ByteSink() { }
 
   /**
    * Returns a {@link CharSink} view of this {@code ByteSink} that writes characters to this sink as
    * bytes encoded with the given {@link Charset charset}.
    */
-  public CharSink asCharSink(Charset charset) {
+  public CharSink asCharSink(final Charset charset) {
     return new AsCharSink(charset);
   }
 
@@ -94,7 +94,7 @@ public abstract class ByteSink {
    *
    * @throws IOException if an I/O occurs while writing to this sink
    */
-  public void write(byte[] bytes) throws IOException {
+  public void write(final byte[] bytes) throws IOException {
     checkNotNull(bytes);
 
     Closer closer = Closer.create();
@@ -117,7 +117,7 @@ public abstract class ByteSink {
    * @throws IOException if an I/O occurs while reading from {@code input} or writing to this sink
    */
   @CanIgnoreReturnValue
-  public long writeFrom(InputStream input) throws IOException {
+  public long writeFrom(final InputStream input) throws IOException {
     checkNotNull(input);
 
     Closer closer = Closer.create();
@@ -141,7 +141,7 @@ public abstract class ByteSink {
 
     private final Charset charset;
 
-    private AsCharSink(Charset charset) {
+    private AsCharSink(final Charset charset) {
       this.charset = checkNotNull(charset);
     }
 

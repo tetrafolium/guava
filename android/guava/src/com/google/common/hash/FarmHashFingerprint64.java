@@ -47,7 +47,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
   private static final long K2 = 0x9ae16a3b2f90404fL;
 
   @Override
-  public HashCode hashBytes(byte[] input, int off, int len) {
+  public HashCode hashBytes(final byte[] input, final int off, final int len) {
     checkPositionIndexes(off, off + len, input.length);
     return HashCode.fromLong(fingerprint(input, off, len));
   }
@@ -65,7 +65,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
   // End of public functions.
 
   @VisibleForTesting
-  static long fingerprint(byte[] bytes, int offset, int length) {
+  static long fingerprint(final byte[] bytes, final int offset, final int length) {
     if (length <= 32) {
       if (length <= 16) {
         return hashLength0to16(bytes, offset, length);
@@ -79,11 +79,11 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     }
   }
 
-  private static long shiftMix(long val) {
+  private static long shiftMix(final long val) {
     return val ^ (val >>> 47);
   }
 
-  private static long hashLength16(long u, long v, long mul) {
+  private static long hashLength16(final long u, final long v, final long mul) {
     long a = (u ^ v) * mul;
     a ^= (a >>> 47);
     long b = (v ^ a) * mul;
@@ -98,7 +98,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
    * new arrays every time.
    */
   private static void weakHashLength32WithSeeds(
-      byte[] bytes, int offset, long seedA, long seedB, long[] output) {
+      final byte[] bytes, final int offset, final long seedA, final long seedB, final long[] output) {
     long part1 = load64(bytes, offset);
     long part2 = load64(bytes, offset + 8);
     long part3 = load64(bytes, offset + 16);
@@ -114,7 +114,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     output[1] = seedB + c;
   }
 
-  private static long hashLength0to16(byte[] bytes, int offset, int length) {
+  private static long hashLength0to16(final byte[] bytes, final int offset, final int length) {
     if (length >= 8) {
       long mul = K2 + length * 2;
       long a = load64(bytes, offset) + K2;
@@ -139,7 +139,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     return K2;
   }
 
-  private static long hashLength17to32(byte[] bytes, int offset, int length) {
+  private static long hashLength17to32(final byte[] bytes, final int offset, final int length) {
     long mul = K2 + length * 2;
     long a = load64(bytes, offset) * K1;
     long b = load64(bytes, offset + 8);
@@ -149,7 +149,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
         rotateRight(a + b, 43) + rotateRight(c, 30) + d, a + rotateRight(b + K2, 18) + c, mul);
   }
 
-  private static long hashLength33To64(byte[] bytes, int offset, int length) {
+  private static long hashLength33To64(final byte[] bytes, final int offset, final int length) {
     long mul = K2 + length * 2;
     long a = load64(bytes, offset) * K2;
     long b = load64(bytes, offset + 8);
@@ -168,7 +168,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
   /*
    * Compute an 8-byte hash of a byte array of length greater than 64 bytes.
    */
-  private static long hashLength65Plus(byte[] bytes, int offset, int length) {
+  private static long hashLength65Plus(final byte[] bytes, final int offset, final int length) {
     final int seed = 81;
     // For strings over 64 bytes we loop. Internal state consists of 56 bytes: v, w, x, y, and z.
     long x = seed;

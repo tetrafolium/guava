@@ -74,7 +74,7 @@ public abstract class AbstractContainerTester<C, E>
    * @return the new container instance
    * @param newValue the new container instance
    */
-  protected C resetContainer(C newValue) {
+  protected C resetContainer(final C newValue) {
     container = newValue;
     return container;
   }
@@ -84,7 +84,7 @@ public abstract class AbstractContainerTester<C, E>
    *
    * @param elements expected contents of {@link #container}
    */
-  protected final void expectContents(E... elements) {
+  protected final void expectContents(final E... elements) {
     expectContents(Arrays.asList(elements));
   }
 
@@ -106,7 +106,7 @@ public abstract class AbstractContainerTester<C, E>
    * TODO: could we incorporate the overriding logic from AbstractListTester, by
    * examining whether the features include KNOWN_ORDER?
    */
-  protected void expectContents(Collection<E> expected) {
+  protected void expectContents(final Collection<E> expected) {
     Helpers.assertEqualIgnoringOrder(expected, actualContents());
   }
 
@@ -136,17 +136,17 @@ public abstract class AbstractContainerTester<C, E>
    *
    * @param elements expected additional contents of {@link #container}
    */
-  protected final void expectAdded(E... elements) {
+  protected final void expectAdded(final E... elements) {
     List<E> expected = Helpers.copyToList(getSampleElements());
     expected.addAll(Arrays.asList(elements));
     expectContents(expected);
   }
 
-  protected final void expectAdded(int index, E... elements) {
+  protected final void expectAdded(final int index, final E... elements) {
     expectAdded(index, Arrays.asList(elements));
   }
 
-  protected final void expectAdded(int index, Collection<E> elements) {
+  protected final void expectAdded(final int index, final Collection<E> elements) {
     List<E> expected = Helpers.copyToList(getSampleElements());
     expected.addAll(index, elements);
     expectContents(expected);
@@ -158,7 +158,7 @@ public abstract class AbstractContainerTester<C, E>
    * extends AbstractListTester.) We could also iterate over all elements to
    * verify absence
    */
-  protected void expectMissing(E... elements) {
+  protected void expectMissing(final E... elements) {
     for (E element : elements) {
       assertFalse("Should not contain " + element, actualContents().contains(element));
     }
@@ -180,7 +180,7 @@ public abstract class AbstractContainerTester<C, E>
     public final E[] elements;
     public final E duplicate;
 
-    private ArrayWithDuplicate(E[] elements, E duplicate) {
+    private ArrayWithDuplicate(final E[] elements, final E duplicate) {
       this.elements = elements;
       this.duplicate = duplicate;
     }
@@ -203,7 +203,7 @@ public abstract class AbstractContainerTester<C, E>
     return getSubjectGenerator().getCollectionSize().getNumElements();
   }
 
-  protected Collection<E> getSampleElements(int howMany) {
+  protected Collection<E> getSampleElements(final int howMany) {
     return getSubjectGenerator().getSampleElements(howMany);
   }
 

@@ -27,21 +27,21 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class PairwiseEquivalence_CustomFieldSerializer {
 
-  private PairwiseEquivalence_CustomFieldSerializer() {}
+  private PairwiseEquivalence_CustomFieldSerializer() { }
 
   public static void deserialize(
-      SerializationStreamReader reader, PairwiseEquivalence<?> instance) {}
+      final SerializationStreamReader reader, final PairwiseEquivalence<?> instance) { }
 
-  public static PairwiseEquivalence<?> instantiate(SerializationStreamReader reader)
+  public static PairwiseEquivalence<?> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     return create((Equivalence<?>) reader.readObject());
   }
 
-  private static <T> PairwiseEquivalence<T> create(Equivalence<T> elementEquivalence) {
+  private static <T> PairwiseEquivalence<T> create(final Equivalence<T> elementEquivalence) {
     return new PairwiseEquivalence<T>(elementEquivalence);
   }
 
-  public static void serialize(SerializationStreamWriter writer, PairwiseEquivalence<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final PairwiseEquivalence<?> instance)
       throws SerializationException {
     writer.writeObject(instance.elementEquivalence);
   }

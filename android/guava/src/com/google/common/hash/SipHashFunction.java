@@ -50,7 +50,7 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
    * @param k0 the first half of the key
    * @param k1 the second half of the key
    */
-  SipHashFunction(int c, int d, long k0, long k1) {
+  SipHashFunction(final int c, final int d, final long k0, final long k1) {
     checkArgument(
         c > 0, "The number of SipRound iterations (c=%s) during Compression must be positive.", c);
     checkArgument(
@@ -79,7 +79,7 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof SipHashFunction) {
       SipHashFunction other = (SipHashFunction) object;
       return (c == other.c)
@@ -119,7 +119,7 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
     // and ending with a byte encoding the positive integer b mod 256.
     private long finalM = 0;
 
-    SipHasher(int c, int d, long k0, long k1) {
+    SipHasher(final int c, final int d, final long k0, final long k1) {
       super(CHUNK_SIZE);
       this.c = c;
       this.d = d;
@@ -130,13 +130,13 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
     }
 
     @Override
-    protected void process(ByteBuffer buffer) {
+    protected void process(final ByteBuffer buffer) {
       b += CHUNK_SIZE;
       processM(buffer.getLong());
     }
 
     @Override
-    protected void processRemaining(ByteBuffer buffer) {
+    protected void processRemaining(final ByteBuffer buffer) {
       b += buffer.remaining();
       for (int i = 0; buffer.hasRemaining(); i += 8) {
         finalM ^= (buffer.get() & 0xFFL) << i;
@@ -155,13 +155,13 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
       return HashCode.fromLong(v0 ^ v1 ^ v2 ^ v3);
     }
 
-    private void processM(long m) {
+    private void processM(final long m) {
       v3 ^= m;
       sipRound(c);
       v0 ^= m;
     }
 
-    private void sipRound(int iterations) {
+    private void sipRound(final int iterations) {
       for (int i = 0; i < iterations; i++) {
         v0 += v1;
         v2 += v3;

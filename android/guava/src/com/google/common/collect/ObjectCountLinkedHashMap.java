@@ -49,7 +49,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
    *     expectedSize} elements without resizing
    * @throws IllegalArgumentException if {@code expectedSize} is negative
    */
-  public static <K> ObjectCountLinkedHashMap<K> createWithExpectedSize(int expectedSize) {
+  public static <K> ObjectCountLinkedHashMap<K> createWithExpectedSize(final int expectedSize) {
     return new ObjectCountLinkedHashMap<K>(expectedSize);
   }
 
@@ -76,15 +76,15 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
     this(DEFAULT_SIZE);
   }
 
-  ObjectCountLinkedHashMap(int expectedSize) {
+  ObjectCountLinkedHashMap(final int expectedSize) {
     this(expectedSize, DEFAULT_LOAD_FACTOR);
   }
 
-  ObjectCountLinkedHashMap(int expectedSize, float loadFactor) {
+  ObjectCountLinkedHashMap(final int expectedSize, final float loadFactor) {
     super(expectedSize, loadFactor);
   }
 
-  ObjectCountLinkedHashMap(AbstractObjectCountMap<K> map) {
+  ObjectCountLinkedHashMap(final AbstractObjectCountMap<K> map) {
     init(map.size(), DEFAULT_LOAD_FACTOR);
     for (int i = map.firstIndex(); i != -1; i = map.nextIndex(i)) {
       put(map.getKey(i), map.getValue(i));
@@ -92,7 +92,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   }
 
   @Override
-  void init(int expectedSize, float loadFactor) {
+  void init(final int expectedSize, final float loadFactor) {
     super.init(expectedSize, loadFactor);
     firstEntry = ENDPOINT;
     lastEntry = ENDPOINT;
@@ -106,30 +106,30 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   }
 
   @Override
-  int nextIndex(int index) {
+  int nextIndex(final int index) {
     int result = getSuccessor(index);
     return (result == ENDPOINT) ? -1 : result;
   }
 
-  private int getPredecessor(int entry) {
+  private int getPredecessor(final int entry) {
     return (int) (links[entry] >>> 32);
   }
 
-  private int getSuccessor(int entry) {
+  private int getSuccessor(final int entry) {
     return (int) links[entry];
   }
 
-  private void setSuccessor(int entry, int succ) {
+  private void setSuccessor(final int entry, final int succ) {
     long succMask = (~0L) >>> 32;
     links[entry] = (links[entry] & ~succMask) | (succ & succMask);
   }
 
-  private void setPredecessor(int entry, int pred) {
+  private void setPredecessor(final int entry, final int pred) {
     long predMask = (~0L) << 32;
     links[entry] = (links[entry] & ~predMask) | ((long) pred << 32);
   }
 
-  private void setSucceeds(int pred, int succ) {
+  private void setSucceeds(final int pred, final int succ) {
     if (pred == ENDPOINT) {
       firstEntry = succ;
     } else {
@@ -143,14 +143,14 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   }
 
   @Override
-  void insertEntry(int entryIndex, K key, int value, int hash) {
+  void insertEntry(final int entryIndex, final K key, final int value, final int hash) {
     super.insertEntry(entryIndex, key, value, hash);
     setSucceeds(lastEntry, entryIndex);
     setSucceeds(entryIndex, ENDPOINT);
   }
 
   @Override
-  void moveLastEntry(int dstIndex) {
+  void moveLastEntry(final int dstIndex) {
     int srcIndex = size() - 1;
     setSucceeds(getPredecessor(dstIndex), getSuccessor(dstIndex));
     if (dstIndex < srcIndex) {
@@ -161,7 +161,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   }
 
   @Override
-  void resizeEntries(int newCapacity) {
+  void resizeEntries(final int newCapacity) {
     super.resizeEntries(newCapacity);
     links = Arrays.copyOf(links, newCapacity);
   }
@@ -218,7 +218,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
       }
 
       @Override
-      public <T> T[] toArray(T[] a) {
+      public <T> T[] toArray(final T[] a) {
         return ObjectArrays.toArrayImpl(this, a);
       }
 
@@ -227,7 +227,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
         return new LinkedItr<K>() {
           @SuppressWarnings("unchecked") // keys only contains Ks
           @Override
-          K getOutput(int entry) {
+          K getOutput(final int entry) {
             return (K) keys[entry];
           }
         };
@@ -242,7 +242,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
       public Iterator<Entry<K>> iterator() {
         return new LinkedItr<Entry<K>>() {
           @Override
-          Entry<K> getOutput(int entry) {
+          Entry<K> getOutput(final int entry) {
             return new MapEntry(entry);
           }
         };

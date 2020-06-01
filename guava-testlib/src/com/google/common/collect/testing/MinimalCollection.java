@@ -32,12 +32,12 @@ import java.util.Iterator;
 public class MinimalCollection<E> extends AbstractCollection<E> {
   // TODO: expose allow nulls parameter?
 
-  public static <E> MinimalCollection<E> of(E... contents) {
+  public static <E> MinimalCollection<E> of(final E... contents) {
     return new MinimalCollection<E>(Object.class, true, contents);
   }
 
   // TODO: use this
-  public static <E> MinimalCollection<E> ofClassAndContents(Class<? super E> type, E... contents) {
+  public static <E> MinimalCollection<E> ofClassAndContents(final Class<? super E> type, final E... contents) {
     return new MinimalCollection<E>(type, true, contents);
   }
 
@@ -46,7 +46,7 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
   private final boolean allowNulls;
 
   // Package-private so that it can be extended.
-  MinimalCollection(Class<? super E> type, boolean allowNulls, E... contents) {
+  MinimalCollection(final Class<? super E> type, final boolean allowNulls, final E... contents) {
     // TODO: consider making it shuffle the contents to test iteration order.
     this.contents = Platform.clone(contents);
     this.type = type;
@@ -67,7 +67,7 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     if (!allowNulls) {
       // behave badly
       if (object == null) {
@@ -79,7 +79,7 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
   }
 
   @Override
-  public boolean containsAll(Collection<?> collection) {
+  public boolean containsAll(final Collection<?> collection) {
     if (!allowNulls) {
       for (Object object : collection) {
         // behave badly
@@ -109,17 +109,17 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
    */
 
   @Override
-  public boolean addAll(Collection<? extends E> elementsToAdd) {
+  public boolean addAll(final Collection<? extends E> elementsToAdd) {
     throw up();
   }
 
   @Override
-  public boolean removeAll(Collection<?> elementsToRemove) {
+  public boolean removeAll(final Collection<?> elementsToRemove) {
     throw up();
   }
 
   @Override
-  public boolean retainAll(Collection<?> elementsToRetain) {
+  public boolean retainAll(final Collection<?> elementsToRetain) {
     throw up();
   }
 

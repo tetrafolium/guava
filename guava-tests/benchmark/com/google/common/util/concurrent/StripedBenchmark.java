@@ -50,17 +50,17 @@ public class StripedBenchmark {
 
   enum Impl {
     EAGER {
-      @Override Striped<Lock> get(int stripes) {
+      @Override Striped<Lock> get(final int stripes) {
         return Striped.lock(stripes);
       }
     },
     LAZY_SMALL {
-      @Override Striped<Lock> get(int stripes) {
+      @Override Striped<Lock> get(final int stripes) {
         return new Striped.SmallLazyStriped<>(stripes, LOCK_SUPPLIER);
       }
     },
     LAZY_LARGE {
-      @Override Striped<Lock> get(int stripes) {
+      @Override Striped<Lock> get(final int stripes) {
         return new Striped.LargeLazyStriped<>(stripes, LOCK_SUPPLIER);
       }
     };
@@ -101,7 +101,7 @@ public class StripedBenchmark {
     return striped;
   }
 
-  @Benchmark long timeConstruct(long reps) {
+  @Benchmark long timeConstruct(final long reps) {
     long rvalue = 0;
     int numStripesLocal = numStripes;
     Impl implLocal = impl;
@@ -111,7 +111,7 @@ public class StripedBenchmark {
     return rvalue;
   }
 
-  @Benchmark long timeGetAt(long reps) {
+  @Benchmark long timeGetAt(final long reps) {
     long rvalue = 0;
     int[] stripesLocal = stripes;
     int mask = numStripes - 1;
@@ -122,7 +122,7 @@ public class StripedBenchmark {
     return rvalue;
   }
 
-  @Benchmark long timeBulkGet(long reps) {
+  @Benchmark long timeBulkGet(final long reps) {
     long rvalue = 0;
     List<Integer> bulkGetSetLocal = bulkGetSet;
     Striped<Lock> stripedLocal = striped;

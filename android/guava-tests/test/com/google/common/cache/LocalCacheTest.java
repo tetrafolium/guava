@@ -86,12 +86,12 @@ public class LocalCacheTest extends TestCase {
   private static class TestStringCacheGenerator extends TestStringMapGenerator {
     private final CacheBuilder<? super String, ? super String> builder;
 
-    TestStringCacheGenerator(CacheBuilder<? super String, ? super String> builder) {
+    TestStringCacheGenerator(final CacheBuilder<? super String, ? super String> builder) {
       this.builder = builder;
     }
 
     @Override
-    protected Map<String, String> create(Entry<String, String>[] entries) {
+    protected Map<String, String> create(final Entry<String, String>[] entries) {
       LocalCache<String, String> map = makeLocalCache(builder);
       for (Entry<String, String> entry : entries) {
         map.put(entry.getKey(), entry.getValue());
@@ -213,12 +213,12 @@ public class LocalCacheTest extends TestCase {
     assertTrue(logHandler.getStoredLogRecords().isEmpty());
   }
 
-  private void checkLogged(Throwable t) {
+  private void checkLogged(final Throwable t) {
     assertSame(t, popLoggedThrowable());
   }
 
   private static <K, V> LocalCache<K, V> makeLocalCache(
-      CacheBuilder<? super K, ? super V> builder) {
+      final CacheBuilder<? super K, ? super V> builder) {
     return new LocalCache<>(builder, null);
   }
 
@@ -263,12 +263,12 @@ public class LocalCacheTest extends TestCase {
   public void testSetKeyEquivalence() {
     Equivalence<Object> testEquivalence = new Equivalence<Object>() {
       @Override
-      protected boolean doEquivalent(Object a, Object b) {
+      protected boolean doEquivalent(final Object a, final Object b) {
         return false;
       }
 
       @Override
-      protected int doHash(Object t) {
+      protected int doHash(final Object t) {
         return 0;
       }
     };
@@ -282,12 +282,12 @@ public class LocalCacheTest extends TestCase {
   public void testSetValueEquivalence() {
     Equivalence<Object> testEquivalence = new Equivalence<Object>() {
       @Override
-      protected boolean doEquivalent(Object a, Object b) {
+      protected boolean doEquivalent(final Object a, final Object b) {
         return false;
       }
 
       @Override
-      protected int doHash(Object t) {
+      protected int doHash(final Object t) {
         return 0;
       }
     };
@@ -311,7 +311,7 @@ public class LocalCacheTest extends TestCase {
     checkConcurrencyLevel(8, 8);
   }
 
-  private static void checkConcurrencyLevel(int concurrencyLevel, int segmentCount) {
+  private static void checkConcurrencyLevel(final int concurrencyLevel, final int segmentCount) {
     LocalCache<Object, Object> map =
         makeLocalCache(createCacheBuilder().concurrencyLevel(concurrencyLevel));
     assertThat(map.segments).hasLength(segmentCount);
@@ -352,7 +352,7 @@ public class LocalCacheTest extends TestCase {
   }
 
   private static void checkInitialCapacity(
-      int concurrencyLevel, int initialCapacity, int segmentSize) {
+      final int concurrencyLevel, final int initialCapacity, final int segmentSize) {
     LocalCache<Object, Object> map = makeLocalCache(
         createCacheBuilder().concurrencyLevel(concurrencyLevel).initialCapacity(initialCapacity));
     for (int i = 0; i < map.segments.length; i++) {
@@ -385,7 +385,7 @@ public class LocalCacheTest extends TestCase {
     }
   }
 
-  private static void checkMaximumSize(int concurrencyLevel, int initialCapacity, long maxSize) {
+  private static void checkMaximumSize(final int concurrencyLevel, final int initialCapacity, final long maxSize) {
     LocalCache<Object, Object> map = makeLocalCache(createCacheBuilder()
         .concurrencyLevel(concurrencyLevel)
         .initialCapacity(initialCapacity)
@@ -415,7 +415,7 @@ public class LocalCacheTest extends TestCase {
   public void testSetWeigher() {
     Weigher<Object, Object> testWeigher = new Weigher<Object, Object>() {
       @Override
-      public int weigh(Object key, Object value) {
+      public int weigh(final Object key, final Object value) {
         return 42;
       }
     };
@@ -443,7 +443,7 @@ public class LocalCacheTest extends TestCase {
   }
 
   private static void checkStrength(
-      LocalCache<Object, Object> map, Strength keyStrength, Strength valueStrength) {
+      final LocalCache<Object, Object> map, final Strength keyStrength, final Strength valueStrength) {
     assertSame(keyStrength, map.keyStrength);
     assertSame(valueStrength, map.valueStrength);
     assertSame(keyStrength.defaultEquivalence(), map.keyEquivalence);
@@ -675,7 +675,7 @@ public class LocalCacheTest extends TestCase {
 
     final CacheLoader<Object, Object> loader = new CacheLoader<Object, Object>() {
       @Override
-      public Object load(Object key) throws Exception {
+      public Object load(final Object key) throws Exception {
         computingSignal.countDown();
         startSignal.await();
         return computedObject;
@@ -752,7 +752,7 @@ public class LocalCacheTest extends TestCase {
     final RuntimeException e = new RuntimeException();
     RemovalListener<Object, Object> listener = new RemovalListener<Object, Object>() {
       @Override
-      public void onRemoval(RemovalNotification<Object, Object> notification) {
+      public void onRemoval(final RemovalNotification<Object, Object> notification) {
         throw e;
       }
     };
@@ -775,7 +775,7 @@ public class LocalCacheTest extends TestCase {
 
     final CacheLoader<Object, Object> loader = new CacheLoader<Object, Object>() {
       @Override
-      public Object load(Object key) throws Exception {
+      public Object load(final Object key) throws Exception {
         computingSignal.countDown();
         startSignal.await();
         return computedObject;
@@ -991,7 +991,7 @@ public class LocalCacheTest extends TestCase {
   }
 
   static <K, V> void assertNotified(
-      QueuingRemovalListener<K, V> listener, K key, V value, RemovalCause cause) {
+      final QueuingRemovalListener<K, V> listener, final K key, final V value, final RemovalCause cause) {
     RemovalNotification<K, V> notification = listener.remove();
     assertSame(key, notification.getKey());
     assertSame(value, notification.getValue());
@@ -1072,7 +1072,7 @@ public class LocalCacheTest extends TestCase {
   }
 
   private static <K, V> void assertConnected(
-      LocalCache<K, V> map, ReferenceEntry<K, V> one, ReferenceEntry<K, V> two) {
+      final LocalCache<K, V> map, final ReferenceEntry<K, V> one, final ReferenceEntry<K, V> two) {
     if (map.usesWriteQueue()) {
       assertSame(two, one.getNextInWriteQueue());
     }
@@ -1554,7 +1554,7 @@ public class LocalCacheTest extends TestCase {
         final Object value = new Object();
         segment.get(key, key.hashCode(), new CacheLoader<Object, Object>() {
           @Override
-          public Object load(Object key) {
+          public Object load(final Object key) {
             return value;
           }
         });
@@ -1733,7 +1733,7 @@ public class LocalCacheTest extends TestCase {
     }
   }
 
-  private static <K, V> int countLiveEntries(LocalCache<K, V> map, long now) {
+  private static <K, V> int countLiveEntries(final LocalCache<K, V> map, final long now) {
     int result = 0;
     for (Segment<K, V> segment : map.segments) {
       AtomicReferenceArray<ReferenceEntry<K, V>> table = segment.table;
@@ -1948,7 +1948,7 @@ public class LocalCacheTest extends TestCase {
   }
 
   private static <K, V> void assertNotificationEnqueued(
-      LocalCache<K, V> map, K key, V value, int hash) {
+      final LocalCache<K, V> map, final K key, final V value, final int hash) {
     RemovalNotification<K, V> notification = map.removalNotificationQueue.poll();
     assertSame(key, notification.getKey());
     assertSame(value, notification.getValue());
@@ -2147,17 +2147,17 @@ public class LocalCacheTest extends TestCase {
     }
   }
 
-  static <K, V> void checkAndDrainRecencyQueue(LocalCache<K, V> map,
-      Segment<K, V> segment, List<ReferenceEntry<K, V>> reads) {
+  static <K, V> void checkAndDrainRecencyQueue(final LocalCache<K, V> map,
+      final Segment<K, V> segment, final List<ReferenceEntry<K, V>> reads) {
     if (map.evictsBySize() || map.expiresAfterAccess()) {
       assertSameEntries(reads, ImmutableList.copyOf(segment.recencyQueue));
     }
     segment.drainRecencyQueue();
   }
 
-  static <K, V> void checkEvictionQueues(LocalCache<K, V> map,
-      Segment<K, V> segment, List<ReferenceEntry<K, V>> readOrder,
-      List<ReferenceEntry<K, V>> writeOrder) {
+  static <K, V> void checkEvictionQueues(final LocalCache<K, V> map,
+      final Segment<K, V> segment, final List<ReferenceEntry<K, V>> readOrder,
+      final List<ReferenceEntry<K, V>> writeOrder) {
     if (map.evictsBySize() || map.expiresAfterAccess()) {
       assertSameEntries(readOrder, ImmutableList.copyOf(segment.accessQueue));
     }
@@ -2166,8 +2166,8 @@ public class LocalCacheTest extends TestCase {
     }
   }
 
-  private static <K, V> void assertSameEntries(List<ReferenceEntry<K, V>> expectedEntries,
-      List<ReferenceEntry<K, V>> actualEntries) {
+  private static <K, V> void assertSameEntries(final List<ReferenceEntry<K, V>> expectedEntries,
+      final List<ReferenceEntry<K, V>> actualEntries) {
     int size = expectedEntries.size();
     assertEquals(size, actualEntries.size());
     for (int i = 0; i < size; i++) {
@@ -2178,7 +2178,7 @@ public class LocalCacheTest extends TestCase {
     }
   }
 
-  static <K, V> void checkExpirationTimes(LocalCache<K, V> map) {
+  static <K, V> void checkExpirationTimes(final LocalCache<K, V> map) {
     if (!map.expires()) {
       return;
     }
@@ -2645,7 +2645,7 @@ public class LocalCacheTest extends TestCase {
   // entries and values
 
   private static <K, V> DummyEntry<K, V> createDummyEntry(
-      K key, int hash, V value, ReferenceEntry<K, V> next) {
+      final K key, final int hash, final V value, final ReferenceEntry<K, V> next) {
     DummyEntry<K, V> entry = DummyEntry.create(key, hash, next);
     DummyValueReference<K, V> valueRef = DummyValueReference.create(value);
     entry.setValueReference(valueRef);
@@ -2657,13 +2657,13 @@ public class LocalCacheTest extends TestCase {
     private final int hash;
     private final ReferenceEntry<K, V> next;
 
-    public DummyEntry(K key, int hash, ReferenceEntry<K, V> next) {
+    public DummyEntry(final K key, final int hash, final ReferenceEntry<K, V> next) {
       this.key = key;
       this.hash = hash;
       this.next = next;
     }
 
-    public static <K, V> DummyEntry<K, V> create(K key, int hash, ReferenceEntry<K, V> next) {
+    public static <K, V> DummyEntry<K, V> create(final K key, final int hash, final ReferenceEntry<K, V> next) {
       return new DummyEntry<>(key, hash, next);
     }
 
@@ -2679,7 +2679,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setValueReference(ValueReference<K, V> valueReference) {
+    public void setValueReference(final ValueReference<K, V> valueReference) {
       this.valueReference = valueReference;
     }
 
@@ -2706,7 +2706,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setAccessTime(long time) {
+    public void setAccessTime(final long time) {
       this.accessTime = time;
     }
 
@@ -2718,7 +2718,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setNextInAccessQueue(ReferenceEntry<K, V> next) {
+    public void setNextInAccessQueue(final ReferenceEntry<K, V> next) {
       this.nextAccess = next;
     }
 
@@ -2730,7 +2730,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setPreviousInAccessQueue(ReferenceEntry<K, V> previous) {
+    public void setPreviousInAccessQueue(final ReferenceEntry<K, V> previous) {
       this.previousAccess = previous;
     }
 
@@ -2742,7 +2742,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setWriteTime(long time) {
+    public void setWriteTime(final long time) {
       this.writeTime = time;
     }
 
@@ -2754,7 +2754,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setNextInWriteQueue(ReferenceEntry<K, V> next) {
+    public void setNextInWriteQueue(final ReferenceEntry<K, V> next) {
       this.nextWrite = next;
     }
 
@@ -2766,7 +2766,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void setPreviousInWriteQueue(ReferenceEntry<K, V> previous) {
+    public void setPreviousInWriteQueue(final ReferenceEntry<K, V> previous) {
       this.previousWrite = previous;
     }
   }
@@ -2779,11 +2779,11 @@ public class LocalCacheTest extends TestCase {
       this.loading = true;
     }
 
-    public DummyValueReference(V value) {
+    public DummyValueReference(final V value) {
       this.value = value;
     }
 
-    public static <K, V> DummyValueReference<K, V> create(V value) {
+    public static <K, V> DummyValueReference<K, V> create(final V value) {
       return new DummyValueReference<>(value);
     }
 
@@ -2808,11 +2808,11 @@ public class LocalCacheTest extends TestCase {
 
     @Override
     public ValueReference<K, V> copyFor(
-        ReferenceQueue<V> queue, V value, ReferenceEntry<K, V> entry) {
+        final ReferenceQueue<V> queue, final V value, final ReferenceEntry<K, V> entry) {
       return this;
     }
 
-    public void setLoading(boolean loading) {
+    public void setLoading(final boolean loading) {
       this.loading = loading;
     }
 
@@ -2832,7 +2832,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public void notifyNewValue(V newValue) {}
+    public void notifyNewValue(final V newValue) { }
 
     public void clear() {
       value = null;
@@ -2842,7 +2842,7 @@ public class LocalCacheTest extends TestCase {
   private static class SerializableCacheLoader
       extends CacheLoader<Object, Object> implements Serializable {
     @Override
-    public Object load(Object key) {
+    public Object load(final Object key) {
       return new Object();
     }
 
@@ -2852,7 +2852,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       return (o instanceof SerializableCacheLoader);
     }
   }
@@ -2860,7 +2860,7 @@ public class LocalCacheTest extends TestCase {
   private static class SerializableRemovalListener<K, V>
       implements RemovalListener<K, V>, Serializable {
     @Override
-    public void onRemoval(RemovalNotification<K, V> notification) {}
+    public void onRemoval(final RemovalNotification<K, V> notification) { }
 
     @Override
     public int hashCode() {
@@ -2868,7 +2868,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       return (o instanceof SerializableRemovalListener);
     }
   }
@@ -2885,14 +2885,14 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       return (o instanceof SerializableTicker);
     }
   }
 
   private static class SerializableWeigher<K, V> implements Weigher<K, V>, Serializable {
     @Override
-    public int weigh(K key, V value) {
+    public int weigh(final K key, final V value) {
       return 42;
     }
 
@@ -2902,7 +2902,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
       return (o instanceof SerializableWeigher);
     }
   }

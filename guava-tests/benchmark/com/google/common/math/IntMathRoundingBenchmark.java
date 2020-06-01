@@ -49,7 +49,7 @@ public class IntMathRoundingBenchmark {
   @Param({"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
-  @Benchmark int log2(int reps) {
+  @Benchmark int log2(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -58,7 +58,7 @@ public class IntMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark int log10(int reps) {
+  @Benchmark int log10(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -67,7 +67,7 @@ public class IntMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark int sqrt(int reps) {
+  @Benchmark int sqrt(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -76,7 +76,7 @@ public class IntMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark int divide(int reps) {
+  @Benchmark int divide(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;

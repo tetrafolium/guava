@@ -34,9 +34,9 @@ import junit.framework.TestCase;
  */
 public class CacheReferencesTest extends TestCase {
 
-  private static final CacheLoader<Key,String> KEY_TO_STRING_LOADER =
+  private static final CacheLoader<Key, String> KEY_TO_STRING_LOADER =
       new CacheLoader<Key, String>() {
-        @Override public String load(Key key) {
+        @Override public String load(final Key key) {
           return key.toString();
         }
       };
@@ -51,7 +51,7 @@ public class CacheReferencesTest extends TestCase {
     CacheBuilderFactory factory = factoryWithAllKeyStrengths();
     return Iterables.transform(factory.buildAllPermutations(),
         new Function<CacheBuilder<Object, Object>, LoadingCache<Key, String>>() {
-          @Override public LoadingCache<Key, String> apply(CacheBuilder<Object, Object> builder) {
+          @Override public LoadingCache<Key, String> apply(final CacheBuilder<Object, Object> builder) {
             return builder.build(KEY_TO_STRING_LOADER);
           }
         });
@@ -118,8 +118,8 @@ public class CacheReferencesTest extends TestCase {
 
   // fails in Maven with 64-bit JDK: http://code.google.com/p/guava-libraries/issues/detail?id=1568
 
-  private void assertCleanup(LoadingCache<Integer, String> cache,
-      CountingRemovalListener<Integer, String> removalListener) {
+  private void assertCleanup(final LoadingCache<Integer, String> cache,
+      final CountingRemovalListener<Integer, String> removalListener) {
 
     // initialSize will most likely be 2, but it's possible for the GC to have already run, so we'll
     // observe a size of 1
@@ -137,11 +137,11 @@ public class CacheReferencesTest extends TestCase {
       }
       try {
         Thread.sleep(10);
-      } catch (InterruptedException e) { /* ignore */}
+      } catch (InterruptedException e) { /* ignore */ }
       try {
         // Fill up heap so soft references get cleared.
         filler = new byte[Math.max(filler.length, filler.length * 2)];
-      } catch (OutOfMemoryError e) {}
+      } catch (OutOfMemoryError e) { }
     }
 
     CacheTesting.processPendingNotifications(cache);
@@ -155,7 +155,7 @@ public class CacheReferencesTest extends TestCase {
     private final int value;
     private WeakReference<String> toString;
 
-    Key(int value) {
+    Key(final int value) {
       this.value = value;
     }
 

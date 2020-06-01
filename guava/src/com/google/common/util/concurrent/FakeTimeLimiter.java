@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 public final class FakeTimeLimiter implements TimeLimiter {
   @Override
   public <T> T newProxy(
-      T target, Class<T> interfaceType, long timeoutDuration, TimeUnit timeoutUnit) {
+      final T target, final Class<T> interfaceType, final long timeoutDuration, final TimeUnit timeoutUnit) {
     checkNotNull(target);
     checkNotNull(interfaceType);
     checkNotNull(timeoutUnit);
@@ -47,7 +47,7 @@ public final class FakeTimeLimiter implements TimeLimiter {
   }
 
   @Override
-  public <T> T callWithTimeout(Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
+  public <T> T callWithTimeout(final Callable<T> callable, final long timeoutDuration, final TimeUnit timeoutUnit)
       throws ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
@@ -68,12 +68,12 @@ public final class FakeTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callUninterruptiblyWithTimeout(
-      Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit) throws ExecutionException {
+      final Callable<T> callable, final long timeoutDuration, final TimeUnit timeoutUnit) throws ExecutionException {
     return callWithTimeout(callable, timeoutDuration, timeoutUnit);
   }
 
   @Override
-  public void runWithTimeout(Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit) {
+  public void runWithTimeout(final Runnable runnable, final long timeoutDuration, final TimeUnit timeoutUnit) {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     try {
@@ -91,7 +91,7 @@ public final class FakeTimeLimiter implements TimeLimiter {
 
   @Override
   public void runUninterruptiblyWithTimeout(
-      Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit) {
+      final Runnable runnable, final long timeoutDuration, final TimeUnit timeoutUnit) {
     runWithTimeout(runnable, timeoutDuration, timeoutUnit);
   }
 }

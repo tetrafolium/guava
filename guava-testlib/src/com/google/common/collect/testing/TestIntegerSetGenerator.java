@@ -34,7 +34,7 @@ public abstract class TestIntegerSetGenerator implements TestSetGenerator<Intege
   }
 
   @Override
-  public Set<Integer> create(Object... elements) {
+  public Set<Integer> create(final Object... elements) {
     Integer[] array = new Integer[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -46,7 +46,7 @@ public abstract class TestIntegerSetGenerator implements TestSetGenerator<Intege
   protected abstract Set<Integer> create(Integer[] elements);
 
   @Override
-  public Integer[] createArray(int length) {
+  public Integer[] createArray(final int length) {
     return new Integer[length];
   }
 
@@ -63,7 +63,7 @@ public abstract class TestIntegerSetGenerator implements TestSetGenerator<Intege
    * the advantage of working for insertion-ordered containers, as well.
    */
   @Override
-  public List<Integer> order(List<Integer> insertionOrder) {
+  public List<Integer> order(final List<Integer> insertionOrder) {
     return insertionOrder;
   }
 }

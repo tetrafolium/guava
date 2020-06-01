@@ -40,7 +40,7 @@ final class MultiInputStream extends InputStream {
    *
    * @param it an iterator of I/O suppliers that will provide each substream
    */
-  public MultiInputStream(Iterator<? extends ByteSource> it) throws IOException {
+  public MultiInputStream(final Iterator<? extends ByteSource> it) throws IOException {
     this.it = checkNotNull(it);
     advance();
   }
@@ -93,7 +93,7 @@ final class MultiInputStream extends InputStream {
   }
 
   @Override
-  public int read(@Nullable byte[] b, int off, int len) throws IOException {
+  public int read(final @Nullable byte[] b, final int off, final int len) throws IOException {
     if (in == null) {
       return -1;
     }
@@ -106,7 +106,7 @@ final class MultiInputStream extends InputStream {
   }
 
   @Override
-  public long skip(long n) throws IOException {
+  public long skip(final long n) throws IOException {
     if (in == null || n <= 0) {
       return 0;
     }

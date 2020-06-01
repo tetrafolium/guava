@@ -27,7 +27,7 @@ import java.net.URLClassLoader;
 // TODO(b/65488446): Make this a public API.
 /** Utility method to parse the system class path. */
 final class ClassPathUtil {
-  private ClassPathUtil() {}
+  private ClassPathUtil() { }
 
   /**
    * Returns the URLs in the class path specified by the {@code java.class.path} {@linkplain

@@ -39,7 +39,7 @@ public enum MultimapFeature implements Feature<Multimap> {
 
   private final Set<Feature<? super Multimap>> implied;
 
-  MultimapFeature(Feature<? super Multimap>... implied) {
+  MultimapFeature(final Feature<? super Multimap>... implied) {
     this.implied = Helpers.copyToSet(implied);
   }
 

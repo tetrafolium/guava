@@ -34,7 +34,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     LoadingCache<Object, Object> cache = new AbstractLoadingCache<Object, Object>() {
       @Override
-      public Object get(Object key) throws ExecutionException {
+      public Object get(final Object key) throws ExecutionException {
         Object v = valueRef.get();
         if (v == null) {
           throw new ExecutionException(cause);
@@ -43,7 +43,7 @@ public class AbstractLoadingCacheTest extends TestCase {
       }
 
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return valueRef.get();
       }
     };
@@ -65,7 +65,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     LoadingCache<Object, Object> cache = new AbstractLoadingCache<Object, Object>() {
       @Override
-      public Object get(Object key) throws ExecutionException {
+      public Object get(final Object key) throws ExecutionException {
         Object v = valueRef.get();
         if (v == null) {
           throw new ExecutionException(cause);
@@ -74,7 +74,7 @@ public class AbstractLoadingCacheTest extends TestCase {
       }
 
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return valueRef.get();
       }
     };
@@ -96,7 +96,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     LoadingCache<Object, Object> cache = new AbstractLoadingCache<Object, Object>() {
       @Override
-      public Object get(Object key) throws ExecutionException {
+      public Object get(final Object key) throws ExecutionException {
         Object v = valueRef.get();
         if (v == null) {
           throw new ExecutionError(cause);
@@ -105,7 +105,7 @@ public class AbstractLoadingCacheTest extends TestCase {
       }
 
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return valueRef.get();
       }
     };
@@ -127,7 +127,7 @@ public class AbstractLoadingCacheTest extends TestCase {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     LoadingCache<Object, Object> cache = new AbstractLoadingCache<Object, Object>() {
       @Override
-      public Object get(Object key) throws ExecutionException {
+      public Object get(final Object key) throws ExecutionException {
         Object v = valueRef.get();
         if (v == null) {
           throw new ExecutionException(cause);
@@ -136,7 +136,7 @@ public class AbstractLoadingCacheTest extends TestCase {
       }
 
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return valueRef.get();
       }
     };

@@ -68,7 +68,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class Sets {
-  private Sets() {}
+  private Sets() { }
 
   /**
    * {@link AbstractSet} substitute without the potentially-quadratic
@@ -76,12 +76,12 @@ public final class Sets {
    */
   abstract static class ImprovedAbstractSet<E> extends AbstractSet<E> {
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(final Collection<?> c) {
       return removeAllImpl(this, c);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(final Collection<?> c) {
       return super.retainAll(checkNotNull(c)); // GWT compatibility
     }
   }
@@ -100,7 +100,7 @@ public final class Sets {
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=3028
   @GwtCompatible(serializable = true)
   public static <E extends Enum<E>> ImmutableSet<E> immutableEnumSet(
-      E anElement, E... otherElements) {
+      final E anElement, final E... otherElements) {
     return ImmutableEnumSet.asImmutable(EnumSet.of(anElement, otherElements));
   }
 
@@ -117,7 +117,7 @@ public final class Sets {
    */
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=3028
   @GwtCompatible(serializable = true)
-  public static <E extends Enum<E>> ImmutableSet<E> immutableEnumSet(Iterable<E> elements) {
+  public static <E extends Enum<E>> ImmutableSet<E> immutableEnumSet(final Iterable<E> elements) {
     if (elements instanceof ImmutableEnumSet) {
       return (ImmutableEnumSet<E>) elements;
     } else if (elements instanceof Collection) {
@@ -152,7 +152,7 @@ public final class Sets {
 
     private EnumSet<E> set;
 
-    void add(E e) {
+    void add(final E e) {
       if (set == null) {
         set = EnumSet.of(e);
       } else {
@@ -160,7 +160,7 @@ public final class Sets {
       }
     }
 
-    Accumulator<E> combine(Accumulator<E> other) {
+    Accumulator<E> combine(final Accumulator<E> other) {
       if (this.set == null) {
         return other;
       } else if (other.set == null) {
@@ -194,7 +194,7 @@ public final class Sets {
    * accepts non-{@code Collection} iterables and empty iterables.
    */
   public static <E extends Enum<E>> EnumSet<E> newEnumSet(
-      Iterable<E> iterable, Class<E> elementType) {
+      final Iterable<E> iterable, final Class<E> elementType) {
     EnumSet<E> set = EnumSet.noneOf(elementType);
     Iterables.addAll(set, iterable);
     return set;
@@ -231,7 +231,7 @@ public final class Sets {
    * asList}{@code (...))}, or for creating an empty set then calling {@link Collections#addAll}.
    * This method is not actually very useful and will likely be deprecated in the future.
    */
-  public static <E> HashSet<E> newHashSet(E... elements) {
+  public static <E> HashSet<E> newHashSet(final E... elements) {
     HashSet<E> set = newHashSetWithExpectedSize(elements.length);
     Collections.addAll(set, elements);
     return set;
@@ -249,7 +249,7 @@ public final class Sets {
    *     without resizing
    * @throws IllegalArgumentException if {@code expectedSize} is negative
    */
-  public static <E> HashSet<E> newHashSetWithExpectedSize(int expectedSize) {
+  public static <E> HashSet<E> newHashSetWithExpectedSize(final int expectedSize) {
     return new HashSet<E>(Maps.capacity(expectedSize));
   }
 
@@ -271,7 +271,7 @@ public final class Sets {
    *
    * <p>Overall, this method is not very useful and will likely be deprecated in the future.
    */
-  public static <E> HashSet<E> newHashSet(Iterable<? extends E> elements) {
+  public static <E> HashSet<E> newHashSet(final Iterable<? extends E> elements) {
     return (elements instanceof Collection)
         ? new HashSet<E>(Collections2.cast(elements))
         : newHashSet(elements.iterator());
@@ -289,7 +289,7 @@ public final class Sets {
    *
    * <p>Overall, this method is not very useful and will likely be deprecated in the future.
    */
-  public static <E> HashSet<E> newHashSet(Iterator<? extends E> elements) {
+  public static <E> HashSet<E> newHashSet(final Iterator<? extends E> elements) {
     HashSet<E> set = newHashSet();
     Iterators.addAll(set, elements);
     return set;
@@ -324,7 +324,7 @@ public final class Sets {
    *      null
    * @since 15.0
    */
-  public static <E> Set<E> newConcurrentHashSet(Iterable<? extends E> elements) {
+  public static <E> Set<E> newConcurrentHashSet(final Iterable<? extends E> elements) {
     Set<E> set = newConcurrentHashSet();
     Iterables.addAll(set, elements);
     return set;
@@ -359,7 +359,7 @@ public final class Sets {
    * @throws IllegalArgumentException if {@code expectedSize} is negative
    * @since 11.0
    */
-  public static <E> LinkedHashSet<E> newLinkedHashSetWithExpectedSize(int expectedSize) {
+  public static <E> LinkedHashSet<E> newLinkedHashSetWithExpectedSize(final int expectedSize) {
     return new LinkedHashSet<E>(Maps.capacity(expectedSize));
   }
 
@@ -378,7 +378,7 @@ public final class Sets {
    * @param elements the elements that the set should contain, in order
    * @return a new {@code LinkedHashSet} containing those elements (minus duplicates)
    */
-  public static <E> LinkedHashSet<E> newLinkedHashSet(Iterable<? extends E> elements) {
+  public static <E> LinkedHashSet<E> newLinkedHashSet(final Iterable<? extends E> elements) {
     if (elements instanceof Collection) {
       return new LinkedHashSet<E>(Collections2.cast(elements));
     }
@@ -426,7 +426,7 @@ public final class Sets {
    * @param elements the elements that the set should contain
    * @return a new {@code TreeSet} containing those elements (minus duplicates)
    */
-  public static <E extends Comparable> TreeSet<E> newTreeSet(Iterable<? extends E> elements) {
+  public static <E extends Comparable> TreeSet<E> newTreeSet(final Iterable<? extends E> elements) {
     TreeSet<E> set = newTreeSet();
     Iterables.addAll(set, elements);
     return set;
@@ -448,7 +448,7 @@ public final class Sets {
    * @return a new, empty {@code TreeSet}
    * @throws NullPointerException if {@code comparator} is null
    */
-  public static <E> TreeSet<E> newTreeSet(Comparator<? super E> comparator) {
+  public static <E> TreeSet<E> newTreeSet(final Comparator<? super E> comparator) {
     return new TreeSet<E>(checkNotNull(comparator));
   }
 
@@ -488,7 +488,7 @@ public final class Sets {
    * @since 12.0
    */
   @GwtIncompatible // CopyOnWriteArraySet
-  public static <E> CopyOnWriteArraySet<E> newCopyOnWriteArraySet(Iterable<? extends E> elements) {
+  public static <E> CopyOnWriteArraySet<E> newCopyOnWriteArraySet(final Iterable<? extends E> elements) {
     // We copy elements to an ArrayList first, rather than incurring the
     // quadratic cost of adding them to the COWAS directly.
     Collection<? extends E> elementsCollection =
@@ -513,7 +513,7 @@ public final class Sets {
    * @throws IllegalArgumentException if {@code collection} is not an
    *     {@code EnumSet} instance and contains no elements
    */
-  public static <E extends Enum<E>> EnumSet<E> complementOf(Collection<E> collection) {
+  public static <E extends Enum<E>> EnumSet<E> complementOf(final Collection<E> collection) {
     if (collection instanceof EnumSet) {
       return EnumSet.complementOf((EnumSet<E>) collection);
     }
@@ -536,7 +536,7 @@ public final class Sets {
    *     values of the enum not present in the given collection
    */
   public static <E extends Enum<E>> EnumSet<E> complementOf(
-      Collection<E> collection, Class<E> type) {
+      final Collection<E> collection, final Class<E> type) {
     checkNotNull(collection);
     return (collection instanceof EnumSet)
         ? EnumSet.complementOf((EnumSet<E>) collection)
@@ -544,7 +544,7 @@ public final class Sets {
   }
 
   private static <E extends Enum<E>> EnumSet<E> makeComplementByHand(
-      Collection<E> collection, Class<E> type) {
+      final Collection<E> collection, final Class<E> type) {
     EnumSet<E> result = EnumSet.allOf(type);
     result.removeAll(collection);
     return result;
@@ -581,7 +581,7 @@ public final class Sets {
    * @deprecated Use {@link Collections#newSetFromMap} instead.
    */
   @Deprecated
-  public static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
+  public static <E> Set<E> newSetFromMap(final Map<E, Boolean> map) {
     return Collections.newSetFromMap(map);
   }
 
@@ -596,7 +596,7 @@ public final class Sets {
    * @since 2.0
    */
   public abstract static class SetView<E> extends AbstractSet<E> {
-    private SetView() {} // no subclasses but our own
+    private SetView() { } // no subclasses but our own
 
     /**
      * Returns an immutable copy of the current contents of this set view.
@@ -621,7 +621,7 @@ public final class Sets {
     // Note: S should logically extend Set<? super E> but can't due to either
     // some javac bug or some weirdness in the spec, not sure which.
     @CanIgnoreReturnValue
-    public <S extends Set<E>> S copyInto(S set) {
+    public <S extends Set<E>> S copyInto(final S set) {
       set.addAll(this);
       return set;
     }
@@ -635,7 +635,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean add(E e) {
+    public final boolean add(final E e) {
       throw new UnsupportedOperationException();
     }
 
@@ -648,7 +648,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean remove(Object object) {
+    public final boolean remove(final Object object) {
       throw new UnsupportedOperationException();
     }
 
@@ -661,7 +661,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean addAll(Collection<? extends E> newElements) {
+    public final boolean addAll(final Collection<? extends E> newElements) {
       throw new UnsupportedOperationException();
     }
 
@@ -674,7 +674,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean removeAll(Collection<?> oldElements) {
+    public final boolean removeAll(final Collection<?> oldElements) {
       throw new UnsupportedOperationException();
     }
 
@@ -687,7 +687,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean removeIf(java.util.function.Predicate<? super E> filter) {
+    public final boolean removeIf(final java.util.function.Predicate<? super E> filter) {
       throw new UnsupportedOperationException();
     }
 
@@ -700,7 +700,7 @@ public final class Sets {
     @CanIgnoreReturnValue
     @Deprecated
     @Override
-    public final boolean retainAll(Collection<?> elementsToKeep) {
+    public final boolean retainAll(final Collection<?> elementsToKeep) {
       throw new UnsupportedOperationException();
     }
 
@@ -790,12 +790,12 @@ public final class Sets {
       }
 
       @Override
-      public boolean contains(Object object) {
+      public boolean contains(final Object object) {
         return set1.contains(object) || set2.contains(object);
       }
 
       @Override
-      public <S extends Set<E>> S copyInto(S set) {
+      public <S extends Set<E>> S copyInto(final S set) {
         set.addAll(set1);
         set.addAll(set2);
         return set;
@@ -884,12 +884,12 @@ public final class Sets {
       }
 
       @Override
-      public boolean contains(Object object) {
+      public boolean contains(final Object object) {
         return set1.contains(object) && set2.contains(object);
       }
 
       @Override
-      public boolean containsAll(Collection<?> collection) {
+      public boolean containsAll(final Collection<?> collection) {
         return set1.containsAll(collection) && set2.containsAll(collection);
       }
     };
@@ -913,7 +913,7 @@ public final class Sets {
     return new SetView<E>() {
       @Override
       public UnmodifiableIterator<E> iterator() {
-        return new AbstractIterator<E>(){
+        return new AbstractIterator<E>() {
           final Iterator<E> itr = set1.iterator();
           @Override
           protected E computeNext() {
@@ -955,7 +955,7 @@ public final class Sets {
       }
 
       @Override
-      public boolean contains(Object element) {
+      public boolean contains(final Object element) {
         return set1.contains(element) && !set2.contains(element);
       }
     };
@@ -1025,7 +1025,7 @@ public final class Sets {
       }
 
       @Override
-      public boolean contains(Object element) {
+      public boolean contains(final Object element) {
         return set1.contains(element) ^ set2.contains(element);
       }
     };
@@ -1062,7 +1062,7 @@ public final class Sets {
    * being deprecated, but we gently encourage you to migrate to streams.
    */
   // TODO(kevinb): how to omit that last sentence when building GWT javadoc?
-  public static <E> Set<E> filter(Set<E> unfiltered, Predicate<? super E> predicate) {
+  public static <E> Set<E> filter(final Set<E> unfiltered, final Predicate<? super E> predicate) {
     if (unfiltered instanceof SortedSet) {
       return filter((SortedSet<E>) unfiltered, predicate);
     }
@@ -1078,12 +1078,12 @@ public final class Sets {
   }
 
   private static class FilteredSet<E> extends FilteredCollection<E> implements Set<E> {
-    FilteredSet(Set<E> unfiltered, Predicate<? super E> predicate) {
+    FilteredSet(final Set<E> unfiltered, final Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       return equalsImpl(this, object);
     }
 
@@ -1122,7 +1122,7 @@ public final class Sets {
    *
    * @since 11.0
    */
-  public static <E> SortedSet<E> filter(SortedSet<E> unfiltered, Predicate<? super E> predicate) {
+  public static <E> SortedSet<E> filter(final SortedSet<E> unfiltered, final Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredSet) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
@@ -1136,7 +1136,7 @@ public final class Sets {
 
   private static class FilteredSortedSet<E> extends FilteredSet<E> implements SortedSet<E> {
 
-    FilteredSortedSet(SortedSet<E> unfiltered, Predicate<? super E> predicate) {
+    FilteredSortedSet(final SortedSet<E> unfiltered, final Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
 
@@ -1146,18 +1146,18 @@ public final class Sets {
     }
 
     @Override
-    public SortedSet<E> subSet(E fromElement, E toElement) {
+    public SortedSet<E> subSet(final E fromElement, final E toElement) {
       return new FilteredSortedSet<E>(
           ((SortedSet<E>) unfiltered).subSet(fromElement, toElement), predicate);
     }
 
     @Override
-    public SortedSet<E> headSet(E toElement) {
+    public SortedSet<E> headSet(final E toElement) {
       return new FilteredSortedSet<E>(((SortedSet<E>) unfiltered).headSet(toElement), predicate);
     }
 
     @Override
-    public SortedSet<E> tailSet(E fromElement) {
+    public SortedSet<E> tailSet(final E fromElement) {
       return new FilteredSortedSet<E>(((SortedSet<E>) unfiltered).tailSet(fromElement), predicate);
     }
 
@@ -1211,7 +1211,7 @@ public final class Sets {
   @GwtIncompatible // NavigableSet
   @SuppressWarnings("unchecked")
   public static <E> NavigableSet<E> filter(
-      NavigableSet<E> unfiltered, Predicate<? super E> predicate) {
+      final NavigableSet<E> unfiltered, final Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredSet) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
@@ -1226,7 +1226,7 @@ public final class Sets {
   @GwtIncompatible // NavigableSet
   private static class FilteredNavigableSet<E> extends FilteredSortedSet<E>
       implements NavigableSet<E> {
-    FilteredNavigableSet(NavigableSet<E> unfiltered, Predicate<? super E> predicate) {
+    FilteredNavigableSet(final NavigableSet<E> unfiltered, final Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
 
@@ -1236,23 +1236,23 @@ public final class Sets {
 
     @Override
     @Nullable
-    public E lower(E e) {
+    public E lower(final E e) {
       return Iterators.find(unfiltered().headSet(e, false).descendingIterator(), predicate, null);
     }
 
     @Override
     @Nullable
-    public E floor(E e) {
+    public E floor(final E e) {
       return Iterators.find(unfiltered().headSet(e, true).descendingIterator(), predicate, null);
     }
 
     @Override
-    public E ceiling(E e) {
+    public E ceiling(final E e) {
       return Iterables.find(unfiltered().tailSet(e, true), predicate, null);
     }
 
     @Override
-    public E higher(E e) {
+    public E higher(final E e) {
       return Iterables.find(unfiltered().tailSet(e, false), predicate, null);
     }
 
@@ -1283,18 +1283,18 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(
-        E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+        final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
       return filter(
           unfiltered().subSet(fromElement, fromInclusive, toElement, toInclusive), predicate);
     }
 
     @Override
-    public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+    public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
       return filter(unfiltered().headSet(toElement, inclusive), predicate);
     }
 
     @Override
-    public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+    public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
       return filter(unfiltered().tailSet(fromElement, inclusive), predicate);
     }
   }
@@ -1354,7 +1354,7 @@ public final class Sets {
    *     or any element of a provided set is null
    * @since 2.0
    */
-  public static <B> Set<List<B>> cartesianProduct(List<? extends Set<? extends B>> sets) {
+  public static <B> Set<List<B>> cartesianProduct(final List<? extends Set<? extends B>> sets) {
     return CartesianSet.create(sets);
   }
 
@@ -1413,7 +1413,7 @@ public final class Sets {
    *     or any element of a provided set is null
    * @since 2.0
    */
-  public static <B> Set<List<B>> cartesianProduct(Set<? extends B>... sets) {
+  public static <B> Set<List<B>> cartesianProduct(final Set<? extends B>... sets) {
     return cartesianProduct(Arrays.asList(sets));
   }
 
@@ -1422,7 +1422,7 @@ public final class Sets {
     private final transient ImmutableList<ImmutableSet<E>> axes;
     private final transient CartesianList<E> delegate;
 
-    static <E> Set<List<E>> create(List<? extends Set<? extends E>> sets) {
+    static <E> Set<List<E>> create(final List<? extends Set<? extends E>> sets) {
       ImmutableList.Builder<ImmutableSet<E>> axesBuilder = new ImmutableList.Builder<>(sets.size());
       for (Set<? extends E> set : sets) {
         ImmutableSet<E> copy = ImmutableSet.copyOf(set);
@@ -1440,7 +1440,7 @@ public final class Sets {
             }
 
             @Override
-            public List<E> get(int index) {
+            public List<E> get(final int index) {
               return axes.get(index).asList();
             }
 
@@ -1452,7 +1452,7 @@ public final class Sets {
       return new CartesianSet<E>(axes, new CartesianList<E>(listAxes));
     }
 
-    private CartesianSet(ImmutableList<ImmutableSet<E>> axes, CartesianList<E> delegate) {
+    private CartesianSet(final ImmutableList<ImmutableSet<E>> axes, final CartesianList<E> delegate) {
       this.axes = axes;
       this.delegate = delegate;
     }
@@ -1463,7 +1463,7 @@ public final class Sets {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       // Warning: this is broken if size() == 0, so it is critical that we
       // substitute an empty ImmutableSet to the user in place of this
       if (object instanceof CartesianSet) {
@@ -1526,7 +1526,7 @@ public final class Sets {
    * @since 4.0
    */
   @GwtCompatible(serializable = false)
-  public static <E> Set<Set<E>> powerSet(Set<E> set) {
+  public static <E> Set<Set<E>> powerSet(final Set<E> set) {
     return new PowerSet<E>(set);
   }
 
@@ -1534,7 +1534,7 @@ public final class Sets {
     private final ImmutableMap<E, Integer> inputSet;
     private final int mask;
 
-    SubSet(ImmutableMap<E, Integer> inputSet, int mask) {
+    SubSet(final ImmutableMap<E, Integer> inputSet, final int mask) {
       this.inputSet = inputSet;
       this.mask = mask;
     }
@@ -1568,7 +1568,7 @@ public final class Sets {
     }
 
     @Override
-    public boolean contains(@Nullable Object o) {
+    public boolean contains(final @Nullable Object o) {
       Integer index = inputSet.get(o);
       return index != null && (mask & (1 << index)) != 0;
     }
@@ -1577,7 +1577,7 @@ public final class Sets {
   private static final class PowerSet<E> extends AbstractSet<Set<E>> {
     final ImmutableMap<E, Integer> inputSet;
 
-    PowerSet(Set<E> input) {
+    PowerSet(final Set<E> input) {
       this.inputSet = Maps.indexMap(input);
       checkArgument(
           inputSet.size() <= 30, "Too many elements to create power set: %s > 30", inputSet.size());
@@ -1604,7 +1604,7 @@ public final class Sets {
     }
 
     @Override
-    public boolean contains(@Nullable Object obj) {
+    public boolean contains(final @Nullable Object obj) {
       if (obj instanceof Set) {
         Set<?> set = (Set<?>) obj;
         return inputSet.keySet().containsAll(set);
@@ -1613,7 +1613,7 @@ public final class Sets {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj instanceof PowerSet) {
         PowerSet<?> that = (PowerSet<?>) obj;
         return inputSet.equals(that.inputSet);
@@ -1662,7 +1662,7 @@ public final class Sets {
    * @since 23.0
    */
   @Beta
-  public static <E> Set<Set<E>> combinations(Set<E> set, final int size) {
+  public static <E> Set<Set<E>> combinations(final Set<E> set, final int size) {
     final ImmutableMap<E, Integer> index = Maps.indexMap(set);
     checkNonnegative(size, "size");
     checkArgument(size <= index.size(), "size (%s) must be <= set.size() (%s)", size, index.size());
@@ -1673,7 +1673,7 @@ public final class Sets {
     }
     return new AbstractSet<Set<E>>() {
       @Override
-      public boolean contains(@Nullable Object o) {
+      public boolean contains(final @Nullable Object o) {
         if (o instanceof Set) {
           Set<?> s = (Set<?>) o;
           return s.size() == size && index.keySet().containsAll(s);
@@ -1718,7 +1718,7 @@ public final class Sets {
             final BitSet copy = (BitSet) bits.clone();
             return new AbstractSet<E>() {
               @Override
-              public boolean contains(@Nullable Object o) {
+              public boolean contains(final @Nullable Object o) {
                 Integer i = index.get(o);
                 return i != null && copy.get(i);
               }
@@ -1763,7 +1763,7 @@ public final class Sets {
   /**
    * An implementation for {@link Set#hashCode()}.
    */
-  static int hashCodeImpl(Set<?> s) {
+  static int hashCodeImpl(final Set<?> s) {
     int hashCode = 0;
     for (Object o : s) {
       hashCode += o != null ? o.hashCode() : 0;
@@ -1777,7 +1777,7 @@ public final class Sets {
   /**
    * An implementation for {@link Set#equals(Object)}.
    */
-  static boolean equalsImpl(Set<?> s, @Nullable Object object) {
+  static boolean equalsImpl(final Set<?> s, final @Nullable Object object) {
     if (s == object) {
       return true;
     }
@@ -1809,7 +1809,7 @@ public final class Sets {
    * @return an unmodifiable view of the specified navigable set
    * @since 12.0
    */
-  public static <E> NavigableSet<E> unmodifiableNavigableSet(NavigableSet<E> set) {
+  public static <E> NavigableSet<E> unmodifiableNavigableSet(final NavigableSet<E> set) {
     if (set instanceof ImmutableSortedSet || set instanceof UnmodifiableNavigableSet) {
       return set;
     }
@@ -1821,7 +1821,7 @@ public final class Sets {
     private final NavigableSet<E> delegate;
     private final SortedSet<E> unmodifiableDelegate;
 
-    UnmodifiableNavigableSet(NavigableSet<E> delegate) {
+    UnmodifiableNavigableSet(final NavigableSet<E> delegate) {
       this.delegate = checkNotNull(delegate);
       this.unmodifiableDelegate = Collections.unmodifiableSortedSet(delegate);
     }
@@ -1834,7 +1834,7 @@ public final class Sets {
     // default methods not forwarded by ForwardingSortedSet
 
     @Override
-    public boolean removeIf(java.util.function.Predicate<? super E> filter) {
+    public boolean removeIf(final java.util.function.Predicate<? super E> filter) {
       throw new UnsupportedOperationException();
     }
 
@@ -1849,27 +1849,27 @@ public final class Sets {
     }
 
     @Override
-    public void forEach(Consumer<? super E> action) {
+    public void forEach(final Consumer<? super E> action) {
       delegate.forEach(action);
     }
 
     @Override
-    public E lower(E e) {
+    public E lower(final E e) {
       return delegate.lower(e);
     }
 
     @Override
-    public E floor(E e) {
+    public E floor(final E e) {
       return delegate.floor(e);
     }
 
     @Override
-    public E ceiling(E e) {
+    public E ceiling(final E e) {
       return delegate.ceiling(e);
     }
 
     @Override
-    public E higher(E e) {
+    public E higher(final E e) {
       return delegate.higher(e);
     }
 
@@ -1902,18 +1902,18 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(
-        E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+        final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
       return unmodifiableNavigableSet(
           delegate.subSet(fromElement, fromInclusive, toElement, toInclusive));
     }
 
     @Override
-    public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+    public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
       return unmodifiableNavigableSet(delegate.headSet(toElement, inclusive));
     }
 
     @Override
-    public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+    public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
       return unmodifiableNavigableSet(delegate.tailSet(fromElement, inclusive));
     }
 
@@ -1964,14 +1964,14 @@ public final class Sets {
    * @since 13.0
    */
   @GwtIncompatible // NavigableSet
-  public static <E> NavigableSet<E> synchronizedNavigableSet(NavigableSet<E> navigableSet) {
+  public static <E> NavigableSet<E> synchronizedNavigableSet(final NavigableSet<E> navigableSet) {
     return Synchronized.navigableSet(navigableSet);
   }
 
   /**
    * Remove each element in an iterable from a set.
    */
-  static boolean removeAllImpl(Set<?> set, Iterator<?> iterator) {
+  static boolean removeAllImpl(final Set<?> set, final Iterator<?> iterator) {
     boolean changed = false;
     while (iterator.hasNext()) {
       changed |= set.remove(iterator.next());
@@ -1979,7 +1979,7 @@ public final class Sets {
     return changed;
   }
 
-  static boolean removeAllImpl(Set<?> set, Collection<?> collection) {
+  static boolean removeAllImpl(final Set<?> set, final Collection<?> collection) {
     checkNotNull(collection); // for GWT
     if (collection instanceof Multiset) {
       collection = ((Multiset<?>) collection).elementSet();
@@ -2002,7 +2002,7 @@ public final class Sets {
   static class DescendingSet<E> extends ForwardingNavigableSet<E> {
     private final NavigableSet<E> forward;
 
-    DescendingSet(NavigableSet<E> forward) {
+    DescendingSet(final NavigableSet<E> forward) {
       this.forward = forward;
     }
 
@@ -2012,22 +2012,22 @@ public final class Sets {
     }
 
     @Override
-    public E lower(E e) {
+    public E lower(final E e) {
       return forward.higher(e);
     }
 
     @Override
-    public E floor(E e) {
+    public E floor(final E e) {
       return forward.ceiling(e);
     }
 
     @Override
-    public E ceiling(E e) {
+    public E ceiling(final E e) {
       return forward.floor(e);
     }
 
     @Override
-    public E higher(E e) {
+    public E higher(final E e) {
       return forward.lower(e);
     }
 
@@ -2053,17 +2053,17 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(
-        E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+        final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
       return forward.subSet(toElement, toInclusive, fromElement, fromInclusive).descendingSet();
     }
 
     @Override
-    public NavigableSet<E> headSet(E toElement, boolean inclusive) {
+    public NavigableSet<E> headSet(final E toElement, final boolean inclusive) {
       return forward.tailSet(toElement, inclusive).descendingSet();
     }
 
     @Override
-    public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
+    public NavigableSet<E> tailSet(final E fromElement, final boolean inclusive) {
       return forward.headSet(fromElement, inclusive).descendingSet();
     }
 
@@ -2079,7 +2079,7 @@ public final class Sets {
     }
 
     // If we inline this, we get a javac error.
-    private static <T> Ordering<T> reverse(Comparator<T> forward) {
+    private static <T> Ordering<T> reverse(final Comparator<T> forward) {
       return Ordering.from(forward).reverse();
     }
 
@@ -2089,7 +2089,7 @@ public final class Sets {
     }
 
     @Override
-    public SortedSet<E> headSet(E toElement) {
+    public SortedSet<E> headSet(final E toElement) {
       return standardHeadSet(toElement);
     }
 
@@ -2099,12 +2099,12 @@ public final class Sets {
     }
 
     @Override
-    public SortedSet<E> subSet(E fromElement, E toElement) {
+    public SortedSet<E> subSet(final E fromElement, final E toElement) {
       return standardSubSet(fromElement, toElement);
     }
 
     @Override
-    public SortedSet<E> tailSet(E fromElement) {
+    public SortedSet<E> tailSet(final E fromElement) {
       return standardTailSet(fromElement);
     }
 
@@ -2119,7 +2119,7 @@ public final class Sets {
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -2149,7 +2149,7 @@ public final class Sets {
   @Beta
   @GwtIncompatible // NavigableSet
   public static <K extends Comparable<? super K>> NavigableSet<K> subSet(
-      NavigableSet<K> set, Range<K> range) {
+      final NavigableSet<K> set, final Range<K> range) {
     if (set.comparator() != null
         && set.comparator() != Ordering.natural()
         && range.hasLowerBound()

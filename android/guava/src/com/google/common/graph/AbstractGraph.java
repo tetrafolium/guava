@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 public abstract class AbstractGraph<N> extends AbstractBaseGraph<N> implements Graph<N> {
 
   @Override
-  public final boolean equals(@Nullable Object obj) {
+  public final boolean equals(final @Nullable Object obj) {
     if (obj == this) {
       return true;
     }

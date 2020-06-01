@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 final class Present<T> extends Optional<T> {
   private final T reference;
 
-  Present(T reference) {
+  Present(final T reference) {
     this.reference = reference;
   }
 
@@ -43,19 +43,19 @@ final class Present<T> extends Optional<T> {
   }
 
   @Override
-  public T or(T defaultValue) {
+  public T or(final T defaultValue) {
     checkNotNull(defaultValue, "use Optional.orNull() instead of Optional.or(null)");
     return reference;
   }
 
   @Override
-  public Optional<T> or(Optional<? extends T> secondChoice) {
+  public Optional<T> or(final Optional<? extends T> secondChoice) {
     checkNotNull(secondChoice);
     return this;
   }
 
   @Override
-  public T or(Supplier<? extends T> supplier) {
+  public T or(final Supplier<? extends T> supplier) {
     checkNotNull(supplier);
     return reference;
   }
@@ -71,7 +71,7 @@ final class Present<T> extends Optional<T> {
   }
 
   @Override
-  public <V> Optional<V> transform(Function<? super T, V> function) {
+  public <V> Optional<V> transform(final Function<? super T, V> function) {
     return new Present<V>(
         checkNotNull(
             function.apply(reference),
@@ -79,7 +79,7 @@ final class Present<T> extends Optional<T> {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Present) {
       Present<?> other = (Present<?>) object;
       return reference.equals(other.reference);

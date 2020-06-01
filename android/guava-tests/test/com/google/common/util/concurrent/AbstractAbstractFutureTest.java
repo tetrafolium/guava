@@ -417,12 +417,12 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     }
   }
 
-  private static void assertSetAsynchronously(AbstractFuture<Integer> future) {
+  private static void assertSetAsynchronously(final AbstractFuture<Integer> future) {
     assertCannotSet(future);
     assertPending(future);
   }
 
-  private static void assertPending(AbstractFuture<Integer> future) {
+  private static void assertPending(final AbstractFuture<Integer> future) {
     assertThat(future.isDone()).isFalse();
     assertThat(future.isCancelled()).isFalse();
 
@@ -434,7 +434,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     verifyTimedGetOnPendingFuture(future);
   }
 
-  private static void assertSuccessful(AbstractFuture<Integer> future, Integer expectedResult)
+  private static void assertSuccessful(final AbstractFuture<Integer> future, final Integer expectedResult)
       throws InterruptedException, TimeoutException, ExecutionException {
     assertDone(future);
     assertThat(future.isCancelled()).isFalse();
@@ -443,7 +443,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     assertThat(getDoneFromTimeoutOverload(future)).isEqualTo(expectedResult);
   }
 
-  private static void assertFailed(AbstractFuture<Integer> future, Throwable expectedException)
+  private static void assertFailed(final AbstractFuture<Integer> future, final Throwable expectedException)
       throws InterruptedException, TimeoutException {
     assertDone(future);
     assertThat(future.isCancelled()).isFalse();
@@ -463,7 +463,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     }
   }
 
-  private static void assertCancelled(AbstractFuture<Integer> future, boolean expectWasInterrupted)
+  private static void assertCancelled(final AbstractFuture<Integer> future, final boolean expectWasInterrupted)
       throws InterruptedException, TimeoutException, ExecutionException {
     assertDone(future);
     assertThat(future.isCancelled()).isTrue();
@@ -482,7 +482,7 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     }
   }
 
-  private static void assertDone(AbstractFuture<Integer> future) {
+  private static void assertDone(final AbstractFuture<Integer> future) {
     CountingRunnable listener = new CountingRunnable();
     future.addListener(listener, directExecutor());
     listener.assertRun();
@@ -492,14 +492,14 @@ abstract class AbstractAbstractFutureTest extends TestCase {
     assertCannotCancel(future);
   }
 
-  private static void assertCannotSet(AbstractFuture<Integer> future) {
+  private static void assertCannotSet(final AbstractFuture<Integer> future) {
     assertThat(future.set(99)).isFalse();
     assertThat(future.setException(new IndexOutOfBoundsException())).isFalse();
-    assertThat(future.setFuture(new AbstractFuture<Integer>() {})).isFalse();
+    assertThat(future.setFuture(new AbstractFuture<Integer>() { })).isFalse();
     assertThat(future.setFuture(immediateFuture(99))).isFalse();
   }
 
-  private static void assertCannotCancel(AbstractFuture<Integer> future) {
+  private static void assertCannotCancel(final AbstractFuture<Integer> future) {
     assertThat(future.cancel(true)).isFalse();
     assertThat(future.cancel(false)).isFalse();
   }

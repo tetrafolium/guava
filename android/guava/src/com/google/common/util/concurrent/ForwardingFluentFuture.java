@@ -36,17 +36,17 @@ import java.util.concurrent.TimeoutException;
 final class ForwardingFluentFuture<V> extends FluentFuture<V> {
   private final ListenableFuture<V> delegate;
 
-  ForwardingFluentFuture(ListenableFuture<V> delegate) {
+  ForwardingFluentFuture(final ListenableFuture<V> delegate) {
     this.delegate = checkNotNull(delegate);
   }
 
   @Override
-  public void addListener(Runnable listener, Executor executor) {
+  public void addListener(final Runnable listener, final Executor executor) {
     delegate.addListener(listener, executor);
   }
 
   @Override
-  public boolean cancel(boolean mayInterruptIfRunning) {
+  public boolean cancel(final boolean mayInterruptIfRunning) {
     return delegate.cancel(mayInterruptIfRunning);
   }
 
@@ -66,7 +66,7 @@ final class ForwardingFluentFuture<V> extends FluentFuture<V> {
   }
 
   @Override
-  public V get(long timeout, TimeUnit unit)
+  public V get(final long timeout, final TimeUnit unit)
       throws InterruptedException, ExecutionException, TimeoutException {
     return delegate.get(timeout, unit);
   }

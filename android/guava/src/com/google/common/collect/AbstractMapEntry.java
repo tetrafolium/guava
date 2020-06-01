@@ -37,12 +37,12 @@ abstract class AbstractMapEntry<K, V> implements Entry<K, V> {
   public abstract V getValue();
 
   @Override
-  public V setValue(V value) {
+  public V setValue(final V value) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Entry) {
       Entry<?, ?> that = (Entry<?, ?>) object;
       return Objects.equal(this.getKey(), that.getKey())

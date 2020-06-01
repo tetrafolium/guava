@@ -148,7 +148,7 @@ public class MapsTest extends TestCase {
 
   @GwtIncompatible // reflection
   private static void assertWontGrow(
-      int size, HashMap<Object, Object> map1, HashMap<Object, Object> map2) throws Exception {
+      final int size, final HashMap<Object, Object> map1, final HashMap<Object, Object> map2) throws Exception {
     // Only start measuring table size after the first element inserted, to
     // deal with empty-map optimization.
     map1.put(0, null);
@@ -173,7 +173,7 @@ public class MapsTest extends TestCase {
   }
 
   @GwtIncompatible // reflection
-  private static int bucketsOf(HashMap<?, ?> hashMap) throws Exception {
+  private static int bucketsOf(final HashMap<?, ?> hashMap) throws Exception {
     Field tableField = HashMap.class.getDeclaredField("table");
     tableField.setAccessible(true);
     Object[] table = (Object[]) tableField.get(hashMap);
@@ -342,7 +342,7 @@ public class MapsTest extends TestCase {
     try {
       Maps.newEnumMap(original);
       fail("Empty map must result in an IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testToStringImplWithNullKeys() throws Exception {
@@ -461,7 +461,7 @@ public class MapsTest extends TestCase {
     // exists
     Equivalence<String> caseInsensitiveEquivalence = Equivalence.equals().onResultOf(
         new Function<String, String>() {
-          @Override public String apply(String input) {
+          @Override public String apply(final String input) {
             return input.toLowerCase();
           }
         });
@@ -639,7 +639,7 @@ public class MapsTest extends TestCase {
   private static final Function<String, Integer> LENGTH_FUNCTION =
       new Function<String, Integer>() {
         @Override
-        public Integer apply(String input) {
+        public Integer apply(final String input) {
           return input.length();
         }
       };
@@ -1112,7 +1112,7 @@ public class MapsTest extends TestCase {
     try {
       Maps.fromProperties(properties);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   @GwtIncompatible // Maps.fromProperties
@@ -1128,7 +1128,7 @@ public class MapsTest extends TestCase {
     try {
       Maps.fromProperties(properties);
       fail();
-    } catch (ClassCastException expected) {}
+    } catch (ClassCastException expected) { }
   }
 
   public void testAsConverter_nominal() throws Exception {
@@ -1242,48 +1242,48 @@ public class MapsTest extends TestCase {
     try {
       unmod.put(4, "four");
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       unmod.forcePut(4, "four");
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       unmod.putAll(Collections.singletonMap(4, "four"));
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
 
     /* UnsupportedOperationException on indirect modifications. */
     BiMap<String, Number> inverse = unmod.inverse();
     try {
       inverse.put("four", 4);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       inverse.forcePut("four", 4);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     try {
       inverse.putAll(Collections.singletonMap("four", 4));
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     Set<String> values = unmod.values();
     try {
       values.remove("four");
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     Set<Map.Entry<Number, String>> entries = unmod.entrySet();
     Map.Entry<Number, String> entry = entries.iterator().next();
     try {
       entry.setValue("four");
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     @SuppressWarnings("unchecked")
     Map.Entry<Integer, String> entry2
         = (Map.Entry<Integer, String>) entries.toArray()[0];
     try {
       entry2.setValue("four");
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testImmutableEntry() {
@@ -1293,7 +1293,7 @@ public class MapsTest extends TestCase {
     try {
       e.setValue(2);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertEquals("foo=1", e.toString());
     assertEquals(101575, e.hashCode());
   }
@@ -1306,7 +1306,7 @@ public class MapsTest extends TestCase {
     try {
       e.setValue(null);
       fail("UnsupportedOperationException expected");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertEquals("null=null", e.toString());
     assertEquals(0, e.hashCode());
   }
@@ -1325,7 +1325,7 @@ public class MapsTest extends TestCase {
   private static final Predicate<String> NOT_LENGTH_3
       = new Predicate<String>() {
         @Override
-        public boolean apply(String input) {
+        public boolean apply(final String input) {
           return input == null || input.length() != 3;
         }
       };
@@ -1333,7 +1333,7 @@ public class MapsTest extends TestCase {
   private static final Predicate<Integer> EVEN
       = new Predicate<Integer>() {
         @Override
-        public boolean apply(Integer input) {
+        public boolean apply(final Integer input) {
           return input == null || input % 2 == 0;
         }
       };
@@ -1341,14 +1341,14 @@ public class MapsTest extends TestCase {
   private static final Predicate<Entry<String, Integer>> CORRECT_LENGTH
       = new Predicate<Entry<String, Integer>>() {
         @Override
-        public boolean apply(Entry<String, Integer> input) {
+        public boolean apply(final Entry<String, Integer> input) {
           return input.getKey().length() == input.getValue();
         }
       };
 
   private static final Function<Integer, Double> SQRT_FUNCTION = new Function<Integer, Double>() {
       @Override
-      public Double apply(Integer in) {
+      public Double apply(final Integer in) {
         return Math.sqrt(in);
       }
     };
@@ -1368,7 +1368,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.put("yyy", 3);
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
 
     public void testFilteredKeysIllegalPutAll() {
@@ -1381,7 +1381,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.putAll(ImmutableMap.of("c", 3, "zzz", 4, "b", 5));
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
 
       assertEquals(ImmutableMap.of("a", 1, "b", 2), filtered);
     }
@@ -1415,7 +1415,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.put("yyy", 3);
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       assertEquals(ImmutableMap.of("a", 2, "b", 4), filtered);
     }
 
@@ -1430,7 +1430,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.putAll(ImmutableMap.of("c", 4, "zzz", 5, "b", 6));
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       assertEquals(ImmutableMap.of("a", 2, "b", 4), filtered);
     }
 
@@ -1445,7 +1445,7 @@ public class MapsTest extends TestCase {
       try {
         entry.setValue(5);
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
 
       assertEquals(ImmutableMap.of("a", 2, "b", 4), filtered);
     }
@@ -1481,7 +1481,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.put("cow", 7);
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       assertEquals(ImmutableMap.of("cat", 3, "horse", 5, "chicken", 7), filtered);
     }
 
@@ -1500,7 +1500,7 @@ public class MapsTest extends TestCase {
       try {
         filtered.putAll(ImmutableMap.of("sheep", 5, "cow", 7));
         fail();
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
       assertEquals(ImmutableMap.of("cat", 3, "horse", 5, "chicken", 7), filtered);
     }
 
@@ -1522,7 +1522,7 @@ public class MapsTest extends TestCase {
       unfiltered.put("horse", 5);
       Predicate<Entry<?, ?>> predicate = new Predicate<Entry<?, ?>>() {
         @Override
-        public boolean apply(Entry<?, ?> input) {
+        public boolean apply(final Entry<?, ?> input) {
           return "cat".equals(input.getKey())
               || Integer.valueOf(2) == input.getValue();
         }
@@ -1590,7 +1590,7 @@ public class MapsTest extends TestCase {
     EntryTransformer<String, String, String> concat =
         new EntryTransformer<String, String, String>() {
           @Override
-          public String transformEntry(String key, String value) {
+          public String transformEntry(final String key, final String value) {
             return key + value;
           }
         };
@@ -1615,7 +1615,7 @@ public class MapsTest extends TestCase {
     EntryTransformer<Number, Number, Double> transformer =
         new EntryTransformer<Number, Number, Double>() {
           @Override
-          public Double transformEntry(Number key, Number value) {
+          public Double transformEntry(final Number key, final Number value) {
             return key.doubleValue() + value.doubleValue();
           }
         };
@@ -1662,7 +1662,7 @@ public class MapsTest extends TestCase {
     EntryTransformer<String, Boolean, String> flagPrefixer =
         new EntryTransformer<String, Boolean, String>() {
           @Override
-          public String transformEntry(String key, Boolean value) {
+          public String transformEntry(final String key, final Boolean value) {
             return value ? key : "no" + key;
           }
         };
@@ -1708,7 +1708,7 @@ public class MapsTest extends TestCase {
     EntryTransformer<String, String, String> concat =
         new EntryTransformer<String, String, String>() {
           @Override
-          public String transformEntry(String key, String value) {
+          public String transformEntry(final String key, final String value) {
             return key + value;
           }
         };
@@ -1728,7 +1728,7 @@ public class MapsTest extends TestCase {
     EntryTransformer<String, String, String> concat =
         new EntryTransformer<String, String, String>() {
           @Override
-          public String transformEntry(String key, String value) {
+          public String transformEntry(final String key, final String value) {
             return key + value;
           }
         };
@@ -1849,7 +1849,7 @@ public class MapsTest extends TestCase {
   }
 
   @GwtIncompatible // NavigableMap
-  void ensureNotDirectlyModifiable(NavigableMap<Integer, String> unmod) {
+  void ensureNotDirectlyModifiable(final NavigableMap<Integer, String> unmod) {
     try {
       unmod.put(4, "four");
       fail("UnsupportedOperationException expected");

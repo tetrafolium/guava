@@ -50,7 +50,7 @@ public class SegmentBenchmark {
     checkState(segment.table.length() == capacity);
   }
 
-  @Benchmark int time(int reps) {
+  @Benchmark int time(final int reps) {
     int dummy = 0;
     AtomicReferenceArray<ReferenceEntry<Object, Object>> oldTable = segment.table;
     for (int i = 0; i < reps; i++) {

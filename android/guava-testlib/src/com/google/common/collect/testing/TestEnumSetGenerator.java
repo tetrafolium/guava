@@ -35,7 +35,7 @@ public abstract class TestEnumSetGenerator implements TestSetGenerator<AnEnum> {
   }
 
   @Override
-  public Set<AnEnum> create(Object... elements) {
+  public Set<AnEnum> create(final Object... elements) {
     AnEnum[] array = new AnEnum[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -47,7 +47,7 @@ public abstract class TestEnumSetGenerator implements TestSetGenerator<AnEnum> {
   protected abstract Set<AnEnum> create(AnEnum[] elements);
 
   @Override
-  public AnEnum[] createArray(int length) {
+  public AnEnum[] createArray(final int length) {
     return new AnEnum[length];
   }
 
@@ -55,7 +55,7 @@ public abstract class TestEnumSetGenerator implements TestSetGenerator<AnEnum> {
    * Sorts the enums according to their natural ordering.
    */
   @Override
-  public List<AnEnum> order(List<AnEnum> insertionOrder) {
+  public List<AnEnum> order(final List<AnEnum> insertionOrder) {
     Collections.sort(insertionOrder);
     return insertionOrder;
   }

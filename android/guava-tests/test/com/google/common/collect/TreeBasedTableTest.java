@@ -52,7 +52,7 @@ public class TreeBasedTableTest extends AbstractTableTest {
     suite.addTest(SortedMapTestSuiteBuilder
         .using(new TestStringSortedMapGenerator() {
           @Override protected SortedMap<String, String> create(
-              Entry<String, String>[] entries) {
+              final Entry<String, String>[] entries) {
             TreeBasedTable<String, String, String> table =
                 TreeBasedTable.create();
             table.put("a", "b", "c");
@@ -123,9 +123,9 @@ public class TreeBasedTableTest extends AbstractTableTest {
   private TreeBasedTable<String, Integer, Character> sortedTable;
 
   protected TreeBasedTable<String, Integer, Character> create(
-    Comparator<? super String> rowComparator,
-    Comparator<? super Integer> columnComparator,
-    Object... data) {
+    final Comparator<? super String> rowComparator,
+    final Comparator<? super Integer> columnComparator,
+    final Object... data) {
     TreeBasedTable<String, Integer, Character> table =
         TreeBasedTable.create(rowComparator, columnComparator);
     table.put("foo", 4, 'a');
@@ -136,7 +136,7 @@ public class TreeBasedTableTest extends AbstractTableTest {
   }
 
   @Override protected TreeBasedTable<String, Integer, Character> create(
-      Object... data) {
+      final Object... data) {
     TreeBasedTable<String, Integer, Character> table = TreeBasedTable.create();
     table.put("foo", 4, 'a');
     table.put("cat", 1, 'b');

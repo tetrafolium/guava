@@ -26,7 +26,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
   private int value;
 
-  public AtomicInteger(int initialValue) {
+  public AtomicInteger(final int initialValue) {
     value = initialValue;
   }
 
@@ -37,21 +37,21 @@ public class AtomicInteger extends Number implements java.io.Serializable {
     return value;
   }
 
-  public final void set(int newValue) {
+  public final void set(final int newValue) {
     value = newValue;
   }
 
-  public final void lazySet(int newValue) {
+  public final void lazySet(final int newValue) {
     set(newValue);
   }
 
-  public final int getAndSet(int newValue) {
+  public final int getAndSet(final int newValue) {
     int current = value;
     value = newValue;
     return current;
   }
 
-  public final boolean compareAndSet(int expect, int update) {
+  public final boolean compareAndSet(final int expect, final int update) {
     if (value == expect) {
       value = update;
       return true;
@@ -68,7 +68,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
     return value--;
   }
 
-  public final int getAndAdd(int delta) {
+  public final int getAndAdd(final int delta) {
     int current = value;
     value += delta;
     return current;
@@ -82,7 +82,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
     return --value;
   }
 
-  public final int addAndGet(int delta) {
+  public final int addAndGet(final int delta) {
     value += delta;
     return value;
   }

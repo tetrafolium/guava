@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class DoubleArrayAsListTest extends TestCase {
 
-  private static List<Double> asList(Double[] values) {
+  private static List<Double> asList(final Double[] values) {
     double[] temp = new double[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class DoubleArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class DoublesAsListGenerator extends TestDoubleListGenerator {
-    @Override protected List<Double> create(Double[] elements) {
+    @Override protected List<Double> create(final Double[] elements) {
       return asList(elements);
     }
   }
 
   public static final class DoublsAsListHeadSubListGenerator extends TestDoubleListGenerator {
-    @Override protected List<Double> create(Double[] elements) {
+    @Override protected List<Double> create(final Double[] elements) {
       Double[] suffix = {Double.MIN_VALUE, Double.MAX_VALUE};
       Double[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class DoubleArrayAsListTest extends TestCase {
   }
 
   public static final class DoublesAsListTailSubListGenerator extends TestDoubleListGenerator {
-    @Override protected List<Double> create(Double[] elements) {
+    @Override protected List<Double> create(final Double[] elements) {
       Double[] prefix = {(double) 86, (double) 99};
       Double[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class DoubleArrayAsListTest extends TestCase {
   }
 
   public static final class DoublesAsListMiddleSubListGenerator extends TestDoubleListGenerator {
-    @Override protected List<Double> create(Double[] elements) {
+    @Override protected List<Double> create(final Double[] elements) {
       Double[] prefix = {Double.MIN_VALUE, Double.MAX_VALUE};
       Double[] suffix = {(double) 86, (double) 99};
       Double[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class DoubleArrayAsListTest extends TestCase {
     }
   }
 
-  private static Double[] concat(Double[] left, Double[] right) {
+  private static Double[] concat(final Double[] left, final Double[] right) {
     Double[] result = new Double[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class DoubleArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Double> create(Object... elements) {
+    public List<Double> create(final Object... elements) {
       Double[] array = new Double[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class DoubleArrayAsListTest extends TestCase {
     protected abstract List<Double> create(Double[] elements);
 
     @Override
-    public Double[] createArray(int length) {
+    public Double[] createArray(final int length) {
       return new Double[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Double> order(List<Double> insertionOrder) {
+    public List<Double> order(final List<Double> insertionOrder) {
       return insertionOrder;
     }
   }

@@ -65,72 +65,72 @@ abstract class ForwardingNetwork<N, E> extends AbstractNetwork<N, E> {
   }
 
   @Override
-  public Set<N> adjacentNodes(N node) {
+  public Set<N> adjacentNodes(final N node) {
     return delegate().adjacentNodes(node);
   }
 
   @Override
-  public Set<N> predecessors(N node) {
+  public Set<N> predecessors(final N node) {
     return delegate().predecessors(node);
   }
 
   @Override
-  public Set<N> successors(N node) {
+  public Set<N> successors(final N node) {
     return delegate().successors(node);
   }
 
   @Override
-  public Set<E> incidentEdges(N node) {
+  public Set<E> incidentEdges(final N node) {
     return delegate().incidentEdges(node);
   }
 
   @Override
-  public Set<E> inEdges(N node) {
+  public Set<E> inEdges(final N node) {
     return delegate().inEdges(node);
   }
 
   @Override
-  public Set<E> outEdges(N node) {
+  public Set<E> outEdges(final N node) {
     return delegate().outEdges(node);
   }
 
   @Override
-  public EndpointPair<N> incidentNodes(E edge) {
+  public EndpointPair<N> incidentNodes(final E edge) {
     return delegate().incidentNodes(edge);
   }
 
   @Override
-  public Set<E> adjacentEdges(E edge) {
+  public Set<E> adjacentEdges(final E edge) {
     return delegate().adjacentEdges(edge);
   }
 
   @Override
-  public int degree(N node) {
+  public int degree(final N node) {
     return delegate().degree(node);
   }
 
   @Override
-  public int inDegree(N node) {
+  public int inDegree(final N node) {
     return delegate().inDegree(node);
   }
 
   @Override
-  public int outDegree(N node) {
+  public int outDegree(final N node) {
     return delegate().outDegree(node);
   }
 
   @Override
-  public Set<E> edgesConnecting(N nodeU, N nodeV) {
+  public Set<E> edgesConnecting(final N nodeU, final N nodeV) {
     return delegate().edgesConnecting(nodeU, nodeV);
   }
 
   @Override
-  public E edgeConnectingOrNull(N nodeU, N nodeV) {
+  public E edgeConnectingOrNull(final N nodeU, final N nodeV) {
     return delegate().edgeConnectingOrNull(nodeU, nodeV);
   }
 
   @Override
-  public boolean hasEdgeConnecting(N nodeU, N nodeV) {
+  public boolean hasEdgeConnecting(final N nodeU, final N nodeV) {
     return delegate().hasEdgeConnecting(nodeU, nodeV);
   }
 }

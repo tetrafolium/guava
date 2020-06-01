@@ -51,7 +51,7 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
           // but here we have to do some serious fudging
           @Override
           @SuppressWarnings("unchecked")
-          public Map<TypeToken, Object> create(Object... elements) {
+          public Map<TypeToken, Object> create(final Object... elements) {
             ImmutableTypeToInstanceMap.Builder<Object> builder
                 = ImmutableTypeToInstanceMap.builder();
             for (Object object : elements) {
@@ -91,7 +91,7 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   }
 
   public void testParameterizedType() {
-    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() {};
+    TypeToken<ImmutableList<Integer>> type = new TypeToken<ImmutableList<Integer>>() { };
     ImmutableTypeToInstanceMap<Iterable<?>> map = ImmutableTypeToInstanceMap.<Iterable<?>>builder()
         .put(type, ImmutableList.of(1))
         .build();
@@ -102,7 +102,7 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   public void testGenericArrayType() {
     @SuppressWarnings("unchecked") // Trying to test generic array
     ImmutableList<Integer>[] array = new ImmutableList[] {ImmutableList.of(1)};
-    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() {};
+    TypeToken<ImmutableList<Integer>[]> type = new TypeToken<ImmutableList<Integer>[]>() { };
     ImmutableTypeToInstanceMap<Iterable<?>[]> map =
         ImmutableTypeToInstanceMap.<Iterable<?>[]>builder()
             .put(type, array)
@@ -113,7 +113,7 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
   }
 
   public void testWildcardType() {
-    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() {};
+    TypeToken<ImmutableList<?>> type = new TypeToken<ImmutableList<?>>() { };
     ImmutableTypeToInstanceMap<Iterable<?>> map = ImmutableTypeToInstanceMap.<Iterable<?>>builder()
             .put(type, ImmutableList.of(1))
             .build();
@@ -126,7 +126,7 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
     try {
       map.getInstance(this.<Number>anyIterableType());
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testPut_containsTypeVariable() {
@@ -135,21 +135,21 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
     try {
       builder.put(this.<Integer>anyIterableType(), ImmutableList.of(1));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   private <T> TypeToken<Iterable<T>> anyIterableType() {
-    return new TypeToken<Iterable<T>>() {};
+    return new TypeToken<Iterable<T>>() { };
   }
 
   abstract static class TestTypeToInstanceMapGenerator
       implements TestMapGenerator<TypeToken, Object> {
 
-    @Override public TypeToken[] createKeyArray(int length) {
+    @Override public TypeToken[] createKeyArray(final int length) {
       return new TypeToken[length];
     }
 
-    @Override public Object[] createValueArray(int length) {
+    @Override public Object[] createValueArray(final int length) {
       return new Object[length];
     }
 
@@ -158,23 +158,23 @@ public class ImmutableTypeToInstanceMapTest extends TestCase {
       return new SampleElements<>(
           entry(TypeToken.of(Integer.class), 0),
           entry(TypeToken.of(Number.class), 1),
-          entry(new TypeToken<ImmutableList<Integer>>() {}, ImmutableList.of(2)),
-          entry(new TypeToken<int[]>() {}, new int[] {3}),
-          entry(new TypeToken<Iterable<?>>() {}, ImmutableList.of("4")));
+          entry(new TypeToken<ImmutableList<Integer>>() { }, ImmutableList.of(2)),
+          entry(new TypeToken<int[]>() { }, new int[] {3}),
+          entry(new TypeToken<Iterable<?>>() { }, ImmutableList.of("4")));
     }
 
-    private static Entry<TypeToken, Object> entry(TypeToken<?> k, Object v) {
+    private static Entry<TypeToken, Object> entry(final TypeToken<?> k, final Object v) {
       return immutableEntry((TypeToken) k, v);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Entry<TypeToken, Object>[] createArray(int length) {
+    public Entry<TypeToken, Object>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<TypeToken, Object>> order(List<Entry<TypeToken, Object>> insertionOrder) {
+    public Iterable<Entry<TypeToken, Object>> order(final List<Entry<TypeToken, Object>> insertionOrder) {
       return insertionOrder;
     }
   }

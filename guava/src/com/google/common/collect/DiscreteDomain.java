@@ -64,25 +64,25 @@ public abstract class DiscreteDomain<C extends Comparable> {
     }
 
     @Override
-    public Integer next(Integer value) {
+    public Integer next(final Integer value) {
       int i = value;
       return (i == Integer.MAX_VALUE) ? null : i + 1;
     }
 
     @Override
-    public Integer previous(Integer value) {
+    public Integer previous(final Integer value) {
       int i = value;
       return (i == Integer.MIN_VALUE) ? null : i - 1;
     }
     
     @Override
-    Integer offset(Integer origin, long distance) {
+    Integer offset(final Integer origin, final long distance) {
       checkNonnegative(distance, "distance");
       return Ints.checkedCast(origin.longValue() + distance);
     }
 
     @Override
-    public long distance(Integer start, Integer end) {
+    public long distance(final Integer start, final Integer end) {
       return (long) end - start;
     }
 
@@ -125,19 +125,19 @@ public abstract class DiscreteDomain<C extends Comparable> {
     }
 
     @Override
-    public Long next(Long value) {
+    public Long next(final Long value) {
       long l = value;
       return (l == Long.MAX_VALUE) ? null : l + 1;
     }
 
     @Override
-    public Long previous(Long value) {
+    public Long previous(final Long value) {
       long l = value;
       return (l == Long.MIN_VALUE) ? null : l - 1;
     }
 
     @Override
-    Long offset(Long origin, long distance) {
+    Long offset(final Long origin, final long distance) {
       checkNonnegative(distance, "distance");
       long result = origin + distance;
       if (result < 0) {
@@ -147,7 +147,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
     }
 
     @Override
-    public long distance(Long start, Long end) {
+    public long distance(final Long start, final Long end) {
       long result = end - start;
       if (end > start && result < 0) { // overflow
         return Long.MAX_VALUE;
@@ -201,23 +201,23 @@ public abstract class DiscreteDomain<C extends Comparable> {
     private static final BigInteger MAX_LONG = BigInteger.valueOf(Long.MAX_VALUE);
 
     @Override
-    public BigInteger next(BigInteger value) {
+    public BigInteger next(final BigInteger value) {
       return value.add(BigInteger.ONE);
     }
 
     @Override
-    public BigInteger previous(BigInteger value) {
+    public BigInteger previous(final BigInteger value) {
       return value.subtract(BigInteger.ONE);
     }
 
     @Override
-    BigInteger offset(BigInteger origin, long distance) {
+    BigInteger offset(final BigInteger origin, final long distance) {
       checkNonnegative(distance, "distance");
       return origin.add(BigInteger.valueOf(distance));
     }
 
     @Override
-    public long distance(BigInteger start, BigInteger end) {
+    public long distance(final BigInteger start, final BigInteger end) {
       return end.subtract(start).max(MIN_LONG).min(MAX_LONG).longValue();
     }
 
@@ -241,7 +241,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
   }
 
   /** Private constructor for built-in DiscreteDomains supporting fast offset. */
-  private DiscreteDomain(boolean supportsFastOffset) {
+  private DiscreteDomain(final boolean supportsFastOffset) {
     this.supportsFastOffset = supportsFastOffset;
   }
 
@@ -249,7 +249,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
    * Returns, conceptually, "origin + distance", or equivalently, the result of calling
    * {@link #next} on {@code origin} {@code distance} times.
    */
-  C offset(C origin, long distance) {
+  C offset(final C origin, final long distance) {
     checkNonnegative(distance, "distance");
     for (long i = 0; i < distance; i++) {
       origin = next(origin);

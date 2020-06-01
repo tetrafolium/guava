@@ -36,19 +36,19 @@ final class TestUtil {
     DIRECTED;
   }
 
-  private TestUtil() {}
+  private TestUtil() { }
 
-  static void assertNodeNotInGraphErrorMessage(Throwable throwable) {
+  static void assertNodeNotInGraphErrorMessage(final Throwable throwable) {
     assertThat(throwable).hasMessageThat().startsWith(NODE_STRING);
     assertThat(throwable).hasMessageThat().contains(ERROR_ELEMENT_NOT_IN_GRAPH);
   }
 
-  static void assertEdgeNotInGraphErrorMessage(Throwable throwable) {
+  static void assertEdgeNotInGraphErrorMessage(final Throwable throwable) {
     assertThat(throwable).hasMessageThat().startsWith(EDGE_STRING);
     assertThat(throwable).hasMessageThat().contains(ERROR_ELEMENT_NOT_IN_GRAPH);
   }
 
-  static void assertStronglyEquivalent(Graph<?> graphA, Graph<?> graphB) {
+  static void assertStronglyEquivalent(final Graph<?> graphA, final Graph<?> graphB) {
     // Properties not covered by equals()
     assertThat(graphA.allowsSelfLoops()).isEqualTo(graphB.allowsSelfLoops());
     assertThat(graphA.nodeOrder()).isEqualTo(graphB.nodeOrder());
@@ -56,7 +56,7 @@ final class TestUtil {
     assertThat(graphA).isEqualTo(graphB);
   }
 
-  static void assertStronglyEquivalent(ValueGraph<?, ?> graphA, ValueGraph<?, ?> graphB) {
+  static void assertStronglyEquivalent(final ValueGraph<?, ?> graphA, final ValueGraph<?, ?> graphB) {
     // Properties not covered by equals()
     assertThat(graphA.allowsSelfLoops()).isEqualTo(graphB.allowsSelfLoops());
     assertThat(graphA.nodeOrder()).isEqualTo(graphB.nodeOrder());
@@ -64,7 +64,7 @@ final class TestUtil {
     assertThat(graphA).isEqualTo(graphB);
   }
 
-  static void assertStronglyEquivalent(Network<?, ?> networkA, Network<?, ?> networkB) {
+  static void assertStronglyEquivalent(final Network<?, ?> networkA, final Network<?, ?> networkB) {
     // Properties not covered by equals()
     assertThat(networkA.allowsParallelEdges()).isEqualTo(networkB.allowsParallelEdges());
     assertThat(networkA.allowsSelfLoops()).isEqualTo(networkB.allowsSelfLoops());
@@ -79,7 +79,7 @@ final class TestUtil {
    * contains(). Verify that these sets are consistent with the elements of their iterator.
    */
   @CanIgnoreReturnValue
-  static <T> Set<T> sanityCheckSet(Set<T> set) {
+  static <T> Set<T> sanityCheckSet(final Set<T> set) {
     assertThat(set).hasSize(Iterators.size(set.iterator()));
     for (Object element : set) {
       assertThat(set).contains(element);

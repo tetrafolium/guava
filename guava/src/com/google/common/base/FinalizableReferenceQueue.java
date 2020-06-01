@@ -210,7 +210,7 @@ public class FinalizableReferenceQueue implements Closeable {
    *
    * @return Finalizer.class
    */
-  private static Class<?> loadFinalizer(FinalizerLoader... loaders) {
+  private static Class<?> loadFinalizer(final FinalizerLoader... loaders) {
     for (FinalizerLoader loader : loaders) {
       Class<?> finalizer = loader.loadFinalizer();
       if (finalizer != null) {
@@ -324,7 +324,7 @@ public class FinalizableReferenceQueue implements Closeable {
     }
 
     /** Creates a class loader with the given base URL as its classpath. */
-    URLClassLoader newLoader(URL base) {
+    URLClassLoader newLoader(final URL base) {
       // We use the bootstrap class loader as the parent because Finalizer by design uses
       // only standard Java classes. That also means that FinalizableReferenceQueueTest
       // doesn't pick up the wrong version of the Finalizer class.
@@ -350,7 +350,7 @@ public class FinalizableReferenceQueue implements Closeable {
   /**
    * Looks up Finalizer.startFinalizer().
    */
-  static Method getStartFinalizer(Class<?> finalizer) {
+  static Method getStartFinalizer(final Class<?> finalizer) {
     try {
       return finalizer.getMethod(
           "startFinalizer", Class.class, ReferenceQueue.class, PhantomReference.class);

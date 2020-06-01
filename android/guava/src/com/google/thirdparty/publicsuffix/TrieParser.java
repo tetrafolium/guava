@@ -33,7 +33,7 @@ final class TrieParser {
    * Parses a serialized trie representation of a map of reversed public suffixes into an immutable
    * map of public suffixes.
    */
-  static ImmutableMap<String, PublicSuffixType> parseTrie(CharSequence encoded) {
+  static ImmutableMap<String, PublicSuffixType> parseTrie(final CharSequence encoded) {
     ImmutableMap.Builder<String, PublicSuffixType> builder = ImmutableMap.builder();
     int encodedLen = encoded.length();
     int idx = 0;
@@ -55,9 +55,9 @@ final class TrieParser {
    * @return The number of characters consumed from {@code encoded}.
    */
   private static int doParseTrieToBuilder(
-      List<CharSequence> stack,
-      CharSequence encoded,
-      ImmutableMap.Builder<String, PublicSuffixType> builder) {
+      final List<CharSequence> stack,
+      final CharSequence encoded,
+      final ImmutableMap.Builder<String, PublicSuffixType> builder) {
 
     int encodedLen = encoded.length();
     int idx = 0;
@@ -100,7 +100,7 @@ final class TrieParser {
     return idx;
   }
 
-  private static CharSequence reverse(CharSequence s) {
+  private static CharSequence reverse(final CharSequence s) {
     return new StringBuilder(s).reverse();
   }
 }

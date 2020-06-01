@@ -108,7 +108,7 @@ public class CacheBuilderGwtTest extends TestCase {
     CacheLoader<Integer, Integer> loader = new CacheLoader<Integer, Integer>() {
       int i = 0;
       @Override
-      public Integer load(Integer key) throws Exception {
+      public Integer load(final Integer key) throws Exception {
         return i++;
       }
 
@@ -254,7 +254,7 @@ public class CacheBuilderGwtTest extends TestCase {
 
     RemovalListener<Integer, Integer> countingListener = new RemovalListener<Integer, Integer>() {
       @Override
-      public void onRemoval(RemovalNotification<Integer, Integer> notification) {
+      public void onRemoval(final RemovalNotification<Integer, Integer> notification) {
         switch (notification.getCause()) {
           case EXPIRED:
             stats[0]++;

@@ -28,13 +28,13 @@ import javax.annotation.Nullable;
 final class DescendingImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   private final ImmutableSortedSet<E> forward;
 
-  DescendingImmutableSortedSet(ImmutableSortedSet<E> forward) {
+  DescendingImmutableSortedSet(final ImmutableSortedSet<E> forward) {
     super(Ordering.from(forward.comparator()).reverse());
     this.forward = forward;
   }
 
   @Override
-  public boolean contains(@Nullable Object object) {
+  public boolean contains(final @Nullable Object object) {
     return forward.contains(object);
   }
 
@@ -49,18 +49,18 @@ final class DescendingImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  ImmutableSortedSet<E> headSetImpl(E toElement, boolean inclusive) {
+  ImmutableSortedSet<E> headSetImpl(final E toElement, final boolean inclusive) {
     return forward.tailSet(toElement, inclusive).descendingSet();
   }
 
   @Override
   ImmutableSortedSet<E> subSetImpl(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+      final E fromElement, final boolean fromInclusive, final E toElement, final boolean toInclusive) {
     return forward.subSet(toElement, toInclusive, fromElement, fromInclusive).descendingSet();
   }
 
   @Override
-  ImmutableSortedSet<E> tailSetImpl(E fromElement, boolean inclusive) {
+  ImmutableSortedSet<E> tailSetImpl(final E fromElement, final boolean inclusive) {
     return forward.headSet(fromElement, inclusive).descendingSet();
   }
 
@@ -83,27 +83,27 @@ final class DescendingImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  public E lower(E element) {
+  public E lower(final E element) {
     return forward.higher(element);
   }
 
   @Override
-  public E floor(E element) {
+  public E floor(final E element) {
     return forward.ceiling(element);
   }
 
   @Override
-  public E ceiling(E element) {
+  public E ceiling(final E element) {
     return forward.floor(element);
   }
 
   @Override
-  public E higher(E element) {
+  public E higher(final E element) {
     return forward.lower(element);
   }
 
   @Override
-  int indexOf(@Nullable Object target) {
+  int indexOf(final @Nullable Object target) {
     int index = forward.indexOf(target);
     if (index == -1) {
       return index;

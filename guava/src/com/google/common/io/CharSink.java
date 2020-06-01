@@ -55,7 +55,7 @@ public abstract class CharSink {
   /**
    * Constructor for use by subclasses.
    */
-  protected CharSink() {}
+  protected CharSink() { }
 
   /**
    * Opens a new {@link Writer} for writing to this sink. This method returns a new, independent
@@ -90,7 +90,7 @@ public abstract class CharSink {
    *
    * @throws IOException if an I/O error while writing to this sink
    */
-  public void write(CharSequence charSequence) throws IOException {
+  public void write(final CharSequence charSequence) throws IOException {
     checkNotNull(charSequence);
 
     Closer closer = Closer.create();
@@ -112,7 +112,7 @@ public abstract class CharSink {
    *
    * @throws IOException if an I/O error occurs while writing to this sink
    */
-  public void writeLines(Iterable<? extends CharSequence> lines) throws IOException {
+  public void writeLines(final Iterable<? extends CharSequence> lines) throws IOException {
     writeLines(lines, System.getProperty("line.separator"));
   }
 
@@ -122,7 +122,7 @@ public abstract class CharSink {
    *
    * @throws IOException if an I/O error occurs while writing to this sink
    */
-  public void writeLines(Iterable<? extends CharSequence> lines, String lineSeparator)
+  public void writeLines(final Iterable<? extends CharSequence> lines, final String lineSeparator)
       throws IOException {
     writeLines(lines.iterator(), lineSeparator);
   }
@@ -136,7 +136,7 @@ public abstract class CharSink {
    * @since 22.0
    */
   @Beta
-  public void writeLines(Stream<? extends CharSequence> lines) throws IOException {
+  public void writeLines(final Stream<? extends CharSequence> lines) throws IOException {
     writeLines(lines, System.getProperty("line.separator"));
   }
 
@@ -148,12 +148,12 @@ public abstract class CharSink {
    * @since 22.0
    */
   @Beta
-  public void writeLines(Stream<? extends CharSequence> lines, String lineSeparator)
+  public void writeLines(final Stream<? extends CharSequence> lines, final String lineSeparator)
       throws IOException {
     writeLines(lines.iterator(), lineSeparator);
   }
 
-  private void writeLines(Iterator<? extends CharSequence> lines, String lineSeparator)
+  private void writeLines(final Iterator<? extends CharSequence> lines, final String lineSeparator)
       throws IOException {
     checkNotNull(lineSeparator);
 
@@ -173,7 +173,7 @@ public abstract class CharSink {
    *     this sink
    */
   @CanIgnoreReturnValue
-  public long writeFrom(Readable readable) throws IOException {
+  public long writeFrom(final Readable readable) throws IOException {
     checkNotNull(readable);
 
     Closer closer = Closer.create();

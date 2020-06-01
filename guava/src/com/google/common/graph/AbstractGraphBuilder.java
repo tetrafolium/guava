@@ -35,7 +35,7 @@ abstract class AbstractGraphBuilder<N> {
    * @param directed if true, creates an instance for graphs whose edges are each directed; if
    *     false, creates an instance for graphs whose edges are each undirected.
    */
-  AbstractGraphBuilder(boolean directed) {
+  AbstractGraphBuilder(final boolean directed) {
     this.directed = directed;
   }
 }

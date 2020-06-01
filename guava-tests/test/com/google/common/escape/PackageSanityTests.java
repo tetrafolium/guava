@@ -24,4 +24,4 @@ import com.google.common.testing.AbstractPackageSanityTests;
  * @author Ben Yu
  */
 
-public class PackageSanityTests extends AbstractPackageSanityTests {}
+public class PackageSanityTests extends AbstractPackageSanityTests { }

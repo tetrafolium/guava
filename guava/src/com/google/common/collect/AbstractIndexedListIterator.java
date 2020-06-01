@@ -48,7 +48,7 @@ abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E
    *
    * @throws IllegalArgumentException if {@code size} is negative
    */
-  protected AbstractIndexedListIterator(int size) {
+  protected AbstractIndexedListIterator(final int size) {
     this(size, 0);
   }
 
@@ -63,7 +63,7 @@ abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E
    *         greater than {@code size}
    * @throws IllegalArgumentException if {@code size} is negative
    */
-  protected AbstractIndexedListIterator(int size, int position) {
+  protected AbstractIndexedListIterator(final int size, final int position) {
     checkPositionIndex(position, size);
     this.size = size;
     this.position = position;

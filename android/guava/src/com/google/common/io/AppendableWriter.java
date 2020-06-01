@@ -41,7 +41,7 @@ class AppendableWriter extends Writer {
    *
    * @param target target to which to append output
    */
-  AppendableWriter(Appendable target) {
+  AppendableWriter(final Appendable target) {
     this.target = checkNotNull(target);
   }
 
@@ -50,7 +50,7 @@ class AppendableWriter extends Writer {
    */
 
   @Override
-  public void write(char[] cbuf, int off, int len) throws IOException {
+  public void write(final char[] cbuf, final int off, final int len) throws IOException {
     checkNotClosed();
     // It turns out that creating a new String is usually as fast, or faster
     // than wrapping cbuf in a light-weight CharSequence.
@@ -78,40 +78,40 @@ class AppendableWriter extends Writer {
    */
 
   @Override
-  public void write(int c) throws IOException {
+  public void write(final int c) throws IOException {
     checkNotClosed();
     target.append((char) c);
   }
 
   @Override
-  public void write(@Nullable String str) throws IOException {
+  public void write(final @Nullable String str) throws IOException {
     checkNotClosed();
     target.append(str);
   }
 
   @Override
-  public void write(@Nullable String str, int off, int len) throws IOException {
+  public void write(final @Nullable String str, final int off, final int len) throws IOException {
     checkNotClosed();
     // tricky: append takes start, end pair...
     target.append(str, off, off + len);
   }
 
   @Override
-  public Writer append(char c) throws IOException {
+  public Writer append(final char c) throws IOException {
     checkNotClosed();
     target.append(c);
     return this;
   }
 
   @Override
-  public Writer append(@Nullable CharSequence charSeq) throws IOException {
+  public Writer append(final @Nullable CharSequence charSeq) throws IOException {
     checkNotClosed();
     target.append(charSeq);
     return this;
   }
 
   @Override
-  public Writer append(@Nullable CharSequence charSeq, int start, int end) throws IOException {
+  public Writer append(final @Nullable CharSequence charSeq, final int start, final int end) throws IOException {
     checkNotClosed();
     target.append(charSeq, start, end);
     return this;

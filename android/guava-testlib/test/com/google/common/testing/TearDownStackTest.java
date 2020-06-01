@@ -132,7 +132,7 @@ public class TearDownStackTest extends TestCase {
     private final String id;
     boolean ran = false;
 
-    ThrowingTearDown(String id) {
+    ThrowingTearDown(final String id) {
       this.id = id;
     }
 
@@ -148,9 +148,9 @@ public class TearDownStackTest extends TestCase {
     boolean ran = false;
     Callback callback = null;
 
-    public SimpleTearDown() {}
+    public SimpleTearDown() { }
 
-    public SimpleTearDown(Callback callback) {
+    public SimpleTearDown(final Callback callback) {
       this.callback = callback;
     }
 

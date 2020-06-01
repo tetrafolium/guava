@@ -137,17 +137,17 @@ abstract class AbstractObjectCountMap<K> {
     return new KeySetView();
   }
 
-  K getKey(int index) {
+  K getKey(final int index) {
     checkElementIndex(index, size);
     return (K) keys[index];
   }
 
-  int getValue(int index) {
+  int getValue(final int index) {
     checkElementIndex(index, size);
     return values[index];
   }
 
-  Entry<K> getEntry(int index) {
+  Entry<K> getEntry(final int index) {
     checkElementIndex(index, size);
     return new MapEntry(index);
   }
@@ -160,7 +160,7 @@ abstract class AbstractObjectCountMap<K> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(final T[] a) {
       return ObjectArrays.toArrayImpl(keys, 0, size, a);
     }
 
@@ -169,7 +169,7 @@ abstract class AbstractObjectCountMap<K> {
       return new Itr<K>() {
         @SuppressWarnings("unchecked") // keys only contains Ks
         @Override
-        K getOutput(int entry) {
+        K getOutput(final int entry) {
           return (K) keys[entry];
         }
       };
@@ -185,7 +185,7 @@ abstract class AbstractObjectCountMap<K> {
     return 0;
   }
 
-  int nextIndex(int index) {
+  int nextIndex(final int index) {
     return (index + 1 < size) ? index + 1 : -1;
   }
 
@@ -246,7 +246,7 @@ abstract class AbstractObjectCountMap<K> {
   abstract class EntrySetView extends Sets.ImprovedAbstractSet<Entry<K>> {
 
     @Override
-    public boolean contains(@Nullable Object o) {
+    public boolean contains(final @Nullable Object o) {
       if (o instanceof Entry) {
         Entry<?> entry = (Entry<?>) o;
         int index = indexOf(entry.getElement());
@@ -256,7 +256,7 @@ abstract class AbstractObjectCountMap<K> {
     }
 
     @Override
-    public boolean remove(@Nullable Object o) {
+    public boolean remove(final @Nullable Object o) {
       if (o instanceof Entry) {
         Entry<?> entry = (Entry<?>) o;
         int index = indexOf(entry.getElement());
@@ -280,7 +280,7 @@ abstract class AbstractObjectCountMap<K> {
     int lastKnownIndex;
 
     @SuppressWarnings("unchecked") // keys only contains Ks
-    MapEntry(int index) {
+    MapEntry(final int index) {
       this.key = (K) keys[index];
       this.lastKnownIndex = index;
     }
@@ -307,7 +307,7 @@ abstract class AbstractObjectCountMap<K> {
 
     @SuppressWarnings("unchecked") // values only contains Vs
     @CanIgnoreReturnValue
-    public int setCount(int count) {
+    public int setCount(final int count) {
       updateLastKnownIndex();
       if (lastKnownIndex == -1) {
         put(key, count);

@@ -41,7 +41,7 @@ public class SynchronizedQueueTest extends TestCase {
     public Object mutex;
 
     @Override
-    public boolean offer(E o) {
+    public boolean offer(final E o) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.offer(o);
     }
@@ -84,7 +84,7 @@ public class SynchronizedQueueTest extends TestCase {
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
+    public boolean removeAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.removeAll(collection);
     }
@@ -96,37 +96,37 @@ public class SynchronizedQueueTest extends TestCase {
     }
 
     @Override
-    public boolean contains(Object object) {
+    public boolean contains(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.contains(object);
     }
 
     @Override
-    public boolean add(E element) {
+    public boolean add(final E element) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.add(element);
     }
 
     @Override
-    public boolean remove(Object object) {
+    public boolean remove(final Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.remove(object);
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
+    public boolean containsAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.containsAll(collection);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> collection) {
+    public boolean addAll(final Collection<? extends E> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.addAll(collection);
     }
 
     @Override
-    public boolean retainAll(Collection<?> collection) {
+    public boolean retainAll(final Collection<?> collection) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.retainAll(collection);
     }
@@ -144,7 +144,7 @@ public class SynchronizedQueueTest extends TestCase {
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       assertTrue(Thread.holdsLock(mutex));
       return delegate.toArray(array);
     }
@@ -172,6 +172,6 @@ public class SynchronizedQueueTest extends TestCase {
     create().retainAll(ImmutableList.of("foo"));
     create().size();
     create().toArray();
-    create().toArray(new String[] { "foo" });
+    create().toArray(new String[] {"foo" });
   }
 }

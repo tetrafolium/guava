@@ -48,7 +48,7 @@ final class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   }
 
   /** K-to-V constructor. */
-  RegularImmutableBiMap(Object[] alternatingKeysAndValues, int size) {
+  RegularImmutableBiMap(final Object[] alternatingKeysAndValues, final int size) {
     this.alternatingKeysAndValues = alternatingKeysAndValues;
     this.size = size;
     this.keyOffset = 0;
@@ -63,10 +63,10 @@ final class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
 
   /** V-to-K constructor. */
   private RegularImmutableBiMap(
-      int[] valueHashTable,
-      Object[] alternatingKeysAndValues,
-      int size,
-      RegularImmutableBiMap<V, K> inverse) {
+      final int[] valueHashTable,
+      final Object[] alternatingKeysAndValues,
+      final int size,
+      final RegularImmutableBiMap<V, K> inverse) {
     this.keyHashTable = valueHashTable;
     this.alternatingKeysAndValues = alternatingKeysAndValues;
     this.keyOffset = 1;
@@ -86,7 +86,7 @@ final class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
 
   @SuppressWarnings("unchecked")
   @Override
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return (V)
         RegularImmutableMap.get(keyHashTable, alternatingKeysAndValues, size, keyOffset, key);
   }

@@ -37,7 +37,7 @@ final class LittleEndianByteArray {
    * @param offset the offset into the array at which to start
    * @return a long of a concatenated 8 bytes
    */
-  static long load64(byte[] input, int offset) {
+  static long load64(final byte[] input, final int offset) {
     // We don't want this in production code as this is the most critical part of the loop.
     assert input.length >= offset + 8;
     // Delegates to the fast (unsafe) version or the fallback.
@@ -54,7 +54,7 @@ final class LittleEndianByteArray {
    * @param length the number of bytes from the input to read
    * @return a long of a concatenated 8 bytes
    */
-  static long load64Safely(byte[] input, int offset, int length) {
+  static long load64Safely(final byte[] input, final int offset, final int length) {
     long result = 0;
     // Due to the way we shift, we can stop iterating once we've run out of data, the rest
     // of the result already being filled with zeros.
@@ -75,7 +75,7 @@ final class LittleEndianByteArray {
    * @param offset the offset into the array at which to start writing
    * @param value the value to write
    */
-  static void store64(byte[] sink, int offset, long value) {
+  static void store64(final byte[] sink, final int offset, final long value) {
     // We don't want to assert in production code.
     assert offset >= 0 && offset + 8 <= sink.length;
     // Delegates to the fast (unsafe)version or the fallback.
@@ -89,7 +89,7 @@ final class LittleEndianByteArray {
    * @param offset the offset into the array at which to start
    * @return the value found in the array in the form of a long
    */
-  static int load32(byte[] source, int offset) {
+  static int load32(final byte[] source, final int offset) {
     // TODO(user): Measure the benefit of delegating this to LittleEndianBytes also.
     return (source[offset] & 0xFF)
         | ((source[offset + 1] & 0xFF) << 8)
@@ -127,25 +127,25 @@ final class LittleEndianByteArray {
     // Do *not* change the order of these constants!
     UNSAFE_LITTLE_ENDIAN {
       @Override
-      public long getLongLittleEndian(byte[] array, int offset) {
+      public long getLongLittleEndian(final byte[] array, final int offset) {
         return theUnsafe.getLong(array, (long) offset + BYTE_ARRAY_BASE_OFFSET);
       }
 
       @Override
-      public void putLongLittleEndian(byte[] array, int offset, long value) {
+      public void putLongLittleEndian(final byte[] array, final int offset, final long value) {
         theUnsafe.putLong(array, (long) offset + BYTE_ARRAY_BASE_OFFSET, value);
       }
     },
     UNSAFE_BIG_ENDIAN {
       @Override
-      public long getLongLittleEndian(byte[] array, int offset) {
+      public long getLongLittleEndian(final byte[] array, final int offset) {
         long bigEndian = theUnsafe.getLong(array, (long) offset + BYTE_ARRAY_BASE_OFFSET);
         // The hardware is big-endian, so we need to reverse the order of the bytes.
         return Long.reverseBytes(bigEndian);
       }
 
       @Override
-      public void putLongLittleEndian(byte[] array, int offset, long value) {
+      public void putLongLittleEndian(final byte[] array, final int offset, final long value) {
         // Reverse the order of the bytes before storing, since we're on big-endian hardware.
         long littleEndianValue = Long.reverseBytes(value);
         theUnsafe.putLong(array, (long) offset + BYTE_ARRAY_BASE_OFFSET, littleEndianValue);
@@ -208,7 +208,7 @@ final class LittleEndianByteArray {
   private enum JavaLittleEndianBytes implements LittleEndianBytes {
     INSTANCE {
       @Override
-      public long getLongLittleEndian(byte[] source, int offset) {
+      public long getLongLittleEndian(final byte[] source, final int offset) {
         return Longs.fromBytes(
             source[offset + 7],
             source[offset + 6],
@@ -221,7 +221,7 @@ final class LittleEndianByteArray {
       }
 
       @Override
-      public void putLongLittleEndian(byte[] sink, int offset, long value) {
+      public void putLongLittleEndian(final byte[] sink, final int offset, final long value) {
         long mask = 0xFFL;
         for (int i = 0; i < 8; mask <<= 8, i++) {
           sink[offset + i] = (byte) ((value & mask) >> (i * 8));
@@ -257,5 +257,5 @@ final class LittleEndianByteArray {
   }
 
   /** Deter instantiation of this class. */
-  private LittleEndianByteArray() {}
+  private LittleEndianByteArray() { }
 }

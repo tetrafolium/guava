@@ -52,7 +52,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingCollection() {}
+  protected ForwardingCollection() { }
 
   @Override
   protected abstract Collection<E> delegate();
@@ -69,7 +69,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
 
   @CanIgnoreReturnValue
   @Override
-  public boolean removeAll(Collection<?> collection) {
+  public boolean removeAll(final Collection<?> collection) {
     return delegate().removeAll(collection);
   }
 
@@ -79,36 +79,36 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     return delegate().contains(object);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean add(E element) {
+  public boolean add(final E element) {
     return delegate().add(element);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean remove(Object object) {
+  public boolean remove(final Object object) {
     return delegate().remove(object);
   }
 
   @Override
-  public boolean containsAll(Collection<?> collection) {
+  public boolean containsAll(final Collection<?> collection) {
     return delegate().containsAll(collection);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean addAll(Collection<? extends E> collection) {
+  public boolean addAll(final Collection<? extends E> collection) {
     return delegate().addAll(collection);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean retainAll(Collection<?> collection) {
+  public boolean retainAll(final Collection<?> collection) {
     return delegate().retainAll(collection);
   }
 
@@ -124,7 +124,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
 
   @CanIgnoreReturnValue
   @Override
-  public <T> T[] toArray(T[] array) {
+  public <T> T[] toArray(final T[] array) {
     return delegate().toArray(array);
   }
 
@@ -135,7 +135,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardContains(@Nullable Object object) {
+  protected boolean standardContains(final @Nullable Object object) {
     return Iterators.contains(iterator(), object);
   }
 
@@ -146,7 +146,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardContainsAll(Collection<?> collection) {
+  protected boolean standardContainsAll(final Collection<?> collection) {
     return Collections2.containsAllImpl(this, collection);
   }
 
@@ -157,7 +157,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardAddAll(Collection<? extends E> collection) {
+  protected boolean standardAddAll(final Collection<? extends E> collection) {
     return Iterators.addAll(this, collection.iterator());
   }
 
@@ -169,7 +169,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardRemove(@Nullable Object object) {
+  protected boolean standardRemove(final @Nullable Object object) {
     Iterator<E> iterator = iterator();
     while (iterator.hasNext()) {
       if (Objects.equal(iterator.next(), object)) {
@@ -188,7 +188,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardRemoveAll(Collection<?> collection) {
+  protected boolean standardRemoveAll(final Collection<?> collection) {
     return Iterators.removeAll(iterator(), collection);
   }
 
@@ -200,7 +200,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardRetainAll(Collection<?> collection) {
+  protected boolean standardRetainAll(final Collection<?> collection) {
     return Iterators.retainAll(iterator(), collection);
   }
 
@@ -258,7 +258,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected <T> T[] standardToArray(T[] array) {
+  protected <T> T[] standardToArray(final T[] array) {
     return ObjectArrays.toArrayImpl(this, array);
   }
 }

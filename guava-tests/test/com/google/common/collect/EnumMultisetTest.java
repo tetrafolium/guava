@@ -62,7 +62,7 @@ public class EnumMultisetTest extends TestCase {
 
   private static TestEnumMultisetGenerator enumMultisetGenerator() {
     return new TestEnumMultisetGenerator() {
-      @Override protected Multiset<AnEnum> create(AnEnum[] elements) {
+      @Override protected Multiset<AnEnum> create(final AnEnum[] elements) {
         return (elements.length == 0)
             ? EnumMultiset.create(AnEnum.class)
             : EnumMultiset.create(asList(elements));
@@ -101,7 +101,7 @@ public class EnumMultisetTest extends TestCase {
     try {
       EnumMultiset.create(empty);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateEmptyWithClass() {
@@ -111,7 +111,7 @@ public class EnumMultisetTest extends TestCase {
 
   public void testCreateEmptyWithoutClassFails() {
     try {
-      EnumMultiset.create(ImmutableList.<Color> of());
+      EnumMultiset.create(ImmutableList.<Color>of());
       fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException expected) {
     }
@@ -147,7 +147,7 @@ public class EnumMultisetTest extends TestCase {
   // create(Enum1.class) is equal to create(Enum2.class) but testEquals() expects otherwise.
   // For the same reason, we need to skip create(Iterable, Class).
   private static class EnumMultisetFactory {
-    public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements) {
+    public static <E extends Enum<E>> EnumMultiset<E> create(final Iterable<E> elements) {
       return EnumMultiset.create(elements);
     }
   }

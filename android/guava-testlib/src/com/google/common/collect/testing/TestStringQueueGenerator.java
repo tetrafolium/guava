@@ -34,7 +34,7 @@ public abstract class TestStringQueueGenerator implements TestQueueGenerator<Str
   }
 
   @Override
-  public Queue<String> create(Object... elements) {
+  public Queue<String> create(final Object... elements) {
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -46,13 +46,13 @@ public abstract class TestStringQueueGenerator implements TestQueueGenerator<Str
   protected abstract Queue<String> create(String[] elements);
 
   @Override
-  public String[] createArray(int length) {
+  public String[] createArray(final int length) {
     return new String[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public List<String> order(List<String> insertionOrder) {
+  public List<String> order(final List<String> insertionOrder) {
     return insertionOrder;
   }
 }

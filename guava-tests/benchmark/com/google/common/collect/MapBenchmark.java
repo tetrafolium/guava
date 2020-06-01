@@ -41,7 +41,7 @@ public class MapBenchmark {
 
   public enum Impl {
     Hash {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = Maps.newHashMap();
         for (Element element: keys) {
           map.put(element, element);
@@ -50,7 +50,7 @@ public class MapBenchmark {
       }
     },
     LinkedHM {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = Maps.newLinkedHashMap();
         for (Element element: keys) {
           map.put(element, element);
@@ -59,17 +59,17 @@ public class MapBenchmark {
       }
     },
     UnmodHM {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         return Collections.unmodifiableMap(Hash.create(keys));
       }
     },
     SyncHM {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         return Collections.synchronizedMap(Hash.create(keys));
       }
     },
     Tree {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = Maps.newTreeMap();
         for (Element element: keys) {
           map.put(element, element);
@@ -78,7 +78,7 @@ public class MapBenchmark {
       }
     },
     SkipList {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = new ConcurrentSkipListMap<>();
         for (Element element: keys) {
           map.put(element, element);
@@ -87,7 +87,7 @@ public class MapBenchmark {
       }
     },
     ConcurrentHM1 {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = new ConcurrentHashMap<>(keys.size(), 0.75f, 1);
         for (Element element: keys) {
           map.put(element, element);
@@ -96,7 +96,7 @@ public class MapBenchmark {
       }
     },
     ConcurrentHM16 {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = new ConcurrentHashMap<>(keys.size(), 0.75f, 16);
         for (Element element: keys) {
           map.put(element, element);
@@ -105,7 +105,7 @@ public class MapBenchmark {
       }
     },
     MapMaker1 {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = new MapMaker()
             .concurrencyLevel(1)
             .makeMap();
@@ -116,7 +116,7 @@ public class MapBenchmark {
       }
     },
     MapMaker16 {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         Map<Element, Element> map = new MapMaker()
             .concurrencyLevel(16)
             .makeMap();
@@ -127,7 +127,7 @@ public class MapBenchmark {
       }
     },
     Immutable {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         ImmutableMap.Builder<Element, Element> builder = ImmutableMap.builder();
         for (Element element : keys) {
           builder.put(element, element);
@@ -136,7 +136,7 @@ public class MapBenchmark {
       }
     },
     ImmutableSorted {
-      @Override Map<Element, Element> create(Collection<Element> keys) {
+      @Override Map<Element, Element> create(final Collection<Element> keys) {
         ImmutableSortedMap.Builder<Element, Element> builder =
             ImmutableSortedMap.naturalOrder();
         for (Element element : keys) {
@@ -188,7 +188,7 @@ public class MapBenchmark {
     this.queries = sampleData.getQueries();
   }
 
-  @Benchmark boolean get(int reps) {
+  @Benchmark boolean get(final int reps) {
     // Paranoia: acting on hearsay that accessing fields might be slow
     // Should write a benchmark to test that!
     Map<Element, Element> map = mapToTest;
@@ -205,7 +205,7 @@ public class MapBenchmark {
     return dummy;
   }
 
-  @Benchmark int createAndPopulate(int reps) {
+  @Benchmark int createAndPopulate(final int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy += impl.create(values).size();
@@ -213,7 +213,7 @@ public class MapBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean iterateWithEntrySet(int reps) {
+  @Benchmark boolean iterateWithEntrySet(final int reps) {
     Map<Element, Element> map = mapToTest;
 
     boolean dummy = false;
@@ -225,7 +225,7 @@ public class MapBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean iterateWithKeySetAndGet(int reps) {
+  @Benchmark boolean iterateWithKeySetAndGet(final int reps) {
     Map<Element, Element> map = mapToTest;
 
     boolean dummy = false;
@@ -239,7 +239,7 @@ public class MapBenchmark {
 
   }
 
-  @Benchmark boolean iterateValuesAndGet(int reps) {
+  @Benchmark boolean iterateValuesAndGet(final int reps) {
     Map<Element, Element> map = mapToTest;
 
     boolean dummy = false;

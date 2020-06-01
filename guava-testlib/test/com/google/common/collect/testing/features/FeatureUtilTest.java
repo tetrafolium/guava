@@ -60,7 +60,7 @@ public class FeatureUtilTest extends TestCase {
     }
   }
 
-  enum ExampleDerivedFeature implements Feature<ExampleDerivedInterface>{
+  enum ExampleDerivedFeature implements Feature<ExampleDerivedInterface> {
     DERIVED_FEATURE_1,
     DERIVED_FEATURE_2(ExampleBaseFeature.BASE_FEATURE_1),
     DERIVED_FEATURE_3,
@@ -73,7 +73,7 @@ public class FeatureUtilTest extends TestCase {
     private Set<Feature<? super ExampleDerivedInterface>> implied;
 
     ExampleDerivedFeature(
-        Feature<? super ExampleDerivedInterface> ... implied) {
+        final Feature<? super ExampleDerivedInterface>... implied) {
       this.implied = ImmutableSet.copyOf(implied);
     }
 

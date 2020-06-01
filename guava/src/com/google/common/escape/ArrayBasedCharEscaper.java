@@ -64,7 +64,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * @param safeMax the highest character value in the safe range
    */
   protected ArrayBasedCharEscaper(
-      Map<Character, String> replacementMap, char safeMin, char safeMax) {
+      final Map<Character, String> replacementMap, final char safeMin, final char safeMax) {
 
     this(ArrayBasedEscaperMap.create(replacementMap), safeMin, safeMax);
   }
@@ -82,7 +82,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * @param safeMin the lowest character value in the safe range
    * @param safeMax the highest character value in the safe range
    */
-  protected ArrayBasedCharEscaper(ArrayBasedEscaperMap escaperMap, char safeMin, char safeMax) {
+  protected ArrayBasedCharEscaper(final ArrayBasedEscaperMap escaperMap, final char safeMin, final char safeMax) {
 
     checkNotNull(escaperMap); // GWT specific check (do not optimize)
     this.replacements = escaperMap.getReplacementArray();
@@ -102,7 +102,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * the speed when processing strings that do not require any escaping.
    */
   @Override
-  public final String escape(String s) {
+  public final String escape(final String s) {
     checkNotNull(s); // GWT specific check (do not optimize).
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
@@ -119,7 +119,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * {@link #escapeUnsafe} is called.
    */
   @Override
-  protected final char[] escape(char c) {
+  protected final char[] escape(final char c) {
     if (c < replacementsLength) {
       char[] chars = replacements[c];
       if (chars != null) {

@@ -36,23 +36,23 @@ final class FunctionalEquivalence<F, T> extends Equivalence<F> implements Serial
   private final Function<F, ? extends T> function;
   private final Equivalence<T> resultEquivalence;
 
-  FunctionalEquivalence(Function<F, ? extends T> function, Equivalence<T> resultEquivalence) {
+  FunctionalEquivalence(final Function<F, ? extends T> function, final Equivalence<T> resultEquivalence) {
     this.function = checkNotNull(function);
     this.resultEquivalence = checkNotNull(resultEquivalence);
   }
 
   @Override
-  protected boolean doEquivalent(F a, F b) {
+  protected boolean doEquivalent(final F a, final F b) {
     return resultEquivalence.equivalent(function.apply(a), function.apply(b));
   }
 
   @Override
-  protected int doHash(F a) {
+  protected int doHash(final F a) {
     return resultEquivalence.hash(function.apply(a));
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj == this) {
       return true;
     }

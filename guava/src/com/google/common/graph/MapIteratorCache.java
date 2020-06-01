@@ -49,18 +49,18 @@ class MapIteratorCache<K, V> {
   // As such, this field must be cleared before every map mutation.
   @Nullable private transient Entry<K, V> entrySetCache;
 
-  MapIteratorCache(Map<K, V> backingMap) {
+  MapIteratorCache(final Map<K, V> backingMap) {
     this.backingMap = checkNotNull(backingMap);
   }
 
   @CanIgnoreReturnValue
-  public V put(@Nullable K key, @Nullable V value) {
+  public V put(final @Nullable K key, final @Nullable V value) {
     clearCache();
     return backingMap.put(key, value);
   }
 
   @CanIgnoreReturnValue
-  public V remove(@Nullable Object key) {
+  public V remove(final @Nullable Object key) {
     clearCache();
     return backingMap.remove(key);
   }
@@ -70,16 +70,16 @@ class MapIteratorCache<K, V> {
     backingMap.clear();
   }
 
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     V value = getIfCached(key);
     return (value != null) ? value : getWithoutCaching(key);
   }
 
-  public final V getWithoutCaching(@Nullable Object key) {
+  public final V getWithoutCaching(final @Nullable Object key) {
     return backingMap.get(key);
   }
 
-  public final boolean containsKey(@Nullable Object key) {
+  public final boolean containsKey(final @Nullable Object key) {
     return getIfCached(key) != null || backingMap.containsKey(key);
   }
 
@@ -110,7 +110,7 @@ class MapIteratorCache<K, V> {
       }
 
       @Override
-      public boolean contains(@Nullable Object key) {
+      public boolean contains(final @Nullable Object key) {
         return containsKey(key);
       }
     };
@@ -118,7 +118,7 @@ class MapIteratorCache<K, V> {
 
   // Internal methods ('protected' is still package-visible, but treat as only subclass-visible)
 
-  protected V getIfCached(@Nullable Object key) {
+  protected V getIfCached(final @Nullable Object key) {
     Entry<K, V> entry = entrySetCache; // store local reference for thread-safety
 
     // Check cache. We use == on purpose because it's cheaper and a cache miss is ok.

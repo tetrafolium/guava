@@ -258,7 +258,7 @@ public class IteratorsTest extends TestCase {
   public void testToArraySingleton() {
     Iterator<String> iterator = Collections.singletonList("a").iterator();
     String[] array = Iterators.toArray(iterator, String.class);
-    assertTrue(Arrays.equals(new String[] { "a" }, array));
+    assertTrue(Arrays.equals(new String[] {"a" }, array));
   }
 
   @GwtIncompatible // Iterators.toArray(Iterator, Class)
@@ -301,7 +301,7 @@ public class IteratorsTest extends TestCase {
     Iterator<String> filtered = Iterators.filter(unfiltered,
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             throw new AssertionFailedError("Should never be evaluated");
           }
         });
@@ -316,7 +316,7 @@ public class IteratorsTest extends TestCase {
     final List<Integer> list = asList(1, 2, 3, 4, 5);
     final Predicate<Integer> isEven = new Predicate<Integer>() {
       @Override
-      public boolean apply(Integer integer) {
+      public boolean apply(final Integer integer) {
         return integer % 2 == 0;
       }
     };
@@ -460,7 +460,7 @@ public class IteratorsTest extends TestCase {
     Iterator<Integer> result = Iterators.transform(input,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String from) {
+          public Integer apply(final String from) {
             return Integer.valueOf(from);
           }
         });
@@ -476,7 +476,7 @@ public class IteratorsTest extends TestCase {
     Iterator<Integer> iterator = Iterators.transform(input,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String from) {
+          public Integer apply(final String from) {
             return Integer.valueOf(from);
           }
         });
@@ -492,7 +492,7 @@ public class IteratorsTest extends TestCase {
     Iterator<Integer> result = Iterators.transform(input,
         new Function<String, Integer>() {
           @Override
-          public Integer apply(String from) {
+          public Integer apply(final String from) {
             return Integer.valueOf(from);
           }
         });
@@ -510,7 +510,7 @@ public class IteratorsTest extends TestCase {
     Iterator<String> result = Iterators.transform(input,
         new Function<Integer, String>() {
           @Override
-          public String apply(Integer from) {
+          public String apply(final Integer from) {
             return String.valueOf(from);
           }
         });
@@ -622,7 +622,7 @@ public class IteratorsTest extends TestCase {
     final List<E> elements;
     int modCount = 0;
 
-    PickyIterable(E... elements) {
+    PickyIterable(final E... elements) {
       this.elements = new ArrayList<E>(asList(elements));
     }
 
@@ -690,7 +690,7 @@ public class IteratorsTest extends TestCase {
     try {
       cycle.next();
       fail();
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
   }
 
   @GwtIncompatible // unreasonably slow
@@ -1113,7 +1113,7 @@ public class IteratorsTest extends TestCase {
     try {
       iterator.next();
       fail();
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
   }
 
   public void testForArrayTypical() {
@@ -1125,13 +1125,13 @@ public class IteratorsTest extends TestCase {
     try {
       iterator.remove();
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     assertEquals("bar", iterator.next());
     assertFalse(iterator.hasNext());
     try {
       iterator.next();
       fail();
-    } catch (NoSuchElementException expected) {}
+    } catch (NoSuchElementException expected) { }
   }
 
   public void testForArrayOffset() {
@@ -1145,7 +1145,7 @@ public class IteratorsTest extends TestCase {
     try {
       Iterators.forArray(array, 2, 3, 0);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
   public void testForArrayLength0() {
@@ -1156,11 +1156,11 @@ public class IteratorsTest extends TestCase {
     try {
       Iterators.forArray(array, -1, 0, 0);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       Iterators.forArray(array, 3, 0, 0);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
   @GwtIncompatible // unreasonably slow
@@ -1178,7 +1178,7 @@ public class IteratorsTest extends TestCase {
     new IteratorTester<Integer>(6, UNMODIFIABLE, asList(1, 2, 3),
         IteratorTester.KnownOrder.KNOWN_ORDER) {
       @Override protected Iterator<Integer> newTargetIterator() {
-        return Iterators.forArray(new Integer[] { 0, 1, 2, 3, 4 }, 1, 3, 0);
+        return Iterators.forArray(new Integer[] {0, 1, 2, 3, 4 }, 1, 3, 0);
       }
     }.test();
   }
@@ -1268,7 +1268,7 @@ public class IteratorsTest extends TestCase {
     assertFalse(enumer.hasMoreElements());
   }
 
-  private static Enumeration<Integer> enumerate(Integer... ints) {
+  private static Enumeration<Integer> enumerate(final Integer... ints) {
     Vector<Integer> vector = new Vector<>();
     vector.addAll(asList(ints));
     return vector.elements();
@@ -1409,7 +1409,7 @@ public class IteratorsTest extends TestCase {
     try {
       get(iterator, 2);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     assertFalse(iterator.hasNext());
   }
 
@@ -1421,7 +1421,7 @@ public class IteratorsTest extends TestCase {
     try {
       get(iterator, 5);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     assertFalse(iterator.hasNext());
   }
 
@@ -1431,7 +1431,7 @@ public class IteratorsTest extends TestCase {
     try {
       get(iterator, 0);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     assertFalse(iterator.hasNext());
   }
 
@@ -1441,7 +1441,7 @@ public class IteratorsTest extends TestCase {
     try {
       get(iterator, -1);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
   public void testGet_withDefault_basic() {
@@ -1509,7 +1509,7 @@ public class IteratorsTest extends TestCase {
     try {
       advance(iterator, -1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testFrequency() {
@@ -1547,7 +1547,7 @@ public class IteratorsTest extends TestCase {
         list.iterator(),
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("b") || s.equals("d") || s.equals("f");
           }
         }));
@@ -1556,7 +1556,7 @@ public class IteratorsTest extends TestCase {
         list.iterator(),
         new Predicate<String>() {
           @Override
-          public boolean apply(String s) {
+          public boolean apply(final String s) {
             return s.equals("x") || s.equals("y") || s.equals("z");
           }
         }));
@@ -1583,11 +1583,11 @@ public class IteratorsTest extends TestCase {
                 return delegate;
               }
 
-              @Override public boolean removeAll(Collection<?> c) {
+              @Override public boolean removeAll(final Collection<?> c) {
                 return Iterators.removeAll(iterator(), c);
               }
 
-              @Override public boolean retainAll(Collection<?> c) {
+              @Override public boolean retainAll(final Collection<?> c) {
                 return Iterators.retainAll(iterator(), c);
               }
             };

@@ -38,7 +38,7 @@ import com.google.common.annotations.GwtCompatible;
 @GwtCompatible
 public final class Ascii {
 
-  private Ascii() {}
+  private Ascii() { }
 
   /* The ASCII control characters, per RFC 20. */
   /**
@@ -399,7 +399,7 @@ public final class Ascii {
    * characters} have been converted to lowercase. All other characters are copied without
    * modification.
    */
-  public static String toLowerCase(String string) {
+  public static String toLowerCase(final String string) {
     int length = string.length();
     for (int i = 0; i < length; i++) {
       if (isUpperCase(string.charAt(i))) {
@@ -423,7 +423,7 @@ public final class Ascii {
    *
    * @since 14.0
    */
-  public static String toLowerCase(CharSequence chars) {
+  public static String toLowerCase(final CharSequence chars) {
     if (chars instanceof String) {
       return toLowerCase((String) chars);
     }
@@ -438,7 +438,7 @@ public final class Ascii {
    * If the argument is an {@linkplain #isUpperCase(char) uppercase ASCII character} returns the
    * lowercase equivalent. Otherwise returns the argument.
    */
-  public static char toLowerCase(char c) {
+  public static char toLowerCase(final char c) {
     return isUpperCase(c) ? (char) (c ^ 0x20) : c;
   }
 
@@ -447,7 +447,7 @@ public final class Ascii {
    * characters} have been converted to uppercase. All other characters are copied without
    * modification.
    */
-  public static String toUpperCase(String string) {
+  public static String toUpperCase(final String string) {
     int length = string.length();
     for (int i = 0; i < length; i++) {
       if (isLowerCase(string.charAt(i))) {
@@ -471,7 +471,7 @@ public final class Ascii {
    *
    * @since 14.0
    */
-  public static String toUpperCase(CharSequence chars) {
+  public static String toUpperCase(final CharSequence chars) {
     if (chars instanceof String) {
       return toUpperCase((String) chars);
     }
@@ -486,7 +486,7 @@ public final class Ascii {
    * If the argument is a {@linkplain #isLowerCase(char) lowercase ASCII character} returns the
    * uppercase equivalent. Otherwise returns the argument.
    */
-  public static char toUpperCase(char c) {
+  public static char toUpperCase(final char c) {
     return isLowerCase(c) ? (char) (c & 0x5f) : c;
   }
 
@@ -495,7 +495,7 @@ public final class Ascii {
    * between {@code 'a'} and {@code 'z'} inclusive. All others (including non-ASCII characters)
    * return {@code false}.
    */
-  public static boolean isLowerCase(char c) {
+  public static boolean isLowerCase(final char c) {
     // Note: This was benchmarked against the alternate expression "(char)(c - 'a') < 26" (Nov '13)
     // and found to perform at least as well, or better.
     return (c >= 'a') && (c <= 'z');
@@ -506,7 +506,7 @@ public final class Ascii {
    * between {@code 'A'} and {@code 'Z'} inclusive. All others (including non-ASCII characters)
    * return {@code false}.
    */
-  public static boolean isUpperCase(char c) {
+  public static boolean isUpperCase(final char c) {
     return (c >= 'A') && (c <= 'Z');
   }
 
@@ -542,7 +542,7 @@ public final class Ascii {
    *     {@code truncationIndicator}
    * @since 16.0
    */
-  public static String truncate(CharSequence seq, int maxLength, String truncationIndicator) {
+  public static String truncate(final CharSequence seq, final int maxLength, final String truncationIndicator) {
     checkNotNull(seq);
 
     // length to truncate the sequence to, not including the truncation indicator
@@ -591,7 +591,7 @@ public final class Ascii {
    *
    * @since 16.0
    */
-  public static boolean equalsIgnoreCase(CharSequence s1, CharSequence s2) {
+  public static boolean equalsIgnoreCase(final CharSequence s1, final CharSequence s2) {
     // Calling length() is the null pointer check (so do it before we can exit early).
     int length = s1.length();
     if (s1 == s2) {
@@ -621,7 +621,7 @@ public final class Ascii {
    * Returns the non-negative index value of the alpha character {@code c}, regardless of case. Ie,
    * 'a'/'A' returns 0 and 'z'/'Z' returns 25. Non-alpha characters return a value of 26 or greater.
    */
-  private static int getAlphaIndex(char c) {
+  private static int getAlphaIndex(final char c) {
     // Fold upper-case ASCII to lower-case and make zero-indexed and unsigned (by casting to char).
     return (char) ((c | 0x20) - 'a');
   }

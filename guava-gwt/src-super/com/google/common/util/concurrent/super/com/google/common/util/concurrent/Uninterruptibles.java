@@ -27,7 +27,7 @@ public final class Uninterruptibles {
   private Uninterruptibles() {
   }
 
-  public static <V> V getUninterruptibly(Future<V> future) throws ExecutionException {
+  public static <V> V getUninterruptibly(final Future<V> future) throws ExecutionException {
     try {
       return future.get();
     } catch (InterruptedException e) {

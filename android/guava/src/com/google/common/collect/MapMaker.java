@@ -105,7 +105,7 @@ public final class MapMaker {
    * Constructs a new {@code MapMaker} instance with default settings, including strong keys, strong
    * values, and no automatic eviction of any kind.
    */
-  public MapMaker() {}
+  public MapMaker() { }
 
   /**
    * Sets a custom {@code Equivalence} strategy for comparing keys.
@@ -116,7 +116,7 @@ public final class MapMaker {
    */
   @CanIgnoreReturnValue
   @GwtIncompatible // To be supported
-  MapMaker keyEquivalence(Equivalence<Object> equivalence) {
+  MapMaker keyEquivalence(final Equivalence<Object> equivalence) {
     checkState(keyEquivalence == null, "key equivalence was already set to %s", keyEquivalence);
     keyEquivalence = checkNotNull(equivalence);
     this.useCustomMap = true;
@@ -138,7 +138,7 @@ public final class MapMaker {
    * @throws IllegalStateException if an initial capacity was already set
    */
   @CanIgnoreReturnValue
-  public MapMaker initialCapacity(int initialCapacity) {
+  public MapMaker initialCapacity(final int initialCapacity) {
     checkState(
         this.initialCapacity == UNSET_INT,
         "initial capacity was already set to %s",
@@ -172,7 +172,7 @@ public final class MapMaker {
    * @throws IllegalStateException if a concurrency level was already set
    */
   @CanIgnoreReturnValue
-  public MapMaker concurrencyLevel(int concurrencyLevel) {
+  public MapMaker concurrencyLevel(final int concurrencyLevel) {
     checkState(
         this.concurrencyLevel == UNSET_INT,
         "concurrency level was already set to %s",
@@ -203,7 +203,7 @@ public final class MapMaker {
     return setKeyStrength(Strength.WEAK);
   }
 
-  MapMaker setKeyStrength(Strength strength) {
+  MapMaker setKeyStrength(final Strength strength) {
     checkState(keyStrength == null, "Key strength was already set to %s", keyStrength);
     keyStrength = checkNotNull(strength);
     if (strength != Strength.STRONG) {
@@ -249,7 +249,7 @@ public final class MapMaker {
     VALUE
   }
 
-  MapMaker setValueStrength(Strength strength) {
+  MapMaker setValueStrength(final Strength strength) {
     checkState(valueStrength == null, "Value strength was already set to %s", valueStrength);
     valueStrength = checkNotNull(strength);
     if (strength != Strength.STRONG) {

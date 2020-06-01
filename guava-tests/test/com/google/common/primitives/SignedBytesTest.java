@@ -63,7 +63,7 @@ public class SignedBytesTest extends TestCase {
     assertEquals(LEAST, SignedBytes.saturatedCast(Long.MIN_VALUE));
   }
 
-  private static void assertCastFails(long value) {
+  private static void assertCastFails(final long value) {
     try {
       SignedBytes.checkedCast(value);
       fail("Cast to byte should have failed: " + value);
@@ -169,14 +169,14 @@ public class SignedBytesTest extends TestCase {
     testSortDescending(new byte[] {-1, -2, 1, 2}, 1, 3, new byte[] {-1, 1, -2, 2});
   }
 
-  private static void testSortDescending(byte[] input, byte[] expectedOutput) {
+  private static void testSortDescending(final byte[] input, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     SignedBytes.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      byte[] input, int fromIndex, int toIndex, byte[] expectedOutput) {
+      final byte[] input, final int fromIndex, final int toIndex, final byte[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     SignedBytes.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));

@@ -53,7 +53,7 @@ public class EnumsTest extends TestCase {
     POODLE,
   }
 
-  private enum OtherEnum {}
+  private enum OtherEnum { }
 
   public void testGetIfPresent() {
     assertThat(Enums.getIfPresent(TestEnum.class, "CHEETO")).hasValue(TestEnum.CHEETO);
@@ -167,7 +167,7 @@ public class EnumsTest extends TestCase {
   }
 
   @Retention(RetentionPolicy.RUNTIME)
-  private @interface ExampleAnnotation {}
+  private @interface ExampleAnnotation { }
 
   private enum AnEnum {
     @ExampleAnnotation FOO,

@@ -54,7 +54,7 @@ public class FeatureUtil {
    * @param features the set of features to expand
    * @return the same set of features, expanded with all implied features
    */
-  public static Set<Feature<?>> addImpliedFeatures(Set<Feature<?>> features) {
+  public static Set<Feature<?>> addImpliedFeatures(final Set<Feature<?>> features) {
     Queue<Feature<?>> queue = new ArrayDeque<>(features);
     while (!queue.isEmpty()) {
       Feature<?> feature = queue.remove();
@@ -73,7 +73,7 @@ public class FeatureUtil {
    * @param features the set of features whose implications to find
    * @return the implied set of features
    */
-  public static Set<Feature<?>> impliedFeatures(Set<Feature<?>> features) {
+  public static Set<Feature<?>> impliedFeatures(final Set<Feature<?>> features) {
     Set<Feature<?>> impliedSet = new LinkedHashSet<>();
     Queue<Feature<?>> queue = new ArrayDeque<>(features);
     while (!queue.isEmpty()) {
@@ -95,7 +95,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are mutually
    * inconsistent.
    */
-  public static TesterRequirements getTesterRequirements(Class<?> testerClass)
+  public static TesterRequirements getTesterRequirements(final Class<?> testerClass)
       throws ConflictingRequirementsException {
     synchronized (classTesterRequirementsCache) {
       TesterRequirements requirements = classTesterRequirementsCache.get(testerClass);
@@ -115,7 +115,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are
    * mutually inconsistent.
    */
-  public static TesterRequirements getTesterRequirements(Method testerMethod)
+  public static TesterRequirements getTesterRequirements(final Method testerMethod)
       throws ConflictingRequirementsException {
     synchronized (methodTesterRequirementsCache) {
       TesterRequirements requirements = methodTesterRequirementsCache.get(testerMethod);
@@ -135,7 +135,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are mutually
    * inconsistent.
    */
-  static TesterRequirements buildTesterRequirements(Class<?> testerClass)
+  static TesterRequirements buildTesterRequirements(final Class<?> testerClass)
       throws ConflictingRequirementsException {
     final TesterRequirements declaredRequirements = buildDeclaredTesterRequirements(testerClass);
     Class<?> baseClass = testerClass.getSuperclass();
@@ -156,7 +156,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are mutually
    * inconsistent.
    */
-  static TesterRequirements buildTesterRequirements(Method testerMethod)
+  static TesterRequirements buildTesterRequirements(final Method testerMethod)
       throws ConflictingRequirementsException {
     TesterRequirements clonedClassRequirements =
         new TesterRequirements(getTesterRequirements(testerMethod.getDeclaringClass()));
@@ -173,7 +173,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are mutually
    *         inconsistent.
    */
-  public static TesterRequirements buildDeclaredTesterRequirements(AnnotatedElement classOrMethod)
+  public static TesterRequirements buildDeclaredTesterRequirements(final AnnotatedElement classOrMethod)
       throws ConflictingRequirementsException {
     TesterRequirements requirements = new TesterRequirements();
 
@@ -191,7 +191,7 @@ public class FeatureUtil {
    * @param classOrMethod a class or method whose tester annotations to find
    * @return an iterable sequence of tester annotations on the class
    */
-  public static Iterable<Annotation> getTesterAnnotations(AnnotatedElement classOrMethod) {
+  public static Iterable<Annotation> getTesterAnnotations(final AnnotatedElement classOrMethod) {
     synchronized (annotationCache) {
       List<Annotation> annotations = annotationCache.get(classOrMethod);
       if (annotations == null) {
@@ -216,7 +216,7 @@ public class FeatureUtil {
    * @throws ConflictingRequirementsException if the requirements are mutually
    *         inconsistent.
    */
-  private static TesterRequirements buildTesterRequirements(Annotation testerAnnotation)
+  private static TesterRequirements buildTesterRequirements(final Annotation testerAnnotation)
       throws ConflictingRequirementsException {
     Class<? extends Annotation> annotationClass = testerAnnotation.annotationType();
     final Feature<?>[] presentFeatures;
@@ -254,7 +254,7 @@ public class FeatureUtil {
    *         are inconsistent with the existing requirements
    */
   private static TesterRequirements incorporateRequirements(
-      TesterRequirements requirements, TesterRequirements moreRequirements, Object source)
+      final TesterRequirements requirements, final TesterRequirements moreRequirements, final Object source)
       throws ConflictingRequirementsException {
     Set<Feature<?>> presentFeatures = requirements.getPresentFeatures();
     Set<Feature<?>> absentFeatures = requirements.getAbsentFeatures();
@@ -269,11 +269,11 @@ public class FeatureUtil {
 
   // Used by incorporateRequirements() only
   private static void checkConflict(
-      String earlierRequirement,
-      Set<Feature<?>> earlierFeatures,
-      String newRequirement,
-      Set<Feature<?>> newFeatures,
-      Object source)
+      final String earlierRequirement,
+      final Set<Feature<?>> earlierFeatures,
+      final String newRequirement,
+      final Set<Feature<?>> newFeatures,
+      final Object source)
       throws ConflictingRequirementsException {
     if (!Collections.disjoint(newFeatures, earlierFeatures)) {
       throw new ConflictingRequirementsException(
@@ -292,7 +292,7 @@ public class FeatureUtil {
    * Construct a new {@link java.util.Set} that is the intersection
    * of the given sets.
    */
-  public static <T> Set<T> intersection(Set<? extends T> set1, Set<? extends T> set2) {
+  public static <T> Set<T> intersection(final Set<? extends T> set1, final Set<? extends T> set2) {
     Set<T> result = Helpers.<T>copyToSet(set1);
     result.retainAll(set2);
     return result;

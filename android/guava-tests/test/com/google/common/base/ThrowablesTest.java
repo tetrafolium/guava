@@ -423,7 +423,7 @@ public class ThrowablesTest extends TestCase {
   @GwtIncompatible // throwIfInstanceOf
   public void testThrowIfInstanceOf_CheckedSubclass() {
     try {
-      throwIfInstanceOf(new SomeCheckedException() {}, SomeCheckedException.class);
+      throwIfInstanceOf(new SomeCheckedException() { }, SomeCheckedException.class);
       fail();
     } catch (SomeCheckedException expected) {
     }
@@ -557,24 +557,24 @@ public class ThrowablesTest extends TestCase {
     }
   }
 
-  private static class SomeError extends Error {}
-  private static class SomeCheckedException extends Exception {}
-  private static class SomeOtherCheckedException extends Exception {}
-  private static class SomeUncheckedException extends RuntimeException {}
-  private static class SomeUndeclaredCheckedException extends Exception {}
+  private static class SomeError extends Error { }
+  private static class SomeCheckedException extends Exception { }
+  private static class SomeOtherCheckedException extends Exception { }
+  private static class SomeUncheckedException extends RuntimeException { }
+  private static class SomeUndeclaredCheckedException extends Exception { }
   private static class SomeChainingException extends RuntimeException {
-    public SomeChainingException(Throwable cause) {
+    public SomeChainingException(final Throwable cause) {
       super(cause);
     }
   }
 
   static class Sample {
-    void noneDeclared() {}
-    void oneDeclared() throws SomeCheckedException {}
-    void twoDeclared() throws SomeCheckedException, SomeOtherCheckedException {}
+    void noneDeclared() { }
+    void oneDeclared() throws SomeCheckedException { }
+    void twoDeclared() throws SomeCheckedException, SomeOtherCheckedException { }
   }
 
-  static void methodThatDoesntThrowAnything() {}
+  static void methodThatDoesntThrowAnything() { }
   static void methodThatThrowsError() {
     throw new SomeError();
   }
@@ -595,7 +595,7 @@ public class ThrowablesTest extends TestCase {
   @GwtIncompatible // getStackTraceAsString(Throwable)
   public void testGetStackTraceAsString() {
     class StackTraceException extends Exception {
-      StackTraceException(String message) {
+      StackTraceException(final String message) {
         super(message);
       }
     }
@@ -718,7 +718,7 @@ public class ThrowablesTest extends TestCase {
   @GwtIncompatible // used only by GwtIncompatible code
   private static class AllowSettingSecurityManagerPolicy extends Policy {
     @Override
-    public boolean implies(ProtectionDomain pd, Permission perm) {
+    public boolean implies(final ProtectionDomain pd, final Permission perm) {
       return true;
     }
   }

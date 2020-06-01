@@ -30,7 +30,7 @@ import java.util.ListIterator;
 @GwtCompatible
 abstract class TransformedListIterator<F, T> extends TransformedIterator<F, T>
     implements ListIterator<T> {
-  TransformedListIterator(ListIterator<? extends F> backingIterator) {
+  TransformedListIterator(final ListIterator<? extends F> backingIterator) {
     super(backingIterator);
   }
 
@@ -59,12 +59,12 @@ abstract class TransformedListIterator<F, T> extends TransformedIterator<F, T>
   }
 
   @Override
-  public void set(T element) {
+  public void set(final T element) {
     throw new UnsupportedOperationException();
   }
 
   @Override
-  public void add(T element) {
+  public void add(final T element) {
     throw new UnsupportedOperationException();
   }
 }

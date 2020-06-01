@@ -39,7 +39,7 @@ import junit.framework.TestCase;
 public class FilteredCollectionsTest extends TestCase {
   private static final Predicate<Integer> EVEN = new Predicate<Integer>() {
     @Override
-    public boolean apply(Integer input) {
+    public boolean apply(final Integer input) {
       return input % 2 == 0;
     }
   };
@@ -168,12 +168,12 @@ public class FilteredCollectionsTest extends TestCase {
         try {
           filtered2.add(4);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
 
         try {
           filtered2.add(3);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
 
         filtered2.add(2);
       }
@@ -371,12 +371,12 @@ public class FilteredCollectionsTest extends TestCase {
   public static final class IterablesFilterArrayListTest
       extends AbstractFilteredIterableTest<Iterable<Integer>> {
     @Override
-    Iterable<Integer> createUnfiltered(Iterable<Integer> contents) {
+    Iterable<Integer> createUnfiltered(final Iterable<Integer> contents) {
       return Lists.newArrayList(contents);
     }
 
     @Override
-    Iterable<Integer> filter(Iterable<Integer> elements, Predicate<? super Integer> predicate) {
+    Iterable<Integer> filter(final Iterable<Integer> elements, final Predicate<? super Integer> predicate) {
       return Iterables.filter(elements, predicate);
     }
   }
@@ -384,12 +384,12 @@ public class FilteredCollectionsTest extends TestCase {
   public static final class Collections2FilterArrayListTest
       extends AbstractFilteredCollectionTest<Collection<Integer>> {
     @Override
-    Collection<Integer> createUnfiltered(Iterable<Integer> contents) {
+    Collection<Integer> createUnfiltered(final Iterable<Integer> contents) {
       return Lists.newArrayList(contents);
     }
 
     @Override
-    Collection<Integer> filter(Collection<Integer> elements, Predicate<? super Integer> predicate) {
+    Collection<Integer> filter(final Collection<Integer> elements, final Predicate<? super Integer> predicate) {
       return Collections2.filter(elements, predicate);
     }
   }
@@ -397,12 +397,12 @@ public class FilteredCollectionsTest extends TestCase {
   public static final class SetsFilterHashSetTest
       extends AbstractFilteredSetTest<Set<Integer>> {
     @Override
-    Set<Integer> createUnfiltered(Iterable<Integer> contents) {
+    Set<Integer> createUnfiltered(final Iterable<Integer> contents) {
       return Sets.newHashSet(contents);
     }
 
     @Override
-    Set<Integer> filter(Set<Integer> elements, Predicate<? super Integer> predicate) {
+    Set<Integer> filter(final Set<Integer> elements, final Predicate<? super Integer> predicate) {
       return Sets.filter(elements, predicate);
     }
   }
@@ -410,7 +410,7 @@ public class FilteredCollectionsTest extends TestCase {
   public static final class SetsFilterSortedSetTest
       extends AbstractFilteredSortedSetTest<SortedSet<Integer>> {
     @Override
-    SortedSet<Integer> createUnfiltered(Iterable<Integer> contents) {
+    SortedSet<Integer> createUnfiltered(final Iterable<Integer> contents) {
       final TreeSet<Integer> result = Sets.newTreeSet(contents);
       // we have to make the result not Navigable
       return new ForwardingSortedSet<Integer>() {
@@ -422,20 +422,20 @@ public class FilteredCollectionsTest extends TestCase {
     }
 
     @Override
-    SortedSet<Integer> filter(SortedSet<Integer> elements, Predicate<? super Integer> predicate) {
+    SortedSet<Integer> filter(final SortedSet<Integer> elements, final Predicate<? super Integer> predicate) {
       return Sets.filter(elements, predicate);
     }
   }
 
   public static final class SetsFilterNavigableSetTest extends AbstractFilteredNavigableSetTest {
     @Override
-    NavigableSet<Integer> createUnfiltered(Iterable<Integer> contents) {
+    NavigableSet<Integer> createUnfiltered(final Iterable<Integer> contents) {
       return Sets.newTreeSet(contents);
     }
 
     @Override
     NavigableSet<Integer> filter(
-        NavigableSet<Integer> elements, Predicate<? super Integer> predicate) {
+        final NavigableSet<Integer> elements, final Predicate<? super Integer> predicate) {
       return Sets.filter(elements, predicate);
     }
   }

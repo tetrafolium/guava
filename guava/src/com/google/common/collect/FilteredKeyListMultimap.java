@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 @GwtCompatible
 final class FilteredKeyListMultimap<K, V> extends FilteredKeyMultimap<K, V>
     implements ListMultimap<K, V> {
-  FilteredKeyListMultimap(ListMultimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
+  FilteredKeyListMultimap(final ListMultimap<K, V> unfiltered, final Predicate<? super K> keyPredicate) {
     super(unfiltered, keyPredicate);
   }
 
@@ -39,17 +39,17 @@ final class FilteredKeyListMultimap<K, V> extends FilteredKeyMultimap<K, V>
   }
 
   @Override
-  public List<V> get(K key) {
+  public List<V> get(final K key) {
     return (List<V>) super.get(key);
   }
 
   @Override
-  public List<V> removeAll(@Nullable Object key) {
+  public List<V> removeAll(final @Nullable Object key) {
     return (List<V>) super.removeAll(key);
   }
 
   @Override
-  public List<V> replaceValues(K key, Iterable<? extends V> values) {
+  public List<V> replaceValues(final K key, final Iterable<? extends V> values) {
     return (List<V>) super.replaceValues(key, values);
   }
 }

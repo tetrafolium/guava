@@ -41,18 +41,18 @@ class LegacyComparable implements Comparable, Serializable {
 
   private final String value;
 
-  LegacyComparable(String value) {
+  LegacyComparable(final String value) {
     this.value = value;
   }
 
   @Override
-  public int compareTo(Object object) {
+  public int compareTo(final Object object) {
     // This method is spec'd to throw CCE if object is of the wrong type
     LegacyComparable that = (LegacyComparable) object;
     return this.value.compareTo(that.value);
   }
 
-  @Override public boolean equals(Object object) {
+  @Override public boolean equals(final Object object) {
     if (object instanceof LegacyComparable) {
       LegacyComparable that = (LegacyComparable) object;
       return this.value.equals(that.value);

@@ -30,7 +30,7 @@ public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
     extends NavigableMapTestSuiteBuilder<K, V> {
 
   public static <K, V> ConcurrentNavigableMapTestSuiteBuilder<K, V> using(
-      TestSortedMapGenerator<K, V> generator) {
+      final TestSortedMapGenerator<K, V> generator) {
     ConcurrentNavigableMapTestSuiteBuilder<K, V> result =
         new ConcurrentNavigableMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
@@ -45,7 +45,7 @@ public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
   }
 
   @Override
-  NavigableMapTestSuiteBuilder<K, V> subSuiteUsing(TestSortedMapGenerator<K, V> generator) {
+  NavigableMapTestSuiteBuilder<K, V> subSuiteUsing(final TestSortedMapGenerator<K, V> generator) {
     return using(generator);
   }
 }

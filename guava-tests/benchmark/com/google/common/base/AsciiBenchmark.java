@@ -70,7 +70,7 @@ public class AsciiBenchmark {
     return NONALPHA.charAt(random.nextInt(NONALPHA.length()));
   }
 
-  @Benchmark int asciiStringToUpperCase(int reps) {
+  @Benchmark int asciiStringToUpperCase(final int reps) {
     String string = noWorkToDo
         ? Ascii.toUpperCase(testString)
         : testString;
@@ -82,7 +82,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark int asciiCharSequenceToUpperCase(int reps) {
+  @Benchmark int asciiCharSequenceToUpperCase(final int reps) {
     String string = noWorkToDo
         ? charSequenceToUpperCase(testString)
         : testString;
@@ -94,7 +94,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark int stringToUpperCase(int reps) {
+  @Benchmark int stringToUpperCase(final int reps) {
     String string = noWorkToDo
         ? testString.toUpperCase(Locale.US)
         : testString;
@@ -106,13 +106,13 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean equalsIgnoreCaseCharSequence(int reps) {
+  @Benchmark boolean equalsIgnoreCaseCharSequence(final int reps) {
     // This benchmark has no concept of "noWorkToDo".
     String upperString = testString.toUpperCase();
     CharSequence testSeq = new StringBuilder(testString);
     CharSequence upperSeq = new StringBuilder(upperString);
-    CharSequence[] lhs = new CharSequence[] { testString, testSeq, testString, testSeq };
-    CharSequence[] rhs = new CharSequence[] { upperString, upperString, upperSeq, upperSeq };
+    CharSequence[] lhs = new CharSequence[] {testString, testSeq, testString, testSeq };
+    CharSequence[] rhs = new CharSequence[] {upperString, upperString, upperSeq, upperSeq };
 
     boolean dummy = false;
     for (int i = 0; i < reps; i++) {
@@ -121,7 +121,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean equalsIgnoreCaseStringOnly(int reps) {
+  @Benchmark boolean equalsIgnoreCaseStringOnly(final int reps) {
     // This benchmark has no concept of "noWorkToDo".
     String lhs = testString;
     String rhs = testString.toUpperCase();
@@ -133,7 +133,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean equalsIgnoreCaseJDK(int reps) {
+  @Benchmark boolean equalsIgnoreCaseJDK(final int reps) {
     // This benchmark has no concept of "noWorkToDo".
     String lhs = testString;
     String rhs = testString.toUpperCase();
@@ -145,7 +145,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  @Benchmark boolean isUpperCase(int reps) {
+  @Benchmark boolean isUpperCase(final int reps) {
     // This benchmark has no concept of "noWorkToDo".
     char[] chars = testString.toCharArray();
 
@@ -158,7 +158,7 @@ public class AsciiBenchmark {
     return dummy;
   }
 
-  static String charSequenceToUpperCase(CharSequence chars) {
+  static String charSequenceToUpperCase(final CharSequence chars) {
     char[] newChars = new char[chars.length()];
     for (int i = 0; i < newChars.length; i++) {
       newChars[i] = Ascii.toUpperCase(chars.charAt(i));

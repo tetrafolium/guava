@@ -42,7 +42,7 @@ public class ForwardingQueueTest extends TestCase {
       extends ForwardingQueue<T> {
     private final Queue<T> backingQueue;
 
-    StandardImplForwardingQueue(Queue<T> backingQueue) {
+    StandardImplForwardingQueue(final Queue<T> backingQueue) {
       this.backingQueue = backingQueue;
     }
 
@@ -50,7 +50,7 @@ public class ForwardingQueueTest extends TestCase {
       return backingQueue;
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -58,23 +58,23 @@ public class ForwardingQueueTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -82,7 +82,7 @@ public class ForwardingQueueTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -90,7 +90,7 @@ public class ForwardingQueueTest extends TestCase {
       return standardToString();
     }
 
-    @Override public boolean offer(T o) {
+    @Override public boolean offer(final T o) {
       return standardOffer(o);
     }
 
@@ -112,7 +112,7 @@ public class ForwardingQueueTest extends TestCase {
                 new TestStringQueueGenerator() {
 
                   @Override
-                  protected Queue<String> create(String[] elements) {
+                  protected Queue<String> create(final String[] elements) {
                     return new StandardImplForwardingQueue<>(Lists.newLinkedList(asList(elements)));
                   }
                 })
@@ -130,7 +130,7 @@ public class ForwardingQueueTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(Queue.class, new Function<Queue, Queue>() {
-          @Override public Queue apply(Queue delegate) {
+          @Override public Queue apply(final Queue delegate) {
             return wrap(delegate);
           }
         });

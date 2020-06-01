@@ -42,7 +42,7 @@ public class ForwardingListTest extends TestCase {
   static final class StandardImplForwardingList<T> extends ForwardingList<T> {
     private final List<T> backingList;
 
-    StandardImplForwardingList(List<T> backingList) {
+    StandardImplForwardingList(final List<T> backingList) {
       this.backingList = backingList;
     }
 
@@ -50,11 +50,11 @@ public class ForwardingListTest extends TestCase {
       return backingList;
     }
 
-    @Override public boolean add(T element) {
+    @Override public boolean add(final T element) {
       return standardAdd(element);
     }
 
-    @Override public boolean addAll(Collection<? extends T> collection) {
+    @Override public boolean addAll(final Collection<? extends T> collection) {
       return standardAddAll(collection);
     }
 
@@ -62,23 +62,23 @@ public class ForwardingListTest extends TestCase {
       standardClear();
     }
 
-    @Override public boolean contains(Object object) {
+    @Override public boolean contains(final Object object) {
       return standardContains(object);
     }
 
-    @Override public boolean containsAll(Collection<?> collection) {
+    @Override public boolean containsAll(final Collection<?> collection) {
       return standardContainsAll(collection);
     }
 
-    @Override public boolean remove(Object object) {
+    @Override public boolean remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean removeAll(Collection<?> collection) {
+    @Override public boolean removeAll(final Collection<?> collection) {
       return standardRemoveAll(collection);
     }
 
-    @Override public boolean retainAll(Collection<?> collection) {
+    @Override public boolean retainAll(final Collection<?> collection) {
       return standardRetainAll(collection);
     }
 
@@ -86,7 +86,7 @@ public class ForwardingListTest extends TestCase {
       return standardToArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -95,11 +95,11 @@ public class ForwardingListTest extends TestCase {
     }
 
     @Override public boolean addAll(
-        int index, Collection<? extends T> elements) {
+        final int index, final Collection<? extends T> elements) {
       return standardAddAll(index, elements);
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -107,11 +107,11 @@ public class ForwardingListTest extends TestCase {
       return standardHashCode();
     }
 
-    @Override public int indexOf(Object element) {
+    @Override public int indexOf(final Object element) {
       return standardIndexOf(element);
     }
 
-    @Override public int lastIndexOf(Object element) {
+    @Override public int lastIndexOf(final Object element) {
       return standardLastIndexOf(element);
     }
 
@@ -123,11 +123,11 @@ public class ForwardingListTest extends TestCase {
       return listIterator(0);
     }
 
-    @Override public ListIterator<T> listIterator(int index) {
+    @Override public ListIterator<T> listIterator(final int index) {
       return standardListIterator(index);
     }
 
-    @Override public List<T> subList(int fromIndex, int toIndex) {
+    @Override public List<T> subList(final int fromIndex, final int toIndex) {
       return standardSubList(fromIndex, toIndex);
     }
   }
@@ -141,7 +141,7 @@ public class ForwardingListTest extends TestCase {
                 new TestStringListGenerator() {
 
                   @Override
-                  protected List<String> create(String[] elements) {
+                  protected List<String> create(final String[] elements) {
                     return new StandardImplForwardingList<>(Lists.newArrayList(elements));
                   }
                 })
@@ -156,7 +156,7 @@ public class ForwardingListTest extends TestCase {
                 new TestStringListGenerator() {
 
                   @Override
-                  protected List<String> create(String[] elements) {
+                  protected List<String> create(final String[] elements) {
                     return new StandardImplForwardingList<>(ImmutableList.copyOf(elements));
                   }
                 })
@@ -171,7 +171,7 @@ public class ForwardingListTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(List.class, new Function<List, List>() {
-          @Override public List apply(List delegate) {
+          @Override public List apply(final List delegate) {
             return wrap(delegate);
           }
         });

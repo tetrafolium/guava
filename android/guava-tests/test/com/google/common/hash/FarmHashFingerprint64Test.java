@@ -142,12 +142,12 @@ public class FarmHashFingerprint64Test extends TestCase {
   }
 
   /** Convenience method to compute a fingerprint on a full bytes array. */
-  private static long fingerprint(byte[] bytes) {
+  private static long fingerprint(final byte[] bytes) {
     return fingerprint(bytes, bytes.length);
   }
 
   /** Convenience method to compute a fingerprint on a subset of a byte array. */
-  private static long fingerprint(byte[] bytes, int length) {
+  private static long fingerprint(final byte[] bytes, final int length) {
     return HASH_FN.hashBytes(bytes, 0, length).asLong();
   }
 
@@ -187,13 +187,13 @@ public class FarmHashFingerprint64Test extends TestCase {
     assertEquals(0x7a1d67c50ec7e167L, h);
   }
 
-  private static long remix(long h) {
+  private static long remix(final long h) {
     h ^= h >>> 41;
     h *= 949921979;
     return h;
   }
 
-  private static byte getChar(long h) {
+  private static byte getChar(final long h) {
     return (byte) ('a' + ((h & 0xfffff) % 26));
   }
 }

@@ -57,7 +57,7 @@ import java.util.TreeMap;
 // None of these classes are instantiated, let alone serialized:
 @SuppressWarnings("serial")
 final class GwtSerializationDependencies {
-  private GwtSerializationDependencies() {}
+  private GwtSerializationDependencies() { }
 
   static final class ImmutableListMultimapDependencies<K, V> extends ImmutableListMultimap<K, V> {
     K key;
@@ -89,7 +89,7 @@ final class GwtSerializationDependencies {
     K key;
     V value;
 
-    LinkedListMultimapDependencies() {}
+    LinkedListMultimapDependencies() { }
   }
 
   static final class HashBasedTableDependencies<R, C, V> extends HashBasedTable<R, C, V> {

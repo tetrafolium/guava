@@ -33,13 +33,13 @@ public abstract class TestCollidingSetGenerator implements TestSetGenerator<Obje
   }
 
   @Override
-  public Object[] createArray(int length) {
+  public Object[] createArray(final int length) {
     return new Object[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public List<Object> order(List<Object> insertionOrder) {
+  public List<Object> order(final List<Object> insertionOrder) {
     return insertionOrder;
   }
 }

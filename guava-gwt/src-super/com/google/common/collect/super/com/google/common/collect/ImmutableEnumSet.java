@@ -25,7 +25,7 @@ import java.util.Set;
  * @author Hayward Chan
  */
 final class ImmutableEnumSet<E> extends ForwardingImmutableSet<E> {
-  static <E> ImmutableSet<E> asImmutable(Set<E> delegate) {
+  static <E> ImmutableSet<E> asImmutable(final Set<E> delegate) {
     switch (delegate.size()) {
       case 0:
         return ImmutableSet.of();
@@ -36,7 +36,7 @@ final class ImmutableEnumSet<E> extends ForwardingImmutableSet<E> {
     }
   }
 
-  public ImmutableEnumSet(Set<E> delegate) {
+  public ImmutableEnumSet(final Set<E> delegate) {
     super(delegate);
   }
 }

@@ -392,7 +392,7 @@ public final class InternetDomainNameTest extends TestCase {
         .testEquals();
   }
 
-  private static InternetDomainName idn(String domain) {
+  private static InternetDomainName idn(final String domain) {
     return InternetDomainName.from(domain);
   }
 

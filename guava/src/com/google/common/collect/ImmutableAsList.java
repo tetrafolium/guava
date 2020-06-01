@@ -35,7 +35,7 @@ abstract class ImmutableAsList<E> extends ImmutableList<E> {
   abstract ImmutableCollection<E> delegateCollection();
 
   @Override
-  public boolean contains(Object target) {
+  public boolean contains(final Object target) {
     // The collection's contains() is at least as fast as ImmutableList's
     // and is often faster.
     return delegateCollection().contains(target);
@@ -63,7 +63,7 @@ abstract class ImmutableAsList<E> extends ImmutableList<E> {
   static class SerializedForm implements Serializable {
     final ImmutableCollection<?> collection;
 
-    SerializedForm(ImmutableCollection<?> collection) {
+    SerializedForm(final ImmutableCollection<?> collection) {
       this.collection = collection;
     }
 
@@ -75,7 +75,7 @@ abstract class ImmutableAsList<E> extends ImmutableList<E> {
   }
 
   @GwtIncompatible // serialization
-  private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+  private void readObject(final ObjectInputStream stream) throws InvalidObjectException {
     throw new InvalidObjectException("Use SerializedForm");
   }
 

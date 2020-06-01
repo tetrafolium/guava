@@ -44,18 +44,18 @@ import java.util.Iterator;
 public abstract class ForwardingDeque<E> extends ForwardingQueue<E> implements Deque<E> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingDeque() {}
+  protected ForwardingDeque() { }
 
   @Override
   protected abstract Deque<E> delegate();
 
   @Override
-  public void addFirst(E e) {
+  public void addFirst(final E e) {
     delegate().addFirst(e);
   }
 
   @Override
-  public void addLast(E e) {
+  public void addLast(final E e) {
     delegate().addLast(e);
   }
 
@@ -76,13 +76,13 @@ public abstract class ForwardingDeque<E> extends ForwardingQueue<E> implements D
 
   @CanIgnoreReturnValue // TODO(cpovirk): Consider removing this?
   @Override
-  public boolean offerFirst(E e) {
+  public boolean offerFirst(final E e) {
     return delegate().offerFirst(e);
   }
 
   @CanIgnoreReturnValue // TODO(cpovirk): Consider removing this?
   @Override
-  public boolean offerLast(E e) {
+  public boolean offerLast(final E e) {
     return delegate().offerLast(e);
   }
 
@@ -115,7 +115,7 @@ public abstract class ForwardingDeque<E> extends ForwardingQueue<E> implements D
   }
 
   @Override
-  public void push(E e) {
+  public void push(final E e) {
     delegate().push(e);
   }
 
@@ -133,13 +133,13 @@ public abstract class ForwardingDeque<E> extends ForwardingQueue<E> implements D
 
   @CanIgnoreReturnValue
   @Override
-  public boolean removeFirstOccurrence(Object o) {
+  public boolean removeFirstOccurrence(final Object o) {
     return delegate().removeFirstOccurrence(o);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean removeLastOccurrence(Object o) {
+  public boolean removeLastOccurrence(final Object o) {
     return delegate().removeLastOccurrence(o);
   }
 }

@@ -33,7 +33,7 @@ public class LocalCacheMapComputeTest extends TestCase {
   Cache<String, String> cache;
 
   // helper
-  private static void doParallelCacheOp(int count, IntConsumer consumer) {
+  private static void doParallelCacheOp(final int count, final IntConsumer consumer) {
     IntStream.range(0, count).parallel().forEach(consumer);
   }
 

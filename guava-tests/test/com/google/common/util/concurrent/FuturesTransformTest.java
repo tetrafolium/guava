@@ -31,7 +31,7 @@ public class FuturesTransformTest extends AbstractChainedListenableFutureTest<St
   private static final String RESULT_DATA = "SUCCESS";
 
   @Override protected ListenableFuture<String> buildChainingFuture(
-      ListenableFuture<Integer> inputFuture) {
+      final ListenableFuture<Integer> inputFuture) {
     return transform(inputFuture, new ComposeFunction(), directExecutor());
   }
 
@@ -42,7 +42,7 @@ public class FuturesTransformTest extends AbstractChainedListenableFutureTest<St
   private class ComposeFunction
       implements Function<Integer, String> {
     @Override
-    public String apply(Integer input) {
+    public String apply(final Integer input) {
       if (input.intValue() == VALID_INPUT_DATA) {
         return RESULT_DATA;
       } else {

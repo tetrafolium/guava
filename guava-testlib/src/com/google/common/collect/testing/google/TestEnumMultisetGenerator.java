@@ -38,7 +38,7 @@ public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator
   }
 
   @Override
-  public Multiset<AnEnum> create(Object... elements) {
+  public Multiset<AnEnum> create(final Object... elements) {
     AnEnum[] array = new AnEnum[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -50,7 +50,7 @@ public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator
   protected abstract Multiset<AnEnum> create(AnEnum[] elements);
 
   @Override
-  public AnEnum[] createArray(int length) {
+  public AnEnum[] createArray(final int length) {
     return new AnEnum[length];
   }
 
@@ -58,7 +58,7 @@ public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator
    * Sorts the enums according to their natural ordering.
    */
   @Override
-  public List<AnEnum> order(List<AnEnum> insertionOrder) {
+  public List<AnEnum> order(final List<AnEnum> insertionOrder) {
     Collections.sort(insertionOrder);
     return insertionOrder;
   }

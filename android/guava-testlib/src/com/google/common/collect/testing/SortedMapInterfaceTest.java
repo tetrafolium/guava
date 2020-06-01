@@ -33,11 +33,11 @@ import java.util.SortedMap;
 public abstract class SortedMapInterfaceTest<K, V> extends MapInterfaceTest<K, V> {
 
   protected SortedMapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
+      final boolean allowsNullKeys,
+      final boolean allowsNullValues,
+      final boolean supportsPut,
+      final boolean supportsRemove,
+      final boolean supportsClear) {
     super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove, supportsClear);
   }
 

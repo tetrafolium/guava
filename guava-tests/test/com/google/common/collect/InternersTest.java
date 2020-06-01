@@ -45,7 +45,7 @@ public class InternersTest extends TestCase {
     try {
       pool.intern(null);
       fail();
-    } catch (NullPointerException ok) {}
+    } catch (NullPointerException ok) { }
   }
 
   public void testStrong_builder() {
@@ -72,7 +72,7 @@ public class InternersTest extends TestCase {
     try {
       pool.intern(null);
       fail();
-    } catch (NullPointerException ok) {}
+    } catch (NullPointerException ok) { }
   }
 
   public void testWeak_builder() {

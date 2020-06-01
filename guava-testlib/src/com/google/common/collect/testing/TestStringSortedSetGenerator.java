@@ -32,7 +32,7 @@ public abstract class TestStringSortedSetGenerator extends TestStringSetGenerato
     implements TestSortedSetGenerator<String> {
 
   @Override
-  public SortedSet<String> create(Object... elements) {
+  public SortedSet<String> create(final Object... elements) {
     return (SortedSet<String>) super.create(elements);
   }
 
@@ -41,7 +41,7 @@ public abstract class TestStringSortedSetGenerator extends TestStringSetGenerato
 
   /** Sorts the elements by their natural ordering. */
   @Override
-  public List<String> order(List<String> insertionOrder) {
+  public List<String> order(final List<String> insertionOrder) {
     Collections.sort(insertionOrder);
     return insertionOrder;
   }

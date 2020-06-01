@@ -634,7 +634,7 @@ public class StatsTest extends TestCase {
     }
   }
 
-  private static void assertEquivalent(double actual, double expected) {
+  private static void assertEquivalent(final double actual, final double expected) {
     if (expected == POSITIVE_INFINITY) {
       assertThat(actual).isPositiveInfinity();
     } else if (expected == NEGATIVE_INFINITY) {

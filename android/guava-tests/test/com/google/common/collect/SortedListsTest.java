@@ -34,8 +34,8 @@ public class SortedListsTest extends TestCase {
 
   private static final ImmutableList<Integer> LIST_WITHOUT_DUPS = ImmutableList.of(1, 2, 4, 8);
 
-  void assertModelAgrees(List<Integer> list, Integer key, int answer,
-      KeyPresentBehavior presentBehavior, KeyAbsentBehavior absentBehavior) {
+  void assertModelAgrees(final List<Integer> list, final Integer key, final int answer,
+      final KeyPresentBehavior presentBehavior, final KeyAbsentBehavior absentBehavior) {
     switch (presentBehavior) {
       case FIRST_PRESENT:
         if (list.contains(key)) {

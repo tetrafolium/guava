@@ -35,7 +35,7 @@ public abstract class Ticker {
   /**
    * Constructor for use by subclasses.
    */
-  protected Ticker() {}
+  protected Ticker() { }
 
   /**
    * Returns the number of nanoseconds elapsed since this ticker's fixed point of reference.

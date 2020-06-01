@@ -30,7 +30,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 final class Multiset_CustomFieldSerializerBase {
 
-  static Multiset<Object> populate(SerializationStreamReader reader, Multiset<Object> multiset)
+  static Multiset<Object> populate(final SerializationStreamReader reader, final Multiset<Object> multiset)
       throws SerializationException {
     int distinctElements = reader.readInt();
     for (int i = 0; i < distinctElements; i++) {
@@ -41,7 +41,7 @@ final class Multiset_CustomFieldSerializerBase {
     return multiset;
   }
 
-  static void serialize(SerializationStreamWriter writer, Multiset<?> instance)
+  static void serialize(final SerializationStreamWriter writer, final Multiset<?> instance)
       throws SerializationException {
     int entryCount = instance.entrySet().size();
     writer.writeInt(entryCount);
@@ -51,5 +51,5 @@ final class Multiset_CustomFieldSerializerBase {
     }
   }
 
-  private Multiset_CustomFieldSerializerBase() {}
+  private Multiset_CustomFieldSerializerBase() { }
 }

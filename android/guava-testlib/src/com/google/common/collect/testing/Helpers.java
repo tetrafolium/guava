@@ -43,56 +43,56 @@ import junit.framework.AssertionFailedError;
 @GwtCompatible(emulated = true)
 public class Helpers {
   // Clone of Objects.equal
-  static boolean equal(Object a, Object b) {
+  static boolean equal(final Object a, final Object b) {
     return a == b || (a != null && a.equals(b));
   }
 
   // Clone of Lists.newArrayList
-  public static <E> List<E> copyToList(Iterable<? extends E> elements) {
+  public static <E> List<E> copyToList(final Iterable<? extends E> elements) {
     List<E> list = new ArrayList<E>();
     addAll(list, elements);
     return list;
   }
 
-  public static <E> List<E> copyToList(E[] elements) {
+  public static <E> List<E> copyToList(final E[] elements) {
     return copyToList(Arrays.asList(elements));
   }
 
   // Clone of Sets.newLinkedHashSet
-  public static <E> Set<E> copyToSet(Iterable<? extends E> elements) {
+  public static <E> Set<E> copyToSet(final Iterable<? extends E> elements) {
     Set<E> set = new LinkedHashSet<E>();
     addAll(set, elements);
     return set;
   }
 
-  public static <E> Set<E> copyToSet(E[] elements) {
+  public static <E> Set<E> copyToSet(final E[] elements) {
     return copyToSet(Arrays.asList(elements));
   }
 
   // Would use Maps.immutableEntry
-  public static <K, V> Entry<K, V> mapEntry(K key, V value) {
+  public static <K, V> Entry<K, V> mapEntry(final K key, final V value) {
     return Collections.singletonMap(key, value).entrySet().iterator().next();
   }
 
-  private static boolean isEmpty(Iterable<?> iterable) {
+  private static boolean isEmpty(final Iterable<?> iterable) {
     return iterable instanceof Collection
         ? ((Collection<?>) iterable).isEmpty()
         : !iterable.iterator().hasNext();
   }
 
-  public static void assertEmpty(Iterable<?> iterable) {
+  public static void assertEmpty(final Iterable<?> iterable) {
     if (!isEmpty(iterable)) {
       Assert.fail("Not true that " + iterable + " is empty");
     }
   }
 
-  public static void assertEmpty(Map<?, ?> map) {
+  public static void assertEmpty(final Map<?, ?> map) {
     if (!map.isEmpty()) {
       Assert.fail("Not true that " + map + " is empty");
     }
   }
 
-  public static void assertEqualInOrder(Iterable<?> expected, Iterable<?> actual) {
+  public static void assertEqualInOrder(final Iterable<?> expected, final Iterable<?> actual) {
     Iterator<?> expectedIter = expected.iterator();
     Iterator<?> actualIter = actual.iterator();
 
@@ -118,11 +118,11 @@ public class Helpers {
     }
   }
 
-  public static void assertContentsInOrder(Iterable<?> actual, Object... expected) {
+  public static void assertContentsInOrder(final Iterable<?> actual, final Object... expected) {
     assertEqualInOrder(Arrays.asList(expected), actual);
   }
 
-  public static void assertEqualIgnoringOrder(Iterable<?> expected, Iterable<?> actual) {
+  public static void assertEqualIgnoringOrder(final Iterable<?> expected, final Iterable<?> actual) {
     List<?> exp = copyToList(expected);
     List<?> act = copyToList(actual);
     String actString = act.toString();
@@ -146,11 +146,11 @@ public class Helpers {
     assertTrue("unexpected elements: " + act, act.isEmpty());
   }
 
-  public static void assertContentsAnyOrder(Iterable<?> actual, Object... expected) {
+  public static void assertContentsAnyOrder(final Iterable<?> actual, final Object... expected) {
     assertEqualIgnoringOrder(Arrays.asList(expected), actual);
   }
 
-  public static void assertContains(Iterable<?> actual, Object expected) {
+  public static void assertContains(final Iterable<?> actual, final Object expected) {
     boolean contained = false;
     if (actual instanceof Collection) {
       contained = ((Collection<?>) actual).contains(expected);
@@ -168,7 +168,7 @@ public class Helpers {
     }
   }
 
-  public static void assertContainsAllOf(Iterable<?> actual, Object... expected) {
+  public static void assertContainsAllOf(final Iterable<?> actual, final Object... expected) {
     List<Object> expectedList = new ArrayList<>();
     expectedList.addAll(Arrays.asList(expected));
 
@@ -181,7 +181,7 @@ public class Helpers {
     }
   }
 
-  public static <E> boolean addAll(Collection<E> addTo, Iterable<? extends E> elementsToAdd) {
+  public static <E> boolean addAll(final Collection<E> addTo, final Iterable<? extends E> elementsToAdd) {
     boolean modified = false;
     for (E e : elementsToAdd) {
       modified |= addTo.add(e);
@@ -238,14 +238,14 @@ public class Helpers {
     };
   }
 
-  static <T> T get(Iterator<T> iterator, int position) {
+  static <T> T get(final Iterator<T> iterator, final int position) {
     for (int i = 0; i < position; i++) {
       iterator.next();
     }
     return iterator.next();
   }
 
-  static void fail(Throwable cause, Object message) {
+  static void fail(final Throwable cause, final Object message) {
     AssertionFailedError assertionFailedError = new AssertionFailedError(String.valueOf(message));
     assertionFailedError.initCause(cause);
     throw assertionFailedError;
@@ -256,7 +256,7 @@ public class Helpers {
     return new Comparator<Entry<K, V>>() {
       @Override
       @SuppressWarnings("unchecked") // no less safe than putting it in the map!
-      public int compare(Entry<K, V> a, Entry<K, V> b) {
+      public int compare(final Entry<K, V> a, final Entry<K, V> b) {
         return (keyComparator == null)
             ? ((Comparable) a.getKey()).compareTo(b.getKey())
             : keyComparator.compare(a.getKey(), b.getKey());
@@ -272,7 +272,7 @@ public class Helpers {
    * @see #testComparator(Comparator, List)
    */
   public static <T> void testComparator(
-      Comparator<? super T> comparator, T... valuesInExpectedOrder) {
+      final Comparator<? super T> comparator, final T... valuesInExpectedOrder) {
     testComparator(comparator, Arrays.asList(valuesInExpectedOrder));
   }
 
@@ -292,7 +292,7 @@ public class Helpers {
    * </ul>
    */
   public static <T> void testComparator(
-      Comparator<? super T> comparator, List<T> valuesInExpectedOrder) {
+      final Comparator<? super T> comparator, final List<T> valuesInExpectedOrder) {
     // This does an O(n^2) test of all pairs of values in both orders
     for (int i = 0; i < valuesInExpectedOrder.size(); i++) {
       T t = valuesInExpectedOrder.get(i);
@@ -316,7 +316,7 @@ public class Helpers {
 
   @SuppressWarnings({"SelfComparison", "SelfEquals"})
   public static <T extends Comparable<? super T>> void testCompareToAndEquals(
-      List<T> valuesInExpectedOrder) {
+      final List<T> valuesInExpectedOrder) {
     // This does an O(n^2) test of all pairs of values in both orders
     for (int i = 0; i < valuesInExpectedOrder.size(); i++) {
       T t = valuesInExpectedOrder.get(i);
@@ -380,13 +380,13 @@ public class Helpers {
       }
 
       @Override
-      public V setValue(V value) {
+      public V setValue(final V value) {
         throw new UnsupportedOperationException();
       }
 
       @SuppressWarnings("unchecked")
       @Override
-      public boolean equals(Object o) {
+      public boolean equals(final Object o) {
         if (o instanceof Map.Entry) {
           Map.Entry<K, V> e = (Map.Entry<K, V>) o;
           e.setValue(value); // muhahaha!
@@ -410,7 +410,7 @@ public class Helpers {
     };
   }
 
-  static <E> List<E> castOrCopyToList(Iterable<E> iterable) {
+  static <E> List<E> castOrCopyToList(final Iterable<E> iterable) {
     if (iterable instanceof List) {
       return (List<E>) iterable;
     }
@@ -425,13 +425,13 @@ public class Helpers {
       new Comparator<Comparable>() {
         @SuppressWarnings("unchecked") // assume any Comparable is Comparable<Self>
         @Override
-        public int compare(Comparable left, Comparable right) {
+        public int compare(final Comparable left, final Comparable right) {
           return left.compareTo(right);
         }
       };
 
   public static <K extends Comparable, V> Iterable<Entry<K, V>> orderEntriesByKey(
-      List<Entry<K, V>> insertionOrder) {
+      final List<Entry<K, V>> insertionOrder) {
     sort(insertionOrder, Helpers.<K, V>entryComparator(NATURAL_ORDER));
     return insertionOrder;
   }
@@ -440,7 +440,7 @@ public class Helpers {
    * Private replacement for {@link com.google.gwt.user.client.rpc.GwtTransient} to work around
    * build-system quirks.
    */
-  private @interface GwtTransient {}
+  private @interface GwtTransient { }
 
   /**
    * Compares strings in natural order except that null comes immediately before a given value. This
@@ -455,7 +455,7 @@ public class Helpers {
      */
     @GwtTransient private final String justAfterNull;
 
-    protected NullsBefore(String justAfterNull) {
+    protected NullsBefore(final String justAfterNull) {
       if (justAfterNull == null) {
         throw new NullPointerException();
       }
@@ -464,7 +464,7 @@ public class Helpers {
     }
 
     @Override
-    public int compare(String lhs, String rhs) {
+    public int compare(final String lhs, final String rhs) {
       if (lhs == rhs) {
         return 0;
       }
@@ -488,7 +488,7 @@ public class Helpers {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof NullsBefore) {
         NullsBefore other = (NullsBefore) obj;
         return justAfterNull.equals(other.justAfterNull);
@@ -519,7 +519,7 @@ public class Helpers {
   }
 
   @GwtIncompatible // reflection
-  public static Method getMethod(Class<?> clazz, String name) {
+  public static Method getMethod(final Class<?> clazz, final String name) {
     try {
       return clazz.getMethod(name);
     } catch (Exception e) {

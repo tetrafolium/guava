@@ -33,19 +33,19 @@ abstract class ForwardingImmutableList<E> extends ImmutableList<E> {
 
   abstract List<E> delegateList();
 
-  public int indexOf(@Nullable Object object) {
+  public int indexOf(final @Nullable Object object) {
     return delegateList().indexOf(object);
   }
 
-  public int lastIndexOf(@Nullable Object object) {
+  public int lastIndexOf(final @Nullable Object object) {
     return delegateList().lastIndexOf(object);
   }
 
-  public E get(int index) {
+  public E get(final int index) {
     return delegateList().get(index);
   }
 
-  public ImmutableList<E> subList(int fromIndex, int toIndex) {
+  public ImmutableList<E> subList(final int fromIndex, final int toIndex) {
     return unsafeDelegateList(delegateList().subList(fromIndex, toIndex));
   }
 
@@ -55,7 +55,7 @@ abstract class ForwardingImmutableList<E> extends ImmutableList<E> {
     return delegateList().toArray(new Object[size()]);
   }
 
-  @Override public boolean equals(Object obj) {
+  @Override public boolean equals(final Object obj) {
     return delegateList().equals(obj);
   }
 
@@ -67,11 +67,11 @@ abstract class ForwardingImmutableList<E> extends ImmutableList<E> {
     return Iterators.unmodifiableIterator(delegateList().iterator());
   }
 
-  @Override public boolean contains(@Nullable Object object) {
+  @Override public boolean contains(final @Nullable Object object) {
     return object != null && delegateList().contains(object);
   }
 
-  @Override public boolean containsAll(Collection<?> targets) {
+  @Override public boolean containsAll(final Collection<?> targets) {
     return delegateList().containsAll(targets);
   }
 
@@ -83,7 +83,7 @@ abstract class ForwardingImmutableList<E> extends ImmutableList<E> {
     return delegateList().isEmpty();
   }
 
-  @Override public <T> T[] toArray(T[] other) {
+  @Override public <T> T[] toArray(final T[] other) {
     return delegateList().toArray(other);
   }
 

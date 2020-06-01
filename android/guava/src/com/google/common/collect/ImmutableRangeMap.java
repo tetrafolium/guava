@@ -56,13 +56,13 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
   /**
    * Returns an immutable range map mapping a single range to a single value.
    */
-  public static <K extends Comparable<?>, V> ImmutableRangeMap<K, V> of(Range<K> range, V value) {
+  public static <K extends Comparable<?>, V> ImmutableRangeMap<K, V> of(final Range<K> range, final V value) {
     return new ImmutableRangeMap<>(ImmutableList.of(range), ImmutableList.of(value));
   }
 
   @SuppressWarnings("unchecked")
   public static <K extends Comparable<?>, V> ImmutableRangeMap<K, V> copyOf(
-      RangeMap<K, ? extends V> rangeMap) {
+      final RangeMap<K, ? extends V> rangeMap) {
     if (rangeMap instanceof ImmutableRangeMap) {
       return (ImmutableRangeMap<K, V>) rangeMap;
     }
@@ -99,7 +99,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
      * @throws IllegalArgumentException if {@code range} is empty
      */
     @CanIgnoreReturnValue
-    public Builder<K, V> put(Range<K> range, V value) {
+    public Builder<K, V> put(final Range<K> range, final V value) {
       checkNotNull(range);
       checkNotNull(value);
       checkArgument(!range.isEmpty(), "Range must not be empty, but was %s", range);
@@ -111,7 +111,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
      * Copies all associations from the specified range map into this builder.
      */
     @CanIgnoreReturnValue
-    public Builder<K, V> putAll(RangeMap<K, ? extends V> rangeMap) {
+    public Builder<K, V> putAll(final RangeMap<K, ? extends V> rangeMap) {
       for (Entry<Range<K>, ? extends V> entry : rangeMap.asMapOfRanges().entrySet()) {
         put(entry.getKey(), entry.getValue());
       }
@@ -147,14 +147,14 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
   private final transient ImmutableList<Range<K>> ranges;
   private final transient ImmutableList<V> values;
 
-  ImmutableRangeMap(ImmutableList<Range<K>> ranges, ImmutableList<V> values) {
+  ImmutableRangeMap(final ImmutableList<Range<K>> ranges, final ImmutableList<V> values) {
     this.ranges = ranges;
     this.values = values;
   }
 
   @Override
   @Nullable
-  public V get(K key) {
+  public V get(final K key) {
     int index =
         SortedLists.binarySearch(
             ranges,
@@ -172,7 +172,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
 
   @Override
   @Nullable
-  public Map.Entry<Range<K>, V> getEntry(K key) {
+  public Map.Entry<Range<K>, V> getEntry(final K key) {
     int index =
         SortedLists.binarySearch(
             ranges,
@@ -206,7 +206,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
    */
   @Deprecated
   @Override
-  public void put(Range<K> range, V value) {
+  public void put(final Range<K> range, final V value) {
     throw new UnsupportedOperationException();
   }
 
@@ -218,7 +218,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
    */
   @Deprecated
   @Override
-  public void putCoalescing(Range<K> range, V value) {
+  public void putCoalescing(final Range<K> range, final V value) {
     throw new UnsupportedOperationException();
   }
 
@@ -230,7 +230,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
    */
   @Deprecated
   @Override
-  public void putAll(RangeMap<K, V> rangeMap) {
+  public void putAll(final RangeMap<K, V> rangeMap) {
     throw new UnsupportedOperationException();
   }
 
@@ -254,7 +254,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
    */
   @Deprecated
   @Override
-  public void remove(Range<K> range) {
+  public void remove(final Range<K> range) {
     throw new UnsupportedOperationException();
   }
 
@@ -312,7 +312,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
           }
 
           @Override
-          public Range<K> get(int index) {
+          public Range<K> get(final int index) {
             checkElementIndex(index, len);
             if (index == 0 || index == len - 1) {
               return ranges.get(index + off).intersection(range);
@@ -329,7 +329,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
     final ImmutableRangeMap<K, V> outer = this;
     return new ImmutableRangeMap<K, V>(subRanges, values.subList(lowerIndex, upperIndex)) {
       @Override
-      public ImmutableRangeMap<K, V> subRangeMap(Range<K> subRange) {
+      public ImmutableRangeMap<K, V> subRangeMap(final Range<K> subRange) {
         if (range.isConnected(subRange)) {
           return outer.subRangeMap(subRange.intersection(range));
         } else {
@@ -345,7 +345,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
   }
 
   @Override
-  public boolean equals(@Nullable Object o) {
+  public boolean equals(final @Nullable Object o) {
     if (o instanceof RangeMap) {
       RangeMap<?, ?> rangeMap = (RangeMap<?, ?>) o;
       return asMapOfRanges().equals(rangeMap.asMapOfRanges());
@@ -366,7 +366,7 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
 
     private final ImmutableMap<Range<K>, V> mapOfRanges;
 
-    SerializedForm(ImmutableMap<Range<K>, V> mapOfRanges) {
+    SerializedForm(final ImmutableMap<Range<K>, V> mapOfRanges) {
       this.mapOfRanges = mapOfRanges;
     }
 

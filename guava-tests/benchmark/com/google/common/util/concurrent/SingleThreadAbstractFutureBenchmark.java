@@ -43,7 +43,7 @@ public class SingleThreadAbstractFutureBenchmark {
     notDoneFuture = impl.newFacade();
   }
 
-  @Benchmark public long timeComplete_Normal(int reps) throws Exception {
+  @Benchmark public long timeComplete_Normal(final int reps) throws Exception {
     long r = 0;
     List<Facade<Integer>> list = new ArrayList<>(reps);
     for (int i = 0; i < reps; i++) {
@@ -57,7 +57,7 @@ public class SingleThreadAbstractFutureBenchmark {
     return r;
   }
 
-  @Benchmark public long timeComplete_Failure(int reps) throws Exception {
+  @Benchmark public long timeComplete_Failure(final int reps) throws Exception {
     long r = 0;
     List<Facade<Integer>> list = new ArrayList<>(reps);
     for (int i = 0; i < reps; i++) {
@@ -77,7 +77,7 @@ public class SingleThreadAbstractFutureBenchmark {
     return r;
   }
 
-  @Benchmark public long timeComplete_Cancel(int reps) throws Exception {
+  @Benchmark public long timeComplete_Cancel(final int reps) throws Exception {
     long r = 0;
     List<Facade<Integer>> list = new ArrayList<>(reps);
     for (int i = 0; i < reps; i++) {
@@ -97,7 +97,7 @@ public class SingleThreadAbstractFutureBenchmark {
     return r;
   }
 
-  @Benchmark public long timeGetWith0Timeout(long reps) throws Exception {
+  @Benchmark public long timeGetWith0Timeout(final long reps) throws Exception {
     Facade<?> f = notDoneFuture;
     long r = 0;
     for (int i = 0; i < reps; i++) {
@@ -110,7 +110,7 @@ public class SingleThreadAbstractFutureBenchmark {
     }
     return r;
   }
-  @Benchmark public long timeGetWithSmallTimeout(long reps) throws Exception {
+  @Benchmark public long timeGetWithSmallTimeout(final long reps) throws Exception {
     Facade<?> f = notDoneFuture;
     long r = 0;
     for (int i = 0; i < reps; i++) {

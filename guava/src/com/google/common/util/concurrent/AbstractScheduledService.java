@@ -124,7 +124,7 @@ public abstract class AbstractScheduledService implements Service {
       return new Scheduler() {
         @Override
         public Future<?> schedule(
-            AbstractService service, ScheduledExecutorService executor, Runnable task) {
+            final AbstractService service, final ScheduledExecutorService executor, final Runnable task) {
           return executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);
         }
       };
@@ -145,7 +145,7 @@ public abstract class AbstractScheduledService implements Service {
       return new Scheduler() {
         @Override
         public Future<?> schedule(
-            AbstractService service, ScheduledExecutorService executor, Runnable task) {
+            final AbstractService service, final ScheduledExecutorService executor, final Runnable task) {
           return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
         }
       };
@@ -155,7 +155,7 @@ public abstract class AbstractScheduledService implements Service {
     abstract Future<?> schedule(
         AbstractService service, ScheduledExecutorService executor, Runnable runnable);
 
-    private Scheduler() {}
+    private Scheduler() { }
   }
 
   /* use AbstractService for state management */
@@ -274,7 +274,7 @@ public abstract class AbstractScheduledService implements Service {
   }
 
   /** Constructor for use by subclasses. */
-  protected AbstractScheduledService() {}
+  protected AbstractScheduledService() { }
 
   /**
    * Run one iteration of the scheduled task. If any invocation of this method throws an exception,
@@ -288,14 +288,14 @@ public abstract class AbstractScheduledService implements Service {
    *
    * <p>By default this method does nothing.
    */
-  protected void startUp() throws Exception {}
+  protected void startUp() throws Exception { }
 
   /**
    * Stop the service. This is guaranteed not to run concurrently with {@link #runOneIteration}.
    *
    * <p>By default this method does nothing.
    */
-  protected void shutDown() throws Exception {}
+  protected void shutDown() throws Exception { }
 
   /**
    * Returns the {@link Scheduler} object used to configure this service. This method will only be
@@ -322,7 +322,7 @@ public abstract class AbstractScheduledService implements Service {
     @WeakOuter
     class ThreadFactoryImpl implements ThreadFactory {
       @Override
-      public Thread newThread(Runnable runnable) {
+      public Thread newThread(final Runnable runnable) {
         return MoreExecutors.newThread(serviceName(), runnable);
       }
     }
@@ -336,12 +336,12 @@ public abstract class AbstractScheduledService implements Service {
     addListener(
         new Listener() {
           @Override
-          public void terminated(State from) {
+          public void terminated(final State from) {
             executor.shutdown();
           }
 
           @Override
-          public void failed(State from, Throwable failure) {
+          public void failed(final State from, final Throwable failure) {
             executor.shutdown();
           }
         },
@@ -378,7 +378,7 @@ public abstract class AbstractScheduledService implements Service {
    * @since 13.0
    */
   @Override
-  public final void addListener(Listener listener, Executor executor) {
+  public final void addListener(final Listener listener, final Executor executor) {
     delegate.addListener(listener, executor);
   }
 
@@ -422,7 +422,7 @@ public abstract class AbstractScheduledService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitRunning(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitRunning(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -438,7 +438,7 @@ public abstract class AbstractScheduledService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitTerminated(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitTerminated(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 
@@ -482,7 +482,7 @@ public abstract class AbstractScheduledService implements Service {
       private Future<Void> currentFuture;
 
       ReschedulableCallable(
-          AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
+          final AbstractService service, final ScheduledExecutorService executor, final Runnable runnable) {
         this.wrappedRunnable = runnable;
         this.executor = executor;
         this.service = service;
@@ -539,7 +539,7 @@ public abstract class AbstractScheduledService implements Service {
       // N.B. Only protect cancel and isCancelled because those are the only methods that are
       // invoked by the AbstractScheduledService.
       @Override
-      public boolean cancel(boolean mayInterruptIfRunning) {
+      public boolean cancel(final boolean mayInterruptIfRunning) {
         // Ensure that a task cannot be rescheduled while a cancel is ongoing.
         lock.lock();
         try {
@@ -568,7 +568,7 @@ public abstract class AbstractScheduledService implements Service {
 
     @Override
     final Future<?> schedule(
-        AbstractService service, ScheduledExecutorService executor, Runnable runnable) {
+        final AbstractService service, final ScheduledExecutorService executor, final Runnable runnable) {
       ReschedulableCallable task = new ReschedulableCallable(service, executor, runnable);
       task.reschedule();
       return task;
@@ -590,7 +590,7 @@ public abstract class AbstractScheduledService implements Service {
        * @param delay the time from now to delay execution
        * @param unit the time unit of the delay parameter
        */
-      public Schedule(long delay, TimeUnit unit) {
+      public Schedule(final long delay, final TimeUnit unit) {
         this.delay = delay;
         this.unit = checkNotNull(unit);
       }

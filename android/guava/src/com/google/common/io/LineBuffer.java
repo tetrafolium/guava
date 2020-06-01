@@ -46,7 +46,7 @@ abstract class LineBuffer {
    * @throws IOException if an I/O error occurs
    * @see #finish
    */
-  protected void add(char[] cbuf, int off, int len) throws IOException {
+  protected void add(final char[] cbuf, final int off, final int len) throws IOException {
     int pos = off;
     if (sawReturn && len > 0) {
       // Last call to add ended with a CR; we can handle the line now.
@@ -84,7 +84,7 @@ abstract class LineBuffer {
 
   /** Called when a line is complete. */
   @CanIgnoreReturnValue
-  private boolean finishLine(boolean sawNewline) throws IOException {
+  private boolean finishLine(final boolean sawNewline) throws IOException {
     String separator = sawReturn
         ? (sawNewline ? "\r\n" : "\r")
         : (sawNewline ? "\n" : "");

@@ -47,7 +47,7 @@ public class IntsTest extends TestCase {
   private static final int GREATEST = Integer.MAX_VALUE;
 
   private static final int[] VALUES =
-      { LEAST, (int) -1, (int) 0, (int) 1, GREATEST };
+      {LEAST, (int) -1, (int) 0, (int) 1, GREATEST };
 
   public void testHashCode() {
     for (int value : VALUES) {
@@ -75,7 +75,7 @@ public class IntsTest extends TestCase {
     assertEquals(LEAST, Ints.saturatedCast(Long.MIN_VALUE));
   }
 
-  private static void assertCastFails(long value) {
+  private static void assertCastFails(final long value) {
     try {
       Ints.checkedCast(value);
       fail("Cast to int should have failed: " + value);
@@ -116,7 +116,7 @@ public class IntsTest extends TestCase {
     assertEquals(1, Ints.indexOf(ARRAY234, (int) 3));
     assertEquals(2, Ints.indexOf(ARRAY234, (int) 4));
     assertEquals(1, Ints.indexOf(
-        new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
+        new int[] {(int) 2, (int) 3, (int) 2, (int) 3 },
         (int) 3));
   }
 
@@ -129,28 +129,28 @@ public class IntsTest extends TestCase {
     assertEquals(0, Ints.indexOf(ARRAY1, ARRAY1));
     assertEquals(0, Ints.indexOf(ARRAY234, ARRAY234));
     assertEquals(0, Ints.indexOf(
-        ARRAY234, new int[] { (int) 2, (int) 3 }));
+        ARRAY234, new int[] {(int) 2, (int) 3 }));
     assertEquals(1, Ints.indexOf(
-        ARRAY234, new int[] { (int) 3, (int) 4 }));
-    assertEquals(1, Ints.indexOf(ARRAY234, new int[] { (int) 3 }));
-    assertEquals(2, Ints.indexOf(ARRAY234, new int[] { (int) 4 }));
-    assertEquals(1, Ints.indexOf(new int[] { (int) 2, (int) 3,
+        ARRAY234, new int[] {(int) 3, (int) 4 }));
+    assertEquals(1, Ints.indexOf(ARRAY234, new int[] {(int) 3 }));
+    assertEquals(2, Ints.indexOf(ARRAY234, new int[] {(int) 4 }));
+    assertEquals(1, Ints.indexOf(new int[] {(int) 2, (int) 3,
         (int) 3, (int) 3, (int) 3 },
-        new int[] { (int) 3 }
+        new int[] {(int) 3 }
     ));
     assertEquals(2, Ints.indexOf(
-        new int[] { (int) 2, (int) 3, (int) 2,
+        new int[] {(int) 2, (int) 3, (int) 2,
             (int) 3, (int) 4, (int) 2, (int) 3},
-        new int[] { (int) 2, (int) 3, (int) 4}
+        new int[] {(int) 2, (int) 3, (int) 4}
     ));
     assertEquals(1, Ints.indexOf(
-        new int[] { (int) 2, (int) 2, (int) 3,
+        new int[] {(int) 2, (int) 2, (int) 3,
             (int) 4, (int) 2, (int) 3, (int) 4},
-        new int[] { (int) 2, (int) 3, (int) 4}
+        new int[] {(int) 2, (int) 3, (int) 4}
     ));
     assertEquals(-1, Ints.indexOf(
-        new int[] { (int) 4, (int) 3, (int) 2},
-        new int[] { (int) 2, (int) 3, (int) 4}
+        new int[] {(int) 4, (int) 3, (int) 2},
+        new int[] {(int) 2, (int) 3, (int) 4}
     ));
   }
 
@@ -164,7 +164,7 @@ public class IntsTest extends TestCase {
     assertEquals(1, Ints.lastIndexOf(ARRAY234, (int) 3));
     assertEquals(2, Ints.lastIndexOf(ARRAY234, (int) 4));
     assertEquals(3, Ints.lastIndexOf(
-        new int[] { (int) 2, (int) 3, (int) 2, (int) 3 },
+        new int[] {(int) 2, (int) 3, (int) 2, (int) 3 },
         (int) 3));
   }
 
@@ -342,13 +342,13 @@ public class IntsTest extends TestCase {
     testReverse(new int[] {-1, 1, -2, 2}, 1, 3, new int[] {-1, -2, 1, 2});
   }
 
-  private static void testReverse(int[] input, int[] expectedOutput) {
+  private static void testReverse(final int[] input, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Ints.reverse(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
-  private static void testReverse(int[] input, int fromIndex, int toIndex, int[] expectedOutput) {
+  private static void testReverse(final int[] input, final int fromIndex, final int toIndex, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Ints.reverse(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -371,14 +371,14 @@ public class IntsTest extends TestCase {
     testSortDescending(new int[] {-1, -2, 1, 2}, 1, 3, new int[] {-1, 1, -2, 2});
   }
 
-  private static void testSortDescending(int[] input, int[] expectedOutput) {
+  private static void testSortDescending(final int[] input, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Ints.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      int[] input, int fromIndex, int toIndex, int[] expectedOutput) {
+      final int[] input, final int fromIndex, final int toIndex, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     Ints.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -406,7 +406,7 @@ public class IntsTest extends TestCase {
   }
 
   public void testToArray_threadSafe() {
-    for (int delta : new int[] { +1, 0, -1 }) {
+    for (int delta : new int[] {+1, 0, -1 }) {
       for (int i = 0; i < VALUES.length; i++) {
         List<Integer> list = Ints.asList(VALUES).subList(0, i);
         Collection<Integer> misleadingSize =
@@ -458,23 +458,23 @@ public class IntsTest extends TestCase {
   }
 
   public void testAsList_toArray_roundTrip() {
-    int[] array = { (int) 0, (int) 1, (int) 2 };
+    int[] array = {(int) 0, (int) 1, (int) 2 };
     List<Integer> list = Ints.asList(array);
     int[] newArray = Ints.toArray(list);
 
     // Make sure it returned a copy
     list.set(0, (int) 4);
     assertTrue(Arrays.equals(
-        new int[] { (int) 0, (int) 1, (int) 2 }, newArray));
+        new int[] {(int) 0, (int) 1, (int) 2 }, newArray));
     newArray[1] = (int) 5;
     assertEquals((int) 1, (int) list.get(1));
   }
 
   // This test stems from a real bug found by andrewk
   public void testAsList_subList_toArray_roundTrip() {
-    int[] array = { (int) 0, (int) 1, (int) 2, (int) 3 };
+    int[] array = {(int) 0, (int) 1, (int) 2, (int) 3 };
     List<Integer> list = Ints.asList(array);
-    assertTrue(Arrays.equals(new int[] { (int) 1, (int) 2 },
+    assertTrue(Arrays.equals(new int[] {(int) 1, (int) 2 },
         Ints.toArray(list.subList(1, 3))));
     assertTrue(Arrays.equals(new int[] {},
         Ints.toArray(list.subList(2, 2))));
@@ -561,7 +561,7 @@ public class IntsTest extends TestCase {
    * Applies {@link Ints#tryParse(String)} to the given string and asserts that
    * the result is as expected.
    */
-  private static void tryParseAndAssertEquals(Integer expected, String value) {
+  private static void tryParseAndAssertEquals(final Integer expected, final String value) {
     assertEquals(expected, Ints.tryParse(value));
   }
 
@@ -588,8 +588,8 @@ public class IntsTest extends TestCase {
    * {@link Ints#tryParse(String, int)} to parse the result. Asserts the result
    * is the same as what we started with.
    */
-  private static void radixEncodeParseAndAssertEquals(Integer value,
-      int radix) {
+  private static void radixEncodeParseAndAssertEquals(final Integer value,
+      final int radix) {
     assertEquals("Radix: " + radix, value,
         Ints.tryParse(Integer.toString(value, radix), radix));
   }

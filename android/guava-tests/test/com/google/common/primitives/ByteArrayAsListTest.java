@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
 @GwtCompatible(emulated = true)
 public class ByteArrayAsListTest extends TestCase {
 
-  private static List<Byte> asList(Byte[] values) {
+  private static List<Byte> asList(final Byte[] values) {
     byte[] temp = new byte[values.length];
     for (int i = 0; i < values.length; i++) {
       temp[i] = checkNotNull(values[i]);  // checkNotNull for GWT (do not optimize).
@@ -82,13 +82,13 @@ public class ByteArrayAsListTest extends TestCase {
   // public named classes with a public default constructor.
 
   public static final class BytesAsListGenerator extends TestByteListGenerator {
-    @Override protected List<Byte> create(Byte[] elements) {
+    @Override protected List<Byte> create(final Byte[] elements) {
       return asList(elements);
     }
   }
 
   public static final class BytesAsListHeadSubListGenerator extends TestByteListGenerator {
-    @Override protected List<Byte> create(Byte[] elements) {
+    @Override protected List<Byte> create(final Byte[] elements) {
       Byte[] suffix = {Byte.MIN_VALUE, Byte.MAX_VALUE};
       Byte[] all = concat(elements, suffix);
       return asList(all).subList(0, elements.length);
@@ -96,7 +96,7 @@ public class ByteArrayAsListTest extends TestCase {
   }
 
   public static final class BytesAsListTailSubListGenerator extends TestByteListGenerator {
-    @Override protected List<Byte> create(Byte[] elements) {
+    @Override protected List<Byte> create(final Byte[] elements) {
       Byte[] prefix = {(byte) 86, (byte) 99};
       Byte[] all = concat(prefix, elements);
       return asList(all).subList(2, elements.length + 2);
@@ -104,7 +104,7 @@ public class ByteArrayAsListTest extends TestCase {
   }
 
   public static final class BytesAsListMiddleSubListGenerator extends TestByteListGenerator {
-    @Override protected List<Byte> create(Byte[] elements) {
+    @Override protected List<Byte> create(final Byte[] elements) {
       Byte[] prefix = {Byte.MIN_VALUE, Byte.MAX_VALUE};
       Byte[] suffix = {(byte) 86, (byte) 99};
       Byte[] all = concat(concat(prefix, elements), suffix);
@@ -112,7 +112,7 @@ public class ByteArrayAsListTest extends TestCase {
     }
   }
 
-  private static Byte[] concat(Byte[] left, Byte[] right) {
+  private static Byte[] concat(final Byte[] left, final Byte[] right) {
     Byte[] result = new Byte[left.length + right.length];
     System.arraycopy(left, 0, result, 0, left.length);
     System.arraycopy(right, 0, result, left.length, right.length);
@@ -127,7 +127,7 @@ public class ByteArrayAsListTest extends TestCase {
     }
 
     @Override
-    public List<Byte> create(Object... elements) {
+    public List<Byte> create(final Object... elements) {
       Byte[] array = new Byte[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -143,13 +143,13 @@ public class ByteArrayAsListTest extends TestCase {
     protected abstract List<Byte> create(Byte[] elements);
 
     @Override
-    public Byte[] createArray(int length) {
+    public Byte[] createArray(final int length) {
       return new Byte[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Byte> order(List<Byte> insertionOrder) {
+    public List<Byte> order(final List<Byte> insertionOrder) {
       return insertionOrder;
     }
   }

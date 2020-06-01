@@ -81,7 +81,7 @@ public final class ClassPath {
   private static final Predicate<ClassInfo> IS_TOP_LEVEL =
       new Predicate<ClassInfo>() {
         @Override
-        public boolean apply(ClassInfo info) {
+        public boolean apply(final ClassInfo info) {
           return info.className.indexOf('$') == -1;
         }
       };
@@ -94,7 +94,7 @@ public final class ClassPath {
 
   private final ImmutableSet<ResourceInfo> resources;
 
-  private ClassPath(ImmutableSet<ResourceInfo> resources) {
+  private ClassPath(final ImmutableSet<ResourceInfo> resources) {
     this.resources = resources;
   }
 
@@ -114,7 +114,7 @@ public final class ClassPath {
    * @throws IOException if the attempt to read class path resources (jar files or directories)
    *     failed.
    */
-  public static ClassPath from(ClassLoader classloader) throws IOException {
+  public static ClassPath from(final ClassLoader classloader) throws IOException {
     DefaultScanner scanner = new DefaultScanner();
     scanner.scan(classloader);
     return new ClassPath(scanner.getResources());
@@ -143,7 +143,7 @@ public final class ClassPath {
   }
 
   /** Returns all top level classes whose package name is {@code packageName}. */
-  public ImmutableSet<ClassInfo> getTopLevelClasses(String packageName) {
+  public ImmutableSet<ClassInfo> getTopLevelClasses(final String packageName) {
     checkNotNull(packageName);
     ImmutableSet.Builder<ClassInfo> builder = ImmutableSet.builder();
     for (ClassInfo classInfo : getTopLevelClasses()) {
@@ -158,7 +158,7 @@ public final class ClassPath {
    * Returns all top level classes whose package name is {@code packageName} or starts with
    * {@code packageName} followed by a '.'.
    */
-  public ImmutableSet<ClassInfo> getTopLevelClassesRecursive(String packageName) {
+  public ImmutableSet<ClassInfo> getTopLevelClassesRecursive(final String packageName) {
     checkNotNull(packageName);
     String packagePrefix = packageName + '.';
     ImmutableSet.Builder<ClassInfo> builder = ImmutableSet.builder();
@@ -182,7 +182,7 @@ public final class ClassPath {
 
     final ClassLoader loader;
 
-    static ResourceInfo of(String resourceName, ClassLoader loader) {
+    static ResourceInfo of(final String resourceName, final ClassLoader loader) {
       if (resourceName.endsWith(CLASS_FILE_NAME_EXTENSION)) {
         return new ClassInfo(resourceName, loader);
       } else {
@@ -190,7 +190,7 @@ public final class ClassPath {
       }
     }
 
-    ResourceInfo(String resourceName, ClassLoader loader) {
+    ResourceInfo(final String resourceName, final ClassLoader loader) {
       this.resourceName = checkNotNull(resourceName);
       this.loader = checkNotNull(loader);
     }
@@ -230,7 +230,7 @@ public final class ClassPath {
      *     despite physically existing in the class path.
      * @since 20.0
      */
-    public final CharSource asCharSource(Charset charset) {
+    public final CharSource asCharSource(final Charset charset) {
       return Resources.asCharSource(url(), charset);
     }
 
@@ -245,7 +245,7 @@ public final class ClassPath {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof ResourceInfo) {
         ResourceInfo that = (ResourceInfo) obj;
         return resourceName.equals(that.resourceName) && loader == that.loader;
@@ -269,7 +269,7 @@ public final class ClassPath {
   public static final class ClassInfo extends ResourceInfo {
     private final String className;
 
-    ClassInfo(String resourceName, ClassLoader loader) {
+    ClassInfo(final String resourceName, final ClassLoader loader) {
       super(resourceName, loader);
       this.className = getClassName(resourceName);
     }
@@ -349,7 +349,7 @@ public final class ClassPath {
     // with.
     private final Set<File> scannedUris = Sets.newHashSet();
 
-    public final void scan(ClassLoader classloader) throws IOException {
+    public final void scan(final ClassLoader classloader) throws IOException {
       for (Map.Entry<File, ClassLoader> entry : getClassPathEntries(classloader).entrySet()) {
         scan(entry.getKey(), entry.getValue());
       }
@@ -362,13 +362,13 @@ public final class ClassPath {
     protected abstract void scanJarFile(ClassLoader loader, JarFile file) throws IOException;
 
     @VisibleForTesting
-    final void scan(File file, ClassLoader classloader) throws IOException {
+    final void scan(final File file, final ClassLoader classloader) throws IOException {
       if (scannedUris.add(file.getCanonicalFile())) {
         scanFrom(file, classloader);
       }
     }
 
-    private void scanFrom(File file, ClassLoader classloader) throws IOException {
+    private void scanFrom(final File file, final ClassLoader classloader) throws IOException {
       try {
         if (!file.exists()) {
           return;
@@ -385,7 +385,7 @@ public final class ClassPath {
       }
     }
 
-    private void scanJar(File file, ClassLoader classloader) throws IOException {
+    private void scanJar(final File file, final ClassLoader classloader) throws IOException {
       JarFile jarFile;
       try {
         jarFile = new JarFile(file);
@@ -414,7 +414,7 @@ public final class ClassPath {
      * manifest, and an empty set will be returned.
      */
     @VisibleForTesting
-    static ImmutableSet<File> getClassPathFromManifest(File jarFile, @Nullable Manifest manifest) {
+    static ImmutableSet<File> getClassPathFromManifest(final File jarFile, final @Nullable Manifest manifest) {
       if (manifest == null) {
         return ImmutableSet.of();
       }
@@ -440,7 +440,7 @@ public final class ClassPath {
     }
 
     @VisibleForTesting
-    static ImmutableMap<File, ClassLoader> getClassPathEntries(ClassLoader classloader) {
+    static ImmutableMap<File, ClassLoader> getClassPathEntries(final ClassLoader classloader) {
       LinkedHashMap<File, ClassLoader> entries = Maps.newLinkedHashMap();
       // Search parent first, since it's the order ClassLoader#loadClass() uses.
       ClassLoader parent = classloader.getParent();
@@ -458,7 +458,7 @@ public final class ClassPath {
       return ImmutableMap.copyOf(entries);
     }
 
-    private static ImmutableList<URL> getClassLoaderUrls(ClassLoader classloader) {
+    private static ImmutableList<URL> getClassLoaderUrls(final ClassLoader classloader) {
       if (classloader instanceof URLClassLoader) {
         return ImmutableList.copyOf(((URLClassLoader) classloader).getURLs());
       }
@@ -496,7 +496,7 @@ public final class ClassPath {
      * absolute urls are actually supported too (for example, in Maven surefire plugin).
      */
     @VisibleForTesting
-    static URL getClassPathEntry(File jarFile, String path) throws MalformedURLException {
+    static URL getClassPathEntry(final File jarFile, final String path) throws MalformedURLException {
       return new URL(jarFile.toURI().toURL(), path);
     }
   }
@@ -515,7 +515,7 @@ public final class ClassPath {
     }
 
     @Override
-    protected void scanJarFile(ClassLoader classloader, JarFile file) {
+    protected void scanJarFile(final ClassLoader classloader, final JarFile file) {
       Enumeration<JarEntry> entries = file.entries();
       while (entries.hasMoreElements()) {
         JarEntry entry = entries.nextElement();
@@ -527,7 +527,7 @@ public final class ClassPath {
     }
 
     @Override
-    protected void scanDirectory(ClassLoader classloader, File directory) throws IOException {
+    protected void scanDirectory(final ClassLoader classloader, final File directory) throws IOException {
       Set<File> currentPath = new HashSet<>();
       currentPath.add(directory.getCanonicalFile());
       scanDirectory(directory, classloader, "", currentPath);
@@ -546,7 +546,7 @@ public final class ClassPath {
      *     cycle elimination
      */
     private void scanDirectory(
-        File directory, ClassLoader classloader, String packagePrefix, Set<File> currentPath)
+        final File directory, final ClassLoader classloader, final String packagePrefix, final Set<File> currentPath)
         throws IOException {
       File[] files = directory.listFiles();
       if (files == null) {
@@ -573,14 +573,14 @@ public final class ClassPath {
   }
 
   @VisibleForTesting
-  static String getClassName(String filename) {
+  static String getClassName(final String filename) {
     int classNameEnd = filename.length() - CLASS_FILE_NAME_EXTENSION.length();
     return filename.substring(0, classNameEnd).replace('/', '.');
   }
 
   // TODO(benyu): Try java.nio.file.Paths#get() when Guava drops JDK 6 support.
   @VisibleForTesting
-  static File toFile(URL url) {
+  static File toFile(final URL url) {
     checkArgument(url.getProtocol().equals("file"));
     try {
       return new File(url.toURI());  // Accepts escaped characters like %20.

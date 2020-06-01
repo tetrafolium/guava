@@ -94,7 +94,7 @@ public abstract class IoTestCase extends TestCase {
   /**
    * Returns the file with the given name under the testdata directory.
    */
-  protected final File getTestFile(String name) throws IOException {
+  protected final File getTestFile(final String name) throws IOException {
     File file = new File(getTestDir(), name);
     if (!file.exists()) {
       URL resourceUrl = IoTestCase.class.getResource("testdata/" + name);
@@ -144,14 +144,14 @@ public abstract class IoTestCase extends TestCase {
   /**
    * Returns a byte array of length size that has values 0 .. size - 1.
    */
-  static byte[] newPreFilledByteArray(int size) {
+  static byte[] newPreFilledByteArray(final int size) {
     return newPreFilledByteArray(0, size);
   }
 
   /**
    * Returns a byte array of length size that has values offset .. offset + size - 1.
    */
-  static byte[] newPreFilledByteArray(int offset, int size) {
+  static byte[] newPreFilledByteArray(final int offset, final int size) {
     byte[] array = new byte[size];
     for (int i = 0; i < size; i++) {
       array[i] = (byte) (offset + i);
@@ -159,7 +159,7 @@ public abstract class IoTestCase extends TestCase {
     return array;
   }
 
-  private static void copy(URL url, File file) throws IOException {
+  private static void copy(final URL url, final File file) throws IOException {
     InputStream in = url.openStream();
     try {
       OutputStream out = new FileOutputStream(file);
@@ -177,7 +177,7 @@ public abstract class IoTestCase extends TestCase {
   }
 
   @CanIgnoreReturnValue
-  private boolean delete(File file) {
+  private boolean delete(final File file) {
     if (file.isDirectory()) {
       File[] files = file.listFiles();
       if (files != null) {

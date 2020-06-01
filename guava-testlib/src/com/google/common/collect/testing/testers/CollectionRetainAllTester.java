@@ -50,7 +50,7 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
     private final Collection<E> toRetain;
     private final String description;
 
-    private Target(Collection<E> toRetain, String description) {
+    private Target(final Collection<E> toRetain, final String description) {
       this.toRetain = toRetain;
       this.description = description;
     }
@@ -301,17 +301,17 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
     }
   }
 
-  private void expectReturnsTrue(Target target) {
+  private void expectReturnsTrue(final Target target) {
     String message = Platform.format("retainAll(%s) should return true", target);
     assertTrue(message, collection.retainAll(target.toRetain));
   }
 
-  private void expectReturnsFalse(Target target) {
+  private void expectReturnsFalse(final Target target) {
     String message = Platform.format("retainAll(%s) should return false", target);
     assertFalse(message, collection.retainAll(target.toRetain));
   }
 
-  private void expectThrows(Target target) {
+  private void expectThrows(final Target target) {
     try {
       collection.retainAll(target.toRetain);
       String message = Platform.format("retainAll(%s) should throw", target);
@@ -320,7 +320,7 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
     }
   }
 
-  private void expectReturnsFalseOrThrows(Target target) {
+  private void expectReturnsFalseOrThrows(final Target target) {
     String message = Platform.format("retainAll(%s) should return false or throw", target);
     try {
       assertFalse(message, collection.retainAll(target.toRetain));

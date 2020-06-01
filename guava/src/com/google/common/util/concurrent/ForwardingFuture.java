@@ -37,13 +37,13 @@ import java.util.concurrent.TimeoutException;
 @GwtCompatible
 public abstract class ForwardingFuture<V> extends ForwardingObject implements Future<V> {
   /** Constructor for use by subclasses. */
-  protected ForwardingFuture() {}
+  protected ForwardingFuture() { }
 
   @Override
   protected abstract Future<? extends V> delegate();
 
   @Override
-  public boolean cancel(boolean mayInterruptIfRunning) {
+  public boolean cancel(final boolean mayInterruptIfRunning) {
     return delegate().cancel(mayInterruptIfRunning);
   }
 
@@ -63,7 +63,7 @@ public abstract class ForwardingFuture<V> extends ForwardingObject implements Fu
   }
 
   @Override
-  public V get(long timeout, TimeUnit unit)
+  public V get(final long timeout, final TimeUnit unit)
       throws InterruptedException, ExecutionException, TimeoutException {
     return delegate().get(timeout, unit);
   }
@@ -78,7 +78,7 @@ public abstract class ForwardingFuture<V> extends ForwardingObject implements Fu
   public abstract static class SimpleForwardingFuture<V> extends ForwardingFuture<V> {
     private final Future<V> delegate;
 
-    protected SimpleForwardingFuture(Future<V> delegate) {
+    protected SimpleForwardingFuture(final Future<V> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 

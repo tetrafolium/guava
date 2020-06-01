@@ -41,7 +41,7 @@ import junit.framework.TestCase;
 public class LocalLoadingCacheTest extends TestCase {
 
   private static <K, V> LocalLoadingCache<K, V> makeCache(
-      CacheBuilder<K, V> builder, CacheLoader<? super K, V> loader) {
+      final CacheBuilder<K, V> builder, final CacheLoader<? super K, V> loader) {
     return new LocalLoadingCache<>(builder, loader);
   }
 
@@ -54,7 +54,7 @@ public class LocalLoadingCacheTest extends TestCase {
   public void testComputingFunction() {
     CacheLoader<Object, Object> loader = new CacheLoader<Object, Object>() {
       @Override
-      public Object load(Object from) {
+      public Object load(final Object from) {
         return new Object();
       }
     };
@@ -97,9 +97,9 @@ public class LocalLoadingCacheTest extends TestCase {
     stats = cache.stats();
     assertEquals(2, stats.requestCount());
     assertEquals(1, stats.hitCount());
-    assertEquals(1.0/2, stats.hitRate());
+    assertEquals(1.0 / 2, stats.hitRate());
     assertEquals(1, stats.missCount());
-    assertEquals(1.0/2, stats.missRate());
+    assertEquals(1.0 / 2, stats.missRate());
     assertEquals(1, stats.loadCount());
     assertEquals(0, stats.evictionCount());
 
@@ -108,9 +108,9 @@ public class LocalLoadingCacheTest extends TestCase {
     stats = cache.stats();
     assertEquals(3, stats.requestCount());
     assertEquals(1, stats.hitCount());
-    assertEquals(1.0/3, stats.hitRate());
+    assertEquals(1.0 / 3, stats.hitRate());
     assertEquals(2, stats.missCount());
-    assertEquals(2.0/3, stats.missRate());
+    assertEquals(2.0 / 3, stats.missRate());
     assertEquals(2, stats.loadCount());
     assertTrue(stats.totalLoadTime() >= totalLoadTime);
     totalLoadTime = stats.totalLoadTime();
@@ -122,9 +122,9 @@ public class LocalLoadingCacheTest extends TestCase {
     stats = cache.stats();
     assertEquals(4, stats.requestCount());
     assertEquals(1, stats.hitCount());
-    assertEquals(1.0/4, stats.hitRate());
+    assertEquals(1.0 / 4, stats.hitRate());
     assertEquals(3, stats.missCount());
-    assertEquals(3.0/4, stats.missRate());
+    assertEquals(3.0 / 4, stats.missRate());
     assertEquals(3, stats.loadCount());
     assertTrue(stats.totalLoadTime() >= totalLoadTime);
     totalLoadTime = stats.totalLoadTime();
@@ -307,7 +307,7 @@ public class LocalLoadingCacheTest extends TestCase {
     final AtomicReference<LoadingCache<Integer, String>> cacheRef = new AtomicReference<>();
     CacheLoader<Integer, String> recursiveLoader = new CacheLoader<Integer, String>() {
       @Override
-      public String load(Integer key) {
+      public String load(final Integer key) {
         if (key > 0) {
           return key + ", " + cacheRef.get().getUnchecked(key - 1);
         } else {
@@ -325,7 +325,7 @@ public class LocalLoadingCacheTest extends TestCase {
 
     recursiveLoader = new CacheLoader<Integer, String>() {
       @Override
-      public String load(Integer key) {
+      public String load(final Integer key) {
         return cacheRef.get().getUnchecked(key);
       }
     };
@@ -351,7 +351,7 @@ public class LocalLoadingCacheTest extends TestCase {
     };
     thread.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
       @Override
-      public void uncaughtException(Thread t, Throwable e) {}
+      public void uncaughtException(final Thread t, final Throwable e) { }
     });
     thread.start();
 

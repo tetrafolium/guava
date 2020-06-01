@@ -25,7 +25,7 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public class DerivedComparable extends BaseComparable {
-  public DerivedComparable(String s) {
+  public DerivedComparable(final String s) {
     super(s);
   }
 

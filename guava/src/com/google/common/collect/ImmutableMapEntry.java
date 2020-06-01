@@ -40,16 +40,16 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
    * allowed to escape the class.
    */
   @SuppressWarnings("unchecked") // Safe as long as the javadocs are followed
-  static <K, V> ImmutableMapEntry<K, V>[] createEntryArray(int size) {
+  static <K, V> ImmutableMapEntry<K, V>[] createEntryArray(final int size) {
     return new ImmutableMapEntry[size];
   }
 
-  ImmutableMapEntry(K key, V value) {
+  ImmutableMapEntry(final K key, final V value) {
     super(key, value);
     checkEntryNotNull(key, value);
   }
 
-  ImmutableMapEntry(ImmutableMapEntry<K, V> contents) {
+  ImmutableMapEntry(final ImmutableMapEntry<K, V> contents) {
     super(contents.getKey(), contents.getValue());
     // null check would be redundant
   }
@@ -75,7 +75,7 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
   static class NonTerminalImmutableMapEntry<K, V> extends ImmutableMapEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInKeyBucket;
 
-    NonTerminalImmutableMapEntry(K key, V value, ImmutableMapEntry<K, V> nextInKeyBucket) {
+    NonTerminalImmutableMapEntry(final K key, final V value, final ImmutableMapEntry<K, V> nextInKeyBucket) {
       super(key, value);
       this.nextInKeyBucket = nextInKeyBucket;
     }
@@ -97,10 +97,10 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInValueBucket;
 
     NonTerminalImmutableBiMapEntry(
-        K key,
-        V value,
-        ImmutableMapEntry<K, V> nextInKeyBucket,
-        ImmutableMapEntry<K, V> nextInValueBucket) {
+        final K key,
+        final V value,
+        final ImmutableMapEntry<K, V> nextInKeyBucket,
+        final ImmutableMapEntry<K, V> nextInValueBucket) {
       super(key, value, nextInKeyBucket);
       this.nextInValueBucket = nextInValueBucket;
     }

@@ -50,7 +50,7 @@ import java.util.Map.Entry;
 public class MapGenerators {
   public static class ImmutableMapGenerator extends TestStringMapGenerator {
     @Override
-    protected Map<String, String> create(Entry<String, String>[] entries) {
+    protected Map<String, String> create(final Entry<String, String>[] entries) {
       ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -61,7 +61,7 @@ public class MapGenerators {
 
   public static class ImmutableMapCopyOfGenerator extends TestStringMapGenerator {
     @Override
-    protected Map<String, String> create(Entry<String, String>[] entries) {
+    protected Map<String, String> create(final Entry<String, String>[] entries) {
       Map<String, String> builder = Maps.newLinkedHashMap();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -72,7 +72,7 @@ public class MapGenerators {
 
   public static class ImmutableMapCopyOfEntriesGenerator extends TestStringMapGenerator {
     @Override
-    protected Map<String, String> create(Entry<String, String>[] entries) {
+    protected Map<String, String> create(final Entry<String, String>[] entries) {
       return ImmutableMap.copyOf(Arrays.asList(entries));
     }
   }
@@ -81,7 +81,7 @@ public class MapGenerators {
       extends TestUnhashableCollectionGenerator<Collection<UnhashableObject>> {
 
     @Override
-    public Collection<UnhashableObject> create(UnhashableObject[] elements) {
+    public Collection<UnhashableObject> create(final UnhashableObject[] elements) {
       ImmutableMap.Builder<Integer, UnhashableObject> builder = ImmutableMap.builder();
       int key = 1;
       for (UnhashableObject value : elements) {
@@ -93,7 +93,7 @@ public class MapGenerators {
 
   public static class ImmutableMapKeyListGenerator extends TestStringListGenerator {
     @Override
-    public List<String> create(String[] elements) {
+    public List<String> create(final String[] elements) {
       ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
       for (int i = 0; i < elements.length; i++) {
         builder.put(elements[i], i);
@@ -104,7 +104,7 @@ public class MapGenerators {
 
   public static class ImmutableMapValueListGenerator extends TestStringListGenerator {
     @Override
-    public List<String> create(String[] elements) {
+    public List<String> create(final String[] elements) {
       ImmutableMap.Builder<Integer, String> builder = ImmutableMap.builder();
       for (int i = 0; i < elements.length; i++) {
         builder.put(i, elements[i]);
@@ -128,17 +128,17 @@ public class MapGenerators {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<String, Integer>[] createArray(int length) {
+    public Entry<String, Integer>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<String, Integer>> order(List<Entry<String, Integer>> insertionOrder) {
+    public Iterable<Entry<String, Integer>> order(final List<Entry<String, Integer>> insertionOrder) {
       return insertionOrder;
     }
 
     @Override
-    public List<Entry<String, Integer>> create(Object... elements) {
+    public List<Entry<String, Integer>> create(final Object... elements) {
       ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
       for (Object o : elements) {
         @SuppressWarnings("unchecked")
@@ -151,7 +151,7 @@ public class MapGenerators {
 
   public static class ImmutableEnumMapGenerator extends TestEnumMapGenerator {
     @Override
-    protected Map<AnEnum, String> create(Entry<AnEnum, String>[] entries) {
+    protected Map<AnEnum, String> create(final Entry<AnEnum, String>[] entries) {
       Map<AnEnum, String> map = Maps.newHashMap();
       for (Entry<AnEnum, String> entry : entries) {
         // checkArgument(!map.containsKey(entry.getKey()));
@@ -163,7 +163,7 @@ public class MapGenerators {
 
   public static class ImmutableMapCopyOfEnumMapGenerator extends TestEnumMapGenerator {
     @Override
-    protected Map<AnEnum, String> create(Entry<AnEnum, String>[] entries) {
+    protected Map<AnEnum, String> create(final Entry<AnEnum, String>[] entries) {
       EnumMap<AnEnum, String> map = new EnumMap<>(AnEnum.class);
       for (Entry<AnEnum, String> entry : entries) {
         map.put(entry.getKey(), entry.getValue());
@@ -172,11 +172,11 @@ public class MapGenerators {
     }
 
     @Override
-    public Iterable<Entry<AnEnum, String>> order(List<Entry<AnEnum, String>> insertionOrder) {
+    public Iterable<Entry<AnEnum, String>> order(final List<Entry<AnEnum, String>> insertionOrder) {
       return new Ordering<Entry<AnEnum, String>>() {
 
         @Override
-        public int compare(Entry<AnEnum, String> left, Entry<AnEnum, String> right) {
+        public int compare(final Entry<AnEnum, String> left, final Entry<AnEnum, String> right) {
           return left.getKey().compareTo(right.getKey());
         }
       }.sortedCopy(insertionOrder);
@@ -197,12 +197,12 @@ public class MapGenerators {
     }
 
     // javac7 can't infer the type parameters correctly in samples()
-    private static Collection<Integer> collectionOf(int item) {
+    private static Collection<Integer> collectionOf(final int item) {
       return ImmutableSet.of(item);
     }
 
     @Override
-    public Map<String, Collection<Integer>> create(Object... elements) {
+    public Map<String, Collection<Integer>> create(final Object... elements) {
       ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
       // assumes that each set is a singleton or less (as is done for the samples)
       for (Object elem : elements) {
@@ -216,24 +216,24 @@ public class MapGenerators {
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"}) // needed for arrays
-    public Entry<String, Collection<Integer>>[] createArray(int length) {
+    public Entry<String, Collection<Integer>>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
     public Iterable<Entry<String, Collection<Integer>>> order(
-        List<Entry<String, Collection<Integer>>> insertionOrder) {
+        final List<Entry<String, Collection<Integer>>> insertionOrder) {
       return insertionOrder;
     }
 
     @Override
-    public String[] createKeyArray(int length) {
+    public String[] createKeyArray(final int length) {
       return new String[length];
     }
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"}) // needed for arrays
-    public ImmutableSet<Integer>[] createValueArray(int length) {
+    public ImmutableSet<Integer>[] createValueArray(final int length) {
       return new ImmutableSet[length];
     }
   }

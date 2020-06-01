@@ -62,9 +62,9 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    */
   @Beta
   public static <T, R, C, V> Collector<T, ?, ImmutableTable<R, C, V>> toImmutableTable(
-      Function<? super T, ? extends R> rowFunction,
-      Function<? super T, ? extends C> columnFunction,
-      Function<? super T, ? extends V> valueFunction) {
+      final Function<? super T, ? extends R> rowFunction,
+      final Function<? super T, ? extends C> columnFunction,
+      final Function<? super T, ? extends V> valueFunction) {
     checkNotNull(rowFunction);
     checkNotNull(columnFunction);
     checkNotNull(valueFunction);
@@ -88,10 +88,10 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    * @since 21.0
    */
   public static <T, R, C, V> Collector<T, ?, ImmutableTable<R, C, V>> toImmutableTable(
-      Function<? super T, ? extends R> rowFunction,
-      Function<? super T, ? extends C> columnFunction,
-      Function<? super T, ? extends V> valueFunction,
-      BinaryOperator<V> mergeFunction) {
+      final Function<? super T, ? extends R> rowFunction,
+      final Function<? super T, ? extends C> columnFunction,
+      final Function<? super T, ? extends V> valueFunction,
+      final BinaryOperator<V> mergeFunction) {
 
     checkNotNull(rowFunction);
     checkNotNull(columnFunction);
@@ -121,7 +121,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     final List<MutableCell<R, C, V>> insertionOrder = new ArrayList<>();
     final Table<R, C, MutableCell<R, C, V>> table = HashBasedTable.create();
 
-    void put(R row, C column, V value, BinaryOperator<V> merger) {
+    void put(final R row, final C column, final V value, final BinaryOperator<V> merger) {
       MutableCell<R, C, V> oldCell = table.get(row, column);
       if (oldCell == null) {
         MutableCell<R, C, V> cell = new MutableCell<>(row, column, value);
@@ -132,7 +132,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
       }
     }
 
-    CollectorState<R, C, V> combine(CollectorState<R, C, V> other, BinaryOperator<V> merger) {
+    CollectorState<R, C, V> combine(final CollectorState<R, C, V> other, final BinaryOperator<V> merger) {
       for (MutableCell<R, C, V> cell : other.insertionOrder) {
         put(cell.getRowKey(), cell.getColumnKey(), cell.getValue(), merger);
       }
@@ -149,7 +149,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     private final C column;
     private V value;
 
-    MutableCell(R row, C column, V value) {
+    MutableCell(final R row, final C column, final V value) {
       this.row = checkNotNull(row);
       this.column = checkNotNull(column);
       this.value = checkNotNull(value);
@@ -170,7 +170,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
       return value;
     }
 
-    void merge(V value, BinaryOperator<V> mergeFunction) {
+    void merge(final V value, final BinaryOperator<V> mergeFunction) {
       checkNotNull(value);
       this.value = checkNotNull(mergeFunction.apply(this.value, value));
     }
@@ -183,7 +183,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   }
 
   /** Returns an immutable table containing a single cell. */
-  public static <R, C, V> ImmutableTable<R, C, V> of(R rowKey, C columnKey, V value) {
+  public static <R, C, V> ImmutableTable<R, C, V> of(final R rowKey, final C columnKey, final V value) {
     return new SingletonImmutableTable<>(rowKey, columnKey, value);
   }
 
@@ -202,7 +202,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    * copy will or will not be performed are undocumented and subject to change.
    */
   public static <R, C, V> ImmutableTable<R, C, V> copyOf(
-      Table<? extends R, ? extends C, ? extends V> table) {
+      final Table<? extends R, ? extends C, ? extends V> table) {
     if (table instanceof ImmutableTable) {
       @SuppressWarnings("unchecked")
       ImmutableTable<R, C, V> parameterizedTable = (ImmutableTable<R, C, V>) table;
@@ -213,7 +213,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   }
   
   private static <R, C, V> ImmutableTable<R, C, V> copyOf(
-      Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
+      final Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
     ImmutableTable.Builder<R, C, V> builder = ImmutableTable.builder();
     for (Cell<? extends R, ? extends C, ? extends V> cell : cells) {
       builder.put(cell);
@@ -233,7 +233,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    * Verifies that {@code rowKey}, {@code columnKey} and {@code value} are
    * non-null, and returns a new entry with those values.
    */
-  static <R, C, V> Cell<R, C, V> cellOf(R rowKey, C columnKey, V value) {
+  static <R, C, V> Cell<R, C, V> cellOf(final R rowKey, final C columnKey, final V value) {
     return Tables.immutableCell(checkNotNull(rowKey), checkNotNull(columnKey), checkNotNull(value));
   }
 
@@ -272,13 +272,13 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
      * Creates a new builder. The returned builder is equivalent to the builder
      * generated by {@link ImmutableTable#builder}.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Specifies the ordering of the generated table's rows.
      */
     @CanIgnoreReturnValue
-    public Builder<R, C, V> orderRowsBy(Comparator<? super R> rowComparator) {
+    public Builder<R, C, V> orderRowsBy(final Comparator<? super R> rowComparator) {
       this.rowComparator = checkNotNull(rowComparator);
       return this;
     }
@@ -287,7 +287,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
      * Specifies the ordering of the generated table's columns.
      */
     @CanIgnoreReturnValue
-    public Builder<R, C, V> orderColumnsBy(Comparator<? super C> columnComparator) {
+    public Builder<R, C, V> orderColumnsBy(final Comparator<? super C> columnComparator) {
       this.columnComparator = checkNotNull(columnComparator);
       return this;
     }
@@ -298,7 +298,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
      * cause {@link #build} to fail.
      */
     @CanIgnoreReturnValue
-    public Builder<R, C, V> put(R rowKey, C columnKey, V value) {
+    public Builder<R, C, V> put(final R rowKey, final C columnKey, final V value) {
       cells.add(cellOf(rowKey, columnKey, value));
       return this;
     }
@@ -309,7 +309,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
      * #build} to fail.
      */
     @CanIgnoreReturnValue
-    public Builder<R, C, V> put(Cell<? extends R, ? extends C, ? extends V> cell) {
+    public Builder<R, C, V> put(final Cell<? extends R, ? extends C, ? extends V> cell) {
       if (cell instanceof Tables.ImmutableCell) {
         checkNotNull(cell.getRowKey());
         checkNotNull(cell.getColumnKey());
@@ -331,14 +331,14 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
      * @throws NullPointerException if any key or value in {@code table} is null
      */
     @CanIgnoreReturnValue
-    public Builder<R, C, V> putAll(Table<? extends R, ? extends C, ? extends V> table) {
+    public Builder<R, C, V> putAll(final Table<? extends R, ? extends C, ? extends V> table) {
       for (Cell<? extends R, ? extends C, ? extends V> cell : table.cellSet()) {
         put(cell);
       }
       return this;
     }
     
-    Builder<R, C, V> combine(Builder<R, C, V> other) {
+    Builder<R, C, V> combine(final Builder<R, C, V> other) {
       this.cells.addAll(other.cells);
       return this;
     }
@@ -361,7 +361,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     }
   }
 
-  ImmutableTable() {}
+  ImmutableTable() { }
 
   @Override
   public ImmutableSet<Cell<R, C, V>> cellSet() {
@@ -400,7 +400,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    * @throws NullPointerException if {@code columnKey} is {@code null}
    */
   @Override
-  public ImmutableMap<R, V> column(C columnKey) {
+  public ImmutableMap<R, V> column(final C columnKey) {
     checkNotNull(columnKey);
     return MoreObjects.firstNonNull(
         (ImmutableMap<R, V>) columnMap().get(columnKey), ImmutableMap.<R, V>of());
@@ -426,7 +426,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    * @throws NullPointerException if {@code rowKey} is {@code null}
    */
   @Override
-  public ImmutableMap<C, V> row(R rowKey) {
+  public ImmutableMap<C, V> row(final R rowKey) {
     checkNotNull(rowKey);
     return MoreObjects.firstNonNull(
         (ImmutableMap<C, V>) rowMap().get(rowKey), ImmutableMap.<C, V>of());
@@ -447,12 +447,12 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   public abstract ImmutableMap<R, Map<C, V>> rowMap();
 
   @Override
-  public boolean contains(@Nullable Object rowKey, @Nullable Object columnKey) {
+  public boolean contains(final @Nullable Object rowKey, final @Nullable Object columnKey) {
     return get(rowKey, columnKey) != null;
   }
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return values().contains(value);
   }
 
@@ -477,7 +477,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final V put(R rowKey, C columnKey, V value) {
+  public final V put(final R rowKey, final C columnKey, final V value) {
     throw new UnsupportedOperationException();
   }
 
@@ -489,7 +489,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
    */
   @Deprecated
   @Override
-  public final void putAll(Table<? extends R, ? extends C, ? extends V> table) {
+  public final void putAll(final Table<? extends R, ? extends C, ? extends V> table) {
     throw new UnsupportedOperationException();
   }
 
@@ -502,7 +502,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   @CanIgnoreReturnValue
   @Deprecated
   @Override
-  public final V remove(Object rowKey, Object columnKey) {
+  public final V remove(final Object rowKey, final Object columnKey) {
     throw new UnsupportedOperationException();
   }
 
@@ -522,11 +522,11 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     private final int[] cellColumnIndices;
 
     private SerializedForm(
-        Object[] rowKeys,
-        Object[] columnKeys,
-        Object[] cellValues,
-        int[] cellRowIndices,
-        int[] cellColumnIndices) {
+        final Object[] rowKeys,
+        final Object[] columnKeys,
+        final Object[] cellValues,
+        final int[] cellRowIndices,
+        final int[] cellColumnIndices) {
       this.rowKeys = rowKeys;
       this.columnKeys = columnKeys;
       this.cellValues = cellValues;
@@ -535,7 +535,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     }
 
     static SerializedForm create(
-        ImmutableTable<?, ?, ?> table, int[] cellRowIndices, int[] cellColumnIndices) {
+        final ImmutableTable<?, ?, ?> table, final int[] cellRowIndices, final int[] cellColumnIndices) {
       return new SerializedForm(
           table.rowKeySet().toArray(),
           table.columnKeySet().toArray(),

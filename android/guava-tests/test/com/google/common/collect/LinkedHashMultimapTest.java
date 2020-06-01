@@ -58,7 +58,7 @@ public class LinkedHashMultimapTest extends TestCase {
     TestSuite suite = new TestSuite();
     suite.addTest(SetMultimapTestSuiteBuilder.using(new TestStringSetMultimapGenerator() {
         @Override
-        protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+        protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
           SetMultimap<String, String> multimap = LinkedHashMultimap.create();
           for (Entry<String, String> entry : entries) {
             multimap.put(entry.getKey(), entry.getValue());
@@ -157,7 +157,7 @@ public class LinkedHashMultimapTest extends TestCase {
     // note that the keys and entries are in different orders
   }
 
-  private void assertOrderingReadOnly(Multimap<String, Integer> multimap) {
+  private void assertOrderingReadOnly(final Multimap<String, Integer> multimap) {
     assertThat(multimap.get("foo")).containsExactly(5, 3).inOrder();
     assertThat(multimap.get("bar")).containsExactly(4, 1).inOrder();
     assertThat(multimap.get("cow")).contains(2);
@@ -269,12 +269,12 @@ public class LinkedHashMultimapTest extends TestCase {
     try {
       LinkedHashMultimap.create(-20, 15);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       LinkedHashMultimap.create(20, -15);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   @GwtIncompatible // unreasonably slow
@@ -292,7 +292,7 @@ public class LinkedHashMultimapTest extends TestCase {
         return multimap.get("foo").iterator();
       }
 
-      @Override protected void verify(List<Integer> elements) {
+      @Override protected void verify(final List<Integer> elements) {
         assertEquals(newHashSet(elements), multimap.get("foo"));
       }
     }.test();
@@ -320,7 +320,7 @@ public class LinkedHashMultimapTest extends TestCase {
         return multimap.entries().iterator();
       }
 
-      @Override protected void verify(List<Entry<String, Integer>> elements) {
+      @Override protected void verify(final List<Entry<String, Integer>> elements) {
         assertEquals(newHashSet(elements), multimap.entries());
       }
     }.test();
@@ -340,7 +340,7 @@ public class LinkedHashMultimapTest extends TestCase {
         return multimap.keys().iterator();
       }
 
-      @Override protected void verify(List<String> elements) {
+      @Override protected void verify(final List<String> elements) {
         assertEquals(elements, Lists.newArrayList(multimap.keys()));
       }
     }.test();
@@ -360,7 +360,7 @@ public class LinkedHashMultimapTest extends TestCase {
         return multimap.values().iterator();
       }
 
-      @Override protected void verify(List<Integer> elements) {
+      @Override protected void verify(final List<Integer> elements) {
         assertEquals(elements, Lists.newArrayList(multimap.values()));
       }
     }.test();
@@ -385,7 +385,7 @@ public class LinkedHashMultimapTest extends TestCase {
         return multimap.keySet().iterator();
       }
 
-      @Override protected void verify(List<String> elements) {
+      @Override protected void verify(final List<String> elements) {
         assertEquals(newHashSet(elements), multimap.keySet());
       }
     }.test();
@@ -424,7 +424,7 @@ public class LinkedHashMultimapTest extends TestCase {
       }
 
       @Override protected void verify(
-          List<Entry<String, Collection<Integer>>> elements) {
+          final List<Entry<String, Collection<Integer>>> elements) {
         assertEquals(newHashSet(elements), multimap.asMap().entrySet());
       }
     }.test();

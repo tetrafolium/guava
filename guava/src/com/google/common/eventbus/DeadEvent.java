@@ -40,7 +40,7 @@ public class DeadEvent {
    * @param source object broadcasting the DeadEvent (generally the {@link EventBus}).
    * @param event the event that could not be delivered.
    */
-  public DeadEvent(Object source, Object event) {
+  public DeadEvent(final Object source, final Object event) {
     this.source = checkNotNull(source);
     this.event = checkNotNull(event);
   }

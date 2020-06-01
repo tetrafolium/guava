@@ -153,7 +153,7 @@ public class FilesTest extends IoTestCase {
 
     private final long badLength;
 
-    public BadLengthFile(File delegate, long badLength) {
+    public BadLengthFile(final File delegate, final long badLength) {
       super(delegate.getPath());
       this.badLength = badLength;
     }
@@ -345,7 +345,7 @@ public class FilesTest extends IoTestCase {
     try {
       Files.touch(new File(temp.getPath()) {
         @Override
-        public boolean setLastModified(long t) {
+        public boolean setLastModified(final long t) {
           return false;
         }
 
@@ -461,7 +461,7 @@ public class FilesTest extends IoTestCase {
     }
   }
 
-  private void moveHelper(boolean success, File from, File to)
+  private void moveHelper(final boolean success, final File from, final File to)
       throws IOException {
     try {
       Files.move(from, to);
@@ -483,14 +483,14 @@ public class FilesTest extends IoTestCase {
     private final boolean canRename;
     private final boolean canDelete;
 
-    public UnmovableFile(File file, boolean canRename, boolean canDelete) {
+    public UnmovableFile(final File file, final boolean canRename, final boolean canDelete) {
       super(file.getPath());
       this.canRename = canRename;
       this.canDelete = canDelete;
     }
 
     @Override
-    public boolean renameTo(File to) {
+    public boolean renameTo(final File to) {
       return canRename && super.renameTo(to);
     }
 
@@ -528,7 +528,7 @@ public class FilesTest extends IoTestCase {
           List<String> collector = new ArrayList<>();
 
           @Override
-          public boolean processLine(String line) {
+          public boolean processLine(final String line) {
             collector.add(line);
             return true;
           }
@@ -555,7 +555,7 @@ public class FilesTest extends IoTestCase {
           List<String> collector = new ArrayList<>();
 
           @Override
-          public boolean processLine(String line) {
+          public boolean processLine(final String line) {
             if (line.length() > 0) {
               collector.add(line);
             }
@@ -716,7 +716,7 @@ public class FilesTest extends IoTestCase {
       private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
       @Override
-      public boolean processBytes(byte[] buffer, int offset, int length) throws IOException {
+      public boolean processBytes(final byte[] buffer, final int offset, final int length) throws IOException {
         if (length >= 0) {
           out.write(buffer, offset, length);
         }
@@ -739,7 +739,7 @@ public class FilesTest extends IoTestCase {
       private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
       @Override
-      public boolean processBytes(byte[] buffer, int offset, int length) throws IOException {
+      public boolean processBytes(final byte[] buffer, final int offset, final int length) throws IOException {
         if (length > 0) {
           out.write(buffer, offset, 1);
           return false;
@@ -779,14 +779,14 @@ public class FilesTest extends IoTestCase {
   /**
    * Returns a {@code File} object for the given path parts.
    */
-  private static File file(String first, String... more) {
+  private static File file(final String first, final String... more) {
     return file(new File(first), more);
   }
 
   /**
    * Returns a {@code File} object for the given path parts.
    */
-  private static File file(File first, String... more) {
+  private static File file(final File first, final String... more) {
     // not very efficient, but should definitely be correct
     File file = first;
     for (String name : more) {

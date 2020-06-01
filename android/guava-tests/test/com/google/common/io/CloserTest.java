@@ -315,7 +315,7 @@ public class CloserTest extends TestCase {
       TestCloseable c2 = closer.register(TestCloseable.throwsOnClose(new RuntimeException()));
       try {
         throw closer.rethrow(new IOException("thrown"), IOException.class);
-      } catch (IOException expected) {}
+      } catch (IOException expected) { }
 
       assertTrue(logHandler.getStoredLogRecords().isEmpty());
 
@@ -375,7 +375,7 @@ public class CloserTest extends TestCase {
     closer.close();
   }
 
-  static Throwable[] getSuppressed(Throwable throwable) {
+  static Throwable[] getSuppressed(final Throwable throwable) {
     try {
       Method getSuppressed = Throwable.class.getDeclaredMethod("getSuppressed");
       return (Throwable[]) getSuppressed.invoke(throwable);
@@ -388,7 +388,7 @@ public class CloserTest extends TestCase {
    * Asserts that an exception was thrown when trying to close each of the given throwables and that
    * each such exception was suppressed because of the given thrown exception.
    */
-  private void assertSuppressed(Suppression... expected) {
+  private void assertSuppressed(final Suppression... expected) {
     assertEquals(ImmutableList.copyOf(expected), suppressor.suppressions);
   }
 
@@ -400,7 +400,7 @@ public class CloserTest extends TestCase {
     private final List<Suppression> suppressions = Lists.newArrayList();
 
     @Override
-    public void suppress(Closeable closeable, Throwable thrown, Throwable suppressed) {
+    public void suppress(final Closeable closeable, final Throwable thrown, final Throwable suppressed) {
       suppressions.add(new Suppression(closeable, thrown, suppressed));
     }
   }
@@ -413,14 +413,14 @@ public class CloserTest extends TestCase {
     private final Throwable thrown;
     private final Throwable suppressed;
 
-    private Suppression(Closeable closeable, Throwable thrown, Throwable suppressed) {
+    private Suppression(final Closeable closeable, final Throwable thrown, final Throwable suppressed) {
       this.closeable = closeable;
       this.thrown = thrown;
       this.suppressed = suppressed;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof Suppression) {
         Suppression other = (Suppression) obj;
         return closeable.equals(other.closeable)
@@ -454,7 +454,7 @@ public class CloserTest extends TestCase {
       return new TestCloseable(null);
     }
 
-    static TestCloseable throwsOnClose(Throwable throwOnClose) throws IOException {
+    static TestCloseable throwsOnClose(final Throwable throwOnClose) throws IOException {
       return new TestCloseable(throwOnClose);
     }
 
@@ -462,7 +462,7 @@ public class CloserTest extends TestCase {
       throw new IOException();
     }
 
-    private TestCloseable(@Nullable Throwable throwOnClose) {
+    private TestCloseable(final @Nullable Throwable throwOnClose) {
       this.throwOnClose = throwOnClose;
     }
 

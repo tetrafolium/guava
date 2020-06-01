@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("serial")
 final class ImmutableSortedAsList<E> extends RegularImmutableAsList<E>
     implements SortedIterable<E> {
-  ImmutableSortedAsList(ImmutableSortedSet<E> backingSet, ImmutableList<E> backingList) {
+  ImmutableSortedAsList(final ImmutableSortedSet<E> backingSet, final ImmutableList<E> backingList) {
     super(backingSet, backingList);
   }
 
@@ -49,7 +49,7 @@ final class ImmutableSortedAsList<E> extends RegularImmutableAsList<E>
   @GwtIncompatible // ImmutableSortedSet.indexOf
   // TODO(cpovirk): consider manual binary search under GWT to preserve O(log N) lookup
   @Override
-  public int indexOf(@Nullable Object target) {
+  public int indexOf(final @Nullable Object target) {
     int index = delegateCollection().indexOf(target);
 
     // TODO(kevinb): reconsider if it's really worth making feeble attempts at
@@ -62,12 +62,12 @@ final class ImmutableSortedAsList<E> extends RegularImmutableAsList<E>
 
   @GwtIncompatible // ImmutableSortedSet.indexOf
   @Override
-  public int lastIndexOf(@Nullable Object target) {
+  public int lastIndexOf(final @Nullable Object target) {
     return indexOf(target);
   }
 
   @Override
-  public boolean contains(Object target) {
+  public boolean contains(final Object target) {
     // Necessary for ISS's with comparators inconsistent with equals.
     return indexOf(target) >= 0;
   }
@@ -79,7 +79,7 @@ final class ImmutableSortedAsList<E> extends RegularImmutableAsList<E>
    * sure there's any performance hit from our failure to override subListUnchecked under GWT
    */
   @Override
-  ImmutableList<E> subListUnchecked(int fromIndex, int toIndex) {
+  ImmutableList<E> subListUnchecked(final int fromIndex, final int toIndex) {
     ImmutableList<E> parentSubList = super.subListUnchecked(fromIndex, toIndex);
     return new RegularImmutableSortedSet<E>(parentSubList, comparator()).asList();
   }

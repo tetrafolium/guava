@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(emulated = true)
 public final class Enums {
 
-  private Enums() {}
+  private Enums() { }
 
   /**
    * Returns the {@link Field} in which {@code enumValue} is defined. For example, to get the
@@ -47,7 +47,7 @@ public final class Enums {
    * @since 12.0
    */
   @GwtIncompatible // reflection
-  public static Field getField(Enum<?> enumValue) {
+  public static Field getField(final Enum<?> enumValue) {
     Class<?> clazz = enumValue.getDeclaringClass();
     try {
       return clazz.getDeclaredField(enumValue.name());
@@ -64,7 +64,7 @@ public final class Enums {
    *
    * @since 12.0
    */
-  public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass, String value) {
+  public static <T extends Enum<T>> Optional<T> getIfPresent(final Class<T> enumClass, final String value) {
     checkNotNull(enumClass);
     checkNotNull(value);
     return Platform.getEnumIfPresent(enumClass, value);
@@ -76,7 +76,7 @@ public final class Enums {
 
   @GwtIncompatible // java.lang.ref.WeakReference
   private static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> populateCache(
-      Class<T> enumClass) {
+      final Class<T> enumClass) {
     Map<String, WeakReference<? extends Enum<?>>> result = new HashMap<>();
     for (T enumInstance : EnumSet.allOf(enumClass)) {
       result.put(enumInstance.name(), new WeakReference<Enum<?>>(enumInstance));
@@ -87,7 +87,7 @@ public final class Enums {
 
   @GwtIncompatible // java.lang.ref.WeakReference
   static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> getEnumConstants(
-      Class<T> enumClass) {
+      final Class<T> enumClass) {
     synchronized (enumConstantCache) {
       Map<String, WeakReference<? extends Enum<?>>> constants = enumConstantCache.get(enumClass);
       if (constants == null) {
@@ -114,22 +114,22 @@ public final class Enums {
 
     private final Class<T> enumClass;
 
-    StringConverter(Class<T> enumClass) {
+    StringConverter(final Class<T> enumClass) {
       this.enumClass = checkNotNull(enumClass);
     }
 
     @Override
-    protected T doForward(String value) {
+    protected T doForward(final String value) {
       return Enum.valueOf(enumClass, value);
     }
 
     @Override
-    protected String doBackward(T enumValue) {
+    protected String doBackward(final T enumValue) {
       return enumValue.name();
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof StringConverter) {
         StringConverter<?> that = (StringConverter<?>) object;
         return this.enumClass.equals(that.enumClass);

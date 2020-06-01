@@ -41,28 +41,28 @@ public abstract class AbstractListeningExecutorService extends AbstractExecutorS
 
   /** @since 19.0 (present with return type {@code ListenableFutureTask} since 14.0) */
   @Override
-  protected final <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
+  protected final <T> RunnableFuture<T> newTaskFor(final Runnable runnable, final T value) {
     return TrustedListenableFutureTask.create(runnable, value);
   }
 
   /** @since 19.0 (present with return type {@code ListenableFutureTask} since 14.0) */
   @Override
-  protected final <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+  protected final <T> RunnableFuture<T> newTaskFor(final Callable<T> callable) {
     return TrustedListenableFutureTask.create(callable);
   }
 
   @Override
-  public ListenableFuture<?> submit(Runnable task) {
+  public ListenableFuture<?> submit(final Runnable task) {
     return (ListenableFuture<?>) super.submit(task);
   }
 
   @Override
-  public <T> ListenableFuture<T> submit(Runnable task, @Nullable T result) {
+  public <T> ListenableFuture<T> submit(final Runnable task, final @Nullable T result) {
     return (ListenableFuture<T>) super.submit(task, result);
   }
 
   @Override
-  public <T> ListenableFuture<T> submit(Callable<T> task) {
+  public <T> ListenableFuture<T> submit(final Callable<T> task) {
     return (ListenableFuture<T>) super.submit(task);
   }
 }

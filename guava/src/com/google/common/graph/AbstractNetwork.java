@@ -71,7 +71,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
                 AbstractNetwork.this.edges().iterator(),
                 new Function<E, EndpointPair<N>>() {
                   @Override
-                  public EndpointPair<N> apply(E edge) {
+                  public EndpointPair<N> apply(final E edge) {
                     return incidentNodes(edge);
                   }
                 });
@@ -87,7 +87,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
           // Network<LinkedList>.
           @SuppressWarnings("unchecked")
           @Override
-          public boolean contains(@Nullable Object obj) {
+          public boolean contains(final @Nullable Object obj) {
             if (!(obj instanceof EndpointPair)) {
               return false;
             }
@@ -115,17 +115,17 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
       }
 
       @Override
-      public Set<N> adjacentNodes(N node) {
+      public Set<N> adjacentNodes(final N node) {
         return AbstractNetwork.this.adjacentNodes(node);
       }
 
       @Override
-      public Set<N> predecessors(N node) {
+      public Set<N> predecessors(final N node) {
         return AbstractNetwork.this.predecessors(node);
       }
 
       @Override
-      public Set<N> successors(N node) {
+      public Set<N> successors(final N node) {
         return AbstractNetwork.this.successors(node);
       }
 
@@ -134,7 +134,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   }
 
   @Override
-  public int degree(N node) {
+  public int degree(final N node) {
     if (isDirected()) {
       return IntMath.saturatedAdd(inEdges(node).size(), outEdges(node).size());
     } else {
@@ -143,17 +143,17 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   }
 
   @Override
-  public int inDegree(N node) {
+  public int inDegree(final N node) {
     return isDirected() ? inEdges(node).size() : degree(node);
   }
 
   @Override
-  public int outDegree(N node) {
+  public int outDegree(final N node) {
     return isDirected() ? outEdges(node).size() : degree(node);
   }
 
   @Override
-  public Set<E> adjacentEdges(E edge) {
+  public Set<E> adjacentEdges(final E edge) {
     EndpointPair<N> endpointPair = incidentNodes(edge); // Verifies that edge is in this network.
     Set<E> endpointPairIncidentEdges =
         Sets.union(incidentEdges(endpointPair.nodeU()), incidentEdges(endpointPair.nodeV()));
@@ -161,7 +161,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   }
 
   @Override
-  public Set<E> edgesConnecting(N nodeU, N nodeV) {
+  public Set<E> edgesConnecting(final N nodeU, final N nodeV) {
     Set<E> outEdgesU = outEdges(nodeU);
     Set<E> inEdgesV = inEdges(nodeV);
     return outEdgesU.size() <= inEdgesV.size()
@@ -172,14 +172,14 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   private Predicate<E> connectedPredicate(final N nodePresent, final N nodeToCheck) {
     return new Predicate<E>() {
       @Override
-      public boolean apply(E edge) {
+      public boolean apply(final E edge) {
         return incidentNodes(edge).adjacentNode(nodePresent).equals(nodeToCheck);
       }
     };
   }
 
   @Override
-  public Optional<E> edgeConnecting(N nodeU, N nodeV) {
+  public Optional<E> edgeConnecting(final N nodeU, final N nodeV) {
     Set<E> edgesConnecting = edgesConnecting(nodeU, nodeV);
     switch (edgesConnecting.size()) {
       case 0:
@@ -193,17 +193,17 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
 
   @Override
   @Nullable
-  public E edgeConnectingOrNull(N nodeU, N nodeV) {
+  public E edgeConnectingOrNull(final N nodeU, final N nodeV) {
     return edgeConnecting(nodeU, nodeV).orElse(null);
   }
 
   @Override
-  public boolean hasEdgeConnecting(N nodeU, N nodeV) {
+  public boolean hasEdgeConnecting(final N nodeU, final N nodeV) {
     return !edgesConnecting(nodeU, nodeV).isEmpty();
   }
 
   @Override
-  public final boolean equals(@Nullable Object obj) {
+  public final boolean equals(final @Nullable Object obj) {
     if (obj == this) {
       return true;
     }
@@ -241,7 +241,7 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
     Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
         new Function<E, EndpointPair<N>>() {
           @Override
-          public EndpointPair<N> apply(E edge) {
+          public EndpointPair<N> apply(final E edge) {
             return network.incidentNodes(edge);
           }
         };

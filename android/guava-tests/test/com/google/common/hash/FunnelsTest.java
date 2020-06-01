@@ -38,8 +38,8 @@ import org.mockito.InOrder;
 public class FunnelsTest extends TestCase {
   public void testForBytes() {
     PrimitiveSink primitiveSink = mock(PrimitiveSink.class);
-    Funnels.byteArrayFunnel().funnel(new byte[] { 4, 3, 2, 1 }, primitiveSink);
-    verify(primitiveSink).putBytes(new byte[] { 4, 3, 2, 1 });
+    Funnels.byteArrayFunnel().funnel(new byte[] {4, 3, 2, 1 }, primitiveSink);
+    verify(primitiveSink).putBytes(new byte[] {4, 3, 2, 1 });
   }
 
   public void testForBytes_null() {
@@ -105,11 +105,12 @@ public class FunnelsTest extends TestCase {
     inOrder.verify(elementFunnel).funnel("quux", primitiveSink);
   }
 
-  private static void assertNullsThrowException(Funnel<?> funnel) {
+  private static void assertNullsThrowException(final Funnel<?> funnel) {
     PrimitiveSink primitiveSink = new AbstractStreamingHasher(4, 4) {
-      @Override protected HashCode makeHash() { throw new UnsupportedOperationException(); }
+      @Override protected HashCode makeHash() {
+          throw new UnsupportedOperationException(); }
 
-      @Override protected void process(ByteBuffer bb) {
+      @Override protected void process(final ByteBuffer bb) {
         while (bb.hasRemaining()) {
           bb.get();
         }
@@ -118,13 +119,13 @@ public class FunnelsTest extends TestCase {
     try {
       funnel.funnel(null, primitiveSink);
       fail();
-    } catch (NullPointerException ok) {}
+    } catch (NullPointerException ok) { }
   }
 
   public void testAsOutputStream() throws Exception {
     PrimitiveSink sink = mock(PrimitiveSink.class);
     OutputStream out = Funnels.asOutputStream(sink);
-    byte[] bytes = { 1, 2, 3, 4 };
+    byte[] bytes = {1, 2, 3, 4 };
     out.write(255);
     out.write(bytes);
     out.write(bytes, 1, 2);

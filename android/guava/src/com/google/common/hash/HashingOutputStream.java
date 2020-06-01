@@ -41,19 +41,19 @@ public final class HashingOutputStream extends FilterOutputStream {
   // HashCode on an existing OutputStream, compared to creating a separate OutputStream that could
   // be (optionally) be combined with another if needed (with something like
   // MultiplexingOutputStream).
-  public HashingOutputStream(HashFunction hashFunction, OutputStream out) {
+  public HashingOutputStream(final HashFunction hashFunction, final OutputStream out) {
     super(checkNotNull(out));
     this.hasher = checkNotNull(hashFunction.newHasher());
   }
 
   @Override
-  public void write(int b) throws IOException {
+  public void write(final int b) throws IOException {
     hasher.putByte((byte) b);
     out.write(b);
   }
 
   @Override
-  public void write(byte[] bytes, int off, int len) throws IOException {
+  public void write(final byte[] bytes, final int off, final int len) throws IOException {
     hasher.putBytes(bytes, off, len);
     out.write(bytes, off, len);
   }

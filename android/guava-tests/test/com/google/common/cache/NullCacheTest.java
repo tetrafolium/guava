@@ -98,7 +98,7 @@ public class NullCacheTest extends TestCase {
     try {
       cache.getUnchecked(new Object());
       fail();
-    } catch (InvalidCacheLoadException e) { /* expected */}
+    } catch (InvalidCacheLoadException e) { /* expected */ }
 
     assertTrue(listener.isEmpty());
     checkEmpty(cache);

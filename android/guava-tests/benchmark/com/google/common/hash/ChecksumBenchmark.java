@@ -49,11 +49,11 @@ public class ChecksumBenchmark {
 
   // CRC32
 
-  @Benchmark byte crc32HashFunction(int reps) {
+  @Benchmark byte crc32HashFunction(final int reps) {
     return runHashFunction(reps, Hashing.crc32());
   }
 
-  @Benchmark byte crc32Checksum(int reps) throws Exception {
+  @Benchmark byte crc32Checksum(final int reps) throws Exception {
     byte result = 0x01;
     for (int i = 0; i < reps; i++) {
       CRC32 checksum = new CRC32();
@@ -65,11 +65,11 @@ public class ChecksumBenchmark {
 
   // Adler32
 
-  @Benchmark byte adler32HashFunction(int reps) {
+  @Benchmark byte adler32HashFunction(final int reps) {
     return runHashFunction(reps, Hashing.adler32());
   }
 
-  @Benchmark byte adler32Checksum(int reps) throws Exception {
+  @Benchmark byte adler32Checksum(final int reps) throws Exception {
     byte result = 0x01;
     for (int i = 0; i < reps; i++) {
       Adler32 checksum = new Adler32();
@@ -81,7 +81,7 @@ public class ChecksumBenchmark {
 
   // Helpers + main
 
-  private byte runHashFunction(int reps, HashFunction hashFunction) {
+  private byte runHashFunction(final int reps, final HashFunction hashFunction) {
     byte result = 0x01;
     // Trick the JVM to prevent it from using the hash function non-polymorphically
     result ^= Hashing.crc32().hashInt(reps).asBytes()[0];

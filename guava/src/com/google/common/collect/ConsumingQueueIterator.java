@@ -29,12 +29,12 @@ import java.util.Queue;
 class ConsumingQueueIterator<T> extends AbstractIterator<T> {
   private final Queue<T> queue;
 
-  ConsumingQueueIterator(T... elements) {
+  ConsumingQueueIterator(final T... elements) {
     this.queue = new ArrayDeque<T>(elements.length);
     Collections.addAll(queue, elements);
   }
 
-  ConsumingQueueIterator(Queue<T> queue) {
+  ConsumingQueueIterator(final Queue<T> queue) {
     this.queue = checkNotNull(queue);
   }
 

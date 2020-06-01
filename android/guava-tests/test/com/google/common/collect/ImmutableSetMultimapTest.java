@@ -49,7 +49,7 @@ public class ImmutableSetMultimapTest extends TestCase {
   private static final class ImmutableSetMultimapGenerator extends
       TestStringSetMultimapGenerator {
     @Override
-    protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+    protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
       ImmutableSetMultimap.Builder<String, String> builder = ImmutableSetMultimap.builder();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -61,7 +61,7 @@ public class ImmutableSetMultimapTest extends TestCase {
   private static final class ImmutableSetMultimapCopyOfEntriesGenerator extends
       TestStringSetMultimapGenerator {
     @Override
-    protected SetMultimap<String, String> create(Entry<String, String>[] entries) {
+    protected SetMultimap<String, String> create(final Entry<String, String>[] entries) {
       return ImmutableSetMultimap.copyOf(Arrays.asList(entries));
     }
   }
@@ -219,19 +219,19 @@ public class ImmutableSetMultimapTest extends TestCase {
     try {
       builder.put(null, 1);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(null, Arrays.asList(1, 2, 3));
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(null, 1, 2, 3);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(toPut);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderPutNullValue() {
@@ -242,19 +242,19 @@ public class ImmutableSetMultimapTest extends TestCase {
     try {
       builder.put("foo", null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll("foo", Arrays.asList(1, null, 3));
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll("foo", 4, null, 6);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       builder.putAll(toPut);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testBuilderOrderKeysBy() {
@@ -285,7 +285,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     builder.put("a", 5);
     builder.orderKeysBy(new Ordering<String>() {
       @Override
-      public int compare(String left, String right) {
+      public int compare(final String left, final String right) {
         return left.length() - right.length();
       }
     });
@@ -394,7 +394,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     try {
       ImmutableSetMultimap.copyOf(input);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testCopyOfNullValue() {
@@ -403,7 +403,7 @@ public class ImmutableSetMultimapTest extends TestCase {
     try {
       ImmutableSetMultimap.copyOf(input);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
   }
 
   public void testEmptyMultimapReads() {
@@ -513,8 +513,8 @@ public class ImmutableSetMultimapTest extends TestCase {
     assertSame(multimap, multimap.inverse().inverse());
   }
 
-  private static <K, V> void assertMultimapEquals(Multimap<K, V> multimap,
-      Object... alternatingKeysAndValues) {
+  private static <K, V> void assertMultimapEquals(final Multimap<K, V> multimap,
+      final Object... alternatingKeysAndValues) {
     assertEquals(multimap.size(), alternatingKeysAndValues.length / 2);
     int i = 0;
     for (Entry<K, V> entry : multimap.entries()) {

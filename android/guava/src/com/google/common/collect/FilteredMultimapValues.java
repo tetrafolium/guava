@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   @Weak private final FilteredMultimap<K, V> multimap;
 
-  FilteredMultimapValues(FilteredMultimap<K, V> multimap) {
+  FilteredMultimapValues(final FilteredMultimap<K, V> multimap) {
     this.multimap = checkNotNull(multimap);
   }
 
@@ -47,7 +47,7 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   }
 
   @Override
-  public boolean contains(@Nullable Object o) {
+  public boolean contains(final @Nullable Object o) {
     return multimap.containsValue(o);
   }
 
@@ -57,7 +57,7 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   }
 
   @Override
-  public boolean remove(@Nullable Object o) {
+  public boolean remove(final @Nullable Object o) {
     Predicate<? super Entry<K, V>> entryPredicate = multimap.entryPredicate();
     for (Iterator<Entry<K, V>> unfilteredItr = multimap.unfiltered().entries().iterator();
         unfilteredItr.hasNext();
@@ -72,7 +72,7 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   }
 
   @Override
-  public boolean removeAll(Collection<?> c) {
+  public boolean removeAll(final Collection<?> c) {
     return Iterables.removeIf(
         multimap.unfiltered().entries(),
         // explicit <Entry<K, V>> is required to build with JDK6
@@ -81,7 +81,7 @@ final class FilteredMultimapValues<K, V> extends AbstractCollection<V> {
   }
 
   @Override
-  public boolean retainAll(Collection<?> c) {
+  public boolean retainAll(final Collection<?> c) {
     return Iterables.removeIf(
         multimap.unfiltered().entries(),
         // explicit <Entry<K, V>> is required to build with JDK6

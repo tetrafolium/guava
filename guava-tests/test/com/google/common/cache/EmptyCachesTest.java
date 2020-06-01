@@ -340,7 +340,7 @@ public class EmptyCachesTest extends TestCase {
     return Iterables.transform(factory.buildAllPermutations(),
         new Function<CacheBuilder<Object, Object>, LoadingCache<Object, Object>>() {
           @Override public LoadingCache<Object, Object> apply(
-              CacheBuilder<Object, Object> builder) {
+              final CacheBuilder<Object, Object> builder) {
             return builder.build(identityLoader());
           }
         });
@@ -366,13 +366,13 @@ public class EmptyCachesTest extends TestCase {
             DurationSpec.of(1, DAYS)));
   }
 
-  private static void warmUp(LoadingCache<Object, Object> cache, int minimum, int maximum) {
+  private static void warmUp(final LoadingCache<Object, Object> cache, final int minimum, final int maximum) {
     for (int i = minimum; i < maximum; i++) {
       cache.getUnchecked(i);
     }
   }
 
-  private Entry<Object, Object> entryOf(Object key, Object value) {
+  private Entry<Object, Object> entryOf(final Object key, final Object value) {
     return Maps.immutableEntry(key, value);
   }
 }

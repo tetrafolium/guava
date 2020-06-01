@@ -97,32 +97,32 @@ public final class ImmutableIntArray implements Serializable {
   }
 
   /** Returns an immutable array containing a single value. */
-  public static ImmutableIntArray of(int e0) {
+  public static ImmutableIntArray of(final int e0) {
     return new ImmutableIntArray(new int[] {e0});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray of(int e0, int e1) {
+  public static ImmutableIntArray of(final int e0, final int e1) {
     return new ImmutableIntArray(new int[] {e0, e1});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray of(int e0, int e1, int e2) {
+  public static ImmutableIntArray of(final int e0, final int e1, final int e2) {
     return new ImmutableIntArray(new int[] {e0, e1, e2});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray of(int e0, int e1, int e2, int e3) {
+  public static ImmutableIntArray of(final int e0, final int e1, final int e2, final int e3) {
     return new ImmutableIntArray(new int[] {e0, e1, e2, e3});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray of(int e0, int e1, int e2, int e3, int e4) {
+  public static ImmutableIntArray of(final int e0, final int e1, final int e2, final int e3, final int e4) {
     return new ImmutableIntArray(new int[] {e0, e1, e2, e3, e4});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray of(int e0, int e1, int e2, int e3, int e4, int e5) {
+  public static ImmutableIntArray of(final int e0, final int e1, final int e2, final int e3, final int e4, final int e5) {
     return new ImmutableIntArray(new int[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -131,7 +131,7 @@ public final class ImmutableIntArray implements Serializable {
   /** Returns an immutable array containing the given values, in order. */
   // Use (first, rest) so that `of(someIntArray)` won't compile (they should use copyOf), which is
   // okay since we have to copy the just-created array anyway.
-  public static ImmutableIntArray of(int first, int... rest) {
+  public static ImmutableIntArray of(final int first, final int... rest) {
     int[] array = new int[rest.length + 1];
     array[0] = first;
     System.arraycopy(rest, 0, array, 1, rest.length);
@@ -139,12 +139,12 @@ public final class ImmutableIntArray implements Serializable {
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray copyOf(int[] values) {
+  public static ImmutableIntArray copyOf(final int[] values) {
     return values.length == 0 ? EMPTY : new ImmutableIntArray(Arrays.copyOf(values, values.length));
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableIntArray copyOf(Collection<Integer> values) {
+  public static ImmutableIntArray copyOf(final Collection<Integer> values) {
     return values.isEmpty() ? EMPTY : new ImmutableIntArray(Ints.toArray(values));
   }
 
@@ -155,7 +155,7 @@ public final class ImmutableIntArray implements Serializable {
    * values} is a {@link Collection}. Otherwise it creates a {@link #builder} and uses {@link
    * Builder#addAll(Iterable)}, with all the performance implications associated with that.
    */
-  public static ImmutableIntArray copyOf(Iterable<Integer> values) {
+  public static ImmutableIntArray copyOf(final Iterable<Integer> values) {
     if (values instanceof Collection) {
       return copyOf((Collection<Integer>) values);
     }
@@ -163,7 +163,7 @@ public final class ImmutableIntArray implements Serializable {
   }
 
   /** Returns an immutable array containing all the values from {@code stream}, in order. */
-  public static ImmutableIntArray copyOf(IntStream stream) {
+  public static ImmutableIntArray copyOf(final IntStream stream) {
     // Note this uses very different growth behavior from copyOf(Iterable) and the builder.
     int[] array = stream.toArray();
     return (array.length == 0) ? EMPTY : new ImmutableIntArray(array);
@@ -179,7 +179,7 @@ public final class ImmutableIntArray implements Serializable {
    * ImmutableIntArray} that is built will very likely occupy more memory than strictly necessary;
    * to trim memory usage, build using {@code builder.build().trimmed()}.
    */
-  public static Builder builder(int initialCapacity) {
+  public static Builder builder(final int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s", initialCapacity);
     return new Builder(initialCapacity);
   }
@@ -205,7 +205,7 @@ public final class ImmutableIntArray implements Serializable {
     private int[] array;
     private int count = 0; // <= array.length
 
-    Builder(int initialCapacity) {
+    Builder(final int initialCapacity) {
       array = new int[initialCapacity];
     }
 
@@ -213,7 +213,7 @@ public final class ImmutableIntArray implements Serializable {
      * Appends {@code value} to the end of the values the built {@link ImmutableIntArray} will
      * contain.
      */
-    public Builder add(int value) {
+    public Builder add(final int value) {
       ensureRoomFor(1);
       array[count] = value;
       count += 1;
@@ -224,7 +224,7 @@ public final class ImmutableIntArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableIntArray} will contain.
      */
-    public Builder addAll(int[] values) {
+    public Builder addAll(final int[] values) {
       ensureRoomFor(values.length);
       System.arraycopy(values, 0, array, count, values.length);
       count += values.length;
@@ -235,7 +235,7 @@ public final class ImmutableIntArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableIntArray} will contain.
      */
-    public Builder addAll(Iterable<Integer> values) {
+    public Builder addAll(final Iterable<Integer> values) {
       if (values instanceof Collection) {
         return addAll((Collection<Integer>) values);
       }
@@ -249,7 +249,7 @@ public final class ImmutableIntArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableIntArray} will contain.
      */
-    public Builder addAll(Collection<Integer> values) {
+    public Builder addAll(final Collection<Integer> values) {
       ensureRoomFor(values.size());
       for (Integer value : values) {
         array[count++] = value;
@@ -261,7 +261,7 @@ public final class ImmutableIntArray implements Serializable {
      * Appends all values from {@code stream}, in order, to the end of the values the built {@link
      * ImmutableIntArray} will contain.
      */
-    public Builder addAll(IntStream stream) {
+    public Builder addAll(final IntStream stream) {
       Spliterator.OfInt spliterator = stream.spliterator();
       long size = spliterator.getExactSizeIfKnown();
       if (size > 0) { // known *and* nonempty
@@ -275,14 +275,14 @@ public final class ImmutableIntArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableIntArray} will contain.
      */
-    public Builder addAll(ImmutableIntArray values) {
+    public Builder addAll(final ImmutableIntArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count, values.length());
       count += values.length();
       return this;
     }
 
-    private void ensureRoomFor(int numberToAdd) {
+    private void ensureRoomFor(final int numberToAdd) {
       int newCount = count + numberToAdd; // TODO(kevinb): check overflow now?
       if (newCount > array.length) {
         int[] newArray = new int[expandedCapacity(array.length, newCount)];
@@ -292,7 +292,7 @@ public final class ImmutableIntArray implements Serializable {
     }
 
     // Unfortunately this is pasted from ImmutableCollection.Builder.
-    private static int expandedCapacity(int oldCapacity, int minCapacity) {
+    private static int expandedCapacity(final int oldCapacity, final int minCapacity) {
       if (minCapacity < 0) {
         throw new AssertionError("cannot store more than MAX_VALUE elements");
       }
@@ -337,11 +337,11 @@ public final class ImmutableIntArray implements Serializable {
   private final transient int start; // it happens that we only serialize instances where this is 0
   private final int end; // exclusive
 
-  private ImmutableIntArray(int[] array) {
+  private ImmutableIntArray(final int[] array) {
     this(array, 0, array.length);
   }
 
-  private ImmutableIntArray(int[] array, int start, int end) {
+  private ImmutableIntArray(final int[] array, final int start, final int end) {
     this.array = array;
     this.start = start;
     this.end = end;
@@ -363,7 +363,7 @@ public final class ImmutableIntArray implements Serializable {
    * @throws IndexOutOfBoundsException if {@code index} is negative, or greater than or equal to
    *     {@link #length}
    */
-  public int get(int index) {
+  public int get(final int index) {
     Preconditions.checkElementIndex(index, length());
     return array[start + index];
   }
@@ -372,7 +372,7 @@ public final class ImmutableIntArray implements Serializable {
    * Returns the smallest index for which {@link #get} returns {@code target}, or {@code -1} if no
    * such index exists. Equivalent to {@code asList().indexOf(target)}.
    */
-  public int indexOf(int target) {
+  public int indexOf(final int target) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i - start;
@@ -385,7 +385,7 @@ public final class ImmutableIntArray implements Serializable {
    * Returns the largest index for which {@link #get} returns {@code target}, or {@code -1} if no
    * such index exists. Equivalent to {@code asList().lastIndexOf(target)}.
    */
-  public int lastIndexOf(int target) {
+  public int lastIndexOf(final int target) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i - start;
@@ -398,12 +398,12 @@ public final class ImmutableIntArray implements Serializable {
    * Returns {@code true} if {@code target} is present at any index in this array. Equivalent to
    * {@code asList().contains(target)}.
    */
-  public boolean contains(int target) {
+  public boolean contains(final int target) {
     return indexOf(target) >= 0;
   }
 
   /** Invokes {@code consumer} for each value contained in this array, in order. */
-  public void forEach(IntConsumer consumer) {
+  public void forEach(final IntConsumer consumer) {
     checkNotNull(consumer);
     for (int i = start; i < end; i++) {
       consumer.accept(array[i]);
@@ -427,7 +427,7 @@ public final class ImmutableIntArray implements Serializable {
    * does (no actual copying is performed). To reduce memory usage, use {@code subArray(start,
    * end).trimmed()}.
    */
-  public ImmutableIntArray subArray(int startIndex, int endIndex) {
+  public ImmutableIntArray subArray(final int startIndex, final int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
         ? EMPTY
@@ -457,7 +457,7 @@ public final class ImmutableIntArray implements Serializable {
   static class AsList extends AbstractList<Integer> implements RandomAccess, Serializable {
     private final ImmutableIntArray parent;
 
-    private AsList(ImmutableIntArray parent) {
+    private AsList(final ImmutableIntArray parent) {
       this.parent = parent;
     }
 
@@ -469,27 +469,27 @@ public final class ImmutableIntArray implements Serializable {
     }
 
     @Override
-    public Integer get(int index) {
+    public Integer get(final int index) {
       return parent.get(index);
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       return indexOf(target) >= 0;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       return target instanceof Integer ? parent.indexOf((Integer) target) : -1;
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       return target instanceof Integer ? parent.lastIndexOf((Integer) target) : -1;
     }
 
     @Override
-    public List<Integer> subList(int fromIndex, int toIndex) {
+    public List<Integer> subList(final int fromIndex, final int toIndex) {
       return parent.subArray(fromIndex, toIndex).asList();
     }
 
@@ -500,7 +500,7 @@ public final class ImmutableIntArray implements Serializable {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof AsList) {
         AsList that = (AsList) object;
         return this.parent.equals(that.parent);
@@ -540,7 +540,7 @@ public final class ImmutableIntArray implements Serializable {
    * values as this one, in the same order.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

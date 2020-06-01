@@ -36,7 +36,7 @@ public class AbstractCacheTest extends TestCase {
     final AtomicReference<Object> valueRef = new AtomicReference<>();
     Cache<Object, Object> cache = new AbstractCache<Object, Object>() {
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return valueRef.get();
       }
     };
@@ -51,7 +51,7 @@ public class AbstractCacheTest extends TestCase {
   public void testGetAllPresent_empty() {
     Cache<Object, Object> cache = new AbstractCache<Object, Object>() {
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return null;
       }
     };
@@ -66,7 +66,7 @@ public class AbstractCacheTest extends TestCase {
     final Object cachedValue = new Object();
     Cache<Object, Object> cache = new AbstractCache<Object, Object>() {
       @Override
-      public Object getIfPresent(Object key) {
+      public Object getIfPresent(final Object key) {
         return cachedKey.equals(key) ? cachedValue : null;
       }
     };
@@ -80,12 +80,12 @@ public class AbstractCacheTest extends TestCase {
     final List<Object> invalidated = Lists.newArrayList();
     Cache<Integer, Integer> cache = new AbstractCache<Integer, Integer>() {
       @Override
-      public Integer getIfPresent(Object key) {
+      public Integer getIfPresent(final Object key) {
         throw new UnsupportedOperationException();
       }
 
       @Override
-      public void invalidate(Object key) {
+      public void invalidate(final Object key) {
         invalidated.add(key);
       }
     };

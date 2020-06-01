@@ -43,7 +43,7 @@ import junit.framework.TestSuite;
  * @author George van den Driessche
  */
 public final class MapTestSuiteBuilderTests extends TestCase {
-  private MapTestSuiteBuilderTests() {}
+  private MapTestSuiteBuilderTests() { }
 
   public static Test suite() {
     TestSuite suite = new TestSuite(
@@ -56,7 +56,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
   private abstract static class WrappedHashMapGenerator
       extends TestStringMapGenerator {
     @Override protected final Map<String, String> create(
-        Map.Entry<String, String>[] entries) {
+        final Map.Entry<String, String>[] entries) {
       HashMap<String, String> map = Maps.newHashMap();
       for (Map.Entry<String, String> entry : entries) {
         map.put(entry.getKey(), entry.getValue());
@@ -68,7 +68,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
   }
 
   private static TestSuite wrappedHashMapTests(
-      WrappedHashMapGenerator generator, String name, Feature<?>... features) {
+      final WrappedHashMapGenerator generator, final String name, final Feature<?>... features) {
     List<Feature<?>> featuresList = Lists.newArrayList(features);
     Collections.addAll(featuresList,
         MapFeature.GENERAL_PURPOSE,
@@ -92,7 +92,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
           @Override public Set<Map.Entry<String, String>> entrySet() {
             return map.entrySet();
           }
-          @Override public String put(String key, String value) {
+          @Override public String put(final String key, final String value) {
             checkNotNull(key);
             return map.put(key, value);
           }
@@ -111,7 +111,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
           @Override public Set<Map.Entry<String, String>> entrySet() {
             return map.entrySet();
           }
-          @Override public String put(String key, String value) {
+          @Override public String put(final String key, final String value) {
             checkNotNull(value);
             return map.put(key, value);
           }

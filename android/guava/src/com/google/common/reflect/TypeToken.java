@@ -141,7 +141,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    *   new IKnowMyType<String>() {}.getMyType() => String}</pre>
    */
-  protected TypeToken(Class<?> declaringClass) {
+  protected TypeToken(final Class<?> declaringClass) {
     Type captured = super.capture();
     if (captured instanceof Class) {
       this.runtimeType = captured;
@@ -150,17 +150,17 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     }
   }
 
-  private TypeToken(Type type) {
+  private TypeToken(final Type type) {
     this.runtimeType = checkNotNull(type);
   }
 
   /** Returns an instance of type token that wraps {@code type}. */
-  public static <T> TypeToken<T> of(Class<T> type) {
+  public static <T> TypeToken<T> of(final Class<T> type) {
     return new SimpleTypeToken<T>(type);
   }
 
   /** Returns an instance of type token that wraps {@code type}. */
-  public static TypeToken<?> of(Type type) {
+  public static TypeToken<?> of(final Type type) {
     return new SimpleTypeToken<>(type);
   }
 
@@ -206,7 +206,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * @param typeParam the parameter type variable
    * @param typeArg the actual type to substitute
    */
-  public final <X> TypeToken<T> where(TypeParameter<X> typeParam, TypeToken<X> typeArg) {
+  public final <X> TypeToken<T> where(final TypeParameter<X> typeParam, final TypeToken<X> typeArg) {
     TypeResolver resolver =
         new TypeResolver()
             .where(
@@ -231,7 +231,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * @param typeParam the parameter type variable
    * @param typeArg the actual type to substitute
    */
-  public final <X> TypeToken<T> where(TypeParameter<X> typeParam, Class<X> typeArg) {
+  public final <X> TypeToken<T> where(final TypeParameter<X> typeParam, final Class<X> typeArg) {
     return where(typeParam, of(typeArg));
   }
 
@@ -242,7 +242,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *       List.class.getMethod("get", int.class).getGenericReturnType())
    *   => String.class}</pre>
    */
-  public final TypeToken<?> resolveType(Type type) {
+  public final TypeToken<?> resolveType(final Type type) {
     checkNotNull(type);
     TypeResolver resolver = typeResolver;
     if (resolver == null) {
@@ -251,14 +251,14 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return of(resolver.resolveType(type));
   }
 
-  private Type[] resolveInPlace(Type[] types) {
+  private Type[] resolveInPlace(final Type[] types) {
     for (int i = 0; i < types.length; i++) {
       types[i] = resolveType(types[i]).getType();
     }
     return types;
   }
 
-  private TypeToken<?> resolveSupertype(Type type) {
+  private TypeToken<?> resolveSupertype(final Type type) {
     TypeToken<?> supertype = resolveType(type);
     // super types' type mapping is a subset of type mapping of this type.
     supertype.typeResolver = typeResolver;
@@ -297,7 +297,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   @Nullable
-  private TypeToken<? super T> boundAsSuperclass(Type bound) {
+  private TypeToken<? super T> boundAsSuperclass(final Type bound) {
     TypeToken<?> token = of(bound);
     if (token.getRawType().isInterface()) {
       return null;
@@ -336,7 +336,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return builder.build();
   }
 
-  private ImmutableList<TypeToken<? super T>> boundsAsInterfaces(Type[] bounds) {
+  private ImmutableList<TypeToken<? super T>> boundsAsInterfaces(final Type[] bounds) {
     ImmutableList.Builder<TypeToken<? super T>> builder = ImmutableList.builder();
     for (Type bound : bounds) {
       @SuppressWarnings("unchecked") // upper bound of T
@@ -368,7 +368,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * {@code ArrayList<String>}, {@code Iterable<String>} is returned given the input
    * {@code Iterable.class}.
    */
-  public final TypeToken<? super T> getSupertype(Class<? super T> superclass) {
+  public final TypeToken<? super T> getSupertype(final Class<? super T> superclass) {
     checkArgument(
         this.someRawTypeIsSubclassOf(superclass),
         "%s is not a super class of %s",
@@ -394,7 +394,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * {@code Iterable<String>} and {@code subclass} is {@code List}, {@code List<String>} is
    * returned.
    */
-  public final TypeToken<? extends T> getSubtype(Class<?> subclass) {
+  public final TypeToken<? extends T> getSubtype(final Class<?> subclass) {
     checkArgument(
         !(runtimeType instanceof TypeVariable), "Cannot get subtype of type variable <%s>", this);
     if (runtimeType instanceof WildcardType) {
@@ -421,7 +421,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 19.0
    */
-  public final boolean isSupertypeOf(TypeToken<?> type) {
+  public final boolean isSupertypeOf(final TypeToken<?> type) {
     return type.isSubtypeOf(getType());
   }
 
@@ -433,7 +433,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 19.0
    */
-  public final boolean isSupertypeOf(Type type) {
+  public final boolean isSupertypeOf(final Type type) {
     return of(type).isSubtypeOf(getType());
   }
 
@@ -445,7 +445,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 19.0
    */
-  public final boolean isSubtypeOf(TypeToken<?> type) {
+  public final boolean isSubtypeOf(final TypeToken<?> type) {
     return isSubtypeOf(type.getType());
   }
 
@@ -457,7 +457,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 19.0
    */
-  public final boolean isSubtypeOf(Type supertype) {
+  public final boolean isSubtypeOf(final Type supertype) {
     checkNotNull(supertype);
     if (supertype instanceof WildcardType) {
       // if 'supertype' is <? super Foo>, 'this' can be:
@@ -561,7 +561,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 14.0
    */
-  public final Invokable<T, Object> method(Method method) {
+  public final Invokable<T, Object> method(final Method method) {
     checkArgument(
         this.someRawTypeIsSubclassOf(method.getDeclaringClass()),
         "%s not declared by %s",
@@ -600,7 +600,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    *
    * @since 14.0
    */
-  public final Invokable<T, T> constructor(Constructor<?> constructor) {
+  public final Invokable<T, T> constructor(final Constructor<?> constructor) {
     checkArgument(
         constructor.getDeclaringClass() == getRawType(),
         "%s not declared by %s",
@@ -642,7 +642,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
     private transient ImmutableSet<TypeToken<? super T>> types;
 
-    TypeSet() {}
+    TypeSet() { }
 
     /** Returns the types that are interfaces implemented by this type. */
     public TypeSet interfaces() {
@@ -688,7 +688,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     private final transient TypeSet allTypes;
     private transient ImmutableSet<TypeToken<? super T>> interfaces;
 
-    InterfaceSet(TypeSet allTypes) {
+    InterfaceSet(final TypeSet allTypes) {
       this.allTypes = allTypes;
     }
 
@@ -718,7 +718,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
           .filter(
               new Predicate<Class<?>>() {
                 @Override
-                public boolean apply(Class<?> type) {
+                public boolean apply(final Class<?> type) {
                   return type.isInterface();
                 }
               })
@@ -787,14 +787,14 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   private enum TypeFilter implements Predicate<TypeToken<?>> {
     IGNORE_TYPE_VARIABLE_OR_WILDCARD {
       @Override
-      public boolean apply(TypeToken<?> type) {
+      public boolean apply(final TypeToken<?> type) {
         return !(type.runtimeType instanceof TypeVariable
             || type.runtimeType instanceof WildcardType);
       }
     },
     INTERFACE_ONLY {
       @Override
-      public boolean apply(TypeToken<?> type) {
+      public boolean apply(final TypeToken<?> type) {
         return type.getRawType().isInterface();
       }
     }
@@ -804,7 +804,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * Returns true if {@code o} is another {@code TypeToken} that represents the same {@link Type}.
    */
   @Override
-  public boolean equals(@Nullable Object o) {
+  public boolean equals(final @Nullable Object o) {
     if (o instanceof TypeToken) {
       TypeToken<?> that = (TypeToken<?>) o;
       return runtimeType.equals(that.runtimeType);
@@ -837,32 +837,32 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   final TypeToken<T> rejectTypeVariables() {
     new TypeVisitor() {
       @Override
-      void visitTypeVariable(TypeVariable<?> type) {
+      void visitTypeVariable(final TypeVariable<?> type) {
         throw new IllegalArgumentException(
             runtimeType + "contains a type variable and is not safe for the operation");
       }
 
       @Override
-      void visitWildcardType(WildcardType type) {
+      void visitWildcardType(final WildcardType type) {
         visit(type.getLowerBounds());
         visit(type.getUpperBounds());
       }
 
       @Override
-      void visitParameterizedType(ParameterizedType type) {
+      void visitParameterizedType(final ParameterizedType type) {
         visit(type.getActualTypeArguments());
         visit(type.getOwnerType());
       }
 
       @Override
-      void visitGenericArrayType(GenericArrayType type) {
+      void visitGenericArrayType(final GenericArrayType type) {
         visit(type.getGenericComponentType());
       }
     }.visit(runtimeType);
     return this;
   }
 
-  private boolean someRawTypeIsSubclassOf(Class<?> superclass) {
+  private boolean someRawTypeIsSubclassOf(final Class<?> superclass) {
     for (Class<?> rawType : getRawTypes()) {
       if (superclass.isAssignableFrom(rawType)) {
         return true;
@@ -871,7 +871,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return false;
   }
 
-  private boolean isSubtypeOfParameterizedType(ParameterizedType supertype) {
+  private boolean isSubtypeOfParameterizedType(final ParameterizedType supertype) {
     Class<?> matchedClass = of(supertype).getRawType();
     if (!someRawTypeIsSubclassOf(matchedClass)) {
       return false;
@@ -898,7 +898,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
         || isOwnedBySubtypeOf(supertype.getOwnerType());
   }
 
-  private boolean isSubtypeOfArrayType(GenericArrayType supertype) {
+  private boolean isSubtypeOfArrayType(final GenericArrayType supertype) {
     if (runtimeType instanceof Class) {
       Class<?> fromClass = (Class<?>) runtimeType;
       if (!fromClass.isArray()) {
@@ -914,7 +914,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     }
   }
 
-  private boolean isSupertypeOfArray(GenericArrayType subtype) {
+  private boolean isSupertypeOfArray(final GenericArrayType subtype) {
     if (runtimeType instanceof Class) {
       Class<?> thisClass = (Class<?>) runtimeType;
       if (!thisClass.isArray()) {
@@ -938,7 +938,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * <li>{@code formalType} is {@code <? super Foo>} and 'this' is a supertype of {@code Foo}
    * </ul>
    */
-  private boolean is(Type formalType) {
+  private boolean is(final Type formalType) {
     if (runtimeType.equals(formalType)) {
       return true;
     }
@@ -954,12 +954,12 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return false;
   }
 
-  private static Bounds every(Type[] bounds) {
+  private static Bounds every(final Type[] bounds) {
     // Every bound must match. On any false, result is false.
     return new Bounds(bounds, false);
   }
 
-  private static Bounds any(Type[] bounds) {
+  private static Bounds any(final Type[] bounds) {
     // Any bound matches. On any true, result is true.
     return new Bounds(bounds, true);
   }
@@ -968,12 +968,12 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     private final Type[] bounds;
     private final boolean target;
 
-    Bounds(Type[] bounds, boolean target) {
+    Bounds(final Type[] bounds, final boolean target) {
       this.bounds = bounds;
       this.target = target;
     }
 
-    boolean isSubtypeOf(Type supertype) {
+    boolean isSubtypeOf(final Type supertype) {
       for (Type bound : bounds) {
         if (of(bound).isSubtypeOf(supertype) == target) {
           return target;
@@ -982,7 +982,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
       return !target;
     }
 
-    boolean isSupertypeOf(Type subtype) {
+    boolean isSupertypeOf(final Type subtype) {
       TypeToken<?> type = of(subtype);
       for (Type bound : bounds) {
         if (type.isSubtypeOf(bound) == target) {
@@ -997,27 +997,27 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     final ImmutableSet.Builder<Class<?>> builder = ImmutableSet.builder();
     new TypeVisitor() {
       @Override
-      void visitTypeVariable(TypeVariable<?> t) {
+      void visitTypeVariable(final TypeVariable<?> t) {
         visit(t.getBounds());
       }
 
       @Override
-      void visitWildcardType(WildcardType t) {
+      void visitWildcardType(final WildcardType t) {
         visit(t.getUpperBounds());
       }
 
       @Override
-      void visitParameterizedType(ParameterizedType t) {
+      void visitParameterizedType(final ParameterizedType t) {
         builder.add((Class<?>) t.getRawType());
       }
 
       @Override
-      void visitClass(Class<?> t) {
+      void visitClass(final Class<?> t) {
         builder.add(t);
       }
 
       @Override
-      void visitGenericArrayType(GenericArrayType t) {
+      void visitGenericArrayType(final GenericArrayType t) {
         builder.add(Types.getArrayClass(of(t.getGenericComponentType()).getRawType()));
       }
     }.visit(runtimeType);
@@ -1027,7 +1027,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return result;
   }
 
-  private boolean isOwnedBySubtypeOf(Type supertype) {
+  private boolean isOwnedBySubtypeOf(final Type supertype) {
     for (TypeToken<?> type : getTypes()) {
       Type ownerType = type.getOwnerTypeIfPresent();
       if (ownerType != null && of(ownerType).isSubtypeOf(supertype)) {
@@ -1059,7 +1059,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * returned.
    */
   @VisibleForTesting
-  static <T> TypeToken<? extends T> toGenericType(Class<T> cls) {
+  static <T> TypeToken<? extends T> toGenericType(final Class<T> cls) {
     if (cls.isArray()) {
       Type arrayOfGenericType =
           Types.newArrayType(
@@ -1087,7 +1087,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
   }
 
   private TypeToken<? super T> getSupertypeFromUpperBounds(
-      Class<? super T> supertype, Type[] upperBounds) {
+      final Class<? super T> supertype, final Type[] upperBounds) {
     for (Type upperBound : upperBounds) {
       @SuppressWarnings("unchecked") // T's upperbound is <? super T>.
       TypeToken<? super T> bound = (TypeToken<? super T>) of(upperBound);
@@ -1100,7 +1100,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     throw new IllegalArgumentException(supertype + " isn't a super type of " + this);
   }
 
-  private TypeToken<? extends T> getSubtypeFromLowerBounds(Class<?> subclass, Type[] lowerBounds) {
+  private TypeToken<? extends T> getSubtypeFromLowerBounds(final Class<?> subclass, final Type[] lowerBounds) {
     for (Type lowerBound : lowerBounds) {
       @SuppressWarnings("unchecked") // T's lower bound is <? extends T>
       TypeToken<? extends T> bound = (TypeToken<? extends T>) of(lowerBound);
@@ -1110,7 +1110,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     throw new IllegalArgumentException(subclass + " isn't a subclass of " + this);
   }
 
-  private TypeToken<? super T> getArraySupertype(Class<? super T> supertype) {
+  private TypeToken<? super T> getArraySupertype(final Class<? super T> supertype) {
     // with component type, we have lost generic type information
     // Use raw type so that compiler allows us to call getSupertype()
     @SuppressWarnings("rawtypes")
@@ -1127,7 +1127,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return result;
   }
 
-  private TypeToken<? extends T> getArraySubtype(Class<?> subclass) {
+  private TypeToken<? extends T> getArraySubtype(final Class<?> subclass) {
     // array is covariant. component type is subtype, so is the array type.
     TypeToken<?> componentSubtype = getComponentType().getSubtype(subclass.getComponentType());
     @SuppressWarnings("unchecked") // component type is subtype, so is array type.
@@ -1138,7 +1138,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     return result;
   }
 
-  private Type resolveTypeArgsForSubclass(Class<?> subclass) {
+  private Type resolveTypeArgsForSubclass(final Class<?> subclass) {
     // If both runtimeType and subclass are not parameterized, return subclass
     // If runtimeType is not parameterized but subclass is, process subclass as a parameterized type
     // If runtimeType is a raw type (i.e. is a parameterized type specified as a Class<?>), we
@@ -1169,13 +1169,13 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
    * Creates an array class if {@code componentType} is a class, or else, a
    * {@link GenericArrayType}. This is what Java7 does for generic array type parameters.
    */
-  private static Type newArrayClassOrGenericArrayType(Type componentType) {
+  private static Type newArrayClassOrGenericArrayType(final Type componentType) {
     return Types.JavaVersion.JAVA7.newArrayType(componentType);
   }
 
   private static final class SimpleTypeToken<T> extends TypeToken<T> {
 
-    SimpleTypeToken(Type type) {
+    SimpleTypeToken(final Type type) {
       super(type);
     }
 
@@ -1192,18 +1192,18 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     static final TypeCollector<TypeToken<?>> FOR_GENERIC_TYPE =
         new TypeCollector<TypeToken<?>>() {
           @Override
-          Class<?> getRawType(TypeToken<?> type) {
+          Class<?> getRawType(final TypeToken<?> type) {
             return type.getRawType();
           }
 
           @Override
-          Iterable<? extends TypeToken<?>> getInterfaces(TypeToken<?> type) {
+          Iterable<? extends TypeToken<?>> getInterfaces(final TypeToken<?> type) {
             return type.getGenericInterfaces();
           }
 
           @Nullable
           @Override
-          TypeToken<?> getSuperclass(TypeToken<?> type) {
+          TypeToken<?> getSuperclass(final TypeToken<?> type) {
             return type.getGenericSuperclass();
           }
         };
@@ -1211,18 +1211,18 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     static final TypeCollector<Class<?>> FOR_RAW_TYPE =
         new TypeCollector<Class<?>>() {
           @Override
-          Class<?> getRawType(Class<?> type) {
+          Class<?> getRawType(final Class<?> type) {
             return type;
           }
 
           @Override
-          Iterable<? extends Class<?>> getInterfaces(Class<?> type) {
+          Iterable<? extends Class<?>> getInterfaces(final Class<?> type) {
             return Arrays.asList(type.getInterfaces());
           }
 
           @Nullable
           @Override
-          Class<?> getSuperclass(Class<?> type) {
+          Class<?> getSuperclass(final Class<?> type) {
             return type.getSuperclass();
           }
         };
@@ -1231,12 +1231,12 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
     final TypeCollector<K> classesOnly() {
       return new ForwardingTypeCollector<K>(this) {
         @Override
-        Iterable<? extends K> getInterfaces(K type) {
+        Iterable<? extends K> getInterfaces(final K type) {
           return ImmutableSet.of();
         }
 
         @Override
-        ImmutableList<K> collectTypes(Iterable<? extends K> types) {
+        ImmutableList<K> collectTypes(final Iterable<? extends K> types) {
           ImmutableList.Builder<K> builder = ImmutableList.builder();
           for (K type : types) {
             if (!getRawType(type).isInterface()) {
@@ -1248,11 +1248,11 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
       };
     }
 
-    final ImmutableList<K> collectTypes(K type) {
+    final ImmutableList<K> collectTypes(final K type) {
       return collectTypes(ImmutableList.of(type));
     }
 
-    ImmutableList<K> collectTypes(Iterable<? extends K> types) {
+    ImmutableList<K> collectTypes(final Iterable<? extends K> types) {
       // type -> order number. 1 for Object, 2 for anything directly below, so on so forth.
       Map<K, Integer> map = Maps.newHashMap();
       for (K type : types) {
@@ -1263,7 +1263,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
     /** Collects all types to map, and returns the total depth from T up to Object. */
     @CanIgnoreReturnValue
-    private int collectTypes(K type, Map<? super K, Integer> map) {
+    private int collectTypes(final K type, final Map<? super K, Integer> map) {
       Integer existing = map.get(type);
       if (existing != null) {
         // short circuit: if set contains type it already contains its supertypes
@@ -1292,7 +1292,7 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
       Ordering<K> keyOrdering =
           new Ordering<K>() {
             @Override
-            public int compare(K left, K right) {
+            public int compare(final K left, final K right) {
               return valueComparator.compare(map.get(left), map.get(right));
             }
           };
@@ -1310,22 +1310,22 @@ public abstract class TypeToken<T> extends TypeCapture<T> implements Serializabl
 
       private final TypeCollector<K> delegate;
 
-      ForwardingTypeCollector(TypeCollector<K> delegate) {
+      ForwardingTypeCollector(final TypeCollector<K> delegate) {
         this.delegate = delegate;
       }
 
       @Override
-      Class<?> getRawType(K type) {
+      Class<?> getRawType(final K type) {
         return delegate.getRawType(type);
       }
 
       @Override
-      Iterable<? extends K> getInterfaces(K type) {
+      Iterable<? extends K> getInterfaces(final K type) {
         return delegate.getInterfaces(type);
       }
 
       @Override
-      K getSuperclass(K type) {
+      K getSuperclass(final K type) {
         return delegate.getSuperclass(type);
       }
     }

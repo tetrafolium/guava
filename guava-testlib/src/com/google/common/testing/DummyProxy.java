@@ -43,7 +43,7 @@ abstract class DummyProxy {
    * Returns a new proxy for {@code interfaceType}. Proxies of the same interface are equal to each
    * other if the {@link DummyProxy} instance that created the proxies are equal.
    */
-  final <T> T newProxy(TypeToken<T> interfaceType) {
+  final <T> T newProxy(final TypeToken<T> interfaceType) {
     Set<Class<?>> interfaceClasses = Sets.newLinkedHashSet();
     interfaceClasses.addAll(interfaceType.getTypes().interfaces().rawTypes());
     // Make the proxy serializable to work with SerializableTester
@@ -63,12 +63,12 @@ abstract class DummyProxy {
   private class DummyHandler extends AbstractInvocationHandler implements Serializable {
     private final TypeToken<?> interfaceType;
 
-    DummyHandler(TypeToken<?> interfaceType) {
+    DummyHandler(final TypeToken<?> interfaceType) {
       this.interfaceType = interfaceType;
     }
 
     @Override protected Object handleInvocation(
-        Object proxy, Method method, Object[] args) {
+        final Object proxy, final Method method, final Object[] args) {
       Invokable<?, ?> invokable = interfaceType.method(method);
       ImmutableList<Parameter> params = invokable.getParameters();
       for (int i = 0; i < args.length; i++) {
@@ -84,7 +84,7 @@ abstract class DummyProxy {
       return identity().hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof DummyHandler) {
         DummyHandler that = (DummyHandler) obj;
         return identity().equals(that.identity());

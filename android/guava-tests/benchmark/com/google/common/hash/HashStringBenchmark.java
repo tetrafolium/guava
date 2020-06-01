@@ -33,7 +33,7 @@ public class HashStringBenchmark {
      * Convert the input string to a code point. Accepts regular decimal numerals, hex strings, and
      * some symbolic names meaningful to humans.
      */
-    private static int decode(String userFriendly) {
+    private static int decode(final String userFriendly) {
       try {
         return Integer.decode(userFriendly);
       } catch (NumberFormatException ignored) {
@@ -62,11 +62,11 @@ public class HashStringBenchmark {
       }
     }
 
-    public static MaxCodePoint valueOf(String userFriendly) {
+    public static MaxCodePoint valueOf(final String userFriendly) {
       return new MaxCodePoint(userFriendly);
     }
 
-    public MaxCodePoint(String userFriendly) {
+    public MaxCodePoint(final String userFriendly) {
       value = decode(userFriendly);
     }
   }
@@ -115,7 +115,7 @@ public class HashStringBenchmark {
   }
 
   @Benchmark
-  int hashUtf8(int reps) {
+  int hashUtf8(final int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=
@@ -128,7 +128,7 @@ public class HashStringBenchmark {
   }
 
   @Benchmark
-  int hashUtf8Hasher(int reps) {
+  int hashUtf8Hasher(final int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=
@@ -143,7 +143,7 @@ public class HashStringBenchmark {
   }
 
   @Benchmark
-  int hashUtf8GetBytes(int reps) {
+  int hashUtf8GetBytes(final int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=
@@ -156,7 +156,7 @@ public class HashStringBenchmark {
   }
 
   @Benchmark
-  int hashUtf8GetBytesHasher(int reps) {
+  int hashUtf8GetBytesHasher(final int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=

@@ -131,14 +131,14 @@ public class WrappingExecutorServiceTest extends TestCase {
     }
   }
 
-  private static void checkResults(List<Future<String>> futures)
+  private static void checkResults(final List<Future<String>> futures)
       throws InterruptedException, ExecutionException {
     for (int i = 0; i < futures.size(); i++) {
       assertEquals(RESULT_VALUE + i, futures.get(i).get());
     }
   }
 
-  private static List<Callable<String>> createTasks(int n) {
+  private static List<Callable<String>> createTasks(final int n) {
     List<Callable<String>> callables = Lists.newArrayList();
     for (int i = 0; i < n; i++) {
       callables.add(Callables.returning(RESULT_VALUE + i));
@@ -149,7 +149,7 @@ public class WrappingExecutorServiceTest extends TestCase {
   private static final class WrappedCallable<T> implements Callable<T> {
     private final Callable<T> delegate;
 
-    public WrappedCallable(Callable<T> delegate) {
+    public WrappedCallable(final Callable<T> delegate) {
       this.delegate = delegate;
     }
 
@@ -162,7 +162,7 @@ public class WrappingExecutorServiceTest extends TestCase {
   private static final class WrappedRunnable implements Runnable {
     private final Runnable delegate;
 
-    public WrappedRunnable(Runnable delegate) {
+    public WrappedRunnable(final Runnable delegate) {
       this.delegate = delegate;
     }
 
@@ -173,16 +173,16 @@ public class WrappingExecutorServiceTest extends TestCase {
   }
 
   private static final class TestExecutor extends WrappingExecutorService {
-    public TestExecutor(MockExecutor mock) {
+    public TestExecutor(final MockExecutor mock) {
       super(mock);
     }
 
     @Override
-    protected <T> Callable<T> wrapTask(Callable<T> callable) {
+    protected <T> Callable<T> wrapTask(final Callable<T> callable) {
       return new WrappedCallable<T>(callable);
     }
 
-    @Override protected Runnable wrapTask(Runnable command) {
+    @Override protected Runnable wrapTask(final Runnable command) {
       return new WrappedRunnable(command);
     }
   }
@@ -193,23 +193,23 @@ public class WrappingExecutorServiceTest extends TestCase {
     private long lastTimeoutInMillis = -1;
     private ExecutorService inline = newDirectExecutorService();
 
-    public void assertLastMethodCalled(String method) {
+    public void assertLastMethodCalled(final String method) {
       assertEquals(method, lastMethodCalled);
     }
 
-    public void assertMethodWithTimeout(String method, long timeout, TimeUnit unit) {
+    public void assertMethodWithTimeout(final String method, final long timeout, final TimeUnit unit) {
       assertLastMethodCalled(method + "Timeout");
       assertEquals(unit.toMillis(timeout), lastTimeoutInMillis);
     }
 
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) {
+    public boolean awaitTermination(final long timeout, final TimeUnit unit) {
       lastMethodCalled = "awaitTermination";
       return false;
     }
 
     @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+    public <T> List<Future<T>> invokeAll(final Collection<? extends Callable<T>> tasks)
         throws InterruptedException {
       lastMethodCalled = "invokeAll";
       assertTaskWrapped(tasks);
@@ -218,7 +218,7 @@ public class WrappingExecutorServiceTest extends TestCase {
 
     @Override
     public <T> List<Future<T>> invokeAll(
-        Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+        final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit)
         throws InterruptedException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAllTimeout";
@@ -228,7 +228,7 @@ public class WrappingExecutorServiceTest extends TestCase {
 
     // Define the invokeAny methods to invoke the first task
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+    public <T> T invokeAny(final Collection<? extends Callable<T>> tasks)
         throws ExecutionException, InterruptedException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAny";
@@ -236,7 +236,7 @@ public class WrappingExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+    public <T> T invokeAny(final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit)
         throws ExecutionException, InterruptedException, TimeoutException {
       assertTaskWrapped(tasks);
       lastMethodCalled = "invokeAnyTimeout";
@@ -268,35 +268,35 @@ public class WrappingExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public <T> Future<T> submit(Callable<T> task) {
+    public <T> Future<T> submit(final Callable<T> task) {
       lastMethodCalled = "submit";
       assertThat(task).isInstanceOf(WrappedCallable.class);
       return inline.submit(task);
     }
 
     @Override
-    public Future<?> submit(Runnable task) {
+    public Future<?> submit(final Runnable task) {
       lastMethodCalled = "submit";
       assertThat(task).isInstanceOf(WrappedRunnable.class);
       return inline.submit(task);
     }
 
     @Override
-    public <T> Future<T> submit(Runnable task, T result) {
+    public <T> Future<T> submit(final Runnable task, final T result) {
       lastMethodCalled = "submit";
       assertThat(task).isInstanceOf(WrappedRunnable.class);
       return inline.submit(task, result);
     }
 
     @Override
-    public void execute(Runnable command) {
+    public void execute(final Runnable command) {
       lastMethodCalled = "execute";
       assertThat(command).isInstanceOf(WrappedRunnable.class);
       inline.execute(command);
     }
 
     private static <T> void assertTaskWrapped(
-        Collection<? extends Callable<T>> tasks) {
+        final Collection<? extends Callable<T>> tasks) {
       Predicate<Object> p = Predicates.instanceOf(WrappedCallable.class);
       assertTrue(Iterables.all(tasks, p));
     }

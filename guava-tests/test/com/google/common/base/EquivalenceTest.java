@@ -53,7 +53,7 @@ public class EquivalenceTest extends TestCase {
   private enum LengthFunction implements Function<String, Integer> {
     INSTANCE;
 
-    @Override public Integer apply(String input) {
+    @Override public Integer apply(final String input) {
       return input.length();
     }
   }
@@ -94,7 +94,7 @@ public class EquivalenceTest extends TestCase {
   private static class IntValue {
     private final int value;
 
-    IntValue(int value) {
+    IntValue(final int value) {
       this.value = value;
     }
 

@@ -41,19 +41,19 @@ public class ConcurrentHashMap<K, V>
     this.backingMap = new HashMap<K, V>();
   }
 
-  public ConcurrentHashMap(int initialCapacity) {
+  public ConcurrentHashMap(final int initialCapacity) {
     this.backingMap = new HashMap<K, V>(initialCapacity);
   }
 
-  public ConcurrentHashMap(int initialCapacity, float loadFactor) {
+  public ConcurrentHashMap(final int initialCapacity, final float loadFactor) {
     this.backingMap = new HashMap<K, V>(initialCapacity, loadFactor);
   }
 
-  public ConcurrentHashMap(Map<? extends K, ? extends V> t) {
+  public ConcurrentHashMap(final Map<? extends K, ? extends V> t) {
     this.backingMap = new HashMap<K, V>(t);
   }
 
-  public V putIfAbsent(K key, V value) {
+  public V putIfAbsent(final K key, final V value) {
     if (!containsKey(key)) {
       return put(key, value);
     } else {
@@ -61,7 +61,7 @@ public class ConcurrentHashMap<K, V>
     }
   }
 
-  public boolean remove(Object key, Object value) {
+  public boolean remove(final Object key, final Object value) {
     if (containsKey(key) && get(key).equals(value)) {
       remove(key);
       return true;
@@ -70,7 +70,7 @@ public class ConcurrentHashMap<K, V>
     }
   }
 
-  public boolean replace(K key, V oldValue, V newValue) {
+  public boolean replace(final K key, final V oldValue, final V newValue) {
     if (oldValue == null || newValue == null) {
       throw new NullPointerException();
     } else if (containsKey(key) && get(key).equals(oldValue)) {
@@ -81,7 +81,7 @@ public class ConcurrentHashMap<K, V>
     }
   }
 
-  public V replace(K key, V value) {
+  public V replace(final K key, final V value) {
     if (value == null) {
       throw new NullPointerException();
     } else if (containsKey(key)) {
@@ -91,35 +91,35 @@ public class ConcurrentHashMap<K, V>
     }
   }
 
-  @Override public boolean containsKey(Object key) {
+  @Override public boolean containsKey(final Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
     return backingMap.containsKey(key);
   }
 
-  @Override public V get(Object key) {
+  @Override public V get(final Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
     return backingMap.get(key);
   }
 
-  @Override public V put(K key, V value) {
+  @Override public V put(final K key, final V value) {
     if (key == null || value == null) {
       throw new NullPointerException();
     }
     return backingMap.put(key, value);
   }
 
-  @Override public boolean containsValue(Object value) {
+  @Override public boolean containsValue(final Object value) {
     if (value == null) {
       throw new NullPointerException();
     }
     return backingMap.containsValue(value);
   }
 
-  @Override public V remove(Object key) {
+  @Override public V remove(final Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
@@ -130,7 +130,7 @@ public class ConcurrentHashMap<K, V>
     return backingMap.entrySet();
   }
 
-  public boolean contains(Object value) {
+  public boolean contains(final Object value) {
     return containsValue(value);
   }
 

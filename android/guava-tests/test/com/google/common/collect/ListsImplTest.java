@@ -54,7 +54,7 @@ public class ListsImplTest extends TestCase {
     private final String name;
     private final Modifiability modifiability;
 
-    protected ListExample(String name, Modifiability modifiability) {
+    protected ListExample(final String name, final Modifiability modifiability) {
       this.name = name;
       this.modifiability = modifiability;
     }
@@ -91,7 +91,7 @@ public class ListsImplTest extends TestCase {
   }
 
   @GwtIncompatible // suite sub call
-  private static TestSuite createExampleSuite(ListExample example) {
+  private static TestSuite createExampleSuite(final ListExample example) {
     TestSuite resultSuite = new TestSuite(ListsImplTest.class);
     for (Enumeration<Test> testEnum = resultSuite.tests(); testEnum.hasMoreElements();) {
       ListsImplTest test = (ListsImplTest) testEnum.nextElement();
@@ -218,7 +218,7 @@ public class ListsImplTest extends TestCase {
     checkLastIndexOf(toTest, expected);
   }
 
-  private void checkIndexOf(List<?> toTest, int[] expected) {
+  private void checkIndexOf(final List<?> toTest, final int[] expected) {
     int index = 0;
     for (Object obj : toTest) {
       String name = "toTest[" + index + "] (" + obj + ")";
@@ -229,7 +229,7 @@ public class ListsImplTest extends TestCase {
     }
   }
 
-  private void checkLastIndexOf(List<?> toTest, int[] expected) {
+  private void checkLastIndexOf(final List<?> toTest, final int[] expected) {
     int index = 0;
     for (Object obj : toTest) {
       String name = "toTest[" + index + "] (" + obj + ")";
@@ -242,30 +242,30 @@ public class ListsImplTest extends TestCase {
 
   @SafeVarargs
   @SuppressWarnings("varargs")
-  private final <T> List<T> createList(Class<T> listType, T... contents) {
+  private final <T> List<T> createList(final Class<T> listType, final T... contents) {
     return getExample().createList(listType, Arrays.asList(contents));
   }
 
   private static final class ArrayListExample extends ListExample {
 
-    protected ArrayListExample(String name) {
+    protected ArrayListExample(final String name) {
       super(name, Modifiability.ALL);
     }
 
     @Override
-    public <T> List<T> createList(Class<T> listType, Collection<? extends T> contents) {
+    public <T> List<T> createList(final Class<T> listType, final Collection<? extends T> contents) {
       return new ArrayList<>(contents);
     }
   }
 
   private static final class LinkedListExample extends ListExample {
 
-    protected LinkedListExample(String name) {
+    protected LinkedListExample(final String name) {
       super(name, Modifiability.ALL);
     }
 
     @Override
-    public <T> List<T> createList(Class<T> listType, Collection<? extends T> contents) {
+    public <T> List<T> createList(final Class<T> listType, final Collection<? extends T> contents) {
       return new LinkedList<>(contents);
     }
   }
@@ -273,12 +273,12 @@ public class ListsImplTest extends TestCase {
   @GwtIncompatible // Iterables.toArray
   private static final class ArraysAsListExample extends ListExample {
 
-    protected ArraysAsListExample(String name) {
+    protected ArraysAsListExample(final String name) {
       super(name, Modifiability.BY_ELEMENT);
     }
 
     @Override
-    public <T> List<T> createList(Class<T> listType, Collection<? extends T> contents) {
+    public <T> List<T> createList(final Class<T> listType, final Collection<? extends T> contents) {
       @SuppressWarnings("unchecked")  // safe by contract
       T[] array = Iterables.toArray(contents, listType);
       return Arrays.asList(array);
@@ -287,12 +287,12 @@ public class ListsImplTest extends TestCase {
 
   private static final class ImmutableListExample extends ListExample {
 
-    protected ImmutableListExample(String name) {
+    protected ImmutableListExample(final String name) {
       super(name, Modifiability.NONE);
     }
 
     @Override
-    public <T> List<T> createList(Class<T> listType, Collection<? extends T> contents) {
+    public <T> List<T> createList(final Class<T> listType, final Collection<? extends T> contents) {
       return ImmutableList.copyOf(contents);
     }
   }
@@ -300,12 +300,12 @@ public class ListsImplTest extends TestCase {
   @GwtIncompatible // CopyOnWriteArrayList
   private static final class CopyOnWriteListExample extends ListExample {
 
-    protected CopyOnWriteListExample(String name) {
+    protected CopyOnWriteListExample(final String name) {
       super(name, Modifiability.DIRECT_ONLY);
     }
 
     @Override
-    public <T> List<T> createList(Class<T> listType, Collection<? extends T> contents) {
+    public <T> List<T> createList(final Class<T> listType, final Collection<? extends T> contents) {
       return new CopyOnWriteArrayList<>(contents);
     }
   }

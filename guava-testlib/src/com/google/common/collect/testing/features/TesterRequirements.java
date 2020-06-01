@@ -32,12 +32,12 @@ public final class TesterRequirements {
   private final Set<Feature<?>> presentFeatures;
   private final Set<Feature<?>> absentFeatures;
 
-  public TesterRequirements(Set<Feature<?>> presentFeatures, Set<Feature<?>> absentFeatures) {
+  public TesterRequirements(final Set<Feature<?>> presentFeatures, final Set<Feature<?>> absentFeatures) {
     this.presentFeatures = Helpers.copyToSet(presentFeatures);
     this.absentFeatures = Helpers.copyToSet(absentFeatures);
   }
 
-  public TesterRequirements(TesterRequirements tr) {
+  public TesterRequirements(final TesterRequirements tr) {
     this(tr.getPresentFeatures(), tr.getAbsentFeatures());
   }
 
@@ -54,7 +54,7 @@ public final class TesterRequirements {
   }
 
   @Override
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     if (object == this) {
       return true;
     }

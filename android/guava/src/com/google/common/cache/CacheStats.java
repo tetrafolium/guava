@@ -68,12 +68,12 @@ public final class CacheStats {
    * by end users and is too fine-grained for a builder.
    */
   public CacheStats(
-      long hitCount,
-      long missCount,
-      long loadSuccessCount,
-      long loadExceptionCount,
-      long totalLoadTime,
-      long evictionCount) {
+      final long hitCount,
+      final long missCount,
+      final long loadSuccessCount,
+      final long loadExceptionCount,
+      final long totalLoadTime,
+      final long evictionCount) {
     checkArgument(hitCount >= 0);
     checkArgument(missCount >= 0);
     checkArgument(loadSuccessCount >= 0);
@@ -216,7 +216,7 @@ public final class CacheStats {
    * and {@code other}. Negative values, which aren't supported by {@code CacheStats} will be
    * rounded up to zero.
    */
-  public CacheStats minus(CacheStats other) {
+  public CacheStats minus(final CacheStats other) {
     return new CacheStats(
         Math.max(0, hitCount - other.hitCount),
         Math.max(0, missCount - other.missCount),
@@ -232,7 +232,7 @@ public final class CacheStats {
    *
    * @since 11.0
    */
-  public CacheStats plus(CacheStats other) {
+  public CacheStats plus(final CacheStats other) {
     return new CacheStats(
         hitCount + other.hitCount,
         missCount + other.missCount,
@@ -249,7 +249,7 @@ public final class CacheStats {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof CacheStats) {
       CacheStats other = (CacheStats) object;
       return hitCount == other.hitCount

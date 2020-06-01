@@ -154,7 +154,7 @@ public final class Quantiles {
    * @param scale the scale for the quantiles to be calculated, i.e. the q of the q-quantiles, which
    *     must be positive
    */
-  public static Scale scale(int scale) {
+  public static Scale scale(final int scale) {
     return new Scale(scale);
   }
 
@@ -166,7 +166,7 @@ public final class Quantiles {
 
     private final int scale;
 
-    private Scale(int scale) {
+    private Scale(final int scale) {
       checkArgument(scale > 0, "Quantile scale must be positive");
       this.scale = scale;
     }
@@ -176,7 +176,7 @@ public final class Quantiles {
      *
      * @param index the quantile index, which must be in the inclusive range [0, q] for q-quantiles
      */
-    public ScaleAndIndex index(int index) {
+    public ScaleAndIndex index(final int index) {
       return new ScaleAndIndex(scale, index);
     }
 
@@ -188,7 +188,7 @@ public final class Quantiles {
      *     q-quantiles; the order of the indexes is unimportant, duplicates will be ignored, and the
      *     set will be snapshotted when this method is called
      */
-    public ScaleAndIndexes indexes(int... indexes) {
+    public ScaleAndIndexes indexes(final int... indexes) {
       return new ScaleAndIndexes(scale, indexes.clone());
     }
 
@@ -200,7 +200,7 @@ public final class Quantiles {
      *     q-quantiles; the order of the indexes is unimportant, duplicates will be ignored, and the
      *     set will be snapshotted when this method is called
      */
-    public ScaleAndIndexes indexes(Collection<Integer> indexes) {
+    public ScaleAndIndexes indexes(final Collection<Integer> indexes) {
       return new ScaleAndIndexes(scale, Ints.toArray(indexes));
     }
   }
@@ -214,7 +214,7 @@ public final class Quantiles {
     private final int scale;
     private final int index;
 
-    private ScaleAndIndex(int scale, int index) {
+    private ScaleAndIndex(final int scale, final int index) {
       checkIndex(index, scale);
       this.scale = scale;
       this.index = index;
@@ -228,7 +228,7 @@ public final class Quantiles {
      *     this call (it is copied instead)
      * @return the quantile value
      */
-    public double compute(Collection<? extends Number> dataset) {
+    public double compute(final Collection<? extends Number> dataset) {
       return computeInPlace(Doubles.toArray(dataset));
     }
 
@@ -239,7 +239,7 @@ public final class Quantiles {
      *     be mutated by this call (it is copied instead)
      * @return the quantile value
      */
-    public double compute(double... dataset) {
+    public double compute(final double... dataset) {
       return computeInPlace(dataset.clone());
     }
 
@@ -251,7 +251,7 @@ public final class Quantiles {
      *     this call (it is copied instead)
      * @return the quantile value
      */
-    public double compute(long... dataset) {
+    public double compute(final long... dataset) {
       return computeInPlace(longsToDoubles(dataset));
     }
 
@@ -262,7 +262,7 @@ public final class Quantiles {
      *     cast to doubles, and which will not be mutated by this call (it is copied instead)
      * @return the quantile value
      */
-    public double compute(int... dataset) {
+    public double compute(final int... dataset) {
       return computeInPlace(intsToDoubles(dataset));
     }
 
@@ -273,7 +273,7 @@ public final class Quantiles {
      *     be arbitrarily reordered by this method call
      * @return the quantile value
      */
-    public double computeInPlace(double... dataset) {
+    public double computeInPlace(final double... dataset) {
       checkArgument(dataset.length > 0, "Cannot calculate quantiles of an empty dataset");
       if (containsNaN(dataset)) {
         return NaN;
@@ -311,7 +311,7 @@ public final class Quantiles {
     private final int scale;
     private final int[] indexes;
 
-    private ScaleAndIndexes(int scale, int[] indexes) {
+    private ScaleAndIndexes(final int scale, final int[] indexes) {
       for (int index : indexes) {
         checkIndex(index, scale);
       }
@@ -328,7 +328,7 @@ public final class Quantiles {
      * @return an unmodifiable map of results: the keys will be the specified quantile indexes, and
      *     the values the corresponding quantile values
      */
-    public Map<Integer, Double> compute(Collection<? extends Number> dataset) {
+    public Map<Integer, Double> compute(final Collection<? extends Number> dataset) {
       return computeInPlace(Doubles.toArray(dataset));
     }
 
@@ -340,7 +340,7 @@ public final class Quantiles {
      * @return an unmodifiable map of results: the keys will be the specified quantile indexes, and
      *     the values the corresponding quantile values
      */
-    public Map<Integer, Double> compute(double... dataset) {
+    public Map<Integer, Double> compute(final double... dataset) {
       return computeInPlace(dataset.clone());
     }
 
@@ -353,7 +353,7 @@ public final class Quantiles {
      * @return an unmodifiable map of results: the keys will be the specified quantile indexes, and
      *     the values the corresponding quantile values
      */
-    public Map<Integer, Double> compute(long... dataset) {
+    public Map<Integer, Double> compute(final long... dataset) {
       return computeInPlace(longsToDoubles(dataset));
     }
 
@@ -365,7 +365,7 @@ public final class Quantiles {
      * @return an unmodifiable map of results: the keys will be the specified quantile indexes, and
      *     the values the corresponding quantile values
      */
-    public Map<Integer, Double> compute(int... dataset) {
+    public Map<Integer, Double> compute(final int... dataset) {
       return computeInPlace(intsToDoubles(dataset));
     }
 
@@ -377,7 +377,7 @@ public final class Quantiles {
      * @return an unmodifiable map of results: the keys will be the specified quantile indexes, and
      *     the values the corresponding quantile values
      */
-    public Map<Integer, Double> computeInPlace(double... dataset) {
+    public Map<Integer, Double> computeInPlace(final double... dataset) {
       checkArgument(dataset.length > 0, "Cannot calculate quantiles of an empty dataset");
       if (containsNaN(dataset)) {
         Map<Integer, Double> nanMap = new HashMap<>();
@@ -437,7 +437,7 @@ public final class Quantiles {
   /**
    * Returns whether any of the values in {@code dataset} are {@code NaN}.
    */
-  private static boolean containsNaN(double... dataset) {
+  private static boolean containsNaN(final double... dataset) {
     for (double value : dataset) {
       if (Double.isNaN(value)) {
         return true;
@@ -451,7 +451,7 @@ public final class Quantiles {
    * {@code upper}. Assumes that {@code lower <= upper}. Correctly handles infinities (but not
    * {@code NaN}).
    */
-  private static double interpolate(double lower, double upper, double remainder, double scale) {
+  private static double interpolate(final double lower, final double upper, final double remainder, final double scale) {
     if (lower == NEGATIVE_INFINITY) {
       if (upper == POSITIVE_INFINITY) {
         // Return NaN when lower == NEGATIVE_INFINITY and upper == POSITIVE_INFINITY:
@@ -467,14 +467,14 @@ public final class Quantiles {
     return lower + (upper - lower) * remainder / scale;
   }
 
-  private static void checkIndex(int index, int scale) {
+  private static void checkIndex(final int index, final int scale) {
     if (index < 0 || index > scale) {
       throw new IllegalArgumentException(
           "Quantile indexes must be between 0 and the scale, which is " + scale);
     }
   }
 
-  private static double[] longsToDoubles(long[] longs) {
+  private static double[] longsToDoubles(final long[] longs) {
     int len = longs.length;
     double[] doubles = new double[len];
     for (int i = 0; i < len; i++) {
@@ -483,7 +483,7 @@ public final class Quantiles {
     return doubles;
   }
 
-  private static double[] intsToDoubles(int[] ints) {
+  private static double[] intsToDoubles(final int[] ints) {
     int len = ints.length;
     double[] doubles = new double[len];
     for (int i = 0; i < len; i++) {
@@ -509,7 +509,7 @@ public final class Quantiles {
    * ({@code required}, {@code to}] are greater than or equal to that value. Therefore, the value at
    * {@code required} is the value which would appear at that index in the sorted dataset.
    */
-  private static void selectInPlace(int required, double[] array, int from, int to) {
+  private static void selectInPlace(final int required, final double[] array, final int from, final int to) {
     // If we are looking for the least element in the range, we can just do a linear search for it.
     // (We will hit this whenever we are doing quantile interpolation: our first selection finds
     // the lower value, our second one finds the upper value by looking for the next least element.)
@@ -547,7 +547,7 @@ public final class Quantiles {
    * are less than or equal to the value at {@code ret} and the values with indexes in ({@code ret},
    * {@code to}] are greater than or equal to that.
    */
-  private static int partition(double[] array, int from, int to) {
+  private static int partition(final double[] array, final int from, final int to) {
     // Select a pivot, and move it to the start of the slice i.e. to index from.
     movePivotToStartOfSlice(array, from, to);
     double pivot = array[from];
@@ -575,7 +575,7 @@ public final class Quantiles {
    * necessary) that that pivot value appears at the start of the slice i.e. at {@code from}.
    * Expects that {@code from} is strictly less than {@code to}.
    */
-  private static void movePivotToStartOfSlice(double[] array, int from, int to) {
+  private static void movePivotToStartOfSlice(final double[] array, final int from, final int to) {
     int mid = (from + to) >>> 1;
     // We want to make a swap such that either array[to] <= array[from] <= array[mid], or
     // array[mid] <= array[from] <= array[to]. We know that from < to, so we know mid < to
@@ -601,7 +601,7 @@ public final class Quantiles {
    * {@code to}].
    */
   private static void selectAllInPlace(
-      int[] allRequired, int requiredFrom, int requiredTo, double[] array, int from, int to) {
+      final int[] allRequired, final int requiredFrom, final int requiredTo, final double[] array, final int from, final int to) {
     // Choose the first selection to do...
     int requiredChosen = chooseNextSelection(allRequired, requiredFrom, requiredTo, from, to);
     int required = allRequired[requiredChosen];
@@ -638,7 +638,7 @@ public final class Quantiles {
    * minimizes the size of the subranges from which the remaining selections must be done.
    */
   private static int chooseNextSelection(
-      int[] allRequired, int requiredFrom, int requiredTo, int from, int to) {
+      final int[] allRequired, final int requiredFrom, final int requiredTo, final int from, final int to) {
     if (requiredFrom == requiredTo) {
       return requiredFrom; // only one thing to choose, so choose it
     }
@@ -676,7 +676,7 @@ public final class Quantiles {
   /**
    * Swaps the values at {@code i} and {@code j} in {@code array}.
    */
-  private static void swap(double[] array, int i, int j) {
+  private static void swap(final double[] array, final int i, final int j) {
     double temp = array[i];
     array[i] = array[j];
     array[j] = temp;

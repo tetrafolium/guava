@@ -43,21 +43,21 @@ abstract class AbstractByteHasher extends AbstractHasher {
   /**
    * Updates this hasher with the given bytes.
    */
-  protected void update(byte[] b) {
+  protected void update(final byte[] b) {
     update(b, 0, b.length);
   }
 
   /**
    * Updates this hasher with {@code len} bytes starting at {@code off} in the given buffer.
    */
-  protected void update(byte[] b, int off, int len) {
+  protected void update(final byte[] b, final int off, final int len) {
     for (int i = off; i < off + len; i++) {
       update(b[i]);
     }
   }
 
   /** Updates this hasher with bytes from the given buffer. */
-  protected void update(ByteBuffer b) {
+  protected void update(final ByteBuffer b) {
     if (b.hasArray()) {
       update(b.array(), b.arrayOffset() + b.position(), b.remaining());
       b.position(b.limit());
@@ -69,27 +69,27 @@ abstract class AbstractByteHasher extends AbstractHasher {
   }
 
   @Override
-  public Hasher putByte(byte b) {
+  public Hasher putByte(final byte b) {
     update(b);
     return this;
   }
 
   @Override
-  public Hasher putBytes(byte[] bytes) {
+  public Hasher putBytes(final byte[] bytes) {
     checkNotNull(bytes);
     update(bytes);
     return this;
   }
 
   @Override
-  public Hasher putBytes(byte[] bytes, int off, int len) {
+  public Hasher putBytes(final byte[] bytes, final int off, final int len) {
     checkPositionIndexes(off, off + len, bytes.length);
     update(bytes, off, len);
     return this;
   }
 
   @Override
-  public Hasher putBytes(ByteBuffer bytes) {
+  public Hasher putBytes(final ByteBuffer bytes) {
     update(bytes);
     return this;
   }
@@ -97,7 +97,7 @@ abstract class AbstractByteHasher extends AbstractHasher {
   /**
    * Updates the sink with the given number of bytes from the buffer.
    */
-  private Hasher update(int bytes) {
+  private Hasher update(final int bytes) {
     try {
       update(scratch.array(), 0, bytes);
     } finally {
@@ -107,25 +107,25 @@ abstract class AbstractByteHasher extends AbstractHasher {
   }
 
   @Override
-  public Hasher putShort(short s) {
+  public Hasher putShort(final short s) {
     scratch.putShort(s);
     return update(Shorts.BYTES);
   }
 
   @Override
-  public Hasher putInt(int i) {
+  public Hasher putInt(final int i) {
     scratch.putInt(i);
     return update(Ints.BYTES);
   }
 
   @Override
-  public Hasher putLong(long l) {
+  public Hasher putLong(final long l) {
     scratch.putLong(l);
     return update(Longs.BYTES);
   }
 
   @Override
-  public Hasher putChar(char c) {
+  public Hasher putChar(final char c) {
     scratch.putChar(c);
     return update(Chars.BYTES);
   }

@@ -34,12 +34,12 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
 
   final transient E element;
 
-  SingletonImmutableList(E element) {
+  SingletonImmutableList(final E element) {
     this.element = checkNotNull(element);
   }
 
   @Override
-  public E get(int index) {
+  public E get(final int index) {
     Preconditions.checkElementIndex(index, 1);
     return element;
   }
@@ -60,7 +60,7 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
   }
 
   @Override
-  public ImmutableList<E> subList(int fromIndex, int toIndex) {
+  public ImmutableList<E> subList(final int fromIndex, final int toIndex) {
     Preconditions.checkPositionIndexes(fromIndex, toIndex, 1);
     return (fromIndex == toIndex) ? ImmutableList.<E>of() : this;
   }

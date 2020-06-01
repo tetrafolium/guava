@@ -122,7 +122,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   static class LowerBoundFn implements Function<Range, Cut> {
     static final LowerBoundFn INSTANCE = new LowerBoundFn();
     @Override
-    public Cut apply(Range range) {
+    public Cut apply(final Range range) {
       return range.lowerBound;
     }
   }
@@ -130,7 +130,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   static class UpperBoundFn implements Function<Range, Cut> {
     static final UpperBoundFn INSTANCE = new UpperBoundFn();
     @Override
-    public Cut apply(Range range) {
+    public Cut apply(final Range range) {
       return range.upperBound;
     }
   }
@@ -149,7 +149,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
     return (Ordering<Range<C>>) (Ordering) RangeLexOrdering.INSTANCE;
   }
 
-  static <C extends Comparable<?>> Range<C> create(Cut<C> lowerBound, Cut<C> upperBound) {
+  static <C extends Comparable<?>> Range<C> create(final Cut<C> lowerBound, final Cut<C> upperBound) {
     return new Range<C>(lowerBound, upperBound);
   }
 
@@ -161,7 +161,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *     equal to</i> {@code upper}
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> open(C lower, C upper) {
+  public static <C extends Comparable<?>> Range<C> open(final C lower, final C upper) {
     return create(Cut.aboveValue(lower), Cut.belowValue(upper));
   }
 
@@ -173,7 +173,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *     upper}
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> closed(C lower, C upper) {
+  public static <C extends Comparable<?>> Range<C> closed(final C lower, final C upper) {
     return create(Cut.belowValue(lower), Cut.aboveValue(upper));
   }
 
@@ -185,7 +185,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *     upper}
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> closedOpen(C lower, C upper) {
+  public static <C extends Comparable<?>> Range<C> closedOpen(final C lower, final C upper) {
     return create(Cut.belowValue(lower), Cut.belowValue(upper));
   }
 
@@ -197,7 +197,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *     upper}
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> openClosed(C lower, C upper) {
+  public static <C extends Comparable<?>> Range<C> openClosed(final C lower, final C upper) {
     return create(Cut.aboveValue(lower), Cut.aboveValue(upper));
   }
 
@@ -211,7 +211,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> range(
-      C lower, BoundType lowerType, C upper, BoundType upperType) {
+      final C lower, final BoundType lowerType, final C upper, final BoundType upperType) {
     checkNotNull(lowerType);
     checkNotNull(upperType);
 
@@ -228,7 +228,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> lessThan(C endpoint) {
+  public static <C extends Comparable<?>> Range<C> lessThan(final C endpoint) {
     return create(Cut.<C>belowAll(), Cut.belowValue(endpoint));
   }
 
@@ -238,7 +238,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> atMost(C endpoint) {
+  public static <C extends Comparable<?>> Range<C> atMost(final C endpoint) {
     return create(Cut.<C>belowAll(), Cut.aboveValue(endpoint));
   }
 
@@ -248,7 +248,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> upTo(C endpoint, BoundType boundType) {
+  public static <C extends Comparable<?>> Range<C> upTo(final C endpoint, final BoundType boundType) {
     switch (boundType) {
       case OPEN:
         return lessThan(endpoint);
@@ -265,7 +265,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> greaterThan(C endpoint) {
+  public static <C extends Comparable<?>> Range<C> greaterThan(final C endpoint) {
     return create(Cut.aboveValue(endpoint), Cut.<C>aboveAll());
   }
 
@@ -275,7 +275,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> atLeast(C endpoint) {
+  public static <C extends Comparable<?>> Range<C> atLeast(final C endpoint) {
     return create(Cut.belowValue(endpoint), Cut.<C>aboveAll());
   }
 
@@ -285,7 +285,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> downTo(C endpoint, BoundType boundType) {
+  public static <C extends Comparable<?>> Range<C> downTo(final C endpoint, final BoundType boundType) {
     switch (boundType) {
       case OPEN:
         return greaterThan(endpoint);
@@ -315,7 +315,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> singleton(C value) {
+  public static <C extends Comparable<?>> Range<C> singleton(final C value) {
     return closed(value, value);
   }
 
@@ -330,7 +330,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * @throws NullPointerException if any of {@code values} is null
    * @since 14.0
    */
-  public static <C extends Comparable<?>> Range<C> encloseAll(Iterable<C> values) {
+  public static <C extends Comparable<?>> Range<C> encloseAll(final Iterable<C> values) {
     checkNotNull(values);
     if (values instanceof SortedSet) {
       SortedSet<? extends C> set = cast(values);
@@ -353,7 +353,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   final Cut<C> lowerBound;
   final Cut<C> upperBound;
 
-  private Range(Cut<C> lowerBound, Cut<C> upperBound) {
+  private Range(final Cut<C> lowerBound, final Cut<C> upperBound) {
     this.lowerBound = checkNotNull(lowerBound);
     this.upperBound = checkNotNull(upperBound);
     if (lowerBound.compareTo(upperBound) > 0
@@ -437,7 +437,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * range {@code [0..2)}, {@code contains(1)} returns {@code true}, while {@code contains(2)}
    * returns {@code false}.
    */
-  public boolean contains(C value) {
+  public boolean contains(final C value) {
     checkNotNull(value);
     // let this throw CCE if there is some trickery going on
     return lowerBound.isLessThan(value) && !upperBound.isLessThan(value);
@@ -449,7 +449,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    */
   @Deprecated
   @Override
-  public boolean apply(C input) {
+  public boolean apply(final C input) {
     return contains(input);
   }
 
@@ -457,7 +457,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * Returns {@code true} if every element in {@code values} is {@linkplain #contains contained} in
    * this range.
    */
-  public boolean containsAll(Iterable<? extends C> values) {
+  public boolean containsAll(final Iterable<? extends C> values) {
     if (Iterables.isEmpty(values)) {
       return true;
     }
@@ -503,7 +503,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * according to this relation, and also numerous {@linkplain #isEmpty minimal} ranges. Enclosure
    * also implies {@linkplain #isConnected connectedness}.
    */
-  public boolean encloses(Range<C> other) {
+  public boolean encloses(final Range<C> other) {
     return lowerBound.compareTo(other.lowerBound) <= 0
         && upperBound.compareTo(other.upperBound) >= 0;
   }
@@ -532,7 +532,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * [6, 10]}.  In these cases, it may be desirable for both input ranges to be preprocessed with
    * {@link #canonical(DiscreteDomain)} before testing for connectedness.
    */
-  public boolean isConnected(Range<C> other) {
+  public boolean isConnected(final Range<C> other) {
     return lowerBound.compareTo(other.upperBound) <= 0
         && other.lowerBound.compareTo(upperBound) <= 0;
   }
@@ -553,7 +553,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    *
    * @throws IllegalArgumentException if {@code isConnected(connectedRange)} is {@code false}
    */
-  public Range<C> intersection(Range<C> connectedRange) {
+  public Range<C> intersection(final Range<C> connectedRange) {
     int lowerCmp = lowerBound.compareTo(connectedRange.lowerBound);
     int upperCmp = upperBound.compareTo(connectedRange.upperBound);
     if (lowerCmp >= 0 && upperCmp <= 0) {
@@ -578,7 +578,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * <p>Like {@link #intersection(Range) intersection}, this operation is commutative, associative
    * and idempotent. Unlike it, it is always well-defined for any two input ranges.
    */
-  public Range<C> span(Range<C> other) {
+  public Range<C> span(final Range<C> other) {
     int lowerCmp = lowerBound.compareTo(other.lowerBound);
     int upperCmp = upperBound.compareTo(other.upperBound);
     if (lowerCmp <= 0 && upperCmp >= 0) {
@@ -616,7 +616,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * <li>(-∞..+∞) (only if type {@code C} is unbounded below)
    * </ul>
    */
-  public Range<C> canonical(DiscreteDomain<C> domain) {
+  public Range<C> canonical(final DiscreteDomain<C> domain) {
     checkNotNull(domain);
     Cut<C> lower = lowerBound.canonical(domain);
     Cut<C> upper = upperBound.canonical(domain);
@@ -631,7 +631,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
    * {@code [3..3)}, {@code (3..3]}, {@code (4..4]} are all unequal.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Range) {
       Range<?> other = (Range<?>) object;
       return lowerBound.equals(other.lowerBound) && upperBound.equals(other.upperBound);
@@ -654,7 +654,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
     return toString(lowerBound, upperBound);
   }
 
-  private static String toString(Cut<?> lowerBound, Cut<?> upperBound) {
+  private static String toString(final Cut<?> lowerBound, final Cut<?> upperBound) {
     StringBuilder sb = new StringBuilder(16);
     lowerBound.describeAsLowerBound(sb);
     sb.append("..");
@@ -665,7 +665,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   /**
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
-  private static <T> SortedSet<T> cast(Iterable<T> iterable) {
+  private static <T> SortedSet<T> cast(final Iterable<T> iterable) {
     return (SortedSet<T>) iterable;
   }
 
@@ -678,7 +678,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
   }
 
   @SuppressWarnings("unchecked") // this method may throw CCE
-  static int compareOrThrow(Comparable left, Comparable right) {
+  static int compareOrThrow(final Comparable left, final Comparable right) {
     return left.compareTo(right);
   }
 
@@ -689,7 +689,7 @@ public final class Range<C extends Comparable> extends RangeGwtSerializationDepe
     static final Ordering<Range<?>> INSTANCE = new RangeLexOrdering();
 
     @Override
-    public int compare(Range<?> left, Range<?> right) {
+    public int compare(final Range<?> left, final Range<?> right) {
       return ComparisonChain.start()
           .compare(left.lowerBound, right.lowerBound)
           .compare(left.upperBound, right.upperBound)

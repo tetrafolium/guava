@@ -31,7 +31,7 @@ public class MinimalCollectionTest extends TestCase {
   public static Test suite() {
     return CollectionTestSuiteBuilder
         .using(new TestStringCollectionGenerator() {
-            @Override public Collection<String> create(String[] elements) {
+            @Override public Collection<String> create(final String[] elements) {
               // TODO: MinimalCollection should perhaps throw
               for (Object element : elements) {
                 if (element == null) {

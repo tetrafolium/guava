@@ -63,7 +63,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
     runListIteratorTest(MODIFIABLE);
   }
 
-  private void runListIteratorTest(Set<IteratorFeature> features) {
+  private void runListIteratorTest(final Set<IteratorFeature> features) {
     new ListIteratorTester<E>(
         listListIteratorTesterNumIterations(),
         singleton(e4()),
@@ -77,7 +77,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
       }
 
       @Override
-      protected void verify(List<E> elements) {
+      protected void verify(final List<E> elements) {
         expectContents(elements);
       }
     }.test();

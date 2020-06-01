@@ -35,7 +35,7 @@ public abstract class FinalizableWeakReference<T> extends WeakReference<T>
    * @param referent to weakly reference
    * @param queue that should finalize the referent
    */
-  protected FinalizableWeakReference(T referent, FinalizableReferenceQueue queue) {
+  protected FinalizableWeakReference(final T referent, final FinalizableReferenceQueue queue) {
     super(referent, queue.queue);
     queue.cleanUp();
   }

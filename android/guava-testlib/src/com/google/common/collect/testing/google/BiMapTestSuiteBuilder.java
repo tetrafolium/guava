@@ -50,7 +50,7 @@ import junit.framework.TestSuite;
 public class BiMapTestSuiteBuilder<K, V>
     extends PerCollectionSizeTestSuiteBuilder<
         BiMapTestSuiteBuilder<K, V>, TestBiMapGenerator<K, V>, BiMap<K, V>, Map.Entry<K, V>> {
-  public static <K, V> BiMapTestSuiteBuilder<K, V> using(TestBiMapGenerator<K, V> generator) {
+  public static <K, V> BiMapTestSuiteBuilder<K, V> using(final TestBiMapGenerator<K, V> generator) {
     return new BiMapTestSuiteBuilder<K, V>().usingGenerator(generator);
   }
 
@@ -76,7 +76,7 @@ public class BiMapTestSuiteBuilder<K, V>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+      final FeatureSpecificTestSuiteBuilder<
               ?, ? extends OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>>>
           parentBuilder) {
     List<TestSuite> derived = super.createDerivedSuites(parentBuilder);
@@ -116,7 +116,7 @@ public class BiMapTestSuiteBuilder<K, V>
     return derived;
   }
 
-  private static Set<Feature<?>> computeInverseFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeInverseFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> inverseFeatures = new HashSet<>(mapFeatures);
 
     boolean nullKeys = inverseFeatures.remove(MapFeature.ALLOWS_NULL_KEYS);
@@ -138,7 +138,7 @@ public class BiMapTestSuiteBuilder<K, V>
 
   // TODO(lowasser): can we eliminate the duplication from MapTestSuiteBuilder here?
 
-  private static Set<Feature<?>> computeValuesSetFeatures(Set<Feature<?>> mapFeatures) {
+  private static Set<Feature<?>> computeValuesSetFeatures(final Set<Feature<?>> mapFeatures) {
     Set<Feature<?>> valuesCollectionFeatures = computeCommonDerivedCollectionFeatures(mapFeatures);
     valuesCollectionFeatures.add(CollectionFeature.ALLOWS_NULL_QUERIES);
 
@@ -152,7 +152,7 @@ public class BiMapTestSuiteBuilder<K, V>
   }
 
   private static Set<Feature<?>> computeCommonDerivedCollectionFeatures(
-      Set<Feature<?>> mapFeatures) {
+      final Set<Feature<?>> mapFeatures) {
     return MapTestSuiteBuilder.computeCommonDerivedCollectionFeatures(mapFeatures);
   }
 }

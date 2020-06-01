@@ -27,9 +27,9 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class Range_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, Range<?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final Range<?> instance) { }
 
-  public static Range<?> instantiate(SerializationStreamReader reader)
+  public static Range<?> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
 
     Cut lowerBound;
@@ -57,7 +57,7 @@ public class Range_CustomFieldSerializer {
     return Range.create(lowerBound, upperBound);
   }
 
-  public static void serialize(SerializationStreamWriter writer, Range<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final Range<?> instance)
       throws SerializationException {
 
     if (instance.hasLowerBound()) {

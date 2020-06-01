@@ -63,12 +63,12 @@ public enum CollectionSize implements Feature<Collection>, Comparable<Collection
   private final Set<Feature<? super Collection>> implied;
   private final Integer numElements;
 
-  CollectionSize(int numElements) {
+  CollectionSize(final int numElements) {
     this.implied = Collections.emptySet();
     this.numElements = numElements;
   }
 
-  CollectionSize(Feature<? super Collection>... implied) {
+  CollectionSize(final Feature<? super Collection>... implied) {
     // Keep the order here, so that PerCollectionSizeTestSuiteBuilder
     // gives a predictable order of test suites.
     this.implied = Helpers.copyToSet(implied);

@@ -64,7 +64,7 @@ public class EnumsBenchmark {
   }
 
   @Benchmark
-  boolean getIfPresent(int repetitions) {
+  boolean getIfPresent(final int repetitions) {
     boolean retVal = false;
     for (int i = 0; i < repetitions; ++i) {
       retVal &= Enums.getIfPresent(enumType, sampleData[i & 255]).isPresent();

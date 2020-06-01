@@ -48,7 +48,7 @@ public class ReentrantEventsTest extends TestCase {
     List<Object> eventsReceived = Lists.newArrayList();
 
     @Subscribe
-    public void listenForStrings(String event) {
+    public void listenForStrings(final String event) {
       eventsReceived.add(event);
       ready = false;
       try {
@@ -59,7 +59,7 @@ public class ReentrantEventsTest extends TestCase {
     }
 
     @Subscribe
-    public void listenForDoubles(Double event) {
+    public void listenForDoubles(final Double event) {
       assertTrue("I received an event when I wasn't ready!", ready);
       eventsReceived.add(event);
     }
@@ -79,14 +79,14 @@ public class ReentrantEventsTest extends TestCase {
   }
 
   public class EventProcessor {
-    @Subscribe public void listenForStrings(String event) {
+    @Subscribe public void listenForStrings(final String event) {
       bus.post(SECOND);
     }
   }
 
   public class EventRecorder {
     List<Object> eventsReceived = Lists.newArrayList();
-    @Subscribe public void listenForEverything(Object event) {
+    @Subscribe public void listenForEverything(final Object event) {
       eventsReceived.add(event);
     }
   }

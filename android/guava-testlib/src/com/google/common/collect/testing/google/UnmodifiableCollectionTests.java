@@ -45,7 +45,7 @@ import java.util.Set;
 @GwtCompatible
 public class UnmodifiableCollectionTests {
 
-  public static void assertMapEntryIsUnmodifiable(Entry<?, ?> entry) {
+  public static void assertMapEntryIsUnmodifiable(final Entry<?, ?> entry) {
     try {
       entry.setValue(null);
       fail("setValue on unmodifiable Map.Entry succeeded");
@@ -58,7 +58,7 @@ public class UnmodifiableCollectionTests {
    *
    * <p>This test only works with iterators that iterate over a finite set.
    */
-  public static void assertIteratorIsUnmodifiable(Iterator<?> iterator) {
+  public static void assertIteratorIsUnmodifiable(final Iterator<?> iterator) {
     while (iterator.hasNext()) {
       iterator.next();
       try {
@@ -75,7 +75,7 @@ public class UnmodifiableCollectionTests {
    * <p>This test only works with iterators that iterate over a finite set.
    */
   public static void assertIteratorsInOrder(
-      Iterator<?> expectedIterator, Iterator<?> actualIterator) {
+      final Iterator<?> expectedIterator, final Iterator<?> actualIterator) {
     int i = 0;
     while (expectedIterator.hasNext()) {
       Object expected = expectedIterator.next();
@@ -110,7 +110,7 @@ public class UnmodifiableCollectionTests {
    * {@code collection}. {@code collection} may or may not have {@code
    * sampleElement} as a member.
    */
-  public static <E> void assertCollectionIsUnmodifiable(Collection<E> collection, E sampleElement) {
+  public static <E> void assertCollectionIsUnmodifiable(final Collection<E> collection, final E sampleElement) {
     Collection<E> siblingCollection = new ArrayList<>();
     siblingCollection.add(sampleElement);
 
@@ -183,7 +183,7 @@ public class UnmodifiableCollectionTests {
    * {@code set}. {@code set} may or may not have {@code sampleElement} as a
    * member.
    */
-  public static <E> void assertSetIsUnmodifiable(Set<E> set, E sampleElement) {
+  public static <E> void assertSetIsUnmodifiable(final Set<E> set, final E sampleElement) {
     assertCollectionIsUnmodifiable(set, sampleElement);
   }
 
@@ -204,7 +204,7 @@ public class UnmodifiableCollectionTests {
    * {@code multiset}. {@code multiset} may or may not have {@code
    * sampleElement} as a member.
    */
-  public static <E> void assertMultisetIsUnmodifiable(Multiset<E> multiset, final E sampleElement) {
+  public static <E> void assertMultisetIsUnmodifiable(final Multiset<E> multiset, final E sampleElement) {
     Multiset<E> copy = LinkedHashMultiset.create(multiset);
     assertCollectionsAreEquivalent(multiset, copy);
 
@@ -268,7 +268,7 @@ public class UnmodifiableCollectionTests {
    * as a key.
    */
   public static <K, V> void assertMultimapIsUnmodifiable(
-      Multimap<K, V> multimap, final K sampleKey, final V sampleValue) {
+      final Multimap<K, V> multimap, final K sampleKey, final V sampleValue) {
     List<Entry<K, V>> originalEntries =
         Collections.unmodifiableList(Lists.newArrayList(multimap.entries()));
 
@@ -408,12 +408,12 @@ public class UnmodifiableCollectionTests {
   }
 
   private static <E> void assertCollectionsAreEquivalent(
-      Collection<E> expected, Collection<E> actual) {
+      final Collection<E> expected, final Collection<E> actual) {
     assertIteratorsInOrder(expected.iterator(), actual.iterator());
   }
 
   private static <K, V> void assertMultimapRemainsUnmodified(
-      Multimap<K, V> expected, List<Entry<K, V>> actual) {
+      final Multimap<K, V> expected, final List<Entry<K, V>> actual) {
     assertIteratorsInOrder(expected.entries().iterator(), actual.iterator());
   }
 }

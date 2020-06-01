@@ -118,7 +118,7 @@ public class GeneratedMonitorTest extends TestCase {
     final long millis;
     final String label;
 
-    Timeout(long millis, String label) {
+    Timeout(final long millis, final String label) {
       this.millis = millis;
       this.label = label;
     }
@@ -144,7 +144,7 @@ public class GeneratedMonitorTest extends TestCase {
 
     final ImmutableList<Timeout> timeouts;
 
-    TimeoutsToUse(Timeout... timeouts) {
+    TimeoutsToUse(final Timeout... timeouts) {
       this.timeouts = ImmutableList.copyOf(timeouts);
     }
 
@@ -185,14 +185,14 @@ public class GeneratedMonitorTest extends TestCase {
   /**
    * Identifies all enterXxx and tryEnterXxx methods.
    */
-  private static boolean isAnyEnter(Method method) {
+  private static boolean isAnyEnter(final Method method) {
     return method.getName().startsWith("enter") || method.getName().startsWith("tryEnter");
   }
 
   /**
    * Identifies just tryEnterXxx methods (a subset of {@link #isAnyEnter}), which never block.
    */
-  private static boolean isTryEnter(Method method) {
+  private static boolean isTryEnter(final Method method) {
     return method.getName().startsWith("tryEnter");
   }
 
@@ -200,21 +200,21 @@ public class GeneratedMonitorTest extends TestCase {
    * Identifies just enterIfXxx methods (a subset of {@link #isAnyEnter}), which are mostly like the
    * enterXxx methods but behave like tryEnterXxx in some scenarios.
    */
-  private static boolean isEnterIf(Method method) {
+  private static boolean isEnterIf(final Method method) {
     return method.getName().startsWith("enterIf");
   }
 
   /**
    * Identifies all waitForXxx methods, which must be called while occupying the monitor.
    */
-  private static boolean isWaitFor(Method method) {
+  private static boolean isWaitFor(final Method method) {
     return method.getName().startsWith("waitFor");
   }
 
   /**
    * Determines whether the given method takes a Guard as its first parameter.
    */
-  private static boolean isGuarded(Method method) {
+  private static boolean isGuarded(final Method method) {
     Class<?>[] parameterTypes = method.getParameterTypes();
     return parameterTypes.length >= 1 && parameterTypes[0] == Monitor.Guard.class;
   }
@@ -222,7 +222,7 @@ public class GeneratedMonitorTest extends TestCase {
   /**
    * Determines whether the given method takes a time and unit as its last two parameters.
    */
-  private static boolean isTimed(Method method) {
+  private static boolean isTimed(final Method method) {
     Class<?>[] parameterTypes = method.getParameterTypes();
     return parameterTypes.length >= 2
         && parameterTypes[parameterTypes.length - 2] == long.class
@@ -232,23 +232,23 @@ public class GeneratedMonitorTest extends TestCase {
   /**
    * Determines whether the given method returns a boolean value.
    */
-  private static boolean isBoolean(Method method) {
+  private static boolean isBoolean(final Method method) {
     return method.getReturnType() == boolean.class;
   }
 
   /**
    * Determines whether the given method can throw InterruptedException.
    */
-  private static boolean isInterruptible(Method method) {
+  private static boolean isInterruptible(final Method method) {
     return Arrays.asList(method.getExceptionTypes()).contains(InterruptedException.class);
   }
 
   /**
    * Sorts the given methods primarily by name and secondarily by number of parameters.
    */
-  private static void sortMethods(Method[] methods) {
+  private static void sortMethods(final Method[] methods) {
     Arrays.sort(methods, new Comparator<Method>() {
-      @Override public int compare(Method m1, Method m2) {
+      @Override public int compare(final Method m1, final Method m2) {
         int nameComparison = m1.getName().compareTo(m2.getName());
         if (nameComparison != 0) {
           return nameComparison;
@@ -262,7 +262,7 @@ public class GeneratedMonitorTest extends TestCase {
   /**
    * Validates that the given method's signature meets all of our assumptions.
    */
-  private static void validateMethod(Method method) {
+  private static void validateMethod(final Method method) {
     String desc = method.toString();
 
     assertTrue(desc, isAnyEnter(method) || isWaitFor(method));
@@ -323,10 +323,10 @@ public class GeneratedMonitorTest extends TestCase {
   /**
    * Generates all test cases appropriate for the given method.
    */
-  private static void addTests(TestSuite suite, Method method) {
+  private static void addTests(final TestSuite suite, final Method method) {
     if (isGuarded(method)) {
-      for (boolean fair1 : new boolean[] { true, false }) {
-        for (boolean fair2 : new boolean[] { true, false }) {
+      for (boolean fair1 : new boolean[] {true, false }) {
+        for (boolean fair2 : new boolean[] {true, false }) {
           suite.addTest(generateGuardWithWrongMonitorTestCase(method, fair1, fair2));
         }
       }
@@ -412,9 +412,9 @@ public class GeneratedMonitorTest extends TestCase {
    * implicit timeout of that method matches the given timeoutsToUse. For example, enter() is
    * treated like enter(MAX, MILLIS) and tryEnter() is treated like enter(0, MILLIS).
    */
-  private static void addTests(TestSuite suite, Method method, Scenario scenario,
-      TimeoutsToUse timeoutsToUse, Outcome expectedOutcome) {
-    for (boolean fair : new boolean[] { true, false }) {
+  private static void addTests(final TestSuite suite, final Method method, final Scenario scenario,
+      final TimeoutsToUse timeoutsToUse, final Outcome expectedOutcome) {
+    for (boolean fair : new boolean[] {true, false }) {
       if (isTimed(method)) {
         for (Timeout timeout : timeoutsToUse.timeouts) {
           suite.addTest(new GeneratedMonitorTest(method, scenario, fair, timeout, expectedOutcome));
@@ -435,7 +435,7 @@ public class GeneratedMonitorTest extends TestCase {
 
     private boolean satisfied;
 
-    protected FlagGuard(Monitor monitor) {
+    protected FlagGuard(final Monitor monitor) {
       super(monitor);
     }
 
@@ -444,7 +444,7 @@ public class GeneratedMonitorTest extends TestCase {
       return satisfied;
     }
 
-    public void setSatisfied(boolean satisfied) {
+    public void setSatisfied(final boolean satisfied) {
       this.satisfied = satisfied;
     }
 
@@ -461,7 +461,7 @@ public class GeneratedMonitorTest extends TestCase {
   private final CountDownLatch callCompletedLatch;
 
   private GeneratedMonitorTest(
-      Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
+      final Method method, final Scenario scenario, final boolean fair, final Timeout timeout, final Outcome expectedOutcome) {
     super(nameFor(method, scenario, fair, timeout, expectedOutcome));
     this.method = method;
     this.scenario = scenario;
@@ -475,7 +475,7 @@ public class GeneratedMonitorTest extends TestCase {
   }
 
   private static String nameFor(
-      Method method, Scenario scenario, boolean fair, Timeout timeout, Outcome expectedOutcome) {
+      final Method method, final Scenario scenario, final boolean fair, final Timeout timeout, final Outcome expectedOutcome) {
     return String.format(Locale.ROOT,
         "%s%s(%s)/%s->%s",
         method.getName(),
@@ -488,11 +488,13 @@ public class GeneratedMonitorTest extends TestCase {
   @Override
   protected void runTest() throws Throwable {
     final Runnable runChosenTest = new Runnable() {
-      @Override public void run() { runChosenTest(); }
+      @Override public void run() {
+          runChosenTest(); }
     };
     final FutureTask<Void> task = new FutureTask<>(runChosenTest, null);
     startThread(new Runnable() {
-        @Override public void run() { task.run(); }
+        @Override public void run() {
+            task.run(); }
       });
     awaitUninterruptibly(doingCallLatch);
     long hangDelayMillis = (expectedOutcome == Outcome.HANG)
@@ -708,7 +710,7 @@ public class GeneratedMonitorTest extends TestCase {
   }
 
   @CanIgnoreReturnValue
-  static Thread startThread(Runnable runnable) {
+  static Thread startThread(final Runnable runnable) {
     Thread thread = new Thread(runnable);
     thread.setDaemon(true);
     thread.start();
@@ -778,7 +780,7 @@ public class GeneratedMonitorTest extends TestCase {
   }
 
   /** Alternative to AssertionError(String, Throwable), which doesn't exist in Java 1.6 */
-  private static AssertionError newAssertionError(String message, Throwable cause) {
+  private static AssertionError newAssertionError(final String message, final Throwable cause) {
     AssertionError e = new AssertionError(message);
     e.initCause(cause);
     return e;

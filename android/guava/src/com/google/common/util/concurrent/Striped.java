@@ -90,7 +90,7 @@ public abstract class Striped<L> {
    */
   private static final int LARGE_LAZY_CUTOFF = 1024;
 
-  private Striped() {}
+  private Striped() { }
 
   /**
    * Returns the stripe that corresponds to the passed key. It is always guaranteed that if
@@ -138,7 +138,7 @@ public abstract class Striped<L> {
    * @return the stripes corresponding to the objects (one per each object, derived by delegating to
    *     {@link #get(Object)}; may contain duplicates), in an increasing index order.
    */
-  public Iterable<L> bulkGet(Iterable<?> keys) {
+  public Iterable<L> bulkGet(final Iterable<?> keys) {
     // Initially using the array to store the keys, then reusing it to store the respective L's
     final Object[] array = Iterables.toArray(keys, Object.class);
     if (array.length == 0) {
@@ -192,7 +192,7 @@ public abstract class Striped<L> {
    * @param stripes the minimum number of stripes (locks) required
    * @return a new {@code Striped<Lock>}
    */
-  public static Striped<Lock> lock(int stripes) {
+  public static Striped<Lock> lock(final int stripes) {
     return new CompactStriped<>(
         stripes,
         new Supplier<Lock>() {
@@ -210,7 +210,7 @@ public abstract class Striped<L> {
    * @param stripes the minimum number of stripes (locks) required
    * @return a new {@code Striped<Lock>}
    */
-  public static Striped<Lock> lazyWeakLock(int stripes) {
+  public static Striped<Lock> lazyWeakLock(final int stripes) {
     return lazy(
         stripes,
         new Supplier<Lock>() {
@@ -221,7 +221,7 @@ public abstract class Striped<L> {
         });
   }
 
-  private static <L> Striped<L> lazy(int stripes, Supplier<L> supplier) {
+  private static <L> Striped<L> lazy(final int stripes, final Supplier<L> supplier) {
     return stripes < LARGE_LAZY_CUTOFF
         ? new SmallLazyStriped<L>(stripes, supplier)
         : new LargeLazyStriped<L>(stripes, supplier);
@@ -235,7 +235,7 @@ public abstract class Striped<L> {
    * @param permits the number of permits in each semaphore
    * @return a new {@code Striped<Semaphore>}
    */
-  public static Striped<Semaphore> semaphore(int stripes, final int permits) {
+  public static Striped<Semaphore> semaphore(final int stripes, final int permits) {
     return new CompactStriped<>(
         stripes,
         new Supplier<Semaphore>() {
@@ -254,7 +254,7 @@ public abstract class Striped<L> {
    * @param permits the number of permits in each semaphore
    * @return a new {@code Striped<Semaphore>}
    */
-  public static Striped<Semaphore> lazyWeakSemaphore(int stripes, final int permits) {
+  public static Striped<Semaphore> lazyWeakSemaphore(final int stripes, final int permits) {
     return lazy(
         stripes,
         new Supplier<Semaphore>() {
@@ -272,7 +272,7 @@ public abstract class Striped<L> {
    * @param stripes the minimum number of stripes (locks) required
    * @return a new {@code Striped<ReadWriteLock>}
    */
-  public static Striped<ReadWriteLock> readWriteLock(int stripes) {
+  public static Striped<ReadWriteLock> readWriteLock(final int stripes) {
     return new CompactStriped<>(stripes, READ_WRITE_LOCK_SUPPLIER);
   }
 
@@ -283,7 +283,7 @@ public abstract class Striped<L> {
    * @param stripes the minimum number of stripes (locks) required
    * @return a new {@code Striped<ReadWriteLock>}
    */
-  public static Striped<ReadWriteLock> lazyWeakReadWriteLock(int stripes) {
+  public static Striped<ReadWriteLock> lazyWeakReadWriteLock(final int stripes) {
     return lazy(stripes, READ_WRITE_LOCK_SUPPLIER);
   }
 
@@ -300,19 +300,19 @@ public abstract class Striped<L> {
     /** Capacity (power of two) minus one, for fast mod evaluation */
     final int mask;
 
-    PowerOfTwoStriped(int stripes) {
+    PowerOfTwoStriped(final int stripes) {
       Preconditions.checkArgument(stripes > 0, "Stripes must be positive");
       this.mask = stripes > Ints.MAX_POWER_OF_TWO ? ALL_SET : ceilToPowerOfTwo(stripes) - 1;
     }
 
     @Override
-    final int indexFor(Object key) {
+    final int indexFor(final Object key) {
       int hash = smear(key.hashCode());
       return hash & mask;
     }
 
     @Override
-    public final L get(Object key) {
+    public final L get(final Object key) {
       return getAt(indexFor(key));
     }
   }
@@ -325,7 +325,7 @@ public abstract class Striped<L> {
     /** Size is a power of two. */
     private final Object[] array;
 
-    private CompactStriped(int stripes, Supplier<L> supplier) {
+    private CompactStriped(final int stripes, final Supplier<L> supplier) {
       super(stripes);
       Preconditions.checkArgument(stripes <= Ints.MAX_POWER_OF_TWO, "Stripes must be <= 2^30)");
 
@@ -337,7 +337,7 @@ public abstract class Striped<L> {
 
     @SuppressWarnings("unchecked") // we only put L's in the array
     @Override
-    public L getAt(int index) {
+    public L getAt(final int index) {
       return (L) array[index];
     }
 
@@ -359,7 +359,7 @@ public abstract class Striped<L> {
     final int size;
     final ReferenceQueue<L> queue = new ReferenceQueue<L>();
 
-    SmallLazyStriped(int stripes, Supplier<L> supplier) {
+    SmallLazyStriped(final int stripes, final Supplier<L> supplier) {
       super(stripes);
       this.size = (mask == ALL_SET) ? Integer.MAX_VALUE : mask + 1;
       this.locks = new AtomicReferenceArray<>(size);
@@ -367,7 +367,7 @@ public abstract class Striped<L> {
     }
 
     @Override
-    public L getAt(int index) {
+    public L getAt(final int index) {
       if (size != Integer.MAX_VALUE) {
         Preconditions.checkElementIndex(index, size());
       } // else no check necessary, all index values are valid
@@ -412,7 +412,7 @@ public abstract class Striped<L> {
     private static final class ArrayReference<L> extends WeakReference<L> {
       final int index;
 
-      ArrayReference(L referent, int index, ReferenceQueue<L> queue) {
+      ArrayReference(final L referent, final int index, final ReferenceQueue<L> queue) {
         super(referent, queue);
         this.index = index;
       }
@@ -430,7 +430,7 @@ public abstract class Striped<L> {
     final Supplier<L> supplier;
     final int size;
 
-    LargeLazyStriped(int stripes, Supplier<L> supplier) {
+    LargeLazyStriped(final int stripes, final Supplier<L> supplier) {
       super(stripes);
       this.size = (mask == ALL_SET) ? Integer.MAX_VALUE : mask + 1;
       this.supplier = supplier;
@@ -438,7 +438,7 @@ public abstract class Striped<L> {
     }
 
     @Override
-    public L getAt(int index) {
+    public L getAt(final int index) {
       if (size != Integer.MAX_VALUE) {
         Preconditions.checkElementIndex(index, size());
       } // else no check necessary, all index values are valid
@@ -462,7 +462,7 @@ public abstract class Striped<L> {
    */
   private static final int ALL_SET = ~0;
 
-  private static int ceilToPowerOfTwo(int x) {
+  private static int ceilToPowerOfTwo(final int x) {
     return 1 << IntMath.log2(x, RoundingMode.CEILING);
   }
 
@@ -475,7 +475,7 @@ public abstract class Striped<L> {
    * java.util.HashMap class.
    */
   // Copied from java/com/google/common/collect/Hashing.java
-  private static int smear(int hashCode) {
+  private static int smear(final int hashCode) {
     hashCode ^= (hashCode >>> 20) ^ (hashCode >>> 12);
     return hashCode ^ (hashCode >>> 7) ^ (hashCode >>> 4);
   }
@@ -501,7 +501,7 @@ public abstract class Striped<L> {
     long unused2;
     long unused3;
 
-    PaddedSemaphore(int permits) {
+    PaddedSemaphore(final int permits) {
       super(permits, false);
     }
   }

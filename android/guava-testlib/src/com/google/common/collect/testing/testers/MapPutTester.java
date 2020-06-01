@@ -245,7 +245,7 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     expectAdded(nullKeyValueEntry);
   }
 
-  private V put(Map.Entry<K, V> entry) {
+  private V put(final Map.Entry<K, V> entry) {
     return getMap().put(entry.getKey(), entry.getValue());
   }
 

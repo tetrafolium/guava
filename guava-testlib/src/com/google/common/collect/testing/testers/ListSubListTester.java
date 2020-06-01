@@ -207,8 +207,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   public void testSubList_isEmpty() {
     List<E> list = getList();
     int size = getNumElements();
-    for (List<E> subList :
-        Arrays.asList(
+    for (List<E> subList
+        : Arrays.asList(
             list.subList(0, size),
             list.subList(0, size - 1),
             list.subList(1, size),

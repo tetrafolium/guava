@@ -43,7 +43,7 @@ public abstract class LinearTransformation {
    * {@link LinearTransformationBuilder#withSlope} on the returned object to finish building the
    * instance.
    */
-  public static LinearTransformationBuilder mapping(double x1, double y1) {
+  public static LinearTransformationBuilder mapping(final double x1, final double y1) {
     checkArgument(isFinite(x1) && isFinite(y1));
     return new LinearTransformationBuilder(x1, y1);
   }
@@ -59,7 +59,7 @@ public abstract class LinearTransformation {
     private final double x1;
     private final double y1;
 
-    private LinearTransformationBuilder(double x1, double y1) {
+    private LinearTransformationBuilder(final double x1, final double y1) {
       this.x1 = x1;
       this.y1 = y1;
     }
@@ -70,7 +70,7 @@ public abstract class LinearTransformation {
      * values are identical, the transformation is vertical. If only the {@code y} values are
      * identical, the transformation is horizontal (i.e. the slope is zero).
      */
-    public LinearTransformation and(double x2, double y2) {
+    public LinearTransformation and(final double x2, final double y2) {
       checkArgument(isFinite(x2) && isFinite(y2));
       if (x2 == x1) {
         checkArgument(y2 != y1);
@@ -85,7 +85,7 @@ public abstract class LinearTransformation {
      * respect to {@code x}. The slope must not be {@code NaN}. It may be infinite, in which case
      * the transformation is vertical. (If it is zero, the transformation is horizontal.)
      */
-    public LinearTransformation withSlope(double slope) {
+    public LinearTransformation withSlope(final double slope) {
       checkArgument(!Double.isNaN(slope));
       if (isFinite(slope)) {
         double yIntercept = y1 - x1 * slope;
@@ -100,7 +100,7 @@ public abstract class LinearTransformation {
    * Builds an instance representing a vertical transformation with a constant value of {@code x}.
    * (The inverse of this will be a horizontal transformation.)
    */
-  public static LinearTransformation vertical(double x) {
+  public static LinearTransformation vertical(final double x) {
     checkArgument(isFinite(x));
     return new VerticalLinearTransformation(x);
   }
@@ -109,7 +109,7 @@ public abstract class LinearTransformation {
    * Builds an instance representing a horizontal transformation with a constant value of {@code y}.
    * (The inverse of this will be a vertical transformation.)
    */
-  public static LinearTransformation horizontal(double y) {
+  public static LinearTransformation horizontal(final double y) {
     checkArgument(isFinite(y));
     double slope = 0.0;
     return new RegularLinearTransformation(slope, y);
@@ -167,13 +167,13 @@ public abstract class LinearTransformation {
     @LazyInit
     LinearTransformation inverse;
 
-    RegularLinearTransformation(double slope, double yIntercept) {
+    RegularLinearTransformation(final double slope, final double yIntercept) {
       this.slope = slope;
       this.yIntercept = yIntercept;
       this.inverse = null; // to be lazily initialized
     }
 
-    RegularLinearTransformation(double slope, double yIntercept, LinearTransformation inverse) {
+    RegularLinearTransformation(final double slope, final double yIntercept, final LinearTransformation inverse) {
       this.slope = slope;
       this.yIntercept = yIntercept;
       this.inverse = inverse;
@@ -195,7 +195,7 @@ public abstract class LinearTransformation {
     }
 
     @Override
-    public double transform(double x) {
+    public double transform(final double x) {
       return x * slope + yIntercept;
     }
 
@@ -226,12 +226,12 @@ public abstract class LinearTransformation {
     @LazyInit
     LinearTransformation inverse;
 
-    VerticalLinearTransformation(double x) {
+    VerticalLinearTransformation(final double x) {
       this.x = x;
       this.inverse = null; // to be lazily initialized
     }
 
-    VerticalLinearTransformation(double x, LinearTransformation inverse) {
+    VerticalLinearTransformation(final double x, final LinearTransformation inverse) {
       this.x = x;
       this.inverse = inverse;
     }
@@ -252,7 +252,7 @@ public abstract class LinearTransformation {
     }
 
     @Override
-    public double transform(double x) {
+    public double transform(final double x) {
       throw new IllegalStateException();
     }
 
@@ -292,7 +292,7 @@ public abstract class LinearTransformation {
     }
 
     @Override
-    public double transform(double x) {
+    public double transform(final double x) {
       return NaN;
     }
 

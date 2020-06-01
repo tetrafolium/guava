@@ -55,7 +55,7 @@ public class AbstractTester<G> extends TestCase {
   }
 
   // public so that it can be referenced in generated GWT tests.
-  public final void init(G subjectGenerator, String suiteName, Runnable setUp, Runnable tearDown) {
+  public final void init(final G subjectGenerator, final String suiteName, final Runnable setUp, final Runnable tearDown) {
     this.subjectGenerator = subjectGenerator;
     this.suiteName = suiteName;
     this.setUp = setUp;
@@ -63,7 +63,7 @@ public class AbstractTester<G> extends TestCase {
   }
 
   // public so that it can be referenced in generated GWT tests.
-  public final void init(G subjectGenerator, String suiteName) {
+  public final void init(final G subjectGenerator, final String suiteName) {
     init(subjectGenerator, suiteName, null, null);
   }
 

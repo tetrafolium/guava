@@ -102,7 +102,7 @@ public class ImmutableBiMapTest extends TestCase {
 
     private static final Joiner joiner = Joiner.on(", ");
 
-    @Override protected void assertMoreInvariants(Map<K, V> map) {
+    @Override protected void assertMoreInvariants(final Map<K, V> map) {
 
       BiMap<K, V> bimap = (BiMap<K, V>) map;
 
@@ -249,7 +249,7 @@ public class ImmutableBiMapTest extends TestCase {
       try {
         builder.orderEntriesByValue(Ordering.natural());
         fail("Expected IllegalStateException");
-      } catch (IllegalStateException expected) {}
+      } catch (IllegalStateException expected) { }
     }
 
     public void testBuilderPutAllWithEmptyMap() {
@@ -500,7 +500,7 @@ public class ImmutableBiMapTest extends TestCase {
       try {
         bimap.forcePut("three", 3);
         fail();
-      } catch (UnsupportedOperationException expected) {}
+      } catch (UnsupportedOperationException expected) { }
     }
 
     public void testKeySet() {
@@ -554,8 +554,8 @@ public class ImmutableBiMapTest extends TestCase {
     }
   }
 
-  private static <K, V> void assertMapEquals(Map<K, V> map,
-      Object... alternatingKeysAndValues) {
+  private static <K, V> void assertMapEquals(final Map<K, V> map,
+      final Object... alternatingKeysAndValues) {
     int i = 0;
     for (Entry<K, V> entry : map.entrySet()) {
       assertEquals(alternatingKeysAndValues[i++], entry.getKey());

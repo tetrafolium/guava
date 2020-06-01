@@ -29,7 +29,7 @@ abstract class AggregateFutureState {
   private Set<Throwable> seenExceptions = null;
   private int remaining;
 
-  AggregateFutureState(int remainingFutures) {
+  AggregateFutureState(final int remainingFutures) {
     this.remaining = remainingFutures;
   }
 

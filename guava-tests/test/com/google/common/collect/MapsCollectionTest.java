@@ -66,7 +66,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     SafeTreeMap<String, String> map = new SafeTreeMap<>();
                     putEntries(map, entries);
                     return Maps.unmodifiableNavigableMap(map);
@@ -79,7 +79,7 @@ public class MapsCollectionTest extends TestCase {
     suite.addTest(BiMapTestSuiteBuilder
         .using(new TestStringBiMapGenerator() {
           @Override
-          protected BiMap<String, String> create(Entry<String, String>[] entries) {
+          protected BiMap<String, String> create(final Entry<String, String>[] entries) {
             BiMap<String, String> bimap = HashBiMap.create(entries.length);
             for (Entry<String, String> entry : entries) {
               checkArgument(!bimap.containsKey(entry.getKey()));
@@ -111,7 +111,7 @@ public class MapsCollectionTest extends TestCase {
                   }
 
                   @Override
-                  public Map<String, Integer> create(Object... elements) {
+                  public Map<String, Integer> create(final Object... elements) {
                     Set<String> set = Sets.newLinkedHashSet();
                     for (Object e : elements) {
                       Entry<?, ?> entry = (Entry<?, ?>) e;
@@ -122,7 +122,7 @@ public class MapsCollectionTest extends TestCase {
                         set,
                         new Function<String, Integer>() {
                           @Override
-                          public Integer apply(String input) {
+                          public Integer apply(final String input) {
                             return input.length();
                           }
                         });
@@ -130,23 +130,23 @@ public class MapsCollectionTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<String, Integer>[] createArray(int length) {
+                  public Entry<String, Integer>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<String, Integer>> order(
-                      List<Entry<String, Integer>> insertionOrder) {
+                      final List<Entry<String, Integer>> insertionOrder) {
                     return insertionOrder;
                   }
 
                   @Override
-                  public String[] createKeyArray(int length) {
+                  public String[] createKeyArray(final int length) {
                     return new String[length];
                   }
 
                   @Override
-                  public Integer[] createValueArray(int length) {
+                  public Integer[] createValueArray(final int length) {
                     return new Integer[length];
                   }
                 })
@@ -160,12 +160,12 @@ public class MapsCollectionTest extends TestCase {
         SortedMapTestSuiteBuilder.using(
                 new TestMapGenerator<String, Integer>() {
                   @Override
-                  public String[] createKeyArray(int length) {
+                  public String[] createKeyArray(final int length) {
                     return new String[length];
                   }
 
                   @Override
-                  public Integer[] createValueArray(int length) {
+                  public Integer[] createValueArray(final int length) {
                     return new Integer[length];
                   }
 
@@ -180,7 +180,7 @@ public class MapsCollectionTest extends TestCase {
                   }
 
                   @Override
-                  public SortedMap<String, Integer> create(Object... elements) {
+                  public SortedMap<String, Integer> create(final Object... elements) {
                     SortedSet<String> set = new NonNavigableSortedSet();
                     for (Object e : elements) {
                       Entry<?, ?> entry = (Entry<?, ?>) e;
@@ -191,7 +191,7 @@ public class MapsCollectionTest extends TestCase {
                         set,
                         new Function<String, Integer>() {
                           @Override
-                          public Integer apply(String input) {
+                          public Integer apply(final String input) {
                             return input.length();
                           }
                         });
@@ -199,18 +199,18 @@ public class MapsCollectionTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<String, Integer>[] createArray(int length) {
+                  public Entry<String, Integer>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<String, Integer>> order(
-                      List<Entry<String, Integer>> insertionOrder) {
+                      final List<Entry<String, Integer>> insertionOrder) {
                     Collections.sort(
                         insertionOrder,
                         new Comparator<Entry<String, Integer>>() {
                           @Override
-                          public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+                          public int compare(final Entry<String, Integer> o1, final Entry<String, Integer> o2) {
                             return o1.getKey().compareTo(o2.getKey());
                           }
                         });
@@ -227,12 +227,12 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestMapGenerator<String, Integer>() {
                   @Override
-                  public String[] createKeyArray(int length) {
+                  public String[] createKeyArray(final int length) {
                     return new String[length];
                   }
 
                   @Override
-                  public Integer[] createValueArray(int length) {
+                  public Integer[] createValueArray(final int length) {
                     return new Integer[length];
                   }
 
@@ -247,7 +247,7 @@ public class MapsCollectionTest extends TestCase {
                   }
 
                   @Override
-                  public NavigableMap<String, Integer> create(Object... elements) {
+                  public NavigableMap<String, Integer> create(final Object... elements) {
                     NavigableSet<String> set = Sets.newTreeSet(Ordering.natural());
                     for (Object e : elements) {
                       Map.Entry<?, ?> entry = (Entry<?, ?>) e;
@@ -258,7 +258,7 @@ public class MapsCollectionTest extends TestCase {
                         set,
                         new Function<String, Integer>() {
                           @Override
-                          public Integer apply(String input) {
+                          public Integer apply(final String input) {
                             return input.length();
                           }
                         });
@@ -266,18 +266,18 @@ public class MapsCollectionTest extends TestCase {
 
                   @SuppressWarnings("unchecked")
                   @Override
-                  public Entry<String, Integer>[] createArray(int length) {
+                  public Entry<String, Integer>[] createArray(final int length) {
                     return new Entry[length];
                   }
 
                   @Override
                   public Iterable<Entry<String, Integer>> order(
-                      List<Entry<String, Integer>> insertionOrder) {
+                      final List<Entry<String, Integer>> insertionOrder) {
                     Collections.sort(
                         insertionOrder,
                         new Comparator<Entry<String, Integer>>() {
                           @Override
-                          public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+                          public int compare(final Entry<String, Integer> o1, final Entry<String, Integer> o2) {
                             return o1.getKey().compareTo(o2.getKey());
                           }
                         });
@@ -308,7 +308,7 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("FilterMap");
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newHashMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -325,7 +325,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newHashMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -342,7 +342,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newHashMap();
           putEntries(map, entries);
            map.putAll(ENTRIES_TO_FILTER);
@@ -359,7 +359,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newHashMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -382,7 +382,7 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("FilterBiMap");
     suite.addTest(BiMapTestSuiteBuilder.using(new TestStringBiMapGenerator() {
         @Override
-        protected BiMap<String, String> create(Entry<String, String>[] entries) {
+        protected BiMap<String, String> create(final Entry<String, String>[] entries) {
           BiMap<String, String> map = HashBiMap.create();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -398,7 +398,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(BiMapTestSuiteBuilder.using(new TestStringBiMapGenerator() {
         @Override
-        protected BiMap<String, String> create(Entry<String, String>[] entries) {
+        protected BiMap<String, String> create(final Entry<String, String>[] entries) {
           BiMap<String, String> map = HashBiMap.create();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -415,7 +415,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(BiMapTestSuiteBuilder.using(new TestStringBiMapGenerator() {
         @Override
-        protected BiMap<String, String> create(Entry<String, String>[] entries) {
+        protected BiMap<String, String> create(final Entry<String, String>[] entries) {
           BiMap<String, String> map = HashBiMap.create();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -437,7 +437,7 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("FilterSortedMap");
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
         @Override
-        protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
           SortedMap<String, String> map = new NonNavigableSortedMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -452,7 +452,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
         @Override
-        protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
           SortedMap<String, String> map = new NonNavigableSortedMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -467,7 +467,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
         @Override
-        protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
           SortedMap<String, String> map = new NonNavigableSortedMap();
           putEntries(map, entries);
           map.putAll(ENTRIES_TO_FILTER);
@@ -489,7 +489,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+                  protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     putEntries(map, entries);
                     map.put("banana", "toast");
@@ -505,7 +505,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+                  protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     putEntries(map, entries);
                     map.put("banana", "toast");
@@ -521,7 +521,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+                  protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     putEntries(map, entries);
                     map.put("banana", "toast");
@@ -536,7 +536,7 @@ public class MapsCollectionTest extends TestCase {
     return suite;
   }
 
-  static void putEntries(Map<String, String> map, Entry<String, String>[] entries) {
+  static void putEntries(final Map<String, String> map, final Entry<String, String>[] entries) {
     for (Entry<String, String> entry : entries) {
        map.put(entry.getKey(), entry.getValue());
      }
@@ -544,14 +544,14 @@ public class MapsCollectionTest extends TestCase {
 
   static final Predicate<String> FILTER_KEYS = new Predicate<String>() {
     @Override
-    public boolean apply(@Nullable String string) {
+    public boolean apply(final @Nullable String string) {
       return !"banana".equals(string) && !"eggplant".equals(string);
     }
   };
 
   static final Predicate<String> FILTER_VALUES = new Predicate<String>() {
     @Override
-    public boolean apply(@Nullable String string) {
+    public boolean apply(final @Nullable String string) {
       return !"toast".equals(string) && !"spam".equals(string);
     }
   };
@@ -559,7 +559,7 @@ public class MapsCollectionTest extends TestCase {
   static final Predicate<Entry<String, String>> FILTER_ENTRIES =
       new Predicate<Entry<String, String>>() {
     @Override
-    public boolean apply(Entry<String, String> entry) {
+    public boolean apply(final Entry<String, String> entry) {
       return !Helpers.mapEntry("banana", "toast").equals(entry)
           && !Helpers.mapEntry("eggplant", "spam").equals(entry);
     }
@@ -568,7 +568,7 @@ public class MapsCollectionTest extends TestCase {
   static final Predicate<Entry<String, String>> FILTER_ENTRIES_1 =
       new Predicate<Entry<String, String>>() {
     @Override
-    public boolean apply(Entry<String, String> entry) {
+    public boolean apply(final Entry<String, String> entry) {
       return !Helpers.mapEntry("banana", "toast").equals(entry);
     }
   };
@@ -576,7 +576,7 @@ public class MapsCollectionTest extends TestCase {
   static final Predicate<Entry<String, String>> FILTER_ENTRIES_2 =
       new Predicate<Entry<String, String>>() {
     @Override
-    public boolean apply(Entry<String, String> entry) {
+    public boolean apply(final Entry<String, String> entry) {
       return !Helpers.mapEntry("eggplant", "spam").equals(entry);
     }
   };
@@ -587,7 +587,7 @@ public class MapsCollectionTest extends TestCase {
   static final Predicate<Entry<String, String>> NOT_NULL_ENTRY =
       new Predicate<Entry<String, String>>() {
     @Override
-    public boolean apply(Entry<String, String> entry) {
+    public boolean apply(final Entry<String, String> entry) {
       return entry.getKey() != null && entry.getValue() != null;
     }
   };
@@ -614,13 +614,13 @@ public class MapsCollectionTest extends TestCase {
     }
   }
 
-  private static String encode(String str) {
+  private static String encode(final String str) {
     return BaseEncoding.base64().encode(str.getBytes(Charsets.UTF_8));
   }
 
   private static final Function<String, String> DECODE_FUNCTION = new Function<String, String>() {
     @Override
-    public String apply(String input) {
+    public String apply(final String input) {
       return new String(BaseEncoding.base64().decode(input), Charsets.UTF_8);
     }
   };
@@ -628,7 +628,7 @@ public class MapsCollectionTest extends TestCase {
   private static final EntryTransformer<String, String, String> DECODE_ENTRY_TRANSFORMER =
       new EntryTransformer<String, String, String>() {
     @Override
-    public String transformEntry(String key, String value) {
+    public String transformEntry(final String key, final String value) {
       return DECODE_FUNCTION.apply(value);
     }
   };
@@ -645,7 +645,7 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("TransformMap");
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newLinkedHashMap();
           for (Entry<String, String> entry : entries) {
             map.put(entry.getKey(), encode(entry.getValue()));
@@ -664,7 +664,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(MapTestSuiteBuilder.using(new TestStringMapGenerator() {
         @Override
-        protected Map<String, String> create(Entry<String, String>[] entries) {
+        protected Map<String, String> create(final Entry<String, String>[] entries) {
           Map<String, String> map = Maps.newLinkedHashMap();
           for (Entry<String, String> entry : entries) {
             map.put(entry.getKey(), encode(entry.getValue()));
@@ -688,7 +688,7 @@ public class MapsCollectionTest extends TestCase {
     TestSuite suite = new TestSuite("TransformSortedMap");
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
         @Override
-        protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
           SortedMap<String, String> map = new NonNavigableSortedMap();
           for (Entry<String, String> entry : entries) {
             map.put(entry.getKey(), encode(entry.getValue()));
@@ -705,7 +705,7 @@ public class MapsCollectionTest extends TestCase {
       .createTestSuite());
     suite.addTest(SortedMapTestSuiteBuilder.using(new TestStringSortedMapGenerator() {
         @Override
-        protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+        protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
           SortedMap<String, String> map = new NonNavigableSortedMap();
           for (Entry<String, String> entry : entries) {
             map.put(entry.getKey(), encode(entry.getValue()));
@@ -729,7 +729,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+                  protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), encode(entry.getValue()));
@@ -748,7 +748,7 @@ public class MapsCollectionTest extends TestCase {
         NavigableMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+                  protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
                     NavigableMap<String, String> map = new SafeTreeMap<>();
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), encode(entry.getValue()));

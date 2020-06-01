@@ -32,12 +32,12 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
   private final ImmutableCollection<E> delegate;
   private final ImmutableList<? extends E> delegateList;
 
-  RegularImmutableAsList(ImmutableCollection<E> delegate, ImmutableList<? extends E> delegateList) {
+  RegularImmutableAsList(final ImmutableCollection<E> delegate, final ImmutableList<? extends E> delegateList) {
     this.delegate = delegate;
     this.delegateList = delegateList;
   }
 
-  RegularImmutableAsList(ImmutableCollection<E> delegate, Object[] array) {
+  RegularImmutableAsList(final ImmutableCollection<E> delegate, final Object[] array) {
     this(delegate, ImmutableList.<E>asImmutableList(array));
   }
 
@@ -52,24 +52,24 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
 
   @SuppressWarnings("unchecked") // safe covariant cast!
   @Override
-  public UnmodifiableListIterator<E> listIterator(int index) {
+  public UnmodifiableListIterator<E> listIterator(final int index) {
     return (UnmodifiableListIterator<E>) delegateList.listIterator(index);
   }
 
   @GwtIncompatible // not present in emulated superclass
   @Override
-  public void forEach(Consumer<? super E> action) {
+  public void forEach(final Consumer<? super E> action) {
     delegateList.forEach(action);
   }
 
   @GwtIncompatible // not present in emulated superclass
   @Override
-  int copyIntoArray(Object[] dst, int offset) {
+  int copyIntoArray(final Object[] dst, final int offset) {
     return delegateList.copyIntoArray(dst, offset);
   }
 
   @Override
-  public E get(int index) {
+  public E get(final int index) {
     return delegateList.get(index);
   }
 }

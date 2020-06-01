@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   @Weak private final ImmutableMap<K, V> map;
 
-  ImmutableMapValues(ImmutableMap<K, V> map) {
+  ImmutableMapValues(final ImmutableMap<K, V> map) {
     this.map = map;
   }
 
@@ -68,7 +68,7 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   }
 
   @Override
-  public boolean contains(@Nullable Object object) {
+  public boolean contains(final @Nullable Object object) {
     return object != null && Iterators.contains(iterator(), object);
   }
 
@@ -82,7 +82,7 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
     final ImmutableList<Entry<K, V>> entryList = map.entrySet().asList();
     return new ImmutableAsList<V>() {
       @Override
-      public V get(int index) {
+      public V get(final int index) {
         return entryList.get(index).getValue();
       }
 
@@ -95,7 +95,7 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
 
   @GwtIncompatible // serialization
   @Override
-  public void forEach(Consumer<? super V> action) {
+  public void forEach(final Consumer<? super V> action) {
     checkNotNull(action);
     map.forEach((k, v) -> action.accept(v));
   }
@@ -110,7 +110,7 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   private static class SerializedForm<V> implements Serializable {
     final ImmutableMap<?, V> map;
 
-    SerializedForm(ImmutableMap<?, V> map) {
+    SerializedForm(final ImmutableMap<?, V> map) {
       this.map = map;
     }
 

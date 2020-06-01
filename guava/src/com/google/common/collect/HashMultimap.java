@@ -73,7 +73,7 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
    * @throws IllegalArgumentException if {@code expectedKeys} or {@code expectedValuesPerKey} is
    *     negative
    */
-  public static <K, V> HashMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
+  public static <K, V> HashMultimap<K, V> create(final int expectedKeys, final int expectedValuesPerKey) {
     return new HashMultimap<>(expectedKeys, expectedValuesPerKey);
   }
 
@@ -87,7 +87,7 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
    *
    * @param multimap the multimap whose contents are copied to this multimap
    */
-  public static <K, V> HashMultimap<K, V> create(Multimap<? extends K, ? extends V> multimap) {
+  public static <K, V> HashMultimap<K, V> create(final Multimap<? extends K, ? extends V> multimap) {
     return new HashMultimap<>(multimap);
   }
 
@@ -95,13 +95,13 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
     super(new HashMap<K, Collection<V>>());
   }
 
-  private HashMultimap(int expectedKeys, int expectedValuesPerKey) {
+  private HashMultimap(final int expectedKeys, final int expectedValuesPerKey) {
     super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(expectedKeys));
     Preconditions.checkArgument(expectedValuesPerKey >= 0);
     this.expectedValuesPerKey = expectedValuesPerKey;
   }
 
-  private HashMultimap(Multimap<? extends K, ? extends V> multimap) {
+  private HashMultimap(final Multimap<? extends K, ? extends V> multimap) {
     super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(multimap.keySet().size()));
     putAll(multimap);
   }
@@ -124,13 +124,13 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
    *     key's values
    */
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     Serialization.writeMultimap(this, stream);
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

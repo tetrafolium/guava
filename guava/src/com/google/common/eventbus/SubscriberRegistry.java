@@ -66,14 +66,14 @@ final class SubscriberRegistry {
    */
   @Weak private final EventBus bus;
 
-  SubscriberRegistry(EventBus bus) {
+  SubscriberRegistry(final EventBus bus) {
     this.bus = checkNotNull(bus);
   }
 
   /**
    * Registers all subscriber methods on the given listener object.
    */
-  void register(Object listener) {
+  void register(final Object listener) {
     Multimap<Class<?>, Subscriber> listenerMethods = findAllSubscribers(listener);
 
     for (Map.Entry<Class<?>, Collection<Subscriber>> entry : listenerMethods.asMap().entrySet()) {
@@ -95,7 +95,7 @@ final class SubscriberRegistry {
   /**
    * Unregisters all subscribers on the given listener object.
    */
-  void unregister(Object listener) {
+  void unregister(final Object listener) {
     Multimap<Class<?>, Subscriber> listenerMethods = findAllSubscribers(listener);
 
     for (Map.Entry<Class<?>, Collection<Subscriber>> entry : listenerMethods.asMap().entrySet()) {
@@ -118,7 +118,7 @@ final class SubscriberRegistry {
   }
 
   @VisibleForTesting
-  Set<Subscriber> getSubscribersForTesting(Class<?> eventType) {
+  Set<Subscriber> getSubscribersForTesting(final Class<?> eventType) {
     return MoreObjects.firstNonNull(subscribers.get(eventType), ImmutableSet.<Subscriber>of());
   }
 
@@ -126,7 +126,7 @@ final class SubscriberRegistry {
    * Gets an iterator representing an immutable snapshot of all subscribers to the given event at
    * the time this method is called.
    */
-  Iterator<Subscriber> getSubscribers(Object event) {
+  Iterator<Subscriber> getSubscribers(final Object event) {
     ImmutableSet<Class<?>> eventTypes = flattenHierarchy(event.getClass());
 
     List<Iterator<Subscriber>> subscriberIterators =
@@ -155,7 +155,7 @@ final class SubscriberRegistry {
           .build(
               new CacheLoader<Class<?>, ImmutableList<Method>>() {
                 @Override
-                public ImmutableList<Method> load(Class<?> concreteClass) throws Exception {
+                public ImmutableList<Method> load(final Class<?> concreteClass) throws Exception {
                   return getAnnotatedMethodsNotCached(concreteClass);
                 }
               });
@@ -163,7 +163,7 @@ final class SubscriberRegistry {
   /**
    * Returns all subscribers for the given listener grouped by the type of event they subscribe to.
    */
-  private Multimap<Class<?>, Subscriber> findAllSubscribers(Object listener) {
+  private Multimap<Class<?>, Subscriber> findAllSubscribers(final Object listener) {
     Multimap<Class<?>, Subscriber> methodsInListener = HashMultimap.create();
     Class<?> clazz = listener.getClass();
     for (Method method : getAnnotatedMethods(clazz)) {
@@ -174,11 +174,11 @@ final class SubscriberRegistry {
     return methodsInListener;
   }
 
-  private static ImmutableList<Method> getAnnotatedMethods(Class<?> clazz) {
+  private static ImmutableList<Method> getAnnotatedMethods(final Class<?> clazz) {
     return subscriberMethodsCache.getUnchecked(clazz);
   }
 
-  private static ImmutableList<Method> getAnnotatedMethodsNotCached(Class<?> clazz) {
+  private static ImmutableList<Method> getAnnotatedMethodsNotCached(final Class<?> clazz) {
     Set<? extends Class<?>> supertypes = TypeToken.of(clazz).getTypes().rawTypes();
     Map<MethodIdentifier, Method> identifiers = Maps.newHashMap();
     for (Class<?> supertype : supertypes) {
@@ -214,7 +214,7 @@ final class SubscriberRegistry {
                 // <Class<?>> is actually needed to compile
                 @SuppressWarnings("RedundantTypeArguments")
                 @Override
-                public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
+                public ImmutableSet<Class<?>> load(final Class<?> concreteClass) {
                   return ImmutableSet.<Class<?>>copyOf(
                       TypeToken.of(concreteClass).getTypes().rawTypes());
                 }
@@ -225,7 +225,7 @@ final class SubscriberRegistry {
    * superclasses (transitively) and all interfaces implemented by these superclasses.
    */
   @VisibleForTesting
-  static ImmutableSet<Class<?>> flattenHierarchy(Class<?> concreteClass) {
+  static ImmutableSet<Class<?>> flattenHierarchy(final Class<?> concreteClass) {
     try {
       return flattenHierarchyCache.getUnchecked(concreteClass);
     } catch (UncheckedExecutionException e) {
@@ -238,7 +238,7 @@ final class SubscriberRegistry {
     private final String name;
     private final List<Class<?>> parameterTypes;
 
-    MethodIdentifier(Method method) {
+    MethodIdentifier(final Method method) {
       this.name = method.getName();
       this.parameterTypes = Arrays.asList(method.getParameterTypes());
     }
@@ -249,7 +249,7 @@ final class SubscriberRegistry {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
       if (o instanceof MethodIdentifier) {
         MethodIdentifier ident = (MethodIdentifier) o;
         return name.equals(ident.name) && parameterTypes.equals(ident.parameterTypes);

@@ -42,7 +42,7 @@ public class AbstractMapEntryTest extends TestCase {
       };
   }
 
-  private static <K, V> Entry<K, V> control(K key, V value) {
+  private static <K, V> Entry<K, V> control(final K key, final V value) {
     return Collections.singletonMap(key, value).entrySet().iterator().next();
   }
 

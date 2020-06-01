@@ -150,13 +150,13 @@ public class FluentIterableTest extends TestCase {
     assertThat(repeated).containsExactly(1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3).inOrder();
   }
 
-  interface X {}
+  interface X { }
 
-  interface Y {}
+  interface Y { }
 
-  static class A implements X, Y {}
+  static class A implements X, Y { }
 
-  static class B implements X, Y {}
+  static class B implements X, Y { }
 
   /**
    * This test passes if the {@code concat(…).filter(…).filter(…)} statement at the end compiles.
@@ -356,9 +356,9 @@ public class FluentIterableTest extends TestCase {
     assertEquals("[foo]", filtered.toString());
   }
 
-  private static class TypeA {}
-  private interface TypeB {}
-  private static class HasBoth extends TypeA implements TypeB {}
+  private static class TypeA { }
+  private interface TypeB { }
+  private static class HasBoth extends TypeA implements TypeB { }
 
   @GwtIncompatible // Iterables.filter(Iterable, Class)
   public void testFilterByType() throws Exception {
@@ -403,7 +403,7 @@ public class FluentIterableTest extends TestCase {
 
   private static final class IntegerValueOfFunction implements Function<String, Integer> {
     @Override
-    public Integer apply(String from) {
+    public Integer apply(final String from) {
       return Integer.valueOf(from);
     }
   }
@@ -435,7 +435,7 @@ public class FluentIterableTest extends TestCase {
 
   private static final class StringValueOfFunction implements Function<Integer, String> {
     @Override
-    public String apply(Integer from) {
+    public String apply(final Integer from) {
       return String.valueOf(from);
     }
   }
@@ -450,7 +450,7 @@ public class FluentIterableTest extends TestCase {
   private static final class RepeatedStringValueOfFunction
       implements Function<Integer, List<String>> {
     @Override
-    public List<String> apply(Integer from) {
+    public List<String> apply(final Integer from) {
       String value = String.valueOf(from);
       return ImmutableList.of(value, value);
     }
@@ -466,7 +466,7 @@ public class FluentIterableTest extends TestCase {
   private static final class RepeatedStringValueOfWildcardFunction
       implements Function<Integer, List<? extends String>> {
     @Override
-    public List<String> apply(Integer from) {
+    public List<String> apply(final Integer from) {
       String value = String.valueOf(from);
       return ImmutableList.of(value, value);
     }
@@ -769,7 +769,7 @@ public class FluentIterableTest extends TestCase {
         FluentIterable.from(asList("one", "two", "three", "four")).index(
             new Function<String, Integer>() {
               @Override
-              public Integer apply(String input) {
+              public Integer apply(final String input) {
                 return input.length();
               }
             });
@@ -801,7 +801,7 @@ public class FluentIterableTest extends TestCase {
         FluentIterable.from(asList("two", "three", "four")).uniqueIndex(
             new Function<String, Integer>() {
               @Override
-              public Integer apply(String input) {
+              public Integer apply(final String input) {
                 return input.length();
               }
             });
@@ -815,7 +815,7 @@ public class FluentIterableTest extends TestCase {
               .uniqueIndex(
                   new Function<String, Integer>() {
                     @Override
-                    public Integer apply(String input) {
+                    public Integer apply(final String input) {
                       return input.length();
                     }
                   });
@@ -839,7 +839,7 @@ public class FluentIterableTest extends TestCase {
               .uniqueIndex(
                   new Function<Integer, Object>() {
                     @Override
-                    public Object apply(@Nullable Integer input) {
+                    public Object apply(final @Nullable Integer input) {
                       return String.valueOf(input);
                     }
                   });
@@ -922,22 +922,22 @@ public class FluentIterableTest extends TestCase {
 
   // TODO(kevinb): add assertThat(Stream) to Truth?
   static class Help {
-    static IterableSubject assertThat(Stream<?> stream) {
+    static IterableSubject assertThat(final Stream<?> stream) {
       return Truth.assertThat(stream.toArray()).asList();
     }
   }
 
-  private static void assertCanIterateAgain(Iterable<?> iterable) {
+  private static void assertCanIterateAgain(final Iterable<?> iterable) {
     for (Object unused : iterable) {
       // do nothing
     }
   }
 
-  private static FluentIterable<Integer> fluent(Integer... elements) {
+  private static FluentIterable<Integer> fluent(final Integer... elements) {
     return FluentIterable.from(Lists.newArrayList(elements));
   }
 
-  private static Iterable<String> iterable(String... elements) {
+  private static Iterable<String> iterable(final String... elements) {
     final List<String> list = asList(elements);
     return new Iterable<String>() {
       @Override

@@ -35,10 +35,10 @@ import javax.annotation.Nullable;
 @GwtIncompatible
 final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
   static <V> ListenableFuture<V> create(
-      ListenableFuture<V> delegate,
-      long time,
-      TimeUnit unit,
-      ScheduledExecutorService scheduledExecutor) {
+      final ListenableFuture<V> delegate,
+      final long time,
+      final TimeUnit unit,
+      final ScheduledExecutorService scheduledExecutor) {
     TimeoutFuture<V> result = new TimeoutFuture<>(delegate);
     Fire<V> fire = new Fire<>(result);
     result.timer = scheduledExecutor.schedule(fire, time, unit);
@@ -73,7 +73,7 @@ final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
   @Nullable private ListenableFuture<V> delegateRef;
   @Nullable private Future<?> timer;
 
-  private TimeoutFuture(ListenableFuture<V> delegate) {
+  private TimeoutFuture(final ListenableFuture<V> delegate) {
     this.delegateRef = Preconditions.checkNotNull(delegate);
   }
 
@@ -81,7 +81,7 @@ final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
   private static final class Fire<V> implements Runnable {
     @Nullable TimeoutFuture<V> timeoutFutureRef;
 
-    Fire(TimeoutFuture<V> timeoutFuture) {
+    Fire(final TimeoutFuture<V> timeoutFuture) {
       this.timeoutFutureRef = timeoutFuture;
     }
 

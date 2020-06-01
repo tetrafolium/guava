@@ -27,13 +27,13 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 final class SortedIterables {
-  private SortedIterables() {}
+  private SortedIterables() { }
 
   /**
    * Returns {@code true} if {@code elements} is a sorted collection using an ordering equivalent
    * to {@code comparator}.
    */
-  public static boolean hasSameComparator(Comparator<?> comparator, Iterable<?> elements) {
+  public static boolean hasSameComparator(final Comparator<?> comparator, final Iterable<?> elements) {
     checkNotNull(comparator);
     checkNotNull(elements);
     Comparator<?> comparator2;
@@ -49,7 +49,7 @@ final class SortedIterables {
 
   @SuppressWarnings("unchecked")
   // if sortedSet.comparator() is null, the set must be naturally ordered
-  public static <E> Comparator<? super E> comparator(SortedSet<E> sortedSet) {
+  public static <E> Comparator<? super E> comparator(final SortedSet<E> sortedSet) {
     Comparator<? super E> result = sortedSet.comparator();
     if (result == null) {
       result = (Comparator<? super E>) Ordering.natural();

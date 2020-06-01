@@ -47,12 +47,12 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   @SuppressWarnings("Immutable") // The backing graph must be immutable.
   private final BaseGraph<N> backingGraph;
 
-  ImmutableGraph(BaseGraph<N> backingGraph) {
+  ImmutableGraph(final BaseGraph<N> backingGraph) {
     this.backingGraph = backingGraph;
   }
 
   /** Returns an immutable copy of {@code graph}. */
-  public static <N> ImmutableGraph<N> copyOf(Graph<N> graph) {
+  public static <N> ImmutableGraph<N> copyOf(final Graph<N> graph) {
     return (graph instanceof ImmutableGraph)
         ? (ImmutableGraph<N>) graph
         : new ImmutableGraph<N>(new ConfigurableValueGraph<N, Presence>(
@@ -65,12 +65,12 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
    * @deprecated no need to use this
    */
   @Deprecated
-  public static <N> ImmutableGraph<N> copyOf(ImmutableGraph<N> graph) {
+  public static <N> ImmutableGraph<N> copyOf(final ImmutableGraph<N> graph) {
     return checkNotNull(graph);
   }
 
   private static <N> ImmutableMap<N, GraphConnections<N, Presence>> getNodeConnections(
-      Graph<N> graph) {
+      final Graph<N> graph) {
     // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
     // whatever ordering the graph's nodes do, so ImmutableSortedMap is unnecessary even if the
     // input nodes are sorted.
@@ -81,7 +81,7 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
     return nodeConnections.build();
   }
 
-  private static <N> GraphConnections<N, Presence> connectionsOf(Graph<N> graph, N node) {
+  private static <N> GraphConnections<N, Presence> connectionsOf(final Graph<N> graph, final N node) {
     Function<Object, Presence> edgeValueFn = Functions.constant(Presence.EDGE_EXISTS);
     return graph.isDirected()
         ? DirectedGraphConnections.ofImmutable(

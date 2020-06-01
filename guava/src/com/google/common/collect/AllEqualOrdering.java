@@ -31,17 +31,17 @@ final class AllEqualOrdering extends Ordering<Object> implements Serializable {
   static final AllEqualOrdering INSTANCE = new AllEqualOrdering();
 
   @Override
-  public int compare(@Nullable Object left, @Nullable Object right) {
+  public int compare(final @Nullable Object left, final @Nullable Object right) {
     return 0;
   }
 
   @Override
-  public <E> List<E> sortedCopy(Iterable<E> iterable) {
+  public <E> List<E> sortedCopy(final Iterable<E> iterable) {
     return Lists.newArrayList(iterable);
   }
 
   @Override
-  public <E> ImmutableList<E> immutableSortedCopy(Iterable<E> iterable) {
+  public <E> ImmutableList<E> immutableSortedCopy(final Iterable<E> iterable) {
     return ImmutableList.copyOf(iterable);
   }
 

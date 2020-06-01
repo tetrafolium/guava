@@ -39,7 +39,7 @@ final class EdgesConnecting<E> extends AbstractSet<E> {
   private final Map<?, E> nodeToOutEdge;
   private final Object targetNode;
 
-  EdgesConnecting(Map<?, E> nodeToEdgeMap, Object targetNode) {
+  EdgesConnecting(final Map<?, E> nodeToEdgeMap, final Object targetNode) {
     this.nodeToOutEdge = checkNotNull(nodeToEdgeMap);
     this.targetNode = checkNotNull(targetNode);
   }
@@ -58,7 +58,7 @@ final class EdgesConnecting<E> extends AbstractSet<E> {
   }
 
   @Override
-  public boolean contains(@Nullable Object edge) {
+  public boolean contains(final @Nullable Object edge) {
     E connectingEdge = getConnectingEdge();
     return (connectingEdge != null && connectingEdge.equals(edge));
   }

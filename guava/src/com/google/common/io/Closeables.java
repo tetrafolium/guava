@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 public final class Closeables {
   @VisibleForTesting static final Logger logger = Logger.getLogger(Closeables.class.getName());
 
-  private Closeables() {}
+  private Closeables() { }
 
   /**
    * Closes a {@link Closeable}, with control over whether an {@code IOException} may be thrown.
@@ -67,7 +67,7 @@ public final class Closeables {
    * @throws IOException if {@code swallowIOException} is false and {@code close} throws an
    *     {@code IOException}.
    */
-  public static void close(@Nullable Closeable closeable, boolean swallowIOException)
+  public static void close(final @Nullable Closeable closeable, final boolean swallowIOException)
       throws IOException {
     if (closeable == null) {
       return;
@@ -97,7 +97,7 @@ public final class Closeables {
    *     does nothing
    * @since 17.0
    */
-  public static void closeQuietly(@Nullable InputStream inputStream) {
+  public static void closeQuietly(final @Nullable InputStream inputStream) {
     try {
       close(inputStream, true);
     } catch (IOException impossible) {
@@ -118,7 +118,7 @@ public final class Closeables {
    * @param reader the reader to be closed, or {@code null} in which case this method does nothing
    * @since 17.0
    */
-  public static void closeQuietly(@Nullable Reader reader) {
+  public static void closeQuietly(final @Nullable Reader reader) {
     try {
       close(reader, true);
     } catch (IOException impossible) {

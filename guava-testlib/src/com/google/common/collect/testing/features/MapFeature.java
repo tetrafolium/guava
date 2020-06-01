@@ -78,7 +78,7 @@ public enum MapFeature implements Feature<Map> {
 
   private final Set<Feature<? super Map>> implied;
 
-  MapFeature(Feature<? super Map>... implied) {
+  MapFeature(final Feature<? super Map>... implied) {
     this.implied = Helpers.copyToSet(implied);
   }
 

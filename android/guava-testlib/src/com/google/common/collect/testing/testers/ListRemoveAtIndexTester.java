@@ -102,7 +102,7 @@ public class ListRemoveAtIndexTester<E> extends AbstractListTester<E> {
     runRemoveTest(getNumElements() - 1);
   }
 
-  private void runRemoveTest(int index) {
+  private void runRemoveTest(final int index) {
     assertEquals(
         Platform.format("remove(%d) should return the element at index %d", index, index),
         getList().get(index),

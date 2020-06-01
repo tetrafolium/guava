@@ -60,7 +60,7 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingSortedMap() {}
+  protected ForwardingSortedMap() { }
 
   @Override
   protected abstract SortedMap<K, V> delegate();
@@ -76,7 +76,7 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   }
 
   @Override
-  public SortedMap<K, V> headMap(K toKey) {
+  public SortedMap<K, V> headMap(final K toKey) {
     return delegate().headMap(toKey);
   }
 
@@ -86,12 +86,12 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   }
 
   @Override
-  public SortedMap<K, V> subMap(K fromKey, K toKey) {
+  public SortedMap<K, V> subMap(final K fromKey, final K toKey) {
     return delegate().subMap(fromKey, toKey);
   }
 
   @Override
-  public SortedMap<K, V> tailMap(K fromKey) {
+  public SortedMap<K, V> tailMap(final K fromKey) {
     return delegate().tailMap(fromKey);
   }
 
@@ -112,7 +112,7 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
 
   // unsafe, but worst case is a CCE is thrown, which callers will be expecting
   @SuppressWarnings("unchecked")
-  private int unsafeCompare(Object k1, Object k2) {
+  private int unsafeCompare(final Object k1, final Object k2) {
     Comparator<? super K> comparator = comparator();
     if (comparator == null) {
       return ((Comparable<Object>) k1).compareTo(k2);
@@ -131,7 +131,7 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
    */
   @Override
   @Beta
-  protected boolean standardContainsKey(@Nullable Object key) {
+  protected boolean standardContainsKey(final @Nullable Object key) {
     try {
       // any CCE will be caught
       @SuppressWarnings("unchecked")
@@ -152,7 +152,7 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
    * @since 7.0
    */
   @Beta
-  protected SortedMap<K, V> standardSubMap(K fromKey, K toKey) {
+  protected SortedMap<K, V> standardSubMap(final K fromKey, final K toKey) {
     checkArgument(unsafeCompare(fromKey, toKey) <= 0, "fromKey must be <= toKey");
     return tailMap(fromKey).headMap(toKey);
   }

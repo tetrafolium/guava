@@ -35,7 +35,7 @@ import java.util.Set;
 final class DirectedNetworkConnections<N, E> extends AbstractDirectedNetworkConnections<N, E> {
 
   protected DirectedNetworkConnections(
-      Map<E, N> inEdgeMap, Map<E, N> outEdgeMap, int selfLoopCount) {
+      final Map<E, N> inEdgeMap, final Map<E, N> outEdgeMap, final int selfLoopCount) {
     super(inEdgeMap, outEdgeMap, selfLoopCount);
   }
 
@@ -45,7 +45,7 @@ final class DirectedNetworkConnections<N, E> extends AbstractDirectedNetworkConn
   }
 
   static <N, E> DirectedNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+      final Map<E, N> inEdges, final Map<E, N> outEdges, final int selfLoopCount) {
     return new DirectedNetworkConnections<>(
         ImmutableBiMap.copyOf(inEdges), ImmutableBiMap.copyOf(outEdges), selfLoopCount);
   }
@@ -61,7 +61,7 @@ final class DirectedNetworkConnections<N, E> extends AbstractDirectedNetworkConn
   }
 
   @Override
-  public Set<E> edgesConnecting(N node) {
+  public Set<E> edgesConnecting(final N node) {
     return new EdgesConnecting<E>(((BiMap<E, N>) outEdgeMap).inverse(), node);
   }
 }

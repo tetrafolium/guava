@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutableMap<K, V> {
-  static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(EnumMap<K, V> map) {
+  static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(final EnumMap<K, V> map) {
     switch (map.size()) {
       case 0:
         return ImmutableMap.of();
@@ -46,7 +46,7 @@ final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutabl
 
   private final transient EnumMap<K, V> delegate;
 
-  private ImmutableEnumMap(EnumMap<K, V> delegate) {
+  private ImmutableEnumMap(final EnumMap<K, V> delegate) {
     this.delegate = delegate;
     checkArgument(!delegate.isEmpty());
   }
@@ -62,17 +62,17 @@ final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutabl
   }
 
   @Override
-  public boolean containsKey(@Nullable Object key) {
+  public boolean containsKey(final @Nullable Object key) {
     return delegate.containsKey(key);
   }
 
   @Override
-  public V get(Object key) {
+  public V get(final Object key) {
     return delegate.get(key);
   }
 
   @Override
-  public boolean equals(Object object) {
+  public boolean equals(final Object object) {
     if (object == this) {
       return true;
     }
@@ -104,7 +104,7 @@ final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutabl
   private static class EnumSerializedForm<K extends Enum<K>, V> implements Serializable {
     final EnumMap<K, V> delegate;
 
-    EnumSerializedForm(EnumMap<K, V> delegate) {
+    EnumSerializedForm(final EnumMap<K, V> delegate) {
       this.delegate = delegate;
     }
 

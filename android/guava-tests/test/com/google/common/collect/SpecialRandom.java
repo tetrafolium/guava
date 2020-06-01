@@ -27,7 +27,7 @@ import java.util.Random;
  * @author Nicholaus Shupe
  */
 public final class SpecialRandom extends Random {
-  public static SpecialRandom valueOf(String s) {
+  public static SpecialRandom valueOf(final String s) {
     return (s.length() == 0)
         ? new SpecialRandom()
         : new SpecialRandom(Long.parseLong(s));
@@ -41,7 +41,7 @@ public final class SpecialRandom extends Random {
     this.seed = 0;
   }
 
-  public SpecialRandom(long seed) {
+  public SpecialRandom(final long seed) {
     super(seed);
     this.hasSeed = true;
     this.seed = seed;

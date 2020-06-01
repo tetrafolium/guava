@@ -54,7 +54,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
   /**
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
-  static <T> SortedMultiset<T> cast(Multiset<T> iterable) {
+  static <T> SortedMultiset<T> cast(final Multiset<T> iterable) {
     return (SortedMultiset<T>) iterable;
   }
 
@@ -252,7 +252,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     assertEquals(ascending, descending);
   }
 
-  void expectAddFailure(SortedMultiset<E> multiset, Entry<E> entry) {
+  void expectAddFailure(final SortedMultiset<E> multiset, final Entry<E> entry) {
     try {
       multiset.add(entry.getElement(), entry.getCount());
       fail("Expected IllegalArgumentException");
@@ -272,13 +272,13 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     }
   }
 
-  void expectRemoveZero(SortedMultiset<E> multiset, Entry<E> entry) {
+  void expectRemoveZero(final SortedMultiset<E> multiset, final Entry<E> entry) {
     assertEquals(0, multiset.remove(entry.getElement(), entry.getCount()));
     assertFalse(multiset.remove(entry.getElement()));
     assertFalse(multiset.elementSet().remove(entry.getElement()));
   }
 
-  void expectSetCountFailure(SortedMultiset<E> multiset, Entry<E> entry) {
+  void expectSetCountFailure(final SortedMultiset<E> multiset, final Entry<E> entry) {
     try {
       multiset.setCount(entry.getElement(), multiset.count(entry.getElement()));
     } catch (IllegalArgumentException acceptable) {
@@ -444,7 +444,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
         sortedMultiset.subMultiset(b.getElement(), OPEN, a.getElement(), OPEN));
   }
 
-  public void testEmptyRangeSubMultiset(SortedMultiset<E> multiset) {
+  public void testEmptyRangeSubMultiset(final SortedMultiset<E> multiset) {
     assertTrue(multiset.isEmpty());
     assertEquals(0, multiset.size());
     assertEquals(0, multiset.toArray().length);
@@ -456,13 +456,13 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
   }
 
   @SuppressWarnings("unchecked")
-  public void testEmptyRangeSubMultisetSupportingAdd(SortedMultiset<E> multiset) {
+  public void testEmptyRangeSubMultisetSupportingAdd(final SortedMultiset<E> multiset) {
     for (Entry<E> entry : Arrays.asList(a, b, c)) {
       expectAddFailure(multiset, entry);
     }
   }
 
-  private static int totalSize(Iterable<? extends Entry<?>> entries) {
+  private static int totalSize(final Iterable<? extends Entry<?>> entries) {
     int sum = 0;
     for (Entry<?> entry : entries) {
       sum += entry.getCount();
@@ -473,49 +473,49 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
   private enum SubMultisetSpec {
     TAIL_CLOSED {
       @Override
-      <E> List<Entry<E>> expectedEntries(int targetEntry, List<Entry<E>> entries) {
+      <E> List<Entry<E>> expectedEntries(final int targetEntry, final List<Entry<E>> entries) {
         return entries.subList(targetEntry, entries.size());
       }
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+          final SortedMultiset<E> multiset, final List<Entry<E>> entries, final int targetEntry) {
         return multiset.tailMultiset(entries.get(targetEntry).getElement(), CLOSED);
       }
     },
     TAIL_OPEN {
       @Override
-      <E> List<Entry<E>> expectedEntries(int targetEntry, List<Entry<E>> entries) {
+      <E> List<Entry<E>> expectedEntries(final int targetEntry, final List<Entry<E>> entries) {
         return entries.subList(targetEntry + 1, entries.size());
       }
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+          final SortedMultiset<E> multiset, final List<Entry<E>> entries, final int targetEntry) {
         return multiset.tailMultiset(entries.get(targetEntry).getElement(), OPEN);
       }
     },
     HEAD_CLOSED {
       @Override
-      <E> List<Entry<E>> expectedEntries(int targetEntry, List<Entry<E>> entries) {
+      <E> List<Entry<E>> expectedEntries(final int targetEntry, final List<Entry<E>> entries) {
         return entries.subList(0, targetEntry + 1);
       }
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+          final SortedMultiset<E> multiset, final List<Entry<E>> entries, final int targetEntry) {
         return multiset.headMultiset(entries.get(targetEntry).getElement(), CLOSED);
       }
     },
     HEAD_OPEN {
       @Override
-      <E> List<Entry<E>> expectedEntries(int targetEntry, List<Entry<E>> entries) {
+      <E> List<Entry<E>> expectedEntries(final int targetEntry, final List<Entry<E>> entries) {
         return entries.subList(0, targetEntry);
       }
 
       @Override
       <E> SortedMultiset<E> subMultiset(
-          SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry) {
+          final SortedMultiset<E> multiset, final List<Entry<E>> entries, final int targetEntry) {
         return multiset.headMultiset(entries.get(targetEntry).getElement(), OPEN);
       }
     };
@@ -526,7 +526,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
         SortedMultiset<E> multiset, List<Entry<E>> entries, int targetEntry);
   }
 
-  private void testSubMultisetEntrySet(SubMultisetSpec spec) {
+  private void testSubMultisetEntrySet(final SubMultisetSpec spec) {
     List<Entry<E>> entries = copyToList(sortedMultiset.entrySet());
     for (int i = 0; i < entries.size(); i++) {
       List<Entry<E>> expected = spec.expectedEntries(i, entries);
@@ -535,7 +535,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     }
   }
 
-  private void testSubMultisetSize(SubMultisetSpec spec) {
+  private void testSubMultisetSize(final SubMultisetSpec spec) {
     List<Entry<E>> entries = copyToList(sortedMultiset.entrySet());
     for (int i = 0; i < entries.size(); i++) {
       List<Entry<E>> expected = spec.expectedEntries(i, entries);
@@ -544,7 +544,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     }
   }
 
-  private void testSubMultisetDistinctElements(SubMultisetSpec spec) {
+  private void testSubMultisetDistinctElements(final SubMultisetSpec spec) {
     List<Entry<E>> entries = copyToList(sortedMultiset.entrySet());
     for (int i = 0; i < entries.size(); i++) {
       List<Entry<E>> expected = spec.expectedEntries(i, entries);

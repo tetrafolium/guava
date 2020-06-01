@@ -46,7 +46,7 @@ public final class NetworkMutationTest {
     testNetworkMutation(NetworkBuilder.undirected());
   }
 
-  private static void testNetworkMutation(NetworkBuilder<? super Integer, Object> networkBuilder) {
+  private static void testNetworkMutation(final NetworkBuilder<? super Integer, Object> networkBuilder) {
     Random gen = new Random(42); // Fixed seed so test results are deterministic.
 
     for (int trial = 0; trial < NUM_TRIALS; ++trial) {
@@ -121,7 +121,7 @@ public final class NetworkMutationTest {
     }
   }
 
-  private static <L extends List<T> & RandomAccess, T> T getRandomElement(L list, Random gen) {
+  private static <L extends List<T> & RandomAccess, T> T getRandomElement(final L list, final Random gen) {
     return list.get(gen.nextInt(list.size()));
   }
 }

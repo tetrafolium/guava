@@ -33,7 +33,7 @@ import java.util.concurrent.Executor;
  */
 public class AbstractFutureFootprintBenchmark {
 
-  enum State { NOT_DONE, FINISHED, CANCELLED, FAILED}
+  enum State { NOT_DONE, FINISHED, CANCELLED, FAILED }
 
   @Param State state;
   @Param Impl impl;
@@ -62,7 +62,7 @@ public class AbstractFutureFootprintBenchmark {
         @Override public void run() {
           try {
             f.get();
-          } catch (Throwable expected) {}
+          } catch (Throwable expected) { }
         }
       };
       thread.start();

@@ -161,7 +161,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringMapGenerator() {
           @Override
-          protected Map<String, String> create(Entry<String, String>[] entries) {
+          protected Map<String, String> create(final Entry<String, String>[] entries) {
             Map<String, String> map = populate(new HashMap<String, String>(), entries);
             return Collections.checkedMap(map, String.class, String.class);
           }
@@ -186,7 +186,7 @@ public class TestsForMapsInJavaUtil {
     return SortedMapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+          protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
             NavigableMap<String, String> map = populate(new TreeMap<String, String>(), entries);
             return Collections.checkedNavigableMap(map, String.class, String.class);
           }
@@ -210,7 +210,7 @@ public class TestsForMapsInJavaUtil {
     return SortedMapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+          protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
             SortedMap<String, String> map = populate(new TreeMap<String, String>(), entries);
             return Collections.checkedSortedMap(map, String.class, String.class);
           }
@@ -234,7 +234,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestStringMapGenerator() {
               @Override
-              protected Map<String, String> create(Entry<String, String>[] entries) {
+              protected Map<String, String> create(final Entry<String, String>[] entries) {
                 return Collections.emptyMap();
               }
             })
@@ -248,7 +248,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+          protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
             return Collections.emptyNavigableMap();
           }
         })
@@ -263,7 +263,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+          protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
             return Collections.emptySortedMap();
           }
         })
@@ -278,7 +278,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestStringMapGenerator() {
               @Override
-              protected Map<String, String> create(Entry<String, String>[] entries) {
+              protected Map<String, String> create(final Entry<String, String>[] entries) {
                 return Collections.singletonMap(entries[0].getKey(), entries[0].getValue());
               }
             })
@@ -297,7 +297,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestStringMapGenerator() {
               @Override
-              protected Map<String, String> create(Entry<String, String>[] entries) {
+              protected Map<String, String> create(final Entry<String, String>[] entries) {
                 return toHashMap(entries);
               }
             })
@@ -319,7 +319,7 @@ public class TestsForMapsInJavaUtil {
       return MapTestSuiteBuilder.using(
           new TestStringMapGenerator() {
             @Override
-            protected Map<String, String> create(Entry<String, String>[] entries) {
+            protected Map<String, String> create(final Entry<String, String>[] entries) {
               return populate(new Hashtable<String, String>(), entries);
             }
           })
@@ -343,7 +343,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestStringMapGenerator() {
               @Override
-              protected Map<String, String> create(Entry<String, String>[] entries) {
+              protected Map<String, String> create(final Entry<String, String>[] entries) {
                 return populate(new LinkedHashMap<String, String>(), entries);
               }
             })
@@ -370,7 +370,7 @@ public class TestsForMapsInJavaUtil {
     return NavigableMapTestSuiteBuilder.using(
             new TestStringSortedMapGenerator() {
               @Override
-              protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+              protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                 NavigableMap<String, String> delegate = populate(new TreeMap<>(), entries);
                 return Collections.synchronizedNavigableMap(delegate);
               }
@@ -392,7 +392,7 @@ public class TestsForMapsInJavaUtil {
     return NavigableMapTestSuiteBuilder.using(
             new TestStringSortedMapGenerator() {
               @Override
-              protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+              protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                 /*
                  * TODO(cpovirk): it would be nice to create an input Map and use
                  * the copy constructor here and in the other tests
@@ -417,7 +417,7 @@ public class TestsForMapsInJavaUtil {
     return NavigableMapTestSuiteBuilder.using(
             new TestStringSortedMapGenerator() {
               @Override
-              protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+              protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                 return populate(
                     new TreeMap<String, String>(arbitraryNullFriendlyComparator()), entries);
               }
@@ -441,7 +441,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringMapGenerator() {
           @Override
-          protected Map<String, String> create(Entry<String, String>[] entries) {
+          protected Map<String, String> create(final Entry<String, String>[] entries) {
             return Collections.unmodifiableMap(toHashMap(entries));
           }
         })
@@ -460,7 +460,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected NavigableMap<String, String> create(Entry<String, String>[] entries) {
+          protected NavigableMap<String, String> create(final Entry<String, String>[] entries) {
             return Collections.unmodifiableNavigableMap(populate(new TreeMap<>(), entries));
           }
         })
@@ -478,7 +478,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
         new TestStringSortedMapGenerator() {
           @Override
-          protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+          protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
             SortedMap<String, String> map = populate(new TreeMap<String, String>(), entries);
             return Collections.unmodifiableSortedMap(map);
           }
@@ -497,7 +497,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestEnumMapGenerator() {
               @Override
-              protected Map<AnEnum, String> create(Entry<AnEnum, String>[] entries) {
+              protected Map<AnEnum, String> create(final Entry<AnEnum, String>[] entries) {
                 return populate(new EnumMap<AnEnum, String>(AnEnum.class), entries);
               }
             })
@@ -518,7 +518,7 @@ public class TestsForMapsInJavaUtil {
     return MapTestSuiteBuilder.using(
             new TestStringMapGenerator() {
               @Override
-              protected Map<String, String> create(Entry<String, String>[] entries) {
+              protected Map<String, String> create(final Entry<String, String>[] entries) {
                 return populate(new ConcurrentHashMap<String, String>(), entries);
               }
             })
@@ -536,7 +536,7 @@ public class TestsForMapsInJavaUtil {
     return NavigableMapTestSuiteBuilder.using(
             new TestStringSortedMapGenerator() {
               @Override
-              protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+              protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                 return populate(new ConcurrentSkipListMap<String, String>(), entries);
               }
             })
@@ -555,7 +555,7 @@ public class TestsForMapsInJavaUtil {
     return NavigableMapTestSuiteBuilder.using(
             new TestStringSortedMapGenerator() {
               @Override
-              protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+              protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                 return populate(
                     new ConcurrentSkipListMap<String, String>(arbitraryNullFriendlyComparator()),
                     entries);
@@ -574,13 +574,13 @@ public class TestsForMapsInJavaUtil {
 
   // TODO: IdentityHashMap, AbstractMap
 
-  private static Map<String, String> toHashMap(Entry<String, String>[] entries) {
+  private static Map<String, String> toHashMap(final Entry<String, String>[] entries) {
     return populate(new HashMap<String, String>(), entries);
   }
 
   // TODO: call conversion constructors or factory methods instead of using
   // populate() on an empty map
-  private static <T, M extends Map<T, String>> M populate(M map, Entry<T, String>[] entries) {
+  private static <T, M extends Map<T, String>> M populate(final M map, final Entry<T, String>[] entries) {
     for (Entry<T, String> entry : entries) {
       map.put(entry.getKey(), entry.getValue());
     }
@@ -593,7 +593,7 @@ public class TestsForMapsInJavaUtil {
 
   private static final class NullFriendlyComparator<T> implements Comparator<T>, Serializable {
     @Override
-    public int compare(T left, T right) {
+    public int compare(final T left, final T right) {
       return String.valueOf(left).compareTo(String.valueOf(right));
     }
   }

@@ -40,7 +40,7 @@ public class ThreadFactoryBuilderTest extends TestCase {
 
   private static final UncaughtExceptionHandler UNCAUGHT_EXCEPTION_HANDLER =
       new UncaughtExceptionHandler() {
-        @Override public void uncaughtException(Thread t, Throwable e) {
+        @Override public void uncaughtException(final Thread t, final Throwable e) {
           // No-op
         }
       };
@@ -88,7 +88,7 @@ public class ThreadFactoryBuilderTest extends TestCase {
             thread3.getName().substring(0, thread.getName().lastIndexOf('-')));
   }
 
-  private static void checkThreadPoolName(Thread thread, int threadId) {
+  private static void checkThreadPoolName(final Thread thread, final int threadId) {
     assertThat(thread.getName()).matches("^pool-\\d+-thread-" + threadId + "$");
   }
 
@@ -180,7 +180,7 @@ public class ThreadFactoryBuilderTest extends TestCase {
     final int THREAD_PRIORITY = 1;
     final boolean THREAD_DAEMON = false;
     ThreadFactory backingThreadFactory = new ThreadFactory() {
-      @Override public Thread newThread(Runnable r) {
+      @Override public Thread newThread(final Runnable r) {
         Thread thread = new Thread(r);
         thread.setName(THREAD_NAME);
         thread.setPriority(THREAD_PRIORITY);
@@ -213,7 +213,7 @@ public class ThreadFactoryBuilderTest extends TestCase {
     npTester.testAllPublicInstanceMethods(builder);
   }
 
-  private static String rootLocaleFormat(String format, Object... args) {
+  private static String rootLocaleFormat(final String format, final Object... args) {
     return String.format(Locale.ROOT, format, args);
   }
 }

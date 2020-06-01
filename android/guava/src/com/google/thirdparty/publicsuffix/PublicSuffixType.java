@@ -33,7 +33,7 @@ enum PublicSuffixType {
   /** The character used for a leaf node in the trie encoding */
   private final char leafNodeCode;
 
-  private PublicSuffixType(char innerNodeCode, char leafNodeCode) {
+  private PublicSuffixType(final char innerNodeCode, final char leafNodeCode) {
     this.innerNodeCode = innerNodeCode;
     this.leafNodeCode = leafNodeCode;
   }
@@ -47,7 +47,7 @@ enum PublicSuffixType {
   }
 
   /** Returns a PublicSuffixType of the right type according to the given code */
-  static PublicSuffixType fromCode(char code) {
+  static PublicSuffixType fromCode(final char code) {
     for (PublicSuffixType value : values()) {
       if (value.getInnerNodeCode() == code || value.getLeafNodeCode() == code) {
         return value;
@@ -56,7 +56,7 @@ enum PublicSuffixType {
     throw new IllegalArgumentException("No enum corresponding to given code: " + code);
   }
 
-  static PublicSuffixType fromIsPrivate(boolean isPrivate) {
+  static PublicSuffixType fromIsPrivate(final boolean isPrivate) {
     return isPrivate ? PRIVATE : ICANN;
   }
 }

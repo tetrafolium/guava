@@ -45,14 +45,14 @@ import java.util.List;
 @Beta
 @GwtIncompatible
 public final class Resources {
-  private Resources() {}
+  private Resources() { }
 
   /**
    * Returns a {@link ByteSource} that reads from the given URL.
    *
    * @since 14.0
    */
-  public static ByteSource asByteSource(URL url) {
+  public static ByteSource asByteSource(final URL url) {
     return new UrlByteSource(url);
   }
 
@@ -63,7 +63,7 @@ public final class Resources {
 
     private final URL url;
 
-    private UrlByteSource(URL url) {
+    private UrlByteSource(final URL url) {
       this.url = checkNotNull(url);
     }
 
@@ -83,7 +83,7 @@ public final class Resources {
    *
    * @since 14.0
    */
-  public static CharSource asCharSource(URL url, Charset charset) {
+  public static CharSource asCharSource(final URL url, final Charset charset) {
     return asByteSource(url).asCharSource(charset);
   }
 
@@ -94,7 +94,7 @@ public final class Resources {
    * @return a byte array containing all the bytes from the URL
    * @throws IOException if an I/O error occurs
    */
-  public static byte[] toByteArray(URL url) throws IOException {
+  public static byte[] toByteArray(final URL url) throws IOException {
     return asByteSource(url).read();
   }
 
@@ -107,7 +107,7 @@ public final class Resources {
    * @return a string containing all the characters from the URL
    * @throws IOException if an I/O error occurs.
    */
-  public static String toString(URL url, Charset charset) throws IOException {
+  public static String toString(final URL url, final Charset charset) throws IOException {
     return asCharSource(url, charset).read();
   }
 
@@ -123,7 +123,7 @@ public final class Resources {
    * @throws IOException if an I/O error occurs
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public static <T> T readLines(URL url, Charset charset, LineProcessor<T> callback)
+  public static <T> T readLines(final URL url, final Charset charset, final LineProcessor<T> callback)
       throws IOException {
     return asCharSource(url, charset).readLines(callback);
   }
@@ -141,7 +141,7 @@ public final class Resources {
    * @return a mutable {@link List} containing all the lines
    * @throws IOException if an I/O error occurs
    */
-  public static List<String> readLines(URL url, Charset charset) throws IOException {
+  public static List<String> readLines(final URL url, final Charset charset) throws IOException {
     // don't use asCharSource(url, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return readLines(
@@ -151,7 +151,7 @@ public final class Resources {
           final List<String> result = Lists.newArrayList();
 
           @Override
-          public boolean processLine(String line) {
+          public boolean processLine(final String line) {
             result.add(line);
             return true;
           }
@@ -170,7 +170,7 @@ public final class Resources {
    * @param to the output stream
    * @throws IOException if an I/O error occurs
    */
-  public static void copy(URL from, OutputStream to) throws IOException {
+  public static void copy(final URL from, final OutputStream to) throws IOException {
     asByteSource(from).copyTo(to);
   }
 
@@ -189,7 +189,7 @@ public final class Resources {
   @CanIgnoreReturnValue // being used to check if a resource exists
   // TODO(cgdecker): maybe add a better way to check if a resource exists
   // e.g. Optional<URL> tryGetResource or boolean resourceExists
-  public static URL getResource(String resourceName) {
+  public static URL getResource(final String resourceName) {
     ClassLoader loader =
         MoreObjects.firstNonNull(
             Thread.currentThread().getContextClassLoader(), Resources.class.getClassLoader());
@@ -204,7 +204,7 @@ public final class Resources {
    *
    * @throws IllegalArgumentException if the resource is not found
    */
-  public static URL getResource(Class<?> contextClass, String resourceName) {
+  public static URL getResource(final Class<?> contextClass, final String resourceName) {
     URL url = contextClass.getResource(resourceName);
     checkArgument(
         url != null, "resource %s relative to %s not found.", resourceName, contextClass.getName());

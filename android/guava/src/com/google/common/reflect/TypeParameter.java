@@ -50,7 +50,7 @@ public abstract class TypeParameter<T> extends TypeCapture<T> {
   }
 
   @Override
-  public final boolean equals(@Nullable Object o) {
+  public final boolean equals(final @Nullable Object o) {
     if (o instanceof TypeParameter) {
       TypeParameter<?> that = (TypeParameter<?>) o;
       return typeVariable.equals(that.typeVariable);

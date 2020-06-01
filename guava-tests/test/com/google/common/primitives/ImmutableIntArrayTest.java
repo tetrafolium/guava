@@ -178,13 +178,13 @@ public class ImmutableIntArrayTest extends TestCase {
   private enum BuilderOp {
     ADD_ONE {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         builder.add(counter.getAndIncrement());
       }
     },
     ADD_ARRAY {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         int[] array = new int[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -194,7 +194,7 @@ public class ImmutableIntArrayTest extends TestCase {
     },
     ADD_COLLECTION {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         List<Integer> list = new ArrayList<>();
         int num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -205,7 +205,7 @@ public class ImmutableIntArrayTest extends TestCase {
     },
     ADD_ITERABLE {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         List<Integer> list = new ArrayList<>();
         int num = RANDOM.nextInt(10);
         for (int i = 0; i < num; i++) {
@@ -216,7 +216,7 @@ public class ImmutableIntArrayTest extends TestCase {
     },
     ADD_STREAM {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         int[] array = new int[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -226,7 +226,7 @@ public class ImmutableIntArrayTest extends TestCase {
     },
     ADD_IIA {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         int[] array = new int[RANDOM.nextInt(10)];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -236,7 +236,7 @@ public class ImmutableIntArrayTest extends TestCase {
     },
     ADD_LARGER_ARRAY {
       @Override
-      void doIt(ImmutableIntArray.Builder builder, AtomicInteger counter) {
+      void doIt(final ImmutableIntArray.Builder builder, final AtomicInteger counter) {
         int[] array = new int[RANDOM.nextInt(200) + 200];
         for (int i = 0; i < array.length; i++) {
           array[i] = counter.getAndIncrement();
@@ -244,7 +244,7 @@ public class ImmutableIntArrayTest extends TestCase {
         builder.addAll(array);
       }
     },
-    ;
+;
 
     static final BuilderOp[] values = values();
 
@@ -430,7 +430,7 @@ public class ImmutableIntArrayTest extends TestCase {
     assertDoesntActuallyTrim(iia2);
   }
 
-  private static void assertActuallyTrims(ImmutableIntArray iia) {
+  private static void assertActuallyTrims(final ImmutableIntArray iia) {
     ImmutableIntArray trimmed = iia.trimmed();
     assertThat(trimmed).isNotSameAs(iia);
 
@@ -438,7 +438,7 @@ public class ImmutableIntArrayTest extends TestCase {
     assertThat(trimmed.toArray()).isEqualTo(iia.toArray());
   }
 
-  private static void assertDoesntActuallyTrim(ImmutableIntArray iia) {
+  private static void assertDoesntActuallyTrim(final ImmutableIntArray iia) {
     assertThat(iia.trimmed()).isSameAs(iia);
   }
 
@@ -474,7 +474,7 @@ public class ImmutableIntArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static ImmutableIntArray makeArray(Integer[] values) {
+  private static ImmutableIntArray makeArray(final Integer[] values) {
     return ImmutableIntArray.copyOf(Arrays.asList(values));
   }
 
@@ -484,7 +484,7 @@ public class ImmutableIntArrayTest extends TestCase {
   @GwtIncompatible // used only from suite
   public static final class ImmutableIntArrayAsListGenerator extends TestIntegerListGenerator {
     @Override
-    protected List<Integer> create(Integer[] elements) {
+    protected List<Integer> create(final Integer[] elements) {
       return makeArray(elements).asList();
     }
   }
@@ -493,7 +493,7 @@ public class ImmutableIntArrayTest extends TestCase {
   public static final class ImmutableIntArrayHeadSubListAsListGenerator
       extends TestIntegerListGenerator {
     @Override
-    protected List<Integer> create(Integer[] elements) {
+    protected List<Integer> create(final Integer[] elements) {
       Integer[] suffix = {Integer.MIN_VALUE, Integer.MAX_VALUE};
       Integer[] all = concat(elements, suffix);
       return makeArray(all).subArray(0, elements.length).asList();
@@ -504,7 +504,7 @@ public class ImmutableIntArrayTest extends TestCase {
   public static final class ImmutableIntArrayTailSubListAsListGenerator
       extends TestIntegerListGenerator {
     @Override
-    protected List<Integer> create(Integer[] elements) {
+    protected List<Integer> create(final Integer[] elements) {
       Integer[] prefix = {86, 99};
       Integer[] all = concat(prefix, elements);
       return makeArray(all).subArray(2, elements.length + 2).asList();
@@ -515,7 +515,7 @@ public class ImmutableIntArrayTest extends TestCase {
   public static final class ImmutableIntArrayMiddleSubListAsListGenerator
       extends TestIntegerListGenerator {
     @Override
-    protected List<Integer> create(Integer[] elements) {
+    protected List<Integer> create(final Integer[] elements) {
       Integer[] prefix = {Integer.MIN_VALUE, Integer.MAX_VALUE};
       Integer[] suffix = {86, 99};
       Integer[] all = concat(concat(prefix, elements), suffix);
@@ -524,7 +524,7 @@ public class ImmutableIntArrayTest extends TestCase {
   }
 
   @GwtIncompatible // used only from suite
-  private static Integer[] concat(Integer[] a, Integer[] b) {
+  private static Integer[] concat(final Integer[] a, final Integer[] b) {
     return ObjectArrays.concat(a, b, Integer.class);
   }
 
@@ -536,7 +536,7 @@ public class ImmutableIntArrayTest extends TestCase {
     }
 
     @Override
-    public List<Integer> create(Object... elements) {
+    public List<Integer> create(final Object... elements) {
       Integer[] array = new Integer[elements.length];
       int i = 0;
       for (Object e : elements) {
@@ -552,13 +552,13 @@ public class ImmutableIntArrayTest extends TestCase {
     protected abstract List<Integer> create(Integer[] elements);
 
     @Override
-    public Integer[] createArray(int length) {
+    public Integer[] createArray(final int length) {
       return new Integer[length];
     }
 
     /** Returns the original element list, unchanged. */
     @Override
-    public List<Integer> order(List<Integer> insertionOrder) {
+    public List<Integer> order(final List<Integer> insertionOrder) {
       return insertionOrder;
     }
   }

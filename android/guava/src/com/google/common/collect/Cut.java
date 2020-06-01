@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializable {
   final C endpoint;
 
-  Cut(@Nullable C endpoint) {
+  Cut(final @Nullable C endpoint) {
     this.endpoint = endpoint;
   }
 
@@ -61,13 +61,13 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
    * The canonical form is a BelowValue cut whenever possible, otherwise ABOVE_ALL, or
    * (only in the case of types that are unbounded below) BELOW_ALL.
    */
-  Cut<C> canonical(DiscreteDomain<C> domain) {
+  Cut<C> canonical(final DiscreteDomain<C> domain) {
     return this;
   }
 
   // note: overridden by {BELOW,ABOVE}_ALL
   @Override
-  public int compareTo(Cut<C> that) {
+  public int compareTo(final Cut<C> that) {
     if (that == belowAll()) {
       return 1;
     }
@@ -88,7 +88,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
   @SuppressWarnings("unchecked") // catching CCE
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     if (obj instanceof Cut) {
       // It might not really be a Cut<C>, but we'll catch a CCE if it's not
       Cut<C> that = (Cut<C>) obj;
@@ -128,7 +128,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    boolean isLessThan(Comparable<?> value) {
+    boolean isLessThan(final Comparable<?> value) {
       return true;
     }
 
@@ -144,38 +144,38 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
     @Override
     Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+        final BoundType boundType, final DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
     @Override
     Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+        final BoundType boundType, final DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
     @Override
-    void describeAsLowerBound(StringBuilder sb) {
+    void describeAsLowerBound(final StringBuilder sb) {
       sb.append("(-\u221e");
     }
 
     @Override
-    void describeAsUpperBound(StringBuilder sb) {
+    void describeAsUpperBound(final StringBuilder sb) {
       throw new AssertionError();
     }
 
     @Override
-    Comparable<?> leastValueAbove(DiscreteDomain<Comparable<?>> domain) {
+    Comparable<?> leastValueAbove(final DiscreteDomain<Comparable<?>> domain) {
       return domain.minValue();
     }
 
     @Override
-    Comparable<?> greatestValueBelow(DiscreteDomain<Comparable<?>> domain) {
+    Comparable<?> greatestValueBelow(final DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError();
     }
 
     @Override
-    Cut<Comparable<?>> canonical(DiscreteDomain<Comparable<?>> domain) {
+    Cut<Comparable<?>> canonical(final DiscreteDomain<Comparable<?>> domain) {
       try {
         return Cut.<Comparable<?>>belowValue(domain.minValue());
       } catch (NoSuchElementException e) {
@@ -184,7 +184,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    public int compareTo(Cut<Comparable<?>> o) {
+    public int compareTo(final Cut<Comparable<?>> o) {
       return (o == this) ? 0 : -1;
     }
 
@@ -227,7 +227,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    boolean isLessThan(Comparable<?> value) {
+    boolean isLessThan(final Comparable<?> value) {
       return false;
     }
 
@@ -243,38 +243,38 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
     @Override
     Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+        final BoundType boundType, final DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
     @Override
     Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+        final BoundType boundType, final DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
     @Override
-    void describeAsLowerBound(StringBuilder sb) {
+    void describeAsLowerBound(final StringBuilder sb) {
       throw new AssertionError();
     }
 
     @Override
-    void describeAsUpperBound(StringBuilder sb) {
+    void describeAsUpperBound(final StringBuilder sb) {
       sb.append("+\u221e)");
     }
 
     @Override
-    Comparable<?> leastValueAbove(DiscreteDomain<Comparable<?>> domain) {
+    Comparable<?> leastValueAbove(final DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError();
     }
 
     @Override
-    Comparable<?> greatestValueBelow(DiscreteDomain<Comparable<?>> domain) {
+    Comparable<?> greatestValueBelow(final DiscreteDomain<Comparable<?>> domain) {
       return domain.maxValue();
     }
 
     @Override
-    public int compareTo(Cut<Comparable<?>> o) {
+    public int compareTo(final Cut<Comparable<?>> o) {
       return (o == this) ? 0 : 1;
     }
 
@@ -295,17 +295,17 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     private static final long serialVersionUID = 0;
   }
 
-  static <C extends Comparable> Cut<C> belowValue(C endpoint) {
+  static <C extends Comparable> Cut<C> belowValue(final C endpoint) {
     return new BelowValue<C>(endpoint);
   }
 
   private static final class BelowValue<C extends Comparable> extends Cut<C> {
-    BelowValue(C endpoint) {
+    BelowValue(final C endpoint) {
       super(checkNotNull(endpoint));
     }
 
     @Override
-    boolean isLessThan(C value) {
+    boolean isLessThan(final C value) {
       return Range.compareOrThrow(endpoint, value) <= 0;
     }
 
@@ -320,7 +320,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain) {
+    Cut<C> withLowerBoundType(final BoundType boundType, final DiscreteDomain<C> domain) {
       switch (boundType) {
         case CLOSED:
           return this;
@@ -333,7 +333,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<C> withUpperBoundType(BoundType boundType, DiscreteDomain<C> domain) {
+    Cut<C> withUpperBoundType(final BoundType boundType, final DiscreteDomain<C> domain) {
       switch (boundType) {
         case CLOSED:
           @Nullable C previous = domain.previous(endpoint);
@@ -346,22 +346,22 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    void describeAsLowerBound(StringBuilder sb) {
+    void describeAsLowerBound(final StringBuilder sb) {
       sb.append('[').append(endpoint);
     }
 
     @Override
-    void describeAsUpperBound(StringBuilder sb) {
+    void describeAsUpperBound(final StringBuilder sb) {
       sb.append(endpoint).append(')');
     }
 
     @Override
-    C leastValueAbove(DiscreteDomain<C> domain) {
+    C leastValueAbove(final DiscreteDomain<C> domain) {
       return endpoint;
     }
 
     @Override
-    C greatestValueBelow(DiscreteDomain<C> domain) {
+    C greatestValueBelow(final DiscreteDomain<C> domain) {
       return domain.previous(endpoint);
     }
 
@@ -378,17 +378,17 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     private static final long serialVersionUID = 0;
   }
 
-  static <C extends Comparable> Cut<C> aboveValue(C endpoint) {
+  static <C extends Comparable> Cut<C> aboveValue(final C endpoint) {
     return new AboveValue<C>(endpoint);
   }
 
   private static final class AboveValue<C extends Comparable> extends Cut<C> {
-    AboveValue(C endpoint) {
+    AboveValue(final C endpoint) {
       super(checkNotNull(endpoint));
     }
 
     @Override
-    boolean isLessThan(C value) {
+    boolean isLessThan(final C value) {
       return Range.compareOrThrow(endpoint, value) < 0;
     }
 
@@ -403,7 +403,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain) {
+    Cut<C> withLowerBoundType(final BoundType boundType, final DiscreteDomain<C> domain) {
       switch (boundType) {
         case OPEN:
           return this;
@@ -416,7 +416,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<C> withUpperBoundType(BoundType boundType, DiscreteDomain<C> domain) {
+    Cut<C> withUpperBoundType(final BoundType boundType, final DiscreteDomain<C> domain) {
       switch (boundType) {
         case OPEN:
           @Nullable C next = domain.next(endpoint);
@@ -429,27 +429,27 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    void describeAsLowerBound(StringBuilder sb) {
+    void describeAsLowerBound(final StringBuilder sb) {
       sb.append('(').append(endpoint);
     }
 
     @Override
-    void describeAsUpperBound(StringBuilder sb) {
+    void describeAsUpperBound(final StringBuilder sb) {
       sb.append(endpoint).append(']');
     }
 
     @Override
-    C leastValueAbove(DiscreteDomain<C> domain) {
+    C leastValueAbove(final DiscreteDomain<C> domain) {
       return domain.next(endpoint);
     }
 
     @Override
-    C greatestValueBelow(DiscreteDomain<C> domain) {
+    C greatestValueBelow(final DiscreteDomain<C> domain) {
       return endpoint;
     }
 
     @Override
-    Cut<C> canonical(DiscreteDomain<C> domain) {
+    Cut<C> canonical(final DiscreteDomain<C> domain) {
       C next = leastValueAbove(domain);
       return (next != null) ? belowValue(next) : Cut.<C>aboveAll();
     }

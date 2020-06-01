@@ -92,7 +92,7 @@ public class CloseablesTest extends TestCase {
 
   // Set up a closeable to expect to be closed, and optionally to throw an
   // exception.
-  private void setupCloseable(boolean shouldThrow) throws IOException {
+  private void setupCloseable(final boolean shouldThrow) throws IOException {
     mockCloseable = mock(Closeable.class);
     if (shouldThrow) {
       doThrow(new IOException("This should only appear in the logs. It should not be rethrown."))
@@ -100,15 +100,15 @@ public class CloseablesTest extends TestCase {
     }
   }
 
-  private void doClose(Closeable closeable, boolean swallowException) throws IOException {
+  private void doClose(final Closeable closeable, final boolean swallowException) throws IOException {
     doClose(closeable, swallowException, !swallowException);
   }
 
   // Close the closeable using the Closeables, passing in the swallowException
   // parameter. expectThrown determines whether we expect an exception to
   // be thrown by Closeables.close;
-  private void doClose(Closeable closeable, boolean swallowException,
-      boolean expectThrown) throws IOException {
+  private void doClose(final Closeable closeable, final boolean swallowException,
+      final boolean expectThrown) throws IOException {
     try {
       Closeables.close(closeable, swallowException);
       if (expectThrown) {

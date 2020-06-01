@@ -54,11 +54,11 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public static class GoodEqualsFactory {
-    public static Object good(String a, int b,
+    public static Object good(final String a, final int b,
         // oneConstantOnly doesn't matter since it's not nullable and can be only 1 value.
-        @SuppressWarnings("unused") OneConstantEnum oneConstantOnly,
+        final @SuppressWarnings("unused") OneConstantEnum oneConstantOnly,
         // noConstant doesn't matter since it can only be null
-        @SuppressWarnings("unused") @Nullable NoConstantEnum noConstant) {
+        final @SuppressWarnings("unused") @Nullable NoConstantEnum noConstant) {
       return new GoodEquals(a, b);
     }
     // instance method ignored
@@ -105,8 +105,8 @@ public class ClassSanityTesterTest extends TestCase {
   private static class BadEqualsFactory {
     /** oneConstantOnly matters now since it can be either null or the constant. */
     @SuppressWarnings("unused") // Called by reflection
-    public static Object bad(String a, int b,
-        @Nullable OneConstantEnum oneConstantOnly) {
+    public static Object bad(final String a, final int b,
+        final @Nullable OneConstantEnum oneConstantOnly) {
       return new GoodEquals(a, b);
     }
   }
@@ -117,7 +117,7 @@ public class ClassSanityTesterTest extends TestCase {
 
   private static class GoodNullsFactory {
     @SuppressWarnings("unused") // Called by reflection
-    public static Object good(String s) {
+    public static Object good(final String s) {
       return new GoodNulls(s);
     }
   }
@@ -152,7 +152,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public static class BadNullsFactory {
-    public static Object bad(@SuppressWarnings("unused") String a) {
+    public static Object bad(final @SuppressWarnings("unused") String a) {
       return new BadNulls();
     }
   }
@@ -163,10 +163,10 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public static class GoodSerializableFactory {
-    public static Object good(Runnable r) {
+    public static Object good(final Runnable r) {
       return r;
     }
-    public static Object good(AnInterface i) {
+    public static Object good(final AnInterface i) {
       return i;
     }
   }
@@ -216,7 +216,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public static class GoodEqualsAndSerialiableFactory {
-    public static Object good(AnInterface s) {
+    public static Object good(final AnInterface s) {
       return Functions.constant(s);
     }
   }
@@ -335,7 +335,7 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       tester.doTestEquals(ConstructorParameterWithOptionalNotInstantiable.class);
       fail();
-    } catch (ParameterHasNoDistinctValueException expected) {}
+    } catch (ParameterHasNoDistinctValueException expected) { }
   }
 
   public void testGoodReferentialEqualityComparison() throws Exception {
@@ -363,7 +363,7 @@ public class ClassSanityTesterTest extends TestCase {
     assertBadUseOfReferentialEquality(SameInterfaceInstance.class);
   }
 
-  private void assertBadUseOfReferentialEquality(Class<?> cls) throws Exception {
+  private void assertBadUseOfReferentialEquality(final Class<?> cls) throws Exception {
     try {
       tester.testEquals(cls);
     } catch (AssertionFailedError expected) {
@@ -377,28 +377,28 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       tester.doTestEquals(ConstructorParameterNotInstantiable.class);
       fail("should have failed");
-    } catch (ParameterNotInstantiableException expected) {}
+    } catch (ParameterNotInstantiableException expected) { }
   }
 
   public void testNoDistinctValueForEqualsTest() throws Exception {
     try {
       tester.doTestEquals(ConstructorParameterSingleValue.class);
       fail("should have failed");
-    } catch (ParameterHasNoDistinctValueException expected) {}
+    } catch (ParameterHasNoDistinctValueException expected) { }
   }
 
   public void testConstructorThrowsForEqualsTest() throws Exception {
     try {
       tester.doTestEquals(ConstructorThrows.class);
       fail("should have failed");
-    } catch (InvocationTargetException expected) {}
+    } catch (InvocationTargetException expected) { }
   }
 
   public void testFactoryMethodReturnsNullForEqualsTest() throws Exception {
     try {
       tester.doTestEquals(FactoryMethodReturnsNullAndAnnotated.class);
       fail("should have failed");
-    } catch (FactoryMethodReturnsNullException expected) {}
+    } catch (FactoryMethodReturnsNullException expected) { }
   }
 
   public void testFactoryMethodReturnsNullButNotAnnotatedInEqualsTest() throws Exception {
@@ -490,7 +490,7 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       tester.instantiate(FactoryMethodReturnsNullAndAnnotated.class);
       fail("should have failed");
-    } catch (FactoryMethodReturnsNullException expected) {}
+    } catch (FactoryMethodReturnsNullException expected) { }
   }
 
   public void testInstantiate_factoryMethodAcceptsNull() throws Exception {
@@ -543,7 +543,7 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       tester.setDistinctValues(String.class, "", "");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testInstantiate_setDistinctValues() throws Exception {
@@ -558,28 +558,28 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       tester.instantiate(ConstructorThrows.class);
       fail();
-    } catch (InvocationTargetException expected) {}
+    } catch (InvocationTargetException expected) { }
   }
 
   public void testInstantiate_factoryMethodThrows() throws Exception {
     try {
       tester.instantiate(FactoryMethodThrows.class);
       fail();
-    } catch (InvocationTargetException expected) {}
+    } catch (InvocationTargetException expected) { }
   }
 
   public void testInstantiate_constructorParameterNotInstantiable() throws Exception {
     try {
       tester.instantiate(ConstructorParameterNotInstantiable.class);
       fail();
-    } catch (ParameterNotInstantiableException expected) {}
+    } catch (ParameterNotInstantiableException expected) { }
   }
 
   public void testInstantiate_factoryMethodParameterNotInstantiable() throws Exception {
     try {
       tester.instantiate(FactoryMethodParameterNotInstantiable.class);
       fail();
-    } catch (ParameterNotInstantiableException expected) {}
+    } catch (ParameterNotInstantiableException expected) { }
   }
 
   public void testInstantiate_instantiableFactoryMethodChosen() throws Exception {
@@ -606,11 +606,11 @@ public class ClassSanityTesterTest extends TestCase {
   static class HasAnInterface implements Serializable {
     private final AnInterface i;
 
-    public HasAnInterface(AnInterface i) {
+    public HasAnInterface(final AnInterface i) {
       this.i = i;
     }
 
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       if (obj instanceof HasAnInterface) {
         HasAnInterface that = (HasAnInterface) obj;
         return i.equals(that.i);
@@ -627,20 +627,20 @@ public class ClassSanityTesterTest extends TestCase {
   static class InstantiableFactoryMethodChosen {
     final String name;
 
-    private InstantiableFactoryMethodChosen(String name) {
+    private InstantiableFactoryMethodChosen(final String name) {
       this.name = name;
     }
 
-    public InstantiableFactoryMethodChosen(NotInstantiable x) {
+    public InstantiableFactoryMethodChosen(final NotInstantiable x) {
       checkNotNull(x);
       this.name = "x1";
     }
 
-    public static InstantiableFactoryMethodChosen create(NotInstantiable x) {
+    public static InstantiableFactoryMethodChosen create(final NotInstantiable x) {
       return new InstantiableFactoryMethodChosen(x);
     }
 
-    public static InstantiableFactoryMethodChosen create(String s) {
+    public static InstantiableFactoryMethodChosen create(final String s) {
       checkNotNull(s);
       return new InstantiableFactoryMethodChosen("good");
     }
@@ -654,17 +654,17 @@ public class ClassSanityTesterTest extends TestCase {
     try {
       new ClassSanityTester().doTestEquals(SetWrapper.class);
       fail();
-    } catch (ParameterNotInstantiableException expected) {}
+    } catch (ParameterNotInstantiableException expected) { }
   }
 
   private abstract static class Wrapper {
     private final Object wrapped;
 
-    Wrapper(Object wrapped) {
+    Wrapper(final Object wrapped) {
       this.wrapped = checkNotNull(wrapped);
     }
 
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       // In general getClass().isInstance() is bad for equals.
       // But here we fully control the subclasses to ensure symmetry.
       if (getClass().isInstance(obj)) {
@@ -684,7 +684,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   private static class SetWrapper extends Wrapper {
-    public SetWrapper(Set<NotInstantiable> wrapped) {
+    public SetWrapper(final Set<NotInstantiable> wrapped) {
       super(wrapped);
     }
   }
@@ -692,17 +692,17 @@ public class ClassSanityTesterTest extends TestCase {
   static class InstantiableConstructorChosen {
     final String name;
 
-    public InstantiableConstructorChosen(String name) {
+    public InstantiableConstructorChosen(final String name) {
       checkNotNull(name);
       this.name = "good";
     }
 
-    public InstantiableConstructorChosen(NotInstantiable x) {
+    public InstantiableConstructorChosen(final NotInstantiable x) {
       checkNotNull(x);
       this.name = "x1";
     }
 
-    public static InstantiableFactoryMethodChosen create(NotInstantiable x) {
+    public static InstantiableFactoryMethodChosen create(final NotInstantiable x) {
       return new InstantiableFactoryMethodChosen(x);
     }
   }
@@ -712,41 +712,41 @@ public class ClassSanityTesterTest extends TestCase {
     private final String a;
     private final int b;
 
-    private GoodEquals(String a, int b) {
+    private GoodEquals(final String a, final int b) {
       this.a = checkNotNull(a);
       this.b = b;
     }
 
     // ignored by testEquals()
-    GoodEquals(@SuppressWarnings("unused") NotInstantiable x) {
+    GoodEquals(final @SuppressWarnings("unused") NotInstantiable x) {
       this.a = "x";
       this.b = -1;
     }
 
     // will keep trying
-    public GoodEquals(@SuppressWarnings("unused") NotInstantiable x, int b) {
+    public GoodEquals(final @SuppressWarnings("unused") NotInstantiable x, final int b) {
       this.a = "x";
       this.b = b;
     }
 
     // keep trying
     @SuppressWarnings("unused")
-    static GoodEquals create(int a, int b) {
+    static GoodEquals create(final int a, final int b) {
       throw new RuntimeException();
     }
 
     // keep trying
     @SuppressWarnings("unused")
-    @Nullable public static GoodEquals createMayReturnNull(int a, int b) {
+    @Nullable public static GoodEquals createMayReturnNull(final int a, final int b) {
       return null;
     }
 
     // Good!
-    static GoodEquals create(String a, int b) {
+    static GoodEquals create(final String a, final int b) {
       return new GoodEquals(a, b);
     }
 
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       if (obj instanceof GoodEquals) {
         GoodEquals that = (GoodEquals) obj;
         return a.equals(that.a) && b == that.b;
@@ -762,13 +762,13 @@ public class ClassSanityTesterTest extends TestCase {
 
   static class BadEquals {
 
-    public BadEquals() {} // ignored by testEquals() since it has less parameters.
+    public BadEquals() { } // ignored by testEquals() since it has less parameters.
 
-    public static BadEquals create(@SuppressWarnings("unused") @Nullable String s) {
+    public static BadEquals create(final @SuppressWarnings("unused") @Nullable String s) {
       return new BadEquals();
     }
 
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       return obj instanceof BadEquals;
     }
 
@@ -780,7 +780,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameIntegerInstance {
     private final Integer i;
 
-    public SameIntegerInstance(Integer i) {
+    public SameIntegerInstance(final Integer i) {
       this.i = checkNotNull(i);
     }
 
@@ -790,7 +790,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameIntegerInstance) {
         SameIntegerInstance that = (SameIntegerInstance) obj;
         return i == that.i;
@@ -802,7 +802,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameLongInstance {
     private final Long i;
 
-    public SameLongInstance(Long i) {
+    public SameLongInstance(final Long i) {
       this.i = checkNotNull(i);
     }
 
@@ -812,7 +812,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameLongInstance) {
         SameLongInstance that = (SameLongInstance) obj;
         return i == that.i;
@@ -824,7 +824,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameFloatInstance {
     private final Float i;
 
-    public SameFloatInstance(Float i) {
+    public SameFloatInstance(final Float i) {
       this.i = checkNotNull(i);
     }
 
@@ -834,7 +834,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameFloatInstance) {
         SameFloatInstance that = (SameFloatInstance) obj;
         return i == that.i;
@@ -846,7 +846,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameDoubleInstance {
     private final Double i;
 
-    public SameDoubleInstance(Double i) {
+    public SameDoubleInstance(final Double i) {
       this.i = checkNotNull(i);
     }
 
@@ -856,7 +856,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameDoubleInstance) {
         SameDoubleInstance that = (SameDoubleInstance) obj;
         return i == that.i;
@@ -868,7 +868,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameShortInstance {
     private final Short i;
 
-    public SameShortInstance(Short i) {
+    public SameShortInstance(final Short i) {
       this.i = checkNotNull(i);
     }
 
@@ -878,7 +878,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameShortInstance) {
         SameShortInstance that = (SameShortInstance) obj;
         return i == that.i;
@@ -890,7 +890,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameByteInstance {
     private final Byte i;
 
-    public SameByteInstance(Byte i) {
+    public SameByteInstance(final Byte i) {
       this.i = checkNotNull(i);
     }
 
@@ -900,7 +900,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     @Override
     @SuppressWarnings("NumericEquality")
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       if (obj instanceof SameByteInstance) {
         SameByteInstance that = (SameByteInstance) obj;
         return i == that.i;
@@ -912,7 +912,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameCharacterInstance {
     private final Character i;
 
-    public SameCharacterInstance(Character i) {
+    public SameCharacterInstance(final Character i) {
       this.i = checkNotNull(i);
     }
 
@@ -920,7 +920,7 @@ public class ClassSanityTesterTest extends TestCase {
       return i.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameCharacterInstance) {
         SameCharacterInstance that = (SameCharacterInstance) obj;
         return i == that.i;
@@ -932,7 +932,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameBooleanInstance {
     private final Boolean i;
 
-    public SameBooleanInstance(Boolean i) {
+    public SameBooleanInstance(final Boolean i) {
       this.i = checkNotNull(i);
     }
 
@@ -940,7 +940,7 @@ public class ClassSanityTesterTest extends TestCase {
       return i.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameBooleanInstance) {
         SameBooleanInstance that = (SameBooleanInstance) obj;
         return i == that.i;
@@ -952,7 +952,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameStringInstance {
     private final String s;
 
-    public SameStringInstance(String s) {
+    public SameStringInstance(final String s) {
       this.s = checkNotNull(s);
     }
 
@@ -960,7 +960,7 @@ public class ClassSanityTesterTest extends TestCase {
       return s.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameStringInstance) {
         SameStringInstance that = (SameStringInstance) obj;
         return s == that.s;
@@ -972,7 +972,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameObjectInstance {
     private final Object s;
 
-    public SameObjectInstance(Object s) {
+    public SameObjectInstance(final Object s) {
       this.s = checkNotNull(s);
     }
 
@@ -980,7 +980,7 @@ public class ClassSanityTesterTest extends TestCase {
       return s.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameObjectInstance) {
         SameObjectInstance that = (SameObjectInstance) obj;
         return s == that.s;
@@ -992,7 +992,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameInterfaceInstance {
     private final Runnable s;
 
-    public SameInterfaceInstance(Runnable s) {
+    public SameInterfaceInstance(final Runnable s) {
       this.s = checkNotNull(s);
     }
 
@@ -1000,7 +1000,7 @@ public class ClassSanityTesterTest extends TestCase {
       return s.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameInterfaceInstance) {
         SameInterfaceInstance that = (SameInterfaceInstance) obj;
         return s == that.s;
@@ -1012,7 +1012,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class SameListInstance {
     private final List<?> s;
 
-    public SameListInstance(List<?> s) {
+    public SameListInstance(final List<?> s) {
       this.s = checkNotNull(s);
     }
 
@@ -1020,7 +1020,7 @@ public class ClassSanityTesterTest extends TestCase {
       return System.identityHashCode(s);
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof SameListInstance) {
         SameListInstance that = (SameListInstance) obj;
         return s == that.s;
@@ -1033,7 +1033,7 @@ public class ClassSanityTesterTest extends TestCase {
     private final List<?> list;
 
     // This should be ignored.
-    public WithStreamParameter(Stream<?> s, String str) {
+    public WithStreamParameter(final Stream<?> s, final String str) {
       this.list = s.collect(Collectors.toList());
       checkNotNull(str);
     }
@@ -1042,7 +1042,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class UsesReferentialEquality {
     private final ReferentialEquality s;
 
-    public UsesReferentialEquality(ReferentialEquality s) {
+    public UsesReferentialEquality(final ReferentialEquality s) {
       this.s = checkNotNull(s);
     }
 
@@ -1050,7 +1050,7 @@ public class ClassSanityTesterTest extends TestCase {
       return s.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof UsesReferentialEquality) {
         UsesReferentialEquality that = (UsesReferentialEquality) obj;
         return s == that.s;
@@ -1062,7 +1062,7 @@ public class ClassSanityTesterTest extends TestCase {
   static class UsesEnum {
     private final TimeUnit s;
 
-    public UsesEnum(TimeUnit s) {
+    public UsesEnum(final TimeUnit s) {
       this.s = checkNotNull(s);
     }
 
@@ -1070,7 +1070,7 @@ public class ClassSanityTesterTest extends TestCase {
       return s.hashCode();
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override public boolean equals(final Object obj) {
       if (obj instanceof UsesEnum) {
         UsesEnum that = (UsesEnum) obj;
         return s == that.s;
@@ -1080,20 +1080,20 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   public static class ReferentialEquality {
-    public ReferentialEquality() {}
+    public ReferentialEquality() { }
   }
 
   static class BadEqualsWithParameterizedType {
 
     // ignored by testEquals() since it has less parameters.
-    public BadEqualsWithParameterizedType() {}
+    public BadEqualsWithParameterizedType() { }
 
     public static BadEqualsWithParameterizedType create(
-        @SuppressWarnings("unused") ImmutableList<Iterable<? extends String>> s) {
+        final @SuppressWarnings("unused") ImmutableList<Iterable<? extends String>> s) {
       return new BadEqualsWithParameterizedType();
     }
 
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       return obj instanceof BadEqualsWithParameterizedType;
     }
 
@@ -1103,38 +1103,38 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   static class GoodNulls {
-    public GoodNulls(String s) {
+    public GoodNulls(final String s) {
       checkNotNull(s);
     }
 
-    public void rejectNull(String s) {
+    public void rejectNull(final String s) {
       checkNotNull(s);
     }
   }
 
   public static class BadNulls {
-    public void failsToRejectNull(@SuppressWarnings("unused") String s) {}
+    public void failsToRejectNull(final @SuppressWarnings("unused") String s) { }
   }
 
   public static class NoNullCheckNeededDespitNotInstantiable {
 
-    public NoNullCheckNeededDespitNotInstantiable(NotInstantiable x) {
+    public NoNullCheckNeededDespitNotInstantiable(final NotInstantiable x) {
       checkNotNull(x);
     }
 
     @SuppressWarnings("unused") // reflected
-    void primitiveOnly(int i) {}
+    void primitiveOnly(final int i) { }
 
     @SuppressWarnings("unused") //reflected
-    void nullableOnly(@Nullable String s) {}
-    public void noParameter() {}
+    void nullableOnly(final @Nullable String s) { }
+    public void noParameter() { }
 
     @SuppressWarnings("unused") //reflected
-    void primitiveAndNullable(@Nullable String s, int i) {}
+    void primitiveAndNullable(final @Nullable String s, final int i) { }
   }
 
   static class FactoryMethodReturnsNullButNotAnnotated {
-    private FactoryMethodReturnsNullButNotAnnotated() {}
+    private FactoryMethodReturnsNullButNotAnnotated() { }
 
     static FactoryMethodReturnsNullButNotAnnotated returnsNull() {
       return null;
@@ -1142,7 +1142,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   static class FactoryMethodReturnsNullAndAnnotated {
-    private FactoryMethodReturnsNullAndAnnotated() {}
+    private FactoryMethodReturnsNullAndAnnotated() { }
 
     @Nullable public static FactoryMethodReturnsNullAndAnnotated returnsNull() {
       return null;
@@ -1153,11 +1153,11 @@ public class ClassSanityTesterTest extends TestCase {
 
     final String name;
 
-    private FactoryMethodAcceptsNull(String name) {
+    private FactoryMethodAcceptsNull(final String name) {
       this.name = name;
     }
 
-    static FactoryMethodAcceptsNull create(@Nullable String name) {
+    static FactoryMethodAcceptsNull create(final @Nullable String name) {
       return new FactoryMethodAcceptsNull(name);
     }
   }
@@ -1166,11 +1166,11 @@ public class ClassSanityTesterTest extends TestCase {
 
     final String name;
 
-    private FactoryMethodDoesNotAcceptNull(String name) {
+    private FactoryMethodDoesNotAcceptNull(final String name) {
       this.name = checkNotNull(name);
     }
 
-    public static FactoryMethodDoesNotAcceptNull create(String name) {
+    public static FactoryMethodDoesNotAcceptNull create(final String name) {
       return new FactoryMethodDoesNotAcceptNull(name);
     }
   }
@@ -1179,7 +1179,7 @@ public class ClassSanityTesterTest extends TestCase {
 
     final String name;
 
-    public ConstructorAcceptsNull(@Nullable String name) {
+    public ConstructorAcceptsNull(final @Nullable String name) {
       this.name = name;
     }
   }
@@ -1188,23 +1188,23 @@ public class ClassSanityTesterTest extends TestCase {
 
     final String name;
 
-    ConstructorDoesNotAcceptNull(String name) {
+    ConstructorDoesNotAcceptNull(final String name) {
       this.name = checkNotNull(name);
     }
   }
 
   static class ConstructorParameterNotInstantiable {
-    public ConstructorParameterNotInstantiable(@SuppressWarnings("unused") NotInstantiable x) {}
+    public ConstructorParameterNotInstantiable(final @SuppressWarnings("unused") NotInstantiable x) { }
   }
 
   static class ConstructorParameterMapOfNotInstantiable {
     private final Map<NotInstantiable, NotInstantiable> m;
 
     public ConstructorParameterMapOfNotInstantiable(
-        Map<NotInstantiable, NotInstantiable> m) {
+        final Map<NotInstantiable, NotInstantiable> m) {
       this.m = checkNotNull(m);
     }
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       if (obj instanceof ConstructorParameterMapOfNotInstantiable) {
         return m.equals(((ConstructorParameterMapOfNotInstantiable) obj).m);
       } else {
@@ -1218,10 +1218,10 @@ public class ClassSanityTesterTest extends TestCase {
 
   // Test that we should get a distinct parameter error when doing equals test.
   static class ConstructorParameterWithOptionalNotInstantiable {
-    public ConstructorParameterWithOptionalNotInstantiable(Optional<NotInstantiable> x) {
+    public ConstructorParameterWithOptionalNotInstantiable(final Optional<NotInstantiable> x) {
       checkNotNull(x);
     }
-    @Override public boolean equals(@Nullable Object obj) {
+    @Override public boolean equals(final @Nullable Object obj) {
       throw new UnsupportedOperationException();
     }
     @Override public int hashCode() {
@@ -1230,8 +1230,8 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   static class ConstructorParameterSingleValue {
-    public ConstructorParameterSingleValue(@SuppressWarnings("unused") Singleton s) {}
-    @Override public boolean equals(Object obj) {
+    public ConstructorParameterSingleValue(final @SuppressWarnings("unused") Singleton s) { }
+    @Override public boolean equals(final Object obj) {
       return obj instanceof ConstructorParameterSingleValue;
     }
     @Override public int hashCode() {
@@ -1240,16 +1240,16 @@ public class ClassSanityTesterTest extends TestCase {
 
     public static class Singleton {
       public static final Singleton INSTANCE = new Singleton();
-      private Singleton() {}
+      private Singleton() { }
     }
   }
 
   static class FactoryMethodParameterNotInstantiable {
 
-    private FactoryMethodParameterNotInstantiable() {}
+    private FactoryMethodParameterNotInstantiable() { }
 
     static FactoryMethodParameterNotInstantiable create(
-        @SuppressWarnings("unused") NotInstantiable x) {
+        final @SuppressWarnings("unused") NotInstantiable x) {
       return new FactoryMethodParameterNotInstantiable();
     }
   }
@@ -1261,7 +1261,7 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   static class FactoryMethodThrows {
-    private FactoryMethodThrows() {}
+    private FactoryMethodThrows() { }
 
     public static FactoryMethodThrows create() {
       throw new RuntimeException();
@@ -1269,10 +1269,10 @@ public class ClassSanityTesterTest extends TestCase {
   }
 
   static class NotInstantiable {
-    private NotInstantiable() {}
+    private NotInstantiable() { }
   }
 
-  private enum NoConstantEnum {}
+  private enum NoConstantEnum { }
 
   private enum OneConstantEnum {
     A
@@ -1282,17 +1282,17 @@ public class ClassSanityTesterTest extends TestCase {
     A;
 
     @SuppressWarnings("unused")
-    public void failToCheckNull(String s) {}
+    public void failToCheckNull(final String s) { }
   }
 
-  private interface AnInterface {}
+  private interface AnInterface { }
 
   private static abstract class AnAbstractClass {
     @SuppressWarnings("unused")
-    public AnAbstractClass(String s) {}
+    public AnAbstractClass(final String s) { }
 
     @SuppressWarnings("unused")
-    public void failsToCheckNull(String s) {}
+    public void failsToCheckNull(final String s) { }
   }
 
   private static class NoPublicStaticMethods {

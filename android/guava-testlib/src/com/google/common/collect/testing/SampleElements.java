@@ -36,7 +36,7 @@ public class SampleElements<E> implements Iterable<E> {
   private final E e3;
   private final E e4;
 
-  public SampleElements(E e0, E e1, E e2, E e3, E e4) {
+  public SampleElements(final E e0, final E e1, final E e2, final E e3, final E e4) {
     this.e0 = e0;
     this.e1 = e1;
     this.e2 = e2;
@@ -89,7 +89,7 @@ public class SampleElements<E> implements Iterable<E> {
   }
 
   public static <K, V> SampleElements<Map.Entry<K, V>> mapEntries(
-      SampleElements<K> keys, SampleElements<V> values) {
+      final SampleElements<K> keys, final SampleElements<V> values) {
     return new SampleElements<>(
         Helpers.mapEntry(keys.e0(), values.e0()),
         Helpers.mapEntry(keys.e1(), values.e1()),
@@ -138,12 +138,12 @@ public class SampleElements<E> implements Iterable<E> {
   private static class Collider {
     final int value;
 
-    Collider(int value) {
+    Collider(final int value) {
       this.value = value;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
       return obj instanceof Collider && ((Collider) obj).value == value;
     }
 

@@ -55,12 +55,12 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
   transient AbstractBiMap<V, K> inverse;
 
   /** Package-private constructor for creating a map-backed bimap. */
-  AbstractBiMap(Map<K, V> forward, Map<V, K> backward) {
+  AbstractBiMap(final Map<K, V> forward, final Map<V, K> backward) {
     setDelegates(forward, backward);
   }
 
   /** Private constructor for inverse bimap. */
-  private AbstractBiMap(Map<K, V> backward, AbstractBiMap<V, K> forward) {
+  private AbstractBiMap(final Map<K, V> backward, final AbstractBiMap<V, K> forward) {
     delegate = backward;
     inverse = forward;
   }
@@ -74,7 +74,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
    * Returns its input, or throws an exception if this is not a valid key.
    */
   @CanIgnoreReturnValue
-  K checkKey(@Nullable K key) {
+  K checkKey(final @Nullable K key) {
     return key;
   }
 
@@ -82,7 +82,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
    * Returns its input, or throws an exception if this is not a valid value.
    */
   @CanIgnoreReturnValue
-  V checkValue(@Nullable V value) {
+  V checkValue(final @Nullable V value) {
     return value;
   }
 
@@ -90,7 +90,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
    * Specifies the delegate maps going in each direction. Called by the
    * constructor and by subclasses during deserialization.
    */
-  void setDelegates(Map<K, V> forward, Map<V, K> backward) {
+  void setDelegates(final Map<K, V> forward, final Map<V, K> backward) {
     checkState(delegate == null);
     checkState(inverse == null);
     checkArgument(forward.isEmpty());
@@ -100,18 +100,18 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     inverse = makeInverse(backward);
   }
 
-  AbstractBiMap<V, K> makeInverse(Map<V, K> backward) {
+  AbstractBiMap<V, K> makeInverse(final Map<V, K> backward) {
     return new Inverse<>(backward, this);
   }
 
-  void setInverse(AbstractBiMap<V, K> inverse) {
+  void setInverse(final AbstractBiMap<V, K> inverse) {
     this.inverse = inverse;
   }
 
   // Query Operations (optimizations)
 
   @Override
-  public boolean containsValue(@Nullable Object value) {
+  public boolean containsValue(final @Nullable Object value) {
     return inverse.containsKey(value);
   }
 
@@ -119,17 +119,17 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
 
   @CanIgnoreReturnValue
   @Override
-  public V put(@Nullable K key, @Nullable V value) {
+  public V put(final @Nullable K key, final @Nullable V value) {
     return putInBothMaps(key, value, false);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public V forcePut(@Nullable K key, @Nullable V value) {
+  public V forcePut(final @Nullable K key, final @Nullable V value) {
     return putInBothMaps(key, value, true);
   }
 
-  private V putInBothMaps(@Nullable K key, @Nullable V value, boolean force) {
+  private V putInBothMaps(final @Nullable K key, final @Nullable V value, final boolean force) {
     checkKey(key);
     checkValue(value);
     boolean containedKey = containsKey(key);
@@ -146,7 +146,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     return oldValue;
   }
 
-  private void updateInverseMap(K key, boolean containedKey, V oldValue, V newValue) {
+  private void updateInverseMap(final K key, final boolean containedKey, final V oldValue, final V newValue) {
     if (containedKey) {
       removeFromInverseMap(oldValue);
     }
@@ -155,25 +155,25 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
 
   @CanIgnoreReturnValue
   @Override
-  public V remove(@Nullable Object key) {
+  public V remove(final @Nullable Object key) {
     return containsKey(key) ? removeFromBothMaps(key) : null;
   }
 
   @CanIgnoreReturnValue
-  private V removeFromBothMaps(Object key) {
+  private V removeFromBothMaps(final Object key) {
     V oldValue = delegate.remove(key);
     removeFromInverseMap(oldValue);
     return oldValue;
   }
 
-  private void removeFromInverseMap(V oldValue) {
+  private void removeFromInverseMap(final V oldValue) {
     inverse.delegate.remove(oldValue);
   }
 
   // Bulk Operations
 
   @Override
-  public void putAll(Map<? extends K, ? extends V> map) {
+  public void putAll(final Map<? extends K, ? extends V> map) {
     for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
       put(entry.getKey(), entry.getValue());
     }
@@ -213,7 +213,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public boolean remove(Object key) {
+    public boolean remove(final Object key) {
       if (!contains(key)) {
         return false;
       }
@@ -222,12 +222,12 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public boolean removeAll(Collection<?> keysToRemove) {
+    public boolean removeAll(final Collection<?> keysToRemove) {
       return standardRemoveAll(keysToRemove);
     }
 
     @Override
-    public boolean retainAll(Collection<?> keysToRetain) {
+    public boolean retainAll(final Collection<?> keysToRetain) {
       return standardRetainAll(keysToRetain);
     }
 
@@ -269,7 +269,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
@@ -290,7 +290,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
   class BiMapEntry extends ForwardingMapEntry<K, V> {
     private final Entry<K, V> delegate;
 
-    BiMapEntry(Entry<K, V> delegate) {
+    BiMapEntry(final Entry<K, V> delegate) {
       this.delegate = delegate;
     }
 
@@ -300,7 +300,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public V setValue(V value) {
+    public V setValue(final V value) {
       checkValue(value);
       // Preconditions keep the map and inverse consistent.
       checkState(entrySet().contains(this), "entry no longer in map");
@@ -357,7 +357,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public boolean remove(Object object) {
+    public boolean remove(final Object object) {
       if (!esDelegate.contains(object)) {
         return false;
       }
@@ -387,34 +387,34 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     }
 
     @Override
-    public <T> T[] toArray(T[] array) {
+    public <T> T[] toArray(final T[] array) {
       return standardToArray(array);
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(final Object o) {
       return Maps.containsEntryImpl(delegate(), o);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(final Collection<?> c) {
       return standardContainsAll(c);
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(final Collection<?> c) {
       return standardRemoveAll(c);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(final Collection<?> c) {
       return standardRetainAll(c);
     }
   }
 
   /** The inverse of any other {@code AbstractBiMap} subclass. */
   static class Inverse<K, V> extends AbstractBiMap<K, V> {
-    Inverse(Map<K, V> backward, AbstractBiMap<V, K> forward) {
+    Inverse(final Map<K, V> backward, final AbstractBiMap<V, K> forward) {
       super(backward, forward);
     }
 
@@ -428,12 +428,12 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
      */
 
     @Override
-    K checkKey(K key) {
+    K checkKey(final K key) {
       return inverse.checkValue(key);
     }
 
     @Override
-    V checkValue(V value) {
+    V checkValue(final V value) {
       return inverse.checkKey(value);
     }
 
@@ -441,14 +441,14 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
      * @serialData the forward bimap
      */
     @GwtIncompatible // java.io.ObjectOutputStream
-    private void writeObject(ObjectOutputStream stream) throws IOException {
+    private void writeObject(final ObjectOutputStream stream) throws IOException {
       stream.defaultWriteObject();
       stream.writeObject(inverse());
     }
 
     @GwtIncompatible // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
       setInverse((AbstractBiMap<V, K>) stream.readObject());
     }

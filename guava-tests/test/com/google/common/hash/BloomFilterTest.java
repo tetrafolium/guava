@@ -47,7 +47,7 @@ import junit.framework.TestCase;
  */
 public class BloomFilterTest extends TestCase {
   private static final int NUM_PUTS = 100_000;
-  private static final ThreadLocal<Random> random = new ThreadLocal<Random>(){
+  private static final ThreadLocal<Random> random = new ThreadLocal<Random>() {
     @Override
     protected Random initialValue() {
       return new Random();
@@ -74,7 +74,7 @@ public class BloomFilterTest extends TestCase {
    * Asserts that {@link BloomFilter#approximateElementCount} is within 1 percent of the expected
    * value.
    */
-  private static void assertApproximateElementCountGuess(BloomFilter<?> bf, int sizeGuess) {
+  private static void assertApproximateElementCountGuess(final BloomFilter<?> bf, final int sizeGuess) {
     assertThat(bf.approximateElementCount()).isAtLeast((long) (sizeGuess * 0.99));
     assertThat(bf.approximateElementCount()).isAtMost((long) (sizeGuess * 1.01));
   }
@@ -217,19 +217,19 @@ public class BloomFilterTest extends TestCase {
     try {
       BloomFilter.create(Funnels.unencodedCharsFunnel(), -1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       BloomFilter.create(Funnels.unencodedCharsFunnel(), -1, 0.03);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       BloomFilter.create(Funnels.unencodedCharsFunnel(), 1, 0.0);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       BloomFilter.create(Funnels.unencodedCharsFunnel(), 1, 1.0);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testFailureWhenMoreThan255HashFunctionsAreNeeded() {
@@ -238,7 +238,7 @@ public class BloomFilterTest extends TestCase {
       double p = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000001;
       BloomFilter.create(Funnels.unencodedCharsFunnel(), n, p);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testNullPointers() {
@@ -299,7 +299,7 @@ public class BloomFilterTest extends TestCase {
     unused = BloomFilter.create(Funnels.unencodedCharsFunnel(), 45L * Integer.MAX_VALUE, 0.99);
   }
 
-  private static void checkSanity(BloomFilter<Object> bf) {
+  private static void checkSanity(final BloomFilter<Object> bf) {
     assertFalse(bf.mightContain(new Object()));
     assertFalse(bf.apply(new Object()));
     for (int i = 0; i < 100; i++) {
@@ -414,11 +414,11 @@ public class BloomFilterTest extends TestCase {
 
   private static final class CustomFunnel implements Funnel<Long> {
     @Override
-    public void funnel(Long value, PrimitiveSink into) {
+    public void funnel(final Long value, final PrimitiveSink into) {
       into.putLong(value);
     }
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       return (object instanceof CustomFunnel);
     }
     @Override
@@ -577,7 +577,7 @@ public class BloomFilterTest extends TestCase {
     assertThat(exceptions).isEmpty();
   }
 
-  private static List<Throwable> runThreadsAndReturnExceptions(int numThreads, Runnable task) {
+  private static List<Throwable> runThreadsAndReturnExceptions(final int numThreads, final Runnable task) {
     List<Thread> threads = new ArrayList<>(numThreads);
     final List<Throwable> exceptions = new ArrayList<>(numThreads);
     for (int i = 0; i < numThreads; i++) {
@@ -585,7 +585,7 @@ public class BloomFilterTest extends TestCase {
       thread.setUncaughtExceptionHandler(
           new UncaughtExceptionHandler() {
             @Override
-            public void uncaughtException(Thread t, Throwable e) {
+            public void uncaughtException(final Thread t, final Throwable e) {
               exceptions.add(e);
             }
           });

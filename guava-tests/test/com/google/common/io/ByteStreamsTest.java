@@ -151,7 +151,7 @@ public class ByteStreamsTest extends IoTestCase {
     }
   }
 
-  private static void skipHelper(long n, int expect, InputStream in)
+  private static void skipHelper(final long n, final int expect, final InputStream in)
       throws IOException {
     ByteStreams.skipFully(in, n);
     assertEquals(expect, in.read());
@@ -159,7 +159,7 @@ public class ByteStreamsTest extends IoTestCase {
   }
 
   private static final byte[] bytes =
-      new byte[] { 0x12, 0x34, 0x56, 0x78, 0x76, 0x54, 0x32, 0x10 };
+      new byte[] {0x12, 0x34, 0x56, 0x78, 0x76, 0x54, 0x32, 0x10 };
 
   public void testNewDataInput_empty() {
     byte[] b = new byte[0];
@@ -397,7 +397,7 @@ public class ByteStreamsTest extends IoTestCase {
   public void testNewDataOutput_writeUTF() {
     ByteArrayDataOutput out = ByteStreams.newDataOutput();
     out.writeUTF("r\u00C9sum\u00C9");
-    byte[] expected ="r\u00C9sum\u00C9".getBytes(Charsets.UTF_8);
+    byte[] expected = "r\u00C9sum\u00C9".getBytes(Charsets.UTF_8);
     byte[] actual = out.toByteArray();
     // writeUTF writes the length of the string in 2 bytes
     assertEquals(0, actual[0]);
@@ -467,7 +467,7 @@ public class ByteStreamsTest extends IoTestCase {
     assertEquals(-1, empty.read());
   }
 
-  private static InputStream newTestStream(int n) {
+  private static InputStream newTestStream(final int n) {
     return new ByteArrayInputStream(newPreFilledByteArray(n));
   }
 
@@ -475,12 +475,12 @@ public class ByteStreamsTest extends IoTestCase {
   private static class SlowSkipper extends FilterInputStream {
     private final long max;
 
-    public SlowSkipper(InputStream in, long max) {
+    public SlowSkipper(final InputStream in, final long max) {
       super(in);
       this.max = max;
     }
 
-    @Override public long skip(long n) throws IOException {
+    @Override public long skip(final long n) throws IOException {
       return super.skip(Math.min(max, n));
     }
   }
@@ -495,7 +495,7 @@ public class ByteStreamsTest extends IoTestCase {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Override
-    public boolean processBytes(byte[] buf, int off, int len)
+    public boolean processBytes(final byte[] buf, final int off, final int len)
         throws IOException {
       out.write(buf, off, len);
       return true;
@@ -513,7 +513,7 @@ public class ByteStreamsTest extends IoTestCase {
         ByteStreams.readBytes(new ByteArrayInputStream(array),
             new ByteProcessor<Integer>() {
               @Override
-              public boolean processBytes(byte[] buf, int off, int len) {
+              public boolean processBytes(final byte[] buf, final int off, final int len) {
                 assertEquals(
                     copyOfRange(buf, off, off + len),
                     newPreFilledByteArray(8192));
@@ -644,7 +644,7 @@ public class ByteStreamsTest extends IoTestCase {
     }
   }
 
-  private static byte[] copyOfRange(byte[] in, int from, int to) {
+  private static byte[] copyOfRange(final byte[] in, final int from, final int to) {
     byte[] out = new byte[to - from];
     for (int i = 0; i < to - from; i++) {
       out[i] = in[from + i];
@@ -653,7 +653,7 @@ public class ByteStreamsTest extends IoTestCase {
   }
 
   // TODO(cpovirk): Inline this.
-  private static void assertEquals(byte[] expected, byte[] actual) {
+  private static void assertEquals(final byte[] expected, final byte[] actual) {
     assertThat(actual).isEqualTo(expected);
   }
 }

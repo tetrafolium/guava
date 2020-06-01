@@ -44,7 +44,7 @@ final class InterruptionUtil {
     private final Thread interruptee;
     private volatile boolean shouldStop = false;
 
-    Interruptenator(Thread interruptee, long everyMillis) {
+    Interruptenator(final Thread interruptee, final long everyMillis) {
       this.everyMillis = everyMillis;
       this.interruptee = interruptee;
     }
@@ -89,7 +89,7 @@ final class InterruptionUtil {
   }
 
   static void repeatedlyInterruptTestThread(
-      long interruptPeriodMillis, TearDownAccepter tearDownAccepter) {
+      final long interruptPeriodMillis, final TearDownAccepter tearDownAccepter) {
     final Interruptenator interruptingTask =
         new Interruptenator(Thread.currentThread(), interruptPeriodMillis);
     final Thread interruptingThread = new Thread(interruptingTask);
@@ -116,7 +116,7 @@ final class InterruptionUtil {
 
   // TODO(cpovirk): promote to Uninterruptibles, and add untimed version
   private static void joinUninterruptibly(
-      Thread thread, long timeout, TimeUnit unit) {
+      final Thread thread, final long timeout, final TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);

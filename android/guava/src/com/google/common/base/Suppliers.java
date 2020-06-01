@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public final class Suppliers {
-  private Suppliers() {}
+  private Suppliers() { }
 
   /**
    * Returns a new supplier which is the composition of the provided function and supplier. In other
@@ -39,7 +39,7 @@ public final class Suppliers {
    * and then applying {@code function} to that value. Note that the resulting supplier will not
    * call {@code supplier} or invoke {@code function} until it is called.
    */
-  public static <F, T> Supplier<T> compose(Function<? super F, T> function, Supplier<F> supplier) {
+  public static <F, T> Supplier<T> compose(final Function<? super F, T> function, final Supplier<F> supplier) {
     Preconditions.checkNotNull(function);
     Preconditions.checkNotNull(supplier);
     return new SupplierComposition<>(function, supplier);
@@ -49,7 +49,7 @@ public final class Suppliers {
     final Function<? super F, T> function;
     final Supplier<F> supplier;
 
-    SupplierComposition(Function<? super F, T> function, Supplier<F> supplier) {
+    SupplierComposition(final Function<? super F, T> function, final Supplier<F> supplier) {
       this.function = function;
       this.supplier = supplier;
     }
@@ -60,7 +60,7 @@ public final class Suppliers {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj instanceof SupplierComposition) {
         SupplierComposition<?, ?> that = (SupplierComposition<?, ?>) obj;
         return function.equals(that.function) && supplier.equals(that.supplier);
@@ -97,7 +97,7 @@ public final class Suppliers {
    * <p>If {@code delegate} is an instance created by an earlier call to {@code memoize}, it is
    * returned directly.
    */
-  public static <T> Supplier<T> memoize(Supplier<T> delegate) {
+  public static <T> Supplier<T> memoize(final Supplier<T> delegate) {
     if (delegate instanceof NonSerializableMemoizingSupplier
         || delegate instanceof MemoizingSupplier) {
       return delegate;
@@ -115,7 +115,7 @@ public final class Suppliers {
     // on volatile read of "initialized".
     transient T value;
 
-    MemoizingSupplier(Supplier<T> delegate) {
+    MemoizingSupplier(final Supplier<T> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 
@@ -151,7 +151,7 @@ public final class Suppliers {
     // on volatile read of "initialized".
     T value;
 
-    NonSerializableMemoizingSupplier(Supplier<T> delegate) {
+    NonSerializableMemoizingSupplier(final Supplier<T> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 
@@ -201,7 +201,7 @@ public final class Suppliers {
    * @since 2.0
    */
   public static <T> Supplier<T> memoizeWithExpiration(
-      Supplier<T> delegate, long duration, TimeUnit unit) {
+      final Supplier<T> delegate, final long duration, final TimeUnit unit) {
     return new ExpiringMemoizingSupplier<T>(delegate, duration, unit);
   }
 
@@ -213,7 +213,7 @@ public final class Suppliers {
     // The special value 0 means "not yet initialized".
     transient volatile long expirationNanos;
 
-    ExpiringMemoizingSupplier(Supplier<T> delegate, long duration, TimeUnit unit) {
+    ExpiringMemoizingSupplier(final Supplier<T> delegate, final long duration, final TimeUnit unit) {
       this.delegate = Preconditions.checkNotNull(delegate);
       this.durationNanos = unit.toNanos(duration);
       Preconditions.checkArgument(duration > 0);
@@ -258,14 +258,14 @@ public final class Suppliers {
   /**
    * Returns a supplier that always supplies {@code instance}.
    */
-  public static <T> Supplier<T> ofInstance(@Nullable T instance) {
+  public static <T> Supplier<T> ofInstance(final @Nullable T instance) {
     return new SupplierOfInstance<T>(instance);
   }
 
   private static class SupplierOfInstance<T> implements Supplier<T>, Serializable {
     final T instance;
 
-    SupplierOfInstance(@Nullable T instance) {
+    SupplierOfInstance(final @Nullable T instance) {
       this.instance = instance;
     }
 
@@ -275,7 +275,7 @@ public final class Suppliers {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(final @Nullable Object obj) {
       if (obj instanceof SupplierOfInstance) {
         SupplierOfInstance<?> that = (SupplierOfInstance<?>) obj;
         return Objects.equal(instance, that.instance);
@@ -300,14 +300,14 @@ public final class Suppliers {
    * Returns a supplier whose {@code get()} method synchronizes on {@code delegate} before calling
    * it, making it thread-safe.
    */
-  public static <T> Supplier<T> synchronizedSupplier(Supplier<T> delegate) {
+  public static <T> Supplier<T> synchronizedSupplier(final Supplier<T> delegate) {
     return new ThreadSafeSupplier<T>(Preconditions.checkNotNull(delegate));
   }
 
   private static class ThreadSafeSupplier<T> implements Supplier<T>, Serializable {
     final Supplier<T> delegate;
 
-    ThreadSafeSupplier(Supplier<T> delegate) {
+    ThreadSafeSupplier(final Supplier<T> delegate) {
       this.delegate = delegate;
     }
 
@@ -340,14 +340,14 @@ public final class Suppliers {
     return sf;
   }
 
-  private interface SupplierFunction<T> extends Function<Supplier<T>, T> {}
+  private interface SupplierFunction<T> extends Function<Supplier<T>, T> { }
 
   private enum SupplierFunctionImpl implements SupplierFunction<Object> {
     INSTANCE;
 
     // Note: This makes T a "pass-through type"
     @Override
-    public Object apply(Supplier<Object> input) {
+    public Object apply(final Supplier<Object> input) {
       return input.get();
     }
 

@@ -62,7 +62,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
   private final int seed;
 
-  Murmur3_32HashFunction(int seed) {
+  Murmur3_32HashFunction(final int seed) {
     this.seed = seed;
   }
 
@@ -82,7 +82,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Murmur3_32HashFunction) {
       Murmur3_32HashFunction other = (Murmur3_32HashFunction) object;
       return seed == other.seed;
@@ -96,7 +96,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   @Override
-  public HashCode hashInt(int input) {
+  public HashCode hashInt(final int input) {
     int k1 = mixK1(input);
     int h1 = mixH1(seed, k1);
 
@@ -104,7 +104,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   @Override
-  public HashCode hashLong(long input) {
+  public HashCode hashLong(final long input) {
     int low = (int) input;
     int high = (int) (input >>> 32);
 
@@ -118,7 +118,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   @Override
-  public HashCode hashUnencodedChars(CharSequence input) {
+  public HashCode hashUnencodedChars(final CharSequence input) {
     int h1 = seed;
 
     // step through the CharSequence 2 chars at a time
@@ -140,7 +140,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
   @SuppressWarnings("deprecation") // need to use Charsets for Android tests to pass
   @Override
-  public HashCode hashString(CharSequence input, Charset charset) {
+  public HashCode hashString(final CharSequence input, final Charset charset) {
     if (Charsets.UTF_8.equals(charset)) {
       int utf16Length = input.length();
       int h1 = seed;
@@ -208,7 +208,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
   
   @Override
-  public HashCode hashBytes(byte[] input, int off, int len) {
+  public HashCode hashBytes(final byte[] input, final int off, final int len) {
     checkPositionIndexes(off, off + len, input.length);
     int h1 = seed;
     int i;
@@ -225,18 +225,18 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     return fmix(h1, len);
   }
 
-  private static int getIntLittleEndian(byte[] input, int offset) {
+  private static int getIntLittleEndian(final byte[] input, final int offset) {
     return Ints.fromBytes(input[offset + 3], input[offset + 2], input[offset + 1], input[offset]);
   }
 
-  private static int mixK1(int k1) {
+  private static int mixK1(final int k1) {
     k1 *= C1;
     k1 = Integer.rotateLeft(k1, 15);
     k1 *= C2;
     return k1;
   }
 
-  private static int mixH1(int h1, int k1) {
+  private static int mixH1(final int h1, final int k1) {
     h1 ^= k1;
     h1 = Integer.rotateLeft(h1, 13);
     h1 = h1 * 5 + 0xe6546b64;
@@ -244,7 +244,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   // Finalization mix - force all bits of a hash block to avalanche
-  private static HashCode fmix(int h1, int length) {
+  private static HashCode fmix(final int h1, final int length) {
     h1 ^= length;
     h1 ^= h1 >>> 16;
     h1 *= 0x85ebca6b;
@@ -262,13 +262,13 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     private int length;
     private boolean isDone;
 
-    Murmur3_32Hasher(int seed) {
+    Murmur3_32Hasher(final int seed) {
       this.h1 = seed;
       this.length = 0;
       isDone = false;
     }
 
-    private void update(int nBytes, long update) {
+    private void update(final int nBytes, final long update) {
       // 1 <= nBytes <= 4
       buffer |= (update & 0xFFFFFFFFL) << shift;
       shift += nBytes * 8;
@@ -282,13 +282,13 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     }
 
     @Override
-    public Hasher putByte(byte b) {
+    public Hasher putByte(final byte b) {
       update(1, b & 0xFF);
       return this;
     }
 
     @Override
-    public Hasher putBytes(byte[] bytes, int off, int len) {
+    public Hasher putBytes(final byte[] bytes, final int off, final int len) {
       checkPositionIndexes(off, off + len, bytes.length);
       int i;
       for (i = 0; i + 4 <= len; i += 4) {
@@ -301,7 +301,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     }
 
     @Override
-    public Hasher putBytes(ByteBuffer buffer) {
+    public Hasher putBytes(final ByteBuffer buffer) {
       ByteOrder bo = buffer.order();
       buffer.order(ByteOrder.LITTLE_ENDIAN);
       while (buffer.remaining() >= 4) {
@@ -315,27 +315,27 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     }
 
     @Override
-    public Hasher putInt(int i) {
+    public Hasher putInt(final int i) {
       update(4, i);
       return this;
     }
 
     @Override
-    public Hasher putLong(long l) {
+    public Hasher putLong(final long l) {
       update(4, (int) l);
       update(4, l >>> 32);
       return this;
     }
 
     @Override
-    public Hasher putChar(char c) {
+    public Hasher putChar(final char c) {
       update(2, c);
       return this;
     }
 
     @SuppressWarnings("deprecation") // need to use Charsets for Android tests to pass
     @Override
-    public Hasher putString(CharSequence input, Charset charset) {
+    public Hasher putString(final CharSequence input, final Charset charset) {
       if (Charsets.UTF_8.equals(charset)) {
         int utf16Length = input.length();
         int i = 0;
@@ -388,20 +388,20 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     }
   }
 
-  private static long codePointToFourUtf8Bytes(int codePoint) {
+  private static long codePointToFourUtf8Bytes(final int codePoint) {
     return (((0xFL << 4) | (codePoint >>> 18)) & 0xFF)
         | ((0x80L | (0x3F & (codePoint >>> 12))) << 8)
         | ((0x80L | (0x3F & (codePoint >>> 6))) << 16)
         | ((0x80L | (0x3F & codePoint)) << 24);
   }
 
-  private static long charToThreeUtf8Bytes(char c) {
+  private static long charToThreeUtf8Bytes(final char c) {
     return (((0xF << 5) | (c >>> 12)) & 0xFF)
         | ((0x80 | (0x3F & (c >>> 6))) << 8)
         | ((0x80 | (0x3F & c)) << 16);
   }
 
-  private static long charToTwoUtf8Bytes(char c) {
+  private static long charToTwoUtf8Bytes(final char c) {
     return (((0xF << 6) | (c >>> 6)) & 0xFF) | ((0x80 | (0x3F & c)) << 8);
   }
 

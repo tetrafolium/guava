@@ -68,7 +68,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), null);
       fail("Expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     expectUnchanged();
   }
   

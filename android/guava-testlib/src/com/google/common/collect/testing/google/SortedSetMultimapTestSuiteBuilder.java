@@ -43,7 +43,7 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
     extends MultimapTestSuiteBuilder<K, V, SetMultimap<K, V>> {
 
   public static <K, V> SortedSetMultimapTestSuiteBuilder<K, V> using(
-      TestSetMultimapGenerator<K, V> generator) {
+      final TestSetMultimapGenerator<K, V> generator) {
     SortedSetMultimapTestSuiteBuilder<K, V> result = new SortedSetMultimapTestSuiteBuilder<>();
     result.usingGenerator(generator);
     return result;
@@ -64,7 +64,7 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
 
   @Override
   TestSuite computeMultimapGetTestSuite(
-      FeatureSpecificTestSuiteBuilder<
+      final FeatureSpecificTestSuiteBuilder<
               ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
           parentBuilder) {
     return SortedSetTestSuiteBuilder.using(
@@ -78,7 +78,7 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
 
   @Override
   TestSuite computeMultimapAsMapGetTestSuite(
-      FeatureSpecificTestSuiteBuilder<
+      final FeatureSpecificTestSuiteBuilder<
               ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
           parentBuilder) {
     Set<Feature<?>> features = computeMultimapAsMapGetFeatures(parentBuilder.getFeatures());

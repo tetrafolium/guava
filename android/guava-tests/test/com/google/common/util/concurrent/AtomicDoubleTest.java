@@ -40,11 +40,11 @@ public class AtomicDoubleTest extends JSR166TestCase {
   };
 
   /** The notion of equality used by AtomicDouble */
-  static boolean bitEquals(double x, double y) {
+  static boolean bitEquals(final double x, final double y) {
     return Double.doubleToRawLongBits(x) == Double.doubleToRawLongBits(y);
   }
 
-  static void assertBitEquals(double x, double y) {
+  static void assertBitEquals(final double x, final double y) {
     assertEquals(Double.doubleToRawLongBits(x),
                  Double.doubleToRawLongBits(y));
   }

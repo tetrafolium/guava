@@ -64,13 +64,13 @@ public class PackageSanityTests extends AbstractPackageSanityTests {
     }
   }
 
-  private static <N> ImmutableGraph<N> graphWithNode(N node) {
+  private static <N> ImmutableGraph<N> graphWithNode(final N node) {
     MutableGraph<N> graph = GraphBuilder.directed().build();
     graph.addNode(node);
     return ImmutableGraph.copyOf(graph);
   }
 
-  private static <N> ImmutableNetwork<N, N> networkWithNode(N node) {
+  private static <N> ImmutableNetwork<N, N> networkWithNode(final N node) {
     MutableNetwork<N, N> network = NetworkBuilder.directed().build();
     network.addNode(node);
     return ImmutableNetwork.copyOf(network);

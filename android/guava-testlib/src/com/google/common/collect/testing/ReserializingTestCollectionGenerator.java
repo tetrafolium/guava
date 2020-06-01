@@ -36,22 +36,22 @@ import java.util.List;
 public class ReserializingTestCollectionGenerator<E> implements TestCollectionGenerator<E> {
   private final TestCollectionGenerator<E> delegate;
 
-  ReserializingTestCollectionGenerator(TestCollectionGenerator<E> delegate) {
+  ReserializingTestCollectionGenerator(final TestCollectionGenerator<E> delegate) {
     this.delegate = delegate;
   }
 
   public static <E> ReserializingTestCollectionGenerator<E> newInstance(
-      TestCollectionGenerator<E> delegate) {
+      final TestCollectionGenerator<E> delegate) {
     return new ReserializingTestCollectionGenerator<E>(delegate);
   }
 
   @Override
-  public Collection<E> create(Object... elements) {
+  public Collection<E> create(final Object... elements) {
     return reserialize(delegate.create(elements));
   }
 
   @SuppressWarnings("unchecked")
-  static <T> T reserialize(T object) {
+  static <T> T reserialize(final T object) {
     try {
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       ObjectOutputStream out = new ObjectOutputStream(bytes);
@@ -70,12 +70,12 @@ public class ReserializingTestCollectionGenerator<E> implements TestCollectionGe
   }
 
   @Override
-  public E[] createArray(int length) {
+  public E[] createArray(final int length) {
     return delegate.createArray(length);
   }
 
   @Override
-  public Iterable<E> order(List<E> insertionOrder) {
+  public Iterable<E> order(final List<E> insertionOrder) {
     return delegate.order(insertionOrder);
   }
 }

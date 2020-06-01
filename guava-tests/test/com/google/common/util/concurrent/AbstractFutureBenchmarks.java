@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  * Utilities for the AbstractFutureBenchmarks
  */
 final class AbstractFutureBenchmarks {
-  private AbstractFutureBenchmarks() {}
+  private AbstractFutureBenchmarks() { }
 
   interface Facade<T> extends ListenableFuture<T> {
     @CanIgnoreReturnValue
@@ -44,13 +44,13 @@ final class AbstractFutureBenchmarks {
   private static class NewAbstractFutureFacade<T> extends AbstractFuture<T> implements Facade<T> {
     @CanIgnoreReturnValue
     @Override
-    public boolean set(T t) {
+    public boolean set(final T t) {
       return super.set(t);
     }
 
     @CanIgnoreReturnValue
     @Override
-    public boolean setException(Throwable t) {
+    public boolean setException(final Throwable t) {
       return super.setException(t);
     }
   }
@@ -59,13 +59,13 @@ final class AbstractFutureBenchmarks {
       extends OldAbstractFuture<T> implements Facade<T> {
     @CanIgnoreReturnValue
     @Override
-    public boolean set(T t) {
+    public boolean set(final T t) {
       return super.set(t);
     }
 
     @CanIgnoreReturnValue
     @Override
-    public boolean setException(Throwable t) {
+    public boolean setException(final Throwable t) {
       return super.setException(t);
     }
   }
@@ -85,7 +85,7 @@ final class AbstractFutureBenchmarks {
     abstract <T> Facade<T> newFacade();
   }
 
-  static void awaitWaiting(Thread t) {
+  static void awaitWaiting(final Thread t) {
     while (true) {
       Thread.State state = t.getState();
       switch (state) {
@@ -112,7 +112,7 @@ final class AbstractFutureBenchmarks {
     /**
      * Constructor for use by subclasses.
      */
-    protected OldAbstractFuture() {}
+    protected OldAbstractFuture() { }
 
     /*
      * Improve the documentation of when InterruptedException is thrown. Our
@@ -131,7 +131,7 @@ final class AbstractFutureBenchmarks {
      */
     @CanIgnoreReturnValue
     @Override
-    public V get(long timeout, TimeUnit unit)
+    public V get(final long timeout, final TimeUnit unit)
         throws InterruptedException, TimeoutException, ExecutionException {
       return sync.get(unit.toNanos(timeout));
     }
@@ -169,7 +169,7 @@ final class AbstractFutureBenchmarks {
 
     @CanIgnoreReturnValue
     @Override
-    public boolean cancel(boolean mayInterruptIfRunning) {
+    public boolean cancel(final boolean mayInterruptIfRunning) {
       if (!sync.cancel(mayInterruptIfRunning)) {
         return false;
       }
@@ -208,7 +208,7 @@ final class AbstractFutureBenchmarks {
      * @since 10.0
      */
     @Override
-    public void addListener(Runnable listener, Executor exec) {
+    public void addListener(final Runnable listener, final Executor exec) {
       executionList.add(listener, exec);
     }
 
@@ -222,7 +222,7 @@ final class AbstractFutureBenchmarks {
      * @return true if the state was successfully changed.
      */
     @CanIgnoreReturnValue
-    protected boolean set(@Nullable V value) {
+    protected boolean set(final @Nullable V value) {
       boolean result = sync.set(value);
       if (result) {
         executionList.execute();
@@ -240,7 +240,7 @@ final class AbstractFutureBenchmarks {
      * @return true if the state was successfully changed.
      */
     @CanIgnoreReturnValue
-    protected boolean setException(Throwable throwable) {
+    protected boolean setException(final Throwable throwable) {
       boolean result = sync.setException(checkNotNull(throwable));
       if (result) {
         executionList.execute();
@@ -283,7 +283,7 @@ final class AbstractFutureBenchmarks {
        * Acquisition succeeds if the future is done, otherwise it fails.
        */
       @Override
-      protected int tryAcquireShared(int ignored) {
+      protected int tryAcquireShared(final int ignored) {
         if (isDone()) {
           return 1;
         }
@@ -295,7 +295,7 @@ final class AbstractFutureBenchmarks {
        * successfully changed and the result is available.
        */
       @Override
-      protected boolean tryReleaseShared(int finalState) {
+      protected boolean tryReleaseShared(final int finalState) {
         setState(finalState);
         return true;
       }
@@ -305,7 +305,7 @@ final class AbstractFutureBenchmarks {
        * {@link TimeoutException} if the timer expires, otherwise behaves like
        * {@link #get()}.
        */
-      V get(long nanos) throws TimeoutException, CancellationException,
+      V get(final long nanos) throws TimeoutException, CancellationException,
           ExecutionException, InterruptedException {
 
         // Attempt to acquire the shared lock with a timeout.
@@ -380,21 +380,21 @@ final class AbstractFutureBenchmarks {
       /**
        * Transition to the COMPLETED state and set the value.
        */
-      boolean set(@Nullable V v) {
+      boolean set(final @Nullable V v) {
         return complete(v, null, COMPLETED);
       }
 
       /**
        * Transition to the COMPLETED state and set the exception.
        */
-      boolean setException(Throwable t) {
+      boolean setException(final Throwable t) {
         return complete(null, t, COMPLETED);
       }
 
       /**
        * Transition to the CANCELLED or INTERRUPTED state.
        */
-      boolean cancel(boolean interrupt) {
+      boolean cancel(final boolean interrupt) {
         return complete(null, null, interrupt ? INTERRUPTED : CANCELLED);
       }
 
@@ -410,8 +410,8 @@ final class AbstractFutureBenchmarks {
        * @param t the exception to set as the result of the computation.
        * @param finalState the state to transition to.
        */
-      private boolean complete(@Nullable V v, @Nullable Throwable t,
-          int finalState) {
+      private boolean complete(final @Nullable V v, final @Nullable Throwable t,
+          final int finalState) {
         boolean doCompletion = compareAndSetState(RUNNING, COMPLETING);
         if (doCompletion) {
           // If this thread successfully transitioned to COMPLETING, set the value
@@ -431,7 +431,7 @@ final class AbstractFutureBenchmarks {
     }
 
     static final CancellationException cancellationExceptionWithCause(
-        @Nullable String message, @Nullable Throwable cause) {
+        final @Nullable String message, final @Nullable Throwable cause) {
       CancellationException exception = new CancellationException(message);
       exception.initCause(cause);
       return exception;

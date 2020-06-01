@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public abstract class HashCode {
-  HashCode() {}
+  HashCode() { }
 
   /**
    * Returns the number of bits in this hash code; a positive multiple of 8.
@@ -85,7 +85,7 @@ public abstract class HashCode {
    * @throws IndexOutOfBoundsException if there is not enough room in {@code dest}
    */
   @CanIgnoreReturnValue
-  public int writeBytesTo(byte[] dest, int offset, int maxLength) {
+  public int writeBytesTo(final byte[] dest, final int offset, final int maxLength) {
     maxLength = Ints.min(maxLength, bits() / 8);
     Preconditions.checkPositionIndexes(offset, offset + maxLength, dest.length);
     writeBytesToImpl(dest, offset, maxLength);
@@ -115,14 +115,14 @@ public abstract class HashCode {
    *
    * @since 15.0 (since 12.0 in HashCodes)
    */
-  public static HashCode fromInt(int hash) {
+  public static HashCode fromInt(final int hash) {
     return new IntHashCode(hash);
   }
 
   private static final class IntHashCode extends HashCode implements Serializable {
     final int hash;
 
-    IntHashCode(int hash) {
+    IntHashCode(final int hash) {
       this.hash = hash;
     }
 
@@ -157,14 +157,14 @@ public abstract class HashCode {
     }
 
     @Override
-    void writeBytesToImpl(byte[] dest, int offset, int maxLength) {
+    void writeBytesToImpl(final byte[] dest, final int offset, final int maxLength) {
       for (int i = 0; i < maxLength; i++) {
         dest[offset + i] = (byte) (hash >> (i * 8));
       }
     }
 
     @Override
-    boolean equalsSameBits(HashCode that) {
+    boolean equalsSameBits(final HashCode that) {
       return hash == that.asInt();
     }
 
@@ -177,14 +177,14 @@ public abstract class HashCode {
    *
    * @since 15.0 (since 12.0 in HashCodes)
    */
-  public static HashCode fromLong(long hash) {
+  public static HashCode fromLong(final long hash) {
     return new LongHashCode(hash);
   }
 
   private static final class LongHashCode extends HashCode implements Serializable {
     final long hash;
 
-    LongHashCode(long hash) {
+    LongHashCode(final long hash) {
       this.hash = hash;
     }
 
@@ -223,14 +223,14 @@ public abstract class HashCode {
     }
 
     @Override
-    void writeBytesToImpl(byte[] dest, int offset, int maxLength) {
+    void writeBytesToImpl(final byte[] dest, final int offset, final int maxLength) {
       for (int i = 0; i < maxLength; i++) {
         dest[offset + i] = (byte) (hash >> (i * 8));
       }
     }
 
     @Override
-    boolean equalsSameBits(HashCode that) {
+    boolean equalsSameBits(final HashCode that) {
       return hash == that.asLong();
     }
 
@@ -243,7 +243,7 @@ public abstract class HashCode {
    *
    * @since 15.0 (since 12.0 in HashCodes)
    */
-  public static HashCode fromBytes(byte[] bytes) {
+  public static HashCode fromBytes(final byte[] bytes) {
     checkArgument(bytes.length >= 1, "A HashCode must contain at least 1 byte.");
     return fromBytesNoCopy(bytes.clone());
   }
@@ -252,14 +252,14 @@ public abstract class HashCode {
    * Creates a {@code HashCode} from a byte array. The array is <i>not</i> copied defensively, so it
    * must be handed-off so as to preserve the immutability contract of {@code HashCode}.
    */
-  static HashCode fromBytesNoCopy(byte[] bytes) {
+  static HashCode fromBytesNoCopy(final byte[] bytes) {
     return new BytesHashCode(bytes);
   }
 
   private static final class BytesHashCode extends HashCode implements Serializable {
     final byte[] bytes;
 
-    BytesHashCode(byte[] bytes) {
+    BytesHashCode(final byte[] bytes) {
       this.bytes = checkNotNull(bytes);
     }
 
@@ -304,7 +304,7 @@ public abstract class HashCode {
     }
 
     @Override
-    void writeBytesToImpl(byte[] dest, int offset, int maxLength) {
+    void writeBytesToImpl(final byte[] dest, final int offset, final int maxLength) {
       System.arraycopy(bytes, 0, dest, offset, maxLength);
     }
 
@@ -314,7 +314,7 @@ public abstract class HashCode {
     }
 
     @Override
-    boolean equalsSameBits(HashCode that) {
+    boolean equalsSameBits(final HashCode that) {
       // We don't use MessageDigest.isEqual() here because its contract does not guarantee
       // constant-time evaluation (no short-circuiting).
       if (this.bytes.length != that.getBytesInternal().length) {
@@ -341,7 +341,7 @@ public abstract class HashCode {
    *
    * @since 15.0
    */
-  public static HashCode fromString(String string) {
+  public static HashCode fromString(final String string) {
     checkArgument(
         string.length() >= 2, "input string (%s) must have at least 2 characters", string);
     checkArgument(
@@ -358,7 +358,7 @@ public abstract class HashCode {
     return fromBytesNoCopy(bytes);
   }
 
-  private static int decode(char ch) {
+  private static int decode(final char ch) {
     if (ch >= '0' && ch <= '9') {
       return ch - '0';
     }
@@ -376,7 +376,7 @@ public abstract class HashCode {
    * to protect against <a href="http://en.wikipedia.org/wiki/Timing_attack">timing attacks</a>.
    */
   @Override
-  public final boolean equals(@Nullable Object object) {
+  public final boolean equals(final @Nullable Object object) {
     if (object instanceof HashCode) {
       HashCode that = (HashCode) object;
       return bits() == that.bits() && equalsSameBits(that);

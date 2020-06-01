@@ -84,7 +84,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
   /**
    * Must be called at the end of each sub-class's constructor.
    */
-  final void init(RunningState runningState) {
+  final void init(final RunningState runningState) {
     this.runningState = runningState;
     runningState.init();
   }
@@ -95,9 +95,9 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
     private final boolean collectsValues;
 
     RunningState(
-        ImmutableCollection<? extends ListenableFuture<? extends InputT>> futures,
-        boolean allMustSucceed,
-        boolean collectsValues) {
+        final ImmutableCollection<? extends ListenableFuture<? extends InputT>> futures,
+        final boolean allMustSucceed,
+        final boolean collectsValues) {
       super(futures.size());
       this.futures = checkNotNull(futures);
       this.allMustSucceed = allMustSucceed;
@@ -167,7 +167,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
      * throwable did not cause this future to fail, and it is the first time we've seen that
      * particular Throwable.
      */
-    private void handleException(Throwable throwable) {
+    private void handleException(final Throwable throwable) {
       checkNotNull(throwable);
 
       boolean completedWithFailure = false;
@@ -197,7 +197,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
     }
 
     @Override
-    final void addInitialException(Set<Throwable> seen) {
+    final void addInitialException(final Set<Throwable> seen) {
       if (!isCancelled()) {
         // TODO(cpovirk): Think about whether we could/should use Verify to check this.
         boolean unused = addCausalChain(seen, trustedGetException());
@@ -207,7 +207,7 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
     /**
      * Handles the input at the given index completing.
      */
-    private void handleOneInputDone(int index, Future<? extends InputT> future) {
+    private void handleOneInputDone(final int index, final Future<? extends InputT> future) {
       // The only cases in which this Future should already be done are (a) if it was cancelled or
       // (b) if an input failed and we propagated that immediately because of allMustSucceed.
       checkState(
@@ -282,11 +282,11 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
 
     abstract void handleAllCompleted();
 
-    void interruptTask() {}
+    void interruptTask() { }
   }
 
   /** Adds the chain to the seen set, and returns whether all the chain was new to us. */
-  private static boolean addCausalChain(Set<Throwable> seen, Throwable t) {
+  private static boolean addCausalChain(final Set<Throwable> seen, final Throwable t) {
     for (; t != null; t = t.getCause()) {
       boolean firstTimeSeen = seen.add(t);
       if (!firstTimeSeen) {

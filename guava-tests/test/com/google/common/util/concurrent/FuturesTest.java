@@ -211,7 +211,7 @@ public class FuturesTest extends TestCase {
   private static Predicate<StackTraceElement> hasClassName(final Class<?> clazz) {
     return new Predicate<StackTraceElement>() {
       @Override
-      public boolean apply(StackTraceElement element) {
+      public boolean apply(final StackTraceElement element) {
         return element.getClassName().equals(clazz.getName());
       }
     };
@@ -225,7 +225,7 @@ public class FuturesTest extends TestCase {
 
   private static final class CallerClass2 {
     @CanIgnoreReturnValue
-    static <V> V get(ListenableFuture<V> future) throws ExecutionException, InterruptedException {
+    static <V> V get(final ListenableFuture<V> future) throws ExecutionException, InterruptedException {
       return getDone(future);
     }
   }
@@ -310,7 +310,7 @@ public class FuturesTest extends TestCase {
     final BarChild barChild = new BarChild();
     Function<Foo, BarChild> function = new Function<Foo, BarChild>() {
       @Override
-      public BarChild apply(Foo unused) {
+      public BarChild apply(final Foo unused) {
         return barChild;
       }
     };
@@ -352,7 +352,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public Object apply(Object input) {
+      public Object apply(final Object input) {
         output.cancel(false);
         throw new MyError();
       }
@@ -372,7 +372,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public Object apply(Object input) {
+      public Object apply(final Object input) {
         output.cancel(false);
         throw new MyRuntimeException();
       }
@@ -435,7 +435,7 @@ public class FuturesTest extends TestCase {
     SettableFuture<Foo> input = SettableFuture.create();
     AsyncFunction<Foo, Bar> function = new AsyncFunction<Foo, Bar>() {
       @Override
-      public ListenableFuture<Bar> apply(Foo unused) {
+      public ListenableFuture<Bar> apply(final Foo unused) {
         throw new AssertionFailedError("Unexpeted call to apply.");
       }
     };
@@ -448,7 +448,7 @@ public class FuturesTest extends TestCase {
     SettableFuture<Foo> input = SettableFuture.create();
     AsyncFunction<Foo, Bar> function = new AsyncFunction<Foo, Bar>() {
       @Override
-      public ListenableFuture<Bar> apply(Foo unused) {
+      public ListenableFuture<Bar> apply(final Foo unused) {
         throw new AssertionFailedError("Unexpeted call to apply.");
       }
     };
@@ -466,7 +466,7 @@ public class FuturesTest extends TestCase {
     final CountDownLatch gotException = new CountDownLatch(1);
     AsyncFunction<String, String> function = new AsyncFunction<String, String>() {
       @Override
-      public ListenableFuture<String> apply(String s) throws Exception {
+      public ListenableFuture<String> apply(final String s) throws Exception {
         inFunction.countDown();
         try {
           shouldCompleteFunction.await();
@@ -488,7 +488,7 @@ public class FuturesTest extends TestCase {
     try {
       futureResult.get();
       fail();
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
     // TODO(cpovirk): implement interruption, updating this test:
     // https://github.com/google/guava/issues/1989
     assertEquals(1, gotException.getCount());
@@ -500,7 +500,7 @@ public class FuturesTest extends TestCase {
     final SettableFuture<Bar> secondary = SettableFuture.create();
     AsyncFunction<Foo, Bar> function = new AsyncFunction<Foo, Bar>() {
       @Override
-      public ListenableFuture<Bar> apply(Foo unused) {
+      public ListenableFuture<Bar> apply(final Foo unused) {
         return secondary;
       }
     };
@@ -515,7 +515,7 @@ public class FuturesTest extends TestCase {
     final SettableFuture<Bar> secondary = SettableFuture.create();
     AsyncFunction<Foo, Bar> function = new AsyncFunction<Foo, Bar>() {
       @Override
-      public ListenableFuture<Bar> apply(Foo unused) {
+      public ListenableFuture<Bar> apply(final Foo unused) {
         return secondary;
       }
     };
@@ -530,7 +530,7 @@ public class FuturesTest extends TestCase {
     AsyncFunction<Foo, Bar> function =
         new AsyncFunction<Foo, Bar>() {
           @Override
-          public ListenableFuture<Bar> apply(Foo unused) {
+          public ListenableFuture<Bar> apply(final Foo unused) {
             return secondary;
           }
         };
@@ -578,7 +578,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public ListenableFuture<Object> apply(Object input) {
+      public ListenableFuture<Object> apply(final Object input) {
         output.cancel(false);
         throw new MyError();
       }
@@ -598,7 +598,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public ListenableFuture<Object> apply(Object input) {
+      public ListenableFuture<Object> apply(final Object input) {
         output.cancel(false);
         throw new MyRuntimeException();
       }
@@ -698,7 +698,7 @@ public class FuturesTest extends TestCase {
     // This function adds the holder's value to the input value.
     Function<Integer, Integer> adder = new Function<Integer, Integer>() {
       @Override
-      public Integer apply(Integer from) {
+      public Integer apply(final Integer from) {
         return from + holder.value;
       }
     };
@@ -781,7 +781,7 @@ public class FuturesTest extends TestCase {
 
   @GwtIncompatible // reflection
   private static void runGetIdempotencyTest(
-      Future<Integer> transformedFuture, Class<? extends Throwable> expectedExceptionClass)
+      final Future<Integer> transformedFuture, final Class<? extends Throwable> expectedExceptionClass)
       throws Throwable {
     for (int i = 0; i < 5; i++) {
       try {
@@ -801,7 +801,7 @@ public class FuturesTest extends TestCase {
       int calls = 0;
 
       @Override
-      public Integer apply(Integer from) {
+      public Integer apply(final Integer from) {
         if (++calls > 1) {
           fail();
         }
@@ -816,7 +816,7 @@ public class FuturesTest extends TestCase {
       int calls = 0;
 
       @Override
-      public Integer apply(Integer from) {
+      public Integer apply(final Integer from) {
         if (++calls > 1) {
           fail();
         }
@@ -831,12 +831,12 @@ public class FuturesTest extends TestCase {
     Executor delegate;
     boolean wasExecuted;
 
-    public ExecutorSpy(Executor delegate) {
+    public ExecutorSpy(final Executor delegate) {
       this.delegate = delegate;
     }
 
     @Override
-    public void execute(Runnable command) {
+    public void execute(final Runnable command) {
       delegate.execute(command);
       wasExecuted = true;
     }
@@ -873,7 +873,7 @@ public class FuturesTest extends TestCase {
     final RuntimeException exception = new RuntimeException("deliberate");
     Function<Integer, String> function = new Function<Integer, String>() {
       @Override
-      public String apply(Integer input) {
+      public String apply(final Integer input) {
         throw exception;
       }
     };
@@ -896,29 +896,29 @@ public class FuturesTest extends TestCase {
     private int applyCount;
     private final Function<I, O> delegate;
 
-    public FunctionSpy(Function<I, O> delegate) {
+    public FunctionSpy(final Function<I, O> delegate) {
       this.delegate = delegate;
     }
 
     @Override
-    public O apply(I input) {
+    public O apply(final I input) {
       applyCount++;
       return delegate.apply(input);
     }
 
-    void verifyCallCount(int expected) {
+    void verifyCallCount(final int expected) {
       assertThat(applyCount).isEqualTo(expected);
     }
   }
 
-  private static <I, O> FunctionSpy<I, O> spy(Function<I, O> delegate) {
+  private static <I, O> FunctionSpy<I, O> spy(final Function<I, O> delegate) {
     return new FunctionSpy<>(delegate);
   }
 
   private static <X extends Throwable, V> Function<X, V> unexpectedFunction() {
     return new Function<X, V>() {
       @Override
-      public V apply(X t) {
+      public V apply(final X t) {
         throw newAssertionError("Unexpected fallback", t);
       }
     };
@@ -928,36 +928,36 @@ public class FuturesTest extends TestCase {
     private int count;
     private final AsyncFunction<X, V> delegate;
 
-    public AsyncFunctionSpy(AsyncFunction<X, V> delegate) {
+    public AsyncFunctionSpy(final AsyncFunction<X, V> delegate) {
       this.delegate = delegate;
     }
 
     @Override
-    public final ListenableFuture<V> apply(X t) throws Exception {
+    public final ListenableFuture<V> apply(final X t) throws Exception {
       count++;
       return delegate.apply(t);
     }
 
-    void verifyCallCount(int expected) {
+    void verifyCallCount(final int expected) {
       assertThat(count).isEqualTo(expected);
     }
   }
 
-  private static <X extends Throwable, V> AsyncFunctionSpy<X, V> spy(AsyncFunction<X, V> delegate) {
+  private static <X extends Throwable, V> AsyncFunctionSpy<X, V> spy(final AsyncFunction<X, V> delegate) {
     return new AsyncFunctionSpy<>(delegate);
   }
 
   private static <X extends Throwable, V> AsyncFunction<X, V> unexpectedAsyncFunction() {
     return new AsyncFunction<X, V>() {
       @Override
-      public ListenableFuture<V> apply(X t) {
+      public ListenableFuture<V> apply(final X t) {
         throw newAssertionError("Unexpected fallback", t);
       }
     };
   }
 
   /** Alternative to AssertionError(String, Throwable), which doesn't exist in GWT 2.6.1. */
-  private static AssertionError newAssertionError(String message, Throwable cause) {
+  private static AssertionError newAssertionError(final String message, final Throwable cause) {
     AssertionError e = new AssertionError(message);
     e.initCause(cause);
     return e;
@@ -977,7 +977,7 @@ public class FuturesTest extends TestCase {
     final RuntimeException raisedException = new RuntimeException();
     AsyncFunctionSpy<Throwable, Integer> fallback = spy(new AsyncFunction<Throwable, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(Throwable t) throws Exception {
+      public ListenableFuture<Integer> apply(final Throwable t) throws Exception {
         assertThat(t).isSameAs(raisedException);
         return immediateFuture(20);
       }
@@ -1004,7 +1004,7 @@ public class FuturesTest extends TestCase {
     final Error error = new Error("deliberate");
     AsyncFunction<Throwable, Integer> fallback = new AsyncFunction<Throwable, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(Throwable t) throws Exception {
+      public ListenableFuture<Integer> apply(final Throwable t) throws Exception {
         throw error;
       }
     };
@@ -1032,7 +1032,7 @@ public class FuturesTest extends TestCase {
       final Exception expectedException, final boolean wrapInFuture) throws Exception {
     AsyncFunctionSpy<Throwable, Integer> fallback = spy(new AsyncFunction<Throwable, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(Throwable t) throws Exception {
+      public ListenableFuture<Integer> apply(final Throwable t) throws Exception {
         if (!wrapInFuture) {
           throw expectedException;
         } else {
@@ -1059,7 +1059,7 @@ public class FuturesTest extends TestCase {
     final SettableFuture<Integer> secondary = SettableFuture.create();
     AsyncFunction<Throwable, Integer> fallback = new AsyncFunction<Throwable, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(Throwable t) {
+      public ListenableFuture<Integer> apply(final Throwable t) {
         return secondary;
       }
     };
@@ -1097,7 +1097,7 @@ public class FuturesTest extends TestCase {
     final RuntimeException raisedException = new RuntimeException();
     AsyncFunctionSpy<Throwable, Integer> fallback = spy(new AsyncFunction<Throwable, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(Throwable t) throws Exception {
+      public ListenableFuture<Integer> apply(final Throwable t) throws Exception {
         assertThat(t).isSameAs(raisedException);
         return secondary;
       }
@@ -1122,7 +1122,7 @@ public class FuturesTest extends TestCase {
             new AsyncFunction<Throwable, Integer>() {
               @Override
               @SuppressWarnings("AsyncFunctionReturnsNull")
-              public ListenableFuture<Integer> apply(Throwable t) {
+              public ListenableFuture<Integer> apply(final Throwable t) {
                 return null;
               }
             },
@@ -1146,7 +1146,7 @@ public class FuturesTest extends TestCase {
     final CountDownLatch gotException = new CountDownLatch(1);
     AsyncFunction<Throwable, String> function = new AsyncFunction<Throwable, String>() {
       @Override
-      public ListenableFuture<String> apply(Throwable t) throws Exception {
+      public ListenableFuture<String> apply(final Throwable t) throws Exception {
         inFunction.countDown();
         try {
           shouldCompleteFunction.await();
@@ -1168,7 +1168,7 @@ public class FuturesTest extends TestCase {
     try {
       futureResult.get();
       fail();
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
     // TODO(cpovirk): implement interruption, updating this test:
     // https://github.com/google/guava/issues/1989
     assertEquals(1, gotException.getCount());
@@ -1189,7 +1189,7 @@ public class FuturesTest extends TestCase {
     final RuntimeException raisedException = new RuntimeException();
     FunctionSpy<Throwable, Integer> fallback = spy(new Function<Throwable, Integer>() {
       @Override
-      public Integer apply(Throwable t) {
+      public Integer apply(final Throwable t) {
         assertThat(t).isSameAs(raisedException);
         return 20;
       }
@@ -1215,7 +1215,7 @@ public class FuturesTest extends TestCase {
     final Error error = new Error("deliberate");
     Function<Throwable, Integer> fallback = new Function<Throwable, Integer>() {
       @Override
-      public Integer apply(Throwable t) {
+      public Integer apply(final Throwable t) {
         throw error;
       }
     };
@@ -1237,7 +1237,7 @@ public class FuturesTest extends TestCase {
       throws Exception {
     FunctionSpy<Throwable, Integer> fallback = spy(new Function<Throwable, Integer>() {
       @Override
-      public Integer apply(Throwable t) {
+      public Integer apply(final Throwable t) {
         throw expectedException;
       }
     });
@@ -1344,7 +1344,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public Object apply(Throwable input) {
+      public Object apply(final Throwable input) {
         output.cancel(false);
         throw new MyError();
       }
@@ -1364,7 +1364,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public Object apply(Throwable input) {
+      public Object apply(final Throwable input) {
         output.cancel(false);
         throw new MyRuntimeException();
       }
@@ -1479,7 +1479,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public ListenableFuture<Object> apply(Throwable input) {
+      public ListenableFuture<Object> apply(final Throwable input) {
         output.cancel(false);
         throw new MyError();
       }
@@ -1500,7 +1500,7 @@ public class FuturesTest extends TestCase {
       ListenableFuture<Object> output;
 
       @Override
-      public ListenableFuture<Object> apply(Throwable input) {
+      public ListenableFuture<Object> apply(final Throwable input) {
         output.cancel(false);
         throw new MyRuntimeException();
       }
@@ -1588,7 +1588,7 @@ public class FuturesTest extends TestCase {
   private <X extends Throwable> Function<X, Integer> functionReturningOne() {
     return new Function<X, Integer>() {
       @Override
-      public Integer apply(X t) {
+      public Integer apply(final X t) {
         return 1;
       }
     };
@@ -1597,7 +1597,7 @@ public class FuturesTest extends TestCase {
   private <X extends Throwable> AsyncFunction<X, Integer> asyncFunctionReturningOne() {
     return new AsyncFunction<X, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(X t) {
+      public ListenableFuture<Integer> apply(final X t) {
         return immediateFuture(1);
       }
     };
@@ -1607,7 +1607,7 @@ public class FuturesTest extends TestCase {
       final ListenableFuture<O> output) {
     return new AsyncFunction<I, O>() {
       @Override
-      public ListenableFuture<O> apply(I input) {
+      public ListenableFuture<O> apply(final I input) {
         return output;
       }
     };
@@ -1626,7 +1626,7 @@ public class FuturesTest extends TestCase {
     AsyncFunction<Foo, BarChild> function =
         new AsyncFunction<Foo, BarChild>() {
           @Override
-          public AbstractFuture<BarChild> apply(Foo unused) {
+          public AbstractFuture<BarChild> apply(final Foo unused) {
             AbstractFuture<BarChild> future = new AbstractFuture<BarChild>() {
             };
             future.set(barChild);
@@ -1654,7 +1654,7 @@ public class FuturesTest extends TestCase {
     final Error error = new Error("deliberate");
     AsyncFunction<String, Integer> function = new AsyncFunction<String, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(String input) {
+      public ListenableFuture<Integer> apply(final String input) {
         throw error;
       }
     };
@@ -1693,7 +1693,7 @@ public class FuturesTest extends TestCase {
     final SettableFuture<Integer> resultFuture = SettableFuture.create();
     AsyncFunction<String, Integer> function = new AsyncFunction<String, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(String input) throws Exception {
+      public ListenableFuture<Integer> apply(final String input) throws Exception {
         inFunction.countDown();
         functionDone.await();
         return resultFuture;
@@ -1725,7 +1725,7 @@ public class FuturesTest extends TestCase {
     final AtomicBoolean functionCalled = new AtomicBoolean();
     AsyncFunction<String, Integer> function = new AsyncFunction<String, Integer>() {
       @Override
-      public ListenableFuture<Integer> apply(String input) throws Exception {
+      public ListenableFuture<Integer> apply(final String input) throws Exception {
         functionCalled.set(true);
         return immediateFuture(1);
       }
@@ -2465,7 +2465,7 @@ public class FuturesTest extends TestCase {
     }
   }
 
-  private static String createCombinedResult(Integer i, Boolean b) {
+  private static String createCombinedResult(final Integer i, final Boolean b) {
     return "-" + i + "-" + b;
   }
 
@@ -2590,12 +2590,12 @@ public class FuturesTest extends TestCase {
     try {
       futureResult.get();
       fail();
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
 
     try {
       resultFuture.get();
       fail();
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
   }
 
   @GwtIncompatible // threads
@@ -2630,7 +2630,7 @@ public class FuturesTest extends TestCase {
     try {
       futureResult.get();
       fail();
-    } catch (CancellationException expected) {}
+    } catch (CancellationException expected) { }
     gotException.await();
   }
 
@@ -2681,7 +2681,7 @@ public class FuturesTest extends TestCase {
     final Runnable finisher;
 
     TestFuture(
-        ListenableFuture<String> future, String name, Runnable finisher) {
+        final ListenableFuture<String> future, final String name, final Runnable finisher) {
       this.future = future;
       this.name = name;
       this.finisher = finisher;
@@ -2724,7 +2724,7 @@ public class FuturesTest extends TestCase {
           }
 
           @Override
-          public String get(long timeout, TimeUnit unit) {
+          public String get(final long timeout, final TimeUnit unit) {
             throw new RuntimeException();
           }
         };
@@ -2749,7 +2749,7 @@ public class FuturesTest extends TestCase {
           }
 
           @Override
-          public String get(long timeout, TimeUnit unit) throws
+          public String get(final long timeout, final TimeUnit unit) throws
               ExecutionException, InterruptedException, TimeoutException {
             delegateForDelayedRuntimeException.get(timeout, unit);
             throw new RuntimeException();
@@ -2805,7 +2805,7 @@ public class FuturesTest extends TestCase {
     final Function<ListenableFuture<String>, String> nameGetter =
         new Function<ListenableFuture<String>, String>() {
           @Override
-          public String apply(ListenableFuture<String> input) {
+          public String apply(final ListenableFuture<String> input) {
             for (TestFuture future : allFutures) {
               if (future.future == input) {
                 return future.name;
@@ -2815,7 +2815,7 @@ public class FuturesTest extends TestCase {
           }
         };
 
-    static boolean intersect(Set<?> a, Set<?> b) {
+    static boolean intersect(final Set<?> a, final Set<?> b) {
       return !intersection(a, b).isEmpty();
     }
 
@@ -2823,19 +2823,19 @@ public class FuturesTest extends TestCase {
      * Like {@code inputs.toString()}, but with the nonsense {@code toString} representations
      * replaced with the name of each future from {@link #allFutures}.
      */
-    String smartToString(ImmutableSet<ListenableFuture<String>> inputs) {
+    String smartToString(final ImmutableSet<ListenableFuture<String>> inputs) {
       Iterable<String> inputNames = Iterables.transform(inputs, nameGetter);
       return Joiner.on(", ").join(inputNames);
     }
 
-    void smartAssertTrue(ImmutableSet<ListenableFuture<String>> inputs,
-        Exception cause, boolean expression) {
+    void smartAssertTrue(final ImmutableSet<ListenableFuture<String>> inputs,
+        final Exception cause, final boolean expression) {
       if (!expression) {
         throw failureWithCause(cause, smartToString(inputs));
       }
     }
 
-    boolean hasDelayed(ListenableFuture<String> a, ListenableFuture<String> b) {
+    boolean hasDelayed(final ListenableFuture<String> a, final ListenableFuture<String> b) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       return intersect(inputs, ImmutableSet.of(
           delayedSuccess, delayedFailed, delayedCancelled,
@@ -2843,34 +2843,34 @@ public class FuturesTest extends TestCase {
     }
 
     void assertHasDelayed(
-        ListenableFuture<String> a, ListenableFuture<String> b, Exception e) {
+        final ListenableFuture<String> a, final ListenableFuture<String> b, final Exception e) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       smartAssertTrue(inputs, e, hasDelayed(a, b));
     }
 
     void assertHasFailure(
-        ListenableFuture<String> a, ListenableFuture<String> b, Exception e) {
+        final ListenableFuture<String> a, final ListenableFuture<String> b, final Exception e) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       smartAssertTrue(inputs, e, intersect(inputs, ImmutableSet.of(doneFailed,
           doneRuntimeException, delayedFailed, delayedRuntimeException)));
     }
 
     void assertHasCancel(
-        ListenableFuture<String> a, ListenableFuture<String> b, Exception e) {
+        final ListenableFuture<String> a, final ListenableFuture<String> b, final Exception e) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       smartAssertTrue(inputs, e,
           intersect(inputs, ImmutableSet.of(doneCancelled, delayedCancelled)));
     }
 
     void assertHasImmediateFailure(
-        ListenableFuture<String> a, ListenableFuture<String> b, Exception e) {
+        final ListenableFuture<String> a, final ListenableFuture<String> b, final Exception e) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       smartAssertTrue(inputs, e, intersect(
           inputs, ImmutableSet.of(doneFailed, doneRuntimeException)));
     }
 
     void assertHasImmediateCancel(
-        ListenableFuture<String> a, ListenableFuture<String> b, Exception e) {
+        final ListenableFuture<String> a, final ListenableFuture<String> b, final Exception e) {
       ImmutableSet<ListenableFuture<String>> inputs = ImmutableSet.of(a, b);
       smartAssertTrue(inputs, e,
           intersect(inputs, ImmutableSet.of(doneCancelled)));
@@ -2890,14 +2890,14 @@ public class FuturesTest extends TestCase {
     Merger allMerger = new Merger() {
       @Override
       public ListenableFuture<List<String>> merged(
-          ListenableFuture<String> a, ListenableFuture<String> b) {
+          final ListenableFuture<String> a, final ListenableFuture<String> b) {
         return allAsList(ImmutableSet.of(a, b));
       }
     };
     Merger successMerger = new Merger() {
       @Override
       public ListenableFuture<List<String>> merged(
-          ListenableFuture<String> a, ListenableFuture<String> b) {
+          final ListenableFuture<String> a, final ListenableFuture<String> b) {
         return successfulAsList(ImmutableSet.of(a, b));
       }
     };
@@ -2912,7 +2912,7 @@ public class FuturesTest extends TestCase {
    */
   @CanIgnoreReturnValue
   @GwtIncompatible // threads
-  static <V> V pseudoTimedGetUninterruptibly(final Future<V> input, long timeout, TimeUnit unit)
+  static <V> V pseudoTimedGetUninterruptibly(final Future<V> input, final long timeout, final TimeUnit unit)
       throws ExecutionException, TimeoutException {
     ExecutorService executor = newSingleThreadExecutor();
     Future<V> waiter = executor.submit(new Callable<V>() {
@@ -2941,7 +2941,7 @@ public class FuturesTest extends TestCase {
    * values.
    */
   @GwtIncompatible // used only in GwtIncompatible tests
-  private static void runExtensiveMergerTest(Merger merger) throws InterruptedException {
+  private static void runExtensiveMergerTest(final Merger merger) throws InterruptedException {
     int inputCount = new TestFutureBatch().allFutures.size();
 
     for (int i = 0; i < inputCount; i++) {
@@ -3024,12 +3024,12 @@ public class FuturesTest extends TestCase {
    */
   @GwtIncompatible // used only in GwtIncompatible tests
   private static List<String> conditionalPseudoTimedGetUninterruptibly(
-      TestFutureBatch inputs,
-      ListenableFuture<String> iFuture,
-      ListenableFuture<String> jFuture,
-      ListenableFuture<List<String>> future,
-      int timeout,
-      TimeUnit unit)
+      final TestFutureBatch inputs,
+      final ListenableFuture<String> iFuture,
+      final ListenableFuture<String> jFuture,
+      final ListenableFuture<List<String>> future,
+      final int timeout,
+      final TimeUnit unit)
       throws ExecutionException, TimeoutException {
     /*
      * For faster tests (that may hang indefinitely if the class under test has
@@ -3352,7 +3352,7 @@ public class FuturesTest extends TestCase {
   @GwtIncompatible // used only in GwtIncompatible tests
   private static class TestException extends Exception {
 
-    TestException(@Nullable Throwable cause) {
+    TestException(final @Nullable Throwable cause) {
       super(cause);
     }
   }
@@ -3361,7 +3361,7 @@ public class FuturesTest extends TestCase {
   private static final Function<Exception, TestException> mapper =
       new Function<Exception, TestException>() {
         @Override
-        public TestException apply(Exception from) {
+        public TestException apply(final Exception from) {
           if (from instanceof ExecutionException) {
             return new TestException(from.getCause());
           } else {
@@ -3499,7 +3499,7 @@ public class FuturesTest extends TestCase {
     CheckedFuture<String, TestException> checked = makeChecked(
         future, new Function<Exception, TestException>() {
           @Override
-          public TestException apply(Exception from) {
+          public TestException apply(final Exception from) {
             throw new NullPointerException();
           }
         });
@@ -3527,7 +3527,7 @@ public class FuturesTest extends TestCase {
     CheckedFuture<String, TestException> checked = makeChecked(
         future, new Function<Exception, TestException>() {
           @Override
-          public TestException apply(Exception from) {
+          public TestException apply(final Exception from) {
             throw new NullPointerException();
           }
         });
@@ -3547,7 +3547,7 @@ public class FuturesTest extends TestCase {
     CheckedFuture<String, TestException> checked = makeChecked(
         future, new Function<Exception, TestException>() {
           @Override
-          public TestException apply(Exception from) {
+          public TestException apply(final Exception from) {
             throw new NullPointerException();
           }
         });
@@ -3567,7 +3567,7 @@ public class FuturesTest extends TestCase {
     CheckedFuture<String, TestException> checked = makeChecked(
         future, new Function<Exception, TestException>() {
           @Override
-          public TestException apply(Exception from) {
+          public TestException apply(final Exception from) {
             throw new NullPointerException();
           }
         });
@@ -3580,7 +3580,7 @@ public class FuturesTest extends TestCase {
   }
 
   @GwtIncompatible // used only in GwtIncompatible tests
-  private interface MapperFunction extends Function<Throwable, Exception> {}
+  private interface MapperFunction extends Function<Throwable, Exception> { }
 
   public void testCompletionOrder() throws Exception {
     SettableFuture<Long> future1 = SettableFuture.create();
@@ -3775,7 +3775,7 @@ public class FuturesTest extends TestCase {
         .testNulls();
   }
 
-  static AssertionFailedError failureWithCause(Throwable cause, String message) {
+  static AssertionFailedError failureWithCause(final Throwable cause, final String message) {
     AssertionFailedError failure = new AssertionFailedError(message);
     failure.initCause(cause);
     return failure;
@@ -3791,7 +3791,7 @@ public class FuturesTest extends TestCase {
   private static final Executor REJECTING_EXECUTOR =
       new Executor() {
         @Override
-        public void execute(Runnable runnable) {
+        public void execute(final Runnable runnable) {
           throw new RejectedExecutionException();
         }
       };
@@ -3799,7 +3799,7 @@ public class FuturesTest extends TestCase {
   private static <V> AsyncFunction<V, V> asyncIdentity() {
     return new AsyncFunction<V, V>() {
       @Override
-      public ListenableFuture<V> apply(V input) {
+      public ListenableFuture<V> apply(final V input) {
         return immediateFuture(input);
       }
     };

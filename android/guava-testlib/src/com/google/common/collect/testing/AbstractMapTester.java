@@ -59,13 +59,13 @@ public abstract class AbstractMapTester<K, V>
     resetContainer();
   }
 
-  protected void expectMissingKeys(K... elements) {
+  protected void expectMissingKeys(final K... elements) {
     for (K element : elements) {
       assertFalse("Should not contain key " + element, getMap().containsKey(element));
     }
   }
 
-  protected void expectMissingValues(V... elements) {
+  protected void expectMissingValues(final V... elements) {
     for (V element : elements) {
       assertFalse("Should not contain value " + element, getMap().containsValue(element));
     }
@@ -126,7 +126,7 @@ public abstract class AbstractMapTester<K, V>
    * {@code NullPointerException}.
    * @param message message to use upon assertion failure
    */
-  protected void expectNullKeyMissingWhenNullKeysUnsupported(String message) {
+  protected void expectNullKeyMissingWhenNullKeysUnsupported(final String message) {
     try {
       assertFalse(message, getMap().containsKey(null));
     } catch (NullPointerException tolerated) {
@@ -141,7 +141,7 @@ public abstract class AbstractMapTester<K, V>
    * {@code NullPointerException}.
    * @param message message to use upon assertion failure
    */
-  protected void expectNullValueMissingWhenNullValuesUnsupported(String message) {
+  protected void expectNullValueMissingWhenNullValuesUnsupported(final String message) {
     try {
       assertFalse(message, getMap().containsValue(null));
     } catch (NullPointerException tolerated) {
@@ -159,7 +159,7 @@ public abstract class AbstractMapTester<K, V>
     return getNumElements();
   }
 
-  protected Collection<Map.Entry<K, V>> getSampleEntries(int howMany) {
+  protected Collection<Map.Entry<K, V>> getSampleEntries(final int howMany) {
     return getSampleElements(howMany);
   }
 
@@ -168,7 +168,7 @@ public abstract class AbstractMapTester<K, V>
   }
 
   @Override
-  protected void expectMissing(Entry<K, V>... entries) {
+  protected void expectMissing(final Entry<K, V>... entries) {
     for (Entry<K, V> entry : entries) {
       assertFalse("Should not contain entry " + entry, actualContents().contains(entry));
       assertFalse(
@@ -177,17 +177,17 @@ public abstract class AbstractMapTester<K, V>
     }
   }
 
-  private static boolean equal(Object a, Object b) {
+  private static boolean equal(final Object a, final Object b) {
     return a == b || (a != null && a.equals(b));
   }
 
   // This one-liner saves us from some ugly casts
-  protected Entry<K, V> entry(K key, V value) {
+  protected Entry<K, V> entry(final K key, final V value) {
     return Helpers.mapEntry(key, value);
   }
 
   @Override
-  protected void expectContents(Collection<Entry<K, V>> expected) {
+  protected void expectContents(final Collection<Entry<K, V>> expected) {
     // TODO: move this to invariant checks once the appropriate hook exists?
     super.expectContents(expected);
     for (Entry<K, V> entry : expected) {
@@ -196,13 +196,13 @@ public abstract class AbstractMapTester<K, V>
     }
   }
 
-  protected final void expectReplacement(Entry<K, V> newEntry) {
+  protected final void expectReplacement(final Entry<K, V> newEntry) {
     List<Entry<K, V>> expected = Helpers.copyToList(getSampleElements());
     replaceValue(expected, newEntry);
     expectContents(expected);
   }
 
-  private void replaceValue(List<Entry<K, V>> expected, Entry<K, V> newEntry) {
+  private void replaceValue(final List<Entry<K, V>> expected, final Entry<K, V> newEntry) {
     for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext(); ) {
       if (Helpers.equal(i.next().getKey(), newEntry.getKey())) {
         i.set(newEntry);
@@ -220,11 +220,11 @@ public abstract class AbstractMapTester<K, V>
    * uses {@link #getMap()}, it also ensures that callers don't pass an
    * {@link Entry} by mistake.
    */
-  protected V get(K key) {
+  protected V get(final K key) {
     return getMap().get(key);
   }
 
-  protected void resetMap(Entry<K, V>[] entries) {
+  protected void resetMap(final Entry<K, V>[] entries) {
     resetContainer(getSubjectGenerator().create((Object[]) entries));
   }
 

@@ -33,11 +33,11 @@ public class StringCatcher {
   private List<String> events = Lists.newArrayList();
 
   @Subscribe
-  public void hereHaveAString(@Nullable String string) {
+  public void hereHaveAString(final @Nullable String string) {
     events.add(string);
   }
 
-  public void methodWithoutAnnotation(@Nullable String string) {
+  public void methodWithoutAnnotation(final @Nullable String string) {
     Assert.fail("Event bus must not call methods without @Subscribe!");
   }
 

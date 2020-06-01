@@ -53,7 +53,7 @@ public final class ThreadFactoryBuilder {
   /**
    * Creates a new {@link ThreadFactory} builder.
    */
-  public ThreadFactoryBuilder() {}
+  public ThreadFactoryBuilder() { }
 
   /**
    * Sets the naming format to use when naming threads ({@link Thread#setName}) which are created
@@ -66,7 +66,7 @@ public final class ThreadFactoryBuilder {
    *     {@code "rpc-pool-1"}, {@code "rpc-pool-2"}, etc.
    * @return this for the builder pattern
    */
-  public ThreadFactoryBuilder setNameFormat(String nameFormat) {
+  public ThreadFactoryBuilder setNameFormat(final String nameFormat) {
     String unused = format(nameFormat, 0); // fail fast if the format is bad or null
     this.nameFormat = nameFormat;
     return this;
@@ -78,7 +78,7 @@ public final class ThreadFactoryBuilder {
    * @param daemon whether or not new Threads created with this ThreadFactory will be daemon threads
    * @return this for the builder pattern
    */
-  public ThreadFactoryBuilder setDaemon(boolean daemon) {
+  public ThreadFactoryBuilder setDaemon(final boolean daemon) {
     this.daemon = daemon;
     return this;
   }
@@ -89,7 +89,7 @@ public final class ThreadFactoryBuilder {
    * @param priority the priority for new Threads created with this ThreadFactory
    * @return this for the builder pattern
    */
-  public ThreadFactoryBuilder setPriority(int priority) {
+  public ThreadFactoryBuilder setPriority(final int priority) {
     // Thread#setPriority() already checks for validity. These error messages
     // are nicer though and will fail-fast.
     checkArgument(
@@ -114,7 +114,7 @@ public final class ThreadFactoryBuilder {
    * @return this for the builder pattern
    */
   public ThreadFactoryBuilder setUncaughtExceptionHandler(
-      UncaughtExceptionHandler uncaughtExceptionHandler) {
+      final UncaughtExceptionHandler uncaughtExceptionHandler) {
     this.uncaughtExceptionHandler = checkNotNull(uncaughtExceptionHandler);
     return this;
   }
@@ -129,7 +129,7 @@ public final class ThreadFactoryBuilder {
    *
    * @see MoreExecutors
    */
-  public ThreadFactoryBuilder setThreadFactory(ThreadFactory backingThreadFactory) {
+  public ThreadFactoryBuilder setThreadFactory(final ThreadFactory backingThreadFactory) {
     this.backingThreadFactory = checkNotNull(backingThreadFactory);
     return this;
   }
@@ -148,7 +148,7 @@ public final class ThreadFactoryBuilder {
 
   // Split out so that the anonymous ThreadFactory can't contain a reference back to the builder.
   // At least, I assume that's why. TODO(cpovirk): Check, and maybe add a test for this.
-  private static ThreadFactory doBuild(ThreadFactoryBuilder builder) {
+  private static ThreadFactory doBuild(final ThreadFactoryBuilder builder) {
     final String nameFormat = builder.nameFormat;
     final Boolean daemon = builder.daemon;
     final Integer priority = builder.priority;
@@ -160,7 +160,7 @@ public final class ThreadFactoryBuilder {
     final AtomicLong count = (nameFormat != null) ? new AtomicLong(0) : null;
     return new ThreadFactory() {
       @Override
-      public Thread newThread(Runnable runnable) {
+      public Thread newThread(final Runnable runnable) {
         Thread thread = backingThreadFactory.newThread(runnable);
         if (nameFormat != null) {
           thread.setName(format(nameFormat, count.getAndIncrement()));
@@ -179,7 +179,7 @@ public final class ThreadFactoryBuilder {
     };
   }
 
-  private static String format(String format, Object... args) {
+  private static String format(final String format, final Object... args) {
     return String.format(Locale.ROOT, format, args);
   }
 }

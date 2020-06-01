@@ -600,7 +600,7 @@ public class GraphsTest {
     }
   }
 
-  private static <N> void checkTransitiveClosure(Graph<N> originalGraph, Graph<N> expectedClosure) {
+  private static <N> void checkTransitiveClosure(final Graph<N> originalGraph, final Graph<N> expectedClosure) {
     for (N node : originalGraph.nodes()) {
       assertThat(reachableNodes(originalGraph, node)).isEqualTo(expectedClosure.successors(node));
     }

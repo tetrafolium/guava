@@ -37,7 +37,7 @@ import org.junit.runners.Parameterized.Parameters;
 public final class MapCacheTest {
   private final MapIteratorCache<String, String> mapCache;
 
-  public MapCacheTest(MapIteratorCache<String, String> mapCache) {
+  public MapCacheTest(final MapIteratorCache<String, String> mapCache) {
     this.mapCache = mapCache;
   }
 

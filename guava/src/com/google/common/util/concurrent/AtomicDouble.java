@@ -68,7 +68,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    *
    * @param initialValue the initial value
    */
-  public AtomicDouble(double initialValue) {
+  public AtomicDouble(final double initialValue) {
     value = doubleToRawLongBits(initialValue);
   }
 
@@ -93,7 +93,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    *
    * @param newValue the new value
    */
-  public final void set(double newValue) {
+  public final void set(final double newValue) {
     long next = doubleToRawLongBits(newValue);
     value = next;
   }
@@ -103,7 +103,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    *
    * @param newValue the new value
    */
-  public final void lazySet(double newValue) {
+  public final void lazySet(final double newValue) {
     long next = doubleToRawLongBits(newValue);
     updater.lazySet(this, next);
   }
@@ -114,7 +114,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @param newValue the new value
    * @return the previous value
    */
-  public final double getAndSet(double newValue) {
+  public final double getAndSet(final double newValue) {
     long next = doubleToRawLongBits(newValue);
     return longBitsToDouble(updater.getAndSet(this, next));
   }
@@ -129,7 +129,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @return {@code true} if successful. False return indicates that
    * the actual value was not bitwise equal to the expected value.
    */
-  public final boolean compareAndSet(double expect, double update) {
+  public final boolean compareAndSet(final double expect, final double update) {
     return updater.compareAndSet(this,
                                  doubleToRawLongBits(expect),
                                  doubleToRawLongBits(update));
@@ -150,7 +150,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @param update the new value
    * @return {@code true} if successful
    */
-  public final boolean weakCompareAndSet(double expect, double update) {
+  public final boolean weakCompareAndSet(final double expect, final double update) {
     return updater.weakCompareAndSet(this,
                                      doubleToRawLongBits(expect),
                                      doubleToRawLongBits(update));
@@ -163,7 +163,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @return the previous value
    */
   @CanIgnoreReturnValue
-  public final double getAndAdd(double delta) {
+  public final double getAndAdd(final double delta) {
     while (true) {
       long current = value;
       double currentVal = longBitsToDouble(current);
@@ -182,7 +182,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @return the updated value
    */
   @CanIgnoreReturnValue
-  public final double addAndGet(double delta) {
+  public final double addAndGet(final double delta) {
     while (true) {
       long current = value;
       double currentVal = longBitsToDouble(current);
@@ -238,7 +238,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    *
    * @serialData The current value is emitted (a {@code double}).
    */
-  private void writeObject(java.io.ObjectOutputStream s)
+  private void writeObject(final java.io.ObjectOutputStream s)
       throws java.io.IOException {
     s.defaultWriteObject();
 
@@ -248,7 +248,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
   /**
    * Reconstitutes the instance from a stream (that is, deserializes it).
    */
-  private void readObject(java.io.ObjectInputStream s)
+  private void readObject(final java.io.ObjectInputStream s)
       throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
 

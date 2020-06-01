@@ -46,7 +46,7 @@ public class Murmur3Hash128Test extends TestCase {
     assertEquals("6c1b07bc7bbc4be347939ac4a93c437a", foxHash.toString());
   }
 
-  private static void assertHash(int seed, long expected1, long expected2, String stringInput) {
+  private static void assertHash(final int seed, final long expected1, final long expected2, final String stringInput) {
     HashCode expected = toHashCode(expected1, expected2);
     byte[] input = HashTestUtils.ascii(stringInput);
     assertEquals(expected, murmur3_128(seed).hashBytes(input));
@@ -56,7 +56,7 @@ public class Murmur3Hash128Test extends TestCase {
   /**
    * Returns a {@link HashCode} for a sequence of longs, in big-endian order.
    */
-  private static HashCode toHashCode(long... longs) {
+  private static HashCode toHashCode(final long... longs) {
     ByteBuffer bb = ByteBuffer.wrap(new byte[longs.length * 8]).order(ByteOrder.LITTLE_ENDIAN);
     for (long x : longs) {
       bb.putLong(x);
@@ -66,7 +66,7 @@ public class Murmur3Hash128Test extends TestCase {
 
   public void testParanoid() {
     HashFn hf = new HashFn() {
-      @Override public byte[] hash(byte[] input, int seed) {
+      @Override public byte[] hash(final byte[] input, final int seed) {
         Hasher hasher = murmur3_128(seed).newHasher();
         Funnels.byteArrayFunnel().funnel(input, hasher);
         return hasher.hash().asBytes();

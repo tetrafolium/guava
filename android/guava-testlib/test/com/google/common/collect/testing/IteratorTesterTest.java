@@ -108,7 +108,7 @@ public class IteratorTesterTest extends TestCase {
   static class IteratorWithSunJavaBug6529795<T> implements Iterator<T> {
     Iterator<T> iterator;
     boolean nextThrewException;
-    IteratorWithSunJavaBug6529795(Iterator<T> iterator) {
+    IteratorWithSunJavaBug6529795(final Iterator<T> iterator) {
       this.iterator = iterator;
     }
 
@@ -165,7 +165,7 @@ public class IteratorTesterTest extends TestCase {
       numCallsToNewTargetIterator++;
       return Lists.newArrayList(1).iterator();
     }
-    @Override protected void verify(List<Integer> elements) {
+    @Override protected void verify(final List<Integer> elements) {
       numCallsToVerify++;
       super.verify(elements);
     }
@@ -190,7 +190,7 @@ public class IteratorTesterTest extends TestCase {
             return Lists.newArrayList(1, 2, 3).iterator();
           }
 
-          @Override protected void verify(List<Integer> elements) {
+          @Override protected void verify(final List<Integer> elements) {
             throw new AssertionFailedError(message);
           }
         };
@@ -253,11 +253,11 @@ public class IteratorTesterTest extends TestCase {
             return new Iterator<Integer>() {
               @Override
               public void remove() {
-                throw new IllegalStateException() { /* subclass */};
+                throw new IllegalStateException() { /* subclass */ };
               }
               @Override
               public Integer next() {
-                throw new NoSuchElementException() { /* subclass */};
+                throw new NoSuchElementException() { /* subclass */ };
               }
               @Override
               public boolean hasNext() {
@@ -296,7 +296,7 @@ public class IteratorTesterTest extends TestCase {
     assertFailure(tester);
   }
 
-  private static void assertFailure(IteratorTester<?> tester) {
+  private static void assertFailure(final IteratorTester<?> tester) {
     try {
       tester.test();
     } catch (AssertionFailedError expected) {
@@ -308,7 +308,7 @@ public class IteratorTesterTest extends TestCase {
   private static final class ThrowingIterator<E> implements Iterator<E> {
     private final RuntimeException ex;
 
-    private ThrowingIterator(RuntimeException ex) {
+    private ThrowingIterator(final RuntimeException ex) {
       this.ex = ex;
     }
 

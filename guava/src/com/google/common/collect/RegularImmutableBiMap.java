@@ -54,11 +54,11 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   private final transient int mask;
   private final transient int hashCode;
 
-  static <K, V> RegularImmutableBiMap<K, V> fromEntries(Entry<K, V>... entries) {
+  static <K, V> RegularImmutableBiMap<K, V> fromEntries(final Entry<K, V>... entries) {
     return fromEntryArray(entries.length, entries);
   }
 
-  static <K, V> RegularImmutableBiMap<K, V> fromEntryArray(int n, Entry<K, V>[] entryArray) {
+  static <K, V> RegularImmutableBiMap<K, V> fromEntryArray(final int n, final Entry<K, V>[] entryArray) {
     checkPositionIndex(n, entryArray.length);
     int tableSize = Hashing.closedTableSize(n, MAX_LOAD_FACTOR);
     int mask = tableSize - 1;
@@ -112,11 +112,11 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   }
 
   private RegularImmutableBiMap(
-      ImmutableMapEntry<K, V>[] keyTable,
-      ImmutableMapEntry<K, V>[] valueTable,
-      Entry<K, V>[] entries,
-      int mask,
-      int hashCode) {
+      final ImmutableMapEntry<K, V>[] keyTable,
+      final ImmutableMapEntry<K, V>[] valueTable,
+      final Entry<K, V>[] entries,
+      final int mask,
+      final int hashCode) {
     this.keyTable = keyTable;
     this.valueTable = valueTable;
     this.entries = entries;
@@ -127,7 +127,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   // checkNoConflictInKeyBucket is static imported from RegularImmutableMap
 
   private static void checkNoConflictInValueBucket(
-      Object value, Entry<?, ?> entry, @Nullable ImmutableMapEntry<?, ?> valueBucketHead) {
+      final Object value, final Entry<?, ?> entry, final @Nullable ImmutableMapEntry<?, ?> valueBucketHead) {
     for (; valueBucketHead != null; valueBucketHead = valueBucketHead.getNextInValueBucket()) {
       checkNoConflict(!value.equals(valueBucketHead.getValue()), "value", entry, valueBucketHead);
     }
@@ -135,7 +135,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
 
   @Override
   @Nullable
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return (keyTable == null) ? null : RegularImmutableMap.get(key, keyTable, mask);
   }
 
@@ -152,7 +152,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   }
 
   @Override
-  public void forEach(BiConsumer<? super K, ? super V> action) {
+  public void forEach(final BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
     for (Entry<K, V> entry : entries) {
       action.accept(entry.getKey(), entry.getValue());
@@ -205,13 +205,13 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     }
 
     @Override
-    public void forEach(BiConsumer<? super V, ? super K> action) {
+    public void forEach(final BiConsumer<? super V, ? super K> action) {
       checkNotNull(action);
       RegularImmutableBiMap.this.forEach((k, v) -> action.accept(v, k));
     }
 
     @Override
-    public K get(@Nullable Object value) {
+    public K get(final @Nullable Object value) {
       if (value == null || valueTable == null) {
         return null;
       }
@@ -259,7 +259,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
       }
 
       @Override
-      public void forEach(Consumer<? super Entry<V, K>> action) {
+      public void forEach(final Consumer<? super Entry<V, K>> action) {
         asList().forEach(action);
       }
 
@@ -267,7 +267,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
       ImmutableList<Entry<V, K>> createAsList() {
         return new ImmutableAsList<Entry<V, K>>() {
           @Override
-          public Entry<V, K> get(int index) {
+          public Entry<V, K> get(final int index) {
             Entry<K, V> entry = entries[index];
             return Maps.immutableEntry(entry.getValue(), entry.getKey());
           }
@@ -294,7 +294,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   private static class InverseSerializedForm<K, V> implements Serializable {
     private final ImmutableBiMap<K, V> forward;
 
-    InverseSerializedForm(ImmutableBiMap<K, V> forward) {
+    InverseSerializedForm(final ImmutableBiMap<K, V> forward) {
       this.forward = forward;
     }
 

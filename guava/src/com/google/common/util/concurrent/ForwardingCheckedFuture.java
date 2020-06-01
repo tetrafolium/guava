@@ -55,7 +55,7 @@ public abstract class ForwardingCheckedFuture<V, X extends Exception>
 
   @CanIgnoreReturnValue
   @Override
-  public V checkedGet(long timeout, TimeUnit unit) throws TimeoutException, X {
+  public V checkedGet(final long timeout, final TimeUnit unit) throws TimeoutException, X {
     return delegate().checkedGet(timeout, unit);
   }
 
@@ -83,7 +83,7 @@ public abstract class ForwardingCheckedFuture<V, X extends Exception>
       extends ForwardingCheckedFuture<V, X> {
     private final CheckedFuture<V, X> delegate;
 
-    protected SimpleForwardingCheckedFuture(CheckedFuture<V, X> delegate) {
+    protected SimpleForwardingCheckedFuture(final CheckedFuture<V, X> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 

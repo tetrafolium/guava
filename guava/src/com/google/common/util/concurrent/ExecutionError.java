@@ -32,26 +32,26 @@ public class ExecutionError extends Error {
   /**
    * Creates a new instance with {@code null} as its detail message.
    */
-  protected ExecutionError() {}
+  protected ExecutionError() { }
 
   /**
    * Creates a new instance with the given detail message.
    */
-  protected ExecutionError(@Nullable String message) {
+  protected ExecutionError(final @Nullable String message) {
     super(message);
   }
 
   /**
    * Creates a new instance with the given detail message and cause.
    */
-  public ExecutionError(@Nullable String message, @Nullable Error cause) {
+  public ExecutionError(final @Nullable String message, final @Nullable Error cause) {
     super(message, cause);
   }
 
   /**
    * Creates a new instance with the given cause.
    */
-  public ExecutionError(@Nullable Error cause) {
+  public ExecutionError(final @Nullable Error cause) {
     super(cause);
   }
 

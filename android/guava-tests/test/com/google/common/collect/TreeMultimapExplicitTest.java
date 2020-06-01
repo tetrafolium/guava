@@ -45,7 +45,7 @@ public class TreeMultimapExplicitTest extends TestCase {
     COMPARATOR;
 
     @Override
-    public int compare(String first, String second) {
+    public int compare(final String first, final String second) {
       if (first == second) {
         return 0;
       } else if (first == null) {

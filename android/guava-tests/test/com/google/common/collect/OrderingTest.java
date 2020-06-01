@@ -108,15 +108,15 @@ public class OrderingTest extends TestCase {
     try {
       comparator.compare(1, null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       comparator.compare(null, 2);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     try {
       comparator.compare(null, null);
       fail();
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     assertSame(comparator, reserialize(comparator));
     assertEquals("Ordering.natural()", comparator.toString());
   }
@@ -223,7 +223,7 @@ public class OrderingTest extends TestCase {
     }
 
     Ordering<Object> arbitrary = new ArbitraryOrdering() {
-      @Override int identityHashCode(Object object) {
+      @Override int identityHashCode(final Object object) {
         return ((Integer) object) % 5; // fake tons of collisions!
       }
     };
@@ -253,19 +253,19 @@ public class OrderingTest extends TestCase {
     AT3(3),
     AT4(4),
     AT5(5),
-    ;
+;
 
     final int index;
-    CharAtFunction(int index) {
+    CharAtFunction(final int index) {
       this.index = index;
     }
     @Override
-    public Character apply(String string) {
+    public Character apply(final String string) {
       return string.charAt(index);
     }
   }
 
-  private static Ordering<String> byCharAt(int index) {
+  private static Ordering<String> byCharAt(final int index) {
     return Ordering.natural().onResultOf(CharAtFunction.values()[index]);
   }
 
@@ -358,7 +358,7 @@ public class OrderingTest extends TestCase {
     StringLength;
 
     @Override
-    public Integer apply(String string) {
+    public Integer apply(final String string) {
       return string.length();
     }
   }
@@ -706,7 +706,7 @@ public class OrderingTest extends TestCase {
   }
 
   private static void runLeastOfComparison(
-      int iterations, int elements, int seeds) {
+      final int iterations, final int elements, final int seeds) {
     Random random = new Random(42);
     Ordering<Integer> ordering = Ordering.natural();
 
@@ -757,7 +757,7 @@ public class OrderingTest extends TestCase {
         numberOrdering.greatestOf(list.iterator(), 4));
   }
 
-  private static void assertListImmutable(List<Integer> result) {
+  private static void assertListImmutable(final List<Integer> result) {
     try {
       result.set(0, 1);
       fail();
@@ -841,13 +841,13 @@ public class OrderingTest extends TestCase {
   }
 
   private static class NumberOrdering extends Ordering<Number> {
-    @Override public int compare(Number a, Number b) {
+    @Override public int compare(final Number a, final Number b) {
       return ((Double) a.doubleValue()).compareTo(b.doubleValue());
     }
     @Override public int hashCode() {
       return NumberOrdering.class.hashCode();
     }
-    @Override public boolean equals(Object other) {
+    @Override public boolean equals(final Object other) {
       return other instanceof NumberOrdering;
     }
     private static final long serialVersionUID = 0;
@@ -898,7 +898,7 @@ public class OrderingTest extends TestCase {
    * test the varargs version of min/max.
    */
   private static <T> void testExhaustively(
-      Ordering<? super T> ordering, T... strictlyOrderedElements) {
+      final Ordering<? super T> ordering, final T... strictlyOrderedElements) {
     checkArgument(strictlyOrderedElements.length >= 3, "strictlyOrderedElements "
         + "requires at least 3 elements");
     List<T> list = Arrays.asList(strictlyOrderedElements);
@@ -912,7 +912,7 @@ public class OrderingTest extends TestCase {
     verifyScenario(starter, 0);
   }
 
-  private static <T> void verifyScenario(Scenario<T> scenario, int level) {
+  private static <T> void verifyScenario(final Scenario<T> scenario, final int level) {
     scenario.testCompareTo();
     scenario.testIsOrdered();
     scenario.testMinAndMax();
@@ -935,7 +935,7 @@ public class OrderingTest extends TestCase {
     final List<T> strictlyOrderedList;
     final T[] emptyArray;
 
-    Scenario(Ordering<T> ordering, List<T> strictlyOrderedList, T[] emptyArray) {
+    Scenario(final Ordering<T> ordering, final List<T> strictlyOrderedList, final T[] emptyArray) {
       this.ordering = ordering;
       this.strictlyOrderedList = strictlyOrderedList;
       this.emptyArray = emptyArray;
@@ -1006,14 +1006,14 @@ public class OrderingTest extends TestCase {
    */
   private enum OrderingMutation {
     REVERSE {
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         List<T> newList = Lists.newArrayList(scenario.strictlyOrderedList);
         Collections.reverse(newList);
         return new Scenario<T>(scenario.ordering.reverse(), newList, scenario.emptyArray);
       }
     },
     NULLS_FIRST {
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         @SuppressWarnings("unchecked")
         List<T> newList = Lists.newArrayList((T) null);
         for (T t : scenario.strictlyOrderedList) {
@@ -1025,7 +1025,7 @@ public class OrderingTest extends TestCase {
       }
     },
     NULLS_LAST {
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         List<T> newList = Lists.newArrayList();
         for (T t : scenario.strictlyOrderedList) {
           if (t != null) {
@@ -1041,7 +1041,7 @@ public class OrderingTest extends TestCase {
         Ordering<Integer> ordering = scenario.ordering.onResultOf(
             new Function<Integer, T>() {
               @Override
-              public T apply(@Nullable Integer from) {
+              public T apply(final @Nullable Integer from) {
                 return scenario.strictlyOrderedList.get(from);
               }
             });
@@ -1054,7 +1054,7 @@ public class OrderingTest extends TestCase {
     },
     COMPOUND_THIS_WITH_NATURAL {
       @SuppressWarnings("unchecked") // raw array
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         List<Composite<T>> composites = Lists.newArrayList();
         for (T t : scenario.strictlyOrderedList) {
           composites.add(new Composite<T>(t, 1));
@@ -1068,7 +1068,7 @@ public class OrderingTest extends TestCase {
     },
     COMPOUND_NATURAL_WITH_THIS {
       @SuppressWarnings("unchecked") // raw array
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         List<Composite<T>> composites = Lists.newArrayList();
         for (T t : scenario.strictlyOrderedList) {
           composites.add(new Composite<T>(t, 1));
@@ -1083,7 +1083,7 @@ public class OrderingTest extends TestCase {
     },
     LEXICOGRAPHICAL {
       @SuppressWarnings("unchecked") // dang varargs
-      @Override <T> Scenario<?> mutate(Scenario<T> scenario) {
+      @Override <T> Scenario<?> mutate(final Scenario<T> scenario) {
         List<Iterable<T>> words = Lists.newArrayList();
         words.add(Collections.<T>emptyList());
         for (T t : scenario.strictlyOrderedList) {
@@ -1096,7 +1096,7 @@ public class OrderingTest extends TestCase {
             scenario.ordering.lexicographical(), words, new Iterable[0]);
       }
     },
-    ;
+;
 
     abstract <T> Scenario<?> mutate(Scenario<T> scenario);
   }
@@ -1109,7 +1109,7 @@ public class OrderingTest extends TestCase {
     final T value;
     final int rank;
 
-    Composite(T value, int rank) {
+    Composite(final T value, final int rank) {
       this.value = value;
       this.rank = rank;
     }
@@ -1117,14 +1117,14 @@ public class OrderingTest extends TestCase {
     // natural order is by rank only; the test will compound() this with the
     // order of 't'.
     @Override
-    public int compareTo(Composite<T> that) {
+    public int compareTo(final Composite<T> that) {
       return Ints.compare(rank, that.rank);
     }
 
     static <T> Function<Composite<T>, T> getValueFunction() {
       return new Function<Composite<T>, T>() {
         @Override
-        public T apply(Composite<T> from) {
+        public T apply(final Composite<T> from) {
           return from.value;
         }
       };
@@ -1140,7 +1140,7 @@ public class OrderingTest extends TestCase {
     tester.testAllPublicInstanceMethods(Ordering.usingToString().nullsFirst());
   }
 
-  private static <T> List<T> shuffledCopy(List<T> in, Random random) {
+  private static <T> List<T> shuffledCopy(final List<T> in, final Random random) {
     List<T> mutable = newArrayList(in);
     List<T> out = newArrayList();
     while (!mutable.isEmpty()) {

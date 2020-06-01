@@ -185,7 +185,7 @@ public class ElementTest extends TestCase {
   }
 
   @Retention(RetentionPolicy.RUNTIME)
-  private @interface Tested {}
+  private @interface Tested { }
 
   private static abstract class A {
     @Tested private boolean privateField;
@@ -197,23 +197,23 @@ public class ElementTest extends TestCase {
     private volatile char volatileField;
     private transient long transientField;
 
-    @Tested public A(Object finalField) {
+    @Tested public A(final Object finalField) {
       this.finalField = finalField;
     }
 
     @Tested abstract void abstractMethod();
 
-    @Tested void overridableMethod() {}
+    @Tested void overridableMethod() { }
 
-    @Tested protected void protectedMethod() {}
+    @Tested protected void protectedMethod() { }
 
-    @Tested private void privateMethod() {}
+    @Tested private void privateMethod() { }
 
-    @Tested public final void publicFinalMethod() {}
+    @Tested public final void publicFinalMethod() { }
 
-    void notAnnotatedMethod() {}
+    void notAnnotatedMethod() { }
 
-    static Element field(String name) throws Exception {
+    static Element field(final String name) throws Exception {
       Element element = new Element(A.class.getDeclaredField(name));
       assertEquals(name, element.getName());
       assertEquals(A.class, element.getDeclaringClass());
@@ -228,7 +228,7 @@ public class ElementTest extends TestCase {
       return element;
     }
 
-    static Element method(String name, Class<?>... parameterTypes) throws Exception {
+    static Element method(final String name, final Class<?>... parameterTypes) throws Exception {
       Element element = new Element(A.class.getDeclaredMethod(name, parameterTypes));
       assertEquals(name, element.getName());
       assertEquals(A.class, element.getDeclaringClass());
@@ -237,6 +237,6 @@ public class ElementTest extends TestCase {
 
     native void nativeMethod();
 
-    synchronized void synchronizedMethod() {}
+    synchronized void synchronizedMethod() { }
   }
 }

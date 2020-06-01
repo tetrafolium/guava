@@ -35,7 +35,7 @@ import java.util.Map.Entry;
 public class BiMapGenerators {
   public static class ImmutableBiMapGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       ImmutableBiMap.Builder<String, String> builder = ImmutableBiMap.builder();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -46,7 +46,7 @@ public class BiMapGenerators {
 
   public static class ImmutableBiMapCopyOfGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       Map<String, String> builder = Maps.newLinkedHashMap();
       for (Entry<String, String> entry : entries) {
         builder.put(entry.getKey(), entry.getValue());
@@ -57,7 +57,7 @@ public class BiMapGenerators {
 
   public static class ImmutableBiMapCopyOfEntriesGenerator extends TestStringBiMapGenerator {
     @Override
-    protected BiMap<String, String> create(Entry<String, String>[] entries) {
+    protected BiMap<String, String> create(final Entry<String, String>[] entries) {
       return ImmutableBiMap.copyOf(Arrays.asList(entries));
     }
   }

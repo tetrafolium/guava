@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("unchecked") // allow ungenerified Comparable types
 final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
-  EmptyContiguousSet(DiscreteDomain<C> domain) {
+  EmptyContiguousSet(final DiscreteDomain<C> domain) {
     super(domain);
   }
 
@@ -48,7 +48,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   }
 
   @Override
-  public ContiguousSet<C> intersection(ContiguousSet<C> other) {
+  public ContiguousSet<C> intersection(final ContiguousSet<C> other) {
     return this;
   }
 
@@ -58,34 +58,34 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   }
 
   @Override
-  public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
+  public Range<C> range(final BoundType lowerBoundType, final BoundType upperBoundType) {
     throw new NoSuchElementException();
   }
 
   @Override
-  ContiguousSet<C> headSetImpl(C toElement, boolean inclusive) {
+  ContiguousSet<C> headSetImpl(final C toElement, final boolean inclusive) {
     return this;
   }
 
   @Override
   ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+      final C fromElement, final boolean fromInclusive, final C toElement, final boolean toInclusive) {
     return this;
   }
 
   @Override
-  ContiguousSet<C> tailSetImpl(C fromElement, boolean fromInclusive) {
+  ContiguousSet<C> tailSetImpl(final C fromElement, final boolean fromInclusive) {
     return this;
   }
 
   @Override
-  public boolean contains(Object object) {
+  public boolean contains(final Object object) {
     return false;
   }
 
   @GwtIncompatible // not used by GWT emulation
   @Override
-  int indexOf(Object target) {
+  int indexOf(final Object target) {
     return -1;
   }
 
@@ -121,7 +121,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object instanceof Set) {
       Set<?> that = (Set<?>) object;
       return that.isEmpty();
@@ -144,7 +144,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   private static final class SerializedForm<C extends Comparable> implements Serializable {
     private final DiscreteDomain<C> domain;
 
-    private SerializedForm(DiscreteDomain<C> domain) {
+    private SerializedForm(final DiscreteDomain<C> domain) {
       this.domain = domain;
     }
 

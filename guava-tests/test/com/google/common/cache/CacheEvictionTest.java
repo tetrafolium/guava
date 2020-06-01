@@ -141,7 +141,7 @@ public class CacheEvictionTest extends TestCase {
     // Even numbers are free, odd are too expensive
     Weigher<Integer, Integer> evensOnly =
         new Weigher<Integer, Integer>() {
-          @Override public int weigh(Integer k, Integer v) {
+          @Override public int weigh(final Integer k, final Integer v) {
             return k % 2;
           }
         };
@@ -262,7 +262,7 @@ public class CacheEvictionTest extends TestCase {
     CacheTesting.checkRecency(cache, MAX_SIZE,
         new Receiver<ReferenceEntry<Integer, Integer>>() {
           @Override
-          public void accept(ReferenceEntry<Integer, Integer> entry) {
+          public void accept(final ReferenceEntry<Integer, Integer> entry) {
             cache.getUnchecked(entry.getKey());
           }
         });
@@ -277,7 +277,7 @@ public class CacheEvictionTest extends TestCase {
     CacheTesting.checkRecency(cache, MAX_SIZE,
         new Receiver<ReferenceEntry<Integer, Integer>>() {
           @Override
-          public void accept(ReferenceEntry<Integer, Integer> entry) {
+          public void accept(final ReferenceEntry<Integer, Integer> entry) {
             Integer key = entry.getKey();
             cache.invalidate(key);
           }
@@ -409,7 +409,7 @@ public class CacheEvictionTest extends TestCase {
     assertThat(keySet).containsExactly(5, 6, 7, 8, 9, 10, 11, 12);
   }
 
-  private static void getAll(LoadingCache<Integer, Integer> cache, List<Integer> keys) {
+  private static void getAll(final LoadingCache<Integer, Integer> cache, final List<Integer> keys) {
     for (int i : keys) {
       cache.getUnchecked(i);
     }

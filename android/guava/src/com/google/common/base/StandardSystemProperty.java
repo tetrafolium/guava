@@ -112,7 +112,7 @@ public enum StandardSystemProperty {
 
   private final String key;
 
-  private StandardSystemProperty(String key) {
+  private StandardSystemProperty(final String key) {
     this.key = key;
   }
 

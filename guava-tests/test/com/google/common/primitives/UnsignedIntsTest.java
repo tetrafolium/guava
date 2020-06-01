@@ -59,7 +59,7 @@ public class UnsignedIntsTest extends TestCase {
     assertCastFails(Long.MIN_VALUE);
   }
 
-  private static void assertCastFails(long value) {
+  private static void assertCastFails(final long value) {
     try {
       UnsignedInts.checkedCast(value);
       fail("Cast to int should have failed: " + value);
@@ -152,7 +152,7 @@ public class UnsignedIntsTest extends TestCase {
     testSort(new int[] {2, GREATEST, 1, LEAST}, new int[] {LEAST, 1, 2, GREATEST});
   }
 
-  static void testSort(int[] input, int[] expected) {
+  static void testSort(final int[] input, final int[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedInts.sort(input);
     assertTrue(Arrays.equals(expected, input));
@@ -165,7 +165,7 @@ public class UnsignedIntsTest extends TestCase {
     testSort(new int[] {2, GREATEST, 1, LEAST}, 1, 4, new int[] {2, LEAST, 1, GREATEST});
   }
 
-  static void testSort(int[] input, int from, int to, int[] expected) {
+  static void testSort(final int[] input, final int from, final int to, final int[] expected) {
     input = Arrays.copyOf(input, input.length);
     UnsignedInts.sort(input, from, to);
     assertTrue(Arrays.equals(expected, input));
@@ -193,14 +193,14 @@ public class UnsignedIntsTest extends TestCase {
         new int[] {GREATEST - 1, GREATEST - 2, 1, 2});
   }
 
-  private static void testSortDescending(int[] input, int[] expectedOutput) {
+  private static void testSortDescending(final int[] input, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedInts.sortDescending(input);
     assertTrue(Arrays.equals(expectedOutput, input));
   }
 
   private static void testSortDescending(
-      int[] input, int fromIndex, int toIndex, int[] expectedOutput) {
+      final int[] input, final int fromIndex, final int toIndex, final int[] expectedOutput) {
     input = Arrays.copyOf(input, input.length);
     UnsignedInts.sortDescending(input, fromIndex, toIndex);
     assertTrue(Arrays.equals(expectedOutput, input));
@@ -256,7 +256,7 @@ public class UnsignedIntsTest extends TestCase {
     try {
       UnsignedInts.parseUnsignedInt(Long.toString(1L << 32));
       fail("Expected NumberFormatException");
-    } catch (NumberFormatException expected) {}
+    } catch (NumberFormatException expected) { }
   }
 
   public void testParseIntWithRadix() {
@@ -280,7 +280,7 @@ public class UnsignedIntsTest extends TestCase {
         String overflowAsString = Long.toString(overflow, radix);
         UnsignedInts.parseUnsignedInt(overflowAsString, radix);
         fail();
-      } catch (NumberFormatException expected) {}
+      } catch (NumberFormatException expected) { }
     }
   }
 
@@ -290,18 +290,18 @@ public class UnsignedIntsTest extends TestCase {
     try {
       UnsignedInts.parseUnsignedInt("0", Character.MIN_RADIX - 1);
       fail();
-    } catch (NumberFormatException expected) {}
+    } catch (NumberFormatException expected) { }
 
     try {
       UnsignedInts.parseUnsignedInt("0", Character.MAX_RADIX + 1);
       fail();
-    } catch (NumberFormatException expected) {}
+    } catch (NumberFormatException expected) { }
 
     // The radix is used as an array index, so try a negative value.
     try {
       UnsignedInts.parseUnsignedInt("0", -1);
       fail();
-    } catch (NumberFormatException expected) {}
+    } catch (NumberFormatException expected) { }
   }
 
   public void testDecodeInt() {
@@ -359,7 +359,7 @@ public class UnsignedIntsTest extends TestCase {
     assertEquals("123", UnsignedInts.join("", 1, 2, 3));
   }
 
-  private static String join(int... values) {
+  private static String join(final int... values) {
     return UnsignedInts.join(",", values);
   }
 

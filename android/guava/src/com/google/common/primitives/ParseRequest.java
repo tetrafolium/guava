@@ -24,12 +24,12 @@ final class ParseRequest {
   final String rawValue;
   final int radix;
 
-  private ParseRequest(String rawValue, int radix) {
+  private ParseRequest(final String rawValue, final int radix) {
     this.rawValue = rawValue;
     this.radix = radix;
   }
 
-  static ParseRequest fromString(String stringValue) {
+  static ParseRequest fromString(final String stringValue) {
     if (stringValue.length() == 0) {
       throw new NumberFormatException("empty string");
     }

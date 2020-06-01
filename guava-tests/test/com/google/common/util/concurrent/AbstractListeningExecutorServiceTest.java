@@ -80,7 +80,7 @@ public class AbstractListeningExecutorServiceTest extends TestCase {
   private static class TestListeningExecutorService extends AbstractListeningExecutorService {
 
     @Override
-    public void execute(Runnable runnable) {
+    public void execute(final Runnable runnable) {
       assertThat(runnable).isInstanceOf(TrustedListenableFutureTask.class);
       runnable.run();
     }
@@ -105,7 +105,7 @@ public class AbstractListeningExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) {
+    public boolean awaitTermination(final long timeout, final TimeUnit unit) {
       return false;
     }
   }

@@ -70,7 +70,7 @@ import javax.annotation.Nullable;
 @J2ObjCIncompatible // java.nio.file
 public final class MoreFiles {
 
-  private MoreFiles() {}
+  private MoreFiles() { }
 
   /**
    * Returns a view of the given {@code path} as a {@link ByteSource}.
@@ -80,7 +80,7 @@ public final class MoreFiles {
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
    * equivalent to providing the {@link StandardOpenOption#READ READ} option.
    */
-  public static ByteSource asByteSource(Path path, OpenOption... options) {
+  public static ByteSource asByteSource(final Path path, final OpenOption... options) {
     return new PathByteSource(path, options);
   }
 
@@ -92,14 +92,14 @@ public final class MoreFiles {
     private final OpenOption[] options;
     private final boolean followLinks;
 
-    private PathByteSource(Path path, OpenOption... options) {
+    private PathByteSource(final Path path, final OpenOption... options) {
       this.path = checkNotNull(path);
       this.options = options.clone();
       this.followLinks = followLinks(this.options);
       // TODO(cgdecker): validate the provided options... for example, just WRITE seems wrong
     }
 
-    private static boolean followLinks(OpenOption[] options) {
+    private static boolean followLinks(final OpenOption[] options) {
       for (OpenOption option : options) {
         if (option == NOFOLLOW_LINKS) {
           return false;
@@ -116,7 +116,7 @@ public final class MoreFiles {
     private BasicFileAttributes readAttributes() throws IOException {
       return Files.readAttributes(
           path, BasicFileAttributes.class,
-          followLinks ? FOLLOW_LINKS : new LinkOption[] { NOFOLLOW_LINKS });
+          followLinks ? FOLLOW_LINKS : new LinkOption[] {NOFOLLOW_LINKS });
     }
 
     @Override
@@ -162,7 +162,7 @@ public final class MoreFiles {
     }
 
     @Override
-    public CharSource asCharSource(Charset charset) {
+    public CharSource asCharSource(final Charset charset) {
       if (options.length == 0) {
         // If no OpenOptions were passed, delegate to Files.lines, which could have performance
         // advantages. (If OpenOptions were passed we can't, because Files.lines doesn't have an
@@ -196,7 +196,7 @@ public final class MoreFiles {
    * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@link StandardOpenOption#WRITE
    * WRITE} options.
    */
-  public static ByteSink asByteSink(Path path, OpenOption... options) {
+  public static ByteSink asByteSink(final Path path, final OpenOption... options) {
     return new PathByteSink(path, options);
   }
 
@@ -205,7 +205,7 @@ public final class MoreFiles {
     private final Path path;
     private final OpenOption[] options;
 
-    private PathByteSink(Path path, OpenOption... options) {
+    private PathByteSink(final Path path, final OpenOption... options) {
       this.path = checkNotNull(path);
       this.options = options.clone();
       // TODO(cgdecker): validate the provided options... for example, just READ seems wrong
@@ -231,7 +231,7 @@ public final class MoreFiles {
    * StandardOpenOption} for the standard options that may be provided. Providing no options is
    * equivalent to providing the {@link StandardOpenOption#READ READ} option.
    */
-  public static CharSource asCharSource(Path path, Charset charset, OpenOption... options) {
+  public static CharSource asCharSource(final Path path, final Charset charset, final OpenOption... options) {
     return asByteSource(path, options).asCharSource(charset);
   }
 
@@ -246,7 +246,7 @@ public final class MoreFiles {
    * StandardOpenOption#TRUNCATE_EXISTING TRUNCATE_EXISTING} and {@link StandardOpenOption#WRITE
    * WRITE} options.
    */
-  public static CharSink asCharSink(Path path, Charset charset, OpenOption... options) {
+  public static CharSink asCharSink(final Path path, final Charset charset, final OpenOption... options) {
     return asByteSink(path, options).asCharSink(charset);
   }
 
@@ -258,7 +258,7 @@ public final class MoreFiles {
    *     <i>(optional specific exception)</i>
    * @throws IOException if an I/O error occurs
    */
-  public static ImmutableList<Path> listFiles(Path dir) throws IOException {
+  public static ImmutableList<Path> listFiles(final Path dir) throws IOException {
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
       return ImmutableList.copyOf(stream);
     } catch (DirectoryIteratorException e) {
@@ -290,7 +290,7 @@ public final class MoreFiles {
     private static final DirectoryTreeTraverser INSTANCE = new DirectoryTreeTraverser();
 
     @Override
-    public Iterable<Path> children(Path dir) {
+    public Iterable<Path> children(final Path dir) {
       if (Files.isDirectory(dir, NOFOLLOW_LINKS)) {
         try {
           return listFiles(dir);
@@ -307,11 +307,11 @@ public final class MoreFiles {
    * Returns a predicate that returns the result of {@link java.nio.file.Files#isDirectory(Path,
    * LinkOption...)} on input paths with the given link options.
    */
-  public static Predicate<Path> isDirectory(LinkOption... options) {
+  public static Predicate<Path> isDirectory(final LinkOption... options) {
     final LinkOption[] optionsCopy = options.clone();
     return new Predicate<Path>() {
       @Override
-      public boolean apply(Path input) {
+      public boolean apply(final Path input) {
         return Files.isDirectory(input, optionsCopy);
       }
 
@@ -326,11 +326,11 @@ public final class MoreFiles {
    * Returns a predicate that returns the result of {@link java.nio.file.Files#isRegularFile(Path,
    * LinkOption...)} on input paths with the given link options.
    */
-  public static Predicate<Path> isRegularFile(LinkOption... options) {
+  public static Predicate<Path> isRegularFile(final LinkOption... options) {
     final LinkOption[] optionsCopy = options.clone();
     return new Predicate<Path>() {
       @Override
-      public boolean apply(Path input) {
+      public boolean apply(final Path input) {
         return Files.isRegularFile(input, optionsCopy);
       }
 
@@ -348,7 +348,7 @@ public final class MoreFiles {
    * @throws IOException if an I/O error occurs
    * @since 22.0
    */
-  public static boolean equal(Path path1, Path path2) throws IOException {
+  public static boolean equal(final Path path1, final Path path2) throws IOException {
     checkNotNull(path1);
     checkNotNull(path2);
     if (Files.isSameFile(path1, path2)) {
@@ -374,7 +374,7 @@ public final class MoreFiles {
    * Like the unix command of the same name, creates an empty file or updates the last modified
    * timestamp of the existing file at the given path to the current system time.
    */
-  public static void touch(Path path) throws IOException {
+  public static void touch(final Path path) throws IOException {
     checkNotNull(path);
 
     try {
@@ -402,7 +402,7 @@ public final class MoreFiles {
    *                     directories of the specified file could not be created.
    */
   public static void createParentDirectories(
-      Path path, FileAttribute<?>... attrs) throws IOException {
+      final Path path, final FileAttribute<?>... attrs) throws IOException {
     // Interestingly, unlike File.getCanonicalFile(), Path/Files provides no way of getting the
     // canonical (absolute, normalized, symlinks resolved, etc.) form of a path to a nonexistent
     // file. getCanonicalFile() can at least get the canonical form of the part of the path which
@@ -441,7 +441,7 @@ public final class MoreFiles {
    * will drop the {@code ":.txt"} part of the name when the file is actually created on the
    * filesystem due to NTFS's <a href="https://goo.gl/vTpJi4">Alternate Data Streams</a>.
    */
-  public static String getFileExtension(Path path) {
+  public static String getFileExtension(final Path path) {
     Path name = path.getFileName();
 
     // null for empty paths and root-only paths
@@ -459,7 +459,7 @@ public final class MoreFiles {
    * <a href="http://en.wikipedia.org/wiki/Filename_extension">file extension</a> or path. This is
    * similar to the {@code basename} unix command. The result does not include the '{@code .}'.
    */
-  public static String getNameWithoutExtension(Path path) {
+  public static String getNameWithoutExtension(final Path path) {
     Path name = path.getFileName();
 
     // null for empty paths and root-only paths
@@ -504,7 +504,7 @@ public final class MoreFiles {
    *     for any reason
    */
   public static void deleteRecursively(
-      Path path, RecursiveDeleteOption... options) throws IOException {
+      final Path path, final RecursiveDeleteOption... options) throws IOException {
     Path parentPath = getParentPath(path);
     if (parentPath == null) {
       throw new FileSystemException(path.toString(), null, "can't delete recursively");
@@ -574,7 +574,7 @@ public final class MoreFiles {
    * @throws IOException if one or more files can't be deleted for any reason
    */
   public static void deleteDirectoryContents(
-      Path path, RecursiveDeleteOption... options) throws IOException {
+      final Path path, final RecursiveDeleteOption... options) throws IOException {
     Collection<IOException> exceptions = null; // created lazily if needed
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
       if (stream instanceof SecureDirectoryStream) {
@@ -603,7 +603,7 @@ public final class MoreFiles {
    */
   @Nullable
   private static Collection<IOException> deleteRecursivelySecure(
-      SecureDirectoryStream<Path> dir, Path path) {
+      final SecureDirectoryStream<Path> dir, final Path path) {
     Collection<IOException> exceptions = null;
     try {
       if (isDirectory(dir, path, NOFOLLOW_LINKS)) {
@@ -632,7 +632,7 @@ public final class MoreFiles {
    */
   @Nullable
   private static Collection<IOException> deleteDirectoryContentsSecure(
-      SecureDirectoryStream<Path> dir) {
+      final SecureDirectoryStream<Path> dir) {
     Collection<IOException> exceptions = null;
     try {
       for (Path path : dir) {
@@ -650,7 +650,7 @@ public final class MoreFiles {
    * Returns a collection of exceptions that occurred or null if no exceptions were thrown.
    */
   @Nullable
-  private static Collection<IOException> deleteRecursivelyInsecure(Path path) {
+  private static Collection<IOException> deleteRecursivelyInsecure(final Path path) {
     Collection<IOException> exceptions = null;
     try {
       if (Files.isDirectory(path, NOFOLLOW_LINKS)) {
@@ -678,7 +678,7 @@ public final class MoreFiles {
    */
   @Nullable
   private static Collection<IOException> deleteDirectoryContentsInsecure(
-      DirectoryStream<Path> dir) {
+      final DirectoryStream<Path> dir) {
     Collection<IOException> exceptions = null;
     try {
       for (Path entry : dir) {
@@ -697,7 +697,7 @@ public final class MoreFiles {
    * is a root or is the empty path.
    */
   @Nullable
-  private static Path getParentPath(Path path) {
+  private static Path getParentPath(final Path path) {
     Path parent = path.getParent();
 
     // Paths that have a parent:
@@ -734,7 +734,7 @@ public final class MoreFiles {
    * Checks that the given options allow an insecure delete, throwing an exception if not.
    */
   private static void checkAllowsInsecure(
-      Path path, RecursiveDeleteOption[] options) throws InsecureRecursiveDeleteException {
+      final Path path, final RecursiveDeleteOption[] options) throws InsecureRecursiveDeleteException {
     if (!Arrays.asList(options).contains(RecursiveDeleteOption.ALLOW_INSECURE)) {
       throw new InsecureRecursiveDeleteException(path.toString());
     }
@@ -744,7 +744,7 @@ public final class MoreFiles {
    * Returns whether or not the file with the given name in the given dir is a directory.
    */
   private static boolean isDirectory(
-      SecureDirectoryStream<Path> dir, Path name, LinkOption... options) throws IOException {
+      final SecureDirectoryStream<Path> dir, final Path name, final LinkOption... options) throws IOException {
     return dir.getFileAttributeView(name, BasicFileAttributeView.class, options)
         .readAttributes()
         .isDirectory();
@@ -755,7 +755,7 @@ public final class MoreFiles {
    * Returns the collection.
    */
   private static Collection<IOException> addException(
-      @Nullable Collection<IOException> exceptions, IOException e) {
+      final @Nullable Collection<IOException> exceptions, final IOException e) {
     if (exceptions == null) {
       exceptions = new ArrayList<>(); // don't need Set semantics
     }
@@ -770,7 +770,7 @@ public final class MoreFiles {
    */
   @Nullable
   private static Collection<IOException> concat(
-      @Nullable Collection<IOException> exceptions, @Nullable Collection<IOException> other) {
+      final @Nullable Collection<IOException> exceptions, final @Nullable Collection<IOException> other) {
     if (exceptions == null) {
       return other;
     } else if (other != null) {
@@ -784,7 +784,7 @@ public final class MoreFiles {
    * exception contains all the exceptions in the given collection as suppressed exceptions.
    */
   private static void throwDeleteFailed(
-      Path path, Collection<IOException> exceptions) throws FileSystemException {
+      final Path path, final Collection<IOException> exceptions) throws FileSystemException {
     // TODO(cgdecker): Should there be a custom exception type for this?
     // Also, should we try to include the Path of each file we may have failed to delete rather
     // than just the exceptions that occurred?

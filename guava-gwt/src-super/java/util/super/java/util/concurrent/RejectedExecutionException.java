@@ -23,15 +23,15 @@ public class RejectedExecutionException extends RuntimeException {
   public RejectedExecutionException() {
   }
 
-  public RejectedExecutionException(String message) {
+  public RejectedExecutionException(final String message) {
     super(message);
   }
 
-  public RejectedExecutionException(String message, Throwable cause) {
+  public RejectedExecutionException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
-  public RejectedExecutionException(Throwable cause) {
+  public RejectedExecutionException(final Throwable cause) {
     super(cause);
   }
 }

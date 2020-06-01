@@ -92,7 +92,7 @@ public class MediaTypeTest extends TestCase {
   private static FluentIterable<Field> getConstantFields() {
     return FluentIterable.from(asList(MediaType.class.getDeclaredFields()))
         .filter(new Predicate<Field>() {
-          @Override public boolean apply(Field input) {
+          @Override public boolean apply(final Field input) {
             int modifiers = input.getModifiers();
             return isPublic(modifiers) && isStatic(modifiers) && isFinal(modifiers)
                 && MediaType.class.equals(input.getType());
@@ -106,7 +106,7 @@ public class MediaTypeTest extends TestCase {
         .transform(
             new Function<Field, MediaType>() {
               @Override
-              public MediaType apply(Field input) {
+              public MediaType apply(final Field input) {
                 try {
                   return (MediaType) input.get(null);
                 } catch (Exception e) {
@@ -120,21 +120,21 @@ public class MediaTypeTest extends TestCase {
     try {
       MediaType.create("te><t", "plaintext");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreate_invalidSubtype() {
     try {
       MediaType.create("text", "pl@intext");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreate_wildcardTypeDeclaredSubtype() {
     try {
       MediaType.create("*", "text");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateApplicationType() {
@@ -211,7 +211,7 @@ public class MediaTypeTest extends TestCase {
     try {
       mediaType.withParameters(parameters);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testWithParameter() {
@@ -230,7 +230,7 @@ public class MediaTypeTest extends TestCase {
     try {
       mediaType.withParameter("@", "2");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testWithCharset() {
@@ -270,74 +270,74 @@ public class MediaTypeTest extends TestCase {
     try {
       MediaType.parse("");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testParse_badInput() {
     try {
       MediaType.parse("/");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("te<t/plain");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/pl@in");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain;");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; ");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=@");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=\"@");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=1;");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=1; ");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=1; b");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=1; b=");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
     try {
       MediaType.parse("text/plain; a=\u2025");
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testGetCharset() {
@@ -355,7 +355,7 @@ public class MediaTypeTest extends TestCase {
     try {
       mediaType.charset();
       fail();
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
   }
 
   public void testGetCharset_illegalCharset() {
@@ -364,7 +364,7 @@ public class MediaTypeTest extends TestCase {
     try {
       mediaType.charset();
       fail();
-    } catch (IllegalCharsetNameException expected) {}
+    } catch (IllegalCharsetNameException expected) { }
   }
 
   public void testGetCharset_unsupportedCharset() {
@@ -373,7 +373,7 @@ public class MediaTypeTest extends TestCase {
     try {
       mediaType.charset();
       fail();
-    } catch (UnsupportedCharsetException expected) {}
+    } catch (UnsupportedCharsetException expected) { }
   }
 
   public void testEquals() {

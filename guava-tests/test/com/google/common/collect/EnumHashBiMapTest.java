@@ -48,7 +48,7 @@ public class EnumHashBiMapTest extends TestCase {
   public static final class EnumHashBiMapGenerator implements TestBiMapGenerator<Country, String> {
     @SuppressWarnings("unchecked")
     @Override
-    public BiMap<Country, String> create(Object... entries) {
+    public BiMap<Country, String> create(final Object... entries) {
       BiMap<Country, String> result = EnumHashBiMap.create(Country.class);
       for (Object o : entries) {
         Entry<Country, String> entry = (Entry<Country, String>) o;
@@ -69,22 +69,22 @@ public class EnumHashBiMapTest extends TestCase {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Entry<Country, String>[] createArray(int length) {
+    public Entry<Country, String>[] createArray(final int length) {
       return new Entry[length];
     }
 
     @Override
-    public Iterable<Entry<Country, String>> order(List<Entry<Country, String>> insertionOrder) {
+    public Iterable<Entry<Country, String>> order(final List<Entry<Country, String>> insertionOrder) {
       return insertionOrder;
     }
 
     @Override
-    public Country[] createKeyArray(int length) {
+    public Country[] createKeyArray(final int length) {
       return new Country[length];
     }
 
     @Override
-    public String[] createValueArray(int length) {
+    public String[] createValueArray(final int length) {
       return new String[length];
     }
   }
@@ -132,7 +132,7 @@ public class EnumHashBiMapTest extends TestCase {
       EnumHashBiMap.create(
           Collections.<Currency, String>emptyMap());
       fail("IllegalArgumentException expected");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     /* Map can be empty if it's an EnumHashBiMap. */
     Map<Currency, String> emptyBimap = EnumHashBiMap.create(Currency.class);

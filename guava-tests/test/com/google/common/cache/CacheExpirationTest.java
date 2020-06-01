@@ -70,8 +70,8 @@ public class CacheExpirationTest extends TestCase {
     checkExpiration(cache, loader, ticker, removalListener);
   }
 
-  private void checkExpiration(LoadingCache<String, Integer> cache, WatchedCreatorLoader loader,
-      FakeTicker ticker, CountingRemovalListener<String, Integer> removalListener) {
+  private void checkExpiration(final LoadingCache<String, Integer> cache, final WatchedCreatorLoader loader,
+      final FakeTicker ticker, final CountingRemovalListener<String, Integer> removalListener) {
 
     for (int i = 0; i < 10; i++) {
       assertEquals(Integer.valueOf(VALUE_PREFIX + i), cache.getUnchecked(KEY_PREFIX + i));
@@ -119,8 +119,8 @@ public class CacheExpirationTest extends TestCase {
     runExpirationTest(cache, loader, ticker, removalListener);
   }
 
-  private void runExpirationTest(LoadingCache<String, Integer> cache, WatchedCreatorLoader loader,
-      FakeTicker ticker, CountingRemovalListener<String, Integer> removalListener) {
+  private void runExpirationTest(final LoadingCache<String, Integer> cache, final WatchedCreatorLoader loader,
+      final FakeTicker ticker, final CountingRemovalListener<String, Integer> removalListener) {
 
     for (int i = 0; i < 10; i++) {
       assertEquals(Integer.valueOf(VALUE_PREFIX + i), cache.getUnchecked(KEY_PREFIX + i));
@@ -177,7 +177,7 @@ public class CacheExpirationTest extends TestCase {
     RemovalListener<Integer, AtomicInteger> removalListener =
         new RemovalListener<Integer, AtomicInteger>() {
           @Override
-          public void onRemoval(RemovalNotification<Integer, AtomicInteger> notification) {
+          public void onRemoval(final RemovalNotification<Integer, AtomicInteger> notification) {
             if (notification.wasEvicted()) {
               evictionCount.incrementAndGet();
               totalSum.addAndGet(notification.getValue().get());
@@ -186,7 +186,7 @@ public class CacheExpirationTest extends TestCase {
         };
 
     CacheLoader<Integer, AtomicInteger> loader = new CacheLoader<Integer, AtomicInteger>() {
-      @Override public AtomicInteger load(Integer key) {
+      @Override public AtomicInteger load(final Integer key) {
         applyCount.incrementAndGet();
         return new AtomicInteger();
       }
@@ -410,10 +410,10 @@ public class CacheExpirationTest extends TestCase {
     assertThat(listener.poll().getCause()).isEqualTo(RemovalCause.EXPIRED);
   }
 
-  private void runRemovalScheduler(LoadingCache<String, Integer> cache,
-      CountingRemovalListener<String, Integer> removalListener,
-      WatchedCreatorLoader loader,
-      FakeTicker ticker, String keyPrefix, long ttl) {
+  private void runRemovalScheduler(final LoadingCache<String, Integer> cache,
+      final CountingRemovalListener<String, Integer> removalListener,
+      final WatchedCreatorLoader loader,
+      final FakeTicker ticker, final String keyPrefix, final long ttl) {
 
     int shift1 = 10 + VALUE_PREFIX;
     loader.setValuePrefix(shift1);
@@ -456,7 +456,7 @@ public class CacheExpirationTest extends TestCase {
     assertEquals(10, removalListener.getCount());
   }
 
-  private static void getAll(LoadingCache<Integer, Integer> cache, List<Integer> keys) {
+  private static void getAll(final LoadingCache<Integer, Integer> cache, final List<Integer> keys) {
     for (int i : keys) {
       cache.getUnchecked(i);
     }
@@ -478,15 +478,15 @@ public class CacheExpirationTest extends TestCase {
       return wasCalled;
     }
 
-    public void setKeyPrefix(String keyPrefix) {
+    public void setKeyPrefix(final String keyPrefix) {
       this.keyPrefix = keyPrefix;
     }
 
-    public void setValuePrefix(int valuePrefix) {
+    public void setValuePrefix(final int valuePrefix) {
       this.valuePrefix = valuePrefix;
     }
 
-    @Override public Integer load(String key) {
+    @Override public Integer load(final String key) {
       wasCalled = true;
       return valuePrefix + Integer.parseInt(key.substring(keyPrefix.length()));
     }

@@ -35,33 +35,33 @@ public abstract class ForwardingLoadingCache<K, V> extends ForwardingCache<K, V>
     implements LoadingCache<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected ForwardingLoadingCache() {}
+  protected ForwardingLoadingCache() { }
 
   @Override
   protected abstract LoadingCache<K, V> delegate();
 
   @Override
-  public V get(K key) throws ExecutionException {
+  public V get(final K key) throws ExecutionException {
     return delegate().get(key);
   }
 
   @Override
-  public V getUnchecked(K key) {
+  public V getUnchecked(final K key) {
     return delegate().getUnchecked(key);
   }
 
   @Override
-  public ImmutableMap<K, V> getAll(Iterable<? extends K> keys) throws ExecutionException {
+  public ImmutableMap<K, V> getAll(final Iterable<? extends K> keys) throws ExecutionException {
     return delegate().getAll(keys);
   }
 
   @Override
-  public V apply(K key) {
+  public V apply(final K key) {
     return delegate().apply(key);
   }
 
   @Override
-  public void refresh(K key) {
+  public void refresh(final K key) {
     delegate().refresh(key);
   }
 
@@ -75,7 +75,7 @@ public abstract class ForwardingLoadingCache<K, V> extends ForwardingCache<K, V>
       extends ForwardingLoadingCache<K, V> {
     private final LoadingCache<K, V> delegate;
 
-    protected SimpleForwardingLoadingCache(LoadingCache<K, V> delegate) {
+    protected SimpleForwardingLoadingCache(final LoadingCache<K, V> delegate) {
       this.delegate = Preconditions.checkNotNull(delegate);
     }
 

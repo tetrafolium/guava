@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 abstract class InterruptibleTask<T> extends AtomicReference<Runnable> implements Runnable {
   private static final class DoNothingRunnable implements Runnable {
     @Override
-    public void run() {}
+    public void run() { }
   }
   // The thread executing the task publishes itself to the superclass' reference and the thread
   // interrupting sets DONE when it has finished interrupting.

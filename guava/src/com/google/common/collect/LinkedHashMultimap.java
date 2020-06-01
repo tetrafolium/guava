@@ -104,7 +104,7 @@ public final class LinkedHashMultimap<K, V>
    * @throws IllegalArgumentException if {@code expectedKeys} or {@code
    *      expectedValuesPerKey} is negative
    */
-  public static <K, V> LinkedHashMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
+  public static <K, V> LinkedHashMultimap<K, V> create(final int expectedKeys, final int expectedValuesPerKey) {
     return new LinkedHashMultimap<>(
         Maps.capacity(expectedKeys), Maps.capacity(expectedValuesPerKey));
   }
@@ -119,7 +119,7 @@ public final class LinkedHashMultimap<K, V>
    * @param multimap the multimap whose contents are copied to this multimap
    */
   public static <K, V> LinkedHashMultimap<K, V> create(
-      Multimap<? extends K, ? extends V> multimap) {
+      final Multimap<? extends K, ? extends V> multimap) {
     LinkedHashMultimap<K, V> result = create(multimap.keySet().size(), DEFAULT_VALUE_SET_CAPACITY);
     result.putAll(multimap);
     return result;
@@ -135,21 +135,21 @@ public final class LinkedHashMultimap<K, V>
     void setSuccessorInValueSet(ValueSetLink<K, V> entry);
   }
 
-  private static <K, V> void succeedsInValueSet(ValueSetLink<K, V> pred, ValueSetLink<K, V> succ) {
+  private static <K, V> void succeedsInValueSet(final ValueSetLink<K, V> pred, final ValueSetLink<K, V> succ) {
     pred.setSuccessorInValueSet(succ);
     succ.setPredecessorInValueSet(pred);
   }
 
-  private static <K, V> void succeedsInMultimap(ValueEntry<K, V> pred, ValueEntry<K, V> succ) {
+  private static <K, V> void succeedsInMultimap(final ValueEntry<K, V> pred, final ValueEntry<K, V> succ) {
     pred.setSuccessorInMultimap(succ);
     succ.setPredecessorInMultimap(pred);
   }
 
-  private static <K, V> void deleteFromValueSet(ValueSetLink<K, V> entry) {
+  private static <K, V> void deleteFromValueSet(final ValueSetLink<K, V> entry) {
     succeedsInValueSet(entry.getPredecessorInValueSet(), entry.getSuccessorInValueSet());
   }
 
-  private static <K, V> void deleteFromMultimap(ValueEntry<K, V> entry) {
+  private static <K, V> void deleteFromMultimap(final ValueEntry<K, V> entry) {
     succeedsInMultimap(entry.getPredecessorInMultimap(), entry.getSuccessorInMultimap());
   }
 
@@ -172,16 +172,16 @@ public final class LinkedHashMultimap<K, V>
     ValueEntry<K, V> successorInMultimap;
 
     ValueEntry(
-        @Nullable K key,
-        @Nullable V value,
-        int smearedValueHash,
-        @Nullable ValueEntry<K, V> nextInValueBucket) {
+        final @Nullable K key,
+        final @Nullable V value,
+        final int smearedValueHash,
+        final @Nullable ValueEntry<K, V> nextInValueBucket) {
       super(key, value);
       this.smearedValueHash = smearedValueHash;
       this.nextInValueBucket = nextInValueBucket;
     }
 
-    boolean matchesValue(@Nullable Object v, int smearedVHash) {
+    boolean matchesValue(final @Nullable Object v, final int smearedVHash) {
       return smearedValueHash == smearedVHash && Objects.equal(getValue(), v);
     }
 
@@ -196,12 +196,12 @@ public final class LinkedHashMultimap<K, V>
     }
 
     @Override
-    public void setPredecessorInValueSet(ValueSetLink<K, V> entry) {
+    public void setPredecessorInValueSet(final ValueSetLink<K, V> entry) {
       predecessorInValueSet = entry;
     }
 
     @Override
-    public void setSuccessorInValueSet(ValueSetLink<K, V> entry) {
+    public void setSuccessorInValueSet(final ValueSetLink<K, V> entry) {
       successorInValueSet = entry;
     }
 
@@ -213,11 +213,11 @@ public final class LinkedHashMultimap<K, V>
       return successorInMultimap;
     }
 
-    public void setSuccessorInMultimap(ValueEntry<K, V> multimapSuccessor) {
+    public void setSuccessorInMultimap(final ValueEntry<K, V> multimapSuccessor) {
       this.successorInMultimap = multimapSuccessor;
     }
 
-    public void setPredecessorInMultimap(ValueEntry<K, V> multimapPredecessor) {
+    public void setPredecessorInMultimap(final ValueEntry<K, V> multimapPredecessor) {
       this.predecessorInMultimap = multimapPredecessor;
     }
   }
@@ -229,7 +229,7 @@ public final class LinkedHashMultimap<K, V>
   @VisibleForTesting transient int valueSetCapacity = DEFAULT_VALUE_SET_CAPACITY;
   private transient ValueEntry<K, V> multimapHeaderEntry;
 
-  private LinkedHashMultimap(int keyCapacity, int valueSetCapacity) {
+  private LinkedHashMultimap(final int keyCapacity, final int valueSetCapacity) {
     super(new LinkedHashMap<K, Collection<V>>(keyCapacity));
     checkNonnegative(valueSetCapacity, "expectedValuesPerKey");
 
@@ -262,7 +262,7 @@ public final class LinkedHashMultimap<K, V>
    * @return a new decorated set containing a collection of values for one key
    */
   @Override
-  Collection<V> createCollection(K key) {
+  Collection<V> createCollection(final K key) {
     return new ValueSet(key, valueSetCapacity);
   }
 
@@ -276,7 +276,7 @@ public final class LinkedHashMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public Set<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
+  public Set<V> replaceValues(final @Nullable K key, final Iterable<? extends V> values) {
     return super.replaceValues(key, values);
   }
 
@@ -343,7 +343,7 @@ public final class LinkedHashMultimap<K, V>
     private ValueSetLink<K, V> firstEntry;
     private ValueSetLink<K, V> lastEntry;
 
-    ValueSet(K key, int expectedValues) {
+    ValueSet(final K key, final int expectedValues) {
       this.key = key;
       this.firstEntry = this;
       this.lastEntry = this;
@@ -370,12 +370,12 @@ public final class LinkedHashMultimap<K, V>
     }
 
     @Override
-    public void setPredecessorInValueSet(ValueSetLink<K, V> entry) {
+    public void setPredecessorInValueSet(final ValueSetLink<K, V> entry) {
       lastEntry = entry;
     }
 
     @Override
-    public void setSuccessorInValueSet(ValueSetLink<K, V> entry) {
+    public void setSuccessorInValueSet(final ValueSetLink<K, V> entry) {
       firstEntry = entry;
     }
 
@@ -422,7 +422,7 @@ public final class LinkedHashMultimap<K, V>
     }
 
     @Override
-    public void forEach(Consumer<? super V> action) {
+    public void forEach(final Consumer<? super V> action) {
       checkNotNull(action);
       for (ValueSetLink<K, V> entry = firstEntry;
           entry != ValueSet.this;
@@ -437,7 +437,7 @@ public final class LinkedHashMultimap<K, V>
     }
 
     @Override
-    public boolean contains(@Nullable Object o) {
+    public boolean contains(final @Nullable Object o) {
       int smearedHash = Hashing.smearedHash(o);
       for (ValueEntry<K, V> entry = hashTable[smearedHash & mask()];
           entry != null;
@@ -450,7 +450,7 @@ public final class LinkedHashMultimap<K, V>
     }
 
     @Override
-    public boolean add(@Nullable V value) {
+    public boolean add(final @Nullable V value) {
       int smearedHash = Hashing.smearedHash(value);
       int bucket = smearedHash & mask();
       ValueEntry<K, V> rowHead = hashTable[bucket];
@@ -491,7 +491,7 @@ public final class LinkedHashMultimap<K, V>
 
     @CanIgnoreReturnValue
     @Override
-    public boolean remove(@Nullable Object o) {
+    public boolean remove(final @Nullable Object o) {
       int smearedHash = Hashing.smearedHash(o);
       int bucket = smearedHash & mask();
       ValueEntry<K, V> prev = null;
@@ -587,7 +587,7 @@ public final class LinkedHashMultimap<K, V>
    * the number of entries, and the entries in order
    */
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void writeObject(ObjectOutputStream stream) throws IOException {
+  private void writeObject(final ObjectOutputStream stream) throws IOException {
     stream.defaultWriteObject();
     stream.writeInt(keySet().size());
     for (K key : keySet()) {
@@ -601,7 +601,7 @@ public final class LinkedHashMultimap<K, V>
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     multimapHeaderEntry = new ValueEntry<>(null, null, 0, null);
     succeedsInMultimap(multimapHeaderEntry, multimapHeaderEntry);

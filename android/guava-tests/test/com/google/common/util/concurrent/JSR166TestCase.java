@@ -300,7 +300,7 @@ abstract class JSR166TestCase extends TestCase {
      * Returns a new Date instance representing a time delayMillis
      * milliseconds in the future.
      */
-    Date delayedDate(long delayMillis) {
+    Date delayedDate(final long delayMillis) {
         return new Date(System.currentTimeMillis() + delayMillis);
     }
 
@@ -313,7 +313,7 @@ abstract class JSR166TestCase extends TestCase {
      * failure is recorded; subsequent calls to this method from within
      * the same test have no effect.
      */
-    public void threadRecordFailure(Throwable t) {
+    public void threadRecordFailure(final Throwable t) {
         threadFailure.compareAndSet(null, t);
     }
 
@@ -356,7 +356,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadFail(String reason) {
+    public void threadFail(final String reason) {
         try {
             fail(reason);
         } catch (AssertionFailedError t) {
@@ -370,7 +370,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertTrue(boolean b) {
+    public void threadAssertTrue(final boolean b) {
         try {
             assertTrue(b);
         } catch (AssertionFailedError t) {
@@ -384,7 +384,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertFalse(boolean b) {
+    public void threadAssertFalse(final boolean b) {
         try {
             assertFalse(b);
         } catch (AssertionFailedError t) {
@@ -398,7 +398,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertNull(Object x) {
+    public void threadAssertNull(final Object x) {
         try {
             assertNull(x);
         } catch (AssertionFailedError t) {
@@ -412,7 +412,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertEquals(long x, long y) {
+    public void threadAssertEquals(final long x, final long y) {
         try {
             assertEquals(x, y);
         } catch (AssertionFailedError t) {
@@ -426,7 +426,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertEquals(Object x, Object y) {
+    public void threadAssertEquals(final Object x, final Object y) {
         try {
             assertEquals(x, y);
         } catch (AssertionFailedError t) {
@@ -442,7 +442,7 @@ abstract class JSR166TestCase extends TestCase {
      * threadRecordFailure) any AssertionFailedError thrown, so that
      * the current testcase will fail.
      */
-    public void threadAssertSame(Object x, Object y) {
+    public void threadAssertSame(final Object x, final Object y) {
         try {
             assertSame(x, y);
         } catch (AssertionFailedError t) {
@@ -461,7 +461,7 @@ abstract class JSR166TestCase extends TestCase {
     /**
      * Calls threadFail with message "should throw" + exceptionName.
      */
-    public void threadShouldThrow(String exceptionName) {
+    public void threadShouldThrow(final String exceptionName) {
         threadFail("should throw " + exceptionName);
     }
 
@@ -470,7 +470,7 @@ abstract class JSR166TestCase extends TestCase {
      * then rethrows the exception, wrapping it in an
      * AssertionFailedError if necessary.
      */
-    public void threadUnexpectedException(Throwable t) {
+    public void threadUnexpectedException(final Throwable t) {
         threadRecordFailure(t);
         t.printStackTrace();
         if (t instanceof RuntimeException)
@@ -490,7 +490,7 @@ abstract class JSR166TestCase extends TestCase {
      * if the sleep is shorter than specified, may re-sleep or yield
      * until time elapses.
      */
-    static void delay(long millis) throws InterruptedException {
+    static void delay(final long millis) throws InterruptedException {
         long startTime = System.nanoTime();
         long ns = millis * 1000 * 1000;
         for (;;) {
@@ -509,7 +509,7 @@ abstract class JSR166TestCase extends TestCase {
     /**
      * Waits out termination of a thread pool or fails doing so.
      */
-    void joinPool(ExecutorService exec) {
+    void joinPool(final ExecutorService exec) {
         try {
             exec.shutdown();
             assertTrue("ExecutorService did not terminate in a timely manner",
@@ -525,14 +525,14 @@ abstract class JSR166TestCase extends TestCase {
      * Checks that thread does not terminate within the default
      * millisecond delay of {@code timeoutMillis()}.
      */
-    void assertThreadStaysAlive(Thread thread) {
+    void assertThreadStaysAlive(final Thread thread) {
         assertThreadStaysAlive(thread, timeoutMillis());
     }
 
     /**
      * Checks that thread does not terminate within the given millisecond delay.
      */
-    void assertThreadStaysAlive(Thread thread, long millis) {
+    void assertThreadStaysAlive(final Thread thread, final long millis) {
         try {
             // No need to optimize the failing case via Thread.join.
             delay(millis);
@@ -546,14 +546,14 @@ abstract class JSR166TestCase extends TestCase {
      * Checks that the threads do not terminate within the default
      * millisecond delay of {@code timeoutMillis()}.
      */
-    void assertThreadsStayAlive(Thread... threads) {
+    void assertThreadsStayAlive(final Thread... threads) {
         assertThreadsStayAlive(timeoutMillis(), threads);
     }
 
     /**
      * Checks that the threads do not terminate within the given millisecond delay.
      */
-    void assertThreadsStayAlive(long millis, Thread... threads) {
+    void assertThreadsStayAlive(final long millis, final Thread... threads) {
         try {
             // No need to optimize the failing case via Thread.join.
             delay(millis);
@@ -568,14 +568,14 @@ abstract class JSR166TestCase extends TestCase {
      * Checks that future.get times out, with the default timeout of
      * {@code timeoutMillis()}.
      */
-    void assertFutureTimesOut(Future future) {
+    void assertFutureTimesOut(final Future future) {
         assertFutureTimesOut(future, timeoutMillis());
     }
 
     /**
      * Checks that future.get times out, with the given millisecond timeout.
      */
-    void assertFutureTimesOut(Future future, long timeoutMillis) {
+    void assertFutureTimesOut(final Future future, final long timeoutMillis) {
         long startTime = System.nanoTime();
         try {
             future.get(timeoutMillis, MILLISECONDS);
@@ -583,7 +583,9 @@ abstract class JSR166TestCase extends TestCase {
         } catch (TimeoutException success) {
         } catch (Exception e) {
             threadUnexpectedException(e);
-        } finally { future.cancel(true); }
+        } finally {
+            future.cancel(true);
+        }
         assertTrue(millisElapsedSince(startTime) >= timeoutMillis);
     }
 
@@ -597,7 +599,7 @@ abstract class JSR166TestCase extends TestCase {
     /**
      * Fails with message "should throw " + exceptionName.
      */
-    public void shouldThrow(String exceptionName) {
+    public void shouldThrow(final String exceptionName) {
         fail("Should throw " + exceptionName);
     }
 
@@ -633,7 +635,7 @@ abstract class JSR166TestCase extends TestCase {
      * security manager.  We require that any security manager permit
      * getPolicy/setPolicy.
      */
-    public void runWithPermissions(Runnable r, Permission... permissions) {
+    public void runWithPermissions(final Runnable r, final Permission... permissions) {
         SecurityManager sm = System.getSecurityManager();
         if (sm == null) {
             r.run();
@@ -663,7 +665,7 @@ abstract class JSR166TestCase extends TestCase {
     /**
      * Runs a runnable without any permissions.
      */
-    public void runWithoutPermissions(Runnable r) {
+    public void runWithoutPermissions(final Runnable r) {
         runWithPermissions(r);
     }
 
@@ -673,22 +675,24 @@ abstract class JSR166TestCase extends TestCase {
      */
     public static class AdjustablePolicy extends java.security.Policy {
         Permissions perms = new Permissions();
-        AdjustablePolicy(Permission... permissions) {
+        AdjustablePolicy(final Permission... permissions) {
             for (Permission permission : permissions)
                 perms.add(permission);
         }
-        void addPermission(Permission perm) { perms.add(perm); }
-        void clearPermissions() { perms = new Permissions(); }
-        public PermissionCollection getPermissions(CodeSource cs) {
+        void addPermission(final Permission perm) {
+            perms.add(perm); }
+        void clearPermissions() {
+            perms = new Permissions(); }
+        public PermissionCollection getPermissions(final CodeSource cs) {
             return perms;
         }
-        public PermissionCollection getPermissions(ProtectionDomain pd) {
+        public PermissionCollection getPermissions(final ProtectionDomain pd) {
             return perms;
         }
-        public boolean implies(ProtectionDomain pd, Permission p) {
+        public boolean implies(final ProtectionDomain pd, final Permission p) {
             return perms.implies(p);
         }
-        public void refresh() {}
+        public void refresh() { }
     }
 
     /**
@@ -714,7 +718,7 @@ abstract class JSR166TestCase extends TestCase {
      * Sleeps until the given time has elapsed.
      * Throws AssertionFailedError if interrupted.
      */
-    void sleep(long millis) {
+    void sleep(final long millis) {
         try {
             delay(millis);
         } catch (InterruptedException ie) {
@@ -729,13 +733,13 @@ abstract class JSR166TestCase extends TestCase {
      * Spin-waits up to the specified number of milliseconds for the given
      * thread to enter a wait state: BLOCKED, WAITING, or TIMED_WAITING.
      */
-    void waitForThreadToEnterWaitState(Thread thread, long timeoutMillis) {
+    void waitForThreadToEnterWaitState(final Thread thread, final long timeoutMillis) {
         long startTime = System.nanoTime();
         for (;;) {
             Thread.State s = thread.getState();
-            if (s == Thread.State.BLOCKED ||
-                s == Thread.State.WAITING ||
-                s == Thread.State.TIMED_WAITING)
+            if (s == Thread.State.BLOCKED
+                || s == Thread.State.WAITING
+                || s == Thread.State.TIMED_WAITING)
                 return;
             else if (s == Thread.State.TERMINATED)
                 fail("Unexpected thread termination");
@@ -751,7 +755,7 @@ abstract class JSR166TestCase extends TestCase {
      * Waits up to LONG_DELAY_MS for the given thread to enter a wait
      * state: BLOCKED, WAITING, or TIMED_WAITING.
      */
-    void waitForThreadToEnterWaitState(Thread thread) {
+    void waitForThreadToEnterWaitState(final Thread thread) {
         waitForThreadToEnterWaitState(thread, LONG_DELAY_MS);
     }
 
@@ -760,14 +764,14 @@ abstract class JSR166TestCase extends TestCase {
      * startNanoTime, which must have been previously returned from a
      * call to {@link System.nanoTime()}.
      */
-    long millisElapsedSince(long startNanoTime) {
+    long millisElapsedSince(final long startNanoTime) {
         return NANOSECONDS.toMillis(System.nanoTime() - startNanoTime);
     }
 
     /**
      * Returns a new started daemon Thread running the given runnable.
      */
-    Thread newStartedThread(Runnable runnable) {
+    Thread newStartedThread(final Runnable runnable) {
         Thread t = new Thread(runnable);
         t.setDaemon(true);
         t.start();
@@ -779,7 +783,7 @@ abstract class JSR166TestCase extends TestCase {
      * to terminate (using {@link Thread#join(long)}), else interrupts
      * the thread (in the hope that it may terminate later) and fails.
      */
-    void awaitTermination(Thread t, long timeoutMillis) {
+    void awaitTermination(final Thread t, final long timeoutMillis) {
         try {
             t.join(timeoutMillis);
         } catch (InterruptedException ie) {
@@ -797,7 +801,7 @@ abstract class JSR166TestCase extends TestCase {
      * terminate (using {@link Thread#join(long)}), else interrupts
      * the thread (in the hope that it may terminate later) and fails.
      */
-    void awaitTermination(Thread t) {
+    void awaitTermination(final Thread t) {
         awaitTermination(t, LONG_DELAY_MS);
     }
 
@@ -820,7 +824,7 @@ abstract class JSR166TestCase extends TestCase {
 
         final Class<?> exceptionClass;
 
-        <T extends Throwable> RunnableShouldThrow(Class<T> exceptionClass) {
+        <T extends Throwable> RunnableShouldThrow(final Class<T> exceptionClass) {
             this.exceptionClass = exceptionClass;
         }
 
@@ -829,7 +833,7 @@ abstract class JSR166TestCase extends TestCase {
                 realRun();
                 threadShouldThrow(exceptionClass.getSimpleName());
             } catch (Throwable t) {
-                if (! exceptionClass.isInstance(t))
+                if (!exceptionClass.isInstance(t))
                     threadUnexpectedException(t);
             }
         }
@@ -840,7 +844,7 @@ abstract class JSR166TestCase extends TestCase {
 
         final Class<?> exceptionClass;
 
-        <T extends Throwable> ThreadShouldThrow(Class<T> exceptionClass) {
+        <T extends Throwable> ThreadShouldThrow(final Class<T> exceptionClass) {
             this.exceptionClass = exceptionClass;
         }
 
@@ -849,7 +853,7 @@ abstract class JSR166TestCase extends TestCase {
                 realRun();
                 threadShouldThrow(exceptionClass.getSimpleName());
             } catch (Throwable t) {
-                if (! exceptionClass.isInstance(t))
+                if (!exceptionClass.isInstance(t))
                     threadUnexpectedException(t);
             }
         }
@@ -902,17 +906,19 @@ abstract class JSR166TestCase extends TestCase {
     }
 
     public static class NoOpRunnable implements Runnable {
-        public void run() {}
+        public void run() { }
     }
 
     public static class NoOpCallable implements Callable {
-        public Object call() { return Boolean.TRUE; }
+        public Object call() {
+            return Boolean.TRUE; }
     }
 
     public static final String TEST_STRING = "a test string";
 
     public static class StringTask implements Callable<String> {
-        public String call() { return TEST_STRING; }
+        public String call() {
+            return TEST_STRING; }
     }
 
     public Callable<String> latchAwaitingStringTask(final CountDownLatch latch) {
@@ -920,7 +926,7 @@ abstract class JSR166TestCase extends TestCase {
             protected String realCall() {
                 try {
                     latch.await();
-                } catch (InterruptedException quittingTime) {}
+                } catch (InterruptedException quittingTime) { }
                 return TEST_STRING;
             }};
     }
@@ -932,7 +938,7 @@ abstract class JSR166TestCase extends TestCase {
             }};
     }
 
-    public void await(CountDownLatch latch) {
+    public void await(final CountDownLatch latch) {
         try {
             assertTrue(latch.await(LONG_DELAY_MS, MILLISECONDS));
         } catch (Throwable t) {
@@ -940,7 +946,7 @@ abstract class JSR166TestCase extends TestCase {
         }
     }
 
-    public void await(Semaphore semaphore) {
+    public void await(final Semaphore semaphore) {
         try {
             assertTrue(semaphore.tryAcquire(LONG_DELAY_MS, MILLISECONDS));
         } catch (Throwable t) {
@@ -968,11 +974,13 @@ abstract class JSR166TestCase extends TestCase {
 //     }
 
     public static class NPETask implements Callable<String> {
-        public String call() { throw new NullPointerException(); }
+        public String call() {
+            throw new NullPointerException(); }
     }
 
     public static class CallableOne implements Callable<Integer> {
-        public Integer call() { return one; }
+        public Integer call() {
+            return one; }
     }
 
     public class ShortRunnable extends CheckedRunnable {
@@ -997,7 +1005,7 @@ abstract class JSR166TestCase extends TestCase {
         protected void realRun() {
             try {
                 delay(SMALL_DELAY_MS);
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1025,7 +1033,7 @@ abstract class JSR166TestCase extends TestCase {
             protected void realRun() {
                 try {
                     delay(timeoutMillis);
-                } catch (InterruptedException ok) {}
+                } catch (InterruptedException ok) { }
             }};
     }
 
@@ -1033,7 +1041,7 @@ abstract class JSR166TestCase extends TestCase {
         protected void realRun() {
             try {
                 delay(MEDIUM_DELAY_MS);
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1041,7 +1049,7 @@ abstract class JSR166TestCase extends TestCase {
         protected void realRun() {
             try {
                 delay(LONG_DELAY_MS);
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1049,7 +1057,7 @@ abstract class JSR166TestCase extends TestCase {
      * For use as ThreadFactory in constructors
      */
     public static class SimpleThreadFactory implements ThreadFactory {
-        public Thread newThread(Runnable r) {
+        public Thread newThread(final Runnable r) {
             return new Thread(r);
         }
     }
@@ -1061,12 +1069,13 @@ abstract class JSR166TestCase extends TestCase {
     public static TrackedRunnable trackedRunnable(final long timeoutMillis) {
         return new TrackedRunnable() {
                 private volatile boolean done = false;
-                public boolean isDone() { return done; }
+                public boolean isDone() {
+                    return done; }
                 public void run() {
                     try {
                         delay(timeoutMillis);
                         done = true;
-                    } catch (InterruptedException ok) {}
+                    } catch (InterruptedException ok) { }
                 }
             };
     }
@@ -1077,7 +1086,7 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 delay(SHORT_DELAY_MS);
                 done = true;
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1087,7 +1096,7 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 delay(SMALL_DELAY_MS);
                 done = true;
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1097,7 +1106,7 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 delay(MEDIUM_DELAY_MS);
                 done = true;
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1107,7 +1116,7 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 delay(LONG_DELAY_MS);
                 done = true;
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
         }
     }
 
@@ -1124,7 +1133,7 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 delay(SMALL_DELAY_MS);
                 done = true;
-            } catch (InterruptedException ok) {}
+            } catch (InterruptedException ok) { }
             return Boolean.TRUE;
         }
     }
@@ -1164,8 +1173,8 @@ abstract class JSR166TestCase extends TestCase {
      * For use as RejectedExecutionHandler in constructors
      */
     public static class NoOpREHandler implements RejectedExecutionHandler {
-        public void rejectedExecution(Runnable r,
-                                      ThreadPoolExecutor executor) {}
+        public void rejectedExecution(final Runnable r,
+                                      final ThreadPoolExecutor executor) { }
     }
 
     /**
@@ -1173,7 +1182,8 @@ abstract class JSR166TestCase extends TestCase {
      * AssertionFailedErrors instead of throwing checked exceptions.
      */
     public class CheckedBarrier extends CyclicBarrier {
-        public CheckedBarrier(int parties) { super(parties); }
+        public CheckedBarrier(final int parties) {
+            super(parties); }
 
         public int await() {
             try {
@@ -1189,7 +1199,7 @@ abstract class JSR166TestCase extends TestCase {
         }
     }
 
-    void checkEmpty(BlockingQueue q) {
+    void checkEmpty(final BlockingQueue q) {
         try {
             assertTrue(q.isEmpty());
             assertEquals(0, q.size());
@@ -1202,22 +1212,22 @@ abstract class JSR166TestCase extends TestCase {
             try {
                 q.element();
                 shouldThrow();
-            } catch (NoSuchElementException success) {}
+            } catch (NoSuchElementException success) { }
             try {
                 q.iterator().next();
                 shouldThrow();
-            } catch (NoSuchElementException success) {}
+            } catch (NoSuchElementException success) { }
             try {
                 q.remove();
                 shouldThrow();
-            } catch (NoSuchElementException success) {}
+            } catch (NoSuchElementException success) { }
         } catch (InterruptedException ie) {
             threadUnexpectedException(ie);
         }
     }
 
     @SuppressWarnings("unchecked")
-    <T> T serialClone(T o) {
+    <T> T serialClone(final T o) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);

@@ -25,9 +25,9 @@ import java.util.Comparator;
  * @author Hayward Chan
  */
 public class TreeBasedTable_CustomFieldSerializer {
-  public static void deserialize(SerializationStreamReader reader, TreeBasedTable<?, ?, ?> table) {}
+  public static void deserialize(final SerializationStreamReader reader, final TreeBasedTable<?, ?, ?> table) { }
 
-  public static TreeBasedTable<Object, Object, Object> instantiate(SerializationStreamReader reader)
+  public static TreeBasedTable<Object, Object, Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     @SuppressWarnings("unchecked") // The comparator isn't used statically.
     Comparator<Object> rowComparator = (Comparator<Object>) reader.readObject();
@@ -39,7 +39,7 @@ public class TreeBasedTable_CustomFieldSerializer {
     return Table_CustomFieldSerializerBase.populate(reader, table);
   }
 
-  public static void serialize(SerializationStreamWriter writer, TreeBasedTable<?, ?, ?> table)
+  public static void serialize(final SerializationStreamWriter writer, final TreeBasedTable<?, ?, ?> table)
       throws SerializationException {
     writer.writeObject(table.rowComparator());
     writer.writeObject(table.columnComparator());

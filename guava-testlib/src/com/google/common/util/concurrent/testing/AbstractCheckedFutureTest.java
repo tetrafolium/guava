@@ -56,8 +56,8 @@ public abstract class AbstractCheckedFutureTest extends AbstractListenableFuture
   protected abstract void checkInterruptedException(Exception e);
 
   @Override
-  protected <V> ListenableFuture<V> createListenableFuture(V value,
-      Exception except, CountDownLatch waitOn) {
+  protected <V> ListenableFuture<V> createListenableFuture(final V value,
+      final Exception except, final CountDownLatch waitOn) {
     return createCheckedFuture(value, except, waitOn);
   }
 

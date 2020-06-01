@@ -48,13 +48,13 @@ public class ForwardingWrapperTesterTest extends TestCase {
   public void testGoodForwarder() {
     tester.testForwarding(Arithmetic.class,
         new Function<Arithmetic, Arithmetic>() {
-          @Override public Arithmetic apply(Arithmetic arithmetic) {
+          @Override public Arithmetic apply(final Arithmetic arithmetic) {
             return new ForwardingArithmetic(arithmetic);
           }
         });
     tester.testForwarding(ParameterTypesDifferent.class,
         new Function<ParameterTypesDifferent, ParameterTypesDifferent>() {
-          @Override public ParameterTypesDifferent apply(ParameterTypesDifferent delegate) {
+          @Override public ParameterTypesDifferent apply(final ParameterTypesDifferent delegate) {
             return new ParameterTypesDifferentForwarder(delegate);
           }
         });
@@ -99,7 +99,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
     assertFailure(Runnable.class, new Function<Runnable, Runnable>() {
       @Override public Runnable apply(final Runnable runnable) {
         return new ForwardingRunnable(runnable) {
-          @Override public boolean equals(Object o) {
+          @Override public boolean equals(final Object o) {
             if (o instanceof ForwardingRunnable) {
               ForwardingRunnable that = (ForwardingRunnable) o;
               return runnable.equals(that.runnable);
@@ -116,7 +116,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
     tester.testForwarding(Runnable.class, new Function<Runnable, Runnable>() {
       @Override public Runnable apply(final Runnable runnable) {
         return new ForwardingRunnable(runnable) {
-          @Override public boolean equals(Object o) {
+          @Override public boolean equals(final Object o) {
             if (o instanceof ForwardingRunnable) {
               ForwardingRunnable that = (ForwardingRunnable) o;
               return runnable.equals(that.runnable);
@@ -147,9 +147,9 @@ public class ForwardingWrapperTesterTest extends TestCase {
   public void testFailsToForward() {
     assertFailure(Runnable.class,
         new Function<Runnable, Runnable>() {
-          @Override public Runnable apply(Runnable runnable) {
+          @Override public Runnable apply(final Runnable runnable) {
             return new ForwardingRunnable(runnable) {
-              @Override public void run() {}
+              @Override public void run() { }
             };
           }
         }, "run()", "Failed to forward");
@@ -171,7 +171,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testFailsToForwardParameters() {
     assertFailure(Adder.class, new Function<Adder, Adder>() {
-      @Override public Adder apply(Adder adder) {
+      @Override public Adder apply(final Adder adder) {
         return new FailsToForwardParameters(adder);
       }
     }, "add(", "Parameter #0");
@@ -179,7 +179,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testForwardsToTheWrongMethod() {
     assertFailure(Arithmetic.class, new Function<Arithmetic, Arithmetic>() {
-      @Override public Arithmetic apply(Arithmetic adder) {
+      @Override public Arithmetic apply(final Arithmetic adder) {
         return new ForwardsToTheWrongMethod(adder);
       }
     }, "minus");
@@ -187,7 +187,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testFailsToForwardReturnValue() {
     assertFailure(Adder.class, new Function<Adder, Adder>() {
-      @Override public Adder apply(Adder adder) {
+      @Override public Adder apply(final Adder adder) {
         return new FailsToForwardReturnValue(adder);
       }
     }, "add(", "Return value");
@@ -195,7 +195,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testFailsToPropagateException() {
     assertFailure(Adder.class, new Function<Adder, Adder>() {
-      @Override public Adder apply(Adder adder) {
+      @Override public Adder apply(final Adder adder) {
         return new FailsToPropagageException(adder);
       }
     }, "add(", "exception");
@@ -205,7 +205,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
     try {
       new ForwardingWrapperTester().testForwarding(String.class, Functions.<String>identity());
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testNulls() {
@@ -215,8 +215,8 @@ public class ForwardingWrapperTesterTest extends TestCase {
   }
 
   private <T> void assertFailure(
-      Class<T> interfaceType, Function<T, ? extends T> wrapperFunction,
-      String... expectedMessages) {
+      final Class<T> interfaceType, final Function<T, ? extends T> wrapperFunction,
+      final String... expectedMessages) {
     try {
       tester.testForwarding(interfaceType, wrapperFunction);
     } catch (AssertionFailedError expected) {
@@ -232,7 +232,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
     private final Runnable runnable;
 
-    ForwardingRunnable(Runnable runnable) {
+    ForwardingRunnable(final Runnable runnable) {
       this.runnable = runnable;
     }
 
@@ -252,15 +252,15 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class ForwardingArithmetic implements Arithmetic {
     private final Arithmetic arithmetic;
 
-    public ForwardingArithmetic(Arithmetic arithmetic) {
+    public ForwardingArithmetic(final Arithmetic arithmetic) {
       this.arithmetic = arithmetic;
     }
 
-    @Override public int add(int a, int b) {
+    @Override public int add(final int a, final int b) {
       return arithmetic.add(a, b);
     }
 
-    @Override public int minus(int a, int b) {
+    @Override public int minus(final int a, final int b) {
       return arithmetic.minus(a, b);
     }
 
@@ -272,11 +272,11 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class FailsToForwardParameters implements Adder {
     private final Adder adder;
 
-    FailsToForwardParameters(Adder adder) {
+    FailsToForwardParameters(final Adder adder) {
       this.adder = adder;
     }
 
-    @Override public int add(int a, int b) {
+    @Override public int add(final int a, final int b) {
       return adder.add(b, a);
     }
 
@@ -288,11 +288,11 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class FailsToForwardReturnValue implements Adder {
     private final Adder adder;
 
-    FailsToForwardReturnValue(Adder adder) {
+    FailsToForwardReturnValue(final Adder adder) {
       this.adder = adder;
     }
 
-    @Override public int add(int a, int b) {
+    @Override public int add(final int a, final int b) {
       return adder.add(a, b) + 1;
     }
 
@@ -304,11 +304,11 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class FailsToPropagageException implements Adder {
     private final Adder adder;
 
-    FailsToPropagageException(Adder adder) {
+    FailsToPropagageException(final Adder adder) {
       this.adder = adder;
     }
 
-    @Override public int add(int a, int b) {
+    @Override public int add(final int a, final int b) {
       try {
         return adder.add(a, b);
       } catch (Exception e) {
@@ -329,15 +329,15 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class ForwardsToTheWrongMethod implements Arithmetic {
     private final Arithmetic arithmetic;
 
-    ForwardsToTheWrongMethod(Arithmetic arithmetic) {
+    ForwardsToTheWrongMethod(final Arithmetic arithmetic) {
       this.arithmetic = arithmetic;
     }
 
-    @Override public int minus(int a, int b) { // bad!
+    @Override public int minus(final int a, final int b) { // bad!
       return arithmetic.add(a, b);
     }
 
-    @Override public int add(int a, int b) {
+    @Override public int add(final int a, final int b) {
       return arithmetic.add(a, b);
     }
 
@@ -357,16 +357,16 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class ParameterTypesDifferentForwarder implements ParameterTypesDifferent {
     private final ParameterTypesDifferent delegate;
 
-    public ParameterTypesDifferentForwarder(ParameterTypesDifferent delegate) {
+    public ParameterTypesDifferentForwarder(final ParameterTypesDifferent delegate) {
       this.delegate = delegate;
     }
 
     @Override public void foo(
-        String s, Runnable r, Number n, Iterable<?> it, boolean b, Equivalence<String> eq,
-        Exception e, InputStream in, Comparable<?> c, Ordering<Integer> ord,
-        Charset charset, TimeUnit unit, Class<?> cls, Joiner joiner,
-        Pattern pattern, UnsignedInteger ui, UnsignedLong ul, StringBuilder sb,
-        Predicate<?> pred, Function<?, ?> func, Object obj) {
+        final String s, final Runnable r, final Number n, final Iterable<?> it, final boolean b, final Equivalence<String> eq,
+        final Exception e, final InputStream in, final Comparable<?> c, final Ordering<Integer> ord,
+        final Charset charset, final TimeUnit unit, final Class<?> cls, final Joiner joiner,
+        final Pattern pattern, final UnsignedInteger ui, final UnsignedLong ul, final StringBuilder sb,
+        final Predicate<?> pred, final Function<?, ?> func, final Object obj) {
       delegate.foo(s,
           r, n, it, b, eq, e, in, c, ord, charset, unit, cls, joiner, pattern,
           ui, ul, sb, pred, func, obj);
@@ -379,7 +379,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
 
   public void testCovariantReturn() {
     new ForwardingWrapperTester().testForwarding(Sub.class, new Function<Sub, Sub>() {
-      @Override public Sub apply(Sub sub) {
+      @Override public Sub apply(final Sub sub) {
         return new ForwardingSub(sub);
       }
     });
@@ -396,7 +396,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class ForwardingSub implements Sub {
     private final Sub delegate;
 
-    ForwardingSub(Sub delegate) {
+    ForwardingSub(final Sub delegate) {
       this.delegate = delegate;
     }
 
@@ -418,14 +418,14 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class NoDelegateToEquals implements Equals {
 
     private static Function<Equals, Equals> WRAPPER = new Function<Equals, Equals>() {
-      @Override public NoDelegateToEquals apply(Equals delegate) {
+      @Override public NoDelegateToEquals apply(final Equals delegate) {
         return new NoDelegateToEquals(delegate);
       }
     };
 
     private final Equals delegate;
 
-    NoDelegateToEquals(Equals delegate) {
+    NoDelegateToEquals(final Equals delegate) {
       this.delegate = delegate;
     }
 
@@ -463,7 +463,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
   private static class ForwardingChainingCalls implements ChainingCalls {
     final ChainingCalls delegate;
 
-    ForwardingChainingCalls(ChainingCalls delegate) {
+    ForwardingChainingCalls(final ChainingCalls delegate) {
       this.delegate = delegate;
     }
 
@@ -484,7 +484,7 @@ public class ForwardingWrapperTesterTest extends TestCase {
   public void testChainingCalls() {
     tester.testForwarding(ChainingCalls.class,
         new Function<ChainingCalls, ChainingCalls>() {
-          @Override public ChainingCalls apply(ChainingCalls delegate) {
+          @Override public ChainingCalls apply(final ChainingCalls delegate) {
             return new ForwardingChainingCalls(delegate);
           }
         });

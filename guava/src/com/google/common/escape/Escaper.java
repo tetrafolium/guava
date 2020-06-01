@@ -57,7 +57,7 @@ import com.google.common.base.Function;
 public abstract class Escaper {
   // TODO(user): evaluate custom implementations, considering package private constructor.
   /** Constructor for use by subclasses. */
-  protected Escaper() {}
+  protected Escaper() { }
 
   /**
    * Returns the escaped form of a given literal string.
@@ -85,7 +85,7 @@ public abstract class Escaper {
   private final Function<String, String> asFunction =
       new Function<String, String>() {
         @Override
-        public String apply(String from) {
+        public String apply(final String from) {
           return escape(from);
         }
       };

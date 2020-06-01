@@ -99,7 +99,7 @@ public final class MoreCollectors {
       extras = null;
     }
 
-    IllegalArgumentException multiples(boolean overflow) {
+    IllegalArgumentException multiples(final boolean overflow) {
       StringBuilder sb =
           new StringBuilder().append("expected one element but was: <").append(element);
       for (Object o : extras) {
@@ -112,7 +112,7 @@ public final class MoreCollectors {
       throw new IllegalArgumentException(sb.toString());
     }
 
-    void add(Object o) {
+    void add(final Object o) {
       checkNotNull(o);
       if (element == null) {
         this.element = o;
@@ -126,7 +126,7 @@ public final class MoreCollectors {
       }
     }
 
-    ToOptionalState combine(ToOptionalState other) {
+    ToOptionalState combine(final ToOptionalState other) {
       if (element == null) {
         return other;
       } else if (other.element == null) {
@@ -166,5 +166,5 @@ public final class MoreCollectors {
     }
   }
 
-  private MoreCollectors() {}
+  private MoreCollectors() { }
 }

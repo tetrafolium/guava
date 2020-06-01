@@ -28,7 +28,7 @@ final class UsingToStringOrdering extends Ordering<Object> implements Serializab
   static final UsingToStringOrdering INSTANCE = new UsingToStringOrdering();
 
   @Override
-  public int compare(Object left, Object right) {
+  public int compare(final Object left, final Object right) {
     return left.toString().compareTo(right.toString());
   }
 
@@ -42,7 +42,7 @@ final class UsingToStringOrdering extends Ordering<Object> implements Serializab
     return "Ordering.usingToString()";
   }
 
-  private UsingToStringOrdering() {}
+  private UsingToStringOrdering() { }
 
   private static final long serialVersionUID = 0;
 }

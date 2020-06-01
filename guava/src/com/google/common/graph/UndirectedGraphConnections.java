@@ -36,7 +36,7 @@ import java.util.Set;
 final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   private final Map<N, V> adjacentNodeValues;
 
-  private UndirectedGraphConnections(Map<N, V> adjacentNodeValues) {
+  private UndirectedGraphConnections(final Map<N, V> adjacentNodeValues) {
     this.adjacentNodeValues = checkNotNull(adjacentNodeValues);
   }
 
@@ -44,7 +44,7 @@ final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
     return new UndirectedGraphConnections<>(new HashMap<N, V>(INNER_CAPACITY, INNER_LOAD_FACTOR));
   }
 
-  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
+  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(final Map<N, V> adjacentNodeValues) {
     return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
   }
 
@@ -64,29 +64,29 @@ final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   }
 
   @Override
-  public V value(N node) {
+  public V value(final N node) {
     return adjacentNodeValues.get(node);
   }
 
   @Override
-  public void removePredecessor(N node) {
+  public void removePredecessor(final N node) {
     @SuppressWarnings("unused")
     V unused = removeSuccessor(node);
   }
 
   @Override
-  public V removeSuccessor(N node) {
+  public V removeSuccessor(final N node) {
     return adjacentNodeValues.remove(node);
   }
 
   @Override
-  public void addPredecessor(N node, V value) {
+  public void addPredecessor(final N node, final V value) {
     @SuppressWarnings("unused")
     V unused = addSuccessor(node, value);
   }
 
   @Override
-  public V addSuccessor(N node, V value) {
+  public V addSuccessor(final N node, final V value) {
     return adjacentNodeValues.put(node, value);
   }
 }

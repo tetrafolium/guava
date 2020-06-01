@@ -34,7 +34,7 @@ public class MultisetsImmutableEntryTest extends TestCase {
     return Multisets.immutableEntry(element, count);
   }
 
-  private static <E> Entry<E> control(E element, int count) {
+  private static <E> Entry<E> control(final E element, final int count) {
     return HashMultiset.create(Collections.nCopies(count, element))
         .entrySet().iterator().next();
   }
@@ -79,6 +79,6 @@ public class MultisetsImmutableEntryTest extends TestCase {
     try {
       entry("foo", -1);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 }

@@ -116,12 +116,12 @@ public class AbstractByteHasherTest extends TestCase {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Override
-    protected void update(byte b) {
+    protected void update(final byte b) {
       out.write(b);
     }
 
     @Override
-    protected void update(byte[] b, int off, int len) {
+    protected void update(final byte[] b, final int off, final int len) {
       out.write(b, off, len);
     }
 
@@ -129,7 +129,7 @@ public class AbstractByteHasherTest extends TestCase {
       return out.toByteArray();
     }
 
-    void assertBytes(byte[] expected) {
+    void assertBytes(final byte[] expected) {
       assertArrayEquals(expected, bytes());
     }
 

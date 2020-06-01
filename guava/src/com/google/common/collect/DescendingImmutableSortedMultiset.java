@@ -27,12 +27,12 @@ import javax.annotation.Nullable;
 final class DescendingImmutableSortedMultiset<E> extends ImmutableSortedMultiset<E> {
   private final transient ImmutableSortedMultiset<E> forward;
 
-  DescendingImmutableSortedMultiset(ImmutableSortedMultiset<E> forward) {
+  DescendingImmutableSortedMultiset(final ImmutableSortedMultiset<E> forward) {
     this.forward = forward;
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     return forward.count(element);
   }
 
@@ -57,7 +57,7 @@ final class DescendingImmutableSortedMultiset<E> extends ImmutableSortedMultiset
   }
 
   @Override
-  Entry<E> getEntry(int index) {
+  Entry<E> getEntry(final int index) {
     return forward.entrySet().asList().reverse().get(index);
   }
 
@@ -67,12 +67,12 @@ final class DescendingImmutableSortedMultiset<E> extends ImmutableSortedMultiset
   }
 
   @Override
-  public ImmutableSortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
+  public ImmutableSortedMultiset<E> headMultiset(final E upperBound, final BoundType boundType) {
     return forward.tailMultiset(upperBound, boundType).descendingMultiset();
   }
 
   @Override
-  public ImmutableSortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
+  public ImmutableSortedMultiset<E> tailMultiset(final E lowerBound, final BoundType boundType) {
     return forward.headMultiset(lowerBound, boundType).descendingMultiset();
   }
 

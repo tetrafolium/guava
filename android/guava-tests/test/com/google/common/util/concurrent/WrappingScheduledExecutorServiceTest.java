@@ -73,7 +73,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
   private static final class WrappedCallable<T> implements Callable<T> {
     private final Callable<T> delegate;
 
-    public WrappedCallable(Callable<T> delegate) {
+    public WrappedCallable(final Callable<T> delegate) {
       this.delegate = delegate;
     }
 
@@ -86,7 +86,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
   private static final class WrappedRunnable implements Runnable {
     private final Runnable delegate;
 
-    public WrappedRunnable(Runnable delegate) {
+    public WrappedRunnable(final Runnable delegate) {
       this.delegate = delegate;
     }
 
@@ -97,16 +97,16 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
   }
 
   private static final class TestExecutor extends WrappingScheduledExecutorService {
-    public TestExecutor(MockExecutor mock) {
+    public TestExecutor(final MockExecutor mock) {
       super(mock);
     }
 
     @Override
-    protected <T> Callable<T> wrapTask(Callable<T> callable) {
+    protected <T> Callable<T> wrapTask(final Callable<T> callable) {
       return new WrappedCallable<T>(callable);
     }
 
-    @Override protected Runnable wrapTask(Runnable command) {
+    @Override protected Runnable wrapTask(final Runnable command) {
       return new WrappedRunnable(command);
     }
   }
@@ -117,13 +117,13 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
     long lastDelay;
     TimeUnit lastUnit;
 
-    void assertLastMethodCalled(String method, long delay, TimeUnit unit) {
+    void assertLastMethodCalled(final String method, final long delay, final TimeUnit unit) {
       assertEquals(method, lastMethodCalled);
       assertEquals(delay, lastDelay);
       assertEquals(unit, lastUnit);
     }
 
-    void assertLastMethodCalled(String method, long initialDelay, long delay, TimeUnit unit) {
+    void assertLastMethodCalled(final String method, final long initialDelay, final long delay, final TimeUnit unit) {
       assertEquals(method, lastMethodCalled);
       assertEquals(initialDelay, lastInitialDelay);
       assertEquals(delay, lastDelay);
@@ -131,7 +131,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+    public ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit) {
       assertThat(command).isInstanceOf(WrappedRunnable.class);
       lastMethodCalled = "scheduleRunnable";
       lastDelay = delay;
@@ -140,7 +140,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+    public <V> ScheduledFuture<V> schedule(final Callable<V> callable, final long delay, final TimeUnit unit) {
       assertThat(callable).isInstanceOf(WrappedCallable.class);
       lastMethodCalled = "scheduleCallable";
       lastDelay = delay;
@@ -150,7 +150,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
 
     @Override
     public ScheduledFuture<?> scheduleAtFixedRate(
-        Runnable command, long initialDelay, long period, TimeUnit unit) {
+        final Runnable command, final long initialDelay, final long period, final TimeUnit unit) {
       assertThat(command).isInstanceOf(WrappedRunnable.class);
       lastMethodCalled = "scheduleAtFixedRate";
       lastInitialDelay = initialDelay;
@@ -161,7 +161,7 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
 
     @Override
     public ScheduledFuture<?> scheduleWithFixedDelay(
-        Runnable command, long initialDelay, long delay, TimeUnit unit) {
+        final Runnable command, final long initialDelay, final long delay, final TimeUnit unit) {
       assertThat(command).isInstanceOf(WrappedRunnable.class);
       lastMethodCalled = "scheduleWithFixedDelay";
       lastInitialDelay = initialDelay;
@@ -172,31 +172,31 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
 
     // No need to test these methods as they are handled by WrappingExecutorServiceTest
     @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) {
+    public boolean awaitTermination(final long timeout, final TimeUnit unit) {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+    public <T> List<Future<T>> invokeAll(final Collection<? extends Callable<T>> tasks)
         throws InterruptedException {
       throw new UnsupportedOperationException();
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(
-        Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+        final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit)
         throws InterruptedException {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+    public <T> T invokeAny(final Collection<? extends Callable<T>> tasks)
         throws ExecutionException, InterruptedException {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+    public <T> T invokeAny(final Collection<? extends Callable<T>> tasks, final long timeout, final TimeUnit unit)
         throws ExecutionException, InterruptedException, TimeoutException {
       throw new UnsupportedOperationException();
     }
@@ -222,22 +222,22 @@ public class WrappingScheduledExecutorServiceTest extends TestCase {
     }
 
     @Override
-    public <T> Future<T> submit(Callable<T> task) {
+    public <T> Future<T> submit(final Callable<T> task) {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public Future<?> submit(Runnable task) {
+    public Future<?> submit(final Runnable task) {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> Future<T> submit(Runnable task, T result) {
+    public <T> Future<T> submit(final Runnable task, final T result) {
       throw new UnsupportedOperationException();
     }
 
     @Override
-    public void execute(Runnable command) {
+    public void execute(final Runnable command) {
       throw new UnsupportedOperationException();
     }
 

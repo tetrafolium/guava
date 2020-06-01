@@ -93,11 +93,11 @@ public class HostAndPortTest extends TestCase {
   }
 
   private static void checkFromStringCase(
-      String hpString,
-      int defaultPort,
-      String expectHost,
-      int expectPort,
-      boolean expectHasExplicitPort) {
+      final String hpString,
+      final int defaultPort,
+      final String expectHost,
+      final int expectPort,
+      final boolean expectHasExplicitPort) {
     HostAndPort hp;
     try {
       hp = HostAndPort.fromString(hpString);

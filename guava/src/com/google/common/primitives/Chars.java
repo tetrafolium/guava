@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class Chars {
-  private Chars() {}
+  private Chars() { }
 
   /**
    * The number of bytes required to represent a primitive {@code char} value.
@@ -65,7 +65,7 @@ public final class Chars {
    * @param value a primitive {@code char} value
    * @return a hash code for the value
    */
-  public static int hashCode(char value) {
+  public static int hashCode(final char value) {
     return value;
   }
 
@@ -77,7 +77,7 @@ public final class Chars {
    * @throws IllegalArgumentException if {@code value} is greater than {@link Character#MAX_VALUE}
    *     or less than {@link Character#MIN_VALUE}
    */
-  public static char checkedCast(long value) {
+  public static char checkedCast(final long value) {
     char result = (char) value;
     checkArgument(result == value, "Out of range: %s", value);
     return result;
@@ -91,7 +91,7 @@ public final class Chars {
    *     {@link Character#MAX_VALUE} if it is too large, or {@link Character#MIN_VALUE} if it is too
    *     small
    */
-  public static char saturatedCast(long value) {
+  public static char saturatedCast(final long value) {
     if (value > Character.MAX_VALUE) {
       return Character.MAX_VALUE;
     }
@@ -113,7 +113,7 @@ public final class Chars {
    * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is
    *     greater than {@code b}; or zero if they are equal
    */
-  public static int compare(char a, char b) {
+  public static int compare(final char a, final char b) {
     return a - b; // safe due to restricted range
   }
 
@@ -125,7 +125,7 @@ public final class Chars {
    * @return {@code true} if {@code array[i] == target} for some value of {@code
    *     i}
    */
-  public static boolean contains(char[] array, char target) {
+  public static boolean contains(final char[] array, final char target) {
     for (char value : array) {
       if (value == target) {
         return true;
@@ -142,12 +142,12 @@ public final class Chars {
    * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int indexOf(char[] array, char target) {
+  public static int indexOf(final char[] array, final char target) {
     return indexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int indexOf(char[] array, char target, int start, int end) {
+  private static int indexOf(final char[] array, final char target, final int start, final int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -167,7 +167,7 @@ public final class Chars {
    * @param array the array to search for the sequence {@code target}
    * @param target the array to search for as a sub-sequence of {@code array}
    */
-  public static int indexOf(char[] array, char[] target) {
+  public static int indexOf(final char[] array, final char[] target) {
     checkNotNull(array, "array");
     checkNotNull(target, "target");
     if (target.length == 0) {
@@ -194,12 +194,12 @@ public final class Chars {
    * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no
    *     such index exists.
    */
-  public static int lastIndexOf(char[] array, char target) {
+  public static int lastIndexOf(final char[] array, final char target) {
     return lastIndexOf(array, target, 0, array.length);
   }
 
   // TODO(kevinb): consider making this public
-  private static int lastIndexOf(char[] array, char target, int start, int end) {
+  private static int lastIndexOf(final char[] array, final char target, final int start, final int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -216,7 +216,7 @@ public final class Chars {
    *     the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static char min(char... array) {
+  public static char min(final char... array) {
     checkArgument(array.length > 0);
     char min = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -235,7 +235,7 @@ public final class Chars {
    *     in the array
    * @throws IllegalArgumentException if {@code array} is empty
    */
-  public static char max(char... array) {
+  public static char max(final char... array) {
     checkArgument(array.length > 0);
     char max = array[0];
     for (int i = 1; i < array.length; i++) {
@@ -260,7 +260,7 @@ public final class Chars {
    * @since 21.0
    */
   @Beta
-  public static char constrainToRange(char value, char min, char max) {
+  public static char constrainToRange(final char value, final char min, final char max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
     return value < min ? min : value < max ? value : max;
   }
@@ -273,7 +273,7 @@ public final class Chars {
    * @param arrays zero or more {@code char} arrays
    * @return a single array containing all the values from the source arrays, in order
    */
-  public static char[] concat(char[]... arrays) {
+  public static char[] concat(final char[]... arrays) {
     int length = 0;
     for (char[] array : arrays) {
       length += array.length;
@@ -297,7 +297,7 @@ public final class Chars {
    * {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable buffer.
    */
   @GwtIncompatible // doesn't work
-  public static byte[] toByteArray(char value) {
+  public static byte[] toByteArray(final char value) {
     return new byte[] {(byte) (value >> 8), (byte) value};
   }
 
@@ -312,7 +312,7 @@ public final class Chars {
    * @throws IllegalArgumentException if {@code bytes} has fewer than 2 elements
    */
   @GwtIncompatible // doesn't work
-  public static char fromByteArray(byte[] bytes) {
+  public static char fromByteArray(final byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
   }
@@ -324,7 +324,7 @@ public final class Chars {
    * @since 7.0
    */
   @GwtIncompatible // doesn't work
-  public static char fromBytes(byte b1, byte b2) {
+  public static char fromBytes(final byte b1, final byte b2) {
     return (char) ((b1 << 8) | (b2 & 0xFF));
   }
 
@@ -341,7 +341,7 @@ public final class Chars {
    * @return an array containing the values of {@code array}, with guaranteed minimum length
    *     {@code minLength}
    */
-  public static char[] ensureCapacity(char[] array, int minLength, int padding) {
+  public static char[] ensureCapacity(final char[] array, final int minLength, final int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
@@ -355,7 +355,7 @@ public final class Chars {
    *     (but not at the start or end)
    * @param array an array of {@code char} values, possibly empty
    */
-  public static String join(String separator, char... array) {
+  public static String join(final String separator, final char... array) {
     checkNotNull(separator);
     int len = array.length;
     if (len == 0) {
@@ -391,7 +391,7 @@ public final class Chars {
     INSTANCE;
 
     @Override
-    public int compare(char[] left, char[] right) {
+    public int compare(final char[] left, final char[] right) {
       int minLength = Math.min(left.length, right.length);
       for (int i = 0; i < minLength; i++) {
         int result = Chars.compare(left[i], right[i]);
@@ -420,7 +420,7 @@ public final class Chars {
    *     to primitives
    * @throws NullPointerException if {@code collection} or any of its elements is null
    */
-  public static char[] toArray(Collection<Character> collection) {
+  public static char[] toArray(final Collection<Character> collection) {
     if (collection instanceof CharArrayAsList) {
       return ((CharArrayAsList) collection).toCharArray();
     }
@@ -440,7 +440,7 @@ public final class Chars {
    *
    * @since 23.1
    */
-  public static void sortDescending(char[] array) {
+  public static void sortDescending(final char[] array) {
     checkNotNull(array);
     sortDescending(array, 0, array.length);
   }
@@ -451,7 +451,7 @@ public final class Chars {
    *
    * @since 23.1
    */
-  public static void sortDescending(char[] array, int fromIndex, int toIndex) {
+  public static void sortDescending(final char[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     Arrays.sort(array, fromIndex, toIndex);
@@ -464,7 +464,7 @@ public final class Chars {
    *
    * @since 23.1
    */
-  public static void reverse(char[] array) {
+  public static void reverse(final char[] array) {
     checkNotNull(array);
     reverse(array, 0, array.length);
   }
@@ -479,7 +479,7 @@ public final class Chars {
    *     {@code toIndex > fromIndex}
    * @since 23.1
    */
-  public static void reverse(char[] array, int fromIndex, int toIndex) {
+  public static void reverse(final char[] array, final int fromIndex, final int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
@@ -501,7 +501,7 @@ public final class Chars {
    * @param backingArray the array to back the list
    * @return a list view of the array
    */
-  public static List<Character> asList(char... backingArray) {
+  public static List<Character> asList(final char... backingArray) {
     if (backingArray.length == 0) {
       return Collections.emptyList();
     }
@@ -515,11 +515,11 @@ public final class Chars {
     final int start;
     final int end;
 
-    CharArrayAsList(char[] array) {
+    CharArrayAsList(final char[] array) {
       this(array, 0, array.length);
     }
 
-    CharArrayAsList(char[] array, int start, int end) {
+    CharArrayAsList(final char[] array, final int start, final int end) {
       this.array = array;
       this.start = start;
       this.end = end;
@@ -536,20 +536,20 @@ public final class Chars {
     }
 
     @Override
-    public Character get(int index) {
+    public Character get(final int index) {
       checkElementIndex(index, size());
       return array[start + index];
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Character)
           && Chars.indexOf(array, (Character) target, start, end) != -1;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Character) {
         int i = Chars.indexOf(array, (Character) target, start, end);
@@ -561,7 +561,7 @@ public final class Chars {
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       // Overridden to prevent a ton of boxing
       if (target instanceof Character) {
         int i = Chars.lastIndexOf(array, (Character) target, start, end);
@@ -573,7 +573,7 @@ public final class Chars {
     }
 
     @Override
-    public Character set(int index, Character element) {
+    public Character set(final int index, final Character element) {
       checkElementIndex(index, size());
       char oldValue = array[start + index];
       // checkNotNull for GWT (do not optimize)
@@ -582,7 +582,7 @@ public final class Chars {
     }
 
     @Override
-    public List<Character> subList(int fromIndex, int toIndex) {
+    public List<Character> subList(final int fromIndex, final int toIndex) {
       int size = size();
       checkPositionIndexes(fromIndex, toIndex, size);
       if (fromIndex == toIndex) {
@@ -592,7 +592,7 @@ public final class Chars {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object == this) {
         return true;
       }

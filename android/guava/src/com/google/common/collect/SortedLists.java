@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 @Beta final class SortedLists {
-  private SortedLists() {}
+  private SortedLists() { }
 
   /**
    * A specification for which index to return if the list contains at least one element that
@@ -50,7 +50,7 @@ import javax.annotation.Nullable;
     ANY_PRESENT {
       @Override
       <E> int resultIndex(
-          Comparator<? super E> comparator, E key, List<? extends E> list, int foundIndex) {
+          final Comparator<? super E> comparator, final E key, final List<? extends E> list, final int foundIndex) {
         return foundIndex;
       }
     },
@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
     LAST_PRESENT {
       @Override
       <E> int resultIndex(
-          Comparator<? super E> comparator, E key, List<? extends E> list, int foundIndex) {
+          final Comparator<? super E> comparator, final E key, final List<? extends E> list, final int foundIndex) {
         // Of course, we have to use binary search to find the precise
         // breakpoint...
         int lower = foundIndex;
@@ -84,7 +84,7 @@ import javax.annotation.Nullable;
     FIRST_PRESENT {
       @Override
       <E> int resultIndex(
-          Comparator<? super E> comparator, E key, List<? extends E> list, int foundIndex) {
+          final Comparator<? super E> comparator, final E key, final List<? extends E> list, final int foundIndex) {
         // Of course, we have to use binary search to find the precise
         // breakpoint...
         int lower = 0;
@@ -110,7 +110,7 @@ import javax.annotation.Nullable;
     FIRST_AFTER {
       @Override
       public <E> int resultIndex(
-          Comparator<? super E> comparator, E key, List<? extends E> list, int foundIndex) {
+          final Comparator<? super E> comparator, final E key, final List<? extends E> list, final int foundIndex) {
         return LAST_PRESENT.resultIndex(comparator, key, list, foundIndex) + 1;
       }
     },
@@ -121,7 +121,7 @@ import javax.annotation.Nullable;
     LAST_BEFORE {
       @Override
       public <E> int resultIndex(
-          Comparator<? super E> comparator, E key, List<? extends E> list, int foundIndex) {
+          final Comparator<? super E> comparator, final E key, final List<? extends E> list, final int foundIndex) {
         return FIRST_PRESENT.resultIndex(comparator, key, list, foundIndex) - 1;
       }
     };
@@ -140,7 +140,7 @@ import javax.annotation.Nullable;
      */
     NEXT_LOWER {
       @Override
-      int resultIndex(int higherIndex) {
+      int resultIndex(final int higherIndex) {
         return higherIndex - 1;
       }
     },
@@ -150,7 +150,7 @@ import javax.annotation.Nullable;
      */
     NEXT_HIGHER {
       @Override
-      public int resultIndex(int higherIndex) {
+      public int resultIndex(final int higherIndex) {
         return higherIndex;
       }
     },
@@ -168,7 +168,7 @@ import javax.annotation.Nullable;
      */
     INVERTED_INSERTION_INDEX {
       @Override
-      public int resultIndex(int higherIndex) {
+      public int resultIndex(final int higherIndex) {
         return ~higherIndex;
       }
     };
@@ -184,10 +184,10 @@ import javax.annotation.Nullable;
    * KeyAbsentBehavior)} using {@link Ordering#natural}.
    */
   public static <E extends Comparable> int binarySearch(
-      List<? extends E> list,
-      E e,
-      KeyPresentBehavior presentBehavior,
-      KeyAbsentBehavior absentBehavior) {
+      final List<? extends E> list,
+      final E e,
+      final KeyPresentBehavior presentBehavior,
+      final KeyAbsentBehavior absentBehavior) {
     checkNotNull(e);
     return binarySearch(list, e, Ordering.natural(), presentBehavior, absentBehavior);
   }
@@ -199,11 +199,11 @@ import javax.annotation.Nullable;
    * KeyAbsentBehavior)} using {@link Ordering#natural}.
    */
   public static <E, K extends Comparable> int binarySearch(
-      List<E> list,
-      Function<? super E, K> keyFunction,
-      @Nullable K key,
-      KeyPresentBehavior presentBehavior,
-      KeyAbsentBehavior absentBehavior) {
+      final List<E> list,
+      final Function<? super E, K> keyFunction,
+      final @Nullable K key,
+      final KeyPresentBehavior presentBehavior,
+      final KeyAbsentBehavior absentBehavior) {
     return binarySearch(
         list, keyFunction, key, Ordering.natural(), presentBehavior, absentBehavior);
   }
@@ -216,12 +216,12 @@ import javax.annotation.Nullable;
    * {@link Lists#transform(List, Function) Lists.transform(list, keyFunction)}.
    */
   public static <E, K> int binarySearch(
-      List<E> list,
-      Function<? super E, K> keyFunction,
-      @Nullable K key,
-      Comparator<? super K> keyComparator,
-      KeyPresentBehavior presentBehavior,
-      KeyAbsentBehavior absentBehavior) {
+      final List<E> list,
+      final Function<? super E, K> keyFunction,
+      final @Nullable K key,
+      final Comparator<? super K> keyComparator,
+      final KeyPresentBehavior presentBehavior,
+      final KeyAbsentBehavior absentBehavior) {
     return binarySearch(
         Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
   }
@@ -250,11 +250,11 @@ import javax.annotation.Nullable;
    *         otherwise the index determined by the {@code KeyAbsentBehavior}.
    */
   public static <E> int binarySearch(
-      List<? extends E> list,
-      @Nullable E key,
-      Comparator<? super E> comparator,
-      KeyPresentBehavior presentBehavior,
-      KeyAbsentBehavior absentBehavior) {
+      final List<? extends E> list,
+      final @Nullable E key,
+      final Comparator<? super E> comparator,
+      final KeyPresentBehavior presentBehavior,
+      final KeyAbsentBehavior absentBehavior) {
     checkNotNull(comparator);
     checkNotNull(list);
     checkNotNull(presentBehavior);

@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 final class ImmutableMapKeySet<K, V> extends ImmutableSet.Indexed<K> {
   @Weak private final ImmutableMap<K, V> map;
 
-  ImmutableMapKeySet(ImmutableMap<K, V> map) {
+  ImmutableMapKeySet(final ImmutableMap<K, V> map) {
     this.map = map;
   }
 
@@ -47,12 +47,12 @@ final class ImmutableMapKeySet<K, V> extends ImmutableSet.Indexed<K> {
   }
 
   @Override
-  public boolean contains(@Nullable Object object) {
+  public boolean contains(final @Nullable Object object) {
     return map.containsKey(object);
   }
 
   @Override
-  K get(int index) {
+  K get(final int index) {
     return map.entrySet().asList().get(index).getKey();
   }
 
@@ -71,7 +71,7 @@ final class ImmutableMapKeySet<K, V> extends ImmutableSet.Indexed<K> {
   private static class KeySetSerializedForm<K> implements Serializable {
     final ImmutableMap<K, ?> map;
 
-    KeySetSerializedForm(ImmutableMap<K, ?> map) {
+    KeySetSerializedForm(final ImmutableMap<K, ?> map) {
       this.map = map;
     }
 

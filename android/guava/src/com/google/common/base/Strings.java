@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public final class Strings {
-  private Strings() {}
+  private Strings() { }
 
   /**
    * Returns the given string if it is non-null; the empty string otherwise.
@@ -37,7 +37,7 @@ public final class Strings {
    * @param string the string to test and possibly return
    * @return {@code string} itself if it is non-null; {@code ""} if it is null
    */
-  public static String nullToEmpty(@Nullable String string) {
+  public static String nullToEmpty(final @Nullable String string) {
     return (string == null) ? "" : string;
   }
 
@@ -48,7 +48,7 @@ public final class Strings {
    * @return {@code string} itself if it is nonempty; {@code null} if it is empty or null
    */
   @Nullable
-  public static String emptyToNull(@Nullable String string) {
+  public static String emptyToNull(final @Nullable String string) {
     return isNullOrEmpty(string) ? null : string;
   }
 
@@ -63,7 +63,7 @@ public final class Strings {
    * @param string a string reference to check
    * @return {@code true} if the string is null or is the empty string
    */
-  public static boolean isNullOrEmpty(@Nullable String string) {
+  public static boolean isNullOrEmpty(final @Nullable String string) {
     return Platform.stringIsNullOrEmpty(string);
   }
 
@@ -85,7 +85,7 @@ public final class Strings {
    *     is reached
    * @return the padded string
    */
-  public static String padStart(String string, int minLength, char padChar) {
+  public static String padStart(final String string, final int minLength, final char padChar) {
     checkNotNull(string); // eager for GWT.
     if (string.length() >= minLength) {
       return string;
@@ -116,7 +116,7 @@ public final class Strings {
    *     reached
    * @return the padded string
    */
-  public static String padEnd(String string, int minLength, char padChar) {
+  public static String padEnd(final String string, final int minLength, final char padChar) {
     checkNotNull(string); // eager for GWT.
     if (string.length() >= minLength) {
       return string;
@@ -139,7 +139,7 @@ public final class Strings {
    *     {@code count} is zero)
    * @throws IllegalArgumentException if {@code count} is negative
    */
-  public static String repeat(String string, int count) {
+  public static String repeat(final String string, final int count) {
     checkNotNull(string); // eager for GWT.
 
     if (count <= 1) {
@@ -173,7 +173,7 @@ public final class Strings {
    *
    * @since 11.0
    */
-  public static String commonPrefix(CharSequence a, CharSequence b) {
+  public static String commonPrefix(final CharSequence a, final CharSequence b) {
     checkNotNull(a);
     checkNotNull(b);
 
@@ -196,7 +196,7 @@ public final class Strings {
    *
    * @since 11.0
    */
-  public static String commonSuffix(CharSequence a, CharSequence b) {
+  public static String commonSuffix(final CharSequence a, final CharSequence b) {
     checkNotNull(a);
     checkNotNull(b);
 
@@ -217,7 +217,7 @@ public final class Strings {
    * Out-of-range indexes return false.
    */
   @VisibleForTesting
-  static boolean validSurrogatePairAt(CharSequence string, int index) {
+  static boolean validSurrogatePairAt(final CharSequence string, final int index) {
     return index >= 0
         && index <= (string.length() - 2)
         && Character.isHighSurrogate(string.charAt(index))

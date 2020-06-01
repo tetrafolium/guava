@@ -29,10 +29,10 @@ import javax.annotation.Nullable;
 @GwtCompatible
 public class VerifyException extends RuntimeException {
   /** Constructs a {@code VerifyException} with no message. */
-  public VerifyException() {}
+  public VerifyException() { }
 
   /** Constructs a {@code VerifyException} with the message {@code message}. */
-  public VerifyException(@Nullable String message) {
+  public VerifyException(final @Nullable String message) {
     super(message);
   }
 
@@ -42,7 +42,7 @@ public class VerifyException extends RuntimeException {
    *
    * @since 19.0
    */
-  public VerifyException(@Nullable Throwable cause) {
+  public VerifyException(final @Nullable Throwable cause) {
     super(cause);
   }
 
@@ -52,7 +52,7 @@ public class VerifyException extends RuntimeException {
    *
    * @since 19.0
    */
-  public VerifyException(@Nullable String message, @Nullable Throwable cause) {
+  public VerifyException(final @Nullable String message, final @Nullable Throwable cause) {
     super(message, cause);
   }
 }

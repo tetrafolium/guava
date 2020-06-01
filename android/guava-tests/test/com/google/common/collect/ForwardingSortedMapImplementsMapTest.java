@@ -34,7 +34,7 @@ public class ForwardingSortedMapImplementsMapTest
   private static class SimpleForwardingSortedMap<K, V>
       extends ForwardingSortedMap<K, V> {
     final SortedMap<K, V> delegate;
-    SimpleForwardingSortedMap(SortedMap<K, V> delegate) {
+    SimpleForwardingSortedMap(final SortedMap<K, V> delegate) {
       this.delegate = delegate;
     }
     @Override protected SortedMap<K, V> delegate() {

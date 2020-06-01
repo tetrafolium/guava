@@ -68,5 +68,5 @@ public final class HtmlEscapers {
           .addEscape('>', "&gt;")
           .build();
 
-  private HtmlEscapers() {}
+  private HtmlEscapers() { }
 }

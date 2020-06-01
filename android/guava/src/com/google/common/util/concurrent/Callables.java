@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class Callables {
-  private Callables() {}
+  private Callables() { }
 
   /**
    * Creates a {@code Callable} which immediately returns a preset value each time it is called.
@@ -131,7 +131,7 @@ public final class Callables {
 
   /** Tries to set name of the given {@link Thread}, returns true if successful. */
   @GwtIncompatible // threads
-  private static boolean trySetName(final String threadName, Thread currentThread) {
+  private static boolean trySetName(final String threadName, final Thread currentThread) {
     // In AppEngine, this will always fail. Should we test for that explicitly using
     // MoreExecutors.isAppEngine? More generally, is there a way to see if we have the modifyThread
     // permission without catching an exception?

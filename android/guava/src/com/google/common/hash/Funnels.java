@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public final class Funnels {
-  private Funnels() {}
+  private Funnels() { }
 
   /**
    * Returns a funnel that extracts the bytes from a {@code byte} array.
@@ -41,7 +41,7 @@ public final class Funnels {
   private enum ByteArrayFunnel implements Funnel<byte[]> {
     INSTANCE;
 
-    public void funnel(byte[] from, PrimitiveSink into) {
+    public void funnel(final byte[] from, final PrimitiveSink into) {
       into.putBytes(from);
     }
 
@@ -65,7 +65,7 @@ public final class Funnels {
   private enum UnencodedCharsFunnel implements Funnel<CharSequence> {
     INSTANCE;
 
-    public void funnel(CharSequence from, PrimitiveSink into) {
+    public void funnel(final CharSequence from, final PrimitiveSink into) {
       into.putUnencodedChars(from);
     }
 
@@ -81,18 +81,18 @@ public final class Funnels {
    *
    * @since 15.0
    */
-  public static Funnel<CharSequence> stringFunnel(Charset charset) {
+  public static Funnel<CharSequence> stringFunnel(final Charset charset) {
     return new StringCharsetFunnel(charset);
   }
 
   private static class StringCharsetFunnel implements Funnel<CharSequence>, Serializable {
     private final Charset charset;
 
-    StringCharsetFunnel(Charset charset) {
+    StringCharsetFunnel(final Charset charset) {
       this.charset = Preconditions.checkNotNull(charset);
     }
 
-    public void funnel(CharSequence from, PrimitiveSink into) {
+    public void funnel(final CharSequence from, final PrimitiveSink into) {
       into.putString(from, charset);
     }
 
@@ -102,7 +102,7 @@ public final class Funnels {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
       if (o instanceof StringCharsetFunnel) {
         StringCharsetFunnel funnel = (StringCharsetFunnel) o;
         return this.charset.equals(funnel.charset);
@@ -122,7 +122,7 @@ public final class Funnels {
     private static class SerializedForm implements Serializable {
       private final String charsetCanonicalName;
 
-      SerializedForm(Charset charset) {
+      SerializedForm(final Charset charset) {
         this.charsetCanonicalName = charset.name();
       }
 
@@ -146,7 +146,7 @@ public final class Funnels {
   private enum IntegerFunnel implements Funnel<Integer> {
     INSTANCE;
 
-    public void funnel(Integer from, PrimitiveSink into) {
+    public void funnel(final Integer from, final PrimitiveSink into) {
       into.putInt(from);
     }
 
@@ -162,18 +162,18 @@ public final class Funnels {
    *
    * @since 15.0
    */
-  public static <E> Funnel<Iterable<? extends E>> sequentialFunnel(Funnel<E> elementFunnel) {
+  public static <E> Funnel<Iterable<? extends E>> sequentialFunnel(final Funnel<E> elementFunnel) {
     return new SequentialFunnel<E>(elementFunnel);
   }
 
   private static class SequentialFunnel<E> implements Funnel<Iterable<? extends E>>, Serializable {
     private final Funnel<E> elementFunnel;
 
-    SequentialFunnel(Funnel<E> elementFunnel) {
+    SequentialFunnel(final Funnel<E> elementFunnel) {
       this.elementFunnel = Preconditions.checkNotNull(elementFunnel);
     }
 
-    public void funnel(Iterable<? extends E> from, PrimitiveSink into) {
+    public void funnel(final Iterable<? extends E> from, final PrimitiveSink into) {
       for (E e : from) {
         elementFunnel.funnel(e, into);
       }
@@ -185,7 +185,7 @@ public final class Funnels {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
       if (o instanceof SequentialFunnel) {
         SequentialFunnel<?> funnel = (SequentialFunnel<?>) o;
         return elementFunnel.equals(funnel.elementFunnel);
@@ -211,7 +211,7 @@ public final class Funnels {
   private enum LongFunnel implements Funnel<Long> {
     INSTANCE;
 
-    public void funnel(Long from, PrimitiveSink into) {
+    public void funnel(final Long from, final PrimitiveSink into) {
       into.putLong(from);
     }
 
@@ -231,29 +231,29 @@ public final class Funnels {
    *
    * @since 13.0
    */
-  public static OutputStream asOutputStream(PrimitiveSink sink) {
+  public static OutputStream asOutputStream(final PrimitiveSink sink) {
     return new SinkAsStream(sink);
   }
 
   private static class SinkAsStream extends OutputStream {
     final PrimitiveSink sink;
 
-    SinkAsStream(PrimitiveSink sink) {
+    SinkAsStream(final PrimitiveSink sink) {
       this.sink = Preconditions.checkNotNull(sink);
     }
 
     @Override
-    public void write(int b) {
+    public void write(final int b) {
       sink.putByte((byte) b);
     }
 
     @Override
-    public void write(byte[] bytes) {
+    public void write(final byte[] bytes) {
       sink.putBytes(bytes);
     }
 
     @Override
-    public void write(byte[] bytes, int off, int len) {
+    public void write(final byte[] bytes, final int off, final int len) {
       sink.putBytes(bytes, off, len);
     }
 

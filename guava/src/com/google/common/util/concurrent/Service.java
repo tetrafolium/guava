@@ -264,13 +264,13 @@ public interface Service {
      * {@linkplain State#STARTING STARTING}. This occurs when {@link Service#startAsync} is called
      * the first time.
      */
-    public void starting() {}
+    public void starting() { }
 
     /**
      * Called when the service transitions from {@linkplain State#STARTING STARTING} to
      * {@linkplain State#RUNNING RUNNING}. This occurs when a service has successfully started.
      */
-    public void running() {}
+    public void running() { }
 
     /**
      * Called when the service transitions to the {@linkplain State#STOPPING STOPPING} state. The
@@ -279,7 +279,7 @@ public interface Service {
      *
      * @param from The previous state that is being transitioned from.
      */
-    public void stopping(State from) {}
+    public void stopping(final State from) { }
 
     /**
      * Called when the service transitions to the {@linkplain State#TERMINATED TERMINATED} state.
@@ -291,7 +291,7 @@ public interface Service {
      *     this are {@linkplain State#NEW NEW}, {@linkplain State#RUNNING RUNNING} or
      *     {@linkplain State#STOPPING STOPPING}.
      */
-    public void terminated(State from) {}
+    public void terminated(final State from) { }
 
     /**
      * Called when the service transitions to the {@linkplain State#FAILED FAILED} state. The
@@ -303,6 +303,6 @@ public interface Service {
      *     TERMINATED}.
      * @param failure The exception that caused the failure.
      */
-    public void failed(State from, Throwable failure) {}
+    public void failed(final State from, final Throwable failure) { }
   }
 }

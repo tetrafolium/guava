@@ -28,16 +28,16 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class ImmutableEntry_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, ImmutableEntry<?, ?> instance) {}
+  public static void deserialize(final SerializationStreamReader reader, final ImmutableEntry<?, ?> instance) { }
 
-  public static ImmutableEntry<Object, Object> instantiate(SerializationStreamReader reader)
+  public static ImmutableEntry<Object, Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     Object key = reader.readObject();
     Object value = reader.readObject();
     return new ImmutableEntry<>(key, value);
   }
 
-  public static void serialize(SerializationStreamWriter writer, ImmutableEntry<?, ?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final ImmutableEntry<?, ?> instance)
       throws SerializationException {
     writer.writeObject(instance.getKey());
     writer.writeObject(instance.getValue());

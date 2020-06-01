@@ -38,7 +38,7 @@ import java.util.Map;
 public class ArrayTableTest extends AbstractTableTest {
 
   @Override protected ArrayTable<String, Integer, Character> create(
-      Object... data) {
+      final Object... data) {
     // TODO: Specify different numbers of rows and columns, to detect problems
     // that arise when the wrong size is used.
     ArrayTable<String, Integer, Character> table =
@@ -47,7 +47,7 @@ public class ArrayTableTest extends AbstractTableTest {
     return table;
   }
 
-  @Override protected void assertSize(int expectedSize) {
+  @Override protected void assertSize(final int expectedSize) {
     assertEquals(9, table.size());
   }
 
@@ -174,28 +174,28 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       ArrayTable.create(asList("foo", "bar", "foo"), asList(1, 2, 3));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateDuplicateColumns() {
     try {
       ArrayTable.create(asList("foo", "bar"), asList(1, 2, 3, 2));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateEmptyRows() {
     try {
       ArrayTable.create(Arrays.<String>asList(), asList(1, 2, 3));
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateEmptyColumns() {
     try {
       ArrayTable.create(asList("foo", "bar"), Arrays.<Integer>asList());
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testCreateCopyArrayTable() {
@@ -233,7 +233,7 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       ArrayTable.create(original);
       fail();
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testSerialization() {
@@ -248,21 +248,21 @@ public class ArrayTableTest extends AbstractTableTest {
 
   public void testToString_ordered() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
-    assertEquals("{foo={1=a, 2=null, 3=c}, " +
-        "bar={1=b, 2=null, 3=null}, " +
-        "cat={1=null, 2=null, 3=null}}",
+    assertEquals("{foo={1=a, 2=null, 3=c}, "
+        + "bar={1=b, 2=null, 3=null}, "
+        + "cat={1=null, 2=null, 3=null}}",
         table.toString());
-    assertEquals("{foo={1=a, 2=null, 3=c}, " +
-        "bar={1=b, 2=null, 3=null}, " +
-        "cat={1=null, 2=null, 3=null}}",
+    assertEquals("{foo={1=a, 2=null, 3=c}, "
+        + "bar={1=b, 2=null, 3=null}, "
+        + "cat={1=null, 2=null, 3=null}}",
         table.rowMap().toString());
   }
 
   public void testCellSetToString_ordered() {
     table = create("foo", 1, 'a', "bar", 1, 'b', "foo", 3, 'c');
-    assertEquals("[(foo,1)=a, (foo,2)=null, (foo,3)=c, " +
-        "(bar,1)=b, (bar,2)=null, (bar,3)=null, " +
-        "(cat,1)=null, (cat,2)=null, (cat,3)=null]",
+    assertEquals("[(foo,1)=a, (foo,2)=null, (foo,3)=c, "
+        + "(bar,1)=b, (bar,2)=null, (bar,3)=null, "
+        + "(cat,1)=null, (cat,2)=null, (cat,3)=null]",
         table.cellSet().toString());
   }
 
@@ -309,19 +309,19 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       table.at(1, 3);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.at(1, -1);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.at(3, 2);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.at(-1, 2);
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
   }
 
   public void testSet() {
@@ -336,19 +336,19 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       table.set(1, 3, 'z');
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.set(1, -1, 'z');
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.set(3, 2, 'z');
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     try {
       table.set(-1, 2, 'z');
       fail();
-    } catch (IndexOutOfBoundsException expected) {}
+    } catch (IndexOutOfBoundsException expected) { }
     assertFalse(table.containsValue('z'));
   }
 
@@ -423,7 +423,7 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       row.put(1, 'd');
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testColumnMissing() {
@@ -433,7 +433,7 @@ public class ArrayTableTest extends AbstractTableTest {
     try {
       column.put("foo", 'd');
       fail();
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testRowPutIllegal() {

@@ -40,7 +40,7 @@ public class OutsideEventBusTest extends TestCase {
     EventBus bus = new EventBus();
     bus.register(new Object() {
       @Subscribe
-      public void accept(String str) {
+      public void accept(final String str) {
         holder.set(str);
         deliveries.incrementAndGet();
       }

@@ -60,7 +60,7 @@ public class HashCodeBenchmark {
 
   private enum EqualsImplementation {
     ANDING_BOOLEANS {
-      @Override boolean doEquals(byte[] a, byte[] b) {
+      @Override boolean doEquals(final byte[] a, final byte[] b) {
         if (a.length != b.length) {
           return false;
         }
@@ -72,7 +72,7 @@ public class HashCodeBenchmark {
       }
     },
     XORING_TO_BYTE {
-      @Override boolean doEquals(byte[] a, byte[] b) {
+      @Override boolean doEquals(final byte[] a, final byte[] b) {
         if (a.length != b.length) {
           return false;
         }
@@ -84,7 +84,7 @@ public class HashCodeBenchmark {
       }
     },
     XORING_TO_INT {
-      @Override boolean doEquals(byte[] a, byte[] b) {
+      @Override boolean doEquals(final byte[] a, final byte[] b) {
         if (a.length != b.length) {
           return false;
         }
@@ -96,12 +96,12 @@ public class HashCodeBenchmark {
       }
     },
     MESSAGE_DIGEST_IS_EQUAL {
-      @Override boolean doEquals(byte[] a, byte[] b) {
+      @Override boolean doEquals(final byte[] a, final byte[] b) {
         return MessageDigest.isEqual(a, b);
       }
     },
     ARRAYS_EQUALS {
-      @Override boolean doEquals(byte[] a, byte[] b) {
+      @Override boolean doEquals(final byte[] a, final byte[] b) {
         return Arrays.equals(a, b);
       }
     };
@@ -131,7 +131,7 @@ public class HashCodeBenchmark {
     }
   }
 
-  @Benchmark boolean hashFunction(int reps) {
+  @Benchmark boolean hashFunction(final int reps) {
     boolean result = true;
     for (int i = 0; i < reps; i++) {
       result ^= equalsImpl.doEquals(testBytesA, testBytesB);

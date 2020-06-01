@@ -90,7 +90,7 @@ public class QuantilesTest extends TestCase {
       new Correspondence<Double, Double>() {
 
         @Override
-        public boolean compare(@Nullable Double actual, @Nullable Double expected) {
+        public boolean compare(final @Nullable Double actual, final @Nullable Double expected) {
           // Test for equality to allow non-finite values to match; otherwise, use the finite test.
           return actual.equals(expected)
               || FINITE_QUANTILE_CORRESPONDENCE.compare(actual, expected);
@@ -238,7 +238,7 @@ public class QuantilesTest extends TestCase {
     // This test is the same as testScale_indexes_varargs_compute_doubleCollection except that the
     // array of indexes to be calculated is modified between the calls to indexes and compute: since
     // the contract is that it is snapshotted, this shouldn't make any difference to the result.
-    int[] indexes = { 0, 10, 5, 1, 8, 10 };
+    int[] indexes = {0, 10, 5, 1, 8, 10 };
     ScaleAndIndexes intermediate = Quantiles.scale(10).indexes(indexes);
     indexes[0] = 3;
     assertThat(intermediate.compute(SIXTEEN_SQUARES_DOUBLES))
@@ -484,7 +484,7 @@ public class QuantilesTest extends TestCase {
     return largeDatasetBuilder.build();
   }
 
-  private static double expectedLargeDatasetPercentile(int index) {
+  private static double expectedLargeDatasetPercentile(final int index) {
     // We have q=100, k=index, and N=9951. Therefore k*(N-1)/q is 99.5*index. If index is even, that
     // is an integer 199*index/2. If index is odd, that is halfway between floor(199*index/2) and
     // ceil(199*index/2).

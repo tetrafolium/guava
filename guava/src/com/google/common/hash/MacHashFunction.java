@@ -35,7 +35,7 @@ final class MacHashFunction extends AbstractHashFunction {
   private final int bits;
   private final boolean supportsClone;
 
-  MacHashFunction(String algorithmName, Key key, String toString) {
+  MacHashFunction(final String algorithmName, final Key key, final String toString) {
     this.prototype = getMac(algorithmName, key);
     this.key = checkNotNull(key);
     this.toString = checkNotNull(toString);
@@ -48,7 +48,7 @@ final class MacHashFunction extends AbstractHashFunction {
     return bits;
   }
 
-  private static boolean supportsClone(Mac mac) {
+  private static boolean supportsClone(final Mac mac) {
     try {
       mac.clone();
       return true;
@@ -57,7 +57,7 @@ final class MacHashFunction extends AbstractHashFunction {
     }
   }
 
-  private static Mac getMac(String algorithmName, Key key) {
+  private static Mac getMac(final String algorithmName, final Key key) {
     try {
       Mac mac = Mac.getInstance(algorithmName);
       mac.init(key);
@@ -93,30 +93,30 @@ final class MacHashFunction extends AbstractHashFunction {
     private final Mac mac;
     private boolean done;
 
-    private MacHasher(Mac mac) {
+    private MacHasher(final Mac mac) {
       this.mac = mac;
     }
 
     @Override
-    protected void update(byte b) {
+    protected void update(final byte b) {
       checkNotDone();
       mac.update(b);
     }
 
     @Override
-    protected void update(byte[] b) {
+    protected void update(final byte[] b) {
       checkNotDone();
       mac.update(b);
     }
 
     @Override
-    protected void update(byte[] b, int off, int len) {
+    protected void update(final byte[] b, final int off, final int len) {
       checkNotDone();
       mac.update(b, off, len);
     }
 
     @Override
-    protected void update(ByteBuffer bytes) {
+    protected void update(final ByteBuffer bytes) {
       checkNotDone();
       checkNotNull(bytes);
       mac.update(bytes);

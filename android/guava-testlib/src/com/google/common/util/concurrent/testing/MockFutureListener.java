@@ -39,7 +39,7 @@ public class MockFutureListener implements Runnable {
   private final CountDownLatch countDownLatch;
   private final ListenableFuture<?> future;
 
-  public MockFutureListener(ListenableFuture<?> future) {
+  public MockFutureListener(final ListenableFuture<?> future) {
     this.countDownLatch = new CountDownLatch(1);
     this.future = future;
 
@@ -57,7 +57,7 @@ public class MockFutureListener implements Runnable {
    * @throws Throwable if the listener isn't called or if it resulted in a
    *     throwable or if the result doesn't match the expected value.
    */
-  public void assertSuccess(Object expectedData) throws Throwable {
+  public void assertSuccess(final Object expectedData) throws Throwable {
     // Verify that the listener executed in a reasonable amount of time.
     Assert.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
 
@@ -73,7 +73,7 @@ public class MockFutureListener implements Runnable {
    * Asserts that the future throws an {@code ExecutableException} and that the
    * cause of the {@code ExecutableException} is {@code expectedCause}.
    */
-  public void assertException(Throwable expectedCause) throws Exception {
+  public void assertException(final Throwable expectedCause) throws Exception {
     // Verify that the listener executed in a reasonable amount of time.
     Assert.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
 

@@ -59,7 +59,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 13.0
    */
   public static <C extends Comparable> ContiguousSet<C> create(
-      Range<C> range, DiscreteDomain<C> domain) {
+      final Range<C> range, final DiscreteDomain<C> domain) {
     checkNotNull(range);
     checkNotNull(domain);
     Range<C> effectiveRange = range;
@@ -97,7 +97,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 23.0
    */
   @Beta
-  public static ContiguousSet<Integer> closed(int lower, int upper) {
+  public static ContiguousSet<Integer> closed(final int lower, final int upper) {
     return create(Range.closed(lower, upper), DiscreteDomain.integers());
   }
 
@@ -111,7 +111,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 23.0
    */
   @Beta
-  public static ContiguousSet<Long> closed(long lower, long upper) {
+  public static ContiguousSet<Long> closed(final long lower, final long upper) {
     return create(Range.closed(lower, upper), DiscreteDomain.longs());
   }
 
@@ -125,7 +125,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 23.0
    */
   @Beta
-  public static ContiguousSet<Integer> closedOpen(int lower, int upper) {
+  public static ContiguousSet<Integer> closedOpen(final int lower, final int upper) {
     return create(Range.closedOpen(lower, upper), DiscreteDomain.integers());
   }
 
@@ -139,19 +139,19 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    * @since 23.0
    */
   @Beta
-  public static ContiguousSet<Long> closedOpen(long lower, long upper) {
+  public static ContiguousSet<Long> closedOpen(final long lower, final long upper) {
     return create(Range.closedOpen(lower, upper), DiscreteDomain.longs());
   }
 
   final DiscreteDomain<C> domain;
 
-  ContiguousSet(DiscreteDomain<C> domain) {
+  ContiguousSet(final DiscreteDomain<C> domain) {
     super(Ordering.natural());
     this.domain = domain;
   }
 
   @Override
-  public ContiguousSet<C> headSet(C toElement) {
+  public ContiguousSet<C> headSet(final C toElement) {
     return headSetImpl(checkNotNull(toElement), false);
   }
 
@@ -160,12 +160,12 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    */
   @GwtIncompatible // NavigableSet
   @Override
-  public ContiguousSet<C> headSet(C toElement, boolean inclusive) {
+  public ContiguousSet<C> headSet(final C toElement, final boolean inclusive) {
     return headSetImpl(checkNotNull(toElement), inclusive);
   }
 
   @Override
-  public ContiguousSet<C> subSet(C fromElement, C toElement) {
+  public ContiguousSet<C> subSet(final C fromElement, final C toElement) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator().compare(fromElement, toElement) <= 0);
@@ -178,7 +178,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
   @GwtIncompatible // NavigableSet
   @Override
   public ContiguousSet<C> subSet(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+      final C fromElement, final boolean fromInclusive, final C toElement, final boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator().compare(fromElement, toElement) <= 0);
@@ -186,7 +186,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
   }
 
   @Override
-  public ContiguousSet<C> tailSet(C fromElement) {
+  public ContiguousSet<C> tailSet(final C fromElement) {
     return tailSetImpl(checkNotNull(fromElement), true);
   }
 
@@ -195,7 +195,7 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
    */
   @GwtIncompatible // NavigableSet
   @Override
-  public ContiguousSet<C> tailSet(C fromElement, boolean inclusive) {
+  public ContiguousSet<C> tailSet(final C fromElement, final boolean inclusive) {
     return tailSetImpl(checkNotNull(fromElement), inclusive);
   }
 

@@ -20,11 +20,11 @@ package com.google.common.testing.anotherpackage;
 @SuppressWarnings("unused") // For use by NullPointerTester
 public class SomeClassThatDoesNotUseNullable {
 
-  void packagePrivateButDoesNotCheckNull(String s) {}
+  void packagePrivateButDoesNotCheckNull(final String s) { }
 
-  protected void protectedButDoesNotCheckNull(String s) {}
+  protected void protectedButDoesNotCheckNull(final String s) { }
 
-  public void publicButDoesNotCheckNull(String s) {}
+  public void publicButDoesNotCheckNull(final String s) { }
 
-  public static void staticButDoesNotCheckNull(String s) {}
+  public static void staticButDoesNotCheckNull(final String s) { }
 }

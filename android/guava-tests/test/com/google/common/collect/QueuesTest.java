@@ -81,12 +81,12 @@ public class QueuesTest extends TestCase {
   }
 
   private static <T> int drain(
-      BlockingQueue<T> q,
-      Collection<? super T> buffer,
-      int maxElements,
-      long timeout,
-      TimeUnit unit,
-      boolean interruptibly)
+      final BlockingQueue<T> q,
+      final Collection<? super T> buffer,
+      final int maxElements,
+      final long timeout,
+      final TimeUnit unit,
+      final boolean interruptibly)
       throws InterruptedException {
     return interruptibly
         ? Queues.drain(q, buffer, maxElements, timeout, unit)
@@ -99,7 +99,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testMultipleProducers(BlockingQueue<Object> q) throws InterruptedException {
+  private void testMultipleProducers(final BlockingQueue<Object> q) throws InterruptedException {
     for (boolean interruptibly : new boolean[] {true, false}) {
       @SuppressWarnings("unused") // go/futurereturn-lsc
       Future<?> possiblyIgnoredError = threadPool.submit(new Producer(q, 20));
@@ -126,7 +126,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testDrainTimesOut(BlockingQueue<Object> q) throws Exception {
+  private void testDrainTimesOut(final BlockingQueue<Object> q) throws Exception {
     for (boolean interruptibly : new boolean[] {true, false}) {
       assertEquals(0, Queues.drain(q, ImmutableList.of(), 1, 10, MILLISECONDS));
 
@@ -158,7 +158,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testZeroElements(BlockingQueue<Object> q) throws InterruptedException {
+  private void testZeroElements(final BlockingQueue<Object> q) throws InterruptedException {
     for (boolean interruptibly : new boolean[] {true, false}) {
       // asking to drain zero elements
       assertEquals(0, drain(q, ImmutableList.of(), 0, 10, MILLISECONDS, interruptibly));
@@ -171,7 +171,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testEmpty(BlockingQueue<Object> q) {
+  private void testEmpty(final BlockingQueue<Object> q) {
     assertDrained(q);
   }
 
@@ -181,7 +181,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testNegativeMaxElements(BlockingQueue<Object> q) throws InterruptedException {
+  private void testNegativeMaxElements(final BlockingQueue<Object> q) throws InterruptedException {
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError = threadPool.submit(new Producer(q, 1));
 
@@ -200,7 +200,7 @@ public class QueuesTest extends TestCase {
     }
   }
 
-  private void testDrain_throws(BlockingQueue<Object> q) {
+  private void testDrain_throws(final BlockingQueue<Object> q) {
     @SuppressWarnings("unused") // go/futurereturn-lsc
     Future<?> possiblyIgnoredError = threadPool.submit(new Interrupter(currentThread()));
     try {
@@ -260,13 +260,13 @@ public class QueuesTest extends TestCase {
   }
 
   /** Checks that #drain() invocations behave correctly for a drained (empty) queue. */
-  private void assertDrained(BlockingQueue<Object> q) {
+  private void assertDrained(final BlockingQueue<Object> q) {
     assertNull(q.peek());
     assertInterruptibleDrained(q);
     assertUninterruptibleDrained(q);
   }
 
-  private void assertInterruptibleDrained(BlockingQueue<Object> q) {
+  private void assertInterruptibleDrained(final BlockingQueue<Object> q) {
     // nothing to drain, thus this should wait doing nothing
     try {
       assertEquals(0, Queues.drain(q, ImmutableList.of(), 0, 10, MILLISECONDS));
@@ -287,7 +287,7 @@ public class QueuesTest extends TestCase {
   }
 
   // same as above; uninterruptible version
-  private void assertUninterruptibleDrained(BlockingQueue<Object> q) {
+  private void assertUninterruptibleDrained(final BlockingQueue<Object> q) {
     assertEquals(0, Queues.drainUninterruptibly(q, ImmutableList.of(), 0, 10, MILLISECONDS));
 
     // but does the wait actually occurs?
@@ -309,7 +309,7 @@ public class QueuesTest extends TestCase {
     final CountDownLatch beganProducing = new CountDownLatch(1);
     final CountDownLatch doneProducing = new CountDownLatch(1);
 
-    Producer(BlockingQueue<Object> q, int elements) {
+    Producer(final BlockingQueue<Object> q, final int elements) {
       this.q = q;
       this.elements = elements;
     }
@@ -331,7 +331,7 @@ public class QueuesTest extends TestCase {
   private static class Interrupter implements Runnable {
     final Thread threadToInterrupt;
 
-    Interrupter(Thread threadToInterrupt) {
+    Interrupter(final Thread threadToInterrupt) {
       this.threadToInterrupt = threadToInterrupt;
     }
 

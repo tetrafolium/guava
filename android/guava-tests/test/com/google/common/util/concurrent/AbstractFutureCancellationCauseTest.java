@@ -41,7 +41,7 @@ public class AbstractFutureCancellationCauseTest extends TestCase {
     classReloader =
         new URLClassLoader(ClassPathUtil.getClassPathUrls()) {
           @Override
-          public Class<?> loadClass(String name) throws ClassNotFoundException {
+          public Class<?> loadClass(final String name) throws ClassNotFoundException {
             if (name.startsWith(concurrentPackage)) {
               return super.findClass(name);
             }

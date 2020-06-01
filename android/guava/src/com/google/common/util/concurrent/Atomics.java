@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public final class Atomics {
-  private Atomics() {}
+  private Atomics() { }
 
   /**
    * Creates an {@code AtomicReference} instance with no initial value.
@@ -44,7 +44,7 @@ public final class Atomics {
    * @param initialValue the initial value
    * @return a new {@code AtomicReference} with the given initial value
    */
-  public static <V> AtomicReference<V> newReference(@Nullable V initialValue) {
+  public static <V> AtomicReference<V> newReference(final @Nullable V initialValue) {
     return new AtomicReference<V>(initialValue);
   }
 
@@ -54,7 +54,7 @@ public final class Atomics {
    * @param length the length of the array
    * @return a new {@code AtomicReferenceArray} with the given length
    */
-  public static <E> AtomicReferenceArray<E> newReferenceArray(int length) {
+  public static <E> AtomicReferenceArray<E> newReferenceArray(final int length) {
     return new AtomicReferenceArray<E>(length);
   }
 
@@ -65,7 +65,7 @@ public final class Atomics {
    * @param array the array to copy elements from
    * @return a new {@code AtomicReferenceArray} copied from the given array
    */
-  public static <E> AtomicReferenceArray<E> newReferenceArray(E[] array) {
+  public static <E> AtomicReferenceArray<E> newReferenceArray(final E[] array) {
     return new AtomicReferenceArray<E>(array);
   }
 }

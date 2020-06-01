@@ -38,7 +38,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     this.inverse = (ImmutableBiMap<V, K>) this;
   }
 
-  RegularImmutableBiMap(ImmutableMap<K, V> delegate) {
+  RegularImmutableBiMap(final ImmutableMap<K, V> delegate) {
     super(delegate);
 
     ImmutableMap.Builder<V, K> builder = ImmutableMap.builder();
@@ -49,8 +49,8 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     this.inverse = new RegularImmutableBiMap<V, K>(backwardMap, this);
   }
 
-  RegularImmutableBiMap(ImmutableMap<K, V> delegate,
-      ImmutableBiMap<V, K> inverse) {
+  RegularImmutableBiMap(final ImmutableMap<K, V> delegate,
+      final ImmutableBiMap<V, K> inverse) {
     super(delegate);
     this.inverse = inverse;
   }

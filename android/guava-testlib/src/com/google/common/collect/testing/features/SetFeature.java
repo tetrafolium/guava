@@ -36,7 +36,7 @@ public enum SetFeature implements Feature<Set> {
 
   private final Set<Feature<? super Set>> implied;
 
-  SetFeature(Feature<? super Set>... implied) {
+  SetFeature(final Feature<? super Set>... implied) {
     this.implied = Helpers.copyToSet(implied);
   }
 

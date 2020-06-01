@@ -89,32 +89,32 @@ public final class ImmutableLongArray implements Serializable {
   }
 
   /** Returns an immutable array containing a single value. */
-  public static ImmutableLongArray of(long e0) {
+  public static ImmutableLongArray of(final long e0) {
     return new ImmutableLongArray(new long[] {e0});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray of(long e0, long e1) {
+  public static ImmutableLongArray of(final long e0, final long e1) {
     return new ImmutableLongArray(new long[] {e0, e1});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray of(long e0, long e1, long e2) {
+  public static ImmutableLongArray of(final long e0, final long e1, final long e2) {
     return new ImmutableLongArray(new long[] {e0, e1, e2});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray of(long e0, long e1, long e2, long e3) {
+  public static ImmutableLongArray of(final long e0, final long e1, final long e2, final long e3) {
     return new ImmutableLongArray(new long[] {e0, e1, e2, e3});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray of(long e0, long e1, long e2, long e3, long e4) {
+  public static ImmutableLongArray of(final long e0, final long e1, final long e2, final long e3, final long e4) {
     return new ImmutableLongArray(new long[] {e0, e1, e2, e3, e4});
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray of(long e0, long e1, long e2, long e3, long e4, long e5) {
+  public static ImmutableLongArray of(final long e0, final long e1, final long e2, final long e3, final long e4, final long e5) {
     return new ImmutableLongArray(new long[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -123,7 +123,7 @@ public final class ImmutableLongArray implements Serializable {
   /** Returns an immutable array containing the given values, in order. */
   // Use (first, rest) so that `of(someLongArray)` won't compile (they should use copyOf), which is
   // okay since we have to copy the just-created array anyway.
-  public static ImmutableLongArray of(long first, long... rest) {
+  public static ImmutableLongArray of(final long first, final long... rest) {
     long[] array = new long[rest.length + 1];
     array[0] = first;
     System.arraycopy(rest, 0, array, 1, rest.length);
@@ -131,14 +131,14 @@ public final class ImmutableLongArray implements Serializable {
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray copyOf(long[] values) {
+  public static ImmutableLongArray copyOf(final long[] values) {
     return values.length == 0
         ? EMPTY
         : new ImmutableLongArray(Arrays.copyOf(values, values.length));
   }
 
   /** Returns an immutable array containing the given values, in order. */
-  public static ImmutableLongArray copyOf(Collection<Long> values) {
+  public static ImmutableLongArray copyOf(final Collection<Long> values) {
     return values.isEmpty() ? EMPTY : new ImmutableLongArray(Longs.toArray(values));
   }
 
@@ -149,7 +149,7 @@ public final class ImmutableLongArray implements Serializable {
    * values} is a {@link Collection}. Otherwise it creates a {@link #builder} and uses {@link
    * Builder#addAll(Iterable)}, with all the performance implications associated with that.
    */
-  public static ImmutableLongArray copyOf(Iterable<Long> values) {
+  public static ImmutableLongArray copyOf(final Iterable<Long> values) {
     if (values instanceof Collection) {
       return copyOf((Collection<Long>) values);
     }
@@ -166,7 +166,7 @@ public final class ImmutableLongArray implements Serializable {
    * ImmutableLongArray} that is built will very likely occupy more memory than strictly necessary;
    * to trim memory usage, build using {@code builder.build().trimmed()}.
    */
-  public static Builder builder(int initialCapacity) {
+  public static Builder builder(final int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s", initialCapacity);
     return new Builder(initialCapacity);
   }
@@ -192,7 +192,7 @@ public final class ImmutableLongArray implements Serializable {
     private long[] array;
     private int count = 0; // <= array.length
 
-    Builder(int initialCapacity) {
+    Builder(final int initialCapacity) {
       array = new long[initialCapacity];
     }
 
@@ -200,7 +200,7 @@ public final class ImmutableLongArray implements Serializable {
      * Appends {@code value} to the end of the values the built {@link ImmutableLongArray} will
      * contain.
      */
-    public Builder add(long value) {
+    public Builder add(final long value) {
       ensureRoomFor(1);
       array[count] = value;
       count += 1;
@@ -211,7 +211,7 @@ public final class ImmutableLongArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableLongArray} will contain.
      */
-    public Builder addAll(long[] values) {
+    public Builder addAll(final long[] values) {
       ensureRoomFor(values.length);
       System.arraycopy(values, 0, array, count, values.length);
       count += values.length;
@@ -222,7 +222,7 @@ public final class ImmutableLongArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableLongArray} will contain.
      */
-    public Builder addAll(Iterable<Long> values) {
+    public Builder addAll(final Iterable<Long> values) {
       if (values instanceof Collection) {
         return addAll((Collection<Long>) values);
       }
@@ -236,7 +236,7 @@ public final class ImmutableLongArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableLongArray} will contain.
      */
-    public Builder addAll(Collection<Long> values) {
+    public Builder addAll(final Collection<Long> values) {
       ensureRoomFor(values.size());
       for (Long value : values) {
         array[count++] = value;
@@ -248,14 +248,14 @@ public final class ImmutableLongArray implements Serializable {
      * Appends {@code values}, in order, to the end of the values the built {@link
      * ImmutableLongArray} will contain.
      */
-    public Builder addAll(ImmutableLongArray values) {
+    public Builder addAll(final ImmutableLongArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count, values.length());
       count += values.length();
       return this;
     }
 
-    private void ensureRoomFor(int numberToAdd) {
+    private void ensureRoomFor(final int numberToAdd) {
       int newCount = count + numberToAdd; // TODO(kevinb): check overflow now?
       if (newCount > array.length) {
         long[] newArray = new long[expandedCapacity(array.length, newCount)];
@@ -265,7 +265,7 @@ public final class ImmutableLongArray implements Serializable {
     }
 
     // Unfortunately this is pasted from ImmutableCollection.Builder.
-    private static int expandedCapacity(int oldCapacity, int minCapacity) {
+    private static int expandedCapacity(final int oldCapacity, final int minCapacity) {
       if (minCapacity < 0) {
         throw new AssertionError("cannot store more than MAX_VALUE elements");
       }
@@ -310,11 +310,11 @@ public final class ImmutableLongArray implements Serializable {
   private final transient int start; // it happens that we only serialize instances where this is 0
   private final int end; // exclusive
 
-  private ImmutableLongArray(long[] array) {
+  private ImmutableLongArray(final long[] array) {
     this(array, 0, array.length);
   }
 
-  private ImmutableLongArray(long[] array, int start, int end) {
+  private ImmutableLongArray(final long[] array, final int start, final int end) {
     this.array = array;
     this.start = start;
     this.end = end;
@@ -336,7 +336,7 @@ public final class ImmutableLongArray implements Serializable {
    * @throws IndexOutOfBoundsException if {@code index} is negative, or greater than or equal to
    *     {@link #length}
    */
-  public long get(int index) {
+  public long get(final int index) {
     Preconditions.checkElementIndex(index, length());
     return array[start + index];
   }
@@ -345,7 +345,7 @@ public final class ImmutableLongArray implements Serializable {
    * Returns the smallest index for which {@link #get} returns {@code target}, or {@code -1} if no
    * such index exists. Equivalent to {@code asList().indexOf(target)}.
    */
-  public int indexOf(long target) {
+  public int indexOf(final long target) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i - start;
@@ -358,7 +358,7 @@ public final class ImmutableLongArray implements Serializable {
    * Returns the largest index for which {@link #get} returns {@code target}, or {@code -1} if no
    * such index exists. Equivalent to {@code asList().lastIndexOf(target)}.
    */
-  public int lastIndexOf(long target) {
+  public int lastIndexOf(final long target) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i - start;
@@ -371,7 +371,7 @@ public final class ImmutableLongArray implements Serializable {
    * Returns {@code true} if {@code target} is present at any index in this array. Equivalent to
    * {@code asList().contains(target)}.
    */
-  public boolean contains(long target) {
+  public boolean contains(final long target) {
     return indexOf(target) >= 0;
   }
 
@@ -387,7 +387,7 @@ public final class ImmutableLongArray implements Serializable {
    * does (no actual copying is performed). To reduce memory usage, use {@code subArray(start,
    * end).trimmed()}.
    */
-  public ImmutableLongArray subArray(int startIndex, int endIndex) {
+  public ImmutableLongArray subArray(final int startIndex, final int endIndex) {
     Preconditions.checkPositionIndexes(startIndex, endIndex, length());
     return startIndex == endIndex
         ? EMPTY
@@ -413,7 +413,7 @@ public final class ImmutableLongArray implements Serializable {
   static class AsList extends AbstractList<Long> implements RandomAccess, Serializable {
     private final ImmutableLongArray parent;
 
-    private AsList(ImmutableLongArray parent) {
+    private AsList(final ImmutableLongArray parent) {
       this.parent = parent;
     }
 
@@ -425,32 +425,32 @@ public final class ImmutableLongArray implements Serializable {
     }
 
     @Override
-    public Long get(int index) {
+    public Long get(final int index) {
       return parent.get(index);
     }
 
     @Override
-    public boolean contains(Object target) {
+    public boolean contains(final Object target) {
       return indexOf(target) >= 0;
     }
 
     @Override
-    public int indexOf(Object target) {
+    public int indexOf(final Object target) {
       return target instanceof Long ? parent.indexOf((Long) target) : -1;
     }
 
     @Override
-    public int lastIndexOf(Object target) {
+    public int lastIndexOf(final Object target) {
       return target instanceof Long ? parent.lastIndexOf((Long) target) : -1;
     }
 
     @Override
-    public List<Long> subList(int fromIndex, int toIndex) {
+    public List<Long> subList(final int fromIndex, final int toIndex) {
       return parent.subArray(fromIndex, toIndex).asList();
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(final @Nullable Object object) {
       if (object instanceof AsList) {
         AsList that = (AsList) object;
         return this.parent.equals(that.parent);
@@ -490,7 +490,7 @@ public final class ImmutableLongArray implements Serializable {
    * values as this one, in the same order.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     }

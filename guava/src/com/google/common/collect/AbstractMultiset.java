@@ -58,7 +58,7 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
   }
 
   @Override
-  public boolean contains(@Nullable Object element) {
+  public boolean contains(final @Nullable Object element) {
     return count(element) > 0;
   }
 
@@ -68,7 +68,7 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
   }
 
   @Override
-  public int count(@Nullable Object element) {
+  public int count(final @Nullable Object element) {
     for (Entry<E> entry : entrySet()) {
       if (Objects.equal(entry.getElement(), element)) {
         return entry.getCount();
@@ -80,38 +80,38 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
   // Modification Operations
   @CanIgnoreReturnValue
   @Override
-  public boolean add(@Nullable E element) {
+  public boolean add(final @Nullable E element) {
     add(element, 1);
     return true;
   }
 
   @CanIgnoreReturnValue
   @Override
-  public int add(@Nullable E element, int occurrences) {
+  public int add(final @Nullable E element, final int occurrences) {
     throw new UnsupportedOperationException();
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean remove(@Nullable Object element) {
+  public boolean remove(final @Nullable Object element) {
     return remove(element, 1) > 0;
   }
 
   @CanIgnoreReturnValue
   @Override
-  public int remove(@Nullable Object element, int occurrences) {
+  public int remove(final @Nullable Object element, final int occurrences) {
     throw new UnsupportedOperationException();
   }
 
   @CanIgnoreReturnValue
   @Override
-  public int setCount(@Nullable E element, int count) {
+  public int setCount(final @Nullable E element, final int count) {
     return setCountImpl(this, element, count);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean setCount(@Nullable E element, int oldCount, int newCount) {
+  public boolean setCount(final @Nullable E element, final int oldCount, final int newCount) {
     return setCountImpl(this, element, oldCount, newCount);
   }
 
@@ -125,19 +125,19 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
    */
   @CanIgnoreReturnValue
   @Override
-  public boolean addAll(Collection<? extends E> elementsToAdd) {
+  public boolean addAll(final Collection<? extends E> elementsToAdd) {
     return Multisets.addAllImpl(this, elementsToAdd);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean removeAll(Collection<?> elementsToRemove) {
+  public boolean removeAll(final Collection<?> elementsToRemove) {
     return Multisets.removeAllImpl(this, elementsToRemove);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean retainAll(Collection<?> elementsToRetain) {
+  public boolean retainAll(final Collection<?> elementsToRetain) {
     return Multisets.retainAllImpl(this, elementsToRetain);
   }
 
@@ -222,7 +222,7 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
    * count.
    */
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return Multisets.equalsImpl(this, object);
   }
 

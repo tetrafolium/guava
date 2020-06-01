@@ -74,7 +74,7 @@ public final class HostAndPort implements Serializable {
   /** True if the parsed host has colons, but no surrounding brackets. */
   private final boolean hasBracketlessColons;
 
-  private HostAndPort(String host, int port, boolean hasBracketlessColons) {
+  private HostAndPort(final String host, final int port, final boolean hasBracketlessColons) {
     this.host = host;
     this.port = port;
     this.hasBracketlessColons = hasBracketlessColons;
@@ -113,7 +113,7 @@ public final class HostAndPort implements Serializable {
   /**
    * Returns the current port number, with a default if no port is defined.
    */
-  public int getPortOrDefault(int defaultPort) {
+  public int getPortOrDefault(final int defaultPort) {
     return hasPort() ? port : defaultPort;
   }
 
@@ -129,7 +129,7 @@ public final class HostAndPort implements Serializable {
    * @throws IllegalArgumentException if {@code host} contains a port number, or {@code port} is out
    *     of range.
    */
-  public static HostAndPort fromParts(String host, int port) {
+  public static HostAndPort fromParts(final String host, final int port) {
     checkArgument(isValidPort(port), "Port out of range: %s", port);
     HostAndPort parsedHost = fromString(host);
     checkArgument(!parsedHost.hasPort(), "Host has a port: %s", host);
@@ -147,7 +147,7 @@ public final class HostAndPort implements Serializable {
    * @throws IllegalArgumentException if {@code host} contains a port number.
    * @since 17.0
    */
-  public static HostAndPort fromHost(String host) {
+  public static HostAndPort fromHost(final String host) {
     HostAndPort parsedHost = fromString(host);
     checkArgument(!parsedHost.hasPort(), "Host has a port: %s", host);
     return parsedHost;
@@ -163,7 +163,7 @@ public final class HostAndPort implements Serializable {
    * @return if parsing was successful, a populated HostAndPort object.
    * @throws IllegalArgumentException if nothing meaningful could be parsed.
    */
-  public static HostAndPort fromString(String hostPortString) {
+  public static HostAndPort fromString(final String hostPortString) {
     checkNotNull(hostPortString);
     String host;
     String portString = null;
@@ -209,7 +209,7 @@ public final class HostAndPort implements Serializable {
    * @return an array with 2 strings: host and port, in that order.
    * @throws IllegalArgumentException if parsing the bracketed host-port string fails.
    */
-  private static String[] getHostAndPortFromBracketedHost(String hostPortString) {
+  private static String[] getHostAndPortFromBracketedHost(final String hostPortString) {
     int colonIndex = 0;
     int closeBracketIndex = 0;
     checkArgument(
@@ -250,7 +250,7 @@ public final class HostAndPort implements Serializable {
    * @param defaultPort a port number, from [0..65535]
    * @return a HostAndPort instance, guaranteed to have a defined port.
    */
-  public HostAndPort withDefaultPort(int defaultPort) {
+  public HostAndPort withDefaultPort(final int defaultPort) {
     checkArgument(isValidPort(defaultPort));
     if (hasPort() || port == defaultPort) {
       return this;
@@ -278,7 +278,7 @@ public final class HostAndPort implements Serializable {
   }
 
   @Override
-  public boolean equals(@Nullable Object other) {
+  public boolean equals(final @Nullable Object other) {
     if (this == other) {
       return true;
     }
@@ -313,7 +313,7 @@ public final class HostAndPort implements Serializable {
   }
 
   /** Return true for valid port numbers. */
-  private static boolean isValidPort(int port) {
+  private static boolean isValidPort(final int port) {
     return port >= 0 && port <= 65535;
   }
 

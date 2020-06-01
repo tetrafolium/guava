@@ -64,7 +64,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
     QUERY_RANGES = queryBuilder.build();
   }
 
-  void testViewAgainstExpected(RangeSet<Integer> expected, RangeSet<Integer> view) {
+  void testViewAgainstExpected(final RangeSet<Integer> expected, final RangeSet<Integer> view) {
     assertEquals(expected, view);
     assertEquals(expected.asRanges(), view.asRanges());
     assertEquals(expected.isEmpty(), view.isEmpty());
@@ -97,7 +97,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
   }
 
   private void testRangesByLowerBounds(
-      TreeRangeSet<Integer> rangeSet, Iterable<Range<Integer>> expectedRanges) {
+      final TreeRangeSet<Integer> rangeSet, final Iterable<Range<Integer>> expectedRanges) {
     NavigableMap<Cut<Integer>, Range<Integer>> expectedRangesByLowerBound = Maps.newTreeMap();
     for (Range<Integer> range : expectedRanges) {
       expectedRangesByLowerBound.put(range.lowerBound, range);
@@ -108,7 +108,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
   }
 
   <K, V> void testNavigationAgainstExpected(
-      NavigableMap<K, V> expected, NavigableMap<K, V> navigableMap, Iterable<K> keysToTest) {
+      final NavigableMap<K, V> expected, final NavigableMap<K, V> navigableMap, final Iterable<K> keysToTest) {
     for (K key : keysToTest) {
       assertEquals(expected.lowerEntry(key), navigableMap.lowerEntry(key));
       assertEquals(expected.floorEntry(key), navigableMap.floorEntry(key));
@@ -131,7 +131,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
     }
   }
 
-  public void testIntersects(RangeSet<Integer> rangeSet) {
+  public void testIntersects(final RangeSet<Integer> rangeSet) {
     for (Range<Integer> query : QUERY_RANGES) {
       boolean expectIntersect = false;
       for (Range<Integer> expectedRange : rangeSet.asRanges()) {
@@ -145,7 +145,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
     }
   }
 
-  public void testEnclosing(RangeSet<Integer> rangeSet) {
+  public void testEnclosing(final RangeSet<Integer> rangeSet) {
     assertTrue(rangeSet.enclosesAll(ImmutableList.<Range<Integer>>of()));
     for (Range<Integer> query : QUERY_RANGES) {
       boolean expectEnclose = false;
@@ -250,7 +250,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
   }
 
   private RangeSet<Integer> expectedSubRangeSet(
-      RangeSet<Integer> rangeSet, Range<Integer> subRange) {
+      final RangeSet<Integer> rangeSet, final Range<Integer> subRange) {
     RangeSet<Integer> expected = TreeRangeSet.create();
     for (Range<Integer> range : rangeSet.asRanges()) {
       if (range.isConnected(subRange)) {
@@ -260,7 +260,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
     return expected;
   }
 
-  private RangeSet<Integer> expectedComplement(RangeSet<Integer> rangeSet) {
+  private RangeSet<Integer> expectedComplement(final RangeSet<Integer> rangeSet) {
     RangeSet<Integer> expected = TreeRangeSet.create();
     expected.add(Range.<Integer>all());
     expected.removeAll(rangeSet);
@@ -498,7 +498,7 @@ public class TreeRangeSetTest extends AbstractRangeSetTest {
     }
   }
 
-  private static void doPairTest(Range<Integer> a, Range<Integer> b) {
+  private static void doPairTest(final Range<Integer> a, final Range<Integer> b) {
     TreeRangeSet<Integer> rangeSet = TreeRangeSet.create();
     rangeSet.add(a);
     rangeSet.add(b);

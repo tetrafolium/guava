@@ -62,7 +62,7 @@ class CacheTesting {
    * if that assumption does not hold.
    */
   @SuppressWarnings("unchecked")  // the instanceof check and the cast generate this warning
-  static <K, V> void simulateValueReclamation(Cache<K, V> cache, K key) {
+  static <K, V> void simulateValueReclamation(final Cache<K, V> cache, final K key) {
     ReferenceEntry<K, V> entry = getReferenceEntry(cache, key);
     if (entry != null) {
       ValueReference<K, V> valueRef = entry.getValueReference();
@@ -81,7 +81,7 @@ class CacheTesting {
    * assumption does not hold.
    */
   @SuppressWarnings("unchecked")  // the instanceof check and the cast generate this warning
-  static <K, V> void simulateKeyReclamation(Cache<K, V> cache, K key) {
+  static <K, V> void simulateKeyReclamation(final Cache<K, V> cache, final K key) {
     ReferenceEntry<K, V> entry = getReferenceEntry(cache, key);
 
     Preconditions.checkState(entry instanceof Reference);
@@ -91,7 +91,7 @@ class CacheTesting {
     }
   }
 
-  static <K, V> ReferenceEntry<K, V> getReferenceEntry(Cache<K, V> cache, K key) {
+  static <K, V> ReferenceEntry<K, V> getReferenceEntry(final Cache<K, V> cache, final K key) {
     checkNotNull(cache);
     checkNotNull(key);
     LocalCache<K, V> map = toLocalCache(cache);
@@ -102,7 +102,7 @@ class CacheTesting {
    * Forces the segment containing the given {@code key} to expand (see
    * {@link Segment#expand()}.
    */
-  static <K, V> void forceExpandSegment(Cache<K, V> cache, K key) {
+  static <K, V> void forceExpandSegment(final Cache<K, V> cache, final K key) {
     checkNotNull(cache);
     checkNotNull(key);
     LocalCache<K, V> map = toLocalCache(cache);
@@ -115,7 +115,7 @@ class CacheTesting {
    * Gets the {@link LocalCache} used by the given {@link Cache}, if any, or throws an
    * IllegalArgumentException if this is a Cache type that doesn't have a LocalCache.
    */
-  static <K, V> LocalCache<K, V> toLocalCache(Cache<K, V> cache) {
+  static <K, V> LocalCache<K, V> toLocalCache(final Cache<K, V> cache) {
     if (cache instanceof LocalLoadingCache) {
       return ((LocalLoadingCache<K, V>) cache).localCache;
     }
@@ -127,11 +127,11 @@ class CacheTesting {
    * Determines whether the given cache can be converted to a LocalCache by
    * {@link #toLocalCache} without throwing an exception.
    */
-  static boolean hasLocalCache(Cache<?, ?> cache) {
+  static boolean hasLocalCache(final Cache<?, ?> cache) {
     return (checkNotNull(cache) instanceof LocalLoadingCache);
   }
 
-  static void drainRecencyQueues(Cache<?, ?> cache) {
+  static void drainRecencyQueues(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       LocalCache<?, ?> map = toLocalCache(cache);
       for (Segment<?, ?> segment : map.segments) {
@@ -140,7 +140,7 @@ class CacheTesting {
     }
   }
 
-  static void drainRecencyQueue(Segment<?, ?> segment) {
+  static void drainRecencyQueue(final Segment<?, ?> segment) {
     segment.lock();
     try {
       segment.cleanUp();
@@ -149,19 +149,19 @@ class CacheTesting {
     }
   }
 
-  static void drainReferenceQueues(Cache<?, ?> cache) {
+  static void drainReferenceQueues(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       drainReferenceQueues(toLocalCache(cache));
     }
   }
 
-  static void drainReferenceQueues(LocalCache<?, ?> cchm) {
+  static void drainReferenceQueues(final LocalCache<?, ?> cchm) {
     for (LocalCache.Segment<?, ?> segment : cchm.segments) {
       drainReferenceQueue(segment);
     }
   }
 
-  static void drainReferenceQueue(LocalCache.Segment<?, ?> segment) {
+  static void drainReferenceQueue(final LocalCache.Segment<?, ?> segment) {
     segment.lock();
     try {
       segment.drainReferenceQueues();
@@ -170,7 +170,7 @@ class CacheTesting {
     }
   }
 
-  static int getTotalSegmentSize(Cache<?, ?> cache) {
+  static int getTotalSegmentSize(final Cache<?, ?> cache) {
     LocalCache<?, ?> map = toLocalCache(cache);
     int totalSize = 0;
     for (Segment<?, ?> segment : map.segments) {
@@ -185,13 +185,13 @@ class CacheTesting {
    * contains a non-null key and value, and the eviction and expiration queues are consistent
    * (see {@link #checkEviction}, {@link #checkExpiration}).
    */
-  static void checkValidState(Cache<?, ?> cache) {
+  static void checkValidState(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       checkValidState(toLocalCache(cache));
     }
   }
 
-  static void checkValidState(LocalCache<?, ?> cchm) {
+  static void checkValidState(final LocalCache<?, ?> cchm) {
     for (Segment<?, ?> segment : cchm.segments) {
       segment.cleanUp();
       assertFalse(segment.isLocked());
@@ -215,13 +215,13 @@ class CacheTesting {
    * that the next/prev links in the expiration queue are correct, and that the queue is ordered
    * by expiration time.
    */
-  static void checkExpiration(Cache<?, ?> cache) {
+  static void checkExpiration(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       checkExpiration(toLocalCache(cache));
     }
   }
 
-  static void checkExpiration(LocalCache<?, ?> cchm) {
+  static void checkExpiration(final LocalCache<?, ?> cchm) {
     for (Segment<?, ?> segment : cchm.segments) {
       if (cchm.usesWriteQueue()) {
         Set<ReferenceEntry<?, ?>> entries = Sets.newIdentityHashSet();
@@ -276,13 +276,13 @@ class CacheTesting {
    * that the prev/next links are correct, and that all items in each segment are also in that
    * segment's eviction (recency) queue.
    */
-  static void checkEviction(Cache<?, ?> cache) {
+  static void checkEviction(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       checkEviction(toLocalCache(cache));
     }
   }
 
-  static void checkEviction(LocalCache<?, ?> map) {
+  static void checkEviction(final LocalCache<?, ?> map) {
     if (map.evictsBySize()) {
       for (Segment<?, ?> segment : map.segments) {
         drainRecencyQueue(segment);
@@ -309,12 +309,12 @@ class CacheTesting {
     }
   }
 
-  static int segmentSize(Segment<?, ?> segment) {
+  static int segmentSize(final Segment<?, ?> segment) {
     Map<?, ?> map = segmentTable(segment);
     return map.size();
   }
 
-  static <K, V> Map<K, V> segmentTable(Segment<K, V> segment) {
+  static <K, V> Map<K, V> segmentTable(final Segment<K, V> segment) {
     AtomicReferenceArray<? extends ReferenceEntry<K, V>> table = segment.table;
     Map<K, V> map = Maps.newLinkedHashMap();
     for (int i = 0; i < table.length(); i++) {
@@ -329,7 +329,7 @@ class CacheTesting {
     return map;
   }
 
-  static int writeQueueSize(Cache<?, ?> cache) {
+  static int writeQueueSize(final Cache<?, ?> cache) {
     LocalCache<?, ?> cchm = toLocalCache(cache);
 
     int size = 0;
@@ -339,11 +339,11 @@ class CacheTesting {
     return size;
   }
 
-  static int writeQueueSize(Segment<?, ?> segment) {
+  static int writeQueueSize(final Segment<?, ?> segment) {
     return segment.writeQueue.size();
   }
 
-  static int accessQueueSize(Cache<?, ?> cache) {
+  static int accessQueueSize(final Cache<?, ?> cache) {
     LocalCache<?, ?> cchm = toLocalCache(cache);
     int size = 0;
     for (Segment<?, ?> segment : cchm.segments) {
@@ -352,15 +352,15 @@ class CacheTesting {
     return size;
   }
 
-  static int accessQueueSize(Segment<?, ?> segment) {
+  static int accessQueueSize(final Segment<?, ?> segment) {
     return segment.accessQueue.size();
   }
 
-  static int expirationQueueSize(Cache<?, ?> cache) {
+  static int expirationQueueSize(final Cache<?, ?> cache) {
     return Math.max(accessQueueSize(cache), writeQueueSize(cache));
   }
 
-  static void processPendingNotifications(Cache<?, ?> cache) {
+  static void processPendingNotifications(final Cache<?, ?> cache) {
     if (hasLocalCache(cache)) {
       LocalCache<?, ?> cchm = toLocalCache(cache);
       cchm.processPendingNotifications();
@@ -378,8 +378,8 @@ class CacheTesting {
    * eviction queue, and then reverify that all items in the cache are in the eviction queue, and
    * verify that the head of the eviction queue has changed as a result of the operation.
    */
-  static void checkRecency(LoadingCache<Integer, Integer> cache, int maxSize,
-      Receiver<ReferenceEntry<Integer, Integer>> operation) {
+  static void checkRecency(final LoadingCache<Integer, Integer> cache, final int maxSize,
+      final Receiver<ReferenceEntry<Integer, Integer>> operation) {
     checkNotNull(operation);
     if (hasLocalCache(cache)) {
       warmUp(cache, 0, 2 * maxSize);
@@ -404,20 +404,20 @@ class CacheTesting {
   /**
    * Warms the given cache by getting all values in {@code [start, end)}, in order.
    */
-  static void warmUp(LoadingCache<Integer, Integer> map, int start, int end) {
+  static void warmUp(final LoadingCache<Integer, Integer> map, final int start, final int end) {
     checkNotNull(map);
     for (int i = start; i < end; i++) {
       map.getUnchecked(i);
     }
   }
 
-  static void expireEntries(Cache<?, ?> cache, long expiringTime, FakeTicker ticker) {
+  static void expireEntries(final Cache<?, ?> cache, final long expiringTime, final FakeTicker ticker) {
     checkNotNull(ticker);
     expireEntries(toLocalCache(cache), expiringTime, ticker);
   }
 
   static void expireEntries(
-      LocalCache<?, ?> cchm, long expiringTime, FakeTicker ticker) {
+      final LocalCache<?, ?> cchm, final long expiringTime, final FakeTicker ticker) {
 
     for (Segment<?, ?> segment : cchm.segments) {
       drainRecencyQueue(segment);
@@ -435,7 +435,7 @@ class CacheTesting {
     cchm.processPendingNotifications();
   }
 
-  static void expireEntries(Segment<?, ?> segment, long now) {
+  static void expireEntries(final Segment<?, ?> segment, final long now) {
     segment.lock();
     try {
       segment.expireEntries(now);
@@ -444,7 +444,7 @@ class CacheTesting {
       segment.unlock();
     }
   }
-  static void checkEmpty(Cache<?, ?> cache) {
+  static void checkEmpty(final Cache<?, ?> cache) {
     assertEquals(0, cache.size());
     assertFalse(cache.asMap().containsKey(null));
     assertFalse(cache.asMap().containsKey(6));
@@ -453,7 +453,7 @@ class CacheTesting {
     checkEmpty(cache.asMap());
   }
 
-  static void checkEmpty(ConcurrentMap<?, ?> map) {
+  static void checkEmpty(final ConcurrentMap<?, ?> map) {
     checkEmpty(map.keySet());
     checkEmpty(map.values());
     checkEmpty(map.entrySet());
@@ -476,7 +476,7 @@ class CacheTesting {
     }
   }
 
-  static void checkEmpty(Collection<?> collection) {
+  static void checkEmpty(final Collection<?> collection) {
     assertTrue(collection.isEmpty());
     assertEquals(0, collection.size());
     assertFalse(collection.iterator().hasNext());

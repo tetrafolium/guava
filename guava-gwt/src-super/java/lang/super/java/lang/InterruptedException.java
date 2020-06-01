@@ -24,9 +24,9 @@ package java.lang;
  * @author Tom O'Neill
  */
 public class InterruptedException extends Exception {
-  public InterruptedException() {}
+  public InterruptedException() { }
 
-  public InterruptedException(String message) {
+  public InterruptedException(final String message) {
     super(message);
   }
 }

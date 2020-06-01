@@ -100,7 +100,7 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     expectReplacement(entry(getKeyForNullValue(), null));
   }
 
-  static class ExpectedException extends RuntimeException {}
+  static class ExpectedException extends RuntimeException { }
 
   @MapFeature.Require(SUPPORTS_PUT)
   @CollectionSize.Require(absent = ZERO)

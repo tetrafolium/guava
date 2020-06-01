@@ -74,7 +74,7 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), v0(), null);
       fail("Expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) { }
     expectUnchanged();
   }
   
@@ -121,7 +121,7 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), v0(), v3());
       fail("Expected UnsupportedOperationException");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
     expectUnchanged();
   }
   

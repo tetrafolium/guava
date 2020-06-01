@@ -23,7 +23,7 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible(emulated = true)
 final class Platform {
-  private Platform() {}
+  private Platform() { }
 
   /** Returns a thread-local 1024-char array. */
   static char[] charBufferFromThreadLocal() {

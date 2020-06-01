@@ -70,7 +70,7 @@ public final class FileBackedOutputStream extends OutputStream {
    *
    * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
    */
-  public FileBackedOutputStream(int fileThreshold) {
+  public FileBackedOutputStream(final int fileThreshold) {
     this(fileThreshold, false);
   }
 
@@ -82,7 +82,7 @@ public final class FileBackedOutputStream extends OutputStream {
    * @param resetOnFinalize if true, the {@link #reset} method will be called when the
    *     {@link ByteSource} returned by {@link #asByteSource} is finalized
    */
-  public FileBackedOutputStream(int fileThreshold, boolean resetOnFinalize) {
+  public FileBackedOutputStream(final int fileThreshold, final boolean resetOnFinalize) {
     this.fileThreshold = fileThreshold;
     this.resetOnFinalize = resetOnFinalize;
     memory = new MemoryOutput();
@@ -160,18 +160,18 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   @Override
-  public synchronized void write(int b) throws IOException {
+  public synchronized void write(final int b) throws IOException {
     update(1);
     out.write(b);
   }
 
   @Override
-  public synchronized void write(byte[] b) throws IOException {
+  public synchronized void write(final byte[] b) throws IOException {
     write(b, 0, b.length);
   }
 
   @Override
-  public synchronized void write(byte[] b, int off, int len) throws IOException {
+  public synchronized void write(final byte[] b, final int off, final int len) throws IOException {
     update(len);
     out.write(b, off, len);
   }
@@ -190,7 +190,7 @@ public final class FileBackedOutputStream extends OutputStream {
    * Checks if writing {@code len} bytes would go over threshold, and switches to file buffering if
    * so.
    */
-  private void update(int len) throws IOException {
+  private void update(final int len) throws IOException {
     if (file == null && (memory.getCount() + len > fileThreshold)) {
       File temp = File.createTempFile("FileBackedOutputStream", null);
       if (resetOnFinalize) {

@@ -63,7 +63,7 @@ final class ClusterException extends RuntimeException {
 
   public final Collection<? extends Throwable> exceptions;
 
-  private ClusterException(Collection<? extends Throwable> exceptions) {
+  private ClusterException(final Collection<? extends Throwable> exceptions) {
     super(
         exceptions.size() + " exceptions were thrown. The first exception is listed as a cause.",
         exceptions.iterator().next());
@@ -75,7 +75,7 @@ final class ClusterException extends RuntimeException {
   /**
    * @see #create(Collection)
    */
-  public static RuntimeException create(Throwable... exceptions) {
+  public static RuntimeException create(final Throwable... exceptions) {
     ArrayList<Throwable> temp = new ArrayList<>(Arrays.asList(exceptions));
     return create(temp);
   }
@@ -101,7 +101,7 @@ final class ClusterException extends RuntimeException {
    * @throws NullPointerException if {@code exceptions} is null
    * @throws IllegalArgumentException if {@code exceptions} is empty
    */
-  public static RuntimeException create(Collection<? extends Throwable> exceptions) {
+  public static RuntimeException create(final Collection<? extends Throwable> exceptions) {
     if (exceptions.size() == 0) {
       throw new IllegalArgumentException(
           "Can't create an ExceptionCollection with no exceptions");
@@ -109,7 +109,7 @@ final class ClusterException extends RuntimeException {
     if (exceptions.size() == 1) {
       Throwable temp = exceptions.iterator().next();
       if (temp instanceof RuntimeException) {
-        return (RuntimeException)temp;
+        return (RuntimeException) temp;
       } else {
         return new RuntimeException(temp);
       }

@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 final class FilteredKeySetMultimap<K, V> extends FilteredKeyMultimap<K, V>
     implements FilteredSetMultimap<K, V> {
 
-  FilteredKeySetMultimap(SetMultimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
+  FilteredKeySetMultimap(final SetMultimap<K, V> unfiltered, final Predicate<? super K> keyPredicate) {
     super(unfiltered, keyPredicate);
   }
 
@@ -41,17 +41,17 @@ final class FilteredKeySetMultimap<K, V> extends FilteredKeyMultimap<K, V>
   }
 
   @Override
-  public Set<V> get(K key) {
+  public Set<V> get(final K key) {
     return (Set<V>) super.get(key);
   }
 
   @Override
-  public Set<V> removeAll(Object key) {
+  public Set<V> removeAll(final Object key) {
     return (Set<V>) super.removeAll(key);
   }
 
   @Override
-  public Set<V> replaceValues(K key, Iterable<? extends V> values) {
+  public Set<V> replaceValues(final K key, final Iterable<? extends V> values) {
     return (Set<V>) super.replaceValues(key, values);
   }
 
@@ -72,7 +72,7 @@ final class FilteredKeySetMultimap<K, V> extends FilteredKeyMultimap<K, V>
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(final @Nullable Object o) {
       return Sets.equalsImpl(this, o);
     }
   }

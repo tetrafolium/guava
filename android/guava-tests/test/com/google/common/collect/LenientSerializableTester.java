@@ -44,7 +44,7 @@ final class LenientSerializableTester {
    */
   @CanIgnoreReturnValue
   @GwtIncompatible // SerializableTester
-  static <E> Set<E> reserializeAndAssertLenient(Set<E> original) {
+  static <E> Set<E> reserializeAndAssertLenient(final Set<E> original) {
     Set<E> copy = reserialize(original);
     assertEquals(original, copy);
     assertTrue(copy instanceof ImmutableSet);
@@ -53,12 +53,12 @@ final class LenientSerializableTester {
 
   @CanIgnoreReturnValue
   @GwtIncompatible // SerializableTester
-  static <E> Multiset<E> reserializeAndAssertLenient(Multiset<E> original) {
+  static <E> Multiset<E> reserializeAndAssertLenient(final Multiset<E> original) {
     Multiset<E> copy = reserialize(original);
     assertEquals(original, copy);
     assertTrue(copy instanceof ImmutableMultiset);
     return copy;
   }
 
-  private LenientSerializableTester() {}
+  private LenientSerializableTester() { }
 }

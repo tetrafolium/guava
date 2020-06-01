@@ -42,7 +42,7 @@ public class SynchronizedSetTest extends TestCase {
     return SetTestSuiteBuilder.using(
             new TestStringSetGenerator() {
               @Override
-              protected Set<String> create(String[] elements) {
+              protected Set<String> create(final String[] elements) {
                 TestSet<String> inner = new TestSet<>(new HashSet<String>(), null);
                 Set<String> outer = Synchronized.set(inner, null);
                 inner.mutex = outer;
@@ -63,7 +63,7 @@ public class SynchronizedSetTest extends TestCase {
     final Set<E> delegate;
     public Object mutex;
 
-    public TestSet(Set<E> delegate, Object mutex) {
+    public TestSet(final Set<E> delegate, final Object mutex) {
       this.delegate = delegate;
       this.mutex = mutex;
     }
@@ -77,7 +77,7 @@ public class SynchronizedSetTest extends TestCase {
       return super.toString();
     }
 
-    @Override public boolean equals(@Nullable Object o) {
+    @Override public boolean equals(final @Nullable Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(o);
     }
@@ -87,12 +87,12 @@ public class SynchronizedSetTest extends TestCase {
       return super.hashCode();
     }
 
-    @Override public boolean add(@Nullable E o) {
+    @Override public boolean add(final @Nullable E o) {
       assertTrue(Thread.holdsLock(mutex));
       return super.add(o);
     }
 
-    @Override public boolean addAll(Collection<? extends E> c) {
+    @Override public boolean addAll(final Collection<? extends E> c) {
       assertTrue(Thread.holdsLock(mutex));
       return super.addAll(c);
     }
@@ -102,12 +102,12 @@ public class SynchronizedSetTest extends TestCase {
       super.clear();
     }
 
-    @Override public boolean contains(@Nullable Object o) {
+    @Override public boolean contains(final @Nullable Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return super.contains(o);
     }
 
-    @Override public boolean containsAll(Collection<?> c) {
+    @Override public boolean containsAll(final Collection<?> c) {
       assertTrue(Thread.holdsLock(mutex));
       return super.containsAll(c);
     }
@@ -119,17 +119,17 @@ public class SynchronizedSetTest extends TestCase {
 
     /* Don't test iterator(); it may or may not hold the mutex. */
 
-    @Override public boolean remove(@Nullable Object o) {
+    @Override public boolean remove(final @Nullable Object o) {
       assertTrue(Thread.holdsLock(mutex));
       return super.remove(o);
     }
 
-    @Override public boolean removeAll(Collection<?> c) {
+    @Override public boolean removeAll(final Collection<?> c) {
       assertTrue(Thread.holdsLock(mutex));
       return super.removeAll(c);
     }
 
-    @Override public boolean retainAll(Collection<?> c) {
+    @Override public boolean retainAll(final Collection<?> c) {
       assertTrue(Thread.holdsLock(mutex));
       return super.retainAll(c);
     }
@@ -144,7 +144,7 @@ public class SynchronizedSetTest extends TestCase {
       return super.toArray();
     }
 
-    @Override public <T> T[] toArray(T[] a) {
+    @Override public <T> T[] toArray(final T[] a) {
       assertTrue(Thread.holdsLock(mutex));
       return super.toArray(a);
     }

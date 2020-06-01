@@ -120,7 +120,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws IllegalArgumentException if <tt>initialCapacity</tt> is less
      *         than 1
      */
-    public MonitorBasedPriorityBlockingQueue(int initialCapacity) {
+    public MonitorBasedPriorityBlockingQueue(final int initialCapacity) {
         q = new PriorityQueue<E>(initialCapacity, null);
     }
 
@@ -136,8 +136,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws IllegalArgumentException if <tt>initialCapacity</tt> is less
      *         than 1
      */
-    public MonitorBasedPriorityBlockingQueue(int initialCapacity,
-                                 @Nullable Comparator<? super E> comparator) {
+    public MonitorBasedPriorityBlockingQueue(final int initialCapacity,
+                                 final @Nullable Comparator<? super E> comparator) {
         q = new PriorityQueue<E>(initialCapacity, comparator);
     }
 
@@ -157,7 +157,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public MonitorBasedPriorityBlockingQueue(Collection<? extends E> c) {
+    public MonitorBasedPriorityBlockingQueue(final Collection<? extends E> c) {
         q = new PriorityQueue<E>(c);
     }
 
@@ -171,7 +171,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      *         priority queue's ordering
      * @throws NullPointerException if the specified element is null
      */
-    @Override public boolean add(E e) {
+    @Override public boolean add(final E e) {
         return offer(e);
     }
 
@@ -186,7 +186,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified element is null
      */
     @Override
-    public boolean offer(E e) {
+    public boolean offer(final E e) {
         final Monitor monitor = this.monitor;
         monitor.enter();
         try {
@@ -211,7 +211,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified element is null
      */
     @Override
-    public void put(E e) {
+    public void put(final E e) {
         offer(e); // never need to block
     }
 
@@ -229,7 +229,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified element is null
      */
     @Override
-    public boolean offer(E e, long timeout, TimeUnit unit) {
+    public boolean offer(final E e, final long timeout, final TimeUnit unit) {
         checkNotNull(unit);
         return offer(e); // never need to block
     }
@@ -257,7 +257,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
     }
 
     @Override
-    public E poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(final long timeout, final TimeUnit unit) throws InterruptedException {
         final Monitor monitor = this.monitor;
         if (monitor.enterWhen(notEmpty, timeout, unit)) {
             try {
@@ -325,7 +325,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @param o element to be removed from this queue, if present
      * @return <tt>true</tt> if this queue changed as a result of the call
      */
-    @Override public boolean remove(@Nullable Object o) {
+    @Override public boolean remove(final @Nullable Object o) {
         final Monitor monitor = this.monitor;
         monitor.enter();
         try {
@@ -343,7 +343,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @param o object to be checked for containment in this queue
      * @return <tt>true</tt> if this queue contains the specified element
      */
-    @Override public boolean contains(@Nullable Object o) {
+    @Override public boolean contains(final @Nullable Object o) {
         final Monitor monitor = this.monitor;
         monitor.enter();
         try {
@@ -393,7 +393,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws IllegalArgumentException      {@inheritDoc}
      */
     @Override
-    public int drainTo(Collection<? super E> c) {
+    public int drainTo(final Collection<? super E> c) {
         if (c == null)
             throw new NullPointerException();
         if (c == this)
@@ -403,7 +403,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
         try {
             int n = 0;
             E e;
-            while ( (e = q.poll()) != null) {
+            while ((e = q.poll()) != null) {
                 c.add(e);
                 ++n;
             }
@@ -420,7 +420,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * @throws IllegalArgumentException      {@inheritDoc}
      */
     @Override
-    public int drainTo(Collection<? super E> c, int maxElements) {
+    public int drainTo(final Collection<? super E> c, final int maxElements) {
         if (c == null)
             throw new NullPointerException();
         if (c == this)
@@ -493,7 +493,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      *         this queue
      * @throws NullPointerException if the specified array is null
      */
-    @Override public <T> T[] toArray(T[] a) {
+    @Override public <T> T[] toArray(final T[] a) {
         final Monitor monitor = this.monitor;
         monitor.enter();
         try {
@@ -527,7 +527,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
         int cursor;           // index of next element to return;
         int lastRet;          // index of last element, or -1 if no such
 
-        Itr(Object[] array) {
+        Itr(final Object[] array) {
             lastRet = -1;
             this.array = array;
         }
@@ -578,7 +578,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
      * Queue. Note that locking is not needed on deserialization, so
      * readObject is not defined, just relying on default.
      */
-    private void writeObject(java.io.ObjectOutputStream s)
+    private void writeObject(final java.io.ObjectOutputStream s)
         throws java.io.IOException {
         monitor.enter();
         try {

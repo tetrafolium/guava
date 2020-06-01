@@ -140,7 +140,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToInt(d, UNNECESSARY);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -150,7 +150,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToInt(Double.NaN, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -160,11 +160,11 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToInt(Double.POSITIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
       try {
         DoubleMath.roundToInt(Double.NEGATIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -227,7 +227,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToLong(d, UNNECESSARY);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -237,7 +237,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToLong(Double.NaN, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -247,11 +247,11 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToLong(Double.POSITIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
       try {
         DoubleMath.roundToLong(Double.NEGATIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -289,7 +289,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToBigInteger(d, UNNECESSARY);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -299,7 +299,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToBigInteger(Double.NaN, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -309,11 +309,11 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.roundToBigInteger(Double.POSITIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
       try {
         DoubleMath.roundToBigInteger(Double.NEGATIVE_INFINITY, mode);
         fail("Expected ArithmeticException");
-      } catch (ArithmeticException expected) {}
+      } catch (ArithmeticException expected) { }
     }
   }
 
@@ -403,12 +403,12 @@ public class DoubleMathTest extends TestCase {
   @GwtIncompatible // DoubleMath.log2(double, RoundingMode)
   public void testRoundLog2ThrowsOnZerosInfinitiesAndNaN() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
-      for (double d :
-          asList(0.0, -0.0, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
+      for (double d
+          : asList(0.0, -0.0, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
         try {
           DoubleMath.log2(d, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -420,7 +420,7 @@ public class DoubleMathTest extends TestCase {
         try {
           DoubleMath.log2(-d, mode);
           fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException expected) {}
+        } catch (IllegalArgumentException expected) { }
       }
     }
   }
@@ -474,7 +474,7 @@ public class DoubleMathTest extends TestCase {
   }
 
   @GwtIncompatible // StrictMath
-  private strictfp double trueLog2(double d) {
+  private strictfp double trueLog2(final double d) {
     double trueLog2 = StrictMath.log(d) / StrictMath.log(2);
     // increment until it's >= the true value
     while (StrictMath.pow(2.0, trueLog2) < d) {
@@ -507,8 +507,8 @@ public class DoubleMathTest extends TestCase {
 
   @GwtIncompatible // DoubleMath.isMathematicalInteger
   public void testIsMathematicalIntegerNotFinite() {
-    for (double d :
-        Arrays.asList(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
+    for (double d
+        : Arrays.asList(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NaN)) {
       assertFalse(DoubleMath.isMathematicalInteger(d));
     }
   }
@@ -532,7 +532,7 @@ public class DoubleMathTest extends TestCase {
       try {
         DoubleMath.factorial(n);
         fail("Expected IllegalArgumentException");
-      } catch (IllegalArgumentException expected) {}
+      } catch (IllegalArgumentException expected) { }
     }
   }
 
@@ -661,7 +661,7 @@ public class DoubleMathTest extends TestCase {
     assertEquals(7, size(TOLERANCE_CANDIDATES));
   }
 
-  private static void runTestFuzzyCompare(int toleranceIndex) {
+  private static void runTestFuzzyCompare(final int toleranceIndex) {
     double tolerance = get(TOLERANCE_CANDIDATES, toleranceIndex);
     for (double a : ALL_DOUBLE_CANDIDATES) {
       for (double b : ALL_DOUBLE_CANDIDATES) {

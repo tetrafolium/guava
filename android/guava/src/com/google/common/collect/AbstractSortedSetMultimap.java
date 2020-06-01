@@ -42,7 +42,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    * @param map place to store the mapping from each key to its corresponding
    *     values
    */
-  protected AbstractSortedSetMultimap(Map<K, Collection<V>> map) {
+  protected AbstractSortedSetMultimap(final Map<K, Collection<V>> map) {
     super(map);
   }
 
@@ -74,7 +74,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    * {@link Collection} specified in the {@link Multimap} interface.
    */
   @Override
-  public SortedSet<V> get(@Nullable K key) {
+  public SortedSet<V> get(final @Nullable K key) {
     return (SortedSet<V>) super.get(key);
   }
 
@@ -88,7 +88,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public SortedSet<V> removeAll(@Nullable Object key) {
+  public SortedSet<V> removeAll(final @Nullable Object key) {
     return (SortedSet<V>) super.removeAll(key);
   }
 
@@ -104,7 +104,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public SortedSet<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
+  public SortedSet<V> replaceValues(final @Nullable K key, final Iterable<? extends V> values) {
     return (SortedSet<V>) super.replaceValues(key, values);
   }
 

@@ -38,7 +38,7 @@ public class PowerSetBenchmark {
     powerSet = Sets.powerSet(set);
   }
 
-  @Benchmark int iteration(int reps) {
+  @Benchmark int iteration(final int reps) {
     int sum = 0;
     for (int i = 0; i < reps; i++) {
       for (Set<Integer> subset : powerSet) {

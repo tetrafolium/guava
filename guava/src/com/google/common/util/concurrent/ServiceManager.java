@@ -123,7 +123,7 @@ public final class ServiceManager {
   private static final ListenerCallQueue.Event<Listener> HEALTHY_EVENT =
       new ListenerCallQueue.Event<Listener>() {
         @Override
-        public void call(Listener listener) {
+        public void call(final Listener listener) {
           listener.healthy();
         }
 
@@ -135,7 +135,7 @@ public final class ServiceManager {
   private static final ListenerCallQueue.Event<Listener> STOPPED_EVENT =
       new ListenerCallQueue.Event<Listener>() {
         @Override
-        public void call(Listener listener) {
+        public void call(final Listener listener) {
           listener.stopped();
         }
 
@@ -164,20 +164,20 @@ public final class ServiceManager {
      * {@linkplain State#FAILED fail}/{@linkplain State#TERMINATED terminate} before all other
      * services have started {@linkplain State#RUNNING running} then this method will not be called.
      */
-    public void healthy() {}
+    public void healthy() { }
 
     /**
      * Called when the all of the component services have reached a terminal state, either
      * {@linkplain State#TERMINATED terminated} or {@linkplain State#FAILED failed}.
      */
-    public void stopped() {}
+    public void stopped() { }
 
     /**
      * Called when a component service has {@linkplain State#FAILED failed}.
      *
      * @param service The service that failed.
      */
-    public void failure(Service service) {}
+    public void failure(final Service service) { }
   }
 
   /**
@@ -198,7 +198,7 @@ public final class ServiceManager {
    * @throws IllegalArgumentException if not all services are {@linkplain State#NEW new} or if there
    *     are any duplicate services.
    */
-  public ServiceManager(Iterable<? extends Service> services) {
+  public ServiceManager(final Iterable<? extends Service> services) {
     ImmutableList<Service> copy = ImmutableList.copyOf(services);
     if (copy.isEmpty()) {
       // Having no services causes the manager to behave strangely. Notably, listeners are never
@@ -246,7 +246,7 @@ public final class ServiceManager {
    * @param listener the listener to run when the manager changes state
    * @param executor the executor in which the listeners callback methods will be run.
    */
-  public void addListener(Listener listener, Executor executor) {
+  public void addListener(final Listener listener, final Executor executor) {
     state.addListener(listener, executor);
   }
 
@@ -266,7 +266,7 @@ public final class ServiceManager {
    *
    * @param listener the listener to run when the manager changes state
    */
-  public void addListener(Listener listener) {
+  public void addListener(final Listener listener) {
     state.addListener(listener, directExecutor());
   }
 
@@ -322,7 +322,7 @@ public final class ServiceManager {
    * @throws IllegalStateException if the service manager reaches a state from which it cannot
    *     become {@linkplain #isHealthy() healthy}.
    */
-  public void awaitHealthy(long timeout, TimeUnit unit) throws TimeoutException {
+  public void awaitHealthy(final long timeout, final TimeUnit unit) throws TimeoutException {
     state.awaitHealthy(timeout, unit);
   }
 
@@ -358,7 +358,7 @@ public final class ServiceManager {
    * @param unit the time unit of the timeout argument
    * @throws TimeoutException if not all of the services have stopped within the deadline
    */
-  public void awaitStopped(long timeout, TimeUnit unit) throws TimeoutException {
+  public void awaitStopped(final long timeout, final TimeUnit unit) throws TimeoutException {
     state.awaitStopped(timeout, unit);
   }
 
@@ -493,7 +493,7 @@ public final class ServiceManager {
      * responsibility to only call {@link #markReady()} if all services were new at the time this
      * method was called and when all the listeners were installed.
      */
-    ServiceManagerState(ImmutableCollection<Service> services) {
+    ServiceManagerState(final ImmutableCollection<Service> services) {
       this.numberOfServices = services.size();
       servicesByState.putAll(NEW, services);
     }
@@ -502,7 +502,7 @@ public final class ServiceManager {
      * Attempts to start the timer immediately prior to the service being started via
      * {@link Service#startAsync()}.
      */
-    void tryStartTiming(Service service) {
+    void tryStartTiming(final Service service) {
       monitor.enter();
       try {
         Stopwatch stopwatch = startupTimers.get(service);
@@ -542,7 +542,7 @@ public final class ServiceManager {
       }
     }
 
-    void addListener(Listener listener, Executor executor) {
+    void addListener(final Listener listener, final Executor executor) {
       listeners.addListener(listener, executor);
     }
 
@@ -555,7 +555,7 @@ public final class ServiceManager {
       }
     }
 
-    void awaitHealthy(long timeout, TimeUnit unit) throws TimeoutException {
+    void awaitHealthy(final long timeout, final TimeUnit unit) throws TimeoutException {
       monitor.enter();
       try {
         if (!monitor.waitForUninterruptibly(awaitHealthGuard, timeout, unit)) {
@@ -575,7 +575,7 @@ public final class ServiceManager {
       monitor.leave();
     }
 
-    void awaitStopped(long timeout, TimeUnit unit) throws TimeoutException {
+    void awaitStopped(final long timeout, final TimeUnit unit) throws TimeoutException {
       monitor.enter();
       try {
         if (!monitor.waitForUninterruptibly(stoppedGuard, timeout, unit)) {
@@ -626,7 +626,7 @@ public final class ServiceManager {
               .onResultOf(
                   new Function<Entry<Service, Long>, Long>() {
                     @Override
-                    public Long apply(Map.Entry<Service, Long> input) {
+                    public Long apply(final Map.Entry<Service, Long> input) {
                       return input.getValue();
                     }
                   }));
@@ -644,7 +644,7 @@ public final class ServiceManager {
      * <li>Run the listeners (outside of the lock)
      * </ol>
      */
-    void transitionService(final Service service, State from, State to) {
+    void transitionService(final Service service, final State from, final State to) {
       checkNotNull(service);
       checkArgument(from != to);
       monitor.enter();
@@ -711,7 +711,7 @@ public final class ServiceManager {
       listeners.enqueue(
           new ListenerCallQueue.Event<Listener>() {
             @Override
-            public void call(Listener listener) {
+            public void call(final Listener listener) {
               listener.failure(service);
             }
 
@@ -756,7 +756,7 @@ public final class ServiceManager {
     // constructing the ServiceManager we don't pointlessly keep updating the state.
     final WeakReference<ServiceManagerState> state;
 
-    ServiceListener(Service service, WeakReference<ServiceManagerState> state) {
+    ServiceListener(final Service service, final WeakReference<ServiceManagerState> state) {
       this.service = service;
       this.state = state;
     }
@@ -781,7 +781,7 @@ public final class ServiceManager {
     }
 
     @Override
-    public void stopping(State from) {
+    public void stopping(final State from) {
       ServiceManagerState state = this.state.get();
       if (state != null) {
         state.transitionService(service, from, STOPPING);
@@ -789,7 +789,7 @@ public final class ServiceManager {
     }
 
     @Override
-    public void terminated(State from) {
+    public void terminated(final State from) {
       ServiceManagerState state = this.state.get();
       if (state != null) {
         if (!(service instanceof NoOpService)) {
@@ -803,7 +803,7 @@ public final class ServiceManager {
     }
 
     @Override
-    public void failed(State from, Throwable failure) {
+    public void failed(final State from, final Throwable failure) {
       ServiceManagerState state = this.state.get();
       if (state != null) {
         // Log before the transition, so that if the process exits in response to server failure,
@@ -846,10 +846,10 @@ public final class ServiceManager {
   }
 
   /** This is never thrown but only used for logging. */
-  private static final class EmptyServiceManagerWarning extends Throwable {}
+  private static final class EmptyServiceManagerWarning extends Throwable { }
 
   private static final class FailedService extends Throwable {
-    FailedService(Service service) {
+    FailedService(final Service service) {
       super(
           service.toString(),
           service.failureCause(),

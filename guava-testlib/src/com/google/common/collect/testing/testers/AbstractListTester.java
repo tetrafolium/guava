@@ -46,7 +46,7 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    * the order of the elements in the list under test matches what is expected.
    */
   @Override
-  protected void expectContents(Collection<E> expectedCollection) {
+  protected void expectContents(final Collection<E> expectedCollection) {
     List<E> expectedList = Helpers.copyToList(expectedCollection);
     // Avoid expectEquals() here to delay reason manufacture until necessary.
     if (getList().size() != expectedList.size()) {
@@ -66,7 +66,7 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    * otherwise shows up in the test execution profile when running an
    * extremely large numbers of tests.
    */
-  private String reportContext(List<E> expected) {
+  private String reportContext(final List<E> expected) {
     return Platform.format(
         "expected collection %s; actual collection %s", expected, this.collection);
   }

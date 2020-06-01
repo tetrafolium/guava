@@ -81,7 +81,7 @@ public final class Stats implements Serializable {
    * {@link Double#NaN}.
    * </ul>
    */
-  Stats(long count, double mean, double sumOfSquaresOfDeltas, double min, double max) {
+  Stats(final long count, final double mean, final double sumOfSquaresOfDeltas, final double min, final double max) {
     this.count = count;
     this.mean = mean;
     this.sumOfSquaresOfDeltas = sumOfSquaresOfDeltas;
@@ -95,7 +95,7 @@ public final class Stats implements Serializable {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision)
    */
-  public static Stats of(Iterable<? extends Number> values) {
+  public static Stats of(final Iterable<? extends Number> values) {
     StatsAccumulator accumulator = new StatsAccumulator();
     accumulator.addAll(values);
     return accumulator.snapshot();
@@ -107,7 +107,7 @@ public final class Stats implements Serializable {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision)
    */
-  public static Stats of(Iterator<? extends Number> values) {
+  public static Stats of(final Iterator<? extends Number> values) {
     StatsAccumulator accumulator = new StatsAccumulator();
     accumulator.addAll(values);
     return accumulator.snapshot();
@@ -118,7 +118,7 @@ public final class Stats implements Serializable {
    *
    * @param values a series of values
    */
-  public static Stats of(double... values) {
+  public static Stats of(final double... values) {
     StatsAccumulator acummulator = new StatsAccumulator();
     acummulator.addAll(values);
     return acummulator.snapshot();
@@ -129,7 +129,7 @@ public final class Stats implements Serializable {
    *
    * @param values a series of values
    */
-  public static Stats of(int... values) {
+  public static Stats of(final int... values) {
     StatsAccumulator acummulator = new StatsAccumulator();
     acummulator.addAll(values);
     return acummulator.snapshot();
@@ -141,7 +141,7 @@ public final class Stats implements Serializable {
    * @param values a series of values, which will be converted to {@code double} values (this may
    *     cause loss of precision for longs of magnitude over 2^53 (slightly over 9e15))
    */
-  public static Stats of(long... values) {
+  public static Stats of(final long... values) {
     StatsAccumulator acummulator = new StatsAccumulator();
     acummulator.addAll(values);
     return acummulator.snapshot();
@@ -340,7 +340,7 @@ public final class Stats implements Serializable {
    * {@code strictfp}-like semantics.)
    */
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(final @Nullable Object obj) {
     if (obj == null) {
       return false;
     }
@@ -395,7 +395,7 @@ public final class Stats implements Serializable {
    *     cause loss of precision)
    * @throws IllegalArgumentException if the dataset is empty
    */
-  public static double meanOf(Iterable<? extends Number> values) {
+  public static double meanOf(final Iterable<? extends Number> values) {
     return meanOf(values.iterator());
   }
 
@@ -409,7 +409,7 @@ public final class Stats implements Serializable {
    *     cause loss of precision)
    * @throws IllegalArgumentException if the dataset is empty
    */
-  public static double meanOf(Iterator<? extends Number> values) {
+  public static double meanOf(final Iterator<? extends Number> values) {
     checkArgument(values.hasNext());
     long count = 1;
     double mean = values.next().doubleValue();
@@ -435,7 +435,7 @@ public final class Stats implements Serializable {
    * @param values a series of values
    * @throws IllegalArgumentException if the dataset is empty
    */
-  public static double meanOf(double... values) {
+  public static double meanOf(final double... values) {
     checkArgument(values.length > 0);
     double mean = values[0];
     for (int index = 1; index < values.length; index++) {
@@ -459,7 +459,7 @@ public final class Stats implements Serializable {
    * @param values a series of values
    * @throws IllegalArgumentException if the dataset is empty
    */
-  public static double meanOf(int... values) {
+  public static double meanOf(final int... values) {
     checkArgument(values.length > 0);
     double mean = values[0];
     for (int index = 1; index < values.length; index++) {
@@ -484,7 +484,7 @@ public final class Stats implements Serializable {
    *     cause loss of precision for longs of magnitude over 2^53 (slightly over 9e15))
    * @throws IllegalArgumentException if the dataset is empty
    */
-  public static double meanOf(long... values) {
+  public static double meanOf(final long... values) {
     checkArgument(values.length > 0);
     double mean = values[0];
     for (int index = 1; index < values.length; index++) {
@@ -528,7 +528,7 @@ public final class Stats implements Serializable {
    *     {@link ByteOrder#LITTLE_ENDIAN}, to which a BYTES-long byte representation of this instance
    *     is written. In the process increases the position of {@link ByteBuffer} by BYTES.
    */
-  void writeTo(ByteBuffer buffer) {
+  void writeTo(final ByteBuffer buffer) {
     checkNotNull(buffer);
     checkArgument(
         buffer.remaining() >= BYTES,
@@ -550,7 +550,7 @@ public final class Stats implements Serializable {
    * <p><b>Note:</b> No guarantees are made regarding stability of the representation between
    * versions.
    */
-  public static Stats fromByteArray(byte[] byteArray) {
+  public static Stats fromByteArray(final byte[] byteArray) {
     checkNotNull(byteArray);
     checkArgument(
         byteArray.length == BYTES,
@@ -570,7 +570,7 @@ public final class Stats implements Serializable {
    *     {@link ByteOrder#LITTLE_ENDIAN}, from which a BYTES-long byte representation of this
    *     instance is read. In the process increases the position of {@link ByteBuffer} by BYTES.
    */
-  static Stats readFrom(ByteBuffer buffer) {
+  static Stats readFrom(final ByteBuffer buffer) {
     checkNotNull(buffer);
     checkArgument(
         buffer.remaining() >= BYTES,

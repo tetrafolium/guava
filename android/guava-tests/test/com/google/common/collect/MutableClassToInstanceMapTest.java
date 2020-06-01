@@ -45,7 +45,7 @@ public class MutableClassToInstanceMapTest extends TestCase {
                   // but here we have to do some serious fudging
                   @Override
                   @SuppressWarnings("unchecked")
-                  public Map<Class, Impl> create(Object... elements) {
+                  public Map<Class, Impl> create(final Object... elements) {
                     MutableClassToInstanceMap<Impl> map = MutableClassToInstanceMap.create();
                     for (Object object : elements) {
                       Entry<Class, Impl> entry = (Entry<Class, Impl>) object;

@@ -30,13 +30,13 @@ import jsinterop.annotations.JsType;
  */
 final class Platform {
 
-  static <T> T[] newArray(T[] reference, int length) {
+  static <T> T[] newArray(final T[] reference, final int length) {
     T[] clone = Arrays.copyOf(reference, 0);
     resizeArray(clone, length);
     return clone;
   }
 
-  private static void resizeArray(Object array, int newSize) {
+  private static void resizeArray(final Object array, final int newSize) {
     ((NativeArray) array).setLength(newSize);
   }
 
@@ -47,9 +47,9 @@ final class Platform {
     void setLength(int length);
   }
 
-  static MapMaker tryWeakKeys(MapMaker mapMaker) {
+  static MapMaker tryWeakKeys(final MapMaker mapMaker) {
     return mapMaker;
   }
 
-  private Platform() {}
+  private Platform() { }
 }

@@ -31,7 +31,7 @@ public class MinimalSetTest extends TestCase {
   public static Test suite() {
     return SetTestSuiteBuilder
         .using(new TestStringSetGenerator() {
-          @Override protected Set<String> create(String[] elements) {
+          @Override protected Set<String> create(final String[] elements) {
             return MinimalSet.of(elements);
           }
         })

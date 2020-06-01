@@ -28,7 +28,7 @@ import java.io.Serializable;
 public class BaseComparable implements Comparable<BaseComparable>, Serializable {
   private final String s;
 
-  public BaseComparable(String s) {
+  public BaseComparable(final String s) {
     this.s = s;
   }
 
@@ -38,7 +38,7 @@ public class BaseComparable implements Comparable<BaseComparable>, Serializable 
   }
 
   @Override
-  public boolean equals(Object other) {
+  public boolean equals(final Object other) {
     if (other == null) {
       return false;
     } else if (other instanceof BaseComparable) {
@@ -49,7 +49,7 @@ public class BaseComparable implements Comparable<BaseComparable>, Serializable 
   }
 
   @Override
-  public int compareTo(BaseComparable o) {
+  public int compareTo(final BaseComparable o) {
     return s.compareTo(o.s);
   }
 

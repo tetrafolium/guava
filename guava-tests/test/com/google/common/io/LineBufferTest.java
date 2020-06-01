@@ -56,16 +56,16 @@ public class LineBufferTest extends IoTestCase {
         "mixed\n", "line\r", "endings\r\n");
   }
 
-  private static final int[] CHUNK_SIZES = { 1, 2, 3, Integer.MAX_VALUE };
+  private static final int[] CHUNK_SIZES = {1, 2, 3, Integer.MAX_VALUE };
 
-  private static void bufferHelper(String input, String... expect)
+  private static void bufferHelper(final String input, final String... expect)
       throws IOException {
 
     List<String> expectProcess = Arrays.asList(expect);
     List<String> expectRead = Lists.transform(expectProcess,
         new Function<String, String>() {
           @Override
-          public String apply(String value) {
+          public String apply(final String value) {
             return value.replaceAll("[\\r\\n]", "");
           }
         });
@@ -79,11 +79,11 @@ public class LineBufferTest extends IoTestCase {
     }
   }
 
-  private static List<String> bufferHelper(String input, int chunk)
+  private static List<String> bufferHelper(final String input, final int chunk)
       throws IOException {
     final List<String> lines = Lists.newArrayList();
     LineBuffer lineBuf = new LineBuffer() {
-      @Override protected void handleLine(String line, String end) {
+      @Override protected void handleLine(final String line, final String end) {
         lines.add(line + end);
       }
     };
@@ -98,7 +98,7 @@ public class LineBufferTest extends IoTestCase {
     return lines;
   }
 
-  private static List<String> readUsingJava(String input, int chunk)
+  private static List<String> readUsingJava(final String input, final int chunk)
       throws IOException {
     BufferedReader r = new BufferedReader(getChunkedReader(input, chunk));
     List<String> lines = Lists.newArrayList();
@@ -110,8 +110,8 @@ public class LineBufferTest extends IoTestCase {
     return lines;
   }
 
-  private static List<String> readUsingReader(String input, int chunk,
-      boolean asReader) throws IOException {
+  private static List<String> readUsingReader(final String input, final int chunk,
+      final boolean asReader) throws IOException {
     Readable readable = asReader
         ? getChunkedReader(input, chunk)
         : getChunkedReadable(input, chunk);
@@ -125,19 +125,19 @@ public class LineBufferTest extends IoTestCase {
   }
 
   // Returns a Readable that is *not* a Reader.
-  private static Readable getChunkedReadable(String input, int chunk) {
+  private static Readable getChunkedReadable(final String input, final int chunk) {
     final Reader reader = getChunkedReader(input, chunk);
     return new Readable() {
       @Override
-      public int read(CharBuffer cbuf) throws IOException {
+      public int read(final CharBuffer cbuf) throws IOException {
         return reader.read(cbuf);
       }
     };
   }
 
-  private static Reader getChunkedReader(String input, final int chunk) {
+  private static Reader getChunkedReader(final String input, final int chunk) {
     return new FilterReader(new StringReader(input)) {
-      @Override public int read(char[] cbuf, int off, int len)
+      @Override public int read(final char[] cbuf, final int off, final int len)
           throws IOException {
         return super.read(cbuf, off, Math.min(chunk, len));
       }

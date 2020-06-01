@@ -52,7 +52,7 @@ final class SequentialExecutor implements Executor {
   private final QueueWorker worker = new QueueWorker();
 
   /** Use {@link MoreExecutors#sequentialExecutor} */
-  SequentialExecutor(Executor executor) {
+  SequentialExecutor(final Executor executor) {
     this.executor = Preconditions.checkNotNull(executor);
   }
 
@@ -63,7 +63,7 @@ final class SequentialExecutor implements Executor {
    * execution of tasks will stop until a call to this method or to {@link #resume()} is made.
    */
   @Override
-  public void execute(Runnable task) {
+  public void execute(final Runnable task) {
     synchronized (queue) {
       queue.add(task);
       if (isWorkerRunning) {

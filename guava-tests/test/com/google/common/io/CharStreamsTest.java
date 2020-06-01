@@ -56,7 +56,7 @@ public class CharStreamsTest extends IoTestCase {
     LineProcessor<Integer> alwaysFalse = new LineProcessor<Integer>() {
       int seen;
       @Override
-      public boolean processLine(String line) {
+      public boolean processLine(final String line) {
         seen++;
         return false;
       }
@@ -73,7 +73,7 @@ public class CharStreamsTest extends IoTestCase {
     LineProcessor<Integer> alwaysTrue = new LineProcessor<Integer>() {
       int seen;
       @Override
-      public boolean processLine(String line) {
+      public boolean processLine(final String line) {
         seen++;
         return true;
       }
@@ -91,7 +91,7 @@ public class CharStreamsTest extends IoTestCase {
     LineProcessor<Integer> conditional = new LineProcessor<Integer>() {
       int seen;
       @Override
-      public boolean processLine(String line) {
+      public boolean processLine(final String line) {
         seen++;
         sb.append(line);
         return seen < 2;
@@ -264,10 +264,10 @@ public class CharStreamsTest extends IoTestCase {
    * Returns a reader wrapping the given reader that only reads half of the maximum number of
    * characters that it could read in read(char[], int, int).
    */
-  private static Reader newNonBufferFillingReader(Reader reader) {
+  private static Reader newNonBufferFillingReader(final Reader reader) {
     return new FilterReader(reader) {
       @Override
-      public int read(char[] cbuf, int off, int len) throws IOException {
+      public int read(final char[] cbuf, final int off, final int len) throws IOException {
         // if a buffer isn't being cleared correctly, this method will eventually start being called
         // with a len of 0 forever
         if (len <= 0) {
@@ -287,19 +287,19 @@ public class CharStreamsTest extends IoTestCase {
     return new Appendable() {
 
       @Override
-      public Appendable append(CharSequence csq) throws IOException {
+      public Appendable append(final CharSequence csq) throws IOException {
         a.append(csq);
         return this;
       }
 
       @Override
-      public Appendable append(CharSequence csq, int start, int end) throws IOException {
+      public Appendable append(final CharSequence csq, final int start, final int end) throws IOException {
         a.append(csq, start, end);
         return this;
       }
 
       @Override
-      public Appendable append(char c) throws IOException {
+      public Appendable append(final char c) throws IOException {
         a.append(c);
         return this;
       }
@@ -311,7 +311,7 @@ public class CharStreamsTest extends IoTestCase {
   private static Readable wrapAsGenericReadable(final Readable a) {
     return new Readable() {
       @Override
-      public int read(CharBuffer cb) throws IOException {
+      public int read(final CharBuffer cb) throws IOException {
         return a.read(cb);
       }
     };

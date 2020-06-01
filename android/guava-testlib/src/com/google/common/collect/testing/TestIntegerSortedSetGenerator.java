@@ -35,7 +35,7 @@ public abstract class TestIntegerSortedSetGenerator extends TestIntegerSetGenera
 
   /** Sorts the elements by their natural ordering. */
   @Override
-  public List<Integer> order(List<Integer> insertionOrder) {
+  public List<Integer> order(final List<Integer> insertionOrder) {
     Collections.sort(insertionOrder);
     return insertionOrder;
   }

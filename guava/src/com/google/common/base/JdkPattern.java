@@ -26,12 +26,12 @@ import java.util.regex.Pattern;
 final class JdkPattern extends CommonPattern implements Serializable {
   private final Pattern pattern;
 
-  JdkPattern(Pattern pattern) {
+  JdkPattern(final Pattern pattern) {
     this.pattern = Preconditions.checkNotNull(pattern);
   }
 
   @Override
-  CommonMatcher matcher(CharSequence t) {
+  CommonMatcher matcher(final CharSequence t) {
     return new JdkMatcher(pattern.matcher(t));
   }
 
@@ -56,7 +56,7 @@ final class JdkPattern extends CommonPattern implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (!(o instanceof JdkPattern)) {
       return false;
     }
@@ -66,7 +66,7 @@ final class JdkPattern extends CommonPattern implements Serializable {
   private static final class JdkMatcher extends CommonMatcher {
     final Matcher matcher;
 
-    JdkMatcher(Matcher matcher) {
+    JdkMatcher(final Matcher matcher) {
       this.matcher = Preconditions.checkNotNull(matcher);
     }
 
@@ -81,12 +81,12 @@ final class JdkPattern extends CommonPattern implements Serializable {
     }
 
     @Override
-    boolean find(int index) {
+    boolean find(final int index) {
       return matcher.find(index);
     }
 
     @Override
-    String replaceAll(String replacement) {
+    String replaceAll(final String replacement) {
       return matcher.replaceAll(replacement);
     }
 

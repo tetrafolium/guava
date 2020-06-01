@@ -47,7 +47,7 @@ import java.util.NavigableSet;
 public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
     implements SortedMultiset<E> {
   /** Constructor for use by subclasses. */
-  protected ForwardingSortedMultiset() {}
+  protected ForwardingSortedMultiset() { }
 
   @Override
   protected abstract SortedMultiset<E> delegate();
@@ -97,7 +97,7 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
    */
   protected abstract class StandardDescendingMultiset extends DescendingMultiset<E> {
     /** Constructor for use by subclasses. */
-    public StandardDescendingMultiset() {}
+    public StandardDescendingMultiset() { }
 
     @Override
     SortedMultiset<E> forwardMultiset() {
@@ -192,13 +192,13 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
   }
 
   @Override
-  public SortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
+  public SortedMultiset<E> headMultiset(final E upperBound, final BoundType boundType) {
     return delegate().headMultiset(upperBound, boundType);
   }
 
   @Override
   public SortedMultiset<E> subMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+      final E lowerBound, final BoundType lowerBoundType, final E upperBound, final BoundType upperBoundType) {
     return delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType);
   }
 
@@ -211,12 +211,12 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
    * {@link #subMultiset(Object, BoundType, Object, BoundType)} to forward to this implementation.
    */
   protected SortedMultiset<E> standardSubMultiset(
-      E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
+      final E lowerBound, final BoundType lowerBoundType, final E upperBound, final BoundType upperBoundType) {
     return tailMultiset(lowerBound, lowerBoundType).headMultiset(upperBound, upperBoundType);
   }
 
   @Override
-  public SortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
+  public SortedMultiset<E> tailMultiset(final E lowerBound, final BoundType boundType) {
     return delegate().tailMultiset(lowerBound, boundType);
   }
 }

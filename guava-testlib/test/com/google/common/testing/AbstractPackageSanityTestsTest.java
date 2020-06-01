@@ -31,7 +31,7 @@ import junit.framework.TestCase;
  */
 public class AbstractPackageSanityTestsTest extends TestCase {
 
-  private final AbstractPackageSanityTests sanityTests = new AbstractPackageSanityTests() {};
+  private final AbstractPackageSanityTests sanityTests = new AbstractPackageSanityTests() { };
 
   public void testFindClassesToTest_testClass() {
     assertThat(findClassesToTest(ImmutableList.of(EmptyTest.class)))
@@ -92,35 +92,35 @@ public class AbstractPackageSanityTestsTest extends TestCase {
         .containsExactly(Foo.class);
   }
 
-  static class EmptyTestCase {}
+  static class EmptyTestCase { }
 
-  static class EmptyTest {}
+  static class EmptyTest { }
 
-  static class EmptyTests {}
+  static class EmptyTests { }
 
-  static class EmptyTestSuite {}
+  static class EmptyTestSuite { }
 
-  static class Foo {}
+  static class Foo { }
 
-  static class Foo_Bar {}
+  static class Foo_Bar { }
 
-  public static class PublicFoo {}
+  public static class PublicFoo { }
 
   static class FooTest {
     @SuppressWarnings("unused") // accessed reflectively
-    public void testPublic() {}
+    public void testPublic() { }
     @SuppressWarnings("unused") // accessed reflectively
-    void testNotPublic() {}
+    void testNotPublic() { }
   }
 
   // Shouldn't be mistaken as Foo's test
   static class Foo2Test {
     @SuppressWarnings("unused") // accessed reflectively
-    public void testPublic() {}
+    public void testPublic() { }
   }
 
   private List<Class<?>> findClassesToTest(
-      Iterable<? extends Class<?>> classes, String... explicitTestNames) {
+      final Iterable<? extends Class<?>> classes, final String... explicitTestNames) {
     return sanityTests.findClassesToTest(classes, Arrays.asList(explicitTestNames));
   }
 }

@@ -47,7 +47,7 @@ public class ForwardingSortedMapTest extends TestCase {
       extends ForwardingSortedMap<K, V> {
     private final SortedMap<K, V> backingSortedMap;
 
-    StandardImplForwardingSortedMap(SortedMap<K, V> backingSortedMap) {
+    StandardImplForwardingSortedMap(final SortedMap<K, V> backingSortedMap) {
       this.backingSortedMap = backingSortedMap;
     }
 
@@ -55,23 +55,23 @@ public class ForwardingSortedMapTest extends TestCase {
       return backingSortedMap;
     }
 
-    @Override public boolean containsKey(Object key) {
+    @Override public boolean containsKey(final Object key) {
       return standardContainsKey(key);
     }
 
-    @Override public boolean containsValue(Object value) {
+    @Override public boolean containsValue(final Object value) {
       return standardContainsValue(value);
     }
 
-    @Override public void putAll(Map<? extends K, ? extends V> map) {
+    @Override public void putAll(final Map<? extends K, ? extends V> map) {
       standardPutAll(map);
     }
 
-    @Override public V remove(Object object) {
+    @Override public V remove(final Object object) {
       return standardRemove(object);
     }
 
-    @Override public boolean equals(Object object) {
+    @Override public boolean equals(final Object object) {
       return standardEquals(object);
     }
 
@@ -108,7 +108,7 @@ public class ForwardingSortedMapTest extends TestCase {
       return standardIsEmpty();
     }
 
-    @Override public SortedMap<K, V> subMap(K fromKey, K toKey) {
+    @Override public SortedMap<K, V> subMap(final K fromKey, final K toKey) {
       return standardSubMap(fromKey, toKey);
     }
   }
@@ -121,7 +121,7 @@ public class ForwardingSortedMapTest extends TestCase {
         SortedMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     SortedMap<String, String> map = new SafeTreeMap<>();
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -145,7 +145,7 @@ public class ForwardingSortedMapTest extends TestCase {
                   private final Comparator<String> comparator = NullsBeforeTwo.INSTANCE;
 
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     SortedMap<String, String> map = new SafeTreeMap<>(comparator);
                     for (Entry<String, String> entry : entries) {
                       map.put(entry.getKey(), entry.getValue());
@@ -169,7 +169,7 @@ public class ForwardingSortedMapTest extends TestCase {
         SortedMapTestSuiteBuilder.using(
                 new TestStringSortedMapGenerator() {
                   @Override
-                  protected SortedMap<String, String> create(Entry<String, String>[] entries) {
+                  protected SortedMap<String, String> create(final Entry<String, String>[] entries) {
                     ImmutableSortedMap.Builder<String, String> builder =
                         ImmutableSortedMap.naturalOrder();
                     for (Entry<String, String> entry : entries) {
@@ -192,7 +192,7 @@ public class ForwardingSortedMapTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester()
         .testForwarding(SortedMap.class, new Function<SortedMap, SortedMap>() {
-          @Override public SortedMap apply(SortedMap delegate) {
+          @Override public SortedMap apply(final SortedMap delegate) {
             return wrap(delegate);
           }
         });

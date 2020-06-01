@@ -44,17 +44,17 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     }
 
     @Override
-    public Integer[] createArray(int length) {
+    public Integer[] createArray(final int length) {
       return new Integer[length];
     }
 
     @Override
-    public Iterable<Integer> order(List<Integer> insertionOrder) {
+    public Iterable<Integer> order(final List<Integer> insertionOrder) {
       return Ordering.natural().sortedCopy(insertionOrder);
     }
 
     @Override
-    public Set<Integer> create(Object... elements) {
+    public Set<Integer> create(final Object... elements) {
       ImmutableRangeSet.Builder<Integer> builder = ImmutableRangeSet.builder();
       for (Object o : elements) {
         Integer i = (Integer) o;
@@ -77,17 +77,17 @@ public class ImmutableRangeSetTest extends AbstractRangeSetTest {
     }
 
     @Override
-    public BigInteger[] createArray(int length) {
+    public BigInteger[] createArray(final int length) {
       return new BigInteger[length];
     }
 
     @Override
-    public Iterable<BigInteger> order(List<BigInteger> insertionOrder) {
+    public Iterable<BigInteger> order(final List<BigInteger> insertionOrder) {
       return Ordering.natural().sortedCopy(insertionOrder);
     }
 
     @Override
-    public Set<BigInteger> create(Object... elements) {
+    public Set<BigInteger> create(final Object... elements) {
       ImmutableRangeSet.Builder<BigInteger> builder = ImmutableRangeSet.builder();
       for (Object o : elements) {
         BigInteger i = (BigInteger) o;

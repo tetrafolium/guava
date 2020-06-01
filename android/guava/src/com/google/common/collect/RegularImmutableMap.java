@@ -63,7 +63,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   private final transient int size;
 
   @SuppressWarnings("unchecked")
-  static <K, V> RegularImmutableMap<K, V> create(int n, Object[] alternatingKeysAndValues) {
+  static <K, V> RegularImmutableMap<K, V> create(final int n, final Object[] alternatingKeysAndValues) {
     if (n == 0) {
       return (RegularImmutableMap<K, V>) EMPTY;
     } else if (n == 1) {
@@ -81,7 +81,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
    * values are null.
    */
   static int[] createHashTable(
-      Object[] alternatingKeysAndValues, int n, int tableSize, int keyOffset) {
+      final Object[] alternatingKeysAndValues, final int n, final int tableSize, final int keyOffset) {
     if (n == 1) {
       // for n=1 we don't create a hash table, but we need to do the checkEntryNotNull check!
       checkEntryNotNull(
@@ -117,7 +117,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     return hashTable;
   }
 
-  private RegularImmutableMap(int[] hashTable, Object[] alternatingKeysAndValues, int size) {
+  private RegularImmutableMap(final int[] hashTable, final Object[] alternatingKeysAndValues, final int size) {
     this.hashTable = hashTable;
     this.alternatingKeysAndValues = alternatingKeysAndValues;
     this.size = size;
@@ -131,16 +131,16 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @SuppressWarnings("unchecked")
   @Override
   @Nullable
-  public V get(@Nullable Object key) {
+  public V get(final @Nullable Object key) {
     return (V) get(hashTable, alternatingKeysAndValues, size, 0, key);
   }
   
   static Object get(
-      @Nullable int[] hashTable,
-      @Nullable Object[] alternatingKeysAndValues,
-      int size,
-      int keyOffset,
-      @Nullable Object key) {
+      final @Nullable int[] hashTable,
+      final @Nullable Object[] alternatingKeysAndValues,
+      final int size,
+      final int keyOffset,
+      final @Nullable Object key) {
     if (key == null) {
       return null;
     } else if (size == 1) {
@@ -173,7 +173,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private transient final int keyOffset;
     private transient final int size;
 
-    EntrySet(ImmutableMap<K, V> map, Object[] alternatingKeysAndValues, int keyOffset, int size) {
+    EntrySet(final ImmutableMap<K, V> map, final Object[] alternatingKeysAndValues, final int keyOffset, final int size) {
       this.map = map;
       this.alternatingKeysAndValues = alternatingKeysAndValues;
       this.keyOffset = keyOffset;
@@ -189,7 +189,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     ImmutableList<Entry<K, V>> createAsList() {
       return new ImmutableList<Entry<K, V>>() {
         @Override
-        public Entry<K, V> get(int index) {
+        public Entry<K, V> get(final int index) {
           checkElementIndex(index, size);
           @SuppressWarnings("unchecked")
           K key = (K) alternatingKeysAndValues[2 * index + keyOffset];
@@ -211,7 +211,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     }
 
     @Override
-    public boolean contains(Object object) {
+    public boolean contains(final Object object) {
       if (object instanceof Map.Entry) {
         Map.Entry<?, ?> entry = (Map.Entry<?, ?>) object;
         Object k = entry.getKey();
@@ -245,14 +245,14 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private transient final int offset;
     private transient final int size;
 
-    KeysOrValuesAsList(Object[] alternatingKeysAndValues, int offset, int size) {
+    KeysOrValuesAsList(final Object[] alternatingKeysAndValues, final int offset, final int size) {
       this.alternatingKeysAndValues = alternatingKeysAndValues;
       this.offset = offset;
       this.size = size;
     }
 
     @Override
-    public Object get(int index) {
+    public Object get(final int index) {
       checkElementIndex(index, size);
       return alternatingKeysAndValues[2 * index + offset];
     }
@@ -272,7 +272,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private final transient ImmutableMap<K, ?> map;
     private final transient ImmutableList<K> list;
 
-    KeySet(ImmutableMap<K, ?> map, ImmutableList<K> list) {
+    KeySet(final ImmutableMap<K, ?> map, final ImmutableList<K> list) {
       this.map = map;
       this.list = list;
     }
@@ -288,7 +288,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     }
 
     @Override
-    public boolean contains(@Nullable Object object) {
+    public boolean contains(final @Nullable Object object) {
       return map.get(object) != null;
     }
 

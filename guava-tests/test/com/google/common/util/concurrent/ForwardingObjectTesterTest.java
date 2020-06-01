@@ -42,7 +42,7 @@ public class ForwardingObjectTesterTest extends TestCase {
   }
 
   private static abstract class FailToForward extends ForwardingObject implements Runnable {
-    @Override public void run() {}
+    @Override public void run() { }
   }
 
   private static abstract class ForwardToDelegate extends ForwardingObject implements Runnable {

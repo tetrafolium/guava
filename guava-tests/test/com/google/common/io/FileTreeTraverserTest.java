@@ -73,19 +73,19 @@ public class FileTreeTraverserTest extends TestCase {
     assertDirChildren(a, b, c, d);
   }
 
-  private File newDir(String name) throws IOException {
+  private File newDir(final String name) throws IOException {
     File file = new File(dir, name);
     file.mkdir();
     return file;
   }
 
-  private File newFile(String name) throws IOException {
+  private File newFile(final String name) throws IOException {
     File file = new File(dir, name);
     file.createNewFile();
     return file;
   }
 
-  private void assertDirChildren(File... files) {
+  private void assertDirChildren(final File... files) {
     assertEquals(ImmutableSet.copyOf(files),
         ImmutableSet.copyOf(Files.fileTreeTraverser().children(dir)));
   }

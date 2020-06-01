@@ -31,5 +31,5 @@ final class Platform {
     return CHAR_BUFFER;
   }
 
-  private Platform() {}
+  private Platform() { }
 }

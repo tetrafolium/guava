@@ -54,12 +54,12 @@ public class BaseEncodingTest extends TestCase {
     try {
       base64().withSeparator("=", 3);
       fail("Expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
 
     try {
       base64().withPadChar('#').withSeparator("!#!", 3);
       fail("Expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {}
+    } catch (IllegalArgumentException expected) { }
   }
 
   public void testAtMostOneSeparator() {
@@ -67,7 +67,7 @@ public class BaseEncodingTest extends TestCase {
     try {
       separated.withSeparator("$", 4);
       fail("Expected UnsupportedOperationException");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) { }
   }
 
   public void testBase64() {
@@ -340,14 +340,14 @@ public class BaseEncodingTest extends TestCase {
   }
 
   private static void testEncodingWithCasing(
-      BaseEncoding encoding, String decoded, String encoded) {
+      final BaseEncoding encoding, final String decoded, final String encoded) {
     testEncodingWithSeparators(encoding, decoded, encoded);
     testEncodingWithSeparators(encoding.upperCase(), decoded, Ascii.toUpperCase(encoded));
     testEncodingWithSeparators(encoding.lowerCase(), decoded, Ascii.toLowerCase(encoded));
   }
 
   private static void testEncodingWithSeparators(
-      BaseEncoding encoding, String decoded, String encoded) {
+      final BaseEncoding encoding, final String decoded, final String encoded) {
     testEncoding(encoding, decoded, encoded);
 
     // test separators work
@@ -359,31 +359,31 @@ public class BaseEncodingTest extends TestCase {
     }
   }
 
-  private static void testEncoding(BaseEncoding encoding, String decoded, String encoded) {
+  private static void testEncoding(final BaseEncoding encoding, final String decoded, final String encoded) {
     testEncodes(encoding, decoded, encoded);
     testDecodes(encoding, encoded, decoded);
   }
 
-  private static void testEncodes(BaseEncoding encoding, String decoded, String encoded) {
+  private static void testEncodes(final BaseEncoding encoding, final String decoded, final String encoded) {
     assertThat(encoding.encode(decoded.getBytes(UTF_8))).isEqualTo(encoded);
   }
 
   private static void testEncodesWithOffset(
-      BaseEncoding encoding, String decoded, int offset, int len, String encoded) {
+      final BaseEncoding encoding, final String decoded, final int offset, final int len, final String encoded) {
     assertThat(encoding.encode(decoded.getBytes(UTF_8), offset, len)).isEqualTo(encoded);
   }
 
-  private static void testDecodes(BaseEncoding encoding, String encoded, String decoded) {
+  private static void testDecodes(final BaseEncoding encoding, final String encoded, final String decoded) {
     assertTrue(encoding.canDecode(encoded));
     assertThat(encoding.decode(encoded)).isEqualTo(decoded.getBytes(UTF_8));
   }
 
-  private static void assertFailsToDecode(BaseEncoding encoding, String cannotDecode) {
+  private static void assertFailsToDecode(final BaseEncoding encoding, final String cannotDecode) {
     assertFailsToDecode(encoding, cannotDecode, null);
   }
 
   private static void assertFailsToDecode(
-      BaseEncoding encoding, String cannotDecode, @Nullable String expectedMessage) {
+      final BaseEncoding encoding, final String cannotDecode, final @Nullable String expectedMessage) {
     assertFalse(encoding.canDecode(cannotDecode));
     try {
       encoding.decode(cannotDecode);
@@ -405,7 +405,7 @@ public class BaseEncodingTest extends TestCase {
 
   @GwtIncompatible // Reader/Writer
   private static void testStreamingEncodingWithCasing(
-      BaseEncoding encoding, String decoded, String encoded) throws IOException {
+      final BaseEncoding encoding, final String decoded, final String encoded) throws IOException {
     testStreamingEncodingWithSeparators(encoding, decoded, encoded);
     testStreamingEncodingWithSeparators(encoding.upperCase(), decoded, Ascii.toUpperCase(encoded));
     testStreamingEncodingWithSeparators(encoding.lowerCase(), decoded, Ascii.toLowerCase(encoded));
@@ -413,7 +413,7 @@ public class BaseEncodingTest extends TestCase {
 
   @GwtIncompatible // Reader/Writer
   private static void testStreamingEncodingWithSeparators(
-      BaseEncoding encoding, String decoded, String encoded) throws IOException {
+      final BaseEncoding encoding, final String decoded, final String encoded) throws IOException {
     testStreamingEncoding(encoding, decoded, encoded);
 
     // test separators work
@@ -426,14 +426,14 @@ public class BaseEncodingTest extends TestCase {
   }
 
   @GwtIncompatible // Reader/Writer
-  private static void testStreamingEncoding(BaseEncoding encoding, String decoded, String encoded)
+  private static void testStreamingEncoding(final BaseEncoding encoding, final String decoded, final String encoded)
       throws IOException {
     testStreamingEncodes(encoding, decoded, encoded);
     testStreamingDecodes(encoding, encoded, decoded);
   }
 
   @GwtIncompatible // Writer
-  private static void testStreamingEncodes(BaseEncoding encoding, String decoded, String encoded)
+  private static void testStreamingEncodes(final BaseEncoding encoding, final String decoded, final String encoded)
       throws IOException {
     StringWriter writer = new StringWriter();
     OutputStream encodingStream = encoding.encodingStream(writer);
@@ -443,7 +443,7 @@ public class BaseEncodingTest extends TestCase {
   }
 
   @GwtIncompatible // Reader
-  private static void testStreamingDecodes(BaseEncoding encoding, String encoded, String decoded)
+  private static void testStreamingDecodes(final BaseEncoding encoding, final String encoded, final String decoded)
       throws IOException {
     byte[] bytes = decoded.getBytes(UTF_8);
     InputStream decodingStream = encoding.decodingStream(new StringReader(encoded));

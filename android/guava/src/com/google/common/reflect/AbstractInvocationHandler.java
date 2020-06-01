@@ -57,7 +57,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
    * </ul>
    */
   @Override
-  public final Object invoke(Object proxy, Method method, @Nullable Object[] args)
+  public final Object invoke(final Object proxy, final Method method, final @Nullable Object[] args)
       throws Throwable {
     if (args == null) {
       args = NO_ARGS;
@@ -107,7 +107,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
    * <p>Subclasses can override this method to provide custom equality.
    */
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(final Object obj) {
     return super.equals(obj);
   }
 
@@ -130,7 +130,7 @@ public abstract class AbstractInvocationHandler implements InvocationHandler {
     return super.toString();
   }
 
-  private static boolean isProxyOfSameInterfaces(Object arg, Class<?> proxyClass) {
+  private static boolean isProxyOfSameInterfaces(final Object arg, final Class<?> proxyClass) {
     return proxyClass.isInstance(arg)
         // Equal proxy instances should mostly be instance of proxyClass
         // Under some edge cases (such as the proxy of JDK types serialized and then deserialized)

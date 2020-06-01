@@ -59,34 +59,34 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
-  protected ForwardingList() {}
+  protected ForwardingList() { }
 
   @Override
   protected abstract List<E> delegate();
 
   @Override
-  public void add(int index, E element) {
+  public void add(final int index, final E element) {
     delegate().add(index, element);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public boolean addAll(int index, Collection<? extends E> elements) {
+  public boolean addAll(final int index, final Collection<? extends E> elements) {
     return delegate().addAll(index, elements);
   }
 
   @Override
-  public E get(int index) {
+  public E get(final int index) {
     return delegate().get(index);
   }
 
   @Override
-  public int indexOf(Object element) {
+  public int indexOf(final Object element) {
     return delegate().indexOf(element);
   }
 
   @Override
-  public int lastIndexOf(Object element) {
+  public int lastIndexOf(final Object element) {
     return delegate().lastIndexOf(element);
   }
 
@@ -96,29 +96,29 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
   }
 
   @Override
-  public ListIterator<E> listIterator(int index) {
+  public ListIterator<E> listIterator(final int index) {
     return delegate().listIterator(index);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public E remove(int index) {
+  public E remove(final int index) {
     return delegate().remove(index);
   }
 
   @CanIgnoreReturnValue
   @Override
-  public E set(int index, E element) {
+  public E set(final int index, final E element) {
     return delegate().set(index, element);
   }
 
   @Override
-  public List<E> subList(int fromIndex, int toIndex) {
+  public List<E> subList(final int fromIndex, final int toIndex) {
     return delegate().subList(fromIndex, toIndex);
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     return object == this || delegate().equals(object);
   }
 
@@ -135,7 +135,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected boolean standardAdd(E element) {
+  protected boolean standardAdd(final E element) {
     add(size(), element);
     return true;
   }
@@ -148,7 +148,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected boolean standardAddAll(int index, Iterable<? extends E> elements) {
+  protected boolean standardAddAll(final int index, final Iterable<? extends E> elements) {
     return Lists.addAllImpl(this, index, elements);
   }
 
@@ -159,7 +159,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected int standardIndexOf(@Nullable Object element) {
+  protected int standardIndexOf(final @Nullable Object element) {
     return Lists.indexOfImpl(this, element);
   }
 
@@ -171,7 +171,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected int standardLastIndexOf(@Nullable Object element) {
+  protected int standardLastIndexOf(final @Nullable Object element) {
     return Lists.lastIndexOfImpl(this, element);
   }
 
@@ -208,7 +208,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    * @since 7.0
    */
   @Beta
-  protected ListIterator<E> standardListIterator(int start) {
+  protected ListIterator<E> standardListIterator(final int start) {
     return Lists.listIteratorImpl(this, start);
   }
 
@@ -220,7 +220,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    * @since 7.0
    */
   @Beta
-  protected List<E> standardSubList(int fromIndex, int toIndex) {
+  protected List<E> standardSubList(final int fromIndex, final int toIndex) {
     return Lists.subListImpl(this, fromIndex, toIndex);
   }
 
@@ -232,7 +232,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    * @since 7.0
    */
   @Beta
-  protected boolean standardEquals(@Nullable Object object) {
+  protected boolean standardEquals(final @Nullable Object object) {
     return Lists.equalsImpl(this, object);
   }
 

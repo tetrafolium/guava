@@ -30,9 +30,9 @@ import java.util.List;
 public class RegularImmutableSet_CustomFieldSerializer {
 
   public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableSet<?> instance) {}
+      final SerializationStreamReader reader, final RegularImmutableSet<?> instance) { }
 
-  public static RegularImmutableSet<Object> instantiate(SerializationStreamReader reader)
+  public static RegularImmutableSet<Object> instantiate(final SerializationStreamReader reader)
       throws SerializationException {
     List<Object> elements = Lists.newArrayList();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
@@ -45,7 +45,7 @@ public class RegularImmutableSet_CustomFieldSerializer {
     return (RegularImmutableSet<Object>) ImmutableSet.copyOf(elements);
   }
 
-  public static void serialize(SerializationStreamWriter writer, RegularImmutableSet<?> instance)
+  public static void serialize(final SerializationStreamWriter writer, final RegularImmutableSet<?> instance)
       throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }

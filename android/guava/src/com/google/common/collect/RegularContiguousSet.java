@@ -35,25 +35,25 @@ import javax.annotation.Nullable;
 final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   private final Range<C> range;
 
-  RegularContiguousSet(Range<C> range, DiscreteDomain<C> domain) {
+  RegularContiguousSet(final Range<C> range, final DiscreteDomain<C> domain) {
     super(domain);
     this.range = range;
   }
 
-  private ContiguousSet<C> intersectionInCurrentDomain(Range<C> other) {
+  private ContiguousSet<C> intersectionInCurrentDomain(final Range<C> other) {
     return (range.isConnected(other))
         ? ContiguousSet.create(range.intersection(other), domain)
         : new EmptyContiguousSet<C>(domain);
   }
 
   @Override
-  ContiguousSet<C> headSetImpl(C toElement, boolean inclusive) {
+  ContiguousSet<C> headSetImpl(final C toElement, final boolean inclusive) {
     return intersectionInCurrentDomain(Range.upTo(toElement, BoundType.forBoolean(inclusive)));
   }
 
   @Override
   ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+      final C fromElement, final boolean fromInclusive, final C toElement, final boolean toInclusive) {
     if (fromElement.compareTo(toElement) == 0 && !fromInclusive && !toInclusive) {
       // Range would reject our attempt to create (x, x).
       return new EmptyContiguousSet<C>(domain);
@@ -65,13 +65,13 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   }
 
   @Override
-  ContiguousSet<C> tailSetImpl(C fromElement, boolean inclusive) {
+  ContiguousSet<C> tailSetImpl(final C fromElement, final boolean inclusive) {
     return intersectionInCurrentDomain(Range.downTo(fromElement, BoundType.forBoolean(inclusive)));
   }
 
   @GwtIncompatible // not used by GWT emulation
   @Override
-  int indexOf(Object target) {
+  int indexOf(final Object target) {
     return contains(target) ? (int) domain.distance(first(), (C) target) : -1;
   }
 
@@ -81,7 +81,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
       final C last = last();
 
       @Override
-      protected C computeNext(C previous) {
+      protected C computeNext(final C previous) {
         return equalsOrThrow(previous, last) ? null : domain.next(previous);
       }
     };
@@ -94,13 +94,13 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
       final C first = first();
 
       @Override
-      protected C computeNext(C previous) {
+      protected C computeNext(final C previous) {
         return equalsOrThrow(previous, first) ? null : domain.previous(previous);
       }
     };
   }
 
-  private static boolean equalsOrThrow(Comparable<?> left, @Nullable Comparable<?> right) {
+  private static boolean equalsOrThrow(final Comparable<?> left, final @Nullable Comparable<?> right) {
     return right != null && Range.compareOrThrow(left, right) == 0;
   }
 
@@ -129,7 +129,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
         }
 
         @Override
-        public C get(int i) {
+        public C get(final int i) {
           checkElementIndex(i, size());
           return domain.offset(first(), i);
         }
@@ -146,7 +146,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   }
 
   @Override
-  public boolean contains(@Nullable Object object) {
+  public boolean contains(final @Nullable Object object) {
     if (object == null) {
       return false;
     }
@@ -158,7 +158,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   }
 
   @Override
-  public boolean containsAll(Collection<?> targets) {
+  public boolean containsAll(final Collection<?> targets) {
     return Collections2.containsAllImpl(this, targets);
   }
 
@@ -168,7 +168,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   }
 
   @Override
-  public ContiguousSet<C> intersection(ContiguousSet<C> other) {
+  public ContiguousSet<C> intersection(final ContiguousSet<C> other) {
     checkNotNull(other);
     checkArgument(this.domain.equals(other.domain));
     if (other.isEmpty()) {
@@ -188,14 +188,14 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   }
 
   @Override
-  public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
+  public Range<C> range(final BoundType lowerBoundType, final BoundType upperBoundType) {
     return Range.create(
         range.lowerBound.withLowerBoundType(lowerBoundType, domain),
         range.upperBound.withUpperBoundType(upperBoundType, domain));
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(final @Nullable Object object) {
     if (object == this) {
       return true;
     } else if (object instanceof RegularContiguousSet) {
@@ -218,7 +218,7 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
     final Range<C> range;
     final DiscreteDomain<C> domain;
 
-    private SerializedForm(Range<C> range, DiscreteDomain<C> domain) {
+    private SerializedForm(final Range<C> range, final DiscreteDomain<C> domain) {
       this.range = range;
       this.domain = domain;
     }

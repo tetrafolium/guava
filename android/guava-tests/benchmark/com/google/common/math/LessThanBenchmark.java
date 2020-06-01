@@ -60,7 +60,7 @@ public class LessThanBenchmark {
     }
   }
 
-  @Benchmark int branchFreeLtIntInlined(int reps) {
+  @Benchmark int branchFreeLtIntInlined(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -72,7 +72,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int branchFreeLtInt(int reps) {
+  @Benchmark int branchFreeLtInt(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -84,7 +84,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtIntAddOutsideTernary(int reps) {
+  @Benchmark int ternaryLtIntAddOutsideTernary(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -96,7 +96,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtIntAddInsideTernary(int reps) {
+  @Benchmark int ternaryLtIntAddInsideTernary(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -108,7 +108,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int branchFreeLtLongInlined(int reps) {
+  @Benchmark int branchFreeLtLongInlined(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -120,7 +120,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int branchFreeLtLong(int reps) {
+  @Benchmark int branchFreeLtLong(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -132,7 +132,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtLongAddOutsideTernary(int reps) {
+  @Benchmark int ternaryLtLongAddOutsideTernary(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -144,7 +144,7 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtLongAddInsideTernary(int reps) {
+  @Benchmark int ternaryLtLongAddInsideTernary(final int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;

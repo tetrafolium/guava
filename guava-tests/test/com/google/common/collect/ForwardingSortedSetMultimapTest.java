@@ -32,7 +32,7 @@ public class ForwardingSortedSetMultimapTest extends TestCase {
   public void testForwarding() {
     new ForwardingWrapperTester().testForwarding(
         SortedSetMultimap.class, new Function<SortedSetMultimap, SortedSetMultimap>() {
-          @Override public SortedSetMultimap apply(SortedSetMultimap delegate) {
+          @Override public SortedSetMultimap apply(final SortedSetMultimap delegate) {
             return wrap(delegate);
           }
         });

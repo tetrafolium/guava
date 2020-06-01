@@ -92,7 +92,7 @@ public abstract class AbstractIdleService implements Service {
   }
 
   /** Constructor for use by subclasses. */
-  protected AbstractIdleService() {}
+  protected AbstractIdleService() { }
 
   /** Start the service. */
   protected abstract void startUp() throws Exception;
@@ -110,7 +110,7 @@ public abstract class AbstractIdleService implements Service {
   protected Executor executor() {
     return new Executor() {
       @Override
-      public void execute(Runnable command) {
+      public void execute(final Runnable command) {
         MoreExecutors.newThread(threadNameSupplier.get(), command).start();
       }
     };
@@ -135,7 +135,7 @@ public abstract class AbstractIdleService implements Service {
    * @since 13.0
    */
   @Override
-  public final void addListener(Listener listener, Executor executor) {
+  public final void addListener(final Listener listener, final Executor executor) {
     delegate.addListener(listener, executor);
   }
 
@@ -179,7 +179,7 @@ public abstract class AbstractIdleService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitRunning(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitRunning(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -195,7 +195,7 @@ public abstract class AbstractIdleService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitTerminated(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitTerminated(final long timeout, final TimeUnit unit) throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 

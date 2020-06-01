@@ -91,7 +91,7 @@ public class Crc32cHashFunctionTest extends TestCase {
    * @param expectedCrc the expected crc value.
    * @param data the data to run the checksum on.
    */
-  private static void assertCrc(int expectedCrc, byte[] data) {
+  private static void assertCrc(final int expectedCrc, final byte[] data) {
     int actualCrc = Hashing.crc32c().hashBytes(data).asInt();
     assertEquals(expectedCrc, actualCrc);
   }

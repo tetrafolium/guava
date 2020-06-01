@@ -38,4 +38,4 @@ import java.lang.annotation.Target;
 @Retention(CLASS)
 @Target({ANNOTATION_TYPE, CONSTRUCTOR, FIELD, METHOD, TYPE})
 @GwtCompatible
-@interface AndroidIncompatible {}
+@interface AndroidIncompatible { }

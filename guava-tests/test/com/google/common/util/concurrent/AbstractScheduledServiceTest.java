@@ -57,8 +57,8 @@ public class AbstractScheduledServiceTest extends TestCase {
 
   final ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(10) {
     @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay,
-        long delay, TimeUnit unit) {
+    public ScheduledFuture<?> scheduleWithFixedDelay(final Runnable command, final long initialDelay,
+        final long delay, final TimeUnit unit) {
       return future = super.scheduleWithFixedDelay(command, initialDelay, delay, unit);
     }
   };
@@ -72,9 +72,11 @@ public class AbstractScheduledServiceTest extends TestCase {
   }
 
   private class NullService extends AbstractScheduledService {
-    @Override protected void runOneIteration() throws Exception {}
-    @Override protected Scheduler scheduler() { return configuration; }
-    @Override protected ScheduledExecutorService executor() { return executor; }
+    @Override protected void runOneIteration() throws Exception { }
+    @Override protected Scheduler scheduler() {
+        return configuration; }
+    @Override protected ScheduledExecutorService executor() {
+        return executor; }
   }
 
   public void testFailOnExceptionFromRun() throws Exception {
@@ -115,7 +117,7 @@ public class AbstractScheduledServiceTest extends TestCase {
       @Override public void running() {
         throw error;
       }
-      @Override public void failed(State from, Throwable failure) {
+      @Override public void failed(final State from, final Throwable failure) {
         assertEquals(State.RUNNING, from);
         assertEquals(error, failure);
         latch.countDown();
@@ -179,7 +181,7 @@ public class AbstractScheduledServiceTest extends TestCase {
   public void testDefaultExecutorIsShutdownWhenServiceIsStopped() throws Exception {
     final AtomicReference<ScheduledExecutorService> executor = Atomics.newReference();
     AbstractScheduledService service = new AbstractScheduledService() {
-      @Override protected void runOneIteration() throws Exception {}
+      @Override protected void runOneIteration() throws Exception { }
 
       @Override protected ScheduledExecutorService executor() {
         executor.set(super.executor());
@@ -206,7 +208,7 @@ public class AbstractScheduledServiceTest extends TestCase {
         throw new Exception("Failed");
       }
 
-      @Override protected void runOneIteration() throws Exception {}
+      @Override protected void runOneIteration() throws Exception { }
 
       @Override protected ScheduledExecutorService executor() {
         executor.set(super.executor());
@@ -221,7 +223,7 @@ public class AbstractScheduledServiceTest extends TestCase {
     try {
       service.startAsync().awaitRunning();
       fail("Expected service to fail during startup");
-    } catch (IllegalStateException expected) {}
+    } catch (IllegalStateException expected) { }
 
     assertTrue(executor.get().awaitTermination(100, TimeUnit.MILLISECONDS));
   }
@@ -255,7 +257,7 @@ public class AbstractScheduledServiceTest extends TestCase {
         return TestingExecutors.noOpScheduledExecutor();
       }
 
-      @Override protected void runOneIteration() throws Exception {}
+      @Override protected void runOneIteration() throws Exception { }
 
       @Override protected String serviceName() {
         return "Foo";
@@ -337,11 +339,11 @@ public class AbstractScheduledServiceTest extends TestCase {
     private static final TimeUnit unit = TimeUnit.MILLISECONDS;
 
     // Unique runnable object used for comparison.
-    final Runnable testRunnable = new Runnable() {@Override public void run() {}};
+    final Runnable testRunnable = new Runnable() { @Override public void run() { }};
     boolean called = false;
 
-    private void assertSingleCallWithCorrectParameters(Runnable command, long initialDelay,
-        long delay, TimeUnit unit) {
+    private void assertSingleCallWithCorrectParameters(final Runnable command, final long initialDelay,
+        final long delay, final TimeUnit unit) {
       assertFalse(called);  // only called once.
       called = true;
       assertEquals(SchedulerTest.initialDelay, initialDelay);
@@ -358,7 +360,7 @@ public class AbstractScheduledServiceTest extends TestCase {
               new ScheduledThreadPoolExecutor(1) {
                 @Override
                 public ScheduledFuture<?> scheduleAtFixedRate(
-                    Runnable command, long initialDelay, long period, TimeUnit unit) {
+                    final Runnable command, final long initialDelay, final long period, final TimeUnit unit) {
                   assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
                   return null;
                 }
@@ -375,7 +377,7 @@ public class AbstractScheduledServiceTest extends TestCase {
               new ScheduledThreadPoolExecutor(10) {
                 @Override
                 public ScheduledFuture<?> scheduleWithFixedDelay(
-                    Runnable command, long initialDelay, long delay, TimeUnit unit) {
+                    final Runnable command, final long initialDelay, final long delay, final TimeUnit unit) {
                   assertSingleCallWithCorrectParameters(command, initialDelay, delay, unit);
                   return null;
                 }
@@ -480,7 +482,7 @@ public class AbstractScheduledServiceTest extends TestCase {
       // This will flakily deadlock, so run it multiple times to increase the flake likelihood
       for (int i = 0; i < 1000; i++) {
         Service service = new AbstractScheduledService() {
-          @Override protected void runOneIteration() {}
+          @Override protected void runOneIteration() { }
           @Override protected Scheduler scheduler() {
             return new CustomScheduler() {
               @Override protected Schedule getNextSchedule() throws Exception {

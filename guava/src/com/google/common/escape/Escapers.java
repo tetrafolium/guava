@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 @Beta
 @GwtCompatible
 public final class Escapers {
-  private Escapers() {}
+  private Escapers() { }
 
   /**
    * Returns an {@link Escaper} that does no escaping, passing all character data through unchanged.
@@ -47,12 +47,12 @@ public final class Escapers {
   private static final Escaper NULL_ESCAPER =
       new CharEscaper() {
         @Override
-        public String escape(String string) {
+        public String escape(final String string) {
           return checkNotNull(string);
         }
 
         @Override
-        protected char[] escape(char c) {
+        protected char[] escape(final char c) {
           // TODO: Fix tests not to call this directly and make it throw an error.
           return null;
         }
@@ -96,7 +96,7 @@ public final class Escapers {
     private String unsafeReplacement = null;
 
     // The constructor is exposed via the builder() method above.
-    private Builder() {}
+    private Builder() { }
 
     /**
      * Sets the safe range of characters for the escaper. Characters in this range that have no
@@ -108,7 +108,7 @@ public final class Escapers {
      * @return the builder instance
      */
     @CanIgnoreReturnValue
-    public Builder setSafeRange(char safeMin, char safeMax) {
+    public Builder setSafeRange(final char safeMin, final char safeMax) {
       this.safeMin = safeMin;
       this.safeMax = safeMax;
       return this;
@@ -123,7 +123,7 @@ public final class Escapers {
      * @return the builder instance
      */
     @CanIgnoreReturnValue
-    public Builder setUnsafeReplacement(@Nullable String unsafeReplacement) {
+    public Builder setUnsafeReplacement(final @Nullable String unsafeReplacement) {
       this.unsafeReplacement = unsafeReplacement;
       return this;
     }
@@ -139,7 +139,7 @@ public final class Escapers {
      * @throws NullPointerException if {@code replacement} is null
      */
     @CanIgnoreReturnValue
-    public Builder addEscape(char c, String replacement) {
+    public Builder addEscape(final char c, final String replacement) {
       checkNotNull(replacement);
       // This can replace an existing character (the builder is re-usable).
       replacementMap.put(c, replacement);
@@ -155,7 +155,7 @@ public final class Escapers {
             unsafeReplacement != null ? unsafeReplacement.toCharArray() : null;
 
         @Override
-        protected char[] escapeUnsafe(char c) {
+        protected char[] escapeUnsafe(final char c) {
           return replacementChars;
         }
       };
@@ -176,7 +176,7 @@ public final class Escapers {
    * @throws NullPointerException if escaper is null
    * @throws IllegalArgumentException if escaper is not a UnicodeEscaper or a CharEscaper
    */
-  static UnicodeEscaper asUnicodeEscaper(Escaper escaper) {
+  static UnicodeEscaper asUnicodeEscaper(final Escaper escaper) {
     checkNotNull(escaper);
     if (escaper instanceof UnicodeEscaper) {
       return (UnicodeEscaper) escaper;
@@ -198,7 +198,7 @@ public final class Escapers {
    * @param c the character to escape if necessary
    * @return the replacement string, or {@code null} if no escaping was needed
    */
-  public static String computeReplacement(CharEscaper escaper, char c) {
+  public static String computeReplacement(final CharEscaper escaper, final char c) {
     return stringOrNull(escaper.escape(c));
   }
 
@@ -211,11 +211,11 @@ public final class Escapers {
    * @param cp the Unicode code point to escape if necessary
    * @return the replacement string, or {@code null} if no escaping was needed
    */
-  public static String computeReplacement(UnicodeEscaper escaper, int cp) {
+  public static String computeReplacement(final UnicodeEscaper escaper, final int cp) {
     return stringOrNull(escaper.escape(cp));
   }
 
-  private static String stringOrNull(char[] in) {
+  private static String stringOrNull(final char[] in) {
     return (in == null) ? null : new String(in);
   }
 
@@ -223,7 +223,7 @@ public final class Escapers {
   private static UnicodeEscaper wrap(final CharEscaper escaper) {
     return new UnicodeEscaper() {
       @Override
-      protected char[] escape(int cp) {
+      protected char[] escape(final int cp) {
         // If a code point maps to a single character, just escape that.
         if (cp < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
           return escaper.escape((char) cp);

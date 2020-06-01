@@ -40,13 +40,13 @@ import java.util.concurrent.ExecutionException;
 public abstract class AbstractCache<K, V> implements Cache<K, V> {
 
   /** Constructor for use by subclasses. */
-  protected AbstractCache() {}
+  protected AbstractCache() { }
 
   /**
    * @since 11.0
    */
   @Override
-  public V get(K key, Callable<? extends V> valueLoader) throws ExecutionException {
+  public V get(final K key, final Callable<? extends V> valueLoader) throws ExecutionException {
     throw new UnsupportedOperationException();
   }
 
@@ -60,7 +60,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    * @since 11.0
    */
   @Override
-  public ImmutableMap<K, V> getAllPresent(Iterable<?> keys) {
+  public ImmutableMap<K, V> getAllPresent(final Iterable<?> keys) {
     Map<K, V> result = Maps.newLinkedHashMap();
     for (Object key : keys) {
       if (!result.containsKey(key)) {
@@ -79,7 +79,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    * @since 11.0
    */
   @Override
-  public void put(K key, V value) {
+  public void put(final K key, final V value) {
     throw new UnsupportedOperationException();
   }
 
@@ -87,14 +87,14 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    * @since 12.0
    */
   @Override
-  public void putAll(Map<? extends K, ? extends V> m) {
+  public void putAll(final Map<? extends K, ? extends V> m) {
     for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
       put(entry.getKey(), entry.getValue());
     }
   }
 
   @Override
-  public void cleanUp() {}
+  public void cleanUp() { }
 
   @Override
   public long size() {
@@ -102,7 +102,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
   }
 
   @Override
-  public void invalidate(Object key) {
+  public void invalidate(final Object key) {
     throw new UnsupportedOperationException();
   }
 
@@ -110,7 +110,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    * @since 11.0
    */
   @Override
-  public void invalidateAll(Iterable<?> keys) {
+  public void invalidateAll(final Iterable<?> keys) {
     for (Object key : keys) {
       invalidate(key);
     }
@@ -209,13 +209,13 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     /**
      * Constructs an instance with all counts initialized to zero.
      */
-    public SimpleStatsCounter() {}
+    public SimpleStatsCounter() { }
 
     /**
      * @since 11.0
      */
     @Override
-    public void recordHits(int count) {
+    public void recordHits(final int count) {
       hitCount.add(count);
     }
 
@@ -223,18 +223,18 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      * @since 11.0
      */
     @Override
-    public void recordMisses(int count) {
+    public void recordMisses(final int count) {
       missCount.add(count);
     }
 
     @Override
-    public void recordLoadSuccess(long loadTime) {
+    public void recordLoadSuccess(final long loadTime) {
       loadSuccessCount.increment();
       totalLoadTime.add(loadTime);
     }
 
     @Override
-    public void recordLoadException(long loadTime) {
+    public void recordLoadException(final long loadTime) {
       loadExceptionCount.increment();
       totalLoadTime.add(loadTime);
     }
@@ -258,7 +258,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     /**
      * Increments all counters by the values in {@code other}.
      */
-    public void incrementBy(StatsCounter other) {
+    public void incrementBy(final StatsCounter other) {
       CacheStats otherStats = other.snapshot();
       hitCount.add(otherStats.hitCount());
       missCount.add(otherStats.missCount());

@@ -22,4 +22,4 @@ package com.google.common.collect;
  *
  * @author Hayward Chan
  */
-public final class ForwardingImmutableList_CustomFieldSerializer {}
+public final class ForwardingImmutableList_CustomFieldSerializer { }

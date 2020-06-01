@@ -33,11 +33,11 @@ import javax.annotation.Nullable;
 class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
     implements RunnableFuture<V> {
 
-  static <V> TrustedListenableFutureTask<V> create(AsyncCallable<V> callable) {
+  static <V> TrustedListenableFutureTask<V> create(final AsyncCallable<V> callable) {
     return new TrustedListenableFutureTask<V>(callable);
   }
 
-  static <V> TrustedListenableFutureTask<V> create(Callable<V> callable) {
+  static <V> TrustedListenableFutureTask<V> create(final Callable<V> callable) {
     return new TrustedListenableFutureTask<V>(callable);
   }
 
@@ -52,7 +52,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
    *     {@code ListenableFuture<?> f = ListenableFutureTask.create(runnable,
    *     null)}
    */
-  static <V> TrustedListenableFutureTask<V> create(Runnable runnable, @Nullable V result) {
+  static <V> TrustedListenableFutureTask<V> create(final Runnable runnable, final @Nullable V result) {
     return new TrustedListenableFutureTask<V>(Executors.callable(runnable, result));
   }
 
@@ -65,11 +65,11 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
    */
   private volatile InterruptibleTask<?> task;
 
-  TrustedListenableFutureTask(Callable<V> callable) {
+  TrustedListenableFutureTask(final Callable<V> callable) {
     this.task = new TrustedFutureInterruptibleTask(callable);
   }
 
-  TrustedListenableFutureTask(AsyncCallable<V> callable) {
+  TrustedListenableFutureTask(final AsyncCallable<V> callable) {
     this.task = new TrustedFutureInterruptibleAsyncTask(callable);
   }
 
@@ -113,7 +113,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
   private final class TrustedFutureInterruptibleTask extends InterruptibleTask<V> {
     private final Callable<V> callable;
 
-    TrustedFutureInterruptibleTask(Callable<V> callable) {
+    TrustedFutureInterruptibleTask(final Callable<V> callable) {
       this.callable = checkNotNull(callable);
     }
 
@@ -128,7 +128,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
     }
 
     @Override
-    void afterRanInterruptibly(V result, Throwable error) {
+    void afterRanInterruptibly(final V result, final Throwable error) {
       if (error == null) {
         TrustedListenableFutureTask.this.set(result);
       } else {
@@ -147,7 +147,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
       extends InterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
-    TrustedFutureInterruptibleAsyncTask(AsyncCallable<V> callable) {
+    TrustedFutureInterruptibleAsyncTask(final AsyncCallable<V> callable) {
       this.callable = checkNotNull(callable);
     }
 
@@ -165,7 +165,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
     }
 
     @Override
-    void afterRanInterruptibly(ListenableFuture<V> result, Throwable error) {
+    void afterRanInterruptibly(final ListenableFuture<V> result, final Throwable error) {
       if (error == null) {
         setFuture(result);
       } else {

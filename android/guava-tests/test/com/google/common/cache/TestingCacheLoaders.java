@@ -41,12 +41,12 @@ class TestingCacheLoaders {
     checkNotNull(loader);
     return new CacheLoader<K, V>() {
       @Override
-      public V load(K key) throws Exception {
+      public V load(final K key) throws Exception {
         return loader.load(key);
       }
 
       @Override
-      public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
+      public Map<K, V> loadAll(final Iterable<? extends K> keys) throws Exception {
         Map<K, V> result = Maps.newHashMap(); // allow nulls
         for (K key : keys) {
           result.put(key, load(key));
@@ -59,7 +59,7 @@ class TestingCacheLoaders {
   /**
    * Returns a {@link CacheLoader} that returns the given {@code constant} for every request.
    */
-  static <K, V> ConstantLoader<K, V> constantLoader(@Nullable V constant) {
+  static <K, V> ConstantLoader<K, V> constantLoader(final @Nullable V constant) {
     return new ConstantLoader<>(constant);
   }
 
@@ -77,7 +77,7 @@ class TestingCacheLoaders {
     checkNotNull(e);
     return new CacheLoader<K, V>() {
       @Override
-      public V load(K key) {
+      public V load(final K key) {
         throw e;
       }
     };
@@ -90,7 +90,7 @@ class TestingCacheLoaders {
     checkNotNull(e);
     return new CacheLoader<K, V>() {
       @Override
-      public V load(K key) throws Exception {
+      public V load(final K key) throws Exception {
         throw e;
       }
     };
@@ -111,7 +111,7 @@ class TestingCacheLoaders {
     private final AtomicInteger count = new AtomicInteger();
 
     @Override
-    public Object load(Object from) {
+    public Object load(final Object from) {
       count.incrementAndGet();
       return new Object();
     }
@@ -124,12 +124,12 @@ class TestingCacheLoaders {
   static final class ConstantLoader<K, V> extends CacheLoader<K, V> {
     private final V constant;
 
-    ConstantLoader(V constant) {
+    ConstantLoader(final V constant) {
       this.constant = constant;
     }
 
     @Override
-    public V load(K key) {
+    public V load(final K key) {
       return constant;
     }
   }
@@ -145,14 +145,14 @@ class TestingCacheLoaders {
     private final AtomicInteger countReload = new AtomicInteger();
 
     @Override
-    public Integer load(Integer key) {
+    public Integer load(final Integer key) {
       countLoad.incrementAndGet();
       return key;
     }
 
     @GwtIncompatible // reload
     @Override
-    public ListenableFuture<Integer> reload(Integer key, Integer oldValue) {
+    public ListenableFuture<Integer> reload(final Integer key, final Integer oldValue) {
       countReload.incrementAndGet();
       return Futures.immediateFuture(oldValue + 1);
     }
@@ -168,7 +168,7 @@ class TestingCacheLoaders {
 
   static final class IdentityLoader<T> extends CacheLoader<T, T> {
     @Override
-    public T load(T key) {
+    public T load(final T key) {
       return key;
     }
   }

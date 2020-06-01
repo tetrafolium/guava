@@ -56,17 +56,17 @@ import javax.annotation.Nullable;
 @Beta
 public abstract class Invokable<T, R> extends Element implements GenericDeclaration {
 
-  <M extends AccessibleObject & Member> Invokable(M member) {
+  <M extends AccessibleObject & Member> Invokable(final M member) {
     super(member);
   }
 
   /** Returns {@link Invokable} of {@code method}. */
-  public static Invokable<?, Object> from(Method method) {
+  public static Invokable<?, Object> from(final Method method) {
     return new MethodInvokable<>(method);
   }
 
   /** Returns {@link Invokable} of {@code constructor}. */
-  public static <T> Invokable<T, T> from(Constructor<T> constructor) {
+  public static <T> Invokable<T, T> from(final Constructor<T> constructor) {
     return new ConstructorInvokable<T>(constructor);
   }
 
@@ -95,7 +95,7 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
   // All subclasses are owned by us and we'll make sure to get the R type right.
   @SuppressWarnings("unchecked")
   @CanIgnoreReturnValue
-  public final R invoke(@Nullable T receiver, Object... args)
+  public final R invoke(final @Nullable T receiver, final Object... args)
       throws InvocationTargetException, IllegalAccessException {
     return (R) invokeInternal(receiver, checkNotNull(args));
   }
@@ -141,12 +141,12 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
    *   Method factoryMethod = Person.class.getMethod("create");
    *   Invokable<?, Person> factory = Invokable.of(getNameMethod).returning(Person.class);}</pre>
    */
-  public final <R1 extends R> Invokable<T, R1> returning(Class<R1> returnType) {
+  public final <R1 extends R> Invokable<T, R1> returning(final Class<R1> returnType) {
     return returning(TypeToken.of(returnType));
   }
 
   /** Explicitly specifies the return type of this {@code Invokable}. */
-  public final <R1 extends R> Invokable<T, R1> returning(TypeToken<R1> returnType) {
+  public final <R1 extends R> Invokable<T, R1> returning(final TypeToken<R1> returnType) {
     if (!returnType.isSupertypeOf(getReturnType())) {
       throw new IllegalArgumentException(
           "Invokable is known to return " + getReturnType() + ", not " + returnType);
@@ -186,13 +186,13 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
 
     final Method method;
 
-    MethodInvokable(Method method) {
+    MethodInvokable(final Method method) {
       super(method);
       this.method = method;
     }
 
     @Override
-    final Object invokeInternal(@Nullable Object receiver, Object[] args)
+    final Object invokeInternal(final @Nullable Object receiver, final Object[] args)
         throws InvocationTargetException, IllegalAccessException {
       return method.invoke(receiver, args);
     }
@@ -240,13 +240,13 @@ public abstract class Invokable<T, R> extends Element implements GenericDeclarat
 
     final Constructor<?> constructor;
 
-    ConstructorInvokable(Constructor<?> constructor) {
+    ConstructorInvokable(final Constructor<?> constructor) {
       super(constructor);
       this.constructor = constructor;
     }
 
     @Override
-    final Object invokeInternal(@Nullable Object receiver, Object[] args)
+    final Object invokeInternal(final @Nullable Object receiver, final Object[] args)
         throws InvocationTargetException, IllegalAccessException {
       try {
         return constructor.newInstance(args);

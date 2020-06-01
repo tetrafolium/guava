@@ -25,10 +25,10 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class SingletonImmutableTable_CustomFieldSerializer {
   public static void deserialize(
-      SerializationStreamReader reader, SingletonImmutableTable<?, ?, ?> instance) {}
+      final SerializationStreamReader reader, final SingletonImmutableTable<?, ?, ?> instance) { }
 
   public static SingletonImmutableTable<Object, Object, Object> instantiate(
-      SerializationStreamReader reader) throws SerializationException {
+      final SerializationStreamReader reader) throws SerializationException {
     Object rowKey = reader.readObject();
     Object columnKey = reader.readObject();
     Object value = reader.readObject();
@@ -36,7 +36,7 @@ public class SingletonImmutableTable_CustomFieldSerializer {
   }
 
   public static void serialize(
-      SerializationStreamWriter writer, SingletonImmutableTable<?, ?, ?> instance)
+      final SerializationStreamWriter writer, final SingletonImmutableTable<?, ?, ?> instance)
       throws SerializationException {
     writer.writeObject(instance.singleRowKey);
     writer.writeObject(instance.singleColumnKey);

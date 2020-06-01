@@ -103,7 +103,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
   }
 
   private void runIteratorTest(
-      Set<IteratorFeature> features, IteratorTester.KnownOrder knownOrder, Iterable<E> elements) {
+      final Set<IteratorFeature> features, final IteratorTester.KnownOrder knownOrder, final Iterable<E> elements) {
     new IteratorTester<E>(
         Platform.collectionIteratorTesterNumIterations(), features, elements, knownOrder) {
       @Override
@@ -113,7 +113,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
       }
 
       @Override
-      protected void verify(List<E> elements) {
+      protected void verify(final List<E> elements) {
         expectContents(elements);
       }
     }.test();

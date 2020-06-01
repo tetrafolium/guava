@@ -20,9 +20,9 @@ package java.util.concurrent;
  * Emulation of TimeoutException.
  */
 public class TimeoutException extends Exception {
-  public TimeoutException() {}
+  public TimeoutException() { }
 
-  public TimeoutException(String message) {
+  public TimeoutException(final String message) {
     super(message);
   }
 }

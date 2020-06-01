@@ -62,7 +62,7 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
   protected final MapIteratorCache<E, N> edgeToReferenceNode; // referenceNode == source if directed
 
   /** Constructs a graph with the properties specified in {@code builder}. */
-  ConfigurableNetwork(NetworkBuilder<? super N, ? super E> builder) {
+  ConfigurableNetwork(final NetworkBuilder<? super N, ? super E> builder) {
     this(
         builder,
         builder.nodeOrder.<N, NetworkConnections<N, E>>createMap(
@@ -75,9 +75,9 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
    * node and edge maps.
    */
   ConfigurableNetwork(
-      NetworkBuilder<? super N, ? super E> builder,
-      Map<N, NetworkConnections<N, E>> nodeConnections,
-      Map<E, N> edgeToReferenceNode) {
+      final NetworkBuilder<? super N, ? super E> builder,
+      final Map<N, NetworkConnections<N, E>> nodeConnections,
+      final Map<E, N> edgeToReferenceNode) {
     this.isDirected = builder.directed;
     this.allowsParallelEdges = builder.allowsParallelEdges;
     this.allowsSelfLoops = builder.allowsSelfLoops;
@@ -128,24 +128,24 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
   }
 
   @Override
-  public Set<E> incidentEdges(N node) {
+  public Set<E> incidentEdges(final N node) {
     return checkedConnections(node).incidentEdges();
   }
 
   @Override
-  public EndpointPair<N> incidentNodes(E edge) {
+  public EndpointPair<N> incidentNodes(final E edge) {
     N nodeU = checkedReferenceNode(edge);
     N nodeV = nodeConnections.get(nodeU).adjacentNode(edge);
     return EndpointPair.of(this, nodeU, nodeV);
   }
 
   @Override
-  public Set<N> adjacentNodes(N node) {
+  public Set<N> adjacentNodes(final N node) {
     return checkedConnections(node).adjacentNodes();
   }
 
   @Override
-  public Set<E> edgesConnecting(N nodeU, N nodeV) {
+  public Set<E> edgesConnecting(final N nodeU, final N nodeV) {
     NetworkConnections<N, E> connectionsU = checkedConnections(nodeU);
     if (!allowsSelfLoops && nodeU == nodeV) { // just an optimization, only check reference equality
       return ImmutableSet.of();
@@ -155,26 +155,26 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
   }
 
   @Override
-  public Set<E> inEdges(N node) {
+  public Set<E> inEdges(final N node) {
     return checkedConnections(node).inEdges();
   }
 
   @Override
-  public Set<E> outEdges(N node) {
+  public Set<E> outEdges(final N node) {
     return checkedConnections(node).outEdges();
   }
 
   @Override
-  public Set<N> predecessors(N node) {
+  public Set<N> predecessors(final N node) {
     return checkedConnections(node).predecessors();
   }
 
   @Override
-  public Set<N> successors(N node) {
+  public Set<N> successors(final N node) {
     return checkedConnections(node).successors();
   }
 
-  protected final NetworkConnections<N, E> checkedConnections(N node) {
+  protected final NetworkConnections<N, E> checkedConnections(final N node) {
     NetworkConnections<N, E> connections = nodeConnections.get(node);
     if (connections == null) {
       checkNotNull(node);
@@ -183,7 +183,7 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     return connections;
   }
 
-  protected final N checkedReferenceNode(E edge) {
+  protected final N checkedReferenceNode(final E edge) {
     N referenceNode = edgeToReferenceNode.get(edge);
     if (referenceNode == null) {
       checkNotNull(edge);
@@ -192,11 +192,11 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     return referenceNode;
   }
 
-  protected final boolean containsNode(@Nullable N node) {
+  protected final boolean containsNode(final @Nullable N node) {
     return nodeConnections.containsKey(node);
   }
 
-  protected final boolean containsEdge(@Nullable E edge) {
+  protected final boolean containsEdge(final @Nullable E edge) {
     return edgeToReferenceNode.containsKey(edge);
   }
 }

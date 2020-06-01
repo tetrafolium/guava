@@ -34,20 +34,20 @@ import javax.annotation.Nullable;
 abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
     extends AbstractFuture.TrustedFuture<V> implements Runnable {
   static <V, X extends Throwable> ListenableFuture<V> create(
-      ListenableFuture<? extends V> input,
-      Class<X> exceptionType,
-      Function<? super X, ? extends V> fallback,
-      Executor executor) {
+      final ListenableFuture<? extends V> input,
+      final Class<X> exceptionType,
+      final Function<? super X, ? extends V> fallback,
+      final Executor executor) {
     CatchingFuture<V, X> future = new CatchingFuture<>(input, exceptionType, fallback);
     input.addListener(future, rejectionPropagatingExecutor(executor, future));
     return future;
   }
 
   static <X extends Throwable, V> ListenableFuture<V> create(
-      ListenableFuture<? extends V> input,
-      Class<X> exceptionType,
-      AsyncFunction<? super X, ? extends V> fallback,
-      Executor executor) {
+      final ListenableFuture<? extends V> input,
+      final Class<X> exceptionType,
+      final AsyncFunction<? super X, ? extends V> fallback,
+      final Executor executor) {
     AsyncCatchingFuture<V, X> future = new AsyncCatchingFuture<>(input, exceptionType, fallback);
     input.addListener(future, rejectionPropagatingExecutor(executor, future));
     return future;
@@ -62,7 +62,7 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
   @Nullable F fallback;
 
   AbstractCatchingFuture(
-      ListenableFuture<? extends V> inputFuture, Class<X> exceptionType, F fallback) {
+      final ListenableFuture<? extends V> inputFuture, final Class<X> exceptionType, final F fallback) {
     this.inputFuture = checkNotNull(inputFuture);
     this.exceptionType = checkNotNull(exceptionType);
     this.fallback = checkNotNull(fallback);
@@ -160,15 +160,15 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
       extends AbstractCatchingFuture<
           V, X, AsyncFunction<? super X, ? extends V>, ListenableFuture<? extends V>> {
     AsyncCatchingFuture(
-        ListenableFuture<? extends V> input,
-        Class<X> exceptionType,
-        AsyncFunction<? super X, ? extends V> fallback) {
+        final ListenableFuture<? extends V> input,
+        final Class<X> exceptionType,
+        final AsyncFunction<? super X, ? extends V> fallback) {
       super(input, exceptionType, fallback);
     }
 
     @Override
     ListenableFuture<? extends V> doFallback(
-        AsyncFunction<? super X, ? extends V> fallback, X cause) throws Exception {
+        final AsyncFunction<? super X, ? extends V> fallback, final X cause) throws Exception {
       ListenableFuture<? extends V> replacement = fallback.apply(cause);
       checkNotNull(
           replacement,
@@ -178,7 +178,7 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
     }
 
     @Override
-    void setResult(ListenableFuture<? extends V> result) {
+    void setResult(final ListenableFuture<? extends V> result) {
       setFuture(result);
     }
   }
@@ -190,20 +190,20 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
   private static final class CatchingFuture<V, X extends Throwable>
       extends AbstractCatchingFuture<V, X, Function<? super X, ? extends V>, V> {
     CatchingFuture(
-        ListenableFuture<? extends V> input,
-        Class<X> exceptionType,
-        Function<? super X, ? extends V> fallback) {
+        final ListenableFuture<? extends V> input,
+        final Class<X> exceptionType,
+        final Function<? super X, ? extends V> fallback) {
       super(input, exceptionType, fallback);
     }
 
     @Override
     @Nullable
-    V doFallback(Function<? super X, ? extends V> fallback, X cause) throws Exception {
+    V doFallback(final Function<? super X, ? extends V> fallback, final X cause) throws Exception {
       return fallback.apply(cause);
     }
 
     @Override
-    void setResult(@Nullable V result) {
+    void setResult(final @Nullable V result) {
       set(result);
     }
   }

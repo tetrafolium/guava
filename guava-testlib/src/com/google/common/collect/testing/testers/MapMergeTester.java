@@ -109,7 +109,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
     expectReplacement(entry(k0(), v4()));
   }
 
-  private static class ExpectedException extends RuntimeException {}
+  private static class ExpectedException extends RuntimeException { }
 
   @MapFeature.Require(SUPPORTS_PUT)
   @CollectionSize.Require(absent = ZERO)

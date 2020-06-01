@@ -69,44 +69,44 @@ public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
       }
 
       @Override
-      public Set<N> adjacentNodes(N node) {
+      public Set<N> adjacentNodes(final N node) {
         return AbstractValueGraph.this.adjacentNodes(node);
       }
 
       @Override
-      public Set<N> predecessors(N node) {
+      public Set<N> predecessors(final N node) {
         return AbstractValueGraph.this.predecessors(node);
       }
 
       @Override
-      public Set<N> successors(N node) {
+      public Set<N> successors(final N node) {
         return AbstractValueGraph.this.successors(node);
       }
 
       @Override
-      public int degree(N node) {
+      public int degree(final N node) {
         return AbstractValueGraph.this.degree(node);
       }
 
       @Override
-      public int inDegree(N node) {
+      public int inDegree(final N node) {
         return AbstractValueGraph.this.inDegree(node);
       }
 
       @Override
-      public int outDegree(N node) {
+      public int outDegree(final N node) {
         return AbstractValueGraph.this.outDegree(node);
       }
     };
   }
 
   @Override
-  public Optional<V> edgeValue(N nodeU, N nodeV) {
+  public Optional<V> edgeValue(final N nodeU, final N nodeV) {
     return Optional.ofNullable(edgeValueOrDefault(nodeU, nodeV, null));
   }
 
   @Override
-  public final boolean equals(@Nullable Object obj) {
+  public final boolean equals(final @Nullable Object obj) {
     if (obj == this) {
       return true;
     }
@@ -142,7 +142,7 @@ public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
     Function<EndpointPair<N>, V> edgeToValueFn =
         new Function<EndpointPair<N>, V>() {
           @Override
-          public V apply(EndpointPair<N> edge) {
+          public V apply(final EndpointPair<N> edge) {
             return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
           }
         };

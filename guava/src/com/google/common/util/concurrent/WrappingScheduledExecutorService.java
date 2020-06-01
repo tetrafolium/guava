@@ -34,30 +34,30 @@ abstract class WrappingScheduledExecutorService extends WrappingExecutorService
     implements ScheduledExecutorService {
   final ScheduledExecutorService delegate;
 
-  protected WrappingScheduledExecutorService(ScheduledExecutorService delegate) {
+  protected WrappingScheduledExecutorService(final ScheduledExecutorService delegate) {
     super(delegate);
     this.delegate = delegate;
   }
 
   @Override
-  public final ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+  public final ScheduledFuture<?> schedule(final Runnable command, final long delay, final TimeUnit unit) {
     return delegate.schedule(wrapTask(command), delay, unit);
   }
 
   @Override
-  public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
+  public final <V> ScheduledFuture<V> schedule(final Callable<V> task, final long delay, final TimeUnit unit) {
     return delegate.schedule(wrapTask(task), delay, unit);
   }
 
   @Override
   public final ScheduledFuture<?> scheduleAtFixedRate(
-      Runnable command, long initialDelay, long period, TimeUnit unit) {
+      final Runnable command, final long initialDelay, final long period, final TimeUnit unit) {
     return delegate.scheduleAtFixedRate(wrapTask(command), initialDelay, period, unit);
   }
 
   @Override
   public final ScheduledFuture<?> scheduleWithFixedDelay(
-      Runnable command, long initialDelay, long delay, TimeUnit unit) {
+      final Runnable command, final long initialDelay, final long delay, final TimeUnit unit) {
     return delegate.scheduleWithFixedDelay(wrapTask(command), initialDelay, delay, unit);
   }
 }

@@ -43,13 +43,13 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
     implements MutableNetwork<N, E> {
 
   /** Constructs a mutable graph with the properties specified in {@code builder}. */
-  ConfigurableMutableNetwork(NetworkBuilder<? super N, ? super E> builder) {
+  ConfigurableMutableNetwork(final NetworkBuilder<? super N, ? super E> builder) {
     super(builder);
   }
 
   @Override
   @CanIgnoreReturnValue
-  public boolean addNode(N node) {
+  public boolean addNode(final N node) {
     checkNotNull(node, "node");
 
     if (containsNode(node)) {
@@ -66,7 +66,7 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
    * @throws IllegalStateException if {@code node} is already present
    */
   @CanIgnoreReturnValue
-  private NetworkConnections<N, E> addNodeInternal(N node) {
+  private NetworkConnections<N, E> addNodeInternal(final N node) {
     NetworkConnections<N, E> connections = newConnections();
     checkState(nodeConnections.put(node, connections) == null);
     return connections;
@@ -74,7 +74,7 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
 
   @Override
   @CanIgnoreReturnValue
-  public boolean addEdge(N nodeU, N nodeV, E edge) {
+  public boolean addEdge(final N nodeU, final N nodeV, final E edge) {
     checkNotNull(nodeU, "nodeU");
     checkNotNull(nodeV, "nodeV");
     checkNotNull(edge, "edge");
@@ -118,7 +118,7 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
 
   @Override
   @CanIgnoreReturnValue
-  public boolean removeNode(N node) {
+  public boolean removeNode(final N node) {
     checkNotNull(node, "node");
 
     NetworkConnections<N, E> connections = nodeConnections.get(node);
@@ -137,7 +137,7 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
 
   @Override
   @CanIgnoreReturnValue
-  public boolean removeEdge(E edge) {
+  public boolean removeEdge(final E edge) {
     checkNotNull(edge, "edge");
 
     N nodeU = edgeToReferenceNode.get(edge);

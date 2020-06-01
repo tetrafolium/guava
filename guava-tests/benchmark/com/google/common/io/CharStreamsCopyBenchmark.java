@@ -36,7 +36,7 @@ public class CharStreamsCopyBenchmark {
   enum CopyStrategy {
     OLD {
       @Override
-      long copy(Readable from, Appendable to) throws IOException {
+      long copy(final Readable from, final Appendable to) throws IOException {
         CharBuffer buf = CharStreams.createBuffer();
         long total = 0;
         while (from.read(buf) != -1) {
@@ -50,7 +50,7 @@ public class CharStreamsCopyBenchmark {
     },
     NEW {
       @Override
-      long copy(Readable from, Appendable to) throws IOException {
+      long copy(final Readable from, final Appendable to) throws IOException {
         return CharStreams.copy(from, to);
       }
     };
@@ -61,13 +61,13 @@ public class CharStreamsCopyBenchmark {
   enum TargetSupplier {
     STRING_WRITER {
       @Override
-      Appendable get(int sz) {
+      Appendable get(final int sz) {
         return new StringWriter(sz);
       }
     },
     STRING_BUILDER {
       @Override
-      Appendable get(int sz) {
+      Appendable get(final int sz) {
         return new StringBuilder(sz);
       }
     };
@@ -97,7 +97,7 @@ public class CharStreamsCopyBenchmark {
   }
 
   @Benchmark
-  public long timeCopy(int reps) throws IOException {
+  public long timeCopy(final int reps) throws IOException {
     long r = 0;
     final String localData = data;
     final TargetSupplier localTarget = target;

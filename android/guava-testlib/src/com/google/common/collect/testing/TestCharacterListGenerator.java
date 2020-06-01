@@ -34,7 +34,7 @@ public abstract class TestCharacterListGenerator implements TestListGenerator<Ch
   }
 
   @Override
-  public List<Character> create(Object... elements) {
+  public List<Character> create(final Object... elements) {
     Character[] array = new Character[elements.length];
     int i = 0;
     for (Object e : elements) {
@@ -50,13 +50,13 @@ public abstract class TestCharacterListGenerator implements TestListGenerator<Ch
   protected abstract List<Character> create(Character[] elements);
 
   @Override
-  public Character[] createArray(int length) {
+  public Character[] createArray(final int length) {
     return new Character[length];
   }
 
   /** Returns the original element list, unchanged. */
   @Override
-  public List<Character> order(List<Character> insertionOrder) {
+  public List<Character> order(final List<Character> insertionOrder) {
     return insertionOrder;
   }
 }

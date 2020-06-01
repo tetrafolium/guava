@@ -34,7 +34,7 @@ public final class Reflection {
    * 6.7). Unlike {@link Class#getPackage}, this method only parses the class name, without
    * attempting to define the {@link Package} and hence load files.
    */
-  public static String getPackageName(Class<?> clazz) {
+  public static String getPackageName(final Class<?> clazz) {
     return getPackageName(clazz.getName());
   }
 
@@ -43,7 +43,7 @@ public final class Reflection {
    * (section 6.7). Unlike {@link Class#getPackage}, this method only parses the class name, without
    * attempting to define the {@link Package} and hence load files.
    */
-  public static String getPackageName(String classFullName) {
+  public static String getPackageName(final String classFullName) {
     int lastDot = classFullName.lastIndexOf('.');
     return (lastDot < 0) ? "" : classFullName.substring(0, lastDot);
   }
@@ -59,7 +59,7 @@ public final class Reflection {
    *
    * @throws ExceptionInInitializerError if an exception is thrown during initialization of a class
    */
-  public static void initialize(Class<?>... classes) {
+  public static void initialize(final Class<?>... classes) {
     for (Class<?> clazz : classes) {
       try {
         Class.forName(clazz.getName(), true, clazz.getClassLoader());
@@ -78,7 +78,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if {@code interfaceType} does not specify the type of a Java
    *     interface
    */
-  public static <T> T newProxy(Class<T> interfaceType, InvocationHandler handler) {
+  public static <T> T newProxy(final Class<T> interfaceType, final InvocationHandler handler) {
     checkNotNull(handler);
     checkArgument(interfaceType.isInterface(), "%s is not an interface", interfaceType);
     Object object =
@@ -87,5 +87,5 @@ public final class Reflection {
     return interfaceType.cast(object);
   }
 
-  private Reflection() {}
+  private Reflection() { }
 }
