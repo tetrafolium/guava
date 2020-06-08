@@ -50,7 +50,7 @@ inspecode:
     thresholds:  { num-issues: 18 }
 
   pmd:
-    #auto-fix:    true   # java.lang.StringIndexOutOfBoundsException: begin 10568, end 10559, length 13170
+    auto-fix:    true   # (tractrix/javalift#12)
     thresholds:  { num-issues: 120 }
 
   #### Classfiles/jarfiles of targets are not specified.
