@@ -21,16 +21,16 @@ inspecode:
   clang-format:
   - input:       [ "android/" ]
     auto-fix:    true
-    thresholds:  { num-issues: 850 }
+    thresholds:  { num-issues: 846 }
   - ignore:      [ "android/" ]
     auto-fix:    true
-    thresholds:  { num-issues: 998 }
+    thresholds:  { num-issues: 993 }
 
   cpd:
     thresholds:  { num-issues: 951 }
 
   fossology:
-    thresholds:  { num-issues: 23 }
+    thresholds:  { num-issues: 25 }
 
   grep:
     thresholds:  { num-issues: 118 }
@@ -39,7 +39,8 @@ inspecode:
     thresholds:  { num-issues: 140 }
 
   jscpd:
-    thresholds:  { num-issues: 23 }
+    ignore:      [ "**/testing/" ]
+    thresholds:  { num-issues: 999 }
 
   misspell:
     auto-fix:    true
