@@ -40,7 +40,7 @@ inspecode:
 
   jscpd:
     ignore:      [ "**/testing/" ]
-    thresholds:  { num-issues: 999 }
+    thresholds:  { num-issues: 809 }
 
   misspell:
     auto-fix:    true
