@@ -122,12 +122,10 @@ public final class SpliteratorTester<E> {
           "estimated size of spliterator after trySplit (%s) is larger than original size (%s)",
           spliterator.estimateSize(), originalSize));
     }
-    if (trySplit != null) {
-      if (trySplit.estimateSize() > originalSize) {
-        fail(format(
-            "estimated size of trySplit result (%s) is larger than original size (%s)",
-            trySplit.estimateSize(), originalSize));
-      }
+    if ((trySplit != null) && (trySplit.estimateSize() > originalSize)) {
+      fail(format(
+          "estimated size of trySplit result (%s) is larger than original size (%s)",
+          trySplit.estimateSize(), originalSize));
     }
     if (subsized) {
       if (trySplit != null) {
