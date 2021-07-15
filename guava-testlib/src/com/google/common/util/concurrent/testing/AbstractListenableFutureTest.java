@@ -88,7 +88,8 @@ public abstract class AbstractListenableFutureTest extends TestCase {
           t.printStackTrace();
           badness[0] = t;
         }
-      }}).start();
+      }
+    }).start();
 
     // Release the future value.
     latch.countDown();
@@ -108,7 +109,7 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * correctly.
    */
   public void testTimeoutOnGetWorksCorrectly() throws InterruptedException,
-      ExecutionException {
+    ExecutionException {
 
     // The task thread waits for the latch, so we expect a timeout here.
     try {
@@ -206,7 +207,7 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * can be lost.
    */
   public void testAllListenersCompleteSuccessfully()
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
 
     ExecutorService exec = Executors.newCachedThreadPool();
 

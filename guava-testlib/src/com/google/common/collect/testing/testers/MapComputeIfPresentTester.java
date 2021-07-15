@@ -44,11 +44,11 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "computeIfPresent(notPresent, function) should return null",
         getMap()
-            .computeIfPresent(
-                k3(),
-                (k, v) -> {
-                  throw new AssertionFailedError();
-                }));
+        .computeIfPresent(
+            k3(),
+    (k, v) -> {
+      throw new AssertionFailedError();
+    }));
     expectUnchanged();
   }
 
@@ -59,13 +59,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
         "computeIfPresent(present, function) should return new value",
         v3(),
         getMap()
-            .computeIfPresent(
-                k0(),
-                (k, v) -> {
-                  assertEquals(k0(), k);
-                  assertEquals(v0(), v);
-                  return v3();
-                }));
+        .computeIfPresent(
+            k0(),
+    (k, v) -> {
+      assertEquals(k0(), k);
+      assertEquals(v0(), v);
+      return v3();
+    }));
     expectReplacement(entry(k0(), v3()));
   }
 
@@ -75,13 +75,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "computeIfPresent(present, returnsNull) should return null",
         getMap()
-            .computeIfPresent(
-                k0(),
-                (k, v) -> {
-                  assertEquals(k0(), k);
-                  assertEquals(v0(), v);
-                  return null;
-                }));
+        .computeIfPresent(
+            k0(),
+    (k, v) -> {
+      assertEquals(k0(), k);
+      assertEquals(v0(), v);
+      return null;
+    }));
     expectMissing(e0());
   }
 
@@ -92,11 +92,11 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "computeIfPresent(presentAssignedToNull, function) should return null",
         getMap()
-            .computeIfPresent(
-                getKeyForNullValue(),
-                (k, v) -> {
-                  throw new AssertionFailedError();
-                }));
+        .computeIfPresent(
+            getKeyForNullValue(),
+    (k, v) -> {
+      throw new AssertionFailedError();
+    }));
     expectReplacement(entry(getKeyForNullValue(), null));
   }
 
@@ -107,13 +107,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
   public void testComputeIfPresent_functionThrows() {
     try {
       getMap()
-          .computeIfPresent(
-              k0(),
-              (k, v) -> {
-                assertEquals(k0(), k);
-                assertEquals(v0(), v);
-                throw new ExpectedException();
-              });
+      .computeIfPresent(
+          k0(),
+      (k, v) -> {
+        assertEquals(k0(), k);
+        assertEquals(v0(), v);
+        throw new ExpectedException();
+      });
       fail("Expected ExpectedException");
     } catch (ExpectedException expected) {
     }
@@ -128,13 +128,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
         "computeIfPresent(null, function) should return new value",
         v3(),
         getMap()
-            .computeIfPresent(
-                null,
-                (k, v) -> {
-                  assertNull(k);
-                  assertEquals(getValueForNullKey(), v);
-                  return v3();
-                }));
+        .computeIfPresent(
+            null,
+    (k, v) -> {
+      assertNull(k);
+      assertEquals(getValueForNullKey(), v);
+      return v3();
+    }));
 
     Entry<K, V>[] expected = createArrayWithNullKey();
     expected[getNullLocation()] = entry(null, v3());
@@ -146,11 +146,11 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "computeIfPresent(null, function) should return null",
         getMap()
-            .computeIfPresent(
-                null,
-                (k, v) -> {
-                  throw new AssertionFailedError();
-                }));
+        .computeIfPresent(
+            null,
+    (k, v) -> {
+      throw new AssertionFailedError();
+    }));
     expectUnchanged();
   }
 
@@ -158,11 +158,11 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
   public void testComputeIfPresent_unsupportedAbsent() {
     try {
       getMap()
-          .computeIfPresent(
-              k3(),
-              (k, v) -> {
-                throw new AssertionFailedError();
-              });
+      .computeIfPresent(
+          k3(),
+      (k, v) -> {
+        throw new AssertionFailedError();
+      });
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();

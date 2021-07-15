@@ -51,7 +51,7 @@ public class BinaryTreeTraverserBenchmark {
           int leftChildSize = (size - 1) / 2;
           int rightChildSize = size - 1 - leftChildSize;
           return Optional.of(new BinaryNode(
-              rng.nextInt(), createTree(leftChildSize, rng), createTree(rightChildSize, rng)));
+                      rng.nextInt(), createTree(leftChildSize, rng), createTree(rightChildSize, rng)));
         }
       }
     },
@@ -110,7 +110,7 @@ public class BinaryTreeTraverserBenchmark {
   }
 
   private static final BinaryTreeTraverser<BinaryNode> BINARY_VIEWER =
-      new BinaryTreeTraverser<BinaryNode>() {
+  new BinaryTreeTraverser<BinaryNode>() {
 
     @Override
     public Optional<BinaryNode> leftChild(BinaryNode node) {
@@ -173,8 +173,8 @@ public class BinaryTreeTraverserBenchmark {
   @BeforeExperiment
   void setUp() {
     this.view = traversal.view(
-        topology.createTree(size, rng).get(),
-        useBinaryTraverser ? BINARY_VIEWER : VIEWER);
+            topology.createTree(size, rng).get(),
+            useBinaryTraverser ? BINARY_VIEWER : VIEWER);
   }
 
   @Benchmark int traversal(int reps) {

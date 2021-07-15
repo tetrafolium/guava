@@ -44,7 +44,7 @@ public class ImmutableEnumSet_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, ImmutableEnumSet<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

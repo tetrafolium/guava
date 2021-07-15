@@ -75,19 +75,19 @@ public class AbstractFutureFootprintBenchmark {
       AbstractFutureBenchmarks.awaitWaiting(thread);
     }
     switch (state) {
-      case NOT_DONE:
-        break;
-      case FINISHED:
-        f.set(null);
-        break;
-      case CANCELLED:
-        f.cancel(false);
-        break;
-      case FAILED:
-        f.setException(new Exception());
-        break;
-      default:
-        throw new AssertionError();
+    case NOT_DONE:
+      break;
+    case FINISHED:
+      f.set(null);
+      break;
+    case CANCELLED:
+      f.cancel(false);
+      break;
+    case FAILED:
+      f.setException(new Exception());
+      break;
+    default:
+      throw new AssertionError();
     }
     return f;
   }

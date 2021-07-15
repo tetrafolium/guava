@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? extends B>, B>
-    implements ClassToInstanceMap<B>, Serializable {
+  implements ClassToInstanceMap<B>, Serializable {
 
   private static final ImmutableClassToInstanceMap<Object> EMPTY =
       new ImmutableClassToInstanceMap<>(ImmutableMap.<Class<?>, Object>of());

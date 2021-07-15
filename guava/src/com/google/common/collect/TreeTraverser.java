@@ -117,7 +117,7 @@ public abstract class TreeTraverser<T> {
             action.accept(t);
             children(t).forEach(this);
           }
-        }.accept(root);
+        } .accept(root);
       }
     };
   }
@@ -179,7 +179,7 @@ public abstract class TreeTraverser<T> {
             children(t).forEach(this);
             action.accept(t);
           }
-        }.accept(root);
+        } .accept(root);
       }
     };
   }
@@ -245,7 +245,7 @@ public abstract class TreeTraverser<T> {
   }
 
   private final class BreadthFirstIterator extends UnmodifiableIterator<T>
-      implements PeekingIterator<T> {
+    implements PeekingIterator<T> {
     private final Queue<T> queue;
 
     BreadthFirstIterator(T root) {

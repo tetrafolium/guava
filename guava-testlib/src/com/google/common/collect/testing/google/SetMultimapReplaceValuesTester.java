@@ -30,7 +30,7 @@ import java.util.List;
  */
 @GwtCompatible
 public class SetMultimapReplaceValuesTester<K, V>
-    extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
 
   @MapFeature.Require({SUPPORTS_PUT, SUPPORTS_REMOVE})
   public void testReplaceValuesHandlesDuplicates() {

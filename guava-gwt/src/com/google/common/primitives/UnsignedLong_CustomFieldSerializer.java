@@ -27,12 +27,12 @@ public class UnsignedLong_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader, UnsignedLong instance) {}
 
   public static UnsignedLong instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return UnsignedLong.fromLongBits(reader.readLong());
   }
 
   public static void serialize(SerializationStreamWriter writer, UnsignedLong instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeLong(instance.longValue());
   }
 }

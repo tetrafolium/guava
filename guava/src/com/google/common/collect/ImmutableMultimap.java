@@ -66,7 +66,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
-    implements Serializable {
+  implements Serializable {
 
   /** Returns an empty multimap. */
   public static <K, V> ImmutableMultimap<K, V> of() {
@@ -286,8 +286,8 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
             MultimapBuilder.linkedHashKeys().arrayListValues().<K, V>build();
         List<Map.Entry<K, Collection<V>>> entries =
             Ordering.from(keyComparator)
-                .<K>onKeys()
-                .immutableSortedCopy(builderMultimap.asMap().entrySet());
+            .<K>onKeys()
+            .immutableSortedCopy(builderMultimap.asMap().entrySet());
         for (Map.Entry<K, Collection<V>> entry : entries) {
           sortedCopy.putAll(entry.getKey(), entry.getValue());
         }
@@ -603,23 +603,23 @@ public abstract class ImmutableMultimap<K, V> extends AbstractMultimap<K, V>
   @Override
   Spliterator<Entry<K, V>> entrySpliterator() {
     return CollectSpliterators.flatMap(
-        asMap().entrySet().spliterator(),
-        keyToValueCollectionEntry -> {
-          K key = keyToValueCollectionEntry.getKey();
-          Collection<V> valueCollection = keyToValueCollectionEntry.getValue();
-          return CollectSpliterators.map(
-              valueCollection.spliterator(), (V value) -> Maps.immutableEntry(key, value));
-        },
-        Spliterator.SIZED | (this instanceof SetMultimap ? Spliterator.DISTINCT : 0),
-        size());
+            asMap().entrySet().spliterator(),
+    keyToValueCollectionEntry -> {
+      K key = keyToValueCollectionEntry.getKey();
+      Collection<V> valueCollection = keyToValueCollectionEntry.getValue();
+      return CollectSpliterators.map(
+          valueCollection.spliterator(), (V value) -> Maps.immutableEntry(key, value));
+    },
+    Spliterator.SIZED | (this instanceof SetMultimap ? Spliterator.DISTINCT : 0),
+    size());
   }
 
   @Override
   public void forEach(BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
     asMap()
-        .forEach(
-            (key, valueCollection) -> valueCollection.forEach(value -> action.accept(key, value)));
+    .forEach(
+        (key, valueCollection) -> valueCollection.forEach(value -> action.accept(key, value)));
   }
 
   /**

@@ -63,7 +63,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxverideShim<E>
-    implements NavigableSet<E>, SortedIterable<E> {
+  implements NavigableSet<E>, SortedIterable<E> {
   static final int SPLITERATOR_CHARACTERISTICS =
       ImmutableSet.SPLITERATOR_CHARACTERISTICS | Spliterator.SORTED;
 
@@ -401,7 +401,7 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     }
     Arrays.fill(contents, uniques, n, null);
     return new RegularImmutableSortedSet<E>(
-        ImmutableList.<E>asImmutableList(contents, uniques), comparator);
+            ImmutableList.<E>asImmutableList(contents, uniques), comparator);
   }
 
   /**
@@ -776,7 +776,7 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
   @Override
   public Spliterator<E> spliterator() {
     return new Spliterators.AbstractSpliterator<E>(
-        size(), SPLITERATOR_CHARACTERISTICS | Spliterator.SIZED) {
+    size(), SPLITERATOR_CHARACTERISTICS | Spliterator.SIZED) {
       final UnmodifiableIterator<E> iterator = iterator();
 
       @Override

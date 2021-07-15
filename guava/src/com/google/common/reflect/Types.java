@@ -55,12 +55,12 @@ final class Types {
 
   /** Class#toString without the "class " and "interface " prefixes */
   private static final Function<Type, String> TYPE_NAME =
-      new Function<Type, String>() {
-        @Override
-        public String apply(Type from) {
-          return JavaVersion.CURRENT.typeName(from);
-        }
-      };
+  new Function<Type, String>() {
+    @Override
+    public String apply(Type from) {
+      return JavaVersion.CURRENT.typeName(from);
+    }
+  };
 
   private static final Joiner COMMA_JOINER = Joiner.on(", ").useForNull("null");
 
@@ -101,7 +101,7 @@ final class Types {
    */
   static ParameterizedType newParameterizedType(Class<?> rawType, Type... arguments) {
     return new ParameterizedTypeImpl(
-        ClassOwnership.JVM_BEHAVIOR.getOwnerType(rawType), rawType, arguments);
+            ClassOwnership.JVM_BEHAVIOR.getOwnerType(rawType), rawType, arguments);
   }
 
   /** Decides what owner type to use for constructing {@link ParameterizedType} from a raw class. */
@@ -132,7 +132,7 @@ final class Types {
 
     private static ClassOwnership detectJvmBehavior() {
       class LocalClass<T> {}
-      Class<?> subclass = new LocalClass<String>() {}.getClass();
+      Class<?> subclass = new LocalClass<String>() {} .getClass();
       ParameterizedType parameterizedType = (ParameterizedType) subclass.getGenericSuperclass();
       for (ClassOwnership behavior : ClassOwnership.values()) {
         if (behavior.getOwnerType(LocalClass.class) == parameterizedType.getOwnerType()) {
@@ -150,7 +150,7 @@ final class Types {
   static <D extends GenericDeclaration> TypeVariable<D> newArtificialTypeVariable(
       D declaration, String name, Type... bounds) {
     return newTypeVariableImpl(
-        declaration, name, (bounds.length == 0) ? new Type[] {Object.class} : bounds);
+            declaration, name, (bounds.length == 0) ? new Type[] {Object.class} : bounds);
   }
 
   /** Returns a new {@link WildcardType} with {@code upperBound}. */
@@ -201,7 +201,7 @@ final class Types {
       void visitClass(Class<?> t) {
         result.set(t.getComponentType());
       }
-    }.visit(type);
+    } .visit(type);
     return result.get();
   }
 
@@ -627,14 +627,14 @@ final class Types {
 
     static {
       if (AnnotatedElement.class.isAssignableFrom(TypeVariable.class)) {
-        if (new TypeCapture<Map.Entry<String, int[][]>>() {}.capture()
-            .toString()
-            .contains("java.util.Map.java.util.Map")) {
+        if (new TypeCapture<Map.Entry<String, int[][]>>() {} .capture()
+      .toString()
+      .contains("java.util.Map.java.util.Map")) {
           CURRENT = JAVA8;
         } else {
           CURRENT = JAVA9;
         }
-      } else if (new TypeCapture<int[]>() {}.capture() instanceof Class) {
+      } else if (new TypeCapture<int[]>() {} .capture() instanceof Class) {
         CURRENT = JAVA7;
       } else {
         CURRENT = JAVA6;
@@ -675,7 +675,7 @@ final class Types {
   static final class NativeTypeVariableEquals<X> {
     static final boolean NATIVE_TYPE_VARIABLE_ONLY =
         !NativeTypeVariableEquals.class.getTypeParameters()[0]
-            .equals(newArtificialTypeVariable(NativeTypeVariableEquals.class, "X"));
+        .equals(newArtificialTypeVariable(NativeTypeVariableEquals.class, "X"));
   }
 
   private Types() {}

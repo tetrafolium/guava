@@ -53,7 +53,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializationDependencies<E>
-    implements Multiset<E> {
+  implements Multiset<E> {
 
   /**
    * Returns a {@code Collector} that accumulates the input elements into a new
@@ -83,14 +83,14 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     checkNotNull(elementFunction);
     checkNotNull(countFunction);
     return Collector.of(
-        LinkedHashMultiset::create,
-        (multiset, t) ->
+            LinkedHashMultiset::create,
+            (multiset, t) ->
             multiset.add(checkNotNull(elementFunction.apply(t)), countFunction.applyAsInt(t)),
-        (multiset1, multiset2) -> {
-          multiset1.addAll(multiset2);
-          return multiset1;
-        },
-        (Multiset<E> multiset) -> copyFromEntries(multiset.entrySet()));
+    (multiset1, multiset2) -> {
+      multiset1.addAll(multiset2);
+      return multiset1;
+    },
+    (Multiset<E> multiset) -> copyFromEntries(multiset.entrySet()));
   }
 
   /**
@@ -199,8 +199,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
 
     Multiset<? extends E> multiset =
         (elements instanceof Multiset)
-            ? Multisets.cast(elements)
-            : LinkedHashMultiset.create(elements);
+        ? Multisets.cast(elements)
+        : LinkedHashMultiset.create(elements);
 
     return copyFromEntries(multiset.entrySet());
   }

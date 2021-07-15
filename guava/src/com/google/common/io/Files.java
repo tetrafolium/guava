@@ -425,13 +425,13 @@ public final class Files {
     }
     throw new IllegalStateException(
         "Failed to create directory within "
-            + TEMP_DIR_ATTEMPTS
-            + " attempts (tried "
-            + baseName
-            + "0 to "
-            + baseName
-            + (TEMP_DIR_ATTEMPTS - 1)
-            + ')');
+        + TEMP_DIR_ATTEMPTS
+        + " attempts (tried "
+        + baseName
+        + "0 to "
+        + baseName
+        + (TEMP_DIR_ATTEMPTS - 1)
+        + ')');
   }
 
   /**
@@ -540,20 +540,20 @@ public final class Files {
     // an immutable list, which would change the behavior of this method
     return asCharSource(file, charset)
         .readLines(
-            new LineProcessor<List<String>>() {
-              final List<String> result = Lists.newArrayList();
+    new LineProcessor<List<String>>() {
+      final List<String> result = Lists.newArrayList();
 
-              @Override
-              public boolean processLine(String line) {
-                result.add(line);
-                return true;
-              }
+      @Override
+      public boolean processLine(String line) {
+        result.add(line);
+        return true;
+      }
 
-              @Override
-              public List<String> getResult() {
-                return result;
-              }
-            });
+      @Override
+      public List<String> getResult() {
+        return result;
+      }
+    });
   }
 
   /**
@@ -571,7 +571,7 @@ public final class Files {
   @Deprecated
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readLines(File file, Charset charset, LineProcessor<T> callback)
-      throws IOException {
+  throws IOException {
     return asCharSource(file, charset).readLines(callback);
   }
 
@@ -673,7 +673,7 @@ public final class Files {
    * @since 2.0
    */
   public static MappedByteBuffer map(File file, MapMode mode, long size)
-      throws FileNotFoundException, IOException {
+  throws FileNotFoundException, IOException {
     checkNotNull(file);
     checkNotNull(mode);
 
@@ -690,7 +690,7 @@ public final class Files {
   }
 
   private static MappedByteBuffer map(RandomAccessFile raf, MapMode mode, long size)
-      throws IOException {
+  throws IOException {
     Closer closer = Closer.create();
     try {
       FileChannel channel = closer.register(raf.getChannel());
@@ -735,18 +735,18 @@ public final class Files {
     // resolve ., .., and //
     for (String component : components) {
       switch (component) {
-        case ".":
-          continue;
-        case "..":
-          if (path.size() > 0 && !path.get(path.size() - 1).equals("..")) {
-            path.remove(path.size() - 1);
-          } else {
-            path.add("..");
-          }
-          break;
-        default:
-          path.add(component);
-          break;
+      case ".":
+        continue;
+      case "..":
+        if (path.size() > 0 && !path.get(path.size() - 1).equals("..")) {
+          path.remove(path.size() - 1);
+        } else {
+          path.add("..");
+        }
+        break;
+      default:
+        path.add(component);
+        break;
       }
     }
 
@@ -821,25 +821,25 @@ public final class Files {
   }
 
   private static final TreeTraverser<File> FILE_TREE_TRAVERSER =
-      new TreeTraverser<File>() {
-        @Override
-        public Iterable<File> children(File file) {
-          // check isDirectory() just because it may be faster than listFiles() on a non-directory
-          if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-              return Collections.unmodifiableList(Arrays.asList(files));
-            }
-          }
-
-          return Collections.emptyList();
+  new TreeTraverser<File>() {
+    @Override
+    public Iterable<File> children(File file) {
+      // check isDirectory() just because it may be faster than listFiles() on a non-directory
+      if (file.isDirectory()) {
+        File[] files = file.listFiles();
+        if (files != null) {
+          return Collections.unmodifiableList(Arrays.asList(files));
         }
+      }
 
-        @Override
-        public String toString() {
-          return "Files.fileTreeTraverser()";
-        }
-      };
+      return Collections.emptyList();
+    }
+
+    @Override
+    public String toString() {
+      return "Files.fileTreeTraverser()";
+    }
+  };
 
   /**
    * Returns a predicate that returns the result of {@link File#isDirectory} on input files.

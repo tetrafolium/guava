@@ -34,7 +34,7 @@ public class CompoundOrdering_CustomFieldSerializer {
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static CompoundOrdering<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     int n = reader.readInt();
     List<Comparator<Object>> comparators = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
@@ -44,7 +44,7 @@ public class CompoundOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, CompoundOrdering<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeInt(instance.comparators.length);
     for (Comparator<?> comparator : instance.comparators) {
       writer.writeObject(comparator);

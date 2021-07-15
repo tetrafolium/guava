@@ -56,7 +56,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
-    implements SetMultimap<K, V> {
+  implements SetMultimap<K, V> {
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableSetMultimap}
    * whose keys and values are the result of applying the provided mapping functions to the input
@@ -89,10 +89,10 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
     checkNotNull(keyFunction, "keyFunction");
     checkNotNull(valueFunction, "valueFunction");
     return Collector.of(
-        ImmutableSetMultimap::<K, V>builder,
-        (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
-        ImmutableSetMultimap.Builder::combine,
-        ImmutableSetMultimap.Builder::build);
+            ImmutableSetMultimap::<K, V>builder,
+            (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
+            ImmutableSetMultimap.Builder::combine,
+            ImmutableSetMultimap.Builder::build);
   }
 
   /**
@@ -137,17 +137,17 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
    */
   @Beta
   public static <T, K, V>
-      Collector<T, ?, ImmutableSetMultimap<K, V>> flatteningToImmutableSetMultimap(
-          Function<? super T, ? extends K> keyFunction,
-          Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
+  Collector<T, ?, ImmutableSetMultimap<K, V>> flatteningToImmutableSetMultimap(
+      Function<? super T, ? extends K> keyFunction,
+      Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
     checkNotNull(keyFunction);
     checkNotNull(valuesFunction);
     return Collectors.collectingAndThen(
-        Multimaps.flatteningToMultimap(
-            input -> checkNotNull(keyFunction.apply(input)),
-            input -> valuesFunction.apply(input).peek(Preconditions::checkNotNull),
-            MultimapBuilder.linkedHashKeys().linkedHashSetValues()::<K, V>build),
-        ImmutableSetMultimap::copyOf);
+            Multimaps.flatteningToMultimap(
+                input -> checkNotNull(keyFunction.apply(input)),
+                input -> valuesFunction.apply(input).peek(Preconditions::checkNotNull),
+                MultimapBuilder.linkedHashKeys().linkedHashSetValues()::<K, V>build),
+            ImmutableSetMultimap::copyOf);
   }
 
   /** Returns the empty multimap. */
@@ -368,8 +368,8 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
             MultimapBuilder.linkedHashKeys().linkedHashSetValues().<K, V>build();
         List<Map.Entry<K, Collection<V>>> entries =
             Ordering.from(keyComparator)
-                .<K>onKeys()
-                .immutableSortedCopy(builderMultimap.asMap().entrySet());
+            .<K>onKeys()
+            .immutableSortedCopy(builderMultimap.asMap().entrySet());
         for (Map.Entry<K, Collection<V>> entry : entries) {
           sortedCopy.putAll(entry.getKey(), entry.getValue());
         }

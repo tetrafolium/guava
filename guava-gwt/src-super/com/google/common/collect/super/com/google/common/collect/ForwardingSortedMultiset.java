@@ -36,7 +36,7 @@ import java.util.SortedSet;
  * @author Louis Wasserman
  */
 public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
-    implements SortedMultiset<E> {
+  implements SortedMultiset<E> {
   /** Constructor for use by subclasses. */
   protected ForwardingSortedMultiset() {}
 
@@ -87,7 +87,7 @@ public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
    * a subclass of {@code StandardDescendingMultiset}.
    */
   protected abstract class StandardDescendingMultiset
-      extends DescendingMultiset<E> {
+    extends DescendingMultiset<E> {
     /** Constructor for use by subclasses. */
     public StandardDescendingMultiset() {}
 

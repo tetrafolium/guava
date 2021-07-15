@@ -27,7 +27,7 @@ import com.google.gwt.user.client.rpc.core.java.util.Map_CustomFieldSerializerBa
  */
 final class ImmutableTable_CustomFieldSerializerBase {
   public static ImmutableTable<Object, Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     ImmutableTable.Builder<Object, Object, Object> builder = ImmutableTable.builder();
     int rowCount = reader.readInt();
     for (int i = 0; i < rowCount; i++) {
@@ -42,7 +42,7 @@ final class ImmutableTable_CustomFieldSerializerBase {
 
   public static void serialize(
       SerializationStreamWriter writer, ImmutableTable<Object, Object, Object> table)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeInt(table.rowKeySet().size());
     for (Object rowKey : table.rowKeySet()) {
       writer.writeObject(rowKey);

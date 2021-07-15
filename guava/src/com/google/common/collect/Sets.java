@@ -141,14 +141,14 @@ public final class Sets {
 
   private static final class Accumulator<E extends Enum<E>> {
     static final Collector<Enum<?>, ?, ImmutableSet<? extends Enum<?>>>
-      TO_IMMUTABLE_ENUM_SET =
-          (Collector)
-              Collector.<Enum, Accumulator, ImmutableSet<?>>of(
-                  Accumulator::new,
-                  Accumulator::add,
-                  Accumulator::combine,
-                  Accumulator::toImmutableSet,
-                  Collector.Characteristics.UNORDERED);
+    TO_IMMUTABLE_ENUM_SET =
+        (Collector)
+        Collector.<Enum, Accumulator, ImmutableSet<?>>of(
+            Accumulator::new,
+            Accumulator::add,
+            Accumulator::combine,
+            Accumulator::toImmutableSet,
+            Collector.Characteristics.UNORDERED);
 
     private EnumSet<E> set;
 
@@ -493,8 +493,8 @@ public final class Sets {
     // quadratic cost of adding them to the COWAS directly.
     Collection<? extends E> elementsCollection =
         (elements instanceof Collection)
-            ? Collections2.cast(elements)
-            : Lists.newArrayList(elements);
+        ? Collections2.cast(elements)
+        : Lists.newArrayList(elements);
     return new CopyOnWriteArraySet<E>(elementsCollection);
   }
 
@@ -913,7 +913,7 @@ public final class Sets {
     return new SetView<E>() {
       @Override
       public UnmodifiableIterator<E> iterator() {
-        return new AbstractIterator<E>(){
+        return new AbstractIterator<E>() {
           final Iterator<E> itr = set1.iterator();
           @Override
           protected E computeNext() {
@@ -1148,7 +1148,7 @@ public final class Sets {
     @Override
     public SortedSet<E> subSet(E fromElement, E toElement) {
       return new FilteredSortedSet<E>(
-          ((SortedSet<E>) unfiltered).subSet(fromElement, toElement), predicate);
+              ((SortedSet<E>) unfiltered).subSet(fromElement, toElement), predicate);
     }
 
     @Override
@@ -1225,7 +1225,7 @@ public final class Sets {
 
   @GwtIncompatible // NavigableSet
   private static class FilteredNavigableSet<E> extends FilteredSortedSet<E>
-      implements NavigableSet<E> {
+    implements NavigableSet<E> {
     FilteredNavigableSet(NavigableSet<E> unfiltered, Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
@@ -1285,7 +1285,7 @@ public final class Sets {
     public NavigableSet<E> subSet(
         E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
       return filter(
-          unfiltered().subSet(fromElement, fromInclusive, toElement, toInclusive), predicate);
+              unfiltered().subSet(fromElement, fromInclusive, toElement, toInclusive), predicate);
     }
 
     @Override
@@ -1418,7 +1418,7 @@ public final class Sets {
   }
 
   private static final class CartesianSet<E> extends ForwardingCollection<List<E>>
-      implements Set<List<E>> {
+    implements Set<List<E>> {
     private final transient ImmutableList<ImmutableSet<E>> axes;
     private final transient CartesianList<E> delegate;
 
@@ -1433,22 +1433,22 @@ public final class Sets {
       }
       final ImmutableList<ImmutableSet<E>> axes = axesBuilder.build();
       ImmutableList<List<E>> listAxes =
-          new ImmutableList<List<E>>() {
-            @Override
-            public int size() {
-              return axes.size();
-            }
+      new ImmutableList<List<E>>() {
+        @Override
+        public int size() {
+          return axes.size();
+        }
 
-            @Override
-            public List<E> get(int index) {
-              return axes.get(index).asList();
-            }
+        @Override
+        public List<E> get(int index) {
+          return axes.get(index).asList();
+        }
 
-            @Override
-            boolean isPartialView() {
-              return true;
-            }
-          };
+        @Override
+        boolean isPartialView() {
+          return true;
+        }
+      };
       return new CartesianSet<E>(axes, new CartesianList<E>(listAxes));
     }
 
@@ -1817,7 +1817,7 @@ public final class Sets {
   }
 
   static final class UnmodifiableNavigableSet<E> extends ForwardingSortedSet<E>
-      implements NavigableSet<E>, Serializable {
+    implements NavigableSet<E>, Serializable {
     private final NavigableSet<E> delegate;
     private final SortedSet<E> unmodifiableDelegate;
 
@@ -1904,7 +1904,7 @@ public final class Sets {
     public NavigableSet<E> subSet(
         E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
       return unmodifiableNavigableSet(
-          delegate.subSet(fromElement, fromInclusive, toElement, toInclusive));
+              delegate.subSet(fromElement, fromInclusive, toElement, toInclusive));
     }
 
     @Override
@@ -2160,10 +2160,10 @@ public final class Sets {
     }
     if (range.hasLowerBound() && range.hasUpperBound()) {
       return set.subSet(
-          range.lowerEndpoint(),
-          range.lowerBoundType() == BoundType.CLOSED,
-          range.upperEndpoint(),
-          range.upperBoundType() == BoundType.CLOSED);
+              range.lowerEndpoint(),
+              range.lowerBoundType() == BoundType.CLOSED,
+              range.upperEndpoint(),
+              range.upperBoundType() == BoundType.CLOSED);
     } else if (range.hasLowerBound()) {
       return set.tailSet(range.lowerEndpoint(), range.lowerBoundType() == BoundType.CLOSED);
     } else if (range.hasUpperBound()) {

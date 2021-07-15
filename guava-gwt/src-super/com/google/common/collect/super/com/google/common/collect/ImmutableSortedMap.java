@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
  * @author Hayward Chan
  */
 public final class ImmutableSortedMap<K, V> extends ForwardingImmutableMap<K, V>
-    implements SortedMap<K, V> {
+  implements SortedMap<K, V> {
 
   @SuppressWarnings("unchecked")
   static final Comparator NATURAL_ORDER = Ordering.natural();
@@ -86,9 +86,9 @@ public final class ImmutableSortedMap<K, V> extends ForwardingImmutableMap<K, V>
     checkNotNull(valueFunction);
     checkNotNull(mergeFunction);
     return Collectors.collectingAndThen(
-        Collectors.toMap(
-            keyFunction, valueFunction, mergeFunction, () -> new TreeMap<K, V>(comparator)),
-        ImmutableSortedMap::copyOfSorted);
+            Collectors.toMap(
+                keyFunction, valueFunction, mergeFunction, () -> new TreeMap<K, V>(comparator)),
+            ImmutableSortedMap::copyOfSorted);
   }
 
   // Casting to any type is safe because the set will never hold any elements.
@@ -98,36 +98,36 @@ public final class ImmutableSortedMap<K, V> extends ForwardingImmutableMap<K, V>
   }
 
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      of(K k1, V v1) {
+  of(K k1, V v1) {
     return copyOf(singletonMap(k1, v1));
   }
 
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      of(K k1, V v1, K k2, V v2) {
+  of(K k1, V v1, K k2, V v2) {
     return new Builder<K, V>(Ordering.natural())
         .put(k1, v1).put(k2, v2).build();
   }
 
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      of(K k1, V v1, K k2, V v2, K k3, V v3) {
+  of(K k1, V v1, K k2, V v2, K k3, V v3) {
     return new Builder<K, V>(Ordering.natural())
         .put(k1, v1).put(k2, v2).put(k3, v3).build();
   }
 
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     return new Builder<K, V>(Ordering.natural())
         .put(k1, v1).put(k2, v2).put(k3, v3).put(k4, v4).build();
   }
 
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+  of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return new Builder<K, V>(Ordering.natural())
         .put(k1, v1).put(k2, v2).put(k3, v3).put(k4, v4).put(k5, v5).build();
   }
 
   public static <K, V> ImmutableSortedMap<K, V>
-      copyOf(Map<? extends K, ? extends V> map) {
+  copyOf(Map<? extends K, ? extends V> map) {
     return copyOfInternal((Map) map, (Ordering<K>) Ordering.natural());
   }
 
@@ -143,7 +143,7 @@ public final class ImmutableSortedMap<K, V> extends ForwardingImmutableMap<K, V>
 
   public static <K, V> ImmutableSortedMap<K, V> copyOf(
       Iterable<? extends Entry<? extends K, ? extends V>> entries,
-          Comparator<? super K> comparator) {
+      Comparator<? super K> comparator) {
     return new Builder<K, V>(comparator).putAll(entries).build();
   }
 
@@ -189,7 +189,7 @@ public final class ImmutableSortedMap<K, V> extends ForwardingImmutableMap<K, V>
       // When a collision happens, the colliding entry is the first entry
       // of the tail map.
       Entry<K, V> previousEntry
-          = map.tailMap(key).entrySet().iterator().next();
+        = map.tailMap(key).entrySet().iterator().next();
       throw new IllegalArgumentException(
           "Duplicate keys in mappings " + previousEntry.getKey()
           + "=" + previousEntry.getValue() + " and " + key

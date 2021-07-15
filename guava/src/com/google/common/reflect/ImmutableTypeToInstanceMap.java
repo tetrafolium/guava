@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @Beta
 public final class ImmutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<? extends B>, B>
-    implements TypeToInstanceMap<B> {
+  implements TypeToInstanceMap<B> {
 
   /** Returns an empty type to instance map. */
   public static <B> ImmutableTypeToInstanceMap<B> of() {

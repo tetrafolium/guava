@@ -36,12 +36,12 @@ import java.util.TreeSet;
 public final class SafeTreeSet<E> implements Serializable, NavigableSet<E> {
   @SuppressWarnings("unchecked")
   private static final Comparator<Object> NATURAL_ORDER =
-      new Comparator<Object>() {
-        @Override
-        public int compare(Object o1, Object o2) {
-          return ((Comparable<Object>) o1).compareTo(o2);
-        }
-      };
+  new Comparator<Object>() {
+    @Override
+    public int compare(Object o1, Object o2) {
+      return ((Comparable<Object>) o1).compareTo(o2);
+    }
+  };
 
   private final NavigableSet<E> delegate;
 
@@ -200,8 +200,8 @@ public final class SafeTreeSet<E> implements Serializable, NavigableSet<E> {
   public NavigableSet<E> subSet(
       E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
     return new SafeTreeSet<E>(
-        delegate.subSet(
-            checkValid(fromElement), fromInclusive, checkValid(toElement), toInclusive));
+            delegate.subSet(
+                checkValid(fromElement), fromInclusive, checkValid(toElement), toInclusive));
   }
 
   @Override

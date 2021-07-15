@@ -57,59 +57,57 @@ public final class DoubleMath {
       throw new ArithmeticException("input is infinite or NaN");
     }
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(isMathematicalInteger(x));
+    case UNNECESSARY:
+      checkRoundingUnnecessary(isMathematicalInteger(x));
+      return x;
+
+    case FLOOR:
+      if (x >= 0.0 || isMathematicalInteger(x)) {
         return x;
+      } else {
+        return (long) x - 1;
+      }
 
-      case FLOOR:
-        if (x >= 0.0 || isMathematicalInteger(x)) {
-          return x;
-        } else {
-          return (long) x - 1;
-        }
-
-      case CEILING:
-        if (x <= 0.0 || isMathematicalInteger(x)) {
-          return x;
-        } else {
-          return (long) x + 1;
-        }
-
-      case DOWN:
+    case CEILING:
+      if (x <= 0.0 || isMathematicalInteger(x)) {
         return x;
+      } else {
+        return (long) x + 1;
+      }
 
-      case UP:
-        if (isMathematicalInteger(x)) {
-          return x;
-        } else {
-          return (long) x + (x > 0 ? 1 : -1);
-        }
+    case DOWN:
+      return x;
 
-      case HALF_EVEN:
-        return rint(x);
+    case UP:
+      if (isMathematicalInteger(x)) {
+        return x;
+      } else {
+        return (long) x + (x > 0 ? 1 : -1);
+      }
 
-      case HALF_UP:
-        {
-          double z = rint(x);
-          if (abs(x - z) == 0.5) {
-            return x + copySign(0.5, x);
-          } else {
-            return z;
-          }
-        }
+    case HALF_EVEN:
+      return rint(x);
 
-      case HALF_DOWN:
-        {
-          double z = rint(x);
-          if (abs(x - z) == 0.5) {
-            return x;
-          } else {
-            return z;
-          }
-        }
+    case HALF_UP: {
+      double z = rint(x);
+      if (abs(x - z) == 0.5) {
+        return x + copySign(0.5, x);
+      } else {
+        return z;
+      }
+    }
 
-      default:
-        throw new AssertionError();
+    case HALF_DOWN: {
+      double z = rint(x);
+      if (abs(x - z) == 0.5) {
+        return x;
+      } else {
+        return z;
+      }
+    }
+
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -244,31 +242,31 @@ public final class DoubleMath {
     // x is positive, finite, and normal
     boolean increment;
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(isPowerOfTwo(x));
-        // fall through
-      case FLOOR:
-        increment = false;
-        break;
-      case CEILING:
-        increment = !isPowerOfTwo(x);
-        break;
-      case DOWN:
-        increment = exponent < 0 & !isPowerOfTwo(x);
-        break;
-      case UP:
-        increment = exponent >= 0 & !isPowerOfTwo(x);
-        break;
-      case HALF_DOWN:
-      case HALF_EVEN:
-      case HALF_UP:
-        double xScaled = scaleNormalize(x);
-        // sqrt(2) is irrational, and the spec is relative to the "exact numerical result,"
-        // so log2(x) is never exactly exponent + 0.5.
-        increment = (xScaled * xScaled) > 2.0;
-        break;
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(isPowerOfTwo(x));
+    // fall through
+    case FLOOR:
+      increment = false;
+      break;
+    case CEILING:
+      increment = !isPowerOfTwo(x);
+      break;
+    case DOWN:
+      increment = exponent < 0 & !isPowerOfTwo(x);
+      break;
+    case UP:
+      increment = exponent >= 0 & !isPowerOfTwo(x);
+      break;
+    case HALF_DOWN:
+    case HALF_EVEN:
+    case HALF_UP:
+      double xScaled = scaleNormalize(x);
+      // sqrt(2) is irrational, and the spec is relative to the "exact numerical result,"
+      // so log2(x) is never exactly exponent + 0.5.
+      increment = (xScaled * xScaled) > 2.0;
+      break;
+    default:
+      throw new AssertionError();
     }
     return increment ? exponent + 1 : exponent;
   }

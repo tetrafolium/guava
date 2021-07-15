@@ -39,7 +39,7 @@ import java.util.concurrent.ExecutionException;
  */
 @GwtIncompatible
 public abstract class AbstractLoadingCache<K, V> extends AbstractCache<K, V>
-    implements LoadingCache<K, V> {
+  implements LoadingCache<K, V> {
 
   /** Constructor for use by subclasses. */
   protected AbstractLoadingCache() {}

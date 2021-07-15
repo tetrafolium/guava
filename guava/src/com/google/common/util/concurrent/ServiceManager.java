@@ -121,29 +121,29 @@ import javax.annotation.concurrent.GuardedBy;
 public final class ServiceManager {
   private static final Logger logger = Logger.getLogger(ServiceManager.class.getName());
   private static final ListenerCallQueue.Event<Listener> HEALTHY_EVENT =
-      new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.healthy();
-        }
+  new ListenerCallQueue.Event<Listener>() {
+    @Override
+    public void call(Listener listener) {
+      listener.healthy();
+    }
 
-        @Override
-        public String toString() {
-          return "healthy()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "healthy()";
+    }
+  };
   private static final ListenerCallQueue.Event<Listener> STOPPED_EVENT =
-      new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.stopped();
-        }
+  new ListenerCallQueue.Event<Listener>() {
+    @Override
+    public void call(Listener listener) {
+      listener.stopped();
+    }
 
-        @Override
-        public String toString() {
-          return "stopped()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "stopped()";
+    }
+  };
 
   /**
    * A listener for the aggregate state changes of the services that are under management. Users
@@ -534,8 +534,8 @@ public final class ServiceManager {
           }
           throw new IllegalArgumentException(
               "Services started transitioning asynchronously before "
-                  + "the ServiceManager was constructed: "
-                  + servicesInBadStates);
+              + "the ServiceManager was constructed: "
+              + servicesInBadStates);
         }
       } finally {
         monitor.leave();
@@ -561,8 +561,8 @@ public final class ServiceManager {
         if (!monitor.waitForUninterruptibly(awaitHealthGuard, timeout, unit)) {
           throw new TimeoutException(
               "Timeout waiting for the services to become healthy. The "
-                  + "following services have not started: "
-                  + Multimaps.filterKeys(servicesByState, in(ImmutableSet.of(NEW, STARTING))));
+              + "following services have not started: "
+              + Multimaps.filterKeys(servicesByState, in(ImmutableSet.of(NEW, STARTING))));
         }
         checkHealthy();
       } finally {
@@ -581,8 +581,8 @@ public final class ServiceManager {
         if (!monitor.waitForUninterruptibly(stoppedGuard, timeout, unit)) {
           throw new TimeoutException(
               "Timeout waiting for the services to stop. The following "
-                  + "services have not stopped: "
-                  + Multimaps.filterKeys(servicesByState, not(in(EnumSet.of(TERMINATED, FAILED)))));
+              + "services have not stopped: "
+              + Multimaps.filterKeys(servicesByState, not(in(EnumSet.of(TERMINATED, FAILED)))));
         }
       } finally {
         monitor.leave();
@@ -623,13 +623,13 @@ public final class ServiceManager {
       Collections.sort(
           loadTimes,
           Ordering.natural()
-              .onResultOf(
-                  new Function<Entry<Service, Long>, Long>() {
-                    @Override
-                    public Long apply(Map.Entry<Service, Long> input) {
-                      return input.getValue();
-                    }
-                  }));
+          .onResultOf(
+      new Function<Entry<Service, Long>, Long>() {
+        @Override
+        public Long apply(Map.Entry<Service, Long> input) {
+          return input.getValue();
+        }
+      }));
       return ImmutableMap.copyOf(loadTimes);
     }
 
@@ -709,17 +709,17 @@ public final class ServiceManager {
 
     void enqueueFailedEvent(final Service service) {
       listeners.enqueue(
-          new ListenerCallQueue.Event<Listener>() {
-            @Override
-            public void call(Listener listener) {
-              listener.failure(service);
-            }
+      new ListenerCallQueue.Event<Listener>() {
+        @Override
+        public void call(Listener listener) {
+          listener.failure(service);
+        }
 
-            @Override
-            public String toString() {
-              return "failed({service=" + service + "})";
-            }
-          });
+        @Override
+        public String toString() {
+          return "failed({service=" + service + "})";
+        }
+      });
     }
 
     /** Attempts to execute all the listeners in {@link #listeners}. */
@@ -735,8 +735,8 @@ public final class ServiceManager {
       if (states.count(RUNNING) != numberOfServices) {
         IllegalStateException exception =
             new IllegalStateException(
-                "Expected to be healthy after starting. The following services are not running: "
-                    + Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
+            "Expected to be healthy after starting. The following services are not running: "
+            + Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
         for (Service service : servicesByState.get(State.FAILED)) {
           exception.addSuppressed(new FailedService(service));
         }

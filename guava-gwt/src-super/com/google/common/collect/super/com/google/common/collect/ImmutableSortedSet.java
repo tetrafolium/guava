@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  * @author Hayward Chan
  */
 public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
-    implements SortedSet<E>, SortedIterable<E> {
+  implements SortedSet<E>, SortedIterable<E> {
   // TODO(cpovirk): split into ImmutableSortedSet/ForwardingImmutableSortedSet?
 
   // In the non-emulated source, this is in ImmutableSortedSetFauxverideShim,
@@ -123,15 +123,15 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
       Comparator<? super E> comparator, E... elements) {
     checkNotNull(elements);
     switch (elements.length) {
-      case 0:
-        return emptySet(comparator);
-      default:
-        SortedSet<E> delegate = new TreeSet<E>(comparator);
-        for (E element : elements) {
-          checkNotNull(element);
-          delegate.add(element);
-        }
-        return new RegularImmutableSortedSet<E>(delegate, false);
+    case 0:
+      return emptySet(comparator);
+    default:
+      SortedSet<E> delegate = new TreeSet<E>(comparator);
+      for (E element : elements) {
+        checkNotNull(element);
+        delegate.add(element);
+      }
+      return new RegularImmutableSortedSet<E>(delegate, false);
     }
   }
 
@@ -185,7 +185,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
     checkNotNull(comparator);
 
     boolean hasSameComparator
-        = fromSortedSet || hasSameComparator(elements, comparator);
+      = fromSortedSet || hasSameComparator(elements, comparator);
     if (hasSameComparator && (elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked")
       ImmutableSortedSet<E> result = (ImmutableSortedSet<E>) elements;

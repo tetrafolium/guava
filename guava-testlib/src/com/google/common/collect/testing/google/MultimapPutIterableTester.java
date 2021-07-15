@@ -45,14 +45,14 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
   public void testPutAllNonEmptyIterableOnPresentKey() {
     assertTrue(
         multimap()
-            .putAll(
-                k0(),
-                new Iterable<V>() {
-                  @Override
-                  public Iterator<V> iterator() {
-                    return Lists.newArrayList(v3(), v4()).iterator();
-                  }
-                }));
+        .putAll(
+            k0(),
+    new Iterable<V>() {
+      @Override
+      public Iterator<V> iterator() {
+        return Lists.newArrayList(v3(), v4()).iterator();
+      }
+    }));
     assertGet(k0(), v0(), v3(), v4());
   }
 
@@ -67,14 +67,14 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
   public void testPutAllNonEmptyIterableOnAbsentKey() {
     assertTrue(
         multimap()
-            .putAll(
-                k3(),
-                new Iterable<V>() {
-                  @Override
-                  public Iterator<V> iterator() {
-                    return Lists.newArrayList(v3(), v4()).iterator();
-                  }
-                }));
+        .putAll(
+            k3(),
+    new Iterable<V>() {
+      @Override
+      public Iterator<V> iterator() {
+        return Lists.newArrayList(v3(), v4()).iterator();
+      }
+    }));
     assertGet(k3(), v3(), v4());
   }
 
@@ -173,12 +173,12 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllEmptyIterableOnAbsentKey() {
     Iterable<V> iterable =
-        new Iterable<V>() {
-          @Override
-          public Iterator<V> iterator() {
-            return ImmutableSet.<V>of().iterator();
-          }
-        };
+    new Iterable<V>() {
+      @Override
+      public Iterator<V> iterator() {
+        return ImmutableSet.<V>of().iterator();
+      }
+    };
 
     assertFalse(multimap().putAll(k3(), iterable));
     expectUnchanged();
@@ -194,16 +194,16 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllOnlyCallsIteratorOnce() {
     Iterable<V> iterable =
-        new Iterable<V>() {
-          private boolean calledIteratorAlready = false;
+    new Iterable<V>() {
+      private boolean calledIteratorAlready = false;
 
-          @Override
-          public Iterator<V> iterator() {
-            checkState(!calledIteratorAlready);
-            calledIteratorAlready = true;
-            return Iterators.forArray(v3());
-          }
-        };
+      @Override
+      public Iterator<V> iterator() {
+        checkState(!calledIteratorAlready);
+        calledIteratorAlready = true;
+        return Iterators.forArray(v3());
+      }
+    };
 
     multimap().putAll(k3(), iterable);
   }

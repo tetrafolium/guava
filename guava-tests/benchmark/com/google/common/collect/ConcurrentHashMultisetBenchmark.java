@@ -66,24 +66,24 @@ public class ConcurrentHashMultisetBenchmark {
 
   @Benchmark long add(final int reps) throws ExecutionException, InterruptedException {
     return doMultithreadedLoop(
-        new Callable<Long>() {
-          @Override public Long call() {
-            return runAddSingleThread(reps);
-          }
-        });
+    new Callable<Long>() {
+      @Override public Long call() {
+        return runAddSingleThread(reps);
+      }
+    });
   }
 
   @Benchmark long addRemove(final int reps) throws ExecutionException, InterruptedException {
     return doMultithreadedLoop(
-        new Callable<Long>() {
-          @Override public Long call() {
-            return runAddRemoveSingleThread(reps);
-          }
-        });
+    new Callable<Long>() {
+      @Override public Long call() {
+        return runAddRemoveSingleThread(reps);
+      }
+    });
   }
 
   private long doMultithreadedLoop(Callable<Long> task)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
 
     List<Future<Long>> futures = Lists.newArrayListWithCapacity(threads);
     for (int i = 0; i < threads; i++) {
@@ -349,7 +349,7 @@ public class ConcurrentHashMultisetBenchmark {
           }
         } else {
           @SuppressWarnings("unchecked") // it's in the map, must be an "E"
-              E casted = (E) element;
+          E casted = (E) element;
           if (countMap.replace(casted, current, current - occurrences)) {
             return true;
           }
@@ -452,7 +452,7 @@ public class ConcurrentHashMultisetBenchmark {
         @Override public Multiset.Entry<E> next() {
           Map.Entry<E, Integer> backingEntry = backingIterator.next();
           return Multisets.immutableEntry(backingEntry.getKey(),
-              backingEntry.getValue());
+                  backingEntry.getValue());
         }
 
         @Override public void remove() {

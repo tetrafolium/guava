@@ -120,29 +120,29 @@ public final class LongMath {
   public static int log2(long x, RoundingMode mode) {
     checkPositive("x", x);
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(isPowerOfTwo(x));
-        // fall through
-      case DOWN:
-      case FLOOR:
-        return (Long.SIZE - 1) - Long.numberOfLeadingZeros(x);
+    case UNNECESSARY:
+      checkRoundingUnnecessary(isPowerOfTwo(x));
+    // fall through
+    case DOWN:
+    case FLOOR:
+      return (Long.SIZE - 1) - Long.numberOfLeadingZeros(x);
 
-      case UP:
-      case CEILING:
-        return Long.SIZE - Long.numberOfLeadingZeros(x - 1);
+    case UP:
+    case CEILING:
+      return Long.SIZE - Long.numberOfLeadingZeros(x - 1);
 
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
-        int leadingZeros = Long.numberOfLeadingZeros(x);
-        long cmp = MAX_POWER_OF_SQRT2_UNSIGNED >>> leadingZeros;
-        // floor(2^(logFloor + 0.5))
-        int logFloor = (Long.SIZE - 1) - leadingZeros;
-        return logFloor + lessThanBranchFree(cmp, x);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
+      int leadingZeros = Long.numberOfLeadingZeros(x);
+      long cmp = MAX_POWER_OF_SQRT2_UNSIGNED >>> leadingZeros;
+      // floor(2^(logFloor + 0.5))
+      int logFloor = (Long.SIZE - 1) - leadingZeros;
+      return logFloor + lessThanBranchFree(cmp, x);
 
-      default:
-        throw new AssertionError("impossible");
+    default:
+      throw new AssertionError("impossible");
     }
   }
 
@@ -164,22 +164,22 @@ public final class LongMath {
     int logFloor = log10Floor(x);
     long floorPow = powersOf10[logFloor];
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(x == floorPow);
-        // fall through
-      case FLOOR:
-      case DOWN:
-        return logFloor;
-      case CEILING:
-      case UP:
-        return logFloor + lessThanBranchFree(floorPow, x);
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        // sqrt(10) is irrational, so log10(x)-logFloor is never exactly 0.5
-        return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(x == floorPow);
+    // fall through
+    case FLOOR:
+    case DOWN:
+      return logFloor;
+    case CEILING:
+    case UP:
+      return logFloor + lessThanBranchFree(floorPow, x);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      // sqrt(10) is irrational, so log10(x)-logFloor is never exactly 0.5
+      return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -269,33 +269,33 @@ public final class LongMath {
     checkNonNegative("exponent", k);
     if (-2 <= b && b <= 2) {
       switch ((int) b) {
-        case 0:
-          return (k == 0) ? 1 : 0;
-        case 1:
-          return 1;
-        case (-1):
-          return ((k & 1) == 0) ? 1 : -1;
-        case 2:
-          return (k < Long.SIZE) ? 1L << k : 0;
-        case (-2):
-          if (k < Long.SIZE) {
-            return ((k & 1) == 0) ? 1L << k : -(1L << k);
-          } else {
-            return 0;
-          }
-        default:
-          throw new AssertionError();
+      case 0:
+        return (k == 0) ? 1 : 0;
+      case 1:
+        return 1;
+      case (-1):
+        return ((k & 1) == 0) ? 1 : -1;
+      case 2:
+        return (k < Long.SIZE) ? 1L << k : 0;
+      case (-2):
+        if (k < Long.SIZE) {
+          return ((k & 1) == 0) ? 1L << k : -(1L << k);
+        } else {
+          return 0;
+        }
+      default:
+        throw new AssertionError();
       }
     }
     for (long accum = 1; ; k >>= 1) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return accum * b;
-        default:
-          accum *= ((k & 1) == 0) ? 1 : b;
-          b *= b;
+      case 0:
+        return accum;
+      case 1:
+        return accum * b;
+      default:
+        accum *= ((k & 1) == 0) ? 1 : b;
+        b *= b;
       }
     }
   }
@@ -335,40 +335,40 @@ public final class LongMath {
     // Note (2013-2-26): benchmarks indicate that, inscrutably enough, using if statements is
     // faster here than using lessThanBranchFree.
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(guessSquared == x);
-        return guess;
-      case FLOOR:
-      case DOWN:
-        if (x < guessSquared) {
-          return guess - 1;
-        }
-        return guess;
-      case CEILING:
-      case UP:
-        if (x > guessSquared) {
-          return guess + 1;
-        }
-        return guess;
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        long sqrtFloor = guess - ((x < guessSquared) ? 1 : 0);
-        long halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
-        /*
-         * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
-         * and halfSquare are integers, this is equivalent to testing whether or not x <=
-         * halfSquare. (We have to deal with overflow, though.)
-         *
-         * If we treat halfSquare as an unsigned long, we know that
-         *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
-         * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
-         * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
-         * signed long, so lessThanBranchFree is safe for use.
-         */
-        return sqrtFloor + lessThanBranchFree(halfSquare, x);
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(guessSquared == x);
+      return guess;
+    case FLOOR:
+    case DOWN:
+      if (x < guessSquared) {
+        return guess - 1;
+      }
+      return guess;
+    case CEILING:
+    case UP:
+      if (x > guessSquared) {
+        return guess + 1;
+      }
+      return guess;
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      long sqrtFloor = guess - ((x < guessSquared) ? 1 : 0);
+      long halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
+      /*
+       * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
+       * and halfSquare are integers, this is equivalent to testing whether or not x <=
+       * halfSquare. (We have to deal with overflow, though.)
+       *
+       * If we treat halfSquare as an unsigned long, we know that
+       *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
+       * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
+       * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
+       * signed long, so lessThanBranchFree is safe for use.
+       */
+      return sqrtFloor + lessThanBranchFree(halfSquare, x);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -400,36 +400,36 @@ public final class LongMath {
     int signum = 1 | (int) ((p ^ q) >> (Long.SIZE - 1));
     boolean increment;
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(rem == 0);
-        // fall through
-      case DOWN:
-        increment = false;
-        break;
-      case UP:
-        increment = true;
-        break;
-      case CEILING:
-        increment = signum > 0;
-        break;
-      case FLOOR:
-        increment = signum < 0;
-        break;
-      case HALF_EVEN:
-      case HALF_DOWN:
-      case HALF_UP:
-        long absRem = abs(rem);
-        long cmpRemToHalfDivisor = absRem - (abs(q) - absRem);
-        // subtracting two nonnegative longs can't overflow
-        // cmpRemToHalfDivisor has the same sign as compare(abs(rem), abs(q) / 2).
-        if (cmpRemToHalfDivisor == 0) { // exactly on the half mark
-          increment = (mode == HALF_UP | (mode == HALF_EVEN & (div & 1) != 0));
-        } else {
-          increment = cmpRemToHalfDivisor > 0; // closer to the UP value
-        }
-        break;
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(rem == 0);
+    // fall through
+    case DOWN:
+      increment = false;
+      break;
+    case UP:
+      increment = true;
+      break;
+    case CEILING:
+      increment = signum > 0;
+      break;
+    case FLOOR:
+      increment = signum < 0;
+      break;
+    case HALF_EVEN:
+    case HALF_DOWN:
+    case HALF_UP:
+      long absRem = abs(rem);
+      long cmpRemToHalfDivisor = absRem - (abs(q) - absRem);
+      // subtracting two nonnegative longs can't overflow
+      // cmpRemToHalfDivisor has the same sign as compare(abs(rem), abs(q) / 2).
+      if (cmpRemToHalfDivisor == 0) { // exactly on the half mark
+        increment = (mode == HALF_UP | (mode == HALF_EVEN & (div & 1) != 0));
+      } else {
+        increment = cmpRemToHalfDivisor > 0; // closer to the UP value
+      }
+      break;
+    default:
+      throw new AssertionError();
     }
     return increment ? div + signum : div;
   }
@@ -570,9 +570,9 @@ public final class LongMath {
     // Hacker's Delight, Section 2-12
     int leadingZeros =
         Long.numberOfLeadingZeros(a)
-            + Long.numberOfLeadingZeros(~a)
-            + Long.numberOfLeadingZeros(b)
-            + Long.numberOfLeadingZeros(~b);
+        + Long.numberOfLeadingZeros(~a)
+        + Long.numberOfLeadingZeros(b)
+        + Long.numberOfLeadingZeros(~b);
     /*
      * If leadingZeros > Long.SIZE + 1 it's definitely fine, if it's < Long.SIZE it's definitely
      * bad. We do the leadingZeros check to avoid the division below if at all possible.
@@ -604,38 +604,38 @@ public final class LongMath {
     checkNonNegative("exponent", k);
     if (b >= -2 & b <= 2) {
       switch ((int) b) {
-        case 0:
-          return (k == 0) ? 1 : 0;
-        case 1:
-          return 1;
-        case (-1):
-          return ((k & 1) == 0) ? 1 : -1;
-        case 2:
-          checkNoOverflow(k < Long.SIZE - 1);
-          return 1L << k;
-        case (-2):
-          checkNoOverflow(k < Long.SIZE);
-          return ((k & 1) == 0) ? (1L << k) : (-1L << k);
-        default:
-          throw new AssertionError();
+      case 0:
+        return (k == 0) ? 1 : 0;
+      case 1:
+        return 1;
+      case (-1):
+        return ((k & 1) == 0) ? 1 : -1;
+      case 2:
+        checkNoOverflow(k < Long.SIZE - 1);
+        return 1L << k;
+      case (-2):
+        checkNoOverflow(k < Long.SIZE);
+        return ((k & 1) == 0) ? (1L << k) : (-1L << k);
+      default:
+        throw new AssertionError();
       }
     }
     long accum = 1;
     while (true) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return checkedMultiply(accum, b);
-        default:
-          if ((k & 1) != 0) {
-            accum = checkedMultiply(accum, b);
-          }
-          k >>= 1;
-          if (k > 0) {
-            checkNoOverflow(-FLOOR_SQRT_MAX_LONG <= b && b <= FLOOR_SQRT_MAX_LONG);
-            b *= b;
-          }
+      case 0:
+        return accum;
+      case 1:
+        return checkedMultiply(accum, b);
+      default:
+        if ((k & 1) != 0) {
+          accum = checkedMultiply(accum, b);
+        }
+        k >>= 1;
+        if (k > 0) {
+          checkNoOverflow(-FLOOR_SQRT_MAX_LONG <= b && b <= FLOOR_SQRT_MAX_LONG);
+          b *= b;
+        }
       }
     }
   }
@@ -687,9 +687,9 @@ public final class LongMath {
     // see checkedMultiply for explanation
     int leadingZeros =
         Long.numberOfLeadingZeros(a)
-            + Long.numberOfLeadingZeros(~a)
-            + Long.numberOfLeadingZeros(b)
-            + Long.numberOfLeadingZeros(~b);
+        + Long.numberOfLeadingZeros(~a)
+        + Long.numberOfLeadingZeros(b)
+        + Long.numberOfLeadingZeros(~b);
     if (leadingZeros > Long.SIZE + 1) {
       return a * b;
     }
@@ -717,24 +717,24 @@ public final class LongMath {
     checkNonNegative("exponent", k);
     if (b >= -2 & b <= 2) {
       switch ((int) b) {
-        case 0:
-          return (k == 0) ? 1 : 0;
-        case 1:
-          return 1;
-        case (-1):
-          return ((k & 1) == 0) ? 1 : -1;
-        case 2:
-          if (k >= Long.SIZE - 1) {
-            return Long.MAX_VALUE;
-          }
-          return 1L << k;
-        case (-2):
-          if (k >= Long.SIZE) {
-            return Long.MAX_VALUE + (k & 1);
-          }
-          return ((k & 1) == 0) ? (1L << k) : (-1L << k);
-        default:
-          throw new AssertionError();
+      case 0:
+        return (k == 0) ? 1 : 0;
+      case 1:
+        return 1;
+      case (-1):
+        return ((k & 1) == 0) ? 1 : -1;
+      case 2:
+        if (k >= Long.SIZE - 1) {
+          return Long.MAX_VALUE;
+        }
+        return 1L << k;
+      case (-2):
+        if (k >= Long.SIZE) {
+          return Long.MAX_VALUE + (k & 1);
+        }
+        return ((k & 1) == 0) ? (1L << k) : (-1L << k);
+      default:
+        throw new AssertionError();
       }
     }
     long accum = 1;
@@ -742,21 +742,21 @@ public final class LongMath {
     long limit = Long.MAX_VALUE + ((b >>> Long.SIZE - 1) & (k & 1));
     while (true) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return saturatedMultiply(accum, b);
-        default:
-          if ((k & 1) != 0) {
-            accum = saturatedMultiply(accum, b);
+      case 0:
+        return accum;
+      case 1:
+        return saturatedMultiply(accum, b);
+      default:
+        if ((k & 1) != 0) {
+          accum = saturatedMultiply(accum, b);
+        }
+        k >>= 1;
+        if (k > 0) {
+          if (-FLOOR_SQRT_MAX_LONG > b | b > FLOOR_SQRT_MAX_LONG) {
+            return limit;
           }
-          k >>= 1;
-          if (k > 0) {
-            if (-FLOOR_SQRT_MAX_LONG > b | b > FLOOR_SQRT_MAX_LONG) {
-              return limit;
-            }
-            b *= b;
-          }
+          b *= b;
+        }
       }
     }
   }
@@ -813,55 +813,55 @@ public final class LongMath {
       k = n - k;
     }
     switch (k) {
-      case 0:
-        return 1;
-      case 1:
-        return n;
-      default:
-        if (n < factorials.length) {
-          return factorials[n] / (factorials[k] * factorials[n - k]);
-        } else if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
-          return Long.MAX_VALUE;
-        } else if (k < biggestSimpleBinomials.length && n <= biggestSimpleBinomials[k]) {
-          // guaranteed not to overflow
-          long result = n--;
-          for (int i = 2; i <= k; n--, i++) {
-            result *= n;
-            result /= i;
-          }
-          return result;
-        } else {
-          int nBits = LongMath.log2(n, RoundingMode.CEILING);
-
-          long result = 1;
-          long numerator = n--;
-          long denominator = 1;
-
-          int numeratorBits = nBits;
-          // This is an upper bound on log2(numerator, ceiling).
-
-          /*
-           * We want to do this in long math for speed, but want to avoid overflow. We adapt the
-           * technique previously used by BigIntegerMath: maintain separate numerator and
-           * denominator accumulators, multiplying the fraction into result when near overflow.
-           */
-          for (int i = 2; i <= k; i++, n--) {
-            if (numeratorBits + nBits < Long.SIZE - 1) {
-              // It's definitely safe to multiply into numerator and denominator.
-              numerator *= n;
-              denominator *= i;
-              numeratorBits += nBits;
-            } else {
-              // It might not be safe to multiply into numerator and denominator,
-              // so multiply (numerator / denominator) into result.
-              result = multiplyFraction(result, numerator, denominator);
-              numerator = n;
-              denominator = i;
-              numeratorBits = nBits;
-            }
-          }
-          return multiplyFraction(result, numerator, denominator);
+    case 0:
+      return 1;
+    case 1:
+      return n;
+    default:
+      if (n < factorials.length) {
+        return factorials[n] / (factorials[k] * factorials[n - k]);
+      } else if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
+        return Long.MAX_VALUE;
+      } else if (k < biggestSimpleBinomials.length && n <= biggestSimpleBinomials[k]) {
+        // guaranteed not to overflow
+        long result = n--;
+        for (int i = 2; i <= k; n--, i++) {
+          result *= n;
+          result /= i;
         }
+        return result;
+      } else {
+        int nBits = LongMath.log2(n, RoundingMode.CEILING);
+
+        long result = 1;
+        long numerator = n--;
+        long denominator = 1;
+
+        int numeratorBits = nBits;
+        // This is an upper bound on log2(numerator, ceiling).
+
+        /*
+         * We want to do this in long math for speed, but want to avoid overflow. We adapt the
+         * technique previously used by BigIntegerMath: maintain separate numerator and
+         * denominator accumulators, multiplying the fraction into result when near overflow.
+         */
+        for (int i = 2; i <= k; i++, n--) {
+          if (numeratorBits + nBits < Long.SIZE - 1) {
+            // It's definitely safe to multiply into numerator and denominator.
+            numerator *= n;
+            denominator *= i;
+            numeratorBits += nBits;
+          } else {
+            // It might not be safe to multiply into numerator and denominator,
+            // so multiply (numerator / denominator) into result.
+            result = multiplyFraction(result, numerator, denominator);
+            numerator = n;
+            denominator = i;
+            numeratorBits = nBits;
+          }
+        }
+        return multiplyFraction(result, numerator, denominator);
+      }
     }
   }
 
@@ -1132,9 +1132,9 @@ public final class LongMath {
         result += aLo * bHi; // aLo * bHi < 2^63, result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(
-            result,
-            UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m),
-            m);
+                result,
+                UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m),
+                m);
       }
 
       @Override
@@ -1158,9 +1158,9 @@ public final class LongMath {
         result += hiLo; // result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(
-            result,
-            UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m),
-            m);
+                result,
+                UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m),
+                m);
       }
     };
 

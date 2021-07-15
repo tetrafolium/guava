@@ -28,7 +28,7 @@ import java.lang.ref.SoftReference;
  */
 @GwtIncompatible
 public abstract class FinalizableSoftReference<T> extends SoftReference<T>
-    implements FinalizableReference {
+  implements FinalizableReference {
   /**
    * Constructs a new finalizable soft reference.
    *

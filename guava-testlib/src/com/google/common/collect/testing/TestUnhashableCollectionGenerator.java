@@ -28,7 +28,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestUnhashableCollectionGenerator<T extends Collection<UnhashableObject>>
-    implements TestCollectionGenerator<UnhashableObject> {
+  implements TestCollectionGenerator<UnhashableObject> {
   @Override
   public SampleElements<UnhashableObject> samples() {
     return new Unhashables();

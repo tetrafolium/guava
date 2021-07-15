@@ -106,7 +106,7 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     try {
       assertFalse(
           "removeAll(emptyCollection) should return false or throw "
-              + "UnsupportedOperationException",
+          + "UnsupportedOperationException",
           collection.removeAll(MinimalCollection.of()));
     } catch (UnsupportedOperationException tolerated) {
     }
@@ -118,7 +118,7 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     try {
       assertFalse(
           "removeAll(disjointCollection) should return false or throw "
-              + "UnsupportedOperationException",
+          + "UnsupportedOperationException",
           collection.removeAll(MinimalCollection.of(e3())));
     } catch (UnsupportedOperationException tolerated) {
     }

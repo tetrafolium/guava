@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
-    implements ListMultimap<K, V> {
+  implements ListMultimap<K, V> {
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableListMultimap}
    * whose keys and values are the result of applying the provided mapping functions to the input
@@ -85,12 +85,12 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
     checkNotNull(keyFunction, "keyFunction");
     checkNotNull(valueFunction, "valueFunction");
     return Collector.of(
-        ImmutableListMultimap::<K, V>builder,
-        (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
-        ImmutableListMultimap.Builder::combine,
-        ImmutableListMultimap.Builder::build);
+            ImmutableListMultimap::<K, V>builder,
+            (builder, t) -> builder.put(keyFunction.apply(t), valueFunction.apply(t)),
+            ImmutableListMultimap.Builder::combine,
+            ImmutableListMultimap.Builder::build);
   }
-  
+
   /**
    * Returns a {@code Collector} accumulating entries into an {@code ImmutableListMultimap}. Each
    * input element is mapped to a key and a stream of values, each of which are put into the
@@ -124,17 +124,17 @@ public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
    */
   @Beta
   public static <T, K, V>
-      Collector<T, ?, ImmutableListMultimap<K, V>> flatteningToImmutableListMultimap(
-          Function<? super T, ? extends K> keyFunction,
-          Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
+  Collector<T, ?, ImmutableListMultimap<K, V>> flatteningToImmutableListMultimap(
+      Function<? super T, ? extends K> keyFunction,
+      Function<? super T, ? extends Stream<? extends V>> valuesFunction) {
     checkNotNull(keyFunction);
     checkNotNull(valuesFunction);
     return Collectors.collectingAndThen(
-        Multimaps.flatteningToMultimap(
-            input -> checkNotNull(keyFunction.apply(input)),
-            input -> valuesFunction.apply(input).peek(Preconditions::checkNotNull),
-            MultimapBuilder.linkedHashKeys().arrayListValues()::<K, V>build),
-        ImmutableListMultimap::copyOf);
+            Multimaps.flatteningToMultimap(
+                input -> checkNotNull(keyFunction.apply(input)),
+                input -> valuesFunction.apply(input).peek(Preconditions::checkNotNull),
+                MultimapBuilder.linkedHashKeys().arrayListValues()::<K, V>build),
+            ImmutableListMultimap::copyOf);
   }
 
   /** Returns the empty multimap. */

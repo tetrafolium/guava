@@ -88,12 +88,12 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   public static <E> ImmutableSet<E> copyOf(E[] elements) {
     checkNotNull(elements);
     switch (elements.length) {
-      case 0:
-        return of();
-      case 1:
-        return of(elements[0]);
-      default:
-        return create(elements);
+    case 0:
+      return of();
+    case 1:
+      return of(elements[0]);
+    default:
+      return create(elements);
     }
   }
 
@@ -134,12 +134,12 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   // the elements are known to be non-null.
   static <E> ImmutableSet<E> unsafeDelegate(Set<E> delegate) {
     switch (delegate.size()) {
-      case 0:
-        return of();
-      case 1:
-        return new SingletonImmutableSet<E>(delegate.iterator().next());
-      default:
-        return new RegularImmutableSet<E>(delegate);
+    case 0:
+      return of();
+    case 1:
+      return new SingletonImmutableSet<E>(delegate.iterator().next());
+    default:
+      return new RegularImmutableSet<E>(delegate);
     }
   }
 
@@ -152,12 +152,12 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
 
     switch (set.size()) {
-      case 0:
-        return of();
-      case 1:
-        return new SingletonImmutableSet<E>(set.iterator().next());
-      default:
-        return new RegularImmutableSet<E>(set);
+    case 0:
+      return of();
+    case 1:
+      return new SingletonImmutableSet<E>(set.iterator().next());
+    default:
+      return new RegularImmutableSet<E>(set);
     }
   }
 

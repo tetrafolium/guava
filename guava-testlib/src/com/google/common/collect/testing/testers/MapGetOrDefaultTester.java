@@ -42,7 +42,7 @@ public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
     assertEquals("getOrDefault(present, def) should return the associated value",
         v0(), getMap().getOrDefault(k0(), v3()));
   }
-  
+
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_presentNullDefault() {
     assertEquals("getOrDefault(present, null) should return the associated value",
@@ -78,7 +78,7 @@ public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_nonNullWhenNullContained() {
     initMapWithNullKey();
-    assertEquals("getOrDefault(absent, default) should return default", 
+    assertEquals("getOrDefault(absent, default) should return default",
         v3(), getMap().getOrDefault(k3(), v3()));
   }
 
@@ -89,7 +89,7 @@ public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
     assertEquals("getOrDefault(null, default) should return the associated value",
         getValueForNullKey(), getMap().getOrDefault(null, v3()));
   }
-  
+
   @MapFeature.Require(ALLOWS_NULL_VALUES)
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_presentMappedToNull() {

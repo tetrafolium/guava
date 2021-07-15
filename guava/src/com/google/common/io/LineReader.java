@@ -44,12 +44,12 @@ public final class LineReader {
 
   private final Queue<String> lines = new LinkedList<>();
   private final LineBuffer lineBuf =
-      new LineBuffer() {
-        @Override
-        protected void handleLine(String line, String end) {
-          lines.add(line);
-        }
-      };
+  new LineBuffer() {
+    @Override
+    protected void handleLine(String line, String end) {
+      lines.add(line);
+    }
+  };
 
   /**
    * Creates a new instance that will read lines from the given {@code Readable} object.

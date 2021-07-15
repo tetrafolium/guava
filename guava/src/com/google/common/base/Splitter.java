@@ -133,22 +133,22 @@ public final class Splitter {
     checkNotNull(separatorMatcher);
 
     return new Splitter(
-        new Strategy() {
+    new Strategy() {
+      @Override
+      public SplittingIterator iterator(Splitter splitter, final CharSequence toSplit) {
+        return new SplittingIterator(splitter, toSplit) {
           @Override
-          public SplittingIterator iterator(Splitter splitter, final CharSequence toSplit) {
-            return new SplittingIterator(splitter, toSplit) {
-              @Override
-              int separatorStart(int start) {
-                return separatorMatcher.indexIn(toSplit, start);
-              }
-
-              @Override
-              int separatorEnd(int separatorPosition) {
-                return separatorPosition + 1;
-              }
-            };
+          int separatorStart(int start) {
+            return separatorMatcher.indexIn(toSplit, start);
           }
-        });
+
+          @Override
+          int separatorEnd(int separatorPosition) {
+            return separatorPosition + 1;
+          }
+        };
+      }
+    });
   }
 
   /**
@@ -165,33 +165,33 @@ public final class Splitter {
       return Splitter.on(separator.charAt(0));
     }
     return new Splitter(
-        new Strategy() {
+    new Strategy() {
+      @Override
+      public SplittingIterator iterator(Splitter splitter, CharSequence toSplit) {
+        return new SplittingIterator(splitter, toSplit) {
           @Override
-          public SplittingIterator iterator(Splitter splitter, CharSequence toSplit) {
-            return new SplittingIterator(splitter, toSplit) {
-              @Override
-              public int separatorStart(int start) {
-                int separatorLength = separator.length();
+          public int separatorStart(int start) {
+            int separatorLength = separator.length();
 
-                positions:
-                for (int p = start, last = toSplit.length() - separatorLength; p <= last; p++) {
-                  for (int i = 0; i < separatorLength; i++) {
-                    if (toSplit.charAt(i + p) != separator.charAt(i)) {
-                      continue positions;
-                    }
-                  }
-                  return p;
+            positions:
+            for (int p = start, last = toSplit.length() - separatorLength; p <= last; p++) {
+              for (int i = 0; i < separatorLength; i++) {
+                if (toSplit.charAt(i + p) != separator.charAt(i)) {
+                  continue positions;
                 }
-                return -1;
               }
-
-              @Override
-              public int separatorEnd(int separatorPosition) {
-                return separatorPosition + separator.length();
-              }
-            };
+              return p;
+            }
+            return -1;
           }
-        });
+
+          @Override
+          public int separatorEnd(int separatorPosition) {
+            return separatorPosition + separator.length();
+          }
+        };
+      }
+    });
   }
 
   /**
@@ -216,23 +216,23 @@ public final class Splitter {
         separatorPattern);
 
     return new Splitter(
-        new Strategy() {
+    new Strategy() {
+      @Override
+      public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
+        final CommonMatcher matcher = separatorPattern.matcher(toSplit);
+        return new SplittingIterator(splitter, toSplit) {
           @Override
-          public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
-            final CommonMatcher matcher = separatorPattern.matcher(toSplit);
-            return new SplittingIterator(splitter, toSplit) {
-              @Override
-              public int separatorStart(int start) {
-                return matcher.find(start) ? matcher.start() : -1;
-              }
-
-              @Override
-              public int separatorEnd(int separatorPosition) {
-                return matcher.end();
-              }
-            };
+          public int separatorStart(int start) {
+            return matcher.find(start) ? matcher.start() : -1;
           }
-        });
+
+          @Override
+          public int separatorEnd(int separatorPosition) {
+            return matcher.end();
+          }
+        };
+      }
+    });
   }
 
   /**
@@ -273,23 +273,23 @@ public final class Splitter {
     checkArgument(length > 0, "The length may not be less than 1");
 
     return new Splitter(
-        new Strategy() {
+    new Strategy() {
+      @Override
+      public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
+        return new SplittingIterator(splitter, toSplit) {
           @Override
-          public SplittingIterator iterator(final Splitter splitter, CharSequence toSplit) {
-            return new SplittingIterator(splitter, toSplit) {
-              @Override
-              public int separatorStart(int start) {
-                int nextChunkStart = start + length;
-                return (nextChunkStart < toSplit.length() ? nextChunkStart : -1);
-              }
-
-              @Override
-              public int separatorEnd(int separatorPosition) {
-                return separatorPosition;
-              }
-            };
+          public int separatorStart(int start) {
+            int nextChunkStart = start + length;
+            return (nextChunkStart < toSplit.length() ? nextChunkStart : -1);
           }
-        });
+
+          @Override
+          public int separatorEnd(int separatorPosition) {
+            return separatorPosition;
+          }
+        };
+      }
+    });
   }
 
   /**

@@ -94,8 +94,8 @@ public final class Closer implements Closeable {
    */
   private static final Suppressor SUPPRESSOR =
       SuppressingSuppressor.isAvailable()
-          ? SuppressingSuppressor.INSTANCE
-          : LoggingSuppressor.INSTANCE;
+      ? SuppressingSuppressor.INSTANCE
+      : LoggingSuppressor.INSTANCE;
 
   /**
    * Creates a new {@link Closer}.
@@ -166,7 +166,7 @@ public final class Closer implements Closeable {
    * @throws X when the given throwable is of the declared type X
    */
   public <X extends Exception> RuntimeException rethrow(Throwable e, Class<X> declaredType)
-      throws IOException, X {
+  throws IOException, X {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);

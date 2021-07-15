@@ -34,7 +34,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class AbstractContainerTester<C, E>
-    extends AbstractTester<OneSizeTestContainerGenerator<C, E>> {
+  extends AbstractTester<OneSizeTestContainerGenerator<C, E>> {
   protected SampleElements<E> samples;
   protected C container;
 

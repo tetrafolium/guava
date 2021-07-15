@@ -28,7 +28,7 @@ public class TreeBasedTable_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader, TreeBasedTable<?, ?, ?> table) {}
 
   public static TreeBasedTable<Object, Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     @SuppressWarnings("unchecked") // The comparator isn't used statically.
     Comparator<Object> rowComparator = (Comparator<Object>) reader.readObject();
     @SuppressWarnings("unchecked") // The comparator isn't used statically.
@@ -40,7 +40,7 @@ public class TreeBasedTable_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, TreeBasedTable<?, ?, ?> table)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(table.rowComparator());
     writer.writeObject(table.columnComparator());
     Table_CustomFieldSerializerBase.serialize(writer, table);

@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 @CanIgnoreReturnValue
 @GwtIncompatible
 public abstract class AbstractListeningExecutorService extends AbstractExecutorService
-    implements ListeningExecutorService {
+  implements ListeningExecutorService {
 
   /** @since 19.0 (present with return type {@code ListenableFutureTask} since 14.0) */
   @Override

@@ -28,7 +28,7 @@ import java.util.SortedSet;
  * @author Louis Wasserman
  */
 final class UnmodifiableSortedMultiset<E>
-    extends UnmodifiableMultiset<E> implements SortedMultiset<E> {
+  extends UnmodifiableMultiset<E> implements SortedMultiset<E> {
   UnmodifiableSortedMultiset(SortedMultiset<E> delegate) {
     super(delegate);
   }
@@ -90,7 +90,7 @@ final class UnmodifiableSortedMultiset<E>
   @Override
   public SortedMultiset<E> headMultiset(E upperBound, BoundType boundType) {
     return Multisets.unmodifiableSortedMultiset(
-        delegate().headMultiset(upperBound, boundType));
+            delegate().headMultiset(upperBound, boundType));
   }
 
   @Override
@@ -98,13 +98,13 @@ final class UnmodifiableSortedMultiset<E>
       E lowerBound, BoundType lowerBoundType,
       E upperBound, BoundType upperBoundType) {
     return Multisets.unmodifiableSortedMultiset(delegate().subMultiset(
-        lowerBound, lowerBoundType, upperBound, upperBoundType));
+                lowerBound, lowerBoundType, upperBound, upperBoundType));
   }
 
   @Override
   public SortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType) {
     return Multisets.unmodifiableSortedMultiset(
-        delegate().tailMultiset(lowerBound, boundType));
+            delegate().tailMultiset(lowerBound, boundType));
   }
 
   private static final long serialVersionUID = 0;

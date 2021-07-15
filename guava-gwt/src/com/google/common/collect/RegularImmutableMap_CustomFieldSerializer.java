@@ -34,7 +34,7 @@ public class RegularImmutableMap_CustomFieldSerializer {
       SerializationStreamReader reader, RegularImmutableMap<?, ?> instance) {}
 
   public static RegularImmutableMap<Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     Map<Object, Object> entries = new LinkedHashMap<>();
     Map_CustomFieldSerializerBase.deserialize(reader, entries);
     /*
@@ -47,7 +47,7 @@ public class RegularImmutableMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, RegularImmutableMap<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

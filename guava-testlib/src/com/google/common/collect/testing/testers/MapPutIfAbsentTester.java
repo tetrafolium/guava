@@ -31,7 +31,7 @@ import java.util.Map;
  * A generic JUnit test which tests {@link Map#putIfAbsent}. Can't be
  * invoked directly; please see
  * {@link com.google.common.collect.testing.MapTestSuiteBuilder}.
- * 
+ *
  * @author Louis Wasserman
  */
 @GwtCompatible
@@ -39,15 +39,15 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutIfAbsent_supportedAbsent() {
-    assertNull("putIfAbsent(notPresent, value) should return null", 
+    assertNull("putIfAbsent(notPresent, value) should return null",
         getMap().putIfAbsent(k3(), v3()));
     expectAdded(e3());
   }
-  
+
   @MapFeature.Require(SUPPORTS_PUT)
   @CollectionSize.Require(absent = ZERO)
   public void testPutIfAbsent_supportedPresent() {
-    assertEquals("putIfAbsent(present, value) should return existing value", 
+    assertEquals("putIfAbsent(present, value) should return existing value",
         v0(), getMap().putIfAbsent(k0(), v3()));
     expectUnchanged();
   }

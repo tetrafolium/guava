@@ -34,7 +34,7 @@ import java.util.Collection;
  */
 @GwtCompatible
 public class MultimapPutAllMultimapTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testPutUnsupported() {
     try {

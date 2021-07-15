@@ -31,13 +31,13 @@ public class HashMultimap_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader in, HashMultimap<?, ?> out) {}
 
   public static HashMultimap<Object, Object> instantiate(SerializationStreamReader in)
-      throws SerializationException {
+  throws SerializationException {
     return (HashMultimap<Object, Object>)
         Multimap_CustomFieldSerializerBase.populate(in, HashMultimap.create());
   }
 
   public static void serialize(SerializationStreamWriter out, HashMultimap<?, ?> multimap)
-      throws SerializationException {
+  throws SerializationException {
     Multimap_CustomFieldSerializerBase.serialize(out, multimap);
   }
 }

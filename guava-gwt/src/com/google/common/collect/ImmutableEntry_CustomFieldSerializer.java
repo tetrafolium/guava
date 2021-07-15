@@ -31,14 +31,14 @@ public class ImmutableEntry_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader, ImmutableEntry<?, ?> instance) {}
 
   public static ImmutableEntry<Object, Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     Object key = reader.readObject();
     Object value = reader.readObject();
     return new ImmutableEntry<>(key, value);
   }
 
   public static void serialize(SerializationStreamWriter writer, ImmutableEntry<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.getKey());
     writer.writeObject(instance.getValue());
   }

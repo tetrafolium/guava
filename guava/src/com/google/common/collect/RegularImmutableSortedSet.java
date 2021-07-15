@@ -103,14 +103,14 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
      * in O(n) time stepping through the two collections.
      */
     Iterator<E> thisIterator = iterator();
-    
-    Iterator<?> thatIterator = targets.iterator(); 
+
+    Iterator<?> thatIterator = targets.iterator();
     // known nonempty since we checked targets.size() > 1
-    
+
     if (!thisIterator.hasNext()) {
       return false;
     }
-    
+
     Object target = thatIterator.next();
     E current = thisIterator.next();
     try {
@@ -275,7 +275,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
       return this;
     } else if (newFromIndex < newToIndex) {
       return new RegularImmutableSortedSet<E>(
-          elements.subList(newFromIndex, newToIndex), comparator);
+              elements.subList(newFromIndex, newToIndex), comparator);
     } else {
       return emptySet(comparator);
     }

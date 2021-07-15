@@ -64,7 +64,7 @@ import java.util.Map;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class ArrayListMultimap<K, V>
-    extends ArrayListMultimapGwtSerializationDependencies<K, V> {
+  extends ArrayListMultimapGwtSerializationDependencies<K, V> {
   // Default from ArrayList
   private static final int DEFAULT_VALUES_PER_KEY = 3;
 
@@ -123,8 +123,8 @@ public final class ArrayListMultimap<K, V>
     this(
         multimap.keySet().size(),
         (multimap instanceof ArrayListMultimap)
-            ? ((ArrayListMultimap<?, ?>) multimap).expectedValuesPerKey
-            : DEFAULT_VALUES_PER_KEY);
+        ? ((ArrayListMultimap<?, ?>) multimap).expectedValuesPerKey
+        : DEFAULT_VALUES_PER_KEY);
     putAll(multimap);
   }
 

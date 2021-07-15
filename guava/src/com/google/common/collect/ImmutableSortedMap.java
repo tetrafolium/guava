@@ -61,7 +61,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxverideShim<K, V>
-    implements NavigableMap<K, V> {
+  implements NavigableMap<K, V> {
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableSortedMap}
    * whose keys and values are the result of applying the provided mapping functions to the input
@@ -81,7 +81,7 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
       Function<? super T, ? extends V> valueFunction) {
     return CollectCollectors.toImmutableSortedMap(comparator, keyFunction, valueFunction);
   }
-  
+
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableSortedMap} whose
    * keys and values are the result of applying the provided mapping functions to the input
@@ -104,9 +104,9 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
     checkNotNull(valueFunction);
     checkNotNull(mergeFunction);
     return Collectors.collectingAndThen(
-        Collectors.toMap(
-            keyFunction, valueFunction, mergeFunction, () -> new TreeMap<K, V>(comparator)),
-        ImmutableSortedMap::copyOfSorted);
+            Collectors.toMap(
+                keyFunction, valueFunction, mergeFunction, () -> new TreeMap<K, V>(comparator)),
+            ImmutableSortedMap::copyOfSorted);
   }
 
   /*
@@ -117,14 +117,14 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
 
   private static final ImmutableSortedMap<Comparable, Object> NATURAL_EMPTY_MAP =
       new ImmutableSortedMap<>(
-          ImmutableSortedSet.emptySet(Ordering.natural()), ImmutableList.<Object>of());
+      ImmutableSortedSet.emptySet(Ordering.natural()), ImmutableList.<Object>of());
 
   static <K, V> ImmutableSortedMap<K, V> emptyMap(Comparator<? super K> comparator) {
     if (Ordering.natural().equals(comparator)) {
       return of();
     } else {
       return new ImmutableSortedMap<>(
-          ImmutableSortedSet.emptySet(comparator), ImmutableList.<V>of());
+              ImmutableSortedSet.emptySet(comparator), ImmutableList.<V>of());
     }
   }
 
@@ -150,8 +150,8 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
    */
   private static <K, V> ImmutableSortedMap<K, V> of(Comparator<? super K> comparator, K k1, V v1) {
     return new ImmutableSortedMap<>(
-        new RegularImmutableSortedSet<K>(ImmutableList.of(k1), checkNotNull(comparator)),
-        ImmutableList.of(v1));
+            new RegularImmutableSortedSet<K>(ImmutableList.of(k1), checkNotNull(comparator)),
+            ImmutableList.of(v1));
   }
 
   private static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V> ofEntries(
@@ -209,7 +209,7 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
   public static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V> of(
       K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return ofEntries(
-        entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
+            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
   }
 
   /**
@@ -330,8 +330,8 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
       Comparator<?> comparator2 = sortedMap.comparator();
       sameComparator =
           (comparator2 == null)
-              ? comparator == NATURAL_ORDER
-              : comparator.equals(comparator2);
+          ? comparator == NATURAL_ORDER
+          : comparator.equals(comparator2);
     }
 
     if (sameComparator && (map instanceof ImmutableSortedMap)) {
@@ -368,55 +368,55 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
       Entry<K, V>[] entryArray,
       int size) {
     switch (size) {
-      case 0:
-        return emptyMap(comparator);
-      case 1:
-        return ImmutableSortedMap.<K, V>of(
-            comparator, entryArray[0].getKey(), entryArray[0].getValue());
-      default:
-        Object[] keys = new Object[size];
-        Object[] values = new Object[size];
-        if (sameComparator) {
-          // Need to check for nulls, but don't need to sort or validate.
-          for (int i = 0; i < size; i++) {
-            Object key = entryArray[i].getKey();
-            Object value = entryArray[i].getValue();
-            checkEntryNotNull(key, value);
-            keys[i] = key;
-            values[i] = value;
-          }
-        } else {
-          // Need to sort and check for nulls and dupes.
-          // Inline the Comparator implementation rather than transforming with a Function
-          // to save code size.
-          Arrays.sort(
-              entryArray,
-              0,
-              size,
-              new Comparator<Entry<K, V>>() {
-                @Override
-                public int compare(Entry<K, V> e1, Entry<K, V> e2) {
-                  return comparator.compare(e1.getKey(), e2.getKey());
-                }
-              });
-          K prevKey = entryArray[0].getKey();
-          keys[0] = prevKey;
-          values[0] = entryArray[0].getValue();
-          checkEntryNotNull(keys[0], values[0]);
-          for (int i = 1; i < size; i++) {
-            K key = entryArray[i].getKey();
-            V value = entryArray[i].getValue();
-            checkEntryNotNull(key, value);
-            keys[i] = key;
-            values[i] = value;
-            checkNoConflict(
-                comparator.compare(prevKey, key) != 0, "key", entryArray[i - 1], entryArray[i]);
-            prevKey = key;
-          }
+    case 0:
+      return emptyMap(comparator);
+    case 1:
+      return ImmutableSortedMap.<K, V>of(
+              comparator, entryArray[0].getKey(), entryArray[0].getValue());
+    default:
+      Object[] keys = new Object[size];
+      Object[] values = new Object[size];
+      if (sameComparator) {
+        // Need to check for nulls, but don't need to sort or validate.
+        for (int i = 0; i < size; i++) {
+          Object key = entryArray[i].getKey();
+          Object value = entryArray[i].getValue();
+          checkEntryNotNull(key, value);
+          keys[i] = key;
+          values[i] = value;
         }
-        return new ImmutableSortedMap<>(
-            new RegularImmutableSortedSet<K>(new RegularImmutableList<K>(keys), comparator),
-            new RegularImmutableList<V>(values));
+      } else {
+        // Need to sort and check for nulls and dupes.
+        // Inline the Comparator implementation rather than transforming with a Function
+        // to save code size.
+        Arrays.sort(
+            entryArray,
+            0,
+            size,
+        new Comparator<Entry<K, V>>() {
+          @Override
+          public int compare(Entry<K, V> e1, Entry<K, V> e2) {
+            return comparator.compare(e1.getKey(), e2.getKey());
+          }
+        });
+        K prevKey = entryArray[0].getKey();
+        keys[0] = prevKey;
+        values[0] = entryArray[0].getValue();
+        checkEntryNotNull(keys[0], values[0]);
+        for (int i = 1; i < size; i++) {
+          K key = entryArray[i].getKey();
+          V value = entryArray[i].getValue();
+          checkEntryNotNull(key, value);
+          keys[i] = key;
+          values[i] = value;
+          checkNoConflict(
+              comparator.compare(prevKey, key) != 0, "key", entryArray[i - 1], entryArray[i]);
+          prevKey = key;
+        }
+      }
+      return new ImmutableSortedMap<>(
+              new RegularImmutableSortedSet<K>(new RegularImmutableList<K>(keys), comparator),
+              new RegularImmutableList<V>(values));
     }
   }
 
@@ -567,12 +567,12 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
     @Override
     public ImmutableSortedMap<K, V> build() {
       switch (size) {
-        case 0:
-          return emptyMap(comparator);
-        case 1:
-          return of(comparator, entries[0].getKey(), entries[0].getValue());
-        default:
-          return fromEntries(comparator, false, entries, size);
+      case 0:
+        return emptyMap(comparator);
+      case 1:
+        return of(comparator, entries[0].getKey(), entries[0].getValue());
+      default:
+        return fromEntries(comparator, false, entries, size);
       }
     }
   }
@@ -653,13 +653,13 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
           @Override
           public Entry<K, V> get(int index) {
             return new AbstractMap.SimpleImmutableEntry<>(
-                keySet.asList().get(index), valueList.get(index));
+                    keySet.asList().get(index), valueList.get(index));
           }
 
           @Override
           public Spliterator<Entry<K, V>> spliterator() {
             return CollectSpliterators.indexed(
-                size(), ImmutableSet.SPLITERATOR_CHARACTERISTICS, this::get);
+                    size(), ImmutableSet.SPLITERATOR_CHARACTERISTICS, this::get);
           }
 
           @Override
@@ -732,7 +732,7 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
       return emptyMap(comparator());
     } else {
       return new ImmutableSortedMap<>(
-          keySet.getSubSet(fromIndex, toIndex), valueList.subList(fromIndex, toIndex));
+              keySet.getSubSet(fromIndex, toIndex), valueList.subList(fromIndex, toIndex));
     }
   }
 
@@ -933,8 +933,8 @@ public final class ImmutableSortedMap<K, V> extends ImmutableSortedMapFauxveride
         return result = emptyMap(Ordering.from(comparator()).reverse());
       } else {
         return result =
-            new ImmutableSortedMap<>(
-                (RegularImmutableSortedSet<K>) keySet.descendingSet(), valueList.reverse(), this);
+                new ImmutableSortedMap<>(
+            (RegularImmutableSortedSet<K>) keySet.descendingSet(), valueList.reverse(), this);
       }
     }
     return result;

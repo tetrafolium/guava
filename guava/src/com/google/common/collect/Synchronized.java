@@ -460,7 +460,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedRandomAccessList<E> extends SynchronizedList<E>
-      implements RandomAccess {
+    implements RandomAccess {
     SynchronizedRandomAccessList(List<E> list, @Nullable Object mutex) {
       super(list, mutex);
     }
@@ -476,7 +476,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedMultiset<E> extends SynchronizedCollection<E>
-      implements Multiset<E> {
+    implements Multiset<E> {
     transient Set<E> elementSet;
     transient Set<Entry<E>> entrySet;
 
@@ -572,7 +572,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedMultimap<K, V> extends SynchronizedObject
-      implements Multimap<K, V> {
+    implements Multimap<K, V> {
     transient Set<K> keySet;
     transient Collection<V> valuesCollection;
     transient Collection<Map.Entry<K, V>> entries;
@@ -766,7 +766,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedListMultimap<K, V> extends SynchronizedMultimap<K, V>
-      implements ListMultimap<K, V> {
+    implements ListMultimap<K, V> {
     SynchronizedListMultimap(ListMultimap<K, V> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
     }
@@ -808,7 +808,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedSetMultimap<K, V> extends SynchronizedMultimap<K, V>
-      implements SetMultimap<K, V> {
+    implements SetMultimap<K, V> {
     transient Set<Map.Entry<K, V>> entrySet;
 
     SynchronizedSetMultimap(SetMultimap<K, V> delegate, @Nullable Object mutex) {
@@ -863,7 +863,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedSortedSetMultimap<K, V> extends SynchronizedSetMultimap<K, V>
-      implements SortedSetMultimap<K, V> {
+    implements SortedSetMultimap<K, V> {
     SynchronizedSortedSetMultimap(SortedSetMultimap<K, V> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
     }
@@ -927,7 +927,7 @@ final class Synchronized {
   }
 
   private static class SynchronizedAsMapEntries<K, V>
-      extends SynchronizedSet<Map.Entry<K, Collection<V>>> {
+    extends SynchronizedSet<Map.Entry<K, Collection<V>>> {
     SynchronizedAsMapEntries(Set<Map.Entry<K, Collection<V>>> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
     }
@@ -936,7 +936,7 @@ final class Synchronized {
     public Iterator<Map.Entry<K, Collection<V>>> iterator() {
       // Must be manually synchronized.
       return new TransformedIterator<Map.Entry<K, Collection<V>>, Map.Entry<K, Collection<V>>>(
-          super.iterator()) {
+      super.iterator()) {
         @Override
         Map.Entry<K, Collection<V>> transform(final Map.Entry<K, Collection<V>> entry) {
           return new ForwardingMapEntry<K, Collection<V>>() {
@@ -1235,7 +1235,7 @@ final class Synchronized {
   }
 
   static class SynchronizedSortedMap<K, V> extends SynchronizedMap<K, V>
-      implements SortedMap<K, V> {
+    implements SortedMap<K, V> {
 
     SynchronizedSortedMap(SortedMap<K, V> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
@@ -1300,7 +1300,7 @@ final class Synchronized {
 
   @VisibleForTesting
   static class SynchronizedBiMap<K, V> extends SynchronizedMap<K, V>
-      implements BiMap<K, V>, Serializable {
+    implements BiMap<K, V>, Serializable {
     private transient Set<V> valueSet;
     @RetainedWith
     private transient BiMap<V, K> inverse;
@@ -1413,7 +1413,7 @@ final class Synchronized {
   @GwtIncompatible // NavigableSet
   @VisibleForTesting
   static class SynchronizedNavigableSet<E> extends SynchronizedSortedSet<E>
-      implements NavigableSet<E> {
+    implements NavigableSet<E> {
     SynchronizedNavigableSet(NavigableSet<E> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
     }
@@ -1496,7 +1496,7 @@ final class Synchronized {
         E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
       synchronized (mutex) {
         return Synchronized.navigableSet(
-            delegate().subSet(fromElement, fromInclusive, toElement, toInclusive), mutex);
+                delegate().subSet(fromElement, fromInclusive, toElement, toInclusive), mutex);
       }
     }
 
@@ -1549,7 +1549,7 @@ final class Synchronized {
   @GwtIncompatible // NavigableMap
   @VisibleForTesting
   static class SynchronizedNavigableMap<K, V> extends SynchronizedSortedMap<K, V>
-      implements NavigableMap<K, V> {
+    implements NavigableMap<K, V> {
 
     SynchronizedNavigableMap(NavigableMap<K, V> delegate, @Nullable Object mutex) {
       super(delegate, mutex);
@@ -1974,13 +1974,13 @@ final class Synchronized {
 
     private static final long serialVersionUID = 0;
   }
-  
+
   static <R, C, V> Table<R, C, V> table(Table<R, C, V> table, Object mutex) {
     return new SynchronizedTable<>(table, mutex);
   }
 
   private static final class SynchronizedTable<R, C, V> extends SynchronizedObject
-      implements Table<R, C, V> {
+    implements Table<R, C, V> {
 
     SynchronizedTable(Table<R, C, V> delegate, Object mutex) {
       super(delegate, mutex);
@@ -2115,15 +2115,15 @@ final class Synchronized {
     public Map<R, Map<C, V>> rowMap() {
       synchronized (mutex) {
         return map(
-            Maps.transformValues(
-                delegate().rowMap(),
-                new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
-                  @Override
-                  public Map<C, V> apply(Map<C, V> t) {
-                    return map(t, mutex);
-                  }
-                }),
-            mutex);
+                Maps.transformValues(
+                    delegate().rowMap(),
+        new com.google.common.base.Function<Map<C, V>, Map<C, V>>() {
+          @Override
+          public Map<C, V> apply(Map<C, V> t) {
+            return map(t, mutex);
+          }
+        }),
+        mutex);
       }
     }
 
@@ -2131,15 +2131,15 @@ final class Synchronized {
     public Map<C, Map<R, V>> columnMap() {
       synchronized (mutex) {
         return map(
-            Maps.transformValues(
-                delegate().columnMap(),
-                new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
-                  @Override
-                  public Map<R, V> apply(Map<R, V> t) {
-                    return map(t, mutex);
-                  }
-                }),
-            mutex);
+                Maps.transformValues(
+                    delegate().columnMap(),
+        new com.google.common.base.Function<Map<R, V>, Map<R, V>>() {
+          @Override
+          public Map<R, V> apply(Map<R, V> t) {
+            return map(t, mutex);
+          }
+        }),
+        mutex);
       }
     }
 

@@ -41,7 +41,7 @@ public class SingletonImmutableBiMap_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, SingletonImmutableBiMap<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.singleKey);
     writer.writeObject(instance.singleValue);
   }

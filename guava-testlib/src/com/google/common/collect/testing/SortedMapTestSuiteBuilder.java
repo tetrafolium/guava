@@ -64,8 +64,8 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
   @Override
   protected List<TestSuite> createDerivedSuites(
       FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder) {
+      ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
+      parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
     if (!parentBuilder.getFeatures().contains(NoRecurse.SUBMAP)) {
@@ -107,8 +107,8 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
    */
   final TestSuite createSubmapSuite(
       final FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder,
+      ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
+      parentBuilder,
       final Bound from,
       final Bound to) {
     final TestSortedMapGenerator<K, V> delegate =

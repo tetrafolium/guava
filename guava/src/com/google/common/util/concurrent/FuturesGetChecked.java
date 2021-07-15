@@ -131,13 +131,13 @@ final class FuturesGetChecked {
        * UnsignedBytesBenchmark. TODO(cpovirk): benchmark this
        */
       private static final ClassValue<Boolean> isValidClass =
-          new ClassValue<Boolean>() {
-            @Override
-            protected Boolean computeValue(Class<?> type) {
-              checkExceptionClassValidity(type.asSubclass(Exception.class));
-              return true;
-            }
-          };
+      new ClassValue<Boolean>() {
+        @Override
+        protected Boolean computeValue(Class<?> type) {
+          checkExceptionClassValidity(type.asSubclass(Exception.class));
+          return true;
+        }
+      };
 
       @Override
       public void validateClass(Class<? extends Exception> exceptionClass) {
@@ -157,7 +157,7 @@ final class FuturesGetChecked {
        * weakKeys() and concurrencyLevel(1), even up to at least 12 cached exception types.
        */
       private static final Set<WeakReference<Class<? extends Exception>>> validClasses =
-          new CopyOnWriteArraySet<>();
+      new CopyOnWriteArraySet<>();
 
       @Override
       public void validateClass(Class<? extends Exception> exceptionClass) {
@@ -242,8 +242,8 @@ final class FuturesGetChecked {
     }
     throw new IllegalArgumentException(
         "No appropriate constructor for exception of type "
-            + exceptionClass
-            + " in response to chained exception",
+        + exceptionClass
+        + " in response to chained exception",
         cause);
   }
 
@@ -254,14 +254,14 @@ final class FuturesGetChecked {
 
   private static final Ordering<Constructor<?>> WITH_STRING_PARAM_FIRST =
       Ordering.natural()
-          .onResultOf(
-              new Function<Constructor<?>, Boolean>() {
-                @Override
-                public Boolean apply(Constructor<?> input) {
-                  return asList(input.getParameterTypes()).contains(String.class);
-                }
-              })
-          .reverse();
+      .onResultOf(
+  new Function<Constructor<?>, Boolean>() {
+    @Override
+    public Boolean apply(Constructor<?> input) {
+      return asList(input.getParameterTypes()).contains(String.class);
+    }
+  })
+  .reverse();
 
   @Nullable
   private static <X> X newFromConstructor(Constructor<X> constructor, Throwable cause) {
@@ -280,9 +280,9 @@ final class FuturesGetChecked {
     try {
       return constructor.newInstance(params);
     } catch (IllegalArgumentException
-        | InstantiationException
-        | IllegalAccessException
-        | InvocationTargetException e) {
+          | InstantiationException
+          | IllegalAccessException
+          | InvocationTargetException e) {
       return null;
     }
   }
@@ -301,7 +301,7 @@ final class FuturesGetChecked {
     checkArgument(
         hasConstructorUsableByGetChecked(exceptionClass),
         "Futures.getChecked exception type (%s) must be an accessible class with an accessible "
-            + "constructor whose parameters (if any) must be of type String and/or Throwable",
+        + "constructor whose parameters (if any) must be of type String and/or Throwable",
         exceptionClass);
   }
 

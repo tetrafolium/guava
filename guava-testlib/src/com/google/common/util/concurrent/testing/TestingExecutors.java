@@ -101,7 +101,7 @@ public final class TestingExecutors {
   }
 
   private static final class NoOpScheduledExecutorService
-      extends AbstractListeningExecutorService implements ListeningScheduledExecutorService {
+    extends AbstractListeningExecutorService implements ListeningScheduledExecutorService {
 
     private volatile boolean shutdown;
 
@@ -149,7 +149,7 @@ public final class TestingExecutors {
     }
 
     private static class NeverScheduledFuture<V>
-        extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
+      extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
 
       static <V> NeverScheduledFuture<V> create() {
         return new NeverScheduledFuture<V>();

@@ -32,12 +32,12 @@ public final class ImmutableSortedMap_CustomFieldSerializer {
       SerializationStreamReader reader, ImmutableSortedMap<?, ?> instance) {}
 
   public static ImmutableSortedMap<?, ?> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return ImmutableSortedMap_CustomFieldSerializerBase.instantiate(reader);
   }
 
   public static void serialize(SerializationStreamWriter writer, ImmutableSortedMap<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     ImmutableSortedMap_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

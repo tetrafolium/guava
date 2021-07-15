@@ -45,7 +45,7 @@ import java.util.concurrent.TimeoutException;
 @Deprecated
 @GwtIncompatible
 public abstract class ForwardingCheckedFuture<V, X extends Exception>
-    extends ForwardingListenableFuture<V> implements CheckedFuture<V, X> {
+  extends ForwardingListenableFuture<V> implements CheckedFuture<V, X> {
 
   @CanIgnoreReturnValue
   @Override
@@ -80,7 +80,7 @@ public abstract class ForwardingCheckedFuture<V, X extends Exception>
   @Beta
   @Deprecated
   public abstract static class SimpleForwardingCheckedFuture<V, X extends Exception>
-      extends ForwardingCheckedFuture<V, X> {
+    extends ForwardingCheckedFuture<V, X> {
     private final CheckedFuture<V, X> delegate;
 
     protected SimpleForwardingCheckedFuture(CheckedFuture<V, X> delegate) {

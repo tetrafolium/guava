@@ -202,7 +202,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
      */
     double fractionOfBitsSet = (double) bitCount / bitSize;
     return DoubleMath.roundToLong(
-        -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
+            -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
   }
 
   /**
@@ -348,14 +348,14 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
     checkArgument(fpp > 0.0, "False positive probability (%s) must be > 0.0", fpp);
     checkArgument(fpp < 1.0, "False positive probability (%s) must be < 1.0", fpp);
     return Collector.of(
-        () -> BloomFilter.create(funnel, expectedInsertions, fpp),
-        BloomFilter::put,
-        (bf1, bf2) -> {
-          bf1.putAll(bf2);
-          return bf1;
-        },
-        Collector.Characteristics.UNORDERED,
-        Collector.Characteristics.CONCURRENT);
+            () -> BloomFilter.create(funnel, expectedInsertions, fpp),
+            BloomFilter::put,
+    (bf1, bf2) -> {
+      bf1.putAll(bf2);
+      return bf1;
+    },
+    Collector.Characteristics.UNORDERED,
+    Collector.Characteristics.CONCURRENT);
   }
 
   /**
@@ -585,7 +585,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
    *     appear to be a BloomFilter serialized using the {@linkplain #writeTo(OutputStream)} method.
    */
   public static <T> BloomFilter<T> readFrom(InputStream in, Funnel<? super T> funnel)
-      throws IOException {
+  throws IOException {
     checkNotNull(in, "InputStream");
     checkNotNull(funnel, "Funnel");
     int strategyOrdinal = -1;
@@ -609,12 +609,12 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
     } catch (RuntimeException e) {
       String message =
           "Unable to deserialize BloomFilter from InputStream."
-              + " strategyOrdinal: "
-              + strategyOrdinal
-              + " numHashFunctions: "
-              + numHashFunctions
-              + " dataLength: "
-              + dataLength;
+          + " strategyOrdinal: "
+          + strategyOrdinal
+          + " numHashFunctions: "
+          + numHashFunctions
+          + " dataLength: "
+          + dataLength;
       throw new IOException(message, e);
     }
   }

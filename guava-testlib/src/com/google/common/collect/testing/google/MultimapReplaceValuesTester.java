@@ -41,7 +41,7 @@ import java.util.List;
  */
 @GwtCompatible
 public class MultimapReplaceValuesTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
 
   @MapFeature.Require({SUPPORTS_PUT, SUPPORTS_REMOVE, ALLOWS_NULL_VALUES})
   public void testReplaceValuesWithNullValue() {

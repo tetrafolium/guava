@@ -87,8 +87,8 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     // methods that access the same node(s) repeatedly, such as Graphs.removeEdgesConnecting().
     this.nodeConnections =
         (nodeConnections instanceof TreeMap)
-            ? new MapRetrievalCache<N, NetworkConnections<N, E>>(nodeConnections)
-            : new MapIteratorCache<N, NetworkConnections<N, E>>(nodeConnections);
+        ? new MapRetrievalCache<N, NetworkConnections<N, E>>(nodeConnections)
+        : new MapIteratorCache<N, NetworkConnections<N, E>>(nodeConnections);
     this.edgeToReferenceNode = new MapIteratorCache<>(edgeToReferenceNode);
   }
 

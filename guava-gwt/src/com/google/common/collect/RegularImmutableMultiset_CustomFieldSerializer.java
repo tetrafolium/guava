@@ -32,7 +32,7 @@ public class RegularImmutableMultiset_CustomFieldSerializer {
       SerializationStreamReader reader, RegularImmutableMultiset<?> instance) {}
 
   public static RegularImmutableMultiset<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     List<Object> elements = Lists.newArrayList();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
     /*
@@ -46,7 +46,7 @@ public class RegularImmutableMultiset_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, RegularImmutableMultiset<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

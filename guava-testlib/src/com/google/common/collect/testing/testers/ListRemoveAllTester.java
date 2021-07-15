@@ -47,7 +47,7 @@ public class ListRemoveAllTester<E> extends AbstractListTester<E> {
         getList().removeAll(MinimalCollection.of(duplicate)));
     assertFalse(
         "after removeAll(e), a collection should not contain e even "
-            + "if it initially contained e more than once.",
+        + "if it initially contained e more than once.",
         getList().contains(duplicate));
   }
 

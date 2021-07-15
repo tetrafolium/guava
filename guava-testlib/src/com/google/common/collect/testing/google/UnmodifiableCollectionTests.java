@@ -234,17 +234,17 @@ public class UnmodifiableCollectionTests {
 
     assertSetIsUnmodifiable(
         multiset.entrySet(),
-        new Multiset.Entry<E>() {
-          @Override
-          public int getCount() {
-            return 1;
-          }
+    new Multiset.Entry<E>() {
+      @Override
+      public int getCount() {
+        return 1;
+      }
 
-          @Override
-          public E getElement() {
-            return sampleElement;
-          }
-        });
+      @Override
+      public E getElement() {
+        return sampleElement;
+      }
+    });
     assertCollectionsAreEquivalent(multiset, copy);
   }
 

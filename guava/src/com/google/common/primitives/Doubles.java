@@ -282,7 +282,7 @@ public final class Doubles {
   }
 
   private static final class DoubleConverter extends Converter<String, Double>
-      implements Serializable {
+    implements Serializable {
     static final DoubleConverter INSTANCE = new DoubleConverter();
 
     @Override
@@ -517,7 +517,7 @@ public final class Doubles {
 
   @GwtCompatible
   private static class DoubleArrayAsList extends AbstractList<Double>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final double[] array;
     final int start;
     final int end;

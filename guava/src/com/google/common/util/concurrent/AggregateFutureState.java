@@ -53,8 +53,8 @@ abstract class AggregateFutureState {
     try {
       helper =
           new SafeAtomicHelper(
-              newUpdater(AggregateFutureState.class, (Class) Set.class, "seenExceptions"),
-              newUpdater(AggregateFutureState.class, "remaining"));
+          newUpdater(AggregateFutureState.class, (Class) Set.class, "seenExceptions"),
+          newUpdater(AggregateFutureState.class, "remaining"));
     } catch (Throwable reflectionFailure) {
       // Some Android 5.0.x Samsung devices have bugs in JDK reflection APIs that cause
       // getDeclaredField to throw a NoSuchFieldException when the field is definitely there.
