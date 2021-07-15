@@ -5,11 +5,13 @@ inspecode:
 
   jscpd:
   - ignore:
-      - "**/benchmark/"
-    thresholds:  { num-issues: 999 }
-  - ignore:
       - "**/com/google/common/collect/"
     thresholds:  { num-issues: 999 }
   - input:
       - "**/com/google/common/collect/"
+    ignore:
+      - "**/com/google/common/collect/testing/"
+    thresholds:  { num-issues: 999 }
+  - input:
+      - "**/com/google/common/collect/testing/"
     thresholds:  { num-issues: 999 }
