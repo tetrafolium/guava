@@ -33,21 +33,22 @@ import java.util.Iterator;
  * #offer} which can lead to unexpected behavior. In this case, you should
  * override {@code offer} as well.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingDeque}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingDeque}.
  *
  * @author Kurt Alfred Kluever
  * @since 12.0
  */
 @GwtIncompatible
-public abstract class ForwardingDeque<E> extends ForwardingQueue<E> implements Deque<E> {
+public abstract class ForwardingDeque<E>
+    extends ForwardingQueue<E> implements Deque<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingDeque() {}
 
-  @Override
-  protected abstract Deque<E> delegate();
+  @Override protected abstract Deque<E> delegate();
 
   @Override
   public void addFirst(E e) {

@@ -51,14 +51,16 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
   }
 
   /**
-   * Not supported. This method exists only to hide {@link ImmutableSet#builderWithExpectedSize}
-   * from consumers of {@code ImmutableSortedSet}.
+   * Not supported. This method exists only to hide {@link
+   * ImmutableSet#builderWithExpectedSize} from consumers of {@code
+   * ImmutableSortedSet}.
    *
    * @throws UnsupportedOperationException always
    * @deprecated Not supported by ImmutableSortedSet.
    */
   @Deprecated
-  public static <E> ImmutableSortedSet.Builder<E> builderWithExpectedSize(int expectedSize) {
+  public static <E> ImmutableSortedSet.Builder<E>
+  builderWithExpectedSize(int expectedSize) {
     throw new UnsupportedOperationException();
   }
 
@@ -145,7 +147,8 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    *     Comparable, Comparable, Comparable...)}. </b>
    */
   @Deprecated
-  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+  public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
+                                             E... remaining) {
     throw new UnsupportedOperationException();
   }
 

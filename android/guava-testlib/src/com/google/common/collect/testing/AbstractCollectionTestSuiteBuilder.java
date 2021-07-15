@@ -44,28 +44,21 @@ import java.util.List;
  */
 @GwtIncompatible
 public abstract class AbstractCollectionTestSuiteBuilder<
-  B extends AbstractCollectionTestSuiteBuilder<B, E>, E>
-  extends PerCollectionSizeTestSuiteBuilder<B, TestCollectionGenerator<E>, Collection<E>, E> {
+    B extends AbstractCollectionTestSuiteBuilder<B, E>, E>
+    extends PerCollectionSizeTestSuiteBuilder<B, TestCollectionGenerator<E>,
+                                              Collection<E>, E> {
   // Class parameters must be raw.
   @SuppressWarnings("unchecked")
   @Override
   protected List<Class<? extends AbstractTester>> getTesters() {
     return Arrays.<Class<? extends AbstractTester>>asList(
-            CollectionAddAllTester.class,
-            CollectionAddTester.class,
-            CollectionClearTester.class,
-            CollectionContainsAllTester.class,
-            CollectionContainsTester.class,
-            CollectionCreationTester.class,
-            CollectionEqualsTester.class,
-            CollectionIsEmptyTester.class,
-            CollectionIteratorTester.class,
-            CollectionRemoveAllTester.class,
-            CollectionRemoveTester.class,
-            CollectionRetainAllTester.class,
-            CollectionSerializationTester.class,
-            CollectionSizeTester.class,
-            CollectionToArrayTester.class,
-            CollectionToStringTester.class);
+        CollectionAddAllTester.class, CollectionAddTester.class,
+        CollectionClearTester.class, CollectionContainsAllTester.class,
+        CollectionContainsTester.class, CollectionCreationTester.class,
+        CollectionEqualsTester.class, CollectionIsEmptyTester.class,
+        CollectionIteratorTester.class, CollectionRemoveAllTester.class,
+        CollectionRemoveTester.class, CollectionRetainAllTester.class,
+        CollectionSerializationTester.class, CollectionSizeTester.class,
+        CollectionToArrayTester.class, CollectionToStringTester.class);
   }
 }

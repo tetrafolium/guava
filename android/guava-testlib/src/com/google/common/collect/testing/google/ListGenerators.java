@@ -59,14 +59,16 @@ public final class ListGenerators {
     }
   }
 
-  public static class BuilderAddAllListGenerator extends TestStringListGenerator {
+  public static class BuilderAddAllListGenerator
+      extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       return ImmutableList.<String>builder().addAll(asList(elements)).build();
     }
   }
 
-  public static class BuilderReversedListGenerator extends TestStringListGenerator {
+  public static class BuilderReversedListGenerator
+      extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       List<String> list = asList(elements);
@@ -75,7 +77,8 @@ public final class ListGenerators {
     }
   }
 
-  public static class ImmutableListHeadSubListGenerator extends TestStringListGenerator {
+  public static class ImmutableListHeadSubListGenerator
+      extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       String[] suffix = {"f", "g"};
@@ -86,7 +89,8 @@ public final class ListGenerators {
     }
   }
 
-  public static class ImmutableListTailSubListGenerator extends TestStringListGenerator {
+  public static class ImmutableListTailSubListGenerator
+      extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       String[] prefix = {"f", "g"};
@@ -97,7 +101,8 @@ public final class ListGenerators {
     }
   }
 
-  public static class ImmutableListMiddleSubListGenerator extends TestStringListGenerator {
+  public static class ImmutableListMiddleSubListGenerator
+      extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       String[] prefix = {"f", "g"};
@@ -112,7 +117,8 @@ public final class ListGenerators {
     }
   }
 
-  public static class CharactersOfStringGenerator extends TestCharacterListGenerator {
+  public static class CharactersOfStringGenerator
+      extends TestCharacterListGenerator {
     @Override
     public List<Character> create(Character[] elements) {
       char[] chars = Chars.toArray(Arrays.asList(elements));
@@ -120,7 +126,8 @@ public final class ListGenerators {
     }
   }
 
-  public static class CharactersOfCharSequenceGenerator extends TestCharacterListGenerator {
+  public static class CharactersOfCharSequenceGenerator
+      extends TestCharacterListGenerator {
     @Override
     public List<Character> create(Character[] elements) {
       char[] chars = Chars.toArray(Arrays.asList(elements));
@@ -131,10 +138,11 @@ public final class ListGenerators {
   }
 
   private abstract static class TestUnhashableListGenerator
-    extends TestUnhashableCollectionGenerator<List<UnhashableObject>>
-    implements TestListGenerator<UnhashableObject> {}
+      extends TestUnhashableCollectionGenerator<List<UnhashableObject>>
+      implements TestListGenerator<UnhashableObject> {}
 
-  public static class UnhashableElementsImmutableListGenerator extends TestUnhashableListGenerator {
+  public static class UnhashableElementsImmutableListGenerator
+      extends TestUnhashableListGenerator {
     @Override
     public List<UnhashableObject> create(UnhashableObject[] elements) {
       return ImmutableList.copyOf(elements);

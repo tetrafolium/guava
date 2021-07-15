@@ -51,16 +51,16 @@ import javax.security.auth.RefreshFailedException;
  */
 public class FuturesGetCheckedBenchmark {
   private enum Validator {
-    NON_CACHING_WITH_CONSTRUCTOR_CHECK(nonCachingWithConstructorCheckValidator()),
-    NON_CACHING_WITHOUT_CONSTRUCTOR_CHECK(nonCachingWithoutConstructorCheckValidator()),
+    NON_CACHING_WITH_CONSTRUCTOR_CHECK(
+        nonCachingWithConstructorCheckValidator()),
+    NON_CACHING_WITHOUT_CONSTRUCTOR_CHECK(
+        nonCachingWithoutConstructorCheckValidator()),
     WEAK_SET(weakSetValidator()),
     CLASS_VALUE(classValueValidator());
 
     final GetCheckedTypeValidator validator;
 
-    Validator(GetCheckedTypeValidator validator) {
-      this.validator = validator;
-    }
+    Validator(GetCheckedTypeValidator validator) { this.validator = validator; }
   }
 
   private enum Result {
@@ -69,9 +69,7 @@ public class FuturesGetCheckedBenchmark {
 
     final Future<Object> future;
 
-    Result(Future<Object> result) {
-      this.future = result;
-    }
+    Result(Future<Object> result) { this.future = result; }
   }
 
   private enum ExceptionType {
@@ -85,38 +83,30 @@ public class FuturesGetCheckedBenchmark {
     }
   }
 
-  private static final ImmutableSet<Class<? extends Exception>> OTHER_EXCEPTION_TYPES =
-      ImmutableSet.of(
-          BackingStoreException.class,
-          BrokenBarrierException.class,
-          CloneNotSupportedException.class,
-          DataFormatException.class,
-          ExecutionException.class,
-          GeneralSecurityException.class,
-          InvalidPreferencesFormatException.class,
-          NotOwnerException.class,
-          RefreshFailedException.class,
-          TimeoutException.class,
-          TooManyListenersException.class,
-          URISyntaxException.class);
+  private static final ImmutableSet<Class<? extends Exception>>
+      OTHER_EXCEPTION_TYPES = ImmutableSet.of(
+          BackingStoreException.class, BrokenBarrierException.class,
+          CloneNotSupportedException.class, DataFormatException.class,
+          ExecutionException.class, GeneralSecurityException.class,
+          InvalidPreferencesFormatException.class, NotOwnerException.class,
+          RefreshFailedException.class, TimeoutException.class,
+          TooManyListenersException.class, URISyntaxException.class);
 
-  @Param
-  Validator validator;
-  @Param
-  Result result;
-  @Param
-  ExceptionType exceptionType;
+  @Param Validator validator;
+  @Param Result result;
+  @Param ExceptionType exceptionType;
   /**
-   * The number of other exception types in the cache of known-good exceptions and the number of
-   * other {@code ClassValue} entries for the exception type to be tested. This lets us evaluate
-   * whether our solution scales to use with multiple exception types and to whether it is affected
-   * by other {@code ClassValue} users. Some of the benchmarked implementations don't use one or
+   * The number of other exception types in the cache of known-good exceptions
+   * and the number of other {@code ClassValue} entries for the exception type
+   * to be tested. This lets us evaluate whether our solution scales to use with
+   * multiple exception types and to whether it is affected by other {@code
+   * ClassValue} users. Some of the benchmarked implementations don't use one or
    * both of these mechanisms, so they will be unaffected.
    */
-  @Param({"0", "1", "12"})
-  int otherEntriesInDataStructure;
+  @Param({"0", "1", "12"}) int otherEntriesInDataStructure;
 
-  final List<ClassValue<?>> retainedReferencesToOtherClassValues = newArrayList();
+  final List<ClassValue<?>> retainedReferencesToOtherClassValues =
+      newArrayList();
 
   @BeforeExperiment
   void addOtherEntries() throws Exception {
@@ -124,13 +114,13 @@ public class FuturesGetCheckedBenchmark {
     Class<? extends Exception> exceptionType = this.exceptionType.exceptionType;
 
     for (Class<? extends Exception> exceptionClass :
-        OTHER_EXCEPTION_TYPES.asList().subList(0, otherEntriesInDataStructure)) {
+         OTHER_EXCEPTION_TYPES.asList().subList(0,
+                                                otherEntriesInDataStructure)) {
       getChecked(validator, immediateFuture(""), exceptionClass);
     }
 
     for (int i = 0; i < otherEntriesInDataStructure; i++) {
-      ClassValue<Boolean> classValue =
-      new ClassValue<Boolean>() {
+      ClassValue<Boolean> classValue = new ClassValue<Boolean>() {
         @Override
         protected Boolean computeValue(Class<?> type) {
           return true;
@@ -157,25 +147,31 @@ public class FuturesGetCheckedBenchmark {
     return tmp;
   }
 
-  private static GetCheckedTypeValidator nonCachingWithoutConstructorCheckValidator() {
+  private static GetCheckedTypeValidator
+  nonCachingWithoutConstructorCheckValidator() {
     return NonCachingWithoutConstructorCheckValidator.INSTANCE;
   }
 
-  private enum NonCachingWithoutConstructorCheckValidator implements GetCheckedTypeValidator {
+  private enum NonCachingWithoutConstructorCheckValidator
+      implements GetCheckedTypeValidator {
     INSTANCE;
 
     @Override
     public void validateClass(Class<? extends Exception> exceptionClass) {
-      checkArgument(isCheckedException(exceptionClass),
-          "Futures.getChecked exception type (%s) must not be a RuntimeException", exceptionClass);
+      checkArgument(
+          isCheckedException(exceptionClass),
+          "Futures.getChecked exception type (%s) must not be a RuntimeException",
+          exceptionClass);
     }
   }
 
-  private static GetCheckedTypeValidator nonCachingWithConstructorCheckValidator() {
+  private static GetCheckedTypeValidator
+  nonCachingWithConstructorCheckValidator() {
     return NonCachingWithConstructorCheckValidator.INSTANCE;
   }
 
-  private enum NonCachingWithConstructorCheckValidator implements GetCheckedTypeValidator {
+  private enum NonCachingWithConstructorCheckValidator
+      implements GetCheckedTypeValidator {
     INSTANCE;
 
     @Override

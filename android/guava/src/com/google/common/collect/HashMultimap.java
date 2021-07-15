@@ -46,13 +46,16 @@ import java.util.Set;
  * @since 2.0
  */
 @GwtCompatible(serializable = true, emulated = true)
-public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDependencies<K, V> {
+public final class HashMultimap<K, V>
+    extends HashMultimapGwtSerializationDependencies<K, V> {
   private static final int DEFAULT_VALUES_PER_KEY = 2;
 
-  @VisibleForTesting transient int expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
+  @VisibleForTesting
+  transient int expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
 
   /**
-   * Creates a new, empty {@code HashMultimap} with the default initial capacities.
+   * Creates a new, empty {@code HashMultimap} with the default initial
+   * capacities.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys().hashSetValues().build()}.
@@ -62,38 +65,38 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
   }
 
   /**
-   * Constructs an empty {@code HashMultimap} with enough capacity to hold the specified numbers of
-   * keys and values without rehashing.
+   * Constructs an empty {@code HashMultimap} with enough capacity to hold the
+   * specified numbers of keys and values without rehashing.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys(expectedKeys).hashSetValues(expectedValuesPerKey).build()}.
    *
    * @param expectedKeys the expected number of distinct keys
    * @param expectedValuesPerKey the expected average number of values per key
-   * @throws IllegalArgumentException if {@code expectedKeys} or {@code expectedValuesPerKey} is
-   *     negative
+   * @throws IllegalArgumentException if {@code expectedKeys} or {@code
+   *     expectedValuesPerKey} is negative
    */
-  public static <K, V> HashMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
+  public static <K, V> HashMultimap<K, V> create(int expectedKeys,
+                                                 int expectedValuesPerKey) {
     return new HashMultimap<>(expectedKeys, expectedValuesPerKey);
   }
 
   /**
-   * Constructs a {@code HashMultimap} with the same mappings as the specified multimap. If a
-   * key-value mapping appears multiple times in the input multimap, it only appears once in the
-   * constructed multimap.
+   * Constructs a {@code HashMultimap} with the same mappings as the specified
+   * multimap. If a key-value mapping appears multiple times in the input
+   * multimap, it only appears once in the constructed multimap.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys().hashSetValues().build(multimap)}.
    *
    * @param multimap the multimap whose contents are copied to this multimap
    */
-  public static <K, V> HashMultimap<K, V> create(Multimap<? extends K, ? extends V> multimap) {
+  public static <K, V> HashMultimap<K, V>
+  create(Multimap<? extends K, ? extends V> multimap) {
     return new HashMultimap<>(multimap);
   }
 
-  private HashMultimap() {
-    super(new HashMap<K, Collection<V>>());
-  }
+  private HashMultimap() { super(new HashMap<K, Collection<V>>()); }
 
   private HashMultimap(int expectedKeys, int expectedValuesPerKey) {
     super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(expectedKeys));
@@ -102,7 +105,8 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
   }
 
   private HashMultimap(Multimap<? extends K, ? extends V> multimap) {
-    super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(multimap.keySet().size()));
+    super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(
+        multimap.keySet().size()));
     putAll(multimap);
   }
 
@@ -130,7 +134,8 @@ public final class HashMultimap<K, V> extends HashMultimapGwtSerializationDepend
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

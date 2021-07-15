@@ -85,8 +85,8 @@ import javax.annotation.Nullable;
  * @param <E> the type of elements held in this collection
  */
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
-public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
-  implements BlockingQueue<E> {
+public class MonitorBasedPriorityBlockingQueue<E>
+    extends AbstractQueue<E> implements BlockingQueue<E> {
 
   // Based on revision 1.55 of PriorityBlockingQueue by Doug Lea, from
   // http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/main/java/util/concurrent/
@@ -95,9 +95,9 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
 
   final PriorityQueue<E> q;
   final Monitor monitor = new Monitor(true);
-  private final Monitor.Guard notEmpty =
-  new Monitor.Guard(monitor) {
-    @Override public boolean isSatisfied() {
+  private final Monitor.Guard notEmpty = new Monitor.Guard(monitor) {
+    @Override
+    public boolean isSatisfied() {
       return !q.isEmpty();
     }
   };
@@ -107,9 +107,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * initial capacity (11) that orders its elements according to
    * their {@linkplain Comparable natural ordering}.
    */
-  public MonitorBasedPriorityBlockingQueue() {
-    q = new PriorityQueue<E>();
-  }
+  public MonitorBasedPriorityBlockingQueue() { q = new PriorityQueue<E>(); }
 
   /**
    * Creates a <tt>MonitorBasedPriorityBlockingQueue</tt> with the specified
@@ -125,8 +123,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
   }
 
   /**
-   * Creates a <tt>MonitorBasedPriorityBlockingQueue</tt> with the specified initial
-   * capacity that orders its elements according to the specified
+   * Creates a <tt>MonitorBasedPriorityBlockingQueue</tt> with the specified
+   * initial capacity that orders its elements according to the specified
    * comparator.
    *
    * @param initialCapacity the initial capacity for this priority queue
@@ -136,14 +134,14 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * @throws IllegalArgumentException if <tt>initialCapacity</tt> is less
    *         than 1
    */
-  public MonitorBasedPriorityBlockingQueue(int initialCapacity,
-      @Nullable Comparator<? super E> comparator) {
+  public MonitorBasedPriorityBlockingQueue(
+      int initialCapacity, @Nullable Comparator<? super E> comparator) {
     q = new PriorityQueue<E>(initialCapacity, comparator);
   }
 
   /**
-   * Creates a <tt>MonitorBasedPriorityBlockingQueue</tt> containing the elements
-   * in the specified collection.  If the specified collection is a
+   * Creates a <tt>MonitorBasedPriorityBlockingQueue</tt> containing the
+   * elements in the specified collection.  If the specified collection is a
    * {@link SortedSet} or a {@link PriorityQueue},  this
    * priority queue will be ordered according to the same ordering.
    * Otherwise, this priority queue will be ordered according to the
@@ -171,7 +169,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    *         priority queue's ordering
    * @throws NullPointerException if the specified element is null
    */
-  @Override public boolean add(E e) {
+  @Override
+  public boolean add(E e) {
     return offer(e);
   }
 
@@ -290,11 +289,10 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    *         or <tt>null</tt> if this queue uses the natural
    *         ordering of its elements
    */
-  public Comparator<? super E> comparator() {
-    return q.comparator();
-  }
+  public Comparator<? super E> comparator() { return q.comparator(); }
 
-  @Override public int size() {
+  @Override
+  public int size() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -325,7 +323,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * @param o element to be removed from this queue, if present
    * @return <tt>true</tt> if this queue changed as a result of the call
    */
-  @Override public boolean remove(@Nullable Object o) {
+  @Override
+  public boolean remove(@Nullable Object o) {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -343,7 +342,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * @param o object to be checked for containment in this queue
    * @return <tt>true</tt> if this queue contains the specified element
    */
-  @Override public boolean contains(@Nullable Object o) {
+  @Override
+  public boolean contains(@Nullable Object o) {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -366,7 +366,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    *
    * @return an array containing all of the elements in this queue
    */
-  @Override public Object[] toArray() {
+  @Override
+  public Object[] toArray() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -376,7 +377,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
     }
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -446,7 +448,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * Atomically removes all of the elements from this queue.
    * The queue will be empty after this call returns.
    */
-  @Override public void clear() {
+  @Override
+  public void clear() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -493,7 +496,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    *         this queue
    * @throws NullPointerException if the specified array is null
    */
-  @Override public <T> T[] toArray(T[] a) {
+  @Override
+  public <T> T[] toArray(T[] a) {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -515,7 +519,8 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    *
    * @return an iterator over the elements in this queue
    */
-  @Override public Iterator<E> iterator() {
+  @Override
+  public Iterator<E> iterator() {
     return new Itr(toArray());
   }
 
@@ -544,8 +549,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
       lastRet = cursor;
 
       // array comes from q.toArray() and so should have only E's in it
-      @SuppressWarnings("unchecked")
-      E e = (E) array[cursor++];
+      @SuppressWarnings("unchecked") E e = (E)array[cursor++];
       return e;
     }
 
@@ -559,7 +563,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
       // not just a .equals element.
       monitor.enter();
       try {
-        for (Iterator<E> it = q.iterator(); it.hasNext(); ) {
+        for (Iterator<E> it = q.iterator(); it.hasNext();) {
           if (it.next() == x) {
             it.remove();
             return;
@@ -579,7 +583,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
    * readObject is not defined, just relying on default.
    */
   private void writeObject(java.io.ObjectOutputStream s)
-  throws java.io.IOException {
+      throws java.io.IOException {
     monitor.enter();
     try {
       s.defaultWriteObject();
@@ -587,5 +591,4 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
       monitor.leave();
     }
   }
-
 }

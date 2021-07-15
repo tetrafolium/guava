@@ -33,47 +33,36 @@ import java.util.Map;
 
 /** Benchmarks for memory consumption of map implementations. */
 public class MapsMemoryBenchmark {
-  static final Map<String, MapsImplEnum> mapEnums =
-      uniqueIndex(
-          Iterables.<MapsImplEnum>concat(
-              Arrays.asList(MapImpl.values()),
-              Arrays.asList(SortedMapImpl.values()),
-              Arrays.asList(BiMapImpl.values())),
-          toStringFunction());
+  static final Map<String, MapsImplEnum> mapEnums = uniqueIndex(
+      Iterables.<MapsImplEnum>concat(Arrays.asList(MapImpl.values()),
+                                     Arrays.asList(SortedMapImpl.values()),
+                                     Arrays.asList(BiMapImpl.values())),
+      toStringFunction());
 
-  @Param({
-    "HashMapImpl",
-    "LinkedHashMapImpl",
-    "ConcurrentHashMapImpl",
-    "ImmutableMapImpl",
-    "TreeMapImpl",
-    "ImmutableSortedMapImpl",
-    "MapMakerWeakKeysWeakValues",
-    "MapMakerWeakKeysStrongValues",
-    "MapMakerStrongKeysWeakValues",
-    "MapMakerStrongKeysStrongValues",
-    "HashBiMapImpl",
-    "ImmutableBiMapImpl"
-  })
+  @Param({"HashMapImpl", "LinkedHashMapImpl", "ConcurrentHashMapImpl",
+          "ImmutableMapImpl", "TreeMapImpl", "ImmutableSortedMapImpl",
+          "MapMakerWeakKeysWeakValues", "MapMakerWeakKeysStrongValues",
+          "MapMakerStrongKeysWeakValues", "MapMakerStrongKeysStrongValues",
+          "HashBiMapImpl", "ImmutableBiMapImpl"})
   String implName;
 
   MapsImplEnum mapsImpl;
 
   /**
-   * A map of contents pre-created before experiment starts to only measure map creation cost.
-   * The implementation for the creation of contents is independent and could be different from
-   * that of the map under test.
+   * A map of contents pre-created before experiment starts to only measure map
+   * creation cost. The implementation for the creation of contents is
+   * independent and could be different from that of the map under test.
    */
   Map<Element, Element> contents;
 
   /**
-   * Map pre-created before experiment starts to only measure iteration cost during experiment.
+   * Map pre-created before experiment starts to only measure iteration cost
+   * during experiment.
    */
   Map<Element, Element> map;
   CollectionBenchmarkSampleData elems;
 
-  @Param({"0", "1", "100", "10000"})
-  int elements;
+  @Param({"0", "1", "100", "10000"}) int elements;
 
   @BeforeExperiment
   public void prepareContents() throws Exception {
@@ -98,7 +87,7 @@ public class MapsMemoryBenchmark {
     for (Object entry : map.entrySet()) {
       retVal += entry.hashCode();
     }
-    return (int) retVal;
+    return (int)retVal;
   }
 
   @Benchmark
@@ -107,6 +96,6 @@ public class MapsMemoryBenchmark {
     for (Object key : map.keySet()) {
       retVal += key.hashCode();
     }
-    return (int) retVal;
+    return (int)retVal;
   }
 }

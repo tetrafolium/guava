@@ -30,10 +30,12 @@ import com.google.common.testing.SerializableTester;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class CollectionSerializationTester<E> extends AbstractCollectionTester<E> {
+public class CollectionSerializationTester<E>
+    extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SERIALIZABLE)
   public void testReserialize() {
-    // For a bare Collection, the most we can guarantee is that the elements are preserved.
+    // For a bare Collection, the most we can guarantee is that the elements are
+    // preserved.
     Helpers.assertEqualIgnoringOrder(
         actualContents(), SerializableTester.reserialize(actualContents()));
   }

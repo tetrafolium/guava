@@ -33,8 +33,9 @@ import java.util.List;
  */
 @GwtIncompatible
 public final class QueueTestSuiteBuilder<E>
-  extends AbstractCollectionTestSuiteBuilder<QueueTestSuiteBuilder<E>, E> {
-  public static <E> QueueTestSuiteBuilder<E> using(TestQueueGenerator<E> generator) {
+    extends AbstractCollectionTestSuiteBuilder<QueueTestSuiteBuilder<E>, E> {
+  public static <E>
+      QueueTestSuiteBuilder<E> using(TestQueueGenerator<E> generator) {
     return new QueueTestSuiteBuilder<E>().usingGenerator(generator);
   }
 

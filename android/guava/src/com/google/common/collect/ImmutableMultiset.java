@@ -31,12 +31,13 @@ import java.util.Iterator;
 import javax.annotation.Nullable;
 
 /**
- * A {@link Multiset} whose contents will never change, with many other important properties
- * detailed at {@link ImmutableCollection}.
+ * A {@link Multiset} whose contents will never change, with many other
+ * important properties detailed at {@link ImmutableCollection}.
  *
- * <p><b>Grouped iteration.</b> In all current implementations, duplicate elements always appear
- * consecutively when iterating. Elements iterate in order by the <i>first</i> appearance of
- * that element when the multiset was created.
+ * <p><b>Grouped iteration.</b> In all current implementations, duplicate
+ * elements always appear consecutively when iterating. Elements iterate in
+ * order by the <i>first</i> appearance of that element when the multiset was
+ * created.
  *
  * <p>See the Guava User Guide article on <a href=
  * "https://github.com/google/guava/wiki/ImmutableCollectionsExplained">
@@ -48,14 +49,15 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
-public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializationDependencies<E>
-  implements Multiset<E> {
+public abstract class ImmutableMultiset<E>
+    extends ImmutableMultisetGwtSerializationDependencies<E>
+    implements Multiset<E> {
   /**
    * Returns the empty immutable multiset.
    */
   @SuppressWarnings("unchecked") // all supported methods are covariant
   public static <E> ImmutableMultiset<E> of() {
-    return (ImmutableMultiset<E>) RegularImmutableMultiset.EMPTY;
+    return (ImmutableMultiset<E>)RegularImmutableMultiset.EMPTY;
   }
 
   /**
@@ -81,8 +83,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any element is null
    * @since 6.0 (source-compatible since 2.0)
@@ -93,8 +95,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any element is null
    * @since 6.0 (source-compatible since 2.0)
@@ -105,8 +107,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any element is null
    * @since 6.0 (source-compatible since 2.0)
@@ -117,20 +119,29 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any element is null
    * @since 6.0 (source-compatible since 2.0)
    */
   @SuppressWarnings("unchecked") //
-  public static <E> ImmutableMultiset<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... others) {
-    return new Builder<E>().add(e1).add(e2).add(e3).add(e4).add(e5).add(e6).add(others).build();
+  public static <E> ImmutableMultiset<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
+                                            E... others) {
+    return new Builder<E>()
+        .add(e1)
+        .add(e2)
+        .add(e3)
+        .add(e4)
+        .add(e5)
+        .add(e6)
+        .add(others)
+        .build();
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any of {@code elements} is null
    * @since 6.0
@@ -140,22 +151,23 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableMultiset<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableMultiset<E>
+  copyOf(Iterable<? extends E> elements) {
     if (elements instanceof ImmutableMultiset) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableMultiset<E> result = (ImmutableMultiset<E>) elements;
+      ImmutableMultiset<E> result = (ImmutableMultiset<E>)elements;
       if (!result.isPartialView()) {
         return result;
       }
     }
 
-    ImmutableMultiset.Builder<E> builder =
-        new ImmutableMultiset.Builder<E>(Multisets.inferDistinctElements(elements));
+    ImmutableMultiset.Builder<E> builder = new ImmutableMultiset.Builder<E>(
+        Multisets.inferDistinctElements(elements));
     builder.addAll(elements);
     return builder.build();
   }
@@ -164,9 +176,10 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     return new ImmutableMultiset.Builder<E>().add(elements).build();
   }
 
-  static <E> ImmutableMultiset<E> copyFromEntries(
-      Collection<? extends Entry<? extends E>> entries) {
-    ImmutableMultiset.Builder<E> builder = new ImmutableMultiset.Builder<E>(entries.size());
+  static <E> ImmutableMultiset<E>
+  copyFromEntries(Collection<? extends Entry<? extends E>> entries) {
+    ImmutableMultiset.Builder<E> builder =
+        new ImmutableMultiset.Builder<E>(entries.size());
     for (Entry<? extends E> entry : entries) {
       builder.addCopies(entry.getElement(), entry.getCount());
     }
@@ -174,12 +187,13 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /**
-   * Returns an immutable multiset containing the given elements, in the "grouped iteration order"
-   * described in the class documentation.
+   * Returns an immutable multiset containing the given elements, in the
+   * "grouped iteration order" described in the class documentation.
    *
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableMultiset<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableMultiset<E>
+  copyOf(Iterator<? extends E> elements) {
     return new ImmutableMultiset.Builder<E>().addAll(elements).build();
   }
 
@@ -210,8 +224,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     };
   }
 
-  @LazyInit
-  private transient ImmutableList<E> asList;
+  @LazyInit private transient ImmutableList<E> asList;
 
   @Override
   public ImmutableList<E> asList() {
@@ -302,11 +315,9 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
   }
 
   /** @since 21.0 (present with return type {@code Set} since 2.0) */
-  @Override
-  public abstract ImmutableSet<E> elementSet();
+  @Override public abstract ImmutableSet<E> elementSet();
 
-  @LazyInit
-  private transient ImmutableSet<Entry<E>> entrySet;
+  @LazyInit private transient ImmutableSet<Entry<E>> entrySet;
 
   @Override
   public ImmutableSet<Entry<E>> entrySet() {
@@ -340,7 +351,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     @Override
     public boolean contains(Object o) {
       if (o instanceof Entry) {
-        Entry<?> entry = (Entry<?>) o;
+        Entry<?> entry = (Entry<?>)o;
         if (entry.getCount() <= 0) {
           return false;
         }
@@ -357,7 +368,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
 
     // We can't label this with @Override, because it doesn't override anything
     // in the GWT emulated version.
-    // TODO(cpovirk): try making all copies of this method @GwtIncompatible instead
+    // TODO(cpovirk): try making all copies of this method @GwtIncompatible
+    // instead
     Object writeReplace() {
       return new EntrySetSerializedForm<E>(ImmutableMultiset.this);
     }
@@ -372,9 +384,7 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
       this.multiset = multiset;
     }
 
-    Object readResolve() {
-      return multiset.entrySet();
-    }
+    Object readResolve() { return multiset.entrySet(); }
   }
 
   private static class SerializedForm implements Serializable {
@@ -407,17 +417,13 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
 
   // We can't label this with @Override, because it doesn't override anything
   // in the GWT emulated version.
-  Object writeReplace() {
-    return new SerializedForm(this);
-  }
+  Object writeReplace() { return new SerializedForm(this); }
 
   /**
    * Returns a new builder. The generated builder is equivalent to the builder
    * created by the {@link Builder} constructor.
    */
-  public static <E> Builder<E> builder() {
-    return new Builder<E>();
-  }
+  public static <E> Builder<E> builder() { return new Builder<E>(); }
 
   /**
    * A builder for creating immutable multiset instances, especially {@code
@@ -432,8 +438,8 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
    *           .addCopies(Bean.BLACK_EYED, 10)
    *           .build();}</pre>
    *
-   * <p>Builder instances can be reused; it is safe to call {@link #build} multiple
-   * times to build multiple multisets in series.
+   * <p>Builder instances can be reused; it is safe to call {@link #build}
+   * multiple times to build multiple multisets in series.
    *
    * @since 2.0
    */
@@ -441,14 +447,16 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
     AbstractObjectCountMap<E> contents;
 
     /**
-     * If build() has been called on the current contents multiset, we need to copy it on any
-     * future modifications, or we'll modify the already-built ImmutableMultiset.
+     * If build() has been called on the current contents multiset, we need to
+     * copy it on any future modifications, or we'll modify the already-built
+     * ImmutableMultiset.
      */
     boolean buildInvoked = false;
     /**
-     * In the event of a setCount(elem, 0) call, we may need to remove elements, which destroys the
-     * insertion order property of ObjectCountHashMap.  In that event, we need to convert to a
-     * ObjectCountLinkedHashMap, but we need to know we did that so we can convert back.
+     * In the event of a setCount(elem, 0) call, we may need to remove elements,
+     * which destroys the insertion order property of ObjectCountHashMap.  In
+     * that event, we need to convert to a ObjectCountLinkedHashMap, but we need
+     * to know we did that so we can convert back.
      */
     boolean isLinkedHash = false;
 
@@ -456,16 +464,16 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
      * Creates a new builder. The returned builder is equivalent to the builder
      * generated by {@link ImmutableMultiset#builder}.
      */
-    public Builder() {
-      this(4);
-    }
+    public Builder() { this(4); }
 
     Builder(int estimatedDistinct) {
-      this.contents = ObjectCountHashMap.createWithExpectedSize(estimatedDistinct);
+      this.contents =
+          ObjectCountHashMap.createWithExpectedSize(estimatedDistinct);
     }
 
     Builder(boolean forSubtype) {
-      // for ImmutableSortedMultiset not to allocate data structures not used there
+      // for ImmutableSortedMultiset not to allocate data structures not used
+      // there
       this.contents = null;
     }
 
@@ -525,8 +533,9 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
       if (count == 0 && !isLinkedHash) {
         contents = new ObjectCountLinkedHashMap<E>(contents);
         isLinkedHash = true;
-        // to preserve insertion order through deletions, we have to switch to an actual linked
-        // implementation at least for now, but this should be a super rare case
+        // to preserve insertion order through deletions, we have to switch to
+        // an actual linked implementation at least for now, but this should be
+        // a super rare case
       } else if (buildInvoked) {
         contents = new ObjectCountHashMap<E>(contents);
         isLinkedHash = false;
@@ -604,14 +613,15 @@ public abstract class ImmutableMultiset<E> extends ImmutableMultisetGwtSerializa
         return of();
       }
       if (isLinkedHash) {
-        // we need ObjectCountHashMap-backed contents, with its keys and values array in direct
-        // insertion order
+        // we need ObjectCountHashMap-backed contents, with its keys and values
+        // array in direct insertion order
         contents = new ObjectCountHashMap<E>(contents);
         isLinkedHash = false;
       }
       buildInvoked = true;
-      // contents is now ObjectCountHashMap, but still guaranteed to be in insertion order!
-      return new RegularImmutableMultiset<E>((ObjectCountHashMap<E>) contents);
+      // contents is now ObjectCountHashMap, but still guaranteed to be in
+      // insertion order!
+      return new RegularImmutableMultiset<E>((ObjectCountHashMap<E>)contents);
     }
   }
 }

@@ -25,7 +25,8 @@ import javax.annotation.Nullable;
 
 /**
  * Basic implementation of the {@link ListMultimap} interface. It's a wrapper
- * around {@link AbstractMapBasedMultimap} that converts the returned collections into
+ * around {@link AbstractMapBasedMultimap} that converts the returned
+ * collections into
  * {@code Lists}. The {@link #createCollection} method must return a {@code
  * List}.
  *
@@ -33,20 +34,17 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
-  implements ListMultimap<K, V> {
+abstract class AbstractListMultimap<K, V>
+    extends AbstractMapBasedMultimap<K, V> implements ListMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *
    * @param map place to store the mapping from each key to its corresponding
    *     values
    */
-  protected AbstractListMultimap(Map<K, Collection<V>> map) {
-    super(map);
-  }
+  protected AbstractListMultimap(Map<K, Collection<V>> map) { super(map); }
 
-  @Override
-  abstract List<V> createCollection();
+  @Override abstract List<V> createCollection();
 
   @Override
   List<V> createUnmodifiableEmptyCollection() {
@@ -64,7 +62,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @Override
   public List<V> get(@Nullable K key) {
-    return (List<V>) super.get(key);
+    return (List<V>)super.get(key);
   }
 
   /**
@@ -77,7 +75,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public List<V> removeAll(@Nullable Object key) {
-    return (List<V>) super.removeAll(key);
+    return (List<V>)super.removeAll(key);
   }
 
   /**
@@ -90,7 +88,7 @@ abstract class AbstractListMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public List<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
-    return (List<V>) super.replaceValues(key, values);
+    return (List<V>)super.replaceValues(key, values);
   }
 
   /**

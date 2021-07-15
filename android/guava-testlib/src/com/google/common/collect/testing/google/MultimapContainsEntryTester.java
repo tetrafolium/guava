@@ -34,7 +34,7 @@ import com.google.common.collect.testing.features.MapFeature;
  */
 @GwtCompatible
 public class MultimapContainsEntryTester<K, V>
-  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   public void testContainsEntryYes() {
     assertTrue(multimap().containsEntry(k0(), v0()));
@@ -47,7 +47,8 @@ public class MultimapContainsEntryTester<K, V>
   public void testContainsEntryAgreesWithGet() {
     for (K k : sampleKeys()) {
       for (V v : sampleValues()) {
-        assertEquals(multimap().get(k).contains(v), multimap().containsEntry(k, v));
+        assertEquals(multimap().get(k).contains(v),
+                     multimap().containsEntry(k, v));
       }
     }
   }

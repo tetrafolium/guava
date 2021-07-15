@@ -30,7 +30,5 @@ public class AbstractSetTester<E> extends AbstractCollectionTester<E> {
    * collection in setUp(), but that caused problems when a tester changed the
    * value of set or collection but not both.
    */
-  protected final Set<E> getSet() {
-    return (Set<E>) collection;
-  }
+  protected final Set<E> getSet() { return (Set<E>)collection; }
 }

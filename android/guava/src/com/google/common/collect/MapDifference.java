@@ -65,8 +65,7 @@ public interface MapDifference<K, V> {
    * #entriesOnlyOnRight()}, {@link #entriesInCommon()} and {@link
    * #entriesDiffering()} of the two instances are equal.
    */
-  @Override
-  boolean equals(@Nullable Object object);
+  @Override boolean equals(@Nullable Object object);
 
   /**
    * Returns the hash code for this instance. This is defined as the hash code
@@ -75,8 +74,7 @@ public interface MapDifference<K, V> {
    *   Arrays.asList(entriesOnlyOnLeft(), entriesOnlyOnRight(),
    *       entriesInCommon(), entriesDiffering())}</pre>
    */
-  @Override
-  int hashCode();
+  @Override int hashCode();
 
   /**
    * A difference between the mappings from two maps with the same key. The
@@ -100,14 +98,12 @@ public interface MapDifference<K, V> {
      * Two instances are considered equal if their {@link #leftValue()}
      * values are equal and their {@link #rightValue()} values are also equal.
      */
-    @Override
-    boolean equals(@Nullable Object other);
+    @Override boolean equals(@Nullable Object other);
 
     /**
      * The hash code equals the value
      * {@code Arrays.asList(leftValue(), rightValue()).hashCode()}.
      */
-    @Override
-    int hashCode();
+    @Override int hashCode();
   }
 }

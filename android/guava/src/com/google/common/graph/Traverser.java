@@ -50,15 +50,18 @@ public abstract class Traverser<N> {
    * <p><b>Performance notes</b>
    *
    * <ul>
-   *   <li>Traversals require <i>O(n)</i> time (where <i>n</i> is the number of nodes reachable from
-   *       the start node), assuming that the node objects have <i>O(1)</i> {@code equals()} and
+   *   <li>Traversals require <i>O(n)</i> time (where <i>n</i> is the number of
+   * nodes reachable from the start node), assuming that the node objects have
+   * <i>O(1)</i> {@code equals()} and
    *       {@code hashCode()} implementations.
-   *   <li>While traversing, the traverser will use <i>O(n)</i> space (where <i>n</i> is the number
-   *       of nodes that have thus far been visited), plus <i>O(H)</i> space (where <i>H</i> is the
-   *       number of nodes that have been seen but not yet visited, that is, the "horizon").
+   *   <li>While traversing, the traverser will use <i>O(n)</i> space (where
+   * <i>n</i> is the number of nodes that have thus far been visited), plus
+   * <i>O(H)</i> space (where <i>H</i> is the number of nodes that have been
+   * seen but not yet visited, that is, the "horizon").
    * </ul>
    *
-   * @param graph {@link SuccessorsFunction} representing a general graph that may have cycles.
+   * @param graph {@link SuccessorsFunction} representing a general graph that
+   *     may have cycles.
    */
   public static <N> Traverser<N> forGraph(SuccessorsFunction<N> graph) {
     checkNotNull(graph);
@@ -66,15 +69,17 @@ public abstract class Traverser<N> {
   }
 
   /**
-   * Creates a new traverser for a directed acyclic graph that has at most one path from the start
-   * node to any node reachable from the start node, such as a tree.
+   * Creates a new traverser for a directed acyclic graph that has at most one
+   * path from the start node to any node reachable from the start node, such as
+   * a tree.
    *
-   * <p>Providing graphs that don't conform to the above description may lead to:
+   * <p>Providing graphs that don't conform to the above description may lead
+   * to:
    *
    * <ul>
    *   <li>Traversal not terminating (if the graph has cycles)
-   *   <li>Nodes being visited multiple times (if multiple paths exist from the start node to any
-   *       node reachable from it)
+   *   <li>Nodes being visited multiple times (if multiple paths exist from the
+   * start node to any node reachable from it)
    * </ul>
    *
    * In these cases, use {@link #forGraph(SuccessorsFunction)} instead.
@@ -82,10 +87,10 @@ public abstract class Traverser<N> {
    * <p><b>Performance notes</b>
    *
    * <ul>
-   *   <li>Traversals require <i>O(n)</i> time (where <i>n</i> is the number of nodes reachable from
-   *       the start node).
-   *   <li>While traversing, the traverser will use <i>O(H)</i> space (where <i>H</i> is the number
-   *       of nodes that have been seen but not yet visited, that is, the "horizon").
+   *   <li>Traversals require <i>O(n)</i> time (where <i>n</i> is the number of
+   * nodes reachable from the start node). <li>While traversing, the traverser
+   * will use <i>O(H)</i> space (where <i>H</i> is the number of nodes that have
+   * been seen but not yet visited, that is, the "horizon").
    * </ul>
    *
    * <p><b>Examples</b>
@@ -102,7 +107,8 @@ public abstract class Traverser<N> {
    *       h
    * }</pre>
    *
-   * <p>This is <b>not</b> a valid input graph (all edges are directed facing downwards):
+   * <p>This is <b>not</b> a valid input graph (all edges are directed facing
+   * downwards):
    *
    * <pre>{@code
    *    a     b
@@ -114,39 +120,44 @@ public abstract class Traverser<N> {
    *          f
    * }</pre>
    *
-   * <p>because there are two paths from {@code b} to {@code f} ({@code b->d->f} and {@code
-   * b->e->f}).
+   * <p>because there are two paths from {@code b} to {@code f} ({@code b->d->f}
+   * and {@code b->e->f}).
    *
    * <p><b>Note on binary trees</b>
    *
-   * <p>This method can be used to traverse over a binary tree. Given methods {@code
-   * leftChild(node)} and {@code rightChild(node)}, this method can be called as
+   * <p>This method can be used to traverse over a binary tree. Given methods
+   * {@code leftChild(node)} and {@code rightChild(node)}, this method can be
+   * called as
    *
    * <pre>{@code
-   * Traverser.forTree(node -> ImmutableList.of(leftChild(node), rightChild(node)));
+   * Traverser.forTree(node -> ImmutableList.of(leftChild(node),
+   * rightChild(node)));
    * }</pre>
    *
-   * @param tree {@link SuccessorsFunction} representing a directed acyclic graph that has at most
-   *     one path between any two nodes
+   * @param tree {@link SuccessorsFunction} representing a directed acyclic
+   *     graph that has at most one path between any two nodes
    */
   public static <N> Traverser<N> forTree(SuccessorsFunction<N> tree) {
     checkNotNull(tree);
     if (tree instanceof BaseGraph) {
-      checkArgument(((BaseGraph<?>) tree).isDirected(), "Undirected graphs can never be trees.");
+      checkArgument(((BaseGraph<?>)tree).isDirected(),
+                    "Undirected graphs can never be trees.");
     }
     if (tree instanceof Network) {
-      checkArgument(((Network<?, ?>) tree).isDirected(), "Undirected networks can never be trees.");
+      checkArgument(((Network<?, ?>)tree).isDirected(),
+                    "Undirected networks can never be trees.");
     }
     return new TreeTraverser<>(tree);
   }
 
   /**
-   * Returns an unmodifiable {@code Iterable} over the nodes reachable from {@code startNode}, in
-   * the order of a breadth-first traversal. That is, all the nodes of depth 0 are returned, then
-   * depth 1, then 2, and so on.
+   * Returns an unmodifiable {@code Iterable} over the nodes reachable from
+   * {@code startNode}, in the order of a breadth-first traversal. That is, all
+   * the nodes of depth 0 are returned, then depth 1, then 2, and so on.
    *
-   * <p><b>Example:</b> The following graph with {@code startNode} {@code a} would return nodes in
-   * the order {@code abcdef} (assuming successors are returned in alphabetical order).
+   * <p><b>Example:</b> The following graph with {@code startNode} {@code a}
+   * would return nodes in the order {@code abcdef} (assuming successors are
+   * returned in alphabetical order).
    *
    * <pre>{@code
    * b ---- a ---- d
@@ -155,29 +166,33 @@ public abstract class Traverser<N> {
    * e ---- c ---- f
    * }</pre>
    *
-   * <p>The behavior of this method is undefined if the nodes, or the topology of the graph, change
-   * while iteration is in progress.
+   * <p>The behavior of this method is undefined if the nodes, or the topology
+   * of the graph, change while iteration is in progress.
    *
-   * <p>The returned {@code Iterable} can be iterated over multiple times. Every iterator will
-   * compute its next element on the fly. It is thus possible to limit the traversal to a certain
-   * number of nodes as follows:
+   * <p>The returned {@code Iterable} can be iterated over multiple times. Every
+   * iterator will compute its next element on the fly. It is thus possible to
+   * limit the traversal to a certain number of nodes as follows:
    *
    * <pre>{@code
-   * Iterables.limit(Traverser.forGraph(graph).breadthFirst(node), maxNumberOfNodes);
+   * Iterables.limit(Traverser.forGraph(graph).breadthFirst(node),
+   * maxNumberOfNodes);
    * }</pre>
    *
-   * <p>See <a href="https://en.wikipedia.org/wiki/Breadth-first_search">Wikipedia</a> for more
-   * info.
+   * <p>See <a
+   * href="https://en.wikipedia.org/wiki/Breadth-first_search">Wikipedia</a> for
+   * more info.
    */
   public abstract Iterable<N> breadthFirst(N startNode);
 
   /**
-   * Returns an unmodifiable {@code Iterable} over the nodes reachable from {@code startNode}, in
-   * the order of a depth-first pre-order traversal. "Pre-order" implies that nodes appear in the
+   * Returns an unmodifiable {@code Iterable} over the nodes reachable from
+   * {@code startNode}, in the order of a depth-first pre-order traversal.
+   * "Pre-order" implies that nodes appear in the
    * {@code Iterable} in the order in which they are first visited.
    *
-   * <p><b>Example:</b> The following graph with {@code startNode} {@code a} would return nodes in
-   * the order {@code abecfd} (assuming successors are returned in alphabetical order).
+   * <p><b>Example:</b> The following graph with {@code startNode} {@code a}
+   * would return nodes in the order {@code abecfd} (assuming successors are
+   * returned in alphabetical order).
    *
    * <pre>{@code
    * b ---- a ---- d
@@ -186,29 +201,33 @@ public abstract class Traverser<N> {
    * e ---- c ---- f
    * }</pre>
    *
-   * <p>The behavior of this method is undefined if the nodes, or the topology of the graph, change
-   * while iteration is in progress.
+   * <p>The behavior of this method is undefined if the nodes, or the topology
+   * of the graph, change while iteration is in progress.
    *
-   * <p>The returned {@code Iterable} can be iterated over multiple times. Every iterator will
-   * compute its next element on the fly. It is thus possible to limit the traversal to a certain
-   * number of nodes as follows:
+   * <p>The returned {@code Iterable} can be iterated over multiple times. Every
+   * iterator will compute its next element on the fly. It is thus possible to
+   * limit the traversal to a certain number of nodes as follows:
    *
    * <pre>{@code
    * Iterables.limit(
    *     Traverser.forGraph(graph).depthFirstPreOrder(node), maxNumberOfNodes);
    * }</pre>
    *
-   * <p>See <a href="https://en.wikipedia.org/wiki/Depth-first_search">Wikipedia</a> for more info.
+   * <p>See <a
+   * href="https://en.wikipedia.org/wiki/Depth-first_search">Wikipedia</a> for
+   * more info.
    */
   public abstract Iterable<N> depthFirstPreOrder(N startNode);
 
   /**
-   * Returns an unmodifiable {@code Iterable} over the nodes reachable from {@code startNode}, in
-   * the order of a depth-first post-order traversal. "Post-order" implies that nodes appear in the
+   * Returns an unmodifiable {@code Iterable} over the nodes reachable from
+   * {@code startNode}, in the order of a depth-first post-order traversal.
+   * "Post-order" implies that nodes appear in the
    * {@code Iterable} in the order in which they are visited for the last time.
    *
-   * <p><b>Example:</b> The following graph with {@code startNode} {@code a} would return nodes in
-   * the order {@code fcebda} (assuming successors are returned in alphabetical order).
+   * <p><b>Example:</b> The following graph with {@code startNode} {@code a}
+   * would return nodes in the order {@code fcebda} (assuming successors are
+   * returned in alphabetical order).
    *
    * <pre>{@code
    * b ---- a ---- d
@@ -217,19 +236,21 @@ public abstract class Traverser<N> {
    * e ---- c ---- f
    * }</pre>
    *
-   * <p>The behavior of this method is undefined if the nodes, or the topology of the graph, change
-   * while iteration is in progress.
+   * <p>The behavior of this method is undefined if the nodes, or the topology
+   * of the graph, change while iteration is in progress.
    *
-   * <p>The returned {@code Iterable} can be iterated over multiple times. Every iterator will
-   * compute its next element on the fly. It is thus possible to limit the traversal to a certain
-   * number of nodes as follows:
+   * <p>The returned {@code Iterable} can be iterated over multiple times. Every
+   * iterator will compute its next element on the fly. It is thus possible to
+   * limit the traversal to a certain number of nodes as follows:
    *
    * <pre>{@code
    * Iterables.limit(
    *     Traverser.forGraph(graph).depthFirstPostOrder(node), maxNumberOfNodes);
    * }</pre>
    *
-   * <p>See <a href="https://en.wikipedia.org/wiki/Depth-first_search">Wikipedia</a> for more info.
+   * <p>See <a
+   * href="https://en.wikipedia.org/wiki/Depth-first_search">Wikipedia</a> for
+   * more info.
    */
   public abstract Iterable<N> depthFirstPostOrder(N startNode);
 
@@ -302,8 +323,9 @@ public abstract class Traverser<N> {
       private final Order order;
 
       DepthFirstIterator(N root, Order order) {
-        // our invariant is that in computeNext we call next on the iterator at the top first, so we
-        // need to start with one additional item on that iterator
+        // our invariant is that in computeNext we call next on the iterator at
+        // the top first, so we need to start with one additional item on that
+        // iterator
         stack.push(withSuccessors(root));
         this.order = order;
       }
@@ -317,12 +339,13 @@ public abstract class Traverser<N> {
           NodeAndSuccessors node = stack.getFirst();
           boolean firstVisit = visited.add(node.node);
           boolean lastVisit = !node.successorIterator.hasNext();
-          boolean produceNode =
-              (firstVisit && order == Order.PREORDER) || (lastVisit && order == Order.POSTORDER);
+          boolean produceNode = (firstVisit && order == Order.PREORDER) ||
+                                (lastVisit && order == Order.POSTORDER);
           if (lastVisit) {
             stack.pop();
           } else {
-            // we need to push a neighbor, but only if we haven't already seen it
+            // we need to push a neighbor, but only if we haven't already seen
+            // it
             N successor = node.successorIterator.next();
             if (!visited.contains(successor)) {
               stack.push(withSuccessors(successor));
@@ -338,7 +361,10 @@ public abstract class Traverser<N> {
         return new NodeAndSuccessors(node, graph.successors(node));
       }
 
-      /** A simple tuple of a node and a partially iterated {@link Iterator} of its successors. */
+      /**
+       * A simple tuple of a node and a partially iterated {@link Iterator} of
+       * its successors.
+       */
       private final class NodeAndSuccessors {
         final N node;
         final Iterator<? extends N> successorIterator;
@@ -391,9 +417,7 @@ public abstract class Traverser<N> {
     private final class BreadthFirstIterator extends UnmodifiableIterator<N> {
       private final Queue<N> queue = new ArrayDeque<>();
 
-      BreadthFirstIterator(N root) {
-        queue.add(root);
-      }
+      BreadthFirstIterator(N root) { queue.add(root); }
 
       @Override
       public boolean hasNext() {
@@ -408,7 +432,8 @@ public abstract class Traverser<N> {
       }
     }
 
-    private final class DepthFirstPreOrderIterator extends UnmodifiableIterator<N> {
+    private final class DepthFirstPreOrderIterator
+        extends UnmodifiableIterator<N> {
       private final Deque<Iterator<? extends N>> stack = new ArrayDeque<>();
 
       DepthFirstPreOrderIterator(N root) {
@@ -422,12 +447,14 @@ public abstract class Traverser<N> {
 
       @Override
       public N next() {
-        Iterator<? extends N> iterator = stack.getLast(); // throws NoSuchElementException if empty
+        Iterator<? extends N> iterator =
+            stack.getLast(); // throws NoSuchElementException if empty
         N result = checkNotNull(iterator.next());
         if (!iterator.hasNext()) {
           stack.removeLast();
         }
-        Iterator<? extends N> childIterator = tree.successors(result).iterator();
+        Iterator<? extends N> childIterator =
+            tree.successors(result).iterator();
         if (childIterator.hasNext()) {
           stack.addLast(childIterator);
         }
@@ -435,12 +462,11 @@ public abstract class Traverser<N> {
       }
     }
 
-    private final class DepthFirstPostOrderIterator extends AbstractIterator<N> {
+    private final class DepthFirstPostOrderIterator
+        extends AbstractIterator<N> {
       private final ArrayDeque<NodeAndChildren> stack = new ArrayDeque<>();
 
-      DepthFirstPostOrderIterator(N root) {
-        stack.addLast(withChildren(root));
-      }
+      DepthFirstPostOrderIterator(N root) { stack.addLast(withChildren(root)); }
 
       @Override
       protected N computeNext() {
@@ -461,7 +487,10 @@ public abstract class Traverser<N> {
         return new NodeAndChildren(node, tree.successors(node));
       }
 
-      /** A simple tuple of a node and a partially iterated {@link Iterator} of its children. */
+      /**
+       * A simple tuple of a node and a partially iterated {@link Iterator} of
+       * its children.
+       */
       private final class NodeAndChildren {
         final N node;
         final Iterator<? extends N> childIterator;
@@ -474,8 +503,5 @@ public abstract class Traverser<N> {
     }
   }
 
-  private enum Order {
-    PREORDER,
-    POSTORDER
-  }
+  private enum Order { PREORDER, POSTORDER }
 }

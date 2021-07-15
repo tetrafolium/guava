@@ -39,16 +39,14 @@ import javax.annotation.concurrent.GuardedBy;
 @Beta
 @GwtCompatible
 public class TearDownStack implements TearDownAccepter {
-  private static final Logger logger = Logger.getLogger(TearDownStack.class.getName());
+  private static final Logger logger =
+      Logger.getLogger(TearDownStack.class.getName());
 
-  @GuardedBy("stack")
-  final LinkedList<TearDown> stack = new LinkedList<>();
+  @GuardedBy("stack") final LinkedList<TearDown> stack = new LinkedList<>();
 
   private final boolean suppressThrows;
 
-  public TearDownStack() {
-    this.suppressThrows = false;
-  }
+  public TearDownStack() { this.suppressThrows = false; }
 
   public TearDownStack(boolean suppressThrows) {
     this.suppressThrows = suppressThrows;
@@ -56,9 +54,7 @@ public class TearDownStack implements TearDownAccepter {
 
   @Override
   public final void addTearDown(TearDown tearDown) {
-    synchronized (stack) {
-      stack.addFirst(checkNotNull(tearDown));
-    }
+    synchronized (stack) { stack.addFirst(checkNotNull(tearDown)); }
   }
 
   /**

@@ -68,7 +68,7 @@ abstract class ImmutableMapEntrySet<K, V> extends ImmutableSet<Entry<K, V>> {
   @Override
   public boolean contains(@Nullable Object object) {
     if (object instanceof Entry) {
-      Entry<?, ?> entry = (Entry<?, ?>) object;
+      Entry<?, ?> entry = (Entry<?, ?>)object;
       V value = map().get(entry.getKey());
       return value != null && value.equals(entry.getValue());
     }
@@ -101,13 +101,9 @@ abstract class ImmutableMapEntrySet<K, V> extends ImmutableSet<Entry<K, V>> {
   private static class EntrySetSerializedForm<K, V> implements Serializable {
     final ImmutableMap<K, V> map;
 
-    EntrySetSerializedForm(ImmutableMap<K, V> map) {
-      this.map = map;
-    }
+    EntrySetSerializedForm(ImmutableMap<K, V> map) { this.map = map; }
 
-    Object readResolve() {
-      return map.entrySet();
-    }
+    Object readResolve() { return map.entrySet(); }
 
     private static final long serialVersionUID = 0;
   }

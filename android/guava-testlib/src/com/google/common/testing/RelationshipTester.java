@@ -26,8 +26,8 @@ import java.util.List;
 import junit.framework.AssertionFailedError;
 
 /**
- * Implementation helper for {@link EqualsTester} and {@link EquivalenceTester} that tests for
- * equivalence classes.
+ * Implementation helper for {@link EqualsTester} and {@link EquivalenceTester}
+ * that tests for equivalence classes.
  *
  * @author Gregory Kick
  */
@@ -35,17 +35,17 @@ import junit.framework.AssertionFailedError;
 final class RelationshipTester<T> {
 
   static class ItemReporter {
-    String reportItem(Item<?> item) {
-      return item.toString();
-    }
+    String reportItem(Item<?> item) { return item.toString(); }
   }
 
   /**
-   * A word about using {@link Equivalence}, which automatically checks for {@code null} and
-   * identical inputs: This sounds like it ought to be a problem here, since the goals of this class
-   * include testing that {@code equals()} is reflexive and is tolerant of {@code null}. However,
-   * there's no problem. The reason: {@link EqualsTester} tests {@code null} and identical inputs
-   * directly against {@code equals()} rather than through the {@code Equivalence}.
+   * A word about using {@link Equivalence}, which automatically checks for
+   * {@code null} and identical inputs: This sounds like it ought to be a
+   * problem here, since the goals of this class include testing that {@code
+   * equals()} is reflexive and is tolerant of {@code null}. However, there's no
+   * problem. The reason: {@link EqualsTester} tests {@code null} and identical
+   * inputs directly against {@code equals()} rather than through the {@code
+   * Equivalence}.
    */
   private final Equivalence<? super T> equivalence;
   private final String relationshipName;
@@ -53,15 +53,17 @@ final class RelationshipTester<T> {
   private final ItemReporter itemReporter;
   private final List<ImmutableList<T>> groups = Lists.newArrayList();
 
-  RelationshipTester(Equivalence<? super T> equivalence, String relationshipName, String hashName,
-      ItemReporter itemReporter) {
+  RelationshipTester(Equivalence<? super T> equivalence,
+                     String relationshipName, String hashName,
+                     ItemReporter itemReporter) {
     this.equivalence = checkNotNull(equivalence);
     this.relationshipName = checkNotNull(relationshipName);
     this.hashName = checkNotNull(hashName);
     this.itemReporter = checkNotNull(itemReporter);
   }
 
-  // TODO(cpovirk): should we reject null items, since the tests already check null automatically?
+  // TODO(cpovirk): should we reject null items, since the tests already check
+  // null automatically?
   public RelationshipTester<T> addRelatedGroup(Iterable<? extends T> group) {
     groups.add(ImmutableList.copyOf(group));
     return this;
@@ -72,19 +74,22 @@ final class RelationshipTester<T> {
       ImmutableList<T> group = groups.get(groupNumber);
       for (int itemNumber = 0; itemNumber < group.size(); itemNumber++) {
         // check related items in same group
-        for (int relatedItemNumber = 0; relatedItemNumber < group.size(); relatedItemNumber++) {
+        for (int relatedItemNumber = 0; relatedItemNumber < group.size();
+             relatedItemNumber++) {
           if (itemNumber != relatedItemNumber) {
             assertRelated(groupNumber, itemNumber, relatedItemNumber);
           }
         }
         // check unrelated items in all other groups
         for (int unrelatedGroupNumber = 0; unrelatedGroupNumber < groups.size();
-            unrelatedGroupNumber++) {
+             unrelatedGroupNumber++) {
           if (groupNumber != unrelatedGroupNumber) {
             ImmutableList<T> unrelatedGroup = groups.get(unrelatedGroupNumber);
-            for (int unrelatedItemNumber = 0; unrelatedItemNumber < unrelatedGroup.size();
-                unrelatedItemNumber++) {
-              assertUnrelated(groupNumber, itemNumber, unrelatedGroupNumber, unrelatedItemNumber);
+            for (int unrelatedItemNumber = 0;
+                 unrelatedItemNumber < unrelatedGroup.size();
+                 unrelatedItemNumber++) {
+              assertUnrelated(groupNumber, itemNumber, unrelatedGroupNumber,
+                              unrelatedItemNumber);
             }
           }
         }
@@ -92,42 +97,49 @@ final class RelationshipTester<T> {
     }
   }
 
-  private void assertRelated(int groupNumber, int itemNumber, int relatedItemNumber) {
+  private void assertRelated(int groupNumber, int itemNumber,
+                             int relatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> relatedInfo = getItem(groupNumber, relatedItemNumber);
 
     T item = itemInfo.value;
     T related = relatedInfo.value;
-    assertWithTemplate("$ITEM must be $RELATIONSHIP to $OTHER", itemInfo, relatedInfo,
-        equivalence.equivalent(item, related));
+    assertWithTemplate("$ITEM must be $RELATIONSHIP to $OTHER", itemInfo,
+                       relatedInfo, equivalence.equivalent(item, related));
 
     int itemHash = equivalence.hash(item);
     int relatedHash = equivalence.hash(related);
-    assertWithTemplate("the $HASH (" + itemHash + ") of $ITEM must be equal to the $HASH ("
-        + relatedHash + ") of $OTHER", itemInfo, relatedInfo, itemHash == relatedHash);
+    assertWithTemplate("the $HASH (" + itemHash +
+                           ") of $ITEM must be equal to the $HASH (" +
+                           relatedHash + ") of $OTHER",
+                       itemInfo, relatedInfo, itemHash == relatedHash);
   }
 
-  private void assertUnrelated(int groupNumber, int itemNumber, int unrelatedGroupNumber,
-      int unrelatedItemNumber) {
+  private void assertUnrelated(int groupNumber, int itemNumber,
+                               int unrelatedGroupNumber,
+                               int unrelatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> unrelatedInfo = getItem(unrelatedGroupNumber, unrelatedItemNumber);
 
-    assertWithTemplate("$ITEM must not be $RELATIONSHIP to $OTHER", itemInfo, unrelatedInfo,
+    assertWithTemplate(
+        "$ITEM must not be $RELATIONSHIP to $OTHER", itemInfo, unrelatedInfo,
         !equivalence.equivalent(itemInfo.value, unrelatedInfo.value));
   }
 
-  private void assertWithTemplate(String template, Item<T> item, Item<T> other, boolean condition) {
+  private void assertWithTemplate(String template, Item<T> item, Item<T> other,
+                                  boolean condition) {
     if (!condition) {
-      throw new AssertionFailedError(template
-          .replace("$RELATIONSHIP", relationshipName)
-          .replace("$HASH", hashName)
-          .replace("$ITEM", itemReporter.reportItem(item))
-          .replace("$OTHER", itemReporter.reportItem(other)));
+      throw new AssertionFailedError(
+          template.replace("$RELATIONSHIP", relationshipName)
+              .replace("$HASH", hashName)
+              .replace("$ITEM", itemReporter.reportItem(item))
+              .replace("$OTHER", itemReporter.reportItem(other)));
     }
   }
 
   private Item<T> getItem(int groupNumber, int itemNumber) {
-    return new Item<T>(groups.get(groupNumber).get(itemNumber), groupNumber, itemNumber);
+    return new Item<T>(groups.get(groupNumber).get(itemNumber), groupNumber,
+                       itemNumber);
   }
 
   static final class Item<T> {
@@ -141,8 +153,10 @@ final class RelationshipTester<T> {
       this.itemNumber = itemNumber;
     }
 
-    @Override public String toString() {
-      return value + " [group " + (groupNumber + 1) + ", item " + (itemNumber + 1) + ']';
+    @Override
+    public String toString() {
+      return value + " [group " + (groupNumber + 1) + ", item " +
+          (itemNumber + 1) + ']';
     }
   }
 }

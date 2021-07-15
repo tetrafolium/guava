@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2007 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -25,10 +27,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * An implementation of {@link DataOutput} that uses little-endian byte ordering for writing
- * {@code char}, {@code short}, {@code int}, {@code float}, {@code double}, and {@code long} values.
+ * An implementation of {@link DataOutput} that uses little-endian byte ordering
+ * for writing
+ * {@code char}, {@code short}, {@code int}, {@code float}, {@code double}, and
+ * {@code long} values.
  *
- * <p><b>Note:</b> This class intentionally violates the specification of its supertype
+ * <p><b>Note:</b> This class intentionally violates the specification of its
+ * supertype
  * {@code DataOutput}, which explicitly requires big-endian byte order.
  *
  * @author Chris Nokleberg
@@ -37,7 +42,8 @@ import java.io.OutputStream;
  */
 @Beta
 @GwtIncompatible
-public final class LittleEndianDataOutputStream extends FilterOutputStream implements DataOutput {
+public final class LittleEndianDataOutputStream
+    extends FilterOutputStream implements DataOutput {
 
   /**
    * Creates a {@code LittleEndianDataOutputStream} that wraps the given stream.
@@ -56,27 +62,29 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
 
   @Override
   public void writeBoolean(boolean v) throws IOException {
-    ((DataOutputStream) out).writeBoolean(v);
+    ((DataOutputStream)out).writeBoolean(v);
   }
 
   @Override
   public void writeByte(int v) throws IOException {
-    ((DataOutputStream) out).writeByte(v);
+    ((DataOutputStream)out).writeByte(v);
   }
 
   /**
-   * @deprecated The semantics of {@code writeBytes(String s)} are considered dangerous. Please use
-   *     {@link #writeUTF(String s)}, {@link #writeChars(String s)} or another write method instead.
+   * @deprecated The semantics of {@code writeBytes(String s)} are considered
+   *     dangerous. Please use
+   *     {@link #writeUTF(String s)}, {@link #writeChars(String s)} or another
+   * write method instead.
    */
   @Deprecated
   @Override
   public void writeBytes(String s) throws IOException {
-    ((DataOutputStream) out).writeBytes(s);
+    ((DataOutputStream)out).writeBytes(s);
   }
 
   /**
-   * Writes a char as specified by {@link DataOutputStream#writeChar(int)}, except using
-   * little-endian byte order.
+   * Writes a char as specified by {@link DataOutputStream#writeChar(int)},
+   * except using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -86,8 +94,9 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes a {@code String} as specified by {@link DataOutputStream#writeChars(String)}, except
-   * each character is written using little-endian byte order.
+   * Writes a {@code String} as specified by {@link
+   * DataOutputStream#writeChars(String)}, except each character is written
+   * using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -99,8 +108,9 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes a {@code double} as specified by {@link DataOutputStream#writeDouble(double)}, except
-   * using little-endian byte order.
+   * Writes a {@code double} as specified by {@link
+   * DataOutputStream#writeDouble(double)}, except using little-endian byte
+   * order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -110,8 +120,8 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes a {@code float} as specified by {@link DataOutputStream#writeFloat(float)}, except using
-   * little-endian byte order.
+   * Writes a {@code float} as specified by {@link
+   * DataOutputStream#writeFloat(float)}, except using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -121,8 +131,8 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes an {@code int} as specified by {@link DataOutputStream#writeInt(int)}, except using
-   * little-endian byte order.
+   * Writes an {@code int} as specified by {@link
+   * DataOutputStream#writeInt(int)}, except using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -135,8 +145,8 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes a {@code long} as specified by {@link DataOutputStream#writeLong(long)}, except using
-   * little-endian byte order.
+   * Writes a {@code long} as specified by {@link
+   * DataOutputStream#writeLong(long)}, except using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -147,8 +157,8 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
   }
 
   /**
-   * Writes a {@code short} as specified by {@link DataOutputStream#writeShort(int)}, except using
-   * little-endian byte order.
+   * Writes a {@code short} as specified by {@link
+   * DataOutputStream#writeShort(int)}, except using little-endian byte order.
    *
    * @throws IOException if an I/O error occurs
    */
@@ -160,12 +170,12 @@ public final class LittleEndianDataOutputStream extends FilterOutputStream imple
 
   @Override
   public void writeUTF(String str) throws IOException {
-    ((DataOutputStream) out).writeUTF(str);
+    ((DataOutputStream)out).writeUTF(str);
   }
 
-  // Overriding close() because FilterOutputStream's close() method pre-JDK8 has bad behavior:
-  // it silently ignores any exception thrown by flush(). Instead, just close the delegate stream.
-  // It should flush itself if necessary.
+  // Overriding close() because FilterOutputStream's close() method pre-JDK8 has
+  // bad behavior: it silently ignores any exception thrown by flush(). Instead,
+  // just close the delegate stream. It should flush itself if necessary.
   @Override
   public void close() throws IOException {
     out.close();

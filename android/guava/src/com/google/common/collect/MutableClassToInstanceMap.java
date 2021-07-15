@@ -29,27 +29,30 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A mutable class-to-instance map backed by an arbitrary user-provided map. See also {@link
- * ImmutableClassToInstanceMap}.
+ * A mutable class-to-instance map backed by an arbitrary user-provided map. See
+ * also {@link ImmutableClassToInstanceMap}.
  *
  * <p>See the Guava User Guide article on <a href=
- * "https://github.com/google/guava/wiki/NewCollectionTypesExplained#classtoinstancemap"> {@code
- * ClassToInstanceMap}</a>.
+ * "https://github.com/google/guava/wiki/NewCollectionTypesExplained#classtoinstancemap">
+ * {@code ClassToInstanceMap}</a>.
  *
  * @author Kevin Bourrillion
  * @since 2.0
  */
 @GwtIncompatible
-@SuppressWarnings("serial") // using writeReplace instead of standard serialization
-public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? extends B>, B>
-  implements ClassToInstanceMap<B>, Serializable {
+@SuppressWarnings("serial")
+// using writeReplace instead of standard serialization
+public final class MutableClassToInstanceMap<B>
+    extends ForwardingMap<Class<? extends B>, B>
+    implements ClassToInstanceMap<B>, Serializable {
 
   /**
    * Returns a new {@code MutableClassToInstanceMap} instance backed by a {@link
    * HashMap} using the default initial capacity and load factor.
    */
   public static <B> MutableClassToInstanceMap<B> create() {
-    return new MutableClassToInstanceMap<B>(new HashMap<Class<? extends B>, B>());
+    return new MutableClassToInstanceMap<B>(
+        new HashMap<Class<? extends B>, B>());
   }
 
   /**
@@ -57,7 +60,8 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
    * empty {@code backingMap}. The caller surrenders control of the backing map,
    * and thus should not allow any direct references to it to remain accessible.
    */
-  public static <B> MutableClassToInstanceMap<B> create(Map<Class<? extends B>, B> backingMap) {
+  public static <B> MutableClassToInstanceMap<B>
+  create(Map<Class<? extends B>, B> backingMap) {
     return new MutableClassToInstanceMap<B>(backingMap);
   }
 
@@ -72,7 +76,8 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
     return delegate;
   }
 
-  static <B> Entry<Class<? extends B>, B> checkedEntry(final Entry<Class<? extends B>, B> entry) {
+  static <B> Entry<Class<? extends B>, B>
+  checkedEntry(final Entry<Class<? extends B>, B> entry) {
     return new ForwardingMapEntry<Class<? extends B>, B>() {
       @Override
       protected Entry<Class<? extends B>, B> delegate() {
@@ -89,7 +94,6 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
   @Override
   public Set<Entry<Class<? extends B>, B>> entrySet() {
     return new ForwardingSet<Entry<Class<? extends B>, B>>() {
-
       @Override
       protected Set<Entry<Class<? extends B>, B>> delegate() {
         return MutableClassToInstanceMap.this.delegate().entrySet();
@@ -97,10 +101,12 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
 
       @Override
       public Iterator<Entry<Class<? extends B>, B>> iterator() {
-        return new TransformedIterator<Entry<Class<? extends B>, B>, Entry<Class<? extends B>, B>>(
-        delegate().iterator()) {
+        return new TransformedIterator<Entry<Class<? extends B>, B>,
+                                       Entry<Class<? extends B>, B>>(
+            delegate().iterator()) {
           @Override
-          Entry<Class<? extends B>, B> transform(Entry<Class<? extends B>, B> from) {
+          Entry<Class<? extends B>, B> transform(
+              Entry<Class<? extends B>, B> from) {
             return checkedEntry(from);
           }
         };
@@ -149,9 +155,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
     return Primitives.wrap(type).cast(value);
   }
 
-  private Object writeReplace() {
-    return new SerializedForm(delegate());
-  }
+  private Object writeReplace() { return new SerializedForm(delegate()); }
 
   /**
    * Serialized form of the map, to avoid serializing the constraint.
@@ -163,9 +167,7 @@ public final class MutableClassToInstanceMap<B> extends ForwardingMap<Class<? ex
       this.backingMap = backingMap;
     }
 
-    Object readResolve() {
-      return create(backingMap);
-    }
+    Object readResolve() { return create(backingMap); }
 
     private static final long serialVersionUID = 0;
   }

@@ -42,7 +42,8 @@ import java.util.Map.Entry;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapPutTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapPutTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testPutUnsupported() {
     try {
@@ -99,7 +100,8 @@ public class MultimapPutTester<K, V> extends AbstractMultimapTester<K, V, Multim
 
     multimap().put(k3(), null);
 
-    assertGet(k3(), Lists.newArrayList((V) null)); // ImmutableList.of can't take null.
+    assertGet(k3(),
+              Lists.newArrayList((V)null)); // ImmutableList.of can't take null.
     assertEquals(size + 1, multimap().size());
   }
 
@@ -199,7 +201,8 @@ public class MultimapPutTester<K, V> extends AbstractMultimapTester<K, V, Multim
 
       int size = getNumElements();
 
-      Iterator<Entry<K, Collection<V>>> asMapItr = multimap().asMap().entrySet().iterator();
+      Iterator<Entry<K, Collection<V>>> asMapItr =
+          multimap().asMap().entrySet().iterator();
       Collection<V> collection = null;
       while (asMapItr.hasNext()) {
         Entry<K, Collection<V>> asMapEntry = asMapItr.next();

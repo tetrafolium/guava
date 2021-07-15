@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -26,7 +28,8 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * Skeletal, implementation-agnostic implementation of the {@link Table} interface.
+ * Skeletal, implementation-agnostic implementation of the {@link Table}
+ * interface.
  *
  * @author Louis Wasserman
  */
@@ -100,7 +103,8 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
 
   @Override
   public void putAll(Table<? extends R, ? extends C, ? extends V> table) {
-    for (Table.Cell<? extends R, ? extends C, ? extends V> cell : table.cellSet()) {
+    for (Table.Cell<? extends R, ? extends C, ? extends V> cell :
+         table.cellSet()) {
       put(cell.getRowKey(), cell.getColumnKey(), cell.getValue());
     }
   }
@@ -113,9 +117,7 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     return (result == null) ? cellSet = createCellSet() : result;
   }
 
-  Set<Cell<R, C, V>> createCellSet() {
-    return new CellSet();
-  }
+  Set<Cell<R, C, V>> createCellSet() { return new CellSet(); }
 
   abstract Iterator<Table.Cell<R, C, V>> cellIterator();
 
@@ -124,11 +126,12 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     @Override
     public boolean contains(Object o) {
       if (o instanceof Cell) {
-        Cell<?, ?, ?> cell = (Cell<?, ?, ?>) o;
+        Cell<?, ?, ?> cell = (Cell<?, ?, ?>)o;
         Map<C, V> row = Maps.safeGet(rowMap(), cell.getRowKey());
-        return row != null
-            && Collections2.safeContains(
-                row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
+        return row != null &&
+            Collections2.safeContains(
+                row.entrySet(),
+                Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
       }
       return false;
     }
@@ -136,11 +139,12 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     @Override
     public boolean remove(@Nullable Object o) {
       if (o instanceof Cell) {
-        Cell<?, ?, ?> cell = (Cell<?, ?, ?>) o;
+        Cell<?, ?, ?> cell = (Cell<?, ?, ?>)o;
         Map<C, V> row = Maps.safeGet(rowMap(), cell.getRowKey());
-        return row != null
-            && Collections2.safeRemove(
-                row.entrySet(), Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
+        return row != null &&
+            Collections2.safeRemove(
+                row.entrySet(),
+                Maps.immutableEntry(cell.getColumnKey(), cell.getValue()));
       }
       return false;
     }
@@ -169,9 +173,7 @@ abstract class AbstractTable<R, C, V> implements Table<R, C, V> {
     return (result == null) ? values = createValues() : result;
   }
 
-  Collection<V> createValues() {
-    return new Values();
-  }
+  Collection<V> createValues() { return new Values(); }
 
   Iterator<V> valuesIterator() {
     return new TransformedIterator<Cell<R, C, V>, V>(cellSet().iterator()) {

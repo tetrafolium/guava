@@ -37,10 +37,8 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class AbstractMapTester<K, V>
-  extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
-  protected Map<K, V> getMap() {
-    return container;
-  }
+    extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
+  protected Map<K, V> getMap() { return container; }
 
   @Override
   public void setUp() throws Exception {
@@ -55,19 +53,19 @@ public abstract class AbstractMapTester<K, V>
   }
 
   /** @see AbstractContainerTester#resetContainer() */
-  protected void resetMap() {
-    resetContainer();
-  }
+  protected void resetMap() { resetContainer(); }
 
   protected void expectMissingKeys(K... elements) {
     for (K element : elements) {
-      assertFalse("Should not contain key " + element, getMap().containsKey(element));
+      assertFalse("Should not contain key " + element,
+                  getMap().containsKey(element));
     }
   }
 
   protected void expectMissingValues(V... elements) {
     for (V element : elements) {
-      assertFalse("Should not contain value " + element, getMap().containsValue(element));
+      assertFalse("Should not contain value " + element,
+                  getMap().containsValue(element));
     }
   }
 
@@ -83,13 +81,9 @@ public abstract class AbstractMapTester<K, V>
     return array;
   }
 
-  protected V getValueForNullKey() {
-    return getEntryNullReplaces().getValue();
-  }
+  protected V getValueForNullKey() { return getEntryNullReplaces().getValue(); }
 
-  protected K getKeyForNullValue() {
-    return getEntryNullReplaces().getKey();
-  }
+  protected K getKeyForNullValue() { return getEntryNullReplaces().getKey(); }
 
   private Entry<K, V> getEntryNullReplaces() {
     Iterator<Entry<K, V>> entries = getSampleElements().iterator();
@@ -111,9 +105,7 @@ public abstract class AbstractMapTester<K, V>
     return array;
   }
 
-  protected void initMapWithNullKey() {
-    resetMap(createArrayWithNullKey());
-  }
+  protected void initMapWithNullKey() { resetMap(createArrayWithNullKey()); }
 
   protected void initMapWithNullValue() {
     resetMap(createArrayWithNullValue());
@@ -141,7 +133,8 @@ public abstract class AbstractMapTester<K, V>
    * {@code NullPointerException}.
    * @param message message to use upon assertion failure
    */
-  protected void expectNullValueMissingWhenNullValuesUnsupported(String message) {
+  protected void
+  expectNullValueMissingWhenNullValuesUnsupported(String message) {
     try {
       assertFalse(message, getMap().containsValue(null));
     } catch (NullPointerException tolerated) {
@@ -155,9 +148,7 @@ public abstract class AbstractMapTester<K, V>
     return MinimalCollection.of(e3(), e4());
   }
 
-  protected int getNumEntries() {
-    return getNumElements();
-  }
+  protected int getNumEntries() { return getNumElements(); }
 
   protected Collection<Map.Entry<K, V>> getSampleEntries(int howMany) {
     return getSampleElements(howMany);
@@ -170,10 +161,11 @@ public abstract class AbstractMapTester<K, V>
   @Override
   protected void expectMissing(Entry<K, V>... entries) {
     for (Entry<K, V> entry : entries) {
-      assertFalse("Should not contain entry " + entry, actualContents().contains(entry));
-      assertFalse(
-          "Should not contain key " + entry.getKey() + " mapped to value " + entry.getValue(),
-          equal(getMap().get(entry.getKey()), entry.getValue()));
+      assertFalse("Should not contain entry " + entry,
+                  actualContents().contains(entry));
+      assertFalse("Should not contain key " + entry.getKey() +
+                      " mapped to value " + entry.getValue(),
+                  equal(getMap().get(entry.getKey()), entry.getValue()));
     }
   }
 
@@ -191,8 +183,8 @@ public abstract class AbstractMapTester<K, V>
     // TODO: move this to invariant checks once the appropriate hook exists?
     super.expectContents(expected);
     for (Entry<K, V> entry : expected) {
-      assertEquals(
-          "Wrong value for key " + entry.getKey(), entry.getValue(), getMap().get(entry.getKey()));
+      assertEquals("Wrong value for key " + entry.getKey(), entry.getValue(),
+                   getMap().get(entry.getKey()));
     }
   }
 
@@ -203,15 +195,15 @@ public abstract class AbstractMapTester<K, V>
   }
 
   private void replaceValue(List<Entry<K, V>> expected, Entry<K, V> newEntry) {
-    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext(); ) {
+    for (ListIterator<Entry<K, V>> i = expected.listIterator(); i.hasNext();) {
       if (Helpers.equal(i.next().getKey(), newEntry.getKey())) {
         i.set(newEntry);
         return;
       }
     }
 
-    throw new IllegalArgumentException(
-        Platform.format("key %s not found in entries %s", newEntry.getKey(), expected));
+    throw new IllegalArgumentException(Platform.format(
+        "key %s not found in entries %s", newEntry.getKey(), expected));
   }
 
   /**
@@ -220,51 +212,29 @@ public abstract class AbstractMapTester<K, V>
    * uses {@link #getMap()}, it also ensures that callers don't pass an
    * {@link Entry} by mistake.
    */
-  protected V get(K key) {
-    return getMap().get(key);
-  }
+  protected V get(K key) { return getMap().get(key); }
 
   protected void resetMap(Entry<K, V>[] entries) {
-    resetContainer(getSubjectGenerator().create((Object[]) entries));
+    resetContainer(getSubjectGenerator().create((Object[])entries));
   }
 
-  protected final K k0() {
-    return e0().getKey();
-  }
+  protected final K k0() { return e0().getKey(); }
 
-  protected final V v0() {
-    return e0().getValue();
-  }
+  protected final V v0() { return e0().getValue(); }
 
-  protected final K k1() {
-    return e1().getKey();
-  }
+  protected final K k1() { return e1().getKey(); }
 
-  protected final V v1() {
-    return e1().getValue();
-  }
+  protected final V v1() { return e1().getValue(); }
 
-  protected final K k2() {
-    return e2().getKey();
-  }
+  protected final K k2() { return e2().getKey(); }
 
-  protected final V v2() {
-    return e2().getValue();
-  }
+  protected final V v2() { return e2().getValue(); }
 
-  protected final K k3() {
-    return e3().getKey();
-  }
+  protected final K k3() { return e3().getKey(); }
 
-  protected final V v3() {
-    return e3().getValue();
-  }
+  protected final V v3() { return e3().getValue(); }
 
-  protected final K k4() {
-    return e4().getKey();
-  }
+  protected final K k4() { return e4().getKey(); }
 
-  protected final V v4() {
-    return e4().getValue();
-  }
+  protected final V v4() { return e4().getValue(); }
 }

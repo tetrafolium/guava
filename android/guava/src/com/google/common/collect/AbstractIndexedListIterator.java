@@ -30,7 +30,8 @@ import java.util.NoSuchElementException;
  * @author Jared Levy
  */
 @GwtCompatible
-abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E> {
+abstract class AbstractIndexedListIterator<E>
+    extends UnmodifiableListIterator<E> {
   private final int size;
   private int position;
 
@@ -48,9 +49,7 @@ abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E
    *
    * @throws IllegalArgumentException if {@code size} is negative
    */
-  protected AbstractIndexedListIterator(int size) {
-    this(size, 0);
-  }
+  protected AbstractIndexedListIterator(int size) { this(size, 0); }
 
   /**
    * Constructs an iterator across a sequence of the given size with the given

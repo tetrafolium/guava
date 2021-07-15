@@ -31,8 +31,10 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
-final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutableMap<K, V> {
-  static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(EnumMap<K, V> map) {
+final class ImmutableEnumMap<K extends Enum<K>, V>
+    extends IteratorBasedImmutableMap<K, V> {
+  static <K extends Enum<K>, V> ImmutableMap<K, V>
+  asImmutable(EnumMap<K, V> map) {
     switch (map.size()) {
     case 0:
       return ImmutableMap.of();
@@ -77,7 +79,7 @@ final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutabl
       return true;
     }
     if (object instanceof ImmutableEnumMap) {
-      object = ((ImmutableEnumMap<?, ?>) object).delegate;
+      object = ((ImmutableEnumMap<?, ?>)object).delegate;
     }
     return delegate.equals(object);
   }
@@ -101,16 +103,13 @@ final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutabl
   /*
    * This class is used to serialize ImmutableEnumMap instances.
    */
-  private static class EnumSerializedForm<K extends Enum<K>, V> implements Serializable {
+  private static class EnumSerializedForm<K extends Enum<K>, V>
+      implements Serializable {
     final EnumMap<K, V> delegate;
 
-    EnumSerializedForm(EnumMap<K, V> delegate) {
-      this.delegate = delegate;
-    }
+    EnumSerializedForm(EnumMap<K, V> delegate) { this.delegate = delegate; }
 
-    Object readResolve() {
-      return new ImmutableEnumMap<>(delegate);
-    }
+    Object readResolve() { return new ImmutableEnumMap<>(delegate); }
 
     private static final long serialVersionUID = 0;
   }

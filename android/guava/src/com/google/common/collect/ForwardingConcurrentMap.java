@@ -26,25 +26,26 @@ import java.util.concurrent.ConcurrentMap;
  * the backing map as desired per the <a
  * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
  *
- * <p><b>{@code default} method warning:</b> This class forwards calls to <i>only some</i> {@code
- * default} methods. Specifically, it forwards calls only for methods that existed <a
+ * <p><b>{@code default} method warning:</b> This class forwards calls to
+ * <i>only some</i> {@code default} methods. Specifically, it forwards calls
+ * only for methods that existed <a
  * href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentMap.html">before
- * {@code default} methods were introduced</a>. For newer methods, like {@code forEach}, it inherits
- * their default implementations. When those implementations invoke methods, they invoke methods on
- * the {@code ForwardingConcurrentMap}.
+ * {@code default} methods were introduced</a>. For newer methods, like {@code
+ * forEach}, it inherits their default implementations. When those
+ * implementations invoke methods, they invoke methods on the {@code
+ * ForwardingConcurrentMap}.
  *
  * @author Charles Fry
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingConcurrentMap<K, V> extends ForwardingMap<K, V>
-  implements ConcurrentMap<K, V> {
+public abstract class ForwardingConcurrentMap<K, V>
+    extends ForwardingMap<K, V> implements ConcurrentMap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingConcurrentMap() {}
 
-  @Override
-  protected abstract ConcurrentMap<K, V> delegate();
+  @Override protected abstract ConcurrentMap<K, V> delegate();
 
   @CanIgnoreReturnValue
   @Override

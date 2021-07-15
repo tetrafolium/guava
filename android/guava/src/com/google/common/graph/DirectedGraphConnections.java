@@ -44,45 +44,44 @@ import javax.annotation.Nullable;
  */
 final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   /**
-   * A wrapper class to indicate a node is both a predecessor and successor while still providing
-   * the successor value.
+   * A wrapper class to indicate a node is both a predecessor and successor
+   * while still providing the successor value.
    */
   private static final class PredAndSucc {
     private final Object successorValue;
 
-    PredAndSucc(Object successorValue) {
-      this.successorValue = successorValue;
-    }
+    PredAndSucc(Object successorValue) { this.successorValue = successorValue; }
   }
 
   private static final Object PRED = new Object();
 
-  // Every value in this map must either be an instance of PredAndSucc with a successorValue of
-  // type V, PRED (representing predecessor), or an instance of type V (representing successor).
+  // Every value in this map must either be an instance of PredAndSucc with a
+  // successorValue of type V, PRED (representing predecessor), or an instance
+  // of type V (representing successor).
   private final Map<N, Object> adjacentNodeValues;
 
   private int predecessorCount;
   private int successorCount;
 
-  private DirectedGraphConnections(
-      Map<N, Object> adjacentNodeValues, int predecessorCount, int successorCount) {
+  private DirectedGraphConnections(Map<N, Object> adjacentNodeValues,
+                                   int predecessorCount, int successorCount) {
     this.adjacentNodeValues = checkNotNull(adjacentNodeValues);
     this.predecessorCount = checkNonNegative(predecessorCount);
     this.successorCount = checkNonNegative(successorCount);
-    checkState(
-        predecessorCount <= adjacentNodeValues.size()
-        && successorCount <= adjacentNodeValues.size());
+    checkState(predecessorCount <= adjacentNodeValues.size() &&
+               successorCount <= adjacentNodeValues.size());
   }
 
   static <N, V> DirectedGraphConnections<N, V> of() {
-    // We store predecessors and successors in the same map, so double the initial capacity.
+    // We store predecessors and successors in the same map, so double the
+    // initial capacity.
     int initialCapacity = INNER_CAPACITY * 2;
     return new DirectedGraphConnections<>(
-            new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
+        new HashMap<N, Object>(initialCapacity, INNER_LOAD_FACTOR), 0, 0);
   }
 
-  static <N, V> DirectedGraphConnections<N, V> ofImmutable(
-      Set<N> predecessors, Map<N, V> successorValues) {
+  static <N, V> DirectedGraphConnections<N, V>
+  ofImmutable(Set<N> predecessors, Map<N, V> successorValues) {
     Map<N, Object> adjacentNodeValues = new HashMap<>();
     adjacentNodeValues.putAll(successorValues);
     for (N predecessor : predecessors) {
@@ -92,7 +91,8 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       }
     }
     return new DirectedGraphConnections<>(
-            ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(), successorValues.size());
+        ImmutableMap.copyOf(adjacentNodeValues), predecessors.size(),
+        successorValues.size());
   }
 
   @Override
@@ -105,7 +105,8 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
     return new AbstractSet<N>() {
       @Override
       public UnmodifiableIterator<N> iterator() {
-        final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
+        final Iterator<Entry<N, Object>> entries =
+            adjacentNodeValues.entrySet().iterator();
         return new AbstractIterator<N>() {
           @Override
           protected N computeNext() {
@@ -137,7 +138,8 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
     return new AbstractSet<N>() {
       @Override
       public UnmodifiableIterator<N> iterator() {
-        final Iterator<Entry<N, Object>> entries = adjacentNodeValues.entrySet().iterator();
+        final Iterator<Entry<N, Object>> entries =
+            adjacentNodeValues.entrySet().iterator();
         return new AbstractIterator<N>() {
           @Override
           protected N computeNext() {
@@ -172,9 +174,9 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       return null;
     }
     if (value instanceof PredAndSucc) {
-      return (V) ((PredAndSucc) value).successorValue;
+      return (V)((PredAndSucc)value).successorValue;
     }
-    return (V) value;
+    return (V)value;
   }
 
   @SuppressWarnings("unchecked")
@@ -185,7 +187,8 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       adjacentNodeValues.remove(node);
       checkNonNegative(--predecessorCount);
     } else if (previousValue instanceof PredAndSucc) {
-      adjacentNodeValues.put((N) node, ((PredAndSucc) previousValue).successorValue);
+      adjacentNodeValues.put((N)node,
+                             ((PredAndSucc)previousValue).successorValue);
       checkNonNegative(--predecessorCount);
     }
   }
@@ -197,13 +200,13 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
     if (previousValue == null || previousValue == PRED) {
       return null;
     } else if (previousValue instanceof PredAndSucc) {
-      adjacentNodeValues.put((N) node, PRED);
+      adjacentNodeValues.put((N)node, PRED);
       checkNonNegative(--successorCount);
-      return (V) ((PredAndSucc) previousValue).successorValue;
+      return (V)((PredAndSucc)previousValue).successorValue;
     } else { // successor
       adjacentNodeValues.remove(node);
       checkNonNegative(--successorCount);
-      return (V) previousValue;
+      return (V)previousValue;
     }
   }
 
@@ -216,7 +219,8 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       // Restore previous PredAndSucc object.
       adjacentNodeValues.put(node, previousValue);
     } else if (previousValue != PRED) { // successor
-      // Do NOT use method parameter value 'unused'. In directed graphs, successors store the value.
+      // Do NOT use method parameter value 'unused'. In directed graphs,
+      // successors store the value.
       adjacentNodeValues.put(node, new PredAndSucc(previousValue));
       checkPositive(++predecessorCount);
     }
@@ -231,13 +235,13 @@ final class DirectedGraphConnections<N, V> implements GraphConnections<N, V> {
       return null;
     } else if (previousValue instanceof PredAndSucc) {
       adjacentNodeValues.put(node, new PredAndSucc(value));
-      return (V) ((PredAndSucc) previousValue).successorValue;
+      return (V)((PredAndSucc)previousValue).successorValue;
     } else if (previousValue == PRED) {
       adjacentNodeValues.put(node, new PredAndSucc(value));
       checkPositive(++successorCount);
       return null;
     } else { // successor
-      return (V) previousValue;
+      return (V)previousValue;
     }
   }
 

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2006 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -21,8 +23,8 @@ import java.io.Serializable;
 import javax.annotation.Nullable;
 
 /**
- * Utility class for converting between various ASCII case formats. Behavior is undefined for
- * non-ASCII input.
+ * Utility class for converting between various ASCII case formats. Behavior is
+ * undefined for non-ASCII input.
  *
  * @author Mike Bostock
  * @since 1.0
@@ -121,9 +123,10 @@ public enum CaseFormat {
   }
 
   /**
-   * Converts the specified {@code String str} from this format to the specified {@code format}. A
-   * "best effort" approach is taken; if {@code str} does not conform to the assumed format, then
-   * the behavior of this method is undefined but we make a reasonable effort at converting anyway.
+   * Converts the specified {@code String str} from this format to the specified
+   * {@code format}. A "best effort" approach is taken; if {@code str} does not
+   * conform to the assumed format, then the behavior of this method is
+   * undefined but we make a reasonable effort at converting anyway.
    */
   public final String to(CaseFormat format, String str) {
     checkNotNull(format);
@@ -156,7 +159,8 @@ public enum CaseFormat {
   }
 
   /**
-   * Returns a {@code Converter} that converts strings from this format to {@code targetFormat}.
+   * Returns a {@code Converter} that converts strings from this format to
+   * {@code targetFormat}.
    *
    * @since 16.0
    */
@@ -164,8 +168,8 @@ public enum CaseFormat {
     return new StringConverter(this, targetFormat);
   }
 
-  private static final class StringConverter extends Converter<String, String>
-    implements Serializable {
+  private static final class StringConverter
+      extends Converter<String, String> implements Serializable {
 
     private final CaseFormat sourceFormat;
     private final CaseFormat targetFormat;
@@ -188,8 +192,9 @@ public enum CaseFormat {
     @Override
     public boolean equals(@Nullable Object object) {
       if (object instanceof StringConverter) {
-        StringConverter that = (StringConverter) object;
-        return sourceFormat.equals(that.sourceFormat) && targetFormat.equals(that.targetFormat);
+        StringConverter that = (StringConverter)object;
+        return sourceFormat.equals(that.sourceFormat) &&
+            targetFormat.equals(that.targetFormat);
       }
       return false;
     }
@@ -210,12 +215,13 @@ public enum CaseFormat {
   abstract String normalizeWord(String word);
 
   private String normalizeFirstWord(String word) {
-    return (this == LOWER_CAMEL) ? Ascii.toLowerCase(word) : normalizeWord(word);
+    return (this == LOWER_CAMEL) ? Ascii.toLowerCase(word)
+                                 : normalizeWord(word);
   }
 
   private static String firstCharOnlyToUpper(String word) {
-    return (word.isEmpty())
-        ? word
-        : Ascii.toUpperCase(word.charAt(0)) + Ascii.toLowerCase(word.substring(1));
+    return (word.isEmpty()) ? word
+                            : Ascii.toUpperCase(word.charAt(0)) +
+                                  Ascii.toLowerCase(word.substring(1));
   }
 }

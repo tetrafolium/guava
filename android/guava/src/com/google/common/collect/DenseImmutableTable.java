@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2009 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -28,7 +30,8 @@ import javax.annotation.concurrent.Immutable;
  */
 @GwtCompatible
 @Immutable
-final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> {
+final class DenseImmutableTable<R, C, V>
+    extends RegularImmutableTable<R, C, V> {
   private final ImmutableMap<R, Integer> rowKeyToIndex;
   private final ImmutableMap<C, Integer> columnKeyToIndex;
   private final ImmutableMap<R, Map<C, V>> rowMap;
@@ -36,15 +39,15 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   private final int[] rowCounts;
   private final int[] columnCounts;
   private final V[][] values;
-  // For each cell in iteration order, the index of that cell's row key in the row key list.
+  // For each cell in iteration order, the index of that cell's row key in the
+  // row key list.
   private final int[] cellRowIndices;
-  // For each cell in iteration order, the index of that cell's column key in the column key list.
+  // For each cell in iteration order, the index of that cell's column key in
+  // the column key list.
   private final int[] cellColumnIndices;
 
-  DenseImmutableTable(
-      ImmutableList<Cell<R, C, V>> cellList,
-      ImmutableSet<R> rowSpace,
-      ImmutableSet<C> columnSpace) {
+  DenseImmutableTable(ImmutableList<Cell<R, C, V>> cellList,
+                      ImmutableSet<R> rowSpace, ImmutableSet<C> columnSpace) {
     @SuppressWarnings("unchecked")
     V[][] array = (V[][]) new Object[rowSpace.size()][columnSpace.size()];
     this.values = array;
@@ -61,7 +64,8 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
       int rowIndex = rowKeyToIndex.get(rowKey);
       int columnIndex = columnKeyToIndex.get(columnKey);
       V existingValue = values[rowIndex][columnIndex];
-      checkArgument(existingValue == null, "duplicate key: (%s, %s)", rowKey, columnKey);
+      checkArgument(existingValue == null, "duplicate key: (%s, %s)", rowKey,
+                    columnKey);
       values[rowIndex][columnIndex] = cell.getValue();
       rowCounts[rowIndex]++;
       columnCounts[columnIndex]++;
@@ -77,26 +81,20 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   /**
    * An immutable map implementation backed by an indexed nullable array.
    */
-  private abstract static class ImmutableArrayMap<K, V> extends IteratorBasedImmutableMap<K, V> {
+  private abstract static class ImmutableArrayMap<K, V>
+      extends IteratorBasedImmutableMap<K, V> {
     private final int size;
 
-    ImmutableArrayMap(int size) {
-      this.size = size;
-    }
+    ImmutableArrayMap(int size) { this.size = size; }
 
     abstract ImmutableMap<K, Integer> keyToIndex();
 
     // True if getValue never returns null.
-    private boolean isFull() {
-      return size == keyToIndex().size();
-    }
+    private boolean isFull() { return size == keyToIndex().size(); }
 
-    K getKey(int index) {
-      return keyToIndex().keySet().asList().get(index);
-    }
+    K getKey(int index) { return keyToIndex().keySet().asList().get(index); }
 
-    @Nullable
-    abstract V getValue(int keyIndex);
+    @Nullable abstract V getValue(int keyIndex);
 
     @Override
     ImmutableSet<K> createKeySet() {
@@ -184,9 +182,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
 
   @WeakOuter
   private final class RowMap extends ImmutableArrayMap<R, Map<C, V>> {
-    private RowMap() {
-      super(rowCounts.length);
-    }
+    private RowMap() { super(rowCounts.length); }
 
     @Override
     ImmutableMap<R, Integer> keyToIndex() {
@@ -206,9 +202,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
 
   @WeakOuter
   private final class ColumnMap extends ImmutableArrayMap<C, Map<R, V>> {
-    private ColumnMap() {
-      super(columnCounts.length);
-    }
+    private ColumnMap() { super(columnCounts.length); }
 
     @Override
     ImmutableMap<C, Integer> keyToIndex() {
@@ -240,7 +234,9 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
   public V get(@Nullable Object rowKey, @Nullable Object columnKey) {
     Integer rowIndex = rowKeyToIndex.get(rowKey);
     Integer columnIndex = columnKeyToIndex.get(columnKey);
-    return ((rowIndex == null) || (columnIndex == null)) ? null : values[rowIndex][columnIndex];
+    return ((rowIndex == null) || (columnIndex == null))
+        ? null
+        : values[rowIndex][columnIndex];
   }
 
   @Override

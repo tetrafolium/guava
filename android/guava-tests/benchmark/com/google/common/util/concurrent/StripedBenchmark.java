@@ -40,7 +40,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @VmOptions({"-Xms12g", "-Xmx12g", "-d64"})
 public class StripedBenchmark {
   private static final Supplier<Lock> LOCK_SUPPLIER = new Supplier<Lock>() {
-    @Override public Lock get() {
+    @Override
+    public Lock get() {
       return new ReentrantLock();
     }
   };
@@ -50,17 +51,20 @@ public class StripedBenchmark {
 
   enum Impl {
     EAGER {
-      @Override Striped<Lock> get(int stripes) {
+      @Override
+      Striped<Lock> get(int stripes) {
         return Striped.lock(stripes);
       }
     },
     LAZY_SMALL {
-      @Override Striped<Lock> get(int stripes) {
+      @Override
+      Striped<Lock> get(int stripes) {
         return new Striped.SmallLazyStriped<>(stripes, LOCK_SUPPLIER);
       }
     },
     LAZY_LARGE {
-      @Override Striped<Lock> get(int stripes) {
+      @Override
+      Striped<Lock> get(int stripes) {
         return new Striped.LargeLazyStriped<>(stripes, LOCK_SUPPLIER);
       }
     };
@@ -72,7 +76,8 @@ public class StripedBenchmark {
   private int[] stripes;
   private List<Integer> bulkGetSet;
 
-  @BeforeExperiment void setUp() {
+  @BeforeExperiment
+  void setUp() {
     this.striped = impl.get(numStripes);
     stripes = new int[numStripes];
     for (int i = 0; i < numStripes; i++) {
@@ -81,18 +86,22 @@ public class StripedBenchmark {
     List<Integer> asList = Ints.asList(stripes);
     Collections.shuffle(asList, new Random(0xdeadbeef));
 
-    // do bulk gets with exactly 10 keys (possibly <10 stripes) (or less if numStripes is smaller)
+    // do bulk gets with exactly 10 keys (possibly <10 stripes) (or less if
+    // numStripes is smaller)
     bulkGetSet = ImmutableList.copyOf(limit(cycle(asList), 10));
   }
 
-  @Footprint Object sizeOfStriped() {
+  @Footprint
+  Object sizeOfStriped() {
     return impl.get(numStripes);
   }
 
-  // a place to put the locks in sizeOfPopulatedStriped so they don't get GC'd before we measure
+  // a place to put the locks in sizeOfPopulatedStriped so they don't get GC'd
+  // before we measure
   final List<Lock> locks = new ArrayList<>(numStripes);
 
-  @Footprint Object sizeOfPopulatedStriped() {
+  @Footprint
+  Object sizeOfPopulatedStriped() {
     locks.clear();
     Striped<Lock> striped = impl.get(numStripes);
     for (int i : stripes) {
@@ -101,7 +110,8 @@ public class StripedBenchmark {
     return striped;
   }
 
-  @Benchmark long timeConstruct(long reps) {
+  @Benchmark
+  long timeConstruct(long reps) {
     long rvalue = 0;
     int numStripesLocal = numStripes;
     Impl implLocal = impl;
@@ -111,18 +121,20 @@ public class StripedBenchmark {
     return rvalue;
   }
 
-  @Benchmark long timeGetAt(long reps) {
+  @Benchmark
+  long timeGetAt(long reps) {
     long rvalue = 0;
     int[] stripesLocal = stripes;
     int mask = numStripes - 1;
     Striped<Lock> stripedLocal = striped;
     for (long i = 0; i < reps; i++) {
-      rvalue += stripedLocal.getAt(stripesLocal[(int) (i & mask)]).hashCode();
+      rvalue += stripedLocal.getAt(stripesLocal[(int)(i & mask)]).hashCode();
     }
     return rvalue;
   }
 
-  @Benchmark long timeBulkGet(long reps) {
+  @Benchmark
+  long timeBulkGet(long reps) {
     long rvalue = 0;
     List<Integer> bulkGetSetLocal = bulkGetSet;
     Striped<Lock> stripedLocal = striped;

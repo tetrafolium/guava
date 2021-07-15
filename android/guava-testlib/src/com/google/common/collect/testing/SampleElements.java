@@ -88,63 +88,48 @@ public class SampleElements<E> implements Iterable<E> {
     }
   }
 
-  public static <K, V> SampleElements<Map.Entry<K, V>> mapEntries(
-      SampleElements<K> keys, SampleElements<V> values) {
-    return new SampleElements<>(
-            Helpers.mapEntry(keys.e0(), values.e0()),
-            Helpers.mapEntry(keys.e1(), values.e1()),
-            Helpers.mapEntry(keys.e2(), values.e2()),
-            Helpers.mapEntry(keys.e3(), values.e3()),
-            Helpers.mapEntry(keys.e4(), values.e4()));
+  public static <K, V> SampleElements<Map.Entry<K, V>>
+  mapEntries(SampleElements<K> keys, SampleElements<V> values) {
+    return new SampleElements<>(Helpers.mapEntry(keys.e0(), values.e0()),
+                                Helpers.mapEntry(keys.e1(), values.e1()),
+                                Helpers.mapEntry(keys.e2(), values.e2()),
+                                Helpers.mapEntry(keys.e3(), values.e3()),
+                                Helpers.mapEntry(keys.e4(), values.e4()));
   }
 
-  public E e0() {
-    return e0;
-  }
+  public E e0() { return e0; }
 
-  public E e1() {
-    return e1;
-  }
+  public E e1() { return e1; }
 
-  public E e2() {
-    return e2;
-  }
+  public E e2() { return e2; }
 
-  public E e3() {
-    return e3;
-  }
+  public E e3() { return e3; }
 
-  public E e4() {
-    return e4;
-  }
+  public E e4() { return e4; }
 
   public static class Unhashables extends SampleElements<UnhashableObject> {
     public Unhashables() {
-      super(
-          new UnhashableObject(1),
-          new UnhashableObject(2),
-          new UnhashableObject(3),
-          new UnhashableObject(4),
-          new UnhashableObject(5));
+      super(new UnhashableObject(1), new UnhashableObject(2),
+            new UnhashableObject(3), new UnhashableObject(4),
+            new UnhashableObject(5));
     }
   }
 
   public static class Colliders extends SampleElements<Object> {
     public Colliders() {
-      super(new Collider(1), new Collider(2), new Collider(3), new Collider(4), new Collider(5));
+      super(new Collider(1), new Collider(2), new Collider(3), new Collider(4),
+            new Collider(5));
     }
   }
 
   private static class Collider {
     final int value;
 
-    Collider(int value) {
-      this.value = value;
-    }
+    Collider(int value) { this.value = value; }
 
     @Override
     public boolean equals(Object obj) {
-      return obj instanceof Collider && ((Collider) obj).value == value;
+      return obj instanceof Collider && ((Collider)obj).value == value;
     }
 
     @Override

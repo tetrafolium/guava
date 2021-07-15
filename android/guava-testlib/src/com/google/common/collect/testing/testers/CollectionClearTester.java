@@ -40,7 +40,8 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SUPPORTS_REMOVE)
   public void testClear() {
     collection.clear();
-    assertTrue("After clear(), a collection should be empty.", collection.isEmpty());
+    assertTrue("After clear(), a collection should be empty.",
+               collection.isEmpty());
     assertEquals(0, collection.size());
     assertFalse(collection.iterator().hasNext());
   }
@@ -50,9 +51,8 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
   public void testClear_unsupported() {
     try {
       collection.clear();
-      fail(
-          "clear() should throw UnsupportedOperation if a collection does "
-          + "not support it and is not empty.");
+      fail("clear() should throw UnsupportedOperation if a collection does "
+           + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();
@@ -68,7 +68,8 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
     expectUnchanged();
   }
 
-  @CollectionFeature.Require({SUPPORTS_REMOVE, FAILS_FAST_ON_CONCURRENT_MODIFICATION})
+  @CollectionFeature.
+  Require({SUPPORTS_REMOVE, FAILS_FAST_ON_CONCURRENT_MODIFICATION})
   @CollectionSize.Require(SEVERAL)
   public void testClearConcurrentWithIteration() {
     try {

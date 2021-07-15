@@ -22,7 +22,8 @@ import com.google.caliper.Param;
 import java.util.Random;
 
 /**
- * Benchmarks for various ways of writing the expression {@code foo + ((bar < baz) ? 1 : 0)}.
+ * Benchmarks for various ways of writing the expression {@code foo + ((bar <
+ * baz) ? 1 : 0)}.
  *
  * @author Louis Wasserman
  */
@@ -30,8 +31,7 @@ public class LessThanBenchmark {
   static final int SAMPLE_SIZE = 0x1000;
   static final int SAMPLE_MASK = 0x0FFF;
 
-  @Param("1234")
-  int randomSeed;
+  @Param("1234") int randomSeed;
 
   int[] xInts;
   int[] yInts;
@@ -60,7 +60,8 @@ public class LessThanBenchmark {
     }
   }
 
-  @Benchmark int branchFreeLtIntInlined(int reps) {
+  @Benchmark
+  int branchFreeLtIntInlined(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -72,7 +73,8 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int branchFreeLtInt(int reps) {
+  @Benchmark
+  int branchFreeLtInt(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -84,7 +86,8 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtIntAddOutsideTernary(int reps) {
+  @Benchmark
+  int ternaryLtIntAddOutsideTernary(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -96,7 +99,8 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtIntAddInsideTernary(int reps) {
+  @Benchmark
+  int ternaryLtIntAddInsideTernary(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -108,19 +112,21 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int branchFreeLtLongInlined(int reps) {
+  @Benchmark
+  int branchFreeLtLongInlined(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
       long x = xLongs[j];
       long y = yLongs[j];
       int z = constant[j];
-      tmp += z + (int) ((x - y) >>> (Long.SIZE - 1));
+      tmp += z + (int)((x - y) >>> (Long.SIZE - 1));
     }
     return tmp;
   }
 
-  @Benchmark int branchFreeLtLong(int reps) {
+  @Benchmark
+  int branchFreeLtLong(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -132,7 +138,8 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtLongAddOutsideTernary(int reps) {
+  @Benchmark
+  int ternaryLtLongAddOutsideTernary(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;
@@ -144,7 +151,8 @@ public class LessThanBenchmark {
     return tmp;
   }
 
-  @Benchmark int ternaryLtLongAddInsideTernary(int reps) {
+  @Benchmark
+  int ternaryLtLongAddInsideTernary(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & SAMPLE_MASK;

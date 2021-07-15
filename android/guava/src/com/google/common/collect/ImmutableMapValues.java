@@ -33,9 +33,7 @@ import javax.annotation.Nullable;
 final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   @Weak private final ImmutableMap<K, V> map;
 
-  ImmutableMapValues(ImmutableMap<K, V> map) {
-    this.map = map;
-  }
+  ImmutableMapValues(ImmutableMap<K, V> map) { this.map = map; }
 
   @Override
   public int size() {
@@ -45,7 +43,8 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   @Override
   public UnmodifiableIterator<V> iterator() {
     return new UnmodifiableIterator<V>() {
-      final UnmodifiableIterator<Entry<K, V>> entryItr = map.entrySet().iterator();
+      final UnmodifiableIterator<Entry<K, V>> entryItr =
+          map.entrySet().iterator();
 
       @Override
       public boolean hasNext() {
@@ -100,13 +99,9 @@ final class ImmutableMapValues<K, V> extends ImmutableCollection<V> {
   private static class SerializedForm<V> implements Serializable {
     final ImmutableMap<?, V> map;
 
-    SerializedForm(ImmutableMap<?, V> map) {
-      this.map = map;
-    }
+    SerializedForm(ImmutableMap<?, V> map) { this.map = map; }
 
-    Object readResolve() {
-      return map.values();
-    }
+    Object readResolve() { return map.values(); }
 
     private static final long serialVersionUID = 0;
   }

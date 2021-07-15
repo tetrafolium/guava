@@ -64,14 +64,15 @@ import java.util.Map;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class ArrayListMultimap<K, V>
-  extends ArrayListMultimapGwtSerializationDependencies<K, V> {
+    extends ArrayListMultimapGwtSerializationDependencies<K, V> {
   // Default from ArrayList
   private static final int DEFAULT_VALUES_PER_KEY = 3;
 
   @VisibleForTesting transient int expectedValuesPerKey;
 
   /**
-   * Creates a new, empty {@code ArrayListMultimap} with the default initial capacities.
+   * Creates a new, empty {@code ArrayListMultimap} with the default initial
+   * capacities.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys().arrayListValues().build()}.
@@ -81,30 +82,33 @@ public final class ArrayListMultimap<K, V>
   }
 
   /**
-   * Constructs an empty {@code ArrayListMultimap} with enough capacity to hold the specified
-   * numbers of keys and values without resizing.
+   * Constructs an empty {@code ArrayListMultimap} with enough capacity to hold
+   * the specified numbers of keys and values without resizing.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys(expectedKeys).arrayListValues(expectedValuesPerKey).build()}.
    *
    * @param expectedKeys the expected number of distinct keys
    * @param expectedValuesPerKey the expected average number of values per key
-   * @throws IllegalArgumentException if {@code expectedKeys} or {@code expectedValuesPerKey} is
-   *     negative
+   * @throws IllegalArgumentException if {@code expectedKeys} or {@code
+   *     expectedValuesPerKey} is negative
    */
-  public static <K, V> ArrayListMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
+  public static <K, V> ArrayListMultimap<K, V>
+  create(int expectedKeys, int expectedValuesPerKey) {
     return new ArrayListMultimap<>(expectedKeys, expectedValuesPerKey);
   }
 
   /**
-   * Constructs an {@code ArrayListMultimap} with the same mappings as the specified multimap.
+   * Constructs an {@code ArrayListMultimap} with the same mappings as the
+   * specified multimap.
    *
    * <p>This method will soon be deprecated in favor of {@code
    * MultimapBuilder.hashKeys().arrayListValues().build(multimap)}.
    *
    * @param multimap the multimap whose contents are copied to this multimap
    */
-  public static <K, V> ArrayListMultimap<K, V> create(Multimap<? extends K, ? extends V> multimap) {
+  public static <K, V> ArrayListMultimap<K, V>
+  create(Multimap<? extends K, ? extends V> multimap) {
     return new ArrayListMultimap<>(multimap);
   }
 
@@ -120,11 +124,10 @@ public final class ArrayListMultimap<K, V>
   }
 
   private ArrayListMultimap(Multimap<? extends K, ? extends V> multimap) {
-    this(
-        multimap.keySet().size(),
-        (multimap instanceof ArrayListMultimap)
-        ? ((ArrayListMultimap<?, ?>) multimap).expectedValuesPerKey
-        : DEFAULT_VALUES_PER_KEY);
+    this(multimap.keySet().size(),
+         (multimap instanceof ArrayListMultimap)
+             ? ((ArrayListMultimap<?, ?>)multimap).expectedValuesPerKey
+             : DEFAULT_VALUES_PER_KEY);
     putAll(multimap);
   }
 
@@ -140,14 +143,15 @@ public final class ArrayListMultimap<K, V>
   /**
    * Reduces the memory used by this {@code ArrayListMultimap}, if feasible.
    *
-   * @deprecated For a {@link ListMultimap} that automatically trims to size, use {@link
-   *     ImmutableListMultimap}. If you need a mutable collection, remove the {@code trimToSize}
-   *     call, or switch to a {@code HashMap<K, ArrayList<V>>}.
+   * @deprecated For a {@link ListMultimap} that automatically trims to size,
+   *     use {@link ImmutableListMultimap}. If you need a mutable collection,
+   *     remove the {@code trimToSize} call, or switch to a {@code HashMap<K,
+   *     ArrayList<V>>}.
    */
   @Deprecated
   public void trimToSize() {
     for (Collection<V> collection : backingMap().values()) {
-      ArrayList<V> arrayList = (ArrayList<V>) collection;
+      ArrayList<V> arrayList = (ArrayList<V>)collection;
       arrayList.trimToSize();
     }
   }
@@ -164,7 +168,8 @@ public final class ArrayListMultimap<K, V>
   }
 
   @GwtIncompatible // java.io.ObjectOutputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

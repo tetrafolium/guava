@@ -27,7 +27,5 @@ import java.util.Queue;
  */
 @GwtCompatible
 public class AbstractQueueTester<E> extends AbstractCollectionTester<E> {
-  protected final Queue<E> getQueue() {
-    return (Queue<E>) collection;
-  }
+  protected final Queue<E> getQueue() { return (Queue<E>)collection; }
 }

@@ -24,11 +24,12 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * This class provides a skeletal implementation of {@link ValueGraph}. It is recommended to extend
- * this class rather than implement {@link ValueGraph} directly.
+ * This class provides a skeletal implementation of {@link ValueGraph}. It is
+ * recommended to extend this class rather than implement {@link ValueGraph}
+ * directly.
  *
- * <p>The methods implemented in this class should not be overridden unless the subclass admits a
- * more efficient implementation.
+ * <p>The methods implemented in this class should not be overridden unless the
+ * subclass admits a more efficient implementation.
  *
  * @author James Sexton
  * @param <N> Node parameter type
@@ -36,8 +37,8 @@ import javax.annotation.Nullable;
  * @since 20.0
  */
 @Beta
-public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
-  implements ValueGraph<N, V> {
+public abstract class AbstractValueGraph<N, V>
+    extends AbstractBaseGraph<N> implements ValueGraph<N, V> {
 
   @Override
   public Graph<N> asGraph() {
@@ -107,11 +108,11 @@ public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
     if (!(obj instanceof ValueGraph)) {
       return false;
     }
-    ValueGraph<?, ?> other = (ValueGraph<?, ?>) obj;
+    ValueGraph<?, ?> other = (ValueGraph<?, ?>)obj;
 
-    return isDirected() == other.isDirected()
-        && nodes().equals(other.nodes())
-        && edgeValueMap(this).equals(edgeValueMap(other));
+    return isDirected() == other.isDirected() &&
+        nodes().equals(other.nodes()) &&
+        edgeValueMap(this).equals(edgeValueMap(other));
   }
 
   @Override
@@ -122,24 +123,20 @@ public abstract class AbstractValueGraph<N, V> extends AbstractBaseGraph<N>
   /** Returns a string representation of this graph. */
   @Override
   public String toString() {
-    return "isDirected: "
-        + isDirected()
-        + ", allowsSelfLoops: "
-        + allowsSelfLoops()
-        + ", nodes: "
-        + nodes()
-        + ", edges: "
-        + edgeValueMap(this);
+    return "isDirected: " + isDirected() +
+        ", allowsSelfLoops: " + allowsSelfLoops() + ", nodes: " + nodes() +
+        ", edges: " + edgeValueMap(this);
   }
 
-  private static <N, V> Map<EndpointPair<N>, V> edgeValueMap(final ValueGraph<N, V> graph) {
+  private static <N, V> Map<EndpointPair<N>, V>
+  edgeValueMap(final ValueGraph<N, V> graph) {
     Function<EndpointPair<N>, V> edgeToValueFn =
-    new Function<EndpointPair<N>, V>() {
-      @Override
-      public V apply(EndpointPair<N> edge) {
-        return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
-      }
-    };
+        new Function<EndpointPair<N>, V>() {
+          @Override
+          public V apply(EndpointPair<N> edge) {
+            return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
+          }
+        };
     return Maps.asMap(graph.edges(), edgeToValueFn);
   }
 }

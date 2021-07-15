@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -41,7 +43,8 @@ import java.util.Map.Entry;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapEntriesTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testEntries() {
     assertEqualIgnoringOrder(getSampleElements(), multimap().entries());
   }
@@ -50,7 +53,8 @@ public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Mu
   @MapFeature.Require(ALLOWS_NULL_KEYS)
   public void testContainsEntryWithNullKeyPresent() {
     initMultimapWithNullKey();
-    assertContains(multimap().entries(), Helpers.mapEntry((K) null, getValueForNullKey()));
+    assertContains(multimap().entries(),
+                   Helpers.mapEntry((K)null, getValueForNullKey()));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
@@ -62,7 +66,8 @@ public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Mu
   @MapFeature.Require(ALLOWS_NULL_VALUES)
   public void testContainsEntryWithNullValuePresent() {
     initMultimapWithNullValue();
-    assertContains(multimap().entries(), Helpers.mapEntry(getKeyForNullValue(), (V) null));
+    assertContains(multimap().entries(),
+                   Helpers.mapEntry(getKeyForNullValue(), (V)null));
   }
 
   @MapFeature.Require(ALLOWS_NULL_VALUE_QUERIES)
@@ -82,7 +87,8 @@ public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Mu
   @CollectionSize.Require(absent = ZERO)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRemoveAllPropagatesToMultimap() {
-    assertTrue(multimap().entries().removeAll(Collections.singleton(Helpers.mapEntry(k0(), v0()))));
+    assertTrue(multimap().entries().removeAll(
+        Collections.singleton(Helpers.mapEntry(k0(), v0()))));
     expectMissing(Helpers.mapEntry(k0(), v0()));
     assertEquals(getNumElements() - 1, multimap().size());
     assertFalse(multimap().containsEntry(k0(), v0()));
@@ -91,8 +97,10 @@ public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Mu
   @CollectionSize.Require(absent = ZERO)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRetainAllPropagatesToMultimap() {
-    multimap().entries().retainAll(Collections.singleton(Helpers.mapEntry(k0(), v0())));
-    assertEquals(getSubjectGenerator().create(Helpers.mapEntry(k0(), v0())), multimap());
+    multimap().entries().retainAll(
+        Collections.singleton(Helpers.mapEntry(k0(), v0())));
+    assertEquals(getSubjectGenerator().create(Helpers.mapEntry(k0(), v0())),
+                 multimap());
     assertEquals(1, multimap().size());
     assertTrue(multimap().containsEntry(k0(), v0()));
   }

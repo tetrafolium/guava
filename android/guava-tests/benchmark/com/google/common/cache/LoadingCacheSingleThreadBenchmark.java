@@ -47,32 +47,35 @@ public class LoadingCacheSingleThreadBenchmark {
   static AtomicLong requests = new AtomicLong(0);
   static AtomicLong misses = new AtomicLong(0);
 
-  @BeforeExperiment void setUp() {
+  @BeforeExperiment
+  void setUp() {
     // random integers will be generated in this range, then raised to the
     // power of (1/concentration) and floor()ed
-    max = Ints.checkedCast((long) Math.pow(distinctKeys, concentration));
+    max = Ints.checkedCast((long)Math.pow(distinctKeys, concentration));
 
     cache = CacheBuilder.newBuilder()
-        .concurrencyLevel(segments)
-        .maximumSize(maximumSize)
-        .build(
-    new CacheLoader<Integer, Integer>() {
-      @Override public Integer load(Integer from) {
-        return (int) misses.incrementAndGet();
-      }
-    });
+                .concurrencyLevel(segments)
+                .maximumSize(maximumSize)
+                .build(new CacheLoader<Integer, Integer>() {
+                  @Override
+                  public Integer load(Integer from) {
+                    return (int)misses.incrementAndGet();
+                  }
+                });
 
     // To start, fill up the cache.
     // Each miss both increments the counter and causes the map to grow by one,
     // so until evictions begin, the size of the map is the greatest return
     // value seen so far
-    while (cache.getUnchecked(nextRandomKey()) < maximumSize) {}
+    while (cache.getUnchecked(nextRandomKey()) < maximumSize) {
+    }
 
     requests.set(0);
     misses.set(0);
   }
 
-  @Benchmark int time(int reps) {
+  @Benchmark
+  int time(int reps) {
     int dummy = 0;
     for (int i = 0; i < reps; i++) {
       dummy += cache.getUnchecked(nextRandomKey());
@@ -90,10 +93,11 @@ public class LoadingCacheSingleThreadBenchmark {
      * part, so higher integers would appear (in this case linearly) more often
      * than lower ones.
      */
-    return (int) Math.pow(a, 1.0 / concentration);
+    return (int)Math.pow(a, 1.0 / concentration);
   }
 
-  @AfterExperiment void tearDown() {
+  @AfterExperiment
+  void tearDown() {
     double req = requests.get();
     double hit = req - misses.get();
 

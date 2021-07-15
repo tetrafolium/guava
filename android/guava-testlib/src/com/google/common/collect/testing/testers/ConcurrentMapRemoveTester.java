@@ -28,7 +28,8 @@ import com.google.common.collect.testing.features.MapFeature;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * Tester for {@link ConcurrentMap#remove}.  Can't be invoked directly; please see
+ * Tester for {@link ConcurrentMap#remove}.  Can't be invoked directly; please
+ * see
  * {@link com.google.common.collect.testing.ConcurrentMapTestSuiteBuilder}.
  *
  * @author Louis Wasserman
@@ -37,7 +38,7 @@ import java.util.concurrent.ConcurrentMap;
 public class ConcurrentMapRemoveTester<K, V> extends AbstractMapTester<K, V> {
   @Override
   protected ConcurrentMap<K, V> getMap() {
-    return (ConcurrentMap<K, V>) super.getMap();
+    return (ConcurrentMap<K, V>)super.getMap();
   }
 
   @MapFeature.Require(SUPPORTS_REMOVE)
@@ -75,7 +76,8 @@ public class ConcurrentMapRemoveTester<K, V> extends AbstractMapTester<K, V> {
     expectUnchanged();
   }
 
-  @MapFeature.Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_VALUE_QUERIES)
+  @MapFeature.
+  Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_VALUE_QUERIES)
   public void testRemove_nullValueQueriesUnsupported() {
     try {
       assertFalse(getMap().remove(k3(), null));

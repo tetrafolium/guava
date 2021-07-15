@@ -39,15 +39,12 @@ import java.util.Iterator;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapPutIterableTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllNonEmptyIterableOnPresentKey() {
-    assertTrue(
-        multimap()
-        .putAll(
-            k0(),
-    new Iterable<V>() {
+    assertTrue(multimap().putAll(k0(), new Iterable<V>() {
       @Override
       public Iterator<V> iterator() {
         return Lists.newArrayList(v3(), v4()).iterator();
@@ -65,11 +62,7 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllNonEmptyIterableOnAbsentKey() {
-    assertTrue(
-        multimap()
-        .putAll(
-            k3(),
-    new Iterable<V>() {
+    assertTrue(multimap().putAll(k3(), new Iterable<V>() {
       @Override
       public Iterator<V> iterator() {
         return Lists.newArrayList(v3(), v4()).iterator();
@@ -99,11 +92,12 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
   public void testPutAllNullValueSingle_unsupported() {
-    multimap().putAll(k1(), Lists.newArrayList((V) null));
+    multimap().putAll(k1(), Lists.newArrayList((V)null));
     expectUnchanged();
   }
 
-  // In principle, it would be nice to apply these two tests to keys with existing values, too.
+  // In principle, it would be nice to apply these two tests to keys with
+  // existing values, too.
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
   public void testPutAllNullValueNullLast_unsupported() {
@@ -118,7 +112,8 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
     Collection<V> values = multimap().get(k3());
     if (values.size() == 0) {
       expectUnchanged();
-      // Be extra thorough in case internal state was corrupted by the expected null.
+      // Be extra thorough in case internal state was corrupted by the expected
+      // null.
       assertEquals(Lists.newArrayList(), Lists.newArrayList(values));
       assertEquals(size, multimap().size());
     } else {
@@ -138,13 +133,16 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
     }
 
     /*
-     * In principle, a Multimap implementation could add e3 first before failing on the null. But
-     * that seems unlikely enough to be worth complicating the test over, especially if there's any
-     * chance that a permissive test could mask a bug.
+     * In principle, a Multimap implementation could add e3 first before failing
+     * on the null. But that seems unlikely enough to be worth complicating the
+     * test over, especially if there's any chance that a permissive test could
+     * mask a bug.
      */
     expectUnchanged();
-    // Be extra thorough in case internal state was corrupted by the expected null.
-    assertEquals(Lists.newArrayList(), Lists.newArrayList(multimap().get(k3())));
+    // Be extra thorough in case internal state was corrupted by the expected
+    // null.
+    assertEquals(Lists.newArrayList(),
+                 Lists.newArrayList(multimap().get(k3())));
     assertEquals(size, multimap().size());
   }
 
@@ -172,8 +170,7 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllEmptyIterableOnAbsentKey() {
-    Iterable<V> iterable =
-    new Iterable<V>() {
+    Iterable<V> iterable = new Iterable<V>() {
       @Override
       public Iterator<V> iterator() {
         return ImmutableSet.<V>of().iterator();
@@ -193,8 +190,7 @@ public class MultimapPutIterableTester<K, V> extends AbstractMultimapTester<K, V
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllOnlyCallsIteratorOnce() {
-    Iterable<V> iterable =
-    new Iterable<V>() {
+    Iterable<V> iterable = new Iterable<V>() {
       private boolean calledIteratorAlready = false;
 
       @Override

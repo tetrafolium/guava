@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -38,18 +40,19 @@ import java.util.Iterator;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapKeysTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapKeysTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(SEVERAL)
   public void testKeys() {
-    resetContainer(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k1(), v0()));
+    resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
+                   Helpers.mapEntry(k1(), v0()));
     Multiset<K> keys = multimap().keys();
     assertEquals(2, keys.count(k0()));
     assertEquals(1, keys.count(k1()));
     assertEquals(3, keys.size());
     assertContainsAllOf(keys, k0(), k1());
-    assertContainsAllOf(
-        keys.entrySet(), Multisets.immutableEntry(k0(), 2), Multisets.immutableEntry(k1(), 1));
+    assertContainsAllOf(keys.entrySet(), Multisets.immutableEntry(k0(), 2),
+                        Multisets.immutableEntry(k1(), 1));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
@@ -60,17 +63,16 @@ public class MultimapKeysTester<K, V> extends AbstractMultimapTester<K, V, Multi
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(ALLOWS_NULL_KEYS)
   public void testKeysWithNullKey() {
-    resetContainer(
-        Helpers.mapEntry((K) null, v0()),
-        Helpers.mapEntry((K) null, v1()),
-        Helpers.mapEntry(k1(), v0()));
+    resetContainer(Helpers.mapEntry((K)null, v0()),
+                   Helpers.mapEntry((K)null, v1()),
+                   Helpers.mapEntry(k1(), v0()));
     Multiset<K> keys = multimap().keys();
     assertEquals(2, keys.count(null));
     assertEquals(1, keys.count(k1()));
     assertEquals(3, keys.size());
     assertContainsAllOf(keys, null, k1());
-    assertContainsAllOf(
-        keys.entrySet(), Multisets.immutableEntry((K) null, 2), Multisets.immutableEntry(k1(), 1));
+    assertContainsAllOf(keys.entrySet(), Multisets.immutableEntry((K)null, 2),
+                        Multisets.immutableEntry(k1(), 1));
   }
 
   public void testKeysElementSet() {
@@ -96,9 +98,10 @@ public class MultimapKeysTester<K, V> extends AbstractMultimapTester<K, V, Multi
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testKeysEntrySetRemove() {
-    resetContainer(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k1(), v0()));
-    assertTrue(multimap().keys().entrySet().remove(Multisets.immutableEntry(k0(), 2)));
+    resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
+                   Helpers.mapEntry(k1(), v0()));
+    assertTrue(
+        multimap().keys().entrySet().remove(Multisets.immutableEntry(k0(), 2)));
     assertEquals(1, multimap().size());
     assertTrue(multimap().containsEntry(k1(), v0()));
   }

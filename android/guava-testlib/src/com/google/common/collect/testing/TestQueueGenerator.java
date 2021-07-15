@@ -26,6 +26,5 @@ import java.util.Queue;
  */
 @GwtCompatible
 public interface TestQueueGenerator<E> extends TestCollectionGenerator<E> {
-  @Override
-  Queue<E> create(Object... elements);
+  @Override Queue<E> create(Object... elements);
 }

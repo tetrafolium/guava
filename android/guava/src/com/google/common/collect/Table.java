@@ -61,46 +61,48 @@ public interface Table<R, C, V> {
   // Accessors
 
   /**
-   * Returns {@code true} if the table contains a mapping with the specified row and column keys.
+   * Returns {@code true} if the table contains a mapping with the specified row
+   * and column keys.
    *
    * @param rowKey key of row to search for
    * @param columnKey key of column to search for
    */
-  boolean contains(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+  boolean contains(@Nullable @CompatibleWith("R") Object rowKey,
+                   @Nullable @CompatibleWith("C") Object columnKey);
 
   /**
-   * Returns {@code true} if the table contains a mapping with the specified row key.
+   * Returns {@code true} if the table contains a mapping with the specified row
+   * key.
    *
    * @param rowKey key of row to search for
    */
   boolean containsRow(@Nullable @CompatibleWith("R") Object rowKey);
 
   /**
-   * Returns {@code true} if the table contains a mapping with the specified column.
+   * Returns {@code true} if the table contains a mapping with the specified
+   * column.
    *
    * @param columnKey key of column to search for
    */
   boolean containsColumn(@Nullable @CompatibleWith("C") Object columnKey);
 
   /**
-   * Returns {@code true} if the table contains a mapping with the specified value.
+   * Returns {@code true} if the table contains a mapping with the specified
+   * value.
    *
    * @param value value to search for
    */
   boolean containsValue(@Nullable @CompatibleWith("V") Object value);
 
   /**
-   * Returns the value corresponding to the given row and column keys, or {@code null} if no such
-   * mapping exists.
+   * Returns the value corresponding to the given row and column keys, or {@code
+   * null} if no such mapping exists.
    *
    * @param rowKey key of row to search for
    * @param columnKey key of column to search for
    */
-  V get(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+  V get(@Nullable @CompatibleWith("R") Object rowKey,
+        @Nullable @CompatibleWith("C") Object columnKey);
 
   /** Returns {@code true} if the table contains no mappings. */
   boolean isEmpty();
@@ -114,15 +116,13 @@ public interface Table<R, C, V> {
    * Compares the specified object with this table for equality. Two tables are
    * equal when their cell views, as returned by {@link #cellSet}, are equal.
    */
-  @Override
-  boolean equals(@Nullable Object obj);
+  @Override boolean equals(@Nullable Object obj);
 
   /**
    * Returns the hash code for this table. The hash code of a table is defined
    * as the hash code of its cell view, as returned by {@link #cellSet}.
    */
-  @Override
-  int hashCode();
+  @Override int hashCode();
 
   // Mutators
 
@@ -140,9 +140,7 @@ public interface Table<R, C, V> {
    * @return the value previously associated with the keys, or {@code null} if
    *     no mapping existed for the keys
    */
-  @CanIgnoreReturnValue
-  @Nullable
-  V put(R rowKey, C columnKey, V value);
+  @CanIgnoreReturnValue @Nullable V put(R rowKey, C columnKey, V value);
 
   /**
    * Copies all mappings from the specified table to this table. The effect is
@@ -158,13 +156,13 @@ public interface Table<R, C, V> {
    *
    * @param rowKey row key of mapping to be removed
    * @param columnKey column key of mapping to be removed
-   * @return the value previously associated with the keys, or {@code null} if no such value existed
+   * @return the value previously associated with the keys, or {@code null} if
+   *     no such value existed
    */
   @CanIgnoreReturnValue
   @Nullable
-  V remove(
-      @Nullable @CompatibleWith("R") Object rowKey,
-      @Nullable @CompatibleWith("C") Object columnKey);
+  V remove(@Nullable @CompatibleWith("R") Object rowKey,
+           @Nullable @CompatibleWith("C") Object columnKey);
 
   // Views
 
@@ -270,27 +268,23 @@ public interface Table<R, C, V> {
     /**
      * Returns the row key of this cell.
      */
-    @Nullable
-    R getRowKey();
+    @Nullable R getRowKey();
 
     /**
      * Returns the column key of this cell.
      */
-    @Nullable
-    C getColumnKey();
+    @Nullable C getColumnKey();
 
     /**
      * Returns the value of this cell.
      */
-    @Nullable
-    V getValue();
+    @Nullable V getValue();
 
     /**
      * Compares the specified object with this cell for equality. Two cells are
      * equal when they have equal row keys, column keys, and values.
      */
-    @Override
-    boolean equals(@Nullable Object obj);
+    @Override boolean equals(@Nullable Object obj);
 
     /**
      * Returns the hash code of this cell.
@@ -298,7 +292,6 @@ public interface Table<R, C, V> {
      * <p>The hash code of a table cell is equal to {@link
      * Objects#hashCode}{@code (e.getRowKey(), e.getColumnKey(), e.getValue())}.
      */
-    @Override
-    int hashCode();
+    @Override int hashCode();
   }
 }

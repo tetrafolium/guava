@@ -126,7 +126,8 @@ public abstract class AbstractIterator<T> extends UnmodifiableIterator<T> {
     return null;
   }
 
-  @CanIgnoreReturnValue // TODO(kak): Should we remove this? Some people are using it to prefetch?
+  @CanIgnoreReturnValue
+  // TODO(kak): Should we remove this? Some people are using it to prefetch?
   @Override
   public final boolean hasNext() {
     checkState(state != State.FAILED);

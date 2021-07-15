@@ -40,10 +40,12 @@ public class MonitorBenchmark {
   @SuppressWarnings("unchecked")
   void setUp() throws Exception {
     String prefix =
-        (useMonitor ? "com.google.common.util.concurrent.MonitorBased" : "java.util.concurrent.");
+        (useMonitor ? "com.google.common.util.concurrent.MonitorBased"
+                    : "java.util.concurrent.");
     String className = prefix + queueType + "BlockingQueue";
-    Constructor<?> constructor = Class.forName(className).getConstructor(int.class);
-    queue = (BlockingQueue<String>) constructor.newInstance(capacity);
+    Constructor<?> constructor =
+        Class.forName(className).getConstructor(int.class);
+    queue = (BlockingQueue<String>)constructor.newInstance(capacity);
 
     strings = new String[capacity];
     for (int i = 0; i < capacity; i++) {
@@ -51,7 +53,8 @@ public class MonitorBenchmark {
     }
   }
 
-  @Benchmark void addsAndRemoves(int reps) {
+  @Benchmark
+  void addsAndRemoves(int reps) {
     int capacity = this.capacity;
     BlockingQueue<String> queue = this.queue;
     String[] strings = this.strings;

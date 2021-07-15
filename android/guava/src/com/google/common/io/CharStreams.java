@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2007 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -35,8 +37,9 @@ import java.util.List;
  * <p>All method parameters must be non-null unless documented otherwise.
  *
  * <p>Some of the methods in this class take arguments with a generic type of
- * {@code Readable & Closeable}. A {@link java.io.Reader} implements both of those interfaces.
- * Similarly for {@code Appendable & Closeable} and {@link java.io.Writer}.
+ * {@code Readable & Closeable}. A {@link java.io.Reader} implements both of
+ * those interfaces. Similarly for {@code Appendable & Closeable} and {@link
+ * java.io.Writer}.
  *
  * @author Chris Nokleberg
  * @author Bin Zhu
@@ -60,8 +63,8 @@ public final class CharStreams {
   private CharStreams() {}
 
   /**
-   * Copies all characters between the {@link Readable} and {@link Appendable} objects. Does not
-   * close or flush either object.
+   * Copies all characters between the {@link Readable} and {@link Appendable}
+   * objects. Does not close or flush either object.
    *
    * @param from the object to read from
    * @param to the object to write to
@@ -70,14 +73,15 @@ public final class CharStreams {
    */
   @CanIgnoreReturnValue
   public static long copy(Readable from, Appendable to) throws IOException {
-    // The most common case is that from is a Reader (like InputStreamReader or StringReader) so
-    // take advantage of that.
+    // The most common case is that from is a Reader (like InputStreamReader or
+    // StringReader) so take advantage of that.
     if (from instanceof Reader) {
-      // optimize for common output types which are optimized to deal with char[]
+      // optimize for common output types which are optimized to deal with
+      // char[]
       if (to instanceof StringBuilder) {
-        return copyReaderToBuilder((Reader) from, (StringBuilder) to);
+        return copyReaderToBuilder((Reader)from, (StringBuilder)to);
       } else {
-        return copyReaderToWriter((Reader) from, asWriter(to));
+        return copyReaderToWriter((Reader)from, asWriter(to));
       }
     } else {
       checkNotNull(from);
@@ -94,18 +98,19 @@ public final class CharStreams {
     }
   }
 
-  // TODO(lukes): consider allowing callers to pass in a buffer to use, some callers would be able
-  // to reuse buffers, others would be able to size them more appropriately than the constant
-  // defaults
+  // TODO(lukes): consider allowing callers to pass in a buffer to use, some
+  // callers would be able to reuse buffers, others would be able to size them
+  // more appropriately than the constant defaults
 
   /**
-   * Copies all characters between the {@link Reader} and {@link StringBuilder} objects. Does not
-   * close or flush the reader.
+   * Copies all characters between the {@link Reader} and {@link StringBuilder}
+   * objects. Does not close or flush the reader.
    *
-   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized for these specific
-   * types. CharBuffer has poor performance when being written into or read out of so round tripping
-   * all the bytes through the buffer takes a long time. With these specialized types we can just
-   * use a char array.
+   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized
+   * for these specific types. CharBuffer has poor performance when being
+   * written into or read out of so round tripping all the bytes through the
+   * buffer takes a long time. With these specialized types we can just use a
+   * char array.
    *
    * @param from the object to read from
    * @param to the object to write to
@@ -113,7 +118,8 @@ public final class CharStreams {
    * @throws IOException if an I/O error occurs
    */
   @CanIgnoreReturnValue
-  static long copyReaderToBuilder(Reader from, StringBuilder to) throws IOException {
+  static long copyReaderToBuilder(Reader from, StringBuilder to)
+      throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     char[] buf = new char[DEFAULT_BUF_SIZE];
@@ -127,13 +133,14 @@ public final class CharStreams {
   }
 
   /**
-   * Copies all characters between the {@link Reader} and {@link Writer} objects. Does not close or
-   * flush the reader or writer.
+   * Copies all characters between the {@link Reader} and {@link Writer}
+   * objects. Does not close or flush the reader or writer.
    *
-   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized for these specific
-   * types. CharBuffer has poor performance when being written into or read out of so round tripping
-   * all the bytes through the buffer takes a long time. With these specialized types we can just
-   * use a char array.
+   * <p>This is identical to {@link #copy(Readable, Appendable)} but optimized
+   * for these specific types. CharBuffer has poor performance when being
+   * written into or read out of so round tripping all the bytes through the
+   * buffer takes a long time. With these specialized types we can just use a
+   * char array.
    *
    * @param from the object to read from
    * @param to the object to write to
@@ -155,7 +162,8 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all characters from a {@link Readable} object into a {@link String}. Does not close the
+   * Reads all characters from a {@link Readable} object into a {@link String}.
+   * Does not close the
    * {@code Readable}.
    *
    * @param r the object to read from
@@ -167,8 +175,8 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all characters from a {@link Readable} object into a new {@link StringBuilder} instance.
-   * Does not close the {@code Readable}.
+   * Reads all characters from a {@link Readable} object into a new {@link
+   * StringBuilder} instance. Does not close the {@code Readable}.
    *
    * @param r the object to read from
    * @return a {@link StringBuilder} containing all the characters
@@ -177,7 +185,7 @@ public final class CharStreams {
   private static StringBuilder toStringBuilder(Readable r) throws IOException {
     StringBuilder sb = new StringBuilder();
     if (r instanceof Reader) {
-      copyReaderToBuilder((Reader) r, sb);
+      copyReaderToBuilder((Reader)r, sb);
     } else {
       copy(r, sb);
     }
@@ -185,10 +193,12 @@ public final class CharStreams {
   }
 
   /**
-   * Reads all of the lines from a {@link Readable} object. The lines do not include
-   * line-termination characters, but do include other leading and trailing whitespace.
+   * Reads all of the lines from a {@link Readable} object. The lines do not
+   * include line-termination characters, but do include other leading and
+   * trailing whitespace.
    *
-   * <p>Does not close the {@code Readable}. If reading files or resources you should use the
+   * <p>Does not close the {@code Readable}. If reading files or resources you
+   * should use the
    * {@link Files#readLines} and {@link Resources#readLines} methods.
    *
    * @param r the object to read from
@@ -206,16 +216,18 @@ public final class CharStreams {
   }
 
   /**
-   * Streams lines from a {@link Readable} object, stopping when the processor returns {@code false}
-   * or all lines have been read and returning the result produced by the processor. Does not close
-   * {@code readable}. Note that this method may not fully consume the contents of {@code readable}
-   * if the processor stops processing early.
+   * Streams lines from a {@link Readable} object, stopping when the processor
+   * returns {@code false} or all lines have been read and returning the result
+   * produced by the processor. Does not close
+   * {@code readable}. Note that this method may not fully consume the contents
+   * of {@code readable} if the processor stops processing early.
    *
    * @throws IOException if an I/O error occurs
    * @since 14.0
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
-  public static <T> T readLines(Readable readable, LineProcessor<T> processor) throws IOException {
+  public static <T> T readLines(Readable readable, LineProcessor<T> processor)
+      throws IOException {
     checkNotNull(readable);
     checkNotNull(processor);
 
@@ -230,8 +242,9 @@ public final class CharStreams {
   }
 
   /**
-   * Reads and discards data from the given {@code Readable} until the end of the stream is
-   * reached. Returns the total number of chars read. Does not close the stream.
+   * Reads and discards data from the given {@code Readable} until the end of
+   * the stream is reached. Returns the total number of chars read. Does not
+   * close the stream.
    *
    * @since 20.0
    */
@@ -248,12 +261,13 @@ public final class CharStreams {
   }
 
   /**
-   * Discards {@code n} characters of data from the reader. This method will block until the full
-   * amount has been skipped. Does not close the reader.
+   * Discards {@code n} characters of data from the reader. This method will
+   * block until the full amount has been skipped. Does not close the reader.
    *
    * @param reader the reader to read from
    * @param n the number of characters to skip
-   * @throws EOFException if this stream reaches the end before skipping all the characters
+   * @throws EOFException if this stream reaches the end before skipping all the
+   *     characters
    * @throws IOException if an I/O error occurs
    */
   public static void skipFully(Reader reader, long n) throws IOException {
@@ -272,9 +286,7 @@ public final class CharStreams {
    *
    * @since 15.0
    */
-  public static Writer nullWriter() {
-    return NullWriter.INSTANCE;
-  }
+  public static Writer nullWriter() { return NullWriter.INSTANCE; }
 
   private static final class NullWriter extends Writer {
 
@@ -333,16 +345,18 @@ public final class CharStreams {
   }
 
   /**
-   * Returns a Writer that sends all output to the given {@link Appendable} target. Closing the
-   * writer will close the target if it is {@link Closeable}, and flushing the writer will flush the
-   * target if it is {@link java.io.Flushable}.
+   * Returns a Writer that sends all output to the given {@link Appendable}
+   * target. Closing the writer will close the target if it is {@link
+   * Closeable}, and flushing the writer will flush the target if it is {@link
+   * java.io.Flushable}.
    *
    * @param target the object to which output will be sent
-   * @return a new Writer object, unless target is a Writer, in which case the target is returned
+   * @return a new Writer object, unless target is a Writer, in which case the
+   *     target is returned
    */
   public static Writer asWriter(Appendable target) {
     if (target instanceof Writer) {
-      return (Writer) target;
+      return (Writer)target;
     }
     return new AppendableWriter(target);
   }

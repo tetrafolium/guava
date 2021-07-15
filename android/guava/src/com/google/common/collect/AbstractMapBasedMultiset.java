@@ -37,13 +37,14 @@ import javax.annotation.Nullable;
  * Basic implementation of {@code Multiset<E>} backed by an instance of {@code
  * AbstractObjectCountMap<E>}.
  *
- * <p>For serialization to work, the subclass must specify explicit {@code readObject} and {@code
- * writeObject} methods.
+ * <p>For serialization to work, the subclass must specify explicit {@code
+ * readObject} and {@code writeObject} methods.
  *
  * @author Kevin Bourrillion
  */
 @GwtCompatible(emulated = true)
-abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implements Serializable {
+abstract class AbstractMapBasedMultiset<E>
+    extends AbstractMultiset<E> implements Serializable {
   transient AbstractObjectCountMap<E> backingMap;
 
   /*
@@ -73,9 +74,9 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   /**
    * {@inheritDoc}
    *
-   * <p>Invoking {@link Multiset.Entry#getCount} on an entry in the returned set always returns the
-   * current count of that element in the multiset, as opposed to the count at the time the entry
-   * was retrieved.
+   * <p>Invoking {@link Multiset.Entry#getCount} on an entry in the returned set
+   * always returns the current count of that element in the multiset, as
+   * opposed to the count at the time the entry was retrieved.
    */
   @Override
   public Set<Multiset.Entry<E>> createEntrySet() {
@@ -177,7 +178,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
       if (frequency == 1) {
         entryIterator.remove();
       } else {
-        ((ObjectCountHashMap.MapEntry) currentEntry).setCount(frequency - 1);
+        ((ObjectCountHashMap.MapEntry)currentEntry).setCount(frequency - 1);
       }
       size--;
       canRemove = false;
@@ -204,11 +205,13 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     if (occurrences == 0) {
       return count(element);
     }
-    checkArgument(occurrences > 0, "occurrences cannot be negative: %s", occurrences);
+    checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
+                  occurrences);
     int oldCount = backingMap.get(element);
-    long newCount = (long) oldCount + (long) occurrences;
-    checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s", newCount);
-    backingMap.put(element, (int) newCount);
+    long newCount = (long)oldCount + (long)occurrences;
+    checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s",
+                  newCount);
+    backingMap.put(element, (int)newCount);
     size += occurrences;
     return oldCount;
   }
@@ -219,12 +222,13 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     if (occurrences == 0) {
       return count(element);
     }
-    checkArgument(occurrences > 0, "occurrences cannot be negative: %s", occurrences);
+    checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
+                  occurrences);
     int oldCount = backingMap.get(element);
     int numberRemoved;
     if (oldCount > occurrences) {
       numberRemoved = occurrences;
-      backingMap.put((E) element, oldCount - occurrences);
+      backingMap.put((E)element, oldCount - occurrences);
     } else {
       numberRemoved = oldCount;
       backingMap.remove(element);
@@ -238,7 +242,8 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   @Override
   public int setCount(@Nullable E element, int count) {
     checkNonnegative(count, "count");
-    int oldCount = (count == 0) ? backingMap.remove(element) : backingMap.put(element, count);
+    int oldCount = (count == 0) ? backingMap.remove(element)
+                                : backingMap.put(element, count);
     size += (count - oldCount);
     return oldCount;
   }

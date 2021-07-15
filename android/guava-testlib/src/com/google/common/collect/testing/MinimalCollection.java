@@ -37,7 +37,8 @@ public class MinimalCollection<E> extends AbstractCollection<E> {
   }
 
   // TODO: use this
-  public static <E> MinimalCollection<E> ofClassAndContents(Class<? super E> type, E... contents) {
+  public static <E> MinimalCollection<E>
+  ofClassAndContents(Class<? super E> type, E... contents) {
     return new MinimalCollection<E>(type, true, contents);
   }
 

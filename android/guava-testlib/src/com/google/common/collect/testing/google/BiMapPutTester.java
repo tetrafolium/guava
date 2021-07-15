@@ -109,7 +109,7 @@ public class BiMapPutTester<K, V> extends AbstractBiMapTester<K, V> {
 
     getMap().forcePut(null, v1());
 
-    expectContents(Helpers.mapEntry((K) null, v1()));
+    expectContents(Helpers.mapEntry((K)null, v1()));
 
     assertFalse(getMap().containsValue(v0()));
 
@@ -128,7 +128,7 @@ public class BiMapPutTester<K, V> extends AbstractBiMapTester<K, V> {
 
     getMap().forcePut(k1(), null);
 
-    expectContents(Helpers.mapEntry(k1(), (V) null));
+    expectContents(Helpers.mapEntry(k1(), (V)null));
 
     assertFalse(getMap().containsKey(k0()));
 

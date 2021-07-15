@@ -24,7 +24,8 @@ import java.io.Serializable;
 /** An ordering that uses the natural order of the values. */
 @GwtCompatible(serializable = true)
 @SuppressWarnings("unchecked") // TODO(kevinb): the right way to explain this??
-final class NaturalOrdering extends Ordering<Comparable> implements Serializable {
+final class NaturalOrdering
+    extends Ordering<Comparable> implements Serializable {
   static final NaturalOrdering INSTANCE = new NaturalOrdering();
 
   private transient Ordering<Comparable> nullsFirst;
@@ -43,7 +44,7 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
     if (result == null) {
       result = nullsFirst = super.nullsFirst();
     }
-    return (Ordering<S>) result;
+    return (Ordering<S>)result;
   }
 
   @Override
@@ -52,18 +53,16 @@ final class NaturalOrdering extends Ordering<Comparable> implements Serializable
     if (result == null) {
       result = nullsLast = super.nullsLast();
     }
-    return (Ordering<S>) result;
+    return (Ordering<S>)result;
   }
 
   @Override
   public <S extends Comparable> Ordering<S> reverse() {
-    return (Ordering<S>) ReverseNaturalOrdering.INSTANCE;
+    return (Ordering<S>)ReverseNaturalOrdering.INSTANCE;
   }
 
   // preserving singleton-ness gives equals()/hashCode() for free
-  private Object readResolve() {
-    return INSTANCE;
-  }
+  private Object readResolve() { return INSTANCE; }
 
   @Override
   public String toString() {

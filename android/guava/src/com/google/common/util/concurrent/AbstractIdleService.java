@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2009 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -24,9 +26,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * Base class for services that do not need a thread while "running" but may need one during startup
- * and shutdown. Subclasses can implement {@link #startUp} and {@link #shutDown} methods, each which
- * run in a executor which by default uses a separate thread for each method.
+ * Base class for services that do not need a thread while "running" but may
+ * need one during startup and shutdown. Subclasses can implement {@link
+ * #startUp} and {@link #shutDown} methods, each which run in a executor which
+ * by default uses a separate thread for each method.
  *
  * @author Chris Nokleberg
  * @since 1.0
@@ -54,35 +57,33 @@ public abstract class AbstractIdleService implements Service {
     @Override
     protected final void doStart() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-      .execute(
-      new Runnable() {
-        @Override
-        public void run() {
-          try {
-            startUp();
-            notifyStarted();
-          } catch (Throwable t) {
-            notifyFailed(t);
-          }
-        }
-      });
+          .execute(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                startUp();
+                notifyStarted();
+              } catch (Throwable t) {
+                notifyFailed(t);
+              }
+            }
+          });
     }
 
     @Override
     protected final void doStop() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-      .execute(
-      new Runnable() {
-        @Override
-        public void run() {
-          try {
-            shutDown();
-            notifyStopped();
-          } catch (Throwable t) {
-            notifyFailed(t);
-          }
-        }
-      });
+          .execute(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                shutDown();
+                notifyStopped();
+              } catch (Throwable t) {
+                notifyFailed(t);
+              }
+            }
+          });
     }
 
     @Override
@@ -101,11 +102,12 @@ public abstract class AbstractIdleService implements Service {
   protected abstract void shutDown() throws Exception;
 
   /**
-   * Returns the {@link Executor} that will be used to run this service. Subclasses may override
-   * this method to use a custom {@link Executor}, which may configure its worker thread with a
-   * specific name, thread group or priority. The returned executor's {@link
-   * Executor#execute(Runnable) execute()} method is called when this service is started and
-   * stopped, and should return promptly.
+   * Returns the {@link Executor} that will be used to run this service.
+   * Subclasses may override this method to use a custom {@link Executor}, which
+   * may configure its worker thread with a specific name, thread group or
+   * priority. The returned executor's {@link Executor#execute(Runnable)
+   * execute()} method is called when this service is started and stopped, and
+   * should return promptly.
    */
   protected Executor executor() {
     return new Executor() {
@@ -179,7 +181,8 @@ public abstract class AbstractIdleService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitRunning(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitRunning(long timeout, TimeUnit unit)
+      throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -195,17 +198,16 @@ public abstract class AbstractIdleService implements Service {
    * @since 15.0
    */
   @Override
-  public final void awaitTerminated(long timeout, TimeUnit unit) throws TimeoutException {
+  public final void awaitTerminated(long timeout, TimeUnit unit)
+      throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 
   /**
-   * Returns the name of this service. {@link AbstractIdleService} may include the name in debugging
-   * output.
+   * Returns the name of this service. {@link AbstractIdleService} may include
+   * the name in debugging output.
    *
    * @since 14.0
    */
-  protected String serviceName() {
-    return getClass().getSimpleName();
-  }
+  protected String serviceName() { return getClass().getSimpleName(); }
 }

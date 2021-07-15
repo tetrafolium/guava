@@ -26,15 +26,17 @@ import java.util.TreeMap;
 import javax.annotation.Nullable;
 
 /**
- * Configurable implementation of {@link ValueGraph} that supports the options supplied by {@link
- * AbstractGraphBuilder}.
+ * Configurable implementation of {@link ValueGraph} that supports the options
+ * supplied by {@link AbstractGraphBuilder}.
  *
  * <p>This class maintains a map of nodes to {@link GraphConnections}.
  *
- * <p>Collection-returning accessors return unmodifiable views: the view returned will reflect
- * changes to the graph (if the graph is mutable) but may not be modified by the user.
+ * <p>Collection-returning accessors return unmodifiable views: the view
+ * returned will reflect changes to the graph (if the graph is mutable) but may
+ * not be modified by the user.
  *
- * <p>The time complexity of all collection-returning accessors is O(1), since views are returned.
+ * <p>The time complexity of all collection-returning accessors is O(1), since
+ * views are returned.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain
@@ -53,29 +55,27 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
 
   /** Constructs a graph with the properties specified in {@code builder}. */
   ConfigurableValueGraph(AbstractGraphBuilder<? super N> builder) {
-    this(
-        builder,
-        builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
-            builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
-        0L);
+    this(builder,
+         builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
+             builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
+         0L);
   }
 
   /**
-   * Constructs a graph with the properties specified in {@code builder}, initialized with the given
-   * node map.
+   * Constructs a graph with the properties specified in {@code builder},
+   * initialized with the given node map.
    */
-  ConfigurableValueGraph(
-      AbstractGraphBuilder<? super N> builder,
-      Map<N, GraphConnections<N, V>> nodeConnections,
-      long edgeCount) {
+  ConfigurableValueGraph(AbstractGraphBuilder<? super N> builder,
+                         Map<N, GraphConnections<N, V>> nodeConnections,
+                         long edgeCount) {
     this.isDirected = builder.directed;
     this.allowsSelfLoops = builder.allowsSelfLoops;
     this.nodeOrder = builder.nodeOrder.cast();
     // Prefer the heavier "MapRetrievalCache" for nodes if lookup is expensive.
     this.nodeConnections =
         (nodeConnections instanceof TreeMap)
-        ? new MapRetrievalCache<N, GraphConnections<N, V>>(nodeConnections)
-        : new MapIteratorCache<N, GraphConnections<N, V>>(nodeConnections);
+            ? new MapRetrievalCache<N, GraphConnections<N, V>>(nodeConnections)
+            : new MapIteratorCache<N, GraphConnections<N, V>>(nodeConnections);
     this.edgeCount = checkNonNegative(edgeCount);
   }
 
@@ -141,7 +141,8 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
     GraphConnections<N, V> connections = nodeConnections.get(node);
     if (connections == null) {
       checkNotNull(node);
-      throw new IllegalArgumentException("Node " + node + " is not an element of this graph.");
+      throw new IllegalArgumentException("Node " + node +
+                                         " is not an element of this graph.");
     }
     return connections;
   }

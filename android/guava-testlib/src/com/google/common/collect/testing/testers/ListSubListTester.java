@@ -80,14 +80,13 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   }
 
   public void testSubList_empty() {
-    assertEquals("subList(0, 0) should be empty", emptyList(), getList().subList(0, 0));
+    assertEquals("subList(0, 0) should be empty", emptyList(),
+                 getList().subList(0, 0));
   }
 
   public void testSubList_entireList() {
-    assertEquals(
-        "subList(0, size) should be equal to the original list",
-        getList(),
-        getList().subList(0, getNumElements()));
+    assertEquals("subList(0, size) should be equal to the original list",
+                 getList(), getList().subList(0, getNumElements()));
   }
 
   @ListFeature.Require(SUPPORTS_REMOVE_WITH_INDEX)
@@ -95,7 +94,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   public void testSubList_subListRemoveAffectsOriginal() {
     List<E> subList = getList().subList(0, 1);
     subList.remove(0);
-    List<E> expected = Arrays.asList(createSamplesArray()).subList(1, getNumElements());
+    List<E> expected =
+        Arrays.asList(createSamplesArray()).subList(1, getNumElements());
     expectContents(expected);
   }
 
@@ -104,7 +104,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   public void testSubList_subListClearAffectsOriginal() {
     List<E> subList = getList().subList(0, 1);
     subList.clear();
-    List<E> expected = Arrays.asList(createSamplesArray()).subList(1, getNumElements());
+    List<E> expected =
+        Arrays.asList(createSamplesArray()).subList(1, getNumElements());
     expectContents(expected);
   }
 
@@ -130,11 +131,9 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   public void testSubList_originalListSetAffectsSubList() {
     List<E> subList = getList().subList(0, 1);
     getList().set(0, e3());
-    assertEquals(
-        "A set() call to a list after a sublist has been created "
-        + "should be reflected in the sublist",
-        Collections.singletonList(e3()),
-        subList);
+    assertEquals("A set() call to a list after a sublist has been created "
+                     + "should be reflected in the sublist",
+                 Collections.singletonList(e3()), subList);
   }
 
   @ListFeature.Require(SUPPORTS_REMOVE_WITH_INDEX)
@@ -170,16 +169,15 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
   public void testSubList_originalListSetAffectsSubListLargeList() {
     List<E> subList = getList().subList(1, 3);
     getList().set(1, e3());
-    assertEquals(
-        "A set() call to a list after a sublist has been created "
-        + "should be reflected in the sublist",
-        Arrays.asList(e3(), e2()),
-        subList);
+    assertEquals("A set() call to a list after a sublist has been created "
+                     + "should be reflected in the sublist",
+                 Arrays.asList(e3(), e2()), subList);
   }
 
   public void testSubList_ofSubListEmpty() {
     List<E> subList = getList().subList(0, 0).subList(0, 0);
-    assertEquals("subList(0, 0).subList(0, 0) should be an empty list", emptyList(), subList);
+    assertEquals("subList(0, 0).subList(0, 0) should be an empty list",
+                 emptyList(), subList);
   }
 
   @CollectionSize.Require(absent = {ZERO, ONE})
@@ -187,9 +185,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     List<E> subList = getList().subList(0, 2).subList(1, 2);
     assertEquals(
         "subList(0, 2).subList(1, 2) "
-        + "should be a single-element list of the element at index 1",
-        Collections.singletonList(getOrderedElements().get(1)),
-        subList);
+            + "should be a single-element list of the element at index 1",
+        Collections.singletonList(getOrderedElements().get(1)), subList);
   }
 
   @CollectionSize.Require(absent = {ZERO})
@@ -208,12 +205,9 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     List<E> list = getList();
     int size = getNumElements();
     for (List<E> subList :
-        Arrays.asList(
-            list.subList(0, size),
-            list.subList(0, size - 1),
-            list.subList(1, size),
-            list.subList(0, 0),
-            list.subList(size, size))) {
+         Arrays.asList(list.subList(0, size), list.subList(0, size - 1),
+                       list.subList(1, size), list.subList(0, 0),
+                       list.subList(size, size))) {
       assertEquals(subList.size() == 0, subList.isEmpty());
     }
   }
@@ -298,7 +292,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
 
   @CollectionFeature.Require(SERIALIZABLE_INCLUDING_VIEWS)
   public void testReserializeWholeSubList() {
-    SerializableTester.reserializeAndAssert(getList().subList(0, getNumElements()));
+    SerializableTester.reserializeAndAssert(
+        getList().subList(0, getNumElements()));
   }
 
   @CollectionFeature.Require(SERIALIZABLE_INCLUDING_VIEWS)
@@ -322,7 +317,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getSubListOriginalListSetAffectsSubListMethod() {
-    return getMethod(ListSubListTester.class, "testSubList_originalListSetAffectsSubList");
+    return getMethod(ListSubListTester.class,
+                     "testSubList_originalListSetAffectsSubList");
   }
 
   /**
@@ -334,8 +330,10 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
    * 6570631</a> is fixed.
    */
   @GwtIncompatible // reflection
-  public static Method getSubListOriginalListSetAffectsSubListLargeListMethod() {
-    return getMethod(ListSubListTester.class, "testSubList_originalListSetAffectsSubListLargeList");
+  public static Method
+  getSubListOriginalListSetAffectsSubListLargeListMethod() {
+    return getMethod(ListSubListTester.class,
+                     "testSubList_originalListSetAffectsSubListLargeList");
   }
 
   /**
@@ -348,7 +346,8 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getSubListSubListRemoveAffectsOriginalLargeListMethod() {
-    return getMethod(ListSubListTester.class, "testSubList_subListRemoveAffectsOriginalLargeList");
+    return getMethod(ListSubListTester.class,
+                     "testSubList_subListRemoveAffectsOriginalLargeList");
   }
 
   /*

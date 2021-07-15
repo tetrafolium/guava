@@ -27,31 +27,32 @@ import java.util.Set;
  * @author Louis Wasserman
  */
 @GwtCompatible
-final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>
-  implements FilteredSetMultimap<K, V> {
+final class FilteredEntrySetMultimap<K, V>
+    extends FilteredEntryMultimap<K, V> implements FilteredSetMultimap<K, V> {
 
-  FilteredEntrySetMultimap(SetMultimap<K, V> unfiltered, Predicate<? super Entry<K, V>> predicate) {
+  FilteredEntrySetMultimap(SetMultimap<K, V> unfiltered,
+                           Predicate<? super Entry<K, V>> predicate) {
     super(unfiltered, predicate);
   }
 
   @Override
   public SetMultimap<K, V> unfiltered() {
-    return (SetMultimap<K, V>) unfiltered;
+    return (SetMultimap<K, V>)unfiltered;
   }
 
   @Override
   public Set<V> get(K key) {
-    return (Set<V>) super.get(key);
+    return (Set<V>)super.get(key);
   }
 
   @Override
   public Set<V> removeAll(Object key) {
-    return (Set<V>) super.removeAll(key);
+    return (Set<V>)super.removeAll(key);
   }
 
   @Override
   public Set<V> replaceValues(K key, Iterable<? extends V> values) {
-    return (Set<V>) super.replaceValues(key, values);
+    return (Set<V>)super.replaceValues(key, values);
   }
 
   @Override
@@ -61,6 +62,6 @@ final class FilteredEntrySetMultimap<K, V> extends FilteredEntryMultimap<K, V>
 
   @Override
   public Set<Entry<K, V>> entries() {
-    return (Set<Entry<K, V>>) super.entries();
+    return (Set<Entry<K, V>>)super.entries();
   }
 }

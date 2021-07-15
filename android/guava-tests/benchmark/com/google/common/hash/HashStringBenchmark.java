@@ -30,8 +30,8 @@ public class HashStringBenchmark {
     final int value;
 
     /**
-     * Convert the input string to a code point. Accepts regular decimal numerals, hex strings, and
-     * some symbolic names meaningful to humans.
+     * Convert the input string to a code point. Accepts regular decimal
+     * numerals, hex strings, and some symbolic names meaningful to humans.
      */
     private static int decode(String userFriendly) {
       try {
@@ -40,24 +40,30 @@ public class HashStringBenchmark {
         if (userFriendly.matches("(?i)(?:American|English|ASCII)")) {
           // 1-byte UTF-8 sequences - "American" ASCII text
           return 0x80;
-        } else if (userFriendly.matches("(?i)(?:French|Latin|Western.*European)")) {
+        } else if (userFriendly.matches(
+                       "(?i)(?:French|Latin|Western.*European)")) {
           // Mostly 1-byte UTF-8 sequences, mixed with occasional 2-byte
           // sequences - "Western European" text
           return 0x90;
-        } else if (userFriendly.matches("(?i)(?:Branch.*Prediction.*Hostile)")) {
-          // Defeat branch predictor for: c < 0x80 ; branch taken 50% of the time.
+        } else if (userFriendly.matches(
+                       "(?i)(?:Branch.*Prediction.*Hostile)")) {
+          // Defeat branch predictor for: c < 0x80 ; branch taken 50% of the
+          // time.
           return 0x100;
-        } else if (userFriendly.matches("(?i)(?:Greek|Cyrillic|European|ISO.?8859)")) {
+        } else if (userFriendly.matches(
+                       "(?i)(?:Greek|Cyrillic|European|ISO.?8859)")) {
           // Mostly 2-byte UTF-8 sequences - "European" text
           return 0x800;
         } else if (userFriendly.matches("(?i)(?:Chinese|Han|Asian|BMP)")) {
           // Mostly 3-byte UTF-8 sequences - "Asian" text
           return Character.MIN_SUPPLEMENTARY_CODE_POINT;
-        } else if (userFriendly.matches("(?i)(?:Cuneiform|rare|exotic|supplementary.*)")) {
+        } else if (userFriendly.matches(
+                       "(?i)(?:Cuneiform|rare|exotic|supplementary.*)")) {
           // Mostly 4-byte UTF-8 sequences - "rare exotic" text
           return Character.MAX_CODE_POINT;
         } else {
-          throw new IllegalArgumentException("Can't decode codepoint " + userFriendly);
+          throw new IllegalArgumentException("Can't decode codepoint " +
+                                             userFriendly);
         }
       }
     }
@@ -66,22 +72,19 @@ public class HashStringBenchmark {
       return new MaxCodePoint(userFriendly);
     }
 
-    public MaxCodePoint(String userFriendly) {
-      value = decode(userFriendly);
-    }
+    public MaxCodePoint(String userFriendly) { value = decode(userFriendly); }
   }
 
   /**
-   * The default values of maxCodePoint below provide pretty good performance models of different
-   * kinds of common human text.
+   * The default values of maxCodePoint below provide pretty good performance
+   * models of different kinds of common human text.
    *
    * @see MaxCodePoint#decode
    */
   @Param({"0x80", "0x90", "0x100", "0x800", "0x10000", "0x10ffff"})
   MaxCodePoint maxCodePoint;
 
-  @Param({"16384"})
-  int charCount;
+  @Param({"16384"}) int charCount;
 
   @Param({"MURMUR3_32", "MURMUR3_128", "SHA1"})
   HashFunctionEnum hashFunctionEnum;
@@ -92,8 +95,9 @@ public class HashStringBenchmark {
   static final int SAMPLE_MASK = 0xFF;
 
   /**
-   * Compute arrays of valid unicode text, and store it in 3 forms: byte arrays, Strings, and
-   * StringBuilders (in a CharSequence[] to make it a little harder for the JVM).
+   * Compute arrays of valid unicode text, and store it in 3 forms: byte arrays,
+   * Strings, and StringBuilders (in a CharSequence[] to make it a little harder
+   * for the JVM).
    */
   @BeforeExperiment
   void setUp() {
@@ -107,7 +111,7 @@ public class HashStringBenchmark {
         // discard illegal surrogate "codepoints"
         do {
           codePoint = rnd.nextInt(maxCodePoint.value);
-        } while (Character.isSurrogate((char) codePoint));
+        } while (Character.isSurrogate((char)codePoint));
         sb.appendCodePoint(codePoint);
       }
       strings[i] = sb.toString();
@@ -119,10 +123,8 @@ public class HashStringBenchmark {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=
-          System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .hashString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8));
+          System.identityHashCode(hashFunctionEnum.getHashFunction().hashString(
+              strings[i & SAMPLE_MASK], StandardCharsets.UTF_8));
     }
     return res;
   }
@@ -131,10 +133,8 @@ public class HashStringBenchmark {
   int hashUtf8Hasher(int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
-      res +=
-          System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
+      res += System.identityHashCode(
+          hashFunctionEnum.getHashFunction()
               .newHasher()
               .putString(strings[i & SAMPLE_MASK], StandardCharsets.UTF_8)
               .hash());
@@ -147,10 +147,8 @@ public class HashStringBenchmark {
     int res = 0;
     for (int i = 0; i < reps; i++) {
       res +=
-          System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
-              .hashBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8)));
+          System.identityHashCode(hashFunctionEnum.getHashFunction().hashBytes(
+              strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8)));
     }
     return res;
   }
@@ -159,12 +157,11 @@ public class HashStringBenchmark {
   int hashUtf8GetBytesHasher(int reps) {
     int res = 0;
     for (int i = 0; i < reps; i++) {
-      res +=
-          System.identityHashCode(
-              hashFunctionEnum
-              .getHashFunction()
+      res += System.identityHashCode(
+          hashFunctionEnum.getHashFunction()
               .newHasher()
-              .putBytes(strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8))
+              .putBytes(
+                  strings[i & SAMPLE_MASK].getBytes(StandardCharsets.UTF_8))
               .hash());
     }
     return res;

@@ -23,13 +23,15 @@ import com.google.common.annotations.Beta;
 import com.google.common.base.Optional;
 
 /**
- * A builder for constructing instances of {@link MutableValueGraph} with user-defined properties.
+ * A builder for constructing instances of {@link MutableValueGraph} with
+ * user-defined properties.
  *
  * <p>A graph built by this class will have the following properties by default:
  *
  * <ul>
  * <li>does not allow self-loops
- * <li>orders {@link Graph#nodes()} in the order in which the elements were added
+ * <li>orders {@link Graph#nodes()} in the order in which the elements were
+ * added
  * </ul>
  *
  * <p>Example of use:
@@ -50,9 +52,7 @@ import com.google.common.base.Optional;
 public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
 
   /** Creates a new instance with the specified edge directionality. */
-  private ValueGraphBuilder(boolean directed) {
-    super(directed);
-  }
+  private ValueGraphBuilder(boolean directed) { super(directed); }
 
   /** Returns a {@link ValueGraphBuilder} for building directed graphs. */
   public static ValueGraphBuilder<Object, Object> directed() {
@@ -65,12 +65,13 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
   }
 
   /**
-   * Returns a {@link ValueGraphBuilder} initialized with all properties queryable from {@code
-   * graph}.
+   * Returns a {@link ValueGraphBuilder} initialized with all properties
+   * queryable from {@code graph}.
    *
-   * <p>The "queryable" properties are those that are exposed through the {@link ValueGraph}
-   * interface, such as {@link ValueGraph#isDirected()}. Other properties, such as {@link
-   * #expectedNodeCount(int)}, are not set in the new builder.
+   * <p>The "queryable" properties are those that are exposed through the {@link
+   * ValueGraph} interface, such as {@link ValueGraph#isDirected()}. Other
+   * properties, such as {@link #expectedNodeCount(int)}, are not set in the new
+   * builder.
    */
   public static <N, V> ValueGraphBuilder<N, V> from(ValueGraph<N, V> graph) {
     return new ValueGraphBuilder<N, V>(graph.isDirected())
@@ -79,9 +80,9 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
   }
 
   /**
-   * Specifies whether the graph will allow self-loops (edges that connect a node to itself).
-   * Attempting to add a self-loop to a graph that does not allow them will throw an {@link
-   * UnsupportedOperationException}.
+   * Specifies whether the graph will allow self-loops (edges that connect a
+   * node to itself). Attempting to add a self-loop to a graph that does not
+   * allow them will throw an {@link UnsupportedOperationException}.
    */
   public ValueGraphBuilder<N, V> allowsSelfLoops(boolean allowsSelfLoops) {
     this.allowsSelfLoops = allowsSelfLoops;
@@ -98,16 +99,20 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
     return this;
   }
 
-  /** Specifies the order of iteration for the elements of {@link Graph#nodes()}. */
-  public <N1 extends N> ValueGraphBuilder<N1, V> nodeOrder(ElementOrder<N1> nodeOrder) {
+  /**
+   * Specifies the order of iteration for the elements of {@link
+   * Graph#nodes()}.
+   */
+  public <N1 extends N> ValueGraphBuilder<N1, V>
+  nodeOrder(ElementOrder<N1> nodeOrder) {
     ValueGraphBuilder<N1, V> newBuilder = cast();
     newBuilder.nodeOrder = checkNotNull(nodeOrder);
     return newBuilder;
   }
 
   /**
-   * Returns an empty {@link MutableValueGraph} with the properties of this {@link
-   * ValueGraphBuilder}.
+   * Returns an empty {@link MutableValueGraph} with the properties of this
+   * {@link ValueGraphBuilder}.
    */
   public <N1 extends N, V1 extends V> MutableValueGraph<N1, V1> build() {
     return new ConfigurableMutableValueGraph<>(this);
@@ -115,6 +120,6 @@ public final class ValueGraphBuilder<N, V> extends AbstractGraphBuilder<N> {
 
   @SuppressWarnings("unchecked")
   private <N1 extends N, V1 extends V> ValueGraphBuilder<N1, V1> cast() {
-    return (ValueGraphBuilder<N1, V1>) this;
+    return (ValueGraphBuilder<N1, V1>)this;
   }
 }

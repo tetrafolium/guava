@@ -38,9 +38,7 @@ final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
   private final Map<K, V> delegate;
   private Set<Entry<K, V>> entrySet;
 
-  private WellBehavedMap(Map<K, V> delegate) {
-    this.delegate = delegate;
-  }
+  private WellBehavedMap(Map<K, V> delegate) { this.delegate = delegate; }
 
   /**
    * Wraps the given map into a {@code WellBehavedEntriesMap}, which

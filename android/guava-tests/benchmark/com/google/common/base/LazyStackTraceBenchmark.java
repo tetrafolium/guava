@@ -26,8 +26,9 @@ import com.google.caliper.api.SkipThisScenarioException;
 import java.util.List;
 
 /**
- * Quick and dirty benchmark of {@link Throwables#lazyStackTrace(Throwable)}. We benchmark a "caller
- * finder" implementation that might be used in a logging framework.
+ * Quick and dirty benchmark of {@link Throwables#lazyStackTrace(Throwable)}. We
+ * benchmark a "caller finder" implementation that might be used in a logging
+ * framework.
  */
 public class LazyStackTraceBenchmark {
   @Param({"20", "200", "2000"}) int stackDepth;
@@ -85,8 +86,7 @@ public class LazyStackTraceBenchmark {
   }
 
   private boolean timeFindCaller(int reps, int recurse) {
-    return recurse > 0
-        ? timeFindCaller(reps, recurse - 1)
-        : mode.timeIt(reps, breakAt);
+    return recurse > 0 ? timeFindCaller(reps, recurse - 1)
+                       : mode.timeIt(reps, breakAt);
   }
 }

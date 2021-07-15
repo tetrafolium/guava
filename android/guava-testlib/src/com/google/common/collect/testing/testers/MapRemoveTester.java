@@ -47,9 +47,10 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testRemove_present() {
     int initialSize = getMap().size();
-    assertEquals("remove(present) should return the associated value", v0(), getMap().remove(k0()));
-    assertEquals(
-        "remove(present) should decrease a map's size by one.", initialSize - 1, getMap().size());
+    assertEquals("remove(present) should return the associated value", v0(),
+                 getMap().remove(k0()));
+    assertEquals("remove(present) should decrease a map's size by one.",
+                 initialSize - 1, getMap().size());
     expectMissing(e0());
   }
 
@@ -104,12 +105,10 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
     initMapWithNullKey();
 
     int initialSize = getMap().size();
-    assertEquals(
-        "remove(null) should return the associated value",
-        getValueForNullKey(),
-        getMap().remove(null));
-    assertEquals(
-        "remove(present) should decrease a map's size by one.", initialSize - 1, getMap().size());
+    assertEquals("remove(null) should return the associated value",
+                 getValueForNullKey(), getMap().remove(null));
+    assertEquals("remove(present) should decrease a map's size by one.",
+                 initialSize - 1, getMap().size());
     expectMissing(entry(null, getValueForNullKey()));
   }
 
@@ -122,7 +121,8 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();
-    assertEquals("remove(present) should not remove the element", v0(), get(k0()));
+    assertEquals("remove(present) should not remove the element", v0(),
+                 get(k0()));
   }
 
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
@@ -141,7 +141,8 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
   public void testRemove_nullQueriesNotSupported() {
     try {
       assertNull(
-          "remove(null) should return null or throw NullPointerException", getMap().remove(null));
+          "remove(null) should return null or throw NullPointerException",
+          getMap().remove(null));
     } catch (NullPointerException tolerated) {
     }
     expectUnchanged();

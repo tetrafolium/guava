@@ -38,9 +38,10 @@ import javax.annotation.Nullable;
  * override {@code putAll} as well, either providing your own implementation, or
  * delegating to the provided {@code standardPutAll} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingSortedMap}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingSortedMap}.
  *
  * <p>Each of the {@code standard} methods, where appropriate, use the
  * comparator of the map to test equality for both keys and values, unlike
@@ -55,15 +56,14 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
-  implements SortedMap<K, V> {
+public abstract class ForwardingSortedMap<K, V>
+    extends ForwardingMap<K, V> implements SortedMap<K, V> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
   protected ForwardingSortedMap() {}
 
-  @Override
-  protected abstract SortedMap<K, V> delegate();
+  @Override protected abstract SortedMap<K, V> delegate();
 
   @Override
   public Comparator<? super K> comparator() {
@@ -96,18 +96,18 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   }
 
   /**
-   * A sensible implementation of {@link SortedMap#keySet} in terms of the methods of
+   * A sensible implementation of {@link SortedMap#keySet} in terms of the
+   * methods of
    * {@code ForwardingSortedMap}. In many cases, you may wish to override
-   * {@link ForwardingSortedMap#keySet} to forward to this implementation or a subclass thereof.
+   * {@link ForwardingSortedMap#keySet} to forward to this implementation or a
+   * subclass thereof.
    *
    * @since 15.0
    */
   @Beta
   protected class StandardKeySet extends Maps.SortedKeySet<K, V> {
     /** Constructor for use by subclasses. */
-    public StandardKeySet() {
-      super(ForwardingSortedMap.this);
-    }
+    public StandardKeySet() { super(ForwardingSortedMap.this); }
   }
 
   // unsafe, but worst case is a CCE is thrown, which callers will be expecting
@@ -115,9 +115,9 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
   private int unsafeCompare(Object k1, Object k2) {
     Comparator<? super K> comparator = comparator();
     if (comparator == null) {
-      return ((Comparable<Object>) k1).compareTo(k2);
+      return ((Comparable<Object>)k1).compareTo(k2);
     } else {
-      return ((Comparator<Object>) comparator).compare(k1, k2);
+      return ((Comparator<Object>)comparator).compare(k1, k2);
     }
   }
 
@@ -135,10 +135,11 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
     try {
       // any CCE will be caught
       @SuppressWarnings("unchecked")
-      SortedMap<Object, V> self = (SortedMap<Object, V>) this;
+      SortedMap<Object, V> self = (SortedMap<Object, V>)this;
       Object ceilingKey = self.tailMap(key).firstKey();
       return unsafeCompare(ceilingKey, key) == 0;
-    } catch (ClassCastException | NoSuchElementException | NullPointerException e) {
+    } catch (ClassCastException | NoSuchElementException |
+             NullPointerException e) {
       return false;
     }
   }
@@ -153,7 +154,8 @@ public abstract class ForwardingSortedMap<K, V> extends ForwardingMap<K, V>
    */
   @Beta
   protected SortedMap<K, V> standardSubMap(K fromKey, K toKey) {
-    checkArgument(unsafeCompare(fromKey, toKey) <= 0, "fromKey must be <= toKey");
+    checkArgument(unsafeCompare(fromKey, toKey) <= 0,
+                  "fromKey must be <= toKey");
     return tailMap(fromKey).headMap(toKey);
   }
 }

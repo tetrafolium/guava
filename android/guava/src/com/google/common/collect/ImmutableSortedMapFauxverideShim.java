@@ -26,7 +26,8 @@ import com.google.common.annotations.GwtIncompatible;
  * @author Chris Povirk
  */
 @GwtIncompatible
-abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V> {
+abstract class ImmutableSortedMapFauxverideShim<K, V>
+    extends ImmutableMap<K, V> {
   /**
    * Not supported. Use {@link ImmutableSortedMap#naturalOrder}, which offers
    * better type-safety, instead. This method exists only to hide
@@ -48,7 +49,8 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    * @deprecated Not supported for ImmutableSortedMap.
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap.Builder<K, V> builderWithExpectedSize(int expectedSize) {
+  public static <K, V> ImmutableSortedMap.Builder<K, V>
+  builderWithExpectedSize(int expectedSize) {
     throw new UnsupportedOperationException();
   }
 
@@ -91,7 +93,8 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3) {
+  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
+                                                   V v3) {
     throw new UnsupportedOperationException();
   }
 
@@ -106,7 +109,8 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     Comparable, Object, Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
+  public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
+                                                   V v3, K k4, V v4) {
     throw new UnsupportedOperationException();
   }
 
@@ -121,8 +125,8 @@ abstract class ImmutableSortedMapFauxverideShim<K, V> extends ImmutableMap<K, V>
    *     Comparable, Object, Comparable, Object, Comparable, Object)}.</b>
    */
   @Deprecated
-  public static <K, V> ImmutableSortedMap<K, V> of(
-      K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
+  public static <K, V> ImmutableSortedMap<K, V>
+  of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     throw new UnsupportedOperationException();
   }
 

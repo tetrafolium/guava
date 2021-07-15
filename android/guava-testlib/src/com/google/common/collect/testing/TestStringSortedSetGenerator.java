@@ -28,16 +28,15 @@ import java.util.SortedSet;
  * @author Jared Levy
  */
 @GwtCompatible
-public abstract class TestStringSortedSetGenerator extends TestStringSetGenerator
-  implements TestSortedSetGenerator<String> {
+public abstract class TestStringSortedSetGenerator
+    extends TestStringSetGenerator implements TestSortedSetGenerator<String> {
 
   @Override
   public SortedSet<String> create(Object... elements) {
-    return (SortedSet<String>) super.create(elements);
+    return (SortedSet<String>)super.create(elements);
   }
 
-  @Override
-  protected abstract SortedSet<String> create(String[] elements);
+  @Override protected abstract SortedSet<String> create(String[] elements);
 
   /** Sorts the elements by their natural ordering. */
   @Override

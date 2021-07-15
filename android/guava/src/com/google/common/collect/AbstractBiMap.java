@@ -47,12 +47,11 @@ import javax.annotation.Nullable;
  * @author Mike Bostock
  */
 @GwtCompatible(emulated = true)
-abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
-  implements BiMap<K, V>, Serializable {
+abstract class AbstractBiMap<K, V>
+    extends ForwardingMap<K, V> implements BiMap<K, V>, Serializable {
 
   private transient Map<K, V> delegate;
-  @RetainedWith
-  transient AbstractBiMap<V, K> inverse;
+  @RetainedWith transient AbstractBiMap<V, K> inverse;
 
   /** Package-private constructor for creating a map-backed bimap. */
   AbstractBiMap(Map<K, V> forward, Map<V, K> backward) {
@@ -104,9 +103,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     return new Inverse<>(backward, this);
   }
 
-  void setInverse(AbstractBiMap<V, K> inverse) {
-    this.inverse = inverse;
-  }
+  void setInverse(AbstractBiMap<V, K> inverse) { this.inverse = inverse; }
 
   // Query Operations (optimizations)
 
@@ -146,7 +143,8 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
     return oldValue;
   }
 
-  private void updateInverseMap(K key, boolean containedKey, V oldValue, V newValue) {
+  private void updateInverseMap(K key, boolean containedKey, V oldValue,
+                                V newValue) {
     if (containedKey) {
       removeFromInverseMap(oldValue);
     }
@@ -290,9 +288,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
   class BiMapEntry extends ForwardingMapEntry<K, V> {
     private final Entry<K, V> delegate;
 
-    BiMapEntry(Entry<K, V> delegate) {
-      this.delegate = delegate;
-    }
+    BiMapEntry(Entry<K, V> delegate) { this.delegate = delegate; }
 
     @Override
     protected Entry<K, V> delegate() {
@@ -363,7 +359,7 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
       }
 
       // safe because esDelegate.contains(object).
-      Entry<?, ?> entry = (Entry<?, ?>) object;
+      Entry<?, ?> entry = (Entry<?, ?>)object;
       inverse.delegate.remove(entry.getValue());
       /*
        * Remove the mapping in inverse before removing from esDelegate because
@@ -446,11 +442,12 @@ abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
       stream.writeObject(inverse());
     }
 
-    @GwtIncompatible // java.io.ObjectInputStream
+    @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      setInverse((AbstractBiMap<V, K>) stream.readObject());
+      setInverse((AbstractBiMap<V, K>)stream.readObject());
     }
 
     @GwtIncompatible // Not needed in the emulated source.

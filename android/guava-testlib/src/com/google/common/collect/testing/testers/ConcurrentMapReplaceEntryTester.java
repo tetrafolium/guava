@@ -28,17 +28,18 @@ import com.google.common.collect.testing.features.MapFeature;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * A generic JUnit test which tests {@code replace(K, V, V)} operations on a concurrent map. Can't
- * be invoked directly; please see
+ * A generic JUnit test which tests {@code replace(K, V, V)} operations on a
+ * concurrent map. Can't be invoked directly; please see
  * {@link com.google.common.collect.testing.ConcurrentMapTestSuiteBuilder}.
  *
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
+public class ConcurrentMapReplaceEntryTester<K, V>
+    extends AbstractMapTester<K, V> {
   @Override
   protected ConcurrentMap<K, V> getMap() {
-    return (ConcurrentMap<K, V>) super.getMap();
+    return (ConcurrentMap<K, V>)super.getMap();
   }
 
   @MapFeature.Require(SUPPORTS_PUT)
@@ -85,7 +86,8 @@ public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, 
     try {
       assertFalse(getMap().replace(k0(), v3(), null));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -95,7 +97,8 @@ public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, 
     try {
       assertFalse(getMap().replace(k3(), v3(), null));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -111,7 +114,8 @@ public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, 
     try {
       assertFalse(getMap().replace(k3(), null, v3()));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -133,7 +137,8 @@ public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, 
     try {
       getMap().replace(k0(), v3(), v4());
     } catch (UnsupportedOperationException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -143,7 +148,8 @@ public class ConcurrentMapReplaceEntryTester<K, V> extends AbstractMapTester<K, 
     try {
       getMap().replace(k3(), v3(), v4());
     } catch (UnsupportedOperationException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }

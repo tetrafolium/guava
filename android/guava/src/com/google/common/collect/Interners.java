@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2007 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -44,8 +46,7 @@ public final class Interners {
     private final MapMaker mapMaker = new MapMaker();
     private boolean strong = true;
 
-    private InternerBuilder() {
-    }
+    private InternerBuilder() {}
 
     /**
      * Instructs the {@link InternerBuilder} to build a strong interner.
@@ -69,7 +70,8 @@ public final class Interners {
     }
 
     /**
-     * Sets the concurrency level that will be used by the to-be-built {@link Interner}.
+     * Sets the concurrency level that will be used by the to-be-built {@link
+     * Interner}.
      *
      * @see MapMaker#concurrencyLevel(int)
      */
@@ -87,24 +89,24 @@ public final class Interners {
   }
 
   /** Returns a fresh {@link InternerBuilder} instance. */
-  public static InternerBuilder newBuilder() {
-    return new InternerBuilder();
-  }
+  public static InternerBuilder newBuilder() { return new InternerBuilder(); }
 
   /**
-   * Returns a new thread-safe interner which retains a strong reference to each instance it has
-   * interned, thus preventing these instances from being garbage-collected. If this retention is
-   * acceptable, this implementation may perform better than {@link #newWeakInterner}.
+   * Returns a new thread-safe interner which retains a strong reference to each
+   * instance it has interned, thus preventing these instances from being
+   * garbage-collected. If this retention is acceptable, this implementation may
+   * perform better than {@link #newWeakInterner}.
    */
   public static <E> Interner<E> newStrongInterner() {
     return newBuilder().strong().build();
   }
 
   /**
-   * Returns a new thread-safe interner which retains a weak reference to each instance it has
-   * interned, and so does not prevent these instances from being garbage-collected. This most
-   * likely does not perform as well as {@link #newStrongInterner}, but is the best alternative
-   * when the memory usage of that implementation is unacceptable.
+   * Returns a new thread-safe interner which retains a weak reference to each
+   * instance it has interned, and so does not prevent these instances from
+   * being garbage-collected. This most likely does not perform as well as
+   * {@link #newStrongInterner}, but is the best alternative when the memory
+   * usage of that implementation is unacceptable.
    */
   @GwtIncompatible("java.lang.ref.WeakReference")
   public static <E> Interner<E> newWeakInterner() {
@@ -114,12 +116,11 @@ public final class Interners {
   @VisibleForTesting
   static final class InternerImpl<E> implements Interner<E> {
     // MapMaker is our friend, we know about this type
-    @VisibleForTesting
-    final MapMakerInternalMap<E, Dummy, ?, ?> map;
+    @VisibleForTesting final MapMakerInternalMap<E, Dummy, ?, ?> map;
 
     private InternerImpl(MapMaker mapMaker) {
       this.map = MapMakerInternalMap.createWithDummyValues(
-              mapMaker.keyEquivalence(Equivalence.equals()));
+          mapMaker.keyEquivalence(Equivalence.equals()));
     }
 
     @Override
@@ -141,9 +142,9 @@ public final class Interners {
         } else {
           /* Someone beat us to it! Trying again...
            *
-           * Technically this loop not guaranteed to terminate, so theoretically (extremely
-           * unlikely) this thread might starve, but even then, there is always going to be another
-           * thread doing progress here.
+           * Technically this loop not guaranteed to terminate, so theoretically
+           * (extremely unlikely) this thread might starve, but even then, there
+           * is always going to be another thread doing progress here.
            */
         }
       }
@@ -151,7 +152,8 @@ public final class Interners {
   }
 
   /**
-   * Returns a function that delegates to the {@link Interner#intern} method of the given interner.
+   * Returns a function that delegates to the {@link Interner#intern} method of
+   * the given interner.
    *
    * @since 8.0
    */
@@ -163,9 +165,7 @@ public final class Interners {
 
     private final Interner<E> interner;
 
-    public InternerFunction(Interner<E> interner) {
-      this.interner = interner;
-    }
+    public InternerFunction(Interner<E> interner) { this.interner = interner; }
 
     @Override
     public E apply(E input) {
@@ -180,7 +180,7 @@ public final class Interners {
     @Override
     public boolean equals(Object other) {
       if (other instanceof InternerFunction) {
-        InternerFunction<?> that = (InternerFunction<?>) other;
+        InternerFunction<?> that = (InternerFunction<?>)other;
         return interner.equals(that.interner);
       }
 

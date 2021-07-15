@@ -27,7 +27,8 @@ import java.util.Set;
  * @author Gregory Kick
  */
 @GwtCompatible
-public abstract class TestIntegerSetGenerator implements TestSetGenerator<Integer> {
+public abstract class TestIntegerSetGenerator
+    implements TestSetGenerator<Integer> {
   @Override
   public SampleElements<Integer> samples() {
     return new Ints();
@@ -38,7 +39,7 @@ public abstract class TestIntegerSetGenerator implements TestSetGenerator<Intege
     Integer[] array = new Integer[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (Integer) e;
+      array[i++] = (Integer)e;
     }
     return create(array);
   }

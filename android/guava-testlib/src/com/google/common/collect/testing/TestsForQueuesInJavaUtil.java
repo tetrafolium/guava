@@ -93,97 +93,97 @@ public class TestsForQueuesInJavaUtil {
   }
 
   public Test testsForArrayDeque() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new ArrayDeque<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("ArrayDeque")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE, CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
-    .suppressing(suppressForArrayDeque())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new ArrayDeque<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("ArrayDeque")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
+        .suppressing(suppressForArrayDeque())
+        .createTestSuite();
   }
 
   public Test testsForLinkedList() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new LinkedList<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("LinkedList")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE,
-        CollectionFeature.ALLOWS_NULL_VALUES,
-        CollectionFeature.KNOWN_ORDER,
-        CollectionSize.ANY)
-    .skipCollectionTests() // already covered in TestsForListsInJavaUtil
-    .suppressing(suppressForLinkedList())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new LinkedList<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("LinkedList")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.ALLOWS_NULL_VALUES,
+                      CollectionFeature.KNOWN_ORDER,
+                      CollectionSize.ANY)
+        .skipCollectionTests() // already covered in TestsForListsInJavaUtil
+        .suppressing(suppressForLinkedList())
+        .createTestSuite();
   }
 
   public Test testsForArrayBlockingQueue() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new ArrayBlockingQueue<>(100, false, MinimalCollection.of(elements));
-      }
-    })
-    .named("ArrayBlockingQueue")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE, CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
-    .suppressing(suppressForArrayBlockingQueue())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new ArrayBlockingQueue<>(100, false,
+                                            MinimalCollection.of(elements));
+          }
+        })
+        .named("ArrayBlockingQueue")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
+        .suppressing(suppressForArrayBlockingQueue())
+        .createTestSuite();
   }
 
   public Test testsForConcurrentLinkedQueue() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new ConcurrentLinkedQueue<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("ConcurrentLinkedQueue")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE, CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
-    .suppressing(suppressForConcurrentLinkedQueue())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new ConcurrentLinkedQueue<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("ConcurrentLinkedQueue")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
+        .suppressing(suppressForConcurrentLinkedQueue())
+        .createTestSuite();
   }
 
   public Test testsForLinkedBlockingDeque() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new LinkedBlockingDeque<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("LinkedBlockingDeque")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE, CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
-    .suppressing(suppressForLinkedBlockingDeque())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new LinkedBlockingDeque<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("LinkedBlockingDeque")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
+        .suppressing(suppressForLinkedBlockingDeque())
+        .createTestSuite();
   }
 
   public Test testsForLinkedBlockingQueue() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new LinkedBlockingQueue<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("LinkedBlockingQueue")
-    .withFeatures(
-        CollectionFeature.GENERAL_PURPOSE, CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
-    .suppressing(suppressForLinkedBlockingQueue())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new LinkedBlockingQueue<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("LinkedBlockingQueue")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE,
+                      CollectionFeature.KNOWN_ORDER, CollectionSize.ANY)
+        .suppressing(suppressForLinkedBlockingQueue())
+        .createTestSuite();
   }
 
   // Not specifying KNOWN_ORDER for PriorityQueue and PriorityBlockingQueue
@@ -192,30 +192,30 @@ public class TestsForQueuesInJavaUtil {
   // don't.
 
   public Test testsForPriorityBlockingQueue() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new PriorityBlockingQueue<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("PriorityBlockingQueue")
-    .withFeatures(CollectionFeature.GENERAL_PURPOSE, CollectionSize.ANY)
-    .suppressing(suppressForPriorityBlockingQueue())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new PriorityBlockingQueue<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("PriorityBlockingQueue")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE, CollectionSize.ANY)
+        .suppressing(suppressForPriorityBlockingQueue())
+        .createTestSuite();
   }
 
   public Test testsForPriorityQueue() {
-    return QueueTestSuiteBuilder.using(
-    new TestStringQueueGenerator() {
-      @Override
-      public Queue<String> create(String[] elements) {
-        return new PriorityQueue<>(MinimalCollection.of(elements));
-      }
-    })
-    .named("PriorityQueue")
-    .withFeatures(CollectionFeature.GENERAL_PURPOSE, CollectionSize.ANY)
-    .suppressing(suppressForPriorityQueue())
-    .createTestSuite();
+    return QueueTestSuiteBuilder
+        .using(new TestStringQueueGenerator() {
+          @Override
+          public Queue<String> create(String[] elements) {
+            return new PriorityQueue<>(MinimalCollection.of(elements));
+          }
+        })
+        .named("PriorityQueue")
+        .withFeatures(CollectionFeature.GENERAL_PURPOSE, CollectionSize.ANY)
+        .suppressing(suppressForPriorityQueue())
+        .createTestSuite();
   }
 }

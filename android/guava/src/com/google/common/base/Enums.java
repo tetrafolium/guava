@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -40,8 +42,10 @@ public final class Enums {
   private Enums() {}
 
   /**
-   * Returns the {@link Field} in which {@code enumValue} is defined. For example, to get the
-   * {@code Description} annotation on the {@code GOLF} constant of enum {@code Sport}, use
+   * Returns the {@link Field} in which {@code enumValue} is defined. For
+   * example, to get the
+   * {@code Description} annotation on the {@code GOLF} constant of enum {@code
+   * Sport}, use
    * {@code Enums.getField(Sport.GOLF).getAnnotation(Description.class)}.
    *
    * @since 12.0
@@ -57,26 +61,31 @@ public final class Enums {
   }
 
   /**
-   * Returns an optional enum constant for the given type, using {@link Enum#valueOf}. If the
-   * constant does not exist, {@link Optional#absent} is returned. A common use case is for parsing
-   * user input or falling back to a default enum constant. For example,
-   * {@code Enums.getIfPresent(Country.class, countryInput).or(Country.DEFAULT);}
+   * Returns an optional enum constant for the given type, using {@link
+   * Enum#valueOf}. If the constant does not exist, {@link Optional#absent} is
+   * returned. A common use case is for parsing user input or falling back to a
+   * default enum constant. For example,
+   * {@code Enums.getIfPresent(Country.class,
+   * countryInput).or(Country.DEFAULT);}
    *
    * @since 12.0
    */
-  public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass, String value) {
+  public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass,
+                                                             String value) {
     checkNotNull(enumClass);
     checkNotNull(value);
     return Platform.getEnumIfPresent(enumClass, value);
   }
 
   @GwtIncompatible // java.lang.ref.WeakReference
-  private static final Map<Class<? extends Enum<?>>, Map<String, WeakReference<? extends Enum<?>>>>
-  enumConstantCache = new WeakHashMap<>();
+  private static final Map<Class<? extends Enum<?>>,
+                           Map<String, WeakReference<? extends Enum<?>>>>
+      enumConstantCache = new WeakHashMap<>();
 
   @GwtIncompatible // java.lang.ref.WeakReference
-  private static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> populateCache(
-      Class<T> enumClass) {
+  private static <T extends Enum<T>>
+      Map<String, WeakReference<? extends Enum<?>>>
+      populateCache(Class<T> enumClass) {
     Map<String, WeakReference<? extends Enum<?>>> result = new HashMap<>();
     for (T enumInstance : EnumSet.allOf(enumClass)) {
       result.put(enumInstance.name(), new WeakReference<Enum<?>>(enumInstance));
@@ -86,10 +95,11 @@ public final class Enums {
   }
 
   @GwtIncompatible // java.lang.ref.WeakReference
-  static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> getEnumConstants(
-      Class<T> enumClass) {
+  static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>>
+  getEnumConstants(Class<T> enumClass) {
     synchronized (enumConstantCache) {
-      Map<String, WeakReference<? extends Enum<?>>> constants = enumConstantCache.get(enumClass);
+      Map<String, WeakReference<? extends Enum<?>>> constants =
+          enumConstantCache.get(enumClass);
       if (constants == null) {
         constants = populateCache(enumClass);
       }
@@ -98,19 +108,21 @@ public final class Enums {
   }
 
   /**
-   * Returns a converter that converts between strings and {@code enum} values of type
-   * {@code enumClass} using {@link Enum#valueOf(Class, String)} and {@link Enum#name()}. The
-   * converter will throw an {@code IllegalArgumentException} if the argument is not the name of any
-   * enum constant in the specified enum.
+   * Returns a converter that converts between strings and {@code enum} values
+   * of type
+   * {@code enumClass} using {@link Enum#valueOf(Class, String)} and {@link
+   * Enum#name()}. The converter will throw an {@code IllegalArgumentException}
+   * if the argument is not the name of any enum constant in the specified enum.
    *
    * @since 16.0
    */
-  public static <T extends Enum<T>> Converter<String, T> stringConverter(final Class<T> enumClass) {
+  public static <T extends Enum<T>> Converter<String, T>
+  stringConverter(final Class<T> enumClass) {
     return new StringConverter<T>(enumClass);
   }
 
-  private static final class StringConverter<T extends Enum<T>> extends Converter<String, T>
-    implements Serializable {
+  private static final class StringConverter<T extends Enum<T>>
+      extends Converter<String, T> implements Serializable {
 
     private final Class<T> enumClass;
 
@@ -131,7 +143,7 @@ public final class Enums {
     @Override
     public boolean equals(@Nullable Object object) {
       if (object instanceof StringConverter) {
-        StringConverter<?> that = (StringConverter<?>) object;
+        StringConverter<?> that = (StringConverter<?>)object;
         return this.enumClass.equals(that.enumClass);
       }
       return false;
