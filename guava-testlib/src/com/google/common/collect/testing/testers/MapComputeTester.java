@@ -43,14 +43,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
         "Map.compute(absent, functionReturningValue) should return value",
         v3(),
         getMap()
-            .compute(
-                k3(),
-                (k, v)
-                    -> {
-                      assertEquals(k3(), k);
-                      assertNull(v);
-                      return v3();
-                    }));
+        .compute(
+            k3(),
+            (k, v)
+    -> {
+      assertEquals(k3(), k);
+      assertNull(v);
+      return v3();
+    }));
     expectAdded(e3());
     assertEquals(getNumElements() + 1, getMap().size());
   }
@@ -60,14 +60,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "Map.compute(absent, functionReturningNull) should return null",
         getMap()
-            .compute(
-                k3(),
-                (k, v)
-                    -> {
-                      assertEquals(k3(), k);
-                      assertNull(v);
-                      return null;
-                    }));
+        .compute(
+            k3(),
+            (k, v)
+    -> {
+      assertEquals(k3(), k);
+      assertNull(v);
+      return null;
+    }));
     expectUnchanged();
     assertEquals(getNumElements(), getMap().size());
   }
@@ -79,14 +79,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
         "Map.compute(present, functionReturningValue) should return new value",
         v3(),
         getMap()
-            .compute(
-                k0(),
-                (k, v)
-                    -> {
-                      assertEquals(k0(), k);
-                      assertEquals(v0(), v);
-                      return v3();
-                    }));
+        .compute(
+            k0(),
+            (k, v)
+    -> {
+      assertEquals(k0(), k);
+      assertEquals(v0(), v);
+      return v3();
+    }));
     expectReplacement(entry(k0(), v3()));
     assertEquals(getNumElements(), getMap().size());
   }
@@ -97,14 +97,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "Map.compute(present, functionReturningNull) should return null",
         getMap()
-            .compute(
-                k0(),
-                (k, v)
-                    -> {
-                      assertEquals(k0(), k);
-                      assertEquals(v0(), v);
-                      return null;
-                    }));
+        .compute(
+            k0(),
+            (k, v)
+    -> {
+      assertEquals(k0(), k);
+      assertEquals(v0(), v);
+      return null;
+    }));
     expectMissing(e0());
     expectMissingKeys(k0());
     assertEquals(getNumElements() - 1, getMap().size());
@@ -119,14 +119,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
         "Map.compute(presentMappedToNull, functionReturningValue) should return new value",
         value,
         getMap()
-            .compute(
-                getKeyForNullValue(),
-                (k, v)
-                    -> {
-                      assertEquals(getKeyForNullValue(), k);
-                      assertNull(v);
-                      return value;
-                    }));
+        .compute(
+            getKeyForNullValue(),
+            (k, v)
+    -> {
+      assertEquals(getKeyForNullValue(), k);
+      assertNull(v);
+      return value;
+    }));
     expectReplacement(entry(getKeyForNullValue(), value));
     assertEquals(getNumElements(), getMap().size());
   }
@@ -140,14 +140,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(
         "Map.compute(presentMappedToNull, functionReturningNull) should return null",
         getMap()
-            .compute(
-                getKeyForNullValue(),
-                (k, v)
-                    -> {
-                      assertEquals(getKeyForNullValue(), k);
-                      assertNull(v);
-                      return null;
-                    }));
+        .compute(
+            getKeyForNullValue(),
+            (k, v)
+    -> {
+      assertEquals(getKeyForNullValue(), k);
+      assertNull(v);
+      return null;
+    }));
     expectMissingKeys(getKeyForNullValue());
     assertEquals(getNumElements() - 1, getMap().size());
   }
@@ -160,14 +160,14 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
         "Map.compute(present, functionReturningValue) should return new value",
         v3(),
         getMap()
-            .compute(
-                null,
-                (k, v)
-                    -> {
-                      assertNull(k);
-                      assertEquals(getValueForNullKey(), v);
-                      return v3();
-                    }));
+        .compute(
+            null,
+            (k, v)
+    -> {
+      assertNull(k);
+      assertEquals(getValueForNullKey(), v);
+      return v3();
+    }));
     assertEquals(getNumElements(), getMap().size());
   }
 
@@ -178,13 +178,13 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
   public void testCompute_presentFunctionThrows() {
     try {
       getMap()
-          .compute(
-              k0(),
-              (k, v) -> {
-                assertEquals(k0(), k);
-                assertEquals(v0(), v);
-                throw new ExpectedException();
-              });
+      .compute(
+          k0(),
+      (k, v) -> {
+        assertEquals(k0(), k);
+        assertEquals(v0(), v);
+        throw new ExpectedException();
+      });
       fail("Expected ExpectedException");
     } catch (ExpectedException expected) {
     }
@@ -195,13 +195,13 @@ public class MapComputeTester<K, V> extends AbstractMapTester<K, V> {
   public void testCompute_absentFunctionThrows() {
     try {
       getMap()
-          .compute(
-              k3(),
-              (k, v) -> {
-                assertEquals(k3(), k);
-                assertNull(v);
-                throw new ExpectedException();
-              });
+      .compute(
+          k3(),
+      (k, v) -> {
+        assertEquals(k3(), k);
+        assertNull(v);
+        throw new ExpectedException();
+      });
       fail("Expected ExpectedException");
     } catch (ExpectedException expected) {
     }

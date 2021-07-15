@@ -39,7 +39,7 @@ final class Table_CustomFieldSerializerBase {
   }
 
   static void serialize(SerializationStreamWriter writer, StandardTable<?, ?, ?> table)
-      throws SerializationException {
+  throws SerializationException {
     /*
      * The backing map of a {Hash,Tree}BasedTable is a {Hash,Tree}Map of {Hash,Tree}Maps. Therefore,
      * the backing map is serializable (assuming that the row, column and values, along with any

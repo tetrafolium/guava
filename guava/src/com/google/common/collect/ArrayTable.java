@@ -557,11 +557,11 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
       }
     };
   }
-  
+
   @Override
   Spliterator<Cell<R, C, V>> cellSpliterator() {
     return CollectSpliterators.indexed(
-        size(), Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.DISTINCT, this::getCell);
+            size(), Spliterator.ORDERED | Spliterator.NONNULL | Spliterator.DISTINCT, this::getCell);
   }
 
   private Cell<R, C, V> getCell(final int index) {

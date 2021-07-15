@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public interface TestMultimapGenerator<K, V, M extends Multimap<K, V>>
-    extends TestContainerGenerator<M, Map.Entry<K, V>> {
+  extends TestContainerGenerator<M, Map.Entry<K, V>> {
 
   K[] createKeyArray(int length);
 

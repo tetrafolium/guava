@@ -268,15 +268,15 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
   @Override
   Spliterator<Cell<R, C, V>> cellSpliterator() {
     return CollectSpliterators.flatMap(
-        backingMap.entrySet().spliterator(),
-        (Map.Entry<R, Map<C, V>> rowEntry) ->
+            backingMap.entrySet().spliterator(),
+            (Map.Entry<R, Map<C, V>> rowEntry) ->
             CollectSpliterators.map(
                 rowEntry.getValue().entrySet().spliterator(),
                 (Map.Entry<C, V> columnEntry) ->
-                    Tables.immutableCell(
-                        rowEntry.getKey(), columnEntry.getKey(), columnEntry.getValue())),
-        Spliterator.DISTINCT | Spliterator.SIZED,
-        size());
+                Tables.immutableCell(
+                    rowEntry.getKey(), columnEntry.getKey(), columnEntry.getValue())),
+            Spliterator.DISTINCT | Spliterator.SIZED,
+            size());
   }
 
   @Override
@@ -296,7 +296,7 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
     Map<C, V> backingRowMap() {
       return (backingRowMap == null || (backingRowMap.isEmpty() && backingMap.containsKey(rowKey)))
           ? backingRowMap = computeBackingRowMap()
-          : backingRowMap;
+              : backingRowMap;
     }
 
     Map<C, V> computeBackingRowMap() {
@@ -800,13 +800,13 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
       @Override
       public Iterator<Entry<R, Map<C, V>>> iterator() {
         return Maps.asMapEntryIterator(
-            backingMap.keySet(),
-            new Function<R, Map<C, V>>() {
-              @Override
-              public Map<C, V> apply(R rowKey) {
-                return row(rowKey);
-              }
-            });
+                backingMap.keySet(),
+        new Function<R, Map<C, V>>() {
+          @Override
+          public Map<C, V> apply(R rowKey) {
+            return row(rowKey);
+          }
+        });
       }
 
       @Override
@@ -886,13 +886,13 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
       @Override
       public Iterator<Entry<C, Map<R, V>>> iterator() {
         return Maps.asMapEntryIterator(
-            columnKeySet(),
-            new Function<C, Map<R, V>>() {
-              @Override
-              public Map<R, V> apply(C columnKey) {
-                return column(columnKey);
-              }
-            });
+                columnKeySet(),
+        new Function<C, Map<R, V>>() {
+          @Override
+          public Map<R, V> apply(C columnKey) {
+            return column(columnKey);
+          }
+        });
       }
 
       @Override

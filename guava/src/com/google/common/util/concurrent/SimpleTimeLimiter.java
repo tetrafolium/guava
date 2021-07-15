@@ -83,32 +83,32 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     final Set<Method> interruptibleMethods = findInterruptibleMethods(interfaceType);
 
     InvocationHandler handler =
-        new InvocationHandler() {
+    new InvocationHandler() {
+      @Override
+      public Object invoke(Object obj, final Method method, final Object[] args)
+      throws Throwable {
+        Callable<Object> callable =
+        new Callable<Object>() {
           @Override
-          public Object invoke(Object obj, final Method method, final Object[] args)
-              throws Throwable {
-            Callable<Object> callable =
-                new Callable<Object>() {
-                  @Override
-                  public Object call() throws Exception {
-                    try {
-                      return method.invoke(target, args);
-                    } catch (InvocationTargetException e) {
-                      throw throwCause(e, false /* combineStackTraces */);
-                    }
-                  }
-                };
-            return callWithTimeout(
-                callable, timeoutDuration, timeoutUnit, interruptibleMethods.contains(method));
+          public Object call() throws Exception {
+            try {
+              return method.invoke(target, args);
+            } catch (InvocationTargetException e) {
+              throw throwCause(e, false /* combineStackTraces */);
+            }
           }
         };
+        return callWithTimeout(
+                callable, timeoutDuration, timeoutUnit, interruptibleMethods.contains(method));
+      }
+    };
     return newProxy(interfaceType, handler);
   }
 
   private
   <T> T callWithTimeout(
       Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit, boolean amInterruptible)
-      throws Exception {
+  throws Exception {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -136,7 +136,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callWithTimeout(Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException, ExecutionException {
+  throws TimeoutException, InterruptedException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -157,7 +157,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   @Override
   public <T> T callUninterruptiblyWithTimeout(
       Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
-      throws TimeoutException, ExecutionException {
+  throws TimeoutException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -177,7 +177,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public void runWithTimeout(Runnable runnable, long timeoutDuration, TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException {
+  throws TimeoutException, InterruptedException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);

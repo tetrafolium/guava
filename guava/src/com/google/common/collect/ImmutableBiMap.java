@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<K, V>
-    implements BiMap<K, V> {
+  implements BiMap<K, V> {
 
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code ImmutableBiMap} whose
@@ -100,7 +100,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
     return RegularImmutableBiMap.fromEntries(
-        entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
+            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4));
   }
 
   /**
@@ -111,7 +111,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
   public static <K, V> ImmutableBiMap<K, V> of(
       K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
     return RegularImmutableBiMap.fromEntries(
-        entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
+            entryOf(k1, v1), entryOf(k2, v2), entryOf(k3, v3), entryOf(k4, v4), entryOf(k5, v5));
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -271,30 +271,30 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
     @Override
     public ImmutableBiMap<K, V> build() {
       switch (size) {
-        case 0:
-          return of();
-        case 1:
-          return of(entries[0].getKey(), entries[0].getValue());
-        default:
-          /*
-           * If entries is full, then this implementation may end up using the entries array
-           * directly and writing over the entry objects with non-terminal entries, but this is
-           * safe; if this Builder is used further, it will grow the entries array (so it can't
-           * affect the original array), and future build() calls will always copy any entry
-           * objects that cannot be safely reused.
-           */
-          if (valueComparator != null) {
-            if (entriesUsed) {
-              entries = Arrays.copyOf(entries, size);
-            }
-            Arrays.sort(
-                entries,
-                0,
-                size,
-                Ordering.from(valueComparator).onResultOf(Maps.<V>valueFunction()));
+      case 0:
+        return of();
+      case 1:
+        return of(entries[0].getKey(), entries[0].getValue());
+      default:
+        /*
+         * If entries is full, then this implementation may end up using the entries array
+         * directly and writing over the entry objects with non-terminal entries, but this is
+         * safe; if this Builder is used further, it will grow the entries array (so it can't
+         * affect the original array), and future build() calls will always copy any entry
+         * objects that cannot be safely reused.
+         */
+        if (valueComparator != null) {
+          if (entriesUsed) {
+            entries = Arrays.copyOf(entries, size);
           }
-          entriesUsed = size == entries.length;
-          return RegularImmutableBiMap.fromEntryArray(size, entries);
+          Arrays.sort(
+              entries,
+              0,
+              size,
+              Ordering.from(valueComparator).onResultOf(Maps.<V>valueFunction()));
+        }
+        entriesUsed = size == entries.length;
+        return RegularImmutableBiMap.fromEntryArray(size, entries);
       }
     }
   }
@@ -344,17 +344,17 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableBiMapFauxverideShim<
     @SuppressWarnings("unchecked") // we'll only be using getKey and getValue, which are covariant
     Entry<K, V>[] entryArray = (Entry<K, V>[]) Iterables.toArray(entries, EMPTY_ENTRY_ARRAY);
     switch (entryArray.length) {
-      case 0:
-        return of();
-      case 1:
-        Entry<K, V> entry = entryArray[0];
-        return of(entry.getKey(), entry.getValue());
-      default:
-        /*
-         * The current implementation will end up using entryArray directly, though it will write
-         * over the (arbitrary, potentially mutable) Entry objects actually stored in entryArray.
-         */
-        return RegularImmutableBiMap.fromEntries(entryArray);
+    case 0:
+      return of();
+    case 1:
+      Entry<K, V> entry = entryArray[0];
+      return of(entry.getKey(), entry.getValue());
+    default:
+      /*
+       * The current implementation will end up using entryArray directly, though it will write
+       * over the (arbitrary, potentially mutable) Entry objects actually stored in entryArray.
+       */
+      return RegularImmutableBiMap.fromEntries(entryArray);
     }
   }
 

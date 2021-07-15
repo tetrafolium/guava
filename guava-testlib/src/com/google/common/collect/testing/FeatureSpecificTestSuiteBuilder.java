@@ -57,7 +57,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public abstract class FeatureSpecificTestSuiteBuilder<
-    B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
+  B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
   @SuppressWarnings("unchecked")
   protected B self() {
     return (B) this;
@@ -131,7 +131,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     if (name.contains("(")) {
       throw new IllegalArgumentException(
           "Eclipse hides all characters after "
-              + "'('; please use '[]' or other characters instead of parentheses");
+          + "'('; please use '[]' or other characters instead of parentheses");
     }
     this.name = name;
     return self();

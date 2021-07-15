@@ -93,7 +93,7 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
   }
 
   static final class NonTerminalImmutableBiMapEntry<K, V>
-      extends NonTerminalImmutableMapEntry<K, V> {
+    extends NonTerminalImmutableMapEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInValueBucket;
 
     NonTerminalImmutableBiMapEntry(

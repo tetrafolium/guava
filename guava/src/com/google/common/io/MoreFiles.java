@@ -115,8 +115,8 @@ public final class MoreFiles {
 
     private BasicFileAttributes readAttributes() throws IOException {
       return Files.readAttributes(
-          path, BasicFileAttributes.class,
-          followLinks ? FOLLOW_LINKS : new LinkOption[] { NOFOLLOW_LINKS });
+              path, BasicFileAttributes.class,
+              followLinks ? FOLLOW_LINKS : new LinkOption[] { NOFOLLOW_LINKS });
     }
 
     @Override
@@ -157,7 +157,7 @@ public final class MoreFiles {
     public byte[] read() throws IOException {
       try (SeekableByteChannel channel = Files.newByteChannel(path, options)) {
         return com.google.common.io.Files.readFile(
-            Channels.newInputStream(channel), channel.size());
+                Channels.newInputStream(channel), channel.size());
       }
     }
 
@@ -410,10 +410,10 @@ public final class MoreFiles {
     Path normalizedAbsolutePath = path.toAbsolutePath().normalize();
     Path parent = normalizedAbsolutePath.getParent();
     if (parent == null) {
-       // The given directory is a filesystem root. All zero of its ancestors exist. This doesn't
-       // mean that the root itself exists -- consider x:\ on a Windows machine without such a
-       // drive -- or even that the caller can create it, but this method makes no such guarantees
-       // even for non-root files.
+      // The given directory is a filesystem root. All zero of its ancestors exist. This doesn't
+      // mean that the root itself exists -- consider x:\ on a Windows machine without such a
+      // drive -- or even that the caller can create it, but this method makes no such guarantees
+      // even for non-root files.
       return;
     }
 
@@ -517,7 +517,7 @@ public final class MoreFiles {
         if (parent instanceof SecureDirectoryStream) {
           sdsSupported = true;
           exceptions = deleteRecursivelySecure(
-              (SecureDirectoryStream<Path>) parent, path.getFileName());
+                  (SecureDirectoryStream<Path>) parent, path.getFileName());
         }
       }
 

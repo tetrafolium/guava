@@ -45,7 +45,7 @@ import java.util.NavigableSet;
 @Beta
 @GwtCompatible(emulated = true)
 public abstract class ForwardingSortedMultiset<E> extends ForwardingMultiset<E>
-    implements SortedMultiset<E> {
+  implements SortedMultiset<E> {
   /** Constructor for use by subclasses. */
   protected ForwardingSortedMultiset() {}
 

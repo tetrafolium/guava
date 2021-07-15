@@ -387,14 +387,14 @@ public final class UnsignedLongs {
 
     return value;
   }
-  
+
   /*
    * We move the static constants into this class so ProGuard can inline UnsignedLongs entirely
    * unless the user is actually calling a parse method.
    */
   private static final class ParseOverflowDetection {
     private ParseOverflowDetection() {}
-    
+
     // calculated as 0xffffffffffffffff / radix
     static final long[] maxValueDivs = new long[Character.MAX_RADIX + 1];
     static final int[] maxValueMods = new int[Character.MAX_RADIX + 1];

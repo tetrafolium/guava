@@ -92,38 +92,38 @@ public final class BigIntegerMath {
     checkPositive("x", checkNotNull(x));
     int logFloor = x.bitLength() - 1;
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(isPowerOfTwo(x)); // fall through
-      case DOWN:
-      case FLOOR:
-        return logFloor;
+    case UNNECESSARY:
+      checkRoundingUnnecessary(isPowerOfTwo(x)); // fall through
+    case DOWN:
+    case FLOOR:
+      return logFloor;
 
-      case UP:
-      case CEILING:
-        return isPowerOfTwo(x) ? logFloor : logFloor + 1;
+    case UP:
+    case CEILING:
+      return isPowerOfTwo(x) ? logFloor : logFloor + 1;
 
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        if (logFloor < SQRT2_PRECOMPUTE_THRESHOLD) {
-          BigInteger halfPower =
-              SQRT2_PRECOMPUTED_BITS.shiftRight(SQRT2_PRECOMPUTE_THRESHOLD - logFloor);
-          if (x.compareTo(halfPower) <= 0) {
-            return logFloor;
-          } else {
-            return logFloor + 1;
-          }
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      if (logFloor < SQRT2_PRECOMPUTE_THRESHOLD) {
+        BigInteger halfPower =
+            SQRT2_PRECOMPUTED_BITS.shiftRight(SQRT2_PRECOMPUTE_THRESHOLD - logFloor);
+        if (x.compareTo(halfPower) <= 0) {
+          return logFloor;
+        } else {
+          return logFloor + 1;
         }
-        // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
-        //
-        // To determine which side of logFloor.5 the logarithm is,
-        // we compare x^2 to 2^(2 * logFloor + 1).
-        BigInteger x2 = x.pow(2);
-        int logX2Floor = x2.bitLength() - 1;
-        return (logX2Floor < 2 * logFloor + 1) ? logFloor : logFloor + 1;
+      }
+      // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
+      //
+      // To determine which side of logFloor.5 the logarithm is,
+      // we compare x^2 to 2^(2 * logFloor + 1).
+      BigInteger x2 = x.pow(2);
+      int logX2Floor = x2.bitLength() - 1;
+      return (logX2Floor < 2 * logFloor + 1) ? logFloor : logFloor + 1;
 
-      default:
-        throw new AssertionError();
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -190,26 +190,26 @@ public final class BigIntegerMath {
     int floorCmp = approxCmp;
 
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(floorCmp == 0);
-        // fall through
-      case FLOOR:
-      case DOWN:
-        return floorLog;
+    case UNNECESSARY:
+      checkRoundingUnnecessary(floorCmp == 0);
+    // fall through
+    case FLOOR:
+    case DOWN:
+      return floorLog;
 
-      case CEILING:
-      case UP:
-        return floorPow.equals(x) ? floorLog : floorLog + 1;
+    case CEILING:
+    case UP:
+      return floorPow.equals(x) ? floorLog : floorLog + 1;
 
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        // Since sqrt(10) is irrational, log10(x) - floorLog can never be exactly 0.5
-        BigInteger x2 = x.pow(2);
-        BigInteger halfPowerSquared = floorPow.pow(2).multiply(BigInteger.TEN);
-        return (x2.compareTo(halfPowerSquared) <= 0) ? floorLog : floorLog + 1;
-      default:
-        throw new AssertionError();
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      // Since sqrt(10) is irrational, log10(x) - floorLog can never be exactly 0.5
+      BigInteger x2 = x.pow(2);
+      BigInteger halfPowerSquared = floorPow.pow(2).multiply(BigInteger.TEN);
+      return (x2.compareTo(halfPowerSquared) <= 0) ? floorLog : floorLog + 1;
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -232,30 +232,30 @@ public final class BigIntegerMath {
     }
     BigInteger sqrtFloor = sqrtFloor(x);
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(sqrtFloor.pow(2).equals(x)); // fall through
-      case FLOOR:
-      case DOWN:
-        return sqrtFloor;
-      case CEILING:
-      case UP:
-        int sqrtFloorInt = sqrtFloor.intValue();
-        boolean sqrtFloorIsExact =
-            (sqrtFloorInt * sqrtFloorInt == x.intValue()) // fast check mod 2^32
-                && sqrtFloor.pow(2).equals(x); // slow exact check
-        return sqrtFloorIsExact ? sqrtFloor : sqrtFloor.add(BigInteger.ONE);
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        BigInteger halfSquare = sqrtFloor.pow(2).add(sqrtFloor);
-        /*
-         * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
-         * and halfSquare are integers, this is equivalent to testing whether or not x <=
-         * halfSquare.
-         */
-        return (halfSquare.compareTo(x) >= 0) ? sqrtFloor : sqrtFloor.add(BigInteger.ONE);
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(sqrtFloor.pow(2).equals(x)); // fall through
+    case FLOOR:
+    case DOWN:
+      return sqrtFloor;
+    case CEILING:
+    case UP:
+      int sqrtFloorInt = sqrtFloor.intValue();
+      boolean sqrtFloorIsExact =
+          (sqrtFloorInt * sqrtFloorInt == x.intValue()) // fast check mod 2^32
+          && sqrtFloor.pow(2).equals(x); // slow exact check
+      return sqrtFloorIsExact ? sqrtFloor : sqrtFloor.add(BigInteger.ONE);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      BigInteger halfSquare = sqrtFloor.pow(2).add(sqrtFloor);
+      /*
+       * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
+       * and halfSquare are integers, this is equivalent to testing whether or not x <=
+       * halfSquare.
+       */
+      return (halfSquare.compareTo(x) >= 0) ? sqrtFloor : sqrtFloor.add(BigInteger.ONE);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -395,18 +395,18 @@ public final class BigIntegerMath {
 
   static BigInteger listProduct(List<BigInteger> nums, int start, int end) {
     switch (end - start) {
-      case 0:
-        return BigInteger.ONE;
-      case 1:
-        return nums.get(start);
-      case 2:
-        return nums.get(start).multiply(nums.get(start + 1));
-      case 3:
-        return nums.get(start).multiply(nums.get(start + 1)).multiply(nums.get(start + 2));
-      default:
-        // Otherwise, split the list in half and recursively do this.
-        int m = (end + start) >>> 1;
-        return listProduct(nums, start, m).multiply(listProduct(nums, m, end));
+    case 0:
+      return BigInteger.ONE;
+    case 1:
+      return nums.get(start);
+    case 2:
+      return nums.get(start).multiply(nums.get(start + 1));
+    case 3:
+      return nums.get(start).multiply(nums.get(start + 1)).multiply(nums.get(start + 2));
+    default:
+      // Otherwise, split the list in half and recursively do this.
+      int m = (end + start) >>> 1;
+      return listProduct(nums, start, m).multiply(listProduct(nums, m, end));
     }
   }
 
@@ -449,8 +449,8 @@ public final class BigIntegerMath {
         // Multiply numeratorAccum / denominatorAccum into accum.
         accum =
             accum
-                .multiply(BigInteger.valueOf(numeratorAccum))
-                .divide(BigInteger.valueOf(denominatorAccum));
+            .multiply(BigInteger.valueOf(numeratorAccum))
+            .divide(BigInteger.valueOf(denominatorAccum));
         numeratorAccum = p;
         denominatorAccum = q;
         numeratorBits = bits;

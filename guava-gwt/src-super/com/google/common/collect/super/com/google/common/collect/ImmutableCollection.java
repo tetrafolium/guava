@@ -33,12 +33,12 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableCollection<E> extends AbstractCollection<E>
-    implements Serializable {
+  implements Serializable {
   static final int SPLITERATOR_CHARACTERISTICS =
       Spliterator.IMMUTABLE | Spliterator.NONNULL | Spliterator.ORDERED;
 
   static final ImmutableCollection<Object> EMPTY_IMMUTABLE_COLLECTION
-      = new ForwardingImmutableCollection<Object>(Collections.emptyList());
+    = new ForwardingImmutableCollection<Object>(Collections.emptyList());
 
   ImmutableCollection() {}
 
@@ -81,12 +81,12 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
 
   ImmutableList<E> createAsList() {
     switch (size()) {
-      case 0:
-        return ImmutableList.of();
-      case 1:
-        return ImmutableList.of(iterator().next());
-      default:
-        return new RegularImmutableAsList<E>(this, toArray());
+    case 0:
+      return ImmutableList.of();
+    case 1:
+      return ImmutableList.of(iterator().next());
+    default:
+      return new RegularImmutableAsList<E>(this, toArray());
     }
   }
   static <E> ImmutableCollection<E> unsafeDelegate(Collection<E> delegate) {

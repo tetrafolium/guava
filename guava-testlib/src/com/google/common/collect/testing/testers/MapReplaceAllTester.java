@@ -51,11 +51,11 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testReplaceAllRotate() {
     getMap()
-        .replaceAll(
-            (K k, V v) -> {
-              int index = keys().asList().indexOf(k);
-              return values().asList().get(index + 1);
-            });
+    .replaceAll(
+    (K k, V v) -> {
+      int index = keys().asList().indexOf(k);
+      return values().asList().get(index + 1);
+    });
     List<Entry<K, V>> expectedEntries = new ArrayList<>();
     for (Entry<K, V> entry : getSampleEntries()) {
       int index = keys().asList().indexOf(entry.getKey());
@@ -68,11 +68,11 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testReplaceAllPreservesOrder() {
     getMap()
-        .replaceAll(
-            (K k, V v) -> {
-              int index = keys().asList().indexOf(k);
-              return values().asList().get(index + 1);
-            });
+    .replaceAll(
+    (K k, V v) -> {
+      int index = keys().asList().indexOf(k);
+      return values().asList().get(index + 1);
+    });
     List<Entry<K, V>> orderedEntries = getOrderedElements();
     int index = 0;
     for (K key : getMap().keySet()) {
@@ -86,14 +86,14 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   public void testReplaceAll_unsupported() {
     try {
       getMap()
-          .replaceAll(
-              (K k, V v) -> {
-                int index = keys().asList().indexOf(k);
-                return values().asList().get(index + 1);
-              });
+      .replaceAll(
+      (K k, V v) -> {
+        int index = keys().asList().indexOf(k);
+        return values().asList().get(index + 1);
+      });
       fail(
           "replaceAll() should throw UnsupportedOperation if a map does "
-              + "not support it and is not empty.");
+          + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();
@@ -104,11 +104,11 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   public void testReplaceAll_unsupportedByEmptyCollection() {
     try {
       getMap()
-          .replaceAll(
-              (K k, V v) -> {
-                int index = keys().asList().indexOf(k);
-                return values().asList().get(index + 1);
-              });
+      .replaceAll(
+      (K k, V v) -> {
+        int index = keys().asList().indexOf(k);
+        return values().asList().get(index + 1);
+      });
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();

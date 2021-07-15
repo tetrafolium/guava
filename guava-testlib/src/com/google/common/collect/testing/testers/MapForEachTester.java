@@ -48,14 +48,14 @@ public class MapForEachTester<K, V> extends AbstractMapTester<K, V> {
     getMap().forEach((k, v) -> entries.add(entry(k, v)));
     assertEquals(getOrderedElements(), entries);
   }
-  
+
   @CollectionFeature.Require(absent = KNOWN_ORDER)
   public void testForEachUnknownOrder() {
     List<Entry<K, V>> entries = new ArrayList<>();
     getMap().forEach((k, v) -> entries.add(entry(k, v)));
     Helpers.assertEqualIgnoringOrder(getSampleEntries(), entries);
   }
-  
+
   @MapFeature.Require(ALLOWS_NULL_KEYS)
   @CollectionSize.Require(absent = ZERO)
   public void testForEach_nullKeys() {
@@ -65,7 +65,7 @@ public class MapForEachTester<K, V> extends AbstractMapTester<K, V> {
     getMap().forEach((k, v) -> entries.add(entry(k, v)));
     Helpers.assertEqualIgnoringOrder(expectedEntries, entries);
   }
-  
+
   @MapFeature.Require(ALLOWS_NULL_VALUES)
   @CollectionSize.Require(absent = ZERO)
   public void testForEach_nullValues() {

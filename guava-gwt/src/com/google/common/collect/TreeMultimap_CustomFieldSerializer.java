@@ -32,7 +32,7 @@ public class TreeMultimap_CustomFieldSerializer {
 
   @SuppressWarnings("unchecked")
   public static TreeMultimap<Object, Object> instantiate(SerializationStreamReader in)
-      throws SerializationException {
+  throws SerializationException {
     Comparator<Object> keyComparator = (Comparator<Object>) in.readObject();
     Comparator<Object> valueComparator = (Comparator<Object>) in.readObject();
 
@@ -42,7 +42,7 @@ public class TreeMultimap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter out, TreeMultimap<?, ?> multimap)
-      throws SerializationException {
+  throws SerializationException {
     out.writeObject(multimap.keyComparator());
     out.writeObject(multimap.valueComparator());
     Multimap_CustomFieldSerializerBase.serialize(out, multimap);

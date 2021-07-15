@@ -104,7 +104,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
   @Override
   public final V get(long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+  throws InterruptedException, ExecutionException, TimeoutException {
     checkNotNull(unit);
     return get();
   }

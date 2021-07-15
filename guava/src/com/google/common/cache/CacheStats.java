@@ -218,12 +218,12 @@ public final class CacheStats {
    */
   public CacheStats minus(CacheStats other) {
     return new CacheStats(
-        Math.max(0, hitCount - other.hitCount),
-        Math.max(0, missCount - other.missCount),
-        Math.max(0, loadSuccessCount - other.loadSuccessCount),
-        Math.max(0, loadExceptionCount - other.loadExceptionCount),
-        Math.max(0, totalLoadTime - other.totalLoadTime),
-        Math.max(0, evictionCount - other.evictionCount));
+            Math.max(0, hitCount - other.hitCount),
+            Math.max(0, missCount - other.missCount),
+            Math.max(0, loadSuccessCount - other.loadSuccessCount),
+            Math.max(0, loadExceptionCount - other.loadExceptionCount),
+            Math.max(0, totalLoadTime - other.totalLoadTime),
+            Math.max(0, evictionCount - other.evictionCount));
   }
 
   /**
@@ -234,18 +234,18 @@ public final class CacheStats {
    */
   public CacheStats plus(CacheStats other) {
     return new CacheStats(
-        hitCount + other.hitCount,
-        missCount + other.missCount,
-        loadSuccessCount + other.loadSuccessCount,
-        loadExceptionCount + other.loadExceptionCount,
-        totalLoadTime + other.totalLoadTime,
-        evictionCount + other.evictionCount);
+            hitCount + other.hitCount,
+            missCount + other.missCount,
+            loadSuccessCount + other.loadSuccessCount,
+            loadExceptionCount + other.loadExceptionCount,
+            totalLoadTime + other.totalLoadTime,
+            evictionCount + other.evictionCount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hashCode(
-        hitCount, missCount, loadSuccessCount, loadExceptionCount, totalLoadTime, evictionCount);
+            hitCount, missCount, loadSuccessCount, loadExceptionCount, totalLoadTime, evictionCount);
   }
 
   @Override

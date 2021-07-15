@@ -35,7 +35,7 @@ public class RegularImmutableAsList_CustomFieldSerializer {
       SerializationStreamReader reader, RegularImmutableAsList<?> instance) {}
 
   public static RegularImmutableAsList<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     ArrayList<Object> elements = new ArrayList<>();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
     ImmutableList<Object> delegate = ImmutableList.copyOf(elements);
@@ -43,7 +43,7 @@ public class RegularImmutableAsList_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, RegularImmutableAsList<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

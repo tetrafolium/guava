@@ -120,7 +120,7 @@ public final class TypeResolver {
         Type[] toLowerBounds = toWildcardType.getLowerBounds();
         checkArgument(
             fromUpperBounds.length == toUpperBounds.length
-                && fromLowerBounds.length == toLowerBounds.length,
+            && fromLowerBounds.length == toLowerBounds.length,
             "Incompatible type: %s vs. %s",
             fromWildcardType,
             to);
@@ -180,7 +180,7 @@ public final class TypeResolver {
         // And we don't support "assuming String is T"; user has to say "assuming T is String".
         throw new IllegalArgumentException("No type mapping from " + fromClass + " to " + to);
       }
-    }.visit(from);
+    } .visit(from);
   }
 
   /**
@@ -231,7 +231,7 @@ public final class TypeResolver {
     Type[] args = type.getActualTypeArguments();
     Type[] resolvedArgs = resolveTypes(args);
     return Types.newParameterizedTypeWithOwner(
-        resolvedOwner, (Class<?>) resolvedRawType, resolvedArgs);
+            resolvedOwner, (Class<?>) resolvedRawType, resolvedArgs);
   }
 
   private static <T> T expectArgument(Class<T> type, Object arg) {
@@ -270,15 +270,15 @@ public final class TypeResolver {
     final Type resolve(final TypeVariable<?> var) {
       final TypeTable unguarded = this;
       TypeTable guarded =
-          new TypeTable() {
-            @Override
-            public Type resolveInternal(TypeVariable<?> intermediateVar, TypeTable forDependent) {
-              if (intermediateVar.getGenericDeclaration().equals(var.getGenericDeclaration())) {
-                return intermediateVar;
-              }
-              return unguarded.resolveInternal(intermediateVar, forDependent);
-            }
-          };
+      new TypeTable() {
+        @Override
+        public Type resolveInternal(TypeVariable<?> intermediateVar, TypeTable forDependent) {
+          if (intermediateVar.getGenericDeclaration().equals(var.getGenericDeclaration())) {
+            return intermediateVar;
+          }
+          return unguarded.resolveInternal(intermediateVar, forDependent);
+        }
+      };
       return resolveInternal(var, guarded);
     }
 
@@ -331,7 +331,7 @@ public final class TypeResolver {
           return var;
         }
         return Types.newArtificialTypeVariable(
-            var.getGenericDeclaration(), var.getName(), resolvedBounds);
+                var.getGenericDeclaration(), var.getName(), resolvedBounds);
       }
       // in case the type is yet another type variable.
       return new TypeResolver(forDependants).resolveType(type);
@@ -437,7 +437,7 @@ public final class TypeResolver {
       if (type instanceof GenericArrayType) {
         GenericArrayType arrayType = (GenericArrayType) type;
         return Types.newArrayType(
-            notForTypeVariable().capture(arrayType.getGenericComponentType()));
+                notForTypeVariable().capture(arrayType.getGenericComponentType()));
       }
       if (type instanceof ParameterizedType) {
         ParameterizedType parameterizedType = (ParameterizedType) type;
@@ -448,8 +448,8 @@ public final class TypeResolver {
           typeArgs[i] = forTypeVariable(typeVars[i]).capture(typeArgs[i]);
         }
         return Types.newParameterizedTypeWithOwner(
-            notForTypeVariable().captureNullable(parameterizedType.getOwnerType()),
-            rawType, typeArgs);
+                notForTypeVariable().captureNullable(parameterizedType.getOwnerType()),
+                rawType, typeArgs);
       }
       if (type instanceof WildcardType) {
         WildcardType wildcardType = (WildcardType) type;
@@ -465,11 +465,11 @@ public final class TypeResolver {
     }
 
     TypeVariable<?> captureAsTypeVariable(Type[] upperBounds) {
-          String name =
-              "capture#"
-                  + id.incrementAndGet()
-                  + "-of ? extends "
-                  + Joiner.on('&').join(upperBounds);
+      String name =
+          "capture#"
+          + id.incrementAndGet()
+          + "-of ? extends "
+          + Joiner.on('&').join(upperBounds);
       return Types.newArtificialTypeVariable(WildcardCapturer.class, name, upperBounds);
     }
 

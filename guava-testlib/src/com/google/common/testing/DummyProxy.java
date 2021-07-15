@@ -49,9 +49,9 @@ abstract class DummyProxy {
     // Make the proxy serializable to work with SerializableTester
     interfaceClasses.add(Serializable.class);
     Object dummy = Proxy.newProxyInstance(
-        interfaceClasses.iterator().next().getClassLoader(),
-        interfaceClasses.toArray(new Class<?>[interfaceClasses.size()]),
-        new DummyHandler(interfaceType));
+            interfaceClasses.iterator().next().getClassLoader(),
+            interfaceClasses.toArray(new Class<?>[interfaceClasses.size()]),
+            new DummyHandler(interfaceType));
     @SuppressWarnings("unchecked") // interfaceType is T
     T result = (T) dummy;
     return result;

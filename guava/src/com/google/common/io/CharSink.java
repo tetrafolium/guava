@@ -123,7 +123,7 @@ public abstract class CharSink {
    * @throws IOException if an I/O error occurs while writing to this sink
    */
   public void writeLines(Iterable<? extends CharSequence> lines, String lineSeparator)
-      throws IOException {
+  throws IOException {
     writeLines(lines.iterator(), lineSeparator);
   }
 
@@ -149,12 +149,12 @@ public abstract class CharSink {
    */
   @Beta
   public void writeLines(Stream<? extends CharSequence> lines, String lineSeparator)
-      throws IOException {
+  throws IOException {
     writeLines(lines.iterator(), lineSeparator);
   }
 
   private void writeLines(Iterator<? extends CharSequence> lines, String lineSeparator)
-      throws IOException {
+  throws IOException {
     checkNotNull(lineSeparator);
 
     try (Writer out = openBufferedStream()) {

@@ -37,7 +37,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class AbstractMapTester<K, V>
-    extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
+  extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
   protected Map<K, V> getMap() {
     return container;
   }

@@ -142,7 +142,7 @@ public abstract class CacheLoader<K, V> {
   }
 
   private static final class FunctionToCacheLoader<K, V> extends CacheLoader<K, V>
-      implements Serializable {
+    implements Serializable {
     private final Function<K, V> computingFunction;
 
     public FunctionToCacheLoader(Function<K, V> computingFunction) {
@@ -194,12 +194,12 @@ public abstract class CacheLoader<K, V> {
       public ListenableFuture<V> reload(final K key, final V oldValue) throws Exception {
         ListenableFutureTask<V> task =
             ListenableFutureTask.create(
-                new Callable<V>() {
-                  @Override
-                  public V call() throws Exception {
-                    return loader.reload(key, oldValue).get();
-                  }
-                });
+        new Callable<V>() {
+          @Override
+          public V call() throws Exception {
+            return loader.reload(key, oldValue).get();
+          }
+        });
         executor.execute(task);
         return task;
       }
@@ -212,7 +212,7 @@ public abstract class CacheLoader<K, V> {
   }
 
   private static final class SupplierToCacheLoader<V> extends CacheLoader<Object, V>
-      implements Serializable {
+    implements Serializable {
     private final Supplier<V> computingSupplier;
 
     public SupplierToCacheLoader(Supplier<V> computingSupplier) {
@@ -234,7 +234,7 @@ public abstract class CacheLoader<K, V> {
    * @since 19.0
    */
   public static final class UnsupportedLoadingOperationException
-      extends UnsupportedOperationException {
+    extends UnsupportedOperationException {
     // Package-private because this should only be thrown by loadAll() when it is not overridden.
     // Cache implementors may want to catch it but should not need to be able to throw it.
     UnsupportedLoadingOperationException() {}

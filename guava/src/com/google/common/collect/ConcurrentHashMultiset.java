@@ -496,24 +496,24 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
     // AbstractIterator makes this fairly clean, but it doesn't support remove(). To support
     // remove(), we create an AbstractIterator, and then use ForwardingIterator to delegate to it.
     final Iterator<Entry<E>> readOnlyIterator =
-        new AbstractIterator<Entry<E>>() {
-          private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
-              countMap.entrySet().iterator();
+    new AbstractIterator<Entry<E>>() {
+      private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
+          countMap.entrySet().iterator();
 
-          @Override
-          protected Entry<E> computeNext() {
-            while (true) {
-              if (!mapEntries.hasNext()) {
-                return endOfData();
-              }
-              Map.Entry<E, AtomicInteger> mapEntry = mapEntries.next();
-              int count = mapEntry.getValue().get();
-              if (count != 0) {
-                return Multisets.immutableEntry(mapEntry.getKey(), count);
-              }
-            }
+      @Override
+      protected Entry<E> computeNext() {
+        while (true) {
+          if (!mapEntries.hasNext()) {
+            return endOfData();
           }
-        };
+          Map.Entry<E, AtomicInteger> mapEntry = mapEntries.next();
+          int count = mapEntry.getValue().get();
+          if (count != 0) {
+            return Multisets.immutableEntry(mapEntry.getKey(), count);
+          }
+        }
+      }
+    };
 
     return new ForwardingIterator<Entry<E>>() {
       private Entry<E> last;

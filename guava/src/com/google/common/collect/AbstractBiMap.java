@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 abstract class AbstractBiMap<K, V> extends ForwardingMap<K, V>
-    implements BiMap<K, V>, Serializable {
+  implements BiMap<K, V>, Serializable {
 
   private transient Map<K, V> delegate;
   @RetainedWith

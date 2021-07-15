@@ -46,13 +46,13 @@ final class GeneralRange<T> implements Serializable {
     @Nullable T upperEndpoint = range.hasUpperBound() ? range.upperEndpoint() : null;
     BoundType upperBoundType = range.hasUpperBound() ? range.upperBoundType() : OPEN;
     return new GeneralRange<T>(
-        Ordering.natural(),
-        range.hasLowerBound(),
-        lowerEndpoint,
-        lowerBoundType,
-        range.hasUpperBound(),
-        upperEndpoint,
-        upperBoundType);
+            Ordering.natural(),
+            range.hasLowerBound(),
+            lowerEndpoint,
+            lowerBoundType,
+            range.hasUpperBound(),
+            upperEndpoint,
+            upperBoundType);
   }
 
   /**
@@ -241,11 +241,11 @@ final class GeneralRange<T> implements Serializable {
   @Override
   public int hashCode() {
     return Objects.hashCode(
-        comparator,
-        getLowerEndpoint(),
-        getLowerBoundType(),
-        getUpperEndpoint(),
-        getUpperBoundType());
+            comparator,
+            getLowerEndpoint(),
+            getLowerBoundType(),
+            getUpperEndpoint(),
+            getUpperBoundType());
   }
 
   private transient GeneralRange<T> reverse;
@@ -258,13 +258,13 @@ final class GeneralRange<T> implements Serializable {
     if (result == null) {
       result =
           new GeneralRange<T>(
-              Ordering.from(comparator).reverse(),
-              hasUpperBound,
-              getUpperEndpoint(),
-              getUpperBoundType(),
-              hasLowerBound,
-              getLowerEndpoint(),
-              getLowerBoundType());
+          Ordering.from(comparator).reverse(),
+          hasUpperBound,
+          getUpperEndpoint(),
+          getUpperBoundType(),
+          hasLowerBound,
+          getLowerEndpoint(),
+          getLowerBoundType());
       result.reverse = this;
       return this.reverse = result;
     }

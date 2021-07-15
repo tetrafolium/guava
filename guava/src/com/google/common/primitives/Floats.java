@@ -277,7 +277,7 @@ public final class Floats {
   }
 
   private static final class FloatConverter extends Converter<String, Float>
-      implements Serializable {
+    implements Serializable {
     static final FloatConverter INSTANCE = new FloatConverter();
 
     @Override
@@ -510,7 +510,7 @@ public final class Floats {
 
   @GwtCompatible
   private static class FloatArrayAsList extends AbstractList<Float>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final float[] array;
     final int start;
     final int end;

@@ -84,12 +84,12 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
   @GwtIncompatible // reflection
   public static Method getSpliteratorNotImmutableCollectionAllowsAddMethod() {
     return Helpers.getMethod(
-        CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsAdd");
+            CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsAdd");
   }
 
   @GwtIncompatible // reflection
   public static Method getSpliteratorNotImmutableCollectionAllowsRemoveMethod() {
     return Helpers.getMethod(
-        CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsRemove");
+            CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsRemove");
   }
 }

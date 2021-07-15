@@ -27,12 +27,12 @@ import java.util.Set;
 final class ImmutableEnumSet<E> extends ForwardingImmutableSet<E> {
   static <E> ImmutableSet<E> asImmutable(Set<E> delegate) {
     switch (delegate.size()) {
-      case 0:
-        return ImmutableSet.of();
-      case 1:
-        return ImmutableSet.of(Iterables.getOnlyElement(delegate));
-      default:
-        return new ImmutableEnumSet<E>(delegate);
+    case 0:
+      return ImmutableSet.of();
+    case 1:
+      return ImmutableSet.of(Iterables.getOnlyElement(delegate));
+    default:
+      return new ImmutableEnumSet<E>(delegate);
     }
   }
 

@@ -80,7 +80,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
       protected void verify(List<E> elements) {
         expectContents(elements);
       }
-    }.test();
+    } .test();
   }
 
   public void testListIterator_tooLow() {

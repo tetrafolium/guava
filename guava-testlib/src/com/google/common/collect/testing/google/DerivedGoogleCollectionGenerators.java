@@ -87,7 +87,7 @@ public final class DerivedGoogleCollectionGenerators {
   }
 
   public static class InverseBiMapGenerator<K, V>
-      implements TestBiMapGenerator<V, K>, DerivedGenerator {
+    implements TestBiMapGenerator<V, K>, DerivedGenerator {
 
     private final OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>> generator;
 
@@ -100,11 +100,11 @@ public final class DerivedGoogleCollectionGenerators {
     public SampleElements<Map.Entry<V, K>> samples() {
       SampleElements<Entry<K, V>> samples = generator.samples();
       return new SampleElements<>(
-          reverse(samples.e0()),
-          reverse(samples.e1()),
-          reverse(samples.e2()),
-          reverse(samples.e3()),
-          reverse(samples.e4()));
+              reverse(samples.e0()),
+              reverse(samples.e1()),
+              reverse(samples.e2()),
+              reverse(samples.e3()),
+              reverse(samples.e4()));
     }
 
     private Map.Entry<V, K> reverse(Map.Entry<K, V> entry) {
@@ -150,7 +150,7 @@ public final class DerivedGoogleCollectionGenerators {
   }
 
   public static class BiMapValueSetGenerator<K, V>
-      implements TestSetGenerator<V>, DerivedGenerator {
+    implements TestSetGenerator<V>, DerivedGenerator {
     private final OneSizeTestContainerGenerator<BiMap<K, V>, Map.Entry<K, V>> mapGenerator;
     private final SampleElements<V> samples;
 
@@ -160,11 +160,11 @@ public final class DerivedGoogleCollectionGenerators {
       final SampleElements<Map.Entry<K, V>> mapSamples = this.mapGenerator.samples();
       this.samples =
           new SampleElements<V>(
-              mapSamples.e0().getValue(),
-              mapSamples.e1().getValue(),
-              mapSamples.e2().getValue(),
-              mapSamples.e3().getValue(),
-              mapSamples.e4().getValue());
+          mapSamples.e0().getValue(),
+          mapSamples.e1().getValue(),
+          mapSamples.e2().getValue(),
+          mapSamples.e3().getValue(),
+          mapSamples.e4().getValue());
     }
 
     @Override

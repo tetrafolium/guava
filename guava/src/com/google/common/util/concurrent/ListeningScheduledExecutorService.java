@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Beta
 @GwtIncompatible
 public interface ListeningScheduledExecutorService
-    extends ScheduledExecutorService, ListeningExecutorService {
+  extends ScheduledExecutorService, ListeningExecutorService {
 
   /** @since 15.0 (previously returned ScheduledFuture) */
   @Override

@@ -35,7 +35,7 @@ public class SparseImmutableTable_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, SparseImmutableTable<Object, Object, Object> table)
-      throws SerializationException {
+  throws SerializationException {
     ImmutableTable_CustomFieldSerializerBase.serialize(writer, table);
   }
 }

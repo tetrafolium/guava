@@ -68,13 +68,13 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
           @Override
           public Iterator<EndpointPair<N>> iterator() {
             return Iterators.transform(
-                AbstractNetwork.this.edges().iterator(),
-                new Function<E, EndpointPair<N>>() {
-                  @Override
-                  public EndpointPair<N> apply(E edge) {
-                    return incidentNodes(edge);
-                  }
-                });
+                    AbstractNetwork.this.edges().iterator(),
+            new Function<E, EndpointPair<N>>() {
+              @Override
+              public EndpointPair<N> apply(E edge) {
+                return incidentNodes(edge);
+              }
+            });
           }
 
           @Override
@@ -182,12 +182,12 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   public Optional<E> edgeConnecting(N nodeU, N nodeV) {
     Set<E> edgesConnecting = edgesConnecting(nodeU, nodeV);
     switch (edgesConnecting.size()) {
-      case 0:
-        return Optional.empty();
-      case 1:
-        return Optional.of(edgesConnecting.iterator().next());
-      default:
-        throw new IllegalArgumentException(String.format(MULTIPLE_EDGES_CONNECTING, nodeU, nodeV));
+    case 0:
+      return Optional.empty();
+    case 1:
+      return Optional.of(edgesConnecting.iterator().next());
+    default:
+      throw new IllegalArgumentException(String.format(MULTIPLE_EDGES_CONNECTING, nodeU, nodeV));
     }
   }
 
@@ -239,12 +239,12 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
 
   private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
     Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
-        new Function<E, EndpointPair<N>>() {
-          @Override
-          public EndpointPair<N> apply(E edge) {
-            return network.incidentNodes(edge);
-          }
-        };
+    new Function<E, EndpointPair<N>>() {
+      @Override
+      public EndpointPair<N> apply(E edge) {
+        return network.incidentNodes(edge);
+      }
+    };
     return Maps.asMap(network.edges(), edgeToIncidentNodesFn);
   }
 }

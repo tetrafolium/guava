@@ -352,10 +352,10 @@ class FreshValueGenerator {
 
   @Generates private Class<?> generateClass() {
     return pickInstance(
-        ImmutableList.of(
-            int.class, long.class, void.class,
-            Object.class, Object[].class, Iterable.class),
-        Object.class);
+            ImmutableList.of(
+                int.class, long.class, void.class,
+                Object.class, Object[].class, Iterable.class),
+            Object.class);
   }
 
   @Generates private Object generateObject() {
@@ -656,12 +656,12 @@ class FreshValueGenerator {
   }
 
   @Generates private static <E extends Comparable<? super E>> SortedSet<E>
-      generateSortedSet(E freshElement) {
+  generateSortedSet(E freshElement) {
     return generateNavigableSet(freshElement);
   }
 
   @Generates private static <E extends Comparable<? super E>> NavigableSet<E>
-      generateNavigableSet(E freshElement) {
+  generateNavigableSet(E freshElement) {
     return generateTreeSet(freshElement);
   }
 
@@ -673,7 +673,7 @@ class FreshValueGenerator {
   }
 
   @Generates private static <E extends Comparable<? super E>> ImmutableSortedSet<E>
-      generateImmutableSortedSet(E freshElement) {
+  generateImmutableSortedSet(E freshElement) {
     return ImmutableSortedSet.of(freshElement);
   }
 
@@ -710,7 +710,7 @@ class FreshValueGenerator {
   }
 
   @Generates private static <E extends Comparable<E>> ImmutableSortedMultiset<E>
-      generateImmutableSortedMultiset(E freshElement) {
+  generateImmutableSortedMultiset(E freshElement) {
     return ImmutableSortedMultiset.of(freshElement);
   }
 
@@ -743,12 +743,12 @@ class FreshValueGenerator {
   }
 
   @Generates private static <K extends Comparable<? super K>, V> SortedMap<K, V>
-      generateSortedMap(K key, V value) {
+  generateSortedMap(K key, V value) {
     return generateNavigableMap(key, value);
   }
 
   @Generates private static <K extends Comparable<? super K>, V> NavigableMap<K, V>
-      generateNavigableMap(K key, V value) {
+  generateNavigableMap(K key, V value) {
     return generateTreeMap(key, value);
   }
 
@@ -760,7 +760,7 @@ class FreshValueGenerator {
   }
 
   @Generates private static <K extends Comparable<? super K>, V> ImmutableSortedMap<K, V>
-      generateImmutableSortedMap(K key, V value) {
+  generateImmutableSortedMap(K key, V value) {
     return ImmutableSortedMap.of(key, value);
   }
 
@@ -839,13 +839,13 @@ class FreshValueGenerator {
 
   @SuppressWarnings("rawtypes") // TreeBasedTable.create() is defined as such
   @Generates private static <R extends Comparable, C extends Comparable, V> RowSortedTable<R, C, V>
-      generateRowSortedTable(R row, C column, V value) {
+  generateRowSortedTable(R row, C column, V value) {
     return generateTreeBasedTable(row, column, value);
   }
 
   @SuppressWarnings("rawtypes") // TreeBasedTable.create() is defined as such
   @Generates private static <R extends Comparable, C extends Comparable, V> TreeBasedTable<R, C, V>
-      generateTreeBasedTable(R row, C column, V value) {
+  generateTreeBasedTable(R row, C column, V value) {
     TreeBasedTable<R, C, V> table = TreeBasedTable.create();
     table.put(row, column, value);
     return table;

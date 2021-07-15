@@ -322,9 +322,9 @@ public final class UnsignedBytes {
         // fall back to the safer pure java implementation unless we're in
         // a 64-bit JVM with an 8-byte aligned field offset.
         if (!("64".equals(System.getProperty("sun.arch.data.model"))
-              && (BYTE_ARRAY_BASE_OFFSET % 8) == 0
-              // sanity check - this should never fail
-              && theUnsafe.arrayIndexScale(byte[].class) == 1)) {
+                && (BYTE_ARRAY_BASE_OFFSET % 8) == 0
+                // sanity check - this should never fail
+                && theUnsafe.arrayIndexScale(byte[].class) == 1)) {
           throw new Error();  // force fallback to PureJavaComparator
         }
       }
@@ -343,20 +343,20 @@ public final class UnsignedBytes {
         }
         try {
           return java.security.AccessController.doPrivileged(
-              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
-                    Object x = f.get(null);
-                    if (k.isInstance(x)) {
-                      return k.cast(x);
-                    }
-                  }
-                  throw new NoSuchFieldError("the Unsafe");
+          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+                Object x = f.get(null);
+                if (k.isInstance(x)) {
+                  return k.cast(x);
                 }
-              });
+              }
+              throw new NoSuchFieldError("the Unsafe");
+            }
+          });
         } catch (java.security.PrivilegedActionException e) {
           throw new RuntimeException("Could not initialize intrinsics", e.getCause());
         }
@@ -368,7 +368,7 @@ public final class UnsignedBytes {
         int minLength = Math.min(left.length, right.length);
         int strideLimit = minLength & ~(stride - 1);
         int i;
-        
+
         /*
          * Compare 8 bytes at a time. Benchmarking on x86 shows a stride of 8 bytes is no slower
          * than 4 bytes even on 32-bit. On the other hand, it is substantially faster on 64-bit.
@@ -447,7 +447,7 @@ public final class UnsignedBytes {
       }
     }
   }
-  
+
   private static byte flip(byte b) {
     return (byte) (b ^ 0x80);
   }

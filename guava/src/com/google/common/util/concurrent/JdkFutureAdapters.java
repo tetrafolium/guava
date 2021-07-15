@@ -94,13 +94,13 @@ public final class JdkFutureAdapters {
    * listeners will not be invoked.
    */
   private static class ListenableFutureAdapter<V> extends ForwardingFuture<V>
-      implements ListenableFuture<V> {
+    implements ListenableFuture<V> {
 
     private static final ThreadFactory threadFactory =
         new ThreadFactoryBuilder()
-            .setDaemon(true)
-            .setNameFormat("ListenableFutureAdapter-thread-%d")
-            .build();
+    .setDaemon(true)
+    .setNameFormat("ListenableFutureAdapter-thread-%d")
+    .build();
     private static final Executor defaultAdapterExecutor =
         Executors.newCachedThreadPool(threadFactory);
 
@@ -146,23 +146,23 @@ public final class JdkFutureAdapters {
 
         // TODO(lukes): handle RejectedExecutionException
         adapterExecutor.execute(
-            new Runnable() {
-              @Override
-              public void run() {
-                try {
-                  /*
-                   * Threads from our private pool are never interrupted. Threads from a
-                   * user-supplied executor might be, but... what can we do? This is another reason
-                   * to return a proper ListenableFuture instead of using listenInPoolThread.
-                   */
-                  getUninterruptibly(delegate);
-                } catch (Throwable e) {
-                  // ExecutionException / CancellationException / RuntimeException / Error
-                  // The task is presumably done, run the listeners.
-                }
-                executionList.execute();
-              }
-            });
+        new Runnable() {
+          @Override
+          public void run() {
+            try {
+              /*
+               * Threads from our private pool are never interrupted. Threads from a
+               * user-supplied executor might be, but... what can we do? This is another reason
+               * to return a proper ListenableFuture instead of using listenInPoolThread.
+               */
+              getUninterruptibly(delegate);
+            } catch (Throwable e) {
+              // ExecutionException / CancellationException / RuntimeException / Error
+              // The task is presumably done, run the listeners.
+            }
+            executionList.execute();
+          }
+        });
       }
     }
   }

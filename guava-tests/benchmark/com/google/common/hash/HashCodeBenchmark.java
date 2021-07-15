@@ -118,13 +118,13 @@ public class HashCodeBenchmark {
     testBytesB = Arrays.copyOf(testBytesA, size);
     int indexToDifferAt = -1;
     switch (whereToDiffer) {
-      case ONE_PERCENT_IN:
-        indexToDifferAt = (int) (size * 0.01);
-        break;
-      case LAST_BYTE:
-        indexToDifferAt = size - 1;
-        break;
-      case NOT_AT_ALL:
+    case ONE_PERCENT_IN:
+      indexToDifferAt = (int) (size * 0.01);
+      break;
+    case LAST_BYTE:
+      indexToDifferAt = size - 1;
+      break;
+    case NOT_AT_ALL:
     }
     if (indexToDifferAt != -1) {
       testBytesA[indexToDifferAt] = (byte) (testBytesB[indexToDifferAt] - 1);

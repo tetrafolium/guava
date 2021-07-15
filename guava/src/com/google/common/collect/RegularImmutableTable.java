@@ -109,21 +109,21 @@ abstract class RegularImmutableTable<R, C, V> extends ImmutableTable<R, C, V> {
        * column, the rows in the second column, etc.
        */
       Comparator<Cell<R, C, V>> comparator =
-          new Comparator<Cell<R, C, V>>() {
-            @Override
-            public int compare(Cell<R, C, V> cell1, Cell<R, C, V> cell2) {
-              int rowCompare =
-                  (rowComparator == null)
-                      ? 0
-                      : rowComparator.compare(cell1.getRowKey(), cell2.getRowKey());
-              if (rowCompare != 0) {
-                return rowCompare;
-              }
-              return (columnComparator == null)
-                  ? 0
-                  : columnComparator.compare(cell1.getColumnKey(), cell2.getColumnKey());
-            }
-          };
+      new Comparator<Cell<R, C, V>>() {
+        @Override
+        public int compare(Cell<R, C, V> cell1, Cell<R, C, V> cell2) {
+          int rowCompare =
+              (rowComparator == null)
+              ? 0
+              : rowComparator.compare(cell1.getRowKey(), cell2.getRowKey());
+          if (rowCompare != 0) {
+            return rowCompare;
+          }
+          return (columnComparator == null)
+              ? 0
+              : columnComparator.compare(cell1.getColumnKey(), cell2.getColumnKey());
+        }
+      };
       Collections.sort(cells, comparator);
     }
     return forCellsInternal(cells, rowComparator, columnComparator);
@@ -147,12 +147,12 @@ abstract class RegularImmutableTable<R, C, V> extends ImmutableTable<R, C, V> {
 
     ImmutableSet<R> rowSpace =
         (rowComparator == null)
-            ? ImmutableSet.copyOf(rowSpaceBuilder)
-            : ImmutableSet.copyOf(ImmutableList.sortedCopyOf(rowComparator, rowSpaceBuilder));
+        ? ImmutableSet.copyOf(rowSpaceBuilder)
+        : ImmutableSet.copyOf(ImmutableList.sortedCopyOf(rowComparator, rowSpaceBuilder));
     ImmutableSet<C> columnSpace =
         (columnComparator == null)
-            ? ImmutableSet.copyOf(columnSpaceBuilder)
-            : ImmutableSet.copyOf(ImmutableList.sortedCopyOf(columnComparator, columnSpaceBuilder));
+        ? ImmutableSet.copyOf(columnSpaceBuilder)
+        : ImmutableSet.copyOf(ImmutableList.sortedCopyOf(columnComparator, columnSpaceBuilder));
 
     return forOrderedComponents(cellList, rowSpace, columnSpace);
   }

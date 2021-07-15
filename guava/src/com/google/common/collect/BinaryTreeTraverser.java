@@ -101,7 +101,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
    * Optimized implementation of preOrderIterator for binary trees.
    */
   private final class PreOrderIterator extends UnmodifiableIterator<T>
-      implements PeekingIterator<T> {
+    implements PeekingIterator<T> {
     private final Deque<T> stack;
 
     PreOrderIterator(T root) {
@@ -189,7 +189,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
             action.accept(t);
             acceptIfPresent(this, rightChild(t));
           }
-        }.accept(root);
+        } .accept(root);
       }
     };
   }

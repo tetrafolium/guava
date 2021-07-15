@@ -131,8 +131,8 @@ public final class ListGenerators {
   }
 
   private abstract static class TestUnhashableListGenerator
-      extends TestUnhashableCollectionGenerator<List<UnhashableObject>>
-      implements TestListGenerator<UnhashableObject> {}
+    extends TestUnhashableCollectionGenerator<List<UnhashableObject>>
+    implements TestListGenerator<UnhashableObject> {}
 
   public static class UnhashableElementsImmutableListGenerator extends TestUnhashableListGenerator {
     @Override

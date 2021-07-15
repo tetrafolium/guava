@@ -31,13 +31,13 @@ public class LinkedHashMultiset_CustomFieldSerializer {
       SerializationStreamReader reader, LinkedHashMultiset<?> instance) {}
 
   public static LinkedHashMultiset<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return (LinkedHashMultiset<Object>)
         Multiset_CustomFieldSerializerBase.populate(reader, LinkedHashMultiset.create());
   }
 
   public static void serialize(SerializationStreamWriter writer, LinkedHashMultiset<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Multiset_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

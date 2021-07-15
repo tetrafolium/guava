@@ -497,16 +497,16 @@ public abstract class CharMatcher implements Predicate<Character> {
    */
   public static CharMatcher anyOf(final CharSequence sequence) {
     switch (sequence.length()) {
-      case 0:
-        return none();
-      case 1:
-        return is(sequence.charAt(0));
-      case 2:
-        return isEither(sequence.charAt(0), sequence.charAt(1));
-      default:
-        // TODO(lowasser): is it potentially worth just going ahead and building a precomputed
-        // matcher?
-        return new AnyOf(sequence);
+    case 0:
+      return none();
+    case 1:
+      return is(sequence.charAt(0));
+    case 2:
+      return isEither(sequence.charAt(0), sequence.charAt(1));
+    default:
+      // TODO(lowasser): is it potentially worth just going ahead and building a precomputed
+      // matcher?
+      return new AnyOf(sequence);
     }
   }
 
@@ -614,10 +614,10 @@ public abstract class CharMatcher implements Predicate<Character> {
       final String description = toString();
       String negatedDescription =
           description.endsWith(suffix)
-              ? description.substring(0, description.length() - suffix.length())
-              : description + suffix;
+          ? description.substring(0, description.length() - suffix.length())
+          : description + suffix;
       return new NegatedFastMatcher(
-          precomputedPositive(negatedCharacters, table, negatedDescription)) {
+      precomputedPositive(negatedCharacters, table, negatedDescription)) {
         @Override
         public String toString() {
           return description;
@@ -633,18 +633,18 @@ public abstract class CharMatcher implements Predicate<Character> {
   private static CharMatcher precomputedPositive(
       int totalCharacters, BitSet table, String description) {
     switch (totalCharacters) {
-      case 0:
-        return none();
-      case 1:
-        return is((char) table.nextSetBit(0));
-      case 2:
-        char c1 = (char) table.nextSetBit(0);
-        char c2 = (char) table.nextSetBit(c1 + 1);
-        return isEither(c1, c2);
-      default:
-        return isSmall(totalCharacters, table.length())
-            ? SmallCharMatcher.from(table, description)
-            : new BitSetMatcher(table, description);
+    case 0:
+      return none();
+    case 1:
+      return is((char) table.nextSetBit(0));
+    case 2:
+      char c1 = (char) table.nextSetBit(0);
+      char c2 = (char) table.nextSetBit(c1 + 1);
+      return isEither(c1, c2);
+    default:
+      return isSmall(totalCharacters, table.length())
+          ? SmallCharMatcher.from(table, description)
+          : new BitSetMatcher(table, description);
     }
   }
 
@@ -1384,9 +1384,9 @@ public abstract class CharMatcher implements Predicate<Character> {
 
     static final String TABLE =
         "\u2002\u3000\r\u0085\u200A\u2005\u2000\u3000"
-            + "\u2029\u000B\u3000\u2008\u2003\u205F\u3000\u1680"
-            + "\u0009\u0020\u2006\u2001\u202F\u00A0\u000C\u2009"
-            + "\u3000\u2004\u3000\u3000\u2028\n\u2007\u3000";
+        + "\u2029\u000B\u3000\u2008\u2003\u205F\u3000\u1680"
+        + "\u0009\u0020\u2006\u2001\u202F\u00A0\u000C\u2009"
+        + "\u3000\u2004\u3000\u3000\u2028\n\u2007\u3000";
     static final int MULTIPLIER = 1682554634;
     static final int SHIFT = Integer.numberOfLeadingZeros(TABLE.length() - 1);
 
@@ -1418,23 +1418,23 @@ public abstract class CharMatcher implements Predicate<Character> {
     @Override
     public boolean matches(char c) {
       switch (c) {
-        case '\t':
-        case '\n':
-        case '\013':
-        case '\f':
-        case '\r':
-        case ' ':
-        case '\u0085':
-        case '\u1680':
-        case '\u2028':
-        case '\u2029':
-        case '\u205f':
-        case '\u3000':
-          return true;
-        case '\u2007':
-          return false;
-        default:
-          return c >= '\u2000' && c <= '\u200a';
+      case '\t':
+      case '\n':
+      case '\013':
+      case '\f':
+      case '\r':
+      case ' ':
+      case '\u0085':
+      case '\u1680':
+      case '\u2028':
+      case '\u2029':
+      case '\u205f':
+      case '\u3000':
+        return true;
+      case '\u2007':
+        return false;
+      default:
+        return c >= '\u2000' && c <= '\u200a';
       }
     }
 
@@ -1502,8 +1502,8 @@ public abstract class CharMatcher implements Predicate<Character> {
     // Must be in ascending order.
     private static final String ZEROES =
         "0\u0660\u06f0\u07c0\u0966\u09e6\u0a66\u0ae6\u0b66"
-            + "\u0be6\u0c66\u0ce6\u0d66\u0e50\u0ed0\u0f20\u1040\u1090\u17e0\u1810"
-            + "\u1946\u19d0\u1b50\u1bb0\u1c40\u1c50\ua620\ua8d0\ua900\uaa50\uff10";
+        + "\u0be6\u0c66\u0ce6\u0d66\u0e50\u0ed0\u0f20\u1040\u1090\u17e0\u1810"
+        + "\u1946\u19d0\u1b50\u1bb0\u1c40\u1c50\ua620\ua8d0\ua900\uaa50\uff10";
 
     private static char[] zeroes() {
       return ZEROES.toCharArray();
@@ -1624,10 +1624,10 @@ public abstract class CharMatcher implements Predicate<Character> {
 
     private static final String RANGE_STARTS =
         "\u0000\u007f\u00ad\u0600\u061c\u06dd\u070f\u1680\u180e\u2000\u2028\u205f\u2066\u2067"
-            + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
+        + "\u2068\u2069\u206a\u3000\ud800\ufeff\ufff9\ufffa";
     private static final String RANGE_ENDS =
         "\u0020\u00a0\u00ad\u0604\u061c\u06dd\u070f\u1680\u180e\u200f\u202f\u2064\u2066\u2067"
-            + "\u2068\u2069\u206f\u3000\uf8ff\ufeff\ufff9\ufffb";
+        + "\u2068\u2069\u206f\u3000\uf8ff\ufeff\ufff9\ufffb";
 
     static final Invisible INSTANCE = new Invisible();
 

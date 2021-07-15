@@ -30,7 +30,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible(emulated = true)
 abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
-    implements SortedMultiset<E> {
+  implements SortedMultiset<E> {
   abstract SortedMultiset<E> forwardMultiset();
 
   private transient Comparator<? super E> comparator;
@@ -39,7 +39,7 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
     Comparator<? super E> result = comparator;
     if (result == null) {
       return comparator =
-          Ordering.from(forwardMultiset().comparator()).<E>reverse();
+              Ordering.from(forwardMultiset().comparator()).<E>reverse();
     }
     return result;
   }
@@ -71,7 +71,7 @@ abstract class DescendingMultiset<E> extends ForwardingMultiset<E>
   @Override public SortedMultiset<E> subMultiset(E fromElement,
       BoundType fromBoundType, E toElement, BoundType toBoundType) {
     return forwardMultiset().subMultiset(toElement, toBoundType, fromElement,
-        fromBoundType).descendingMultiset();
+            fromBoundType).descendingMultiset();
   }
 
   @Override public SortedMultiset<E> tailMultiset(E fromElement,

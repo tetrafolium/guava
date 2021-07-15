@@ -53,7 +53,7 @@ public class SplitterBenchmark {
     int total = 0;
 
     for (int i = 0; i < reps; i++) {
-     total += Iterables.size(STRING_SPLITTER.split(input));
+      total += Iterables.size(STRING_SPLITTER.split(input));
     }
   }
 }

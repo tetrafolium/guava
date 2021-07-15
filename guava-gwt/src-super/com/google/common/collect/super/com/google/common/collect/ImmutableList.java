@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableList<E> extends ImmutableCollection<E>
-    implements List<E>, RandomAccess {
+  implements List<E>, RandomAccess {
   static final ImmutableList<Object> EMPTY =
       new RegularImmutableList<Object>(Collections.emptyList());
 
@@ -62,57 +62,57 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
 
   public static <E> ImmutableList<E> of(E e1, E e2) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2));
+            ImmutableList.<E>nullCheckedList(e1, e2));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6));
   }
 
   public static <E> ImmutableList<E> of(
       E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
     return new RegularImmutableList<E>(
-         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7));
   }
 
   public static <E> ImmutableList<E> of(
       E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
     return new RegularImmutableList<E>(
-         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8));
   }
 
   public static <E> ImmutableList<E> of(
       E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
     return new RegularImmutableList<E>(
-         ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8, e9));
+            ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8, e9));
   }
 
   public static <E> ImmutableList<E> of(
       E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
-        e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
+                e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
   }
 
   public static <E> ImmutableList<E> of(
       E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10, E e11) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
-        e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
+                e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
   }
 
   public static <E> ImmutableList<E> of(
@@ -162,12 +162,12 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
       Collection<? extends E> collection) {
     Object[] elements = collection.toArray();
     switch (elements.length) {
-      case 0:
-        return of();
-      case 1:
-        return of((E) elements[0]);
-      default:
-        return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(elements));
+    case 0:
+      return of();
+    case 1:
+      return of((E) elements[0]);
+    default:
+      return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(elements));
     }
   }
 
@@ -175,14 +175,14 @@ public abstract class ImmutableList<E> extends ImmutableCollection<E>
   // are guaranteed to be non-null.
   static <E> ImmutableList<E> unsafeDelegateList(List<? extends E> list) {
     switch (list.size()) {
-      case 0:
-        return of();
-      case 1:
-        return of(list.get(0));
-      default:
-        @SuppressWarnings("unchecked")
-        List<E> castedList = (List<E>) list;
-        return new RegularImmutableList<E>(castedList);
+    case 0:
+      return of();
+    case 1:
+      return of(list.get(0));
+    default:
+      @SuppressWarnings("unchecked")
+      List<E> castedList = (List<E>) list;
+      return new RegularImmutableList<E>(castedList);
     }
   }
 

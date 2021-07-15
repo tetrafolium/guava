@@ -76,8 +76,8 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
               entry instanceof Multisets.ImmutableEntry && !(entry instanceof NonTerminalEntry);
           newEntry =
               canReuseEntry
-                  ? (Multisets.ImmutableEntry<E>) entry
-                  : new Multisets.ImmutableEntry<E>(element, count);
+              ? (Multisets.ImmutableEntry<E>) entry
+              : new Multisets.ImmutableEntry<E>(element, count);
         } else {
           newEntry = new NonTerminalEntry<E>(element, count, bucketHead);
         }

@@ -28,8 +28,8 @@ import com.google.common.collect.testing.features.MapFeature;
 import java.util.Map;
 
 /**
- * Tester for {@link Map#remove(Object, Object)}.  Can't be invoked directly; please see 
- * {@link com.google.common.collect.testing.MapTestSuiteBuilder}. 
+ * Tester for {@link Map#remove(Object, Object)}.  Can't be invoked directly; please see
+ * {@link com.google.common.collect.testing.MapTestSuiteBuilder}.
  *
  * @author Louis Wasserman
  */
@@ -59,7 +59,7 @@ public class MapRemoveEntryTester<K, V> extends AbstractMapTester<K, V> {
     assertFalse(getMap().remove(k3(), v3()));
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_KEY_QUERIES)
   public void testRemove_nullKeyQueriesUnsupported() {
     try {
@@ -67,9 +67,9 @@ public class MapRemoveEntryTester<K, V> extends AbstractMapTester<K, V> {
     } catch (NullPointerException tolerated) {
       // since the operation would be a no-op, the exception is not required
     }
-    expectUnchanged();    
+    expectUnchanged();
   }
-  
+
   @MapFeature.Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_VALUE_QUERIES)
   public void testRemove_nullValueQueriesUnsupported() {
     try {
@@ -77,9 +77,9 @@ public class MapRemoveEntryTester<K, V> extends AbstractMapTester<K, V> {
     } catch (NullPointerException tolerated) {
       // since the operation would be a no-op, the exception is not required
     }
-    expectUnchanged();    
+    expectUnchanged();
   }
-  
+
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
   @CollectionSize.Require(absent = ZERO)
   public void testRemove_unsupportedPresent() {
@@ -89,7 +89,7 @@ public class MapRemoveEntryTester<K, V> extends AbstractMapTester<K, V> {
     } catch (UnsupportedOperationException expected) {}
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
   public void testRemove_unsupportedAbsent() {
     try {

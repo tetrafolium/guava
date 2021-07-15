@@ -322,26 +322,26 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     @Override
     Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain) {
       switch (boundType) {
-        case CLOSED:
-          return this;
-        case OPEN:
-          @Nullable C previous = domain.previous(endpoint);
-          return (previous == null) ? Cut.<C>belowAll() : new AboveValue<C>(previous);
-        default:
-          throw new AssertionError();
+      case CLOSED:
+        return this;
+      case OPEN:
+        @Nullable C previous = domain.previous(endpoint);
+        return (previous == null) ? Cut.<C>belowAll() : new AboveValue<C>(previous);
+      default:
+        throw new AssertionError();
       }
     }
 
     @Override
     Cut<C> withUpperBoundType(BoundType boundType, DiscreteDomain<C> domain) {
       switch (boundType) {
-        case CLOSED:
-          @Nullable C previous = domain.previous(endpoint);
-          return (previous == null) ? Cut.<C>aboveAll() : new AboveValue<C>(previous);
-        case OPEN:
-          return this;
-        default:
-          throw new AssertionError();
+      case CLOSED:
+        @Nullable C previous = domain.previous(endpoint);
+        return (previous == null) ? Cut.<C>aboveAll() : new AboveValue<C>(previous);
+      case OPEN:
+        return this;
+      default:
+        throw new AssertionError();
       }
     }
 
@@ -405,26 +405,26 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     @Override
     Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain) {
       switch (boundType) {
-        case OPEN:
-          return this;
-        case CLOSED:
-          @Nullable C next = domain.next(endpoint);
-          return (next == null) ? Cut.<C>belowAll() : belowValue(next);
-        default:
-          throw new AssertionError();
+      case OPEN:
+        return this;
+      case CLOSED:
+        @Nullable C next = domain.next(endpoint);
+        return (next == null) ? Cut.<C>belowAll() : belowValue(next);
+      default:
+        throw new AssertionError();
       }
     }
 
     @Override
     Cut<C> withUpperBoundType(BoundType boundType, DiscreteDomain<C> domain) {
       switch (boundType) {
-        case OPEN:
-          @Nullable C next = domain.next(endpoint);
-          return (next == null) ? Cut.<C>aboveAll() : belowValue(next);
-        case CLOSED:
-          return this;
-        default:
-          throw new AssertionError();
+      case OPEN:
+        @Nullable C next = domain.next(endpoint);
+        return (next == null) ? Cut.<C>aboveAll() : belowValue(next);
+      case CLOSED:
+        return this;
+      default:
+        throw new AssertionError();
       }
     }
 

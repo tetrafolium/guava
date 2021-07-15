@@ -33,7 +33,7 @@ import java.util.Set;
  * @author Hayward Chan
  */
 public class ConcurrentHashMap<K, V>
-    extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
+  extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
 
   private final Map<K, V> backingMap;
 

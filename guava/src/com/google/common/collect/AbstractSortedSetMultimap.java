@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
-    implements SortedSetMultimap<K, V> {
+  implements SortedSetMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *

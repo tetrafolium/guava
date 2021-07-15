@@ -84,12 +84,12 @@ public final class ImmutableValueGraph<N, V> extends ConfigurableValueGraph<N, V
   private static <N, V> GraphConnections<N, V> connectionsOf(
       final ValueGraph<N, V> graph, final N node) {
     Function<N, V> successorNodeToValueFn =
-        new Function<N, V>() {
-          @Override
-          public V apply(N successorNode) {
-            return graph.edgeValueOrDefault(node, successorNode, null);
-          }
-        };
+    new Function<N, V>() {
+      @Override
+      public V apply(N successorNode) {
+        return graph.edgeValueOrDefault(node, successorNode, null);
+      }
+    };
     return graph.isDirected()
         ? DirectedGraphConnections.ofImmutable(
             graph.predecessors(node), Maps.asMap(graph.successors(node), successorNodeToValueFn))

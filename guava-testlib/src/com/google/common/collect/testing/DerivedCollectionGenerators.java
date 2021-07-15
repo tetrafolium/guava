@@ -42,7 +42,7 @@ import java.util.SortedSet;
 @GwtCompatible
 public final class DerivedCollectionGenerators {
   public static class MapEntrySetGenerator<K, V>
-      implements TestSetGenerator<Map.Entry<K, V>>, DerivedGenerator {
+    implements TestSetGenerator<Map.Entry<K, V>>, DerivedGenerator {
     private final OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>> mapGenerator;
 
     public MapEntrySetGenerator(
@@ -100,11 +100,11 @@ public final class DerivedCollectionGenerators {
       final SampleElements<Map.Entry<K, V>> mapSamples = this.mapGenerator.samples();
       this.samples =
           new SampleElements<K>(
-              mapSamples.e0().getKey(),
-              mapSamples.e1().getKey(),
-              mapSamples.e2().getKey(),
-              mapSamples.e3().getKey(),
-              mapSamples.e4().getKey());
+          mapSamples.e0().getKey(),
+          mapSamples.e1().getKey(),
+          mapSamples.e2().getKey(),
+          mapSamples.e3().getKey(),
+          mapSamples.e4().getKey());
     }
 
     @Override
@@ -161,7 +161,7 @@ public final class DerivedCollectionGenerators {
   }
 
   public static class MapSortedKeySetGenerator<K, V> extends MapKeySetGenerator<K, V>
-      implements TestSortedSetGenerator<K>, DerivedGenerator {
+    implements TestSortedSetGenerator<K>, DerivedGenerator {
     private final TestSortedMapGenerator<K, V> delegate;
 
     public MapSortedKeySetGenerator(
@@ -197,7 +197,7 @@ public final class DerivedCollectionGenerators {
   }
 
   public static class MapValueCollectionGenerator<K, V>
-      implements TestCollectionGenerator<V>, DerivedGenerator {
+    implements TestCollectionGenerator<V>, DerivedGenerator {
     private final OneSizeTestContainerGenerator<Map<K, V>, Map.Entry<K, V>> mapGenerator;
     private final SampleElements<V> samples;
 
@@ -207,11 +207,11 @@ public final class DerivedCollectionGenerators {
       final SampleElements<Map.Entry<K, V>> mapSamples = this.mapGenerator.samples();
       this.samples =
           new SampleElements<V>(
-              mapSamples.e0().getValue(),
-              mapSamples.e1().getValue(),
-              mapSamples.e2().getValue(),
-              mapSamples.e3().getValue(),
-              mapSamples.e4().getValue());
+          mapSamples.e0().getValue(),
+          mapSamples.e1().getValue(),
+          mapSamples.e2().getValue(),
+          mapSamples.e3().getValue(),
+          mapSamples.e4().getValue());
     }
 
     @Override
@@ -251,23 +251,23 @@ public final class DerivedCollectionGenerators {
           castOrCopyToList(mapGenerator.order(castOrCopyToList(mapGenerator.getSampleElements(5))));
       sort(
           insertionOrder,
-          new Comparator<V>() {
-            @Override
-            public int compare(V left, V right) {
-              // The indexes are small enough for the subtraction trick to be safe.
-              return indexOfEntryWithValue(left) - indexOfEntryWithValue(right);
-            }
+      new Comparator<V>() {
+        @Override
+        public int compare(V left, V right) {
+          // The indexes are small enough for the subtraction trick to be safe.
+          return indexOfEntryWithValue(left) - indexOfEntryWithValue(right);
+        }
 
-            int indexOfEntryWithValue(V value) {
-              for (int i = 0; i < orderedEntries.size(); i++) {
-                if (equal(orderedEntries.get(i).getValue(), value)) {
-                  return i;
-                }
-              }
-              throw new IllegalArgumentException(
-                  "Map.values generator can order only sample values");
+        int indexOfEntryWithValue(V value) {
+          for (int i = 0; i < orderedEntries.size(); i++) {
+            if (equal(orderedEntries.get(i).getValue(), value)) {
+              return i;
             }
-          });
+          }
+          throw new IllegalArgumentException(
+              "Map.values generator can order only sample values");
+        }
+      });
       return insertionOrder;
     }
 
@@ -451,7 +451,7 @@ public final class DerivedCollectionGenerators {
    * exposes as many getters, does work in the constructor, and has both a superclass and a subclass
    */
   public static class SortedMapSubmapTestMapGenerator<K, V> extends ForwardingTestMapGenerator<K, V>
-      implements TestSortedMapGenerator<K, V> {
+    implements TestSortedMapGenerator<K, V> {
     final Bound to;
     final Bound from;
     final K firstInclusive;
@@ -501,7 +501,7 @@ public final class DerivedCollectionGenerators {
       allEntries.addAll(normalValues);
       SortedMap<K, V> map =
           (SortedMap<K, V>)
-              delegate.create((Object[]) allEntries.toArray(new Entry<?, ?>[allEntries.size()]));
+          delegate.create((Object[]) allEntries.toArray(new Entry<?, ?>[allEntries.size()]));
 
       return createSubMap(map, firstExclusive, lastExclusive);
     }

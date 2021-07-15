@@ -127,7 +127,7 @@ public class Joiner {
   @CanIgnoreReturnValue
   public final <A extends Appendable> A appendTo(
       A appendable, @Nullable Object first, @Nullable Object second, Object... rest)
-      throws IOException {
+  throws IOException {
     return appendTo(appendable, iterable(first, second, rest));
   }
 
@@ -357,7 +357,7 @@ public class Joiner {
     @Beta
     @CanIgnoreReturnValue
     public <A extends Appendable> A appendTo(A appendable, Iterable<? extends Entry<?, ?>> entries)
-        throws IOException {
+    throws IOException {
       return appendTo(appendable, entries.iterator());
     }
 
@@ -370,7 +370,7 @@ public class Joiner {
     @Beta
     @CanIgnoreReturnValue
     public <A extends Appendable> A appendTo(A appendable, Iterator<? extends Entry<?, ?>> parts)
-        throws IOException {
+    throws IOException {
       checkNotNull(appendable);
       if (parts.hasNext()) {
         Entry<?, ?> entry = parts.next();
@@ -467,12 +467,12 @@ public class Joiner {
       @Override
       public Object get(int index) {
         switch (index) {
-          case 0:
-            return first;
-          case 1:
-            return second;
-          default:
-            return rest[index - 2];
+        case 0:
+          return first;
+        case 1:
+          return second;
+        default:
+          return rest[index - 2];
         }
       }
     };

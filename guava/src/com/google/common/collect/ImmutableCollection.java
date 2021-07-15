@@ -177,7 +177,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
   public Spliterator<E> spliterator() {
     return Spliterators.spliterator(this, SPLITERATOR_CHARACTERISTICS);
   }
-  
+
   private static final Object[] EMPTY_ARRAY = {};
 
   @Override
@@ -309,12 +309,12 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
    */
   public ImmutableList<E> asList() {
     switch (size()) {
-      case 0:
-        return ImmutableList.of();
-      case 1:
-        return ImmutableList.of(iterator().next());
-      default:
-        return new RegularImmutableAsList<E>(this, toArray());
+    case 0:
+      return ImmutableList.of();
+    case 1:
+      return ImmutableList.of(iterator().next());
+    default:
+      return new RegularImmutableAsList<E>(this, toArray());
     }
   }
 
@@ -498,7 +498,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E> imple
       size += elements.length;
       return this;
     }
-    
+
     @CanIgnoreReturnValue
     @Override
     public Builder<E> addAll(Iterable<? extends E> elements) {

@@ -35,7 +35,7 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
       SerializationStreamReader reader, RegularImmutableSortedSet<?> instance) {}
 
   public static RegularImmutableSortedSet<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     /*
      * Nothing we can do, but we're already assuming the serialized form is
      * correctly typed, anyway.
@@ -56,7 +56,7 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
 
   public static void serialize(
       SerializationStreamWriter writer, RegularImmutableSortedSet<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.comparator());
 
     Collection_CustomFieldSerializerBase.serialize(writer, instance);

@@ -30,7 +30,7 @@ public class Range_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader, Range<?> instance) {}
 
   public static Range<?> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
 
     Cut lowerBound;
     boolean hasLowerBound = reader.readBoolean();
@@ -58,7 +58,7 @@ public class Range_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, Range<?> instance)
-      throws SerializationException {
+  throws SerializationException {
 
     if (instance.hasLowerBound()) {
       writer.writeBoolean(true);

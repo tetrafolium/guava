@@ -40,66 +40,66 @@ public abstract class AbstractExecutionThreadService implements Service {
 
   /* use AbstractService for state management */
   private final Service delegate =
-      new AbstractService() {
+  new AbstractService() {
+    @Override
+    protected final void doStart() {
+      Executor executor =
+          MoreExecutors.renamingDecorator(
+              executor(),
+      new Supplier<String>() {
         @Override
-        protected final void doStart() {
-          Executor executor =
-              MoreExecutors.renamingDecorator(
-                  executor(),
-                  new Supplier<String>() {
-                    @Override
-                    public String get() {
-                      return serviceName();
-                    }
-                  });
-          executor.execute(
-              new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    startUp();
-                    notifyStarted();
-                    // If stopAsync() is called while starting we may be in the STOPPING state in
-                    // which case we should skip right down to shutdown.
-                    if (isRunning()) {
-                      try {
-                        AbstractExecutionThreadService.this.run();
-                      } catch (Throwable t) {
-                        try {
-                          shutDown();
-                        } catch (Exception ignored) {
-                          // TODO(lukes): if guava ever moves to java7, this would be a good
-                          // candidate for a suppressed exception, or maybe we could generalize
-                          // Closer.Suppressor
-                          logger.log(
-                              Level.WARNING,
-                              "Error while attempting to shut down the service after failure.",
-                              ignored);
-                        }
-                        notifyFailed(t);
-                        return;
-                      }
-                    }
-
-                    shutDown();
-                    notifyStopped();
-                  } catch (Throwable t) {
-                    notifyFailed(t);
-                  }
+        public String get() {
+          return serviceName();
+        }
+      });
+      executor.execute(
+      new Runnable() {
+        @Override
+        public void run() {
+          try {
+            startUp();
+            notifyStarted();
+            // If stopAsync() is called while starting we may be in the STOPPING state in
+            // which case we should skip right down to shutdown.
+            if (isRunning()) {
+              try {
+                AbstractExecutionThreadService.this.run();
+              } catch (Throwable t) {
+                try {
+                  shutDown();
+                } catch (Exception ignored) {
+                  // TODO(lukes): if guava ever moves to java7, this would be a good
+                  // candidate for a suppressed exception, or maybe we could generalize
+                  // Closer.Suppressor
+                  logger.log(
+                      Level.WARNING,
+                      "Error while attempting to shut down the service after failure.",
+                      ignored);
                 }
-              });
-        }
+                notifyFailed(t);
+                return;
+              }
+            }
 
-        @Override
-        protected void doStop() {
-          triggerShutdown();
+            shutDown();
+            notifyStopped();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
         }
+      });
+    }
 
-        @Override
-        public String toString() {
-          return AbstractExecutionThreadService.this.toString();
-        }
-      };
+    @Override
+    protected void doStop() {
+      triggerShutdown();
+    }
+
+    @Override
+    public String toString() {
+      return AbstractExecutionThreadService.this.toString();
+    }
+  };
 
   /**
    * Constructor for use by subclasses.

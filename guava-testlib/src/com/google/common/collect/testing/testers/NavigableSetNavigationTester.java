@@ -56,7 +56,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
     values =
         Helpers.copyToList(
             getSubjectGenerator()
-                .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(values, navigableSet.comparator());
 
     // some tests assume SEVERAL == 3
@@ -250,10 +250,10 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
    */
   public static Method[] getHoleMethods() {
     return new Method[] {
-      Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
-      Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
-      Helpers.getMethod(NavigableSetNavigationTester.class, "testCeilingHole"),
-      Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
-    };
+            Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
+            Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
+            Helpers.getMethod(NavigableSetNavigationTester.class, "testCeilingHole"),
+            Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
+        };
   }
 }

@@ -48,15 +48,15 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
 
   static <N, E> DirectedMultiNetworkConnections<N, E> of() {
     return new DirectedMultiNetworkConnections<>(
-        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-        0);
+            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+            0);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
       Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
     return new DirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
+            ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
   }
 
   @LazyInit

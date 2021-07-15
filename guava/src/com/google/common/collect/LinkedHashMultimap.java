@@ -85,7 +85,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class LinkedHashMultimap<K, V>
-    extends LinkedHashMultimapGwtSerializationDependencies<K, V> {
+  extends LinkedHashMultimapGwtSerializationDependencies<K, V> {
 
   /**
    * Creates a new, empty {@code LinkedHashMultimap} with the default initial
@@ -106,7 +106,7 @@ public final class LinkedHashMultimap<K, V>
    */
   public static <K, V> LinkedHashMultimap<K, V> create(int expectedKeys, int expectedValuesPerKey) {
     return new LinkedHashMultimap<>(
-        Maps.capacity(expectedKeys), Maps.capacity(expectedValuesPerKey));
+            Maps.capacity(expectedKeys), Maps.capacity(expectedValuesPerKey));
   }
 
   /**

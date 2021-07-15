@@ -32,7 +32,7 @@ import java.util.Map;
  * A generic JUnit test which tests {@link Map#replace(Object, Object)}. Can't be
  * invoked directly; please see
  * {@link com.google.common.collect.testing.ConcurrentMapTestSuiteBuilder}.
- * 
+ *
  * @author Louis Wasserman
  */
 @GwtCompatible
@@ -61,7 +61,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     assertNull(getMap().replace(k3(), v3()));
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
   @CollectionSize.Require(absent = ZERO)
   public void testReplace_presentNullValueUnsupported() {
@@ -71,7 +71,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     } catch (NullPointerException expected) {}
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUE_QUERIES)
   public void testReplace_absentNullValueUnsupported() {
     try {
@@ -81,7 +81,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_KEY_QUERIES)
   public void testReplace_absentNullKeyUnsupported() {
     try {
@@ -91,7 +91,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
   }
-  
+
   @MapFeature.Require(absent = SUPPORTS_PUT)
   @CollectionSize.Require(absent = ZERO)
   public void testReplace_unsupportedPresent() {
@@ -102,7 +102,7 @@ public class MapReplaceTester<K, V> extends AbstractMapTester<K, V> {
     } catch (ClassCastException tolerated) {
       // for ClassToInstanceMap
     }
-    
+
     expectUnchanged();
   }
 }

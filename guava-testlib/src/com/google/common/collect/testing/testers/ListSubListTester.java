@@ -132,7 +132,7 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     getList().set(0, e3());
     assertEquals(
         "A set() call to a list after a sublist has been created "
-            + "should be reflected in the sublist",
+        + "should be reflected in the sublist",
         Collections.singletonList(e3()),
         subList);
   }
@@ -172,7 +172,7 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     getList().set(1, e3());
     assertEquals(
         "A set() call to a list after a sublist has been created "
-            + "should be reflected in the sublist",
+        + "should be reflected in the sublist",
         Arrays.asList(e3(), e2()),
         subList);
   }
@@ -187,7 +187,7 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     List<E> subList = getList().subList(0, 2).subList(1, 2);
     assertEquals(
         "subList(0, 2).subList(1, 2) "
-            + "should be a single-element list of the element at index 1",
+        + "should be a single-element list of the element at index 1",
         Collections.singletonList(getOrderedElements().get(1)),
         subList);
   }

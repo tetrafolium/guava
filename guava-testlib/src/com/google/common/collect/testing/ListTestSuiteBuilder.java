@@ -59,7 +59,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public final class ListTestSuiteBuilder<E>
-    extends AbstractCollectionTestSuiteBuilder<ListTestSuiteBuilder<E>, E> {
+  extends AbstractCollectionTestSuiteBuilder<ListTestSuiteBuilder<E>, E> {
   public static <E> ListTestSuiteBuilder<E> using(TestListGenerator<E> generator) {
     return new ListTestSuiteBuilder<E>().usingGenerator(generator);
   }
@@ -104,17 +104,17 @@ public final class ListTestSuiteBuilder<E>
   @Override
   protected List<TestSuite> createDerivedSuites(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     if (parentBuilder.getFeatures().contains(SERIALIZABLE)) {
       derivedSuites.add(
           ListTestSuiteBuilder.using(
-                  new ReserializedListGenerator<E>(parentBuilder.getSubjectGenerator()))
-              .named(getName() + " reserialized")
-              .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
-              .suppressing(parentBuilder.getSuppressedTests())
-              .createTestSuite());
+              new ReserializedListGenerator<E>(parentBuilder.getSubjectGenerator()))
+          .named(getName() + " reserialized")
+          .withFeatures(computeReserializedCollectionFeatures(parentBuilder.getFeatures()))
+          .suppressing(parentBuilder.getSuppressedTests())
+          .createTestSuite());
     }
     return derivedSuites;
   }

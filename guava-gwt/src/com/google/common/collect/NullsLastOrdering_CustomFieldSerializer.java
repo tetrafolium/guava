@@ -31,12 +31,12 @@ public class NullsLastOrdering_CustomFieldSerializer {
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static NullsLastOrdering<Object> instantiate(SerializationStreamReader reader)
-      throws SerializationException {
+  throws SerializationException {
     return new NullsLastOrdering<>((Ordering<Object>) reader.readObject());
   }
 
   public static void serialize(SerializationStreamWriter writer, NullsLastOrdering<?> instance)
-      throws SerializationException {
+  throws SerializationException {
     writer.writeObject(instance.ordering);
   }
 }

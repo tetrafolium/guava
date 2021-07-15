@@ -45,7 +45,7 @@ public class ImmutableEnumMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer, ImmutableEnumMap<?, ?> instance)
-      throws SerializationException {
+  throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }
