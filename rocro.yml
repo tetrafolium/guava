@@ -1,15 +1,15 @@
 inspecode:
 
   global:
-    ignore:      [ "**/test*/" ]
+    ignore:      [ "**/test/" ]
 
   jscpd:
   - ignore:
       - "**/benchmark/"
     thresholds:  { num-issues: 999 }
-  - input:
+  - ignore:
       - "**/com/google/common/collect/"
     thresholds:  { num-issues: 999 }
   - input:
-      - "!**/com/google/common/collect/"
+      - "**/com/google/common/collect/"
     thresholds:  { num-issues: 999 }
