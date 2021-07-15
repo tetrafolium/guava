@@ -146,7 +146,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     long c = load64(bytes, offset + length - 8) * mul;
     long d = load64(bytes, offset + length - 16) * K2;
     return hashLength16(
-        rotateRight(a + b, 43) + rotateRight(c, 30) + d, a + rotateRight(b + K2, 18) + c, mul);
+            rotateRight(a + b, 43) + rotateRight(c, 30) + d, a + rotateRight(b + K2, 18) + c, mul);
   }
 
   private static long hashLength33To64(byte[] bytes, int offset, int length) {
@@ -162,7 +162,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     long g = (y + load64(bytes, offset + length - 32)) * mul;
     long h = (z + load64(bytes, offset + length - 24)) * mul;
     return hashLength16(
-        rotateRight(e + f, 43) + rotateRight(g, 30) + h, e + rotateRight(f + a, 18) + g, mul);
+            rotateRight(e + f, 43) + rotateRight(g, 30) + h, e + rotateRight(f + a, 18) + g, mul);
   }
 
   /*
@@ -209,8 +209,8 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     weakHashLength32WithSeeds(bytes, offset, v[1] * mul, x + w[0], v);
     weakHashLength32WithSeeds(bytes, offset + 32, z + w[1], y + load64(bytes, offset + 16), w);
     return hashLength16(
-        hashLength16(v[0], w[0], mul) + shiftMix(y) * K0 + x,
-        hashLength16(v[1], w[1], mul) + z,
-        mul);
+            hashLength16(v[0], w[0], mul) + shiftMix(y) * K0 + x,
+            hashLength16(v[1], w[1], mul) + z,
+            mul);
   }
 }

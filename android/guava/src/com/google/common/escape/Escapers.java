@@ -45,18 +45,18 @@ public final class Escapers {
   // An Escaper that efficiently performs no escaping.
   // Extending CharEscaper (instead of Escaper) makes Escapers.compose() easier.
   private static final Escaper NULL_ESCAPER =
-      new CharEscaper() {
-        @Override
-        public String escape(String string) {
-          return checkNotNull(string);
-        }
+  new CharEscaper() {
+    @Override
+    public String escape(String string) {
+      return checkNotNull(string);
+    }
 
-        @Override
-        protected char[] escape(char c) {
-          // TODO: Fix tests not to call this directly and make it throw an error.
-          return null;
-        }
-      };
+    @Override
+    protected char[] escape(char c) {
+      // TODO: Fix tests not to call this directly and make it throw an error.
+      return null;
+    }
+  };
 
   /**
    * Returns a builder for creating simple, fast escapers. A builder instance can be reused and each

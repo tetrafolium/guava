@@ -139,7 +139,7 @@ final class SortedMultisets {
     public NavigableSet<E> subSet(
         E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
       return new NavigableElementSet<E>(
-          multiset()
+              multiset()
               .subMultiset(
                   fromElement, BoundType.forBoolean(fromInclusive),
                   toElement, BoundType.forBoolean(toInclusive)));
@@ -148,13 +148,13 @@ final class SortedMultisets {
     @Override
     public NavigableSet<E> headSet(E toElement, boolean inclusive) {
       return new NavigableElementSet<E>(
-          multiset().headMultiset(toElement, BoundType.forBoolean(inclusive)));
+              multiset().headMultiset(toElement, BoundType.forBoolean(inclusive)));
     }
 
     @Override
     public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
       return new NavigableElementSet<E>(
-          multiset().tailMultiset(fromElement, BoundType.forBoolean(inclusive)));
+              multiset().tailMultiset(fromElement, BoundType.forBoolean(inclusive)));
     }
   }
 

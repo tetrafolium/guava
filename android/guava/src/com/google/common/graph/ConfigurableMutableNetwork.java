@@ -40,7 +40,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @param <E> Edge parameter type
  */
 final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
-    implements MutableNetwork<N, E> {
+  implements MutableNetwork<N, E> {
 
   /** Constructs a mutable graph with the properties specified in {@code builder}. */
   ConfigurableMutableNetwork(NetworkBuilder<? super N, ? super E> builder) {
@@ -157,10 +157,10 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
   private NetworkConnections<N, E> newConnections() {
     return isDirected()
         ? allowsParallelEdges()
-            ? DirectedMultiNetworkConnections.<N, E>of()
-            : DirectedNetworkConnections.<N, E>of()
+        ? DirectedMultiNetworkConnections.<N, E>of()
+        : DirectedNetworkConnections.<N, E>of()
         : allowsParallelEdges()
-            ? UndirectedMultiNetworkConnections.<N, E>of()
-            : UndirectedNetworkConnections.<N, E>of();
+        ? UndirectedMultiNetworkConnections.<N, E>of()
+        : UndirectedNetworkConnections.<N, E>of();
   }
 }

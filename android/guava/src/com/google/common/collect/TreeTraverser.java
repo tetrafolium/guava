@@ -220,7 +220,7 @@ public abstract class TreeTraverser<T> {
   }
 
   private final class BreadthFirstIterator extends UnmodifiableIterator<T>
-      implements PeekingIterator<T> {
+    implements PeekingIterator<T> {
     private final Queue<T> queue;
 
     BreadthFirstIterator(T root) {

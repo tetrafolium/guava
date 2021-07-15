@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
-    implements SetMultimap<K, V> {
+  implements SetMultimap<K, V> {
 
   /** Returns the empty multimap. */
   // Casting is safe because the multimap will never hold any elements.
@@ -264,8 +264,8 @@ public class ImmutableSetMultimap<K, V> extends ImmutableMultimap<K, V>
             MultimapBuilder.linkedHashKeys().linkedHashSetValues().<K, V>build();
         List<Map.Entry<K, Collection<V>>> entries =
             Ordering.from(keyComparator)
-                .<K>onKeys()
-                .immutableSortedCopy(builderMultimap.asMap().entrySet());
+            .<K>onKeys()
+            .immutableSortedCopy(builderMultimap.asMap().entrySet());
         for (Map.Entry<K, Collection<V>> entry : entries) {
           sortedCopy.putAll(entry.getKey(), entry.getValue());
         }

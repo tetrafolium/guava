@@ -54,7 +54,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class MultisetTestSuiteBuilder<E>
-    extends AbstractCollectionTestSuiteBuilder<MultisetTestSuiteBuilder<E>, E> {
+  extends AbstractCollectionTestSuiteBuilder<MultisetTestSuiteBuilder<E>, E> {
   public static <E> MultisetTestSuiteBuilder<E> using(TestMultisetGenerator<E> generator) {
     return new MultisetTestSuiteBuilder<E>().usingGenerator(generator);
   }
@@ -122,7 +122,7 @@ public class MultisetTestSuiteBuilder<E>
   @Override
   protected List<TestSuite> createDerivedSuites(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     List<TestSuite> derivedSuites = new ArrayList<>(super.createDerivedSuites(parentBuilder));
 
     derivedSuites.add(createElementSetTestSuite(parentBuilder));
@@ -130,27 +130,27 @@ public class MultisetTestSuiteBuilder<E>
     if (!parentBuilder.getFeatures().contains(NoRecurse.NO_ENTRY_SET)) {
       derivedSuites.add(
           SetTestSuiteBuilder.using(new EntrySetGenerator<E>(parentBuilder.getSubjectGenerator()))
-              .named(getName() + ".entrySet")
-              .withFeatures(computeEntrySetFeatures(parentBuilder.getFeatures()))
-              .suppressing(parentBuilder.getSuppressedTests())
-              .createTestSuite());
+          .named(getName() + ".entrySet")
+          .withFeatures(computeEntrySetFeatures(parentBuilder.getFeatures()))
+          .suppressing(parentBuilder.getSuppressedTests())
+          .createTestSuite());
     }
 
     if (parentBuilder.getFeatures().contains(CollectionFeature.SERIALIZABLE)) {
       derivedSuites.add(
           MultisetTestSuiteBuilder.using(
-                  new ReserializedMultisetGenerator<E>(parentBuilder.getSubjectGenerator()))
-              .named(getName() + " reserialized")
-              .withFeatures(computeReserializedMultisetFeatures(parentBuilder.getFeatures()))
-              .suppressing(parentBuilder.getSuppressedTests())
-              .createTestSuite());
+              new ReserializedMultisetGenerator<E>(parentBuilder.getSubjectGenerator()))
+          .named(getName() + " reserialized")
+          .withFeatures(computeReserializedMultisetFeatures(parentBuilder.getFeatures()))
+          .suppressing(parentBuilder.getSuppressedTests())
+          .createTestSuite());
     }
     return derivedSuites;
   }
 
   TestSuite createElementSetTestSuite(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     return SetTestSuiteBuilder.using(
             new ElementSetGenerator<E>(parentBuilder.getSubjectGenerator()))
         .named(getName() + ".elementSet")
@@ -203,11 +203,11 @@ public class MultisetTestSuiteBuilder<E>
     public SampleElements<Multiset.Entry<E>> samples() {
       SampleElements<E> samples = gen.samples();
       return new SampleElements<>(
-          Multisets.immutableEntry(samples.e0(), 3),
-          Multisets.immutableEntry(samples.e1(), 4),
-          Multisets.immutableEntry(samples.e2(), 1),
-          Multisets.immutableEntry(samples.e3(), 5),
-          Multisets.immutableEntry(samples.e4(), 2));
+              Multisets.immutableEntry(samples.e0(), 3),
+              Multisets.immutableEntry(samples.e1(), 4),
+              Multisets.immutableEntry(samples.e2(), 1),
+              Multisets.immutableEntry(samples.e3(), 5),
+              Multisets.immutableEntry(samples.e4(), 2));
     }
 
     @Override

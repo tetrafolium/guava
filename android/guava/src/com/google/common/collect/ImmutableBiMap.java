@@ -74,7 +74,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3}, 3);
+            new Object[] {k1, v1, k2, v2, k3, v3}, 3);
   }
 
   /**
@@ -88,7 +88,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     checkEntryNotNull(k3, v3);
     checkEntryNotNull(k4, v4);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
+            new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
   }
 
   /**
@@ -104,7 +104,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     checkEntryNotNull(k4, v4);
     checkEntryNotNull(k5, v5);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
+            new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -175,7 +175,7 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
     Builder(int size) {
       super(size);
     }
-    
+
     /**
      * Associates {@code key} with {@code value} in the built bimap. Duplicate
      * keys or values are not allowed, and will cause {@link #build} to fail.
@@ -310,8 +310,8 @@ public abstract class ImmutableBiMap<K, V> extends ImmutableMap<K, V> implements
       Iterable<? extends Entry<? extends K, ? extends V>> entries) {
     int estimatedSize =
         (entries instanceof Collection)
-            ? ((Collection<?>) entries).size()
-            : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
+        ? ((Collection<?>) entries).size()
+        : ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY;
     return new Builder<K, V>(estimatedSize).putAll(entries).build();
   }
 

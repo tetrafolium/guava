@@ -92,7 +92,7 @@ public abstract class AbstractCheckedFutureTest extends AbstractListenableFuture
   }
 
   public void testCheckedGetThrowsApplicationExceptionOnInterruption()
-      throws InterruptedException {
+  throws InterruptedException {
 
     final CheckedFuture<Boolean, ?> future =
         createCheckedFuture(Boolean.TRUE, null, latch);

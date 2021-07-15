@@ -552,7 +552,7 @@ public final class ArrayTable<R, C, V> extends AbstractTable<R, C, V> implements
       }
     };
   }
-  
+
   private Cell<R, C, V> getCell(final int index) {
     return new Tables.AbstractCell<R, C, V>() {
       final int rowIndex = index / columnList.size();

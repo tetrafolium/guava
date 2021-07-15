@@ -42,18 +42,18 @@ public class MapsMemoryBenchmark {
           toStringFunction());
 
   @Param({
-      "HashMapImpl",
-      "LinkedHashMapImpl",
-      "ConcurrentHashMapImpl",
-      "ImmutableMapImpl",
-      "TreeMapImpl",
-      "ImmutableSortedMapImpl",
-      "MapMakerWeakKeysWeakValues",
-      "MapMakerWeakKeysStrongValues",
-      "MapMakerStrongKeysWeakValues",
-      "MapMakerStrongKeysStrongValues",
-      "HashBiMapImpl",
-      "ImmutableBiMapImpl"
+    "HashMapImpl",
+    "LinkedHashMapImpl",
+    "ConcurrentHashMapImpl",
+    "ImmutableMapImpl",
+    "TreeMapImpl",
+    "ImmutableSortedMapImpl",
+    "MapMakerWeakKeysWeakValues",
+    "MapMakerWeakKeysStrongValues",
+    "MapMakerStrongKeysWeakValues",
+    "MapMakerStrongKeysStrongValues",
+    "HashBiMapImpl",
+    "ImmutableBiMapImpl"
   })
   String implName;
 

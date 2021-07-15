@@ -59,7 +59,7 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
   @Override
   protected List<TestSuite> createDerivedSuites(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
     if (!parentBuilder.getFeatures().contains(CollectionFeature.SUBSET_VIEW)) {
@@ -80,8 +80,8 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
    */
   final TestSuite createSubsetSuite(
       final FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder,
+      ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
+      parentBuilder,
       final Bound from,
       final Bound to) {
     final TestSortedSetGenerator<E> delegate =

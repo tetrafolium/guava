@@ -241,7 +241,7 @@ public final class Bytes {
 
   @GwtCompatible
   private static class ByteArrayAsList extends AbstractList<Byte>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final byte[] array;
     final int start;
     final int end;

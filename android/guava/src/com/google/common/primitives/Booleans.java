@@ -380,7 +380,7 @@ public final class Booleans {
 
   @GwtCompatible
   private static class BooleanArrayAsList extends AbstractList<Boolean>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final boolean[] array;
     final int start;
     final int end;

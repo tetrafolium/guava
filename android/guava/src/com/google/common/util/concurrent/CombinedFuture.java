@@ -137,7 +137,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
   @WeakOuter
   private final class AsyncCallableInterruptibleTask
-      extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
+    extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
     public AsyncCallableInterruptibleTask(AsyncCallable<V> callable, Executor listenerExecutor) {
@@ -150,8 +150,8 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
       thrownByExecute = false;
       ListenableFuture<V> result = callable.call();
       return checkNotNull(
-          result,
-          "AsyncCallable.call returned null instead of a Future. "
+              result,
+              "AsyncCallable.call returned null instead of a Future. "
               + "Did you mean to return immediateFuture(null)?");
     }
 

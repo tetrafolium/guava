@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference;
  */
 @GwtIncompatible
 public abstract class FinalizableWeakReference<T> extends WeakReference<T>
-    implements FinalizableReference {
+  implements FinalizableReference {
   /**
    * Constructs a new finalizable weak reference.
    *

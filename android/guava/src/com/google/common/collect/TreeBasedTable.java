@@ -329,13 +329,13 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
         Iterators.mergeSorted(
             Iterables.transform(
                 backingMap.values(),
-                new Function<Map<C, V>, Iterator<C>>() {
-                  @Override
-                  public Iterator<C> apply(Map<C, V> input) {
-                    return input.keySet().iterator();
-                  }
-                }),
-            comparator);
+    new Function<Map<C, V>, Iterator<C>>() {
+      @Override
+      public Iterator<C> apply(Map<C, V> input) {
+        return input.keySet().iterator();
+      }
+    }),
+    comparator);
 
     return new AbstractIterator<C>() {
       C lastValue;

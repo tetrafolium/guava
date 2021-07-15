@@ -56,7 +56,7 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapCopyOfEntriesGenerator
-      extends TestStringSortedMapGenerator {
+    extends TestStringSortedMapGenerator {
     @Override
     public SortedMap<String, String> create(Entry<String, String>[] entries) {
       return ImmutableSortedMap.copyOf(Arrays.asList(entries));
@@ -64,16 +64,16 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapEntryListGenerator
-      implements TestListGenerator<Entry<String, Integer>> {
+    implements TestListGenerator<Entry<String, Integer>> {
 
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-          mapEntry("foo", 5),
-          mapEntry("bar", 3),
-          mapEntry("baz", 17),
-          mapEntry("quux", 1),
-          mapEntry("toaster", -2));
+              mapEntry("foo", 5),
+              mapEntry("bar", 3),
+              mapEntry("baz", 17),
+              mapEntry("quux", 1),
+              mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -89,7 +89,7 @@ public class SortedMapGenerators {
         public int compare(Entry<String, Integer> left, Entry<String, Integer> right) {
           return left.getKey().compareTo(right.getKey());
         }
-      }.sortedCopy(insertionOrder);
+      } .sortedCopy(insertionOrder);
     }
 
     @Override

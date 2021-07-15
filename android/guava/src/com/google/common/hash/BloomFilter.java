@@ -201,7 +201,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
      */
     double fractionOfBitsSet = (double) bitCount / bitSize;
     return DoubleMath.roundToLong(
-        -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
+            -Math.log1p(-fractionOfBitsSet) * bitSize / numHashFunctions, RoundingMode.HALF_UP);
   }
 
   /**
@@ -518,7 +518,7 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
    *     appear to be a BloomFilter serialized using the {@linkplain #writeTo(OutputStream)} method.
    */
   public static <T> BloomFilter<T> readFrom(InputStream in, Funnel<? super T> funnel)
-      throws IOException {
+  throws IOException {
     checkNotNull(in, "InputStream");
     checkNotNull(funnel, "Funnel");
     int strategyOrdinal = -1;
@@ -542,12 +542,12 @@ public final class BloomFilter<T> implements Predicate<T>, Serializable {
     } catch (RuntimeException e) {
       String message =
           "Unable to deserialize BloomFilter from InputStream."
-              + " strategyOrdinal: "
-              + strategyOrdinal
-              + " numHashFunctions: "
-              + numHashFunctions
-              + " dataLength: "
-              + dataLength;
+          + " strategyOrdinal: "
+          + strategyOrdinal
+          + " numHashFunctions: "
+          + numHashFunctions
+          + " dataLength: "
+          + dataLength;
       throw new IOException(message, e);
     }
   }

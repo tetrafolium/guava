@@ -59,9 +59,9 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
       return new EmptyContiguousSet<C>(domain);
     }
     return intersectionInCurrentDomain(
-        Range.range(
-            fromElement, BoundType.forBoolean(fromInclusive),
-            toElement, BoundType.forBoolean(toInclusive)));
+            Range.range(
+                fromElement, BoundType.forBoolean(fromInclusive),
+                toElement, BoundType.forBoolean(toInclusive)));
   }
 
   @Override
@@ -190,8 +190,8 @@ final class RegularContiguousSet<C extends Comparable> extends ContiguousSet<C> 
   @Override
   public Range<C> range(BoundType lowerBoundType, BoundType upperBoundType) {
     return Range.create(
-        range.lowerBound.withLowerBoundType(lowerBoundType, domain),
-        range.upperBound.withUpperBoundType(upperBoundType, domain));
+            range.lowerBound.withLowerBoundType(lowerBoundType, domain),
+            range.upperBound.withUpperBoundType(upperBoundType, domain));
   }
 
   @Override

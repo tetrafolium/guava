@@ -210,61 +210,61 @@ public abstract class AbstractScheduledService implements Service {
       executorService =
           MoreExecutors.renamingDecorator(
               executor(),
-              new Supplier<String>() {
-                @Override
-                public String get() {
-                  return serviceName() + " " + state();
-                }
-              });
+      new Supplier<String>() {
+        @Override
+        public String get() {
+          return serviceName() + " " + state();
+        }
+      });
       executorService.execute(
-          new Runnable() {
-            @Override
-            public void run() {
-              lock.lock();
-              try {
-                startUp();
-                runningTask = scheduler().schedule(delegate, executorService, task);
-                notifyStarted();
-              } catch (Throwable t) {
-                notifyFailed(t);
-                if (runningTask != null) {
-                  // prevent the task from running if possible
-                  runningTask.cancel(false);
-                }
-              } finally {
-                lock.unlock();
-              }
+      new Runnable() {
+        @Override
+        public void run() {
+          lock.lock();
+          try {
+            startUp();
+            runningTask = scheduler().schedule(delegate, executorService, task);
+            notifyStarted();
+          } catch (Throwable t) {
+            notifyFailed(t);
+            if (runningTask != null) {
+              // prevent the task from running if possible
+              runningTask.cancel(false);
             }
-          });
+          } finally {
+            lock.unlock();
+          }
+        }
+      });
     }
 
     @Override
     protected final void doStop() {
       runningTask.cancel(false);
       executorService.execute(
-          new Runnable() {
-            @Override
-            public void run() {
-              try {
-                lock.lock();
-                try {
-                  if (state() != State.STOPPING) {
-                    // This means that the state has changed since we were scheduled. This implies
-                    // that an execution of runOneIteration has thrown an exception and we have
-                    // transitioned to a failed state, also this means that shutDown has already
-                    // been called, so we do not want to call it again.
-                    return;
-                  }
-                  shutDown();
-                } finally {
-                  lock.unlock();
-                }
-                notifyStopped();
-              } catch (Throwable t) {
-                notifyFailed(t);
+      new Runnable() {
+        @Override
+        public void run() {
+          try {
+            lock.lock();
+            try {
+              if (state() != State.STOPPING) {
+                // This means that the state has changed since we were scheduled. This implies
+                // that an execution of runOneIteration has thrown an exception and we have
+                // transitioned to a failed state, also this means that shutDown has already
+                // been called, so we do not want to call it again.
+                return;
               }
+              shutDown();
+            } finally {
+              lock.unlock();
             }
-          });
+            notifyStopped();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
+        }
+      });
     }
 
     @Override
@@ -334,18 +334,18 @@ public abstract class AbstractScheduledService implements Service {
     // is called within doStart() so we know that the service cannot terminate or fail concurrently
     // with adding this listener so it is impossible to miss an event that we are interested in.
     addListener(
-        new Listener() {
-          @Override
-          public void terminated(State from) {
-            executor.shutdown();
-          }
+    new Listener() {
+      @Override
+      public void terminated(State from) {
+        executor.shutdown();
+      }
 
-          @Override
-          public void failed(State from, Throwable failure) {
-            executor.shutdown();
-          }
-        },
-        directExecutor());
+      @Override
+      public void failed(State from, Throwable failure) {
+        executor.shutdown();
+      }
+    },
+    directExecutor());
     return executor;
   }
 

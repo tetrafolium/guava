@@ -77,10 +77,10 @@ public abstract class ContiguousSet<C extends Comparable> extends ImmutableSorte
     // Per class spec, we are allowed to throw CCE if necessary
     boolean empty =
         effectiveRange.isEmpty()
-            || Range.compareOrThrow(
-                    range.lowerBound.leastValueAbove(domain),
-                    range.upperBound.greatestValueBelow(domain))
-                > 0;
+        || Range.compareOrThrow(
+            range.lowerBound.leastValueAbove(domain),
+            range.upperBound.greatestValueBelow(domain))
+        > 0;
 
     return empty
         ? new EmptyContiguousSet<C>(domain)

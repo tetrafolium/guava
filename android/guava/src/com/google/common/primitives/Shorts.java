@@ -332,7 +332,7 @@ public final class Shorts {
   }
 
   private static final class ShortConverter extends Converter<String, Short>
-      implements Serializable {
+    implements Serializable {
     static final ShortConverter INSTANCE = new ShortConverter();
 
     @Override
@@ -557,7 +557,7 @@ public final class Shorts {
 
   @GwtCompatible
   private static class ShortArrayAsList extends AbstractList<Short>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final short[] array;
     final int start;
     final int end;

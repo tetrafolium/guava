@@ -50,7 +50,7 @@ import java.util.SortedSet;
  */
 @GwtIncompatible
 public abstract class ForwardingNavigableSet<E> extends ForwardingSortedSet<E>
-    implements NavigableSet<E> {
+  implements NavigableSet<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingNavigableSet() {}

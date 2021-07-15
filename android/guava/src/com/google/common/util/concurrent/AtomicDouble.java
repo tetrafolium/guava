@@ -131,8 +131,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    */
   public final boolean compareAndSet(double expect, double update) {
     return updater.compareAndSet(this,
-                                 doubleToRawLongBits(expect),
-                                 doubleToRawLongBits(update));
+            doubleToRawLongBits(expect),
+            doubleToRawLongBits(update));
   }
 
   /**
@@ -152,8 +152,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    */
   public final boolean weakCompareAndSet(double expect, double update) {
     return updater.weakCompareAndSet(this,
-                                     doubleToRawLongBits(expect),
-                                     doubleToRawLongBits(update));
+            doubleToRawLongBits(expect),
+            doubleToRawLongBits(update));
   }
 
   /**
@@ -239,7 +239,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @serialData The current value is emitted (a {@code double}).
    */
   private void writeObject(java.io.ObjectOutputStream s)
-      throws java.io.IOException {
+  throws java.io.IOException {
     s.defaultWriteObject();
 
     s.writeDouble(get());
@@ -249,7 +249,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * Reconstitutes the instance from a stream (that is, deserializes it).
    */
   private void readObject(java.io.ObjectInputStream s)
-      throws java.io.IOException, ClassNotFoundException {
+  throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
 
     set(s.readDouble());

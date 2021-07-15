@@ -28,7 +28,7 @@ import java.util.Collection;
  */
 @GwtCompatible
 public abstract class AbstractCollectionTester<E>
-    extends AbstractContainerTester<Collection<E>, E> {
+  extends AbstractContainerTester<Collection<E>, E> {
 
   // TODO: replace this with an accessor.
   protected Collection<E> collection;

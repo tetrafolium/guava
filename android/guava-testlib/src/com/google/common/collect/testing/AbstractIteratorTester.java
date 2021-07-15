@@ -57,34 +57,34 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
    */
   private abstract static class PermittedMetaException extends RuntimeException {
     static final PermittedMetaException UOE_OR_ISE =
-        new PermittedMetaException("UnsupportedOperationException or IllegalStateException") {
-          @Override
-          boolean isPermitted(RuntimeException exception) {
-            return exception instanceof UnsupportedOperationException
-                || exception instanceof IllegalStateException;
-          }
-        };
+    new PermittedMetaException("UnsupportedOperationException or IllegalStateException") {
+      @Override
+      boolean isPermitted(RuntimeException exception) {
+        return exception instanceof UnsupportedOperationException
+            || exception instanceof IllegalStateException;
+      }
+    };
     static final PermittedMetaException UOE =
-        new PermittedMetaException("UnsupportedOperationException") {
-          @Override
-          boolean isPermitted(RuntimeException exception) {
-            return exception instanceof UnsupportedOperationException;
-          }
-        };
+    new PermittedMetaException("UnsupportedOperationException") {
+      @Override
+      boolean isPermitted(RuntimeException exception) {
+        return exception instanceof UnsupportedOperationException;
+      }
+    };
     static final PermittedMetaException ISE =
-        new PermittedMetaException("IllegalStateException") {
-          @Override
-          boolean isPermitted(RuntimeException exception) {
-            return exception instanceof IllegalStateException;
-          }
-        };
+    new PermittedMetaException("IllegalStateException") {
+      @Override
+      boolean isPermitted(RuntimeException exception) {
+        return exception instanceof IllegalStateException;
+      }
+    };
     static final PermittedMetaException NSEE =
-        new PermittedMetaException("NoSuchElementException") {
-          @Override
-          boolean isPermitted(RuntimeException exception) {
-            return exception instanceof NoSuchElementException;
-          }
-        };
+    new PermittedMetaException("NoSuchElementException") {
+      @Override
+      boolean isPermitted(RuntimeException exception) {
+        return exception instanceof NoSuchElementException;
+      }
+    };
 
     private PermittedMetaException(String message) {
       super(message);
@@ -96,9 +96,9 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
       if (!isPermitted(exception)) {
         String message =
             "Exception "
-                + exception.getClass().getSimpleName()
-                + " was thrown; expected "
-                + getMessage();
+            + exception.getClass().getSimpleName()
+            + " was thrown; expected "
+            + getMessage();
         Helpers.fail(exception, message);
       }
     }
@@ -461,29 +461,29 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   }
 
   private static final IteratorOperation REMOVE_METHOD =
-      new IteratorOperation() {
-        @Override
-        public Object execute(Iterator<?> iterator) {
-          iterator.remove();
-          return null;
-        }
-      };
+  new IteratorOperation() {
+    @Override
+    public Object execute(Iterator<?> iterator) {
+      iterator.remove();
+      return null;
+    }
+  };
 
   private static final IteratorOperation NEXT_METHOD =
-      new IteratorOperation() {
-        @Override
-        public Object execute(Iterator<?> iterator) {
-          return iterator.next();
-        }
-      };
+  new IteratorOperation() {
+    @Override
+    public Object execute(Iterator<?> iterator) {
+      return iterator.next();
+    }
+  };
 
   private static final IteratorOperation PREVIOUS_METHOD =
-      new IteratorOperation() {
-        @Override
-        public Object execute(Iterator<?> iterator) {
-          return ((ListIterator<?>) iterator).previous();
-        }
-      };
+  new IteratorOperation() {
+    @Override
+    public Object execute(Iterator<?> iterator) {
+      return ((ListIterator<?>) iterator).previous();
+    }
+  };
 
   private final IteratorOperation newAddMethod() {
     final Object toInsert = elementsToInsert.next();
@@ -531,26 +531,26 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   }
 
   Stimulus<E, Iterator<E>> hasNext =
-      new Stimulus<E, Iterator<E>>("hasNext") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
-          assertEquals(reference.hasNext(), target.hasNext());
-        }
-      };
+  new Stimulus<E, Iterator<E>>("hasNext") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
+      assertEquals(reference.hasNext(), target.hasNext());
+    }
+  };
   Stimulus<E, Iterator<E>> next =
-      new Stimulus<E, Iterator<E>>("next") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
-          internalExecuteAndCompare(reference, target, NEXT_METHOD);
-        }
-      };
+  new Stimulus<E, Iterator<E>>("next") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
+      internalExecuteAndCompare(reference, target, NEXT_METHOD);
+    }
+  };
   Stimulus<E, Iterator<E>> remove =
-      new Stimulus<E, Iterator<E>>("remove") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
-          internalExecuteAndCompare(reference, target, REMOVE_METHOD);
-        }
-      };
+  new Stimulus<E, Iterator<E>>("remove") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
+      internalExecuteAndCompare(reference, target, REMOVE_METHOD);
+    }
+  };
 
   @SuppressWarnings("unchecked")
   List<Stimulus<E, Iterator<E>>> iteratorStimuli() {
@@ -558,47 +558,47 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   }
 
   Stimulus<E, ListIterator<E>> hasPrevious =
-      new Stimulus<E, ListIterator<E>>("hasPrevious") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          assertEquals(reference.hasPrevious(), target.hasPrevious());
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("hasPrevious") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      assertEquals(reference.hasPrevious(), target.hasPrevious());
+    }
+  };
   Stimulus<E, ListIterator<E>> nextIndex =
-      new Stimulus<E, ListIterator<E>>("nextIndex") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          assertEquals(reference.nextIndex(), target.nextIndex());
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("nextIndex") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      assertEquals(reference.nextIndex(), target.nextIndex());
+    }
+  };
   Stimulus<E, ListIterator<E>> previousIndex =
-      new Stimulus<E, ListIterator<E>>("previousIndex") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          assertEquals(reference.previousIndex(), target.previousIndex());
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("previousIndex") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      assertEquals(reference.previousIndex(), target.previousIndex());
+    }
+  };
   Stimulus<E, ListIterator<E>> previous =
-      new Stimulus<E, ListIterator<E>>("previous") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          internalExecuteAndCompare(reference, target, PREVIOUS_METHOD);
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("previous") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      internalExecuteAndCompare(reference, target, PREVIOUS_METHOD);
+    }
+  };
   Stimulus<E, ListIterator<E>> add =
-      new Stimulus<E, ListIterator<E>>("add") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          internalExecuteAndCompare(reference, target, newAddMethod());
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("add") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      internalExecuteAndCompare(reference, target, newAddMethod());
+    }
+  };
   Stimulus<E, ListIterator<E>> set =
-      new Stimulus<E, ListIterator<E>>("set") {
-        @Override
-        void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
-          internalExecuteAndCompare(reference, target, newSetMethod());
-        }
-      };
+  new Stimulus<E, ListIterator<E>>("set") {
+    @Override
+    void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
+      internalExecuteAndCompare(reference, target, newSetMethod());
+    }
+  };
 
   @SuppressWarnings("unchecked")
   List<Stimulus<E, ListIterator<E>>> listIteratorStimuli() {

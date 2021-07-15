@@ -116,7 +116,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
       protected void verify(List<E> elements) {
         expectContents(elements);
       }
-    }.test();
+    } .test();
   }
 
   public void testIteratorNoSuchElementException() {

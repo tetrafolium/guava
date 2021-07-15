@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class FilteredKeyListMultimap<K, V> extends FilteredKeyMultimap<K, V>
-    implements ListMultimap<K, V> {
+  implements ListMultimap<K, V> {
   FilteredKeyListMultimap(ListMultimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
     super(unfiltered, keyPredicate);
   }

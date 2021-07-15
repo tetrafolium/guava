@@ -116,10 +116,10 @@ public class SetGenerators {
   }
 
   public static class ImmutableSetWithBadHashesGenerator extends TestCollidingSetGenerator
-      // Work around a GWT compiler bug.  Not explicitly listing this will
-      // cause the createArray() method missing in the generated javascript.
-      // TODO: Remove this once the GWT bug is fixed.
-      implements TestCollectionGenerator<Object> {
+  // Work around a GWT compiler bug.  Not explicitly listing this will
+  // cause the createArray() method missing in the generated javascript.
+  // TODO: Remove this once the GWT bug is fixed.
+    implements TestCollectionGenerator<Object> {
     @Override
     public Set<Object> create(Object... elements) {
       return ImmutableSet.copyOf(elements);
@@ -196,7 +196,7 @@ public class SetGenerators {
   }
 
   public static class ImmutableSortedSetExplicitSuperclassComparatorGenerator
-      extends TestStringSetGenerator {
+    extends TestStringSetGenerator {
 
     private static final Comparator<Comparable<?>> COMPARABLE_REVERSED = Collections.reverseOrder();
 
@@ -289,7 +289,7 @@ public class SetGenerators {
   }
 
   public static class ImmutableSortedSetSubsetAsListSubListGenerator
-      extends TestStringListGenerator {
+    extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       Comparator<String> comparator = createExplicitComparator(elements);
@@ -308,8 +308,8 @@ public class SetGenerators {
   }
 
   public abstract static class TestUnhashableSetGenerator
-      extends TestUnhashableCollectionGenerator<Set<UnhashableObject>>
-      implements TestSetGenerator<UnhashableObject> {}
+    extends TestUnhashableCollectionGenerator<Set<UnhashableObject>>
+    implements TestSetGenerator<UnhashableObject> {}
 
   private static Ordering<String> createExplicitComparator(String[] elements) {
     // Collapse equal elements, which Ordering.explicit() doesn't support, while
@@ -406,7 +406,7 @@ public class SetGenerators {
   }
 
   private abstract static class AbstractContiguousSetGenerator
-      extends TestIntegerSortedSetGenerator {
+    extends TestIntegerSortedSetGenerator {
     protected final ContiguousSet<Integer> checkedCreate(SortedSet<Integer> elementsSet) {
       List<Integer> elements = newArrayList(elementsSet);
       /*

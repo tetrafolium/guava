@@ -305,27 +305,27 @@ public class ImmutableRangeMap<K extends Comparable<?>, V> implements RangeMap<K
     final int off = lowerIndex;
     final int len = upperIndex - lowerIndex;
     ImmutableList<Range<K>> subRanges =
-        new ImmutableList<Range<K>>() {
-          @Override
-          public int size() {
-            return len;
-          }
+    new ImmutableList<Range<K>>() {
+      @Override
+      public int size() {
+        return len;
+      }
 
-          @Override
-          public Range<K> get(int index) {
-            checkElementIndex(index, len);
-            if (index == 0 || index == len - 1) {
-              return ranges.get(index + off).intersection(range);
-            } else {
-              return ranges.get(index + off);
-            }
-          }
+      @Override
+      public Range<K> get(int index) {
+        checkElementIndex(index, len);
+        if (index == 0 || index == len - 1) {
+          return ranges.get(index + off).intersection(range);
+        } else {
+          return ranges.get(index + off);
+        }
+      }
 
-          @Override
-          boolean isPartialView() {
-            return true;
-          }
-        };
+      @Override
+      boolean isPartialView() {
+        return true;
+      }
+    };
     final ImmutableRangeMap<K, V> outer = this;
     return new ImmutableRangeMap<K, V>(subRanges, values.subList(lowerIndex, upperIndex)) {
       @Override

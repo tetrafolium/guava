@@ -140,7 +140,7 @@ public class AsciiBenchmark {
 
     boolean dummy = false;
     for (int i = 0; i < reps; i++) {
-        dummy ^= lhs.equalsIgnoreCase(rhs);
+      dummy ^= lhs.equalsIgnoreCase(rhs);
     }
     return dummy;
   }

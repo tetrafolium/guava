@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<? extends B>, B>
-    implements TypeToInstanceMap<B> {
+  implements TypeToInstanceMap<B> {
 
   private final Map<TypeToken<? extends B>, B> backingMap = Maps.newHashMap();
 
@@ -144,13 +144,13 @@ public final class MutableTypeToInstanceMap<B> extends ForwardingMap<TypeToken<?
 
     private static <K, V> Iterator<Entry<K, V>> transformEntries(Iterator<Entry<K, V>> entries) {
       return Iterators.transform(
-          entries,
-          new Function<Entry<K, V>, Entry<K, V>>() {
-            @Override
-            public Entry<K, V> apply(Entry<K, V> entry) {
-              return new UnmodifiableEntry<>(entry);
-            }
-          });
+              entries,
+      new Function<Entry<K, V>, Entry<K, V>>() {
+        @Override
+        public Entry<K, V> apply(Entry<K, V> entry) {
+          return new UnmodifiableEntry<>(entry);
+        }
+      });
     }
 
     private UnmodifiableEntry(java.util.Map.Entry<K, V> delegate) {

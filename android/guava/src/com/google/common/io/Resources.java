@@ -124,7 +124,7 @@ public final class Resources {
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readLines(URL url, Charset charset, LineProcessor<T> callback)
-      throws IOException {
+  throws IOException {
     return asCharSource(url, charset).readLines(callback);
   }
 
@@ -145,22 +145,22 @@ public final class Resources {
     // don't use asCharSource(url, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return readLines(
-        url,
-        charset,
-        new LineProcessor<List<String>>() {
-          final List<String> result = Lists.newArrayList();
+            url,
+            charset,
+    new LineProcessor<List<String>>() {
+      final List<String> result = Lists.newArrayList();
 
-          @Override
-          public boolean processLine(String line) {
-            result.add(line);
-            return true;
-          }
+      @Override
+      public boolean processLine(String line) {
+        result.add(line);
+        return true;
+      }
 
-          @Override
-          public List<String> getResult() {
-            return result;
-          }
-        });
+      @Override
+      public List<String> getResult() {
+        return result;
+      }
+    });
   }
 
   /**

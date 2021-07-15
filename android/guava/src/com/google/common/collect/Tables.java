@@ -237,12 +237,12 @@ public final class Tables {
 
     // Will cast TRANSPOSE_CELL to a type that always succeeds
     private static final Function<Cell<?, ?, ?>, Cell<?, ?, ?>> TRANSPOSE_CELL =
-        new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
-          @Override
-          public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
-            return immutableCell(cell.getColumnKey(), cell.getRowKey(), cell.getValue());
-          }
-        };
+    new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
+      @Override
+      public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
+        return immutableCell(cell.getColumnKey(), cell.getRowKey(), cell.getValue());
+      }
+    };
 
     @SuppressWarnings("unchecked")
     @Override
@@ -396,7 +396,7 @@ public final class Tables {
         @Override
         public Cell<R, C, V2> apply(Cell<R, C, V1> cell) {
           return immutableCell(
-              cell.getRowKey(), cell.getColumnKey(), function.apply(cell.getValue()));
+                  cell.getRowKey(), cell.getColumnKey(), function.apply(cell.getValue()));
         }
       };
     }
@@ -424,24 +424,24 @@ public final class Tables {
     @Override
     public Map<R, Map<C, V2>> rowMap() {
       Function<Map<C, V1>, Map<C, V2>> rowFunction =
-          new Function<Map<C, V1>, Map<C, V2>>() {
-            @Override
-            public Map<C, V2> apply(Map<C, V1> row) {
-              return Maps.transformValues(row, function);
-            }
-          };
+      new Function<Map<C, V1>, Map<C, V2>>() {
+        @Override
+        public Map<C, V2> apply(Map<C, V1> row) {
+          return Maps.transformValues(row, function);
+        }
+      };
       return Maps.transformValues(fromTable.rowMap(), rowFunction);
     }
 
     @Override
     public Map<C, Map<R, V2>> columnMap() {
       Function<Map<R, V1>, Map<R, V2>> columnFunction =
-          new Function<Map<R, V1>, Map<R, V2>>() {
-            @Override
-            public Map<R, V2> apply(Map<R, V1> column) {
-              return Maps.transformValues(column, function);
-            }
-          };
+      new Function<Map<R, V1>, Map<R, V2>>() {
+        @Override
+        public Map<R, V2> apply(Map<R, V1> column) {
+          return Maps.transformValues(column, function);
+        }
+      };
       return Maps.transformValues(fromTable.columnMap(), columnFunction);
     }
   }
@@ -464,7 +464,7 @@ public final class Tables {
   }
 
   private static class UnmodifiableTable<R, C, V> extends ForwardingTable<R, C, V>
-      implements Serializable {
+    implements Serializable {
     final Table<? extends R, ? extends C, ? extends V> delegate;
 
     UnmodifiableTable(Table<? extends R, ? extends C, ? extends V> delegate) {
@@ -566,7 +566,7 @@ public final class Tables {
   }
 
   static final class UnmodifiableRowSortedMap<R, C, V> extends UnmodifiableTable<R, C, V>
-      implements RowSortedTable<R, C, V> {
+    implements RowSortedTable<R, C, V> {
 
     public UnmodifiableRowSortedMap(RowSortedTable<R, ? extends C, ? extends V> delegate) {
       super(delegate);
@@ -597,13 +597,13 @@ public final class Tables {
   }
 
   private static final Function<? extends Map<?, ?>, ? extends Map<?, ?>> UNMODIFIABLE_WRAPPER =
-      new Function<Map<Object, Object>, Map<Object, Object>>() {
-        @Override
-        public Map<Object, Object> apply(Map<Object, Object> input) {
-          return Collections.unmodifiableMap(input);
-        }
-      };
-      
+  new Function<Map<Object, Object>, Map<Object, Object>>() {
+    @Override
+    public Map<Object, Object> apply(Map<Object, Object> input) {
+      return Collections.unmodifiableMap(input);
+    }
+  };
+
   /**
    * Returns a synchronized (thread-safe) table backed by the specified table. In order to guarantee
    * serial access, it is critical that <b>all</b> access to the backing table is accomplished

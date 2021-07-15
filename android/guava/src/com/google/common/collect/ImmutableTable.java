@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
-    implements Serializable {
+  implements Serializable {
   /** Returns an empty immutable table. */
   @SuppressWarnings("unchecked")
   public static <R, C, V> ImmutableTable<R, C, V> of() {
@@ -77,7 +77,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
       return copyOf(table.cellSet());
     }
   }
-  
+
   private static <R, C, V> ImmutableTable<R, C, V> copyOf(
       Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
     ImmutableTable.Builder<R, C, V> builder = ImmutableTable.builder();
@@ -212,12 +212,12 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     public ImmutableTable<R, C, V> build() {
       int size = cells.size();
       switch (size) {
-        case 0:
-          return of();
-        case 1:
-          return new SingletonImmutableTable<>(Iterables.getOnlyElement(cells));
-        default:
-          return RegularImmutableTable.forCells(cells, rowComparator, columnComparator);
+      case 0:
+        return of();
+      case 1:
+        return new SingletonImmutableTable<>(Iterables.getOnlyElement(cells));
+      default:
+        return RegularImmutableTable.forCells(cells, rowComparator, columnComparator);
       }
     }
   }
@@ -259,7 +259,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   public ImmutableMap<R, V> column(C columnKey) {
     checkNotNull(columnKey);
     return MoreObjects.firstNonNull(
-        (ImmutableMap<R, V>) columnMap().get(columnKey), ImmutableMap.<R, V>of());
+            (ImmutableMap<R, V>) columnMap().get(columnKey), ImmutableMap.<R, V>of());
   }
 
   @Override
@@ -285,7 +285,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
   public ImmutableMap<C, V> row(R rowKey) {
     checkNotNull(rowKey);
     return MoreObjects.firstNonNull(
-        (ImmutableMap<C, V>) rowMap().get(rowKey), ImmutableMap.<C, V>of());
+            (ImmutableMap<C, V>) rowMap().get(rowKey), ImmutableMap.<C, V>of());
   }
 
   @Override
@@ -393,11 +393,11 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
     static SerializedForm create(
         ImmutableTable<?, ?, ?> table, int[] cellRowIndices, int[] cellColumnIndices) {
       return new SerializedForm(
-          table.rowKeySet().toArray(),
-          table.columnKeySet().toArray(),
-          table.values().toArray(),
-          cellRowIndices,
-          cellColumnIndices);
+              table.rowKeySet().toArray(),
+              table.columnKeySet().toArray(),
+              table.values().toArray(),
+              cellRowIndices,
+              cellColumnIndices);
     }
 
     Object readResolve() {
@@ -414,7 +414,7 @@ public abstract class ImmutableTable<R, C, V> extends AbstractTable<R, C, V>
             cellOf(rowKeys[cellRowIndices[i]], columnKeys[cellColumnIndices[i]], cellValues[i]));
       }
       return RegularImmutableTable.forOrderedComponents(
-          cellListBuilder.build(), ImmutableSet.copyOf(rowKeys), ImmutableSet.copyOf(columnKeys));
+              cellListBuilder.build(), ImmutableSet.copyOf(rowKeys), ImmutableSet.copyOf(columnKeys));
     }
 
     private static final long serialVersionUID = 0;

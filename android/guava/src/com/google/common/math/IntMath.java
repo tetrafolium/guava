@@ -119,29 +119,29 @@ public final class IntMath {
   public static int log2(int x, RoundingMode mode) {
     checkPositive("x", x);
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(isPowerOfTwo(x));
-        // fall through
-      case DOWN:
-      case FLOOR:
-        return (Integer.SIZE - 1) - Integer.numberOfLeadingZeros(x);
+    case UNNECESSARY:
+      checkRoundingUnnecessary(isPowerOfTwo(x));
+    // fall through
+    case DOWN:
+    case FLOOR:
+      return (Integer.SIZE - 1) - Integer.numberOfLeadingZeros(x);
 
-      case UP:
-      case CEILING:
-        return Integer.SIZE - Integer.numberOfLeadingZeros(x - 1);
+    case UP:
+    case CEILING:
+      return Integer.SIZE - Integer.numberOfLeadingZeros(x - 1);
 
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
-        int leadingZeros = Integer.numberOfLeadingZeros(x);
-        int cmp = MAX_POWER_OF_SQRT2_UNSIGNED >>> leadingZeros;
-        // floor(2^(logFloor + 0.5))
-        int logFloor = (Integer.SIZE - 1) - leadingZeros;
-        return logFloor + lessThanBranchFree(cmp, x);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
+      int leadingZeros = Integer.numberOfLeadingZeros(x);
+      int cmp = MAX_POWER_OF_SQRT2_UNSIGNED >>> leadingZeros;
+      // floor(2^(logFloor + 0.5))
+      int logFloor = (Integer.SIZE - 1) - leadingZeros;
+      return logFloor + lessThanBranchFree(cmp, x);
 
-      default:
-        throw new AssertionError();
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -162,22 +162,22 @@ public final class IntMath {
     int logFloor = log10Floor(x);
     int floorPow = powersOf10[logFloor];
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(x == floorPow);
-        // fall through
-      case FLOOR:
-      case DOWN:
-        return logFloor;
-      case CEILING:
-      case UP:
-        return logFloor + lessThanBranchFree(floorPow, x);
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        // sqrt(10) is irrational, so log10(x) - logFloor is never exactly 0.5
-        return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(x == floorPow);
+    // fall through
+    case FLOOR:
+    case DOWN:
+      return logFloor;
+    case CEILING:
+    case UP:
+      return logFloor + lessThanBranchFree(floorPow, x);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      // sqrt(10) is irrational, so log10(x) - logFloor is never exactly 0.5
+      return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -228,32 +228,32 @@ public final class IntMath {
   public static int pow(int b, int k) {
     checkNonNegative("exponent", k);
     switch (b) {
-      case 0:
-        return (k == 0) ? 1 : 0;
-      case 1:
-        return 1;
-      case (-1):
-        return ((k & 1) == 0) ? 1 : -1;
-      case 2:
-        return (k < Integer.SIZE) ? (1 << k) : 0;
-      case (-2):
-        if (k < Integer.SIZE) {
-          return ((k & 1) == 0) ? (1 << k) : -(1 << k);
-        } else {
-          return 0;
-        }
-      default:
-        // continue below to handle the general case
+    case 0:
+      return (k == 0) ? 1 : 0;
+    case 1:
+      return 1;
+    case (-1):
+      return ((k & 1) == 0) ? 1 : -1;
+    case 2:
+      return (k < Integer.SIZE) ? (1 << k) : 0;
+    case (-2):
+      if (k < Integer.SIZE) {
+        return ((k & 1) == 0) ? (1 << k) : -(1 << k);
+      } else {
+        return 0;
+      }
+    default:
+      // continue below to handle the general case
     }
     for (int accum = 1; ; k >>= 1) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return b * accum;
-        default:
-          accum *= ((k & 1) == 0) ? 1 : b;
-          b *= b;
+      case 0:
+        return accum;
+      case 1:
+        return b * accum;
+      default:
+        accum *= ((k & 1) == 0) ? 1 : b;
+        b *= b;
       }
     }
   }
@@ -271,32 +271,32 @@ public final class IntMath {
     checkNonNegative("x", x);
     int sqrtFloor = sqrtFloor(x);
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(sqrtFloor * sqrtFloor == x); // fall through
-      case FLOOR:
-      case DOWN:
-        return sqrtFloor;
-      case CEILING:
-      case UP:
-        return sqrtFloor + lessThanBranchFree(sqrtFloor * sqrtFloor, x);
-      case HALF_DOWN:
-      case HALF_UP:
-      case HALF_EVEN:
-        int halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
-        /*
-         * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
-         * and halfSquare are integers, this is equivalent to testing whether or not x <=
-         * halfSquare. (We have to deal with overflow, though.)
-         *
-         * If we treat halfSquare as an unsigned int, we know that
-         *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
-         * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
-         * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
-         * signed int, so lessThanBranchFree is safe for use.
-         */
-        return sqrtFloor + lessThanBranchFree(halfSquare, x);
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(sqrtFloor * sqrtFloor == x); // fall through
+    case FLOOR:
+    case DOWN:
+      return sqrtFloor;
+    case CEILING:
+    case UP:
+      return sqrtFloor + lessThanBranchFree(sqrtFloor * sqrtFloor, x);
+    case HALF_DOWN:
+    case HALF_UP:
+    case HALF_EVEN:
+      int halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
+      /*
+       * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
+       * and halfSquare are integers, this is equivalent to testing whether or not x <=
+       * halfSquare. (We have to deal with overflow, though.)
+       *
+       * If we treat halfSquare as an unsigned int, we know that
+       *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
+       * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
+       * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
+       * signed int, so lessThanBranchFree is safe for use.
+       */
+      return sqrtFloor + lessThanBranchFree(halfSquare, x);
+    default:
+      throw new AssertionError();
     }
   }
 
@@ -336,36 +336,36 @@ public final class IntMath {
     int signum = 1 | ((p ^ q) >> (Integer.SIZE - 1));
     boolean increment;
     switch (mode) {
-      case UNNECESSARY:
-        checkRoundingUnnecessary(rem == 0);
-        // fall through
-      case DOWN:
-        increment = false;
-        break;
-      case UP:
-        increment = true;
-        break;
-      case CEILING:
-        increment = signum > 0;
-        break;
-      case FLOOR:
-        increment = signum < 0;
-        break;
-      case HALF_EVEN:
-      case HALF_DOWN:
-      case HALF_UP:
-        int absRem = abs(rem);
-        int cmpRemToHalfDivisor = absRem - (abs(q) - absRem);
-        // subtracting two nonnegative ints can't overflow
-        // cmpRemToHalfDivisor has the same sign as compare(abs(rem), abs(q) / 2).
-        if (cmpRemToHalfDivisor == 0) { // exactly on the half mark
-          increment = (mode == HALF_UP || (mode == HALF_EVEN & (div & 1) != 0));
-        } else {
-          increment = cmpRemToHalfDivisor > 0; // closer to the UP value
-        }
-        break;
-      default:
-        throw new AssertionError();
+    case UNNECESSARY:
+      checkRoundingUnnecessary(rem == 0);
+    // fall through
+    case DOWN:
+      increment = false;
+      break;
+    case UP:
+      increment = true;
+      break;
+    case CEILING:
+      increment = signum > 0;
+      break;
+    case FLOOR:
+      increment = signum < 0;
+      break;
+    case HALF_EVEN:
+    case HALF_DOWN:
+    case HALF_UP:
+      int absRem = abs(rem);
+      int cmpRemToHalfDivisor = absRem - (abs(q) - absRem);
+      // subtracting two nonnegative ints can't overflow
+      // cmpRemToHalfDivisor has the same sign as compare(abs(rem), abs(q) / 2).
+      if (cmpRemToHalfDivisor == 0) { // exactly on the half mark
+        increment = (mode == HALF_UP || (mode == HALF_EVEN & (div & 1) != 0));
+      } else {
+        increment = cmpRemToHalfDivisor > 0; // closer to the UP value
+      }
+      break;
+    default:
+      throw new AssertionError();
     }
     return increment ? div + signum : div;
   }
@@ -489,37 +489,37 @@ public final class IntMath {
   public static int checkedPow(int b, int k) {
     checkNonNegative("exponent", k);
     switch (b) {
-      case 0:
-        return (k == 0) ? 1 : 0;
-      case 1:
-        return 1;
-      case (-1):
-        return ((k & 1) == 0) ? 1 : -1;
-      case 2:
-        checkNoOverflow(k < Integer.SIZE - 1);
-        return 1 << k;
-      case (-2):
-        checkNoOverflow(k < Integer.SIZE);
-        return ((k & 1) == 0) ? 1 << k : -1 << k;
-      default:
-        // continue below to handle the general case
+    case 0:
+      return (k == 0) ? 1 : 0;
+    case 1:
+      return 1;
+    case (-1):
+      return ((k & 1) == 0) ? 1 : -1;
+    case 2:
+      checkNoOverflow(k < Integer.SIZE - 1);
+      return 1 << k;
+    case (-2):
+      checkNoOverflow(k < Integer.SIZE);
+      return ((k & 1) == 0) ? 1 << k : -1 << k;
+    default:
+      // continue below to handle the general case
     }
     int accum = 1;
     while (true) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return checkedMultiply(accum, b);
-        default:
-          if ((k & 1) != 0) {
-            accum = checkedMultiply(accum, b);
-          }
-          k >>= 1;
-          if (k > 0) {
-            checkNoOverflow(-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT);
-            b *= b;
-          }
+      case 0:
+        return accum;
+      case 1:
+        return checkedMultiply(accum, b);
+      default:
+        if ((k & 1) != 0) {
+          accum = checkedMultiply(accum, b);
+        }
+        k >>= 1;
+        if (k > 0) {
+          checkNoOverflow(-FLOOR_SQRT_MAX_INT <= b & b <= FLOOR_SQRT_MAX_INT);
+          b *= b;
+        }
       }
     }
   }
@@ -567,45 +567,45 @@ public final class IntMath {
   public static int saturatedPow(int b, int k) {
     checkNonNegative("exponent", k);
     switch (b) {
-      case 0:
-        return (k == 0) ? 1 : 0;
-      case 1:
-        return 1;
-      case (-1):
-        return ((k & 1) == 0) ? 1 : -1;
-      case 2:
-        if (k >= Integer.SIZE - 1) {
-          return Integer.MAX_VALUE;
-        }
-        return 1 << k;
-      case (-2):
-        if (k >= Integer.SIZE) {
-          return Integer.MAX_VALUE + (k & 1);
-        }
-        return ((k & 1) == 0) ? 1 << k : -1 << k;
-      default:
-        // continue below to handle the general case
+    case 0:
+      return (k == 0) ? 1 : 0;
+    case 1:
+      return 1;
+    case (-1):
+      return ((k & 1) == 0) ? 1 : -1;
+    case 2:
+      if (k >= Integer.SIZE - 1) {
+        return Integer.MAX_VALUE;
+      }
+      return 1 << k;
+    case (-2):
+      if (k >= Integer.SIZE) {
+        return Integer.MAX_VALUE + (k & 1);
+      }
+      return ((k & 1) == 0) ? 1 << k : -1 << k;
+    default:
+      // continue below to handle the general case
     }
     int accum = 1;
     // if b is negative and k is odd then the limit is MIN otherwise the limit is MAX
     int limit = Integer.MAX_VALUE + ((b >>> Integer.SIZE - 1) & (k & 1));
     while (true) {
       switch (k) {
-        case 0:
-          return accum;
-        case 1:
-          return saturatedMultiply(accum, b);
-        default:
-          if ((k & 1) != 0) {
-            accum = saturatedMultiply(accum, b);
+      case 0:
+        return accum;
+      case 1:
+        return saturatedMultiply(accum, b);
+      default:
+        if ((k & 1) != 0) {
+          accum = saturatedMultiply(accum, b);
+        }
+        k >>= 1;
+        if (k > 0) {
+          if (-FLOOR_SQRT_MAX_INT > b | b > FLOOR_SQRT_MAX_INT) {
+            return limit;
           }
-          k >>= 1;
-          if (k > 0) {
-            if (-FLOOR_SQRT_MAX_INT > b | b > FLOOR_SQRT_MAX_INT) {
-              return limit;
-            }
-            b *= b;
-          }
+          b *= b;
+        }
       }
     }
   }
@@ -656,17 +656,17 @@ public final class IntMath {
       return Integer.MAX_VALUE;
     }
     switch (k) {
-      case 0:
-        return 1;
-      case 1:
-        return n;
-      default:
-        long result = 1;
-        for (int i = 0; i < k; i++) {
-          result *= n - i;
-          result /= i + 1;
-        }
-        return (int) result;
+    case 0:
+      return 1;
+    case 1:
+      return n;
+    default:
+      long result = 1;
+      for (int i = 0; i < k; i++) {
+        result *= n - i;
+        result /= i + 1;
+      }
+      return (int) result;
     }
   }
 

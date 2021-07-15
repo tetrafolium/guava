@@ -72,7 +72,7 @@ public final class Enums {
 
   @GwtIncompatible // java.lang.ref.WeakReference
   private static final Map<Class<? extends Enum<?>>, Map<String, WeakReference<? extends Enum<?>>>>
-      enumConstantCache = new WeakHashMap<>();
+  enumConstantCache = new WeakHashMap<>();
 
   @GwtIncompatible // java.lang.ref.WeakReference
   private static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> populateCache(
@@ -110,7 +110,7 @@ public final class Enums {
   }
 
   private static final class StringConverter<T extends Enum<T>> extends Converter<String, T>
-      implements Serializable {
+    implements Serializable {
 
     private final Class<T> enumClass;
 

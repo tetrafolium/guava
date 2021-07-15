@@ -83,7 +83,7 @@ public class Finalizer implements Runnable {
         boolean inheritThreadLocals = false;
         long defaultStackSize = 0;
         thread = bigThreadConstructor.newInstance(
-            (ThreadGroup) null, finalizer, threadName, defaultStackSize, inheritThreadLocals);
+                (ThreadGroup) null, finalizer, threadName, defaultStackSize, inheritThreadLocals);
       } catch (Throwable t) {
         logger.log(
             Level.INFO,
@@ -221,7 +221,7 @@ public class Finalizer implements Runnable {
       logger.log(
           Level.INFO,
           "Couldn't access Thread.inheritableThreadLocals. Reference finalizer threads will "
-              + "inherit thread local values.");
+          + "inherit thread local values.");
       return null;
     }
   }
@@ -230,7 +230,7 @@ public class Finalizer implements Runnable {
   private static Constructor<Thread> getBigThreadConstructor() {
     try {
       return Thread.class.getConstructor(
-          ThreadGroup.class, Runnable.class, String.class, long.class, boolean.class);
+              ThreadGroup.class, Runnable.class, String.class, long.class, boolean.class);
     } catch (Throwable t) {
       // Probably pre Java 9. We'll fall back to Thread.inheritableThreadLocals.
       return null;

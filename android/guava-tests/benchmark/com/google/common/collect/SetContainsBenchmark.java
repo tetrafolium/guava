@@ -56,7 +56,7 @@ public class SetContainsBenchmark {
   @BeforeExperiment void setUp() {
     CollectionBenchmarkSampleData sampleData =
         new CollectionBenchmarkSampleData(
-            isUserTypeFast, random, hitRate, size);
+        isUserTypeFast, random, hitRate, size);
 
     this.setToTest = (Set<Element>)impl.create(sampleData.getValuesInSet());
     this.queries = sampleData.getQueries();
