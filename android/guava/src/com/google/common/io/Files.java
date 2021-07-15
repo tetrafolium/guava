@@ -86,11 +86,11 @@ public final class Files {
    * @return the buffered reader
    */
   public static BufferedReader newReader(File file, Charset charset)
-      throws FileNotFoundException {
+  throws FileNotFoundException {
     checkNotNull(file);
     checkNotNull(charset);
     return new BufferedReader(
-        new InputStreamReader(new FileInputStream(file), charset));
+      new InputStreamReader(new FileInputStream(file), charset));
   }
 
   /**
@@ -107,11 +107,11 @@ public final class Files {
    * @return the buffered writer
    */
   public static BufferedWriter newWriter(File file, Charset charset)
-      throws FileNotFoundException {
+  throws FileNotFoundException {
     checkNotNull(file);
     checkNotNull(charset);
     return new BufferedWriter(
-        new OutputStreamWriter(new FileOutputStream(file), charset));
+      new OutputStreamWriter(new FileOutputStream(file), charset));
   }
 
   /**
@@ -179,7 +179,7 @@ public final class Files {
   static byte[] readFile(InputStream in, long expectedSize) throws IOException {
     if (expectedSize > Integer.MAX_VALUE) {
       throw new OutOfMemoryError("file is too large to fit in a byte array: " +
-                                 expectedSize + " bytes");
+                expectedSize + " bytes");
     }
 
     // some special files may return size 0 but have content, so read
@@ -249,7 +249,7 @@ public final class Files {
    * @since 14.0
    */
   public static CharSink asCharSink(File file, Charset charset,
-                                    FileWriteMode... modes) {
+      FileWriteMode... modes) {
     return asByteSink(file, modes).asCharSink(charset);
   }
 
@@ -338,7 +338,7 @@ public final class Files {
    */
   public static void copy(File from, File to) throws IOException {
     checkArgument(!from.equals(to),
-                  "Source %s and destination %s must be different", from, to);
+        "Source %s and destination %s must be different", from, to);
     asByteSource(from).copyTo(asByteSink(to));
   }
 
@@ -355,7 +355,7 @@ public final class Files {
    */
   @Deprecated
   public static void write(CharSequence from, File to, Charset charset)
-      throws IOException {
+  throws IOException {
     asCharSink(to, charset).write(from);
   }
 
@@ -373,7 +373,7 @@ public final class Files {
    */
   @Deprecated
   public static void append(CharSequence from, File to, Charset charset)
-      throws IOException {
+  throws IOException {
     asCharSink(to, charset, FileWriteMode.APPEND).write(from);
   }
 
@@ -390,7 +390,7 @@ public final class Files {
    */
   @Deprecated
   public static void copy(File from, Charset charset, Appendable to)
-      throws IOException {
+  throws IOException {
     asCharSource(from, charset).copyTo(to);
   }
 
@@ -453,9 +453,9 @@ public final class Files {
       }
     }
     throw new IllegalStateException("Failed to create directory within " +
-                                    TEMP_DIR_ATTEMPTS + " attempts (tried " +
-                                    baseName + "0 to " + baseName +
-                                    (TEMP_DIR_ATTEMPTS - 1) + ')');
+              TEMP_DIR_ATTEMPTS + " attempts (tried " +
+              baseName + "0 to " + baseName +
+              (TEMP_DIR_ATTEMPTS - 1) + ')');
   }
 
   /**
@@ -520,7 +520,7 @@ public final class Files {
     checkNotNull(from);
     checkNotNull(to);
     checkArgument(!from.equals(to),
-                  "Source %s and destination %s must be different", from, to);
+        "Source %s and destination %s must be different", from, to);
 
     if (!from.renameTo(to)) {
       copy(from, to);
@@ -547,7 +547,7 @@ public final class Files {
    */
   @Deprecated
   public static String readFirstLine(File file, Charset charset)
-      throws IOException {
+  throws IOException {
     return asCharSource(file, charset).readFirstLine();
   }
 
@@ -569,24 +569,24 @@ public final class Files {
    * @throws IOException if an I/O error occurs
    */
   public static List<String> readLines(File file, Charset charset)
-      throws IOException {
+  throws IOException {
     // don't use asCharSource(file, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return asCharSource(file, charset)
-        .readLines(new LineProcessor<List<String>>() {
-          final List<String> result = Lists.newArrayList();
+           .readLines(new LineProcessor<List<String>>() {
+      final List<String> result = Lists.newArrayList();
 
-          @Override
-          public boolean processLine(String line) {
-            result.add(line);
-            return true;
-          }
+      @Override
+      public boolean processLine(String line) {
+        result.add(line);
+        return true;
+      }
 
-          @Override
-          public List<String> getResult() {
-            return result;
-          }
-        });
+      @Override
+      public List<String> getResult() {
+        return result;
+      }
+    });
   }
 
   /**
@@ -604,7 +604,7 @@ public final class Files {
   @Deprecated
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readLines(File file, Charset charset,
-                                LineProcessor<T> callback) throws IOException {
+      LineProcessor<T> callback) throws IOException {
     return asCharSource(file, charset).readLines(callback);
   }
 
@@ -623,7 +623,7 @@ public final class Files {
   @Deprecated
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readBytes(File file, ByteProcessor<T> processor)
-      throws IOException {
+  throws IOException {
     return asByteSource(file).read(processor);
   }
 
@@ -639,7 +639,7 @@ public final class Files {
    */
   @Deprecated
   public static HashCode hash(File file, HashFunction hashFunction)
-      throws IOException {
+  throws IOException {
     return asByteSource(file).hash(hashFunction);
   }
 
@@ -681,7 +681,7 @@ public final class Files {
    * @since 2.0
    */
   public static MappedByteBuffer map(File file, MapMode mode)
-      throws IOException {
+  throws IOException {
     checkNotNull(file);
     checkNotNull(mode);
     if (!file.exists()) {
@@ -711,14 +711,14 @@ public final class Files {
    * @since 2.0
    */
   public static MappedByteBuffer map(File file, MapMode mode, long size)
-      throws FileNotFoundException, IOException {
+  throws FileNotFoundException, IOException {
     checkNotNull(file);
     checkNotNull(mode);
 
     Closer closer = Closer.create();
     try {
       RandomAccessFile raf = closer.register(
-          new RandomAccessFile(file, mode == MapMode.READ_ONLY ? "r" : "rw"));
+        new RandomAccessFile(file, mode == MapMode.READ_ONLY ? "r" : "rw"));
       return map(raf, mode, size);
     } catch (Throwable e) {
       throw closer.rethrow(e);
@@ -728,7 +728,7 @@ public final class Files {
   }
 
   private static MappedByteBuffer map(RandomAccessFile raf, MapMode mode,
-                                      long size) throws IOException {
+      long size) throws IOException {
     Closer closer = Closer.create();
     try {
       FileChannel channel = closer.register(raf.getChannel());
@@ -867,25 +867,25 @@ public final class Files {
 
   private static final TreeTraverser<File> FILE_TREE_TRAVERSER =
       new TreeTraverser<File>() {
-        @Override
-        public Iterable<File> children(File file) {
-          // check isDirectory() just because it may be faster than listFiles()
-          // on a non-directory
-          if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-              return Collections.unmodifiableList(Arrays.asList(files));
-            }
-          }
-
-          return Collections.emptyList();
+    @Override
+    public Iterable<File> children(File file) {
+      // check isDirectory() just because it may be faster than listFiles()
+      // on a non-directory
+      if (file.isDirectory()) {
+        File[] files = file.listFiles();
+        if (files != null) {
+          return Collections.unmodifiableList(Arrays.asList(files));
         }
+      }
 
-        @Override
-        public String toString() {
-          return "Files.fileTreeTraverser()";
-        }
-      };
+      return Collections.emptyList();
+    }
+
+    @Override
+    public String toString() {
+      return "Files.fileTreeTraverser()";
+    }
+  };
 
   /**
    * Returns a predicate that returns the result of {@link File#isDirectory} on

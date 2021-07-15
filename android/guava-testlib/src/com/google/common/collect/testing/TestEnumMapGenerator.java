@@ -30,15 +30,15 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class TestEnumMapGenerator
-    implements TestMapGenerator<AnEnum, String> {
+  implements TestMapGenerator<AnEnum, String> {
 
   @Override
   public SampleElements<Entry<AnEnum, String>> samples() {
     return new SampleElements<>(Helpers.mapEntry(AnEnum.A, "January"),
-                                Helpers.mapEntry(AnEnum.B, "February"),
-                                Helpers.mapEntry(AnEnum.C, "March"),
-                                Helpers.mapEntry(AnEnum.D, "April"),
-                                Helpers.mapEntry(AnEnum.E, "May"));
+               Helpers.mapEntry(AnEnum.B, "February"),
+               Helpers.mapEntry(AnEnum.C, "March"),
+               Helpers.mapEntry(AnEnum.D, "April"),
+               Helpers.mapEntry(AnEnum.E, "May"));
   }
 
   @Override
@@ -55,7 +55,7 @@ public abstract class TestEnumMapGenerator
   }
 
   protected abstract Map<AnEnum, String>
-      create(Entry<AnEnum, String>[] entries);
+  create(Entry<AnEnum, String>[] entries);
 
   @Override
   @SuppressWarnings("unchecked")

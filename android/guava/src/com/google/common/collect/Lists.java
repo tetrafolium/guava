@@ -319,7 +319,7 @@ public final class Lists {
 
   /** @see Lists#asList(Object, Object[]) */
   private static class OnePlusArrayList<E>
-      extends AbstractList<E> implements Serializable, RandomAccess {
+    extends AbstractList<E> implements Serializable, RandomAccess {
     final E first;
     final E[] rest;
 
@@ -361,13 +361,13 @@ public final class Lists {
    * @return an unmodifiable list containing the specified elements
    */
   public static <E> List<E> asList(@Nullable E first, @Nullable E second,
-                                   E[] rest) {
+      E[] rest) {
     return new TwoPlusArrayList<>(first, second, rest);
   }
 
   /** @see Lists#asList(Object, Object, Object[]) */
   private static class TwoPlusArrayList<E>
-      extends AbstractList<E> implements Serializable, RandomAccess {
+    extends AbstractList<E> implements Serializable, RandomAccess {
     final E first;
     final E second;
     final E[] rest;
@@ -574,12 +574,12 @@ public final class Lists {
    * @see Lists#transform
    */
   private static class TransformingSequentialList<F, T>
-      extends AbstractSequentialList<T> implements Serializable {
+    extends AbstractSequentialList<T> implements Serializable {
     final List<F> fromList;
     final Function<? super F, ? extends T> function;
 
     TransformingSequentialList(List<F> fromList,
-                               Function<? super F, ? extends T> function) {
+        Function<? super F, ? extends T> function) {
       this.fromList = checkNotNull(fromList);
       this.function = checkNotNull(function);
     }
@@ -601,10 +601,10 @@ public final class Lists {
     @Override
     public ListIterator<T> listIterator(final int index) {
       return new TransformedListIterator<F, T>(fromList.listIterator(index)) {
-        @Override
-        T transform(F from) {
-          return function.apply(from);
-        }
+               @Override
+               T transform(F from) {
+                 return function.apply(from);
+               }
       };
     }
 
@@ -620,12 +620,12 @@ public final class Lists {
    * @see Lists#transform
    */
   private static class TransformingRandomAccessList<F, T>
-      extends AbstractList<T> implements RandomAccess, Serializable {
+    extends AbstractList<T> implements RandomAccess, Serializable {
     final List<F> fromList;
     final Function<? super F, ? extends T> function;
 
     TransformingRandomAccessList(List<F> fromList,
-                                 Function<? super F, ? extends T> function) {
+        Function<? super F, ? extends T> function) {
       this.fromList = checkNotNull(fromList);
       this.function = checkNotNull(function);
     }
@@ -648,10 +648,10 @@ public final class Lists {
     @Override
     public ListIterator<T> listIterator(int index) {
       return new TransformedListIterator<F, T>(fromList.listIterator(index)) {
-        @Override
-        T transform(F from) {
-          return function.apply(from);
-        }
+               @Override
+               T transform(F from) {
+                 return function.apply(from);
+               }
       };
     }
 
@@ -728,7 +728,7 @@ public final class Lists {
   }
 
   private static class RandomAccessPartition<T>
-      extends Partition<T> implements RandomAccess {
+    extends Partition<T> implements RandomAccess {
     RandomAccessPartition(List<T> list, int size) { super(list, size); }
   }
 
@@ -744,7 +744,7 @@ public final class Lists {
 
   @SuppressWarnings("serial") // serialized using ImmutableList serialization
   private static final class StringAsImmutableList
-      extends ImmutableList<Character> {
+    extends ImmutableList<Character> {
 
     private final String string;
 
@@ -803,7 +803,7 @@ public final class Lists {
   }
 
   private static final class CharSequenceAsList
-      extends AbstractList<Character> {
+    extends AbstractList<Character> {
     private final CharSequence sequence;
 
     CharSequenceAsList(CharSequence sequence) { this.sequence = sequence; }
@@ -904,7 +904,7 @@ public final class Lists {
     public List<T> subList(int fromIndex, int toIndex) {
       checkPositionIndexes(fromIndex, toIndex, size());
       return reverse(forwardList.subList(reversePosition(toIndex),
-                                         reversePosition(fromIndex)));
+                 reversePosition(fromIndex)));
     }
 
     @Override
@@ -917,71 +917,71 @@ public final class Lists {
       int start = reversePosition(index);
       final ListIterator<T> forwardIterator = forwardList.listIterator(start);
       return new ListIterator<T>() {
-        boolean canRemoveOrSet;
+               boolean canRemoveOrSet;
 
-        @Override
-        public void add(T e) {
-          forwardIterator.add(e);
-          forwardIterator.previous();
-          canRemoveOrSet = false;
-        }
+               @Override
+               public void add(T e) {
+                 forwardIterator.add(e);
+                 forwardIterator.previous();
+                 canRemoveOrSet = false;
+               }
 
-        @Override
-        public boolean hasNext() {
-          return forwardIterator.hasPrevious();
-        }
+               @Override
+               public boolean hasNext() {
+                 return forwardIterator.hasPrevious();
+               }
 
-        @Override
-        public boolean hasPrevious() {
-          return forwardIterator.hasNext();
-        }
+               @Override
+               public boolean hasPrevious() {
+                 return forwardIterator.hasNext();
+               }
 
-        @Override
-        public T next() {
-          if (!hasNext()) {
-            throw new NoSuchElementException();
-          }
-          canRemoveOrSet = true;
-          return forwardIterator.previous();
-        }
+               @Override
+               public T next() {
+                 if (!hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+                 canRemoveOrSet = true;
+                 return forwardIterator.previous();
+               }
 
-        @Override
-        public int nextIndex() {
-          return reversePosition(forwardIterator.nextIndex());
-        }
+               @Override
+               public int nextIndex() {
+                 return reversePosition(forwardIterator.nextIndex());
+               }
 
-        @Override
-        public T previous() {
-          if (!hasPrevious()) {
-            throw new NoSuchElementException();
-          }
-          canRemoveOrSet = true;
-          return forwardIterator.next();
-        }
+               @Override
+               public T previous() {
+                 if (!hasPrevious()) {
+                   throw new NoSuchElementException();
+                 }
+                 canRemoveOrSet = true;
+                 return forwardIterator.next();
+               }
 
-        @Override
-        public int previousIndex() {
-          return nextIndex() - 1;
-        }
+               @Override
+               public int previousIndex() {
+                 return nextIndex() - 1;
+               }
 
-        @Override
-        public void remove() {
-          checkRemove(canRemoveOrSet);
-          forwardIterator.remove();
-          canRemoveOrSet = false;
-        }
+               @Override
+               public void remove() {
+                 checkRemove(canRemoveOrSet);
+                 forwardIterator.remove();
+                 canRemoveOrSet = false;
+               }
 
-        @Override
-        public void set(T e) {
-          checkState(canRemoveOrSet);
-          forwardIterator.set(e);
-        }
+               @Override
+               public void set(T e) {
+                 checkState(canRemoveOrSet);
+                 forwardIterator.set(e);
+               }
       };
     }
   }
 
   private static class RandomAccessReverseList<T>
-      extends ReverseList<T> implements RandomAccess {
+    extends ReverseList<T> implements RandomAccess {
     RandomAccessReverseList(List<T> forwardList) { super(forwardList); }
   }
 
@@ -1032,7 +1032,7 @@ public final class Lists {
    * An implementation of {@link List#addAll(int, Collection)}.
    */
   static <E> boolean addAllImpl(List<E> list, int index,
-                                Iterable<? extends E> elements) {
+      Iterable<? extends E> elements) {
     boolean changed = false;
     ListIterator<E> listIterator = list.listIterator(index);
     for (E e : elements) {
@@ -1060,7 +1060,7 @@ public final class Lists {
   }
 
   private static int indexOfRandomAccess(List<?> list,
-                                         @Nullable Object element) {
+      @Nullable Object element) {
     int size = list.size();
     if (element == null) {
       for (int i = 0; i < size; i++) {
@@ -1096,7 +1096,7 @@ public final class Lists {
   }
 
   private static int lastIndexOfRandomAccess(List<?> list,
-                                             @Nullable Object element) {
+      @Nullable Object element) {
     if (element == null) {
       for (int i = list.size() - 1; i >= 0; i--) {
         if (list.get(i) == null) {
@@ -1124,7 +1124,7 @@ public final class Lists {
    * An implementation of {@link List#subList(int, int)}.
    */
   static <E> List<E> subListImpl(final List<E> list, int fromIndex,
-                                 int toIndex) {
+      int toIndex) {
     List<E> wrapper;
     if (list instanceof RandomAccess) {
       wrapper = new RandomAccessListWrapper<E>(list) {
@@ -1192,7 +1192,7 @@ public final class Lists {
   }
 
   private static class RandomAccessListWrapper<E>
-      extends AbstractListWrapper<E> implements RandomAccess {
+    extends AbstractListWrapper<E> implements RandomAccess {
     RandomAccessListWrapper(List<E> backingList) { super(backingList); }
   }
 

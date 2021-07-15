@@ -50,6 +50,6 @@ public class ListIndexOfTester<E> extends AbstractListIndexOfTester<E> {
     array[getNumElements() / 2] = e0();
     collection = getSubjectGenerator().create(array);
     assertEquals("indexOf(duplicate) should return index of first occurrence",
-                 0, getList().indexOf(e0()));
+        0, getList().indexOf(e0()));
   }
 }

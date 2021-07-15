@@ -34,10 +34,10 @@ import java.util.Map;
 /** Benchmarks for memory consumption of map implementations. */
 public class MapsMemoryBenchmark {
   static final Map<String, MapsImplEnum> mapEnums = uniqueIndex(
-      Iterables.<MapsImplEnum>concat(Arrays.asList(MapImpl.values()),
-                                     Arrays.asList(SortedMapImpl.values()),
-                                     Arrays.asList(BiMapImpl.values())),
-      toStringFunction());
+    Iterables.<MapsImplEnum>concat(Arrays.asList(MapImpl.values()),
+    Arrays.asList(SortedMapImpl.values()),
+    Arrays.asList(BiMapImpl.values())),
+    toStringFunction());
 
   @Param({"HashMapImpl", "LinkedHashMapImpl", "ConcurrentHashMapImpl",
           "ImmutableMapImpl", "TreeMapImpl", "ImmutableSortedMapImpl",

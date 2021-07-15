@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 final class Platform {
   static boolean
   isInstanceOfThrowableClass(@Nullable Throwable t,
-                             Class<? extends Throwable> expectedClass) {
+      Class<? extends Throwable> expectedClass) {
     return expectedClass.isInstance(t);
   }
 

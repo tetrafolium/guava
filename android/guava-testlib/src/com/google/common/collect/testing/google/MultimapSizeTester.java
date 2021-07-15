@@ -36,7 +36,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapSizeTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
 
   public void testSize() {
     int expectedSize = getNumElements();
@@ -94,7 +94,7 @@ public class MultimapSizeTester<K, V>
   @CollectionSize.Require(SEVERAL)
   public void testSizeMultipleValues() {
     resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
-                   mapEntry(k0(), v2()));
+        mapEntry(k0(), v2()));
 
     assertEquals(3, multimap().size());
     assertEquals(3, multimap().entries().size());

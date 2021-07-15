@@ -37,21 +37,21 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapEqualsTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testEqualsTrue() {
     new EqualsTester()
-        .addEqualityGroup(multimap(), getSubjectGenerator().create(
-                                          getSampleElements().toArray()))
-        .testEquals();
+    .addEqualityGroup(multimap(), getSubjectGenerator().create(
+          getSampleElements().toArray()))
+    .testEquals();
   }
 
   public void testEqualsFalse() {
     List<Entry<K, V>> targetEntries = new ArrayList<>(getSampleElements());
     targetEntries.add(Helpers.mapEntry(k0(), v3()));
     new EqualsTester()
-        .addEqualityGroup(multimap())
-        .addEqualityGroup(getSubjectGenerator().create(targetEntries.toArray()))
-        .testEquals();
+    .addEqualityGroup(multimap())
+    .addEqualityGroup(getSubjectGenerator().create(targetEntries.toArray()))
+    .testEquals();
   }
 
   @CollectionSize.Require(absent = ZERO)
@@ -61,10 +61,10 @@ public class MultimapEqualsTester<K, V>
     initMultimapWithNullKey();
     Multimap<K, V> withNull = multimap();
     new EqualsTester()
-        .addEqualityGroup(original)
-        .addEqualityGroup(withNull, getSubjectGenerator().create(
-                                        (Object[])createArrayWithNullKey()))
-        .testEquals();
+    .addEqualityGroup(original)
+    .addEqualityGroup(withNull, getSubjectGenerator().create(
+          (Object[])createArrayWithNullKey()))
+    .testEquals();
   }
 
   @CollectionSize.Require(absent = ZERO)
@@ -74,18 +74,18 @@ public class MultimapEqualsTester<K, V>
     initMultimapWithNullValue();
     Multimap<K, V> withNull = multimap();
     new EqualsTester()
-        .addEqualityGroup(original)
-        .addEqualityGroup(withNull, getSubjectGenerator().create(
-                                        (Object[])createArrayWithNullValue()))
-        .testEquals();
+    .addEqualityGroup(original)
+    .addEqualityGroup(withNull, getSubjectGenerator().create(
+          (Object[])createArrayWithNullValue()))
+    .testEquals();
   }
 
   @CollectionSize.Require(absent = ZERO)
   public void testNotEqualsEmpty() {
     new EqualsTester()
-        .addEqualityGroup(multimap())
-        .addEqualityGroup(getSubjectGenerator().create())
-        .testEquals();
+    .addEqualityGroup(multimap())
+    .addEqualityGroup(getSubjectGenerator().create())
+    .testEquals();
   }
 
   public void testHashCodeMatchesAsMap() {

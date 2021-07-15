@@ -40,7 +40,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
   private final transient int size;
 
   RegularImmutableSet(Object[] elements, int hashCode, Object[] table, int mask,
-                      int size) {
+      int size) {
     this.elements = elements;
     this.table = table;
     this.mask = mask;

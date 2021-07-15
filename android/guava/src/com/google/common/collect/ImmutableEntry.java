@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true)
 class ImmutableEntry<K, V>
-    extends AbstractMapEntry<K, V> implements Serializable {
+  extends AbstractMapEntry<K, V> implements Serializable {
   final K key;
   final V value;
 

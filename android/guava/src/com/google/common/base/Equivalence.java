@@ -284,7 +284,7 @@ public abstract class Equivalence<T> {
   }
 
   private static final class EquivalentToPredicate<T>
-      implements Predicate<T>, Serializable {
+    implements Predicate<T>, Serializable {
 
     private final Equivalence<T> equivalence;
     @Nullable private final T target;
@@ -307,7 +307,7 @@ public abstract class Equivalence<T> {
       if (obj instanceof EquivalentToPredicate) {
         EquivalentToPredicate<?> that = (EquivalentToPredicate<?>)obj;
         return equivalence.equals(that.equivalence) &&
-            Objects.equal(target, that.target);
+               Objects.equal(target, that.target);
       }
       return false;
     }
@@ -351,7 +351,7 @@ public abstract class Equivalence<T> {
   public static Equivalence<Object> identity() { return Identity.INSTANCE; }
 
   static final class Equals
-      extends Equivalence<Object> implements Serializable {
+    extends Equivalence<Object> implements Serializable {
 
     static final Equals INSTANCE = new Equals();
 
@@ -371,7 +371,7 @@ public abstract class Equivalence<T> {
   }
 
   static final class Identity
-      extends Equivalence<Object> implements Serializable {
+    extends Equivalence<Object> implements Serializable {
 
     static final Identity INSTANCE = new Identity();
 

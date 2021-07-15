@@ -64,15 +64,15 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
   // incidentNodes(edge) slightly faster, but also make Networks consume 5 to
   // 20+% (increasing with average degree) more memory.
   protected final MapIteratorCache<E, N>
-      edgeToReferenceNode; // referenceNode == source if directed
+  edgeToReferenceNode;     // referenceNode == source if directed
 
   /** Constructs a graph with the properties specified in {@code builder}. */
   ConfigurableNetwork(NetworkBuilder<? super N, ? super E> builder) {
     this(builder,
-         builder.nodeOrder.<N, NetworkConnections<N, E>>createMap(
-             builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
-         builder.edgeOrder.<E, N>createMap(
-             builder.expectedEdgeCount.or(DEFAULT_EDGE_COUNT)));
+    builder.nodeOrder.<N, NetworkConnections<N, E>>createMap(
+      builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
+    builder.edgeOrder.<E, N>createMap(
+      builder.expectedEdgeCount.or(DEFAULT_EDGE_COUNT)));
   }
 
   /**
@@ -80,8 +80,8 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
    * initialized with the given node and edge maps.
    */
   ConfigurableNetwork(NetworkBuilder<? super N, ? super E> builder,
-                      Map<N, NetworkConnections<N, E>> nodeConnections,
-                      Map<E, N> edgeToReferenceNode) {
+      Map<N, NetworkConnections<N, E>> nodeConnections,
+      Map<E, N> edgeToReferenceNode) {
     this.isDirected = builder.directed;
     this.allowsParallelEdges = builder.allowsParallelEdges;
     this.allowsSelfLoops = builder.allowsSelfLoops;
@@ -93,9 +93,9 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     this.nodeConnections =
         (nodeConnections instanceof TreeMap)
             ? new MapRetrievalCache<N, NetworkConnections<N, E>>(
-                  nodeConnections)
+      nodeConnections)
             : new MapIteratorCache<N, NetworkConnections<N, E>>(
-                  nodeConnections);
+      nodeConnections);
     this.edgeToReferenceNode = new MapIteratorCache<>(edgeToReferenceNode);
   }
 
@@ -187,7 +187,7 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     if (connections == null) {
       checkNotNull(node);
       throw new IllegalArgumentException(
-          String.format(NODE_NOT_IN_GRAPH, node));
+              String.format(NODE_NOT_IN_GRAPH, node));
     }
     return connections;
   }
@@ -197,7 +197,7 @@ class ConfigurableNetwork<N, E> extends AbstractNetwork<N, E> {
     if (referenceNode == null) {
       checkNotNull(edge);
       throw new IllegalArgumentException(
-          String.format(EDGE_NOT_IN_GRAPH, edge));
+              String.format(EDGE_NOT_IN_GRAPH, edge));
     }
     return referenceNode;
   }

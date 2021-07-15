@@ -35,7 +35,7 @@ final class SmallCharMatcher extends NamedFastMatcher {
   private final long filter;
 
   private SmallCharMatcher(char[] table, long filter, boolean containsZero,
-                           String description) {
+      String description) {
     super(description);
     this.table = table;
     this.filter = filter;

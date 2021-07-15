@@ -36,7 +36,7 @@ final class SortedIterables {
    * ordering equivalent to {@code comparator}.
    */
   public static boolean hasSameComparator(Comparator<?> comparator,
-                                          Iterable<?> elements) {
+      Iterable<?> elements) {
     checkNotNull(comparator);
     checkNotNull(elements);
     Comparator<?> comparator2;

@@ -101,11 +101,11 @@ public final class ThreadFactoryBuilder {
     // Thread#setPriority() already checks for validity. These error messages
     // are nicer though and will fail-fast.
     checkArgument(priority >= Thread.MIN_PRIORITY,
-                  "Thread priority (%s) must be >= %s", priority,
-                  Thread.MIN_PRIORITY);
+        "Thread priority (%s) must be >= %s", priority,
+        Thread.MIN_PRIORITY);
     checkArgument(priority <= Thread.MAX_PRIORITY,
-                  "Thread priority (%s) must be <= %s", priority,
-                  Thread.MAX_PRIORITY);
+        "Thread priority (%s) must be <= %s", priority,
+        Thread.MAX_PRIORITY);
     this.priority = priority;
     return this;
   }
@@ -119,7 +119,7 @@ public final class ThreadFactoryBuilder {
    * @return this for the builder pattern
    */
   public ThreadFactoryBuilder setUncaughtExceptionHandler(
-      UncaughtExceptionHandler uncaughtExceptionHandler) {
+    UncaughtExceptionHandler uncaughtExceptionHandler) {
     this.uncaughtExceptionHandler = checkNotNull(uncaughtExceptionHandler);
     return this;
   }
@@ -169,23 +169,23 @@ public final class ThreadFactoryBuilder {
             : Executors.defaultThreadFactory();
     final AtomicLong count = (nameFormat != null) ? new AtomicLong(0) : null;
     return new ThreadFactory() {
-      @Override
-      public Thread newThread(Runnable runnable) {
-        Thread thread = backingThreadFactory.newThread(runnable);
-        if (nameFormat != null) {
-          thread.setName(format(nameFormat, count.getAndIncrement()));
-        }
-        if (daemon != null) {
-          thread.setDaemon(daemon);
-        }
-        if (priority != null) {
-          thread.setPriority(priority);
-        }
-        if (uncaughtExceptionHandler != null) {
-          thread.setUncaughtExceptionHandler(uncaughtExceptionHandler);
-        }
-        return thread;
-      }
+             @Override
+             public Thread newThread(Runnable runnable) {
+               Thread thread = backingThreadFactory.newThread(runnable);
+               if (nameFormat != null) {
+                 thread.setName(format(nameFormat, count.getAndIncrement()));
+               }
+               if (daemon != null) {
+                 thread.setDaemon(daemon);
+               }
+               if (priority != null) {
+                 thread.setPriority(priority);
+               }
+               if (uncaughtExceptionHandler != null) {
+                 thread.setUncaughtExceptionHandler(uncaughtExceptionHandler);
+               }
+               return thread;
+             }
     };
   }
 

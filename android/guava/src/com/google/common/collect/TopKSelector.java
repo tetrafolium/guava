@@ -89,7 +89,7 @@ final class TopKSelector<T> {
    * @throws IllegalArgumentException if {@code k < 0}
    */
   public static <T> TopKSelector<T> least(int k,
-                                          Comparator<? super T> comparator) {
+      Comparator<? super T> comparator) {
     return new TopKSelector<T>(comparator, k);
   }
 
@@ -101,7 +101,7 @@ final class TopKSelector<T> {
    * @throws IllegalArgumentException if {@code k < 0}
    */
   public static <T> TopKSelector<T> greatest(int k,
-                                             Comparator<? super T> comparator) {
+      Comparator<? super T> comparator) {
     return new TopKSelector<T>(Ordering.from(comparator).reverse(), k);
   }
 
@@ -278,6 +278,6 @@ final class TopKSelector<T> {
     }
     // we have to support null elements, so no ImmutableList for us
     return Collections.unmodifiableList(
-        Arrays.asList(Arrays.copyOf(buffer, bufferSize)));
+      Arrays.asList(Arrays.copyOf(buffer, bufferSize)));
   }
 }

@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class AbstractSequentialIterator<T>
-    extends UnmodifiableIterator<T> {
+  extends UnmodifiableIterator<T> {
   private T nextOrNull;
 
   /**

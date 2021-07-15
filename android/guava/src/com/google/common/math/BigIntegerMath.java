@@ -113,7 +113,7 @@ public final class BigIntegerMath {
     case HALF_EVEN:
       if (logFloor < SQRT2_PRECOMPUTE_THRESHOLD) {
         BigInteger halfPower = SQRT2_PRECOMPUTED_BITS.shiftRight(
-            SQRT2_PRECOMPUTE_THRESHOLD - logFloor);
+          SQRT2_PRECOMPUTE_THRESHOLD - logFloor);
         if (x.compareTo(halfPower) <= 0) {
           return logFloor;
         } else {
@@ -142,7 +142,7 @@ public final class BigIntegerMath {
 
   @VisibleForTesting
   static final BigInteger SQRT2_PRECOMPUTED_BITS = new BigInteger(
-      "16a09e667f3bcc908b2fb1366ea957d3e3adec17512775099da2f590b0667322a", 16);
+    "16a09e667f3bcc908b2fb1366ea957d3e3adec17512775099da2f590b0667322a", 16);
 
   /**
    * Returns the base-10 logarithm of {@code x}, rounded according to the
@@ -322,7 +322,7 @@ public final class BigIntegerMath {
   @GwtIncompatible // TODO
   private static BigInteger sqrtApproxWithDoubles(BigInteger x) {
     return DoubleMath.roundToBigInteger(Math.sqrt(DoubleUtils.bigToDouble(x)),
-                                        HALF_EVEN);
+               HALF_EVEN);
   }
 
   /**
@@ -335,7 +335,7 @@ public final class BigIntegerMath {
    */
   @GwtIncompatible // TODO
   public static BigInteger divide(BigInteger p, BigInteger q,
-                                  RoundingMode mode) {
+      RoundingMode mode) {
     BigDecimal pDec = new BigDecimal(p);
     BigDecimal qDec = new BigDecimal(q);
     return pDec.divide(qDec, 0, mode).toBigIntegerExact();
@@ -424,8 +424,8 @@ public final class BigIntegerMath {
       return nums.get(start).multiply(nums.get(start + 1));
     case 3:
       return nums.get(start)
-          .multiply(nums.get(start + 1))
-          .multiply(nums.get(start + 2));
+             .multiply(nums.get(start + 1))
+             .multiply(nums.get(start + 2));
     default:
       // Otherwise, split the list in half and recursively do this.
       int m = (end + start) >>> 1;
@@ -474,7 +474,7 @@ public final class BigIntegerMath {
         // The numerator is as big as it can get without risking overflow.
         // Multiply numeratorAccum / denominatorAccum into accum.
         accum = accum.multiply(BigInteger.valueOf(numeratorAccum))
-                    .divide(BigInteger.valueOf(denominatorAccum));
+            .divide(BigInteger.valueOf(denominatorAccum));
         numeratorAccum = p;
         denominatorAccum = q;
         numeratorBits = bits;
@@ -487,7 +487,7 @@ public final class BigIntegerMath {
       }
     }
     return accum.multiply(BigInteger.valueOf(numeratorAccum))
-        .divide(BigInteger.valueOf(denominatorAccum));
+           .divide(BigInteger.valueOf(denominatorAccum));
   }
 
   // Returns true if BigInteger.valueOf(x.longValue()).equals(x).

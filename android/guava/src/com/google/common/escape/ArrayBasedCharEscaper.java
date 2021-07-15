@@ -71,7 +71,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * @param safeMax the highest character value in the safe range
    */
   protected ArrayBasedCharEscaper(Map<Character, String> replacementMap,
-                                  char safeMin, char safeMax) {
+      char safeMin, char safeMax) {
 
     this(ArrayBasedEscaperMap.create(replacementMap), safeMin, safeMax);
   }
@@ -92,7 +92,7 @@ public abstract class ArrayBasedCharEscaper extends CharEscaper {
    * @param safeMax the highest character value in the safe range
    */
   protected ArrayBasedCharEscaper(ArrayBasedEscaperMap escaperMap, char safeMin,
-                                  char safeMax) {
+      char safeMax) {
 
     checkNotNull(escaperMap); // GWT specific check (do not optimize)
     this.replacements = escaperMap.getReplacementArray();

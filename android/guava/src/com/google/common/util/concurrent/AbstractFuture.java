@@ -79,7 +79,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
   private static final boolean GENERATE_CANCELLATION_CAUSES =
       Boolean.parseBoolean(System.getProperty(
-          "guava.concurrent.generate_cancellation_cause", "false"));
+        "guava.concurrent.generate_cancellation_cause", "false"));
 
   /**
    * A less abstract subclass of AbstractFuture. This can be used to optimize
@@ -96,7 +96,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     @CanIgnoreReturnValue
     @Override
     public final V get(long timeout, TimeUnit unit)
-        throws InterruptedException, ExecutionException, TimeoutException {
+    throws InterruptedException, ExecutionException, TimeoutException {
       return super.get(timeout, unit);
     }
 
@@ -148,11 +148,11 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       // these here
       try {
         helper = new SafeAtomicHelper(
-            newUpdater(Waiter.class, Thread.class, "thread"),
-            newUpdater(Waiter.class, Waiter.class, "next"),
-            newUpdater(AbstractFuture.class, Waiter.class, "waiters"),
-            newUpdater(AbstractFuture.class, Listener.class, "listeners"),
-            newUpdater(AbstractFuture.class, Object.class, "value"));
+          newUpdater(Waiter.class, Thread.class, "thread"),
+          newUpdater(Waiter.class, Waiter.class, "next"),
+          newUpdater(AbstractFuture.class, Waiter.class, "waiters"),
+          newUpdater(AbstractFuture.class, Listener.class, "listeners"),
+          newUpdater(AbstractFuture.class, Object.class, "value"));
       } catch (Throwable atomicReferenceFieldUpdaterFailure) {
         // Some Android 5.0.x Samsung devices have bugs in JDK reflection APIs
         // that cause getDeclaredField to throw a NoSuchFieldException when the
@@ -175,9 +175,9 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     // missing/broken.
     if (thrownAtomicReferenceFieldUpdaterFailure != null) {
       log.log(Level.SEVERE, "UnsafeAtomicHelper is broken!",
-              thrownUnsafeFailure);
+          thrownUnsafeFailure);
       log.log(Level.SEVERE, "SafeAtomicHelper is broken!",
-              thrownAtomicReferenceFieldUpdaterFailure);
+          thrownAtomicReferenceFieldUpdaterFailure);
     }
   }
 
@@ -230,7 +230,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
    */
   private void removeWaiter(Waiter node) {
     node.thread = null; // mark as 'deleted'
-  restart:
+restart:
     while (true) {
       Waiter pred = null;
       Waiter curr = waiters;
@@ -251,7 +251,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
             continue restart;
           }
         } else if (!ATOMIC_HELPER.casWaiters(this, curr,
-                                             succ)) { // We are unlinking head
+            succ)) {                                  // We are unlinking head
           continue restart; // We raced with an add or complete
         }
         curr = succ;
@@ -285,12 +285,12 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
    */
   private static final class Failure {
     static final Failure FALLBACK_INSTANCE = new Failure(
-        new Throwable("Failure occurred while trying to finish a future.") {
-          @Override
-          public synchronized Throwable fillInStackTrace() {
-            return this; // no stack trace
-          }
-        });
+      new Throwable("Failure occurred while trying to finish a future.") {
+      @Override
+      public synchronized Throwable fillInStackTrace() {
+        return this;     // no stack trace
+      }
+    });
     final Throwable exception;
 
     Failure(Throwable exception) { this.exception = checkNotNull(exception); }
@@ -417,7 +417,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   @CanIgnoreReturnValue
   @Override
   public V get(long timeout, TimeUnit unit)
-      throws InterruptedException, TimeoutException, ExecutionException {
+  throws InterruptedException, TimeoutException, ExecutionException {
     // NOTE: if timeout < 0, remainingNanos will be < 0 and we will fall into
     // the while(true) loop at the bottom and throw a timeoutexception.
     long remainingNanos =
@@ -433,7 +433,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     // spin
     final long endNanos =
         remainingNanos > 0 ? System.nanoTime() + remainingNanos : 0;
-  long_wait_loop:
+long_wait_loop:
     if (remainingNanos >= SPIN_THRESHOLD_NANOS) {
       Waiter oldHead = waiters;
       if (oldHead != Waiter.TOMBSTONE) {
@@ -494,12 +494,12 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     // timeout expired, and the message might be success.
     if (isDone()) {
       throw new TimeoutException("Waited " + timeout + " " +
-                                 Ascii.toLowerCase(unit.toString()) +
-                                 " but future completed as timeout expired");
+                Ascii.toLowerCase(unit.toString()) +
+                " but future completed as timeout expired");
     }
     throw new TimeoutException("Waited " + timeout + " " +
-                               Ascii.toLowerCase(unit.toString()) + " for " +
-                               futureToString);
+              Ascii.toLowerCase(unit.toString()) + " for " +
+              futureToString);
   }
 
   /**
@@ -562,7 +562,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     // immediateFuture)
     if (obj instanceof Cancellation) {
       throw cancellationExceptionWithCause("Task was cancelled.",
-                                           ((Cancellation)obj).cause);
+                ((Cancellation)obj).cause);
     } else if (obj instanceof Failure) {
       throw new ExecutionException(((Failure)obj).exception);
     } else if (obj == NULL) {
@@ -611,8 +611,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       Object valueToSet =
           GENERATE_CANCELLATION_CAUSES
               ? new Cancellation(
-                    mayInterruptIfRunning,
-                    new CancellationException("Future.cancel() was called."))
+        mayInterruptIfRunning,
+        new CancellationException("Future.cancel() was called."))
               : (mayInterruptIfRunning ? Cancellation.CAUSELESS_INTERRUPTED
                                        : Cancellation.CAUSELESS_CANCELLED);
       AbstractFuture<?> abstractFuture = this;
@@ -693,7 +693,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   protected final boolean wasInterrupted() {
     final Object localValue = value;
     return (localValue instanceof Cancellation) &&
-        ((Cancellation)localValue).wasInterrupted;
+           ((Cancellation)localValue).wasInterrupted;
   }
 
   /**
@@ -896,7 +896,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
   /** Unblocks all threads and runs all listeners. */
   private static void complete(AbstractFuture<?> future) {
     Listener next = null;
-  outer:
+outer:
     while (true) {
       future.releaseWaiters();
       // We call this before the listeners in order to avoid needing to manage a
@@ -978,7 +978,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       head = waiters;
     } while (!ATOMIC_HELPER.casWaiters(this, head, Waiter.TOMBSTONE));
     for (Waiter currentWaiter = head; currentWaiter != null;
-         currentWaiter = currentWaiter.next) {
+        currentWaiter = currentWaiter.next) {
       currentWaiter.unpark();
     }
   }
@@ -1036,8 +1036,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       // checking if the future is done again.
       if (!isNullOrEmpty(pendingDescription)) {
         builder.append("PENDING, info=[")
-            .append(pendingDescription)
-            .append("]");
+        .append(pendingDescription)
+        .append("]");
       } else if (isDone()) {
         addDoneString(builder);
       } else {
@@ -1062,7 +1062,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       return "setFuture=[" + ((SetFuture)localValue).future + "]";
     } else if (this instanceof ScheduledFuture) {
       return "remaining delay=[" +
-          ((ScheduledFuture)this).getDelay(TimeUnit.MILLISECONDS) + " ms]";
+             ((ScheduledFuture)this).getDelay(TimeUnit.MILLISECONDS) + " ms]";
     }
     return null;
   }
@@ -1077,8 +1077,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       builder.append("CANCELLED"); // shouldn't be reachable
     } catch (RuntimeException e) {
       builder.append("UNKNOWN, cause=[")
-          .append(e.getClass())
-          .append(" thrown from get()]");
+      .append(e.getClass())
+      .append(" thrown from get()]");
     }
   }
 
@@ -1095,9 +1095,9 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       // other runnables if we're given a bad one. We only catch
       // RuntimeException because we want Errors to propagate up.
       log.log(Level.SEVERE,
-              "RuntimeException while executing runnable " + runnable +
-                  " with executor " + executor,
-              e);
+          "RuntimeException while executing runnable " + runnable +
+          " with executor " + executor,
+          e);
     }
   }
 
@@ -1110,15 +1110,15 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
     /** Performs a CAS operation on the {@link #waiters} field. */
     abstract boolean casWaiters(AbstractFuture<?> future, Waiter expect,
-                                Waiter update);
+        Waiter update);
 
     /** Performs a CAS operation on the {@link #listeners} field. */
     abstract boolean casListeners(AbstractFuture<?> future, Listener expect,
-                                  Listener update);
+        Listener update);
 
     /** Performs a CAS operation on the {@link #value} field. */
     abstract boolean casValue(AbstractFuture<?> future, Object expect,
-                              Object update);
+        Object update);
   }
 
   /**
@@ -1142,31 +1142,31 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       } catch (SecurityException tryReflectionInstead) {
         try {
           unsafe = AccessController.doPrivileged(
-              new PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
-                    Object x = f.get(null);
-                    if (k.isInstance(x)) {
-                      return k.cast(x);
-                    }
-                  }
-                  throw new NoSuchFieldError("the Unsafe");
+            new PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+                Object x = f.get(null);
+                if (k.isInstance(x)) {
+                  return k.cast(x);
                 }
-              });
+              }
+              throw new NoSuchFieldError("the Unsafe");
+            }
+          });
         } catch (PrivilegedActionException e) {
           throw new RuntimeException("Could not initialize intrinsics",
-                                     e.getCause());
+                    e.getCause());
         }
       }
       try {
         Class<?> abstractFuture = AbstractFuture.class;
         WAITERS_OFFSET = unsafe.objectFieldOffset(
-            abstractFuture.getDeclaredField("waiters"));
+          abstractFuture.getDeclaredField("waiters"));
         LISTENERS_OFFSET = unsafe.objectFieldOffset(
-            abstractFuture.getDeclaredField("listeners"));
+          abstractFuture.getDeclaredField("listeners"));
         VALUE_OFFSET =
             unsafe.objectFieldOffset(abstractFuture.getDeclaredField("value"));
         WAITER_THREAD_OFFSET =
@@ -1194,15 +1194,15 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     @Override
     boolean casWaiters(AbstractFuture<?> future, Waiter expect, Waiter update) {
       return UNSAFE.compareAndSwapObject(future, WAITERS_OFFSET, expect,
-                                         update);
+                 update);
     }
 
     /** Performs a CAS operation on the {@link #listeners} field. */
     @Override
     boolean casListeners(AbstractFuture<?> future, Listener expect,
-                         Listener update) {
+        Listener update) {
       return UNSAFE.compareAndSwapObject(future, LISTENERS_OFFSET, expect,
-                                         update);
+                 update);
     }
 
     /** Performs a CAS operation on the {@link #value} field. */
@@ -1218,15 +1218,15 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     final AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Listener>
-        listenersUpdater;
+    listenersUpdater;
     final AtomicReferenceFieldUpdater<AbstractFuture, Object> valueUpdater;
 
     SafeAtomicHelper(
-        AtomicReferenceFieldUpdater<Waiter, Thread> waiterThreadUpdater,
-        AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater,
-        AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater,
-        AtomicReferenceFieldUpdater<AbstractFuture, Listener> listenersUpdater,
-        AtomicReferenceFieldUpdater<AbstractFuture, Object> valueUpdater) {
+      AtomicReferenceFieldUpdater<Waiter, Thread> waiterThreadUpdater,
+      AtomicReferenceFieldUpdater<Waiter, Waiter> waiterNextUpdater,
+      AtomicReferenceFieldUpdater<AbstractFuture, Waiter> waitersUpdater,
+      AtomicReferenceFieldUpdater<AbstractFuture, Listener> listenersUpdater,
+      AtomicReferenceFieldUpdater<AbstractFuture, Object> valueUpdater) {
       this.waiterThreadUpdater = waiterThreadUpdater;
       this.waiterNextUpdater = waiterNextUpdater;
       this.waitersUpdater = waitersUpdater;
@@ -1251,7 +1251,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
     @Override
     boolean casListeners(AbstractFuture<?> future, Listener expect,
-                         Listener update) {
+        Listener update) {
       return listenersUpdater.compareAndSet(future, expect, update);
     }
 
@@ -1291,7 +1291,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
     @Override
     boolean casListeners(AbstractFuture<?> future, Listener expect,
-                         Listener update) {
+        Listener update) {
       synchronized (future) {
         if (future.listeners == expect) {
           future.listeners = update;
@@ -1315,7 +1315,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
   private static CancellationException
   cancellationExceptionWithCause(@Nullable String message,
-                                 @Nullable Throwable cause) {
+      @Nullable Throwable cause) {
     CancellationException exception = new CancellationException(message);
     exception.initCause(cause);
     return exception;

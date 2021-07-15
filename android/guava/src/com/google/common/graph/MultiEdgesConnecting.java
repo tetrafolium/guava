@@ -53,16 +53,16 @@ abstract class MultiEdgesConnecting<E> extends AbstractSet<E> {
     final Iterator<? extends Entry<E, ?>> entries =
         outEdgeToNode.entrySet().iterator();
     return new AbstractIterator<E>() {
-      @Override
-      protected E computeNext() {
-        while (entries.hasNext()) {
-          Entry<E, ?> entry = entries.next();
-          if (targetNode.equals(entry.getValue())) {
-            return entry.getKey();
-          }
-        }
-        return endOfData();
-      }
+             @Override
+             protected E computeNext() {
+               while (entries.hasNext()) {
+                 Entry<E, ?> entry = entries.next();
+                 if (targetNode.equals(entry.getValue())) {
+                   return entry.getKey();
+                 }
+               }
+               return endOfData();
+             }
     };
   }
 

@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @GwtCompatible(emulated = true)
 abstract class ArrayListMultimapGwtSerializationDependencies<K, V>
-    extends AbstractListMultimap<K, V> {
+  extends AbstractListMultimap<K, V> {
   ArrayListMultimapGwtSerializationDependencies(Map<K, Collection<V>> map) {
     super(map);
   }

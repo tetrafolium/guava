@@ -54,8 +54,8 @@ final class RelationshipTester<T> {
   private final List<ImmutableList<T>> groups = Lists.newArrayList();
 
   RelationshipTester(Equivalence<? super T> equivalence,
-                     String relationshipName, String hashName,
-                     ItemReporter itemReporter) {
+      String relationshipName, String hashName,
+      ItemReporter itemReporter) {
     this.equivalence = checkNotNull(equivalence);
     this.relationshipName = checkNotNull(relationshipName);
     this.hashName = checkNotNull(hashName);
@@ -75,21 +75,21 @@ final class RelationshipTester<T> {
       for (int itemNumber = 0; itemNumber < group.size(); itemNumber++) {
         // check related items in same group
         for (int relatedItemNumber = 0; relatedItemNumber < group.size();
-             relatedItemNumber++) {
+            relatedItemNumber++) {
           if (itemNumber != relatedItemNumber) {
             assertRelated(groupNumber, itemNumber, relatedItemNumber);
           }
         }
         // check unrelated items in all other groups
         for (int unrelatedGroupNumber = 0; unrelatedGroupNumber < groups.size();
-             unrelatedGroupNumber++) {
+            unrelatedGroupNumber++) {
           if (groupNumber != unrelatedGroupNumber) {
             ImmutableList<T> unrelatedGroup = groups.get(unrelatedGroupNumber);
             for (int unrelatedItemNumber = 0;
-                 unrelatedItemNumber < unrelatedGroup.size();
-                 unrelatedItemNumber++) {
+                unrelatedItemNumber < unrelatedGroup.size();
+                unrelatedItemNumber++) {
               assertUnrelated(groupNumber, itemNumber, unrelatedGroupNumber,
-                              unrelatedItemNumber);
+                  unrelatedItemNumber);
             }
           }
         }
@@ -98,39 +98,39 @@ final class RelationshipTester<T> {
   }
 
   private void assertRelated(int groupNumber, int itemNumber,
-                             int relatedItemNumber) {
+      int relatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> relatedInfo = getItem(groupNumber, relatedItemNumber);
 
     T item = itemInfo.value;
     T related = relatedInfo.value;
     assertWithTemplate("$ITEM must be $RELATIONSHIP to $OTHER", itemInfo,
-                       relatedInfo, equivalence.equivalent(item, related));
+        relatedInfo, equivalence.equivalent(item, related));
 
     int itemHash = equivalence.hash(item);
     int relatedHash = equivalence.hash(related);
     assertWithTemplate("the $HASH (" + itemHash +
-                           ") of $ITEM must be equal to the $HASH (" +
-                           relatedHash + ") of $OTHER",
-                       itemInfo, relatedInfo, itemHash == relatedHash);
+        ") of $ITEM must be equal to the $HASH (" +
+        relatedHash + ") of $OTHER",
+        itemInfo, relatedInfo, itemHash == relatedHash);
   }
 
   private void assertUnrelated(int groupNumber, int itemNumber,
-                               int unrelatedGroupNumber,
-                               int unrelatedItemNumber) {
+      int unrelatedGroupNumber,
+      int unrelatedItemNumber) {
     Item<T> itemInfo = getItem(groupNumber, itemNumber);
     Item<T> unrelatedInfo = getItem(unrelatedGroupNumber, unrelatedItemNumber);
 
     assertWithTemplate(
-        "$ITEM must not be $RELATIONSHIP to $OTHER", itemInfo, unrelatedInfo,
-        !equivalence.equivalent(itemInfo.value, unrelatedInfo.value));
+      "$ITEM must not be $RELATIONSHIP to $OTHER", itemInfo, unrelatedInfo,
+      !equivalence.equivalent(itemInfo.value, unrelatedInfo.value));
   }
 
   private void assertWithTemplate(String template, Item<T> item, Item<T> other,
-                                  boolean condition) {
+      boolean condition) {
     if (!condition) {
       throw new AssertionFailedError(
-          template.replace("$RELATIONSHIP", relationshipName)
+              template.replace("$RELATIONSHIP", relationshipName)
               .replace("$HASH", hashName)
               .replace("$ITEM", itemReporter.reportItem(item))
               .replace("$OTHER", itemReporter.reportItem(other)));
@@ -139,7 +139,7 @@ final class RelationshipTester<T> {
 
   private Item<T> getItem(int groupNumber, int itemNumber) {
     return new Item<T>(groups.get(groupNumber).get(itemNumber), groupNumber,
-                       itemNumber);
+               itemNumber);
   }
 
   static final class Item<T> {
@@ -156,7 +156,7 @@ final class RelationshipTester<T> {
     @Override
     public String toString() {
       return value + " [group " + (groupNumber + 1) + ", item " +
-          (itemNumber + 1) + ']';
+             (itemNumber + 1) + ']';
     }
   }
 }

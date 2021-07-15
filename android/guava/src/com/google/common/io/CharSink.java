@@ -120,7 +120,7 @@ public abstract class CharSink {
    * @throws IOException if an I/O error occurs while writing to this sink
    */
   public void writeLines(Iterable<? extends CharSequence> lines)
-      throws IOException {
+  throws IOException {
     writeLines(lines, System.getProperty("line.separator"));
   }
 
@@ -131,7 +131,7 @@ public abstract class CharSink {
    * @throws IOException if an I/O error occurs while writing to this sink
    */
   public void writeLines(Iterable<? extends CharSequence> lines,
-                         String lineSeparator) throws IOException {
+      String lineSeparator) throws IOException {
     checkNotNull(lines);
     checkNotNull(lineSeparator);
 

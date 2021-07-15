@@ -47,7 +47,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableSet<E>
-    extends ImmutableCollection<E> implements Set<E> {
+  extends ImmutableCollection<E> implements Set<E> {
   /**
    * Returns the empty immutable set. Preferred over {@link
    * Collections#emptySet} for code consistency, and because the return type
@@ -113,8 +113,8 @@ public abstract class ImmutableSet<E>
    */
   @SafeVarargs // For Eclipse. For internal javac we have disabled this
                // pointless type of warning.
-               public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4,
-                                                    E e5, E e6, E... others) {
+  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4,
+      E e5, E e6, E... others) {
     final int paramCount = 6;
     Object[] elements = new Object[paramCount + others.length];
     elements[0] = e1;
@@ -190,7 +190,7 @@ public abstract class ImmutableSet<E>
                                     ? Arrays.copyOf(elements, uniques)
                                     : elements;
       return new RegularImmutableSet<E>(uniqueElements, hashCode, table, mask,
-                                        uniques);
+                 uniques);
     }
   }
 
@@ -329,8 +329,8 @@ public abstract class ImmutableSet<E>
     if (object == this) {
       return true;
     } else if (object instanceof ImmutableSet && isHashCodeFast() &&
-               ((ImmutableSet<?>)object).isHashCodeFast() &&
-               hashCode() != object.hashCode()) {
+        ((ImmutableSet<?>)object).isHashCodeFast() &&
+        hashCode() != object.hashCode()) {
       return false;
     }
     return Sets.equalsImpl(this, object);
@@ -368,20 +368,20 @@ public abstract class ImmutableSet<E>
     @Override
     ImmutableList<E> createAsList() {
       return new ImmutableList<E>() {
-        @Override
-        public E get(int index) {
-          return Indexed.this.get(index);
-        }
+               @Override
+               public E get(int index) {
+                 return Indexed.this.get(index);
+               }
 
-        @Override
-        boolean isPartialView() {
-          return Indexed.this.isPartialView();
-        }
+               @Override
+               boolean isPartialView() {
+                 return Indexed.this.isPartialView();
+               }
 
-        @Override
-        public int size() {
-          return Indexed.this.size();
-        }
+               @Override
+               public int size() {
+                 return Indexed.this.size();
+               }
       };
     }
   }
@@ -454,7 +454,7 @@ public abstract class ImmutableSet<E>
    * @since 2.0
    */
   public static class Builder<E>
-      extends ImmutableCollection.ArrayBasedBuilder<E> {
+    extends ImmutableCollection.ArrayBasedBuilder<E> {
     @VisibleForTesting Object[] hashTable;
     private int hashCode;
 
@@ -592,7 +592,7 @@ public abstract class ImmutableSet<E>
                                         ? Arrays.copyOf(contents, size)
                                         : contents;
           result = new RegularImmutableSet<E>(
-              uniqueElements, hashCode, hashTable, hashTable.length - 1, size);
+            uniqueElements, hashCode, hashTable, hashTable.length - 1, size);
         } else {
           result = construct(size, contents);
           // construct has the side effect of deduping contents, so we update

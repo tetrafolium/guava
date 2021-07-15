@@ -31,13 +31,13 @@ import java.util.Map;
  */
 @Beta
 public final class ImmutableTypeToInstanceMap<B>
-    extends ForwardingMap<TypeToken<? extends B>, B>
-    implements TypeToInstanceMap<B> {
+  extends ForwardingMap<TypeToken<? extends B>, B>
+  implements TypeToInstanceMap<B> {
 
   /** Returns an empty type to instance map. */
   public static <B> ImmutableTypeToInstanceMap<B> of() {
     return new ImmutableTypeToInstanceMap<B>(
-        ImmutableMap.<TypeToken<? extends B>, B>of());
+      ImmutableMap.<TypeToken<? extends B>, B>of());
   }
 
   /** Returns a new builder. */
@@ -100,7 +100,7 @@ public final class ImmutableTypeToInstanceMap<B>
   private final ImmutableMap<TypeToken<? extends B>, B> delegate;
 
   private ImmutableTypeToInstanceMap(
-      ImmutableMap<TypeToken<? extends B>, B> delegate) {
+    ImmutableMap<TypeToken<? extends B>, B> delegate) {
     this.delegate = delegate;
   }
 

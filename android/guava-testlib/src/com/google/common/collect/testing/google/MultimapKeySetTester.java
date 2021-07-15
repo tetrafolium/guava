@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class MultimapKeySetTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testKeySet() {
     for (Map.Entry<K, V> entry : getSampleElements()) {
       assertTrue(multimap().keySet().contains(entry.getKey()));

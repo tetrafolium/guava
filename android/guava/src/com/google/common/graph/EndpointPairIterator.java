@@ -30,7 +30,7 @@ import java.util.Set;
  * @author James Sexton
  */
 abstract class EndpointPairIterator<N>
-    extends AbstractIterator<EndpointPair<N>> {
+  extends AbstractIterator<EndpointPair<N>> {
   private final BaseGraph<N> graph;
   private final Iterator<N> nodeIterator;
 

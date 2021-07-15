@@ -165,7 +165,7 @@ public final class Strings {
     final int size = (int)longSize;
     if (size != longSize) {
       throw new ArrayIndexOutOfBoundsException(
-          "Required array size too large: " + longSize);
+              "Required array size too large: " + longSize);
     }
 
     final char[] array = new char[size];
@@ -216,7 +216,7 @@ public final class Strings {
     int maxSuffixLength = Math.min(a.length(), b.length());
     int s = 0;
     while (s < maxSuffixLength &&
-           a.charAt(a.length() - s - 1) == b.charAt(b.length() - s - 1)) {
+        a.charAt(a.length() - s - 1) == b.charAt(b.length() - s - 1)) {
       s++;
     }
     if (validSurrogatePairAt(a, a.length() - s - 1) ||
@@ -233,7 +233,7 @@ public final class Strings {
   @VisibleForTesting
   static boolean validSurrogatePairAt(CharSequence string, int index) {
     return index >= 0 && index <= (string.length() - 2) &&
-        Character.isHighSurrogate(string.charAt(index)) &&
-        Character.isLowSurrogate(string.charAt(index + 1));
+           Character.isHighSurrogate(string.charAt(index)) &&
+           Character.isLowSurrogate(string.charAt(index + 1));
   }
 }

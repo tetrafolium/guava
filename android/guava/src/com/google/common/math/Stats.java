@@ -88,7 +88,7 @@ public final class Stats implements Serializable {
    * </ul>
    */
   Stats(long count, double mean, double sumOfSquaresOfDeltas, double min,
-        double max) {
+      double max) {
     this.count = count;
     this.mean = mean;
     this.sumOfSquaresOfDeltas = sumOfSquaresOfDeltas;
@@ -389,11 +389,11 @@ public final class Stats implements Serializable {
     }
     Stats other = (Stats)obj;
     return (count == other.count) &&
-        (doubleToLongBits(mean) == doubleToLongBits(other.mean)) &&
-        (doubleToLongBits(sumOfSquaresOfDeltas) ==
-         doubleToLongBits(other.sumOfSquaresOfDeltas)) &&
-        (doubleToLongBits(min) == doubleToLongBits(other.min)) &&
-        (doubleToLongBits(max) == doubleToLongBits(other.max));
+           (doubleToLongBits(mean) == doubleToLongBits(other.mean)) &&
+           (doubleToLongBits(sumOfSquaresOfDeltas) ==
+           doubleToLongBits(other.sumOfSquaresOfDeltas)) &&
+           (doubleToLongBits(min) == doubleToLongBits(other.min)) &&
+           (doubleToLongBits(max) == doubleToLongBits(other.max));
   }
 
   /**
@@ -412,12 +412,12 @@ public final class Stats implements Serializable {
   public String toString() {
     if (count() > 0) {
       return MoreObjects.toStringHelper(this)
-          .add("count", count)
-          .add("mean", mean)
-          .add("populationStandardDeviation", populationStandardDeviation())
-          .add("min", min)
-          .add("max", max)
-          .toString();
+             .add("count", count)
+             .add("mean", mean)
+             .add("populationStandardDeviation", populationStandardDeviation())
+             .add("min", min)
+             .add("max", max)
+             .toString();
     } else {
       return MoreObjects.toStringHelper(this).add("count", count).toString();
     }
@@ -580,13 +580,13 @@ public final class Stats implements Serializable {
   void writeTo(ByteBuffer buffer) {
     checkNotNull(buffer);
     checkArgument(buffer.remaining() >= BYTES,
-                  "Expected at least Stats.BYTES = %s remaining , got %s",
-                  BYTES, buffer.remaining());
+        "Expected at least Stats.BYTES = %s remaining , got %s",
+        BYTES, buffer.remaining());
     buffer.putLong(count)
-        .putDouble(mean)
-        .putDouble(sumOfSquaresOfDeltas)
-        .putDouble(min)
-        .putDouble(max);
+    .putDouble(mean)
+    .putDouble(sumOfSquaresOfDeltas)
+    .putDouble(min)
+    .putDouble(max);
   }
 
   /**
@@ -600,8 +600,8 @@ public final class Stats implements Serializable {
   public static Stats fromByteArray(byte[] byteArray) {
     checkNotNull(byteArray);
     checkArgument(byteArray.length == BYTES,
-                  "Expected Stats.BYTES = %s remaining , got %s", BYTES,
-                  byteArray.length);
+        "Expected Stats.BYTES = %s remaining , got %s", BYTES,
+        byteArray.length);
     return readFrom(ByteBuffer.wrap(byteArray).order(ByteOrder.LITTLE_ENDIAN));
   }
 
@@ -621,10 +621,10 @@ public final class Stats implements Serializable {
   static Stats readFrom(ByteBuffer buffer) {
     checkNotNull(buffer);
     checkArgument(buffer.remaining() >= BYTES,
-                  "Expected at least Stats.BYTES = %s remaining , got %s",
-                  BYTES, buffer.remaining());
+        "Expected at least Stats.BYTES = %s remaining , got %s",
+        BYTES, buffer.remaining());
     return new Stats(buffer.getLong(), buffer.getDouble(), buffer.getDouble(),
-                     buffer.getDouble(), buffer.getDouble());
+               buffer.getDouble(), buffer.getDouble());
   }
 
   private static final long serialVersionUID = 0;

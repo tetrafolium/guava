@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 public abstract class ForwardingBlockingQueue<E>
-    extends ForwardingQueue<E> implements BlockingQueue<E> {
+  extends ForwardingQueue<E> implements BlockingQueue<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingBlockingQueue() {}
@@ -61,7 +61,7 @@ public abstract class ForwardingBlockingQueue<E>
 
   @Override
   public boolean offer(E e, long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().offer(e, timeout, unit);
   }
 

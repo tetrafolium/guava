@@ -314,7 +314,7 @@ public final class Hashing {
    */
   public static HashFunction hmacSha256(Key key) {
     return new MacHashFunction("HmacSHA256", key,
-                               hmacToString("hmacSha256", key));
+               hmacToString("hmacSha256", key));
   }
 
   /**
@@ -343,7 +343,7 @@ public final class Hashing {
    */
   public static HashFunction hmacSha512(Key key) {
     return new MacHashFunction("HmacSHA512", key,
-                               hmacToString("hmacSha512", key));
+               hmacToString("hmacSha512", key));
   }
 
   /**
@@ -361,7 +361,7 @@ public final class Hashing {
 
   private static String hmacToString(String methodName, Key key) {
     return String.format("Hashing.%s(Key[algorithm=%s, format=%s])", methodName,
-                         key.getAlgorithm(), key.getFormat());
+               key.getAlgorithm(), key.getFormat());
   }
 
   /**
@@ -567,13 +567,13 @@ public final class Hashing {
   public static HashCode combineOrdered(Iterable<HashCode> hashCodes) {
     Iterator<HashCode> iterator = hashCodes.iterator();
     checkArgument(iterator.hasNext(),
-                  "Must be at least 1 hash code to combine.");
+        "Must be at least 1 hash code to combine.");
     int bits = iterator.next().bits();
     byte[] resultBytes = new byte[bits / 8];
     for (HashCode hashCode : hashCodes) {
       byte[] nextBytes = hashCode.asBytes();
       checkArgument(nextBytes.length == resultBytes.length,
-                    "All hashcodes must have the same bit length.");
+          "All hashcodes must have the same bit length.");
       for (int i = 0; i < nextBytes.length; i++) {
         resultBytes[i] = (byte)(resultBytes[i] * 37 ^ nextBytes[i]);
       }
@@ -594,12 +594,12 @@ public final class Hashing {
   public static HashCode combineUnordered(Iterable<HashCode> hashCodes) {
     Iterator<HashCode> iterator = hashCodes.iterator();
     checkArgument(iterator.hasNext(),
-                  "Must be at least 1 hash code to combine.");
+        "Must be at least 1 hash code to combine.");
     byte[] resultBytes = new byte[iterator.next().bits() / 8];
     for (HashCode hashCode : hashCodes) {
       byte[] nextBytes = hashCode.asBytes();
       checkArgument(nextBytes.length == resultBytes.length,
-                    "All hashcodes must have the same bit length.");
+          "All hashcodes must have the same bit length.");
       for (int i = 0; i < nextBytes.length; i++) {
         resultBytes[i] += nextBytes[i];
       }
@@ -659,12 +659,12 @@ public final class Hashing {
       list.add(hashFunction);
     }
     checkArgument(list.size() > 0, "number of hash functions (%s) must be > 0",
-                  list.size());
+        list.size());
     return new ConcatenatedHashFunction(list.toArray(new HashFunction[0]));
   }
 
   private static final class ConcatenatedHashFunction
-      extends AbstractCompositeHashFunction {
+    extends AbstractCompositeHashFunction {
     private final int bits;
 
     private ConcatenatedHashFunction(HashFunction... functions) {
@@ -673,9 +673,9 @@ public final class Hashing {
       for (HashFunction function : functions) {
         bitSum += function.bits();
         checkArgument(
-            function.bits() % 8 == 0,
-            "the number of bits (%s) in hashFunction (%s) must be divisible by 8",
-            function.bits(), function);
+          function.bits() % 8 == 0,
+          "the number of bits (%s) in hashFunction (%s) must be divisible by 8",
+          function.bits(), function);
       }
       this.bits = bitSum;
     }

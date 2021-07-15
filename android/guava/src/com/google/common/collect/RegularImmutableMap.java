@@ -72,7 +72,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       return (RegularImmutableMap<K, V>)EMPTY;
     } else if (n == 1) {
       checkEntryNotNull(alternatingKeysAndValues[0],
-                        alternatingKeysAndValues[1]);
+          alternatingKeysAndValues[1]);
       return new RegularImmutableMap<K, V>(null, alternatingKeysAndValues, 1);
     }
     checkPositionIndex(n, alternatingKeysAndValues.length >> 1);
@@ -80,7 +80,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     int[] hashTable =
         createHashTable(alternatingKeysAndValues, n, tableSize, 0);
     return new RegularImmutableMap<K, V>(hashTable, alternatingKeysAndValues,
-                                         n);
+               n);
   }
 
   /**
@@ -88,12 +88,12 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
    * neither keys nor values are null.
    */
   static int[] createHashTable(Object[] alternatingKeysAndValues, int n,
-                               int tableSize, int keyOffset) {
+      int tableSize, int keyOffset) {
     if (n == 1) {
       // for n=1 we don't create a hash table, but we need to do the
       // checkEntryNotNull check!
       checkEntryNotNull(alternatingKeysAndValues[keyOffset],
-                        alternatingKeysAndValues[keyOffset ^ 1]);
+          alternatingKeysAndValues[keyOffset ^ 1]);
       return null;
     }
     int mask = tableSize - 1;
@@ -111,9 +111,9 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
           break;
         } else if (alternatingKeysAndValues[previous].equals(key)) {
           throw new IllegalArgumentException(
-              "Multiple entries with same key: " + key + "=" + value + " and " +
-              alternatingKeysAndValues[previous] + "=" +
-              alternatingKeysAndValues[previous ^ 1]);
+                  "Multiple entries with same key: " + key + "=" + value + " and " +
+                  alternatingKeysAndValues[previous] + "=" +
+                  alternatingKeysAndValues[previous ^ 1]);
         }
       }
     }
@@ -121,7 +121,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   private RegularImmutableMap(int[] hashTable,
-                              Object[] alternatingKeysAndValues, int size) {
+      Object[] alternatingKeysAndValues, int size) {
     this.hashTable = hashTable;
     this.alternatingKeysAndValues = alternatingKeysAndValues;
     this.size = size;
@@ -140,8 +140,8 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   static Object get(@Nullable int[] hashTable,
-                    @Nullable Object[] alternatingKeysAndValues, int size,
-                    int keyOffset, @Nullable Object key) {
+      @Nullable Object[] alternatingKeysAndValues, int size,
+      int keyOffset, @Nullable Object key) {
     if (key == null) {
       return null;
     } else if (size == 1) {
@@ -175,7 +175,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private transient final int size;
 
     EntrySet(ImmutableMap<K, V> map, Object[] alternatingKeysAndValues,
-             int keyOffset, int size) {
+        int keyOffset, int size) {
       this.map = map;
       this.alternatingKeysAndValues = alternatingKeysAndValues;
       this.keyOffset = keyOffset;
@@ -190,25 +190,25 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     @Override
     ImmutableList<Entry<K, V>> createAsList() {
       return new ImmutableList<Entry<K, V>>() {
-        @Override
-        public Entry<K, V> get(int index) {
-          checkElementIndex(index, size);
-          @SuppressWarnings("unchecked")
-          K key = (K)alternatingKeysAndValues[2 * index + keyOffset];
-          @SuppressWarnings("unchecked")
-          V value = (V)alternatingKeysAndValues[2 * index + (keyOffset ^ 1)];
-          return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
-        }
+               @Override
+               public Entry<K, V> get(int index) {
+                 checkElementIndex(index, size);
+                 @SuppressWarnings("unchecked")
+                 K key = (K)alternatingKeysAndValues[2 * index + keyOffset];
+                 @SuppressWarnings("unchecked")
+                 V value = (V)alternatingKeysAndValues[2 * index + (keyOffset ^ 1)];
+                 return new AbstractMap.SimpleImmutableEntry<K, V>(key, value);
+               }
 
-        @Override
-        public int size() {
-          return size;
-        }
+               @Override
+               public int size() {
+                 return size;
+               }
 
-        @Override
-        public boolean isPartialView() {
-          return true;
-        }
+               @Override
+               public boolean isPartialView() {
+                 return true;
+               }
       };
     }
 
@@ -238,7 +238,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   ImmutableSet<K> createKeySet() {
     @SuppressWarnings("unchecked")
     ImmutableList<K> keyList = (ImmutableList<K>)new KeysOrValuesAsList(
-        alternatingKeysAndValues, 0, size);
+      alternatingKeysAndValues, 0, size);
     return new KeySet<K>(this, keyList);
   }
 
@@ -248,7 +248,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
     private transient final int size;
 
     KeysOrValuesAsList(Object[] alternatingKeysAndValues, int offset,
-                       int size) {
+        int size) {
       this.alternatingKeysAndValues = alternatingKeysAndValues;
       this.offset = offset;
       this.size = size;
@@ -310,7 +310,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @Override
   ImmutableCollection<V> createValues() {
     return (ImmutableList<V>)new KeysOrValuesAsList(alternatingKeysAndValues, 1,
-                                                    size);
+               size);
   }
 
   @Override

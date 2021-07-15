@@ -41,10 +41,10 @@ public final class Callables {
    */
   public static <T> Callable<T> returning(@Nullable final T value) {
     return new Callable<T>() {
-      @Override
-      public T call() {
-        return value;
-      }
+             @Override
+             public T call() {
+               return value;
+             }
     };
   }
 
@@ -61,14 +61,14 @@ public final class Callables {
   @GwtIncompatible
   public static <T> AsyncCallable<T>
   asAsyncCallable(final Callable<T> callable,
-                  final ListeningExecutorService listeningExecutorService) {
+      final ListeningExecutorService listeningExecutorService) {
     checkNotNull(callable);
     checkNotNull(listeningExecutorService);
     return new AsyncCallable<T>() {
-      @Override
-      public ListenableFuture<T> call() throws Exception {
-        return listeningExecutorService.submit(callable);
-      }
+             @Override
+             public ListenableFuture<T> call() throws Exception {
+               return listeningExecutorService.submit(callable);
+             }
     };
   }
 
@@ -83,23 +83,23 @@ public final class Callables {
    */
   @GwtIncompatible // threads
   static <T> Callable<T> threadRenaming(final Callable<T> callable,
-                                        final Supplier<String> nameSupplier) {
+      final Supplier<String> nameSupplier) {
     checkNotNull(nameSupplier);
     checkNotNull(callable);
     return new Callable<T>() {
-      @Override
-      public T call() throws Exception {
-        Thread currentThread = Thread.currentThread();
-        String oldName = currentThread.getName();
-        boolean restoreName = trySetName(nameSupplier.get(), currentThread);
-        try {
-          return callable.call();
-        } finally {
-          if (restoreName) {
-            boolean unused = trySetName(oldName, currentThread);
-          }
-        }
-      }
+             @Override
+             public T call() throws Exception {
+               Thread currentThread = Thread.currentThread();
+               String oldName = currentThread.getName();
+               boolean restoreName = trySetName(nameSupplier.get(), currentThread);
+               try {
+                 return callable.call();
+               } finally {
+                 if (restoreName) {
+                   boolean unused = trySetName(oldName, currentThread);
+                 }
+               }
+             }
     };
   }
 
@@ -114,23 +114,23 @@ public final class Callables {
    */
   @GwtIncompatible // threads
   static Runnable threadRenaming(final Runnable task,
-                                 final Supplier<String> nameSupplier) {
+      final Supplier<String> nameSupplier) {
     checkNotNull(nameSupplier);
     checkNotNull(task);
     return new Runnable() {
-      @Override
-      public void run() {
-        Thread currentThread = Thread.currentThread();
-        String oldName = currentThread.getName();
-        boolean restoreName = trySetName(nameSupplier.get(), currentThread);
-        try {
-          task.run();
-        } finally {
-          if (restoreName) {
-            boolean unused = trySetName(oldName, currentThread);
-          }
-        }
-      }
+             @Override
+             public void run() {
+               Thread currentThread = Thread.currentThread();
+               String oldName = currentThread.getName();
+               boolean restoreName = trySetName(nameSupplier.get(), currentThread);
+               try {
+                 task.run();
+               } finally {
+                 if (restoreName) {
+                   boolean unused = trySetName(oldName, currentThread);
+                 }
+               }
+             }
     };
   }
 
@@ -139,7 +139,7 @@ public final class Callables {
    */
   @GwtIncompatible // threads
   private static boolean trySetName(final String threadName,
-                                    Thread currentThread) {
+      Thread currentThread) {
     // In AppEngine, this will always fail. Should we test for that explicitly
     // using MoreExecutors.isAppEngine? More generally, is there a way to see if
     // we have the modifyThread permission without catching an exception?

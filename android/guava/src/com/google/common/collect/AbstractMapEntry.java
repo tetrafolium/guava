@@ -44,7 +44,7 @@ abstract class AbstractMapEntry<K, V> implements Entry<K, V> {
     if (object instanceof Entry) {
       Entry<?, ?> that = (Entry<?, ?>)object;
       return Objects.equal(this.getKey(), that.getKey()) &&
-          Objects.equal(this.getValue(), that.getValue());
+             Objects.equal(this.getValue(), that.getValue());
     }
     return false;
   }

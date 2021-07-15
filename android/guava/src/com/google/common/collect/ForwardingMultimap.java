@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingMultimap<K, V>
-    extends ForwardingObject implements Multimap<K, V> {
+  extends ForwardingObject implements Multimap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingMultimap() {}

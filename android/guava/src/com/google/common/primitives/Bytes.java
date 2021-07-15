@@ -122,7 +122,7 @@ public final class Bytes {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -149,7 +149,7 @@ public final class Bytes {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(byte[] array, byte target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -168,7 +168,7 @@ public final class Bytes {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static byte[] concat(byte[]... arrays) {
+  public static byte[] concat(byte[] ... arrays) {
     int length = 0;
     for (byte[] array : arrays) {
       length += array.length;
@@ -200,7 +200,7 @@ public final class Bytes {
    *     {@code minLength}
    */
   public static byte[] ensureCapacity(byte[] array, int minLength,
-                                      int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -261,7 +261,7 @@ public final class Bytes {
 
   @GwtCompatible
   private static class ByteArrayAsList
-      extends AbstractList<Byte> implements RandomAccess, Serializable {
+    extends AbstractList<Byte> implements RandomAccess, Serializable {
     final byte[] array;
     final int start;
     final int end;
@@ -294,7 +294,7 @@ public final class Bytes {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Byte) &&
-          Bytes.indexOf(array, (Byte)target, start, end) != -1;
+             Bytes.indexOf(array, (Byte)target, start, end) != -1;
     }
 
     @Override

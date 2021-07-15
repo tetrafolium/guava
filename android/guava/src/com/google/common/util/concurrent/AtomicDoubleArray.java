@@ -141,7 +141,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    */
   public final boolean compareAndSet(int i, double expect, double update) {
     return longs.compareAndSet(i, doubleToRawLongBits(expect),
-                               doubleToRawLongBits(update));
+               doubleToRawLongBits(update));
   }
 
   /**
@@ -163,7 +163,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    */
   public final boolean weakCompareAndSet(int i, double expect, double update) {
     return longs.weakCompareAndSet(i, doubleToRawLongBits(expect),
-                                   doubleToRawLongBits(update));
+               doubleToRawLongBits(update));
   }
 
   /**
@@ -235,7 +235,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    *             of its elements (each a {@code double}) in the proper order.
    */
   private void writeObject(java.io.ObjectOutputStream s)
-      throws java.io.IOException {
+  throws java.io.IOException {
     s.defaultWriteObject();
 
     // Write out array length
@@ -252,7 +252,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    * Reconstitutes the instance from a stream (that is, deserializes it).
    */
   private void readObject(java.io.ObjectInputStream s)
-      throws java.io.IOException, ClassNotFoundException {
+  throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
 
     // Read in array length and allocate array

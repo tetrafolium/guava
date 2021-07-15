@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ImmutableTable<R, C, V>
-    extends AbstractTable<R, C, V> implements Serializable {
+  extends AbstractTable<R, C, V> implements Serializable {
   /** Returns an empty immutable table. */
   @SuppressWarnings("unchecked")
   public static <R, C, V> ImmutableTable<R, C, V> of() {
@@ -50,7 +50,7 @@ public abstract class ImmutableTable<R, C, V>
 
   /** Returns an immutable table containing a single cell. */
   public static <R, C, V> ImmutableTable<R, C, V> of(R rowKey, C columnKey,
-                                                     V value) {
+      V value) {
     return new SingletonImmutableTable<>(rowKey, columnKey, value);
   }
 
@@ -81,7 +81,7 @@ public abstract class ImmutableTable<R, C, V>
   }
 
   private static <R, C, V> ImmutableTable<R, C, V> copyOf(
-      Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
+    Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
     ImmutableTable.Builder<R, C, V> builder = ImmutableTable.builder();
     for (Cell<? extends R, ? extends C, ? extends V> cell : cells) {
       builder.put(cell);
@@ -102,7 +102,7 @@ public abstract class ImmutableTable<R, C, V>
    */
   static <R, C, V> Cell<R, C, V> cellOf(R rowKey, C columnKey, V value) {
     return Tables.immutableCell(checkNotNull(rowKey), checkNotNull(columnKey),
-                                checkNotNull(value));
+               checkNotNull(value));
   }
 
   /**
@@ -223,7 +223,7 @@ public abstract class ImmutableTable<R, C, V>
         return new SingletonImmutableTable<>(Iterables.getOnlyElement(cells));
       default:
         return RegularImmutableTable.forCells(cells, rowComparator,
-                                              columnComparator);
+                   columnComparator);
       }
     }
   }
@@ -263,8 +263,8 @@ public abstract class ImmutableTable<R, C, V>
   public ImmutableMap<R, V> column(C columnKey) {
     checkNotNull(columnKey);
     return MoreObjects.firstNonNull(
-        (ImmutableMap<R, V>)columnMap().get(columnKey),
-        ImmutableMap.<R, V>of());
+      (ImmutableMap<R, V>)columnMap().get(columnKey),
+      ImmutableMap.<R, V>of());
   }
 
   @Override
@@ -289,7 +289,7 @@ public abstract class ImmutableTable<R, C, V>
   public ImmutableMap<C, V> row(R rowKey) {
     checkNotNull(rowKey);
     return MoreObjects.firstNonNull((ImmutableMap<C, V>)rowMap().get(rowKey),
-                                    ImmutableMap.<C, V>of());
+               ImmutableMap.<C, V>of());
   }
 
   @Override
@@ -381,8 +381,8 @@ public abstract class ImmutableTable<R, C, V>
     private final int[] cellColumnIndices;
 
     private SerializedForm(Object[] rowKeys, Object[] columnKeys,
-                           Object[] cellValues, int[] cellRowIndices,
-                           int[] cellColumnIndices) {
+        Object[] cellValues, int[] cellRowIndices,
+        int[] cellColumnIndices) {
       this.rowKeys = rowKeys;
       this.columnKeys = columnKeys;
       this.cellValues = cellValues;
@@ -391,11 +391,11 @@ public abstract class ImmutableTable<R, C, V>
     }
 
     static SerializedForm create(ImmutableTable<?, ?, ?> table,
-                                 int[] cellRowIndices,
-                                 int[] cellColumnIndices) {
+        int[] cellRowIndices,
+        int[] cellColumnIndices) {
       return new SerializedForm(
-          table.rowKeySet().toArray(), table.columnKeySet().toArray(),
-          table.values().toArray(), cellRowIndices, cellColumnIndices);
+        table.rowKeySet().toArray(), table.columnKeySet().toArray(),
+        table.values().toArray(), cellRowIndices, cellColumnIndices);
     }
 
     Object readResolve() {
@@ -409,12 +409,12 @@ public abstract class ImmutableTable<R, C, V>
           new ImmutableList.Builder<>(cellValues.length);
       for (int i = 0; i < cellValues.length; i++) {
         cellListBuilder.add(cellOf(rowKeys[cellRowIndices[i]],
-                                   columnKeys[cellColumnIndices[i]],
-                                   cellValues[i]));
+            columnKeys[cellColumnIndices[i]],
+            cellValues[i]));
       }
       return RegularImmutableTable.forOrderedComponents(
-          cellListBuilder.build(), ImmutableSet.copyOf(rowKeys),
-          ImmutableSet.copyOf(columnKeys));
+        cellListBuilder.build(), ImmutableSet.copyOf(rowKeys),
+        ImmutableSet.copyOf(columnKeys));
     }
 
     private static final long serialVersionUID = 0;

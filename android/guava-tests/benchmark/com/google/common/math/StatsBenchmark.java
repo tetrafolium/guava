@@ -138,7 +138,7 @@ public class StatsBenchmark {
     };
 
     abstract MeanAndVariance variance(double[] values,
-                                      MeanAlgorithm meanAlgorithm);
+        MeanAlgorithm meanAlgorithm);
   }
 
   @Param({"100", "10000"}) int n;
@@ -164,7 +164,7 @@ public class StatsBenchmark {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += varianceAlgorithm.variance(values[i & 0xFF], meanAlgorithm)
-                 .hashCode();
+          .hashCode();
     }
     return tmp;
   }

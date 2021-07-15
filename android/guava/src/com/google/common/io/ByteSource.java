@@ -553,7 +553,7 @@ public abstract class ByteSource {
       checkArgument(length >= 0, "length (%s) may not be negative", length);
       long maxLength = this.length - offset;
       return ByteSource.this.slice(this.offset + offset,
-                                   Math.min(length, maxLength));
+                 Math.min(length, maxLength));
     }
 
     @Override
@@ -575,7 +575,7 @@ public abstract class ByteSource {
     @Override
     public String toString() {
       return ByteSource.this.toString() + ".slice(" + offset + ", " + length +
-          ")";
+             ")";
     }
   }
 
@@ -657,9 +657,9 @@ public abstract class ByteSource {
     @Override
     public String toString() {
       return "ByteSource.wrap(" +
-          Ascii.truncate(BaseEncoding.base16().encode(bytes, offset, length),
-                         30, "...") +
-          ")";
+             Ascii.truncate(BaseEncoding.base16().encode(bytes, offset, length),
+                 30, "...") +
+             ")";
     }
   }
 

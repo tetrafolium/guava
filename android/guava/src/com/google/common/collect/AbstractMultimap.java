@@ -100,7 +100,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
   @CanIgnoreReturnValue
   @Override
   public Collection<V> replaceValues(@Nullable K key,
-                                     Iterable<? extends V> values) {
+      Iterable<? extends V> values) {
     checkNotNull(values);
     Collection<V> result = removeAll(key);
     putAll(key, values);

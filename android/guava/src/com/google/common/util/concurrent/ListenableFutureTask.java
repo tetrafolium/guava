@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public class ListenableFutureTask<V>
-    extends FutureTask<V> implements ListenableFuture<V> {
+  extends FutureTask<V> implements ListenableFuture<V> {
   // TODO(cpovirk): explore ways of making ListenableFutureTask final. There are
   // some valid reasons such as BoundedQueueExecutorService to allow extends but
   // it would be nice to make it final to avoid unintended usage.
@@ -72,7 +72,7 @@ public class ListenableFutureTask<V>
    * @since 10.0
    */
   public static <V> ListenableFutureTask<V> create(Runnable runnable,
-                                                   @Nullable V result) {
+      @Nullable V result) {
     return new ListenableFutureTask<V>(runnable, result);
   }
 

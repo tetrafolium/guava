@@ -184,7 +184,7 @@ public final class Shorts {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -211,7 +211,7 @@ public final class Shorts {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(short[] array, short target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -278,7 +278,7 @@ public final class Shorts {
   @Beta
   public static short constrainToRange(short value, short min, short max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return value < min ? min : value < max ? value : max;
   }
 
@@ -293,7 +293,7 @@ public final class Shorts {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static short[] concat(short[]... arrays) {
+  public static short[] concat(short[] ... arrays) {
     int length = 0;
     for (short[] array : arrays) {
       length += array.length;
@@ -338,7 +338,7 @@ public final class Shorts {
   @GwtIncompatible // doesn't work
   public static short fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s",
-                  bytes.length, BYTES);
+        bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
   }
 
@@ -355,7 +355,7 @@ public final class Shorts {
   }
 
   private static final class ShortConverter
-      extends Converter<String, Short> implements Serializable {
+    extends Converter<String, Short> implements Serializable {
     static final ShortConverter INSTANCE = new ShortConverter();
 
     @Override
@@ -414,7 +414,7 @@ public final class Shorts {
    *     {@code minLength}
    */
   public static short[] ensureCapacity(short[] array, int minLength,
-                                       int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -466,7 +466,7 @@ public final class Shorts {
   }
 
   private enum LexicographicalComparator implements Comparator < short
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -596,7 +596,7 @@ public final class Shorts {
 
   @GwtCompatible
   private static class ShortArrayAsList
-      extends AbstractList<Short> implements RandomAccess, Serializable {
+    extends AbstractList<Short> implements RandomAccess, Serializable {
     final short[] array;
     final int start;
     final int end;
@@ -629,7 +629,7 @@ public final class Shorts {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Short) &&
-          Shorts.indexOf(array, (Short)target, start, end) != -1;
+             Shorts.indexOf(array, (Short)target, start, end) != -1;
     }
 
     @Override

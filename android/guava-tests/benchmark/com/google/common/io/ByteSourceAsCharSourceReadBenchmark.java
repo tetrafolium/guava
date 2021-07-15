@@ -45,7 +45,7 @@ public class ByteSourceAsCharSourceReadBenchmark {
       String read(ByteSource byteSource, Charset cs) throws IOException {
         StringBuilder sb = new StringBuilder();
         try (InputStreamReader reader =
-                 new InputStreamReader(byteSource.openStream(), cs)) {
+        new InputStreamReader(byteSource.openStream(), cs)) {
           CharStreams.copy(reader, sb);
         }
         return sb.toString();
@@ -77,10 +77,10 @@ public class ByteSourceAsCharSourceReadBenchmark {
           int bufIndex = 0;
           int remaining = buffer.length;
           try (InputStreamReader reader =
-                   new InputStreamReader(byteSource.openStream(), cs)) {
+          new InputStreamReader(byteSource.openStream(), cs)) {
             int nRead = 0;
             while (remaining > 0 &&
-                   (nRead = reader.read(buffer, bufIndex, remaining)) != -1) {
+                (nRead = reader.read(buffer, bufIndex, remaining)) != -1) {
               bufIndex += nRead;
               remaining -= nRead;
             }

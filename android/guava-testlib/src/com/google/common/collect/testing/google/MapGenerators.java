@@ -60,7 +60,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapCopyOfGenerator
-      extends TestStringMapGenerator {
+    extends TestStringMapGenerator {
     @Override
     protected Map<String, String> create(Entry<String, String>[] entries) {
       Map<String, String> builder = Maps.newLinkedHashMap();
@@ -72,7 +72,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapCopyOfEntriesGenerator
-      extends TestStringMapGenerator {
+    extends TestStringMapGenerator {
     @Override
     protected Map<String, String> create(Entry<String, String>[] entries) {
       return ImmutableMap.copyOf(Arrays.asList(entries));
@@ -80,7 +80,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapUnhashableValuesGenerator
-      extends TestUnhashableCollectionGenerator<Collection<UnhashableObject>> {
+    extends TestUnhashableCollectionGenerator<Collection<UnhashableObject>> {
 
     @Override
     public Collection<UnhashableObject> create(UnhashableObject[] elements) {
@@ -95,7 +95,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapKeyListGenerator
-      extends TestStringListGenerator {
+    extends TestStringListGenerator {
     @Override
     public List<String> create(String[] elements) {
       ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
@@ -107,7 +107,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapValueListGenerator
-      extends TestStringListGenerator {
+    extends TestStringListGenerator {
     @Override
     public List<String> create(String[] elements) {
       ImmutableMap.Builder<Integer, String> builder = ImmutableMap.builder();
@@ -119,13 +119,13 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapEntryListGenerator
-      implements TestListGenerator<Entry<String, Integer>> {
+    implements TestListGenerator<Entry<String, Integer>> {
 
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(mapEntry("foo", 5), mapEntry("bar", 3),
-                                  mapEntry("baz", 17), mapEntry("quux", 1),
-                                  mapEntry("toaster", -2));
+                 mapEntry("baz", 17), mapEntry("quux", 1),
+                 mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -165,7 +165,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapCopyOfEnumMapGenerator
-      extends TestEnumMapGenerator {
+    extends TestEnumMapGenerator {
     @Override
     protected Map<AnEnum, String> create(Entry<AnEnum, String>[] entries) {
       EnumMap<AnEnum, String> map = new EnumMap<>(AnEnum.class);
@@ -179,25 +179,25 @@ public class MapGenerators {
     public Iterable<Entry<AnEnum, String>>
     order(List<Entry<AnEnum, String>> insertionOrder) {
       return new Ordering<Entry<AnEnum, String>>() {
-        @Override
-        public int compare(Entry<AnEnum, String> left,
-                           Entry<AnEnum, String> right) {
-          return left.getKey().compareTo(right.getKey());
-        }
+               @Override
+               public int compare(Entry<AnEnum, String> left,
+                   Entry<AnEnum, String> right) {
+                 return left.getKey().compareTo(right.getKey());
+               }
       }.sortedCopy(insertionOrder);
     }
   }
 
   public static class ImmutableMapValuesAsSingletonSetGenerator
-      implements TestMapGenerator<String, Collection<Integer>> {
+    implements TestMapGenerator<String, Collection<Integer>> {
 
     @Override
     public SampleElements<Entry<String, Collection<Integer>>> samples() {
       return new SampleElements<>(mapEntry("one", collectionOf(10000)),
-                                  mapEntry("two", collectionOf(-2000)),
-                                  mapEntry("three", collectionOf(300)),
-                                  mapEntry("four", collectionOf(-40)),
-                                  mapEntry("five", collectionOf(5)));
+                 mapEntry("two", collectionOf(-2000)),
+                 mapEntry("three", collectionOf(300)),
+                 mapEntry("four", collectionOf(-40)),
+                 mapEntry("five", collectionOf(5)));
     }
 
     // javac7 can't infer the type parameters correctly in samples()

@@ -43,7 +43,7 @@ import java.util.Iterator;
  */
 @GwtIncompatible
 public abstract class ForwardingDeque<E>
-    extends ForwardingQueue<E> implements Deque<E> {
+  extends ForwardingQueue<E> implements Deque<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingDeque() {}

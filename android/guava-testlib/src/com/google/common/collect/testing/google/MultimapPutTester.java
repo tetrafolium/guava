@@ -43,7 +43,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapPutTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testPutUnsupported() {
     try {
@@ -101,7 +101,7 @@ public class MultimapPutTester<K, V>
     multimap().put(k3(), null);
 
     assertGet(k3(),
-              Lists.newArrayList((V)null)); // ImmutableList.of can't take null.
+        Lists.newArrayList((V)null));       // ImmutableList.of can't take null.
     assertEquals(size + 1, multimap().size());
   }
 

@@ -105,7 +105,7 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
   @Override
   public final Hasher putBytes(byte[] bytes, int off, int len) {
     return putBytesInternal(
-        ByteBuffer.wrap(bytes, off, len).order(ByteOrder.LITTLE_ENDIAN));
+      ByteBuffer.wrap(bytes, off, len).order(ByteOrder.LITTLE_ENDIAN));
   }
 
   @Override
@@ -226,6 +226,6 @@ abstract class AbstractStreamingHasher extends AbstractHasher {
       process(buffer);
     }
     buffer
-        .compact(); // preserve any remaining data that do not make a full chunk
+    .compact();     // preserve any remaining data that do not make a full chunk
   }
 }

@@ -41,7 +41,7 @@ public final class Funnels {
   }
 
   private enum ByteArrayFunnel implements Funnel < byte
-  [] > {
+      [] > {
     INSTANCE;
 
     public void funnel(byte[] from, PrimitiveSink into) { into.putBytes(from); }
@@ -89,7 +89,7 @@ public final class Funnels {
   }
 
   private static class StringCharsetFunnel
-      implements Funnel<CharSequence>, Serializable {
+    implements Funnel<CharSequence>, Serializable {
     private final Charset charset;
 
     StringCharsetFunnel(Charset charset) {
@@ -169,7 +169,7 @@ public final class Funnels {
   }
 
   private static class SequentialFunnel<E>
-      implements Funnel<Iterable<? extends E>>, Serializable {
+    implements Funnel<Iterable<? extends E>>, Serializable {
     private final Funnel<E> elementFunnel;
 
     SequentialFunnel(Funnel<E> elementFunnel) {

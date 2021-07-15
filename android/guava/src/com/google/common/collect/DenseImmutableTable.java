@@ -31,7 +31,7 @@ import javax.annotation.concurrent.Immutable;
 @GwtCompatible
 @Immutable
 final class DenseImmutableTable<R, C, V>
-    extends RegularImmutableTable<R, C, V> {
+  extends RegularImmutableTable<R, C, V> {
   private final ImmutableMap<R, Integer> rowKeyToIndex;
   private final ImmutableMap<C, Integer> columnKeyToIndex;
   private final ImmutableMap<R, Map<C, V>> rowMap;
@@ -47,7 +47,7 @@ final class DenseImmutableTable<R, C, V>
   private final int[] cellColumnIndices;
 
   DenseImmutableTable(ImmutableList<Cell<R, C, V>> cellList,
-                      ImmutableSet<R> rowSpace, ImmutableSet<C> columnSpace) {
+      ImmutableSet<R> rowSpace, ImmutableSet<C> columnSpace) {
     @SuppressWarnings("unchecked")
     V[][] array = (V[][]) new Object[rowSpace.size()][columnSpace.size()];
     this.values = array;
@@ -65,7 +65,7 @@ final class DenseImmutableTable<R, C, V>
       int columnIndex = columnKeyToIndex.get(columnKey);
       V existingValue = values[rowIndex][columnIndex];
       checkArgument(existingValue == null, "duplicate key: (%s, %s)", rowKey,
-                    columnKey);
+          columnKey);
       values[rowIndex][columnIndex] = cell.getValue();
       rowCounts[rowIndex]++;
       columnCounts[columnIndex]++;
@@ -82,7 +82,7 @@ final class DenseImmutableTable<R, C, V>
    * An immutable map implementation backed by an indexed nullable array.
    */
   private abstract static class ImmutableArrayMap<K, V>
-      extends IteratorBasedImmutableMap<K, V> {
+    extends IteratorBasedImmutableMap<K, V> {
     private final int size;
 
     ImmutableArrayMap(int size) { this.size = size; }
@@ -115,19 +115,19 @@ final class DenseImmutableTable<R, C, V>
     @Override
     UnmodifiableIterator<Entry<K, V>> entryIterator() {
       return new AbstractIterator<Entry<K, V>>() {
-        private int index = -1;
-        private final int maxIndex = keyToIndex().size();
+               private int index = -1;
+               private final int maxIndex = keyToIndex().size();
 
-        @Override
-        protected Entry<K, V> computeNext() {
-          for (index++; index < maxIndex; index++) {
-            V value = getValue(index);
-            if (value != null) {
-              return Maps.immutableEntry(getKey(index), value);
-            }
-          }
-          return endOfData();
-        }
+               @Override
+               protected Entry<K, V> computeNext() {
+                 for (index++; index < maxIndex; index++) {
+                   V value = getValue(index);
+                   if (value != null) {
+                     return Maps.immutableEntry(getKey(index), value);
+                   }
+                 }
+                 return endOfData();
+               }
       };
     }
   }

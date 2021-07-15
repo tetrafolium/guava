@@ -127,18 +127,18 @@ public abstract class AbstractScheduledService implements Service {
      * @param unit the time unit of the initialDelay and delay parameters
      */
     public static Scheduler newFixedDelaySchedule(final long initialDelay,
-                                                  final long delay,
-                                                  final TimeUnit unit) {
+        final long delay,
+        final TimeUnit unit) {
       checkNotNull(unit);
       checkArgument(delay > 0, "delay must be > 0, found %s", delay);
       return new Scheduler() {
-        @Override
-        public Future<?> schedule(AbstractService service,
-                                  ScheduledExecutorService executor,
-                                  Runnable task) {
-          return executor.scheduleWithFixedDelay(task, initialDelay, delay,
-                                                 unit);
-        }
+               @Override
+               public Future<?> schedule(AbstractService service,
+                   ScheduledExecutorService executor,
+                   Runnable task) {
+                 return executor.scheduleWithFixedDelay(task, initialDelay, delay,
+                            unit);
+               }
       };
     }
 
@@ -151,17 +151,17 @@ public abstract class AbstractScheduledService implements Service {
      * @param unit the time unit of the initialDelay and period parameters
      */
     public static Scheduler newFixedRateSchedule(final long initialDelay,
-                                                 final long period,
-                                                 final TimeUnit unit) {
+        final long period,
+        final TimeUnit unit) {
       checkNotNull(unit);
       checkArgument(period > 0, "period must be > 0, found %s", period);
       return new Scheduler() {
-        @Override
-        public Future<?> schedule(AbstractService service,
-                                  ScheduledExecutorService executor,
-                                  Runnable task) {
-          return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
-        }
+               @Override
+               public Future<?> schedule(AbstractService service,
+                   ScheduledExecutorService executor,
+                   Runnable task) {
+                 return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
+               }
       };
     }
 
@@ -170,8 +170,8 @@ public abstract class AbstractScheduledService implements Service {
      * service.
      */
     abstract Future<?> schedule(AbstractService service,
-                                ScheduledExecutorService executor,
-                                Runnable runnable);
+        ScheduledExecutorService executor,
+        Runnable runnable);
 
     private Scheduler() {}
   }
@@ -211,9 +211,9 @@ public abstract class AbstractScheduledService implements Service {
             shutDown();
           } catch (Exception ignored) {
             logger.log(
-                Level.WARNING,
-                "Error while attempting to shut down the service after failure.",
-                ignored);
+              Level.WARNING,
+              "Error while attempting to shut down the service after failure.",
+              ignored);
           }
           notifyFailed(t);
           runningTask.cancel(false); // prevent future invocations.
@@ -229,11 +229,11 @@ public abstract class AbstractScheduledService implements Service {
     protected final void doStart() {
       executorService =
           MoreExecutors.renamingDecorator(executor(), new Supplier<String>() {
-            @Override
-            public String get() {
-              return serviceName() + " " + state();
-            }
-          });
+        @Override
+        public String get() {
+          return serviceName() + " " + state();
+        }
+      });
       executorService.execute(new Runnable() {
         @Override
         public void run() {
@@ -443,7 +443,7 @@ public abstract class AbstractScheduledService implements Service {
    */
   @Override
   public final void awaitRunning(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -460,7 +460,7 @@ public abstract class AbstractScheduledService implements Service {
    */
   @Override
   public final void awaitTerminated(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 
@@ -481,7 +481,7 @@ public abstract class AbstractScheduledService implements Service {
      * CustomScheduler}.
      */
     private class ReschedulableCallable
-        extends ForwardingFuture<Void> implements Callable<Void> {
+      extends ForwardingFuture<Void> implements Callable<Void> {
 
       /** The underlying task. */
       private final Runnable wrappedRunnable;
@@ -507,8 +507,8 @@ public abstract class AbstractScheduledService implements Service {
       @GuardedBy("lock") private Future<Void> currentFuture;
 
       ReschedulableCallable(AbstractService service,
-                            ScheduledExecutorService executor,
-                            Runnable runnable) {
+          ScheduledExecutorService executor,
+          Runnable runnable) {
         this.wrappedRunnable = runnable;
         this.executor = executor;
         this.service = service;
@@ -592,14 +592,14 @@ public abstract class AbstractScheduledService implements Service {
       @Override
       protected Future<Void> delegate() {
         throw new UnsupportedOperationException(
-            "Only cancel and isCancelled is supported by this future");
+                "Only cancel and isCancelled is supported by this future");
       }
     }
 
     @Override
     final Future<?> schedule(AbstractService service,
-                             ScheduledExecutorService executor,
-                             Runnable runnable) {
+        ScheduledExecutorService executor,
+        Runnable runnable) {
       ReschedulableCallable task =
           new ReschedulableCallable(service, executor, runnable);
       task.reschedule();

@@ -86,15 +86,15 @@ import javax.annotation.concurrent.Immutable;
 public final class MediaType {
   private static final String CHARSET_ATTRIBUTE = "charset";
   private static final ImmutableListMultimap<String, String>
-      UTF_8_CONSTANT_PARAMETERS = ImmutableListMultimap.of(
-          CHARSET_ATTRIBUTE, Ascii.toLowerCase(UTF_8.name()));
+  UTF_8_CONSTANT_PARAMETERS = ImmutableListMultimap.of(
+    CHARSET_ATTRIBUTE, Ascii.toLowerCase(UTF_8.name()));
 
   /** Matcher for type, subtype and attributes. */
   private static final CharMatcher TOKEN_MATCHER =
       ascii()
-          .and(javaIsoControl().negate())
-          .and(CharMatcher.isNot(' '))
-          .and(CharMatcher.noneOf("()<>@,;:\\\"/[]?="));
+      .and(javaIsoControl().negate())
+      .and(CharMatcher.isNot(' '))
+      .and(CharMatcher.noneOf("()<>@,;:\\\"/[]?="));
   private static final CharMatcher QUOTED_TEXT_MATCHER =
       ascii().and(CharMatcher.noneOf("\"\\\r"));
   /*
@@ -119,7 +119,7 @@ public final class MediaType {
 
   private static MediaType createConstant(String type, String subtype) {
     MediaType mediaType = addKnownType(new MediaType(
-        type, subtype, ImmutableListMultimap.<String, String>of()));
+          type, subtype, ImmutableListMultimap.<String, String>of()));
     mediaType.parsedCharset = Optional.absent();
     return mediaType;
   }
@@ -535,14 +535,14 @@ public final class MediaType {
   public static final MediaType OGG_CONTAINER =
       createConstant(APPLICATION_TYPE, "ogg");
   public static final MediaType OOXML_DOCUMENT = createConstant(
-      APPLICATION_TYPE,
-      "vnd.openxmlformats-officedocument.wordprocessingml.document");
+    APPLICATION_TYPE,
+    "vnd.openxmlformats-officedocument.wordprocessingml.document");
   public static final MediaType OOXML_PRESENTATION = createConstant(
-      APPLICATION_TYPE,
-      "vnd.openxmlformats-officedocument.presentationml.presentation");
+    APPLICATION_TYPE,
+    "vnd.openxmlformats-officedocument.presentationml.presentation");
   public static final MediaType OOXML_SHEET =
       createConstant(APPLICATION_TYPE,
-                     "vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+      "vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   public static final MediaType OPENDOCUMENT_GRAPHICS =
       createConstant(APPLICATION_TYPE, "vnd.oasis.opendocument.graphics");
   public static final MediaType OPENDOCUMENT_PRESENTATION =
@@ -645,7 +645,7 @@ public final class MediaType {
   @LazyInit private Optional<Charset> parsedCharset;
 
   private MediaType(String type, String subtype,
-                    ImmutableListMultimap<String, String> parameters) {
+      ImmutableListMultimap<String, String> parameters) {
     this.type = type;
     this.subtype = subtype;
     this.parameters = parameters;
@@ -670,13 +670,13 @@ public final class MediaType {
 
   private Map<String, ImmutableMultiset<String>> parametersAsMap() {
     return Maps.transformValues(
-        parameters.asMap(),
-        new Function<Collection<String>, ImmutableMultiset<String>>() {
-          @Override
-          public ImmutableMultiset<String> apply(Collection<String> input) {
-            return ImmutableMultiset.copyOf(input);
-          }
-        });
+      parameters.asMap(),
+      new Function<Collection<String>, ImmutableMultiset<String>>() {
+      @Override
+      public ImmutableMultiset<String> apply(Collection<String> input) {
+        return ImmutableMultiset.copyOf(input);
+      }
+    });
   }
 
   /**
@@ -702,7 +702,7 @@ public final class MediaType {
           local = Optional.of(Charset.forName(value));
         } else if (!value.equals(currentValue)) {
           throw new IllegalStateException("Multiple charset values defined: " +
-                                          value + ", " + currentValue);
+                    value + ", " + currentValue);
         }
       }
       parsedCharset = local;
@@ -750,7 +750,7 @@ public final class MediaType {
       }
     }
     builder.put(normalizedAttribute,
-                normalizeParameterValue(normalizedAttribute, value));
+        normalizeParameterValue(normalizedAttribute, value));
     MediaType mediaType = new MediaType(type, subtype, builder.build());
     // if the attribute isn't charset, we can just inherit the current
     // parsedCharset
@@ -817,11 +817,11 @@ public final class MediaType {
    */
   public boolean is(MediaType mediaTypeRange) {
     return (mediaTypeRange.type.equals(WILDCARD) ||
-            mediaTypeRange.type.equals(this.type)) &&
-        (mediaTypeRange.subtype.equals(WILDCARD) ||
-         mediaTypeRange.subtype.equals(this.subtype)) &&
-        this.parameters.entries().containsAll(
-            mediaTypeRange.parameters.entries());
+           mediaTypeRange.type.equals(this.type)) &&
+           (mediaTypeRange.subtype.equals(WILDCARD) ||
+           mediaTypeRange.subtype.equals(this.subtype)) &&
+           this.parameters.entries().containsAll(
+      mediaTypeRange.parameters.entries());
   }
 
   /**
@@ -883,21 +883,21 @@ public final class MediaType {
   }
 
   private static MediaType create(String type, String subtype,
-                                  Multimap<String, String> parameters) {
+      Multimap<String, String> parameters) {
     checkNotNull(type);
     checkNotNull(subtype);
     checkNotNull(parameters);
     String normalizedType = normalizeToken(type);
     String normalizedSubtype = normalizeToken(subtype);
     checkArgument(!WILDCARD.equals(normalizedType) ||
-                      WILDCARD.equals(normalizedSubtype),
-                  "A wildcard type cannot be used with a non-wildcard subtype");
+        WILDCARD.equals(normalizedSubtype),
+        "A wildcard type cannot be used with a non-wildcard subtype");
     ImmutableListMultimap.Builder<String, String> builder =
         ImmutableListMultimap.builder();
     for (Entry<String, String> entry : parameters.entries()) {
       String attribute = normalizeToken(entry.getKey());
       builder.put(attribute,
-                  normalizeParameterValue(attribute, entry.getValue()));
+          normalizeParameterValue(attribute, entry.getValue()));
     }
     MediaType mediaType =
         new MediaType(normalizedType, normalizedSubtype, builder.build());
@@ -911,7 +911,7 @@ public final class MediaType {
   }
 
   private static String normalizeParameterValue(String attribute,
-                                                String value) {
+      String value) {
     return CHARSET_ATTRIBUTE.equals(attribute) ? Ascii.toLowerCase(value)
                                                : value;
   }
@@ -1012,9 +1012,9 @@ public final class MediaType {
     } else if (obj instanceof MediaType) {
       MediaType that = (MediaType)obj;
       return this.type.equals(that.type) &&
-          this.subtype.equals(that.subtype)
-          // compare parameters regardless of order
-          && this.parametersAsMap().equals(that.parametersAsMap());
+             this.subtype.equals(that.subtype)
+             // compare parameters regardless of order
+             && this.parametersAsMap().equals(that.parametersAsMap());
     } else {
       return false;
     }
@@ -1056,12 +1056,12 @@ public final class MediaType {
       builder.append("; ");
       Multimap<String, String> quotedParameters =
           Multimaps.transformValues(parameters, new Function<String, String>() {
-            @Override
-            public String apply(String value) {
-              return TOKEN_MATCHER.matchesAllOf(value) ? value
+        @Override
+        public String apply(String value) {
+          return TOKEN_MATCHER.matchesAllOf(value) ? value
                                                        : escapeAndQuote(value);
-            }
-          });
+        }
+      });
       PARAMETER_JOINER.appendTo(builder, quotedParameters.entries());
     }
     return builder.toString();

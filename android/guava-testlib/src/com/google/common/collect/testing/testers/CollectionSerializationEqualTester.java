@@ -32,10 +32,10 @@ import com.google.common.testing.SerializableTester;
  */
 @GwtCompatible
 public class CollectionSerializationEqualTester<E>
-    extends AbstractCollectionTester<E> {
+  extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SERIALIZABLE)
   public void testReserialize() {
     assertEquals(SerializableTester.reserialize(actualContents()),
-                 actualContents());
+        actualContents());
   }
 }

@@ -46,15 +46,15 @@ public final class RemovalListeners {
     checkNotNull(listener);
     checkNotNull(executor);
     return new RemovalListener<K, V>() {
-      @Override
-      public void onRemoval(final RemovalNotification<K, V> notification) {
-        executor.execute(new Runnable() {
+             @Override
+             public void onRemoval(final RemovalNotification<K, V> notification) {
+               executor.execute(new Runnable() {
           @Override
           public void run() {
             listener.onRemoval(notification);
           }
         });
-      }
+             }
     };
   }
 }

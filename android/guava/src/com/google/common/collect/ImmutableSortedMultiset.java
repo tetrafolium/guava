@@ -52,8 +52,8 @@ import java.util.List;
  */
 @GwtIncompatible // hasn't been tested yet
 public abstract class ImmutableSortedMultiset<E>
-    extends ImmutableSortedMultisetFauxverideShim<E>
-    implements SortedMultiset<E> {
+  extends ImmutableSortedMultisetFauxverideShim<E>
+  implements SortedMultiset<E> {
   // TODO(lowasser): GWT compatibility
 
   /**
@@ -62,7 +62,7 @@ public abstract class ImmutableSortedMultiset<E>
   @SuppressWarnings("unchecked")
   public static <E> ImmutableSortedMultiset<E> of() {
     return (ImmutableSortedMultiset)
-        RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
+           RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
   }
 
   /**
@@ -74,7 +74,7 @@ public abstract class ImmutableSortedMultiset<E>
         (RegularImmutableSortedSet<E>)ImmutableSortedSet.of(element);
     long[] cumulativeCounts = {0, 1};
     return new RegularImmutableSortedMultiset<E>(elementSet, cumulativeCounts,
-                                                 0, 1);
+               0, 1);
   }
 
   /**
@@ -245,8 +245,8 @@ public abstract class ImmutableSortedMultiset<E>
       }
     }
     return new ImmutableSortedMultiset.Builder<E>(comparator)
-        .addAll(elements)
-        .build();
+           .addAll(elements)
+           .build();
   }
 
   /**
@@ -269,12 +269,12 @@ public abstract class ImmutableSortedMultiset<E>
   public static <E> ImmutableSortedMultiset<E>
   copyOfSorted(SortedMultiset<E> sortedMultiset) {
     return copyOfSortedEntries(sortedMultiset.comparator(),
-                               Lists.newArrayList(sortedMultiset.entrySet()));
+               Lists.newArrayList(sortedMultiset.entrySet()));
   }
 
   private static <E> ImmutableSortedMultiset<E>
   copyOfSortedEntries(Comparator<? super E> comparator,
-                      Collection<Entry<E>> entries) {
+      Collection<Entry<E>> entries) {
     if (entries.isEmpty()) {
       return emptyMultiset(comparator);
     }
@@ -288,8 +288,8 @@ public abstract class ImmutableSortedMultiset<E>
       i++;
     }
     return new RegularImmutableSortedMultiset<E>(
-        new RegularImmutableSortedSet<E>(elementsBuilder.build(), comparator),
-        cumulativeCounts, 0, entries.size());
+      new RegularImmutableSortedSet<E>(elementsBuilder.build(), comparator),
+      cumulativeCounts, 0, entries.size());
   }
 
   @SuppressWarnings("unchecked")
@@ -297,7 +297,7 @@ public abstract class ImmutableSortedMultiset<E>
   emptyMultiset(Comparator<? super E> comparator) {
     if (Ordering.natural().equals(comparator)) {
       return (ImmutableSortedMultiset<E>)
-          RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
+             RegularImmutableSortedMultiset.NATURAL_EMPTY_MULTISET;
     } else {
       return new RegularImmutableSortedMultiset<E>(comparator);
     }
@@ -360,22 +360,22 @@ public abstract class ImmutableSortedMultiset<E>
 
   @Override
   public abstract ImmutableSortedMultiset<E> headMultiset(E upperBound,
-                                                          BoundType boundType);
+      BoundType boundType);
 
   @Override
   public ImmutableSortedMultiset<E>
   subMultiset(E lowerBound, BoundType lowerBoundType, E upperBound,
-              BoundType upperBoundType) {
+      BoundType upperBoundType) {
     checkArgument(comparator().compare(lowerBound, upperBound) <= 0,
-                  "Expected lowerBound <= upperBound but %s > %s", lowerBound,
-                  upperBound);
+        "Expected lowerBound <= upperBound but %s > %s", lowerBound,
+        upperBound);
     return tailMultiset(lowerBound, lowerBoundType)
-        .headMultiset(upperBound, upperBoundType);
+           .headMultiset(upperBound, upperBoundType);
   }
 
   @Override
   public abstract ImmutableSortedMultiset<E> tailMultiset(E lowerBound,
-                                                          BoundType boundType);
+      BoundType boundType);
 
   /**
    * Returns a builder that creates immutable sorted multisets with an explicit
@@ -470,7 +470,7 @@ public abstract class ImmutableSortedMultiset<E>
       super(true); // doesn't allocate hash table in supertype
       this.comparator = checkNotNull(comparator);
       this.elements = (E[]) new Object[ImmutableCollection.Builder
-                                           .DEFAULT_INITIAL_CAPACITY];
+          .DEFAULT_INITIAL_CAPACITY];
       this.counts =
           new int[ImmutableCollection.Builder.DEFAULT_INITIAL_CAPACITY];
     }
@@ -507,12 +507,12 @@ public abstract class ImmutableSortedMultiset<E>
       if (maybeExpand && uniques * 4 > length * 3) {
         // lots of nonduplicated elements, expand the array by 50%
         sortedElements = Arrays.copyOf(
-            sortedElements, IntMath.saturatedAdd(length, length / 2 + 1));
+          sortedElements, IntMath.saturatedAdd(length, length / 2 + 1));
       }
       int[] sortedCounts = new int[sortedElements.length];
       for (int i = 0; i < length; i++) {
         int index = Arrays.binarySearch(sortedElements, 0, uniques, elements[i],
-                                        comparator);
+            comparator);
         if (counts[i] >= 0) {
           sortedCounts[index] += counts[i];
         } else {
@@ -624,7 +624,7 @@ public abstract class ImmutableSortedMultiset<E>
     public Builder<E> addAll(Iterable<? extends E> elements) {
       if (elements instanceof Multiset) {
         for (Entry<? extends E> entry :
-             ((Multiset<? extends E>)elements).entrySet()) {
+            ((Multiset<? extends E>)elements).entrySet()) {
           addCopies(entry.getElement(), entry.getCount());
         }
       } else {
@@ -684,14 +684,14 @@ public abstract class ImmutableSortedMultiset<E>
       }
       RegularImmutableSortedSet<E> elementSet =
           (RegularImmutableSortedSet<E>)ImmutableSortedSet.construct(
-              comparator, length, elements);
+        comparator, length, elements);
       long[] cumulativeCounts = new long[length + 1];
       for (int i = 0; i < length; i++) {
         cumulativeCounts[i + 1] = cumulativeCounts[i] + counts[i];
       }
       forceCopyElements = true;
       return new RegularImmutableSortedMultiset<E>(elementSet, cumulativeCounts,
-                                                   0, length);
+                 0, length);
     }
   }
 

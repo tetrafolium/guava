@@ -111,7 +111,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public interface Network<N, E>
-    extends SuccessorsFunction<N>, PredecessorsFunction<N> {
+  extends SuccessorsFunction<N>, PredecessorsFunction<N> {
   //
   // Network-level accessors
   //

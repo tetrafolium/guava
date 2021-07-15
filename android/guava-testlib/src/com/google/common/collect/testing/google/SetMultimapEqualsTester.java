@@ -31,15 +31,15 @@ import com.google.common.testing.EqualsTester;
  */
 @GwtCompatible
 public class SetMultimapEqualsTester<K, V>
-    extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
   @CollectionSize.Require(SEVERAL)
   public void testOrderingDoesntAffectEqualsComparisons() {
     SetMultimap<K, V> multimap1 = getSubjectGenerator().create(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
-        Helpers.mapEntry(k0(), v4()));
+      Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
+      Helpers.mapEntry(k0(), v4()));
     SetMultimap<K, V> multimap2 = getSubjectGenerator().create(
-        Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k0(), v0()),
-        Helpers.mapEntry(k0(), v4()));
+      Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k0(), v0()),
+      Helpers.mapEntry(k0(), v4()));
     new EqualsTester().addEqualityGroup(multimap1, multimap2).testEquals();
   }
 }

@@ -59,7 +59,7 @@ import java.util.SortedMap;
  */
 @GwtIncompatible
 public abstract class ForwardingNavigableMap<K, V>
-    extends ForwardingSortedMap<K, V> implements NavigableMap<K, V> {
+  extends ForwardingSortedMap<K, V> implements NavigableMap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingNavigableMap() {}
@@ -308,33 +308,33 @@ public abstract class ForwardingNavigableMap<K, V>
     @Override
     protected Iterator<Entry<K, V>> entryIterator() {
       return new Iterator<Entry<K, V>>() {
-        private Entry<K, V> toRemove = null;
-        private Entry<K, V> nextOrNull = forward().lastEntry();
+               private Entry<K, V> toRemove = null;
+               private Entry<K, V> nextOrNull = forward().lastEntry();
 
-        @Override
-        public boolean hasNext() {
-          return nextOrNull != null;
-        }
+               @Override
+               public boolean hasNext() {
+                 return nextOrNull != null;
+               }
 
-        @Override
-        public java.util.Map.Entry<K, V> next() {
-          if (!hasNext()) {
-            throw new NoSuchElementException();
-          }
-          try {
-            return nextOrNull;
-          } finally {
-            toRemove = nextOrNull;
-            nextOrNull = forward().lowerEntry(nextOrNull.getKey());
-          }
-        }
+               @Override
+               public java.util.Map.Entry<K, V> next() {
+                 if (!hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+                 try {
+                   return nextOrNull;
+                 } finally {
+                   toRemove = nextOrNull;
+                   nextOrNull = forward().lowerEntry(nextOrNull.getKey());
+                 }
+               }
 
-        @Override
-        public void remove() {
-          checkRemove(toRemove != null);
-          forward().remove(toRemove.getKey());
-          toRemove = null;
-        }
+               @Override
+               public void remove() {
+                 checkRemove(toRemove != null);
+                 forward().remove(toRemove.getKey());
+                 toRemove = null;
+               }
       };
     }
   }
@@ -392,7 +392,7 @@ public abstract class ForwardingNavigableMap<K, V>
 
   @Override
   public NavigableMap<K, V> subMap(K fromKey, boolean fromInclusive, K toKey,
-                                   boolean toInclusive) {
+      boolean toInclusive) {
     return delegate().subMap(fromKey, fromInclusive, toKey, toInclusive);
   }
 

@@ -37,7 +37,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 @GwtCompatible
 public class ConcurrentMapPutIfAbsentTester<K, V>
-    extends AbstractMapTester<K, V> {
+  extends AbstractMapTester<K, V> {
   @Override
   protected ConcurrentMap<K, V> getMap() {
     return (ConcurrentMap<K, V>)super.getMap();
@@ -46,7 +46,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutIfAbsent_supportedAbsent() {
     assertNull("putIfAbsent(notPresent, value) should return null",
-               putIfAbsent(e3()));
+        putIfAbsent(e3()));
     expectAdded(e3());
   }
 
@@ -54,7 +54,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
   @CollectionSize.Require(absent = ZERO)
   public void testPutIfAbsent_supportedPresent() {
     assertEquals("putIfAbsent(present, value) should return existing value",
-                 v0(), getMap().putIfAbsent(k0(), v3()));
+        v0(), getMap().putIfAbsent(k0(), v3()));
     expectUnchanged();
   }
 
@@ -74,8 +74,8 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
   public void testPutIfAbsent_unsupportedPresentExistingValue() {
     try {
       assertEquals(
-          "putIfAbsent(present, existingValue) should return present or throw",
-          v0(), putIfAbsent(e0()));
+        "putIfAbsent(present, existingValue) should return present or throw",
+        v0(), putIfAbsent(e0()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -100,7 +100,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
     }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
-        "Should not contain null key after unsupported putIfAbsent(null, value)");
+      "Should not contain null key after unsupported putIfAbsent(null, value)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -112,7 +112,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null value after unsupported put(key, null)");
+      "Should not contain null value after unsupported put(key, null)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -124,7 +124,7 @@ public class ConcurrentMapPutIfAbsentTester<K, V>
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null after unsupported putIfAbsent(present, null)");
+      "Should not contain null after unsupported putIfAbsent(present, null)");
   }
 
   private V putIfAbsent(Map.Entry<K, V> entry) {

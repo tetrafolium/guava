@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingSortedSetMultimap<K, V>
-    extends ForwardingSetMultimap<K, V> implements SortedSetMultimap<K, V> {
+  extends ForwardingSetMultimap<K, V> implements SortedSetMultimap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingSortedSetMultimap() {}

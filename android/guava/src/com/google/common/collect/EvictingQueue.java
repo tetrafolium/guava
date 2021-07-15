@@ -48,7 +48,7 @@ import java.util.Queue;
 @Beta
 @GwtCompatible
 public final class EvictingQueue<E>
-    extends ForwardingQueue<E> implements Serializable {
+  extends ForwardingQueue<E> implements Serializable {
 
   private final Queue<E> delegate;
 

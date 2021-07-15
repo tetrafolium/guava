@@ -124,8 +124,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
   public B named(String name) {
     if (name.contains("(")) {
       throw new IllegalArgumentException(
-          "Eclipse hides all characters after "
-          + "'('; please use '[]' or other characters instead of parentheses");
+              "Eclipse hides all characters after "
+              + "'('; please use '[]' or other characters instead of parentheses");
     }
     this.name = name;
     return self();
@@ -184,7 +184,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     TestSuite suite = new TestSuite(name);
     for (Class<? extends AbstractTester> testerClass : testers) {
       final TestSuite testerSuite = makeSuiteForTesterClass(
-          (Class<? extends AbstractTester<?>>)testerClass);
+        (Class<? extends AbstractTester<?>>)testerClass);
       if (testerSuite.countTestCases() > 0) {
         suite.addTest(testerSuite);
       }
@@ -205,7 +205,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     }
     if (features == null) {
       throw new IllegalStateException(
-          "Call withFeatures() before createTestSuite().");
+              "Call withFeatures() before createTestSuite().");
     }
   }
 
@@ -218,12 +218,12 @@ public abstract class FeatureSpecificTestSuiteBuilder<
       method = extractMethod(test);
     } catch (IllegalArgumentException e) {
       logger.finer(Platform.format("%s: including by default: %s", test,
-                                   e.getMessage()));
+          e.getMessage()));
       return true;
     }
     if (suppressedTests.contains(method)) {
       logger.finer(Platform.format(
-          "%s: excluding because it was explicitly suppressed.", test));
+            "%s: excluding because it was explicitly suppressed.", test));
       return false;
     }
     final TesterRequirements requirements;
@@ -238,8 +238,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
             Helpers.copyToSet(requirements.getPresentFeatures());
         missingFeatures.removeAll(features);
         logger.finer(Platform.format(
-            "%s: skipping because these features are absent: %s", method,
-            missingFeatures));
+              "%s: skipping because these features are absent: %s", method,
+              missingFeatures));
       }
       return false;
     }
@@ -249,8 +249,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
             Helpers.copyToSet(requirements.getAbsentFeatures());
         unwantedFeatures.retainAll(features);
         logger.finer(Platform.format(
-            "%s: skipping because these features are present: %s", method,
-            unwantedFeatures));
+              "%s: skipping because these features are present: %s", method,
+              unwantedFeatures));
       }
       return false;
     }
@@ -270,7 +270,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
       return Helpers.getMethod(testCase.getClass(), testCase.getName());
     } else {
       throw new IllegalArgumentException(
-          "unable to extract method from test: not a TestCase.");
+              "unable to extract method from test: not a TestCase.");
     }
   }
 

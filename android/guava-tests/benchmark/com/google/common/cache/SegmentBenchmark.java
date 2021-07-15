@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 public class SegmentBenchmark {
 
   @Param(
-      {"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
+    {"16", "32", "64", "128", "256", "512", "1024", "2048", "4096", "8192"})
   int capacity;
 
   private Segment<Object, Object> segment;
@@ -41,8 +41,8 @@ public class SegmentBenchmark {
   @BeforeExperiment
   void setUp() {
     LocalCache<Object, Object> cache = new LocalCache<>(
-        CacheBuilder.newBuilder().concurrencyLevel(1).initialCapacity(capacity),
-        null);
+      CacheBuilder.newBuilder().concurrencyLevel(1).initialCapacity(capacity),
+      null);
     checkState(cache.segments.length == 1);
     segment = cache.segments[0];
     checkState(segment.table.length() == capacity);

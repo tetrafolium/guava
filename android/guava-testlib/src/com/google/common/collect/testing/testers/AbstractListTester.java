@@ -67,6 +67,6 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    */
   private String reportContext(List<E> expected) {
     return Platform.format("expected collection %s; actual collection %s",
-                           expected, this.collection);
+               expected, this.collection);
   }
 }

@@ -51,7 +51,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
    */
   @Override
   public V get(K key, Callable<? extends V> valueLoader)
-      throws ExecutionException {
+  throws ExecutionException {
     throw new UnsupportedOperationException();
   }
 
@@ -263,8 +263,8 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     @Override
     public CacheStats snapshot() {
       return new CacheStats(hitCount.sum(), missCount.sum(),
-                            loadSuccessCount.sum(), loadExceptionCount.sum(),
-                            totalLoadTime.sum(), evictionCount.sum());
+                 loadSuccessCount.sum(), loadExceptionCount.sum(),
+                 totalLoadTime.sum(), evictionCount.sum());
     }
 
     /**

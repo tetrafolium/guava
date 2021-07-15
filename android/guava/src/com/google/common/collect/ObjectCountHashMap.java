@@ -129,7 +129,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
 
   void init(int expectedSize, float loadFactor) {
     Preconditions.checkArgument(expectedSize >= 0,
-                                "Initial capacity must be non-negative");
+        "Initial capacity must be non-negative");
     Preconditions.checkArgument(loadFactor > 0, "Illegal load factor");
     int buckets = Hashing.closedTableSize(expectedSize, loadFactor);
     this.table = newTable(buckets);
@@ -202,7 +202,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     }
     if (newEntryIndex == Integer.MAX_VALUE) {
       throw new IllegalStateException(
-          "Cannot contain more than Integer.MAX_VALUE elements!");
+              "Cannot contain more than Integer.MAX_VALUE elements!");
     }
     int newSize = newEntryIndex + 1;
     resizeMeMaybe(newSize);
@@ -405,10 +405,10 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     @Override
     public Iterator<Entry<K>> iterator() {
       return new Itr<Entry<K>>() {
-        @Override
-        Entry<K> getOutput(int entry) {
-          return new MapEntry(entry);
-        }
+               @Override
+               Entry<K> getOutput(int entry) {
+                 return new MapEntry(entry);
+               }
       };
     }
   }

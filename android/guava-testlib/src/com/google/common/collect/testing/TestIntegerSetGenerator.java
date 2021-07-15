@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @GwtCompatible
 public abstract class TestIntegerSetGenerator
-    implements TestSetGenerator<Integer> {
+  implements TestSetGenerator<Integer> {
   @Override
   public SampleElements<Integer> samples() {
     return new Ints();

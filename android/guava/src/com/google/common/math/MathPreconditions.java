@@ -81,7 +81,7 @@ final class MathPreconditions {
   static void checkRoundingUnnecessary(boolean condition) {
     if (!condition) {
       throw new ArithmeticException(
-          "mode was UNNECESSARY, but rounding was necessary");
+              "mode was UNNECESSARY, but rounding was necessary");
     }
   }
 

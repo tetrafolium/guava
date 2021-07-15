@@ -40,7 +40,7 @@ import java.util.Iterator;
  */
 @GwtCompatible
 public abstract class ForwardingIterator<T>
-    extends ForwardingObject implements Iterator<T> {
+  extends ForwardingObject implements Iterator<T> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingIterator() {}

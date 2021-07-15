@@ -39,7 +39,7 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtIncompatible
 abstract class ImmutableSortedMultisetFauxverideShim<E>
-    extends ImmutableMultiset<E> {
+  extends ImmutableMultiset<E> {
   /**
    * Not supported. Use {@link ImmutableSortedMultiset#naturalOrder}, which
    * offers better type-safety, instead. This method exists only to hide {@link
@@ -125,7 +125,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E>
    */
   @Deprecated
   public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4,
-                                                  E e5) {
+      E e5) {
     throw new UnsupportedOperationException();
   }
 
@@ -141,7 +141,7 @@ abstract class ImmutableSortedMultisetFauxverideShim<E>
    */
   @Deprecated
   public static <E> ImmutableSortedMultiset<E> of(E e1, E e2, E e3, E e4, E e5,
-                                                  E e6, E... remaining) {
+      E e6, E... remaining) {
     throw new UnsupportedOperationException();
   }
 

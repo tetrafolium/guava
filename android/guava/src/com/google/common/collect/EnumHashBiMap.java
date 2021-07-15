@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class EnumHashBiMap<K extends Enum<K>, V>
-    extends AbstractBiMap<K, V> {
+  extends AbstractBiMap<K, V> {
   private transient Class<K> keyType;
 
   /**
@@ -76,8 +76,8 @@ public final class EnumHashBiMap<K extends Enum<K>, V>
 
   private EnumHashBiMap(Class<K> keyType) {
     super(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-          Maps.<V, K>newHashMapWithExpectedSize(
-              keyType.getEnumConstants().length));
+    Maps.<V, K>newHashMapWithExpectedSize(
+      keyType.getEnumConstants().length));
     this.keyType = keyType;
   }
 
@@ -117,11 +117,11 @@ public final class EnumHashBiMap<K extends Enum<K>, V>
   @SuppressWarnings("unchecked") // reading field populated by writeObject
   @GwtIncompatible               // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     keyType = (Class<K>)stream.readObject();
     setDelegates(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-                 new HashMap<V, K>(keyType.getEnumConstants().length * 3 / 2));
+        new HashMap<V, K>(keyType.getEnumConstants().length * 3 / 2));
     Serialization.populateMap(this, stream);
   }
 

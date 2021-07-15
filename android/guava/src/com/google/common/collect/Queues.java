@@ -293,8 +293,8 @@ public final class Queues {
   @CanIgnoreReturnValue
   @GwtIncompatible // BlockingQueue
   public static <E> int drain(BlockingQueue<E> q, Collection<? super E> buffer,
-                              int numElements, long timeout, TimeUnit unit)
-      throws InterruptedException {
+      int numElements, long timeout, TimeUnit unit)
+  throws InterruptedException {
     Preconditions.checkNotNull(buffer);
     /*
      * This code performs one System.nanoTime() more than necessary, and in
@@ -343,7 +343,7 @@ public final class Queues {
   @GwtIncompatible // BlockingQueue
   public static <E> int
   drainUninterruptibly(BlockingQueue<E> q, Collection<? super E> buffer,
-                       int numElements, long timeout, TimeUnit unit) {
+      int numElements, long timeout, TimeUnit unit) {
     Preconditions.checkNotNull(buffer);
     long deadline = System.nanoTime() + unit.toNanos(timeout);
     int added = 0;

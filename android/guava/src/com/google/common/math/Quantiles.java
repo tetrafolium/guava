@@ -294,7 +294,7 @@ public final class Quantiles {
      */
     public double computeInPlace(double... dataset) {
       checkArgument(dataset.length > 0,
-                    "Cannot calculate quantiles of an empty dataset");
+          "Cannot calculate quantiles of an empty dataset");
       if (containsNaN(dataset)) {
         return NaN;
       }
@@ -320,7 +320,7 @@ public final class Quantiles {
       } else {
         selectInPlace(quotient + 1, dataset, quotient + 1, dataset.length - 1);
         return interpolate(dataset[quotient], dataset[quotient + 1], remainder,
-                           scale);
+                   scale);
       }
     }
   }
@@ -409,7 +409,7 @@ public final class Quantiles {
      */
     public Map<Integer, Double> computeInPlace(double... dataset) {
       checkArgument(dataset.length > 0,
-                    "Cannot calculate quantiles of an empty dataset");
+          "Cannot calculate quantiles of an empty dataset");
       if (containsNaN(dataset)) {
         Map<Integer, Double> nanMap = new HashMap<>();
         for (int index : indexes) {
@@ -452,7 +452,7 @@ public final class Quantiles {
       }
       sort(requiredSelections, 0, requiredSelectionsCount);
       selectAllInPlace(requiredSelections, 0, requiredSelectionsCount - 1,
-                       dataset, 0, dataset.length - 1);
+          dataset, 0, dataset.length - 1);
       Map<Integer, Double> ret = new HashMap<>();
       for (int i = 0; i < indexes.length; i++) {
         int quotient = quotients[i];
@@ -461,8 +461,8 @@ public final class Quantiles {
           ret.put(indexes[i], dataset[quotient]);
         } else {
           ret.put(indexes[i],
-                  interpolate(dataset[quotient], dataset[quotient + 1],
-                              remainder, scale));
+              interpolate(dataset[quotient], dataset[quotient + 1],
+              remainder, scale));
         }
       }
       return unmodifiableMap(ret);
@@ -489,7 +489,7 @@ public final class Quantiles {
    * {@code NaN}).
    */
   private static double interpolate(double lower, double upper,
-                                    double remainder, double scale) {
+      double remainder, double scale) {
     if (lower == NEGATIVE_INFINITY) {
       if (upper == POSITIVE_INFINITY) {
         // Return NaN when lower == NEGATIVE_INFINITY and upper ==
@@ -511,8 +511,8 @@ public final class Quantiles {
   private static void checkIndex(int index, int scale) {
     if (index < 0 || index > scale) {
       throw new IllegalArgumentException(
-          "Quantile indexes must be between 0 and the scale, which is " +
-          scale);
+              "Quantile indexes must be between 0 and the scale, which is " +
+              scale);
     }
   }
 
@@ -556,7 +556,7 @@ public final class Quantiles {
    * sorted dataset.
    */
   private static void selectInPlace(int required, double[] array, int from,
-                                    int to) {
+      int to) {
     // If we are looking for the least element in the range, we can just do a
     // linear search for it. (We will hit this whenever we are doing quantile
     // interpolation: our first selection finds the lower value, our second one
@@ -628,7 +628,7 @@ public final class Quantiles {
    * from} is strictly less than {@code to}.
    */
   private static void movePivotToStartOfSlice(double[] array, int from,
-                                              int to) {
+      int to) {
     int mid = (from + to) >>> 1;
     // We want to make a swap such that either array[to] <= array[from] <=
     // array[mid], or array[mid] <= array[from] <= array[to]. We know that from
@@ -659,8 +659,8 @@ public final class Quantiles {
    * {@code to}].
    */
   private static void selectAllInPlace(int[] allRequired, int requiredFrom,
-                                       int requiredTo, double[] array, int from,
-                                       int to) {
+      int requiredTo, double[] array, int from,
+      int to) {
     // Choose the first selection to do...
     int requiredChosen =
         chooseNextSelection(allRequired, requiredFrom, requiredTo, from, to);
@@ -672,23 +672,23 @@ public final class Quantiles {
     // ...then recursively perform the selections in the range below...
     int requiredBelow = requiredChosen - 1;
     while (requiredBelow >= requiredFrom &&
-           allRequired[requiredBelow] == required) {
+        allRequired[requiredBelow] == required) {
       requiredBelow--; // skip duplicates of required in the range below
     }
     if (requiredBelow >= requiredFrom) {
       selectAllInPlace(allRequired, requiredFrom, requiredBelow, array, from,
-                       required - 1);
+          required - 1);
     }
 
     // ...and then recursively perform the selections in the range above.
     int requiredAbove = requiredChosen + 1;
     while (requiredAbove <= requiredTo &&
-           allRequired[requiredAbove] == required) {
+        allRequired[requiredAbove] == required) {
       requiredAbove++; // skip duplicates of required in the range above
     }
     if (requiredAbove <= requiredTo) {
       selectAllInPlace(allRequired, requiredAbove, requiredTo, array,
-                       required + 1, to);
+          required + 1, to);
     }
   }
 
@@ -706,7 +706,7 @@ public final class Quantiles {
    * must be done.
    */
   private static int chooseNextSelection(int[] allRequired, int requiredFrom,
-                                         int requiredTo, int from, int to) {
+      int requiredTo, int from, int to) {
     if (requiredFrom == requiredTo) {
       return requiredFrom; // only one thing to choose, so choose it
     }

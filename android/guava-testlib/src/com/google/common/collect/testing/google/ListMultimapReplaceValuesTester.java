@@ -32,7 +32,7 @@ import java.util.List;
  */
 @GwtCompatible
 public class ListMultimapReplaceValuesTester<K, V>
-    extends AbstractListMultimapTester<K, V> {
+  extends AbstractListMultimapTester<K, V> {
   @MapFeature.Require({SUPPORTS_PUT, SUPPORTS_REMOVE})
   public void testReplaceValuesPreservesOrder() {
     @SuppressWarnings("unchecked")

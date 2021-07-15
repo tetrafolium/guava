@@ -28,7 +28,7 @@ import java.util.Queue;
  */
 @GwtCompatible
 public abstract class TestStringQueueGenerator
-    implements TestQueueGenerator<String> {
+  implements TestQueueGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();

@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AggregateFuture<InputT, OutputT>
-    extends AbstractFuture.TrustedFuture<OutputT> {
+  extends AbstractFuture.TrustedFuture<OutputT> {
   private static final Logger logger =
       Logger.getLogger(AggregateFuture.class.getName());
 
@@ -57,7 +57,7 @@ abstract class AggregateFuture<InputT, OutputT>
       // Let go of the memory held by the running state
       this.runningState = null;
       ImmutableCollection<? extends ListenableFuture<? extends InputT>>
-          futures = localRunningState.futures;
+      futures = localRunningState.futures;
       boolean wasInterrupted = wasInterrupted();
 
       if (wasInterrupted) {
@@ -79,7 +79,7 @@ abstract class AggregateFuture<InputT, OutputT>
       return null;
     }
     ImmutableCollection<? extends ListenableFuture<? extends InputT>>
-        localFutures = localRunningState.futures;
+    localFutures = localRunningState.futures;
     if (localFutures != null) {
       return "futures=[" + localFutures + "]";
     }
@@ -96,13 +96,13 @@ abstract class AggregateFuture<InputT, OutputT>
 
   abstract class RunningState extends AggregateFutureState implements Runnable {
     private ImmutableCollection<? extends ListenableFuture<? extends InputT>>
-        futures;
+    futures;
     private final boolean allMustSucceed;
     private final boolean collectsValues;
 
     RunningState(ImmutableCollection<
                      ? extends ListenableFuture<? extends InputT>> futures,
-                 boolean allMustSucceed, boolean collectsValues) {
+        boolean allMustSucceed, boolean collectsValues) {
       super(futures.size());
       this.futures = checkNotNull(futures);
       this.allMustSucceed = allMustSucceed;
@@ -196,7 +196,7 @@ abstract class AggregateFuture<InputT, OutputT>
 
       // | and & used because it's faster than the branch required for || and &&
       if (throwable instanceof Error | (allMustSucceed & !completedWithFailure &
-                                        firstTimeSeeingThisException)) {
+          firstTimeSeeingThisException)) {
         String message =
             (throwable instanceof Error)
                 ? "Input Future failed with Error"
@@ -218,16 +218,16 @@ abstract class AggregateFuture<InputT, OutputT>
      * Handles the input at the given index completing.
      */
     private void handleOneInputDone(int index,
-                                    Future<? extends InputT> future) {
+        Future<? extends InputT> future) {
       // The only cases in which this Future should already be done are (a) if
       // it was cancelled or (b) if an input failed and we propagated that
       // immediately because of allMustSucceed.
       checkState(allMustSucceed || !isDone() || isCancelled(),
-                 "Future was done before all dependencies completed");
+          "Future was done before all dependencies completed");
 
       try {
         checkState(future.isDone(),
-                   "Tried to set value from future which is not done");
+            "Tried to set value from future which is not done");
         if (allMustSucceed) {
           if (future.isCancelled()) {
             // clear running state prior to cancelling children, this sets our
@@ -294,7 +294,7 @@ abstract class AggregateFuture<InputT, OutputT>
      * otherwise, called for each future when all futures complete.
      */
     abstract void collectOneValue(boolean allMustSucceed, int index,
-                                  @Nullable InputT returnValue);
+        @Nullable InputT returnValue);
 
     abstract void handleAllCompleted();
 

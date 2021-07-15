@@ -35,7 +35,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class ListMultimapPutTester<K, V>
-    extends AbstractListMultimapTester<K, V> {
+  extends AbstractListMultimapTester<K, V> {
   // MultimapPutTester tests non-duplicate values, but ignores ordering
 
   @MapFeature.Require(SUPPORTS_PUT)

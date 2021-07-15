@@ -76,7 +76,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
   private final Comparator<? super C> columnComparator;
 
   private static class Factory<C, V>
-      implements Supplier<TreeMap<C, V>>, Serializable {
+    implements Supplier<TreeMap<C, V>>, Serializable {
     final Comparator<? super C> comparator;
 
     Factory(Comparator<? super C> comparator) { this.comparator = comparator; }
@@ -99,7 +99,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    * without generics.
    */
   public static <R extends Comparable, C extends Comparable, V>
-      TreeBasedTable<R, C, V> create() {
+  TreeBasedTable<R, C, V> create() {
     return new TreeBasedTable<>(Ordering.natural(), Ordering.natural());
   }
 
@@ -112,7 +112,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    */
   public static <R, C, V> TreeBasedTable<R, C, V>
   create(Comparator<? super R> rowComparator,
-         Comparator<? super C> columnComparator) {
+      Comparator<? super C> columnComparator) {
     checkNotNull(rowComparator);
     checkNotNull(columnComparator);
     return new TreeBasedTable<>(rowComparator, columnComparator);
@@ -131,9 +131,9 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
   }
 
   TreeBasedTable(Comparator<? super R> rowComparator,
-                 Comparator<? super C> columnComparator) {
+      Comparator<? super C> columnComparator) {
     super(new TreeMap<R, Map<C, V>>(rowComparator),
-          new Factory<C, V>(columnComparator));
+    new Factory<C, V>(columnComparator));
     this.columnComparator = columnComparator;
   }
 
@@ -194,7 +194,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
       this.lowerBound = lowerBound;
       this.upperBound = upperBound;
       checkArgument(lowerBound == null || upperBound == null ||
-                    compare(lowerBound, upperBound) <= 0);
+          compare(lowerBound, upperBound) <= 0);
     }
 
     @Override
@@ -216,13 +216,13 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
 
     boolean rangeContains(@Nullable Object o) {
       return o != null && (lowerBound == null || compare(lowerBound, o) <= 0) &&
-          (upperBound == null || compare(upperBound, o) > 0);
+             (upperBound == null || compare(upperBound, o) > 0);
     }
 
     @Override
     public SortedMap<C, V> subMap(C fromKey, C toKey) {
       checkArgument(rangeContains(checkNotNull(fromKey)) &&
-                    rangeContains(checkNotNull(toKey)));
+          rangeContains(checkNotNull(toKey)));
       return new TreeRow(rowKey, fromKey, toKey);
     }
 
@@ -332,35 +332,35 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
     final Comparator<? super C> comparator = columnComparator();
 
     final Iterator<C> merged = Iterators.mergeSorted(
-        Iterables.transform(backingMap.values(),
-                            new Function<Map<C, V>, Iterator<C>>() {
-                              @Override
-                              public Iterator<C> apply(Map<C, V> input) {
-                                return input.keySet().iterator();
-                              }
-                            }),
-        comparator);
+      Iterables.transform(backingMap.values(),
+      new Function<Map<C, V>, Iterator<C>>() {
+      @Override
+      public Iterator<C> apply(Map<C, V> input) {
+        return input.keySet().iterator();
+      }
+    }),
+      comparator);
 
     return new AbstractIterator<C>() {
-      C lastValue;
+             C lastValue;
 
-      @Override
-      protected C computeNext() {
-        while (merged.hasNext()) {
-          C next = merged.next();
-          boolean duplicate =
-              lastValue != null && comparator.compare(next, lastValue) == 0;
+             @Override
+             protected C computeNext() {
+               while (merged.hasNext()) {
+                 C next = merged.next();
+                 boolean duplicate =
+                     lastValue != null && comparator.compare(next, lastValue) == 0;
 
-          // Keep looping till we find a non-duplicate value.
-          if (!duplicate) {
-            lastValue = next;
-            return lastValue;
-          }
-        }
+                 // Keep looping till we find a non-duplicate value.
+                 if (!duplicate) {
+                   lastValue = next;
+                   return lastValue;
+                 }
+               }
 
-        lastValue = null; // clear reference to unused data
-        return endOfData();
-      }
+               lastValue = null; // clear reference to unused data
+               return endOfData();
+             }
     };
   }
 

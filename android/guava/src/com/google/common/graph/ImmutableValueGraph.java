@@ -44,11 +44,11 @@ import com.google.errorprone.annotations.Immutable;
 @SuppressWarnings("Immutable")
 // Extends ConfigurableValueGraph but uses ImmutableMaps.
 public final class ImmutableValueGraph<N, V>
-    extends ConfigurableValueGraph<N, V> {
+  extends ConfigurableValueGraph<N, V> {
 
   private ImmutableValueGraph(ValueGraph<N, V> graph) {
     super(ValueGraphBuilder.from(graph), getNodeConnections(graph),
-          graph.edges().size());
+    graph.edges().size());
   }
 
   /** Returns an immutable copy of {@code graph}. */
@@ -73,7 +73,7 @@ public final class ImmutableValueGraph<N, V>
   @Override
   public ImmutableGraph<N> asGraph() {
     return new ImmutableGraph<N>(
-        this); // safe because the view is effectively immutable
+      this);   // safe because the view is effectively immutable
   }
 
   private static <N, V> ImmutableMap<N, GraphConnections<N, V>>
@@ -99,9 +99,9 @@ public final class ImmutableValueGraph<N, V>
     };
     return graph.isDirected()
         ? DirectedGraphConnections.ofImmutable(
-              graph.predecessors(node),
-              Maps.asMap(graph.successors(node), successorNodeToValueFn))
+      graph.predecessors(node),
+      Maps.asMap(graph.successors(node), successorNodeToValueFn))
         : UndirectedGraphConnections.ofImmutable(
-              Maps.asMap(graph.adjacentNodes(node), successorNodeToValueFn));
+      Maps.asMap(graph.adjacentNodes(node), successorNodeToValueFn));
   }
 }

@@ -40,7 +40,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 @GwtCompatible
 public abstract class ForwardingConcurrentMap<K, V>
-    extends ForwardingMap<K, V> implements ConcurrentMap<K, V> {
+  extends ForwardingMap<K, V> implements ConcurrentMap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingConcurrentMap() {}

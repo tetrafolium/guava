@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 @Deprecated
 @GwtIncompatible
 public abstract class ForwardingBlockingDeque<E>
-    extends ForwardingDeque<E> implements BlockingDeque<E> {
+  extends ForwardingDeque<E> implements BlockingDeque<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingBlockingDeque() {}
@@ -75,13 +75,13 @@ public abstract class ForwardingBlockingDeque<E>
 
   @Override
   public boolean offerFirst(E e, long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().offerFirst(e, timeout, unit);
   }
 
   @Override
   public boolean offerLast(E e, long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().offerLast(e, timeout, unit);
   }
 
@@ -112,7 +112,7 @@ public abstract class ForwardingBlockingDeque<E>
 
   @Override
   public boolean offer(E e, long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().offer(e, timeout, unit);
   }
 

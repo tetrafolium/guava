@@ -82,7 +82,7 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
 
   @GwtIncompatible // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     int distinctElements = Serialization.readCount(stream);
     setBackingMap(new ObjectCountHashMap<E>());

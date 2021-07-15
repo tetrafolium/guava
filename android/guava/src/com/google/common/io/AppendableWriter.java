@@ -114,7 +114,7 @@ class AppendableWriter extends Writer {
 
   @Override
   public Writer append(@Nullable CharSequence charSeq, int start, int end)
-      throws IOException {
+  throws IOException {
     checkNotClosed();
     target.append(charSeq, start, end);
     return this;

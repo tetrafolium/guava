@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 abstract class AbstractBiMap<K, V>
-    extends ForwardingMap<K, V> implements BiMap<K, V>, Serializable {
+  extends ForwardingMap<K, V> implements BiMap<K, V>, Serializable {
 
   private transient Map<K, V> delegate;
   @RetainedWith transient AbstractBiMap<V, K> inverse;
@@ -144,7 +144,7 @@ abstract class AbstractBiMap<K, V>
   }
 
   private void updateInverseMap(K key, boolean containedKey, V oldValue,
-                                V newValue) {
+      V newValue) {
     if (containedKey) {
       removeFromInverseMap(oldValue);
     }
@@ -315,26 +315,26 @@ abstract class AbstractBiMap<K, V>
   Iterator<Entry<K, V>> entrySetIterator() {
     final Iterator<Entry<K, V>> iterator = delegate.entrySet().iterator();
     return new Iterator<Entry<K, V>>() {
-      Entry<K, V> entry;
+             Entry<K, V> entry;
 
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public Entry<K, V> next() {
-        entry = iterator.next();
-        return new BiMapEntry(entry);
-      }
+             @Override
+             public Entry<K, V> next() {
+               entry = iterator.next();
+               return new BiMapEntry(entry);
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(entry != null);
-        V value = entry.getValue();
-        iterator.remove();
-        removeFromInverseMap(value);
-      }
+             @Override
+             public void remove() {
+               checkRemove(entry != null);
+               V value = entry.getValue();
+               iterator.remove();
+               removeFromInverseMap(value);
+             }
     };
   }
 
@@ -445,7 +445,7 @@ abstract class AbstractBiMap<K, V>
     @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     private void readObject(ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+    throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
       setInverse((AbstractBiMap<V, K>)stream.readObject());
     }

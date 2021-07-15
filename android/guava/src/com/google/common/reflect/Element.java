@@ -57,7 +57,7 @@ class Element extends AccessibleObject implements Member {
 
   @Override
   public final <A extends Annotation>
-      A getAnnotation(Class<A> annotationClass) {
+  A getAnnotation(Class<A> annotationClass) {
     return accessibleObject.getAnnotation(annotationClass);
   }
 
@@ -158,7 +158,7 @@ class Element extends AccessibleObject implements Member {
     if (obj instanceof Element) {
       Element that = (Element)obj;
       return getOwnerType().equals(that.getOwnerType()) &&
-          member.equals(that.member);
+             member.equals(that.member);
     }
     return false;
   }
