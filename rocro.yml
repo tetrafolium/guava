@@ -1,6 +1,6 @@
 inspecode:
 
-  experimental:
+  global:
     ignore:      [ "**/test/" ]
 
   astyle:
@@ -39,8 +39,17 @@ inspecode:
     thresholds:  { num-issues: 140 }
 
   jscpd:
-    ignore:      [ "**/testing/" ]
-    thresholds:  { num-issues: 809 }
+  - ignore:
+      - "**/com/google/common/collect/"
+    thresholds:  { num-issues: 697 }
+  - input:
+      - "**/com/google/common/collect/"
+    ignore:
+      - "**/com/google/common/collect/testing/"
+    thresholds:  { num-issues: 544 }
+  - input:
+      - "**/com/google/common/collect/testing/"
+    thresholds:  { num-issues: 590 }
 
   misspell:
     auto-fix:    true
