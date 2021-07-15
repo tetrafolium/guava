@@ -30,7 +30,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 public abstract class TestIntegerSortedSetGenerator
-    extends TestIntegerSetGenerator {
+  extends TestIntegerSetGenerator {
   @Override protected abstract SortedSet<Integer> create(Integer[] elements);
 
   /** Sorts the elements by their natural ordering. */

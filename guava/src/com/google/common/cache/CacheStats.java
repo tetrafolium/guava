@@ -74,8 +74,8 @@ public final class CacheStats {
    * is not constructed by end users and is too fine-grained for a builder.
    */
   public CacheStats(long hitCount, long missCount, long loadSuccessCount,
-                    long loadExceptionCount, long totalLoadTime,
-                    long evictionCount) {
+      long loadExceptionCount, long totalLoadTime,
+      long evictionCount) {
     checkArgument(hitCount >= 0);
     checkArgument(missCount >= 0);
     checkArgument(loadSuccessCount >= 0);
@@ -220,12 +220,12 @@ public final class CacheStats {
    */
   public CacheStats minus(CacheStats other) {
     return new CacheStats(
-        Math.max(0, hitCount - other.hitCount),
-        Math.max(0, missCount - other.missCount),
-        Math.max(0, loadSuccessCount - other.loadSuccessCount),
-        Math.max(0, loadExceptionCount - other.loadExceptionCount),
-        Math.max(0, totalLoadTime - other.totalLoadTime),
-        Math.max(0, evictionCount - other.evictionCount));
+      Math.max(0, hitCount - other.hitCount),
+      Math.max(0, missCount - other.missCount),
+      Math.max(0, loadSuccessCount - other.loadSuccessCount),
+      Math.max(0, loadExceptionCount - other.loadExceptionCount),
+      Math.max(0, totalLoadTime - other.totalLoadTime),
+      Math.max(0, evictionCount - other.evictionCount));
   }
 
   /**
@@ -237,17 +237,17 @@ public final class CacheStats {
    */
   public CacheStats plus(CacheStats other) {
     return new CacheStats(hitCount + other.hitCount,
-                          missCount + other.missCount,
-                          loadSuccessCount + other.loadSuccessCount,
-                          loadExceptionCount + other.loadExceptionCount,
-                          totalLoadTime + other.totalLoadTime,
-                          evictionCount + other.evictionCount);
+               missCount + other.missCount,
+               loadSuccessCount + other.loadSuccessCount,
+               loadExceptionCount + other.loadExceptionCount,
+               totalLoadTime + other.totalLoadTime,
+               evictionCount + other.evictionCount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hashCode(hitCount, missCount, loadSuccessCount,
-                            loadExceptionCount, totalLoadTime, evictionCount);
+               loadExceptionCount, totalLoadTime, evictionCount);
   }
 
   @Override
@@ -255,10 +255,10 @@ public final class CacheStats {
     if (object instanceof CacheStats) {
       CacheStats other = (CacheStats)object;
       return hitCount == other.hitCount && missCount == other.missCount &&
-          loadSuccessCount == other.loadSuccessCount &&
-          loadExceptionCount == other.loadExceptionCount &&
-          totalLoadTime == other.totalLoadTime &&
-          evictionCount == other.evictionCount;
+             loadSuccessCount == other.loadSuccessCount &&
+             loadExceptionCount == other.loadExceptionCount &&
+             totalLoadTime == other.totalLoadTime &&
+             evictionCount == other.evictionCount;
     }
     return false;
   }
@@ -266,12 +266,12 @@ public final class CacheStats {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
-        .add("hitCount", hitCount)
-        .add("missCount", missCount)
-        .add("loadSuccessCount", loadSuccessCount)
-        .add("loadExceptionCount", loadExceptionCount)
-        .add("totalLoadTime", totalLoadTime)
-        .add("evictionCount", evictionCount)
-        .toString();
+           .add("hitCount", hitCount)
+           .add("missCount", missCount)
+           .add("loadSuccessCount", loadSuccessCount)
+           .add("loadExceptionCount", loadExceptionCount)
+           .add("totalLoadTime", totalLoadTime)
+           .add("evictionCount", evictionCount)
+           .toString();
   }
 }

@@ -256,7 +256,7 @@ public abstract class Ordering<T> implements Comparator<T> {
   // TODO(kevinb): provide replacement
   @GwtCompatible(serializable = true)
   public static <T> Ordering<T> explicit(T leastValue,
-                                         T... remainingValuesInOrder) {
+      T... remainingValuesInOrder) {
     return explicit(Lists.asList(leastValue, remainingValuesInOrder));
   }
 
@@ -656,7 +656,7 @@ public abstract class Ordering<T> implements Comparator<T> {
    */
   @CanIgnoreReturnValue // TODO(kak): Consider removing this
   public <E extends T> E min(@Nullable E a, @Nullable E b, @Nullable E c,
-                             E... rest) {
+      E... rest) {
     E minSoFar = min(min(a, b), c);
 
     for (E r : rest) {
@@ -755,7 +755,7 @@ public abstract class Ordering<T> implements Comparator<T> {
    */
   @CanIgnoreReturnValue // TODO(kak): Consider removing this
   public <E extends T> E max(@Nullable E a, @Nullable E b, @Nullable E c,
-                             E... rest) {
+      E... rest) {
     E maxSoFar = max(max(a, b), c);
 
     for (E r : rest) {

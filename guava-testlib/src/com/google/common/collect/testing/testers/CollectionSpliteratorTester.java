@@ -41,7 +41,7 @@ import java.util.Spliterator;
  */
 @GwtCompatible(emulated = true)
 public class CollectionSpliteratorTester<E>
-    extends AbstractCollectionTester<E> {
+  extends AbstractCollectionTester<E> {
 
   @CollectionFeature.Require(absent = KNOWN_ORDER)
   public void testSpliteratorUnknownOrder() {
@@ -54,8 +54,8 @@ public class CollectionSpliteratorTester<E>
   public void testSpliteratorKnownOrder() {
     synchronized (collection) {
       SpliteratorTester.of(collection::spliterator)
-          .expect(getOrderedElements())
-          .inOrder();
+      .expect(getOrderedElements())
+      .inOrder();
     }
   }
 
@@ -65,7 +65,7 @@ public class CollectionSpliteratorTester<E>
     initCollectionWithNullElement();
     synchronized (collection) { // for Collections.synchronized
       assertFalse(
-          collection.spliterator().hasCharacteristics(Spliterator.NONNULL));
+        collection.spliterator().hasCharacteristics(Spliterator.NONNULL));
     }
   }
 
@@ -74,7 +74,7 @@ public class CollectionSpliteratorTester<E>
     // If add is supported, verify that IMMUTABLE is not reported.
     synchronized (collection) { // for Collections.synchronized
       assertFalse(
-          collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
+        collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
     }
   }
 
@@ -83,21 +83,21 @@ public class CollectionSpliteratorTester<E>
     // If remove is supported, verify that IMMUTABLE is not reported.
     synchronized (collection) { // for Collections.synchronized
       assertFalse(
-          collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
+        collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
     }
   }
 
   @GwtIncompatible // reflection
   public static Method getSpliteratorNotImmutableCollectionAllowsAddMethod() {
     return Helpers.getMethod(CollectionSpliteratorTester.class,
-                             "testSpliteratorNotImmutable_CollectionAllowsAdd");
+               "testSpliteratorNotImmutable_CollectionAllowsAdd");
   }
 
   @GwtIncompatible // reflection
   public static Method
   getSpliteratorNotImmutableCollectionAllowsRemoveMethod() {
     return Helpers.getMethod(
-        CollectionSpliteratorTester.class,
-        "testSpliteratorNotImmutable_CollectionAllowsRemove");
+      CollectionSpliteratorTester.class,
+      "testSpliteratorNotImmutable_CollectionAllowsRemove");
   }
 }

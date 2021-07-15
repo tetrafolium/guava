@@ -29,7 +29,7 @@ import java.util.Comparator;
 public class ComparatorOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ComparatorOrdering<?> instance) {}
+      ComparatorOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static ComparatorOrdering<Object>
@@ -38,8 +38,8 @@ public class ComparatorOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ComparatorOrdering<?> instance)
-      throws SerializationException {
+      ComparatorOrdering<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.comparator);
   }
 }

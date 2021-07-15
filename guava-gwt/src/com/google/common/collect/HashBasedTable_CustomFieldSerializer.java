@@ -27,17 +27,17 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class HashBasedTable_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader,
-                                 HashBasedTable<?, ?, ?> table) {}
+      HashBasedTable<?, ?, ?> table) {}
 
   public static HashBasedTable<Object, Object, Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
     return Table_CustomFieldSerializerBase.populate(reader,
-                                                    HashBasedTable.create());
+               HashBasedTable.create());
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               HashBasedTable<?, ?, ?> table)
-      throws SerializationException {
+      HashBasedTable<?, ?, ?> table)
+  throws SerializationException {
     Table_CustomFieldSerializerBase.serialize(writer, table);
   }
 }

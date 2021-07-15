@@ -41,11 +41,11 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testComputeIfAbsent_supportedAbsent() {
     assertEquals(
-        "computeIfAbsent(notPresent, function) should return new value", v3(),
-        getMap().computeIfAbsent(k3(), k -> {
-          assertEquals(k3(), k);
-          return v3();
-        }));
+      "computeIfAbsent(notPresent, function) should return new value", v3(),
+      getMap().computeIfAbsent(k3(), k->{
+      assertEquals(k3(), k);
+      return v3();
+    }));
     expectAdded(e3());
   }
 
@@ -53,19 +53,19 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testComputeIfAbsent_supportedPresent() {
     assertEquals(
-        "computeIfAbsent(present, function) should return existing value", v0(),
-        getMap().computeIfAbsent(k0(),
-                                 k -> { throw new AssertionFailedError(); }));
+      "computeIfAbsent(present, function) should return existing value", v0(),
+      getMap().computeIfAbsent(k0(),
+      k->{ throw new AssertionFailedError(); }));
     expectUnchanged();
   }
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testComputeIfAbsent_functionReturnsNullNotInserted() {
     assertNull("computeIfAbsent(absent, returnsNull) should return null",
-               getMap().computeIfAbsent(k3(), k -> {
-                 assertEquals(k3(), k);
-                 return null;
-               }));
+        getMap().computeIfAbsent(k3(), k->{
+      assertEquals(k3(), k);
+      return null;
+    }));
     expectUnchanged();
   }
 
@@ -74,18 +74,18 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   public void testComputeIfAbsent_nullTreatedAsAbsent() {
     initMapWithNullValue();
     assertEquals(
-        "computeIfAbsent(presentAssignedToNull, function) should return newValue",
-        getValueForNullKey(),
-        getMap().computeIfAbsent(getKeyForNullValue(), k -> {
-          assertEquals(getKeyForNullValue(), k);
-          return getValueForNullKey();
-        }));
+      "computeIfAbsent(presentAssignedToNull, function) should return newValue",
+      getValueForNullKey(),
+      getMap().computeIfAbsent(getKeyForNullValue(), k->{
+      assertEquals(getKeyForNullValue(), k);
+      return getValueForNullKey();
+    }));
     expectReplacement(entry(getKeyForNullValue(), getValueForNullKey()));
   }
 
   @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_KEYS})
   public void testComputeIfAbsent_nullKeySupported() {
-    getMap().computeIfAbsent(null, k -> {
+    getMap().computeIfAbsent(null, k->{
       assertNull(k);
       return v3();
     });
@@ -97,7 +97,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testComputeIfAbsent_functionThrows() {
     try {
-      getMap().computeIfAbsent(k3(), k -> {
+      getMap().computeIfAbsent(k3(), k->{
         assertEquals(k3(), k);
         throw new ExpectedException();
       });
@@ -110,7 +110,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testComputeIfAbsent_unsupportedAbsent() {
     try {
-      getMap().computeIfAbsent(k3(), k -> {
+      getMap().computeIfAbsent(k3(), k->{
         // allowed to be called
         assertEquals(k3(), k);
         return v3();
@@ -126,11 +126,11 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   public void testComputeIfAbsent_unsupportedPresentExistingValue() {
     try {
       assertEquals(
-          "computeIfAbsent(present, returnsCurrentValue) should return present or throw",
-          v0(), getMap().computeIfAbsent(k0(), k -> {
-            assertEquals(k0(), k);
-            return v0();
-          }));
+        "computeIfAbsent(present, returnsCurrentValue) should return present or throw",
+        v0(), getMap().computeIfAbsent(k0(), k->{
+        assertEquals(k0(), k);
+        return v0();
+      }));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -141,11 +141,11 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   public void testComputeIfAbsent_unsupportedPresentDifferentValue() {
     try {
       assertEquals(
-          "computeIfAbsent(present, returnsDifferentValue) should return present or throw",
-          v0(), getMap().computeIfAbsent(k0(), k -> {
-            assertEquals(k0(), k);
-            return v3();
-          }));
+        "computeIfAbsent(present, returnsDifferentValue) should return present or throw",
+        v0(), getMap().computeIfAbsent(k0(), k->{
+        assertEquals(k0(), k);
+        return v3();
+      }));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -154,7 +154,7 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_KEYS)
   public void testComputeIfAbsent_nullKeyUnsupported() {
     try {
-      getMap().computeIfAbsent(null, k -> {
+      getMap().computeIfAbsent(null, k->{
         assertNull(k);
         return v3();
       });
@@ -163,6 +163,6 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
-        "Should not contain null key after unsupported computeIfAbsent(null, function)");
+      "Should not contain null key after unsupported computeIfAbsent(null, function)");
   }
 }

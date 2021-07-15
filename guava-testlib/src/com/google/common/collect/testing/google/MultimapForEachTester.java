@@ -33,17 +33,17 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapForEachTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testForEach() {
     List<Entry<K, V>> entries = new ArrayList<>();
-    multimap().forEach((k, v) -> entries.add(mapEntry(k, v)));
+    multimap().forEach((k, v)->entries.add(mapEntry(k, v)));
     assertEqualIgnoringOrder(getSampleElements(), multimap().entries());
   }
 
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testForEachOrder() {
     List<Entry<K, V>> entries = new ArrayList<>();
-    multimap().forEach((k, v) -> entries.add(mapEntry(k, v)));
+    multimap().forEach((k, v)->entries.add(mapEntry(k, v)));
     assertEqualIgnoringOrder(getSampleElements(), multimap().entries());
   }
 }

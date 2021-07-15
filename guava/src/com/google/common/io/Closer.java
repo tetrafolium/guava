@@ -178,8 +178,8 @@ public final class Closer implements Closeable {
    * @throws X when the given throwable is of the declared type X
    */
   public <X extends Exception> RuntimeException rethrow(Throwable e,
-                                                        Class<X> declaredType)
-      throws IOException, X {
+      Class<X> declaredType)
+  throws IOException, X {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);
@@ -207,7 +207,7 @@ public final class Closer implements Closeable {
    */
   public <X1 extends Exception, X2 extends Exception> RuntimeException
   rethrow(Throwable e, Class<X1> declaredType1, Class<X2> declaredType2)
-      throws IOException, X1, X2 {
+  throws IOException, X1, X2 {
     checkNotNull(e);
     thrown = e;
     Throwables.propagateIfPossible(e, IOException.class);
@@ -272,11 +272,11 @@ public final class Closer implements Closeable {
 
     @Override
     public void suppress(Closeable closeable, Throwable thrown,
-                         Throwable suppressed) {
+        Throwable suppressed) {
       // log to the same place as Closeables
       Closeables.logger.log(
-          Level.WARNING,
-          "Suppressing exception thrown when closing " + closeable, suppressed);
+        Level.WARNING,
+        "Suppressing exception thrown when closing " + closeable, suppressed);
     }
   }
 
@@ -303,7 +303,7 @@ public final class Closer implements Closeable {
 
     @Override
     public void suppress(Closeable closeable, Throwable thrown,
-                         Throwable suppressed) {
+        Throwable suppressed) {
       // ensure no exceptions from addSuppressed
       if (thrown == suppressed) {
         return;

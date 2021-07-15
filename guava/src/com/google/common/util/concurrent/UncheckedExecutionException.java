@@ -54,7 +54,7 @@ public class UncheckedExecutionException extends RuntimeException {
    * Creates a new instance with the given detail message and cause.
    */
   public UncheckedExecutionException(@Nullable String message,
-                                     @Nullable Throwable cause) {
+      @Nullable Throwable cause) {
     super(message, cause);
   }
 

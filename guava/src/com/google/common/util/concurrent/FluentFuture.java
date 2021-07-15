@@ -79,7 +79,7 @@ import java.util.concurrent.TimeoutException;
 @DoNotMock("Use FluentFuture.from(Futures.immediate*Future) or SettableFuture")
 @GwtCompatible(emulated = true)
 public abstract class FluentFuture<V>
-    extends GwtFluentFutureCatchingSpecialization<V> {
+  extends GwtFluentFutureCatchingSpecialization<V> {
   FluentFuture() {}
 
   /**
@@ -147,9 +147,9 @@ public abstract class FluentFuture<V>
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public final <X extends Throwable> FluentFuture<V>
   catching(Class<X> exceptionType, Function<? super X, ? extends V> fallback,
-           Executor executor) {
+      Executor executor) {
     return (FluentFuture<V>)Futures.catching(this, exceptionType, fallback,
-                                             executor);
+               executor);
   }
 
   /**
@@ -225,10 +225,10 @@ public abstract class FluentFuture<V>
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public final <X extends Throwable> FluentFuture<V>
   catchingAsync(Class<X> exceptionType,
-                AsyncFunction<? super X, ? extends V> fallback,
-                Executor executor) {
+      AsyncFunction<? super X, ? extends V> fallback,
+      Executor executor) {
     return (FluentFuture<V>)Futures.catchingAsync(this, exceptionType, fallback,
-                                                  executor);
+               executor);
   }
 
   /**
@@ -245,9 +245,9 @@ public abstract class FluentFuture<V>
   @GwtIncompatible // ScheduledExecutorService
   public final FluentFuture<V>
   withTimeout(long timeout, TimeUnit unit,
-              ScheduledExecutorService scheduledExecutor) {
+      ScheduledExecutorService scheduledExecutor) {
     return (FluentFuture<V>)Futures.withTimeout(this, timeout, unit,
-                                                scheduledExecutor);
+               scheduledExecutor);
   }
 
   /**
@@ -340,7 +340,7 @@ public abstract class FluentFuture<V>
    * @return A future that holds result of the transformation.
    */
   public final <T> FluentFuture<T> transform(Function<? super V, T> function,
-                                             Executor executor) {
+      Executor executor) {
     return (FluentFuture<T>)Futures.transform(this, function, executor);
   }
 
@@ -388,7 +388,7 @@ public abstract class FluentFuture<V>
    *     completes.
    */
   public final void addCallback(FutureCallback<? super V> callback,
-                                Executor executor) {
+      Executor executor) {
     Futures.addCallback(this, callback, executor);
   }
 }

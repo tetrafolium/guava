@@ -81,13 +81,13 @@ public abstract class TreeTraverser<T> {
    * @since 20.0
    */
   public static <T> TreeTraverser<T> using(
-      final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
+    final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
     checkNotNull(nodeToChildrenFunction);
     return new TreeTraverser<T>() {
-      @Override
-      public Iterable<T> children(T root) {
-        return nodeToChildrenFunction.apply(root);
-      }
+             @Override
+             public Iterable<T> children(T root) {
+               return nodeToChildrenFunction.apply(root);
+             }
     };
   }
 
@@ -108,22 +108,22 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> preOrderTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return preOrderIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return preOrderIterator(root);
+             }
 
-      @Override
-      public void forEach(Consumer<? super T> action) {
-        checkNotNull(action);
-        new Consumer<T>() {
-          @Override
-          public void accept(T t) {
-            action.accept(t);
-            children(t).forEach(this);
-          }
-        }.accept(root);
-      }
+             @Override
+             public void forEach(Consumer<? super T> action) {
+               checkNotNull(action);
+               new Consumer<T>() {
+                 @Override
+                 public void accept(T t) {
+                   action.accept(t);
+                   children(t).forEach(this);
+                 }
+               }.accept(root);
+             }
     };
   }
 
@@ -172,22 +172,22 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> postOrderTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return postOrderIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return postOrderIterator(root);
+             }
 
-      @Override
-      public void forEach(Consumer<? super T> action) {
-        checkNotNull(action);
-        new Consumer<T>() {
-          @Override
-          public void accept(T t) {
-            children(t).forEach(this);
-            action.accept(t);
-          }
-        }.accept(root);
-      }
+             @Override
+             public void forEach(Consumer<? super T> action) {
+               checkNotNull(action);
+               new Consumer<T>() {
+                 @Override
+                 public void accept(T t) {
+                   children(t).forEach(this);
+                   action.accept(t);
+                 }
+               }.accept(root);
+             }
     };
   }
 
@@ -246,15 +246,15 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> breadthFirstTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return new BreadthFirstIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return new BreadthFirstIterator(root);
+             }
     };
   }
 
   private final class BreadthFirstIterator
-      extends UnmodifiableIterator<T> implements PeekingIterator<T> {
+    extends UnmodifiableIterator<T> implements PeekingIterator<T> {
     private final Queue<T> queue;
 
     BreadthFirstIterator(T root) {

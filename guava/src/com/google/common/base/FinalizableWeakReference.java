@@ -31,7 +31,7 @@ import java.lang.ref.WeakReference;
  */
 @GwtIncompatible
 public abstract class FinalizableWeakReference<T>
-    extends WeakReference<T> implements FinalizableReference {
+  extends WeakReference<T> implements FinalizableReference {
   /**
    * Constructs a new finalizable weak reference.
    *
@@ -39,7 +39,7 @@ public abstract class FinalizableWeakReference<T>
    * @param queue that should finalize the referent
    */
   protected FinalizableWeakReference(T referent,
-                                     FinalizableReferenceQueue queue) {
+      FinalizableReferenceQueue queue) {
     super(referent, queue.queue);
     queue.cleanUp();
   }

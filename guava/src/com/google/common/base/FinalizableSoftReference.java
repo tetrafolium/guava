@@ -31,7 +31,7 @@ import java.lang.ref.SoftReference;
  */
 @GwtIncompatible
 public abstract class FinalizableSoftReference<T>
-    extends SoftReference<T> implements FinalizableReference {
+  extends SoftReference<T> implements FinalizableReference {
   /**
    * Constructs a new finalizable soft reference.
    *
@@ -39,7 +39,7 @@ public abstract class FinalizableSoftReference<T>
    * @param queue that should finalize the referent
    */
   protected FinalizableSoftReference(T referent,
-                                     FinalizableReferenceQueue queue) {
+      FinalizableReferenceQueue queue) {
     super(referent, queue.queue);
     queue.cleanUp();
   }

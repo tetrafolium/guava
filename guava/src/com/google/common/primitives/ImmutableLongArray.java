@@ -121,13 +121,13 @@ public final class ImmutableLongArray implements Serializable {
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableLongArray of(long e0, long e1, long e2, long e3,
-                                      long e4) {
+      long e4) {
     return new ImmutableLongArray(new long[] {e0, e1, e2, e3, e4});
   }
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableLongArray of(long e0, long e1, long e2, long e3,
-                                      long e4, long e5) {
+      long e4, long e5) {
     return new ImmutableLongArray(new long[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -198,7 +198,7 @@ public final class ImmutableLongArray implements Serializable {
    */
   public static Builder builder(int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s",
-                  initialCapacity);
+        initialCapacity);
     return new Builder(initialCapacity);
   }
 
@@ -292,7 +292,7 @@ public final class ImmutableLongArray implements Serializable {
     public Builder addAll(ImmutableLongArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count,
-                       values.length());
+          values.length());
       count += values.length();
       return this;
     }
@@ -453,7 +453,7 @@ public final class ImmutableLongArray implements Serializable {
 
   private Spliterator.OfLong spliterator() {
     return Spliterators.spliterator(
-        array, start, end, Spliterator.IMMUTABLE | Spliterator.ORDERED);
+      array, start, end, Spliterator.IMMUTABLE | Spliterator.ORDERED);
   }
 
   /**
@@ -474,7 +474,7 @@ public final class ImmutableLongArray implements Serializable {
   }
 
   static class AsList
-      extends AbstractList<Long> implements RandomAccess, Serializable {
+    extends AbstractList<Long> implements RandomAccess, Serializable {
     private final ImmutableLongArray parent;
 
     private AsList(ImmutableLongArray parent) { this.parent = parent; }

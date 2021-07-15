@@ -39,13 +39,13 @@ import java.util.Collection;
  */
 @GwtCompatible
 public class MultimapAsMapGetTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
 
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testPropagatesRemoveToMultimap() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v3()),
-                   Helpers.mapEntry(k0(), v2()));
+        Helpers.mapEntry(k0(), v2()));
     Collection<V> result = multimap().asMap().get(k0());
     assertTrue(result.remove(v0()));
     assertFalse(multimap().containsEntry(k0(), v0()));

@@ -49,7 +49,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testAddAll_supportedNothing() {
     assertFalse("addAll(nothing) should return false",
-                collection.addAll(emptyCollection()));
+        collection.addAll(emptyCollection()));
     expectUnchanged();
   }
 
@@ -57,7 +57,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   public void testAddAll_unsupportedNothing() {
     try {
       assertFalse("addAll(nothing) should return false or throw",
-                  collection.addAll(emptyCollection()));
+          collection.addAll(emptyCollection()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -66,7 +66,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testAddAll_supportedNonePresent() {
     assertTrue("addAll(nonePresent) should return true",
-               collection.addAll(createDisjointCollection()));
+        collection.addAll(createDisjointCollection()));
     expectAdded(e3(), e4());
   }
 
@@ -85,7 +85,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAll_supportedSomePresent() {
     assertTrue("addAll(somePresent) should return true",
-               collection.addAll(MinimalCollection.of(e3(), e0())));
+        collection.addAll(MinimalCollection.of(e3(), e0())));
     assertTrue("should contain " + e3(), collection.contains(e3()));
     assertTrue("should contain " + e0(), collection.contains(e0()));
   }
@@ -120,19 +120,19 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   public void testAddAll_unsupportedAllPresent() {
     try {
       assertFalse("addAll(allPresent) should return false or throw",
-                  collection.addAll(MinimalCollection.of(e0())));
+          collection.addAll(MinimalCollection.of(e0())));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
   }
 
   @CollectionFeature.Require(value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-                             absent = RESTRICTS_ELEMENTS)
+      absent = RESTRICTS_ELEMENTS)
   public void
   testAddAll_nullSupported() {
     List<E> containsNull = singletonList(null);
     assertTrue("addAll(containsNull) should return true",
-               collection.addAll(containsNull));
+        collection.addAll(containsNull));
     /*
      * We need (E) to force interpretation of null as the single element of a
      * varargs array, not the array itself
@@ -150,7 +150,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     }
     expectUnchanged();
     expectNullMissingWhenNullUnsupported(
-        "Should not contain null after unsupported addAll(containsNull)");
+      "Should not contain null after unsupported addAll(containsNull)");
   }
 
   @CollectionFeature.Require(SUPPORTS_ADD)
@@ -172,7 +172,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddAllNullUnsupportedMethod() {
     return Helpers.getMethod(CollectionAddAllTester.class,
-                             "testAddAll_nullUnsupported");
+               "testAddAll_nullUnsupported");
   }
 
   /**
@@ -185,7 +185,7 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddAllUnsupportedNonePresentMethod() {
     return Helpers.getMethod(CollectionAddAllTester.class,
-                             "testAddAll_unsupportedNonePresent");
+               "testAddAll_unsupportedNonePresent");
   }
 
   /**
@@ -198,6 +198,6 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddAllUnsupportedSomePresentMethod() {
     return Helpers.getMethod(CollectionAddAllTester.class,
-                             "testAddAll_unsupportedSomePresent");
+               "testAddAll_unsupportedSomePresent");
   }
 }

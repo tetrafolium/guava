@@ -35,7 +35,7 @@ public class BiMapEntrySetTester<K, V> extends AbstractBiMapTester<K, V> {
     for (Entry<K, V> entry : getMap().entrySet()) {
       if (entry.getKey().equals(k0())) {
         assertEquals("entry.setValue() should return the old value", v0(),
-                     entry.setValue(v3()));
+            entry.setValue(v3()));
         break;
       }
     }

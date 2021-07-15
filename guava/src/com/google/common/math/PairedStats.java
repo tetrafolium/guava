@@ -166,7 +166,7 @@ public final class PairedStats implements Serializable {
     double productOfSumsOfSquaresOfDeltas =
         ensurePositive(xSumOfSquaresOfDeltas * ySumOfSquaresOfDeltas);
     return ensureInUnitRange(sumOfProductsOfDeltas /
-                             Math.sqrt(productOfSumsOfSquaresOfDeltas));
+               Math.sqrt(productOfSumsOfSquaresOfDeltas));
   }
 
   /**
@@ -217,7 +217,7 @@ public final class PairedStats implements Serializable {
     if (xSumOfSquaresOfDeltas > 0.0) {
       if (yStats.sumOfSquaresOfDeltas() > 0.0) {
         return LinearTransformation.mapping(xStats.mean(), yStats.mean())
-            .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
+               .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
       } else {
         return LinearTransformation.horizontal(yStats.mean());
       }
@@ -255,8 +255,8 @@ public final class PairedStats implements Serializable {
     }
     PairedStats other = (PairedStats)obj;
     return (xStats.equals(other.xStats)) && (yStats.equals(other.yStats)) &&
-        (doubleToLongBits(sumOfProductsOfDeltas) ==
-         doubleToLongBits(other.sumOfProductsOfDeltas));
+           (doubleToLongBits(sumOfProductsOfDeltas) ==
+           doubleToLongBits(other.sumOfProductsOfDeltas));
   }
 
   /**
@@ -275,15 +275,15 @@ public final class PairedStats implements Serializable {
   public String toString() {
     if (count() > 0) {
       return MoreObjects.toStringHelper(this)
-          .add("xStats", xStats)
-          .add("yStats", yStats)
-          .add("populationCovariance", populationCovariance())
-          .toString();
+             .add("xStats", xStats)
+             .add("yStats", yStats)
+             .add("populationCovariance", populationCovariance())
+             .toString();
     } else {
       return MoreObjects.toStringHelper(this)
-          .add("xStats", xStats)
-          .add("yStats", yStats)
-          .toString();
+             .add("xStats", xStats)
+             .add("yStats", yStats)
+             .toString();
     }
   }
 
@@ -340,8 +340,8 @@ public final class PairedStats implements Serializable {
   public static PairedStats fromByteArray(byte[] byteArray) {
     checkNotNull(byteArray);
     checkArgument(byteArray.length == BYTES,
-                  "Expected PairedStats.BYTES = %s, got %s", BYTES,
-                  byteArray.length);
+        "Expected PairedStats.BYTES = %s, got %s", BYTES,
+        byteArray.length);
     ByteBuffer buffer =
         ByteBuffer.wrap(byteArray).order(ByteOrder.LITTLE_ENDIAN);
     Stats xStats = Stats.readFrom(buffer);

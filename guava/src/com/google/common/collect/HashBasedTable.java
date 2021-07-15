@@ -55,7 +55,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true)
 public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
   private static class Factory<C, V>
-      implements Supplier<Map<C, V>>, Serializable {
+    implements Supplier<Map<C, V>>, Serializable {
     final int expectedSize;
 
     Factory(int expectedSize) { this.expectedSize = expectedSize; }
@@ -73,7 +73,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
    */
   public static <R, C, V> HashBasedTable<R, C, V> create() {
     return new HashBasedTable<>(new LinkedHashMap<R, Map<C, V>>(),
-                                new Factory<C, V>(0));
+               new Factory<C, V>(0));
   }
 
   /**
@@ -91,7 +91,7 @@ public class HashBasedTable<R, C, V> extends StandardTable<R, C, V> {
     Map<R, Map<C, V>> backingMap =
         Maps.newLinkedHashMapWithExpectedSize(expectedRows);
     return new HashBasedTable<>(backingMap,
-                                new Factory<C, V>(expectedCellsPerRow));
+               new Factory<C, V>(expectedCellsPerRow));
   }
 
   /**

@@ -38,7 +38,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public class MultimapValuesTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testValues() {
     List<V> expected = Lists.newArrayList();
     for (Map.Entry<K, V> entry : getSampleElements()) {

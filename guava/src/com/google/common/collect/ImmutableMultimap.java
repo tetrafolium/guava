@@ -69,7 +69,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public abstract class ImmutableMultimap<K, V>
-    extends AbstractMultimap<K, V> implements Serializable {
+  extends AbstractMultimap<K, V> implements Serializable {
 
   /** Returns an empty multimap. */
   public static <K, V> ImmutableMultimap<K, V> of() {
@@ -96,7 +96,7 @@ public abstract class ImmutableMultimap<K, V>
    * <a href="#iteration">class documentation</a>.
    */
   public static <K, V> ImmutableMultimap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                                  V v3) {
+      V v3) {
     return ImmutableListMultimap.of(k1, v1, k2, v2, k3, v3);
   }
 
@@ -106,7 +106,7 @@ public abstract class ImmutableMultimap<K, V>
    * <a href="#iteration">class documentation</a>.
    */
   public static <K, V> ImmutableMultimap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                                  V v3, K k4, V v4) {
+      V v3, K k4, V v4) {
     return ImmutableListMultimap.of(k1, v1, k2, v2, k3, v3, k4, v4);
   }
 
@@ -209,7 +209,7 @@ public abstract class ImmutableMultimap<K, V>
     public Builder<K, V> putAll(K key, Iterable<? extends V> values) {
       if (key == null) {
         throw new NullPointerException("null key in entry: null=" +
-                                       Iterables.toString(values));
+                  Iterables.toString(values));
       }
       Collection<V> valueList = builderMultimap.get(key);
       for (V value : values) {
@@ -242,7 +242,7 @@ public abstract class ImmutableMultimap<K, V>
     @CanIgnoreReturnValue
     public Builder<K, V> putAll(Multimap<? extends K, ? extends V> multimap) {
       for (Entry<? extends K, ? extends Collection<? extends V>> entry :
-           multimap.asMap().entrySet()) {
+          multimap.asMap().entrySet()) {
         putAll(entry.getKey(), entry.getValue());
       }
       return this;
@@ -291,8 +291,8 @@ public abstract class ImmutableMultimap<K, V>
             MultimapBuilder.linkedHashKeys().arrayListValues().<K, V>build();
         List<Map.Entry<K, Collection<V>>> entries =
             Ordering.from(keyComparator)
-                .<K>onKeys()
-                .immutableSortedCopy(builderMultimap.asMap().entrySet());
+            .<K>onKeys()
+            .immutableSortedCopy(builderMultimap.asMap().entrySet());
         for (Map.Entry<K, Collection<V>> entry : entries) {
           sortedCopy.putAll(entry.getKey(), entry.getValue());
         }
@@ -352,15 +352,15 @@ public abstract class ImmutableMultimap<K, V>
     static final Serialization.FieldSetter<ImmutableMultimap> MAP_FIELD_SETTER =
         Serialization.getFieldSetter(ImmutableMultimap.class, "map");
     static final Serialization
-        .FieldSetter<ImmutableMultimap> SIZE_FIELD_SETTER =
+    .FieldSetter<ImmutableMultimap> SIZE_FIELD_SETTER =
         Serialization.getFieldSetter(ImmutableMultimap.class, "size");
     static final Serialization
-        .FieldSetter<ImmutableSetMultimap> EMPTY_SET_FIELD_SETTER =
+    .FieldSetter<ImmutableSetMultimap> EMPTY_SET_FIELD_SETTER =
         Serialization.getFieldSetter(ImmutableSetMultimap.class, "emptySet");
   }
 
   ImmutableMultimap(ImmutableMap<K, ? extends ImmutableCollection<V>> map,
-                    int size) {
+      int size) {
     this.map = map;
     this.size = size;
   }
@@ -390,7 +390,7 @@ public abstract class ImmutableMultimap<K, V>
   @Deprecated
   @Override
   public ImmutableCollection<V> replaceValues(K key,
-                                              Iterable<? extends V> values) {
+      Iterable<? extends V> values) {
     throw new UnsupportedOperationException();
   }
 
@@ -541,7 +541,7 @@ public abstract class ImmutableMultimap<K, V>
   }
 
   private static class EntryCollection<K, V>
-      extends ImmutableCollection<Entry<K, V>> {
+    extends ImmutableCollection<Entry<K, V>> {
     @Weak final ImmutableMultimap<K, V> multimap;
 
     EntryCollection(ImmutableMultimap<K, V> multimap) {
@@ -602,36 +602,36 @@ public abstract class ImmutableMultimap<K, V>
   @Override
   UnmodifiableIterator<Entry<K, V>> entryIterator() {
     return new Itr<Entry<K, V>>() {
-      @Override
-      Entry<K, V> output(K key, V value) {
-        return Maps.immutableEntry(key, value);
-      }
+             @Override
+             Entry<K, V> output(K key, V value) {
+               return Maps.immutableEntry(key, value);
+             }
     };
   }
 
   @Override
   Spliterator<Entry<K, V>> entrySpliterator() {
     return CollectSpliterators.flatMap(
-        asMap().entrySet().spliterator(),
-        keyToValueCollectionEntry
-        -> {
-          K key = keyToValueCollectionEntry.getKey();
-          Collection<V> valueCollection = keyToValueCollectionEntry.getValue();
-          return CollectSpliterators.map(
-              valueCollection.spliterator(),
-              (V value) -> Maps.immutableEntry(key, value));
-        },
-        Spliterator.SIZED |
-            (this instanceof SetMultimap ? Spliterator.DISTINCT : 0),
-        size());
+      asMap().entrySet().spliterator(),
+      keyToValueCollectionEntry
+      ->{
+      K key = keyToValueCollectionEntry.getKey();
+      Collection<V> valueCollection = keyToValueCollectionEntry.getValue();
+      return CollectSpliterators.map(
+        valueCollection.spliterator(),
+        (V value)->Maps.immutableEntry(key, value));
+    },
+      Spliterator.SIZED |
+      (this instanceof SetMultimap ? Spliterator.DISTINCT : 0),
+      size());
   }
 
   @Override
   public void forEach(BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
     asMap().forEach(
-        (key, valueCollection)
-            -> valueCollection.forEach(value -> action.accept(key, value)));
+      (key, valueCollection)
+      ->valueCollection.forEach(value->action.accept(key, value)));
   }
 
   /**
@@ -704,10 +704,10 @@ public abstract class ImmutableMultimap<K, V>
   @Override
   UnmodifiableIterator<V> valueIterator() {
     return new Itr<V>() {
-      @Override
-      V output(K key, V value) {
-        return value;
-      }
+             @Override
+             V output(K key, V value) {
+               return value;
+             }
     };
   }
 

@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
 final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
   static <V> ListenableFuture<V>
   create(ListenableFuture<V> delegate, long time, TimeUnit unit,
-         ScheduledExecutorService scheduledExecutor) {
+      ScheduledExecutorService scheduledExecutor) {
     TimeoutFuture<V> result = new TimeoutFuture<>(delegate);
     Fire<V> fire = new Fire<>(result);
     result.timer = scheduledExecutor.schedule(fire, time, unit);
@@ -124,7 +124,7 @@ final class TimeoutFuture<V> extends AbstractFuture.TrustedFuture<V> {
           // is point at the scheduledexecutorservice thread), consider
           // eliminating it altogether?
           timeoutFuture.setException(
-              new TimeoutException("Future timed out: " + delegate));
+            new TimeoutException("Future timed out: " + delegate));
         } finally {
           delegate.cancel(true);
         }

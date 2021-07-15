@@ -112,7 +112,7 @@ public final class ElementOrder<T> {
       return comparator;
     }
     throw new UnsupportedOperationException(
-        "This ordering does not define a comparator.");
+            "This ordering does not define a comparator.");
   }
 
   @Override

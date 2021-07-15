@@ -119,7 +119,7 @@ public final class CharStreams {
    */
   @CanIgnoreReturnValue
   static long copyReaderToBuilder(Reader from, StringBuilder to)
-      throws IOException {
+  throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     char[] buf = new char[DEFAULT_BUF_SIZE];
@@ -227,7 +227,7 @@ public final class CharStreams {
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readLines(Readable readable, LineProcessor<T> processor)
-      throws IOException {
+  throws IOException {
     checkNotNull(readable);
     checkNotNull(processor);
 

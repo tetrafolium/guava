@@ -36,7 +36,7 @@ import java.util.concurrent.ConcurrentMap;
  */
 @GwtCompatible
 public class ConcurrentMapReplaceEntryTester<K, V>
-    extends AbstractMapTester<K, V> {
+  extends AbstractMapTester<K, V> {
   @Override
   protected ConcurrentMap<K, V> getMap() {
     return (ConcurrentMap<K, V>)super.getMap();

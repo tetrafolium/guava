@@ -46,7 +46,7 @@ import java.io.InputStream;
 @Beta
 @GwtIncompatible
 public final class LittleEndianDataInputStream
-    extends FilterInputStream implements DataInput {
+  extends FilterInputStream implements DataInput {
 
   /**
    * Creates a {@code LittleEndianDataInputStream} that wraps the given stream.

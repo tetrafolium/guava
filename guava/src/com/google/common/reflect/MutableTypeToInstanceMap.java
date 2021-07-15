@@ -39,8 +39,8 @@ import javax.annotation.Nullable;
  */
 @Beta
 public final class MutableTypeToInstanceMap<B>
-    extends ForwardingMap<TypeToken<? extends B>, B>
-    implements TypeToInstanceMap<B> {
+  extends ForwardingMap<TypeToken<? extends B>, B>
+  implements TypeToInstanceMap<B> {
 
   private final Map<TypeToken<? extends B>, B> backingMap = Maps.newHashMap();
 
@@ -81,7 +81,7 @@ public final class MutableTypeToInstanceMap<B>
   @Override
   public B put(TypeToken<? extends B> key, B value) {
     throw new UnsupportedOperationException(
-        "Please use putInstance() instead.");
+            "Please use putInstance() instead.");
   }
 
   /**
@@ -94,7 +94,7 @@ public final class MutableTypeToInstanceMap<B>
   @Override
   public void putAll(Map<? extends TypeToken<? extends B>, ? extends B> map) {
     throw new UnsupportedOperationException(
-        "Please use putInstance() instead.");
+            "Please use putInstance() instead.");
   }
 
   @Override
@@ -120,44 +120,44 @@ public final class MutableTypeToInstanceMap<B>
   }
 
   private static final class UnmodifiableEntry<K, V>
-      extends ForwardingMapEntry<K, V> {
+    extends ForwardingMapEntry<K, V> {
 
     private final Entry<K, V> delegate;
 
     static <K, V> Set<Entry<K, V>>
     transformEntries(final Set<Entry<K, V>> entries) {
       return new ForwardingSet<Map.Entry<K, V>>() {
-        @Override
-        protected Set<Entry<K, V>> delegate() {
-          return entries;
-        }
+               @Override
+               protected Set<Entry<K, V>> delegate() {
+                 return entries;
+               }
 
-        @Override
-        public Iterator<Entry<K, V>> iterator() {
-          return UnmodifiableEntry.transformEntries(super.iterator());
-        }
+               @Override
+               public Iterator<Entry<K, V>> iterator() {
+                 return UnmodifiableEntry.transformEntries(super.iterator());
+               }
 
-        @Override
-        public Object[] toArray() {
-          return standardToArray();
-        }
+               @Override
+               public Object[] toArray() {
+                 return standardToArray();
+               }
 
-        @Override
-        public <T> T[] toArray(T[] array) {
-          return standardToArray(array);
-        }
+               @Override
+               public <T> T[] toArray(T[] array) {
+                 return standardToArray(array);
+               }
       };
     }
 
     private static <K, V> Iterator<Entry<K, V>>
     transformEntries(Iterator<Entry<K, V>> entries) {
       return Iterators.transform(entries,
-                                 new Function<Entry<K, V>, Entry<K, V>>() {
-                                   @Override
-                                   public Entry<K, V> apply(Entry<K, V> entry) {
-                                     return new UnmodifiableEntry<>(entry);
-                                   }
-                                 });
+                 new Function<Entry<K, V>, Entry<K, V>>() {
+        @Override
+        public Entry<K, V> apply(Entry<K, V> entry) {
+          return new UnmodifiableEntry<>(entry);
+        }
+      });
     }
 
     private UnmodifiableEntry(java.util.Map.Entry<K, V> delegate) {

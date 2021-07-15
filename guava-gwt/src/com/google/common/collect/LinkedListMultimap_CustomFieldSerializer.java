@@ -29,7 +29,7 @@ import java.util.Map;
 public class LinkedListMultimap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader in,
-                                 LinkedListMultimap<?, ?> out) {}
+      LinkedListMultimap<?, ?> out) {}
 
   public static LinkedListMultimap<Object, Object>
   instantiate(SerializationStreamReader in) throws SerializationException {
@@ -44,8 +44,8 @@ public class LinkedListMultimap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter out,
-                               LinkedListMultimap<?, ?> multimap)
-      throws SerializationException {
+      LinkedListMultimap<?, ?> multimap)
+  throws SerializationException {
     out.writeInt(multimap.size());
     for (Map.Entry<?, ?> entry : multimap.entries()) {
       out.writeObject(entry.getKey());

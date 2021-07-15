@@ -182,7 +182,7 @@ public class MapBenchmark {
   void setUp() {
     CollectionBenchmarkSampleData sampleData =
         new CollectionBenchmarkSampleData(isUserTypeFast, random, hitRate,
-                                          size);
+        size);
 
     if (sortedData) {
       List<Element> valueList = newArrayList(sampleData.getValuesInSet());

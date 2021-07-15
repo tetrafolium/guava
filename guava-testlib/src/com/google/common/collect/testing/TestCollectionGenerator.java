@@ -26,4 +26,4 @@ import java.util.Collection;
  */
 @GwtCompatible
 public interface TestCollectionGenerator<E>
-    extends TestContainerGenerator<Collection<E>, E> {}
+  extends TestContainerGenerator<Collection<E>, E> {}

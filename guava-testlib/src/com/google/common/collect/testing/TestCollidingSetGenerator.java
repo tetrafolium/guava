@@ -27,7 +27,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestCollidingSetGenerator
-    implements TestSetGenerator<Object> {
+  implements TestSetGenerator<Object> {
   @Override
   public SampleElements<Object> samples() {
     return new Colliders();

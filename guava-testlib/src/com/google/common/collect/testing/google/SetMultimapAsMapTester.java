@@ -44,7 +44,7 @@ import java.util.Set;
  */
 @GwtCompatible
 public class SetMultimapAsMapTester<K, V>
-    extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
   public void testAsMapValuesImplementSet() {
     for (Collection<V> valueCollection : multimap().asMap().values()) {
       assertTrue(valueCollection instanceof Set);
@@ -69,36 +69,36 @@ public class SetMultimapAsMapTester<K, V>
   @CollectionSize.Require(SEVERAL)
   public void testEquals() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     Map<K, Collection<V>> expected = Maps.newHashMap();
     expected.put(k0(), Sets.newHashSet(v0(), v3()));
     expected.put(k1(), Sets.newHashSet(v0()));
     new EqualsTester()
-        .addEqualityGroup(expected, multimap().asMap())
-        .testEquals();
+    .addEqualityGroup(expected, multimap().asMap())
+    .testEquals();
   }
 
   @CollectionSize.Require(SEVERAL)
   public void testEntrySetEquals() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     Set<Entry<K, Collection<V>>> expected = Sets.newHashSet();
     expected.add(
-        Helpers.mapEntry(k0(), (Collection<V>)Sets.newHashSet(v0(), v3())));
+      Helpers.mapEntry(k0(), (Collection<V>)Sets.newHashSet(v0(), v3())));
     expected.add(Helpers.mapEntry(k1(), (Collection<V>)Sets.newHashSet(v0())));
     new EqualsTester()
-        .addEqualityGroup(expected, multimap().asMap().entrySet())
-        .testEquals();
+    .addEqualityGroup(expected, multimap().asMap().entrySet())
+    .testEquals();
   }
 
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testValuesRemove() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     assertTrue(multimap().asMap().values().remove(Collections.singleton(v0())));
     assertEquals(2, multimap().size());
     assertEquals(Collections.singletonMap(k0(), Sets.newHashSet(v0(), v3())),
-                 multimap().asMap());
+        multimap().asMap());
   }
 }

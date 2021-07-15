@@ -68,15 +68,15 @@ abstract class WrappingExecutorService implements ExecutorService {
     final Callable<Object> wrapped =
         wrapTask(Executors.callable(command, null));
     return new Runnable() {
-      @Override
-      public void run() {
-        try {
-          wrapped.call();
-        } catch (Exception e) {
-          throwIfUnchecked(e);
-          throw new RuntimeException(e);
-        }
-      }
+             @Override
+             public void run() {
+               try {
+                 wrapped.call();
+               } catch (Exception e) {
+                 throwIfUnchecked(e);
+                 throw new RuntimeException(e);
+               }
+             }
     };
   }
 
@@ -118,27 +118,27 @@ abstract class WrappingExecutorService implements ExecutorService {
   @Override
   public final <T> List<Future<T>>
   invokeAll(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate.invokeAll(wrapTasks(tasks));
   }
 
   @Override
   public final <T> List<Future<T>>
   invokeAll(Collection<? extends Callable<T>> tasks, long timeout,
-            TimeUnit unit) throws InterruptedException {
+      TimeUnit unit) throws InterruptedException {
     return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
   }
 
   @Override
   public final <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
     return delegate.invokeAny(wrapTasks(tasks));
   }
 
   @Override
   public final <T> T invokeAny(Collection<? extends Callable<T>> tasks,
-                               long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+      long timeout, TimeUnit unit)
+  throws InterruptedException, ExecutionException, TimeoutException {
     return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
   }
 
@@ -166,7 +166,7 @@ abstract class WrappingExecutorService implements ExecutorService {
 
   @Override
   public final boolean awaitTermination(long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate.awaitTermination(timeout, unit);
   }
 }

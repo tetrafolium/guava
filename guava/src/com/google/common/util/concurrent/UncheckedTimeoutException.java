@@ -34,7 +34,7 @@ public class UncheckedTimeoutException extends RuntimeException {
   public UncheckedTimeoutException(@Nullable Throwable cause) { super(cause); }
 
   public UncheckedTimeoutException(@Nullable String message,
-                                   @Nullable Throwable cause) {
+      @Nullable Throwable cause) {
     super(message, cause);
   }
 

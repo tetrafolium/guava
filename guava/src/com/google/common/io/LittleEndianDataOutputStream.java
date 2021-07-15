@@ -43,7 +43,7 @@ import java.io.OutputStream;
 @Beta
 @GwtIncompatible
 public final class LittleEndianDataOutputStream
-    extends FilterOutputStream implements DataOutput {
+  extends FilterOutputStream implements DataOutput {
 
   /**
    * Creates a {@code LittleEndianDataOutputStream} that wraps the given stream.

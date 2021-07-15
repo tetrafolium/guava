@@ -78,7 +78,7 @@ public final class Uninterruptibles {
   @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
   @GwtIncompatible      // concurrency
   public static boolean awaitUninterruptibly(CountDownLatch latch, long timeout,
-                                             TimeUnit unit) {
+      TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);
@@ -142,7 +142,7 @@ public final class Uninterruptibles {
    */
   @CanIgnoreReturnValue
   public static <V> V getUninterruptibly(Future<V> future)
-      throws ExecutionException {
+  throws ExecutionException {
     boolean interrupted = false;
     try {
       while (true) {
@@ -182,8 +182,8 @@ public final class Uninterruptibles {
   @CanIgnoreReturnValue
   @GwtIncompatible // TODO
   public static <V> V getUninterruptibly(Future<V> future, long timeout,
-                                         TimeUnit unit)
-      throws ExecutionException, TimeoutException {
+      TimeUnit unit)
+  throws ExecutionException, TimeoutException {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);
@@ -211,7 +211,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static void joinUninterruptibly(Thread toJoin, long timeout,
-                                         TimeUnit unit) {
+      TimeUnit unit) {
     Preconditions.checkNotNull(toJoin);
     boolean interrupted = false;
     try {
@@ -319,7 +319,7 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(Semaphore semaphore,
-                                                  long timeout, TimeUnit unit) {
+      long timeout, TimeUnit unit) {
     return tryAcquireUninterruptibly(semaphore, 1, timeout, unit);
   }
 
@@ -331,8 +331,8 @@ public final class Uninterruptibles {
    */
   @GwtIncompatible // concurrency
   public static boolean tryAcquireUninterruptibly(Semaphore semaphore,
-                                                  int permits, long timeout,
-                                                  TimeUnit unit) {
+      int permits, long timeout,
+      TimeUnit unit) {
     boolean interrupted = false;
     try {
       long remainingNanos = unit.toNanos(timeout);

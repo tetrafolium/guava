@@ -45,13 +45,13 @@ final class Absent<T> extends Optional<T> {
   @Override
   public T get() {
     throw new IllegalStateException(
-        "Optional.get() cannot be called on an absent value");
+            "Optional.get() cannot be called on an absent value");
   }
 
   @Override
   public T or(T defaultValue) {
     return checkNotNull(defaultValue,
-                        "use Optional.orNull() instead of Optional.or(null)");
+               "use Optional.orNull() instead of Optional.or(null)");
   }
 
   @SuppressWarnings("unchecked") // safe covariant cast
@@ -63,8 +63,8 @@ final class Absent<T> extends Optional<T> {
   @Override
   public T or(Supplier<? extends T> supplier) {
     return checkNotNull(
-        supplier.get(),
-        "use Optional.orNull() instead of a Supplier that returns null");
+      supplier.get(),
+      "use Optional.orNull() instead of a Supplier that returns null");
   }
 
   @Override

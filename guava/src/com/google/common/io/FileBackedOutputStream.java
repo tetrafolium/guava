@@ -173,7 +173,7 @@ public final class FileBackedOutputStream extends OutputStream {
 
   @Override
   public synchronized void write(byte[] b, int off, int len)
-      throws IOException {
+  throws IOException {
     update(len);
     out.write(b, off, len);
   }

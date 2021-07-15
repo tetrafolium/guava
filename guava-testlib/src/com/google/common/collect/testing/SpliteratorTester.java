@@ -62,14 +62,14 @@ public final class SpliteratorTester<E> {
     NO_SPLIT_FOR_EACH_REMAINING {
       @Override
       <E> void forEach(Spliterator<E> spliterator,
-                       Consumer<? super E> consumer) {
+          Consumer<? super E> consumer) {
         spliterator.forEachRemaining(consumer);
       }
     },
     NO_SPLIT_TRY_ADVANCE {
       @Override
       <E> void forEach(Spliterator<E> spliterator,
-                       Consumer<? super E> consumer) {
+          Consumer<? super E> consumer) {
         while (spliterator.tryAdvance(consumer)) {
           // do nothing
         }
@@ -78,14 +78,14 @@ public final class SpliteratorTester<E> {
     MAXIMUM_SPLIT {
       @Override
       <E> void forEach(Spliterator<E> spliterator,
-                       Consumer<? super E> consumer) {
+          Consumer<? super E> consumer) {
         for (Spliterator<E> prefix = trySplitTestingSize(spliterator);
-             prefix != null; prefix = trySplitTestingSize(spliterator)) {
+            prefix != null; prefix = trySplitTestingSize(spliterator)) {
           forEach(prefix, consumer);
         }
         long size = spliterator.getExactSizeIfKnown();
         long[] counter = {0};
-        spliterator.forEachRemaining(e -> {
+        spliterator.forEachRemaining(e->{
           consumer.accept(e);
           counter[0]++;
         });
@@ -97,7 +97,7 @@ public final class SpliteratorTester<E> {
     ALTERNATE_ADVANCE_AND_SPLIT {
       @Override
       <E> void forEach(Spliterator<E> spliterator,
-                       Consumer<? super E> consumer) {
+          Consumer<? super E> consumer) {
         while (spliterator.tryAdvance(consumer)) {
           Spliterator<E> prefix = trySplitTestingSize(spliterator);
           if (prefix != null) {
@@ -108,7 +108,7 @@ public final class SpliteratorTester<E> {
     };
 
     abstract <E> void forEach(Spliterator<E> spliterator,
-                              Consumer<? super E> consumer);
+        Consumer<? super E> consumer);
   }
 
   @Nullable
@@ -119,22 +119,22 @@ public final class SpliteratorTester<E> {
     Spliterator<E> trySplit = spliterator.trySplit();
     if (spliterator.estimateSize() > originalSize) {
       fail(format(
-          "estimated size of spliterator after trySplit (%s) is larger than original size (%s)",
-          spliterator.estimateSize(), originalSize));
+            "estimated size of spliterator after trySplit (%s) is larger than original size (%s)",
+            spliterator.estimateSize(), originalSize));
     }
     if ((trySplit != null) && (trySplit.estimateSize() > originalSize)) {
       fail(format(
-          "estimated size of trySplit result (%s) is larger than original size (%s)",
-          trySplit.estimateSize(), originalSize));
+            "estimated size of trySplit result (%s) is larger than original size (%s)",
+            trySplit.estimateSize(), originalSize));
     }
     if (subsized) {
       if (trySplit != null) {
         assertEquals(
-            "sum of estimated sizes of trySplit and original spliterator after trySplit",
-            originalSize, trySplit.estimateSize() + spliterator.estimateSize());
+          "sum of estimated sizes of trySplit and original spliterator after trySplit",
+          originalSize, trySplit.estimateSize() + spliterator.estimateSize());
       } else {
         assertEquals("estimated size of spliterator after failed trySplit",
-                     originalSize, spliterator.estimateSize());
+            originalSize, spliterator.estimateSize());
       }
     }
     return trySplit;
@@ -162,7 +162,7 @@ public final class SpliteratorTester<E> {
     int characteristics = spliterator.characteristics();
     long estimatedSize = spliterator.estimateSize();
     for (SpliteratorDecompositionStrategy strategy :
-         EnumSet.allOf(SpliteratorDecompositionStrategy.class)) {
+        EnumSet.allOf(SpliteratorDecompositionStrategy.class)) {
       List<E> resultsForStrategy = new ArrayList<>();
       strategy.forEach(spliteratorSupplier.get(), resultsForStrategy::add);
 
@@ -179,19 +179,19 @@ public final class SpliteratorTester<E> {
       }
       if ((characteristics & Spliterator.SIZED) != 0) {
         assertEquals(Ints.checkedCast(estimatedSize),
-                     resultsForStrategy.size());
+            resultsForStrategy.size());
       }
 
       assertEqualIgnoringOrder(elements, resultsForStrategy);
       resultsForAllStrategies.add(resultsForStrategy);
     }
     return new Ordered() {
-      @Override
-      public void inOrder() {
-        resultsForAllStrategies.forEach(
-            resultsForStrategy
-            -> assertEqualInOrder(elements, resultsForStrategy));
-      }
+             @Override
+             public void inOrder() {
+               resultsForAllStrategies.forEach(
+                 resultsForStrategy
+                 ->assertEqualInOrder(elements, resultsForStrategy));
+             }
     };
   }
 }

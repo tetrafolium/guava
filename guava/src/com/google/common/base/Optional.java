@@ -361,24 +361,24 @@ public abstract class Optional<T> implements Serializable {
   presentInstances(final Iterable<? extends Optional<? extends T>> optionals) {
     checkNotNull(optionals);
     return new Iterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return new AbstractIterator<T>() {
-          private final Iterator<? extends Optional<? extends T>> iterator =
-              checkNotNull(optionals.iterator());
+             @Override
+             public Iterator<T> iterator() {
+               return new AbstractIterator<T>() {
+                        private final Iterator<? extends Optional<? extends T>> iterator =
+                            checkNotNull(optionals.iterator());
 
-          @Override
-          protected T computeNext() {
-            while (iterator.hasNext()) {
-              Optional<? extends T> optional = iterator.next();
-              if (optional.isPresent()) {
-                return optional.get();
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+                        @Override
+                        protected T computeNext() {
+                          while (iterator.hasNext()) {
+                            Optional<? extends T> optional = iterator.next();
+                            if (optional.isPresent()) {
+                              return optional.get();
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
     };
   }
 

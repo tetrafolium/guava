@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 class TrustedListenableFutureTask<V>
-    extends AbstractFuture.TrustedFuture<V> implements RunnableFuture<V> {
+  extends AbstractFuture.TrustedFuture<V> implements RunnableFuture<V> {
 
   static <V> TrustedListenableFutureTask<V> create(AsyncCallable<V> callable) {
     return new TrustedListenableFutureTask<V>(callable);
@@ -57,9 +57,9 @@ class TrustedListenableFutureTask<V>
    *     null)}
    */
   static <V> TrustedListenableFutureTask<V> create(Runnable runnable,
-                                                   @Nullable V result) {
+      @Nullable V result) {
     return new TrustedListenableFutureTask<V>(
-        Executors.callable(runnable, result));
+      Executors.callable(runnable, result));
   }
 
   /*
@@ -118,7 +118,7 @@ class TrustedListenableFutureTask<V>
 
   @WeakOuter
   private final class TrustedFutureInterruptibleTask
-      extends InterruptibleTask<V> {
+    extends InterruptibleTask<V> {
     private final Callable<V> callable;
 
     TrustedFutureInterruptibleTask(Callable<V> callable) {
@@ -152,7 +152,7 @@ class TrustedListenableFutureTask<V>
 
   @WeakOuter
   private final class TrustedFutureInterruptibleAsyncTask
-      extends InterruptibleTask<ListenableFuture<V>> {
+    extends InterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
     TrustedFutureInterruptibleAsyncTask(AsyncCallable<V> callable) {
@@ -167,9 +167,9 @@ class TrustedListenableFutureTask<V>
     @Override
     ListenableFuture<V> runInterruptibly() throws Exception {
       return checkNotNull(
-          callable.call(),
-          "AsyncCallable.call returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+        callable.call(),
+        "AsyncCallable.call returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
     }
 
     @Override

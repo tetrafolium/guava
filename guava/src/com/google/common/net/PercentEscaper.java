@@ -101,7 +101,7 @@ public final class PercentEscaper extends UnicodeEscaper {
     // Avoid any misunderstandings about the behavior of this escaper
     if (safeChars.matches(".*[0-9A-Za-z].*")) {
       throw new IllegalArgumentException(
-          "Alphanumeric characters are always 'safe' and should not be explicitly specified");
+              "Alphanumeric characters are always 'safe' and should not be explicitly specified");
     }
     safeChars +=
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -109,7 +109,7 @@ public final class PercentEscaper extends UnicodeEscaper {
     // space is a safe character then setting plusForSpace is meaningless.
     if (plusForSpace && safeChars.contains(" ")) {
       throw new IllegalArgumentException(
-          "plusForSpace cannot be specified when space is a 'safe' character");
+              "plusForSpace cannot be specified when space is a 'safe' character");
     }
     this.plusForSpace = plusForSpace;
     this.safeOctets = createSafeOctets(safeChars);
@@ -245,7 +245,7 @@ public final class PercentEscaper extends UnicodeEscaper {
     } else {
       // If this ever happens it is due to bug in UnicodeEscaper, not bad input.
       throw new IllegalArgumentException("Invalid unicode character value " +
-                                         cp);
+                cp);
     }
   }
 }

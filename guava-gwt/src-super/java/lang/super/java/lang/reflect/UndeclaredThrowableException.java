@@ -25,7 +25,7 @@ public class UndeclaredThrowableException extends RuntimeException {
   }
 
   public UndeclaredThrowableException(Throwable undeclaredThrowable,
-                                      String message) {
+      String message) {
     super(message, undeclaredThrowable);
   }
 

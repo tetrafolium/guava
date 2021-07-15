@@ -43,7 +43,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAllAtIndex_supportedAllPresent() {
     assertTrue("addAll(n, allPresent) should return true",
-               getList().addAll(0, MinimalCollection.of(e0())));
+        getList().addAll(0, MinimalCollection.of(e0())));
     expectAdded(0, e0());
   }
 
@@ -62,7 +62,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAllAtIndex_supportedSomePresent() {
     assertTrue("addAll(n, allPresent) should return true",
-               getList().addAll(0, MinimalCollection.of(e0(), e3())));
+        getList().addAll(0, MinimalCollection.of(e0(), e3())));
     expectAdded(0, e0(), e3());
   }
 
@@ -81,7 +81,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   @ListFeature.Require(SUPPORTS_ADD_WITH_INDEX)
   public void testAddAllAtIndex_supportedNothing() {
     assertFalse("addAll(n, nothing) should return false",
-                getList().addAll(0, emptyCollection()));
+        getList().addAll(0, emptyCollection()));
     expectUnchanged();
   }
 
@@ -89,7 +89,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   public void testAddAllAtIndex_unsupportedNothing() {
     try {
       assertFalse("addAll(n, nothing) should return false or throw",
-                  getList().addAll(0, emptyCollection()));
+          getList().addAll(0, emptyCollection()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -100,7 +100,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
     MinimalCollection<E> elementsToAdd =
         MinimalCollection.of(e0(), e1(), e0(), e1());
     assertTrue("addAll(n, hasDuplicates) should return true",
-               getList().addAll(0, elementsToAdd));
+        getList().addAll(0, elementsToAdd));
     expectAdded(0, e0(), e1(), e0(), e1());
   }
 
@@ -109,7 +109,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   public void testAddAllAtIndex_nullSupported() {
     List<E> containsNull = singletonList(null);
     assertTrue("addAll(n, containsNull) should return true",
-               getList().addAll(0, containsNull));
+        getList().addAll(0, containsNull));
     /*
      * We need (E) to force interpretation of null as the single element of a
      * varargs array, not the array itself
@@ -128,15 +128,15 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
     }
     expectUnchanged();
     expectNullMissingWhenNullUnsupported(
-        "Should not contain null after unsupported addAll(n, containsNull)");
+      "Should not contain null after unsupported addAll(n, containsNull)");
   }
 
   @ListFeature.Require(SUPPORTS_ADD_WITH_INDEX)
   @CollectionSize.Require(absent = {ZERO, ONE})
   public void testAddAllAtIndex_middle() {
     assertTrue(
-        "addAll(middle, disjoint) should return true",
-        getList().addAll(getNumElements() / 2, createDisjointCollection()));
+      "addAll(middle, disjoint) should return true",
+      getList().addAll(getNumElements() / 2, createDisjointCollection()));
     expectAdded(getNumElements() / 2, createDisjointCollection());
   }
 
@@ -144,7 +144,7 @@ public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAddAllAtIndex_end() {
     assertTrue("addAll(end, disjoint) should return true",
-               getList().addAll(getNumElements(), createDisjointCollection()));
+        getList().addAll(getNumElements(), createDisjointCollection()));
     expectAdded(getNumElements(), createDisjointCollection());
   }
 

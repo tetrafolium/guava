@@ -71,7 +71,7 @@ public final class Enums {
    * @since 12.0
    */
   public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass,
-                                                             String value) {
+      String value) {
     checkNotNull(enumClass);
     checkNotNull(value);
     return Platform.getEnumIfPresent(enumClass, value);
@@ -79,13 +79,13 @@ public final class Enums {
 
   @GwtIncompatible // java.lang.ref.WeakReference
   private static final Map<Class<? extends Enum<?>>,
-                           Map<String, WeakReference<? extends Enum<?>>>>
-      enumConstantCache = new WeakHashMap<>();
+      Map<String, WeakReference<? extends Enum<?>>>>
+  enumConstantCache = new WeakHashMap<>();
 
   @GwtIncompatible // java.lang.ref.WeakReference
   private static <T extends Enum<T>>
-      Map<String, WeakReference<? extends Enum<?>>>
-      populateCache(Class<T> enumClass) {
+  Map<String, WeakReference<? extends Enum<?>>>
+  populateCache(Class<T> enumClass) {
     Map<String, WeakReference<? extends Enum<?>>> result = new HashMap<>();
     for (T enumInstance : EnumSet.allOf(enumClass)) {
       result.put(enumInstance.name(), new WeakReference<Enum<?>>(enumInstance));
@@ -122,7 +122,7 @@ public final class Enums {
   }
 
   private static final class StringConverter<T extends Enum<T>>
-      extends Converter<String, T> implements Serializable {
+    extends Converter<String, T> implements Serializable {
 
     private final Class<T> enumClass;
 

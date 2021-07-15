@@ -47,8 +47,8 @@ final class ImmutableSortedMap_CustomFieldSerializerBase {
   }
 
   static void serialize(SerializationStreamWriter writer,
-                        ImmutableSortedMap<?, ?> instance)
-      throws SerializationException {
+      ImmutableSortedMap<?, ?> instance)
+  throws SerializationException {
     writer.writeObject(instance.comparator());
 
     Map_CustomFieldSerializerBase.serialize(writer, instance);

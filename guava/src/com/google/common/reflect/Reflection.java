@@ -87,13 +87,13 @@ public final class Reflection {
    *     the type of a Java interface
    */
   public static <T> T newProxy(Class<T> interfaceType,
-                               InvocationHandler handler) {
+      InvocationHandler handler) {
     checkNotNull(handler);
     checkArgument(interfaceType.isInterface(), "%s is not an interface",
-                  interfaceType);
+        interfaceType);
     Object object =
         Proxy.newProxyInstance(interfaceType.getClassLoader(),
-                               new Class<?>[] {interfaceType}, handler);
+        new Class<?>[] {interfaceType}, handler);
     return interfaceType.cast(object);
   }
 

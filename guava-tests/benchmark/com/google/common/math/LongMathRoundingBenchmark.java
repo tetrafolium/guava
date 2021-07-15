@@ -34,7 +34,7 @@ import java.math.RoundingMode;
  */
 public class LongMathRoundingBenchmark {
   @Param(
-      {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
+    {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
   private static final long[] positive = new long[ARRAY_SIZE];

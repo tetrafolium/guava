@@ -35,7 +35,7 @@ import java.util.concurrent.Executor;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtCompatible
 public abstract class ForwardingListenableFuture<V>
-    extends ForwardingFuture<V> implements ListenableFuture<V> {
+  extends ForwardingFuture<V> implements ListenableFuture<V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingListenableFuture() {}
@@ -57,7 +57,7 @@ public abstract class ForwardingListenableFuture<V>
    * @since 9.0
    */
   public abstract static class SimpleForwardingListenableFuture<V>
-      extends ForwardingListenableFuture<V> {
+    extends ForwardingListenableFuture<V> {
     private final ListenableFuture<V> delegate;
 
     protected SimpleForwardingListenableFuture(ListenableFuture<V> delegate) {

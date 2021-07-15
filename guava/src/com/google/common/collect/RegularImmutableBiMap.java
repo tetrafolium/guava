@@ -43,8 +43,8 @@ import javax.annotation.Nullable;
 class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   static final RegularImmutableBiMap<Object, Object> EMPTY =
       new RegularImmutableBiMap<>(
-          null, null, (Entry<Object, Object>[])ImmutableMap.EMPTY_ENTRY_ARRAY,
-          0, 0);
+    null, null, (Entry<Object, Object>[])ImmutableMap.EMPTY_ENTRY_ARRAY,
+    0, 0);
 
   static final double MAX_LOAD_FACTOR = 1.2;
 
@@ -98,12 +98,12 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
          * benchmarking.
          */
         boolean reusable = entry instanceof ImmutableMapEntry &&
-                           ((ImmutableMapEntry<K, V>)entry).isReusable();
+            ((ImmutableMapEntry<K, V>)entry).isReusable();
         newEntry = reusable ? (ImmutableMapEntry<K, V>)entry
                             : new ImmutableMapEntry<K, V>(key, value);
       } else {
         newEntry = new NonTerminalImmutableBiMapEntry<>(
-            key, value, nextInKeyBucket, nextInValueBucket);
+          key, value, nextInKeyBucket, nextInValueBucket);
       }
       keyTable[keyBucket] = newEntry;
       valueTable[valueBucket] = newEntry;
@@ -111,12 +111,12 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
       hashCode += keyHash ^ valueHash;
     }
     return new RegularImmutableBiMap<>(keyTable, valueTable, entries, mask,
-                                       hashCode);
+               hashCode);
   }
 
   private RegularImmutableBiMap(ImmutableMapEntry<K, V>[] keyTable,
-                                ImmutableMapEntry<K, V>[] valueTable,
-                                Entry<K, V>[] entries, int mask, int hashCode) {
+      ImmutableMapEntry<K, V>[] valueTable,
+      Entry<K, V>[] entries, int mask, int hashCode) {
     this.keyTable = keyTable;
     this.valueTable = valueTable;
     this.entries = entries;
@@ -127,12 +127,12 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   // checkNoConflictInKeyBucket is static imported from RegularImmutableMap
 
   private static void checkNoConflictInValueBucket(
-      Object value, Entry<?, ?> entry,
-      @Nullable ImmutableMapEntry<?, ?> valueBucketHead) {
+    Object value, Entry<?, ?> entry,
+    @Nullable ImmutableMapEntry<?, ?> valueBucketHead) {
     for (; valueBucketHead != null;
-         valueBucketHead = valueBucketHead.getNextInValueBucket()) {
+        valueBucketHead = valueBucketHead.getNextInValueBucket()) {
       checkNoConflict(!value.equals(valueBucketHead.getValue()), "value", entry,
-                      valueBucketHead);
+          valueBucketHead);
     }
   }
 
@@ -209,7 +209,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     @Override
     public void forEach(BiConsumer<? super V, ? super K> action) {
       checkNotNull(action);
-      RegularImmutableBiMap.this.forEach((k, v) -> action.accept(v, k));
+      RegularImmutableBiMap.this.forEach((k, v)->action.accept(v, k));
     }
 
     @Override
@@ -219,7 +219,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
       }
       int bucket = Hashing.smear(value.hashCode()) & mask;
       for (ImmutableMapEntry<K, V> entry = valueTable[bucket]; entry != null;
-           entry = entry.getNextInValueBucket()) {
+          entry = entry.getNextInValueBucket()) {
         if (value.equals(entry.getValue())) {
           return entry.getKey();
         }
@@ -267,16 +267,16 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
       @Override
       ImmutableList<Entry<V, K>> createAsList() {
         return new ImmutableAsList<Entry<V, K>>() {
-          @Override
-          public Entry<V, K> get(int index) {
-            Entry<K, V> entry = entries[index];
-            return Maps.immutableEntry(entry.getValue(), entry.getKey());
-          }
+                 @Override
+                 public Entry<V, K> get(int index) {
+                   Entry<K, V> entry = entries[index];
+                   return Maps.immutableEntry(entry.getValue(), entry.getKey());
+                 }
 
-          @Override
-          ImmutableCollection<Entry<V, K>> delegateCollection() {
-            return InverseEntrySet.this;
-          }
+                 @Override
+                 ImmutableCollection<Entry<V, K>> delegateCollection() {
+                   return InverseEntrySet.this;
+                 }
         };
       }
     }

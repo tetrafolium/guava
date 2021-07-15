@@ -51,9 +51,9 @@ abstract class DummyProxy {
     // Make the proxy serializable to work with SerializableTester
     interfaceClasses.add(Serializable.class);
     Object dummy = Proxy.newProxyInstance(
-        interfaceClasses.iterator().next().getClassLoader(),
-        interfaceClasses.toArray(new Class<?>[ interfaceClasses.size() ]),
-        new DummyHandler(interfaceType));
+      interfaceClasses.iterator().next().getClassLoader(),
+      interfaceClasses.toArray(new Class<?>[ interfaceClasses.size() ]),
+      new DummyHandler(interfaceType));
     @SuppressWarnings("unchecked") // interfaceType is T
     T result = (T)dummy;
     return result;
@@ -63,7 +63,7 @@ abstract class DummyProxy {
   abstract <R> R dummyReturnValue(TypeToken<R> returnType);
 
   private class DummyHandler
-      extends AbstractInvocationHandler implements Serializable {
+    extends AbstractInvocationHandler implements Serializable {
     private final TypeToken<?> interfaceType;
 
     DummyHandler(TypeToken<?> interfaceType) {
@@ -72,7 +72,7 @@ abstract class DummyProxy {
 
     @Override
     protected Object handleInvocation(Object proxy, Method method,
-                                      Object[] args) {
+        Object[] args) {
       Invokable<?, ?> invokable = interfaceType.method(method);
       ImmutableList<Parameter> params = invokable.getParameters();
       for (int i = 0; i < args.length; i++) {
@@ -82,7 +82,7 @@ abstract class DummyProxy {
         }
       }
       return dummyReturnValue(
-          interfaceType.resolveType(method.getGenericReturnType()));
+        interfaceType.resolveType(method.getGenericReturnType()));
     }
 
     @Override

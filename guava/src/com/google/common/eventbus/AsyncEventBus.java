@@ -41,7 +41,7 @@ public class AsyncEventBus extends EventBus {
    */
   public AsyncEventBus(String identifier, Executor executor) {
     super(identifier, executor, Dispatcher.legacyAsync(),
-          LoggingHandler.INSTANCE);
+    LoggingHandler.INSTANCE);
   }
 
   /**
@@ -57,9 +57,9 @@ public class AsyncEventBus extends EventBus {
    * @since 16.0
    */
   public AsyncEventBus(Executor executor,
-                       SubscriberExceptionHandler subscriberExceptionHandler) {
+      SubscriberExceptionHandler subscriberExceptionHandler) {
     super("default", executor, Dispatcher.legacyAsync(),
-          subscriberExceptionHandler);
+    subscriberExceptionHandler);
   }
 
   /**
@@ -72,6 +72,6 @@ public class AsyncEventBus extends EventBus {
    */
   public AsyncEventBus(Executor executor) {
     super("default", executor, Dispatcher.legacyAsync(),
-          LoggingHandler.INSTANCE);
+    LoggingHandler.INSTANCE);
   }
 }

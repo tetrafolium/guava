@@ -114,34 +114,34 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    */
   public static final Predicate<Class<?>> UNDERSCORE_IN_NAME =
       new Predicate<Class<?>>() {
-        @Override
-        public boolean apply(Class<?> c) {
-          return c.getSimpleName().contains("_");
-        }
-      };
+    @Override
+    public boolean apply(Class<?> c) {
+      return c.getSimpleName().contains("_");
+    }
+  };
 
   /* The names of the expected method that tests null checks. */
   private static final ImmutableList<String> NULL_TEST_METHOD_NAMES =
       ImmutableList.of("testNulls", "testNull", "testNullPointers",
-                       "testNullPointer", "testNullPointerExceptions",
-                       "testNullPointerException");
+      "testNullPointer", "testNullPointerExceptions",
+      "testNullPointerException");
 
   /* The names of the expected method that tests serializable. */
   private static final ImmutableList<String> SERIALIZABLE_TEST_METHOD_NAMES =
       ImmutableList.of("testSerializable", "testSerialization",
-                       "testEqualsAndSerializable",
-                       "testEqualsAndSerialization");
+      "testEqualsAndSerializable",
+      "testEqualsAndSerialization");
 
   /* The names of the expected method that tests equals. */
   private static final ImmutableList<String> EQUALS_TEST_METHOD_NAMES =
       ImmutableList.of("testEquals", "testEqualsAndHashCode",
-                       "testEqualsAndSerializable",
-                       "testEqualsAndSerialization", "testEquality");
+      "testEqualsAndSerializable",
+      "testEqualsAndSerialization", "testEquality");
 
   private static final Chopper TEST_SUFFIX = suffix("Test")
-                                                 .or(suffix("Tests"))
-                                                 .or(suffix("TestCase"))
-                                                 .or(suffix("TestSuite"));
+      .or(suffix("Tests"))
+      .or(suffix("TestCase"))
+      .or(suffix("TestSuite"));
 
   private final Logger logger = Logger.getLogger(getClass().getName());
   private final ClassSanityTester tester = new ClassSanityTester();
@@ -194,7 +194,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     // TODO: when we use @BeforeClass, we can pay the cost of class path
     // scanning only once.
     for (Class<?> classToTest : findClassesToTest(
-             loadClassesInPackage(), SERIALIZABLE_TEST_METHOD_NAMES)) {
+          loadClassesInPackage(), SERIALIZABLE_TEST_METHOD_NAMES)) {
       if (Serializable.class.isAssignableFrom(classToTest)) {
         try {
           Object instance = tester.instantiate(classToTest);
@@ -207,7 +207,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
           }
         } catch (Throwable e) {
           throw sanityError(classToTest, SERIALIZABLE_TEST_METHOD_NAMES,
-                            "serializable test", e);
+                    "serializable test", e);
         }
       }
     }
@@ -242,7 +242,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   @Test
   public void testNulls() throws Exception {
     for (Class<?> classToTest :
-         findClassesToTest(loadClassesInPackage(), NULL_TEST_METHOD_NAMES)) {
+        findClassesToTest(loadClassesInPackage(), NULL_TEST_METHOD_NAMES)) {
       try {
         tester.doTestNulls(classToTest, visibility);
       } catch (Throwable e) {
@@ -282,13 +282,13 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   @Test
   public void testEquals() throws Exception {
     for (Class<?> classToTest :
-         findClassesToTest(loadClassesInPackage(), EQUALS_TEST_METHOD_NAMES)) {
+        findClassesToTest(loadClassesInPackage(), EQUALS_TEST_METHOD_NAMES)) {
       if (!classToTest.isEnum() && isEqualsDefined(classToTest)) {
         try {
           tester.doTestEquals(classToTest);
         } catch (Throwable e) {
           throw sanityError(classToTest, EQUALS_TEST_METHOD_NAMES,
-                            "equals test", e);
+                    "equals test", e);
         }
       }
     }
@@ -311,7 +311,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    * @since 17.0
    */
   protected final <T> void setDistinctValues(Class<T> type, T value1,
-                                             T value2) {
+      T value2) {
     tester.setDistinctValues(type, value1, value2);
   }
 
@@ -325,13 +325,13 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
   private static AssertionFailedError
   sanityError(Class<?> cls, List<String> explicitTestNames, String description,
-              Throwable e) {
+      Throwable e) {
     String message = String.format(
-        Locale.ROOT,
-        "Error in automated %s of %s\n"
-            +
-            "If the class is better tested explicitly, you can add %s() to %sTest",
-        description, cls, explicitTestNames.get(0), cls.getName());
+      Locale.ROOT,
+      "Error in automated %s of %s\n"
+      +
+      "If the class is better tested explicitly, you can add %s() to %sTest",
+      description, cls, explicitTestNames.get(0), cls.getName());
     AssertionFailedError error = new AssertionFailedError(message);
     error.initCause(e);
     return error;
@@ -343,7 +343,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
    */
   @VisibleForTesting
   List<Class<?>> findClassesToTest(Iterable<? extends Class<?>> classes,
-                                   Iterable<String> explicitTestNames) {
+      Iterable<String> explicitTestNames) {
     // "a.b.Foo" -> a.b.Foo.class
     TreeMap<String, Class<?>> classMap = Maps.newTreeMap();
     for (Class<?> cls : classes) {
@@ -364,7 +364,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
       }
     }
     List<Class<?>> result = Lists.newArrayList();
-  NEXT_CANDIDATE:
+NEXT_CANDIDATE:
     for (Class<?> candidate : Iterables.filter(candidateClasses, classFilter)) {
       for (Class<?> testClass : testClasses.get(candidate)) {
         if (hasTest(testClass, explicitTestNames)) {
@@ -381,8 +381,8 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     List<Class<?>> classes = Lists.newArrayList();
     String packageName = getClass().getPackage().getName();
     for (ClassPath.ClassInfo classInfo :
-         ClassPath.from(getClass().getClassLoader())
-             .getTopLevelClasses(packageName)) {
+        ClassPath.from(getClass().getClassLoader())
+        .getTopLevelClasses(packageName)) {
       Class<?> cls;
       try {
         cls = classInfo.load();
@@ -390,7 +390,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
         // In case there were linking problems, this is probably not a class we
         // care to test anyway.
         logger.log(Level.SEVERE,
-                   "Cannot load class " + classInfo + ", skipping...", e);
+            "Cannot load class " + classInfo + ", skipping...", e);
         continue;
       }
       if (!cls.isInterface()) {
@@ -401,7 +401,7 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   }
 
   private static boolean hasTest(Class<?> testClass,
-                                 Iterable<String> testNames) {
+      Iterable<String> testNames) {
     for (String testName : testNames) {
       try {
         testClass.getMethod(testName);
@@ -426,10 +426,10 @@ public abstract class AbstractPackageSanityTests extends TestCase {
     final Chopper or(final Chopper you) {
       final Chopper i = this;
       return new Chopper() {
-        @Override
-        Optional<String> chop(String str) {
-          return i.chop(str).or(you.chop(str));
-        }
+               @Override
+               Optional<String> chop(String str) {
+                 return i.chop(str).or(you.chop(str));
+               }
       };
     }
 
@@ -437,15 +437,15 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
     static Chopper suffix(final String suffix) {
       return new Chopper() {
-        @Override
-        Optional<String> chop(String str) {
-          if (str.endsWith(suffix)) {
-            return Optional.of(
-                str.substring(0, str.length() - suffix.length()));
-          } else {
-            return Optional.absent();
-          }
-        }
+               @Override
+               Optional<String> chop(String str) {
+                 if (str.endsWith(suffix)) {
+                   return Optional.of(
+                     str.substring(0, str.length() - suffix.length()));
+                 } else {
+                   return Optional.absent();
+                 }
+               }
       };
     }
   }

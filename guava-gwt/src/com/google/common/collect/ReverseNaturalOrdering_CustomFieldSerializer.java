@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class ReverseNaturalOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ReverseNaturalOrdering instance) {}
+      ReverseNaturalOrdering instance) {}
 
   public static ReverseNaturalOrdering
   instantiate(SerializationStreamReader reader) {
@@ -36,5 +36,5 @@ public class ReverseNaturalOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ReverseNaturalOrdering instance) {}
+      ReverseNaturalOrdering instance) {}
 }

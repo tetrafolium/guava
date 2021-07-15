@@ -65,7 +65,7 @@ public final class CollectorTester<T, A, R> {
    */
   public static <T, A, R> CollectorTester<T, A, R>
   of(Collector<T, A, R> collector,
-     BiPredicate<? super R, ? super R> equivalence) {
+      BiPredicate<? super R, ? super R> equivalence) {
     return new CollectorTester<>(collector, equivalence);
   }
 
@@ -73,7 +73,7 @@ public final class CollectorTester<T, A, R> {
   private final BiPredicate<? super R, ? super R> equivalence;
 
   private CollectorTester(Collector<T, A, R> collector,
-                          BiPredicate<? super R, ? super R> equivalence) {
+      BiPredicate<? super R, ? super R> equivalence) {
     this.collector = checkNotNull(collector);
     this.equivalence = checkNotNull(equivalence);
   }
@@ -89,7 +89,7 @@ public final class CollectorTester<T, A, R> {
     SEQUENTIAL {
       @Override
       final <T, A, R> A result(Collector<T, A, R> collector,
-                               Iterable<T> inputs) {
+          Iterable<T> inputs) {
         A accum = collector.supplier().get();
         for (T input : inputs) {
           collector.accumulator().accept(accum, input);
@@ -104,7 +104,7 @@ public final class CollectorTester<T, A, R> {
     MERGE_LEFT_ASSOCIATIVE {
       @Override
       final <T, A, R> A result(Collector<T, A, R> collector,
-                               Iterable<T> inputs) {
+          Iterable<T> inputs) {
         A accum = collector.supplier().get();
         for (T input : inputs) {
           A newAccum = collector.supplier().get();
@@ -121,7 +121,7 @@ public final class CollectorTester<T, A, R> {
     MERGE_RIGHT_ASSOCIATIVE {
       @Override
       final <T, A, R> A result(Collector<T, A, R> collector,
-                               Iterable<T> inputs) {
+          Iterable<T> inputs) {
         List<A> stack = new ArrayList<>();
         for (T input : inputs) {
           A newAccum = collector.supplier().get();
@@ -143,7 +143,7 @@ public final class CollectorTester<T, A, R> {
     };
 
     abstract <T, A, R> A result(Collector<T, A, R> collector,
-                                Iterable<T> inputs);
+        Iterable<T> inputs);
   }
 
   /**
@@ -157,7 +157,7 @@ public final class CollectorTester<T, A, R> {
     List<T> list = Arrays.asList(inputs);
     doExpectCollects(expectedResult, list);
     if (collector.characteristics().contains(
-            Collector.Characteristics.UNORDERED)) {
+          Collector.Characteristics.UNORDERED)) {
       Collections.reverse(list);
       doExpectCollects(expectedResult, list);
     }
@@ -168,7 +168,7 @@ public final class CollectorTester<T, A, R> {
     for (CollectStrategy scheme : EnumSet.allOf(CollectStrategy.class)) {
       A finalAccum = scheme.result(collector, inputs);
       if (collector.characteristics().contains(
-              Collector.Characteristics.IDENTITY_FINISH)) {
+            Collector.Characteristics.IDENTITY_FINISH)) {
         assertEquivalent(expectedResult, (R)finalAccum);
       }
       assertEquivalent(expectedResult, collector.finisher().apply(finalAccum));
@@ -177,7 +177,7 @@ public final class CollectorTester<T, A, R> {
 
   private void assertEquivalent(@Nullable R expected, @Nullable R actual) {
     assertTrue("Expected " + expected + " got " + actual +
-                   " modulo equivalence " + equivalence,
-               equivalence.test(expected, actual));
+        " modulo equivalence " + equivalence,
+        equivalence.test(expected, actual));
   }
 }

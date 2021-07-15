@@ -119,8 +119,8 @@ public final class MoreFiles {
 
     private BasicFileAttributes readAttributes() throws IOException {
       return Files.readAttributes(
-          path, BasicFileAttributes.class,
-          followLinks ? FOLLOW_LINKS : new LinkOption[] {NOFOLLOW_LINKS});
+        path, BasicFileAttributes.class,
+        followLinks ? FOLLOW_LINKS : new LinkOption[] {NOFOLLOW_LINKS});
     }
 
     @Override
@@ -163,7 +163,7 @@ public final class MoreFiles {
     public byte[] read() throws IOException {
       try (SeekableByteChannel channel = Files.newByteChannel(path, options)) {
         return com.google.common.io.Files.readFile(
-            Channels.newInputStream(channel), channel.size());
+          Channels.newInputStream(channel), channel.size());
       }
     }
 
@@ -176,12 +176,12 @@ public final class MoreFiles {
         // meaning we can't guarantee the same behavior w.r.t. things like
         // following/not following symlinks.
         return new AsCharSource(charset) {
-          @SuppressWarnings("FilesLinesLeak")
-          // the user needs to close it in this case
-          @Override
-          public Stream<String> lines() throws IOException {
-            return Files.lines(path, charset);
-          }
+                 @SuppressWarnings("FilesLinesLeak")
+                 // the user needs to close it in this case
+                 @Override
+                 public Stream<String> lines() throws IOException {
+                   return Files.lines(path, charset);
+                 }
         };
       }
 
@@ -191,7 +191,7 @@ public final class MoreFiles {
     @Override
     public String toString() {
       return "MoreFiles.asByteSource(" + path + ", " +
-          Arrays.toString(options) + ")";
+             Arrays.toString(options) + ")";
     }
   }
 
@@ -230,7 +230,7 @@ public final class MoreFiles {
     @Override
     public String toString() {
       return "MoreFiles.asByteSink(" + path + ", " + Arrays.toString(options) +
-          ")";
+             ")";
     }
   }
 
@@ -245,7 +245,7 @@ public final class MoreFiles {
    * providing the {@link StandardOpenOption#READ READ} option.
    */
   public static CharSource asCharSource(Path path, Charset charset,
-                                        OpenOption... options) {
+      OpenOption... options) {
     return asByteSource(path, options).asCharSource(charset);
   }
 
@@ -262,7 +262,7 @@ public final class MoreFiles {
    * StandardOpenOption#WRITE WRITE} options.
    */
   public static CharSink asCharSink(Path path, Charset charset,
-                                    OpenOption... options) {
+      OpenOption... options) {
     return asByteSink(path, options).asCharSink(charset);
   }
 
@@ -306,7 +306,7 @@ public final class MoreFiles {
   }
 
   private static final class DirectoryTreeTraverser
-      extends TreeTraverser<Path> {
+    extends TreeTraverser<Path> {
 
     private static final DirectoryTreeTraverser INSTANCE =
         new DirectoryTreeTraverser();
@@ -334,15 +334,15 @@ public final class MoreFiles {
   public static Predicate<Path> isDirectory(LinkOption... options) {
     final LinkOption[] optionsCopy = options.clone();
     return new Predicate<Path>() {
-      @Override
-      public boolean apply(Path input) {
-        return Files.isDirectory(input, optionsCopy);
-      }
+             @Override
+             public boolean apply(Path input) {
+               return Files.isDirectory(input, optionsCopy);
+             }
 
-      @Override
-      public String toString() {
-        return "MoreFiles.isDirectory(" + Arrays.toString(optionsCopy) + ")";
-      }
+             @Override
+             public String toString() {
+               return "MoreFiles.isDirectory(" + Arrays.toString(optionsCopy) + ")";
+             }
     };
   }
 
@@ -354,15 +354,15 @@ public final class MoreFiles {
   public static Predicate<Path> isRegularFile(LinkOption... options) {
     final LinkOption[] optionsCopy = options.clone();
     return new Predicate<Path>() {
-      @Override
-      public boolean apply(Path input) {
-        return Files.isRegularFile(input, optionsCopy);
-      }
+             @Override
+             public boolean apply(Path input) {
+               return Files.isRegularFile(input, optionsCopy);
+             }
 
-      @Override
-      public String toString() {
-        return "MoreFiles.isRegularFile(" + Arrays.toString(optionsCopy) + ")";
-      }
+             @Override
+             public String toString() {
+               return "MoreFiles.isRegularFile(" + Arrays.toString(optionsCopy) + ")";
+             }
     };
   }
 
@@ -405,7 +405,7 @@ public final class MoreFiles {
 
     try {
       Files.setLastModifiedTime(
-          path, FileTime.fromMillis(System.currentTimeMillis()));
+        path, FileTime.fromMillis(System.currentTimeMillis()));
     } catch (NoSuchFileException e) {
       try {
         Files.createFile(path);
@@ -432,8 +432,8 @@ public final class MoreFiles {
    *                     directories of the specified file could not be created.
    */
   public static void createParentDirectories(Path path,
-                                             FileAttribute<?>... attrs)
-      throws IOException {
+      FileAttribute<?>... attrs)
+  throws IOException {
     // Interestingly, unlike File.getCanonicalFile(), Path/Files provides no way
     // of getting the canonical (absolute, normalized, symlinks resolved, etc.)
     // form of a path to a nonexistent file. getCanonicalFile() can at least get
@@ -545,23 +545,23 @@ public final class MoreFiles {
    *     can't be deleted for any reason
    */
   public static void deleteRecursively(Path path,
-                                       RecursiveDeleteOption... options)
-      throws IOException {
+      RecursiveDeleteOption... options)
+  throws IOException {
     Path parentPath = getParentPath(path);
     if (parentPath == null) {
       throw new FileSystemException(path.toString(), null,
-                                    "can't delete recursively");
+                "can't delete recursively");
     }
 
     Collection<IOException> exceptions = null; // created lazily if needed
     try {
       boolean sdsSupported = false;
       try (DirectoryStream<Path> parent =
-               Files.newDirectoryStream(parentPath)) {
+      Files.newDirectoryStream(parentPath)) {
         if (parent instanceof SecureDirectoryStream) {
           sdsSupported = true;
           exceptions = deleteRecursivelySecure(
-              (SecureDirectoryStream<Path>)parent, path.getFileName());
+            (SecureDirectoryStream<Path>)parent, path.getFileName());
         }
       }
 
@@ -622,8 +622,8 @@ public final class MoreFiles {
    * @throws IOException if one or more files can't be deleted for any reason
    */
   public static void deleteDirectoryContents(Path path,
-                                             RecursiveDeleteOption... options)
-      throws IOException {
+      RecursiveDeleteOption... options)
+  throws IOException {
     Collection<IOException> exceptions = null; // created lazily if needed
     try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
       if (stream instanceof SecureDirectoryStream) {
@@ -658,7 +658,7 @@ public final class MoreFiles {
     try {
       if (isDirectory(dir, path, NOFOLLOW_LINKS)) {
         try (SecureDirectoryStream<Path> childDir =
-                 dir.newDirectoryStream(path, NOFOLLOW_LINKS)) {
+        dir.newDirectoryStream(path, NOFOLLOW_LINKS)) {
           exceptions = deleteDirectoryContentsSecure(childDir);
         }
 
@@ -690,7 +690,7 @@ public final class MoreFiles {
     try {
       for (Path path : dir) {
         exceptions = concat(exceptions,
-                            deleteRecursivelySecure(dir, path.getFileName()));
+            deleteRecursivelySecure(dir, path.getFileName()));
       }
 
       return exceptions;
@@ -795,10 +795,10 @@ public final class MoreFiles {
    * exception if not.
    */
   private static void checkAllowsInsecure(Path path,
-                                          RecursiveDeleteOption[] options)
-      throws InsecureRecursiveDeleteException {
+      RecursiveDeleteOption[] options)
+  throws InsecureRecursiveDeleteException {
     if (!Arrays.asList(options).contains(
-            RecursiveDeleteOption.ALLOW_INSECURE)) {
+          RecursiveDeleteOption.ALLOW_INSECURE)) {
       throw new InsecureRecursiveDeleteException(path.toString());
     }
   }
@@ -808,10 +808,10 @@ public final class MoreFiles {
    * directory.
    */
   private static boolean isDirectory(SecureDirectoryStream<Path> dir, Path name,
-                                     LinkOption... options) throws IOException {
+      LinkOption... options) throws IOException {
     return dir.getFileAttributeView(name, BasicFileAttributeView.class, options)
-        .readAttributes()
-        .isDirectory();
+           .readAttributes()
+           .isDirectory();
   }
 
   /**
@@ -836,7 +836,7 @@ public final class MoreFiles {
   @Nullable
   private static Collection<IOException>
   concat(@Nullable Collection<IOException> exceptions,
-         @Nullable Collection<IOException> other) {
+      @Nullable Collection<IOException> other) {
     if (exceptions == null) {
       return other;
     } else if (other != null) {
@@ -851,14 +851,14 @@ public final class MoreFiles {
    * suppressed exceptions.
    */
   private static void throwDeleteFailed(Path path,
-                                        Collection<IOException> exceptions)
-      throws FileSystemException {
+      Collection<IOException> exceptions)
+  throws FileSystemException {
     // TODO(cgdecker): Should there be a custom exception type for this?
     // Also, should we try to include the Path of each file we may have failed
     // to delete rather than just the exceptions that occurred?
     FileSystemException deleteFailed = new FileSystemException(
-        path.toString(), null,
-        "failed to delete one or more files; see suppressed exceptions for details");
+      path.toString(), null,
+      "failed to delete one or more files; see suppressed exceptions for details");
     for (IOException e : exceptions) {
       deleteFailed.addSuppressed(e);
     }

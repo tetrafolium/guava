@@ -77,7 +77,7 @@ public final class Comparators {
    * fewer than two elements.
    */
   public static <T> boolean isInOrder(Iterable<? extends T> iterable,
-                                      Comparator<T> comparator) {
+      Comparator<T> comparator) {
     checkNotNull(comparator);
     Iterator<? extends T> it = iterable.iterator();
     if (it.hasNext()) {
@@ -100,7 +100,7 @@ public final class Comparators {
    * fewer than two elements.
    */
   public static <T> boolean isInStrictOrder(Iterable<? extends T> iterable,
-                                            Comparator<T> comparator) {
+      Comparator<T> comparator) {
     checkNotNull(comparator);
     Iterator<? extends T> it = iterable.iterator();
     if (it.hasNext()) {
@@ -142,10 +142,10 @@ public final class Comparators {
     checkNonnegative(k, "k");
     checkNotNull(comparator);
     return Collector.of(()
-                            -> TopKSelector.<T>least(k, comparator),
-                        TopKSelector::offer, TopKSelector::combine,
-                        TopKSelector::topK,
-                        Collector.Characteristics.UNORDERED);
+               ->TopKSelector.<T>least(k, comparator),
+               TopKSelector::offer, TopKSelector::combine,
+               TopKSelector::topK,
+               Collector.Characteristics.UNORDERED);
   }
 
   /**
@@ -186,7 +186,7 @@ public final class Comparators {
   emptiesFirst(Comparator<T> valueComparator) {
     checkNotNull(valueComparator);
     return Comparator.comparing(
-        o -> o.orElse(null), Comparator.nullsFirst(valueComparator));
+      o->o.orElse(null), Comparator.nullsFirst(valueComparator));
   }
 
   /**
@@ -201,6 +201,6 @@ public final class Comparators {
   emptiesLast(Comparator<T> valueComparator) {
     checkNotNull(valueComparator);
     return Comparator.comparing(
-        o -> o.orElse(null), Comparator.nullsLast(valueComparator));
+      o->o.orElse(null), Comparator.nullsLast(valueComparator));
   }
 }

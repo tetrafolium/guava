@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class EnumMultiset<E extends Enum<E>>
-    extends AbstractMultiset<E> implements Serializable {
+  extends AbstractMultiset<E> implements Serializable {
   /** Creates an empty {@code EnumMultiset}. */
   public static <E extends Enum<E>> EnumMultiset<E> create(Class<E> type) {
     return new EnumMultiset<E>(type);
@@ -67,7 +67,7 @@ public final class EnumMultiset<E extends Enum<E>>
   create(Iterable<E> elements) {
     Iterator<E> iterator = elements.iterator();
     checkArgument(iterator.hasNext(),
-                  "EnumMultiset constructor passed empty Iterable");
+        "EnumMultiset constructor passed empty Iterable");
     EnumMultiset<E> multiset =
         new EnumMultiset<>(iterator.next().getDeclaringClass());
     Iterables.addAll(multiset, elements);
@@ -82,7 +82,7 @@ public final class EnumMultiset<E extends Enum<E>>
    * @since 14.0
    */
   public static <E extends Enum<E>> EnumMultiset<E> create(Iterable<E> elements,
-                                                           Class<E> type) {
+      Class<E> type) {
     EnumMultiset<E> result = create(type);
     Iterables.addAll(result, elements);
     return result;
@@ -121,7 +121,7 @@ public final class EnumMultiset<E extends Enum<E>>
     checkNotNull(element);
     if (!isActuallyE(element)) {
       throw new ClassCastException("Expected an " + type + " but got " +
-                                   element);
+                element);
     }
   }
 
@@ -157,7 +157,7 @@ public final class EnumMultiset<E extends Enum<E>>
     int oldCount = counts[index];
     long newCount = (long)oldCount + occurrences;
     checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s",
-                  newCount);
+        newCount);
     counts[index] = (int)newCount;
     if (oldCount == 0) {
       distinctElements++;
@@ -260,35 +260,35 @@ public final class EnumMultiset<E extends Enum<E>>
   @Override
   Set<E> createElementSet() {
     return new ElementSet() {
-      @Override
-      public Iterator<E> iterator() {
-        return new Itr<E>() {
-          @Override
-          E output(int index) {
-            return enumConstants[index];
-          }
-        };
-      }
+             @Override
+             public Iterator<E> iterator() {
+               return new Itr<E>() {
+                        @Override
+                        E output(int index) {
+                          return enumConstants[index];
+                        }
+               };
+             }
     };
   }
 
   @Override
   Iterator<Entry<E>> entryIterator() {
     return new Itr<Entry<E>>() {
-      @Override
-      Entry<E> output(final int index) {
-        return new Multisets.AbstractEntry<E>() {
-          @Override
-          public E getElement() {
-            return enumConstants[index];
-          }
+             @Override
+             Entry<E> output(final int index) {
+               return new Multisets.AbstractEntry<E>() {
+                        @Override
+                        public E getElement() {
+                          return enumConstants[index];
+                        }
 
-          @Override
-          public int getCount() {
-            return counts[index];
-          }
-        };
-      }
+                        @Override
+                        public int getCount() {
+                          return counts[index];
+                        }
+               };
+             }
     };
   }
 
@@ -306,7 +306,7 @@ public final class EnumMultiset<E extends Enum<E>>
    */
   @GwtIncompatible // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     Class<E> localType = (Class<E>)stream.readObject();

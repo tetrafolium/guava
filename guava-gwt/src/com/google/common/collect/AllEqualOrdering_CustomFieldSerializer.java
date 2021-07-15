@@ -26,12 +26,12 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class AllEqualOrdering_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader,
-                                 AllEqualOrdering instance) {}
+      AllEqualOrdering instance) {}
 
   public static AllEqualOrdering instantiate(SerializationStreamReader reader) {
     return AllEqualOrdering.INSTANCE;
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               AllEqualOrdering instance) {}
+      AllEqualOrdering instance) {}
 }

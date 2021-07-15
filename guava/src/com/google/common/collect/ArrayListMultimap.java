@@ -64,7 +64,7 @@ import java.util.Map;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class ArrayListMultimap<K, V>
-    extends ArrayListMultimapGwtSerializationDependencies<K, V> {
+  extends ArrayListMultimapGwtSerializationDependencies<K, V> {
   // Default from ArrayList
   private static final int DEFAULT_VALUES_PER_KEY = 3;
 
@@ -125,7 +125,7 @@ public final class ArrayListMultimap<K, V>
 
   private ArrayListMultimap(Multimap<? extends K, ? extends V> multimap) {
     this(multimap.keySet().size(),
-         (multimap instanceof ArrayListMultimap)
+    (multimap instanceof ArrayListMultimap)
              ? ((ArrayListMultimap<?, ?>)multimap).expectedValuesPerKey
              : DEFAULT_VALUES_PER_KEY);
     putAll(multimap);
@@ -169,7 +169,7 @@ public final class ArrayListMultimap<K, V>
 
   @GwtIncompatible // java.io.ObjectOutputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

@@ -34,7 +34,7 @@ import java.lang.ref.ReferenceQueue;
  */
 @GwtIncompatible
 public abstract class FinalizablePhantomReference<T>
-    extends PhantomReference<T> implements FinalizableReference {
+  extends PhantomReference<T> implements FinalizableReference {
   /**
    * Constructs a new finalizable phantom reference.
    *
@@ -42,7 +42,7 @@ public abstract class FinalizablePhantomReference<T>
    * @param queue that should finalize the referent
    */
   protected FinalizablePhantomReference(T referent,
-                                        FinalizableReferenceQueue queue) {
+      FinalizableReferenceQueue queue) {
     super(referent, queue.queue);
     queue.cleanUp();
   }

@@ -101,8 +101,8 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
    * this was 12% faster than allocating new arrays every time.
    */
   private static void weakHashLength32WithSeeds(byte[] bytes, int offset,
-                                                long seedA, long seedB,
-                                                long[] output) {
+      long seedA, long seedB,
+      long[] output) {
     long part1 = load64(bytes, offset);
     long part2 = load64(bytes, offset + 8);
     long part3 = load64(bytes, offset + 16);
@@ -131,8 +131,8 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
       long mul = K2 + length * 2;
       long a = load32(bytes, offset) & 0xFFFFFFFFL;
       return hashLength16(length + (a << 3),
-                          load32(bytes, offset + length - 4) & 0xFFFFFFFFL,
-                          mul);
+                 load32(bytes, offset + length - 4) & 0xFFFFFFFFL,
+                 mul);
     }
     if (length > 0) {
       byte a = bytes[offset];
@@ -152,7 +152,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     long c = load64(bytes, offset + length - 8) * mul;
     long d = load64(bytes, offset + length - 16) * K2;
     return hashLength16(rotateRight(a + b, 43) + rotateRight(c, 30) + d,
-                        a + rotateRight(b + K2, 18) + c, mul);
+               a + rotateRight(b + K2, 18) + c, mul);
   }
 
   private static long hashLength33To64(byte[] bytes, int offset, int length) {
@@ -168,7 +168,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     long g = (y + load64(bytes, offset + length - 32)) * mul;
     long h = (z + load64(bytes, offset + length - 24)) * mul;
     return hashLength16(rotateRight(e + f, 43) + rotateRight(g, 30) + h,
-                        e + rotateRight(f + a, 18) + g, mul);
+               e + rotateRight(f + a, 18) + g, mul);
   }
 
   /*
@@ -196,7 +196,7 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
       z = rotateRight(z + w[0], 33) * K1;
       weakHashLength32WithSeeds(bytes, offset, v[1] * K1, x + w[0], v);
       weakHashLength32WithSeeds(bytes, offset + 32, z + w[1],
-                                y + load64(bytes, offset + 16), w);
+          y + load64(bytes, offset + 16), w);
       long tmp = x;
       x = z;
       z = tmp;
@@ -215,8 +215,8 @@ final class FarmHashFingerprint64 extends AbstractNonStreamingHashFunction {
     z = rotateRight(z + w[0], 33) * mul;
     weakHashLength32WithSeeds(bytes, offset, v[1] * mul, x + w[0], v);
     weakHashLength32WithSeeds(bytes, offset + 32, z + w[1],
-                              y + load64(bytes, offset + 16), w);
+        y + load64(bytes, offset + 16), w);
     return hashLength16(hashLength16(v[0], w[0], mul) + shiftMix(y) * K0 + x,
-                        hashLength16(v[1], w[1], mul) + z, mul);
+               hashLength16(v[1], w[1], mul) + z, mul);
   }
 }

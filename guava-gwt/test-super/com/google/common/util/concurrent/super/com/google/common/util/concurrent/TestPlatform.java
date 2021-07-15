@@ -58,7 +58,7 @@ final class TestPlatform {
   }
 
   static <V> V getDoneFromTimeoutOverload(Future<V> future)
-      throws ExecutionException {
+  throws ExecutionException {
     checkState(future.isDone(), "Future was expected to be done: %s", future);
     try {
       return future.get(0, SECONDS);

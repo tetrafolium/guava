@@ -184,7 +184,7 @@ public final class SignedBytes {
   }
 
   private enum LexicographicalComparator implements Comparator < byte
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override

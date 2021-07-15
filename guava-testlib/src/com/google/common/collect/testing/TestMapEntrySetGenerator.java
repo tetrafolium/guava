@@ -28,12 +28,12 @@ import java.util.Set;
  */
 @GwtCompatible
 public abstract class TestMapEntrySetGenerator<K, V>
-    implements TestSetGenerator<Map.Entry<K, V>> {
+  implements TestSetGenerator<Map.Entry<K, V>> {
   private final SampleElements<K> keys;
   private final SampleElements<V> values;
 
   protected TestMapEntrySetGenerator(SampleElements<K> keys,
-                                     SampleElements<V> values) {
+      SampleElements<V> values) {
     this.keys = keys;
     this.values = values;
   }
@@ -51,7 +51,7 @@ public abstract class TestMapEntrySetGenerator<K, V>
   }
 
   public abstract Set<Map.Entry<K, V>>
-      createFromEntries(Map.Entry<K, V>[] entries);
+  createFromEntries(Map.Entry<K, V>[] entries);
 
   @Override
   @SuppressWarnings("unchecked") // generic arrays make typesafety sad

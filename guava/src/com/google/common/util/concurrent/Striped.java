@@ -277,7 +277,7 @@ public abstract class Striped<L> {
    * @return a new {@code Striped<Semaphore>}
    */
   public static Striped<Semaphore> lazyWeakSemaphore(int stripes,
-                                                     final int permits) {
+      final int permits) {
     return lazy(stripes, new Supplier<Semaphore>() {
       @Override
       public Semaphore get() {
@@ -311,11 +311,11 @@ public abstract class Striped<L> {
   // ReentrantReadWriteLock is large enough to make padding probably unnecessary
   private static final Supplier<ReadWriteLock> READ_WRITE_LOCK_SUPPLIER =
       new Supplier<ReadWriteLock>() {
-        @Override
-        public ReadWriteLock get() {
-          return new ReentrantReadWriteLock();
-        }
-      };
+    @Override
+    public ReadWriteLock get() {
+      return new ReentrantReadWriteLock();
+    }
+  };
 
   private abstract static class PowerOfTwoStriped<L> extends Striped<L> {
     /** Capacity (power of two) minus one, for fast mod evaluation */
@@ -351,7 +351,7 @@ public abstract class Striped<L> {
     private CompactStriped(int stripes, Supplier<L> supplier) {
       super(stripes);
       Preconditions.checkArgument(stripes <= Ints.MAX_POWER_OF_TWO,
-                                  "Stripes must be <= 2^30)");
+          "Stripes must be <= 2^30)");
 
       this.array = new Object[mask + 1];
       for (int i = 0; i < array.length; i++) {

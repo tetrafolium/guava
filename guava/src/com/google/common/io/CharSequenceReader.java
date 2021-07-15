@@ -76,7 +76,7 @@ final class CharSequenceReader extends Reader {
 
   @Override
   public synchronized int read(char[] cbuf, int off, int len)
-      throws IOException {
+  throws IOException {
     checkPositionIndexes(off, off + len, cbuf.length);
     checkOpen();
     if (!hasRemaining()) {
@@ -113,7 +113,7 @@ final class CharSequenceReader extends Reader {
   @Override
   public synchronized void mark(int readAheadLimit) throws IOException {
     checkArgument(readAheadLimit >= 0,
-                  "readAheadLimit (%s) may not be negative", readAheadLimit);
+        "readAheadLimit (%s) may not be negative", readAheadLimit);
     checkOpen();
     mark = pos;
   }

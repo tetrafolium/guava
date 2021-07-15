@@ -44,7 +44,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapEntriesTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testEntries() {
     assertEqualIgnoringOrder(getSampleElements(), multimap().entries());
   }
@@ -54,7 +54,7 @@ public class MultimapEntriesTester<K, V>
   public void testContainsEntryWithNullKeyPresent() {
     initMultimapWithNullKey();
     assertContains(multimap().entries(),
-                   Helpers.mapEntry((K)null, getValueForNullKey()));
+        Helpers.mapEntry((K)null, getValueForNullKey()));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
@@ -67,7 +67,7 @@ public class MultimapEntriesTester<K, V>
   public void testContainsEntryWithNullValuePresent() {
     initMultimapWithNullValue();
     assertContains(multimap().entries(),
-                   Helpers.mapEntry(getKeyForNullValue(), (V)null));
+        Helpers.mapEntry(getKeyForNullValue(), (V)null));
   }
 
   @MapFeature.Require(ALLOWS_NULL_VALUE_QUERIES)
@@ -88,7 +88,7 @@ public class MultimapEntriesTester<K, V>
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRemoveAllPropagatesToMultimap() {
     assertTrue(multimap().entries().removeAll(
-        Collections.singleton(Helpers.mapEntry(k0(), v0()))));
+          Collections.singleton(Helpers.mapEntry(k0(), v0()))));
     expectMissing(Helpers.mapEntry(k0(), v0()));
     assertEquals(getNumElements() - 1, multimap().size());
     assertFalse(multimap().containsEntry(k0(), v0()));
@@ -98,9 +98,9 @@ public class MultimapEntriesTester<K, V>
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRetainAllPropagatesToMultimap() {
     multimap().entries().retainAll(
-        Collections.singleton(Helpers.mapEntry(k0(), v0())));
+      Collections.singleton(Helpers.mapEntry(k0(), v0())));
     assertEquals(getSubjectGenerator().create(Helpers.mapEntry(k0(), v0())),
-                 multimap());
+        multimap());
     assertEquals(1, multimap().size());
     assertTrue(multimap().containsEntry(k0(), v0()));
   }

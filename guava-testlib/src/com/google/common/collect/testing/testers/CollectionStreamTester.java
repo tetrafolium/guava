@@ -41,24 +41,24 @@ public class CollectionStreamTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(absent = KNOWN_ORDER)
   public void testStreamToArrayUnknownOrder() {
     synchronized (
-        collection) { // to allow Collections.synchronized* tests to pass
+      collection) {   // to allow Collections.synchronized* tests to pass
       Helpers.assertEqualIgnoringOrder(
-          getSampleElements(), Arrays.asList(collection.stream().toArray()));
+        getSampleElements(), Arrays.asList(collection.stream().toArray()));
     }
   }
 
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testStreamToArrayKnownOrder() {
     synchronized (
-        collection) { // to allow Collections.synchronized* tests to pass
+      collection) {   // to allow Collections.synchronized* tests to pass
       assertEquals(getOrderedElements(),
-                   Arrays.asList(collection.stream().toArray()));
+          Arrays.asList(collection.stream().toArray()));
     }
   }
 
   public void testStreamCount() {
     synchronized (
-        collection) { // to allow Collections.synchronized* tests to pass
+      collection) {   // to allow Collections.synchronized* tests to pass
       assertEquals(getNumElements(), collection.stream().count());
     }
   }

@@ -54,8 +54,8 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableMultiset<E>
-    extends ImmutableMultisetGwtSerializationDependencies<E>
-    implements Multiset<E> {
+  extends ImmutableMultisetGwtSerializationDependencies<E>
+  implements Multiset<E> {
 
   /**
    * Returns a {@code Collector} that accumulates the input elements into a new
@@ -67,7 +67,7 @@ public abstract class ImmutableMultiset<E>
   @Beta
   public static <E> Collector<E, ?, ImmutableMultiset<E>>
   toImmutableMultiset() {
-    return toImmutableMultiset(Function.identity(), e -> 1);
+    return toImmutableMultiset(Function.identity(), e->1);
   }
 
   /**
@@ -85,20 +85,20 @@ public abstract class ImmutableMultiset<E>
    */
   public static <T, E> Collector<T, ?, ImmutableMultiset<E>>
   toImmutableMultiset(Function<? super T, ? extends E> elementFunction,
-                      ToIntFunction<? super T> countFunction) {
+      ToIntFunction<? super T> countFunction) {
     checkNotNull(elementFunction);
     checkNotNull(countFunction);
     return Collector.of(
-        LinkedHashMultiset::create,
-        (multiset, t)
-            -> multiset.add(checkNotNull(elementFunction.apply(t)),
-                            countFunction.applyAsInt(t)),
-        (multiset1, multiset2)
-            -> {
-          multiset1.addAll(multiset2);
-          return multiset1;
-        },
-        (Multiset<E> multiset) -> copyFromEntries(multiset.entrySet()));
+      LinkedHashMultiset::create,
+      (multiset, t)
+      ->multiset.add(checkNotNull(elementFunction.apply(t)),
+      countFunction.applyAsInt(t)),
+      (multiset1, multiset2)
+      ->{
+      multiset1.addAll(multiset2);
+      return multiset1;
+    },
+      (Multiset<E> multiset)->copyFromEntries(multiset.entrySet()));
   }
 
   /**
@@ -176,16 +176,16 @@ public abstract class ImmutableMultiset<E>
    */
   @SuppressWarnings("unchecked") //
   public static <E> ImmutableMultiset<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                            E... others) {
+      E... others) {
     return new Builder<E>()
-        .add(e1)
-        .add(e2)
-        .add(e3)
-        .add(e4)
-        .add(e5)
-        .add(e6)
-        .add(others)
-        .build();
+           .add(e1)
+           .add(e2)
+           .add(e3)
+           .add(e4)
+           .add(e5)
+           .add(e6)
+           .add(others)
+           .build();
   }
 
   /**
@@ -256,24 +256,24 @@ public abstract class ImmutableMultiset<E>
   public UnmodifiableIterator<E> iterator() {
     final Iterator<Entry<E>> entryIterator = entrySet().iterator();
     return new UnmodifiableIterator<E>() {
-      int remaining;
-      E element;
+             int remaining;
+             E element;
 
-      @Override
-      public boolean hasNext() {
-        return (remaining > 0) || entryIterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return (remaining > 0) || entryIterator.hasNext();
+             }
 
-      @Override
-      public E next() {
-        if (remaining <= 0) {
-          Entry<E> entry = entryIterator.next();
-          element = entry.getElement();
-          remaining = entry.getCount();
-        }
-        remaining--;
-        return element;
-      }
+             @Override
+             public E next() {
+               if (remaining <= 0) {
+                 Entry<E> entry = entryIterator.next();
+                 element = entry.getElement();
+                 remaining = entry.getCount();
+               }
+               remaining--;
+               return element;
+             }
     };
   }
 

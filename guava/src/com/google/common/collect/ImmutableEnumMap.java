@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 final class ImmutableEnumMap<K extends Enum<K>, V>
-    extends IteratorBasedImmutableMap<K, V> {
+  extends IteratorBasedImmutableMap<K, V> {
   static <K extends Enum<K>, V> ImmutableMap<K, V>
   asImmutable(EnumMap<K, V> map) {
     switch (map.size()) {
@@ -99,7 +99,7 @@ final class ImmutableEnumMap<K extends Enum<K>, V>
   @Override
   Spliterator<Entry<K, V>> entrySpliterator() {
     return CollectSpliterators.map(delegate.entrySet().spliterator(),
-                                   Maps::unmodifiableEntry);
+               Maps::unmodifiableEntry);
   }
 
   @Override
@@ -122,7 +122,7 @@ final class ImmutableEnumMap<K extends Enum<K>, V>
    * This class is used to serialize ImmutableEnumMap instances.
    */
   private static class EnumSerializedForm<K extends Enum<K>, V>
-      implements Serializable {
+    implements Serializable {
     final EnumMap<K, V> delegate;
 
     EnumSerializedForm(EnumMap<K, V> delegate) { this.delegate = delegate; }

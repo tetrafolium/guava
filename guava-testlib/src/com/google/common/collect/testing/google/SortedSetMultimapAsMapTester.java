@@ -35,7 +35,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 public class SortedSetMultimapAsMapTester<K, V>
-    extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
   public void testAsMapValuesImplementSortedSet() {
     for (Collection<V> valueCollection : multimap().asMap().values()) {
       SortedSet<V> valueSet = (SortedSet<V>)valueCollection;

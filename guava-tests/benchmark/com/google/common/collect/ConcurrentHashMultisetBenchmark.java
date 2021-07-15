@@ -62,7 +62,7 @@ public class ConcurrentHashMultisetBenchmark {
     }
     keys = builder.build();
     threadPool = Executors.newFixedThreadPool(
-        threads, new ThreadFactoryBuilder().setDaemon(true).build());
+      threads, new ThreadFactoryBuilder().setDaemon(true).build());
   }
 
   @Benchmark
@@ -77,7 +77,7 @@ public class ConcurrentHashMultisetBenchmark {
 
   @Benchmark
   long addRemove(final int reps)
-      throws ExecutionException, InterruptedException {
+  throws ExecutionException, InterruptedException {
     return doMultithreadedLoop(new Callable<Long>() {
       @Override
       public Long call() {
@@ -87,7 +87,7 @@ public class ConcurrentHashMultisetBenchmark {
   }
 
   private long doMultithreadedLoop(Callable<Long> task)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
 
     List<Future<Long>> futures = Lists.newArrayListWithCapacity(threads);
     for (int i = 0; i < threads; i++) {
@@ -162,7 +162,7 @@ public class ConcurrentHashMultisetBenchmark {
    * integers for the values.
    */
   private static final class OldConcurrentHashMultiset<E>
-      extends AbstractMultiset<E> {
+    extends AbstractMultiset<E> {
     /** The number of occurrences of each element. */
     private final transient ConcurrentMap<E, Integer> countMap;
 
@@ -172,7 +172,7 @@ public class ConcurrentHashMultisetBenchmark {
      */
     public static <E> OldConcurrentHashMultiset<E> create() {
       return new OldConcurrentHashMultiset<E>(
-          new ConcurrentHashMap<E, Integer>());
+        new ConcurrentHashMap<E, Integer>());
     }
 
     @VisibleForTesting
@@ -271,8 +271,8 @@ public class ConcurrentHashMultisetBenchmark {
           }
         } else {
           checkArgument(occurrences <= Integer.MAX_VALUE - current,
-                        "Overflow adding %s occurrences to a count of %s",
-                        occurrences, current);
+              "Overflow adding %s occurrences to a count of %s",
+              occurrences, current);
           int next = current + occurrences;
           if (countMap.replace(element, current, next)) {
             return current;
@@ -426,19 +426,19 @@ public class ConcurrentHashMultisetBenchmark {
     Set<E> createElementSet() {
       final Set<E> delegate = countMap.keySet();
       return new ForwardingSet<E>() {
-        @Override
-        protected Set<E> delegate() {
-          return delegate;
-        }
+               @Override
+               protected Set<E> delegate() {
+                 return delegate;
+               }
 
-        @Override
-        public boolean remove(Object object) {
-          try {
-            return delegate.remove(object);
-          } catch (NullPointerException | ClassCastException e) {
-            return false;
-          }
-        }
+               @Override
+               public boolean remove(Object object) {
+                 try {
+                   return delegate.remove(object);
+                 } catch (NullPointerException | ClassCastException e) {
+                   return false;
+                 }
+               }
       };
     }
 
@@ -468,22 +468,22 @@ public class ConcurrentHashMultisetBenchmark {
       final Iterator<Map.Entry<E, Integer>> backingIterator =
           countMap.entrySet().iterator();
       return new Iterator<Entry<E>>() {
-        @Override
-        public boolean hasNext() {
-          return backingIterator.hasNext();
-        }
+               @Override
+               public boolean hasNext() {
+                 return backingIterator.hasNext();
+               }
 
-        @Override
-        public Multiset.Entry<E> next() {
-          Map.Entry<E, Integer> backingEntry = backingIterator.next();
-          return Multisets.immutableEntry(backingEntry.getKey(),
-                                          backingEntry.getValue());
-        }
+               @Override
+               public Multiset.Entry<E> next() {
+                 Map.Entry<E, Integer> backingEntry = backingIterator.next();
+                 return Multisets.immutableEntry(backingEntry.getKey(),
+                            backingEntry.getValue());
+               }
 
-        @Override
-        public void remove() {
-          backingIterator.remove();
-        }
+               @Override
+               public void remove() {
+                 backingIterator.remove();
+               }
       };
     }
 

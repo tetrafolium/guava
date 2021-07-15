@@ -126,7 +126,7 @@ public final class Resources {
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readLines(URL url, Charset charset,
-                                LineProcessor<T> callback) throws IOException {
+      LineProcessor<T> callback) throws IOException {
     return asCharSource(url, charset).readLines(callback);
   }
 
@@ -146,7 +146,7 @@ public final class Resources {
    * @throws IOException if an I/O error occurs
    */
   public static List<String> readLines(URL url, Charset charset)
-      throws IOException {
+  throws IOException {
     // don't use asCharSource(url, charset).readLines() because that returns
     // an immutable list, which would change the behavior of this method
     return readLines(url, charset, new LineProcessor<List<String>>() {
@@ -196,7 +196,7 @@ public final class Resources {
   public static URL getResource(String resourceName) {
     ClassLoader loader =
         MoreObjects.firstNonNull(Thread.currentThread().getContextClassLoader(),
-                                 Resources.class.getClassLoader());
+        Resources.class.getClassLoader());
     URL url = loader.getResource(resourceName);
     checkArgument(url != null, "resource %s not found.", resourceName);
     return url;
@@ -211,7 +211,7 @@ public final class Resources {
   public static URL getResource(Class<?> contextClass, String resourceName) {
     URL url = contextClass.getResource(resourceName);
     checkArgument(url != null, "resource %s relative to %s not found.",
-                  resourceName, contextClass.getName());
+        resourceName, contextClass.getName());
     return url;
   }
 }

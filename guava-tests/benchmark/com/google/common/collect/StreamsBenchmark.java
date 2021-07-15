@@ -74,13 +74,13 @@ public class StreamsBenchmark {
     REDUCE_LAST {
       @Override
       Object operate(Stream<?> stream) {
-        return stream.reduce((a, b) -> b);
+        return stream.reduce((a, b)->b);
       }
     },
     REDUCE_LAST_PARALLEL {
       @Override
       Object operate(Stream<?> stream) {
-        return stream.parallel().reduce((a, b) -> b);
+        return stream.parallel().reduce((a, b)->b);
       }
     };
 

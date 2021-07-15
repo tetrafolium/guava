@@ -32,7 +32,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestEnumMultisetGenerator
-    implements TestMultisetGenerator<AnEnum> {
+  implements TestMultisetGenerator<AnEnum> {
   @Override
   public SampleElements<AnEnum> samples() {
     return new Enums();

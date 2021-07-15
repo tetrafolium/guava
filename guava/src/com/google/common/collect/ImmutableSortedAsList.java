@@ -32,9 +32,9 @@ import javax.annotation.Nullable;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("serial")
 final class ImmutableSortedAsList<E>
-    extends RegularImmutableAsList<E> implements SortedIterable<E> {
+  extends RegularImmutableAsList<E> implements SortedIterable<E> {
   ImmutableSortedAsList(ImmutableSortedSet<E> backingSet,
-                        ImmutableList<E> backingList) {
+      ImmutableList<E> backingList) {
     super(backingSet, backingList);
   }
 
@@ -90,15 +90,15 @@ final class ImmutableSortedAsList<E>
   subListUnchecked(int fromIndex, int toIndex) {
     ImmutableList<E> parentSubList = super.subListUnchecked(fromIndex, toIndex);
     return new RegularImmutableSortedSet<E>(parentSubList, comparator())
-        .asList();
+           .asList();
   }
 
   @Override
   public Spliterator<E> spliterator() {
     return CollectSpliterators.indexed(
-        size(),
-        ImmutableList.SPLITERATOR_CHARACTERISTICS | Spliterator.SORTED |
-            Spliterator.DISTINCT,
-        delegateList()::get, comparator());
+      size(),
+      ImmutableList.SPLITERATOR_CHARACTERISTICS | Spliterator.SORTED |
+      Spliterator.DISTINCT,
+      delegateList() ::get, comparator());
   }
 }

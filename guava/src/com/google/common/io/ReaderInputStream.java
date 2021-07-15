@@ -85,10 +85,10 @@ final class ReaderInputStream extends InputStream {
    */
   ReaderInputStream(Reader reader, Charset charset, int bufferSize) {
     this(reader,
-         charset.newEncoder()
-             .onMalformedInput(CodingErrorAction.REPLACE)
-             .onUnmappableCharacter(CodingErrorAction.REPLACE),
-         bufferSize);
+    charset.newEncoder()
+    .onMalformedInput(CodingErrorAction.REPLACE)
+    .onUnmappableCharacter(CodingErrorAction.REPLACE),
+    bufferSize);
   }
 
   /**
@@ -104,7 +104,7 @@ final class ReaderInputStream extends InputStream {
     this.reader = checkNotNull(reader);
     this.encoder = checkNotNull(encoder);
     checkArgument(bufferSize > 0, "bufferSize must be positive: %s",
-                  bufferSize);
+        bufferSize);
     encoder.reset();
 
     charBuffer = CharBuffer.allocate(bufferSize);
@@ -138,7 +138,7 @@ final class ReaderInputStream extends InputStream {
     int totalBytesRead = 0;
     boolean doneEncoding = endOfInput;
 
-  DRAINING:
+DRAINING:
     while (true) {
       // We stay in draining mode until there are no bytes left in the output
       // buffer. Then we go back to encoding/flushing.

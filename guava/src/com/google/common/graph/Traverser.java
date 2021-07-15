@@ -141,11 +141,11 @@ public abstract class Traverser<N> {
     checkNotNull(tree);
     if (tree instanceof BaseGraph) {
       checkArgument(((BaseGraph<?>)tree).isDirected(),
-                    "Undirected graphs can never be trees.");
+          "Undirected graphs can never be trees.");
     }
     if (tree instanceof Network) {
       checkArgument(((Network<?, ?>)tree).isDirected(),
-                    "Undirected networks can never be trees.");
+          "Undirected networks can never be trees.");
     }
     return new TreeTraverser<>(tree);
   }
@@ -264,30 +264,30 @@ public abstract class Traverser<N> {
     @Override
     public Iterable<N> breadthFirst(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new BreadthFirstIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new BreadthFirstIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPreOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstIterator(startNode, Order.PREORDER);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstIterator(startNode, Order.PREORDER);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPostOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstIterator(startNode, Order.POSTORDER);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstIterator(startNode, Order.POSTORDER);
+               }
       };
     }
 
@@ -340,7 +340,7 @@ public abstract class Traverser<N> {
           boolean firstVisit = visited.add(node.node);
           boolean lastVisit = !node.successorIterator.hasNext();
           boolean produceNode = (firstVisit && order == Order.PREORDER) ||
-                                (lastVisit && order == Order.POSTORDER);
+              (lastVisit && order == Order.POSTORDER);
           if (lastVisit) {
             stack.pop();
           } else {
@@ -387,30 +387,30 @@ public abstract class Traverser<N> {
     @Override
     public Iterable<N> breadthFirst(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new BreadthFirstIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new BreadthFirstIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPreOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstPreOrderIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstPreOrderIterator(startNode);
+               }
       };
     }
 
     @Override
     public Iterable<N> depthFirstPostOrder(final N startNode) {
       return new Iterable<N>() {
-        @Override
-        public Iterator<N> iterator() {
-          return new DepthFirstPostOrderIterator(startNode);
-        }
+               @Override
+               public Iterator<N> iterator() {
+                 return new DepthFirstPostOrderIterator(startNode);
+               }
       };
     }
 
@@ -433,7 +433,7 @@ public abstract class Traverser<N> {
     }
 
     private final class DepthFirstPreOrderIterator
-        extends UnmodifiableIterator<N> {
+      extends UnmodifiableIterator<N> {
       private final Deque<Iterator<? extends N>> stack = new ArrayDeque<>();
 
       DepthFirstPreOrderIterator(N root) {
@@ -463,7 +463,7 @@ public abstract class Traverser<N> {
     }
 
     private final class DepthFirstPostOrderIterator
-        extends AbstractIterator<N> {
+      extends AbstractIterator<N> {
       private final ArrayDeque<NodeAndChildren> stack = new ArrayDeque<>();
 
       DepthFirstPostOrderIterator(N root) { stack.addLast(withChildren(root)); }

@@ -47,7 +47,7 @@ public class IntMathRoundingBenchmark {
   }
 
   @Param(
-      {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
+    {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
   @Benchmark

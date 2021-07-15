@@ -48,7 +48,7 @@ final class Platform {
   }
 
   static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass,
-                                                          String value) {
+      String value) {
     WeakReference<? extends Enum<?>> ref =
         Enums.getEnumConstants(enumClass).get(value);
     return ref == null ? Optional.<T>absent()
@@ -93,7 +93,7 @@ final class Platform {
 
   private static void logPatternCompilerError(ServiceConfigurationError e) {
     logger.log(Level.WARNING,
-               "Error loading regex compiler, falling back to next option", e);
+        "Error loading regex compiler, falling back to next option", e);
   }
 
   private static final class JdkPatternCompiler implements PatternCompiler {

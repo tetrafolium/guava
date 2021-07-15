@@ -158,7 +158,7 @@ public final class StatsAccumulator {
         double delta = values.mean() - mean;
         mean += delta * values.count() / count;
         sumOfSquaresOfDeltas += values.sumOfSquaresOfDeltas() +
-                                delta * (values.mean() - mean) * values.count();
+            delta * (values.mean() - mean) * values.count();
       } else {
         mean = calculateNewMeanNonFinite(mean, values.mean());
         sumOfSquaresOfDeltas = NaN;

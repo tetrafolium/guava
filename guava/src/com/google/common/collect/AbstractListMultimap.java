@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractListMultimap<K, V>
-    extends AbstractMapBasedMultimap<K, V> implements ListMultimap<K, V> {
+  extends AbstractMapBasedMultimap<K, V> implements ListMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *

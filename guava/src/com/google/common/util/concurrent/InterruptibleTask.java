@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 // AtomicReferenceFieldUpdater. This reference stores Thread instances and
 // DONE/INTERRUPTED - they have a common ancestor of Runnable.
 abstract class InterruptibleTask<T>
-    extends AtomicReference<Runnable> implements Runnable {
+  extends AtomicReference<Runnable> implements Runnable {
   private static final class DoNothingRunnable implements Runnable {
     @Override
     public void run() {}
@@ -107,7 +107,7 @@ abstract class InterruptibleTask<T>
    * arrive before this method is called. Complete Futures here.
    */
   abstract void afterRanInterruptibly(@Nullable T result,
-                                      @Nullable Throwable error);
+      @Nullable Throwable error);
 
   final void interruptTask() {
     // Since the Thread is replaced by DONE before run() invokes listeners or

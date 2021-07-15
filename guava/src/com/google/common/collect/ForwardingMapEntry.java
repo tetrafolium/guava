@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingMapEntry<K, V>
-    extends ForwardingObject implements Map.Entry<K, V> {
+  extends ForwardingObject implements Map.Entry<K, V> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
@@ -96,7 +96,7 @@ public abstract class ForwardingMapEntry<K, V>
     if (object instanceof Entry) {
       Entry<?, ?> that = (Entry<?, ?>)object;
       return Objects.equal(this.getKey(), that.getKey()) &&
-          Objects.equal(this.getValue(), that.getValue());
+             Objects.equal(this.getValue(), that.getValue());
     }
     return false;
   }

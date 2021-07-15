@@ -86,9 +86,9 @@ public final class PairedStatsAccumulator {
       // above. Note that non-finite inputs will have sumOfProductsOfDeltas =
       // NaN, so non-finite values will result in NaN naturally.
       sumOfProductsOfDeltas += values.sumOfProductsOfDeltas() +
-                               (values.xStats().mean() - xStats.mean()) *
-                                   (values.yStats().mean() - yStats.mean()) *
-                                   values.count();
+          (values.xStats().mean() - xStats.mean()) *
+          (values.yStats().mean() - yStats.mean()) *
+          values.count();
     }
     yStats.addAll(values.yStats());
   }
@@ -98,7 +98,7 @@ public final class PairedStatsAccumulator {
    */
   public PairedStats snapshot() {
     return new PairedStats(xStats.snapshot(), yStats.snapshot(),
-                           sumOfProductsOfDeltas);
+               sumOfProductsOfDeltas);
   }
 
   /**
@@ -200,7 +200,7 @@ public final class PairedStatsAccumulator {
     double productOfSumsOfSquaresOfDeltas =
         ensurePositive(xSumOfSquaresOfDeltas * ySumOfSquaresOfDeltas);
     return ensureInUnitRange(sumOfProductsOfDeltas /
-                             Math.sqrt(productOfSumsOfSquaresOfDeltas));
+               Math.sqrt(productOfSumsOfSquaresOfDeltas));
   }
 
   /**
@@ -251,7 +251,7 @@ public final class PairedStatsAccumulator {
     if (xSumOfSquaresOfDeltas > 0.0) {
       if (yStats.sumOfSquaresOfDeltas() > 0.0) {
         return LinearTransformation.mapping(xStats.mean(), yStats.mean())
-            .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
+               .withSlope(sumOfProductsOfDeltas / xSumOfSquaresOfDeltas);
       } else {
         return LinearTransformation.horizontal(yStats.mean());
       }

@@ -42,7 +42,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapRemoveEntryTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRemoveAbsent() {
     assertFalse(multimap().remove(k0(), v1()));

@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public abstract class ForwardingCache<K, V>
-    extends ForwardingObject implements Cache<K, V> {
+  extends ForwardingObject implements Cache<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingCache() {}
@@ -58,7 +58,7 @@ public abstract class ForwardingCache<K, V>
    */
   @Override
   public V get(K key, Callable<? extends V> valueLoader)
-      throws ExecutionException {
+  throws ExecutionException {
     return delegate().get(key, valueLoader);
   }
 
@@ -131,7 +131,7 @@ public abstract class ForwardingCache<K, V>
    * @since 10.0
    */
   public abstract static class SimpleForwardingCache<K, V>
-      extends ForwardingCache<K, V> {
+    extends ForwardingCache<K, V> {
     private final Cache<K, V> delegate;
 
     protected SimpleForwardingCache(Cache<K, V> delegate) {

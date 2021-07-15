@@ -129,7 +129,7 @@ public class EventBus {
    */
   public EventBus(String identifier) {
     this(identifier, MoreExecutors.directExecutor(),
-         Dispatcher.perThreadDispatchQueue(), LoggingHandler.INSTANCE);
+    Dispatcher.perThreadDispatchQueue(), LoggingHandler.INSTANCE);
   }
 
   /**
@@ -140,11 +140,11 @@ public class EventBus {
    */
   public EventBus(SubscriberExceptionHandler exceptionHandler) {
     this("default", MoreExecutors.directExecutor(),
-         Dispatcher.perThreadDispatchQueue(), exceptionHandler);
+    Dispatcher.perThreadDispatchQueue(), exceptionHandler);
   }
 
   EventBus(String identifier, Executor executor, Dispatcher dispatcher,
-           SubscriberExceptionHandler exceptionHandler) {
+      SubscriberExceptionHandler exceptionHandler) {
     this.identifier = checkNotNull(identifier);
     this.executor = checkNotNull(executor);
     this.dispatcher = checkNotNull(dispatcher);
@@ -168,7 +168,7 @@ public class EventBus {
    * Handles the given exception thrown by a subscriber with the given context.
    */
   void handleSubscriberException(Throwable e,
-                                 SubscriberExceptionContext context) {
+      SubscriberExceptionContext context) {
     checkNotNull(e);
     checkNotNull(context);
     try {
@@ -176,10 +176,10 @@ public class EventBus {
     } catch (Throwable e2) {
       // if the handler threw an exception... well, just log it
       logger.log(Level.SEVERE,
-                 String.format(
-                     Locale.ROOT,
-                     "Exception %s thrown while handling exception: %s", e2, e),
-                 e2);
+          String.format(
+            Locale.ROOT,
+            "Exception %s thrown while handling exception: %s", e2, e),
+          e2);
     }
   }
 
@@ -233,7 +233,7 @@ public class EventBus {
 
     @Override
     public void handleException(Throwable exception,
-                                SubscriberExceptionContext context) {
+        SubscriberExceptionContext context) {
       Logger logger = logger(context);
       if (logger.isLoggable(Level.SEVERE)) {
         logger.log(Level.SEVERE, message(context), exception);
@@ -242,15 +242,15 @@ public class EventBus {
 
     private static Logger logger(SubscriberExceptionContext context) {
       return Logger.getLogger(EventBus.class.getName() + "." +
-                              context.getEventBus().identifier());
+                 context.getEventBus().identifier());
     }
 
     private static String message(SubscriberExceptionContext context) {
       Method method = context.getSubscriberMethod();
       return "Exception thrown by subscriber method " + method.getName() + '(' +
-          method.getParameterTypes()[0].getName() + ')' + " on subscriber " +
-          context.getSubscriber() +
-          " when dispatching event: " + context.getEvent();
+             method.getParameterTypes()[0].getName() + ')' + " on subscriber " +
+             context.getSubscriber() +
+             " when dispatching event: " + context.getEvent();
     }
   }
 }

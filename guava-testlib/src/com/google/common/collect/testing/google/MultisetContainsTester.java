@@ -33,7 +33,7 @@ public class MultisetContainsTester<E> extends AbstractMultisetTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testContainsAllMultisetIgnoresFrequency() {
     assertTrue(getMultiset().containsAll(
-        getSubjectGenerator().create(e0(), e0(), e0())));
+          getSubjectGenerator().create(e0(), e0(), e0())));
   }
 
   @CollectionSize.Require(absent = ZERO)

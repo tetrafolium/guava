@@ -125,7 +125,7 @@ public final class ImmutableIntArray implements Serializable {
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableIntArray of(int e0, int e1, int e2, int e3, int e4,
-                                     int e5) {
+      int e5) {
     return new ImmutableIntArray(new int[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -195,7 +195,7 @@ public final class ImmutableIntArray implements Serializable {
    */
   public static Builder builder(int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s",
-                  initialCapacity);
+        initialCapacity);
     return new Builder(initialCapacity);
   }
 
@@ -289,7 +289,7 @@ public final class ImmutableIntArray implements Serializable {
     public Builder addAll(ImmutableIntArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count,
-                       values.length());
+          values.length());
       count += values.length();
       return this;
     }
@@ -450,7 +450,7 @@ public final class ImmutableIntArray implements Serializable {
 
   private Spliterator.OfInt spliterator() {
     return Spliterators.spliterator(
-        array, start, end, Spliterator.IMMUTABLE | Spliterator.ORDERED);
+      array, start, end, Spliterator.IMMUTABLE | Spliterator.ORDERED);
   }
 
   /**
@@ -471,7 +471,7 @@ public final class ImmutableIntArray implements Serializable {
   }
 
   static class AsList
-      extends AbstractList<Integer> implements RandomAccess, Serializable {
+    extends AbstractList<Integer> implements RandomAccess, Serializable {
     private final ImmutableIntArray parent;
 
     private AsList(ImmutableIntArray parent) { this.parent = parent; }

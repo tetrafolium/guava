@@ -87,7 +87,7 @@ public final class JdkFutureAdapters {
    * @since 12.0
    */
   public static <V> ListenableFuture<V> listenInPoolThread(Future<V> future,
-                                                           Executor executor) {
+      Executor executor) {
     checkNotNull(executor);
     if (future instanceof ListenableFuture) {
       return (ListenableFuture<V>)future;
@@ -106,13 +106,13 @@ public final class JdkFutureAdapters {
    * exception, the listeners will not be invoked.
    */
   private static class ListenableFutureAdapter<V>
-      extends ForwardingFuture<V> implements ListenableFuture<V> {
+    extends ForwardingFuture<V> implements ListenableFuture<V> {
 
     private static final ThreadFactory threadFactory =
         new ThreadFactoryBuilder()
-            .setDaemon(true)
-            .setNameFormat("ListenableFutureAdapter-thread-%d")
-            .build();
+        .setDaemon(true)
+        .setNameFormat("ListenableFutureAdapter-thread-%d")
+        .build();
     private static final Executor defaultAdapterExecutor =
         Executors.newCachedThreadPool(threadFactory);
 

@@ -33,7 +33,7 @@ import java.util.Set;
  */
 @GwtCompatible
 public abstract class ForwardingTable<R, C, V>
-    extends ForwardingObject implements Table<R, C, V> {
+  extends ForwardingObject implements Table<R, C, V> {
   /** Constructor for use by subclasses. */
   protected ForwardingTable() {}
 

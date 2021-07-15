@@ -77,7 +77,7 @@ public class HashFunctionBenchmark {
     int result = 37;
     for (int i = 0; i < reps; i++) {
       result ^= hashFunction.hashBytes(testBytes, 1, testBytes.length - 1)
-                    .asBytes()[0];
+          .asBytes()[0];
     }
     return result;
   }

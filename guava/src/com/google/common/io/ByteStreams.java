@@ -100,7 +100,7 @@ public final class ByteStreams {
    */
   @CanIgnoreReturnValue
   public static long copy(InputStream from, OutputStream to)
-      throws IOException {
+  throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     byte[] buf = createBuffer();
@@ -127,7 +127,7 @@ public final class ByteStreams {
    */
   @CanIgnoreReturnValue
   public static long copy(ReadableByteChannel from, WritableByteChannel to)
-      throws IOException {
+  throws IOException {
     checkNotNull(from);
     checkNotNull(to);
     if (from instanceof FileChannel) {
@@ -180,7 +180,7 @@ public final class ByteStreams {
    * anyway.
    */
   static byte[] toByteArray(InputStream in, int expectedSize)
-      throws IOException {
+  throws IOException {
     byte[] bytes = new byte[expectedSize];
     int remaining = expectedSize;
 
@@ -216,7 +216,7 @@ public final class ByteStreams {
    * BAOS that provides limited access to its internal byte array.
    */
   private static final class FastByteArrayOutputStream
-      extends ByteArrayOutputStream {
+    extends ByteArrayOutputStream {
     /**
      * Writes the contents of the internal buffer to the given array starting at
      * the given offset. Assumes the array has space to hold count bytes.
@@ -260,7 +260,7 @@ public final class ByteStreams {
   public static ByteArrayDataInput newDataInput(byte[] bytes, int start) {
     checkPositionIndex(start, bytes.length);
     return newDataInput(
-        new ByteArrayInputStream(bytes, start, bytes.length - start));
+      new ByteArrayInputStream(bytes, start, bytes.length - start));
   }
 
   /**
@@ -438,7 +438,7 @@ public final class ByteStreams {
     // so avoid doing that if we can.
     if (size < 0) {
       throw new IllegalArgumentException(
-          String.format("Invalid size: %s", size));
+              String.format("Invalid size: %s", size));
     }
     return newDataOutput(new ByteArrayOutputStream(size));
   }
@@ -466,7 +466,7 @@ public final class ByteStreams {
 
   @SuppressWarnings("deprecation") // for writeBytes
   private static class ByteArrayDataOutputStream
-      implements ByteArrayDataOutput {
+    implements ByteArrayDataOutput {
 
     final DataOutput output;
     final ByteArrayOutputStream byteArrayOutputSteam;
@@ -754,11 +754,11 @@ public final class ByteStreams {
    * @throws IOException if an I/O error occurs.
    */
   public static void readFully(InputStream in, byte[] b, int off, int len)
-      throws IOException {
+  throws IOException {
     int read = read(in, b, off, len);
     if (read != len) {
       throw new EOFException("reached end of stream after reading " + read +
-                             " bytes; " + len + " bytes expected");
+                " bytes; " + len + " bytes expected");
     }
   }
 
@@ -777,7 +777,7 @@ public final class ByteStreams {
     long skipped = skipUpTo(in, n);
     if (skipped < n) {
       throw new EOFException("reached end of stream after skipping " + skipped +
-                             " bytes; " + n + " bytes expected");
+                " bytes; " + n + " bytes expected");
     }
   }
 
@@ -836,7 +836,7 @@ public final class ByteStreams {
    */
   @CanIgnoreReturnValue // some processors won't return a useful result
   public static <T> T readBytes(InputStream input, ByteProcessor<T> processor)
-      throws IOException {
+  throws IOException {
     checkNotNull(input);
     checkNotNull(processor);
 
@@ -877,7 +877,7 @@ public final class ByteStreams {
   // Sometimes you don't care how many bytes you actually read, I guess.
   // (You know that it's either going to read len bytes or stop at EOF.)
   public static int read(InputStream in, byte[] b, int off, int len)
-      throws IOException {
+  throws IOException {
     checkNotNull(in);
     checkNotNull(b);
     if (len < 0) {

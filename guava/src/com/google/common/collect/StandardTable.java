@@ -68,12 +68,12 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 class StandardTable<R, C, V>
-    extends AbstractTable<R, C, V> implements Serializable {
+  extends AbstractTable<R, C, V> implements Serializable {
   @GwtTransient final Map<R, Map<C, V>> backingMap;
   @GwtTransient final Supplier<? extends Map<C, V>> factory;
 
   StandardTable(Map<R, Map<C, V>> backingMap,
-                Supplier<? extends Map<C, V>> factory) {
+      Supplier<? extends Map<C, V>> factory) {
     this.backingMap = backingMap;
     this.factory = factory;
   }
@@ -83,7 +83,7 @@ class StandardTable<R, C, V>
   @Override
   public boolean contains(@Nullable Object rowKey, @Nullable Object columnKey) {
     return rowKey != null && columnKey != null &&
-        super.contains(rowKey, columnKey);
+           super.contains(rowKey, columnKey);
   }
 
   @Override
@@ -189,7 +189,7 @@ class StandardTable<R, C, V>
   }
 
   private boolean containsMapping(Object rowKey, Object columnKey,
-                                  Object value) {
+      Object value) {
     return value != null && value.equals(get(rowKey, columnKey));
   }
 
@@ -260,7 +260,7 @@ class StandardTable<R, C, V>
       }
       Entry<C, V> columnEntry = columnIterator.next();
       return Tables.immutableCell(rowEntry.getKey(), columnEntry.getKey(),
-                                  columnEntry.getValue());
+                 columnEntry.getValue());
     }
 
     @Override
@@ -275,15 +275,15 @@ class StandardTable<R, C, V>
   @Override
   Spliterator<Cell<R, C, V>> cellSpliterator() {
     return CollectSpliterators.flatMap(
-        backingMap.entrySet().spliterator(),
-        (Map.Entry<R, Map<C, V>> rowEntry)
-            -> CollectSpliterators.map(
-                rowEntry.getValue().entrySet().spliterator(),
-                (Map.Entry<C, V> columnEntry)
-                    -> Tables.immutableCell(rowEntry.getKey(),
-                                            columnEntry.getKey(),
-                                            columnEntry.getValue())),
-        Spliterator.DISTINCT | Spliterator.SIZED, size());
+      backingMap.entrySet().spliterator(),
+      (Map.Entry<R, Map<C, V>> rowEntry)
+      ->CollectSpliterators.map(
+        rowEntry.getValue().entrySet().spliterator(),
+        (Map.Entry<C, V> columnEntry)
+        ->Tables.immutableCell(rowEntry.getKey(),
+        columnEntry.getKey(),
+        columnEntry.getValue())),
+      Spliterator.DISTINCT | Spliterator.SIZED, size());
   }
 
   @Override
@@ -300,7 +300,7 @@ class StandardTable<R, C, V>
 
     Map<C, V> backingRowMap() {
       return (backingRowMap == null ||
-              (backingRowMap.isEmpty() && backingMap.containsKey(rowKey)))
+             (backingRowMap.isEmpty() && backingMap.containsKey(rowKey)))
           ? backingRowMap = computeBackingRowMap()
           : backingRowMap;
     }
@@ -319,7 +319,7 @@ class StandardTable<R, C, V>
     public boolean containsKey(Object key) {
       Map<C, V> backingRowMap = backingRowMap();
       return (key != null && backingRowMap != null) &&
-          Maps.safeContainsKey(backingRowMap, key);
+             Maps.safeContainsKey(backingRowMap, key);
     }
 
     @Override
@@ -374,21 +374,21 @@ class StandardTable<R, C, V>
       }
       final Iterator<Entry<C, V>> iterator = map.entrySet().iterator();
       return new Iterator<Entry<C, V>>() {
-        @Override
-        public boolean hasNext() {
-          return iterator.hasNext();
-        }
+               @Override
+               public boolean hasNext() {
+                 return iterator.hasNext();
+               }
 
-        @Override
-        public Entry<C, V> next() {
-          return wrapEntry(iterator.next());
-        }
+               @Override
+               public Entry<C, V> next() {
+                 return wrapEntry(iterator.next());
+               }
 
-        @Override
-        public void remove() {
-          iterator.remove();
-          maintainEmptyInvariant();
-        }
+               @Override
+               public void remove() {
+                 iterator.remove();
+                 maintainEmptyInvariant();
+               }
       };
     }
 
@@ -399,26 +399,26 @@ class StandardTable<R, C, V>
         return Spliterators.emptySpliterator();
       }
       return CollectSpliterators.map(map.entrySet().spliterator(),
-                                     this::wrapEntry);
+                 this::wrapEntry);
     }
 
     Entry<C, V> wrapEntry(final Entry<C, V> entry) {
       return new ForwardingMapEntry<C, V>() {
-        @Override
-        protected Entry<C, V> delegate() {
-          return entry;
-        }
+               @Override
+               protected Entry<C, V> delegate() {
+                 return entry;
+               }
 
-        @Override
-        public V setValue(V value) {
-          return super.setValue(checkNotNull(value));
-        }
+               @Override
+               public V setValue(V value) {
+                 return super.setValue(checkNotNull(value));
+               }
 
-        @Override
-        public boolean equals(Object object) {
-          // TODO(lowasser): identify why this affects GWT tests
-          return standardEquals(object);
-        }
+               @Override
+               public boolean equals(Object object) {
+                 // TODO(lowasser): identify why this affects GWT tests
+                 return standardEquals(object);
+               }
       };
     }
   }
@@ -610,7 +610,7 @@ class StandardTable<R, C, V>
       @Override
       public boolean remove(Object obj) {
         return obj != null &&
-            removeFromColumnIf(Maps.<V>valuePredicateOnEntries(equalTo(obj)));
+               removeFromColumnIf(Maps.<V>valuePredicateOnEntries(equalTo(obj)));
       }
 
       @Override
@@ -801,12 +801,12 @@ class StandardTable<R, C, V>
       @Override
       public Iterator<Entry<R, Map<C, V>>> iterator() {
         return Maps.asMapEntryIterator(backingMap.keySet(),
-                                       new Function<R, Map<C, V>>() {
-                                         @Override
-                                         public Map<C, V> apply(R rowKey) {
-                                           return row(rowKey);
-                                         }
-                                       });
+                   new Function<R, Map<C, V>>() {
+          @Override
+          public Map<C, V> apply(R rowKey) {
+            return row(rowKey);
+          }
+        });
       }
 
       @Override
@@ -819,7 +819,7 @@ class StandardTable<R, C, V>
         if (obj instanceof Entry) {
           Entry<?, ?> entry = (Entry<?, ?>)obj;
           return entry.getKey() != null && entry.getValue() instanceof Map &&
-              Collections2.safeContains(backingMap.entrySet(), entry);
+                 Collections2.safeContains(backingMap.entrySet(), entry);
         }
         return false;
       }
@@ -829,7 +829,7 @@ class StandardTable<R, C, V>
         if (obj instanceof Entry) {
           Entry<?, ?> entry = (Entry<?, ?>)obj;
           return entry.getKey() != null && entry.getValue() instanceof Map &&
-              backingMap.entrySet().remove(entry);
+                 backingMap.entrySet().remove(entry);
         }
         return false;
       }
@@ -884,12 +884,12 @@ class StandardTable<R, C, V>
       @Override
       public Iterator<Entry<C, Map<R, V>>> iterator() {
         return Maps.asMapEntryIterator(columnKeySet(),
-                                       new Function<C, Map<R, V>>() {
-                                         @Override
-                                         public Map<R, V> apply(C columnKey) {
-                                           return column(columnKey);
-                                         }
-                                       });
+                   new Function<C, Map<R, V>>() {
+          @Override
+          public Map<R, V> apply(C columnKey) {
+            return column(columnKey);
+          }
+        });
       }
 
       @Override

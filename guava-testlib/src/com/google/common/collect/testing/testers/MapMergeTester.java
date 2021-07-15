@@ -44,10 +44,10 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testAbsent() {
     assertEquals("Map.merge(absent, value, function) should return value", v3(),
-                 getMap().merge(k3(), v3(), (oldV, newV) -> {
-                   throw new AssertionFailedError(
-                       "Should not call merge function if key was absent");
-                 }));
+        getMap().merge(k3(), v3(), (oldV, newV)->{
+      throw new AssertionFailedError(
+        "Should not call merge function if key was absent");
+    }));
     expectAdded(e3());
   }
 
@@ -56,21 +56,21 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   public void testMappedToNull() {
     initMapWithNullValue();
     assertEquals(
-        "Map.merge(keyMappedToNull, value, function) should return value", v3(),
-        getMap().merge(getKeyForNullValue(), v3(), (oldV, newV) -> {
-          throw new AssertionFailedError(
-              "Should not call merge function if key was mapped to null");
-        }));
+      "Map.merge(keyMappedToNull, value, function) should return value", v3(),
+      getMap().merge(getKeyForNullValue(), v3(), (oldV, newV)->{
+      throw new AssertionFailedError(
+        "Should not call merge function if key was mapped to null");
+    }));
     expectReplacement(entry(getKeyForNullValue(), v3()));
   }
 
   @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_KEYS})
   public void testMergeAbsentNullKey() {
     assertEquals("Map.merge(null, value, function) should return value", v3(),
-                 getMap().merge(null, v3(), (oldV, newV) -> {
-                   throw new AssertionFailedError(
-                       "Should not call merge function if key was absent");
-                 }));
+        getMap().merge(null, v3(), (oldV, newV)->{
+      throw new AssertionFailedError(
+        "Should not call merge function if key was absent");
+    }));
     expectAdded(entry(null, v3()));
   }
 
@@ -78,12 +78,12 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testMergePresent() {
     assertEquals(
-        "Map.merge(present, value, function) should return function result",
-        v4(), getMap().merge(k0(), v3(), (oldV, newV) -> {
-          assertEquals(v0(), oldV);
-          assertEquals(v3(), newV);
-          return v4();
-        }));
+      "Map.merge(present, value, function) should return function result",
+      v4(), getMap().merge(k0(), v3(), (oldV, newV)->{
+      assertEquals(v0(), oldV);
+      assertEquals(v3(), newV);
+      return v4();
+    }));
     expectReplacement(entry(k0(), v4()));
   }
 
@@ -93,7 +93,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testMergeFunctionThrows() {
     try {
-      getMap().merge(k0(), v3(), (oldV, newV) -> {
+      getMap().merge(k0(), v3(), (oldV, newV)->{
         assertEquals(v0(), oldV);
         assertEquals(v3(), newV);
         throw new ExpectedException();
@@ -108,20 +108,20 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testMergePresentToNull() {
     assertNull(
-        "Map.merge(present, value, functionReturningNull) should return null",
-        getMap().merge(k0(), v3(), (oldV, newV) -> {
-          assertEquals(v0(), oldV);
-          assertEquals(v3(), newV);
-          return null;
-        }));
+      "Map.merge(present, value, functionReturningNull) should return null",
+      getMap().merge(k0(), v3(), (oldV, newV)->{
+      assertEquals(v0(), oldV);
+      assertEquals(v3(), newV);
+      return null;
+    }));
     expectMissing(e0());
   }
 
   public void testMergeNullValue() {
     try {
-      getMap().merge(k0(), null, (oldV, newV) -> {
+      getMap().merge(k0(), null, (oldV, newV)->{
         throw new AssertionFailedError(
-            "Should not call merge function if value was null");
+          "Should not call merge function if value was null");
       });
       fail("Expected NullPointerException or UnsupportedOperationException");
     } catch (NullPointerException | UnsupportedOperationException expected) {
@@ -140,7 +140,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
   public void testMergeUnsupported() {
     try {
       getMap().merge(k3(), v3(),
-                     (oldV, newV) -> { throw new AssertionFailedError(); });
+          (oldV, newV)->{ throw new AssertionFailedError(); });
       fail("Expected UnsupportedOperationException");
     } catch (UnsupportedOperationException expected) {
     }

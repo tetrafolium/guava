@@ -50,7 +50,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingCollection<E>
-    extends ForwardingObject implements Collection<E> {
+  extends ForwardingObject implements Collection<E> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */

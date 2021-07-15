@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public abstract class ImmutableBiMap<K, V>
-    extends ImmutableBiMapFauxverideShim<K, V> implements BiMap<K, V> {
+  extends ImmutableBiMapFauxverideShim<K, V> implements BiMap<K, V> {
 
   /**
    * Returns a {@link Collector} that accumulates elements into an {@code
@@ -57,7 +57,7 @@ public abstract class ImmutableBiMap<K, V>
   @Beta
   public static <T, K, V> Collector<T, ?, ImmutableBiMap<K, V>>
   toImmutableBiMap(Function<? super T, ? extends K> keyFunction,
-                   Function<? super T, ? extends V> valueFunction) {
+      Function<? super T, ? extends V> valueFunction) {
     return CollectCollectors.toImmutableBiMap(keyFunction, valueFunction);
   }
 
@@ -92,9 +92,9 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3) {
+      V v3) {
     return RegularImmutableBiMap.fromEntries(entryOf(k1, v1), entryOf(k2, v2),
-                                             entryOf(k3, v3));
+               entryOf(k3, v3));
   }
 
   /**
@@ -103,9 +103,9 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4) {
+      V v3, K k4, V v4) {
     return RegularImmutableBiMap.fromEntries(entryOf(k1, v1), entryOf(k2, v2),
-                                             entryOf(k3, v3), entryOf(k4, v4));
+               entryOf(k3, v3), entryOf(k4, v4));
   }
 
   /**
@@ -114,10 +114,10 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4, K k5, V v5) {
+      V v3, K k4, V v4, K k5, V v5) {
     return RegularImmutableBiMap.fromEntries(entryOf(k1, v1), entryOf(k2, v2),
-                                             entryOf(k3, v3), entryOf(k4, v4),
-                                             entryOf(k5, v5));
+               entryOf(k3, v3), entryOf(k4, v4),
+               entryOf(k5, v5));
   }
 
   // looking for of() with > 5 entries? Use the builder instead.
@@ -300,8 +300,8 @@ public abstract class ImmutableBiMap<K, V>
             entries = Arrays.copyOf(entries, size);
           }
           Arrays.sort(entries, 0, size,
-                      Ordering.from(valueComparator)
-                          .onResultOf(Maps.<V>valueFunction()));
+              Ordering.from(valueComparator)
+              .onResultOf(Maps.<V>valueFunction()));
         }
         entriesUsed = size == entries.length;
         return RegularImmutableBiMap.fromEntryArray(size, entries);

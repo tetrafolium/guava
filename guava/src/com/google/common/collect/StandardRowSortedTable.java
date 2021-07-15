@@ -47,7 +47,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 class StandardRowSortedTable<R, C, V>
-    extends StandardTable<R, C, V> implements RowSortedTable<R, C, V> {
+  extends StandardTable<R, C, V> implements RowSortedTable<R, C, V> {
   /*
    * TODO(jlevy): Consider adding headTable, tailTable, and subTable methods,
    * which return a Table view with rows keys in a given range. Create a
@@ -55,7 +55,7 @@ class StandardRowSortedTable<R, C, V>
    */
 
   StandardRowSortedTable(SortedMap<R, Map<C, V>> backingMap,
-                         Supplier<? extends Map<C, V>> factory) {
+      Supplier<? extends Map<C, V>> factory) {
     super(backingMap, factory);
   }
 
@@ -121,8 +121,8 @@ class StandardRowSortedTable<R, C, V>
     public SortedMap<R, Map<C, V>> headMap(R toKey) {
       checkNotNull(toKey);
       return new StandardRowSortedTable<R, C, V>(
-                 sortedBackingMap().headMap(toKey), factory)
-          .rowMap();
+        sortedBackingMap().headMap(toKey), factory)
+             .rowMap();
     }
 
     @Override
@@ -130,16 +130,16 @@ class StandardRowSortedTable<R, C, V>
       checkNotNull(fromKey);
       checkNotNull(toKey);
       return new StandardRowSortedTable<R, C, V>(
-                 sortedBackingMap().subMap(fromKey, toKey), factory)
-          .rowMap();
+        sortedBackingMap().subMap(fromKey, toKey), factory)
+             .rowMap();
     }
 
     @Override
     public SortedMap<R, Map<C, V>> tailMap(R fromKey) {
       checkNotNull(fromKey);
       return new StandardRowSortedTable<R, C, V>(
-                 sortedBackingMap().tailMap(fromKey), factory)
-          .rowMap();
+        sortedBackingMap().tailMap(fromKey), factory)
+             .rowMap();
     }
   }
 

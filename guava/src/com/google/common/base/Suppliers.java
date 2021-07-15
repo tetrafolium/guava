@@ -44,14 +44,14 @@ public final class Suppliers {
    * {@code supplier} or invoke {@code function} until it is called.
    */
   public static <F, T> Supplier<T> compose(Function<? super F, T> function,
-                                           Supplier<F> supplier) {
+      Supplier<F> supplier) {
     Preconditions.checkNotNull(function);
     Preconditions.checkNotNull(supplier);
     return new SupplierComposition<>(function, supplier);
   }
 
   private static class SupplierComposition<F, T>
-      implements Supplier<T>, Serializable {
+    implements Supplier<T>, Serializable {
     final Function<? super F, T> function;
     final Supplier<F> supplier;
 
@@ -216,7 +216,7 @@ public final class Suppliers {
 
   @VisibleForTesting
   static class ExpiringMemoizingSupplier<T>
-      implements Supplier<T>, Serializable {
+    implements Supplier<T>, Serializable {
     final Supplier<T> delegate;
     final long durationNanos;
     transient volatile T value;
@@ -224,7 +224,7 @@ public final class Suppliers {
     transient volatile long expirationNanos;
 
     ExpiringMemoizingSupplier(Supplier<T> delegate, long duration,
-                              TimeUnit unit) {
+        TimeUnit unit) {
       this.delegate = Preconditions.checkNotNull(delegate);
       this.durationNanos = unit.toNanos(duration);
       Preconditions.checkArgument(duration > 0);
@@ -261,7 +261,7 @@ public final class Suppliers {
       // This is a little strange if the unit the user provided was not NANOS,
       // but we don't want to store the unit just for toString
       return "Suppliers.memoizeWithExpiration(" + delegate + ", " +
-          durationNanos + ", NANOS)";
+             durationNanos + ", NANOS)";
     }
 
     private static final long serialVersionUID = 0;
@@ -275,7 +275,7 @@ public final class Suppliers {
   }
 
   private static class SupplierOfInstance<T>
-      implements Supplier<T>, Serializable {
+    implements Supplier<T>, Serializable {
     final T instance;
 
     SupplierOfInstance(@Nullable T instance) { this.instance = instance; }
@@ -316,7 +316,7 @@ public final class Suppliers {
   }
 
   private static class ThreadSafeSupplier<T>
-      implements Supplier<T>, Serializable {
+    implements Supplier<T>, Serializable {
     final Supplier<T> delegate;
 
     ThreadSafeSupplier(Supplier<T> delegate) { this.delegate = delegate; }

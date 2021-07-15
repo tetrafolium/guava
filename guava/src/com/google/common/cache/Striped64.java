@@ -316,21 +316,21 @@ abstract class Striped64 extends Number {
     }
     try {
       return java.security.AccessController.doPrivileged(
-          new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-            public sun.misc.Unsafe run() throws Exception {
-              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                f.setAccessible(true);
-                Object x = f.get(null);
-                if (k.isInstance(x))
-                  return k.cast(x);
-              }
-              throw new NoSuchFieldError("the Unsafe");
-            }
-          });
+        new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+        public sun.misc.Unsafe run() throws Exception {
+          Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+          for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+            f.setAccessible(true);
+            Object x = f.get(null);
+            if (k.isInstance(x))
+              return k.cast(x);
+          }
+          throw new NoSuchFieldError("the Unsafe");
+        }
+      });
     } catch (java.security.PrivilegedActionException e) {
       throw new RuntimeException("Could not initialize intrinsics",
-                                 e.getCause());
+                e.getCause());
     }
   }
 }

@@ -116,5 +116,5 @@ abstract class LineBuffer {
    * @throws IOException if an I/O error occurs
    */
   protected abstract void handleLine(String line, String end)
-      throws IOException;
+  throws IOException;
 }

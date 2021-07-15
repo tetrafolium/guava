@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public final class RemovalNotification<K, V>
-    extends SimpleImmutableEntry<K, V> {
+  extends SimpleImmutableEntry<K, V> {
   private final RemovalCause cause;
 
   /**
@@ -52,7 +52,7 @@ public final class RemovalNotification<K, V>
   }
 
   private RemovalNotification(@Nullable K key, @Nullable V value,
-                              RemovalCause cause) {
+      RemovalCause cause) {
     super(key, value);
     this.cause = checkNotNull(cause);
   }

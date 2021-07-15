@@ -40,7 +40,7 @@ import java.util.concurrent.TimeoutException;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 public abstract class ForwardingExecutorService
-    extends ForwardingObject implements ExecutorService {
+  extends ForwardingObject implements ExecutorService {
   /** Constructor for use by subclasses. */
   protected ForwardingExecutorService() {}
 
@@ -48,33 +48,33 @@ public abstract class ForwardingExecutorService
 
   @Override
   public boolean awaitTermination(long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().awaitTermination(timeout, unit);
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException {
+  throws InterruptedException {
     return delegate().invokeAll(tasks);
   }
 
   @Override
   public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks,
-                                       long timeout, TimeUnit unit)
-      throws InterruptedException {
+      long timeout, TimeUnit unit)
+  throws InterruptedException {
     return delegate().invokeAll(tasks, timeout, unit);
   }
 
   @Override
   public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException, ExecutionException {
+  throws InterruptedException, ExecutionException {
     return delegate().invokeAny(tasks);
   }
 
   @Override
   public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout,
-                         TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+      TimeUnit unit)
+  throws InterruptedException, ExecutionException, TimeoutException {
     return delegate().invokeAny(tasks, timeout, unit);
   }
 

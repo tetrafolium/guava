@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true)
 final class ByFunctionOrdering<F, T>
-    extends Ordering<F> implements Serializable {
+  extends Ordering<F> implements Serializable {
   final Function<F, ? extends T> function;
   final Ordering<T> ordering;
 
@@ -52,7 +52,7 @@ final class ByFunctionOrdering<F, T>
     if (object instanceof ByFunctionOrdering) {
       ByFunctionOrdering<?, ?> that = (ByFunctionOrdering<?, ?>)object;
       return this.function.equals(that.function) &&
-          this.ordering.equals(that.ordering);
+             this.ordering.equals(that.ordering);
     }
     return false;
   }

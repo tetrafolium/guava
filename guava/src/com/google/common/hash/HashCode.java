@@ -123,7 +123,7 @@ public abstract class HashCode {
   public static HashCode fromInt(int hash) { return new IntHashCode(hash); }
 
   private static final class IntHashCode
-      extends HashCode implements Serializable {
+    extends HashCode implements Serializable {
     final int hash;
 
     IntHashCode(int hash) { this.hash = hash; }
@@ -147,7 +147,7 @@ public abstract class HashCode {
     @Override
     public long asLong() {
       throw new IllegalStateException(
-          "this HashCode only has 32 bits; cannot create a long");
+              "this HashCode only has 32 bits; cannot create a long");
     }
 
     @Override
@@ -179,7 +179,7 @@ public abstract class HashCode {
   public static HashCode fromLong(long hash) { return new LongHashCode(hash); }
 
   private static final class LongHashCode
-      extends HashCode implements Serializable {
+    extends HashCode implements Serializable {
     final long hash;
 
     LongHashCode(long hash) { this.hash = hash; }
@@ -236,7 +236,7 @@ public abstract class HashCode {
    */
   public static HashCode fromBytes(byte[] bytes) {
     checkArgument(bytes.length >= 1,
-                  "A HashCode must contain at least 1 byte.");
+        "A HashCode must contain at least 1 byte.");
     return fromBytesNoCopy(bytes.clone());
   }
 
@@ -250,7 +250,7 @@ public abstract class HashCode {
   }
 
   private static final class BytesHashCode
-      extends HashCode implements Serializable {
+    extends HashCode implements Serializable {
     final byte[] bytes;
 
     BytesHashCode(byte[] bytes) { this.bytes = checkNotNull(bytes); }
@@ -268,18 +268,18 @@ public abstract class HashCode {
     @Override
     public int asInt() {
       checkState(bytes.length >= 4,
-                 "HashCode#asInt() requires >= 4 bytes (it only has %s bytes).",
-                 bytes.length);
+          "HashCode#asInt() requires >= 4 bytes (it only has %s bytes).",
+          bytes.length);
       return (bytes[0] & 0xFF) | ((bytes[1] & 0xFF) << 8) |
-          ((bytes[2] & 0xFF) << 16) | ((bytes[3] & 0xFF) << 24);
+             ((bytes[2] & 0xFF) << 16) | ((bytes[3] & 0xFF) << 24);
     }
 
     @Override
     public long asLong() {
       checkState(
-          bytes.length >= 8,
-          "HashCode#asLong() requires >= 8 bytes (it only has %s bytes).",
-          bytes.length);
+        bytes.length >= 8,
+        "HashCode#asLong() requires >= 8 bytes (it only has %s bytes).",
+        bytes.length);
       return padToLong();
     }
 
@@ -334,10 +334,10 @@ public abstract class HashCode {
    */
   public static HashCode fromString(String string) {
     checkArgument(string.length() >= 2,
-                  "input string (%s) must have at least 2 characters", string);
+        "input string (%s) must have at least 2 characters", string);
     checkArgument(string.length() % 2 == 0,
-                  "input string (%s) must have an even number of characters",
-                  string);
+        "input string (%s) must have an even number of characters",
+        string);
 
     byte[] bytes = new byte[string.length() / 2];
     for (int i = 0; i < string.length(); i += 2) {

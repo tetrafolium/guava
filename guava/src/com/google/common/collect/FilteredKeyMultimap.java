@@ -39,12 +39,12 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 class FilteredKeyMultimap<K, V>
-    extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
+  extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
   final Multimap<K, V> unfiltered;
   final Predicate<? super K> keyPredicate;
 
   FilteredKeyMultimap(Multimap<K, V> unfiltered,
-                      Predicate<? super K> keyPredicate) {
+      Predicate<? super K> keyPredicate) {
     this.unfiltered = checkNotNull(unfiltered);
     this.keyPredicate = checkNotNull(keyPredicate);
   }
@@ -121,14 +121,14 @@ class FilteredKeyMultimap<K, V>
     @Override
     public boolean add(V element) {
       throw new IllegalArgumentException("Key does not satisfy predicate: " +
-                                         key);
+                key);
     }
 
     @Override
     public boolean addAll(Collection<? extends V> collection) {
       checkNotNull(collection);
       throw new IllegalArgumentException("Key does not satisfy predicate: " +
-                                         key);
+                key);
     }
 
     @Override
@@ -158,7 +158,7 @@ class FilteredKeyMultimap<K, V>
     public void add(int index, V element) {
       checkPositionIndex(index, 0);
       throw new IllegalArgumentException("Key does not satisfy predicate: " +
-                                         key);
+                key);
     }
 
     @CanIgnoreReturnValue
@@ -167,7 +167,7 @@ class FilteredKeyMultimap<K, V>
       checkNotNull(elements);
       checkPositionIndex(index, 0);
       throw new IllegalArgumentException("Key does not satisfy predicate: " +
-                                         key);
+                key);
     }
 
     @Override

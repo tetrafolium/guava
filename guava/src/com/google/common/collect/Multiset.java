@@ -316,7 +316,7 @@ public interface Multiset<E> extends Collection<E> {
   default void forEachEntry(ObjIntConsumer<? super E> action) {
     checkNotNull(action);
     entrySet().forEach(
-        entry -> action.accept(entry.getElement(), entry.getCount()));
+      entry->action.accept(entry.getElement(), entry.getCount()));
   }
 
   // Comparison and hashing
@@ -475,7 +475,7 @@ public interface Multiset<E> extends Collection<E> {
   @Override
   default void forEach(Consumer<? super E> action) {
     checkNotNull(action);
-    entrySet().forEach(entry -> {
+    entrySet().forEach(entry->{
       E elem = entry.getElement();
       int count = entry.getCount();
       for (int i = 0; i < count; i++) {

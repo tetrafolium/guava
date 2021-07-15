@@ -30,7 +30,7 @@ import java.util.Map;
 public class ImmutableEnumMap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ImmutableEnumMap<?, ?> instance) {}
+      ImmutableEnumMap<?, ?> instance) {}
 
   public static <K extends Enum<K>, V> ImmutableEnumMap<?, ?>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -45,8 +45,8 @@ public class ImmutableEnumMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ImmutableEnumMap<?, ?> instance)
-      throws SerializationException {
+      ImmutableEnumMap<?, ?> instance)
+  throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

@@ -148,7 +148,7 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
-        "Should not contain null key after unsupported putAll(containsNullKey)");
+      "Should not contain null key after unsupported putAll(containsNullKey)");
   }
 
   @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_VALUES})
@@ -166,7 +166,7 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null value after unsupported putAll(containsNullValue)");
+      "Should not contain null value after unsupported putAll(containsNullValue)");
   }
 
   @MapFeature.Require(SUPPORTS_PUT)
@@ -198,6 +198,6 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
   @GwtIncompatible // reflection
   public static Method getPutAllNullKeyUnsupportedMethod() {
     return Helpers.getMethod(MapPutAllTester.class,
-                             "testPutAll_nullKeyUnsupported");
+               "testPutAll_nullKeyUnsupported");
   }
 }

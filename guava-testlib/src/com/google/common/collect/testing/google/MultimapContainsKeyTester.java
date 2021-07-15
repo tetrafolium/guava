@@ -33,7 +33,7 @@ import com.google.common.collect.testing.features.MapFeature;
  */
 @GwtCompatible
 public class MultimapContainsKeyTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   public void testContainsKeyYes() {
     assertTrue(multimap().containsKey(k0()));
@@ -56,7 +56,7 @@ public class MultimapContainsKeyTester<K, V>
   public void testContainsKeyAgreesWithAsMap() {
     for (K k : sampleKeys()) {
       assertEquals(multimap().containsKey(k),
-                   multimap().asMap().containsKey(k));
+          multimap().asMap().containsKey(k));
     }
   }
 

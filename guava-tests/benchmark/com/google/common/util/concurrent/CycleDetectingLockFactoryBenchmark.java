@@ -38,7 +38,7 @@ public class CycleDetectingLockFactoryBenchmark {
   @BeforeExperiment
   void setUp() throws Exception {
     this.factory = CycleDetectingLockFactory.newInstance(
-        CycleDetectingLockFactory.Policies.WARN);
+      CycleDetectingLockFactory.Policies.WARN);
     this.plainLocks = new Lock[lockNestingDepth];
     for (int i = 0; i < lockNestingDepth; i++) {
       plainLocks[i] = new ReentrantLock();

@@ -44,8 +44,8 @@ public final class MoreCollectors {
    */
   private static final Collector<Object, ?, Optional<Object>> TO_OPTIONAL =
       Collector.of(ToOptionalState::new, ToOptionalState::add,
-                   ToOptionalState::combine, ToOptionalState::getOptional,
-                   Collector.Characteristics.UNORDERED);
+      ToOptionalState::combine, ToOptionalState::getOptional,
+      Collector.Characteristics.UNORDERED);
 
   /**
    * A collector that converts a stream of zero or one elements to an {@code
@@ -63,12 +63,12 @@ public final class MoreCollectors {
 
   private static final Collector<Object, ?, Object> ONLY_ELEMENT =
       Collector.of(ToOptionalState::new,
-                   (state, o)
-                       -> state.add((o == null) ? NULL_PLACEHOLDER : o),
-                   ToOptionalState::combine, state -> {
-                     Object result = state.getElement();
-                     return (result == NULL_PLACEHOLDER) ? null : result;
-                   }, Collector.Characteristics.UNORDERED);
+      (state, o)
+      ->state.add((o == null) ? NULL_PLACEHOLDER : o),
+      ToOptionalState::combine, state->{
+    Object result = state.getElement();
+    return (result == NULL_PLACEHOLDER) ? null : result;
+  }, Collector.Characteristics.UNORDERED);
 
   /**
    * A collector that takes a stream containing exactly one element and returns
@@ -98,8 +98,8 @@ public final class MoreCollectors {
 
     IllegalArgumentException multiples(boolean overflow) {
       StringBuilder sb = new StringBuilder()
-                             .append("expected one element but was: <")
-                             .append(element);
+          .append("expected one element but was: <")
+          .append(element);
       for (Object o : extras) {
         sb.append(", ").append(o);
       }

@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 @GwtIncompatible
 final class DescendingImmutableSortedMultiset<E>
-    extends ImmutableSortedMultiset<E> {
+  extends ImmutableSortedMultiset<E> {
   private final transient ImmutableSortedMultiset<E> forward;
 
   DescendingImmutableSortedMultiset(ImmutableSortedMultiset<E> forward) {
@@ -71,13 +71,13 @@ final class DescendingImmutableSortedMultiset<E>
 
   @Override
   public ImmutableSortedMultiset<E> headMultiset(E upperBound,
-                                                 BoundType boundType) {
+      BoundType boundType) {
     return forward.tailMultiset(upperBound, boundType).descendingMultiset();
   }
 
   @Override
   public ImmutableSortedMultiset<E> tailMultiset(E lowerBound,
-                                                 BoundType boundType) {
+      BoundType boundType) {
     return forward.headMultiset(lowerBound, boundType).descendingMultiset();
   }
 

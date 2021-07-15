@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  * @author Daniel J. Bernstein
  */
 final class SipHashFunction
-    extends AbstractHashFunction implements Serializable {
+  extends AbstractHashFunction implements Serializable {
   static final HashFunction SIP_HASH_24 =
       new SipHashFunction(2, 4, 0x0706050403020100L, 0x0f0e0d0c0b0a0908L);
 
@@ -56,13 +56,13 @@ final class SipHashFunction
    */
   SipHashFunction(int c, int d, long k0, long k1) {
     checkArgument(
-        c > 0,
-        "The number of SipRound iterations (c=%s) during Compression must be positive.",
-        c);
+      c > 0,
+      "The number of SipRound iterations (c=%s) during Compression must be positive.",
+      c);
     checkArgument(
-        d > 0,
-        "The number of SipRound iterations (d=%s) during Finalization must be positive.",
-        d);
+      d > 0,
+      "The number of SipRound iterations (d=%s) during Finalization must be positive.",
+      d);
     this.c = c;
     this.d = d;
     this.k0 = k0;
@@ -91,7 +91,7 @@ final class SipHashFunction
     if (object instanceof SipHashFunction) {
       SipHashFunction other = (SipHashFunction)object;
       return (c == other.c) && (d == other.d) && (k0 == other.k0) &&
-          (k1 == other.k1);
+             (k1 == other.k1);
     }
     return false;
   }

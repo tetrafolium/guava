@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("serial") // uses writeReplace, not default serialization
 @GwtIncompatible
 final class RegularImmutableSortedMultiset<E>
-    extends ImmutableSortedMultiset<E> {
+  extends ImmutableSortedMultiset<E> {
   private static final long[] ZERO_CUMULATIVE_COUNTS = {0};
 
   static final ImmutableSortedMultiset<Comparable> NATURAL_EMPTY_MULTISET =
@@ -54,8 +54,8 @@ final class RegularImmutableSortedMultiset<E>
   }
 
   RegularImmutableSortedMultiset(RegularImmutableSortedSet<E> elementSet,
-                                 long[] cumulativeCounts, int offset,
-                                 int length) {
+      long[] cumulativeCounts, int offset,
+      int length) {
     this.elementSet = elementSet;
     this.cumulativeCounts = cumulativeCounts;
     this.offset = offset;
@@ -64,13 +64,13 @@ final class RegularImmutableSortedMultiset<E>
 
   private int getCount(int index) {
     return (int)(cumulativeCounts[offset + index + 1] -
-                 cumulativeCounts[offset + index]);
+           cumulativeCounts[offset + index]);
   }
 
   @Override
   Entry<E> getEntry(int index) {
     return Multisets.immutableEntry(elementSet.asList().get(index),
-                                    getCount(index));
+               getCount(index));
   }
 
   @Override
@@ -110,17 +110,17 @@ final class RegularImmutableSortedMultiset<E>
 
   @Override
   public ImmutableSortedMultiset<E> headMultiset(E upperBound,
-                                                 BoundType boundType) {
+      BoundType boundType) {
     return getSubMultiset(
-        0, elementSet.headIndex(upperBound, checkNotNull(boundType) == CLOSED));
+      0, elementSet.headIndex(upperBound, checkNotNull(boundType) == CLOSED));
   }
 
   @Override
   public ImmutableSortedMultiset<E> tailMultiset(E lowerBound,
-                                                 BoundType boundType) {
+      BoundType boundType) {
     return getSubMultiset(
-        elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED),
-        length);
+      elementSet.tailIndex(lowerBound, checkNotNull(boundType) == CLOSED),
+      length);
   }
 
   ImmutableSortedMultiset<E> getSubMultiset(int from, int to) {
@@ -133,7 +133,7 @@ final class RegularImmutableSortedMultiset<E>
       RegularImmutableSortedSet<E> subElementSet =
           elementSet.getSubSet(from, to);
       return new RegularImmutableSortedMultiset<E>(
-          subElementSet, cumulativeCounts, offset + from, to - from);
+        subElementSet, cumulativeCounts, offset + from, to - from);
     }
   }
 

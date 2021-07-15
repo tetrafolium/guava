@@ -103,8 +103,8 @@ public final class TestingExecutors {
   }
 
   private static final class NoOpScheduledExecutorService
-      extends AbstractListeningExecutorService
-      implements ListeningScheduledExecutorService {
+    extends AbstractListeningExecutorService
+    implements ListeningScheduledExecutorService {
 
     private volatile boolean shutdown;
 
@@ -145,26 +145,26 @@ public final class TestingExecutors {
 
     @Override
     public ListenableScheduledFuture<?> schedule(Runnable command, long delay,
-                                                 TimeUnit unit) {
+        TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     @Override
     public ListenableScheduledFuture<?>
     scheduleAtFixedRate(Runnable command, long initialDelay, long period,
-                        TimeUnit unit) {
+        TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     @Override
     public ListenableScheduledFuture<?>
     scheduleWithFixedDelay(Runnable command, long initialDelay, long delay,
-                           TimeUnit unit) {
+        TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     private static class NeverScheduledFuture<V>
-        extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
+      extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
 
       static <V> NeverScheduledFuture<V> create() {
         return new NeverScheduledFuture<V>();
@@ -178,7 +178,7 @@ public final class TestingExecutors {
       @Override
       public int compareTo(Delayed other) {
         return Longs.compare(getDelay(TimeUnit.NANOSECONDS),
-                             other.getDelay(TimeUnit.NANOSECONDS));
+                   other.getDelay(TimeUnit.NANOSECONDS));
       }
     }
   }

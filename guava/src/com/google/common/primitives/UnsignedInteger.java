@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class UnsignedInteger
-    extends Number implements Comparable<UnsignedInteger> {
+  extends Number implements Comparable<UnsignedInteger> {
   public static final UnsignedInteger ZERO = fromIntBits(0);
   public static final UnsignedInteger ONE = fromIntBits(1);
   public static final UnsignedInteger MAX_VALUE = fromIntBits(-1);
@@ -82,8 +82,8 @@ public final class UnsignedInteger
    */
   public static UnsignedInteger valueOf(long value) {
     checkArgument(
-        (value & INT_MASK) == value,
-        "value (%s) is outside the range for an unsigned integer value", value);
+      (value & INT_MASK) == value,
+      "value (%s) is outside the range for an unsigned integer value", value);
     return fromIntBits((int)value);
   }
 
@@ -99,8 +99,8 @@ public final class UnsignedInteger
   public static UnsignedInteger valueOf(BigInteger value) {
     checkNotNull(value);
     checkArgument(
-        value.signum() >= 0 && value.bitLength() <= Integer.SIZE,
-        "value (%s) is outside the range for an unsigned integer value", value);
+      value.signum() >= 0 && value.bitLength() <= Integer.SIZE,
+      "value (%s) is outside the range for an unsigned integer value", value);
     return fromIntBits(value.intValue());
   }
 

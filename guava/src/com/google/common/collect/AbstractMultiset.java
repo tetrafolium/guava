@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractMultiset<E>
-    extends AbstractCollection<E> implements Multiset<E> {
+  extends AbstractCollection<E> implements Multiset<E> {
   // Query Operations
 
   @Override

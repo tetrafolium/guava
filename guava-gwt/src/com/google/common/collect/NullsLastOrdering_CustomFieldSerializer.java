@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class NullsLastOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 NullsLastOrdering<?> instance) {}
+      NullsLastOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static NullsLastOrdering<Object>
@@ -37,8 +37,8 @@ public class NullsLastOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               NullsLastOrdering<?> instance)
-      throws SerializationException {
+      NullsLastOrdering<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.ordering);
   }
 }

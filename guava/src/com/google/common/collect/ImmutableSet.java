@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableSet<E>
-    extends ImmutableCollection<E> implements Set<E> {
+  extends ImmutableCollection<E> implements Set<E> {
   static final int SPLITERATOR_CHARACTERISTICS =
       ImmutableCollection.SPLITERATOR_CHARACTERISTICS | Spliterator.DISTINCT;
 
@@ -134,8 +134,8 @@ public abstract class ImmutableSet<E>
    */
   @SafeVarargs // For Eclipse. For internal javac we have disabled this
                // pointless type of warning.
-               public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4,
-                                                    E e5, E e6, E... others) {
+  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4,
+      E e5, E e6, E... others) {
     final int paramCount = 6;
     Object[] elements = new Object[paramCount + others.length];
     elements[0] = e1;
@@ -357,8 +357,8 @@ public abstract class ImmutableSet<E>
     if (object == this) {
       return true;
     } else if (object instanceof ImmutableSet && isHashCodeFast() &&
-               ((ImmutableSet<?>)object).isHashCodeFast() &&
-               hashCode() != object.hashCode()) {
+        ((ImmutableSet<?>)object).isHashCodeFast() &&
+        hashCode() != object.hashCode()) {
       return false;
     }
     return Sets.equalsImpl(this, object);
@@ -396,7 +396,7 @@ public abstract class ImmutableSet<E>
     @Override
     public Spliterator<E> spliterator() {
       return CollectSpliterators.indexed(size(), SPLITERATOR_CHARACTERISTICS,
-                                         this::get);
+                 this::get);
     }
 
     @Override
@@ -411,15 +411,15 @@ public abstract class ImmutableSet<E>
     @Override
     ImmutableList<E> createAsList() {
       return new ImmutableAsList<E>() {
-        @Override
-        public E get(int index) {
-          return Indexed.this.get(index);
-        }
+               @Override
+               public E get(int index) {
+                 return Indexed.this.get(index);
+               }
 
-        @Override
-        Indexed<E> delegateCollection() {
-          return Indexed.this;
-        }
+               @Override
+               Indexed<E> delegateCollection() {
+                 return Indexed.this;
+               }
       };
     }
   }
@@ -492,7 +492,7 @@ public abstract class ImmutableSet<E>
    * @since 2.0
    */
   public static class Builder<E>
-      extends ImmutableCollection.ArrayBasedBuilder<E> {
+    extends ImmutableCollection.ArrayBasedBuilder<E> {
     @VisibleForTesting Object[] hashTable;
     private int hashCode;
 
@@ -641,7 +641,7 @@ public abstract class ImmutableSet<E>
         ImmutableSet<E> result;
         if (hashTable != null && size == contents.length) {
           result = new RegularImmutableSet<E>(contents, hashCode, hashTable,
-                                              hashTable.length - 1);
+              hashTable.length - 1);
         } else {
           result = construct(size, contents);
           // construct has the side effect of deduping contents, so we update

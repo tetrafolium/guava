@@ -39,7 +39,7 @@ import java.util.concurrent.TimeoutException;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtCompatible
 public abstract class ForwardingFuture<V>
-    extends ForwardingObject implements Future<V> {
+  extends ForwardingObject implements Future<V> {
   /** Constructor for use by subclasses. */
   protected ForwardingFuture() {}
 
@@ -67,7 +67,7 @@ public abstract class ForwardingFuture<V>
 
   @Override
   public V get(long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+  throws InterruptedException, ExecutionException, TimeoutException {
     return delegate().get(timeout, unit);
   }
 
@@ -80,7 +80,7 @@ public abstract class ForwardingFuture<V>
    * @since 9.0
    */
   public abstract static class SimpleForwardingFuture<V>
-      extends ForwardingFuture<V> {
+    extends ForwardingFuture<V> {
     private final Future<V> delegate;
 
     protected SimpleForwardingFuture(Future<V> delegate) {

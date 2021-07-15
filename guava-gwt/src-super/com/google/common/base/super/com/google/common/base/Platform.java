@@ -42,7 +42,7 @@ final class Platform {
   }
 
   static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass,
-                                                          String value) {
+      String value) {
     try {
       return Optional.of(Enum.valueOf(enumClass, value));
     } catch (IllegalArgumentException iae) {
@@ -56,8 +56,8 @@ final class Platform {
 
   @JsMethod
   static native boolean stringIsNullOrEmpty(@Nullable String string) /*-{
-    return !string;
-  }-*/;
+                                                                        return !string;
+                                                                        }-*/;
 
   @JsType(isNative = true, name = "Number", namespace = GLOBAL)
   private static class Number {

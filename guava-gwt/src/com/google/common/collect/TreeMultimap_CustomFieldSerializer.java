@@ -29,7 +29,7 @@ import java.util.Comparator;
 public class TreeMultimap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader in,
-                                 TreeMultimap<?, ?> out) {}
+      TreeMultimap<?, ?> out) {}
 
   @SuppressWarnings("unchecked")
   public static TreeMultimap<Object, Object>
@@ -38,12 +38,12 @@ public class TreeMultimap_CustomFieldSerializer {
     Comparator<Object> valueComparator = (Comparator<Object>)in.readObject();
 
     return (TreeMultimap<Object, Object>)Multimap_CustomFieldSerializerBase
-        .populate(in, TreeMultimap.create(keyComparator, valueComparator));
+           .populate(in, TreeMultimap.create(keyComparator, valueComparator));
   }
 
   public static void serialize(SerializationStreamWriter out,
-                               TreeMultimap<?, ?> multimap)
-      throws SerializationException {
+      TreeMultimap<?, ?> multimap)
+  throws SerializationException {
     out.writeObject(multimap.keyComparator());
     out.writeObject(multimap.valueComparator());
     Multimap_CustomFieldSerializerBase.serialize(out, multimap);

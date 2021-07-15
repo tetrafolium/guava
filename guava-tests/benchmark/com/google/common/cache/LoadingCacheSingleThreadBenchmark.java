@@ -54,14 +54,14 @@ public class LoadingCacheSingleThreadBenchmark {
     max = Ints.checkedCast((long)Math.pow(distinctKeys, concentration));
 
     cache = CacheBuilder.newBuilder()
-                .concurrencyLevel(segments)
-                .maximumSize(maximumSize)
-                .build(new CacheLoader<Integer, Integer>() {
-                  @Override
-                  public Integer load(Integer from) {
-                    return (int)misses.incrementAndGet();
-                  }
-                });
+        .concurrencyLevel(segments)
+        .maximumSize(maximumSize)
+        .build(new CacheLoader<Integer, Integer>() {
+      @Override
+      public Integer load(Integer from) {
+        return (int)misses.incrementAndGet();
+      }
+    });
 
     // To start, fill up the cache.
     // Each miss both increments the counter and causes the map to grow by one,

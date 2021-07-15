@@ -81,7 +81,7 @@ public interface TimeLimiter {
    *     class, enum, or annotation type, rather than an interface
    */
   <T> T newProxy(T target, Class<T> interfaceType, long timeoutDuration,
-                 TimeUnit timeoutUnit);
+      TimeUnit timeoutUnit);
 
   /**
    * Invokes a specified Callable, timing out after the specified time limit. If
@@ -104,8 +104,8 @@ public interface TimeLimiter {
    * @since 22.0
    */
   <T> T callWithTimeout(Callable<T> callable, long timeoutDuration,
-                        TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException, ExecutionException;
+      TimeUnit timeoutUnit)
+  throws TimeoutException, InterruptedException, ExecutionException;
 
   /**
    * Invokes a specified Callable, timing out after the specified time limit. If
@@ -129,9 +129,9 @@ public interface TimeLimiter {
    * @since 22.0
    */
   <T> T callUninterruptiblyWithTimeout(Callable<T> callable,
-                                       long timeoutDuration,
-                                       TimeUnit timeoutUnit)
-      throws TimeoutException, ExecutionException;
+      long timeoutDuration,
+      TimeUnit timeoutUnit)
+  throws TimeoutException, ExecutionException;
 
   /**
    * Invokes a specified Runnable, timing out after the specified time limit. If
@@ -152,8 +152,8 @@ public interface TimeLimiter {
    * @since 22.0
    */
   void runWithTimeout(Runnable runnable, long timeoutDuration,
-                      TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException;
+      TimeUnit timeoutUnit)
+  throws TimeoutException, InterruptedException;
 
   /**
    * Invokes a specified Runnable, timing out after the specified time limit. If
@@ -175,6 +175,6 @@ public interface TimeLimiter {
    * @since 22.0
    */
   void runUninterruptiblyWithTimeout(Runnable runnable, long timeoutDuration,
-                                     TimeUnit timeoutUnit)
-      throws TimeoutException;
+      TimeUnit timeoutUnit)
+  throws TimeoutException;
 }

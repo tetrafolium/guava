@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingListMultimap<K, V>
-    extends ForwardingMultimap<K, V> implements ListMultimap<K, V> {
+  extends ForwardingMultimap<K, V> implements ListMultimap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingListMultimap() {}

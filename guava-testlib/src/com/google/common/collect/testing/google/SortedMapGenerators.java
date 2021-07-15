@@ -44,7 +44,7 @@ import java.util.SortedMap;
 @GwtCompatible
 public class SortedMapGenerators {
   public static class ImmutableSortedMapGenerator
-      extends TestStringSortedMapGenerator {
+    extends TestStringSortedMapGenerator {
     @Override
     public SortedMap<String, String> create(Entry<String, String>[] entries) {
       ImmutableSortedMap.Builder<String, String> builder =
@@ -58,7 +58,7 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapCopyOfEntriesGenerator
-      extends TestStringSortedMapGenerator {
+    extends TestStringSortedMapGenerator {
     @Override
     public SortedMap<String, String> create(Entry<String, String>[] entries) {
       return ImmutableSortedMap.copyOf(Arrays.asList(entries));
@@ -66,13 +66,13 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapEntryListGenerator
-      implements TestListGenerator<Entry<String, Integer>> {
+    implements TestListGenerator<Entry<String, Integer>> {
 
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(mapEntry("foo", 5), mapEntry("bar", 3),
-                                  mapEntry("baz", 17), mapEntry("quux", 1),
-                                  mapEntry("toaster", -2));
+                 mapEntry("baz", 17), mapEntry("quux", 1),
+                 mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -85,11 +85,11 @@ public class SortedMapGenerators {
     public Iterable<Entry<String, Integer>>
     order(List<Entry<String, Integer>> insertionOrder) {
       return new Ordering<Entry<String, Integer>>() {
-        @Override
-        public int compare(Entry<String, Integer> left,
-                           Entry<String, Integer> right) {
-          return left.getKey().compareTo(right.getKey());
-        }
+               @Override
+               public int compare(Entry<String, Integer> left,
+                   Entry<String, Integer> right) {
+                 return left.getKey().compareTo(right.getKey());
+               }
       }.sortedCopy(insertionOrder);
     }
 
@@ -107,7 +107,7 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapKeyListGenerator
-      extends TestStringListGenerator {
+    extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       ImmutableSortedMap.Builder<String, Integer> builder =
@@ -125,7 +125,7 @@ public class SortedMapGenerators {
   }
 
   public static class ImmutableSortedMapValueListGenerator
-      extends TestStringListGenerator {
+    extends TestStringListGenerator {
     @Override
     protected List<String> create(String[] elements) {
       ImmutableSortedMap.Builder<Integer, String> builder =

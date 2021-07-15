@@ -108,7 +108,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
 
   @Override
   public final V get(long timeout, TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+  throws InterruptedException, ExecutionException, TimeoutException {
     checkNotNull(unit);
     return get();
   }
@@ -226,8 +226,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       // checking if the future is done again.
       if (!isNullOrEmpty(pendingDescription)) {
         builder.append("PENDING, info=[")
-            .append(pendingDescription)
-            .append("]");
+        .append(pendingDescription)
+        .append("]");
       } else if (isDone()) {
         addDoneString(builder);
       } else {
@@ -249,7 +249,7 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
     Object localValue = value;
     if (localValue instanceof AbstractFuture.SetFuture) {
       return "setFuture=[" + ((AbstractFuture.SetFuture)localValue).delegate +
-          "]";
+             "]";
     }
     return null;
   }
@@ -264,8 +264,8 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
       builder.append("CANCELLED");
     } catch (RuntimeException e) {
       builder.append("UNKNOWN, cause=[")
-          .append(e.getClass())
-          .append(" thrown from get()]");
+      .append(e.getClass())
+      .append(" thrown from get()]");
     }
   }
 
@@ -345,9 +345,9 @@ public abstract class AbstractFuture<V> extends FluentFuture<V> {
         executor.execute(command);
       } catch (RuntimeException e) {
         log.log(Level.SEVERE,
-                "RuntimeException while executing runnable " + command +
-                    " with executor " + executor,
-                e);
+            "RuntimeException while executing runnable " + command +
+            " with executor " + executor,
+            e);
       }
     }
   }

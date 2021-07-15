@@ -40,6 +40,6 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   @Override
   ImmutableList<E> createAsList() {
     return new ImmutableSortedAsList<E>(
-        this, ImmutableList.<E>asImmutableList(toArray()));
+      this, ImmutableList.<E>asImmutableList(toArray()));
   }
 }

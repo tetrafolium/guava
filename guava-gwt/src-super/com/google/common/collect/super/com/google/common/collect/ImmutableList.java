@@ -40,7 +40,7 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableList<E>
-    extends ImmutableCollection<E> implements List<E>, RandomAccess {
+  extends ImmutableCollection<E> implements List<E>, RandomAccess {
   static final ImmutableList<Object> EMPTY =
       new RegularImmutableList<Object>(Collections.emptyList());
 
@@ -63,62 +63,62 @@ public abstract class ImmutableList<E>
 
   public static <E> ImmutableList<E> of(E e1, E e2) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2));
+      ImmutableList.<E>nullCheckedList(e1, e2));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7) {
+      E e7) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7, E e8) {
+      E e7, E e8) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7, E e8, E e9) {
+      E e7, E e8, E e9) {
     return new RegularImmutableList<E>(
-        ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8, e9));
+      ImmutableList.<E>nullCheckedList(e1, e2, e3, e4, e5, e6, e7, e8, e9));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7, E e8, E e9, E e10) {
+      E e7, E e8, E e9, E e10) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
-        e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
+                 e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7, E e8, E e9, E e10, E e11) {
+      E e7, E e8, E e9, E e10, E e11) {
     return new RegularImmutableList<E>(ImmutableList.<E>nullCheckedList(
-        e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
+                 e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11));
   }
 
   public static <E> ImmutableList<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                        E e7, E e8, E e9, E e10, E e11, E e12,
-                                        E... others) {
+      E e7, E e8, E e9, E e10, E e11, E e12,
+      E... others) {
     final int paramCount = 12;
     Object[] array = new Object[paramCount + others.length];
     arrayCopy(array, 0, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12);
@@ -169,7 +169,7 @@ public abstract class ImmutableList<E>
       return of((E)elements[0]);
     default:
       return new RegularImmutableList<E>(
-          ImmutableList.<E>nullCheckedList(elements));
+        ImmutableList.<E>nullCheckedList(elements));
     }
   }
 
@@ -208,7 +208,7 @@ public abstract class ImmutableList<E>
 
   public static <E> ImmutableList<E>
   sortedCopyOf(Comparator<? super E> comparator,
-               Iterable<? extends E> elements) {
+      Iterable<? extends E> elements) {
     checkNotNull(comparator);
     @SuppressWarnings("unchecked") // all supported methods are covariant
     E[] array = (E[])Iterables.toArray(elements);
@@ -223,7 +223,7 @@ public abstract class ImmutableList<E>
         throw new NullPointerException("at index " + i);
       }
     }
-    @SuppressWarnings("unchecked") E[] castedArray = (E[])array;
+    @SuppressWarnings("unchecked")E[] castedArray = (E[])array;
     return Arrays.asList(castedArray);
   }
 
@@ -271,10 +271,10 @@ public abstract class ImmutableList<E>
   @Override
   public UnmodifiableListIterator<E> listIterator(int index) {
     return new AbstractIndexedListIterator<E>(size(), index) {
-      @Override
-      protected E get(int index) {
-        return ImmutableList.this.get(index);
-      }
+             @Override
+             protected E get(int index) {
+               return ImmutableList.this.get(index);
+             }
     };
   }
 

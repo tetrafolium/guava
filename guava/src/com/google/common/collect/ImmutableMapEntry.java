@@ -74,11 +74,11 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
   boolean isReusable() { return true; }
 
   static class NonTerminalImmutableMapEntry<K, V>
-      extends ImmutableMapEntry<K, V> {
+    extends ImmutableMapEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInKeyBucket;
 
     NonTerminalImmutableMapEntry(K key, V value,
-                                 ImmutableMapEntry<K, V> nextInKeyBucket) {
+        ImmutableMapEntry<K, V> nextInKeyBucket) {
       super(key, value);
       this.nextInKeyBucket = nextInKeyBucket;
     }
@@ -96,12 +96,12 @@ class ImmutableMapEntry<K, V> extends ImmutableEntry<K, V> {
   }
 
   static final class NonTerminalImmutableBiMapEntry<K, V>
-      extends NonTerminalImmutableMapEntry<K, V> {
+    extends NonTerminalImmutableMapEntry<K, V> {
     private final transient ImmutableMapEntry<K, V> nextInValueBucket;
 
     NonTerminalImmutableBiMapEntry(K key, V value,
-                                   ImmutableMapEntry<K, V> nextInKeyBucket,
-                                   ImmutableMapEntry<K, V> nextInValueBucket) {
+        ImmutableMapEntry<K, V> nextInKeyBucket,
+        ImmutableMapEntry<K, V> nextInValueBucket) {
       super(key, value, nextInKeyBucket);
       this.nextInValueBucket = nextInValueBucket;
     }

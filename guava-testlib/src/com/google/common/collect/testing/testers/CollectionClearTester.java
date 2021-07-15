@@ -41,7 +41,7 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
   public void testClear() {
     collection.clear();
     assertTrue("After clear(), a collection should be empty.",
-               collection.isEmpty());
+        collection.isEmpty());
     assertEquals(0, collection.size());
     assertFalse(collection.iterator().hasNext());
   }
@@ -52,7 +52,7 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
     try {
       collection.clear();
       fail("clear() should throw UnsupportedOperation if a collection does "
-           + "not support it and is not empty.");
+          + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();

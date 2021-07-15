@@ -40,7 +40,7 @@ public class CollectionForEachTester<E> extends AbstractCollectionTester<E> {
     List<E> elements = new ArrayList<E>();
     collection.forEach(elements::add);
     Helpers.assertEqualIgnoringOrder(Arrays.asList(createSamplesArray()),
-                                     elements);
+        elements);
   }
 
   @CollectionFeature.Require(KNOWN_ORDER)

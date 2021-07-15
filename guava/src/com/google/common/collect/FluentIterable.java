@@ -144,11 +144,11 @@ public abstract class FluentIterable<E> implements Iterable<E> {
     return (iterable instanceof FluentIterable)
         ? (FluentIterable<E>)iterable
         : new FluentIterable<E>(iterable) {
-            @Override
-            public Iterator<E> iterator() {
-              return iterable.iterator();
-            }
-          };
+             @Override
+             public Iterator<E> iterator() {
+               return iterable.iterator();
+             }
+           };
   }
 
   /**
@@ -198,7 +198,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   @Beta
   public static <T> FluentIterable<T> concat(Iterable<? extends T> a,
-                                             Iterable<? extends T> b) {
+      Iterable<? extends T> b) {
     return concatNoDefensiveCopy(a, b);
   }
 
@@ -218,8 +218,8 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    */
   @Beta
   public static <T> FluentIterable<T> concat(Iterable<? extends T> a,
-                                             Iterable<? extends T> b,
-                                             Iterable<? extends T> c) {
+      Iterable<? extends T> b,
+      Iterable<? extends T> c) {
     return concatNoDefensiveCopy(a, b, c);
   }
 
@@ -241,7 +241,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
   @Beta
   public static <T> FluentIterable<T>
   concat(Iterable<? extends T> a, Iterable<? extends T> b,
-         Iterable<? extends T> c, Iterable<? extends T> d) {
+      Iterable<? extends T> c, Iterable<? extends T> d) {
     return concatNoDefensiveCopy(a, b, c, d);
   }
 
@@ -277,18 +277,18 @@ public abstract class FluentIterable<E> implements Iterable<E> {
       checkNotNull(input);
     }
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.concat(
-            /* lazily generate the iterators on each input only as needed */
-            new AbstractIndexedListIterator<Iterator<? extends T>>(
-                inputs.length) {
-              @Override
-              public Iterator<? extends T> get(int i) {
-                return inputs[i].iterator();
-              }
-            });
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.concat(
+                 /* lazily generate the iterators on each input only as needed */
+                 new AbstractIndexedListIterator<Iterator<? extends T>>(
+                   inputs.length) {
+          @Override
+          public Iterator<? extends T> get(int i) {
+            return inputs[i].iterator();
+          }
+        });
+             }
     };
   }
 
@@ -313,11 +313,11 @@ public abstract class FluentIterable<E> implements Iterable<E> {
   concat(final Iterable<? extends Iterable<? extends T>> inputs) {
     checkNotNull(inputs);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.concat(
-            Iterators.transform(inputs.iterator(), Iterables.<T>toIterator()));
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.concat(
+                 Iterators.transform(inputs.iterator(), Iterables.<T>toIterator()));
+             }
     };
   }
 
@@ -529,7 +529,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    * @since 13.0 (required {@code Function<E, Iterable<T>>} until 14.0)
    */
   public <T> FluentIterable<T> transformAndConcat(
-      Function<? super E, ? extends Iterable<? extends T>> function) {
+    Function<? super E, ? extends Iterable<? extends T>> function) {
     return FluentIterable.concat(transform(function));
   }
 
@@ -915,7 +915,7 @@ public abstract class FluentIterable<E> implements Iterable<E> {
    * Function that transforms {@code Iterable<E>} into a fluent iterable.
    */
   private static class FromIterableFunction<E>
-      implements Function<Iterable<E>, FluentIterable<E>> {
+    implements Function<Iterable<E>, FluentIterable<E>> {
     @Override
     public FluentIterable<E> apply(Iterable<E> fromObject) {
       return FluentIterable.from(fromObject);

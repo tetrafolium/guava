@@ -130,7 +130,7 @@ public class IteratorBenchmark {
   int arrayListForEachWithHolder(int reps) {
     int[] sumHolder = {0};
     for (int i = 0; i < reps; i++) {
-      arrayList.forEach(value -> sumHolder[0] += value.hashCode());
+      arrayList.forEach(value->sumHolder[0] += value.hashCode());
     }
     return sumHolder[0];
   }
@@ -161,7 +161,7 @@ public class IteratorBenchmark {
   int linkedListForEach(int reps) {
     int[] sumHolder = {0};
     for (int i = 0; i < reps; i++) {
-      linkedList.forEach(value -> sumHolder[0] += value.hashCode());
+      linkedList.forEach(value->sumHolder[0] += value.hashCode());
     }
     return sumHolder[0];
   }

@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractSetMultimap<K, V>
-    extends AbstractMapBasedMultimap<K, V> implements SetMultimap<K, V> {
+  extends AbstractMapBasedMultimap<K, V> implements SetMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *

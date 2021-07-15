@@ -29,7 +29,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class LexicographicalOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 LexicographicalOrdering<?> instance) {}
+      LexicographicalOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static LexicographicalOrdering<Object>
@@ -38,8 +38,8 @@ public class LexicographicalOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               LexicographicalOrdering<?> instance)
-      throws SerializationException {
+      LexicographicalOrdering<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.elementOrder);
   }
 }

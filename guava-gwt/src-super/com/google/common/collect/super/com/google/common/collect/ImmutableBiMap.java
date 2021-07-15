@@ -31,11 +31,11 @@ import java.util.stream.Collector;
  * @author Hayward Chan
  */
 public abstract class ImmutableBiMap<K, V>
-    extends ForwardingImmutableMap<K, V> implements BiMap<K, V> {
+  extends ForwardingImmutableMap<K, V> implements BiMap<K, V> {
   @Beta
   public static <T, K, V> Collector<T, ?, ImmutableBiMap<K, V>>
   toImmutableBiMap(Function<? super T, ? extends K> keyFunction,
-                   Function<? super T, ? extends V> valueFunction) {
+      Function<? super T, ? extends V> valueFunction) {
     return CollectCollectors.toImmutableBiMap(keyFunction, valueFunction);
   }
 
@@ -55,21 +55,21 @@ public abstract class ImmutableBiMap<K, V>
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3) {
+      V v3) {
     return new RegularImmutableBiMap<K, V>(
-        ImmutableMap.of(k1, v1, k2, v2, k3, v3));
+      ImmutableMap.of(k1, v1, k2, v2, k3, v3));
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4) {
+      V v3, K k4, V v4) {
     return new RegularImmutableBiMap<K, V>(
-        ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4));
+      ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4));
   }
 
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4, K k5, V v5) {
+      V v3, K k4, V v4, K k5, V v5) {
     return new RegularImmutableBiMap<K, V>(
-        ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
+      ImmutableMap.of(k1, v1, k2, v2, k3, v3, k4, v4, k5, v5));
   }
 
   public static <K, V> Builder<K, V> builder() { return new Builder<K, V>(); }
