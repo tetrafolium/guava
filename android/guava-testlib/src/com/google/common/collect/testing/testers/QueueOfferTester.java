@@ -53,6 +53,6 @@ public class QueueOfferTester<E> extends AbstractQueueTester<E> {
     }
     expectUnchanged();
     expectNullMissingWhenNullUnsupported(
-        "Should not contain null after unsupported offer(null)");
+      "Should not contain null after unsupported offer(null)");
   }
 }

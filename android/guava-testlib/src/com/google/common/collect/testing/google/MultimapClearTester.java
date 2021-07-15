@@ -36,7 +36,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public class MultimapClearTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
   public void testClearUnsupported() {

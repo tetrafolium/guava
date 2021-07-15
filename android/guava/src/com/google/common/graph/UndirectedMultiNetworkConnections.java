@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
  * @param <E> Edge parameter type
  */
 final class UndirectedMultiNetworkConnections<N, E>
-    extends AbstractUndirectedNetworkConnections<N, E> {
+  extends AbstractUndirectedNetworkConnections<N, E> {
 
   private UndirectedMultiNetworkConnections(Map<E, N> incidentEdges) {
     super(incidentEdges);
@@ -49,13 +49,13 @@ final class UndirectedMultiNetworkConnections<N, E>
 
   static <N, E> UndirectedMultiNetworkConnections<N, E> of() {
     return new UndirectedMultiNetworkConnections<>(
-        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR));
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR));
   }
 
   static <N, E> UndirectedMultiNetworkConnections<N, E>
   ofImmutable(Map<E, N> incidentEdges) {
     return new UndirectedMultiNetworkConnections<>(
-        ImmutableMap.copyOf(incidentEdges));
+      ImmutableMap.copyOf(incidentEdges));
   }
 
   @LazyInit private transient Reference<Multiset<N>> adjacentNodesReference;
@@ -77,10 +77,10 @@ final class UndirectedMultiNetworkConnections<N, E>
   @Override
   public Set<E> edgesConnecting(final N node) {
     return new MultiEdgesConnecting<E>(incidentEdgeMap, node) {
-      @Override
-      public int size() {
-        return adjacentNodesMultiset().count(node);
-      }
+             @Override
+             public int size() {
+               return adjacentNodesMultiset().count(node);
+             }
     };
   }
 

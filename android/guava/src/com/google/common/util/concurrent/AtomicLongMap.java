@@ -118,7 +118,7 @@ public final class AtomicLongMap<K> implements Serializable {
    */
   @CanIgnoreReturnValue
   public long addAndGet(K key, long delta) {
-  outer:
+outer:
     while (true) {
       AtomicLong atomic = map.get(key);
       if (atomic == null) {
@@ -173,7 +173,7 @@ public final class AtomicLongMap<K> implements Serializable {
    */
   @CanIgnoreReturnValue
   public long getAndAdd(K key, long delta) {
-  outer:
+outer:
     while (true) {
       AtomicLong atomic = map.get(key);
       if (atomic == null) {
@@ -211,7 +211,7 @@ public final class AtomicLongMap<K> implements Serializable {
    */
   @CanIgnoreReturnValue
   public long put(K key, long newValue) {
-  outer:
+outer:
     while (true) {
       AtomicLong atomic = map.get(key);
       if (atomic == null) {
@@ -335,12 +335,12 @@ public final class AtomicLongMap<K> implements Serializable {
 
   private Map<K, Long> createAsMap() {
     return Collections.unmodifiableMap(
-        Maps.transformValues(map, new Function<AtomicLong, Long>() {
-          @Override
-          public Long apply(AtomicLong atomic) {
-            return atomic.get();
-          }
-        }));
+      Maps.transformValues(map, new Function<AtomicLong, Long>() {
+      @Override
+      public Long apply(AtomicLong atomic) {
+        return atomic.get();
+      }
+    }));
   }
 
   /**

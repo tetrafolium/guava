@@ -179,7 +179,7 @@ public final class Chars {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -206,7 +206,7 @@ public final class Chars {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(char[] array, char target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -273,7 +273,7 @@ public final class Chars {
   @Beta
   public static char constrainToRange(char value, char min, char max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return value < min ? min : value < max ? value : max;
   }
 
@@ -288,7 +288,7 @@ public final class Chars {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static char[] concat(char[]... arrays) {
+  public static char[] concat(char[] ... arrays) {
     int length = 0;
     for (char[] array : arrays) {
       length += array.length;
@@ -333,7 +333,7 @@ public final class Chars {
   @GwtIncompatible // doesn't work
   public static char fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s",
-                  bytes.length, BYTES);
+        bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1]);
   }
 
@@ -367,7 +367,7 @@ public final class Chars {
    *     {@code minLength}
    */
   public static char[] ensureCapacity(char[] array, int minLength,
-                                      int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -420,7 +420,7 @@ public final class Chars {
   }
 
   private enum LexicographicalComparator implements Comparator < char
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -549,7 +549,7 @@ public final class Chars {
 
   @GwtCompatible
   private static class CharArrayAsList
-      extends AbstractList<Character> implements RandomAccess, Serializable {
+    extends AbstractList<Character> implements RandomAccess, Serializable {
     final char[] array;
     final int start;
     final int end;
@@ -582,7 +582,7 @@ public final class Chars {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Character) &&
-          Chars.indexOf(array, (Character)target, start, end) != -1;
+             Chars.indexOf(array, (Character)target, start, end) != -1;
     }
 
     @Override

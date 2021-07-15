@@ -98,11 +98,11 @@ public abstract class Escaper {
 
   private final Function<String, String> asFunction =
       new Function<String, String>() {
-        @Override
-        public String apply(String from) {
-          return escape(from);
-        }
-      };
+    @Override
+    public String apply(String from) {
+      return escape(from);
+    }
+  };
 
   /**
    * Returns a {@link Function} that invokes {@link #escape(String)} on this

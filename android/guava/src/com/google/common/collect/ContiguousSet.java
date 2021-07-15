@@ -53,7 +53,7 @@ import java.util.Set;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("rawtypes") // allow ungenerified Comparable types
 public abstract class ContiguousSet<C extends Comparable>
-    extends ImmutableSortedSet<C> {
+  extends ImmutableSortedSet<C> {
   /**
    * Returns a {@code ContiguousSet} containing the same values in the given
    * domain
@@ -86,7 +86,7 @@ public abstract class ContiguousSet<C extends Comparable>
     boolean empty =
         effectiveRange.isEmpty() ||
         Range.compareOrThrow(range.lowerBound.leastValueAbove(domain),
-                             range.upperBound.greatestValueBelow(domain)) > 0;
+        range.upperBound.greatestValueBelow(domain)) > 0;
 
     return empty ? new EmptyContiguousSet<C>(domain)
                  : new RegularContiguousSet<C>(effectiveRange, domain);
@@ -191,7 +191,7 @@ public abstract class ContiguousSet<C extends Comparable>
   @GwtIncompatible // NavigableSet
   @Override
   public ContiguousSet<C> subSet(C fromElement, boolean fromInclusive,
-                                 C toElement, boolean toInclusive) {
+      C toElement, boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator().compare(fromElement, toElement) <= 0);
@@ -222,7 +222,7 @@ public abstract class ContiguousSet<C extends Comparable>
 
   /* @Override */
   abstract ContiguousSet<C> subSetImpl(C fromElement, boolean fromInclusive,
-                                       C toElement, boolean toInclusive);
+      C toElement, boolean toInclusive);
 
   /* @Override */
   abstract ContiguousSet<C> tailSetImpl(C fromElement, boolean inclusive);
@@ -259,7 +259,7 @@ public abstract class ContiguousSet<C extends Comparable>
    * @throws NoSuchElementException if this set is empty
    */
   public abstract Range<C> range(BoundType lowerBoundType,
-                                 BoundType upperBoundType);
+      BoundType upperBoundType);
 
   @Override
   @GwtIncompatible // NavigableSet

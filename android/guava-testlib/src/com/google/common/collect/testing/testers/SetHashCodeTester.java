@@ -39,8 +39,8 @@ public class SetHashCodeTester<E> extends AbstractSetTester<E> {
       expectedHashCode += ((element == null) ? 0 : element.hashCode());
     }
     assertEquals(
-        "A Set's hashCode() should be the sum of those of its elements.",
-        expectedHashCode, getSet().hashCode());
+      "A Set's hashCode() should be the sum of those of its elements.",
+      expectedHashCode, getSet().hashCode());
   }
 
   @CollectionSize.Require(absent = CollectionSize.ZERO)
@@ -55,9 +55,9 @@ public class SetHashCodeTester<E> extends AbstractSetTester<E> {
     elements.add(null);
     collection = getSubjectGenerator().create(elements.toArray());
     assertEquals(
-        "A Set's hashCode() should be the sum of those of its elements (with "
-            + "a null element counting as having a hash of zero).",
-        expectedHashCode, getSet().hashCode());
+      "A Set's hashCode() should be the sum of those of its elements (with "
+      + "a null element counting as having a hash of zero).",
+      expectedHashCode, getSet().hashCode());
   }
 
   /**
@@ -69,8 +69,9 @@ public class SetHashCodeTester<E> extends AbstractSetTester<E> {
   @GwtIncompatible // reflection
   public static Method[] getHashCodeMethods() {
     return new Method[] {
-        Helpers.getMethod(SetHashCodeTester.class, "testHashCode"),
-        Helpers.getMethod(SetHashCodeTester.class,
-                          "testHashCode_containingNull")};
+             Helpers.getMethod(SetHashCodeTester.class, "testHashCode"),
+             Helpers.getMethod(SetHashCodeTester.class,
+                 "testHashCode_containingNull")
+    };
   }
 }

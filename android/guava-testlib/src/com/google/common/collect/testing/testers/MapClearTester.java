@@ -92,7 +92,7 @@ public class MapClearTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().clear();
       fail("clear() should throw UnsupportedOperation if a map does "
-           + "not support it and is not empty.");
+          + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();

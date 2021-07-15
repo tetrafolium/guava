@@ -75,14 +75,14 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T newProxy(final T target, Class<T> interfaceType,
-                        final long timeoutDuration,
-                        final TimeUnit timeoutUnit) {
+      final long timeoutDuration,
+      final TimeUnit timeoutUnit) {
     checkNotNull(target);
     checkNotNull(interfaceType);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
     checkArgument(interfaceType.isInterface(),
-                  "interfaceType must be an interface type");
+        "interfaceType must be an interface type");
 
     final Set<Method> interruptibleMethods =
         findInterruptibleMethods(interfaceType);
@@ -90,7 +90,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
     InvocationHandler handler = new InvocationHandler() {
       @Override
       public Object invoke(Object obj, final Method method, final Object[] args)
-          throws Throwable {
+      throws Throwable {
         Callable<Object> callable = new Callable<Object>() {
           @Override
           public Object call() throws Exception {
@@ -102,15 +102,15 @@ public final class SimpleTimeLimiter implements TimeLimiter {
           }
         };
         return callWithTimeout(callable, timeoutDuration, timeoutUnit,
-                               interruptibleMethods.contains(method));
+                   interruptibleMethods.contains(method));
       }
     };
     return newProxy(interfaceType, handler);
   }
 
   private <T> T callWithTimeout(Callable<T> callable, long timeoutDuration,
-                                TimeUnit timeoutUnit, boolean amInterruptible)
-      throws Exception {
+      TimeUnit timeoutUnit, boolean amInterruptible)
+  throws Exception {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -127,7 +127,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
         }
       } else {
         return Uninterruptibles.getUninterruptibly(future, timeoutDuration,
-                                                   timeoutUnit);
+                   timeoutUnit);
       }
     } catch (ExecutionException e) {
       throw throwCause(e, true /* combineStackTraces */);
@@ -139,8 +139,8 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callWithTimeout(Callable<T> callable, long timeoutDuration,
-                               TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException, ExecutionException {
+      TimeUnit timeoutUnit)
+  throws TimeoutException, InterruptedException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -160,9 +160,9 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callUninterruptiblyWithTimeout(Callable<T> callable,
-                                              long timeoutDuration,
-                                              TimeUnit timeoutUnit)
-      throws TimeoutException, ExecutionException {
+      long timeoutDuration,
+      TimeUnit timeoutUnit)
+  throws TimeoutException, ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -171,7 +171,7 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
     try {
       return Uninterruptibles.getUninterruptibly(future, timeoutDuration,
-                                                 timeoutUnit);
+                 timeoutUnit);
     } catch (TimeoutException e) {
       future.cancel(true /* mayInterruptIfRunning */);
       throw e;
@@ -183,8 +183,8 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public void runWithTimeout(Runnable runnable, long timeoutDuration,
-                             TimeUnit timeoutUnit)
-      throws TimeoutException, InterruptedException {
+      TimeUnit timeoutUnit)
+  throws TimeoutException, InterruptedException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -204,9 +204,9 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   @Override
   public void runUninterruptiblyWithTimeout(Runnable runnable,
-                                            long timeoutDuration,
-                                            TimeUnit timeoutUnit)
-      throws TimeoutException {
+      long timeoutDuration,
+      TimeUnit timeoutUnit)
+  throws TimeoutException {
     checkNotNull(runnable);
     checkNotNull(timeoutUnit);
     checkPositiveTimeout(timeoutDuration);
@@ -225,14 +225,14 @@ public final class SimpleTimeLimiter implements TimeLimiter {
   }
 
   private static Exception throwCause(Exception e, boolean combineStackTraces)
-      throws Exception {
+  throws Exception {
     Throwable cause = e.getCause();
     if (cause == null) {
       throw e;
     }
     if (combineStackTraces) {
       StackTraceElement[] combined = ObjectArrays.concat(
-          cause.getStackTrace(), e.getStackTrace(), StackTraceElement.class);
+        cause.getStackTrace(), e.getStackTrace(), StackTraceElement.class);
       cause.setStackTrace(combined);
     }
     if (cause instanceof Exception) {
@@ -267,15 +267,15 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   // TODO: replace with version in common.reflect if and when it's open-sourced
   private static <T> T newProxy(Class<T> interfaceType,
-                                InvocationHandler handler) {
+      InvocationHandler handler) {
     Object object =
         Proxy.newProxyInstance(interfaceType.getClassLoader(),
-                               new Class<?>[] {interfaceType}, handler);
+        new Class<?>[] {interfaceType}, handler);
     return interfaceType.cast(object);
   }
 
   private void wrapAndThrowExecutionExceptionOrError(Throwable cause)
-      throws ExecutionException {
+  throws ExecutionException {
     if (cause instanceof Error) {
       throw new ExecutionError((Error)cause);
     } else if (cause instanceof RuntimeException) {
@@ -295,6 +295,6 @@ public final class SimpleTimeLimiter implements TimeLimiter {
 
   private static void checkPositiveTimeout(long timeoutDuration) {
     checkArgument(timeoutDuration > 0, "timeout must be positive: %s",
-                  timeoutDuration);
+        timeoutDuration);
   }
 }

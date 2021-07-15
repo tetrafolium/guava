@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true)
 final class LexicographicalOrdering<T>
-    extends Ordering<Iterable<T>> implements Serializable {
+  extends Ordering<Iterable<T>> implements Serializable {
   final Comparator<? super T> elementOrder;
 
   LexicographicalOrdering(Comparator<? super T> elementOrder) {

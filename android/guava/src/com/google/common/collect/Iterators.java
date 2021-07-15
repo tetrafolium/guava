@@ -136,15 +136,15 @@ public final class Iterators {
       return result;
     }
     return new UnmodifiableIterator<T>() {
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public T next() {
-        return iterator.next();
-      }
+             @Override
+             public T next() {
+               return iterator.next();
+             }
     };
   }
 
@@ -178,7 +178,7 @@ public final class Iterators {
    * Returns {@code true} if {@code iterator} contains {@code element}.
    */
   public static boolean contains(Iterator<?> iterator,
-                                 @Nullable Object element) {
+      @Nullable Object element) {
     if (element == null) {
       while (iterator.hasNext()) {
         if (iterator.next() == null) {
@@ -206,7 +206,7 @@ public final class Iterators {
    */
   @CanIgnoreReturnValue
   public static boolean removeAll(Iterator<?> removeFrom,
-                                  Collection<?> elementsToRemove) {
+      Collection<?> elementsToRemove) {
     checkNotNull(elementsToRemove);
     boolean result = false;
     while (removeFrom.hasNext()) {
@@ -231,7 +231,7 @@ public final class Iterators {
    */
   @CanIgnoreReturnValue
   public static <T> boolean removeIf(Iterator<T> removeFrom,
-                                     Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(predicate);
     boolean modified = false;
     while (removeFrom.hasNext()) {
@@ -254,7 +254,7 @@ public final class Iterators {
    */
   @CanIgnoreReturnValue
   public static boolean retainAll(Iterator<?> removeFrom,
-                                  Collection<?> elementsToRetain) {
+      Collection<?> elementsToRetain) {
     checkNotNull(elementsToRetain);
     boolean result = false;
     while (removeFrom.hasNext()) {
@@ -277,7 +277,7 @@ public final class Iterators {
    * been advanced some number of elements forward.
    */
   public static boolean elementsEqual(Iterator<?> iterator1,
-                                      Iterator<?> iterator2) {
+      Iterator<?> iterator2) {
     while (iterator1.hasNext()) {
       if (!iterator2.hasNext()) {
         return false;
@@ -324,8 +324,8 @@ public final class Iterators {
     }
 
     StringBuilder sb = new StringBuilder()
-                           .append("expected one element but was: <")
-                           .append(first);
+        .append("expected one element but was: <")
+        .append(first);
     for (int i = 0; i < 4 && iterator.hasNext(); i++) {
       sb.append(", ").append(iterator.next());
     }
@@ -347,7 +347,7 @@ public final class Iterators {
   @CanIgnoreReturnValue // TODO(kak): Consider removing this?
   @Nullable
   public static <T> T getOnlyElement(Iterator<? extends T> iterator,
-                                     @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     return iterator.hasNext() ? getOnlyElement(iterator) : defaultValue;
   }
 
@@ -376,7 +376,7 @@ public final class Iterators {
    */
   @CanIgnoreReturnValue
   public static <T> boolean addAll(Collection<T> addTo,
-                                   Iterator<? extends T> iterator) {
+      Iterator<? extends T> iterator) {
     checkNotNull(addTo);
     checkNotNull(iterator);
     boolean wasModified = false;
@@ -420,39 +420,39 @@ public final class Iterators {
   public static <T> Iterator<T> cycle(final Iterable<T> iterable) {
     checkNotNull(iterable);
     return new Iterator<T>() {
-      Iterator<T> iterator = emptyModifiableIterator();
+             Iterator<T> iterator = emptyModifiableIterator();
 
-      @Override
-      public boolean hasNext() {
-        /*
-         * Don't store a new Iterator until we know the user can't remove() the
-         * last returned element anymore. Otherwise, when we remove from the old
-         * iterator, we may be invalidating the new one. The result is a
-         * ConcurrentModificationException or other bad behavior.
-         *
-         * (If we decide that we really, really hate allocating two Iterators
-         * per cycle instead of one, we can optimistically store the new
-         * Iterator and then be willing to throw it out if the user calls
-         * remove().)
-         */
-        return iterator.hasNext() || iterable.iterator().hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               /*
+                * Don't store a new Iterator until we know the user can't remove() the
+                * last returned element anymore. Otherwise, when we remove from the old
+                * iterator, we may be invalidating the new one. The result is a
+                * ConcurrentModificationException or other bad behavior.
+                *
+                * (If we decide that we really, really hate allocating two Iterators
+                * per cycle instead of one, we can optimistically store the new
+                * Iterator and then be willing to throw it out if the user calls
+                * remove().)
+                */
+               return iterator.hasNext() || iterable.iterator().hasNext();
+             }
 
-      @Override
-      public T next() {
-        if (!iterator.hasNext()) {
-          iterator = iterable.iterator();
-          if (!iterator.hasNext()) {
-            throw new NoSuchElementException();
-          }
-        }
-        return iterator.next();
-      }
+             @Override
+             public T next() {
+               if (!iterator.hasNext()) {
+                 iterator = iterable.iterator();
+                 if (!iterator.hasNext()) {
+                   throw new NoSuchElementException();
+                 }
+               }
+               return iterator.next();
+             }
 
-      @Override
-      public void remove() {
-        iterator.remove();
-      }
+             @Override
+             public void remove() {
+               iterator.remove();
+             }
     };
   }
 
@@ -484,23 +484,23 @@ public final class Iterators {
    */
   private static <T> Iterator<T> consumingForArray(final T... elements) {
     return new UnmodifiableIterator<T>() {
-      int index = 0;
+             int index = 0;
 
-      @Override
-      public boolean hasNext() {
-        return index < elements.length;
-      }
+             @Override
+             public boolean hasNext() {
+               return index < elements.length;
+             }
 
-      @Override
-      public T next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        T result = elements[index];
-        elements[index] = null;
-        index++;
-        return result;
-      }
+             @Override
+             public T next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               T result = elements[index];
+               elements[index] = null;
+               index++;
+               return result;
+             }
     };
   }
 
@@ -513,7 +513,7 @@ public final class Iterators {
    * input iterator supports it.
    */
   public static <T> Iterator<T> concat(Iterator<? extends T> a,
-                                       Iterator<? extends T> b) {
+      Iterator<? extends T> b) {
     checkNotNull(a);
     checkNotNull(b);
     return concat(consumingForArray(a, b));
@@ -529,8 +529,8 @@ public final class Iterators {
    * input iterator supports it.
    */
   public static <T> Iterator<T> concat(Iterator<? extends T> a,
-                                       Iterator<? extends T> b,
-                                       Iterator<? extends T> c) {
+      Iterator<? extends T> b,
+      Iterator<? extends T> c) {
     checkNotNull(a);
     checkNotNull(b);
     checkNotNull(c);
@@ -547,9 +547,9 @@ public final class Iterators {
    * input iterator supports it.
    */
   public static <T> Iterator<T> concat(Iterator<? extends T> a,
-                                       Iterator<? extends T> b,
-                                       Iterator<? extends T> c,
-                                       Iterator<? extends T> d) {
+      Iterator<? extends T> b,
+      Iterator<? extends T> c,
+      Iterator<? extends T> d) {
     checkNotNull(a);
     checkNotNull(b);
     checkNotNull(c);
@@ -643,30 +643,30 @@ public final class Iterators {
     checkNotNull(iterator);
     checkArgument(size > 0);
     return new UnmodifiableIterator<List<T>>() {
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public List<T> next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        Object[] array = new Object[size];
-        int count = 0;
-        for (; count < size && iterator.hasNext(); count++) {
-          array[count] = iterator.next();
-        }
-        for (int i = count; i < size; i++) {
-          array[i] = null; // for GWT
-        }
+             @Override
+             public List<T> next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               Object[] array = new Object[size];
+               int count = 0;
+               for (; count < size && iterator.hasNext(); count++) {
+                 array[count] = iterator.next();
+               }
+               for (int i = count; i < size; i++) {
+                 array[i] = null; // for GWT
+               }
 
-        @SuppressWarnings("unchecked") // we only put Ts in it
-        List<T> list =
-            Collections.unmodifiableList((List<T>)Arrays.asList(array));
-        return (pad || count == size) ? list : list.subList(0, count);
-      }
+               @SuppressWarnings("unchecked") // we only put Ts in it
+               List<T> list =
+                   Collections.unmodifiableList((List<T>)Arrays.asList(array));
+               return (pad || count == size) ? list : list.subList(0, count);
+             }
     };
   }
 
@@ -676,20 +676,20 @@ public final class Iterators {
    */
   public static <T> UnmodifiableIterator<T>
   filter(final Iterator<T> unfiltered,
-         final Predicate<? super T> retainIfTrue) {
+      final Predicate<? super T> retainIfTrue) {
     checkNotNull(unfiltered);
     checkNotNull(retainIfTrue);
     return new AbstractIterator<T>() {
-      @Override
-      protected T computeNext() {
-        while (unfiltered.hasNext()) {
-          T element = unfiltered.next();
-          if (retainIfTrue.apply(element)) {
-            return element;
-          }
-        }
-        return endOfData();
-      }
+             @Override
+             protected T computeNext() {
+               while (unfiltered.hasNext()) {
+                 T element = unfiltered.next();
+                 if (retainIfTrue.apply(element)) {
+                   return element;
+                 }
+               }
+               return endOfData();
+             }
     };
   }
 
@@ -700,7 +700,7 @@ public final class Iterators {
   @SuppressWarnings("unchecked") // can cast to <T> because non-Ts are removed
   @GwtIncompatible               // Class.isInstance
   public static <T> UnmodifiableIterator<T> filter(Iterator<?> unfiltered,
-                                                   Class<T> desiredType) {
+      Class<T> desiredType) {
     return (UnmodifiableIterator<T>)filter(unfiltered, instanceOf(desiredType));
   }
 
@@ -709,7 +709,7 @@ public final class Iterators {
    * satisfy the given predicate.
    */
   public static <T> boolean any(Iterator<T> iterator,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return indexOf(iterator, predicate) != -1;
   }
 
@@ -719,7 +719,7 @@ public final class Iterators {
    * is returned.
    */
   public static <T> boolean all(Iterator<T> iterator,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(predicate);
     while (iterator.hasNext()) {
       T element = iterator.next();
@@ -742,7 +742,7 @@ public final class Iterators {
    *     the given predicate
    */
   public static <T> T find(Iterator<T> iterator,
-                           Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(iterator);
     checkNotNull(predicate);
     while (iterator.hasNext()) {
@@ -766,8 +766,8 @@ public final class Iterators {
    */
   @Nullable
   public static <T> T find(Iterator<? extends T> iterator,
-                           Predicate<? super T> predicate,
-                           @Nullable T defaultValue) {
+      Predicate<? super T> predicate,
+      @Nullable T defaultValue) {
     checkNotNull(iterator);
     checkNotNull(predicate);
     while (iterator.hasNext()) {
@@ -793,7 +793,7 @@ public final class Iterators {
    * @since 11.0
    */
   public static <T> Optional<T> tryFind(Iterator<T> iterator,
-                                        Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(iterator);
     checkNotNull(predicate);
     while (iterator.hasNext()) {
@@ -822,7 +822,7 @@ public final class Iterators {
    * @since 2.0
    */
   public static <T> int indexOf(Iterator<T> iterator,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(predicate, "predicate");
     for (int i = 0; iterator.hasNext(); i++) {
       T current = iterator.next();
@@ -843,13 +843,13 @@ public final class Iterators {
    */
   public static <F, T> Iterator<T>
   transform(final Iterator<F> fromIterator,
-            final Function<? super F, ? extends T> function) {
+      final Function<? super F, ? extends T> function) {
     checkNotNull(function);
     return new TransformedIterator<F, T>(fromIterator) {
-      @Override
-      T transform(F from) {
-        return function.apply(from);
-      }
+             @Override
+             T transform(F from) {
+               return function.apply(from);
+             }
     };
   }
 
@@ -868,9 +868,9 @@ public final class Iterators {
     int skipped = advance(iterator, position);
     if (!iterator.hasNext()) {
       throw new IndexOutOfBoundsException(
-          "position (" + position +
-          ") must be less than the number of elements that remained (" +
-          skipped + ")");
+              "position (" + position +
+              ") must be less than the number of elements that remained (" +
+              skipped + ")");
     }
     return iterator.next();
   }
@@ -878,7 +878,7 @@ public final class Iterators {
   static void checkNonnegative(int position) {
     if (position < 0) {
       throw new IndexOutOfBoundsException("position (" + position +
-                                          ") must not be negative");
+                ") must not be negative");
     }
   }
 
@@ -899,7 +899,7 @@ public final class Iterators {
    */
   @Nullable
   public static <T> T get(Iterator<? extends T> iterator, int position,
-                          @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     checkNonnegative(position);
     advance(iterator, position);
     return getNext(iterator, defaultValue);
@@ -916,7 +916,7 @@ public final class Iterators {
    */
   @Nullable
   public static <T> T getNext(Iterator<? extends T> iterator,
-                              @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     return iterator.hasNext() ? iterator.next() : defaultValue;
   }
 
@@ -945,7 +945,7 @@ public final class Iterators {
    */
   @Nullable
   public static <T> T getLast(Iterator<? extends T> iterator,
-                              @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     return iterator.hasNext() ? getLast(iterator) : defaultValue;
   }
 
@@ -981,30 +981,30 @@ public final class Iterators {
    * @since 3.0
    */
   public static <T> Iterator<T> limit(final Iterator<T> iterator,
-                                      final int limitSize) {
+      final int limitSize) {
     checkNotNull(iterator);
     checkArgument(limitSize >= 0, "limit is negative");
     return new Iterator<T>() {
-      private int count;
+             private int count;
 
-      @Override
-      public boolean hasNext() {
-        return count < limitSize && iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return count < limitSize && iterator.hasNext();
+             }
 
-      @Override
-      public T next() {
-        if (!hasNext()) {
-          throw new NoSuchElementException();
-        }
-        count++;
-        return iterator.next();
-      }
+             @Override
+             public T next() {
+               if (!hasNext()) {
+                 throw new NoSuchElementException();
+               }
+               count++;
+               return iterator.next();
+             }
 
-      @Override
-      public void remove() {
-        iterator.remove();
-      }
+             @Override
+             public void remove() {
+               iterator.remove();
+             }
     };
   }
 
@@ -1024,22 +1024,22 @@ public final class Iterators {
   public static <T> Iterator<T> consumingIterator(final Iterator<T> iterator) {
     checkNotNull(iterator);
     return new UnmodifiableIterator<T>() {
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public T next() {
-        T next = iterator.next();
-        iterator.remove();
-        return next;
-      }
+             @Override
+             public T next() {
+               T next = iterator.next();
+               iterator.remove();
+               return next;
+             }
 
-      @Override
-      public String toString() {
-        return "Iterators.consumingIterator(...)";
-      }
+             @Override
+             public String toString() {
+               return "Iterators.consumingIterator(...)";
+             }
     };
   }
 
@@ -1090,7 +1090,7 @@ public final class Iterators {
   }
 
   private static final class ArrayItr<T>
-      extends AbstractIndexedListIterator<T> {
+    extends AbstractIndexedListIterator<T> {
     static final UnmodifiableListIterator<Object> EMPTY =
         new ArrayItr<>(new Object[0], 0, 0, 0);
 
@@ -1139,21 +1139,21 @@ public final class Iterators {
   public static <T> UnmodifiableIterator<T>
   singletonIterator(@Nullable final T value) {
     return new UnmodifiableIterator<T>() {
-      boolean done;
+             boolean done;
 
-      @Override
-      public boolean hasNext() {
-        return !done;
-      }
+             @Override
+             public boolean hasNext() {
+               return !done;
+             }
 
-      @Override
-      public T next() {
-        if (done) {
-          throw new NoSuchElementException();
-        }
-        done = true;
-        return value;
-      }
+             @Override
+             public T next() {
+               if (done) {
+                 throw new NoSuchElementException();
+               }
+               done = true;
+               return value;
+             }
     };
   }
 
@@ -1169,15 +1169,15 @@ public final class Iterators {
   forEnumeration(final Enumeration<T> enumeration) {
     checkNotNull(enumeration);
     return new UnmodifiableIterator<T>() {
-      @Override
-      public boolean hasNext() {
-        return enumeration.hasMoreElements();
-      }
+             @Override
+             public boolean hasNext() {
+               return enumeration.hasMoreElements();
+             }
 
-      @Override
-      public T next() {
-        return enumeration.nextElement();
-      }
+             @Override
+             public T next() {
+               return enumeration.nextElement();
+             }
     };
   }
 
@@ -1191,15 +1191,15 @@ public final class Iterators {
   public static <T> Enumeration<T> asEnumeration(final Iterator<T> iterator) {
     checkNotNull(iterator);
     return new Enumeration<T>() {
-      @Override
-      public boolean hasMoreElements() {
-        return iterator.hasNext();
-      }
+             @Override
+             public boolean hasMoreElements() {
+               return iterator.hasNext();
+             }
 
-      @Override
-      public T nextElement() {
-        return iterator.next();
-      }
+             @Override
+             public T nextElement() {
+               return iterator.next();
+             }
     };
   }
 
@@ -1326,7 +1326,7 @@ public final class Iterators {
   @Beta
   public static <T> UnmodifiableIterator<T>
   mergeSorted(Iterable<? extends Iterator<? extends T>> iterators,
-              Comparator<? super T> comparator) {
+      Comparator<? super T> comparator) {
     checkNotNull(iterators, "iterators");
     checkNotNull(comparator, "comparator");
 
@@ -1346,16 +1346,16 @@ public final class Iterators {
     final Queue<PeekingIterator<T>> queue;
 
     public MergingIterator(Iterable<? extends Iterator<? extends T>> iterators,
-                           final Comparator<? super T> itemComparator) {
+        final Comparator<? super T> itemComparator) {
       // A comparator that's used by the heap, allowing the heap
       // to be sorted based on the top of each iterator.
       Comparator<PeekingIterator<T>> heapComparator =
           new Comparator<PeekingIterator<T>>() {
-            @Override
-            public int compare(PeekingIterator<T> o1, PeekingIterator<T> o2) {
-              return itemComparator.compare(o1.peek(), o2.peek());
-            }
-          };
+        @Override
+        public int compare(PeekingIterator<T> o1, PeekingIterator<T> o2) {
+          return itemComparator.compare(o1.peek(), o2.peek());
+        }
+      };
 
       queue = new PriorityQueue<>(2, heapComparator);
 
@@ -1405,7 +1405,7 @@ public final class Iterators {
     private Deque<Iterator<? extends Iterator<? extends T>>> metaIterators;
 
     ConcatenatedIterator(
-        Iterator<? extends Iterator<? extends T>> metaIterator) {
+      Iterator<? extends Iterator<? extends T>> metaIterator) {
       iterator = emptyIterator();
       topMetaIterator = checkNotNull(metaIterator);
     }

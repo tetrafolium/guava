@@ -41,7 +41,7 @@ import java.util.List;
  */
 @GwtCompatible
 public class MultimapReplaceValuesTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
 
   @MapFeature.Require({SUPPORTS_PUT, SUPPORTS_REMOVE, ALLOWS_NULL_VALUES})
   public void testReplaceValuesWithNullValue() {
@@ -75,7 +75,7 @@ public class MultimapReplaceValuesTester<K, V>
     List<V> oldValues = new ArrayList<>(multimap().get(k0()));
     @SuppressWarnings("unchecked") List<V> values = Collections.emptyList();
     assertEquals(oldValues,
-                 new ArrayList<V>(multimap().replaceValues(k0(), values)));
+        new ArrayList<V>(multimap().replaceValues(k0(), values)));
     assertGet(k0());
     assertEquals(size - oldValues.size(), multimap().size());
   }
@@ -86,9 +86,9 @@ public class MultimapReplaceValuesTester<K, V>
     List<V> oldValues = new ArrayList<>(multimap().get(k0()));
     List<V> values = Arrays.asList(v0(), v3(), v0());
     assertEquals(oldValues,
-                 new ArrayList<V>(multimap().replaceValues(k0(), values)));
+        new ArrayList<V>(multimap().replaceValues(k0(), values)));
     assertEquals(size - oldValues.size() + multimap().get(k0()).size(),
-                 multimap().size());
+        multimap().size());
     assertTrue(multimap().get(k0()).containsAll(values));
   }
 
@@ -107,7 +107,7 @@ public class MultimapReplaceValuesTester<K, V>
       multimap().replaceValues(k, values);
       assertGet(k, values);
       assertEquals(size + values.size() - oldKeyValues.size(),
-                   multimap().size());
+          multimap().size());
     }
   }
 

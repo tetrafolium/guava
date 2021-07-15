@@ -57,33 +57,33 @@ public abstract class AbstractIdleService implements Service {
     @Override
     protected final void doStart() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-          .execute(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                startUp();
-                notifyStarted();
-              } catch (Throwable t) {
-                notifyFailed(t);
-              }
-            }
-          });
+      .execute(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            startUp();
+            notifyStarted();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
+        }
+      });
     }
 
     @Override
     protected final void doStop() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-          .execute(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                shutDown();
-                notifyStopped();
-              } catch (Throwable t) {
-                notifyFailed(t);
-              }
-            }
-          });
+      .execute(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            shutDown();
+            notifyStopped();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
+        }
+      });
     }
 
     @Override
@@ -111,10 +111,10 @@ public abstract class AbstractIdleService implements Service {
    */
   protected Executor executor() {
     return new Executor() {
-      @Override
-      public void execute(Runnable command) {
-        MoreExecutors.newThread(threadNameSupplier.get(), command).start();
-      }
+             @Override
+             public void execute(Runnable command) {
+               MoreExecutors.newThread(threadNameSupplier.get(), command).start();
+             }
     };
   }
 
@@ -182,7 +182,7 @@ public abstract class AbstractIdleService implements Service {
    */
   @Override
   public final void awaitRunning(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -199,7 +199,7 @@ public abstract class AbstractIdleService implements Service {
    */
   @Override
   public final void awaitTerminated(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 

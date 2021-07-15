@@ -55,7 +55,7 @@ final class LongAddables {
   public static LongAddable create() { return SUPPLIER.get(); }
 
   private static final class PureJavaLongAddable
-      extends AtomicLong implements LongAddable {
+    extends AtomicLong implements LongAddable {
     @Override
     public void increment() {
       getAndIncrement();

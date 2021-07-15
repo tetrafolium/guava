@@ -169,7 +169,7 @@ public enum CaseFormat {
   }
 
   private static final class StringConverter
-      extends Converter<String, String> implements Serializable {
+    extends Converter<String, String> implements Serializable {
 
     private final CaseFormat sourceFormat;
     private final CaseFormat targetFormat;
@@ -194,7 +194,7 @@ public enum CaseFormat {
       if (object instanceof StringConverter) {
         StringConverter that = (StringConverter)object;
         return sourceFormat.equals(that.sourceFormat) &&
-            targetFormat.equals(that.targetFormat);
+               targetFormat.equals(that.targetFormat);
       }
       return false;
     }
@@ -222,6 +222,6 @@ public enum CaseFormat {
   private static String firstCharOnlyToUpper(String word) {
     return (word.isEmpty()) ? word
                             : Ascii.toUpperCase(word.charAt(0)) +
-                                  Ascii.toLowerCase(word.substring(1));
+           Ascii.toLowerCase(word.substring(1));
   }
 }

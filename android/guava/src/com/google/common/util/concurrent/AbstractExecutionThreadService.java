@@ -47,11 +47,11 @@ public abstract class AbstractExecutionThreadService implements Service {
     protected final void doStart() {
       Executor executor =
           MoreExecutors.renamingDecorator(executor(), new Supplier<String>() {
-            @Override
-            public String get() {
-              return serviceName();
-            }
-          });
+        @Override
+        public String get() {
+          return serviceName();
+        }
+      });
       executor.execute(new Runnable() {
         @Override
         public void run() {
@@ -71,9 +71,9 @@ public abstract class AbstractExecutionThreadService implements Service {
                   // good candidate for a suppressed exception, or maybe we
                   // could generalize Closer.Suppressor
                   logger.log(
-                      Level.WARNING,
-                      "Error while attempting to shut down the service after failure.",
-                      ignored);
+                    Level.WARNING,
+                    "Error while attempting to shut down the service after failure.",
+                    ignored);
                 }
                 notifyFailed(t);
                 return;
@@ -158,10 +158,10 @@ public abstract class AbstractExecutionThreadService implements Service {
    */
   protected Executor executor() {
     return new Executor() {
-      @Override
-      public void execute(Runnable command) {
-        MoreExecutors.newThread(serviceName(), command).start();
-      }
+             @Override
+             public void execute(Runnable command) {
+               MoreExecutors.newThread(serviceName(), command).start();
+             }
     };
   }
 
@@ -229,7 +229,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    */
   @Override
   public final void awaitRunning(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitRunning(timeout, unit);
   }
 
@@ -246,7 +246,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    */
   @Override
   public final void awaitTerminated(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     delegate.awaitTerminated(timeout, unit);
   }
 

@@ -526,19 +526,19 @@ public abstract class CharSource {
      */
     private Iterator<String> linesIterator() {
       return new AbstractIterator<String>() {
-        Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
+               Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
 
-        @Override
-        protected String computeNext() {
-          if (lines.hasNext()) {
-            String next = lines.next();
-            // skip last line if it's empty
-            if (lines.hasNext() || !next.isEmpty()) {
-              return next;
-            }
-          }
-          return endOfData();
-        }
+               @Override
+               protected String computeNext() {
+                 if (lines.hasNext()) {
+                   String next = lines.next();
+                   // skip last line if it's empty
+                   if (lines.hasNext() || !next.isEmpty()) {
+                     return next;
+                   }
+                 }
+                 return endOfData();
+               }
       };
     }
 

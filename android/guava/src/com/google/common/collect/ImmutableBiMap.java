@@ -35,7 +35,7 @@ import java.util.Map;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public abstract class ImmutableBiMap<K, V>
-    extends ImmutableMap<K, V> implements BiMap<K, V> {
+  extends ImmutableMap<K, V> implements BiMap<K, V> {
 
   /**
    * Returns the empty bimap.
@@ -71,12 +71,12 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3) {
+      V v3) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3}, 3);
+      new Object[] {k1, v1, k2, v2, k3, v3}, 3);
   }
 
   /**
@@ -85,13 +85,13 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4) {
+      V v3, K k4, V v4) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     checkEntryNotNull(k4, v4);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
+      new Object[] {k1, v1, k2, v2, k3, v3, k4, v4}, 4);
   }
 
   /**
@@ -100,14 +100,14 @@ public abstract class ImmutableBiMap<K, V>
    * @throws IllegalArgumentException if duplicate keys or values are added
    */
   public static <K, V> ImmutableBiMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                               V v3, K k4, V v4, K k5, V v5) {
+      V v3, K k4, V v4, K k5, V v5) {
     checkEntryNotNull(k1, v1);
     checkEntryNotNull(k2, v2);
     checkEntryNotNull(k3, v3);
     checkEntryNotNull(k4, v4);
     checkEntryNotNull(k5, v5);
     return new RegularImmutableBiMap<K, V>(
-        new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
+      new Object[] {k1, v1, k2, v2, k3, v3, k4, v4, k5, v5}, 5);
   }
 
   // looking for of() with > 5 entries? Use the builder instead.

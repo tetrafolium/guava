@@ -42,7 +42,9 @@ public class BaseEncodingBenchmark {
 
     final BaseEncoding encoding;
 
-    EncodingOption(BaseEncoding encoding) { this.encoding = encoding; }
+    EncodingOption(BaseEncoding encoding) {
+      this.encoding = encoding;
+    }
   }
 
   @Param EncodingOption encoding;
@@ -67,7 +69,7 @@ public class BaseEncodingBenchmark {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += System.identityHashCode(
-          encoding.encoding.encode(encodingInputs[i & INPUTS_MASK]));
+        encoding.encoding.encode(encodingInputs[i & INPUTS_MASK]));
     }
     return tmp;
   }
@@ -77,7 +79,7 @@ public class BaseEncodingBenchmark {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       tmp += System.identityHashCode(
-          encoding.encoding.decode(decodingInputs[i & INPUTS_MASK]));
+        encoding.encoding.decode(decodingInputs[i & INPUTS_MASK]));
     }
     return tmp;
   }

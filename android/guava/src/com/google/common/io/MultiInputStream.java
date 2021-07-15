@@ -43,7 +43,7 @@ final class MultiInputStream extends InputStream {
    * @param it an iterator of I/O suppliers that will provide each substream
    */
   public MultiInputStream(Iterator<? extends ByteSource> it)
-      throws IOException {
+  throws IOException {
     this.it = checkNotNull(it);
     advance();
   }

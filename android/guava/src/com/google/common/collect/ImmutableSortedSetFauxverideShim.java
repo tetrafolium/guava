@@ -148,7 +148,7 @@ abstract class ImmutableSortedSetFauxverideShim<E> extends ImmutableSet<E> {
    */
   @Deprecated
   public static <E> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                             E... remaining) {
+      E... remaining) {
     throw new UnsupportedOperationException();
   }
 

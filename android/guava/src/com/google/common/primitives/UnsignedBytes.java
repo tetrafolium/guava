@@ -193,9 +193,9 @@ public final class UnsignedBytes {
   @Beta
   public static String toString(byte x, int radix) {
     checkArgument(
-        radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
-        "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
-        radix);
+      radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
+      "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
+      radix);
     // Benchmarks indicate this is probably not worth optimizing.
     return Integer.toString(toInt(x), radix);
   }
@@ -309,7 +309,7 @@ public final class UnsignedBytes {
     static final Comparator<byte[]> BEST_COMPARATOR = getBestComparator();
 
     @VisibleForTesting enum UnsafeComparator implements Comparator < byte
-    [] > {
+        [] > {
       INSTANCE;
 
       static final boolean BIG_ENDIAN =
@@ -343,9 +343,9 @@ public final class UnsignedBytes {
         // fall back to the safer pure java implementation unless we're in
         // a 64-bit JVM with an 8-byte aligned field offset.
         if (!("64".equals(System.getProperty("sun.arch.data.model")) &&
-              (BYTE_ARRAY_BASE_OFFSET % 8) == 0
-              // sanity check - this should never fail
-              && theUnsafe.arrayIndexScale(byte[].class) == 1)) {
+            (BYTE_ARRAY_BASE_OFFSET % 8) == 0
+            // sanity check - this should never fail
+            && theUnsafe.arrayIndexScale(byte[].class) == 1)) {
           throw new Error(); // force fallback to PureJavaComparator
         }
       }
@@ -365,23 +365,23 @@ public final class UnsignedBytes {
         }
         try {
           return java.security.AccessController.doPrivileged(
-              new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
-                @Override
-                public sun.misc.Unsafe run() throws Exception {
-                  Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
-                  for (java.lang.reflect.Field f : k.getDeclaredFields()) {
-                    f.setAccessible(true);
-                    Object x = f.get(null);
-                    if (k.isInstance(x)) {
-                      return k.cast(x);
-                    }
-                  }
-                  throw new NoSuchFieldError("the Unsafe");
+            new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+            @Override
+            public sun.misc.Unsafe run() throws Exception {
+              Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+              for (java.lang.reflect.Field f : k.getDeclaredFields()) {
+                f.setAccessible(true);
+                Object x = f.get(null);
+                if (k.isInstance(x)) {
+                  return k.cast(x);
                 }
-              });
+              }
+              throw new NoSuchFieldError("the Unsafe");
+            }
+          });
         } catch (java.security.PrivilegedActionException e) {
           throw new RuntimeException("Could not initialize intrinsics",
-                                     e.getCause());
+                    e.getCause());
         }
       }
 
@@ -415,7 +415,7 @@ public final class UnsignedBytes {
              */
             int n = Long.numberOfTrailingZeros(lw ^ rw) & ~0x7;
             return ((int)((lw >>> n) & UNSIGNED_MASK)) -
-                ((int)((rw >>> n) & UNSIGNED_MASK));
+                   ((int)((rw >>> n) & UNSIGNED_MASK));
           }
         }
 
@@ -436,7 +436,7 @@ public final class UnsignedBytes {
     }
 
     enum PureJavaComparator implements Comparator < byte
-    [] > {
+        [] > {
       INSTANCE;
 
       @Override

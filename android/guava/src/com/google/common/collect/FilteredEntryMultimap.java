@@ -43,12 +43,12 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 class FilteredEntryMultimap<K, V>
-    extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
+  extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
   final Multimap<K, V> unfiltered;
   final Predicate<? super Entry<K, V>> predicate;
 
   FilteredEntryMultimap(Multimap<K, V> unfiltered,
-                        Predicate<? super Entry<K, V>> predicate) {
+      Predicate<? super Entry<K, V>> predicate) {
     this.unfiltered = checkNotNull(unfiltered);
     this.predicate = checkNotNull(predicate);
   }
@@ -84,7 +84,7 @@ class FilteredEntryMultimap<K, V>
   }
 
   static <E> Collection<E> filterCollection(Collection<E> collection,
-                                            Predicate<? super E> predicate) {
+      Predicate<? super E> predicate) {
     if (collection instanceof Set) {
       return Sets.filter((Set<E>)collection, predicate);
     } else {
@@ -100,7 +100,7 @@ class FilteredEntryMultimap<K, V>
   @Override
   public Collection<V> removeAll(@Nullable Object key) {
     return MoreObjects.firstNonNull(asMap().remove(key),
-                                    unmodifiableEmptyCollection());
+               unmodifiableEmptyCollection());
   }
 
   Collection<V> unmodifiableEmptyCollection() {
@@ -253,22 +253,22 @@ class FilteredEntryMultimap<K, V>
         @Override
         public Iterator<Entry<K, Collection<V>>> iterator() {
           return new AbstractIterator<Entry<K, Collection<V>>>() {
-            final Iterator<Entry<K, Collection<V>>> backingIterator =
-                unfiltered.asMap().entrySet().iterator();
+                   final Iterator<Entry<K, Collection<V>>> backingIterator =
+                       unfiltered.asMap().entrySet().iterator();
 
-            @Override
-            protected Entry<K, Collection<V>> computeNext() {
-              while (backingIterator.hasNext()) {
-                Entry<K, Collection<V>> entry = backingIterator.next();
-                K key = entry.getKey();
-                Collection<V> collection =
-                    filterCollection(entry.getValue(), new ValuePredicate(key));
-                if (!collection.isEmpty()) {
-                  return Maps.immutableEntry(key, collection);
-                }
-              }
-              return endOfData();
-            }
+                   @Override
+                   protected Entry<K, Collection<V>> computeNext() {
+                     while (backingIterator.hasNext()) {
+                       Entry<K, Collection<V>> entry = backingIterator.next();
+                       K key = entry.getKey();
+                       Collection<V> collection =
+                           filterCollection(entry.getValue(), new ValuePredicate(key));
+                       if (!collection.isEmpty()) {
+                         return Maps.immutableEntry(key, collection);
+                       }
+                     }
+                     return endOfData();
+                   }
           };
         }
 
@@ -323,13 +323,13 @@ class FilteredEntryMultimap<K, V>
         @Override
         public boolean removeAll(Collection<?> c) {
           return removeEntriesIf(
-              Maps.<Collection<V>>valuePredicateOnEntries(in(c)));
+            Maps.<Collection<V>>valuePredicateOnEntries(in(c)));
         }
 
         @Override
         public boolean retainAll(Collection<?> c) {
           return removeEntriesIf(
-              Maps.<Collection<V>>valuePredicateOnEntries(not(in(c))));
+            Maps.<Collection<V>>valuePredicateOnEntries(not(in(c))));
         }
       }
       return new ValuesImpl();
@@ -374,42 +374,42 @@ class FilteredEntryMultimap<K, V>
     @Override
     public Set<Multiset.Entry<K>> entrySet() {
       return new Multisets.EntrySet<K>() {
-        @Override
-        Multiset<K> multiset() {
-          return Keys.this;
-        }
+               @Override
+               Multiset<K> multiset() {
+                 return Keys.this;
+               }
 
-        @Override
-        public Iterator<Multiset.Entry<K>> iterator() {
-          return Keys.this.entryIterator();
-        }
+               @Override
+               public Iterator<Multiset.Entry<K>> iterator() {
+                 return Keys.this.entryIterator();
+               }
 
-        @Override
-        public int size() {
-          return FilteredEntryMultimap.this.keySet().size();
-        }
+               @Override
+               public int size() {
+                 return FilteredEntryMultimap.this.keySet().size();
+               }
 
-        private boolean removeEntriesIf(
-            final Predicate<? super Multiset.Entry<K>> predicate) {
-          return FilteredEntryMultimap.this.removeEntriesIf(
-              new Predicate<Map.Entry<K, Collection<V>>>() {
-                @Override
-                public boolean apply(Map.Entry<K, Collection<V>> entry) {
-                  return predicate.apply(Multisets.immutableEntry(
-                      entry.getKey(), entry.getValue().size()));
-                }
-              });
-        }
+               private boolean removeEntriesIf(
+                 final Predicate<? super Multiset.Entry<K>> predicate) {
+                 return FilteredEntryMultimap.this.removeEntriesIf(
+                   new Predicate<Map.Entry<K, Collection<V>>>() {
+            @Override
+            public boolean apply(Map.Entry<K, Collection<V>> entry) {
+              return predicate.apply(Multisets.immutableEntry(
+                entry.getKey(), entry.getValue().size()));
+            }
+          });
+               }
 
-        @Override
-        public boolean removeAll(Collection<?> c) {
-          return removeEntriesIf(in(c));
-        }
+               @Override
+               public boolean removeAll(Collection<?> c) {
+                 return removeEntriesIf(in(c));
+               }
 
-        @Override
-        public boolean retainAll(Collection<?> c) {
-          return removeEntriesIf(not(in(c)));
-        }
+               @Override
+               public boolean retainAll(Collection<?> c) {
+                 return removeEntriesIf(not(in(c)));
+               }
       };
     }
   }

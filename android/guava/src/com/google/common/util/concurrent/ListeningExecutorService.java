@@ -76,7 +76,7 @@ public interface ListeningExecutorService extends ExecutorService {
    */
   @Override
   <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-      throws InterruptedException;
+  throws InterruptedException;
 
   /**
    * {@inheritDoc}
@@ -100,6 +100,6 @@ public interface ListeningExecutorService extends ExecutorService {
    */
   @Override
   <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks,
-                                long timeout, TimeUnit unit)
-      throws InterruptedException;
+      long timeout, TimeUnit unit)
+  throws InterruptedException;
 }

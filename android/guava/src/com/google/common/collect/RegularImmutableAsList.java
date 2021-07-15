@@ -32,7 +32,7 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
   private final ImmutableList<? extends E> delegateList;
 
   RegularImmutableAsList(ImmutableCollection<E> delegate,
-                         ImmutableList<? extends E> delegateList) {
+      ImmutableList<? extends E> delegateList) {
     this.delegate = delegate;
     this.delegateList = delegateList;
   }
@@ -42,7 +42,7 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
   }
 
   RegularImmutableAsList(ImmutableCollection<E> delegate, Object[] array,
-                         int size) {
+      int size) {
     this(delegate, ImmutableList.<E>asImmutableList(array, size));
   }
 

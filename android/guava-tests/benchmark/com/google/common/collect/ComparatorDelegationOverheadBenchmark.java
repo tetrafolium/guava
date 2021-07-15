@@ -73,11 +73,11 @@ public class ComparatorDelegationOverheadBenchmark {
 
   private static final Comparator<Integer> NATURAL_INTEGER =
       new Comparator<Integer>() {
-        @Override
-        public int compare(Integer o1, Integer o2) {
-          return o1.compareTo(o2);
-        }
-      };
+    @Override
+    public int compare(Integer o1, Integer o2) {
+      return o1.compareTo(o2);
+    }
+  };
 
   @Benchmark
   int arraysSortOrderingFromNatural(int reps) {

@@ -164,7 +164,7 @@ import javax.annotation.Nullable;
 // "BaseImmutableCollection" or something, just to do everything we can to
 // emphasize the "practically an interface" nature of this class.
 public abstract class ImmutableCollection<E>
-    extends AbstractCollection<E> implements Serializable {
+  extends AbstractCollection<E> implements Serializable {
 
   ImmutableCollection() {}
 
@@ -428,7 +428,7 @@ public abstract class ImmutableCollection<E>
   }
 
   abstract static class ArrayBasedBuilder<E>
-      extends ImmutableCollection.Builder<E> {
+    extends ImmutableCollection.Builder<E> {
     Object[] contents;
     int size;
     boolean forceCopy;
@@ -448,7 +448,7 @@ public abstract class ImmutableCollection<E>
     private void getReadyToExpandTo(int minCapacity) {
       if (contents.length < minCapacity) {
         this.contents = Arrays.copyOf(
-            this.contents, expandedCapacity(contents.length, minCapacity));
+          this.contents, expandedCapacity(contents.length, minCapacity));
         forceCopy = false;
       } else if (forceCopy) {
         this.contents = contents.clone();

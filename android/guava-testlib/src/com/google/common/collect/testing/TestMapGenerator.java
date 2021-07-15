@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public interface TestMapGenerator<K, V>
-    extends TestContainerGenerator<Map<K, V>, Map.Entry<K, V>> {
+  extends TestContainerGenerator<Map<K, V>, Map.Entry<K, V>> {
   K[] createKeyArray(int length);
 
   V[] createValueArray(int length);

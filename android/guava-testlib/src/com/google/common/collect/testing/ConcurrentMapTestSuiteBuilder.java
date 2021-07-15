@@ -32,9 +32,9 @@ import java.util.List;
  */
 @GwtIncompatible
 public class ConcurrentMapTestSuiteBuilder<K, V>
-    extends MapTestSuiteBuilder<K, V> {
+  extends MapTestSuiteBuilder<K, V> {
   public static <K, V> ConcurrentMapTestSuiteBuilder<K, V> using(
-      TestMapGenerator<K, V> generator) {
+    TestMapGenerator<K, V> generator) {
     ConcurrentMapTestSuiteBuilder<K, V> result =
         new ConcurrentMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
@@ -43,9 +43,9 @@ public class ConcurrentMapTestSuiteBuilder<K, V>
 
   static final List<? extends Class<? extends AbstractTester>> TESTERS =
       Arrays.asList(ConcurrentMapPutIfAbsentTester.class,
-                    ConcurrentMapRemoveTester.class,
-                    ConcurrentMapReplaceTester.class,
-                    ConcurrentMapReplaceEntryTester.class);
+      ConcurrentMapRemoveTester.class,
+      ConcurrentMapReplaceTester.class,
+      ConcurrentMapReplaceEntryTester.class);
 
   @Override
   protected List<Class<? extends AbstractTester>> getTesters() {

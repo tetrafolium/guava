@@ -66,11 +66,11 @@ public class ListSetTester<E> extends AbstractListTester<E> {
     int index = aValidIndex();
     E initialValue = getList().get(index);
     assertEquals("set(i, x) should return the old element at position i.",
-                 initialValue, getList().set(index, newValue));
+        initialValue, getList().set(index, newValue));
     assertEquals("After set(i, x), get(i) should return x", newValue,
-                 getList().get(index));
+        getList().get(index));
     assertEquals("set() should not change the size of a list.",
-                 getNumElements(), getList().size());
+        getNumElements(), getList().size());
   }
 
   @ListFeature.Require(SUPPORTS_SET)
@@ -111,9 +111,9 @@ public class ListSetTester<E> extends AbstractListTester<E> {
     try {
       getList().set(0, e3());
       fail(
-          "set() should throw UnsupportedOperationException or IndexOutOfBoundsException");
+        "set() should throw UnsupportedOperationException or IndexOutOfBoundsException");
     } catch (UnsupportedOperationException |
-             IndexOutOfBoundsException tolerated) {
+        IndexOutOfBoundsException tolerated) {
     }
     expectUnchanged();
   }

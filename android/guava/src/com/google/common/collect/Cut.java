@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class Cut<C extends Comparable>
-    implements Comparable<Cut<C>>, Serializable {
+  implements Comparable<Cut<C>>, Serializable {
   final C endpoint;
 
   Cut(@Nullable C endpoint) { this.endpoint = endpoint; }
@@ -48,10 +48,10 @@ abstract class Cut<C extends Comparable>
   abstract BoundType typeAsUpperBound();
 
   abstract Cut<C> withLowerBoundType(BoundType boundType,
-                                     DiscreteDomain<C> domain);
+      DiscreteDomain<C> domain);
 
   abstract Cut<C> withUpperBoundType(BoundType boundType,
-                                     DiscreteDomain<C> domain);
+      DiscreteDomain<C> domain);
 
   abstract void describeAsLowerBound(StringBuilder sb);
 
@@ -83,7 +83,7 @@ abstract class Cut<C extends Comparable>
     }
     // same value. below comes before above
     return Booleans.compare(this instanceof AboveValue,
-                            that instanceof AboveValue);
+               that instanceof AboveValue);
   }
 
   C endpoint() { return endpoint; }
@@ -146,14 +146,14 @@ abstract class Cut<C extends Comparable>
     @Override
     Cut<Comparable<?>>
     withLowerBoundType(BoundType boundType,
-                       DiscreteDomain<Comparable<?>> domain) {
+        DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
     @Override
     Cut<Comparable<?>>
     withUpperBoundType(BoundType boundType,
-                       DiscreteDomain<Comparable<?>> domain) {
+        DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
@@ -243,14 +243,14 @@ abstract class Cut<C extends Comparable>
     @Override
     Cut<Comparable<?>>
     withLowerBoundType(BoundType boundType,
-                       DiscreteDomain<Comparable<?>> domain) {
+        DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
     @Override
     Cut<Comparable<?>>
     withUpperBoundType(BoundType boundType,
-                       DiscreteDomain<Comparable<?>> domain) {
+        DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
@@ -319,7 +319,7 @@ abstract class Cut<C extends Comparable>
     @Override
     Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain) {
       switch (boundType) {
-      case CLOSED:
+      case CLOSED :
         return this;
       case OPEN:
         @Nullable C previous = domain.previous(endpoint);

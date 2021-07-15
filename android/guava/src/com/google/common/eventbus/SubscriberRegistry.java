@@ -62,7 +62,7 @@ final class SubscriberRegistry {
    * event without any locking.
    */
   private final ConcurrentMap<Class<?>, CopyOnWriteArraySet<Subscriber>>
-      subscribers = Maps.newConcurrentMap();
+  subscribers = Maps.newConcurrentMap();
 
   /**
    * The event bus this registry belongs to.
@@ -79,7 +79,7 @@ final class SubscriberRegistry {
         findAllSubscribers(listener);
 
     for (Map.Entry<Class<?>, Collection<Subscriber>> entry :
-         listenerMethods.asMap().entrySet()) {
+        listenerMethods.asMap().entrySet()) {
       Class<?> eventType = entry.getKey();
       Collection<Subscriber> eventMethodsInListener = entry.getValue();
 
@@ -89,7 +89,7 @@ final class SubscriberRegistry {
       if (eventSubscribers == null) {
         CopyOnWriteArraySet<Subscriber> newSet = new CopyOnWriteArraySet<>();
         eventSubscribers = MoreObjects.firstNonNull(
-            subscribers.putIfAbsent(eventType, newSet), newSet);
+          subscribers.putIfAbsent(eventType, newSet), newSet);
       }
 
       eventSubscribers.addAll(eventMethodsInListener);
@@ -104,7 +104,7 @@ final class SubscriberRegistry {
         findAllSubscribers(listener);
 
     for (Map.Entry<Class<?>, Collection<Subscriber>> entry :
-         listenerMethods.asMap().entrySet()) {
+        listenerMethods.asMap().entrySet()) {
       Class<?> eventType = entry.getKey();
       Collection<Subscriber> listenerMethodsForType = entry.getValue();
 
@@ -118,8 +118,8 @@ final class SubscriberRegistry {
         // subscribers on listener for that event type were... after all, the
         // definition of subscribers on a particular class is totally static
         throw new IllegalArgumentException(
-            "missing event subscriber for an annotated method. Is " + listener +
-            " registered?");
+                "missing event subscriber for an annotated method. Is " + listener +
+                " registered?");
       }
 
       // don't try to remove the set if it's empty; that can't be done safely
@@ -131,7 +131,7 @@ final class SubscriberRegistry {
   @VisibleForTesting
   Set<Subscriber> getSubscribersForTesting(Class<?> eventType) {
     return MoreObjects.firstNonNull(subscribers.get(eventType),
-                                    ImmutableSet.<Subscriber>of());
+               ImmutableSet.<Subscriber>of());
   }
 
   /**
@@ -164,14 +164,14 @@ final class SubscriberRegistry {
    * objects of the same class are registered on all of them.
    */
   private static final LoadingCache<Class<?>, ImmutableList<Method>>
-      subscriberMethodsCache = CacheBuilder.newBuilder().weakKeys().build(
-          new CacheLoader<Class<?>, ImmutableList<Method>>() {
-            @Override
-            public ImmutableList<Method> load(Class<?> concreteClass)
-                throws Exception {
-              return getAnnotatedMethodsNotCached(concreteClass);
-            }
-          });
+  subscriberMethodsCache = CacheBuilder.newBuilder().weakKeys().build(
+    new CacheLoader<Class<?>, ImmutableList<Method>>() {
+    @Override
+    public ImmutableList<Method> load(Class<?> concreteClass)
+    throws Exception {
+      return getAnnotatedMethodsNotCached(concreteClass);
+    }
+  });
 
   /**
    * Returns all subscribers for the given listener grouped by the type of event
@@ -184,7 +184,7 @@ final class SubscriberRegistry {
       Class<?>[] parameterTypes = method.getParameterTypes();
       Class<?> eventType = parameterTypes[0];
       methodsInListener.put(eventType,
-                            Subscriber.create(bus, listener, method));
+          Subscriber.create(bus, listener, method));
     }
     return methodsInListener;
   }
@@ -206,10 +206,10 @@ final class SubscriberRegistry {
           // out
           Class<?>[] parameterTypes = method.getParameterTypes();
           checkArgument(
-              parameterTypes.length == 1,
-              "Method %s has @Subscribe annotation but has %s parameters."
-                  + "Subscriber methods must have exactly 1 parameter.",
-              method, parameterTypes.length);
+            parameterTypes.length == 1,
+            "Method %s has @Subscribe annotation but has %s parameters."
+            + "Subscriber methods must have exactly 1 parameter.",
+            method, parameterTypes.length);
 
           MethodIdentifier ident = new MethodIdentifier(method);
           if (!identifiers.containsKey(ident)) {
@@ -225,16 +225,16 @@ final class SubscriberRegistry {
    * Global cache of classes to their flattened hierarchy of supertypes.
    */
   private static final LoadingCache<Class<?>, ImmutableSet<Class<?>>>
-      flattenHierarchyCache = CacheBuilder.newBuilder().weakKeys().build(
-          new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
-            // <Class<?>> is actually needed to compile
-            @SuppressWarnings("RedundantTypeArguments")
-            @Override
-            public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
-              return ImmutableSet.<Class<?>>copyOf(
-                  TypeToken.of(concreteClass).getTypes().rawTypes());
-            }
-          });
+  flattenHierarchyCache = CacheBuilder.newBuilder().weakKeys().build(
+    new CacheLoader<Class<?>, ImmutableSet<Class<?>>>() {
+    // <Class<?>> is actually needed to compile
+    @SuppressWarnings("RedundantTypeArguments")
+    @Override
+    public ImmutableSet<Class<?>> load(Class<?> concreteClass) {
+      return ImmutableSet.<Class<?>>copyOf(
+        TypeToken.of(concreteClass).getTypes().rawTypes());
+    }
+  });
 
   /**
    * Flattens a class's type hierarchy into a set of {@code Class} objects
@@ -270,7 +270,7 @@ final class SubscriberRegistry {
       if (o instanceof MethodIdentifier) {
         MethodIdentifier ident = (MethodIdentifier)o;
         return name.equals(ident.name) &&
-            parameterTypes.equals(ident.parameterTypes);
+               parameterTypes.equals(ident.parameterTypes);
       }
       return false;
     }

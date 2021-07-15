@@ -53,8 +53,8 @@ public class BinaryTreeTraverserBenchmark {
           int leftChildSize = (size - 1) / 2;
           int rightChildSize = size - 1 - leftChildSize;
           return Optional.of(new BinaryNode(rng.nextInt(),
-                                            createTree(leftChildSize, rng),
-                                            createTree(rightChildSize, rng)));
+                     createTree(leftChildSize, rng),
+                     createTree(rightChildSize, rng)));
         }
       }
     },
@@ -64,7 +64,7 @@ public class BinaryTreeTraverserBenchmark {
         Optional<BinaryNode> root = Optional.absent();
         for (int i = 0; i < size; i++) {
           root = Optional.of(new BinaryNode(rng.nextInt(), root,
-                                            Optional.<BinaryNode>absent()));
+              Optional.<BinaryNode>absent()));
         }
         return root;
       }
@@ -75,7 +75,7 @@ public class BinaryTreeTraverserBenchmark {
         Optional<BinaryNode> root = Optional.absent();
         for (int i = 0; i < size; i++) {
           root = Optional.of(new BinaryNode(
-              rng.nextInt(), Optional.<BinaryNode>absent(), root));
+                rng.nextInt(), Optional.<BinaryNode>absent(), root));
         }
         return root;
       }
@@ -109,7 +109,7 @@ public class BinaryTreeTraverserBenchmark {
         Optional<BinaryNode> rightChild =
             createTreap(keys.subList(minIndex + 1, keys.size()));
         return Optional.of(
-            new BinaryNode(keys.get(minIndex), leftChild, rightChild));
+          new BinaryNode(keys.get(minIndex), leftChild, rightChild));
       }
     };
 
@@ -118,24 +118,24 @@ public class BinaryTreeTraverserBenchmark {
 
   private static final BinaryTreeTraverser<BinaryNode> BINARY_VIEWER =
       new BinaryTreeTraverser<BinaryNode>() {
-        @Override
-        public Optional<BinaryNode> leftChild(BinaryNode node) {
-          return node.left;
-        }
+    @Override
+    public Optional<BinaryNode> leftChild(BinaryNode node) {
+      return node.left;
+    }
 
-        @Override
-        public Optional<BinaryNode> rightChild(BinaryNode node) {
-          return node.right;
-        }
-      };
+    @Override
+    public Optional<BinaryNode> rightChild(BinaryNode node) {
+      return node.right;
+    }
+  };
 
   private static final TreeTraverser<BinaryNode> VIEWER =
       new TreeTraverser<BinaryNode>() {
-        @Override
-        public Iterable<BinaryNode> children(BinaryNode root) {
-          return BINARY_VIEWER.children(root);
-        }
-      };
+    @Override
+    public Iterable<BinaryNode> children(BinaryNode root) {
+      return BINARY_VIEWER.children(root);
+    }
+  };
 
   enum Traversal {
     PRE_ORDER {
@@ -175,7 +175,7 @@ public class BinaryTreeTraverserBenchmark {
   @BeforeExperiment
   void setUp() {
     this.view = traversal.view(topology.createTree(size, rng).get(),
-                               useBinaryTraverser ? BINARY_VIEWER : VIEWER);
+        useBinaryTraverser ? BINARY_VIEWER : VIEWER);
   }
 
   @Benchmark

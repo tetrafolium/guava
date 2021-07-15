@@ -110,7 +110,7 @@ public final class Splitter {
   }
 
   private Splitter(Strategy strategy, boolean omitEmptyStrings,
-                   CharMatcher trimmer, int limit) {
+      CharMatcher trimmer, int limit) {
     this.strategy = strategy;
     this.omitEmptyStrings = omitEmptyStrings;
     this.trimmer = trimmer;
@@ -147,7 +147,7 @@ public final class Splitter {
     return new Splitter(new Strategy() {
       @Override
       public SplittingIterator iterator(Splitter splitter,
-                                        final CharSequence toSplit) {
+      final CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
           @Override
           int separatorStart(int start) {
@@ -175,22 +175,22 @@ public final class Splitter {
    */
   public static Splitter on(final String separator) {
     checkArgument(separator.length() != 0,
-                  "The separator may not be the empty string.");
+        "The separator may not be the empty string.");
     if (separator.length() == 1) {
       return Splitter.on(separator.charAt(0));
     }
     return new Splitter(new Strategy() {
       @Override
       public SplittingIterator iterator(Splitter splitter,
-                                        CharSequence toSplit) {
+      CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
           @Override
           public int separatorStart(int start) {
             int separatorLength = separator.length();
 
-          positions:
+            positions:
             for (int p = start, last = toSplit.length() - separatorLength;
-                 p <= last; p++) {
+            p <= last; p++) {
               for (int i = 0; i < separatorLength; i++) {
                 if (toSplit.charAt(i + p) != separator.charAt(i)) {
                   continue positions;
@@ -229,13 +229,13 @@ public final class Splitter {
 
   private static Splitter on(final CommonPattern separatorPattern) {
     checkArgument(!separatorPattern.matcher("").matches(),
-                  "The pattern may not match the empty string: %s",
-                  separatorPattern);
+        "The pattern may not match the empty string: %s",
+        separatorPattern);
 
     return new Splitter(new Strategy() {
       @Override
       public SplittingIterator iterator(final Splitter splitter,
-                                        CharSequence toSplit) {
+      CharSequence toSplit) {
         final CommonMatcher matcher = separatorPattern.matcher(toSplit);
         return new SplittingIterator(splitter, toSplit) {
           @Override
@@ -298,7 +298,7 @@ public final class Splitter {
     return new Splitter(new Strategy() {
       @Override
       public SplittingIterator iterator(final Splitter splitter,
-                                        CharSequence toSplit) {
+      CharSequence toSplit) {
         return new SplittingIterator(splitter, toSplit) {
           @Override
           public int separatorStart(int start) {
@@ -408,18 +408,18 @@ public final class Splitter {
     checkNotNull(sequence);
 
     return new Iterable<String>() {
-      @Override
-      public Iterator<String> iterator() {
-        return splittingIterator(sequence);
-      }
+             @Override
+             public Iterator<String> iterator() {
+               return splittingIterator(sequence);
+             }
 
-      @Override
-      public String toString() {
-        return Joiner.on(", ")
-            .appendTo(new StringBuilder().append('['), this)
-            .append(']')
-            .toString();
-      }
+             @Override
+             public String toString() {
+               return Joiner.on(", ")
+                      .appendTo(new StringBuilder().append('['), this)
+                      .append(']')
+                      .toString();
+             }
     };
   }
 
@@ -545,7 +545,7 @@ public final class Splitter {
   }
 
   private abstract static class SplittingIterator
-      extends AbstractIterator<String> {
+    extends AbstractIterator<String> {
     final CharSequence toSplit;
     final CharMatcher trimmer;
     final boolean omitEmptyStrings;

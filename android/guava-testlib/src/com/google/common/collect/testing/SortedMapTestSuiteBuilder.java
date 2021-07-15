@@ -38,7 +38,7 @@ import junit.framework.TestSuite;
 @GwtIncompatible
 public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
   public static <K, V> SortedMapTestSuiteBuilder<K, V> using(
-      TestSortedMapGenerator<K, V> generator) {
+    TestSortedMapGenerator<K, V> generator) {
     SortedMapTestSuiteBuilder<K, V> result = new SortedMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
     return result;
@@ -64,18 +64,18 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder) {
+    parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
     if (!parentBuilder.getFeatures().contains(NoRecurse.SUBMAP)) {
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.NO_BOUND, Bound.EXCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.NO_BOUND, Bound.EXCLUSIVE));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.NO_BOUND));
+        createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.NO_BOUND));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.EXCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.EXCLUSIVE));
     }
 
     return derivedSuites;
@@ -86,7 +86,7 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
   createDerivedKeySetSuite(TestSetGenerator<K> keySetGenerator) {
     return keySetGenerator instanceof TestSortedSetGenerator
         ? SortedSetTestSuiteBuilder.using(
-              (TestSortedSetGenerator<K>)keySetGenerator)
+      (TestSortedSetGenerator<K>)keySetGenerator)
         : SetTestSuiteBuilder.using(keySetGenerator);
   }
 
@@ -112,23 +112,23 @@ public class SortedMapTestSuiteBuilder<K, V> extends MapTestSuiteBuilder<K, V> {
    * regular sort ordering.
    */
   final TestSuite createSubmapSuite(
-      final FeatureSpecificTestSuiteBuilder<
+    final FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder,
-      final Bound from, final Bound to) {
+    parentBuilder,
+    final Bound from, final Bound to) {
     final TestSortedMapGenerator<K, V> delegate =
         (TestSortedMapGenerator<K, V>)parentBuilder.getSubjectGenerator()
-            .getInnerGenerator();
+        .getInnerGenerator();
 
     List<Feature<?>> features = new ArrayList<>();
     features.add(NoRecurse.SUBMAP);
     features.addAll(parentBuilder.getFeatures());
 
     return newBuilderUsing(delegate, to, from)
-        .named(parentBuilder.getName() + " subMap " + from + "-" + to)
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+           .named(parentBuilder.getName() + " subMap " + from + "-" + to)
+           .withFeatures(features)
+           .suppressing(parentBuilder.getSuppressedTests())
+           .createTestSuite();
   }
 
   /** Like using() but overrideable by NavigableMapTestSuiteBuilder. */

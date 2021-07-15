@@ -80,13 +80,13 @@ public abstract class TreeTraverser<T> {
    * @since 20.0
    */
   public static <T> TreeTraverser<T> using(
-      final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
+    final Function<T, ? extends Iterable<T>> nodeToChildrenFunction) {
     checkNotNull(nodeToChildrenFunction);
     return new TreeTraverser<T>() {
-      @Override
-      public Iterable<T> children(T root) {
-        return nodeToChildrenFunction.apply(root);
-      }
+             @Override
+             public Iterable<T> children(T root) {
+               return nodeToChildrenFunction.apply(root);
+             }
     };
   }
 
@@ -107,10 +107,10 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> preOrderTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return preOrderIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return preOrderIterator(root);
+             }
     };
   }
 
@@ -159,10 +159,10 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> postOrderTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return postOrderIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return postOrderIterator(root);
+             }
     };
   }
 
@@ -221,15 +221,15 @@ public abstract class TreeTraverser<T> {
   public final FluentIterable<T> breadthFirstTraversal(final T root) {
     checkNotNull(root);
     return new FluentIterable<T>() {
-      @Override
-      public UnmodifiableIterator<T> iterator() {
-        return new BreadthFirstIterator(root);
-      }
+             @Override
+             public UnmodifiableIterator<T> iterator() {
+               return new BreadthFirstIterator(root);
+             }
     };
   }
 
   private final class BreadthFirstIterator
-      extends UnmodifiableIterator<T> implements PeekingIterator<T> {
+    extends UnmodifiableIterator<T> implements PeekingIterator<T> {
     private final Queue<T> queue;
 
     BreadthFirstIterator(T root) {

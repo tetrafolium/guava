@@ -56,9 +56,9 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
   /** Constructs a graph with the properties specified in {@code builder}. */
   ConfigurableValueGraph(AbstractGraphBuilder<? super N> builder) {
     this(builder,
-         builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
-             builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
-         0L);
+    builder.nodeOrder.<N, GraphConnections<N, V>>createMap(
+      builder.expectedNodeCount.or(DEFAULT_NODE_COUNT)),
+    0L);
   }
 
   /**
@@ -66,8 +66,8 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
    * initialized with the given node map.
    */
   ConfigurableValueGraph(AbstractGraphBuilder<? super N> builder,
-                         Map<N, GraphConnections<N, V>> nodeConnections,
-                         long edgeCount) {
+      Map<N, GraphConnections<N, V>> nodeConnections,
+      long edgeCount) {
     this.isDirected = builder.directed;
     this.allowsSelfLoops = builder.allowsSelfLoops;
     this.nodeOrder = builder.nodeOrder.cast();
@@ -142,7 +142,7 @@ class ConfigurableValueGraph<N, V> extends AbstractValueGraph<N, V> {
     if (connections == null) {
       checkNotNull(node);
       throw new IllegalArgumentException("Node " + node +
-                                         " is not an element of this graph.");
+                " is not an element of this graph.");
     }
     return connections;
   }

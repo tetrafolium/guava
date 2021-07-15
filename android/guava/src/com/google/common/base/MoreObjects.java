@@ -351,7 +351,7 @@ public final class MoreObjects {
       StringBuilder builder =
           new StringBuilder(32).append(className).append('{');
       for (ValueHolder valueHolder = holderHead.next; valueHolder != null;
-           valueHolder = valueHolder.next) {
+          valueHolder = valueHolder.next) {
         Object value = valueHolder.value;
         if (!omitNullValuesSnapshot || value != null) {
           builder.append(nextSeparator);

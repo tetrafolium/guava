@@ -40,7 +40,7 @@ import java.util.ListIterator;
  */
 @GwtCompatible
 public abstract class ForwardingListIterator<E>
-    extends ForwardingIterator<E> implements ListIterator<E> {
+  extends ForwardingIterator<E> implements ListIterator<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingListIterator() {}

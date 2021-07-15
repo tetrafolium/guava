@@ -47,7 +47,7 @@ import java.util.Set;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public final class HashMultimap<K, V>
-    extends HashMultimapGwtSerializationDependencies<K, V> {
+  extends HashMultimapGwtSerializationDependencies<K, V> {
   private static final int DEFAULT_VALUES_PER_KEY = 2;
 
   @VisibleForTesting
@@ -77,7 +77,7 @@ public final class HashMultimap<K, V>
    *     expectedValuesPerKey} is negative
    */
   public static <K, V> HashMultimap<K, V> create(int expectedKeys,
-                                                 int expectedValuesPerKey) {
+      int expectedValuesPerKey) {
     return new HashMultimap<>(expectedKeys, expectedValuesPerKey);
   }
 
@@ -106,7 +106,7 @@ public final class HashMultimap<K, V>
 
   private HashMultimap(Multimap<? extends K, ? extends V> multimap) {
     super(Maps.<K, Collection<V>>newHashMapWithExpectedSize(
-        multimap.keySet().size()));
+      multimap.keySet().size()));
     putAll(multimap);
   }
 
@@ -135,7 +135,7 @@ public final class HashMultimap<K, V>
 
   @GwtIncompatible // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     expectedValuesPerKey = DEFAULT_VALUES_PER_KEY;
     int distinctKeys = Serialization.readCount(stream);

@@ -104,7 +104,7 @@ public final class HostSpecifier {
     }
 
     throw new IllegalArgumentException(
-        "Domain name does not have a recognized public suffix: " + host);
+            "Domain name does not have a recognized public suffix: " + host);
   }
 
   /**

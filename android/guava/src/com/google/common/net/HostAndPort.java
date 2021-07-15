@@ -132,7 +132,7 @@ public final class HostAndPort implements Serializable {
     HostAndPort parsedHost = fromString(host);
     checkArgument(!parsedHost.hasPort(), "Host has a port: %s", host);
     return new HostAndPort(parsedHost.host, port,
-                           parsedHost.hasBracketlessColons);
+               parsedHost.hasBracketlessColons);
   }
 
   /**
@@ -191,15 +191,15 @@ public final class HostAndPort implements Serializable {
       // Try to parse the whole port string as a number.
       // JDK7 accepts leading plus signs. We don't want to.
       checkArgument(!portString.startsWith("+"), "Unparseable port number: %s",
-                    hostPortString);
+          hostPortString);
       try {
         port = Integer.parseInt(portString);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Unparseable port number: " +
-                                           hostPortString);
+                  hostPortString);
       }
       checkArgument(isValidPort(port), "Port number out of range: %s",
-                    hostPortString);
+          hostPortString);
     }
 
     return new HostAndPort(host, port, hasBracketlessColons);
@@ -216,27 +216,27 @@ public final class HostAndPort implements Serializable {
    *     fails.
    */
   private static String[] getHostAndPortFromBracketedHost(
-      String hostPortString) {
+    String hostPortString) {
     int colonIndex = 0;
     int closeBracketIndex = 0;
     checkArgument(hostPortString.charAt(0) == '[',
-                  "Bracketed host-port string must start with a bracket: %s",
-                  hostPortString);
+        "Bracketed host-port string must start with a bracket: %s",
+        hostPortString);
     colonIndex = hostPortString.indexOf(':');
     closeBracketIndex = hostPortString.lastIndexOf(']');
     checkArgument(colonIndex > -1 && closeBracketIndex > colonIndex,
-                  "Invalid bracketed host/port: %s", hostPortString);
+        "Invalid bracketed host/port: %s", hostPortString);
 
     String host = hostPortString.substring(1, closeBracketIndex);
     if (closeBracketIndex + 1 == hostPortString.length()) {
       return new String[] {host, ""};
     } else {
       checkArgument(hostPortString.charAt(closeBracketIndex + 1) == ':',
-                    "Only a colon may follow a close bracket: %s",
-                    hostPortString);
+          "Only a colon may follow a close bracket: %s",
+          hostPortString);
       for (int i = closeBracketIndex + 2; i < hostPortString.length(); ++i) {
         checkArgument(Character.isDigit(hostPortString.charAt(i)),
-                      "Port must be numeric: %s", hostPortString);
+            "Port must be numeric: %s", hostPortString);
       }
       return new String[] {host,
                            hostPortString.substring(closeBracketIndex + 2)};
@@ -278,7 +278,7 @@ public final class HostAndPort implements Serializable {
    */
   public HostAndPort requireBracketsForIPv6() {
     checkArgument(!hasBracketlessColons,
-                  "Possible bracketless IPv6 literal: %s", host);
+        "Possible bracketless IPv6 literal: %s", host);
     return this;
   }
 
@@ -290,7 +290,7 @@ public final class HostAndPort implements Serializable {
     if (other instanceof HostAndPort) {
       HostAndPort that = (HostAndPort)other;
       return Objects.equal(this.host, that.host) && this.port == that.port &&
-          this.hasBracketlessColons == that.hasBracketlessColons;
+             this.hasBracketlessColons == that.hasBracketlessColons;
     }
     return false;
   }

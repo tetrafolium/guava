@@ -34,12 +34,12 @@ import java.util.Collection;
  */
 @GwtCompatible
 public class MultimapPutAllMultimapTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testPutUnsupported() {
     try {
       multimap().putAll(
-          getSubjectGenerator().create(Helpers.mapEntry(k3(), v3())));
+        getSubjectGenerator().create(Helpers.mapEntry(k3(), v3())));
       fail("Expected UnsupportedOperationException");
     } catch (UnsupportedOperationException expected) {
     }
@@ -55,7 +55,7 @@ public class MultimapPutAllMultimapTester<K, V>
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAll() {
     Multimap<K, V> source = getSubjectGenerator().create(
-        Helpers.mapEntry(k0(), v3()), Helpers.mapEntry(k3(), v3()));
+      Helpers.mapEntry(k0(), v3()), Helpers.mapEntry(k3(), v3()));
     assertTrue(multimap().putAll(source));
     assertTrue(multimap().containsEntry(k0(), v3()));
     assertTrue(multimap().containsEntry(k3(), v3()));
@@ -104,7 +104,7 @@ public class MultimapPutAllMultimapTester<K, V>
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllPropagatesToGet() {
     Multimap<K, V> source = getSubjectGenerator().create(
-        Helpers.mapEntry(k0(), v3()), Helpers.mapEntry(k3(), v3()));
+      Helpers.mapEntry(k0(), v3()), Helpers.mapEntry(k3(), v3()));
     Collection<V> getCollection = multimap().get(k0());
     int getCollectionSize = getCollection.size();
     assertTrue(multimap().putAll(source));

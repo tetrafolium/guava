@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  * @author Dimitris Andreou
  */
 final class Murmur3_128HashFunction
-    extends AbstractHashFunction implements Serializable {
+  extends AbstractHashFunction implements Serializable {
   static final HashFunction MURMUR3_128 = new Murmur3_128HashFunction(0);
 
   static final HashFunction GOOD_FAST_HASH_128 =
@@ -182,10 +182,10 @@ final class Murmur3_128HashFunction
       h2 += h1;
 
       return HashCode.fromBytesNoCopy(ByteBuffer.wrap(new byte[CHUNK_SIZE])
-                                          .order(ByteOrder.LITTLE_ENDIAN)
-                                          .putLong(h1)
-                                          .putLong(h2)
-                                          .array());
+                 .order(ByteOrder.LITTLE_ENDIAN)
+                 .putLong(h1)
+                 .putLong(h2)
+                 .array());
     }
 
     private static long fmix64(long k) {

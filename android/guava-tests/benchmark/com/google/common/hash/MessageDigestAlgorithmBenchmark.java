@@ -62,10 +62,10 @@ public class MessageDigestAlgorithmBenchmark {
       @Override
       public byte[] hash(Algorithm algorithm, byte[] input) {
         return algorithm.getHashFunction()
-            .newHasher()
-            .putBytes(input)
-            .hash()
-            .asBytes();
+               .newHasher()
+               .putBytes(input)
+               .hash()
+               .asBytes();
       }
     };
     ;

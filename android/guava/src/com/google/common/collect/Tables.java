@@ -66,13 +66,13 @@ public final class Tables {
   }
 
   static final class ImmutableCell<R, C, V>
-      extends AbstractCell<R, C, V> implements Serializable {
+    extends AbstractCell<R, C, V> implements Serializable {
     private final R rowKey;
     private final C columnKey;
     private final V value;
 
     ImmutableCell(@Nullable R rowKey, @Nullable C columnKey,
-                  @Nullable V value) {
+        @Nullable V value) {
       this.rowKey = rowKey;
       this.columnKey = columnKey;
       this.value = value;
@@ -108,8 +108,8 @@ public final class Tables {
       if (obj instanceof Cell) {
         Cell<?, ?, ?> other = (Cell<?, ?, ?>)obj;
         return Objects.equal(getRowKey(), other.getRowKey()) &&
-            Objects.equal(getColumnKey(), other.getColumnKey()) &&
-            Objects.equal(getValue(), other.getValue());
+               Objects.equal(getColumnKey(), other.getColumnKey()) &&
+               Objects.equal(getValue(), other.getValue());
       }
       return false;
     }
@@ -174,7 +174,7 @@ public final class Tables {
 
     @Override
     public boolean contains(@Nullable Object rowKey,
-                            @Nullable Object columnKey) {
+        @Nullable Object columnKey) {
       return original.contains(columnKey, rowKey);
     }
 
@@ -241,18 +241,18 @@ public final class Tables {
     // Will cast TRANSPOSE_CELL to a type that always succeeds
     private static final Function<Cell<?, ?, ?>, Cell<?, ?, ?>> TRANSPOSE_CELL =
         new Function<Cell<?, ?, ?>, Cell<?, ?, ?>>() {
-          @Override
-          public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
-            return immutableCell(cell.getColumnKey(), cell.getRowKey(),
-                                 cell.getValue());
-          }
-        };
+      @Override
+      public Cell<?, ?, ?> apply(Cell<?, ?, ?> cell) {
+        return immutableCell(cell.getColumnKey(), cell.getRowKey(),
+                   cell.getValue());
+      }
+    };
 
     @SuppressWarnings("unchecked")
     @Override
     Iterator<Cell<C, R, V>> cellIterator() {
       return Iterators.transform(original.cellSet().iterator(),
-                                 (Function)TRANSPOSE_CELL);
+                 (Function)TRANSPOSE_CELL);
     }
   }
 
@@ -300,7 +300,7 @@ public final class Tables {
   @Beta
   public static <R, C, V> Table<R, C, V>
   newCustomTable(Map<R, Map<C, V>> backingMap,
-                 Supplier<? extends Map<C, V>> factory) {
+      Supplier<? extends Map<C, V>> factory) {
     checkArgument(backingMap.isEmpty());
     checkNotNull(factory);
     // TODO(jlevy): Wrap factory to validate that the supplied maps are empty?
@@ -336,17 +336,17 @@ public final class Tables {
   @Beta
   public static <R, C, V1, V2> Table<R, C, V2>
   transformValues(Table<R, C, V1> fromTable,
-                  Function<? super V1, V2> function) {
+      Function<? super V1, V2> function) {
     return new TransformedTable<>(fromTable, function);
   }
 
   private static class TransformedTable<R, C, V1, V2>
-      extends AbstractTable<R, C, V2> {
+    extends AbstractTable<R, C, V2> {
     final Table<R, C, V1> fromTable;
     final Function<? super V1, V2> function;
 
     TransformedTable(Table<R, C, V1> fromTable,
-                     Function<? super V1, V2> function) {
+        Function<? super V1, V2> function) {
       this.fromTable = checkNotNull(fromTable);
       this.function = checkNotNull(function);
     }
@@ -404,18 +404,18 @@ public final class Tables {
 
     Function<Cell<R, C, V1>, Cell<R, C, V2>> cellFunction() {
       return new Function<Cell<R, C, V1>, Cell<R, C, V2>>() {
-        @Override
-        public Cell<R, C, V2> apply(Cell<R, C, V1> cell) {
-          return immutableCell(cell.getRowKey(), cell.getColumnKey(),
-                               function.apply(cell.getValue()));
-        }
+               @Override
+               public Cell<R, C, V2> apply(Cell<R, C, V1> cell) {
+                 return immutableCell(cell.getRowKey(), cell.getColumnKey(),
+                            function.apply(cell.getValue()));
+               }
       };
     }
 
     @Override
     Iterator<Cell<R, C, V2>> cellIterator() {
       return Iterators.transform(fromTable.cellSet().iterator(),
-                                 cellFunction());
+                 cellFunction());
     }
 
     @Override
@@ -437,11 +437,11 @@ public final class Tables {
     public Map<R, Map<C, V2>> rowMap() {
       Function<Map<C, V1>, Map<C, V2>> rowFunction =
           new Function<Map<C, V1>, Map<C, V2>>() {
-            @Override
-            public Map<C, V2> apply(Map<C, V1> row) {
-              return Maps.transformValues(row, function);
-            }
-          };
+        @Override
+        public Map<C, V2> apply(Map<C, V1> row) {
+          return Maps.transformValues(row, function);
+        }
+      };
       return Maps.transformValues(fromTable.rowMap(), rowFunction);
     }
 
@@ -449,11 +449,11 @@ public final class Tables {
     public Map<C, Map<R, V2>> columnMap() {
       Function<Map<R, V1>, Map<R, V2>> columnFunction =
           new Function<Map<R, V1>, Map<R, V2>>() {
-            @Override
-            public Map<R, V2> apply(Map<R, V1> column) {
-              return Maps.transformValues(column, function);
-            }
-          };
+        @Override
+        public Map<R, V2> apply(Map<R, V1> column) {
+          return Maps.transformValues(column, function);
+        }
+      };
       return Maps.transformValues(fromTable.columnMap(), columnFunction);
     }
   }
@@ -479,7 +479,7 @@ public final class Tables {
   }
 
   private static class UnmodifiableTable<R, C, V>
-      extends ForwardingTable<R, C, V> implements Serializable {
+    extends ForwardingTable<R, C, V> implements Serializable {
     final Table<? extends R, ? extends C, ? extends V> delegate;
 
     UnmodifiableTable(Table<? extends R, ? extends C, ? extends V> delegate) {
@@ -516,7 +516,7 @@ public final class Tables {
     public Map<C, Map<R, V>> columnMap() {
       Function<Map<R, V>, Map<R, V>> wrapper = unmodifiableWrapper();
       return Collections.unmodifiableMap(
-          Maps.transformValues(super.columnMap(), wrapper));
+        Maps.transformValues(super.columnMap(), wrapper));
     }
 
     @Override
@@ -548,7 +548,7 @@ public final class Tables {
     public Map<R, Map<C, V>> rowMap() {
       Function<Map<C, V>, Map<C, V>> wrapper = unmodifiableWrapper();
       return Collections.unmodifiableMap(
-          Maps.transformValues(super.rowMap(), wrapper));
+        Maps.transformValues(super.rowMap(), wrapper));
     }
 
     @Override
@@ -576,7 +576,7 @@ public final class Tables {
    */
   @Beta
   public static <R, C, V> RowSortedTable<R, C, V> unmodifiableRowSortedTable(
-      RowSortedTable<R, ? extends C, ? extends V> table) {
+    RowSortedTable<R, ? extends C, ? extends V> table) {
     /*
      * It's not ? extends R, because it's technically not covariant in R.
      * Specifically, table.rowMap().comparator() could return a comparator that
@@ -587,10 +587,10 @@ public final class Tables {
   }
 
   static final class UnmodifiableRowSortedMap<R, C, V>
-      extends UnmodifiableTable<R, C, V> implements RowSortedTable<R, C, V> {
+    extends UnmodifiableTable<R, C, V> implements RowSortedTable<R, C, V> {
 
     public UnmodifiableRowSortedMap(
-        RowSortedTable<R, ? extends C, ? extends V> delegate) {
+      RowSortedTable<R, ? extends C, ? extends V> delegate) {
       super(delegate);
     }
 
@@ -603,7 +603,7 @@ public final class Tables {
     public SortedMap<R, Map<C, V>> rowMap() {
       Function<Map<C, V>, Map<C, V>> wrapper = unmodifiableWrapper();
       return Collections.unmodifiableSortedMap(
-          Maps.transformValues(delegate().rowMap(), wrapper));
+        Maps.transformValues(delegate().rowMap(), wrapper));
     }
 
     @Override
@@ -620,13 +620,13 @@ public final class Tables {
   }
 
   private static final Function<? extends Map<?, ?>, ? extends Map<?, ?>>
-      UNMODIFIABLE_WRAPPER =
-          new Function<Map<Object, Object>, Map<Object, Object>>() {
-            @Override
-            public Map<Object, Object> apply(Map<Object, Object> input) {
-              return Collections.unmodifiableMap(input);
-            }
-          };
+  UNMODIFIABLE_WRAPPER =
+      new Function<Map<Object, Object>, Map<Object, Object>>() {
+    @Override
+    public Map<Object, Object> apply(Map<Object, Object> input) {
+      return Collections.unmodifiableMap(input);
+    }
+  };
 
   /**
    * Returns a synchronized (thread-safe) table backed by the specified table.

@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public abstract class Invokable<T, R>
-    extends Element implements GenericDeclaration {
+  extends Element implements GenericDeclaration {
 
   <M extends AccessibleObject &Member> Invokable(M member) { super(member); }
 
@@ -107,7 +107,7 @@ public abstract class Invokable<T, R>
   @SuppressWarnings("unchecked")
   @CanIgnoreReturnValue
   public final R invoke(@Nullable T receiver, Object... args)
-      throws InvocationTargetException, IllegalAccessException {
+  throws InvocationTargetException, IllegalAccessException {
     return (R)invokeInternal(receiver, checkNotNull(args));
   }
 
@@ -131,7 +131,7 @@ public abstract class Invokable<T, R>
     ImmutableList.Builder<Parameter> builder = ImmutableList.builder();
     for (int i = 0; i < parameterTypes.length; i++) {
       builder.add(new Parameter(this, i, TypeToken.of(parameterTypes[i]),
-                                annotations[i]));
+          annotations[i]));
     }
     return builder.build();
   }
@@ -167,8 +167,8 @@ public abstract class Invokable<T, R>
   returning(TypeToken<R1> returnType) {
     if (!returnType.isSupertypeOf(getReturnType())) {
       throw new IllegalArgumentException("Invokable is known to return " +
-                                         getReturnType() + ", not " +
-                                         returnType);
+                getReturnType() + ", not " +
+                returnType);
     }
     @SuppressWarnings("unchecked") // guarded by previous check
     Invokable<T, R1> specialized = (Invokable<T, R1>)this;
@@ -179,7 +179,7 @@ public abstract class Invokable<T, R>
   // The declaring class is T's raw class, or one of its supertypes.
   @Override
   public final Class<? super T> getDeclaringClass() {
-    return (Class<? super T>)super.getDeclaringClass();
+    return (Class<? super T>) super.getDeclaringClass();
   }
 
   /** Returns the type of {@code T}. */
@@ -191,7 +191,7 @@ public abstract class Invokable<T, R>
   }
 
   abstract Object invokeInternal(@Nullable Object receiver, Object[] args)
-      throws InvocationTargetException, IllegalAccessException;
+  throws InvocationTargetException, IllegalAccessException;
 
   abstract Type[] getGenericParameterTypes();
 
@@ -213,7 +213,7 @@ public abstract class Invokable<T, R>
 
     @Override
     final Object invokeInternal(@Nullable Object receiver, Object[] args)
-        throws InvocationTargetException, IllegalAccessException {
+    throws InvocationTargetException, IllegalAccessException {
       return method.invoke(receiver, args);
     }
 
@@ -245,7 +245,7 @@ public abstract class Invokable<T, R>
     @Override
     public final boolean isOverridable() {
       return !(isFinal() || isPrivate() || isStatic() ||
-               Modifier.isFinal(getDeclaringClass().getModifiers()));
+             Modifier.isFinal(getDeclaringClass().getModifiers()));
     }
 
     @Override
@@ -265,7 +265,7 @@ public abstract class Invokable<T, R>
 
     @Override
     final Object invokeInternal(@Nullable Object receiver, Object[] args)
-        throws InvocationTargetException, IllegalAccessException {
+    throws InvocationTargetException, IllegalAccessException {
       try {
         return constructor.newInstance(args);
       } catch (InstantiationException e) {
@@ -330,10 +330,10 @@ public abstract class Invokable<T, R>
       TypeVariable<?>[] declaredByConstructor = constructor.getTypeParameters();
       TypeVariable<?>[] result =
           new TypeVariable<?>[ declaredByClass.length +
-                               declaredByConstructor.length ];
+          declaredByConstructor.length ];
       System.arraycopy(declaredByClass, 0, result, 0, declaredByClass.length);
       System.arraycopy(declaredByConstructor, 0, result, declaredByClass.length,
-                       declaredByConstructor.length);
+          declaredByConstructor.length);
       return result;
     }
 
@@ -366,7 +366,7 @@ public abstract class Invokable<T, R>
         // mistakenly think that the class is within a non-static context and
         // the first parameter is the hidden 'this'.
         return declaringClass.getEnclosingClass() != null &&
-            !Modifier.isStatic(declaringClass.getModifiers());
+               !Modifier.isStatic(declaringClass.getModifiers());
       }
     }
   }

@@ -158,7 +158,7 @@ public final class Longs {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -185,7 +185,7 @@ public final class Longs {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(long[] array, long target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -252,7 +252,7 @@ public final class Longs {
   @Beta
   public static long constrainToRange(long value, long min, long max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return Math.min(Math.max(value, min), max);
   }
 
@@ -267,7 +267,7 @@ public final class Longs {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static long[] concat(long[]... arrays) {
+  public static long[] concat(long[] ... arrays) {
     int length = 0;
     for (long[] array : arrays) {
       length += array.length;
@@ -319,9 +319,9 @@ public final class Longs {
    */
   public static long fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s",
-                  bytes.length, BYTES);
+        bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5],
-                     bytes[6], bytes[7]);
+               bytes[6], bytes[7]);
   }
 
   /**
@@ -332,10 +332,10 @@ public final class Longs {
    * @since 7.0
    */
   public static long fromBytes(byte b1, byte b2, byte b3, byte b4, byte b5,
-                               byte b6, byte b7, byte b8) {
+      byte b6, byte b7, byte b8) {
     return (b1 & 0xFFL) << 56 | (b2 & 0xFFL) << 48 | (b3 & 0xFFL) << 40 |
-        (b4 & 0xFFL) << 32 | (b5 & 0xFFL) << 24 | (b6 & 0xFFL) << 16 |
-        (b7 & 0xFFL) << 8 | (b8 & 0xFFL);
+           (b4 & 0xFFL) << 32 | (b5 & 0xFFL) << 24 | (b6 & 0xFFL) << 16 |
+           (b7 & 0xFFL) << 8 | (b8 & 0xFFL);
   }
 
   /*
@@ -421,7 +421,7 @@ public final class Longs {
     }
     if (radix < Character.MIN_RADIX || radix > Character.MAX_RADIX) {
       throw new IllegalArgumentException(
-          "radix must be between MIN_RADIX and MAX_RADIX but was " + radix);
+              "radix must be between MIN_RADIX and MAX_RADIX but was " + radix);
     }
     boolean negative = string.charAt(0) == '-';
     int index = negative ? 1 : 0;
@@ -458,7 +458,7 @@ public final class Longs {
   }
 
   private static final class LongConverter
-      extends Converter<String, Long> implements Serializable {
+    extends Converter<String, Long> implements Serializable {
     static final LongConverter INSTANCE = new LongConverter();
 
     @Override
@@ -518,7 +518,7 @@ public final class Longs {
    *     {@code minLength}
    */
   public static long[] ensureCapacity(long[] array, int minLength,
-                                      int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -570,7 +570,7 @@ public final class Longs {
   }
 
   private enum LexicographicalComparator implements Comparator < long
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -704,7 +704,7 @@ public final class Longs {
 
   @GwtCompatible
   private static class LongArrayAsList
-      extends AbstractList<Long> implements RandomAccess, Serializable {
+    extends AbstractList<Long> implements RandomAccess, Serializable {
     final long[] array;
     final int start;
     final int end;
@@ -737,7 +737,7 @@ public final class Longs {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Long) &&
-          Longs.indexOf(array, (Long)target, start, end) != -1;
+             Longs.indexOf(array, (Long)target, start, end) != -1;
     }
 
     @Override

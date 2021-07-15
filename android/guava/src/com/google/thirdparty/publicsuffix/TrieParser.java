@@ -43,7 +43,7 @@ final class TrieParser {
     while (idx < encodedLen) {
       idx +=
           doParseTrieToBuilder(Lists.<CharSequence>newLinkedList(),
-                               encoded.subSequence(idx, encodedLen), builder);
+          encoded.subSequence(idx, encodedLen), builder);
     }
     return builder.build();
   }
@@ -59,7 +59,7 @@ final class TrieParser {
    */
   private static int
   doParseTrieToBuilder(List<CharSequence> stack, CharSequence encoded,
-                       ImmutableMap.Builder<String, PublicSuffixType> builder) {
+      ImmutableMap.Builder<String, PublicSuffixType> builder) {
 
     int encodedLen = encoded.length();
     int idx = 0;
@@ -94,7 +94,7 @@ final class TrieParser {
       while (idx < encodedLen) {
         // Read all the children
         idx += doParseTrieToBuilder(stack, encoded.subSequence(idx, encodedLen),
-                                    builder);
+            builder);
         if (encoded.charAt(idx) == '?' || encoded.charAt(idx) == ',') {
           // An extra '?' or ',' after a child node indicates the end of all
           // children of this node.

@@ -31,8 +31,8 @@ import java.util.SortedMap;
  */
 @GwtCompatible
 public abstract class TestStringSortedMapGenerator
-    extends TestStringMapGenerator
-    implements TestSortedMapGenerator<String, String> {
+  extends TestStringMapGenerator
+  implements TestSortedMapGenerator<String, String> {
   @Override
   public Entry<String, String> belowSamplesLesser() {
     return Helpers.mapEntry("!! a", "below view");
@@ -61,7 +61,7 @@ public abstract class TestStringSortedMapGenerator
 
   @Override
   protected abstract SortedMap<String, String>
-      create(Entry<String, String>[] entries);
+  create(Entry<String, String>[] entries);
 
   @Override
   public SortedMap<String, String> create(Object... entries) {

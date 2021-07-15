@@ -184,7 +184,7 @@ public abstract class UnicodeEscaper extends Escaper {
       int cp = codePointAt(s, index, end);
       if (cp < 0) {
         throw new IllegalArgumentException(
-            "Trailing high surrogate at end of input");
+                "Trailing high surrogate at end of input");
       }
       // It is possible for this to return null because nextEscapeIndex() may
       // (for performance reasons) yield some false positives but it must never
@@ -278,12 +278,12 @@ public abstract class UnicodeEscaper extends Escaper {
           return Character.toCodePoint(c1, c2);
         }
         throw new IllegalArgumentException(
-            "Expected low surrogate but got char '" + c2 + "' with value " +
-            (int)c2 + " at index " + index + " in '" + seq + "'");
+                "Expected low surrogate but got char '" + c2 + "' with value " +
+                (int)c2 + " at index " + index + " in '" + seq + "'");
       } else {
         throw new IllegalArgumentException(
-            "Unexpected low surrogate character '" + c1 + "' with value " +
-            (int)c1 + " at index " + (index - 1) + " in '" + seq + "'");
+                "Unexpected low surrogate character '" + c1 + "' with value " +
+                (int)c1 + " at index " + (index - 1) + " in '" + seq + "'");
       }
     }
     throw new IndexOutOfBoundsException("Index exceeds specified range");

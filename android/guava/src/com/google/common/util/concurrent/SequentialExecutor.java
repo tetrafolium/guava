@@ -136,7 +136,7 @@ final class SequentialExecutor implements Executor {
           task.run();
         } catch (RuntimeException e) {
           log.log(Level.SEVERE, "Exception while executing runnable " + task,
-                  e);
+              e);
         }
       }
     }

@@ -25,7 +25,7 @@ import java.io.Serializable;
  */
 @GwtCompatible(serializable = true)
 final class UsingToStringOrdering
-    extends Ordering<Object> implements Serializable {
+  extends Ordering<Object> implements Serializable {
   static final UsingToStringOrdering INSTANCE = new UsingToStringOrdering();
 
   @Override

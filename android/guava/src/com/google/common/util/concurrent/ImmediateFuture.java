@@ -44,9 +44,9 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
       // ListenableFuture's contract is that it will not throw unchecked
       // exceptions, so log the bad runnable and/or executor and swallow it.
       log.log(Level.SEVERE,
-              "RuntimeException while executing runnable " + listener +
-                  " with executor " + executor,
-              e);
+          "RuntimeException while executing runnable " + listener +
+          " with executor " + executor,
+          e);
     }
   }
 
@@ -95,7 +95,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
 
   @GwtIncompatible // TODO
   static class ImmediateSuccessfulCheckedFuture<V, X extends Exception>
-      extends ImmediateFuture<V> implements CheckedFuture<V, X> {
+    extends ImmediateFuture<V> implements CheckedFuture<V, X> {
     @Nullable private final V value;
 
     ImmediateSuccessfulCheckedFuture(@Nullable V value) { this.value = value; }
@@ -133,7 +133,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
 
   @GwtIncompatible // TODO
   static class ImmediateFailedCheckedFuture<V, X extends Exception>
-      extends ImmediateFuture<V> implements CheckedFuture<V, X> {
+    extends ImmediateFuture<V> implements CheckedFuture<V, X> {
     private final X thrown;
 
     ImmediateFailedCheckedFuture(X thrown) { this.thrown = thrown; }

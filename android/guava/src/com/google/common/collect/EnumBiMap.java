@@ -41,7 +41,7 @@ import java.util.Map;
  */
 @GwtCompatible(emulated = true)
 public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>>
-    extends AbstractBiMap<K, V> {
+  extends AbstractBiMap<K, V> {
   private transient Class<K> keyType;
   private transient Class<V> valueType;
 
@@ -76,7 +76,7 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>>
 
   private EnumBiMap(Class<K> keyType, Class<V> valueType) {
     super(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-          WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
+    WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
     this.keyType = keyType;
     this.valueType = valueType;
   }
@@ -131,12 +131,12 @@ public final class EnumBiMap<K extends Enum<K>, V extends Enum<V>>
   @SuppressWarnings("unchecked") // reading fields populated by writeObject
   @GwtIncompatible               // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     keyType = (Class<K>)stream.readObject();
     valueType = (Class<V>)stream.readObject();
     setDelegates(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-                 WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
+        WellBehavedMap.wrap(new EnumMap<V, K>(valueType)));
     Serialization.populateMap(this, stream);
   }
 

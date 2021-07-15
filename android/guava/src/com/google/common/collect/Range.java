@@ -128,8 +128,8 @@ import javax.annotation.Nullable;
 @GwtCompatible
 @SuppressWarnings("rawtypes")
 public final class Range<C extends Comparable>
-    extends RangeGwtSerializationDependencies
-    implements Predicate<C>, Serializable {
+  extends RangeGwtSerializationDependencies
+  implements Predicate<C>, Serializable {
 
   static class LowerBoundFn implements Function<Range, Cut> {
     static final LowerBoundFn INSTANCE = new LowerBoundFn();
@@ -162,7 +162,7 @@ public final class Range<C extends Comparable>
   }
 
   static <C extends Comparable<?>> Range<C> create(Cut<C> lowerBound,
-                                                   Cut<C> upperBound) {
+      Cut<C> upperBound) {
     return new Range<C>(lowerBound, upperBound);
   }
 
@@ -199,7 +199,7 @@ public final class Range<C extends Comparable>
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> closedOpen(C lower,
-                                                              C upper) {
+      C upper) {
     return create(Cut.belowValue(lower), Cut.belowValue(upper));
   }
 
@@ -212,7 +212,7 @@ public final class Range<C extends Comparable>
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> openClosed(C lower,
-                                                              C upper) {
+      C upper) {
     return create(Cut.aboveValue(lower), Cut.aboveValue(upper));
   }
 
@@ -264,7 +264,7 @@ public final class Range<C extends Comparable>
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> upTo(C endpoint,
-                                                        BoundType boundType) {
+      BoundType boundType) {
     switch (boundType) {
     case OPEN:
       return lessThan(endpoint);
@@ -302,7 +302,7 @@ public final class Range<C extends Comparable>
    * @since 14.0
    */
   public static <C extends Comparable<?>> Range<C> downTo(C endpoint,
-                                                          BoundType boundType) {
+      BoundType boundType) {
     switch (boundType) {
     case OPEN:
       return greaterThan(endpoint);
@@ -378,7 +378,7 @@ public final class Range<C extends Comparable>
     if (lowerBound.compareTo(upperBound) > 0 ||
         lowerBound == Cut.<C>aboveAll() || upperBound == Cut.<C>belowAll()) {
       throw new IllegalArgumentException("Invalid range: " +
-                                         toString(lowerBound, upperBound));
+                toString(lowerBound, upperBound));
     }
   }
 
@@ -514,7 +514,7 @@ public final class Range<C extends Comparable>
    */
   public boolean encloses(Range<C> other) {
     return lowerBound.compareTo(other.lowerBound) <= 0 &&
-        upperBound.compareTo(other.upperBound) >= 0;
+           upperBound.compareTo(other.upperBound) >= 0;
   }
 
   /**
@@ -547,7 +547,7 @@ public final class Range<C extends Comparable>
    */
   public boolean isConnected(Range<C> other) {
     return lowerBound.compareTo(other.upperBound) <= 0 &&
-        other.lowerBound.compareTo(upperBound) <= 0;
+           other.lowerBound.compareTo(upperBound) <= 0;
   }
 
   /**
@@ -660,7 +660,7 @@ public final class Range<C extends Comparable>
     if (object instanceof Range) {
       Range<?> other = (Range<?>)object;
       return lowerBound.equals(other.lowerBound) &&
-          upperBound.equals(other.upperBound);
+             upperBound.equals(other.upperBound);
     }
     return false;
   }
@@ -712,15 +712,15 @@ public final class Range<C extends Comparable>
    * Needed to serialize sorted collections of Ranges.
    */
   private static class RangeLexOrdering
-      extends Ordering<Range<?>> implements Serializable {
+    extends Ordering<Range<?>> implements Serializable {
     static final Ordering<Range<?>> INSTANCE = new RangeLexOrdering();
 
     @Override
     public int compare(Range<?> left, Range<?> right) {
       return ComparisonChain.start()
-          .compare(left.lowerBound, right.lowerBound)
-          .compare(left.upperBound, right.upperBound)
-          .result();
+             .compare(left.lowerBound, right.lowerBound)
+             .compare(left.upperBound, right.upperBound)
+             .result();
     }
 
     private static final long serialVersionUID = 0;

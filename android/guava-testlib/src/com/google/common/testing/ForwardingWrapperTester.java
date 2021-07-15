@@ -72,10 +72,10 @@ public final class ForwardingWrapperTester {
    */
   public <T> void
   testForwarding(Class<T> interfaceType,
-                 Function<? super T, ? extends T> wrapperFunction) {
+      Function<? super T, ? extends T> wrapperFunction) {
     checkNotNull(wrapperFunction);
     checkArgument(interfaceType.isInterface(), "%s isn't an interface",
-                  interfaceType);
+        interfaceType);
     Method[] methods = getMostConcreteMethods(interfaceType);
     AccessibleObject.setAccessible(methods, true);
     for (Method method : methods) {
@@ -115,7 +115,7 @@ public final class ForwardingWrapperTester {
     for (int i = 0; i < methods.length; i++) {
       try {
         methods[i] = type.getMethod(methods[i].getName(),
-                                    methods[i].getParameterTypes());
+            methods[i].getParameterTypes());
       } catch (Exception e) {
         throwIfUnchecked(e);
         throw new RuntimeException(e);
@@ -126,23 +126,23 @@ public final class ForwardingWrapperTester {
 
   private static <T> void
   testSuccessfulForwarding(Class<T> interfaceType, Method method,
-                           Function<? super T, ? extends T> wrapperFunction) {
+      Function<? super T, ? extends T> wrapperFunction) {
     new InteractionTester<T>(interfaceType, method)
-        .testInteraction(wrapperFunction);
+    .testInteraction(wrapperFunction);
   }
 
   private static <T> void
   testExceptionPropagation(Class<T> interfaceType, Method method,
-                           Function<? super T, ? extends T> wrapperFunction) {
+      Function<? super T, ? extends T> wrapperFunction) {
     final RuntimeException exception = new RuntimeException();
     T proxy =
         Reflection.newProxy(interfaceType, new AbstractInvocationHandler() {
-          @Override
-          protected Object handleInvocation(Object p, Method m, Object[] args)
-              throws Throwable {
-            throw exception;
-          }
-        });
+      @Override
+      protected Object handleInvocation(Object p, Method m, Object[] args)
+      throws Throwable {
+        throw exception;
+      }
+    });
     T wrapper = wrapperFunction.apply(proxy);
     try {
       method.invoke(wrapper, getParameterValues(method));
@@ -158,24 +158,24 @@ public final class ForwardingWrapperTester {
 
   private static <T> void
   testEquals(Class<T> interfaceType,
-             Function<? super T, ? extends T> wrapperFunction) {
+      Function<? super T, ? extends T> wrapperFunction) {
     FreshValueGenerator generator = new FreshValueGenerator();
     T instance = generator.newFreshProxy(interfaceType);
     new EqualsTester()
-        .addEqualityGroup(wrapperFunction.apply(instance),
-                          wrapperFunction.apply(instance))
-        .addEqualityGroup(
-            wrapperFunction.apply(generator.newFreshProxy(interfaceType)))
-        // TODO: add an overload to EqualsTester to print custom error message?
-        .testEquals();
+    .addEqualityGroup(wrapperFunction.apply(instance),
+        wrapperFunction.apply(instance))
+    .addEqualityGroup(
+      wrapperFunction.apply(generator.newFreshProxy(interfaceType)))
+    // TODO: add an overload to EqualsTester to print custom error message?
+    .testEquals();
   }
 
   private static <T> void
   testToString(Class<T> interfaceType,
-               Function<? super T, ? extends T> wrapperFunction) {
+      Function<? super T, ? extends T> wrapperFunction) {
     T proxy = new FreshValueGenerator().newFreshProxy(interfaceType);
     assertEquals("toString() isn't properly forwarded", proxy.toString(),
-                 wrapperFunction.apply(proxy).toString());
+        wrapperFunction.apply(proxy).toString());
   }
 
   private static Object[] getParameterValues(Method method) {
@@ -189,7 +189,7 @@ public final class ForwardingWrapperTester {
 
   /** Tests a single interaction against a method. */
   private static final class InteractionTester<T>
-      extends AbstractInvocationHandler {
+    extends AbstractInvocationHandler {
 
     private final Class<T> interfaceType;
     private final Method method;
@@ -207,12 +207,12 @@ public final class ForwardingWrapperTester {
 
     @Override
     protected Object handleInvocation(Object p, Method calledMethod,
-                                      Object[] args) throws Throwable {
+        Object[] args) throws Throwable {
       assertEquals(method, calledMethod);
       assertEquals(method + " invoked more than once.", 0, called.get());
       for (int i = 0; i < passedArgs.length; i++) {
         assertEquals("Parameter #" + i + " of " + method + " not forwarded",
-                     passedArgs[i], args[i]);
+            passedArgs[i], args[i]);
       }
       called.getAndIncrement();
       return returnValue;
@@ -229,7 +229,7 @@ public final class ForwardingWrapperTester {
         // value to either be the wrapper or the returnValue.
         if (!isPossibleChainingCall || wrapper != actualReturnValue) {
           assertEquals("Return value of " + method + " not forwarded",
-                       returnValue, actualReturnValue);
+              returnValue, actualReturnValue);
         }
       } catch (IllegalAccessException e) {
         throw new RuntimeException(e);

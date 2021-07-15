@@ -28,7 +28,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestCharacterListGenerator
-    implements TestListGenerator<Character> {
+  implements TestListGenerator<Character> {
   @Override
   public SampleElements<Character> samples() {
     return new Chars();

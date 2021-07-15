@@ -40,10 +40,10 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class SortedSetMultimapTestSuiteBuilder<K, V>
-    extends MultimapTestSuiteBuilder<K, V, SetMultimap<K, V>> {
+  extends MultimapTestSuiteBuilder<K, V, SetMultimap<K, V>> {
 
   public static <K, V> SortedSetMultimapTestSuiteBuilder<K, V> using(
-      TestSetMultimapGenerator<K, V> generator) {
+    TestSetMultimapGenerator<K, V> generator) {
     SortedSetMultimapTestSuiteBuilder<K, V> result =
         new SortedSetMultimapTestSuiteBuilder<>();
     result.usingGenerator(generator);
@@ -66,36 +66,36 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
 
   @Override
   TestSuite computeMultimapGetTestSuite(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<
-                   SetMultimap<K, V>, Entry<K, V>>> parentBuilder) {
+        SetMultimap<K, V>, Entry<K, V>>> parentBuilder) {
     return SortedSetTestSuiteBuilder
-        .using(new SetMultimapTestSuiteBuilder.MultimapGetGenerator<K, V>(
-            parentBuilder.getSubjectGenerator()))
-        .withFeatures(computeMultimapGetFeatures(parentBuilder.getFeatures()))
-        .named(parentBuilder.getName() + ".get[key]")
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+           .using(new SetMultimapTestSuiteBuilder.MultimapGetGenerator<K, V>(
+                 parentBuilder.getSubjectGenerator()))
+           .withFeatures(computeMultimapGetFeatures(parentBuilder.getFeatures()))
+           .named(parentBuilder.getName() + ".get[key]")
+           .suppressing(parentBuilder.getSuppressedTests())
+           .createTestSuite();
   }
 
   @Override
   TestSuite computeMultimapAsMapGetTestSuite(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<
-                   SetMultimap<K, V>, Entry<K, V>>> parentBuilder) {
+        SetMultimap<K, V>, Entry<K, V>>> parentBuilder) {
     Set<Feature<?>> features =
         computeMultimapAsMapGetFeatures(parentBuilder.getFeatures());
     if (Collections.disjoint(features, EnumSet.allOf(CollectionSize.class))) {
       return new TestSuite();
     } else {
       return SortedSetTestSuiteBuilder
-          .using(
-              new SetMultimapTestSuiteBuilder.MultimapAsMapGetGenerator<K, V>(
-                  parentBuilder.getSubjectGenerator()))
-          .withFeatures(features)
-          .named(parentBuilder.getName() + ".asMap[].get[key]")
-          .suppressing(parentBuilder.getSuppressedTests())
-          .createTestSuite();
+             .using(
+        new SetMultimapTestSuiteBuilder.MultimapAsMapGetGenerator<K, V>(
+          parentBuilder.getSubjectGenerator()))
+             .withFeatures(features)
+             .named(parentBuilder.getName() + ".asMap[].get[key]")
+             .suppressing(parentBuilder.getSuppressedTests())
+             .createTestSuite();
     }
   }
 }

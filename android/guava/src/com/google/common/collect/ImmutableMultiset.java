@@ -50,8 +50,8 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableMultiset<E>
-    extends ImmutableMultisetGwtSerializationDependencies<E>
-    implements Multiset<E> {
+  extends ImmutableMultisetGwtSerializationDependencies<E>
+  implements Multiset<E> {
   /**
    * Returns the empty immutable multiset.
    */
@@ -127,16 +127,16 @@ public abstract class ImmutableMultiset<E>
    */
   @SuppressWarnings("unchecked") //
   public static <E> ImmutableMultiset<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                            E... others) {
+      E... others) {
     return new Builder<E>()
-        .add(e1)
-        .add(e2)
-        .add(e3)
-        .add(e4)
-        .add(e5)
-        .add(e6)
-        .add(others)
-        .build();
+           .add(e1)
+           .add(e2)
+           .add(e3)
+           .add(e4)
+           .add(e5)
+           .add(e6)
+           .add(others)
+           .build();
   }
 
   /**
@@ -167,7 +167,7 @@ public abstract class ImmutableMultiset<E>
     }
 
     ImmutableMultiset.Builder<E> builder = new ImmutableMultiset.Builder<E>(
-        Multisets.inferDistinctElements(elements));
+      Multisets.inferDistinctElements(elements));
     builder.addAll(elements);
     return builder.build();
   }
@@ -203,24 +203,24 @@ public abstract class ImmutableMultiset<E>
   public UnmodifiableIterator<E> iterator() {
     final Iterator<Entry<E>> entryIterator = entrySet().iterator();
     return new UnmodifiableIterator<E>() {
-      int remaining;
-      E element;
+             int remaining;
+             E element;
 
-      @Override
-      public boolean hasNext() {
-        return (remaining > 0) || entryIterator.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return (remaining > 0) || entryIterator.hasNext();
+             }
 
-      @Override
-      public E next() {
-        if (remaining <= 0) {
-          Entry<E> entry = entryIterator.next();
-          element = entry.getElement();
-          remaining = entry.getCount();
-        }
-        remaining--;
-        return element;
-      }
+             @Override
+             public E next() {
+               if (remaining <= 0) {
+                 Entry<E> entry = entryIterator.next();
+                 element = entry.getElement();
+                 remaining = entry.getCount();
+               }
+               remaining--;
+               return element;
+             }
     };
   }
 

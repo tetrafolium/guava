@@ -56,7 +56,7 @@ public class BigIntegerMathBenchmark {
     } else {
       int k = 20;
       return BigInteger.valueOf(LongMath.factorial(k))
-          .multiply(oldSlowFactorial(k, n));
+             .multiply(oldSlowFactorial(k, n));
     }
   }
 

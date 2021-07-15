@@ -70,7 +70,7 @@ public final class Iterables {
   unmodifiableIterable(final Iterable<? extends T> iterable) {
     checkNotNull(iterable);
     if (iterable instanceof UnmodifiableIterable || iterable instanceof
-                                                        ImmutableCollection) {
+        ImmutableCollection) {
       @SuppressWarnings("unchecked")
       // Since it's unmodifiable, the covariant cast is safe
       Iterable<T> result = (Iterable<T>)iterable;
@@ -127,7 +127,7 @@ public final class Iterables {
    * ClassCastException}.
    */
   public static boolean contains(Iterable<?> iterable,
-                                 @Nullable Object element) {
+      @Nullable Object element) {
     if (iterable instanceof Collection) {
       Collection<?> collection = (Collection<?>)iterable;
       return Collections2.safeContains(collection, element);
@@ -148,7 +148,7 @@ public final class Iterables {
    */
   @CanIgnoreReturnValue
   public static boolean removeAll(Iterable<?> removeFrom,
-                                  Collection<?> elementsToRemove) {
+      Collection<?> elementsToRemove) {
     return (removeFrom instanceof Collection)
         ? ((Collection<?>)removeFrom).removeAll(checkNotNull(elementsToRemove))
         : Iterators.removeAll(removeFrom.iterator(), elementsToRemove);
@@ -167,7 +167,7 @@ public final class Iterables {
    */
   @CanIgnoreReturnValue
   public static boolean retainAll(Iterable<?> removeFrom,
-                                  Collection<?> elementsToRetain) {
+      Collection<?> elementsToRetain) {
     return (removeFrom instanceof Collection)
         ? ((Collection<?>)removeFrom).retainAll(checkNotNull(elementsToRetain))
         : Iterators.retainAll(removeFrom.iterator(), elementsToRetain);
@@ -192,10 +192,10 @@ public final class Iterables {
    */
   @CanIgnoreReturnValue
   public static <T> boolean removeIf(Iterable<T> removeFrom,
-                                     Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     if (removeFrom instanceof RandomAccess && removeFrom instanceof List) {
       return removeIfFromRandomAccessList((List<T>)removeFrom,
-                                          checkNotNull(predicate));
+                 checkNotNull(predicate));
     }
     return Iterators.removeIf(removeFrom.iterator(), predicate);
   }
@@ -234,7 +234,7 @@ public final class Iterables {
 
   private static <T> void
   slowRemoveIfForRemainingElements(List<T> list, Predicate<? super T> predicate,
-                                   int to, int from) {
+      int to, int from) {
     // Here we know that:
     // * (to < from) and that both are valid indices.
     // * Everything with (index < to) should be kept.
@@ -262,7 +262,7 @@ public final class Iterables {
    */
   @Nullable
   static <T> T removeFirstMatching(Iterable<T> removeFrom,
-                                   Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(predicate);
     Iterator<T> iterator = removeFrom.iterator();
     while (iterator.hasNext()) {
@@ -283,7 +283,7 @@ public final class Iterables {
    * {@code iterable2}.
    */
   public static boolean elementsEqual(Iterable<?> iterable1,
-                                      Iterable<?> iterable2) {
+      Iterable<?> iterable2) {
     if (iterable1 instanceof Collection && iterable2 instanceof Collection) {
       Collection<?> collection1 = (Collection<?>)iterable1;
       Collection<?> collection2 = (Collection<?>)iterable2;
@@ -330,7 +330,7 @@ public final class Iterables {
    */
   @Nullable
   public static <T> T getOnlyElement(Iterable<? extends T> iterable,
-                                     @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     return Iterators.getOnlyElement(iterable.iterator(), defaultValue);
   }
 
@@ -383,7 +383,7 @@ public final class Iterables {
    */
   @CanIgnoreReturnValue
   public static <T> boolean addAll(Collection<T> addTo,
-                                   Iterable<? extends T> elementsToAdd) {
+      Iterable<? extends T> elementsToAdd) {
     if (elementsToAdd instanceof Collection) {
       Collection<? extends T> c = Collections2.cast(elementsToAdd);
       return addTo.addAll(c);
@@ -436,15 +436,15 @@ public final class Iterables {
   public static <T> Iterable<T> cycle(final Iterable<T> iterable) {
     checkNotNull(iterable);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.cycle(iterable);
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.cycle(iterable);
+             }
 
-      @Override
-      public String toString() {
-        return iterable.toString() + " (cycled)";
-      }
+             @Override
+             public String toString() {
+               return iterable.toString() + " (cycled)";
+             }
     };
   }
 
@@ -488,7 +488,7 @@ public final class Iterables {
    * {@code Stream.concat(a, b)}.
    */
   public static <T> Iterable<T> concat(Iterable<? extends T> a,
-                                       Iterable<? extends T> b) {
+      Iterable<? extends T> b) {
     return FluentIterable.concat(a, b);
   }
 
@@ -505,8 +505,8 @@ public final class Iterables {
    * {@code Streams.concat(a, b, c)}.
    */
   public static <T> Iterable<T> concat(Iterable<? extends T> a,
-                                       Iterable<? extends T> b,
-                                       Iterable<? extends T> c) {
+      Iterable<? extends T> b,
+      Iterable<? extends T> c) {
     return FluentIterable.concat(a, b, c);
   }
 
@@ -524,9 +524,9 @@ public final class Iterables {
    * {@code Streams.concat(a, b, c, d)}.
    */
   public static <T> Iterable<T> concat(Iterable<? extends T> a,
-                                       Iterable<? extends T> b,
-                                       Iterable<? extends T> c,
-                                       Iterable<? extends T> d) {
+      Iterable<? extends T> b,
+      Iterable<? extends T> c,
+      Iterable<? extends T> d) {
     return FluentIterable.concat(a, b, c, d);
   }
 
@@ -587,14 +587,14 @@ public final class Iterables {
    * @throws IllegalArgumentException if {@code size} is nonpositive
    */
   public static <T> Iterable<List<T>> partition(final Iterable<T> iterable,
-                                                final int size) {
+      final int size) {
     checkNotNull(iterable);
     checkArgument(size > 0);
     return new FluentIterable<List<T>>() {
-      @Override
-      public Iterator<List<T>> iterator() {
-        return Iterators.partition(iterable.iterator(), size);
-      }
+             @Override
+             public Iterator<List<T>> iterator() {
+               return Iterators.partition(iterable.iterator(), size);
+             }
     };
   }
 
@@ -620,10 +620,10 @@ public final class Iterables {
     checkNotNull(iterable);
     checkArgument(size > 0);
     return new FluentIterable<List<T>>() {
-      @Override
-      public Iterator<List<T>> iterator() {
-        return Iterators.paddedPartition(iterable.iterator(), size);
-      }
+             @Override
+             public Iterator<List<T>> iterator() {
+               return Iterators.paddedPartition(iterable.iterator(), size);
+             }
     };
   }
 
@@ -637,14 +637,14 @@ public final class Iterables {
    */
   public static <T> Iterable<T>
   filter(final Iterable<T> unfiltered,
-         final Predicate<? super T> retainIfTrue) {
+      final Predicate<? super T> retainIfTrue) {
     checkNotNull(unfiltered);
     checkNotNull(retainIfTrue);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.filter(unfiltered.iterator(), retainIfTrue);
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.filter(unfiltered.iterator(), retainIfTrue);
+             }
     };
   }
 
@@ -668,7 +668,7 @@ public final class Iterables {
   @SuppressWarnings("unchecked")
   @GwtIncompatible // Class.isInstance
   public static <T> Iterable<T> filter(final Iterable<?> unfiltered,
-                                       final Class<T> desiredType) {
+      final Class<T> desiredType) {
     checkNotNull(unfiltered);
     checkNotNull(desiredType);
     return (Iterable<T>)filter(unfiltered, Predicates.instanceOf(desiredType));
@@ -681,7 +681,7 @@ public final class Iterables {
    * <p><b>{@code Stream} equivalent:</b> {@link Stream#anyMatch}.
    */
   public static <T> boolean any(Iterable<T> iterable,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return Iterators.any(iterable.iterator(), predicate);
   }
 
@@ -692,7 +692,7 @@ public final class Iterables {
    * <p><b>{@code Stream} equivalent:</b> {@link Stream#allMatch}.
    */
   public static <T> boolean all(Iterable<T> iterable,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return Iterators.all(iterable.iterator(), predicate);
   }
 
@@ -709,7 +709,7 @@ public final class Iterables {
    *     the given predicate
    */
   public static <T> T find(Iterable<T> iterable,
-                           Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return Iterators.find(iterable.iterator(), predicate);
   }
 
@@ -726,8 +726,8 @@ public final class Iterables {
    */
   @Nullable
   public static <T> T find(Iterable<? extends T> iterable,
-                           Predicate<? super T> predicate,
-                           @Nullable T defaultValue) {
+      Predicate<? super T> predicate,
+      @Nullable T defaultValue) {
     return Iterators.find(iterable.iterator(), predicate, defaultValue);
   }
 
@@ -745,7 +745,7 @@ public final class Iterables {
    * @since 11.0
    */
   public static <T> Optional<T> tryFind(Iterable<T> iterable,
-                                        Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return Iterators.tryFind(iterable.iterator(), predicate);
   }
 
@@ -761,7 +761,7 @@ public final class Iterables {
    * @since 2.0
    */
   public static <T> int indexOf(Iterable<T> iterable,
-                                Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     return Iterators.indexOf(iterable.iterator(), predicate);
   }
 
@@ -781,14 +781,14 @@ public final class Iterables {
    */
   public static <F, T> Iterable<T>
   transform(final Iterable<F> fromIterable,
-            final Function<? super F, ? extends T> function) {
+      final Function<? super F, ? extends T> function) {
     checkNotNull(fromIterable);
     checkNotNull(function);
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.transform(fromIterable.iterator(), function);
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.transform(fromIterable.iterator(), function);
+             }
     };
   }
 
@@ -830,7 +830,7 @@ public final class Iterables {
    */
   @Nullable
   public static <T> T get(Iterable<? extends T> iterable, int position,
-                          @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     checkNotNull(iterable);
     Iterators.checkNonnegative(position);
     if (iterable instanceof List) {
@@ -865,7 +865,7 @@ public final class Iterables {
    */
   @Nullable
   public static <T> T getFirst(Iterable<? extends T> iterable,
-                               @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     return Iterators.getNext(iterable.iterator(), defaultValue);
   }
 
@@ -909,7 +909,7 @@ public final class Iterables {
    */
   @Nullable
   public static <T> T getLast(Iterable<? extends T> iterable,
-                              @Nullable T defaultValue) {
+      @Nullable T defaultValue) {
     if (iterable instanceof Collection) {
       Collection<? extends T> c = Collections2.cast(iterable);
       if (c.isEmpty()) {
@@ -949,49 +949,49 @@ public final class Iterables {
    * @since 3.0
    */
   public static <T> Iterable<T> skip(final Iterable<T> iterable,
-                                     final int numberToSkip) {
+      final int numberToSkip) {
     checkNotNull(iterable);
     checkArgument(numberToSkip >= 0, "number to skip cannot be negative");
 
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        if (iterable instanceof List) {
-          final List<T> list = (List<T>)iterable;
-          int toSkip = Math.min(list.size(), numberToSkip);
-          return list.subList(toSkip, list.size()).iterator();
-        }
-        final Iterator<T> iterator = iterable.iterator();
+             @Override
+             public Iterator<T> iterator() {
+               if (iterable instanceof List) {
+                 final List<T> list = (List<T>)iterable;
+                 int toSkip = Math.min(list.size(), numberToSkip);
+                 return list.subList(toSkip, list.size()).iterator();
+               }
+               final Iterator<T> iterator = iterable.iterator();
 
-        Iterators.advance(iterator, numberToSkip);
+               Iterators.advance(iterator, numberToSkip);
 
-        /*
-         * We can't just return the iterator because an immediate call to its
-         * remove() method would remove one of the skipped elements instead of
-         * throwing an IllegalStateException.
-         */
-        return new Iterator<T>() {
-          boolean atStart = true;
+               /*
+                * We can't just return the iterator because an immediate call to its
+                * remove() method would remove one of the skipped elements instead of
+                * throwing an IllegalStateException.
+                */
+               return new Iterator<T>() {
+                        boolean atStart = true;
 
-          @Override
-          public boolean hasNext() {
-            return iterator.hasNext();
-          }
+                        @Override
+                        public boolean hasNext() {
+                          return iterator.hasNext();
+                        }
 
-          @Override
-          public T next() {
-            T result = iterator.next();
-            atStart = false; // not called if next() fails
-            return result;
-          }
+                        @Override
+                        public T next() {
+                          T result = iterator.next();
+                          atStart = false; // not called if next() fails
+                          return result;
+                        }
 
-          @Override
-          public void remove() {
-            checkRemove(!atStart);
-            iterator.remove();
-          }
-        };
-      }
+                        @Override
+                        public void remove() {
+                          checkRemove(!atStart);
+                          iterator.remove();
+                        }
+               };
+             }
     };
   }
 
@@ -1010,14 +1010,14 @@ public final class Iterables {
    * @since 3.0
    */
   public static <T> Iterable<T> limit(final Iterable<T> iterable,
-                                      final int limitSize) {
+      final int limitSize) {
     checkNotNull(iterable);
     checkArgument(limitSize >= 0, "limit is negative");
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return Iterators.limit(iterable.iterator(), limitSize);
-      }
+             @Override
+             public Iterator<T> iterator() {
+               return Iterators.limit(iterable.iterator(), limitSize);
+             }
     };
   }
 
@@ -1044,17 +1044,17 @@ public final class Iterables {
     checkNotNull(iterable);
 
     return new FluentIterable<T>() {
-      @Override
-      public Iterator<T> iterator() {
-        return (iterable instanceof Queue)
+             @Override
+             public Iterator<T> iterator() {
+               return (iterable instanceof Queue)
             ? new ConsumingQueueIterator<>((Queue<T>)iterable)
             : Iterators.consumingIterator(iterable.iterator());
-      }
+             }
 
-      @Override
-      public String toString() {
-        return "Iterables.consumingIterable(...)";
-      }
+             @Override
+             public String toString() {
+               return "Iterables.consumingIterable(...)";
+             }
     };
   }
 
@@ -1093,15 +1093,15 @@ public final class Iterables {
   @Beta
   public static <T> Iterable<T>
   mergeSorted(final Iterable<? extends Iterable<? extends T>> iterables,
-              final Comparator<? super T> comparator) {
+      final Comparator<? super T> comparator) {
     checkNotNull(iterables, "iterables");
     checkNotNull(comparator, "comparator");
     Iterable<T> iterable = new FluentIterable<T>() {
       @Override
       public Iterator<T> iterator() {
         return Iterators.mergeSorted(
-            Iterables.transform(iterables, Iterables.<T>toIterator()),
-            comparator);
+          Iterables.transform(iterables, Iterables.<T>toIterator()),
+          comparator);
       }
     };
     return new UnmodifiableIterable<>(iterable);
@@ -1112,10 +1112,10 @@ public final class Iterables {
   static <T> Function<Iterable<? extends T>, Iterator<? extends T>>
   toIterator() {
     return new Function<Iterable<? extends T>, Iterator<? extends T>>() {
-      @Override
-      public Iterator<? extends T> apply(Iterable<? extends T> iterable) {
-        return iterable.iterator();
-      }
+             @Override
+             public Iterator<? extends T> apply(Iterable<? extends T> iterable) {
+               return iterable.iterator();
+             }
     };
   }
 }

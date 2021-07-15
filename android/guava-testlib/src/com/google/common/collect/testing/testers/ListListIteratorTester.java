@@ -65,8 +65,8 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
 
   private void runListIteratorTest(Set<IteratorFeature> features) {
     new ListIteratorTester<E>(listListIteratorTesterNumIterations(),
-                              singleton(e4()), features,
-                              Helpers.copyToList(getOrderedElements()), 0) {
+        singleton(e4()), features,
+        Helpers.copyToList(getOrderedElements()), 0) {
       @Override
       protected ListIterator<E> newTargetIterator() {
         resetCollection();
@@ -112,7 +112,7 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
   @GwtIncompatible // reflection
   public static Method getListIteratorFullyModifiableMethod() {
     return Helpers.getMethod(ListListIteratorTester.class,
-                             "testListIterator_fullyModifiable");
+               "testListIterator_fullyModifiable");
   }
 
   /**
@@ -123,6 +123,6 @@ public class ListListIteratorTester<E> extends AbstractListTester<E> {
   @GwtIncompatible // reflection
   public static Method getListIteratorUnmodifiableMethod() {
     return Helpers.getMethod(ListListIteratorTester.class,
-                             "testListIterator_unmodifiable");
+               "testListIterator_unmodifiable");
   }
 }

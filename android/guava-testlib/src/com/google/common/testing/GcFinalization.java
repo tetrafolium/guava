@@ -128,7 +128,7 @@ public final class GcFinalization {
     // TODO(user): Consider scaling by number of mutator threads,
     // e.g. using Thread#activeCount()
     return Math.max(10L,
-                    Runtime.getRuntime().totalMemory() / (32L * 1024L * 1024L));
+               Runtime.getRuntime().totalMemory() / (32L * 1024L * 1024L));
   }
 
   /**
@@ -156,13 +156,13 @@ public final class GcFinalization {
         return;
       } catch (InterruptedException ie) {
         throw new RuntimeException(
-            "Unexpected interrupt while waiting for future", ie);
+                "Unexpected interrupt while waiting for future", ie);
       } catch (TimeoutException tryHarder) {
         /* OK */
       }
     } while (System.nanoTime() - deadline < 0);
     throw formatRuntimeException("Future not done within %d second timeout",
-                                 timeoutSeconds);
+              timeoutSeconds);
   }
 
   /**
@@ -190,11 +190,11 @@ public final class GcFinalization {
         }
       } catch (InterruptedException ie) {
         throw new RuntimeException(
-            "Unexpected interrupt while waiting for latch", ie);
+                "Unexpected interrupt while waiting for latch", ie);
       }
     } while (System.nanoTime() - deadline < 0);
     throw formatRuntimeException(
-        "Latch failed to count down within %d second timeout", timeoutSeconds);
+            "Latch failed to count down within %d second timeout", timeoutSeconds);
   }
 
   /**
@@ -252,8 +252,8 @@ public final class GcFinalization {
       }
     } while (System.nanoTime() - deadline < 0);
     throw formatRuntimeException(
-        "Predicate did not become true within %d second timeout",
-        timeoutSeconds);
+            "Predicate did not become true within %d second timeout",
+            timeoutSeconds);
   }
 
   /**
@@ -272,7 +272,9 @@ public final class GcFinalization {
    */
   public static void awaitClear(final WeakReference<?> ref) {
     awaitDone(new FinalizationPredicate() {
-      public boolean isDone() { return ref.get() == null; }
+      public boolean isDone() {
+        return ref.get() == null;
+      }
     });
   }
 
@@ -316,7 +318,7 @@ public final class GcFinalization {
   }
 
   private static RuntimeException formatRuntimeException(String format,
-                                                         Object... args) {
+      Object... args) {
     return new RuntimeException(String.format(Locale.ROOT, format, args));
   }
 }

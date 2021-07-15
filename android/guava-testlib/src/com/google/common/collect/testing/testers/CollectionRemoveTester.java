@@ -47,7 +47,7 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
     int initialSize = collection.size();
     assertTrue("remove(present) should return true", collection.remove(e0()));
     assertEquals("remove(present) should decrease a collection's size by one.",
-                 initialSize - 1, collection.size());
+        initialSize - 1, collection.size());
     expectMissing(e0());
   }
 
@@ -68,7 +68,7 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(SUPPORTS_REMOVE)
   public void testRemove_notPresent() {
     assertFalse("remove(notPresent) should return false",
-                collection.remove(e3()));
+        collection.remove(e3()));
     expectUnchanged();
   }
 
@@ -80,7 +80,7 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
     int initialSize = collection.size();
     assertTrue("remove(null) should return true", collection.remove(null));
     assertEquals("remove(present) should decrease a collection's size by one.",
-                 initialSize - 1, collection.size());
+        initialSize - 1, collection.size());
     expectMissing((E)null);
   }
 
@@ -94,15 +94,15 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
     }
     expectUnchanged();
     assertTrue("remove(present) should not remove the element",
-               collection.contains(e0()));
+        collection.contains(e0()));
   }
 
   @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
   public void testRemove_unsupportedNotPresent() {
     try {
       assertFalse(
-          "remove(notPresent) should return false or throw UnsupportedOperationException",
-          collection.remove(e3()));
+        "remove(notPresent) should return false or throw UnsupportedOperationException",
+        collection.remove(e3()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -114,8 +114,8 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
   public void testRemove_nullNotSupported() {
     try {
       assertFalse(
-          "remove(null) should return false or throw NullPointerException",
-          collection.remove(null));
+        "remove(null) should return false or throw NullPointerException",
+        collection.remove(null));
     } catch (NullPointerException tolerated) {
     }
     expectUnchanged();

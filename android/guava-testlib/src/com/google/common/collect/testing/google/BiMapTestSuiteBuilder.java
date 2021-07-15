@@ -48,11 +48,11 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class BiMapTestSuiteBuilder<K, V>
-    extends PerCollectionSizeTestSuiteBuilder<BiMapTestSuiteBuilder<K, V>,
-                                              TestBiMapGenerator<K, V>,
-                                              BiMap<K, V>, Map.Entry<K, V>> {
+  extends PerCollectionSizeTestSuiteBuilder<BiMapTestSuiteBuilder<K, V>,
+      TestBiMapGenerator<K, V>,
+      BiMap<K, V>, Map.Entry<K, V>> {
   public static <K, V>
-      BiMapTestSuiteBuilder<K, V> using(TestBiMapGenerator<K, V> generator) {
+  BiMapTestSuiteBuilder<K, V> using(TestBiMapGenerator<K, V> generator) {
     return new BiMapTestSuiteBuilder<K, V>().usingGenerator(generator);
   }
 
@@ -78,46 +78,46 @@ public class BiMapTestSuiteBuilder<K, V>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<BiMap<K, V>, Entry<K, V>>>
-          parentBuilder) {
+    parentBuilder) {
     List<TestSuite> derived = super.createDerivedSuites(parentBuilder);
     // TODO(cpovirk): consider using this approach (derived suites instead of
     // extension) in ListTestSuiteBuilder, etc.?
     derived.add(
-        MapTestSuiteBuilder
-            .using(new MapGenerator<K, V>(parentBuilder.getSubjectGenerator()))
-            .withFeatures(parentBuilder.getFeatures())
-            .named(parentBuilder.getName() + " [Map]")
-            .suppressing(parentBuilder.getSuppressedTests())
-            .suppressing(SetCreationTester.class.getMethods())
-            // BiMap.entrySet() duplicate-handling behavior is too confusing for
-            // SetCreationTester
-            .createTestSuite());
+      MapTestSuiteBuilder
+      .using(new MapGenerator<K, V>(parentBuilder.getSubjectGenerator()))
+      .withFeatures(parentBuilder.getFeatures())
+      .named(parentBuilder.getName() + " [Map]")
+      .suppressing(parentBuilder.getSuppressedTests())
+      .suppressing(SetCreationTester.class.getMethods())
+      // BiMap.entrySet() duplicate-handling behavior is too confusing for
+      // SetCreationTester
+      .createTestSuite());
     /*
      * TODO(cpovirk): the Map tests duplicate most of this effort by using a
      * CollectionTestSuiteBuilder on values(). It would be nice to avoid that
      */
     derived.add(
-        SetTestSuiteBuilder
-            .using(new BiMapValueSetGenerator<K, V>(
-                parentBuilder.getSubjectGenerator()))
-            .withFeatures(computeValuesSetFeatures(parentBuilder.getFeatures()))
-            .named(parentBuilder.getName() + " values [Set]")
-            .suppressing(parentBuilder.getSuppressedTests())
-            .suppressing(SetCreationTester.class.getMethods())
-            // BiMap.values() duplicate-handling behavior is too confusing for
-            // SetCreationTester
-            .createTestSuite());
+      SetTestSuiteBuilder
+      .using(new BiMapValueSetGenerator<K, V>(
+        parentBuilder.getSubjectGenerator()))
+      .withFeatures(computeValuesSetFeatures(parentBuilder.getFeatures()))
+      .named(parentBuilder.getName() + " values [Set]")
+      .suppressing(parentBuilder.getSuppressedTests())
+      .suppressing(SetCreationTester.class.getMethods())
+      // BiMap.values() duplicate-handling behavior is too confusing for
+      // SetCreationTester
+      .createTestSuite());
     if (!parentBuilder.getFeatures().contains(NoRecurse.INVERSE)) {
       derived.add(
-          BiMapTestSuiteBuilder
-              .using(new InverseBiMapGenerator<K, V>(
-                  parentBuilder.getSubjectGenerator()))
-              .withFeatures(computeInverseFeatures(parentBuilder.getFeatures()))
-              .named(parentBuilder.getName() + " inverse")
-              .suppressing(parentBuilder.getSuppressedTests())
-              .createTestSuite());
+        BiMapTestSuiteBuilder
+        .using(new InverseBiMapGenerator<K, V>(
+          parentBuilder.getSubjectGenerator()))
+        .withFeatures(computeInverseFeatures(parentBuilder.getFeatures()))
+        .named(parentBuilder.getName() + " inverse")
+        .suppressing(parentBuilder.getSuppressedTests())
+        .createTestSuite());
     }
 
     return derived;
@@ -158,7 +158,7 @@ public class BiMapTestSuiteBuilder<K, V>
     }
 
     valuesCollectionFeatures.add(
-        CollectionFeature.REJECTS_DUPLICATES_AT_CREATION);
+      CollectionFeature.REJECTS_DUPLICATES_AT_CREATION);
 
     return valuesCollectionFeatures;
   }
@@ -166,6 +166,6 @@ public class BiMapTestSuiteBuilder<K, V>
   private static Set<Feature<?>>
   computeCommonDerivedCollectionFeatures(Set<Feature<?>> mapFeatures) {
     return MapTestSuiteBuilder.computeCommonDerivedCollectionFeatures(
-        mapFeatures);
+      mapFeatures);
   }
 }

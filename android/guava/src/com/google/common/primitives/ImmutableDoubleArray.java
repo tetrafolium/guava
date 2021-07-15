@@ -107,19 +107,19 @@ public final class ImmutableDoubleArray implements Serializable {
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray of(double e0, double e1, double e2,
-                                        double e3) {
+      double e3) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3});
   }
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray of(double e0, double e1, double e2,
-                                        double e3, double e4) {
+      double e3, double e4) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3, e4});
   }
 
   /** Returns an immutable array containing the given values, in order. */
   public static ImmutableDoubleArray of(double e0, double e1, double e2,
-                                        double e3, double e4, double e5) {
+      double e3, double e4, double e5) {
     return new ImmutableDoubleArray(new double[] {e0, e1, e2, e3, e4, e5});
   }
 
@@ -180,7 +180,7 @@ public final class ImmutableDoubleArray implements Serializable {
    */
   public static Builder builder(int initialCapacity) {
     checkArgument(initialCapacity >= 0, "Invalid initialCapacity: %s",
-                  initialCapacity);
+        initialCapacity);
     return new Builder(initialCapacity);
   }
 
@@ -260,7 +260,7 @@ public final class ImmutableDoubleArray implements Serializable {
     public Builder addAll(ImmutableDoubleArray values) {
       ensureRoomFor(values.length());
       System.arraycopy(values.array, values.start, array, count,
-                       values.length());
+          values.length());
       count += values.length();
       return this;
     }
@@ -425,7 +425,7 @@ public final class ImmutableDoubleArray implements Serializable {
   }
 
   static class AsList
-      extends AbstractList<Double> implements RandomAccess, Serializable {
+    extends AbstractList<Double> implements RandomAccess, Serializable {
     private final ImmutableDoubleArray parent;
 
     private AsList(ImmutableDoubleArray parent) { this.parent = parent; }

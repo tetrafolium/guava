@@ -34,7 +34,7 @@ import java.util.List;
  */
 @GwtIncompatible
 public class ReserializingTestCollectionGenerator<E>
-    implements TestCollectionGenerator<E> {
+  implements TestCollectionGenerator<E> {
   private final TestCollectionGenerator<E> delegate;
 
   ReserializingTestCollectionGenerator(TestCollectionGenerator<E> delegate) {

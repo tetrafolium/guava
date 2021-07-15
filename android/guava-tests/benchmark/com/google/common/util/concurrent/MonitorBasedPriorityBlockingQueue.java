@@ -86,7 +86,7 @@ import javax.annotation.Nullable;
  */
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 public class MonitorBasedPriorityBlockingQueue<E>
-    extends AbstractQueue<E> implements BlockingQueue<E> {
+  extends AbstractQueue<E> implements BlockingQueue<E> {
 
   // Based on revision 1.55 of PriorityBlockingQueue by Doug Lea, from
   // http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/main/java/util/concurrent/
@@ -135,7 +135,7 @@ public class MonitorBasedPriorityBlockingQueue<E>
    *         than 1
    */
   public MonitorBasedPriorityBlockingQueue(
-      int initialCapacity, @Nullable Comparator<? super E> comparator) {
+    int initialCapacity, @Nullable Comparator<? super E> comparator) {
     q = new PriorityQueue<E>(initialCapacity, comparator);
   }
 
@@ -583,7 +583,7 @@ public class MonitorBasedPriorityBlockingQueue<E>
    * readObject is not defined, just relying on default.
    */
   private void writeObject(java.io.ObjectOutputStream s)
-      throws java.io.IOException {
+  throws java.io.IOException {
     monitor.enter();
     try {
       s.defaultWriteObject();

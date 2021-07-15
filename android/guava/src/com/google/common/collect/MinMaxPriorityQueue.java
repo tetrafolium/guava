@@ -138,7 +138,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
    */
   public static Builder<Comparable> expectedSize(int expectedSize) {
     return new Builder<Comparable>(Ordering.natural())
-        .expectedSize(expectedSize);
+           .expectedSize(expectedSize);
   }
 
   /**
@@ -220,7 +220,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
     public <T extends B> MinMaxPriorityQueue<T>
     create(Iterable<? extends T> initialContents) {
       MinMaxPriorityQueue<T> queue = new MinMaxPriorityQueue<T>(
-          this, initialQueueSize(expectedSize, maximumSize, initialContents));
+        this, initialQueueSize(expectedSize, maximumSize, initialContents));
       for (T element : initialContents) {
         queue.offer(element);
       }
@@ -542,7 +542,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
      * returns a pair as described in {@link #removeAt}.
      */
     MoveDesc<E> tryCrossOverAndBubbleUp(int removeIndex, int vacated,
-                                        E toTrickle) {
+        E toTrickle) {
       int crossOver = crossOver(vacated, toTrickle);
       if (crossOver == vacated) {
         return null;
@@ -796,7 +796,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
       checkModCount();
       nextNotInSkipMe(cursor + 1);
       return (nextCursor < size()) ||
-          ((forgetMeNot != null) && !forgetMeNot.isEmpty());
+             ((forgetMeNot != null) && !forgetMeNot.isEmpty());
     }
 
     @Override
@@ -816,7 +816,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
         }
       }
       throw new NoSuchElementException(
-          "iterator moved past last element in queue.");
+              "iterator moved past last element in queue.");
     }
 
     @Override
@@ -852,7 +852,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
      * supplied iterable.
      */
     private boolean foundAndRemovedExactReference(Iterable<E> elements,
-                                                  E target) {
+        E target) {
       for (Iterator<E> it = elements.iterator(); it.hasNext();) {
         E element = it.next();
         if (element == target) {
@@ -889,7 +889,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
       if (nextCursor < c) {
         if (skipMe != null) {
           while (c < size() &&
-                 foundAndRemovedExactReference(skipMe, elementData(c))) {
+              foundAndRemovedExactReference(skipMe, elementData(c))) {
             c++;
           }
         }
@@ -958,7 +958,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
 
   @VisibleForTesting
   static int initialQueueSize(int configuredExpectedSize, int maximumSize,
-                              Iterable<?> initialContents) {
+      Iterable<?> initialContents) {
     // Start with what they said, if they said it, otherwise DEFAULT_CAPACITY
     int result = (configuredExpectedSize == Builder.UNSET_EXPECTED_SIZE)
                      ? DEFAULT_CAPACITY

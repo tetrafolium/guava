@@ -59,7 +59,7 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public final class ConcurrentHashMultiset<E>
-    extends AbstractMultiset<E> implements Serializable {
+  extends AbstractMultiset<E> implements Serializable {
 
   /*
    * The ConcurrentHashMultiset's atomic operations are implemented primarily in
@@ -92,7 +92,7 @@ public final class ConcurrentHashMultiset<E>
     // arbitrary) ConcurrentMap implementors. One possibility is to extract most
     // of this class into an AbstractConcurrentMapMultiset.
     return new ConcurrentHashMultiset<E>(
-        new ConcurrentHashMap<E, AtomicInteger>());
+      new ConcurrentHashMap<E, AtomicInteger>());
   }
 
   /**
@@ -135,7 +135,7 @@ public final class ConcurrentHashMultiset<E>
   @VisibleForTesting
   ConcurrentHashMultiset(ConcurrentMap<E, AtomicInteger> countMap) {
     checkArgument(countMap.isEmpty(), "the backing map (%s) must be empty",
-                  countMap);
+        countMap);
     this.countMap = countMap;
   }
 
@@ -243,8 +243,8 @@ public final class ConcurrentHashMultiset<E>
             }
           } catch (ArithmeticException overflow) {
             throw new IllegalArgumentException(
-                "Overflow adding " + occurrences +
-                " occurrences to a count of " + oldValue);
+                    "Overflow adding " + occurrences +
+                    " occurrences to a count of " + oldValue);
           }
         } else {
           // In the case of a concurrent remove, we might observe a zero value,
@@ -441,7 +441,7 @@ public final class ConcurrentHashMultiset<E>
         // if our write lost the race, it must have lost to a nonzero value, so
         // we can stop
         return countMap.putIfAbsent(element, new AtomicInteger(newCount)) ==
-            null;
+               null;
       }
     }
     int oldValue = existingCounter.get();
@@ -454,7 +454,7 @@ public final class ConcurrentHashMultiset<E>
         } else {
           AtomicInteger newCounter = new AtomicInteger(newCount);
           return (countMap.putIfAbsent(element, newCounter) == null) ||
-              countMap.replace(element, existingCounter, newCounter);
+                 countMap.replace(element, existingCounter, newCounter);
         }
       } else {
         if (existingCounter.compareAndSet(oldValue, newCount)) {
@@ -477,30 +477,30 @@ public final class ConcurrentHashMultiset<E>
   Set<E> createElementSet() {
     final Set<E> delegate = countMap.keySet();
     return new ForwardingSet<E>() {
-      @Override
-      protected Set<E> delegate() {
-        return delegate;
-      }
+             @Override
+             protected Set<E> delegate() {
+               return delegate;
+             }
 
-      @Override
-      public boolean contains(@Nullable Object object) {
-        return object != null && Collections2.safeContains(delegate, object);
-      }
+             @Override
+             public boolean contains(@Nullable Object object) {
+               return object != null && Collections2.safeContains(delegate, object);
+             }
 
-      @Override
-      public boolean containsAll(Collection<?> collection) {
-        return standardContainsAll(collection);
-      }
+             @Override
+             public boolean containsAll(Collection<?> collection) {
+               return standardContainsAll(collection);
+             }
 
-      @Override
-      public boolean remove(Object object) {
-        return object != null && Collections2.safeRemove(delegate, object);
-      }
+             @Override
+             public boolean remove(Object object) {
+               return object != null && Collections2.safeRemove(delegate, object);
+             }
 
-      @Override
-      public boolean removeAll(Collection<?> c) {
-        return standardRemoveAll(c);
-      }
+             @Override
+             public boolean removeAll(Collection<?> c) {
+               return standardRemoveAll(c);
+             }
     };
   }
 
@@ -526,44 +526,44 @@ public final class ConcurrentHashMultiset<E>
     // use ForwardingIterator to delegate to it.
     final Iterator<Entry<E>> readOnlyIterator =
         new AbstractIterator<Entry<E>>() {
-          private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
-              countMap.entrySet().iterator();
+      private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
+          countMap.entrySet().iterator();
 
-          @Override
-          protected Entry<E> computeNext() {
-            while (true) {
-              if (!mapEntries.hasNext()) {
-                return endOfData();
-              }
-              Map.Entry<E, AtomicInteger> mapEntry = mapEntries.next();
-              int count = mapEntry.getValue().get();
-              if (count != 0) {
-                return Multisets.immutableEntry(mapEntry.getKey(), count);
-              }
-            }
+      @Override
+      protected Entry<E> computeNext() {
+        while (true) {
+          if (!mapEntries.hasNext()) {
+            return endOfData();
           }
-        };
+          Map.Entry<E, AtomicInteger> mapEntry = mapEntries.next();
+          int count = mapEntry.getValue().get();
+          if (count != 0) {
+            return Multisets.immutableEntry(mapEntry.getKey(), count);
+          }
+        }
+      }
+    };
 
     return new ForwardingIterator<Entry<E>>() {
-      private Entry<E> last;
+             private Entry<E> last;
 
-      @Override
-      protected Iterator<Entry<E>> delegate() {
-        return readOnlyIterator;
-      }
+             @Override
+             protected Iterator<Entry<E>> delegate() {
+               return readOnlyIterator;
+             }
 
-      @Override
-      public Entry<E> next() {
-        last = super.next();
-        return last;
-      }
+             @Override
+             public Entry<E> next() {
+               last = super.next();
+               return last;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(last != null);
-        ConcurrentHashMultiset.this.setCount(last.getElement(), 0);
-        last = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(last != null);
+               ConcurrentHashMultiset.this.setCount(last.getElement(), 0);
+               last = null;
+             }
     };
   }
 
@@ -612,7 +612,7 @@ public final class ConcurrentHashMultiset<E>
   }
 
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     @SuppressWarnings("unchecked") // reading data stored by writeObject
     ConcurrentMap<E, Integer> deserializedCountMap =

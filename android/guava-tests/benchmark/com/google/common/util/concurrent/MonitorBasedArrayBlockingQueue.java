@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
  */
 @CanIgnoreReturnValue
 public class MonitorBasedArrayBlockingQueue<E>
-    extends AbstractQueue<E> implements BlockingQueue<E> {
+  extends AbstractQueue<E> implements BlockingQueue<E> {
 
   // Based on revision 1.58 of ArrayBlockingQueue by Doug Lea, from
   // http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/main/java/util/concurrent/
@@ -205,7 +205,7 @@ public class MonitorBasedArrayBlockingQueue<E>
    *         of its elements are null
    */
   public MonitorBasedArrayBlockingQueue(int capacity, boolean fair,
-                                        Collection<? extends E> c) {
+      Collection<? extends E> c) {
     this(capacity, fair);
     if (capacity < c.size())
       throw new IllegalArgumentException();
@@ -286,7 +286,7 @@ public class MonitorBasedArrayBlockingQueue<E>
    */
   @Override
   public boolean offer(E e, long timeout, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
 
     if (e == null)
       throw new NullPointerException();

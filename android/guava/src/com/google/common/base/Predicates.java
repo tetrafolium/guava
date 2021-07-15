@@ -127,9 +127,9 @@ public final class Predicates {
    * "short-circuited" as soon as a false predicate is found.
    */
   public static <T> Predicate<T> and(Predicate<? super T> first,
-                                     Predicate<? super T> second) {
+      Predicate<? super T> second) {
     return new AndPredicate<T>(
-        Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+      Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
   }
 
   /**
@@ -167,9 +167,9 @@ public final class Predicates {
    * "short-circuited" as soon as a true predicate is found.
    */
   public static <T> Predicate<T> or(Predicate<? super T> first,
-                                    Predicate<? super T> second) {
+      Predicate<? super T> second) {
     return new OrPredicate<T>(
-        Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+      Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
   }
 
   /**
@@ -274,7 +274,7 @@ public final class Predicates {
    * @return the composition of the provided function and predicate
    */
   public static <A, B> Predicate<A> compose(Predicate<B> predicate,
-                                            Function<A, ? extends B> function) {
+      Function<A, ? extends B> function) {
     return new CompositionPredicate<>(predicate, function);
   }
 
@@ -484,7 +484,7 @@ public final class Predicates {
   }
 
   private static String toStringHelper(String methodName,
-                                       Iterable<?> components) {
+      Iterable<?> components) {
     StringBuilder builder =
         new StringBuilder("Predicates.").append(methodName).append('(');
     boolean first = true;
@@ -500,7 +500,7 @@ public final class Predicates {
 
   /** @see Predicates#equalTo(Object) */
   private static class IsEqualToPredicate<T>
-      implements Predicate<T>, Serializable {
+    implements Predicate<T>, Serializable {
     private final T target;
 
     private IsEqualToPredicate(T target) { this.target = target; }
@@ -535,7 +535,7 @@ public final class Predicates {
   /** @see Predicates#instanceOf(Class) */
   @GwtIncompatible // Class.isInstance
   private static class InstanceOfPredicate
-      implements Predicate<Object>, Serializable {
+    implements Predicate<Object>, Serializable {
     private final Class<?> clazz;
 
     private InstanceOfPredicate(Class<?> clazz) {
@@ -572,7 +572,7 @@ public final class Predicates {
   /** @see Predicates#subtypeOf(Class) */
   @GwtIncompatible // Class.isAssignableFrom
   private static class SubtypeOfPredicate
-      implements Predicate<Class<?>>, Serializable {
+    implements Predicate<Class<?>>, Serializable {
     private final Class<?> clazz;
 
     private SubtypeOfPredicate(Class<?> clazz) {
@@ -647,7 +647,7 @@ public final class Predicates {
 
   /** @see Predicates#compose(Predicate, Function) */
   private static class CompositionPredicate<A, B>
-      implements Predicate<A>, Serializable {
+    implements Predicate<A>, Serializable {
     final Predicate<B> p;
     final Function<A, ? extends B> f;
 
@@ -688,7 +688,7 @@ public final class Predicates {
   /** @see Predicates#contains(Pattern) */
   @GwtIncompatible // Only used by other GWT-incompatible code.
   private static class ContainsPatternPredicate
-      implements Predicate<CharSequence>, Serializable {
+    implements Predicate<CharSequence>, Serializable {
     final CommonPattern pattern;
 
     ContainsPatternPredicate(CommonPattern pattern) {
@@ -716,7 +716,7 @@ public final class Predicates {
         // Pattern uses Object (identity) equality, so we have to reach
         // inside to compare individual fields.
         return Objects.equal(pattern.pattern(), that.pattern.pattern()) &&
-            pattern.flags() == that.pattern.flags();
+               pattern.flags() == that.pattern.flags();
       }
       return false;
     }
@@ -724,9 +724,9 @@ public final class Predicates {
     @Override
     public String toString() {
       String patternString = MoreObjects.toStringHelper(pattern)
-                                 .add("pattern", pattern.pattern())
-                                 .add("pattern.flags", pattern.flags())
-                                 .toString();
+          .add("pattern", pattern.pattern())
+          .add("pattern.flags", pattern.flags())
+          .toString();
       return "Predicates.contains(" + patternString + ")";
     }
 
@@ -736,7 +736,7 @@ public final class Predicates {
   /** @see Predicates#containsPattern(String) */
   @GwtIncompatible // Only used by other GWT-incompatible code.
   private static class ContainsPatternFromStringPredicate
-      extends ContainsPatternPredicate {
+    extends ContainsPatternPredicate {
 
     ContainsPatternFromStringPredicate(String string) {
       super(Platform.compilePattern(string));

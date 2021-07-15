@@ -166,11 +166,11 @@ abstract class AbstractObjectCountMap<K> {
     @Override
     public Iterator<K> iterator() {
       return new Itr<K>() {
-        @SuppressWarnings("unchecked") // keys only contains Ks
-        @Override
-        K getOutput(int entry) {
-          return (K)keys[entry];
-        }
+               @SuppressWarnings("unchecked") // keys only contains Ks
+               @Override
+               K getOutput(int entry) {
+                 return (K)keys[entry];
+               }
       };
     }
 

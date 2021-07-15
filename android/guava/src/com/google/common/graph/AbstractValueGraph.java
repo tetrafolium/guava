@@ -38,65 +38,65 @@ import javax.annotation.Nullable;
  */
 @Beta
 public abstract class AbstractValueGraph<N, V>
-    extends AbstractBaseGraph<N> implements ValueGraph<N, V> {
+  extends AbstractBaseGraph<N> implements ValueGraph<N, V> {
 
   @Override
   public Graph<N> asGraph() {
     return new AbstractGraph<N>() {
-      @Override
-      public Set<N> nodes() {
-        return AbstractValueGraph.this.nodes();
-      }
+             @Override
+             public Set<N> nodes() {
+               return AbstractValueGraph.this.nodes();
+             }
 
-      @Override
-      public Set<EndpointPair<N>> edges() {
-        return AbstractValueGraph.this.edges();
-      }
+             @Override
+             public Set<EndpointPair<N>> edges() {
+               return AbstractValueGraph.this.edges();
+             }
 
-      @Override
-      public boolean isDirected() {
-        return AbstractValueGraph.this.isDirected();
-      }
+             @Override
+             public boolean isDirected() {
+               return AbstractValueGraph.this.isDirected();
+             }
 
-      @Override
-      public boolean allowsSelfLoops() {
-        return AbstractValueGraph.this.allowsSelfLoops();
-      }
+             @Override
+             public boolean allowsSelfLoops() {
+               return AbstractValueGraph.this.allowsSelfLoops();
+             }
 
-      @Override
-      public ElementOrder<N> nodeOrder() {
-        return AbstractValueGraph.this.nodeOrder();
-      }
+             @Override
+             public ElementOrder<N> nodeOrder() {
+               return AbstractValueGraph.this.nodeOrder();
+             }
 
-      @Override
-      public Set<N> adjacentNodes(N node) {
-        return AbstractValueGraph.this.adjacentNodes(node);
-      }
+             @Override
+             public Set<N> adjacentNodes(N node) {
+               return AbstractValueGraph.this.adjacentNodes(node);
+             }
 
-      @Override
-      public Set<N> predecessors(N node) {
-        return AbstractValueGraph.this.predecessors(node);
-      }
+             @Override
+             public Set<N> predecessors(N node) {
+               return AbstractValueGraph.this.predecessors(node);
+             }
 
-      @Override
-      public Set<N> successors(N node) {
-        return AbstractValueGraph.this.successors(node);
-      }
+             @Override
+             public Set<N> successors(N node) {
+               return AbstractValueGraph.this.successors(node);
+             }
 
-      @Override
-      public int degree(N node) {
-        return AbstractValueGraph.this.degree(node);
-      }
+             @Override
+             public int degree(N node) {
+               return AbstractValueGraph.this.degree(node);
+             }
 
-      @Override
-      public int inDegree(N node) {
-        return AbstractValueGraph.this.inDegree(node);
-      }
+             @Override
+             public int inDegree(N node) {
+               return AbstractValueGraph.this.inDegree(node);
+             }
 
-      @Override
-      public int outDegree(N node) {
-        return AbstractValueGraph.this.outDegree(node);
-      }
+             @Override
+             public int outDegree(N node) {
+               return AbstractValueGraph.this.outDegree(node);
+             }
     };
   }
 
@@ -111,8 +111,8 @@ public abstract class AbstractValueGraph<N, V>
     ValueGraph<?, ?> other = (ValueGraph<?, ?>)obj;
 
     return isDirected() == other.isDirected() &&
-        nodes().equals(other.nodes()) &&
-        edgeValueMap(this).equals(edgeValueMap(other));
+           nodes().equals(other.nodes()) &&
+           edgeValueMap(this).equals(edgeValueMap(other));
   }
 
   @Override
@@ -124,19 +124,19 @@ public abstract class AbstractValueGraph<N, V>
   @Override
   public String toString() {
     return "isDirected: " + isDirected() +
-        ", allowsSelfLoops: " + allowsSelfLoops() + ", nodes: " + nodes() +
-        ", edges: " + edgeValueMap(this);
+           ", allowsSelfLoops: " + allowsSelfLoops() + ", nodes: " + nodes() +
+           ", edges: " + edgeValueMap(this);
   }
 
   private static <N, V> Map<EndpointPair<N>, V>
   edgeValueMap(final ValueGraph<N, V> graph) {
     Function<EndpointPair<N>, V> edgeToValueFn =
         new Function<EndpointPair<N>, V>() {
-          @Override
-          public V apply(EndpointPair<N> edge) {
-            return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
-          }
-        };
+      @Override
+      public V apply(EndpointPair<N> edge) {
+        return graph.edgeValueOrDefault(edge.nodeU(), edge.nodeV(), null);
+      }
+    };
     return Maps.asMap(graph.edges(), edgeToValueFn);
   }
 }

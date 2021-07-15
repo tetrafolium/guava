@@ -127,28 +127,28 @@ public final class ServiceManager {
       Logger.getLogger(ServiceManager.class.getName());
   private static final ListenerCallQueue.Event<Listener> HEALTHY_EVENT =
       new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.healthy();
-        }
+    @Override
+    public void call(Listener listener) {
+      listener.healthy();
+    }
 
-        @Override
-        public String toString() {
-          return "healthy()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "healthy()";
+    }
+  };
   private static final ListenerCallQueue.Event<Listener> STOPPED_EVENT =
       new ListenerCallQueue.Event<Listener>() {
-        @Override
-        public void call(Listener listener) {
-          listener.stopped();
-        }
+    @Override
+    public void call(Listener listener) {
+      listener.stopped();
+    }
 
-        @Override
-        public String toString() {
-          return "stopped()";
-        }
-      };
+    @Override
+    public String toString() {
+      return "stopped()";
+    }
+  };
 
   /**
    * A listener for the aggregate state changes of the services that are under
@@ -219,9 +219,9 @@ public final class ServiceManager {
       // listeners are never fired. To avoid this we substitute a placeholder
       // service.
       logger.log(
-          Level.WARNING,
-          "ServiceManager configured with no services.  Is your application configured properly?",
-          new EmptyServiceManagerWarning());
+        Level.WARNING,
+        "ServiceManager configured with no services.  Is your application configured properly?",
+        new EmptyServiceManagerWarning());
       copy = ImmutableList.<Service>of(new NoOpService());
     }
     this.state = new ServiceManagerState(copy);
@@ -230,11 +230,11 @@ public final class ServiceManager {
         new WeakReference<>(state);
     for (Service service : copy) {
       service.addListener(new ServiceListener(service, stateReference),
-                          directExecutor());
+          directExecutor());
       // We check the state after adding the listener as a way to ensure that
       // our listener was added to a NEW service.
       checkArgument(service.state() == NEW, "Can only manage NEW services, %s",
-                    service);
+          service);
     }
     // We have installed all of our listeners and after this point any state
     // transition should be correct.
@@ -306,7 +306,7 @@ public final class ServiceManager {
     for (Service service : services) {
       State state = service.state();
       checkState(state == NEW, "Service %s is %s, cannot start it.", service,
-                 state);
+          state);
     }
     for (Service service : services) {
       try {
@@ -348,7 +348,7 @@ public final class ServiceManager {
    *     which it cannot become {@linkplain #isHealthy() healthy}.
    */
   public void awaitHealthy(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     state.awaitHealthy(timeout, unit);
   }
 
@@ -386,7 +386,7 @@ public final class ServiceManager {
    *     deadline
    */
   public void awaitStopped(long timeout, TimeUnit unit)
-      throws TimeoutException {
+  throws TimeoutException {
     state.awaitStopped(timeout, unit);
   }
 
@@ -432,9 +432,9 @@ public final class ServiceManager {
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(ServiceManager.class)
-        .add("services",
-             Collections2.filter(services, not(instanceOf(NoOpService.class))))
-        .toString();
+           .add("services",
+               Collections2.filter(services, not(instanceOf(NoOpService.class))))
+           .toString();
   }
 
   /**
@@ -489,8 +489,8 @@ public final class ServiceManager {
       public boolean isSatisfied() {
         // All services have started or some service has terminated/failed.
         return states.count(RUNNING) == numberOfServices ||
-            states.contains(STOPPING) || states.contains(TERMINATED) ||
-            states.contains(FAILED);
+               states.contains(STOPPING) || states.contains(TERMINATED) ||
+               states.contains(FAILED);
       }
     }
 
@@ -507,7 +507,7 @@ public final class ServiceManager {
       @GuardedBy("ServiceManagerState.this.monitor")
       public boolean isSatisfied() {
         return states.count(TERMINATED) + states.count(FAILED) ==
-            numberOfServices;
+               numberOfServices;
       }
     }
 
@@ -562,8 +562,8 @@ public final class ServiceManager {
             }
           }
           throw new IllegalArgumentException(
-              "Services started transitioning asynchronously before "
-              + "the ServiceManager was constructed: " + servicesInBadStates);
+                  "Services started transitioning asynchronously before "
+                  + "the ServiceManager was constructed: " + servicesInBadStates);
         }
       } finally {
         monitor.leave();
@@ -588,10 +588,10 @@ public final class ServiceManager {
       try {
         if (!monitor.waitForUninterruptibly(awaitHealthGuard, timeout, unit)) {
           throw new TimeoutException(
-              "Timeout waiting for the services to become healthy. The "
-              + "following services have not started: " +
-              Multimaps.filterKeys(servicesByState,
-                                   in(ImmutableSet.of(NEW, STARTING))));
+                  "Timeout waiting for the services to become healthy. The "
+                  + "following services have not started: " +
+                  Multimaps.filterKeys(servicesByState,
+                  in(ImmutableSet.of(NEW, STARTING))));
         }
         checkHealthy();
       } finally {
@@ -609,10 +609,10 @@ public final class ServiceManager {
       try {
         if (!monitor.waitForUninterruptibly(stoppedGuard, timeout, unit)) {
           throw new TimeoutException(
-              "Timeout waiting for the services to stop. The following "
-              + "services have not stopped: " +
-              Multimaps.filterKeys(servicesByState,
-                                   not(in(EnumSet.of(TERMINATED, FAILED)))));
+                  "Timeout waiting for the services to stop. The following "
+                  + "services have not stopped: " +
+                  Multimaps.filterKeys(servicesByState,
+                  not(in(EnumSet.of(TERMINATED, FAILED)))));
         }
       } finally {
         monitor.leave();
@@ -647,20 +647,20 @@ public final class ServiceManager {
           Stopwatch stopWatch = entry.getValue();
           if (!stopWatch.isRunning() && !(service instanceof NoOpService)) {
             loadTimes.add(
-                Maps.immutableEntry(service, stopWatch.elapsed(MILLISECONDS)));
+              Maps.immutableEntry(service, stopWatch.elapsed(MILLISECONDS)));
           }
         }
       } finally {
         monitor.leave();
       }
       Collections.sort(loadTimes,
-                       Ordering.natural().onResultOf(
-                           new Function<Entry<Service, Long>, Long>() {
-                             @Override
-                             public Long apply(Map.Entry<Service, Long> input) {
-                               return input.getValue();
-                             }
-                           }));
+          Ordering.natural().onResultOf(
+            new Function<Entry<Service, Long>, Long>() {
+        @Override
+        public Long apply(Map.Entry<Service, Long> input) {
+          return input.getValue();
+        }
+      }));
       return ImmutableMap.copyOf(loadTimes);
     }
 
@@ -684,12 +684,12 @@ public final class ServiceManager {
         }
         // Update state.
         checkState(
-            servicesByState.remove(from, service),
-            "Service %s not at the expected location in the state map %s",
-            service, from);
+          servicesByState.remove(from, service),
+          "Service %s not at the expected location in the state map %s",
+          service, from);
         checkState(servicesByState.put(to, service),
-                   "Service %s in the state map unexpectedly at %s", service,
-                   to);
+            "Service %s in the state map unexpectedly at %s", service,
+            to);
         // Update the timer
         Stopwatch stopwatch = startupTimers.get(service);
         if (stopwatch == null) {
@@ -704,7 +704,7 @@ public final class ServiceManager {
           stopwatch.stop();
           if (!(service instanceof NoOpService)) {
             logger.log(Level.FINE, "Started {0} in {1}.",
-                       new Object[] {service, stopwatch});
+                new Object[] {service, stopwatch});
           }
         }
         // Queue our listeners
@@ -720,7 +720,7 @@ public final class ServiceManager {
           // because any service could fail right now.
           enqueueHealthyEvent();
         } else if (states.count(TERMINATED) + states.count(FAILED) ==
-                   numberOfServices) {
+            numberOfServices) {
           enqueueStoppedEvent();
         }
       } finally {
@@ -751,7 +751,7 @@ public final class ServiceManager {
     /** Attempts to execute all the listeners in {@link #listeners}. */
     void dispatchListenerEvents() {
       checkState(!monitor.isOccupiedByCurrentThread(),
-                 "It is incorrect to execute listeners with the monitor held.");
+          "It is incorrect to execute listeners with the monitor held.");
       listeners.dispatch();
     }
 
@@ -759,8 +759,8 @@ public final class ServiceManager {
     void checkHealthy() {
       if (states.count(RUNNING) != numberOfServices) {
         IllegalStateException exception = new IllegalStateException(
-            "Expected to be healthy after starting. The following services are not running: " +
-            Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
+          "Expected to be healthy after starting. The following services are not running: " +
+          Multimaps.filterKeys(servicesByState, not(equalTo(RUNNING))));
         throw exception;
       }
     }
@@ -817,8 +817,8 @@ public final class ServiceManager {
       if (state != null) {
         if (!(service instanceof NoOpService)) {
           logger.log(Level.FINE,
-                     "Service {0} has terminated. Previous state was: {1}",
-                     new Object[] {service, from});
+              "Service {0} has terminated. Previous state was: {1}",
+              new Object[] {service, from});
         }
         state.transitionService(service, from, TERMINATED);
       }
@@ -834,9 +834,9 @@ public final class ServiceManager {
         boolean log = !(service instanceof NoOpService);
         if (log) {
           logger.log(Level.SEVERE,
-                     "Service " + service + " has failed in the " + from +
-                         " state.",
-                     failure);
+              "Service " + service + " has failed in the " + from +
+              " state.",
+              failure);
         }
         state.transitionService(service, from, FAILED);
       }

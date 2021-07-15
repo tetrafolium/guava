@@ -40,7 +40,7 @@ public final class Parameter implements AnnotatedElement {
   private final ImmutableList<Annotation> annotations;
 
   Parameter(Invokable<?, ?> declaration, int position, TypeToken<?> type,
-            Annotation[] annotations) {
+      Annotation[] annotations) {
     this.declaration = declaration;
     this.position = position;
     this.type = type;
@@ -81,7 +81,7 @@ public final class Parameter implements AnnotatedElement {
    */
   // @Override on JDK8
   public <A extends Annotation>
-      A[] getAnnotationsByType(Class<A> annotationType) {
+  A[] getAnnotationsByType(Class<A> annotationType) {
     return getDeclaredAnnotationsByType(annotationType);
   }
 
@@ -100,12 +100,12 @@ public final class Parameter implements AnnotatedElement {
   // @Override on JDK8
   @Nullable
   public <A extends Annotation>
-      A getDeclaredAnnotation(Class<A> annotationType) {
+  A getDeclaredAnnotation(Class<A> annotationType) {
     checkNotNull(annotationType);
     return FluentIterable.from(annotations)
-        .filter(annotationType)
-        .first()
-        .orNull();
+           .filter(annotationType)
+           .first()
+           .orNull();
   }
 
   /**
@@ -113,10 +113,10 @@ public final class Parameter implements AnnotatedElement {
    */
   // @Override on JDK8
   public <A extends Annotation>
-      A[] getDeclaredAnnotationsByType(Class<A> annotationType) {
+  A[] getDeclaredAnnotationsByType(Class<A> annotationType) {
     return FluentIterable.from(annotations)
-        .filter(annotationType)
-        .toArray(annotationType);
+           .filter(annotationType)
+           .toArray(annotationType);
   }
 
   @Override

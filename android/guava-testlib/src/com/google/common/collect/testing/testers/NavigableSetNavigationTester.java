@@ -54,7 +54,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
     super.setUp();
     navigableSet = (NavigableSet<E>)getSet();
     values = Helpers.copyToList(getSubjectGenerator().getSampleElements(
-        getSubjectGenerator().getCollectionSize().getNumElements()));
+          getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(values, navigableSet.comparator());
 
     // some tests assume SEVERAL == 3
@@ -123,7 +123,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   public void testPollFirst() {
     assertEquals(a, navigableSet.pollFirst());
     assertEquals(values.subList(1, values.size()),
-                 Helpers.copyToList(navigableSet));
+        Helpers.copyToList(navigableSet));
   }
 
   @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
@@ -206,7 +206,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   public void testPollLast() {
     assertEquals(c, navigableSet.pollLast());
     assertEquals(values.subList(0, values.size() - 1),
-                 Helpers.copyToList(navigableSet));
+        Helpers.copyToList(navigableSet));
   }
 
   @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
@@ -253,11 +253,11 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
    */
   public static Method[] getHoleMethods() {
     return new Method[] {
-        Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
-        Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
-        Helpers.getMethod(NavigableSetNavigationTester.class,
-                          "testCeilingHole"),
-        Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
+             Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
+             Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
+             Helpers.getMethod(NavigableSetNavigationTester.class,
+                 "testCeilingHole"),
+             Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
     };
   }
 }

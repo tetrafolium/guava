@@ -46,7 +46,7 @@ import java.util.Set;
  */
 @GwtCompatible(emulated = true)
 public interface SortedMultiset<E>
-    extends SortedMultisetBridge<E>, SortedIterable<E> {
+  extends SortedMultisetBridge<E>, SortedIterable<E> {
   /**
    * Returns the comparator that orders this multiset, or
    * {@link Ordering#natural()} if the natural ordering of the elements is used.
@@ -133,7 +133,7 @@ public interface SortedMultiset<E>
    * upperBoundType)}.
    */
   SortedMultiset<E> subMultiset(E lowerBound, BoundType lowerBoundType,
-                                E upperBound, BoundType upperBoundType);
+      E upperBound, BoundType upperBoundType);
 
   /**
    * Returns a view of this multiset restricted to the elements greater than

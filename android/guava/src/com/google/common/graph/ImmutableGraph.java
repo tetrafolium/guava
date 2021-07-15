@@ -56,8 +56,8 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
     return (graph instanceof ImmutableGraph)
         ? (ImmutableGraph<N>)graph
         : new ImmutableGraph<N>(new ConfigurableValueGraph<N, Presence>(
-              GraphBuilder.from(graph), getNodeConnections(graph),
-              graph.edges().size()));
+                 GraphBuilder.from(graph), getNodeConnections(graph),
+                 graph.edges().size()));
   }
 
   /**
@@ -84,15 +84,15 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   }
 
   private static <N> GraphConnections<N, Presence> connectionsOf(Graph<N> graph,
-                                                                 N node) {
+      N node) {
     Function<Object, Presence> edgeValueFn =
         Functions.constant(Presence.EDGE_EXISTS);
     return graph.isDirected()
         ? DirectedGraphConnections.ofImmutable(
-              graph.predecessors(node),
-              Maps.asMap(graph.successors(node), edgeValueFn))
+      graph.predecessors(node),
+      Maps.asMap(graph.successors(node), edgeValueFn))
         : UndirectedGraphConnections.ofImmutable(
-              Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
+      Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
   }
 
   @Override

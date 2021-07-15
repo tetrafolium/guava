@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @Beta
 @GwtIncompatible
 public abstract class AbstractCheckedFutureTest
-    extends AbstractListenableFutureTest {
+  extends AbstractListenableFutureTest {
 
   /**
    * More specific type for the create method.
@@ -93,7 +93,7 @@ public abstract class AbstractCheckedFutureTest
   }
 
   public void testCheckedGetThrowsApplicationExceptionOnInterruption()
-      throws InterruptedException {
+  throws InterruptedException {
 
     final CheckedFuture<Boolean, ?> future =
         createCheckedFuture(Boolean.TRUE, null, latch);

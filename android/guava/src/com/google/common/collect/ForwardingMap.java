@@ -61,7 +61,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingMap<K, V>
-    extends ForwardingObject implements Map<K, V> {
+  extends ForwardingObject implements Map<K, V> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */

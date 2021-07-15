@@ -36,7 +36,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
   @SuppressWarnings("unchecked") // empty Object[] as E[]
   public static <E> MinimalSet<E> of(E... contents) {
     return ofClassAndContents(Object.class, (E[]) new Object[0],
-                              Arrays.asList(contents));
+               Arrays.asList(contents));
   }
 
   @SuppressWarnings("unchecked") // empty Object[] as E[]
@@ -46,7 +46,7 @@ public class MinimalSet<E> extends MinimalCollection<E> implements Set<E> {
 
   public static <E> MinimalSet<E>
   ofClassAndContents(Class<? super E> type, E[] emptyArrayForContents,
-                     Iterable<? extends E> contents) {
+      Iterable<? extends E> contents) {
     List<E> setContents = new ArrayList<E>();
     for (E e : contents) {
       if (!setContents.contains(e)) {

@@ -42,7 +42,7 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @param <E> Edge parameter type
  */
 final class ConfigurableMutableNetwork<N, E>
-    extends ConfigurableNetwork<N, E> implements MutableNetwork<N, E> {
+  extends ConfigurableNetwork<N, E> implements MutableNetwork<N, E> {
 
   /**
    * Constructs a mutable graph with the properties specified in {@code
@@ -89,15 +89,15 @@ final class ConfigurableMutableNetwork<N, E>
       EndpointPair<N> existingIncidentNodes = incidentNodes(edge);
       EndpointPair<N> newIncidentNodes = EndpointPair.of(this, nodeU, nodeV);
       checkArgument(existingIncidentNodes.equals(newIncidentNodes),
-                    REUSING_EDGE, edge, existingIncidentNodes,
-                    newIncidentNodes);
+          REUSING_EDGE, edge, existingIncidentNodes,
+          newIncidentNodes);
       return false;
     }
     NetworkConnections<N, E> connectionsU = nodeConnections.get(nodeU);
     if (!allowsParallelEdges()) {
       checkArgument(
-          !(connectionsU != null && connectionsU.successors().contains(nodeV)),
-          PARALLEL_EDGES_NOT_ALLOWED, nodeU, nodeV);
+        !(connectionsU != null && connectionsU.successors().contains(nodeV)),
+        PARALLEL_EDGES_NOT_ALLOWED, nodeU, nodeV);
     }
     boolean isSelfLoop = nodeU.equals(nodeV);
     if (!allowsSelfLoops()) {

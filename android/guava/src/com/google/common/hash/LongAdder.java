@@ -185,7 +185,7 @@ final class LongAdder extends Striped64 implements Serializable, LongAddable {
   }
 
   private void readObject(ObjectInputStream s)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     s.defaultReadObject();
     busy = 0;
     cells = null;

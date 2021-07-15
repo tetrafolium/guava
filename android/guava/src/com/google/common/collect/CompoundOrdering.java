@@ -27,7 +27,7 @@ final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<? super T>[] comparators;
 
   CompoundOrdering(Comparator<? super T> primary,
-                   Comparator<? super T> secondary) {
+      Comparator<? super T> secondary) {
     this.comparators =
         (Comparator<? super T>[]) new Comparator[] {primary, secondary};
   }

@@ -37,7 +37,7 @@ public class DoubleMathRoundingBenchmark {
   private static final double[] positiveDoubles = new double[ARRAY_SIZE];
 
   @Param(
-      {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
+    {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
   @BeforeExperiment

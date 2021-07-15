@@ -217,28 +217,28 @@ public abstract class Converter<A, B> implements Function<A, B> {
   public Iterable<B> convertAll(final Iterable<? extends A> fromIterable) {
     checkNotNull(fromIterable, "fromIterable");
     return new Iterable<B>() {
-      @Override
-      public Iterator<B> iterator() {
-        return new Iterator<B>() {
-          private final Iterator<? extends A> fromIterator =
-              fromIterable.iterator();
+             @Override
+             public Iterator<B> iterator() {
+               return new Iterator<B>() {
+                        private final Iterator<? extends A> fromIterator =
+                            fromIterable.iterator();
 
-          @Override
-          public boolean hasNext() {
-            return fromIterator.hasNext();
-          }
+                        @Override
+                        public boolean hasNext() {
+                          return fromIterator.hasNext();
+                        }
 
-          @Override
-          public B next() {
-            return convert(fromIterator.next());
-          }
+                        @Override
+                        public B next() {
+                          return convert(fromIterator.next());
+                        }
 
-          @Override
-          public void remove() {
-            fromIterator.remove();
-          }
-        };
-      }
+                        @Override
+                        public void remove() {
+                          fromIterator.remove();
+                        }
+               };
+             }
     };
   }
 
@@ -258,7 +258,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
   }
 
   private static final class ReverseConverter<A, B>
-      extends Converter<B, A> implements Serializable {
+    extends Converter<B, A> implements Serializable {
     final Converter<A, B> original;
 
     ReverseConverter(Converter<A, B> original) { this.original = original; }
@@ -340,7 +340,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
   }
 
   private static final class ConverterComposition<A, B, C>
-      extends Converter<A, C> implements Serializable {
+    extends Converter<A, C> implements Serializable {
     final Converter<A, B> first;
     final Converter<B, C> second;
 
@@ -452,18 +452,18 @@ public abstract class Converter<A, B> implements Function<A, B> {
    */
   public static <A, B> Converter<A, B>
   from(Function<? super A, ? extends B> forwardFunction,
-       Function<? super B, ? extends A> backwardFunction) {
+      Function<? super B, ? extends A> backwardFunction) {
     return new FunctionBasedConverter<>(forwardFunction, backwardFunction);
   }
 
   private static final class FunctionBasedConverter<A, B>
-      extends Converter<A, B> implements Serializable {
+    extends Converter<A, B> implements Serializable {
     private final Function<? super A, ? extends B> forwardFunction;
     private final Function<? super B, ? extends A> backwardFunction;
 
     private FunctionBasedConverter(
-        Function<? super A, ? extends B> forwardFunction,
-        Function<? super B, ? extends A> backwardFunction) {
+      Function<? super A, ? extends B> forwardFunction,
+      Function<? super B, ? extends A> backwardFunction) {
       this.forwardFunction = checkNotNull(forwardFunction);
       this.backwardFunction = checkNotNull(backwardFunction);
     }
@@ -484,7 +484,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
         FunctionBasedConverter<?, ?> that =
             (FunctionBasedConverter<?, ?>)object;
         return this.forwardFunction.equals(that.forwardFunction) &&
-            this.backwardFunction.equals(that.backwardFunction);
+               this.backwardFunction.equals(that.backwardFunction);
       }
       return false;
     }
@@ -497,7 +497,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
     @Override
     public String toString() {
       return "Converter.from(" + forwardFunction + ", " + backwardFunction +
-          ")";
+             ")";
     }
   }
 
@@ -515,7 +515,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
    * T is now a "pass-through type".
    */
   private static final class IdentityConverter<T>
-      extends Converter<T, T> implements Serializable {
+    extends Converter<T, T> implements Serializable {
     static final IdentityConverter INSTANCE = new IdentityConverter();
 
     @Override

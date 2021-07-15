@@ -59,9 +59,9 @@ public class FakeTicker extends Ticker {
    * left unchanged when queried.
    */
   public FakeTicker setAutoIncrementStep(long autoIncrementStep,
-                                         TimeUnit timeUnit) {
+      TimeUnit timeUnit) {
     checkArgument(autoIncrementStep >= 0,
-                  "May not auto-increment by a negative amount");
+        "May not auto-increment by a negative amount");
     this.autoIncrementStepNanos = timeUnit.toNanos(autoIncrementStep);
     return this;
   }

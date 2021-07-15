@@ -34,8 +34,8 @@ import javax.annotation.Nullable;
  */
 @GwtIncompatible
 public final class ImmutableClassToInstanceMap<B>
-    extends ForwardingMap<Class<? extends B>, B>
-    implements ClassToInstanceMap<B>, Serializable {
+  extends ForwardingMap<Class<? extends B>, B>
+  implements ClassToInstanceMap<B>, Serializable {
 
   private static final ImmutableClassToInstanceMap<Object> EMPTY =
       new ImmutableClassToInstanceMap<>(ImmutableMap.<Class<?>, Object>of());
@@ -111,7 +111,7 @@ public final class ImmutableClassToInstanceMap<B>
     public <T extends B> Builder<B>
     putAll(Map<? extends Class<? extends T>, ? extends T> map) {
       for (Entry<? extends Class<? extends T>, ? extends T> entry :
-           map.entrySet()) {
+          map.entrySet()) {
         Class<? extends T> type = entry.getKey();
         T value = entry.getValue();
         mapBuilder.put(type, cast(type, value));
@@ -166,7 +166,7 @@ public final class ImmutableClassToInstanceMap<B>
   private final ImmutableMap<Class<? extends B>, B> delegate;
 
   private ImmutableClassToInstanceMap(
-      ImmutableMap<Class<? extends B>, B> delegate) {
+    ImmutableMap<Class<? extends B>, B> delegate) {
     this.delegate = delegate;
   }
 

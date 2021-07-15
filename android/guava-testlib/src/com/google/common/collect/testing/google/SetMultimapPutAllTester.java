@@ -33,7 +33,7 @@ import java.util.Set;
  */
 @GwtCompatible
 public class SetMultimapPutAllTester<K, V>
-    extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllHandlesDuplicates() {

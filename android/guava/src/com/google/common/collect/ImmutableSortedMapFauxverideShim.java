@@ -27,7 +27,7 @@ import com.google.common.annotations.GwtIncompatible;
  */
 @GwtIncompatible
 abstract class ImmutableSortedMapFauxverideShim<K, V>
-    extends ImmutableMap<K, V> {
+  extends ImmutableMap<K, V> {
   /**
    * Not supported. Use {@link ImmutableSortedMap#naturalOrder}, which offers
    * better type-safety, instead. This method exists only to hide
@@ -94,7 +94,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V>
    */
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                                   V v3) {
+      V v3) {
     throw new UnsupportedOperationException();
   }
 
@@ -110,7 +110,7 @@ abstract class ImmutableSortedMapFauxverideShim<K, V>
    */
   @Deprecated
   public static <K, V> ImmutableSortedMap<K, V> of(K k1, V v1, K k2, V v2, K k3,
-                                                   V v3, K k4, V v4) {
+      V v3, K k4, V v4) {
     throw new UnsupportedOperationException();
   }
 

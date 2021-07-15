@@ -130,7 +130,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
       return nodeU;
     } else {
       throw new IllegalArgumentException("EndpointPair " + this +
-                                         " does not contain node " + node);
+                " does not contain node " + node);
     }
   }
 
@@ -255,7 +255,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
         return nodeV().equals(other.nodeV());
       }
       return nodeU().equals(other.nodeV()) &&
-          nodeV().equals(other.nodeU()); // check condition2
+             nodeV().equals(other.nodeU()); // check condition2
     }
 
     @Override

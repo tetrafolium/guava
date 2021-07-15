@@ -47,10 +47,10 @@ public class FeatureUtil {
       new HashMap<>();
 
   private static final Map<Class<?>, TesterRequirements>
-      classTesterRequirementsCache = new HashMap<>();
+  classTesterRequirementsCache = new HashMap<>();
 
   private static final Map<Method, TesterRequirements>
-      methodTesterRequirementsCache = new HashMap<>();
+  methodTesterRequirementsCache = new HashMap<>();
 
   /**
    * Given a set of features, add to it all the features directly or indirectly
@@ -100,7 +100,7 @@ public class FeatureUtil {
    * inconsistent.
    */
   public static TesterRequirements getTesterRequirements(Class<?> testerClass)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     synchronized (classTesterRequirementsCache) {
       TesterRequirements requirements =
           classTesterRequirementsCache.get(testerClass);
@@ -121,7 +121,7 @@ public class FeatureUtil {
    * mutually inconsistent.
    */
   public static TesterRequirements getTesterRequirements(Method testerMethod)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     synchronized (methodTesterRequirementsCache) {
       TesterRequirements requirements =
           methodTesterRequirementsCache.get(testerMethod);
@@ -142,7 +142,7 @@ public class FeatureUtil {
    * inconsistent.
    */
   static TesterRequirements buildTesterRequirements(Class<?> testerClass)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     final TesterRequirements declaredRequirements =
         buildDeclaredTesterRequirements(testerClass);
     Class<?> baseClass = testerClass.getSuperclass();
@@ -152,7 +152,7 @@ public class FeatureUtil {
       final TesterRequirements clonedBaseRequirements =
           new TesterRequirements(getTesterRequirements(baseClass));
       return incorporateRequirements(clonedBaseRequirements,
-                                     declaredRequirements, testerClass);
+                 declaredRequirements, testerClass);
     }
   }
 
@@ -165,13 +165,13 @@ public class FeatureUtil {
    * inconsistent.
    */
   static TesterRequirements buildTesterRequirements(Method testerMethod)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     TesterRequirements clonedClassRequirements = new TesterRequirements(
-        getTesterRequirements(testerMethod.getDeclaringClass()));
+      getTesterRequirements(testerMethod.getDeclaringClass()));
     TesterRequirements declaredRequirements =
         buildDeclaredTesterRequirements(testerMethod);
     return incorporateRequirements(clonedClassRequirements,
-                                   declaredRequirements, testerMethod);
+               declaredRequirements, testerMethod);
   }
 
   /**
@@ -185,7 +185,7 @@ public class FeatureUtil {
    */
   public static TesterRequirements
   buildDeclaredTesterRequirements(AnnotatedElement classOrMethod)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     TesterRequirements requirements = new TesterRequirements();
 
     Iterable<Annotation> testerAnnotations =
@@ -232,19 +232,19 @@ public class FeatureUtil {
    */
   private static TesterRequirements
   buildTesterRequirements(Annotation testerAnnotation)
-      throws ConflictingRequirementsException {
+  throws ConflictingRequirementsException {
     Class<? extends Annotation> annotationClass =
         testerAnnotation.annotationType();
     final Feature<?>[] presentFeatures;
     final Feature<?>[] absentFeatures;
     try {
       presentFeatures = (Feature[])annotationClass.getMethod("value").invoke(
-          testerAnnotation);
+        testerAnnotation);
       absentFeatures = (Feature[])annotationClass.getMethod("absent").invoke(
-          testerAnnotation);
+        testerAnnotation);
     } catch (Exception e) {
       throw new IllegalArgumentException(
-          "Error extracting features from tester annotation.", e);
+              "Error extracting features from tester annotation.", e);
     }
     Set<Feature<?>> allPresentFeatures =
         addImpliedFeatures(Helpers.<Feature<?>>copyToSet(presentFeatures));
@@ -252,11 +252,11 @@ public class FeatureUtil {
         addImpliedFeatures(Helpers.<Feature<?>>copyToSet(absentFeatures));
     if (!Collections.disjoint(allPresentFeatures, allAbsentFeatures)) {
       throw new ConflictingRequirementsException(
-          "Annotation explicitly or "
+              "Annotation explicitly or "
               + "implicitly requires one or more features to be both present "
               + "and absent.",
-          intersection(allPresentFeatures, allAbsentFeatures),
-          testerAnnotation);
+              intersection(allPresentFeatures, allAbsentFeatures),
+              testerAnnotation);
     }
     return new TesterRequirements(allPresentFeatures, allAbsentFeatures);
   }
@@ -274,16 +274,16 @@ public class FeatureUtil {
    */
   private static TesterRequirements
   incorporateRequirements(TesterRequirements requirements,
-                          TesterRequirements moreRequirements, Object source)
-      throws ConflictingRequirementsException {
+      TesterRequirements moreRequirements, Object source)
+  throws ConflictingRequirementsException {
     Set<Feature<?>> presentFeatures = requirements.getPresentFeatures();
     Set<Feature<?>> absentFeatures = requirements.getAbsentFeatures();
     Set<Feature<?>> morePresentFeatures = moreRequirements.getPresentFeatures();
     Set<Feature<?>> moreAbsentFeatures = moreRequirements.getAbsentFeatures();
     checkConflict("absent", absentFeatures, "present", morePresentFeatures,
-                  source);
+        source);
     checkConflict("present", presentFeatures, "absent", moreAbsentFeatures,
-                  source);
+        source);
     presentFeatures.addAll(morePresentFeatures);
     absentFeatures.addAll(moreAbsentFeatures);
     return requirements;
@@ -291,17 +291,17 @@ public class FeatureUtil {
 
   // Used by incorporateRequirements() only
   private static void checkConflict(String earlierRequirement,
-                                    Set<Feature<?>> earlierFeatures,
-                                    String newRequirement,
-                                    Set<Feature<?>> newFeatures, Object source)
-      throws ConflictingRequirementsException {
+      Set<Feature<?>> earlierFeatures,
+      String newRequirement,
+      Set<Feature<?>> newFeatures, Object source)
+  throws ConflictingRequirementsException {
     if (!Collections.disjoint(newFeatures, earlierFeatures)) {
       throw new ConflictingRequirementsException(
-          String.format(Locale.ROOT,
-                        "Annotation requires to be %s features that earlier "
-                            + "annotations required to be %s.",
-                        newRequirement, earlierRequirement),
-          intersection(newFeatures, earlierFeatures), source);
+              String.format(Locale.ROOT,
+              "Annotation requires to be %s features that earlier "
+              + "annotations required to be %s.",
+              newRequirement, earlierRequirement),
+              intersection(newFeatures, earlierFeatures), source);
     }
   }
 
@@ -310,7 +310,7 @@ public class FeatureUtil {
    * of the given sets.
    */
   public static <T> Set<T> intersection(Set<? extends T> set1,
-                                        Set<? extends T> set2) {
+      Set<? extends T> set2) {
     Set<T> result = Helpers.<T>copyToSet(set1);
     result.retainAll(set2);
     return result;

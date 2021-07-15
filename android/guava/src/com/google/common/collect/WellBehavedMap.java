@@ -74,25 +74,25 @@ final class WellBehavedMap<K, V> extends ForwardingMap<K, V> {
     @Override
     public Iterator<Entry<K, V>> iterator() {
       return new TransformedIterator<K, Entry<K, V>>(keySet().iterator()) {
-        @Override
-        Entry<K, V> transform(final K key) {
-          return new AbstractMapEntry<K, V>() {
-            @Override
-            public K getKey() {
-              return key;
-            }
+               @Override
+               Entry<K, V> transform(final K key) {
+                 return new AbstractMapEntry<K, V>() {
+                          @Override
+                          public K getKey() {
+                            return key;
+                          }
 
-            @Override
-            public V getValue() {
-              return get(key);
-            }
+                          @Override
+                          public V getValue() {
+                            return get(key);
+                          }
 
-            @Override
-            public V setValue(V value) {
-              return put(key, value);
-            }
-          };
-        }
+                          @Override
+                          public V setValue(V value) {
+                            return put(key, value);
+                          }
+                 };
+               }
       };
     }
   }

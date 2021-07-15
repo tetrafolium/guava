@@ -46,14 +46,14 @@ public class CollectionToStringTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_size0() {
     assertEquals("emptyCollection.toString should return []", "[]",
-                 collection.toString());
+        collection.toString());
   }
 
   @CollectionSize.Require(ONE)
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_size1() {
     assertEquals("size1Collection.toString should return [{element}]",
-                 "[" + e0() + "]", collection.toString());
+        "[" + e0() + "]", collection.toString());
   }
 
   @CollectionSize.Require(SEVERAL)
@@ -62,7 +62,7 @@ public class CollectionToStringTester<E> extends AbstractCollectionTester<E> {
   public void testToString_sizeSeveral() {
     String expected = Helpers.copyToList(getOrderedElements()).toString();
     assertEquals("collection.toString() incorrect", expected,
-                 collection.toString());
+        collection.toString());
   }
 
   @CollectionSize.Require(absent = ZERO)

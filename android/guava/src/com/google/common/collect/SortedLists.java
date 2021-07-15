@@ -55,7 +55,7 @@ final class SortedLists {
     ANY_PRESENT {
       @Override
       <E> int resultIndex(Comparator<? super E> comparator, E key,
-                          List<? extends E> list, int foundIndex) {
+          List<? extends E> list, int foundIndex) {
         return foundIndex;
       }
     },
@@ -66,7 +66,7 @@ final class SortedLists {
     LAST_PRESENT {
       @Override
       <E> int resultIndex(Comparator<? super E> comparator, E key,
-                          List<? extends E> list, int foundIndex) {
+          List<? extends E> list, int foundIndex) {
         // Of course, we have to use binary search to find the precise
         // breakpoint...
         int lower = foundIndex;
@@ -91,7 +91,7 @@ final class SortedLists {
     FIRST_PRESENT {
       @Override
       <E> int resultIndex(Comparator<? super E> comparator, E key,
-                          List<? extends E> list, int foundIndex) {
+          List<? extends E> list, int foundIndex) {
         // Of course, we have to use binary search to find the precise
         // breakpoint...
         int lower = 0;
@@ -118,7 +118,7 @@ final class SortedLists {
     FIRST_AFTER {
       @Override
       public <E> int resultIndex(Comparator<? super E> comparator, E key,
-                                 List<? extends E> list, int foundIndex) {
+          List<? extends E> list, int foundIndex) {
         return LAST_PRESENT.resultIndex(comparator, key, list, foundIndex) + 1;
       }
     },
@@ -129,13 +129,13 @@ final class SortedLists {
     LAST_BEFORE {
       @Override
       public <E> int resultIndex(Comparator<? super E> comparator, E key,
-                                 List<? extends E> list, int foundIndex) {
+          List<? extends E> list, int foundIndex) {
         return FIRST_PRESENT.resultIndex(comparator, key, list, foundIndex) - 1;
       }
     };
 
     abstract <E> int resultIndex(Comparator<? super E> comparator, E key,
-                                 List<? extends E> list, int foundIndex);
+        List<? extends E> list, int foundIndex);
   }
 
   /**
@@ -196,10 +196,10 @@ final class SortedLists {
    */
   public static <E extends Comparable> int
   binarySearch(List<? extends E> list, E e, KeyPresentBehavior presentBehavior,
-               KeyAbsentBehavior absentBehavior) {
+      KeyAbsentBehavior absentBehavior) {
     checkNotNull(e);
     return binarySearch(list, e, Ordering.natural(), presentBehavior,
-                        absentBehavior);
+               absentBehavior);
   }
 
   /**
@@ -211,10 +211,10 @@ final class SortedLists {
    */
   public static <E, K extends Comparable> int
   binarySearch(List<E> list, Function<? super E, K> keyFunction,
-               @Nullable K key, KeyPresentBehavior presentBehavior,
-               KeyAbsentBehavior absentBehavior) {
+      @Nullable K key, KeyPresentBehavior presentBehavior,
+      KeyAbsentBehavior absentBehavior) {
     return binarySearch(list, keyFunction, key, Ordering.natural(),
-                        presentBehavior, absentBehavior);
+               presentBehavior, absentBehavior);
   }
 
   /**
@@ -227,13 +227,13 @@ final class SortedLists {
    * {@link Lists#transform(List, Function) Lists.transform(list, keyFunction)}.
    */
   public static <E, K> int binarySearch(List<E> list,
-                                        Function<? super E, K> keyFunction,
-                                        @Nullable K key,
-                                        Comparator<? super K> keyComparator,
-                                        KeyPresentBehavior presentBehavior,
-                                        KeyAbsentBehavior absentBehavior) {
+      Function<? super E, K> keyFunction,
+      @Nullable K key,
+      Comparator<? super K> keyComparator,
+      KeyPresentBehavior presentBehavior,
+      KeyAbsentBehavior absentBehavior) {
     return binarySearch(Lists.transform(list, keyFunction), key, keyComparator,
-                        presentBehavior, absentBehavior);
+               presentBehavior, absentBehavior);
   }
 
   /**
@@ -267,9 +267,9 @@ final class SortedLists {
    *         otherwise the index determined by the {@code KeyAbsentBehavior}.
    */
   public static <E> int binarySearch(List<? extends E> list, @Nullable E key,
-                                     Comparator<? super E> comparator,
-                                     KeyPresentBehavior presentBehavior,
-                                     KeyAbsentBehavior absentBehavior) {
+      Comparator<? super E> comparator,
+      KeyPresentBehavior presentBehavior,
+      KeyAbsentBehavior absentBehavior) {
     checkNotNull(comparator);
     checkNotNull(list);
     checkNotNull(presentBehavior);
@@ -291,8 +291,8 @@ final class SortedLists {
         lower = middle + 1;
       } else {
         return lower + presentBehavior.resultIndex(
-                           comparator, key, list.subList(lower, upper + 1),
-                           middle - lower);
+          comparator, key, list.subList(lower, upper + 1),
+          middle - lower);
       }
     }
     return absentBehavior.resultIndex(lower);

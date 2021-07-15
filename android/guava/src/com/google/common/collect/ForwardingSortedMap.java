@@ -57,7 +57,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingSortedMap<K, V>
-    extends ForwardingMap<K, V> implements SortedMap<K, V> {
+  extends ForwardingMap<K, V> implements SortedMap<K, V> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
@@ -139,7 +139,7 @@ public abstract class ForwardingSortedMap<K, V>
       Object ceilingKey = self.tailMap(key).firstKey();
       return unsafeCompare(ceilingKey, key) == 0;
     } catch (ClassCastException | NoSuchElementException |
-             NullPointerException e) {
+        NullPointerException e) {
       return false;
     }
   }
@@ -155,7 +155,7 @@ public abstract class ForwardingSortedMap<K, V>
   @Beta
   protected SortedMap<K, V> standardSubMap(K fromKey, K toKey) {
     checkArgument(unsafeCompare(fromKey, toKey) <= 0,
-                  "fromKey must be <= toKey");
+        "fromKey must be <= toKey");
     return tailMap(fromKey).headMap(toKey);
   }
 }

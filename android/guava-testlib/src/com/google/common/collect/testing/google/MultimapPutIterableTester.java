@@ -40,7 +40,7 @@ import java.util.Iterator;
  */
 @GwtCompatible
 public class MultimapPutIterableTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllNonEmptyIterableOnPresentKey() {
@@ -142,7 +142,7 @@ public class MultimapPutIterableTester<K, V>
     // Be extra thorough in case internal state was corrupted by the expected
     // null.
     assertEquals(Lists.newArrayList(),
-                 Lists.newArrayList(multimap().get(k3())));
+        Lists.newArrayList(multimap().get(k3())));
     assertEquals(size, multimap().size());
   }
 

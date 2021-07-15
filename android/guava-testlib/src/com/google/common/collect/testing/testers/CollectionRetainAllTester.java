@@ -84,12 +84,12 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
     List<E> disjointList = Arrays.asList(e3(), e4());
     disjoint = new Target(disjointList, "disjoint");
     superset = new Target(MinimalCollection.of(e0(), e1(), e2(), e3(), e4()),
-                          "superset");
+        "superset");
     nonEmptyProperSubset = new Target(MinimalCollection.of(e1()), "subset");
     sameElements =
         new Target(Arrays.asList(createSamplesArray()), "sameElements");
     containsDuplicates = new Target(
-        MinimalCollection.of(e0(), e0(), e3(), e3()), "containsDuplicates");
+      MinimalCollection.of(e0(), e0(), e3(), e3()), "containsDuplicates");
     partialOverlap =
         new Target(MinimalCollection.of(e2(), e3()), "partialOverlap");
     nullSingleton = new Target(Collections.<E>singleton(null), "nullSingleton");

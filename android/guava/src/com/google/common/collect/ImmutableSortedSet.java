@@ -59,16 +59,16 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableSortedSet<E>
-    extends ImmutableSortedSetFauxverideShim<E>
-    implements NavigableSet<E>, SortedIterable<E> {
+  extends ImmutableSortedSetFauxverideShim<E>
+  implements NavigableSet<E>, SortedIterable<E> {
   static <E> RegularImmutableSortedSet<E>
   emptySet(Comparator<? super E> comparator) {
     if (Ordering.natural().equals(comparator)) {
       return (RegularImmutableSortedSet<E>)
-          RegularImmutableSortedSet.NATURAL_EMPTY_SET;
+             RegularImmutableSortedSet.NATURAL_EMPTY_SET;
     } else {
       return new RegularImmutableSortedSet<E>(ImmutableList.<E>of(),
-                                              comparator);
+                 comparator);
     }
   }
 
@@ -85,7 +85,7 @@ public abstract class ImmutableSortedSet<E>
   public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
   of(E element) {
     return new RegularImmutableSortedSet<E>(ImmutableList.of(element),
-                                            Ordering.natural());
+               Ordering.natural());
   }
 
   /**
@@ -378,7 +378,7 @@ public abstract class ImmutableSortedSet<E>
    *     {@code contents} is null
    */
   static <E> ImmutableSortedSet<E> construct(Comparator<? super E> comparator,
-                                             int n, E... contents) {
+      int n, E... contents) {
     if (n == 0) {
       return emptySet(comparator);
     }
@@ -400,7 +400,7 @@ public abstract class ImmutableSortedSet<E>
       contents = Arrays.copyOf(contents, uniques);
     }
     return new RegularImmutableSortedSet<E>(
-        ImmutableList.<E>asImmutableList(contents, uniques), comparator);
+      ImmutableList.<E>asImmutableList(contents, uniques), comparator);
   }
 
   /**
@@ -624,7 +624,7 @@ public abstract class ImmutableSortedSet<E>
   @GwtIncompatible // NavigableSet
   @Override
   public ImmutableSortedSet<E> subSet(E fromElement, boolean fromInclusive,
-                                      E toElement, boolean toInclusive) {
+      E toElement, boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator.compare(fromElement, toElement) <= 0);
@@ -663,8 +663,8 @@ public abstract class ImmutableSortedSet<E>
   abstract ImmutableSortedSet<E> headSetImpl(E toElement, boolean inclusive);
 
   abstract ImmutableSortedSet<E> subSetImpl(E fromElement,
-                                            boolean fromInclusive, E toElement,
-                                            boolean toInclusive);
+      boolean fromInclusive, E toElement,
+      boolean toInclusive);
 
   abstract ImmutableSortedSet<E> tailSetImpl(E fromElement, boolean inclusive);
 
@@ -805,7 +805,7 @@ public abstract class ImmutableSortedSet<E>
   }
 
   private void readObject(ObjectInputStream stream)
-      throws InvalidObjectException {
+  throws InvalidObjectException {
     throw new InvalidObjectException("Use SerializedForm");
   }
 

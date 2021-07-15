@@ -52,13 +52,13 @@ public final class Flushables {
    * @see Closeables#close
    */
   public static void flush(Flushable flushable, boolean swallowIOException)
-      throws IOException {
+  throws IOException {
     try {
       flushable.flush();
     } catch (IOException e) {
       if (swallowIOException) {
         logger.log(Level.WARNING,
-                   "IOException thrown while flushing Flushable.", e);
+            "IOException thrown while flushing Flushable.", e);
       } else {
         throw e;
       }

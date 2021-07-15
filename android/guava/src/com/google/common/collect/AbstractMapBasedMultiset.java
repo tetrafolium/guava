@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 abstract class AbstractMapBasedMultiset<E>
-    extends AbstractMultiset<E> implements Serializable {
+  extends AbstractMultiset<E> implements Serializable {
   transient AbstractObjectCountMap<E> backingMap;
 
   /*
@@ -87,30 +87,30 @@ abstract class AbstractMapBasedMultiset<E>
   Iterator<Entry<E>> entryIterator() {
     final Iterator<Entry<E>> backingEntries = backingMap.entrySet().iterator();
     return new Iterator<Multiset.Entry<E>>() {
-      Entry<E> toRemove;
-      boolean canRemove;
+             Entry<E> toRemove;
+             boolean canRemove;
 
-      @Override
-      public boolean hasNext() {
-        return backingEntries.hasNext();
-      }
+             @Override
+             public boolean hasNext() {
+               return backingEntries.hasNext();
+             }
 
-      @Override
-      public Multiset.Entry<E> next() {
-        final Entry<E> mapEntry = backingEntries.next();
-        toRemove = mapEntry;
-        canRemove = true;
-        return mapEntry;
-      }
+             @Override
+             public Multiset.Entry<E> next() {
+               final Entry<E> mapEntry = backingEntries.next();
+               toRemove = mapEntry;
+               canRemove = true;
+               return mapEntry;
+             }
 
-      @Override
-      public void remove() {
-        checkRemove(canRemove);
-        size -= toRemove.getCount();
-        backingEntries.remove();
-        canRemove = false;
-        toRemove = null;
-      }
+             @Override
+             public void remove() {
+               checkRemove(canRemove);
+               size -= toRemove.getCount();
+               backingEntries.remove();
+               canRemove = false;
+               toRemove = null;
+             }
     };
   }
 
@@ -206,11 +206,11 @@ abstract class AbstractMapBasedMultiset<E>
       return count(element);
     }
     checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
-                  occurrences);
+        occurrences);
     int oldCount = backingMap.get(element);
     long newCount = (long)oldCount + (long)occurrences;
     checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s",
-                  newCount);
+        newCount);
     backingMap.put(element, (int)newCount);
     size += occurrences;
     return oldCount;
@@ -223,7 +223,7 @@ abstract class AbstractMapBasedMultiset<E>
       return count(element);
     }
     checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
-                  occurrences);
+        occurrences);
     int oldCount = backingMap.get(element);
     int numberRemoved;
     if (oldCount > occurrences) {

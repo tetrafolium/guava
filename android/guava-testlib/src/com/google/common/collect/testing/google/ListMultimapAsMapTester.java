@@ -44,7 +44,7 @@ import java.util.Set;
  */
 @GwtCompatible
 public class ListMultimapAsMapTester<K, V>
-    extends AbstractListMultimapTester<K, V> {
+  extends AbstractListMultimapTester<K, V> {
   public void testAsMapValuesImplementList() {
     for (Collection<V> valueCollection : multimap().asMap().values()) {
       assertTrue(valueCollection instanceof List);
@@ -69,38 +69,38 @@ public class ListMultimapAsMapTester<K, V>
   @CollectionSize.Require(SEVERAL)
   public void testEquals() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     Map<K, Collection<V>> expected = Maps.newHashMap();
     expected.put(k0(), Lists.newArrayList(v0(), v3()));
     expected.put(k1(), Lists.newArrayList(v0()));
     new EqualsTester()
-        .addEqualityGroup(expected, multimap().asMap())
-        .testEquals();
+    .addEqualityGroup(expected, multimap().asMap())
+    .testEquals();
   }
 
   @CollectionSize.Require(SEVERAL)
   public void testEntrySetEquals() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     Set<Entry<K, Collection<V>>> expected = Sets.newHashSet();
     expected.add(
-        Helpers.mapEntry(k0(), (Collection<V>)Lists.newArrayList(v0(), v3())));
+      Helpers.mapEntry(k0(), (Collection<V>)Lists.newArrayList(v0(), v3())));
     expected.add(
-        Helpers.mapEntry(k1(), (Collection<V>)Lists.newArrayList(v0())));
+      Helpers.mapEntry(k1(), (Collection<V>)Lists.newArrayList(v0())));
     new EqualsTester()
-        .addEqualityGroup(expected, multimap().asMap().entrySet())
-        .testEquals();
+    .addEqualityGroup(expected, multimap().asMap().entrySet())
+    .testEquals();
   }
 
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testValuesRemove() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k1(), v0()),
-                   Helpers.mapEntry(k0(), v3()));
+        Helpers.mapEntry(k0(), v3()));
     assertTrue(
-        multimap().asMap().values().remove(Collections.singletonList(v0())));
+      multimap().asMap().values().remove(Collections.singletonList(v0())));
     assertEquals(2, multimap().size());
     assertEquals(Collections.singletonMap(k0(), Lists.newArrayList(v0(), v3())),
-                 multimap().asMap());
+        multimap().asMap());
   }
 }
