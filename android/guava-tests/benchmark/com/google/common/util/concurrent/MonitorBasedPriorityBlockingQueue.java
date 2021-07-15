@@ -403,7 +403,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
     try {
       int n = 0;
       E e;
-      while ( (e = q.poll()) != null) {
+      while ((e = q.poll()) != null) {
         c.add(e);
         ++n;
       }
