@@ -1035,13 +1035,13 @@ public final class Iterables {
     checkNotNull(iterables, "iterables");
     checkNotNull(comparator, "comparator");
     Iterable<T> iterable =
-        new FluentIterable<T>() {
-          @Override
-          public Iterator<T> iterator() {
-            return Iterators.mergeSorted(
+    new FluentIterable<T>() {
+      @Override
+      public Iterator<T> iterator() {
+        return Iterators.mergeSorted(
                 Iterables.transform(iterables, Iterables.<T>toIterator()), comparator);
-          }
-        };
+      }
+    };
     return new UnmodifiableIterable<>(iterable);
   }
 

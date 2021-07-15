@@ -34,13 +34,13 @@ import javax.annotation.Nullable;
 final class ImmutableEnumMap<K extends Enum<K>, V> extends IteratorBasedImmutableMap<K, V> {
   static <K extends Enum<K>, V> ImmutableMap<K, V> asImmutable(EnumMap<K, V> map) {
     switch (map.size()) {
-      case 0:
-        return ImmutableMap.of();
-      case 1:
-        Entry<K, V> entry = Iterables.getOnlyElement(map.entrySet());
-        return ImmutableMap.of(entry.getKey(), entry.getValue());
-      default:
-        return new ImmutableEnumMap<>(map);
+    case 0:
+      return ImmutableMap.of();
+    case 1:
+      Entry<K, V> entry = Iterables.getOnlyElement(map.entrySet());
+      return ImmutableMap.of(entry.getKey(), entry.getValue());
+    default:
+      return new ImmutableEnumMap<>(map);
     }
   }
 

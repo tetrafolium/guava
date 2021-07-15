@@ -100,10 +100,10 @@ public class Helpers {
       if (!equal(expectedIter.next(), actualIter.next())) {
         Assert.fail(
             "contents were not equal and in the same order: "
-                + "expected = "
-                + expected
-                + ", actual = "
-                + actual);
+            + "expected = "
+            + expected
+            + ", actual = "
+            + actual);
       }
     }
 
@@ -111,10 +111,10 @@ public class Helpers {
       // actual either had too few or too many elements
       Assert.fail(
           "contents were not equal and in the same order: "
-              + "expected = "
-              + expected
-              + ", actual = "
-              + actual);
+          + "expected = "
+          + expected
+          + ", actual = "
+          + actual);
     }
   }
 
@@ -135,12 +135,12 @@ public class Helpers {
       if (!act.remove(object)) {
         Assert.fail(
             "did not contain expected element "
-                + object
-                + ", "
-                + "expected = "
-                + exp
-                + ", actual = "
-                + actString);
+            + object
+            + ", "
+            + "expected = "
+            + exp
+            + ", actual = "
+            + actString);
       }
     }
     assertTrue("unexpected elements: " + act, act.isEmpty());
@@ -422,13 +422,13 @@ public class Helpers {
   }
 
   private static final Comparator<Comparable> NATURAL_ORDER =
-      new Comparator<Comparable>() {
-        @SuppressWarnings("unchecked") // assume any Comparable is Comparable<Self>
-        @Override
-        public int compare(Comparable left, Comparable right) {
-          return left.compareTo(right);
-        }
-      };
+  new Comparator<Comparable>() {
+    @SuppressWarnings("unchecked") // assume any Comparable is Comparable<Self>
+    @Override
+    public int compare(Comparable left, Comparable right) {
+      return left.compareTo(right);
+    }
+  };
 
   public static <K extends Comparable, V> Iterable<Entry<K, V>> orderEntriesByKey(
       List<Entry<K, V>> insertionOrder) {

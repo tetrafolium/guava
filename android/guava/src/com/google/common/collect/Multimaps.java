@@ -481,7 +481,7 @@ public final class Multimaps {
   }
 
   private static class UnmodifiableMultimap<K, V> extends ForwardingMultimap<K, V>
-      implements Serializable {
+    implements Serializable {
     final Multimap<K, V> delegate;
     transient Collection<Entry<K, V>> entries;
     transient Multiset<K> keys;
@@ -512,12 +512,12 @@ public final class Multimaps {
                 Collections.unmodifiableMap(
                     Maps.transformValues(
                         delegate.asMap(),
-                        new Function<Collection<V>, Collection<V>>() {
-                          @Override
-                          public Collection<V> apply(Collection<V> collection) {
-                            return unmodifiableValueCollection(collection);
-                          }
-                        }));
+        new Function<Collection<V>, Collection<V>>() {
+          @Override
+          public Collection<V> apply(Collection<V> collection) {
+            return unmodifiableValueCollection(collection);
+          }
+        }));
       }
       return result;
     }
@@ -597,7 +597,7 @@ public final class Multimaps {
   }
 
   private static class UnmodifiableListMultimap<K, V> extends UnmodifiableMultimap<K, V>
-      implements ListMultimap<K, V> {
+    implements ListMultimap<K, V> {
     UnmodifiableListMultimap(ListMultimap<K, V> delegate) {
       super(delegate);
     }
@@ -626,7 +626,7 @@ public final class Multimaps {
   }
 
   private static class UnmodifiableSetMultimap<K, V> extends UnmodifiableMultimap<K, V>
-      implements SetMultimap<K, V> {
+    implements SetMultimap<K, V> {
     UnmodifiableSetMultimap(SetMultimap<K, V> delegate) {
       super(delegate);
     }
@@ -664,7 +664,7 @@ public final class Multimaps {
   }
 
   private static class UnmodifiableSortedSetMultimap<K, V> extends UnmodifiableSetMultimap<K, V>
-      implements SortedSetMultimap<K, V> {
+    implements SortedSetMultimap<K, V> {
     UnmodifiableSortedSetMultimap(SortedSetMultimap<K, V> delegate) {
       super(delegate);
     }
@@ -953,7 +953,7 @@ public final class Multimaps {
 
   /** @see Multimaps#forMap */
   private static class MapMultimap<K, V> extends AbstractMultimap<K, V>
-      implements SetMultimap<K, V>, Serializable {
+    implements SetMultimap<K, V>, Serializable {
     final Map<K, V> map;
 
     MapMultimap(Map<K, V> map) {
@@ -1225,13 +1225,13 @@ public final class Multimaps {
     @Override
     Map<K, Collection<V2>> createAsMap() {
       return Maps.transformEntries(
-          fromMultimap.asMap(),
-          new EntryTransformer<K, Collection<V1>, Collection<V2>>() {
-            @Override
-            public Collection<V2> transformEntry(K key, Collection<V1> value) {
-              return transform(key, value);
-            }
-          });
+              fromMultimap.asMap(),
+      new EntryTransformer<K, Collection<V1>, Collection<V2>>() {
+        @Override
+        public Collection<V2> transformEntry(K key, Collection<V1> value) {
+          return transform(key, value);
+        }
+      });
     }
 
     @Override
@@ -1247,7 +1247,7 @@ public final class Multimaps {
     @Override
     Iterator<Entry<K, V2>> entryIterator() {
       return Iterators.transform(
-          fromMultimap.entries().iterator(), Maps.<K, V1, V2>asEntryToEntryFunction(transformer));
+              fromMultimap.entries().iterator(), Maps.<K, V1, V2>asEntryToEntryFunction(transformer));
     }
 
     @Override
@@ -1310,7 +1310,7 @@ public final class Multimaps {
     @Override
     Collection<V2> createValues() {
       return Collections2.transform(
-          fromMultimap.entries(), Maps.<K, V1, V2>asEntryToValueFunction(transformer));
+              fromMultimap.entries(), Maps.<K, V1, V2>asEntryToValueFunction(transformer));
     }
   }
 
@@ -1420,7 +1420,7 @@ public final class Multimaps {
   }
 
   private static final class TransformedEntriesListMultimap<K, V1, V2>
-      extends TransformedEntriesMultimap<K, V1, V2> implements ListMultimap<K, V2> {
+    extends TransformedEntriesMultimap<K, V1, V2> implements ListMultimap<K, V2> {
 
     TransformedEntriesListMultimap(
         ListMultimap<K, V1> fromMultimap, EntryTransformer<? super K, ? super V1, V2> transformer) {
@@ -1549,7 +1549,7 @@ public final class Multimaps {
     @Override
     Iterator<Multiset.Entry<K>> entryIterator() {
       return new TransformedIterator<Map.Entry<K, Collection<V>>, Multiset.Entry<K>>(
-          multimap.asMap().entrySet().iterator()) {
+      multimap.asMap().entrySet().iterator()) {
         @Override
         Multiset.Entry<K> transform(final Map.Entry<K, Collection<V>> backingEntry) {
           return new Multisets.AbstractEntry<K>() {
@@ -1745,13 +1745,13 @@ public final class Multimaps {
       @Override
       public Iterator<Entry<K, Collection<V>>> iterator() {
         return Maps.asMapEntryIterator(
-            multimap.keySet(),
-            new Function<K, Collection<V>>() {
-              @Override
-              public Collection<V> apply(K key) {
-                return multimap.get(key);
-              }
-            });
+                multimap.keySet(),
+        new Function<K, Collection<V>>() {
+          @Override
+          public Collection<V> apply(K key) {
+            return multimap.get(key);
+          }
+        });
       }
 
       @Override
@@ -1836,7 +1836,7 @@ public final class Multimaps {
     } else if (unfiltered instanceof FilteredKeyMultimap) {
       FilteredKeyMultimap<K, V> prev = (FilteredKeyMultimap<K, V>) unfiltered;
       return new FilteredKeyMultimap<>(
-          prev.unfiltered, Predicates.<K>and(prev.keyPredicate, keyPredicate));
+              prev.unfiltered, Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else if (unfiltered instanceof FilteredMultimap) {
       FilteredMultimap<K, V> prev = (FilteredMultimap<K, V>) unfiltered;
       return filterFiltered(prev, Maps.<K>keyPredicateOnEntries(keyPredicate));
@@ -1880,7 +1880,7 @@ public final class Multimaps {
     if (unfiltered instanceof FilteredKeySetMultimap) {
       FilteredKeySetMultimap<K, V> prev = (FilteredKeySetMultimap<K, V>) unfiltered;
       return new FilteredKeySetMultimap<>(
-          prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
+              prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else if (unfiltered instanceof FilteredSetMultimap) {
       FilteredSetMultimap<K, V> prev = (FilteredSetMultimap<K, V>) unfiltered;
       return filterFiltered(prev, Maps.<K>keyPredicateOnEntries(keyPredicate));
@@ -1924,7 +1924,7 @@ public final class Multimaps {
     if (unfiltered instanceof FilteredKeyListMultimap) {
       FilteredKeyListMultimap<K, V> prev = (FilteredKeyListMultimap<K, V>) unfiltered;
       return new FilteredKeyListMultimap<>(
-          prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
+              prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else {
       return new FilteredKeyListMultimap<>(unfiltered, keyPredicate);
     }

@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 public final class HashBiMap<K, V> extends IteratorBasedAbstractMap<K, V>
-    implements BiMap<K, V>, Serializable {
+  implements BiMap<K, V>, Serializable {
 
   /**
    * Returns a new, empty {@code HashBiMap} with the default initial capacity (16).

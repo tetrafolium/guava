@@ -536,11 +536,11 @@ public final class Stats implements Serializable {
         BYTES,
         buffer.remaining());
     buffer
-        .putLong(count)
-        .putDouble(mean)
-        .putDouble(sumOfSquaresOfDeltas)
-        .putDouble(min)
-        .putDouble(max);
+    .putLong(count)
+    .putDouble(mean)
+    .putDouble(sumOfSquaresOfDeltas)
+    .putDouble(min)
+    .putDouble(max);
   }
 
   /**
@@ -578,11 +578,11 @@ public final class Stats implements Serializable {
         BYTES,
         buffer.remaining());
     return new Stats(
-        buffer.getLong(),
-        buffer.getDouble(),
-        buffer.getDouble(),
-        buffer.getDouble(),
-        buffer.getDouble());
+            buffer.getLong(),
+            buffer.getDouble(),
+            buffer.getDouble(),
+            buffer.getDouble(),
+            buffer.getDouble());
   }
 
   private static final long serialVersionUID = 0;

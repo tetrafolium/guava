@@ -124,18 +124,18 @@ public class FuturesGetCheckedBenchmark {
     Class<? extends Exception> exceptionType = this.exceptionType.exceptionType;
 
     for (Class<? extends Exception> exceptionClass :
-          OTHER_EXCEPTION_TYPES.asList().subList(0, otherEntriesInDataStructure)) {
+        OTHER_EXCEPTION_TYPES.asList().subList(0, otherEntriesInDataStructure)) {
       getChecked(validator, immediateFuture(""), exceptionClass);
     }
 
     for (int i = 0; i < otherEntriesInDataStructure; i++) {
       ClassValue<Boolean> classValue =
-          new ClassValue<Boolean>() {
-            @Override
-            protected Boolean computeValue(Class<?> type) {
-              return true;
-            }
-          };
+      new ClassValue<Boolean>() {
+        @Override
+        protected Boolean computeValue(Class<?> type) {
+          return true;
+        }
+      };
       classValue.get(exceptionType);
       retainedReferencesToOtherClassValues.add(classValue);
     }

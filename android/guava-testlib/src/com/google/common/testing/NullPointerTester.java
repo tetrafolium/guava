@@ -356,15 +356,15 @@ public final class NullPointerTester {
       }
       AssertionFailedError error =
           new AssertionFailedError(
-              String.format(
-                  "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
-                      + "Full parameters: %s%n"
-                      + "Actual exception message: %s",
-                  invokable,
-                  invokable.getParameters().get(paramIndex).getType(),
-                  paramIndex,
-                  Arrays.toString(params),
-                  cause));
+          String.format(
+              "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
+              + "Full parameters: %s%n"
+              + "Actual exception message: %s",
+              invokable,
+              invokable.getParameters().get(paramIndex).getType(),
+              paramIndex,
+              Arrays.toString(params),
+              cause));
       error.initCause(cause);
       throw error;
     } catch (IllegalAccessException e) {
@@ -382,8 +382,8 @@ public final class NullPointerTester {
         args[i] = getDefaultValue(param.getType());
         Assert.assertTrue(
             "Can't find or create a sample instance for type '"
-                + param.getType()
-                + "'; please provide one using NullPointerTester.setDefault()",
+            + param.getType()
+            + "'; please provide one using NullPointerTester.setDefault()",
             args[i] != null || isNullable(param));
       }
     }
@@ -417,9 +417,9 @@ public final class NullPointerTester {
     }
     if (type.getRawType() == Converter.class) {
       TypeToken<?> convertFromType = type.resolveType(
-          Converter.class.getTypeParameters()[0]);
+              Converter.class.getTypeParameters()[0]);
       TypeToken<?> convertToType = type.resolveType(
-          Converter.class.getTypeParameters()[1]);
+              Converter.class.getTypeParameters()[1]);
       @SuppressWarnings("unchecked") // returns default for both F and T
       T defaultConverter = (T) defaultConverter(convertFromType, convertToType);
       return defaultConverter;
@@ -449,7 +449,7 @@ public final class NullPointerTester {
   private static TypeToken<?> getFirstTypeParameter(Type type) {
     if (type instanceof ParameterizedType) {
       return TypeToken.of(
-          ((ParameterizedType) type).getActualTypeArguments()[0]);
+              ((ParameterizedType) type).getActualTypeArguments()[0]);
     } else {
       return TypeToken.of(Object.class);
     }
@@ -460,7 +460,7 @@ public final class NullPointerTester {
       @Override <R> R dummyReturnValue(TypeToken<R> returnType) {
         return getDefaultValue(returnType);
       }
-    }.newProxy(type);
+    } .newProxy(type);
   }
 
   private static Invokable<?, ?> invokable(@Nullable Object instance, Method method) {
@@ -527,7 +527,7 @@ public final class NullPointerTester {
       @Override
       public boolean isExpectedType(Throwable cause) {
         return cause instanceof NullPointerException
-            || cause instanceof UnsupportedOperationException;
+        || cause instanceof UnsupportedOperationException;
       }
     },
 

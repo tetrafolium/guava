@@ -49,7 +49,7 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    }.test();
+    } .test();
   }
 
   @SuppressWarnings("unchecked")
@@ -64,7 +64,7 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    }.test();
+    } .test();
   }
 
   @SuppressWarnings("unchecked")
@@ -79,7 +79,7 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    }.test();
+    } .test();
   }
 
   @SuppressWarnings("unchecked")
@@ -94,7 +94,7 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
       protected Iterator<E> newTargetIterator() {
         return getSubjectGenerator().create(e0(), e1(), e1(), e2()).iterator();
       }
-    }.test();
+    } .test();
   }
 
   /**
@@ -104,9 +104,9 @@ public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
   @GwtIncompatible // reflection
   public static List<Method> getIteratorDuplicateInitializingMethods() {
     return Arrays.asList(
-        Helpers.getMethod(MultisetIteratorTester.class, "testIteratorKnownOrder"),
-        Helpers.getMethod(MultisetIteratorTester.class, "testIteratorUnknownOrder"),
-        Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorKnownOrder"),
-        Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorUnknownOrder"));
+            Helpers.getMethod(MultisetIteratorTester.class, "testIteratorKnownOrder"),
+            Helpers.getMethod(MultisetIteratorTester.class, "testIteratorUnknownOrder"),
+            Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorKnownOrder"),
+            Helpers.getMethod(MultisetIteratorTester.class, "testRemovingIteratorUnknownOrder"));
   }
 }

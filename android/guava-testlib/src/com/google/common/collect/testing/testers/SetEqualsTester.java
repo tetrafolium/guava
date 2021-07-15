@@ -58,7 +58,7 @@ public class SetEqualsTester<E> extends AbstractSetTester<E> {
     collection = getSubjectGenerator().create(elements.toArray());
     assertTrue(
         "A Set should equal any other Set containing the same elements,"
-            + " even if some elements are null.",
+        + " even if some elements are null.",
         getSet().equals(MinimalSet.from(elements)));
   }
 

@@ -81,7 +81,7 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
   @Override
   TestSuite createElementSetTestSuite(
       FeatureSpecificTestSuiteBuilder<?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+      parentBuilder) {
     // TODO(lowasser): make a SortedElementSetGenerator
     return SetTestSuiteBuilder.using(
             new ElementSetGenerator<E>(parentBuilder.getSubjectGenerator()))
@@ -165,57 +165,57 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     final E lastInclusive = samplesList.get(samplesList.size() - 1);
 
     return SortedMultisetTestSuiteBuilder.using(
-            new ForwardingTestMultisetGenerator<E>(delegate) {
-              @Override
-              public SortedMultiset<E> create(Object... entries) {
-                @SuppressWarnings("unchecked")
-                // we dangerously assume E is a string
-                List<E> extremeValues = (List) getExtremeValues();
-                @SuppressWarnings("unchecked")
-                // map generators must past entry objects
-                List<E> normalValues = (List) Arrays.asList(entries);
+    new ForwardingTestMultisetGenerator<E>(delegate) {
+      @Override
+      public SortedMultiset<E> create(Object... entries) {
+        @SuppressWarnings("unchecked")
+        // we dangerously assume E is a string
+        List<E> extremeValues = (List) getExtremeValues();
+        @SuppressWarnings("unchecked")
+        // map generators must past entry objects
+        List<E> normalValues = (List) Arrays.asList(entries);
 
-                // prepare extreme values to be filtered out of view
-                Collections.sort(extremeValues, comparator);
-                E firstExclusive = extremeValues.get(1);
-                E lastExclusive = extremeValues.get(2);
-                if (from == Bound.NO_BOUND) {
-                  extremeValues.remove(0);
-                  extremeValues.remove(0);
-                }
-                if (to == Bound.NO_BOUND) {
-                  extremeValues.remove(extremeValues.size() - 1);
-                  extremeValues.remove(extremeValues.size() - 1);
-                }
+        // prepare extreme values to be filtered out of view
+        Collections.sort(extremeValues, comparator);
+        E firstExclusive = extremeValues.get(1);
+        E lastExclusive = extremeValues.get(2);
+        if (from == Bound.NO_BOUND) {
+          extremeValues.remove(0);
+          extremeValues.remove(0);
+        }
+        if (to == Bound.NO_BOUND) {
+          extremeValues.remove(extremeValues.size() - 1);
+          extremeValues.remove(extremeValues.size() - 1);
+        }
 
-                // the regular values should be visible after filtering
-                List<E> allEntries = new ArrayList<E>();
-                allEntries.addAll(extremeValues);
-                allEntries.addAll(normalValues);
-                SortedMultiset<E> multiset =
-                    (SortedMultiset<E>) delegate.create(allEntries.toArray());
+        // the regular values should be visible after filtering
+        List<E> allEntries = new ArrayList<E>();
+        allEntries.addAll(extremeValues);
+        allEntries.addAll(normalValues);
+        SortedMultiset<E> multiset =
+            (SortedMultiset<E>) delegate.create(allEntries.toArray());
 
-                // call the smallest subMap overload that filters out the extreme
-                // values
-                if (from == Bound.INCLUSIVE) {
-                  multiset = multiset.tailMultiset(firstInclusive, BoundType.CLOSED);
-                } else if (from == Bound.EXCLUSIVE) {
-                  multiset = multiset.tailMultiset(firstExclusive, BoundType.OPEN);
-                }
+        // call the smallest subMap overload that filters out the extreme
+        // values
+        if (from == Bound.INCLUSIVE) {
+          multiset = multiset.tailMultiset(firstInclusive, BoundType.CLOSED);
+        } else if (from == Bound.EXCLUSIVE) {
+          multiset = multiset.tailMultiset(firstExclusive, BoundType.OPEN);
+        }
 
-                if (to == Bound.INCLUSIVE) {
-                  multiset = multiset.headMultiset(lastInclusive, BoundType.CLOSED);
-                } else if (to == Bound.EXCLUSIVE) {
-                  multiset = multiset.headMultiset(lastExclusive, BoundType.OPEN);
-                }
+        if (to == Bound.INCLUSIVE) {
+          multiset = multiset.headMultiset(lastInclusive, BoundType.CLOSED);
+        } else if (to == Bound.EXCLUSIVE) {
+          multiset = multiset.headMultiset(lastExclusive, BoundType.OPEN);
+        }
 
-                return multiset;
-              }
-            })
-        .named(parentBuilder.getName() + " subMultiset " + from + "-" + to)
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+        return multiset;
+      }
+    })
+    .named(parentBuilder.getName() + " subMultiset " + from + "-" + to)
+    .withFeatures(features)
+    .suppressing(parentBuilder.getSuppressedTests())
+    .createTestSuite();
   }
 
   /**
@@ -248,21 +248,21 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     }
 
     return SortedMultisetTestSuiteBuilder.using(
-            new ForwardingTestMultisetGenerator<E>(delegate) {
-              @Override
-              public SortedMultiset<E> create(Object... entries) {
-                return ((SortedMultiset<E>) super.create(entries)).descendingMultiset();
-              }
+    new ForwardingTestMultisetGenerator<E>(delegate) {
+      @Override
+      public SortedMultiset<E> create(Object... entries) {
+        return ((SortedMultiset<E>) super.create(entries)).descendingMultiset();
+      }
 
-              @Override
-              public Iterable<E> order(List<E> insertionOrder) {
-                return ImmutableList.copyOf(super.order(insertionOrder)).reverse();
-              }
-            })
-        .named(parentBuilder.getName() + " descending")
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+      @Override
+      public Iterable<E> order(List<E> insertionOrder) {
+        return ImmutableList.copyOf(super.order(insertionOrder)).reverse();
+      }
+    })
+    .named(parentBuilder.getName() + " descending")
+    .withFeatures(features)
+    .suppressing(parentBuilder.getSuppressedTests())
+    .createTestSuite();
   }
 
   private TestSuite createReserializedSuite(SortedMultisetTestSuiteBuilder<E> parentBuilder) {
@@ -275,16 +275,16 @@ public class SortedMultisetTestSuiteBuilder<E> extends MultisetTestSuiteBuilder<
     features.remove(SERIALIZABLE_INCLUDING_VIEWS);
 
     return SortedMultisetTestSuiteBuilder.using(
-            new ForwardingTestMultisetGenerator<E>(delegate) {
-              @Override
-              public SortedMultiset<E> create(Object... entries) {
-                return SerializableTester.reserialize(((SortedMultiset<E>) super.create(entries)));
-              }
-            })
-        .named(parentBuilder.getName() + " reserialized")
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+    new ForwardingTestMultisetGenerator<E>(delegate) {
+      @Override
+      public SortedMultiset<E> create(Object... entries) {
+        return SerializableTester.reserialize(((SortedMultiset<E>) super.create(entries)));
+      }
+    })
+    .named(parentBuilder.getName() + " reserialized")
+    .withFeatures(features)
+    .suppressing(parentBuilder.getSuppressedTests())
+    .createTestSuite();
   }
 
   private static class ForwardingTestMultisetGenerator<E> implements TestMultisetGenerator<E> {

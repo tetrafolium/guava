@@ -54,35 +54,35 @@ public abstract class AbstractIdleService implements Service {
     @Override
     protected final void doStart() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-          .execute(
-              new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    startUp();
-                    notifyStarted();
-                  } catch (Throwable t) {
-                    notifyFailed(t);
-                  }
-                }
-              });
+      .execute(
+      new Runnable() {
+        @Override
+        public void run() {
+          try {
+            startUp();
+            notifyStarted();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
+        }
+      });
     }
 
     @Override
     protected final void doStop() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
-          .execute(
-              new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    shutDown();
-                    notifyStopped();
-                  } catch (Throwable t) {
-                    notifyFailed(t);
-                  }
-                }
-              });
+      .execute(
+      new Runnable() {
+        @Override
+        public void run() {
+          try {
+            shutDown();
+            notifyStopped();
+          } catch (Throwable t) {
+            notifyFailed(t);
+          }
+        }
+      });
     }
 
     @Override

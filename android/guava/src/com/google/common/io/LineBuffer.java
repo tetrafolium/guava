@@ -58,25 +58,25 @@ abstract class LineBuffer {
     int start = pos;
     for (int end = off + len; pos < end; pos++) {
       switch (cbuf[pos]) {
-        case '\r':
-          line.append(cbuf, start, pos - start);
-          sawReturn = true;
-          if (pos + 1 < end) {
-            if (finishLine(cbuf[pos + 1] == '\n')) {
-              pos++;
-            }
+      case '\r':
+        line.append(cbuf, start, pos - start);
+        sawReturn = true;
+        if (pos + 1 < end) {
+          if (finishLine(cbuf[pos + 1] == '\n')) {
+            pos++;
           }
-          start = pos + 1;
-          break;
+        }
+        start = pos + 1;
+        break;
 
-        case '\n':
-          line.append(cbuf, start, pos - start);
-          finishLine(true);
-          start = pos + 1;
-          break;
+      case '\n':
+        line.append(cbuf, start, pos - start);
+        finishLine(true);
+        start = pos + 1;
+        break;
 
-        default:
-          // do nothing
+      default:
+        // do nothing
       }
     }
     line.append(cbuf, start, off + len - start);

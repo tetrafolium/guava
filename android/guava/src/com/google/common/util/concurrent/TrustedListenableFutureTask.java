@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
-    implements RunnableFuture<V> {
+  implements RunnableFuture<V> {
 
   static <V> TrustedListenableFutureTask<V> create(AsyncCallable<V> callable) {
     return new TrustedListenableFutureTask<V>(callable);
@@ -144,7 +144,7 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
 
   @WeakOuter
   private final class TrustedFutureInterruptibleAsyncTask
-      extends InterruptibleTask<ListenableFuture<V>> {
+    extends InterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
     TrustedFutureInterruptibleAsyncTask(AsyncCallable<V> callable) {
@@ -159,8 +159,8 @@ class TrustedListenableFutureTask<V> extends AbstractFuture.TrustedFuture<V>
     @Override
     ListenableFuture<V> runInterruptibly() throws Exception {
       return checkNotNull(
-          callable.call(),
-          "AsyncCallable.call returned null instead of a Future. "
+              callable.call(),
+              "AsyncCallable.call returned null instead of a Future. "
               + "Did you mean to return immediateFuture(null)?");
     }
 

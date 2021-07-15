@@ -48,7 +48,7 @@ public final class FakeTimeLimiter implements TimeLimiter {
 
   @Override
   public <T> T callWithTimeout(Callable<T> callable, long timeoutDuration, TimeUnit timeoutUnit)
-      throws ExecutionException {
+  throws ExecutionException {
     checkNotNull(callable);
     checkNotNull(timeoutUnit);
     try {

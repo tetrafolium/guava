@@ -90,29 +90,29 @@ public final class FileBackedOutputStream extends OutputStream {
 
     if (resetOnFinalize) {
       source =
-          new ByteSource() {
-            @Override
-            public InputStream openStream() throws IOException {
-              return openInputStream();
-            }
+      new ByteSource() {
+        @Override
+        public InputStream openStream() throws IOException {
+          return openInputStream();
+        }
 
-            @Override
-            protected void finalize() {
-              try {
-                reset();
-              } catch (Throwable t) {
-                t.printStackTrace(System.err);
-              }
-            }
-          };
+        @Override
+        protected void finalize() {
+          try {
+            reset();
+          } catch (Throwable t) {
+            t.printStackTrace(System.err);
+          }
+        }
+      };
     } else {
       source =
-          new ByteSource() {
-            @Override
-            public InputStream openStream() throws IOException {
-              return openInputStream();
-            }
-          };
+      new ByteSource() {
+        @Override
+        public InputStream openStream() throws IOException {
+          return openInputStream();
+        }
+      };
     }
   }
 

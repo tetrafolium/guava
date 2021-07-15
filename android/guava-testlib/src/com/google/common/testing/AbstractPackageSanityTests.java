@@ -117,26 +117,26 @@ public abstract class AbstractPackageSanityTests extends TestCase {
 
   /* The names of the expected method that tests null checks. */
   private static final ImmutableList<String> NULL_TEST_METHOD_NAMES = ImmutableList.of(
-      "testNulls", "testNull",
-      "testNullPointers", "testNullPointer",
-      "testNullPointerExceptions", "testNullPointerException");
+          "testNulls", "testNull",
+          "testNullPointers", "testNullPointer",
+          "testNullPointerExceptions", "testNullPointerException");
 
   /* The names of the expected method that tests serializable. */
   private static final ImmutableList<String> SERIALIZABLE_TEST_METHOD_NAMES = ImmutableList.of(
-      "testSerializable", "testSerialization",
-      "testEqualsAndSerializable", "testEqualsAndSerialization");
+          "testSerializable", "testSerialization",
+          "testEqualsAndSerializable", "testEqualsAndSerialization");
 
   /* The names of the expected method that tests equals. */
   private static final ImmutableList<String> EQUALS_TEST_METHOD_NAMES = ImmutableList.of(
-      "testEquals", "testEqualsAndHashCode",
-      "testEqualsAndSerializable", "testEqualsAndSerialization",
-      "testEquality");
+          "testEquals", "testEqualsAndHashCode",
+          "testEqualsAndSerializable", "testEqualsAndSerialization",
+          "testEquality");
 
   private static final Chopper TEST_SUFFIX =
       suffix("Test")
-          .or(suffix("Tests"))
-          .or(suffix("TestCase"))
-          .or(suffix("TestSuite"));
+      .or(suffix("Tests"))
+      .or(suffix("TestCase"))
+      .or(suffix("TestSuite"));
 
   private final Logger logger = Logger.getLogger(getClass().getName());
   private final ClassSanityTester tester = new ClassSanityTester();
@@ -300,9 +300,9 @@ public abstract class AbstractPackageSanityTests extends TestCase {
   private static AssertionFailedError sanityError(
       Class<?> cls, List<String> explicitTestNames, String description, Throwable e) {
     String message = String.format(Locale.ROOT,
-        "Error in automated %s of %s\n"
+            "Error in automated %s of %s\n"
             + "If the class is better tested explicitly, you can add %s() to %sTest",
-        description, cls, explicitTestNames.get(0), cls.getName());
+            description, cls, explicitTestNames.get(0), cls.getName());
     AssertionFailedError error = new AssertionFailedError(message);
     error.initCause(e);
     return error;

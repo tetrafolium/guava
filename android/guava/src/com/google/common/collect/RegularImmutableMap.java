@@ -39,21 +39,21 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @SuppressWarnings("unchecked")
   static final ImmutableMap<Object, Object> EMPTY =
       new RegularImmutableMap<>(null, new Object[0], 0);
-  
+
   /*
    * This is an implementation of ImmutableMap optimized especially for Android, which does not like
    * objects per entry.  Instead we use an open-addressed hash table.  This design is basically
-   * equivalent to RegularImmutableSet, save that instead of having a hash table containing the 
+   * equivalent to RegularImmutableSet, save that instead of having a hash table containing the
    * elements directly and null for empty positions, we store indices of the keys in the hash table,
    * and ABSENT for empty positions.  We then look up the keys in alternatingKeysAndValues.
-   * 
+   *
    * (The index actually stored is the index of the key in alternatingKeysAndValues, which is
    * double the index of the entry in entrySet.asList.)
-   * 
+   *
    * The basic data structure is described in https://en.wikipedia.org/wiki/Open_addressing.
    * The pointer to a key is stored in hashTable[Hashing.smear(key.hashCode())] % table.length,
    * save that if that location is already full, we try the next index, and the next, until we
-   * find an empty table position.  Since the table has a power-of-two size, we use 
+   * find an empty table position.  Since the table has a power-of-two size, we use
    * & (table.length - 1) instead of % table.length, though.
    */
 
@@ -104,13 +104,13 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
         } else if (alternatingKeysAndValues[previous].equals(key)) {
           throw new IllegalArgumentException(
               "Multiple entries with same key: "
-                  + key
-                  + "="
-                  + value
-                  + " and "
-                  + alternatingKeysAndValues[previous]
-                  + "="
-                  + alternatingKeysAndValues[previous ^ 1]);
+              + key
+              + "="
+              + value
+              + " and "
+              + alternatingKeysAndValues[previous]
+              + "="
+              + alternatingKeysAndValues[previous ^ 1]);
         }
       }
     }
@@ -134,7 +134,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   public V get(@Nullable Object key) {
     return (V) get(hashTable, alternatingKeysAndValues, size, 0, key);
   }
-  
+
   static Object get(
       @Nullable int[] hashTable,
       @Nullable Object[] alternatingKeysAndValues,
@@ -166,7 +166,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   ImmutableSet<Entry<K, V>> createEntrySet() {
     return new EntrySet<>(this, alternatingKeysAndValues, 0, size);
   }
-  
+
   static class EntrySet<K, V> extends ImmutableSet<Entry<K, V>> {
     private transient final ImmutableMap<K, V> map;
     private transient final Object[] alternatingKeysAndValues;
@@ -231,11 +231,11 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       return size;
     }
   }
- 
+
   @Override
   ImmutableSet<K> createKeySet() {
     @SuppressWarnings("unchecked")
-    ImmutableList<K> keyList = 
+    ImmutableList<K> keyList =
         (ImmutableList<K>) new KeysOrValuesAsList(alternatingKeysAndValues, 0, size);
     return new KeySet<K>(this, keyList);
   }
@@ -267,7 +267,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       return size;
     }
   }
-  
+
   static final class KeySet<K> extends ImmutableSet<K> {
     private final transient ImmutableMap<K, ?> map;
     private final transient ImmutableList<K> list;
@@ -302,7 +302,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       return map.size();
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   @Override
   ImmutableCollection<V> createValues() {

@@ -142,7 +142,7 @@ public final class Suppliers {
 
     private static final long serialVersionUID = 0;
   }
-  
+
   @VisibleForTesting
   static class NonSerializableMemoizingSupplier<T> implements Supplier<T> {
     volatile Supplier<T> delegate;

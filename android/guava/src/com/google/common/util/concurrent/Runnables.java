@@ -27,10 +27,10 @@ import com.google.common.annotations.GwtCompatible;
 public final class Runnables {
 
   private static final Runnable EMPTY_RUNNABLE =
-      new Runnable() {
-        @Override
-        public void run() {}
-      };
+  new Runnable() {
+    @Override
+    public void run() {}
+  };
 
   /**
    * Returns a {@link Runnable} instance that does nothing when run.

@@ -30,7 +30,7 @@ import java.util.concurrent.Callable;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 public abstract class ForwardingListeningExecutorService extends ForwardingExecutorService
-    implements ListeningExecutorService {
+  implements ListeningExecutorService {
   /** Constructor for use by subclasses. */
   protected ForwardingListeningExecutorService() {}
 

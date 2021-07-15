@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxverideShim<E>
-    implements NavigableSet<E>, SortedIterable<E> {
+  implements NavigableSet<E>, SortedIterable<E> {
   static <E> RegularImmutableSortedSet<E> emptySet(Comparator<? super E> comparator) {
     if (Ordering.natural().equals(comparator)) {
       return (RegularImmutableSortedSet<E>) RegularImmutableSortedSet.NATURAL_EMPTY_SET;
@@ -382,7 +382,7 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
       contents = Arrays.copyOf(contents, uniques);
     }
     return new RegularImmutableSortedSet<E>(
-        ImmutableList.<E>asImmutableList(contents, uniques), comparator);
+            ImmutableList.<E>asImmutableList(contents, uniques), comparator);
   }
 
   /**

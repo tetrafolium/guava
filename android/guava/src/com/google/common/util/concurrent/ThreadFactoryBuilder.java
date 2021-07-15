@@ -155,8 +155,8 @@ public final class ThreadFactoryBuilder {
     final UncaughtExceptionHandler uncaughtExceptionHandler = builder.uncaughtExceptionHandler;
     final ThreadFactory backingThreadFactory =
         (builder.backingThreadFactory != null)
-            ? builder.backingThreadFactory
-            : Executors.defaultThreadFactory();
+        ? builder.backingThreadFactory
+        : Executors.defaultThreadFactory();
     final AtomicLong count = (nameFormat != null) ? new AtomicLong(0) : null;
     return new ThreadFactory() {
       @Override

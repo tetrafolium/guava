@@ -303,8 +303,8 @@ public final class Ints {
    */
   public static byte[] toByteArray(int value) {
     return new byte[] {
-      (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
-    };
+            (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
+        };
   }
 
   /**
@@ -334,7 +334,7 @@ public final class Ints {
   }
 
   private static final class IntConverter extends Converter<String, Integer>
-      implements Serializable {
+    implements Serializable {
     static final IntConverter INSTANCE = new IntConverter();
 
     @Override
@@ -560,7 +560,7 @@ public final class Ints {
 
   @GwtCompatible
   private static class IntArrayAsList extends AbstractList<Integer>
-      implements RandomAccess, Serializable {
+    implements RandomAccess, Serializable {
     final int[] array;
     final int start;
     final int end;

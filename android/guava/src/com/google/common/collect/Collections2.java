@@ -692,7 +692,7 @@ public final class Collections2 {
   private static boolean isPermutation(List<?> first, List<?> second) {
     return first.size() == second.size() && counts(first).equals(counts(second));
   }
-  
+
   private static <E> Set<Multiset.Entry<E>> counts(Collection<E> collection) {
     AbstractObjectCountMap<E> map = new ObjectCountHashMap<>();
     for (E e : collection) {

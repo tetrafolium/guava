@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 @Beta
 @GwtIncompatible // uses NavigableMap
 public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
-    implements Serializable {
+  implements Serializable {
 
   @VisibleForTesting final NavigableMap<Cut<C>, Range<C>> rangesByLowerBound;
 
@@ -94,7 +94,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     Set<Range<C>> result = asDescendingSetOfRanges;
     return (result == null)
         ? asDescendingSetOfRanges = new AsRanges(rangesByLowerBound.descendingMap().values())
-        : result;
+    : result;
   }
 
   final class AsRanges extends ForwardingCollection<Range<C>> implements Set<Range<C>> {
@@ -283,7 +283,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
 
   @VisibleForTesting
   static final class RangesByUpperBound<C extends Comparable<?>>
-      extends AbstractNavigableMap<Cut<C>, Range<C>> {
+    extends AbstractNavigableMap<Cut<C>, Range<C>> {
     private final NavigableMap<Cut<C>, Range<C>> rangesByLowerBound;
 
     /**
@@ -315,9 +315,9 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     public NavigableMap<Cut<C>, Range<C>> subMap(
         Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
       return subMap(
-          Range.range(
-              fromKey, BoundType.forBoolean(fromInclusive),
-              toKey, BoundType.forBoolean(toInclusive)));
+              Range.range(
+                  fromKey, BoundType.forBoolean(fromInclusive),
+                  toKey, BoundType.forBoolean(toInclusive)));
     }
 
     @Override
@@ -379,9 +379,9 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
         } else {
           backingItr =
               rangesByLowerBound
-                  .tailMap(upperBoundWindow.lowerEndpoint(), true)
-                  .values()
-                  .iterator();
+              .tailMap(upperBoundWindow.lowerEndpoint(), true)
+              .values()
+              .iterator();
         }
       }
       return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
@@ -406,9 +406,9 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       if (upperBoundWindow.hasUpperBound()) {
         candidates =
             rangesByLowerBound
-                .headMap(upperBoundWindow.upperEndpoint(), false)
-                .descendingMap()
-                .values();
+            .headMap(upperBoundWindow.upperEndpoint(), false)
+            .descendingMap()
+            .values();
       } else {
         candidates = rangesByLowerBound.descendingMap().values();
       }
@@ -448,7 +448,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   private static final class ComplementRangesByLowerBound<C extends Comparable<?>>
-      extends AbstractNavigableMap<Cut<C>, Range<C>> {
+    extends AbstractNavigableMap<Cut<C>, Range<C>> {
     private final NavigableMap<Cut<C>, Range<C>> positiveRangesByLowerBound;
     private final NavigableMap<Cut<C>, Range<C>> positiveRangesByUpperBound;
 
@@ -483,9 +483,9 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     public NavigableMap<Cut<C>, Range<C>> subMap(
         Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
       return subMap(
-          Range.range(
-              fromKey, BoundType.forBoolean(fromInclusive),
-              toKey, BoundType.forBoolean(toInclusive)));
+              Range.range(
+                  fromKey, BoundType.forBoolean(fromInclusive),
+                  toKey, BoundType.forBoolean(toInclusive)));
     }
 
     @Override
@@ -518,10 +518,10 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       if (complementLowerBoundWindow.hasLowerBound()) {
         positiveRanges =
             positiveRangesByUpperBound
-                .tailMap(
-                    complementLowerBoundWindow.lowerEndpoint(),
-                    complementLowerBoundWindow.lowerBoundType() == BoundType.CLOSED)
-                .values();
+            .tailMap(
+                complementLowerBoundWindow.lowerEndpoint(),
+                complementLowerBoundWindow.lowerBoundType() == BoundType.CLOSED)
+            .values();
       } else {
         positiveRanges = positiveRangesByUpperBound.values();
       }
@@ -571,24 +571,24 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
        */
       Cut<C> startingPoint =
           complementLowerBoundWindow.hasUpperBound()
-              ? complementLowerBoundWindow.upperEndpoint()
-              : Cut.<C>aboveAll();
+          ? complementLowerBoundWindow.upperEndpoint()
+          : Cut.<C>aboveAll();
       boolean inclusive =
           complementLowerBoundWindow.hasUpperBound()
-              && complementLowerBoundWindow.upperBoundType() == BoundType.CLOSED;
+          && complementLowerBoundWindow.upperBoundType() == BoundType.CLOSED;
       final PeekingIterator<Range<C>> positiveItr =
           Iterators.peekingIterator(
               positiveRangesByUpperBound
-                  .headMap(startingPoint, inclusive)
-                  .descendingMap()
-                  .values()
-                  .iterator());
+              .headMap(startingPoint, inclusive)
+              .descendingMap()
+              .values()
+              .iterator());
       Cut<C> cut;
       if (positiveItr.hasNext()) {
         cut =
             (positiveItr.peek().upperBound == Cut.<C>aboveAll())
-                ? positiveItr.next().lowerBound
-                : positiveRangesByLowerBound.higherKey(positiveItr.peek().upperBound);
+            ? positiveItr.next().lowerBound
+            : positiveRangesByLowerBound.higherKey(positiveItr.peek().upperBound);
       } else if (!complementLowerBoundWindow.contains(Cut.<C>belowAll())
           || positiveRangesByLowerBound.containsKey(Cut.belowAll())) {
         return Iterators.emptyIterator();
@@ -679,7 +679,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
   }
 
   private static final class SubRangeSetRangesByLowerBound<C extends Comparable<?>>
-      extends AbstractNavigableMap<Cut<C>, Range<C>> {
+    extends AbstractNavigableMap<Cut<C>, Range<C>> {
     /**
      * lowerBoundWindow is the headMap/subMap/tailMap view; it only restricts the keys, and does not
      * affect the values.
@@ -710,7 +710,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
         return ImmutableSortedMap.of();
       } else {
         return new SubRangeSetRangesByLowerBound<C>(
-            lowerBoundWindow.intersection(window), restriction, rangesByLowerBound);
+                lowerBoundWindow.intersection(window), restriction, rangesByLowerBound);
       }
     }
 
@@ -718,11 +718,11 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
     public NavigableMap<Cut<C>, Range<C>> subMap(
         Cut<C> fromKey, boolean fromInclusive, Cut<C> toKey, boolean toInclusive) {
       return subMap(
-          Range.range(
-              fromKey,
-              BoundType.forBoolean(fromInclusive),
-              toKey,
-              BoundType.forBoolean(toInclusive)));
+              Range.range(
+                  fromKey,
+                  BoundType.forBoolean(fromInclusive),
+                  toKey,
+                  BoundType.forBoolean(toInclusive)));
     }
 
     @Override
@@ -791,15 +791,15 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
         // starts at the first range with lower bound above lowerBoundWindow.lowerBound
         completeRangeItr =
             rangesByLowerBound
-                .tailMap(
-                    lowerBoundWindow.lowerBound.endpoint(),
-                    lowerBoundWindow.lowerBoundType() == BoundType.CLOSED)
-                .values()
-                .iterator();
+            .tailMap(
+                lowerBoundWindow.lowerBound.endpoint(),
+                lowerBoundWindow.lowerBoundType() == BoundType.CLOSED)
+            .values()
+            .iterator();
       }
       final Cut<Cut<C>> upperBoundOnLowerBounds =
           Ordering.natural()
-              .min(lowerBoundWindow.upperBound, Cut.belowValue(restriction.upperBound));
+          .min(lowerBoundWindow.upperBound, Cut.belowValue(restriction.upperBound));
       return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {
@@ -824,15 +824,15 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       }
       Cut<Cut<C>> upperBoundOnLowerBounds =
           Ordering.natural()
-              .min(lowerBoundWindow.upperBound, Cut.belowValue(restriction.upperBound));
+          .min(lowerBoundWindow.upperBound, Cut.belowValue(restriction.upperBound));
       final Iterator<Range<C>> completeRangeItr =
           rangesByLowerBound
-              .headMap(
-                  upperBoundOnLowerBounds.endpoint(),
-                  upperBoundOnLowerBounds.typeAsUpperBound() == BoundType.CLOSED)
-              .descendingMap()
-              .values()
-              .iterator();
+          .headMap(
+              upperBoundOnLowerBounds.endpoint(),
+              upperBoundOnLowerBounds.typeAsUpperBound() == BoundType.CLOSED)
+          .descendingMap()
+          .values()
+          .iterator();
       return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {

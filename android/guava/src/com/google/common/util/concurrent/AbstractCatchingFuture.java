@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
-    extends AbstractFuture.TrustedFuture<V> implements Runnable {
+  extends AbstractFuture.TrustedFuture<V> implements Runnable {
   static <V, X extends Throwable> ListenableFuture<V> create(
       ListenableFuture<? extends V> input,
       Class<X> exceptionType,
@@ -157,8 +157,8 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
    * {@link #setFuture(ListenableFuture)}.
    */
   private static final class AsyncCatchingFuture<V, X extends Throwable>
-      extends AbstractCatchingFuture<
-          V, X, AsyncFunction<? super X, ? extends V>, ListenableFuture<? extends V>> {
+    extends AbstractCatchingFuture<
+    V, X, AsyncFunction<? super X, ? extends V>, ListenableFuture<? extends V>> {
     AsyncCatchingFuture(
         ListenableFuture<? extends V> input,
         Class<X> exceptionType,
@@ -173,7 +173,7 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
       checkNotNull(
           replacement,
           "AsyncFunction.apply returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+          + "Did you mean to return immediateFuture(null)?");
       return replacement;
     }
 
@@ -188,7 +188,7 @@ abstract class AbstractCatchingFuture<V, X extends Throwable, F, T>
    * #set(Object)}.
    */
   private static final class CatchingFuture<V, X extends Throwable>
-      extends AbstractCatchingFuture<V, X, Function<? super X, ? extends V>, V> {
+    extends AbstractCatchingFuture<V, X, Function<? super X, ? extends V>, V> {
     CatchingFuture(
         ListenableFuture<? extends V> input,
         Class<X> exceptionType,

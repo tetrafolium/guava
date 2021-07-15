@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class ImmutableListMultimap<K, V> extends ImmutableMultimap<K, V>
-    implements ListMultimap<K, V> {
+  implements ListMultimap<K, V> {
 
   /** Returns the empty multimap. */
   // Casting is safe because the multimap will never hold any elements.

@@ -140,17 +140,17 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
         for (final ListenableFuture<? extends InputT> listenable : futures) {
           final int index = i++;
           listenable.addListener(
-              new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    handleOneInputDone(index, listenable);
-                  } finally {
-                    decrementCountAndMaybeComplete();
-                  }
-                }
-              },
-              directExecutor());
+          new Runnable() {
+            @Override
+            public void run() {
+              try {
+                handleOneInputDone(index, listenable);
+              } finally {
+                decrementCountAndMaybeComplete();
+              }
+            }
+          },
+          directExecutor());
         }
       } else {
         // We'll only call the callback when all futures complete, regardless of whether some failed
@@ -190,8 +190,8 @@ abstract class AggregateFuture<InputT, OutputT> extends AbstractFuture.TrustedFu
           | (allMustSucceed & !completedWithFailure & firstTimeSeeingThisException)) {
         String message =
             (throwable instanceof Error)
-                ? "Input Future failed with Error"
-                : "Got more than one input Future failure. Logging failures after the first";
+            ? "Input Future failed with Error"
+            : "Got more than one input Future failure. Logging failures after the first";
         logger.log(Level.SEVERE, message, throwable);
       }
     }

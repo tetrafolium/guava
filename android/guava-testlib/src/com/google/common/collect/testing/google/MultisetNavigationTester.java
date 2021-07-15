@@ -65,7 +65,7 @@ public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     entries =
         copyToList(
             getSubjectGenerator()
-                .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(entries, sortedMultiset.comparator());
 
     // some tests assume SEVERAL == 3

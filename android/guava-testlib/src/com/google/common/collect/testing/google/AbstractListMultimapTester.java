@@ -28,7 +28,7 @@ import java.util.Collection;
  */
 @GwtCompatible
 public class AbstractListMultimapTester<K, V>
-    extends AbstractMultimapTester<K, V, ListMultimap<K, V>> {
+  extends AbstractMultimapTester<K, V, ListMultimap<K, V>> {
 
   protected void assertGet(K key, V... values) {
     assertGet(key, Arrays.asList(values));

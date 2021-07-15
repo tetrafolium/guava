@@ -78,7 +78,7 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapUnhashableValuesGenerator
-      extends TestUnhashableCollectionGenerator<Collection<UnhashableObject>> {
+    extends TestUnhashableCollectionGenerator<Collection<UnhashableObject>> {
 
     @Override
     public Collection<UnhashableObject> create(UnhashableObject[] elements) {
@@ -114,16 +114,16 @@ public class MapGenerators {
   }
 
   public static class ImmutableMapEntryListGenerator
-      implements TestListGenerator<Entry<String, Integer>> {
+    implements TestListGenerator<Entry<String, Integer>> {
 
     @Override
     public SampleElements<Entry<String, Integer>> samples() {
       return new SampleElements<>(
-          mapEntry("foo", 5),
-          mapEntry("bar", 3),
-          mapEntry("baz", 17),
-          mapEntry("quux", 1),
-          mapEntry("toaster", -2));
+              mapEntry("foo", 5),
+              mapEntry("bar", 3),
+              mapEntry("baz", 17),
+              mapEntry("quux", 1),
+              mapEntry("toaster", -2));
     }
 
     @SuppressWarnings("unchecked")
@@ -179,21 +179,21 @@ public class MapGenerators {
         public int compare(Entry<AnEnum, String> left, Entry<AnEnum, String> right) {
           return left.getKey().compareTo(right.getKey());
         }
-      }.sortedCopy(insertionOrder);
+      } .sortedCopy(insertionOrder);
     }
   }
 
   public static class ImmutableMapValuesAsSingletonSetGenerator
-      implements TestMapGenerator<String, Collection<Integer>> {
+    implements TestMapGenerator<String, Collection<Integer>> {
 
     @Override
     public SampleElements<Entry<String, Collection<Integer>>> samples() {
       return new SampleElements<>(
-          mapEntry("one", collectionOf(10000)),
-          mapEntry("two", collectionOf(-2000)),
-          mapEntry("three", collectionOf(300)),
-          mapEntry("four", collectionOf(-40)),
-          mapEntry("five", collectionOf(5)));
+              mapEntry("one", collectionOf(10000)),
+              mapEntry("two", collectionOf(-2000)),
+              mapEntry("three", collectionOf(300)),
+              mapEntry("four", collectionOf(-40)),
+              mapEntry("five", collectionOf(5)));
     }
 
     // javac7 can't infer the type parameters correctly in samples()

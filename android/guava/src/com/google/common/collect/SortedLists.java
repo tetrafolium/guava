@@ -205,7 +205,7 @@ import javax.annotation.Nullable;
       KeyPresentBehavior presentBehavior,
       KeyAbsentBehavior absentBehavior) {
     return binarySearch(
-        list, keyFunction, key, Ordering.natural(), presentBehavior, absentBehavior);
+            list, keyFunction, key, Ordering.natural(), presentBehavior, absentBehavior);
   }
 
   /**
@@ -223,7 +223,7 @@ import javax.annotation.Nullable;
       KeyPresentBehavior presentBehavior,
       KeyAbsentBehavior absentBehavior) {
     return binarySearch(
-        Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
+            Lists.transform(list, keyFunction), key, keyComparator, presentBehavior, absentBehavior);
   }
 
   /**

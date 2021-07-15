@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 public abstract class ForwardingBlockingQueue<E> extends ForwardingQueue<E>
-    implements BlockingQueue<E> {
+  implements BlockingQueue<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingBlockingQueue() {}

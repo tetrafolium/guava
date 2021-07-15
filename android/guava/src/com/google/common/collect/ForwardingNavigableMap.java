@@ -55,7 +55,7 @@ import java.util.SortedMap;
  */
 @GwtIncompatible
 public abstract class ForwardingNavigableMap<K, V> extends ForwardingSortedMap<K, V>
-    implements NavigableMap<K, V> {
+  implements NavigableMap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingNavigableMap() {}

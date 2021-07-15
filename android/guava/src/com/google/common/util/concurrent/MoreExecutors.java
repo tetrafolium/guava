@@ -190,22 +190,22 @@ public final class MoreExecutors {
       addShutdownHook(
           MoreExecutors.newThread(
               "DelayedShutdownHook-for-" + service,
-              new Runnable() {
-                @Override
-                public void run() {
-                  try {
-                    // We'd like to log progress and failures that may arise in the
-                    // following code, but unfortunately the behavior of logging
-                    // is undefined in shutdown hooks.
-                    // This is because the logging code installs a shutdown hook of its
-                    // own. See Cleaner class inside {@link LogManager}.
-                    service.shutdown();
-                    service.awaitTermination(terminationTimeout, timeUnit);
-                  } catch (InterruptedException ignored) {
-                    // We're shutting down anyway, so just ignore.
-                  }
-                }
-              }));
+      new Runnable() {
+        @Override
+        public void run() {
+          try {
+            // We'd like to log progress and failures that may arise in the
+            // following code, but unfortunately the behavior of logging
+            // is undefined in shutdown hooks.
+            // This is because the logging code installs a shutdown hook of its
+            // own. See Cleaner class inside {@link LogManager}.
+            service.shutdown();
+            service.awaitTermination(terminationTimeout, timeUnit);
+          } catch (InterruptedException ignored) {
+            // We're shutting down anyway, so just ignore.
+          }
+        }
+      }));
     }
 
     final ExecutorService getExitingExecutorService(ThreadPoolExecutor executor) {
@@ -227,9 +227,9 @@ public final class MoreExecutors {
   private static void useDaemonThreadFactory(ThreadPoolExecutor executor) {
     executor.setThreadFactory(
         new ThreadFactoryBuilder()
-            .setDaemon(true)
-            .setThreadFactory(executor.getThreadFactory())
-            .build());
+        .setDaemon(true)
+        .setThreadFactory(executor.getThreadFactory())
+        .build());
   }
 
   // See newDirectExecutorService javadoc for behavioral notes.
@@ -452,8 +452,8 @@ public final class MoreExecutors {
     return (delegate instanceof ListeningExecutorService)
         ? (ListeningExecutorService) delegate
         : (delegate instanceof ScheduledExecutorService)
-            ? new ScheduledListeningDecorator((ScheduledExecutorService) delegate)
-            : new ListeningDecorator(delegate);
+        ? new ScheduledListeningDecorator((ScheduledExecutorService) delegate)
+        : new ListeningDecorator(delegate);
   }
 
   /**
@@ -521,7 +521,7 @@ public final class MoreExecutors {
 
   @GwtIncompatible // TODO
   private static final class ScheduledListeningDecorator extends ListeningDecorator
-      implements ListeningScheduledExecutorService {
+    implements ListeningScheduledExecutorService {
     @SuppressWarnings("hiding")
     final ScheduledExecutorService delegate;
 
@@ -563,7 +563,7 @@ public final class MoreExecutors {
     }
 
     private static final class ListenableScheduledTask<V>
-        extends SimpleForwardingListenableFuture<V> implements ListenableScheduledFuture<V> {
+      extends SimpleForwardingListenableFuture<V> implements ListenableScheduledFuture<V> {
 
       private final ScheduledFuture<?> scheduledDelegate;
 
@@ -598,7 +598,7 @@ public final class MoreExecutors {
 
     @GwtIncompatible // TODO
     private static final class NeverSuccessfulListenableFutureTask extends AbstractFuture<Void>
-        implements Runnable {
+      implements Runnable {
       private final Runnable delegate;
 
       public NeverSuccessfulListenableFutureTask(Runnable delegate) {
@@ -638,7 +638,7 @@ public final class MoreExecutors {
       boolean timed,
       long timeout,
       TimeUnit unit)
-      throws InterruptedException, ExecutionException, TimeoutException {
+  throws InterruptedException, ExecutionException, TimeoutException {
     checkNotNull(executorService);
     checkNotNull(unit);
     int ntasks = tasks.size();
@@ -718,13 +718,13 @@ public final class MoreExecutors {
       final BlockingQueue<Future<T>> queue) {
     final ListenableFuture<T> future = executorService.submit(task);
     future.addListener(
-        new Runnable() {
-          @Override
-          public void run() {
-            queue.add(future);
-          }
-        },
-        directExecutor());
+    new Runnable() {
+      @Override
+      public void run() {
+        queue.add(future);
+      }
+    },
+    directExecutor());
     return future;
   }
 
@@ -745,8 +745,8 @@ public final class MoreExecutors {
     try {
       return (ThreadFactory)
           Class.forName("com.google.appengine.api.ThreadManager")
-              .getMethod("currentRequestThreadFactory")
-              .invoke(null);
+          .getMethod("currentRequestThreadFactory")
+          .invoke(null);
     } catch (IllegalAccessException | ClassNotFoundException | NoSuchMethodException e) {
       throw new RuntimeException("Couldn't invoke ThreadManager.currentRequestThreadFactory", e);
     } catch (InvocationTargetException e) {
@@ -762,8 +762,8 @@ public final class MoreExecutors {
     try {
       // If the current environment is null, we're not inside AppEngine.
       return Class.forName("com.google.apphosting.api.ApiProxy")
-              .getMethod("getCurrentEnvironment")
-              .invoke(null)
+          .getMethod("getCurrentEnvironment")
+          .invoke(null)
           != null;
     } catch (ClassNotFoundException e) {
       // If ApiProxy doesn't exist, we're not on AppEngine at all.
@@ -965,13 +965,13 @@ public final class MoreExecutors {
       public void execute(final Runnable command) {
         try {
           delegate.execute(
-              new Runnable() {
-                @Override
-                public void run() {
-                  thrownFromDelegate = false;
-                  command.run();
-                }
-              });
+          new Runnable() {
+            @Override
+            public void run() {
+              thrownFromDelegate = false;
+              command.run();
+            }
+          });
         } catch (RejectedExecutionException e) {
           if (thrownFromDelegate) {
             // wrap exception?

@@ -30,7 +30,7 @@ import java.util.NavigableSet;
  */
 @GwtCompatible(emulated = true)
 final class UnmodifiableSortedMultiset<E> extends UnmodifiableMultiset<E>
-    implements SortedMultiset<E> {
+  implements SortedMultiset<E> {
   UnmodifiableSortedMultiset(SortedMultiset<E> delegate) {
     super(delegate);
   }
@@ -97,7 +97,7 @@ final class UnmodifiableSortedMultiset<E> extends UnmodifiableMultiset<E>
   public SortedMultiset<E> subMultiset(
       E lowerBound, BoundType lowerBoundType, E upperBound, BoundType upperBoundType) {
     return Multisets.unmodifiableSortedMultiset(
-        delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType));
+            delegate().subMultiset(lowerBound, lowerBoundType, upperBound, upperBoundType));
   }
 
   @Override

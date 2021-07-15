@@ -40,7 +40,7 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class SortedSetMultimapTestSuiteBuilder<K, V>
-    extends MultimapTestSuiteBuilder<K, V, SetMultimap<K, V>> {
+  extends MultimapTestSuiteBuilder<K, V, SetMultimap<K, V>> {
 
   public static <K, V> SortedSetMultimapTestSuiteBuilder<K, V> using(
       TestSetMultimapGenerator<K, V> generator) {
@@ -65,8 +65,8 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
   @Override
   TestSuite computeMultimapGetTestSuite(
       FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
-          parentBuilder) {
+      ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
+      parentBuilder) {
     return SortedSetTestSuiteBuilder.using(
             new SetMultimapTestSuiteBuilder.MultimapGetGenerator<K, V>(
                 parentBuilder.getSubjectGenerator()))
@@ -79,8 +79,8 @@ public class SortedSetMultimapTestSuiteBuilder<K, V>
   @Override
   TestSuite computeMultimapAsMapGetTestSuite(
       FeatureSpecificTestSuiteBuilder<
-              ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
-          parentBuilder) {
+      ?, ? extends OneSizeTestContainerGenerator<SetMultimap<K, V>, Entry<K, V>>>
+      parentBuilder) {
     Set<Feature<?>> features = computeMultimapAsMapGetFeatures(parentBuilder.getFeatures());
     if (Collections.disjoint(features, EnumSet.allOf(CollectionSize.class))) {
       return new TestSuite();

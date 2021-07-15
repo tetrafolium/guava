@@ -56,11 +56,11 @@ public class LoadingCacheSingleThreadBenchmark {
         .concurrencyLevel(segments)
         .maximumSize(maximumSize)
         .build(
-            new CacheLoader<Integer, Integer>() {
-              @Override public Integer load(Integer from) {
-                return (int) misses.incrementAndGet();
-              }
-            });
+    new CacheLoader<Integer, Integer>() {
+      @Override public Integer load(Integer from) {
+        return (int) misses.incrementAndGet();
+      }
+    });
 
     // To start, fill up the cache.
     // Each miss both increments the counter and causes the map to grow by one,

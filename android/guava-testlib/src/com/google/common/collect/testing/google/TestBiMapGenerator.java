@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @GwtCompatible
 public interface TestBiMapGenerator<K, V>
-    extends TestContainerGenerator<BiMap<K, V>, Map.Entry<K, V>> {
+  extends TestContainerGenerator<BiMap<K, V>, Map.Entry<K, V>> {
   K[] createKeyArray(int length);
 
   V[] createValueArray(int length);

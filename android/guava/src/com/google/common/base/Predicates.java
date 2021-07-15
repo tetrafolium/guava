@@ -689,9 +689,9 @@ public final class Predicates {
     public String toString() {
       String patternString =
           MoreObjects.toStringHelper(pattern)
-              .add("pattern", pattern.pattern())
-              .add("pattern.flags", pattern.flags())
-              .toString();
+          .add("pattern", pattern.pattern())
+          .add("pattern.flags", pattern.flags())
+          .toString();
       return "Predicates.contains(" + patternString + ")";
     }
 

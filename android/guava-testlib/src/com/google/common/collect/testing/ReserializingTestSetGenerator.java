@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @GwtIncompatible
 public class ReserializingTestSetGenerator<E> extends ReserializingTestCollectionGenerator<E>
-    implements TestSetGenerator<E> {
+  implements TestSetGenerator<E> {
 
   ReserializingTestSetGenerator(TestSetGenerator<E> delegate) {
     super(delegate);

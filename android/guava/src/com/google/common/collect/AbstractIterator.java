@@ -131,11 +131,11 @@ public abstract class AbstractIterator<T> extends UnmodifiableIterator<T> {
   public final boolean hasNext() {
     checkState(state != State.FAILED);
     switch (state) {
-      case DONE:
-        return false;
-      case READY:
-        return true;
-      default:
+    case DONE:
+      return false;
+    case READY:
+      return true;
+    default:
     }
     return tryToComputeNext();
   }

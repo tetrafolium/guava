@@ -190,6 +190,6 @@ public class MultisetRemoveTester<E> extends AbstractMultisetTester<E> {
   @GwtIncompatible // reflection
   public static List<Method> getRemoveDuplicateInitializingMethods() {
     return Arrays.asList(
-        Helpers.getMethod(MultisetRemoveTester.class, "testRemove_some_occurrences_present"));
+            Helpers.getMethod(MultisetRemoveTester.class, "testRemove_some_occurrences_present"));
   }
 }
