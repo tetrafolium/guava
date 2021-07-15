@@ -3,81 +3,16 @@ inspecode:
   global:
     ignore:      [ "**/test/" ]
 
-  astyle:
-  - input:       [ "android/" ]
-    config-file: rocro-astyle.opts
-    auto-fix:    true
-    thresholds:  { num-issues: 378 }
-  - ignore:      [ "android/" ]
-    config-file: rocro-astyle.opts
-    auto-fix:    true
-    thresholds:  { num-issues: 471 }
+  tools:
 
-  checkstyle:
-    config-file: rocro-checkstyle.xml
-    auto-fix:    true
-    thresholds:  { num-issues: 475 }
+    coverity:
+      thresholds:  { num-issues: 999 }
 
-  clang-format:
-  - input:       [ "android/" ]
-    auto-fix:    true
-    thresholds:  { num-issues: 846 }
-  - ignore:      [ "android/" ]
-    auto-fix:    true
-    thresholds:  { num-issues: 993 }
+    fostify:
+      thresholds:  { num-issues: 999 }
 
-  cpd:
-    thresholds:  { num-issues: 951 }
+    pgrelief:
+      thresholds:  { num-issues: 999 }
 
-  fossology:
-    thresholds:  { num-issues: 25 }
-
-  grep:
-    thresholds:  { num-issues: 118 }
-
-  infer:
-    thresholds:  { num-issues: 140 }
-
-  jscpd:
-  - ignore:
-      - "**/com/google/common/collect/"
-    thresholds:  { num-issues: 697 }
-  - input:
-      - "**/com/google/common/collect/"
-    ignore:
-      - "**/com/google/common/collect/testing/"
-    thresholds:  { num-issues: 544 }
-  - input:
-      - "**/com/google/common/collect/testing/"
-    thresholds:  { num-issues: 590 }
-
-  misspell:
-    auto-fix:    true
-    options:
-      -i:
-      - "Escapers"
-      - "escapers"
-    thresholds:  { num-issues: 18 }
-
-  pmd:
-    auto-fix:    true   # (tractrix/javalift#12)
-    thresholds:  { num-issues: 120 }
-
-  #### Classfiles/jarfiles of targets are not specified.
-  #### Please specify targets with the "-targets", "-project" or "-analyzeFromFile" option.
-  #spotbugs:
-  #  auto-fix:    true
-  #  thresholds:  { num-issues: 999 }
-
-  uncrustify:
-  - input:       [ "android/" ]
-    config-file: rocro-uncrustify.cfg
-    auto-fix:    true
-    thresholds:  { num-issues: 503 }
-  - ignore:      [ "android/" ]
-    config-file: rocro-uncrustify.cfg
-    auto-fix:    true
-    thresholds:  { num-issues: 611 }
-
-  unused:
-    thresholds:  { num-issues: 3 }
+    understand:
+      thresholds:  { num-issues: 999 }
