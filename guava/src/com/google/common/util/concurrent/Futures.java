@@ -116,7 +116,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   //    by our caller. Note: adding 'volatile' does not fix this issue, it would
   //    just add an edge such that if done() observed non-null, then it would
   //    also definitely observe all earlier writes, but we still have no
-  //    guarantee that done() would see the inital write (just stronger
+  //    guarantee that done() would see the initial write (just stronger
   //    guarantees if it does).
   //
   // See:
