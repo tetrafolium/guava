@@ -8,7 +8,7 @@ inspecode:
     coverity:
       thresholds:  { num-issues: 999 }
 
-    fostify:
+    fortify:
       thresholds:  { num-issues: 999 }
 
     pgrelief:
