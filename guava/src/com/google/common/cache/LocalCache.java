@@ -2308,7 +2308,7 @@ class LocalCache<K, V>
                     RemovalCause.COLLECTED);
               } else if (map.isExpired(e, now)) {
                 // This is a duplicate check, as preWriteCleanup already purged
-                // expired entries, but let's accomodate an incorrect expiration
+                // expired entries, but let's accommodate an incorrect expiration
                 // queue.
                 enqueueNotification(entryKey, hash, value,
                     valueReference.getWeight(),
@@ -2411,7 +2411,7 @@ class LocalCache<K, V>
             valueReference = e.getValueReference();
             if (map.isExpired(e, now)) {
               // This is a duplicate check, as preWriteCleanup already purged
-              // expired entries, but let's accomodate an incorrect expiration
+              // expired entries, but let's accommodate an incorrect expiration
               // queue.
               enqueueNotification(entryKey, hash, valueReference.get(),
                   valueReference.getWeight(),
