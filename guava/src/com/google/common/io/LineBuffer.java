@@ -53,11 +53,9 @@ abstract class LineBuffer {
    */
   protected void add(char[] cbuf, int off, int len) throws IOException {
     int pos = off;
-    if (sawReturn && len > 0) {
-      // Last call to add ended with a CR; we can handle the line now.
-      if (finishLine(cbuf[pos] == '\n')) {
-        pos++;
-      }
+    // Last call to add ended with a CR; we can handle the line now.
+    if ((sawReturn && len > 0) && (finishLine(cbuf[pos] == '\n'))) {
+      pos++;
     }
 
     int start = pos;
@@ -66,10 +64,8 @@ abstract class LineBuffer {
       case '\r':
         line.append(cbuf, start, pos - start);
         sawReturn = true;
-        if (pos + 1 < end) {
-          if (finishLine(cbuf[pos + 1] == '\n')) {
-            pos++;
-          }
+        if ((pos + 1 < end) && (finishLine(cbuf[pos + 1] == '\n'))) {
+          pos++;
         }
         start = pos + 1;
         break;
