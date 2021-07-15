@@ -130,7 +130,7 @@ public final class MapMaker {
   @GwtIncompatible // To be supported
   MapMaker keyEquivalence(Equivalence<Object> equivalence) {
     checkState(keyEquivalence == null, "key equivalence was already set to %s",
-               keyEquivalence);
+        keyEquivalence);
     keyEquivalence = checkNotNull(equivalence);
     this.useCustomMap = true;
     return this;
@@ -138,7 +138,7 @@ public final class MapMaker {
 
   Equivalence<Object> getKeyEquivalence() {
     return MoreObjects.firstNonNull(keyEquivalence,
-                                    getKeyStrength().defaultEquivalence());
+               getKeyStrength().defaultEquivalence());
   }
 
   /**
@@ -155,7 +155,7 @@ public final class MapMaker {
   @CanIgnoreReturnValue
   public MapMaker initialCapacity(int initialCapacity) {
     checkState(this.initialCapacity == UNSET_INT,
-               "initial capacity was already set to %s", this.initialCapacity);
+        "initial capacity was already set to %s", this.initialCapacity);
     checkArgument(initialCapacity >= 0);
     this.initialCapacity = initialCapacity;
     return this;
@@ -191,8 +191,8 @@ public final class MapMaker {
   @CanIgnoreReturnValue
   public MapMaker concurrencyLevel(int concurrencyLevel) {
     checkState(this.concurrencyLevel == UNSET_INT,
-               "concurrency level was already set to %s",
-               this.concurrencyLevel);
+        "concurrency level was already set to %s",
+        this.concurrencyLevel);
     checkArgument(concurrencyLevel > 0);
     this.concurrencyLevel = concurrencyLevel;
     return this;
@@ -224,7 +224,7 @@ public final class MapMaker {
 
   MapMaker setKeyStrength(Strength strength) {
     checkState(keyStrength == null, "Key strength was already set to %s",
-               keyStrength);
+        keyStrength);
     keyStrength = checkNotNull(strength);
     if (strength != Strength.STRONG) {
       // STRONG could be used during deserialization.
@@ -272,7 +272,7 @@ public final class MapMaker {
 
   MapMaker setValueStrength(Strength strength) {
     checkState(valueStrength == null, "Value strength was already set to %s",
-               valueStrength);
+        valueStrength);
     valueStrength = checkNotNull(strength);
     if (strength != Strength.STRONG) {
       // STRONG could be used during deserialization.
@@ -301,7 +301,7 @@ public final class MapMaker {
   public <K, V> ConcurrentMap<K, V> makeMap() {
     if (!useCustomMap) {
       return new ConcurrentHashMap<>(getInitialCapacity(), 0.75f,
-                                     getConcurrencyLevel());
+                 getConcurrencyLevel());
     }
     return MapMakerInternalMap.create(this);
   }

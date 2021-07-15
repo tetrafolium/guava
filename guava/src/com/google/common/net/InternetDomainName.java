@@ -147,12 +147,12 @@ public final class InternetDomainName {
     }
 
     checkArgument(name.length() <= MAX_LENGTH,
-                  "Domain name too long: '%s':", name);
+        "Domain name too long: '%s':", name);
     this.name = name;
 
     this.parts = ImmutableList.copyOf(DOT_SPLITTER.split(name));
     checkArgument(parts.size() <= MAX_PARTS, "Domain has too many parts: '%s'",
-                  name);
+        name);
     checkArgument(validateSyntax(parts), "Not a valid domain name: '%s'", name);
 
     this.publicSuffixIndex = findPublicSuffix();
@@ -514,7 +514,7 @@ public final class InternetDomainName {
   private static boolean matchesWildcardPublicSuffix(String domain) {
     final String[] pieces = domain.split(DOT_REGEX, 2);
     return pieces.length == 2 &&
-        PublicSuffixPatterns.UNDER.containsKey(pieces[1]);
+           PublicSuffixPatterns.UNDER.containsKey(pieces[1]);
   }
 
   /**

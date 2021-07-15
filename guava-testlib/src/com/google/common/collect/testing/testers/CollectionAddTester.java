@@ -65,14 +65,14 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
   public void testAdd_unsupportedPresent() {
     try {
       assertFalse("add(present) should return false or throw",
-                  collection.add(e0()));
+          collection.add(e0()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
   }
 
   @CollectionFeature.Require(value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-                             absent = RESTRICTS_ELEMENTS)
+      absent = RESTRICTS_ELEMENTS)
   public void
   testAdd_nullSupported() {
     assertTrue("add(null) should return true", collection.add(null));
@@ -88,7 +88,7 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
     }
     expectUnchanged();
     expectNullMissingWhenNullUnsupported(
-        "Should not contain null after unsupported add(null)");
+      "Should not contain null after unsupported add(null)");
   }
 
   @CollectionFeature.
@@ -120,7 +120,7 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddNullSupportedMethod() {
     return Helpers.getMethod(CollectionAddTester.class,
-                             "testAdd_nullSupported");
+               "testAdd_nullSupported");
   }
 
   /**
@@ -133,7 +133,7 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddNullUnsupportedMethod() {
     return Helpers.getMethod(CollectionAddTester.class,
-                             "testAdd_nullUnsupported");
+               "testAdd_nullUnsupported");
   }
 
   /**
@@ -146,6 +146,6 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddUnsupportedNotPresentMethod() {
     return Helpers.getMethod(CollectionAddTester.class,
-                             "testAdd_unsupportedNotPresent");
+               "testAdd_unsupportedNotPresent");
   }
 }

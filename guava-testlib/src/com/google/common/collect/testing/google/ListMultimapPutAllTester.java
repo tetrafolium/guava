@@ -32,7 +32,7 @@ import java.util.List;
  */
 @GwtCompatible
 public class ListMultimapPutAllTester<K, V>
-    extends AbstractListMultimapTester<K, V> {
+  extends AbstractListMultimapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutAllAddsAtEndInOrder() {
     @SuppressWarnings("unchecked")

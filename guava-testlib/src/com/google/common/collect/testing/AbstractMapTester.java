@@ -37,7 +37,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class AbstractMapTester<K, V>
-    extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
+  extends AbstractContainerTester<Map<K, V>, Map.Entry<K, V>> {
   protected Map<K, V> getMap() { return container; }
 
   @Override
@@ -58,14 +58,14 @@ public abstract class AbstractMapTester<K, V>
   protected void expectMissingKeys(K... elements) {
     for (K element : elements) {
       assertFalse("Should not contain key " + element,
-                  getMap().containsKey(element));
+          getMap().containsKey(element));
     }
   }
 
   protected void expectMissingValues(V... elements) {
     for (V element : elements) {
       assertFalse("Should not contain value " + element,
-                  getMap().containsValue(element));
+          getMap().containsValue(element));
     }
   }
 
@@ -162,10 +162,10 @@ public abstract class AbstractMapTester<K, V>
   protected void expectMissing(Entry<K, V>... entries) {
     for (Entry<K, V> entry : entries) {
       assertFalse("Should not contain entry " + entry,
-                  actualContents().contains(entry));
+          actualContents().contains(entry));
       assertFalse("Should not contain key " + entry.getKey() +
-                      " mapped to value " + entry.getValue(),
-                  equal(getMap().get(entry.getKey()), entry.getValue()));
+          " mapped to value " + entry.getValue(),
+          equal(getMap().get(entry.getKey()), entry.getValue()));
     }
   }
 
@@ -184,7 +184,7 @@ public abstract class AbstractMapTester<K, V>
     super.expectContents(expected);
     for (Entry<K, V> entry : expected) {
       assertEquals("Wrong value for key " + entry.getKey(), entry.getValue(),
-                   getMap().get(entry.getKey()));
+          getMap().get(entry.getKey()));
     }
   }
 
@@ -203,7 +203,7 @@ public abstract class AbstractMapTester<K, V>
     }
 
     throw new IllegalArgumentException(Platform.format(
-        "key %s not found in entries %s", newEntry.getKey(), expected));
+                "key %s not found in entries %s", newEntry.getKey(), expected));
   }
 
   /**

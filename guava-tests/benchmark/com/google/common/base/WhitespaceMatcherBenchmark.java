@@ -104,7 +104,7 @@ public class WhitespaceMatcherBenchmark {
   }
 
   private static String newTestString(Random random, BitSet bitSet,
-                                      int percentMatching) {
+      int percentMatching) {
     final String allMatchingChars = allMatchingChars(bitSet);
     final char[] result = new char[STRING_LENGTH];
     // Fill with matching chars.

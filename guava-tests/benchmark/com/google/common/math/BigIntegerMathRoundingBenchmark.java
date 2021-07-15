@@ -38,7 +38,7 @@ public class BigIntegerMathRoundingBenchmark {
   private static final BigInteger[] positive = new BigInteger[ARRAY_SIZE];
 
   @Param(
-      {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
+    {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
   @BeforeExperiment

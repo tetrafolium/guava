@@ -30,7 +30,7 @@ public class PairwiseEquivalence_CustomFieldSerializer {
   private PairwiseEquivalence_CustomFieldSerializer() {}
 
   public static void deserialize(SerializationStreamReader reader,
-                                 PairwiseEquivalence<?> instance) {}
+      PairwiseEquivalence<?> instance) {}
 
   public static PairwiseEquivalence<?>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -43,8 +43,8 @@ public class PairwiseEquivalence_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               PairwiseEquivalence<?> instance)
-      throws SerializationException {
+      PairwiseEquivalence<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.elementEquivalence);
   }
 }

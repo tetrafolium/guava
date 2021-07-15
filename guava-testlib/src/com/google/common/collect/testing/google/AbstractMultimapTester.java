@@ -36,7 +36,7 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
-    extends AbstractContainerTester<M, Map.Entry<K, V>> {
+  extends AbstractContainerTester<M, Map.Entry<K, V>> {
 
   private M multimap;
 
@@ -92,31 +92,31 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
 
   protected void initMultimapWithNullKey() {
     resetContainer(
-        getSubjectGenerator().create((Object[])createArrayWithNullKey()));
+      getSubjectGenerator().create((Object[])createArrayWithNullKey()));
   }
 
   protected void initMultimapWithNullValue() {
     resetContainer(
-        getSubjectGenerator().create((Object[])createArrayWithNullValue()));
+      getSubjectGenerator().create((Object[])createArrayWithNullValue()));
   }
 
   protected void initMultimapWithNullKeyAndValue() {
     resetContainer(getSubjectGenerator().create(
-        (Object[])createArrayWithNullKeyAndValue()));
+          (Object[])createArrayWithNullKeyAndValue()));
   }
 
   protected SampleElements<K> sampleKeys() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-                getSubjectGenerator()
-                    .getInnerGenerator())
-        .sampleKeys();
+           getSubjectGenerator()
+           .getInnerGenerator())
+           .sampleKeys();
   }
 
   protected SampleElements<V> sampleValues() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-                getSubjectGenerator()
-                    .getInnerGenerator())
-        .sampleValues();
+           getSubjectGenerator()
+           .getInnerGenerator())
+           .sampleValues();
   }
 
   @Override
@@ -133,7 +133,7 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
 
   protected Multimap<K, V> resetContainer(Entry<K, V>... newContents) {
     multimap = super.resetContainer(
-        getSubjectGenerator().create((Object[])newContents));
+      getSubjectGenerator().create((Object[])newContents));
     return multimap;
   }
 

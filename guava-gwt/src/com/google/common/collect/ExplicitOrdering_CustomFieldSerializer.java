@@ -28,18 +28,18 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class ExplicitOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ExplicitOrdering<?> instance) {}
+      ExplicitOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static ExplicitOrdering<Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
     return new ExplicitOrdering<>(
-        (ImmutableMap<Object, Integer>)reader.readObject());
+      (ImmutableMap<Object, Integer>)reader.readObject());
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ExplicitOrdering<?> instance)
-      throws SerializationException {
+      ExplicitOrdering<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.rankMap);
   }
 }

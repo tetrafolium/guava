@@ -29,7 +29,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 public abstract class TestStringSortedSetGenerator
-    extends TestStringSetGenerator implements TestSortedSetGenerator<String> {
+  extends TestStringSetGenerator implements TestSortedSetGenerator<String> {
 
   @Override
   public SortedSet<String> create(Object... elements) {

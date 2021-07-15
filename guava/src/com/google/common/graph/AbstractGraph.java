@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
  */
 @Beta
 public abstract class AbstractGraph<N>
-    extends AbstractBaseGraph<N> implements Graph<N> {
+  extends AbstractBaseGraph<N> implements Graph<N> {
 
   @Override
   public final boolean equals(@Nullable Object obj) {
@@ -43,7 +43,7 @@ public abstract class AbstractGraph<N>
     Graph<?> other = (Graph<?>)obj;
 
     return isDirected() == other.isDirected() &&
-        nodes().equals(other.nodes()) && edges().equals(other.edges());
+           nodes().equals(other.nodes()) && edges().equals(other.edges());
   }
 
   @Override
@@ -55,7 +55,7 @@ public abstract class AbstractGraph<N>
   @Override
   public String toString() {
     return "isDirected: " + isDirected() +
-        ", allowsSelfLoops: " + allowsSelfLoops() + ", nodes: " + nodes() +
-        ", edges: " + edges();
+           ", allowsSelfLoops: " + allowsSelfLoops() + ", nodes: " + nodes() +
+           ", edges: " + edges();
   }
 }

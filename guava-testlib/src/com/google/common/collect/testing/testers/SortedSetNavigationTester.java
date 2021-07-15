@@ -49,7 +49,7 @@ public class SortedSetNavigationTester<E> extends AbstractSetTester<E> {
     super.setUp();
     sortedSet = (SortedSet<E>)getSet();
     values = Helpers.copyToList(getSubjectGenerator().getSampleElements(
-        getSubjectGenerator().getCollectionSize().getNumElements()));
+          getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(values, sortedSet.comparator());
 
     // some tests assume SEVERAL == 3

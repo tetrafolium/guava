@@ -26,7 +26,7 @@ import java.util.concurrent.Executor;
  * Those versions have slightly different signatures.
  */
 abstract class GwtFluentFutureCatchingSpecialization<V>
-    implements ListenableFuture<V> {
+  implements ListenableFuture<V> {
   /*
    * In the GWT versions of the methods (below), every exceptionType parameter
    * is required to be Class<Throwable>. To handle only certain kinds of
@@ -35,17 +35,17 @@ abstract class GwtFluentFutureCatchingSpecialization<V>
 
   public final FluentFuture<V>
   catching(Class<Throwable> exceptionType,
-           Function<? super Throwable, ? extends V> fallback,
-           Executor executor) {
+      Function<? super Throwable, ? extends V> fallback,
+      Executor executor) {
     return (FluentFuture<V>)Futures.catching(this, exceptionType, fallback,
-                                             executor);
+               executor);
   }
 
   public final FluentFuture<V>
   catchingAsync(Class<Throwable> exceptionType,
-                AsyncFunction<? super Throwable, ? extends V> fallback,
-                Executor executor) {
+      AsyncFunction<? super Throwable, ? extends V> fallback,
+      Executor executor) {
     return (FluentFuture<V>)Futures.catchingAsync(this, exceptionType, fallback,
-                                                  executor);
+               executor);
   }
 }

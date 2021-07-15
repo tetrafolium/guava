@@ -103,7 +103,7 @@ public final class Throwables {
   @GwtIncompatible // throwIfInstanceOf
   public static <X extends Throwable> void
   propagateIfInstanceOf(@Nullable Throwable throwable, Class<X> declaredType)
-      throws X {
+  throws X {
     if (throwable != null) {
       throwIfInstanceOf(throwable, declaredType);
     }
@@ -188,7 +188,7 @@ public final class Throwables {
   @GwtIncompatible // propagateIfInstanceOf
   public static <X extends Throwable> void
   propagateIfPossible(@Nullable Throwable throwable, Class<X> declaredType)
-      throws X {
+  throws X {
     propagateIfInstanceOf(throwable, declaredType);
     propagateIfPossible(throwable);
   }
@@ -210,7 +210,7 @@ public final class Throwables {
   @GwtIncompatible // propagateIfInstanceOf
   public static <X1 extends Throwable, X2 extends Throwable> void
   propagateIfPossible(@Nullable Throwable throwable, Class<X1> declaredType1,
-                      Class<X2> declaredType2) throws X1, X2 {
+      Class<X2> declaredType2) throws X1, X2 {
     checkNotNull(declaredType2);
     propagateIfInstanceOf(throwable, declaredType1);
     propagateIfPossible(throwable, declaredType2);
@@ -278,7 +278,7 @@ public final class Throwables {
 
       if (throwable == slowPointer) {
         throw new IllegalArgumentException("Loop in causal chain detected.",
-                                           throwable);
+                  throwable);
       }
       if (advanceSlowPointer) {
         slowPointer = slowPointer.getCause();
@@ -325,7 +325,7 @@ public final class Throwables {
 
       if (throwable == slowPointer) {
         throw new IllegalArgumentException("Loop in causal chain detected.",
-                                           throwable);
+                  throwable);
       }
       if (advanceSlowPointer) {
         slowPointer = slowPointer.getCause();
@@ -353,7 +353,7 @@ public final class Throwables {
   @Beta
   @GwtIncompatible // Class.cast(Object)
   public static <X extends Throwable> X getCauseAs(Throwable throwable,
-                                                   Class<X> expectedCauseType) {
+      Class<X> expectedCauseType) {
     try {
       return expectedCauseType.cast(throwable.getCause());
     } catch (ClassCastException e) {
@@ -429,7 +429,7 @@ public final class Throwables {
   @GwtIncompatible // getStackTraceElementMethod
   public static boolean lazyStackTraceIsLazy() {
     return getStackTraceElementMethod != null &&
-        getStackTraceDepthMethod != null;
+           getStackTraceDepthMethod != null;
   }
 
   @GwtIncompatible // invokeAccessibleNonThrowingMethod
@@ -443,24 +443,24 @@ public final class Throwables {
      * and doesn't cause AOSP grief.
      */
     return new AbstractList<StackTraceElement>() {
-      @Override
-      public StackTraceElement get(int n) {
-        return (StackTraceElement)invokeAccessibleNonThrowingMethod(
-            getStackTraceElementMethod, jla, t, n);
-      }
+             @Override
+             public StackTraceElement get(int n) {
+               return (StackTraceElement)invokeAccessibleNonThrowingMethod(
+                 getStackTraceElementMethod, jla, t, n);
+             }
 
-      @Override
-      public int size() {
-        return (Integer)invokeAccessibleNonThrowingMethod(
-            getStackTraceDepthMethod, jla, t);
-      }
+             @Override
+             public int size() {
+               return (Integer)invokeAccessibleNonThrowingMethod(
+                 getStackTraceDepthMethod, jla, t);
+             }
     };
   }
 
   @GwtIncompatible // java.lang.reflect
   private static Object invokeAccessibleNonThrowingMethod(Method method,
-                                                          Object receiver,
-                                                          Object... params) {
+      Object receiver,
+      Object... params) {
     try {
       return method.invoke(receiver, params);
     } catch (IllegalAccessException e) {
@@ -567,7 +567,7 @@ public final class Throwables {
       getStackTraceDepth.invoke(getJLA(), new Throwable());
       return getStackTraceDepth;
     } catch (UnsupportedOperationException | IllegalAccessException |
-             InvocationTargetException e) {
+        InvocationTargetException e) {
       return null;
     }
   }
@@ -575,10 +575,10 @@ public final class Throwables {
   @GwtIncompatible // java.lang.reflect
   @Nullable
   private static Method getJlaMethod(String name, Class<?>... parameterTypes)
-      throws ThreadDeath {
+  throws ThreadDeath {
     try {
       return Class.forName(JAVA_LANG_ACCESS_CLASSNAME, false, null)
-          .getMethod(name, parameterTypes);
+             .getMethod(name, parameterTypes);
     } catch (ThreadDeath death) {
       throw death;
     } catch (Throwable t) {

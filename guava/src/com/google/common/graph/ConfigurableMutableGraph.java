@@ -31,7 +31,7 @@ import com.google.common.graph.GraphConstants.Presence;
  * @param <N> Node parameter type
  */
 final class ConfigurableMutableGraph<N>
-    extends ForwardingGraph<N> implements MutableGraph<N> {
+  extends ForwardingGraph<N> implements MutableGraph<N> {
   private final MutableValueGraph<N, Presence> backingValueGraph;
 
   /**
@@ -55,7 +55,7 @@ final class ConfigurableMutableGraph<N>
   @Override
   public boolean putEdge(N nodeU, N nodeV) {
     return backingValueGraph.putEdgeValue(nodeU, nodeV, Presence.EDGE_EXISTS) ==
-        null;
+           null;
   }
 
   @Override

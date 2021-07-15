@@ -75,7 +75,7 @@ public final class IntMath {
     checkPositive("x", x);
     if (x > MAX_SIGNED_POWER_OF_TWO) {
       throw new ArithmeticException("ceilingPowerOfTwo(" + x +
-                                    ") not representable as an int");
+                ") not representable as an int");
     }
     return 1 << -Integer.numberOfLeadingZeros(x - 1);
   }
@@ -216,8 +216,9 @@ public final class IntMath {
   // maxLog10ForLeadingZeros[i] == floor(log10(2^(Long.SIZE - i)))
   @VisibleForTesting
   static final byte[] maxLog10ForLeadingZeros = {
-      9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4,
-      4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0};
+    9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4,
+    4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0
+  };
 
   @VisibleForTesting
   static final int[] powersOf10 = {1,         10,        100,     1000,
@@ -227,8 +228,9 @@ public final class IntMath {
   // halfPowersOf10[i] = largest int less than 10^(i + 0.5)
   @VisibleForTesting
   static final int[] halfPowersOf10 = {
-      3,      31,      316,      3162,      31622,
-      316227, 3162277, 31622776, 316227766, Integer.MAX_VALUE};
+    3,      31,      316,      3162,      31622,
+    316227, 3162277, 31622776, 316227766, Integer.MAX_VALUE
+  };
 
   /**
    * Returns {@code b} to the {@code k}th power. Even if the result overflows,
@@ -468,7 +470,7 @@ public final class IntMath {
 
       b += minDeltaOrZero; // sets b to min(old a, b)
       a >>= Integer.numberOfTrailingZeros(
-          a); // divide out all 2s, since 2 doesn't divide b
+        a);   // divide out all 2s, since 2 doesn't divide b
     }
     return a << min(aTwos, bTwos);
   }
@@ -667,19 +669,20 @@ public final class IntMath {
   }
 
   private static final int[] factorials = {
-      1,
-      1,
-      1 * 2,
-      1 * 2 * 3,
-      1 * 2 * 3 * 4,
-      1 * 2 * 3 * 4 * 5,
-      1 * 2 * 3 * 4 * 5 * 6,
-      1 * 2 * 3 * 4 * 5 * 6 * 7,
-      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8,
-      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
-      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
-      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
-      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12};
+    1,
+    1,
+    1 * 2,
+    1 * 2 * 3,
+    1 * 2 * 3 * 4,
+    1 * 2 * 3 * 4 * 5,
+    1 * 2 * 3 * 4 * 5 * 6,
+    1 * 2 * 3 * 4 * 5 * 6 * 7,
+    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8,
+    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
+    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
+    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12
+  };
 
   /**
    * Returns {@code n} choose {@code k}, also known as the binomial coefficient

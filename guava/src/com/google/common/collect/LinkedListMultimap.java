@@ -102,7 +102,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true, emulated = true)
 public class LinkedListMultimap<K, V>
-    extends AbstractMultimap<K, V> implements ListMultimap<K, V>, Serializable {
+  extends AbstractMultimap<K, V> implements ListMultimap<K, V>, Serializable {
   /*
    * Order is maintained using a linked list containing all key-value pairs. In
    * addition, a series of disjoint linked lists of "siblings", each containing
@@ -218,7 +218,7 @@ public class LinkedListMultimap<K, V>
    */
   @CanIgnoreReturnValue
   private Node<K, V> addNode(@Nullable K key, @Nullable V value,
-                             @Nullable Node<K, V> nextSibling) {
+      @Nullable Node<K, V> nextSibling) {
     Node<K, V> node = new Node<>(key, value);
     if (head == null) { // empty list
       head = tail = node;
@@ -692,16 +692,16 @@ public class LinkedListMultimap<K, V>
   @Override
   public List<V> get(final @Nullable K key) {
     return new AbstractSequentialList<V>() {
-      @Override
-      public int size() {
-        KeyList<K, V> keyList = keyToKeyList.get(key);
-        return (keyList == null) ? 0 : keyList.count;
-      }
+             @Override
+             public int size() {
+               KeyList<K, V> keyList = keyToKeyList.get(key);
+               return (keyList == null) ? 0 : keyList.count;
+             }
 
-      @Override
-      public ListIterator<V> listIterator(int index) {
-        return new ValueForKeyIterator(key, index);
-      }
+             @Override
+             public ListIterator<V> listIterator(int index) {
+               return new ValueForKeyIterator(key, index);
+             }
     };
   }
 
@@ -757,15 +757,15 @@ public class LinkedListMultimap<K, V>
       public ListIterator<V> listIterator(int index) {
         final NodeIterator nodeItr = new NodeIterator(index);
         return new TransformedListIterator<Entry<K, V>, V>(nodeItr) {
-          @Override
-          V transform(Entry<K, V> entry) {
-            return entry.getValue();
-          }
+                 @Override
+                 V transform(Entry<K, V> entry) {
+                   return entry.getValue();
+                 }
 
-          @Override
-          public void set(V value) {
-            nodeItr.setValue(value);
-          }
+                 @Override
+                 public void set(V value) {
+                   nodeItr.setValue(value);
+                 }
         };
       }
     }
@@ -847,7 +847,7 @@ public class LinkedListMultimap<K, V>
 
   @GwtIncompatible // java.io.ObjectInputStream
   private void readObject(ObjectInputStream stream)
-      throws IOException, ClassNotFoundException {
+  throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     keyToKeyList = Maps.newLinkedHashMap();
     int size = stream.readInt();

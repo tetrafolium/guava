@@ -32,12 +32,12 @@ public class ToStringHelperBenchmark {
 
   private static void addEntries(MoreObjects.ToStringHelper helper) {
     helper.add(NAME, 10)
-        .addValue(10L)
-        .add(NAME, 3.14f)
-        .addValue(3.14d)
-        .add(NAME3, false)
-        .add(NAME3, NAME3)
-        .add(NAME3, 'x');
+    .addValue(10L)
+    .add(NAME, 3.14f)
+    .addValue(3.14d)
+    .add(NAME3, false)
+    .add(NAME3, NAME3)
+    .add(NAME3, 'x');
   }
 
   @Benchmark

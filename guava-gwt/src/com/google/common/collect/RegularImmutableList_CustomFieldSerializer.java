@@ -32,7 +32,7 @@ import java.util.List;
 public class RegularImmutableList_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 RegularImmutableList<?> instance) {}
+      RegularImmutableList<?> instance) {}
 
   public static RegularImmutableList<Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -48,8 +48,8 @@ public class RegularImmutableList_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               RegularImmutableList<?> instance)
-      throws SerializationException {
+      RegularImmutableList<?> instance)
+  throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

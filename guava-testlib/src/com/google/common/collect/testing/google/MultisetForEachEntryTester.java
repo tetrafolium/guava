@@ -41,8 +41,8 @@ public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
     List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
     List<Entry<E>> actual = new ArrayList<>();
     getMultiset().forEachEntry(
-        (element,
-         count) -> actual.add(Multisets.immutableEntry(element, count)));
+      (element,
+      count)->actual.add(Multisets.immutableEntry(element, count)));
     Helpers.assertEqualIgnoringOrder(expected, actual);
   }
 
@@ -51,8 +51,8 @@ public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
     List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
     List<Entry<E>> actual = new ArrayList<>();
     getMultiset().forEachEntry(
-        (element,
-         count) -> actual.add(Multisets.immutableEntry(element, count)));
+      (element,
+      count)->actual.add(Multisets.immutableEntry(element, count)));
     assertEquals(expected, actual);
   }
 
@@ -62,8 +62,8 @@ public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
         Collections.singletonList(Multisets.immutableEntry(e0(), 3));
     List<Entry<E>> actual = new ArrayList<>();
     getMultiset().forEachEntry(
-        (element,
-         count) -> actual.add(Multisets.immutableEntry(element, count)));
+      (element,
+      count)->actual.add(Multisets.immutableEntry(element, count)));
     assertEquals(expected, actual);
   }
 
@@ -75,6 +75,6 @@ public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
   @GwtIncompatible // reflection
   public static List<Method> getForEachEntryDuplicateInitializingMethods() {
     return Arrays.asList(Helpers.getMethod(MultisetForEachEntryTester.class,
-                                           "testForEachEntryDuplicates"));
+               "testForEachEntryDuplicates"));
   }
 }

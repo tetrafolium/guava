@@ -50,7 +50,7 @@ enum BloomFilterStrategies implements BloomFilter
   MURMUR128_MITZ_32() {
     @Override
     public <T> boolean put(T object, Funnel<? super T> funnel,
-                           int numHashFunctions, LockFreeBitArray bits) {
+        int numHashFunctions, LockFreeBitArray bits) {
       long bitSize = bits.bitSize();
       long hash64 = Hashing.murmur3_128().hashObject(object, funnel).asLong();
       int hash1 = (int)hash64;
@@ -70,8 +70,8 @@ enum BloomFilterStrategies implements BloomFilter
 
     @Override
     public <T> boolean mightContain(T object, Funnel<? super T> funnel,
-                                    int numHashFunctions,
-                                    LockFreeBitArray bits) {
+        int numHashFunctions,
+        LockFreeBitArray bits) {
       long bitSize = bits.bitSize();
       long hash64 = Hashing.murmur3_128().hashObject(object, funnel).asLong();
       int hash1 = (int)hash64;
@@ -91,18 +91,18 @@ enum BloomFilterStrategies implements BloomFilter
     }
   }
   ,
-      /**
-       * This strategy uses all 128 bits of {@link Hashing#murmur3_128} when
-       * hashing. It looks different than the implementation in
-       * MURMUR128_MITZ_32 because we're avoiding the multiplication in the loop
-       * and doing a (much simpler) += hash2. We're also changing the index to a
-       * positive number by AND'ing with Long.MAX_VALUE instead of flipping the
-       * bits.
-       */
-      MURMUR128_MITZ_64() {
+  /**
+   * This strategy uses all 128 bits of {@link Hashing#murmur3_128} when
+   * hashing. It looks different than the implementation in
+   * MURMUR128_MITZ_32 because we're avoiding the multiplication in the loop
+   * and doing a (much simpler) += hash2. We're also changing the index to a
+   * positive number by AND'ing with Long.MAX_VALUE instead of flipping the
+   * bits.
+   */
+  MURMUR128_MITZ_64() {
     @Override
     public <T> boolean put(T object, Funnel<? super T> funnel,
-                           int numHashFunctions, LockFreeBitArray bits) {
+        int numHashFunctions, LockFreeBitArray bits) {
       long bitSize = bits.bitSize();
       byte[] bytes =
           Hashing.murmur3_128().hashObject(object, funnel).getBytesInternal();
@@ -121,8 +121,8 @@ enum BloomFilterStrategies implements BloomFilter
 
     @Override
     public <T> boolean mightContain(T object, Funnel<? super T> funnel,
-                                    int numHashFunctions,
-                                    LockFreeBitArray bits) {
+        int numHashFunctions,
+        LockFreeBitArray bits) {
       long bitSize = bits.bitSize();
       byte[] bytes =
           Hashing.murmur3_128().hashObject(object, funnel).getBytesInternal();
@@ -142,12 +142,12 @@ enum BloomFilterStrategies implements BloomFilter
 
     private /* static */ long lowerEight(byte[] bytes) {
       return Longs.fromBytes(bytes[7], bytes[6], bytes[5], bytes[4], bytes[3],
-                             bytes[2], bytes[1], bytes[0]);
+                 bytes[2], bytes[1], bytes[0]);
     }
 
     private /* static */ long upperEight(byte[] bytes) {
       return Longs.fromBytes(bytes[15], bytes[14], bytes[13], bytes[12],
-                             bytes[11], bytes[10], bytes[9], bytes[8]);
+                 bytes[11], bytes[10], bytes[9], bytes[8]);
     }
   };
 
@@ -164,7 +164,7 @@ enum BloomFilterStrategies implements BloomFilter
 
     LockFreeBitArray(long bits) {
       this(new long[Ints.checkedCast(
-          LongMath.divide(bits, 64, RoundingMode.CEILING))]);
+        LongMath.divide(bits, 64, RoundingMode.CEILING))]);
     }
 
     // Used by serialization
@@ -249,8 +249,8 @@ enum BloomFilterStrategies implements BloomFilter
      */
     void putAll(LockFreeBitArray other) {
       checkArgument(data.length() == other.data.length(),
-                    "BitArrays must be of equal length (%s != %s)",
-                    data.length(), other.data.length());
+          "BitArrays must be of equal length (%s != %s)",
+          data.length(), other.data.length());
       for (int i = 0; i < data.length(); i++) {
         long otherLong = other.data.get(i);
 
@@ -279,7 +279,7 @@ enum BloomFilterStrategies implements BloomFilter
         LockFreeBitArray lockFreeBitArray = (LockFreeBitArray)o;
         // TODO(lowasser): avoid allocation here
         return Arrays.equals(toPlainArray(data),
-                             toPlainArray(lockFreeBitArray.data));
+                   toPlainArray(lockFreeBitArray.data));
       }
       return false;
     }

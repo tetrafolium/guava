@@ -159,7 +159,7 @@ public abstract class CacheLoader<K, V> {
   }
 
   private static final class FunctionToCacheLoader<K, V>
-      extends CacheLoader<K, V> implements Serializable {
+    extends CacheLoader<K, V> implements Serializable {
     private final Function<K, V> computingFunction;
 
     public FunctionToCacheLoader(Function<K, V> computingFunction) {
@@ -205,34 +205,34 @@ public abstract class CacheLoader<K, V> {
     checkNotNull(loader);
     checkNotNull(executor);
     return new CacheLoader<K, V>() {
-      @Override
-      public V load(K key) throws Exception {
-        return loader.load(key);
-      }
+             @Override
+             public V load(K key) throws Exception {
+               return loader.load(key);
+             }
 
-      @Override
-      public ListenableFuture<V> reload(final K key, final V oldValue)
-          throws Exception {
-        ListenableFutureTask<V> task =
-            ListenableFutureTask.create(new Callable<V>() {
-              @Override
-              public V call() throws Exception {
-                return loader.reload(key, oldValue).get();
-              }
-            });
-        executor.execute(task);
-        return task;
-      }
+             @Override
+             public ListenableFuture<V> reload(final K key, final V oldValue)
+             throws Exception {
+               ListenableFutureTask<V> task =
+                   ListenableFutureTask.create(new Callable<V>() {
+          @Override
+          public V call() throws Exception {
+            return loader.reload(key, oldValue).get();
+          }
+        });
+               executor.execute(task);
+               return task;
+             }
 
-      @Override
-      public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
-        return loader.loadAll(keys);
-      }
+             @Override
+             public Map<K, V> loadAll(Iterable<? extends K> keys) throws Exception {
+               return loader.loadAll(keys);
+             }
     };
   }
 
   private static final class SupplierToCacheLoader<V>
-      extends CacheLoader<Object, V> implements Serializable {
+    extends CacheLoader<Object, V> implements Serializable {
     private final Supplier<V> computingSupplier;
 
     public SupplierToCacheLoader(Supplier<V> computingSupplier) {
@@ -254,7 +254,7 @@ public abstract class CacheLoader<K, V> {
    * @since 19.0
    */
   public static final class UnsupportedLoadingOperationException
-      extends UnsupportedOperationException {
+    extends UnsupportedOperationException {
     // Package-private because this should only be thrown by loadAll() when it
     // is not overridden. Cache implementors may want to catch it but should not
     // need to be able to throw it.

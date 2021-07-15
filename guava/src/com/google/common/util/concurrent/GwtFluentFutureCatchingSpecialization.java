@@ -26,7 +26,7 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible(emulated = true)
 abstract class GwtFluentFutureCatchingSpecialization<V>
-    implements ListenableFuture<V> {
+  implements ListenableFuture<V> {
   /*
    * This server copy of the class is empty. The corresponding GWT copy contains
    * alternative versions of catching() and catchingAsync() with slightly

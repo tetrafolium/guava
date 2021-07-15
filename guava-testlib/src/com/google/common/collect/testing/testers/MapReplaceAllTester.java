@@ -50,7 +50,7 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
 
   @MapFeature.Require(SUPPORTS_PUT)
   public void testReplaceAllRotate() {
-    getMap().replaceAll((K k, V v) -> {
+    getMap().replaceAll((K k, V v)->{
       int index = keys().asList().indexOf(k);
       return values().asList().get(index + 1);
     });
@@ -58,7 +58,7 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
     for (Entry<K, V> entry : getSampleEntries()) {
       int index = keys().asList().indexOf(entry.getKey());
       expectedEntries.add(
-          Helpers.mapEntry(entry.getKey(), values().asList().get(index + 1)));
+        Helpers.mapEntry(entry.getKey(), values().asList().get(index + 1)));
     }
     expectContents(expectedEntries);
   }
@@ -66,7 +66,7 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testReplaceAllPreservesOrder() {
-    getMap().replaceAll((K k, V v) -> {
+    getMap().replaceAll((K k, V v)->{
       int index = keys().asList().indexOf(k);
       return values().asList().get(index + 1);
     });
@@ -82,12 +82,12 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testReplaceAll_unsupported() {
     try {
-      getMap().replaceAll((K k, V v) -> {
+      getMap().replaceAll((K k, V v)->{
         int index = keys().asList().indexOf(k);
         return values().asList().get(index + 1);
       });
       fail("replaceAll() should throw UnsupportedOperation if a map does "
-           + "not support it and is not empty.");
+          + "not support it and is not empty.");
     } catch (UnsupportedOperationException expected) {
     }
     expectUnchanged();
@@ -97,7 +97,7 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(ZERO)
   public void testReplaceAll_unsupportedByEmptyCollection() {
     try {
-      getMap().replaceAll((K k, V v) -> {
+      getMap().replaceAll((K k, V v)->{
         int index = keys().asList().indexOf(k);
         return values().asList().get(index + 1);
       });
@@ -109,7 +109,7 @@ public class MapReplaceAllTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(absent = SUPPORTS_PUT)
   public void testReplaceAll_unsupportedNoOpFunction() {
     try {
-      getMap().replaceAll((K k, V v) -> v);
+      getMap().replaceAll((K k, V v)->v);
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();

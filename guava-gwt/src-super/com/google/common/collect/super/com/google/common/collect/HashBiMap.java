@@ -75,46 +75,46 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
     // we only care about the forward-direction order, so only that direction
     // needs to be an LHM
     super(Maps.<K, V>newLinkedHashMapWithExpectedSize(expectedSize),
-          Maps.<V, K>newHashMapWithExpectedSize(expectedSize));
+    Maps.<V, K>newHashMapWithExpectedSize(expectedSize));
   }
 
   @Override
   AbstractBiMap<V, K> makeInverse(Map<V, K> backward) {
     return new Inverse<V, K>(backward, this) {
-      @Override
-      Iterator<Entry<V, K>> entrySetIterator() {
-        return new TransformedIterator<Entry<K, V>, Entry<V, K>>(
-            HashBiMap.this.delegate().entrySet().iterator()) {
-          @Override
-          public Entry<V, K> transform(final Entry<K, V> forwardEntry) {
-            return new AbstractMapEntry<V, K>() {
-              final V value = forwardEntry.getValue();
+             @Override
+             Iterator<Entry<V, K>> entrySetIterator() {
+               return new TransformedIterator<Entry<K, V>, Entry<V, K>>(
+                 HashBiMap.this.delegate().entrySet().iterator()) {
+                        @Override
+                        public Entry<V, K> transform(final Entry<K, V> forwardEntry) {
+                          return new AbstractMapEntry<V, K>() {
+                                   final V value = forwardEntry.getValue();
 
-              @Override
-              public V getKey() {
-                return value;
-              }
+                                   @Override
+                                   public V getKey() {
+                                     return value;
+                                   }
 
-              @Override
-              public K getValue() {
-                return delegate().get(value);
-              }
+                                   @Override
+                                   public K getValue() {
+                                     return delegate().get(value);
+                                   }
 
-              @Override
-              public K setValue(K newKey) {
-                // Preconditions keep the map and inverse consistent.
-                checkState(entrySet().contains(this), "entry no longer in map");
-                K oldKey = getValue();
-                if (Objects.equal(newKey, oldKey)) {
-                  return newKey;
-                }
-                forcePut(value, newKey);
-                return oldKey;
-              }
-            };
-          }
-        };
-      }
+                                   @Override
+                                   public K setValue(K newKey) {
+                                     // Preconditions keep the map and inverse consistent.
+                                     checkState(entrySet().contains(this), "entry no longer in map");
+                                     K oldKey = getValue();
+                                     if (Objects.equal(newKey, oldKey)) {
+                                       return newKey;
+                                     }
+                                     forcePut(value, newKey);
+                                     return oldKey;
+                                   }
+                          };
+                        }
+               };
+             }
     };
   }
 

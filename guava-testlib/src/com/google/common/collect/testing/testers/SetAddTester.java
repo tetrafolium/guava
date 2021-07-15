@@ -60,6 +60,6 @@ public class SetAddTester<E> extends AbstractSetTester<E> {
   @GwtIncompatible // reflection
   public static Method getAddSupportedNullPresentMethod() {
     return Helpers.getMethod(SetAddTester.class,
-                             "testAdd_supportedNullPresent");
+               "testAdd_supportedNullPresent");
   }
 }

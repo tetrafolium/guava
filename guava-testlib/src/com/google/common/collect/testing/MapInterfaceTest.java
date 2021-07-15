@@ -68,7 +68,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * empty instance of the class under test.
    */
   protected abstract Map<K, V> makeEmptyMap()
-      throws UnsupportedOperationException;
+  throws UnsupportedOperationException;
 
   /**
    * Creates a new, non-empty instance of the class under test.
@@ -78,7 +78,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * non-empty instance of the class under test.
    */
   protected abstract Map<K, V> makePopulatedMap()
-      throws UnsupportedOperationException;
+  throws UnsupportedOperationException;
 
   /**
    * Creates a new key that is not expected to be found
@@ -89,7 +89,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * that will not be found in the map.
    */
   protected abstract K getKeyNotInPopulatedMap()
-      throws UnsupportedOperationException;
+  throws UnsupportedOperationException;
 
   /**
    * Creates a new value that is not expected to be found
@@ -100,26 +100,26 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * that will not be found in the map.
    */
   protected abstract V getValueNotInPopulatedMap()
-      throws UnsupportedOperationException;
+  throws UnsupportedOperationException;
 
   /**
    * Constructor that assigns {@code supportsIteratorRemove} the same value as
    * {@code supportsRemove}.
    */
   protected MapInterfaceTest(boolean allowsNullKeys, boolean allowsNullValues,
-                             boolean supportsPut, boolean supportsRemove,
-                             boolean supportsClear) {
+      boolean supportsPut, boolean supportsRemove,
+      boolean supportsClear) {
     this(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove,
-         supportsClear, supportsRemove);
+    supportsClear, supportsRemove);
   }
 
   /**
    * Constructor with an explicit {@code supportsIteratorRemove} parameter.
    */
   protected MapInterfaceTest(boolean allowsNullKeys, boolean allowsNullValues,
-                             boolean supportsPut, boolean supportsRemove,
-                             boolean supportsClear,
-                             boolean supportsIteratorRemove) {
+      boolean supportsPut, boolean supportsRemove,
+      boolean supportsClear,
+      boolean supportsIteratorRemove) {
     this.supportsPut = supportsPut;
     this.supportsRemove = supportsRemove;
     this.supportsClear = supportsClear;
@@ -192,7 +192,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertEquals(map.size(), valueCollection.size());
     assertEquals(valueCollection.size() == 0, valueCollection.isEmpty());
     assertEquals(!valueCollection.isEmpty(),
-                 valueCollection.iterator().hasNext());
+        valueCollection.iterator().hasNext());
     for (V value : valueCollection) {
       assertTrue(map.containsValue(value));
       assertTrue(allowsNullValues || (value != null));

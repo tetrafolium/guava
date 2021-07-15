@@ -388,10 +388,10 @@ public final class Monitor {
   public Guard newGuard(final BooleanSupplier isSatisfied) {
     checkNotNull(isSatisfied, "isSatisfied");
     return new Guard(this) {
-      @Override
-      public boolean isSatisfied() {
-        return isSatisfied.getAsBoolean();
-      }
+             @Override
+             public boolean isSatisfied() {
+               return isSatisfied.getAsBoolean();
+             }
     };
   }
 
@@ -445,7 +445,7 @@ public final class Monitor {
    * @throws InterruptedException if interrupted while waiting
    */
   public boolean enterInterruptibly(long time, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     return lock.tryLock(time, unit);
   }
 
@@ -520,7 +520,7 @@ public final class Monitor {
    * @throws InterruptedException if interrupted while waiting
    */
   public boolean enterWhen(Guard guard, long time, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     final long timeoutNanos = toSafeNanos(time, unit);
     if (guard.monitor != this) {
       throw new IllegalMonitorStateException();
@@ -529,31 +529,31 @@ public final class Monitor {
     boolean reentrant = lock.isHeldByCurrentThread();
     long startTime = 0L;
 
-  locked : {
-    if (!fair) {
-      // Check interrupt status to get behavior consistent with fair case.
-      if (Thread.interrupted()) {
-        throw new InterruptedException();
+    locked : {
+      if (!fair) {
+        // Check interrupt status to get behavior consistent with fair case.
+        if (Thread.interrupted()) {
+          throw new InterruptedException();
+        }
+        if (lock.tryLock()) {
+          break locked;
+        }
       }
-      if (lock.tryLock()) {
-        break locked;
+      startTime = initNanoTime(timeoutNanos);
+      if (!lock.tryLock(time, unit)) {
+        return false;
       }
     }
-    startTime = initNanoTime(timeoutNanos);
-    if (!lock.tryLock(time, unit)) {
-      return false;
-    }
-  }
 
     boolean satisfied = false;
     boolean threw = true;
     try {
       satisfied = guard.isSatisfied() ||
-                  awaitNanos(guard,
-                             (startTime == 0L)
+          awaitNanos(guard,
+          (startTime == 0L)
                                  ? timeoutNanos
                                  : remainingNanos(startTime, timeoutNanos),
-                             reentrant);
+          reentrant);
       threw = false;
       return satisfied;
     } finally {
@@ -579,7 +579,7 @@ public final class Monitor {
    *     now satisfied
    */
   public boolean enterWhenUninterruptibly(Guard guard, long time,
-                                          TimeUnit unit) {
+      TimeUnit unit) {
     final long timeoutNanos = toSafeNanos(time, unit);
     if (guard.monitor != this) {
       throw new IllegalMonitorStateException();
@@ -724,7 +724,7 @@ public final class Monitor {
    *     now satisfied
    */
   public boolean enterIfInterruptibly(Guard guard, long time, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     if (guard.monitor != this) {
       throw new IllegalMonitorStateException();
     }
@@ -811,7 +811,7 @@ public final class Monitor {
    * @throws InterruptedException if interrupted while waiting
    */
   public boolean waitFor(Guard guard, long time, TimeUnit unit)
-      throws InterruptedException {
+  throws InterruptedException {
     final long timeoutNanos = toSafeNanos(time, unit);
     if (!((guard.monitor == this) & lock.isHeldByCurrentThread())) {
       throw new IllegalMonitorStateException();
@@ -1134,7 +1134,7 @@ public final class Monitor {
 
   @GuardedBy("lock")
   private void await(Guard guard, boolean signalBeforeWaiting)
-      throws InterruptedException {
+  throws InterruptedException {
     if (signalBeforeWaiting) {
       signalNextWaiter();
     }
@@ -1168,8 +1168,8 @@ public final class Monitor {
    */
   @GuardedBy("lock")
   private boolean awaitNanos(Guard guard, long nanos,
-                             boolean signalBeforeWaiting)
-      throws InterruptedException {
+      boolean signalBeforeWaiting)
+  throws InterruptedException {
     boolean firstTime = true;
     try {
       do {

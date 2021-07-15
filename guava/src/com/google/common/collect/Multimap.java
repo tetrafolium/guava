@@ -201,7 +201,7 @@ public interface Multimap<K, V> {
    * with the key {@code key} and the value {@code value}.
    */
   boolean containsEntry(@CompatibleWith("K") @Nullable Object key,
-                        @CompatibleWith("V") @Nullable Object value);
+      @CompatibleWith("V") @Nullable Object value);
 
   // Modification Operations
 
@@ -229,7 +229,7 @@ public interface Multimap<K, V> {
    */
   @CanIgnoreReturnValue
   boolean remove(@CompatibleWith("K") @Nullable Object key,
-                 @CompatibleWith("V") @Nullable Object value);
+      @CompatibleWith("V") @Nullable Object value);
 
   // Bulk Operations
 
@@ -363,7 +363,7 @@ public interface Multimap<K, V> {
    */
   default void forEach(BiConsumer<? super K, ? super V> action) {
     checkNotNull(action);
-    entries().forEach(entry -> action.accept(entry.getKey(), entry.getValue()));
+    entries().forEach(entry->action.accept(entry.getKey(), entry.getValue()));
   }
 
   /**

@@ -34,7 +34,7 @@ import junit.framework.TestSuite;
 @GwtIncompatible
 public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
   public static <E>
-      SortedSetTestSuiteBuilder<E> using(TestSortedSetGenerator<E> generator) {
+  SortedSetTestSuiteBuilder<E> using(TestSortedSetGenerator<E> generator) {
     SortedSetTestSuiteBuilder<E> builder = new SortedSetTestSuiteBuilder<E>();
     builder.usingGenerator(generator);
     return builder;
@@ -60,18 +60,18 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder) {
+    parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
     if (!parentBuilder.getFeatures().contains(CollectionFeature.SUBSET_VIEW)) {
       derivedSuites.add(
-          createSubsetSuite(parentBuilder, Bound.NO_BOUND, Bound.EXCLUSIVE));
+        createSubsetSuite(parentBuilder, Bound.NO_BOUND, Bound.EXCLUSIVE));
       derivedSuites.add(
-          createSubsetSuite(parentBuilder, Bound.INCLUSIVE, Bound.NO_BOUND));
+        createSubsetSuite(parentBuilder, Bound.INCLUSIVE, Bound.NO_BOUND));
       derivedSuites.add(
-          createSubsetSuite(parentBuilder, Bound.INCLUSIVE, Bound.EXCLUSIVE));
+        createSubsetSuite(parentBuilder, Bound.INCLUSIVE, Bound.EXCLUSIVE));
     }
 
     return derivedSuites;
@@ -85,13 +85,13 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
    * regular sort ordering.
    */
   final TestSuite createSubsetSuite(
-      final FeatureSpecificTestSuiteBuilder<
+    final FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Collection<E>, E>>
-          parentBuilder,
-      final Bound from, final Bound to) {
+    parentBuilder,
+    final Bound from, final Bound to) {
     final TestSortedSetGenerator<E> delegate =
         (TestSortedSetGenerator<E>)parentBuilder.getSubjectGenerator()
-            .getInnerGenerator();
+        .getInnerGenerator();
 
     List<Feature<?>> features = new ArrayList<>();
     features.addAll(parentBuilder.getFeatures());
@@ -99,10 +99,10 @@ public class SortedSetTestSuiteBuilder<E> extends SetTestSuiteBuilder<E> {
     features.add(CollectionFeature.SUBSET_VIEW);
 
     return newBuilderUsing(delegate, to, from)
-        .named(parentBuilder.getName() + " subSet " + from + "-" + to)
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+           .named(parentBuilder.getName() + " subSet " + from + "-" + to)
+           .withFeatures(features)
+           .suppressing(parentBuilder.getSuppressedTests())
+           .createTestSuite();
   }
 
   /** Like using() but overrideable by NavigableSetTestSuiteBuilder. */

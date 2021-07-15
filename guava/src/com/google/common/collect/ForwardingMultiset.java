@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingMultiset<E>
-    extends ForwardingCollection<E> implements Multiset<E> {
+  extends ForwardingCollection<E> implements Multiset<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingMultiset() {}

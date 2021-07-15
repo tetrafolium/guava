@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 @Beta
 @GwtCompatible
 final class FunctionalEquivalence<F, T>
-    extends Equivalence<F> implements Serializable {
+  extends Equivalence<F> implements Serializable {
 
   private static final long serialVersionUID = 0;
 
@@ -40,7 +40,7 @@ final class FunctionalEquivalence<F, T>
   private final Equivalence<T> resultEquivalence;
 
   FunctionalEquivalence(Function<F, ? extends T> function,
-                        Equivalence<T> resultEquivalence) {
+      Equivalence<T> resultEquivalence) {
     this.function = checkNotNull(function);
     this.resultEquivalence = checkNotNull(resultEquivalence);
   }
@@ -63,7 +63,7 @@ final class FunctionalEquivalence<F, T>
     if (obj instanceof FunctionalEquivalence) {
       FunctionalEquivalence<?, ?> that = (FunctionalEquivalence<?, ?>)obj;
       return function.equals(that.function) &&
-          resultEquivalence.equals(that.resultEquivalence);
+             resultEquivalence.equals(that.resultEquivalence);
     }
     return false;
   }

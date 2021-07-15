@@ -60,7 +60,7 @@ final class GwtSerializationDependencies {
   private GwtSerializationDependencies() {}
 
   static final class ImmutableListMultimapDependencies<K, V>
-      extends ImmutableListMultimap<K, V> {
+    extends ImmutableListMultimap<K, V> {
     K key;
     V value;
 
@@ -72,7 +72,7 @@ final class GwtSerializationDependencies {
   // ImmutableMultimap is covered by ImmutableSetMultimap/ImmutableListMultimap.
 
   static final class ImmutableSetMultimapDependencies<K, V>
-      extends ImmutableSetMultimap<K, V> {
+    extends ImmutableSetMultimap<K, V> {
     K key;
     V value;
 
@@ -84,7 +84,7 @@ final class GwtSerializationDependencies {
    * supports entry ordering not supported by other implementations.
    */
   static final class LinkedListMultimapDependencies<K, V>
-      extends LinkedListMultimap<K, V> {
+    extends LinkedListMultimap<K, V> {
     K key;
     V value;
 
@@ -92,14 +92,14 @@ final class GwtSerializationDependencies {
   }
 
   static final class HashBasedTableDependencies<R, C, V>
-      extends HashBasedTable<R, C, V> {
+    extends HashBasedTable<R, C, V> {
     HashMap<R, HashMap<C, V>> data;
 
     HashBasedTableDependencies() { super(null, null); }
   }
 
   static final class TreeBasedTableDependencies<R, C, V>
-      extends TreeBasedTable<R, C, V> {
+    extends TreeBasedTable<R, C, V> {
     TreeMap<R, TreeMap<C, V>> data;
 
     TreeBasedTableDependencies() { super(null, null); }
@@ -112,7 +112,7 @@ final class GwtSerializationDependencies {
    * won't generate serialization code for R, C, and V.
    */
   static final class ImmutableTableDependencies<R, C, V>
-      extends SingletonImmutableTable<R, C, V> implements Serializable {
+    extends SingletonImmutableTable<R, C, V> implements Serializable {
     R rowKey;
     C columnKey;
     V value;

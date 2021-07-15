@@ -41,24 +41,24 @@ import javax.annotation.Nullable;
  * @param <E> Edge parameter type
  */
 final class DirectedMultiNetworkConnections<N, E>
-    extends AbstractDirectedNetworkConnections<N, E> {
+  extends AbstractDirectedNetworkConnections<N, E> {
 
   private DirectedMultiNetworkConnections(Map<E, N> inEdges, Map<E, N> outEdges,
-                                          int selfLoopCount) {
+      int selfLoopCount) {
     super(inEdges, outEdges, selfLoopCount);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> of() {
     return new DirectedMultiNetworkConnections<>(
-        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR), 0);
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+      new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR), 0);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E>
   ofImmutable(Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
     return new DirectedMultiNetworkConnections<>(ImmutableMap.copyOf(inEdges),
-                                                 ImmutableMap.copyOf(outEdges),
-                                                 selfLoopCount);
+               ImmutableMap.copyOf(outEdges),
+               selfLoopCount);
   }
 
   @LazyInit private transient Reference<Multiset<N>> predecessorsReference;
@@ -96,10 +96,10 @@ final class DirectedMultiNetworkConnections<N, E>
   @Override
   public Set<E> edgesConnecting(final N node) {
     return new MultiEdgesConnecting<E>(outEdgeMap, node) {
-      @Override
-      public int size() {
-        return successorsMultiset().count(node);
-      }
+             @Override
+             public int size() {
+               return successorsMultiset().count(node);
+             }
     };
   }
 

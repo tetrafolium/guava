@@ -26,7 +26,7 @@ import java.io.Serializable;
  */
 @GwtCompatible
 public class BaseComparable
-    implements Comparable<BaseComparable>, Serializable {
+  implements Comparable<BaseComparable>, Serializable {
   private final String s;
 
   public BaseComparable(String s) { this.s = s; }

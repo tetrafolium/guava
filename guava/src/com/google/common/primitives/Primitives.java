@@ -62,8 +62,8 @@ public final class Primitives {
   }
 
   private static void add(Map<Class<?>, Class<?>> forward,
-                          Map<Class<?>, Class<?>> backward, Class<?> key,
-                          Class<?> value) {
+      Map<Class<?>, Class<?>> backward, Class<?> key,
+      Class<?> value) {
     forward.put(key, value);
     backward.put(value, key);
   }

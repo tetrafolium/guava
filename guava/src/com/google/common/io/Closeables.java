@@ -73,7 +73,7 @@ public final class Closeables {
    *     {@code IOException}.
    */
   public static void close(@Nullable Closeable closeable,
-                           boolean swallowIOException) throws IOException {
+      boolean swallowIOException) throws IOException {
     if (closeable == null) {
       return;
     }
@@ -82,7 +82,7 @@ public final class Closeables {
     } catch (IOException e) {
       if (swallowIOException) {
         logger.log(Level.WARNING, "IOException thrown while closing Closeable.",
-                   e);
+            e);
       } else {
         throw e;
       }

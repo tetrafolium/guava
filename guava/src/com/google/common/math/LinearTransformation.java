@@ -175,7 +175,7 @@ public abstract class LinearTransformation {
   public abstract LinearTransformation inverse();
 
   private static final class RegularLinearTransformation
-      extends LinearTransformation {
+    extends LinearTransformation {
 
     final double slope;
     final double yIntercept;
@@ -189,7 +189,7 @@ public abstract class LinearTransformation {
     }
 
     RegularLinearTransformation(double slope, double yIntercept,
-                                LinearTransformation inverse) {
+        LinearTransformation inverse) {
       this.slope = slope;
       this.yIntercept = yIntercept;
       this.inverse = inverse;
@@ -229,7 +229,7 @@ public abstract class LinearTransformation {
     private LinearTransformation createInverse() {
       if (slope != 0.0) {
         return new RegularLinearTransformation(1.0 / slope,
-                                               -1.0 * yIntercept / slope, this);
+                   -1.0 * yIntercept / slope, this);
       } else {
         return new VerticalLinearTransformation(yIntercept, this);
       }
@@ -237,7 +237,7 @@ public abstract class LinearTransformation {
   }
 
   private static final class VerticalLinearTransformation
-      extends LinearTransformation {
+    extends LinearTransformation {
 
     final double x;
 
@@ -290,7 +290,7 @@ public abstract class LinearTransformation {
   }
 
   private static final class NaNLinearTransformation
-      extends LinearTransformation {
+    extends LinearTransformation {
 
     static final NaNLinearTransformation INSTANCE =
         new NaNLinearTransformation();

@@ -31,7 +31,7 @@ import java.util.Map;
 public class RegularImmutableMap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 RegularImmutableMap<?, ?> instance) {}
+      RegularImmutableMap<?, ?> instance) {}
 
   public static RegularImmutableMap<Object, Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -47,8 +47,8 @@ public class RegularImmutableMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               RegularImmutableMap<?, ?> instance)
-      throws SerializationException {
+      RegularImmutableMap<?, ?> instance)
+  throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

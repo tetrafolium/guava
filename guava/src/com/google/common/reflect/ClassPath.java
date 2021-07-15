@@ -86,11 +86,11 @@ public final class ClassPath {
 
   private static final Predicate<ClassInfo> IS_TOP_LEVEL =
       new Predicate<ClassInfo>() {
-        @Override
-        public boolean apply(ClassInfo info) {
-          return info.className.indexOf('$') == -1;
-        }
-      };
+    @Override
+    public boolean apply(ClassInfo info) {
+      return info.className.indexOf('$') == -1;
+    }
+  };
 
   /** Separator for the Class-Path manifest attribute value in jar files. */
   private static final Splitter CLASS_PATH_ATTRIBUTE_SEPARATOR =
@@ -147,9 +147,9 @@ public final class ClassPath {
   /** Returns all top level classes loadable from the current class path. */
   public ImmutableSet<ClassInfo> getTopLevelClasses() {
     return FluentIterable.from(resources)
-        .filter(ClassInfo.class)
-        .filter(IS_TOP_LEVEL)
-        .toSet();
+           .filter(ClassInfo.class)
+           .filter(IS_TOP_LEVEL)
+           .toSet();
   }
 
   /**
@@ -370,18 +370,18 @@ public final class ClassPath {
 
     public final void scan(ClassLoader classloader) throws IOException {
       for (Map.Entry<File, ClassLoader> entry :
-           getClassPathEntries(classloader).entrySet()) {
+          getClassPathEntries(classloader).entrySet()) {
         scan(entry.getKey(), entry.getValue());
       }
     }
 
     /** Called when a directory is scanned for resource files. */
     protected abstract void scanDirectory(ClassLoader loader, File directory)
-        throws IOException;
+    throws IOException;
 
     /** Called when a jar file is scanned for resource entries. */
     protected abstract void scanJarFile(ClassLoader loader, JarFile file)
-        throws IOException;
+    throws IOException;
 
     @VisibleForTesting
     final void scan(File file, ClassLoader classloader) throws IOException {
@@ -391,7 +391,7 @@ public final class ClassPath {
     }
 
     private void scanFrom(File file, ClassLoader classloader)
-        throws IOException {
+    throws IOException {
       try {
         if (!file.exists()) {
           return;
@@ -409,7 +409,7 @@ public final class ClassPath {
     }
 
     private void scanJar(File file, ClassLoader classloader)
-        throws IOException {
+    throws IOException {
       JarFile jarFile;
       try {
         jarFile = new JarFile(file);
@@ -419,7 +419,7 @@ public final class ClassPath {
       }
       try {
         for (File path :
-             getClassPathFromManifest(file, jarFile.getManifest())) {
+            getClassPathFromManifest(file, jarFile.getManifest())) {
           scan(path, classloader);
         }
         scanJarFile(classloader, jarFile);
@@ -446,10 +446,10 @@ public final class ClassPath {
       }
       ImmutableSet.Builder<File> builder = ImmutableSet.builder();
       String classpathAttribute = manifest.getMainAttributes().getValue(
-          Attributes.Name.CLASS_PATH.toString());
+        Attributes.Name.CLASS_PATH.toString());
       if (classpathAttribute != null) {
         for (String path :
-             CLASS_PATH_ATTRIBUTE_SEPARATOR.split(classpathAttribute)) {
+            CLASS_PATH_ATTRIBUTE_SEPARATOR.split(classpathAttribute)) {
           URL url;
           try {
             url = getClassPathEntry(jarFile, path);
@@ -505,7 +505,7 @@ public final class ClassPath {
     static ImmutableList<URL> parseJavaClassPath() {
       ImmutableList.Builder<URL> urls = ImmutableList.builder();
       for (String entry :
-           Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
+          Splitter.on(PATH_SEPARATOR.value()).split(JAVA_CLASS_PATH.value())) {
         try {
           try {
             urls.add(new File(entry).toURI().toURL());
@@ -530,7 +530,7 @@ public final class ClassPath {
      */
     @VisibleForTesting
     static URL getClassPathEntry(File jarFile, String path)
-        throws MalformedURLException {
+    throws MalformedURLException {
       return new URL(jarFile.toURI().toURL(), path);
     }
   }
@@ -563,7 +563,7 @@ public final class ClassPath {
 
     @Override
     protected void scanDirectory(ClassLoader classloader, File directory)
-        throws IOException {
+    throws IOException {
       Set<File> currentPath = new HashSet<>();
       currentPath.add(directory.getCanonicalFile());
       scanDirectory(directory, classloader, "", currentPath);
@@ -584,8 +584,8 @@ public final class ClassPath {
      *     directory tree path, for cycle elimination
      */
     private void scanDirectory(File directory, ClassLoader classloader,
-                               String packagePrefix, Set<File> currentPath)
-        throws IOException {
+        String packagePrefix, Set<File> currentPath)
+    throws IOException {
       File[] files = directory.listFiles();
       if (files == null) {
         logger.warning("Cannot read directory " + directory);
@@ -598,7 +598,7 @@ public final class ClassPath {
           File deref = f.getCanonicalFile();
           if (currentPath.add(deref)) {
             scanDirectory(deref, classloader, packagePrefix + name + "/",
-                          currentPath);
+                currentPath);
             currentPath.remove(deref);
           }
         } else {

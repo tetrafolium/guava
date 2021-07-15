@@ -29,7 +29,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestStringMultisetGenerator
-    implements TestMultisetGenerator<String> {
+  implements TestMultisetGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();

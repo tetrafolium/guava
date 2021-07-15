@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
  */
 @GwtIncompatible
 public abstract class ForwardingLoadingCache<K, V>
-    extends ForwardingCache<K, V> implements LoadingCache<K, V> {
+  extends ForwardingCache<K, V> implements LoadingCache<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingLoadingCache() {}
@@ -55,7 +55,7 @@ public abstract class ForwardingLoadingCache<K, V>
 
   @Override
   public ImmutableMap<K, V> getAll(Iterable<? extends K> keys)
-      throws ExecutionException {
+  throws ExecutionException {
     return delegate().getAll(keys);
   }
 
@@ -76,7 +76,7 @@ public abstract class ForwardingLoadingCache<K, V>
    * @since 10.0
    */
   public abstract static class SimpleForwardingLoadingCache<K, V>
-      extends ForwardingLoadingCache<K, V> {
+    extends ForwardingLoadingCache<K, V> {
     private final LoadingCache<K, V> delegate;
 
     protected SimpleForwardingLoadingCache(LoadingCache<K, V> delegate) {

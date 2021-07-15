@@ -39,9 +39,9 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class NavigableMapTestSuiteBuilder<K, V>
-    extends SortedMapTestSuiteBuilder<K, V> {
+  extends SortedMapTestSuiteBuilder<K, V> {
   public static <K, V> NavigableMapTestSuiteBuilder<K, V> using(
-      TestSortedMapGenerator<K, V> generator) {
+    TestSortedMapGenerator<K, V> generator) {
     NavigableMapTestSuiteBuilder<K, V> result =
         new NavigableMapTestSuiteBuilder<>();
     result.usingGenerator(generator);
@@ -58,9 +58,9 @@ public class NavigableMapTestSuiteBuilder<K, V>
 
   @Override
   protected List<TestSuite> createDerivedSuites(
-      FeatureSpecificTestSuiteBuilder<
+    FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder) {
+    parentBuilder) {
     List<TestSuite> derivedSuites = super.createDerivedSuites(parentBuilder);
 
     if (!parentBuilder.getFeatures().contains(NoRecurse.DESCENDING)) {
@@ -70,15 +70,15 @@ public class NavigableMapTestSuiteBuilder<K, V>
     if (!parentBuilder.getFeatures().contains(NoRecurse.SUBMAP)) {
       // Other combinations are inherited from SortedMapTestSuiteBuilder.
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.NO_BOUND, Bound.INCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.NO_BOUND, Bound.INCLUSIVE));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.NO_BOUND));
+        createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.NO_BOUND));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.EXCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.EXCLUSIVE));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.INCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.EXCLUSIVE, Bound.INCLUSIVE));
       derivedSuites.add(
-          createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.INCLUSIVE));
+        createSubmapSuite(parentBuilder, Bound.INCLUSIVE, Bound.INCLUSIVE));
     }
 
     return derivedSuites;
@@ -88,19 +88,19 @@ public class NavigableMapTestSuiteBuilder<K, V>
   protected NavigableSetTestSuiteBuilder<K>
   createDerivedKeySetSuite(TestSetGenerator<K> keySetGenerator) {
     return NavigableSetTestSuiteBuilder.using(
-        (TestSortedSetGenerator<K>)keySetGenerator);
+      (TestSortedSetGenerator<K>)keySetGenerator);
   }
 
   public static final class NavigableMapSubmapTestMapGenerator<K, V>
-      extends SortedMapSubmapTestMapGenerator<K, V> {
+    extends SortedMapSubmapTestMapGenerator<K, V> {
     public NavigableMapSubmapTestMapGenerator(
-        TestSortedMapGenerator<K, V> delegate, Bound to, Bound from) {
+      TestSortedMapGenerator<K, V> delegate, Bound to, Bound from) {
       super(delegate, to, from);
     }
 
     @Override
     NavigableMap<K, V> createSubMap(SortedMap<K, V> sortedMap, K firstExclusive,
-                                    K lastExclusive) {
+        K lastExclusive) {
       NavigableMap<K, V> map = (NavigableMap<K, V>)sortedMap;
       if (from == Bound.NO_BOUND && to == Bound.INCLUSIVE) {
         return map.headMap(lastInclusive, true);
@@ -114,7 +114,7 @@ public class NavigableMapTestSuiteBuilder<K, V>
         return map.subMap(firstInclusive, true, lastInclusive, true);
       } else {
         return (NavigableMap<K, V>)super.createSubMap(map, firstExclusive,
-                                                      lastExclusive);
+                   lastExclusive);
       }
     }
   }
@@ -123,29 +123,29 @@ public class NavigableMapTestSuiteBuilder<K, V>
   public NavigableMapTestSuiteBuilder<K, V>
   newBuilderUsing(TestSortedMapGenerator<K, V> delegate, Bound to, Bound from) {
     return subSuiteUsing(
-        new NavigableMapSubmapTestMapGenerator<K, V>(delegate, to, from));
+      new NavigableMapSubmapTestMapGenerator<K, V>(delegate, to, from));
   }
 
   /**
    * Create a suite whose maps are descending views of other maps.
    */
   private TestSuite createDescendingSuite(
-      final FeatureSpecificTestSuiteBuilder<
+    final FeatureSpecificTestSuiteBuilder<
           ?, ? extends OneSizeTestContainerGenerator<Map<K, V>, Entry<K, V>>>
-          parentBuilder) {
+    parentBuilder) {
     final TestSortedMapGenerator<K, V> delegate =
         (TestSortedMapGenerator<K, V>)parentBuilder.getSubjectGenerator()
-            .getInnerGenerator();
+        .getInnerGenerator();
 
     List<Feature<?>> features = new ArrayList<>();
     features.add(NoRecurse.DESCENDING);
     features.addAll(parentBuilder.getFeatures());
 
     return subSuiteUsing(new DescendingTestMapGenerator<K, V>(delegate))
-        .named(parentBuilder.getName() + " descending")
-        .withFeatures(features)
-        .suppressing(parentBuilder.getSuppressedTests())
-        .createTestSuite();
+           .named(parentBuilder.getName() + " descending")
+           .withFeatures(features)
+           .suppressing(parentBuilder.getSuppressedTests())
+           .createTestSuite();
   }
 
   NavigableMapTestSuiteBuilder<K, V>
@@ -154,8 +154,8 @@ public class NavigableMapTestSuiteBuilder<K, V>
   }
 
   static class DescendingTestMapGenerator<K, V>
-      extends ForwardingTestMapGenerator<K, V>
-      implements TestSortedMapGenerator<K, V> {
+    extends ForwardingTestMapGenerator<K, V>
+    implements TestSortedMapGenerator<K, V> {
     DescendingTestMapGenerator(TestSortedMapGenerator<K, V> delegate) {
       super(delegate);
     }

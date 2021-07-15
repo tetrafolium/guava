@@ -183,9 +183,9 @@ final class ListenerCallQueue<L> {
           synchronized (this) { isThreadScheduled = false; }
           // Log it and keep going.
           logger.log(Level.SEVERE,
-                     "Exception while running callbacks for " + listener +
-                         " on " + executor,
-                     e);
+              "Exception while running callbacks for " + listener +
+              " on " + executor,
+              e);
           throw e;
         }
       }
@@ -215,9 +215,9 @@ final class ListenerCallQueue<L> {
           } catch (RuntimeException e) {
             // Log it and keep going.
             logger.log(Level.SEVERE,
-                       "Exception while executing callback: " + listener + " " +
-                           nextLabel,
-                       e);
+                "Exception while executing callback: " + listener + " " +
+                nextLabel,
+                e);
           }
         }
       } finally {

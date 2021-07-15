@@ -31,7 +31,7 @@ import java.util.List;
 public class CompoundOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 CompoundOrdering<?> instance) {}
+      CompoundOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static CompoundOrdering<Object>
@@ -45,8 +45,8 @@ public class CompoundOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               CompoundOrdering<?> instance)
-      throws SerializationException {
+      CompoundOrdering<?> instance)
+  throws SerializationException {
     writer.writeInt(instance.comparators.length);
     for (Comparator<?> comparator : instance.comparators) {
       writer.writeObject(comparator);

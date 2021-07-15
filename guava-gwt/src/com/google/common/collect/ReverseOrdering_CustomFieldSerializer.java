@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class ReverseOrdering_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ReverseOrdering<?> instance) {}
+      ReverseOrdering<?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
   public static ReverseOrdering<Object>
@@ -37,8 +37,8 @@ public class ReverseOrdering_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ReverseOrdering<?> instance)
-      throws SerializationException {
+      ReverseOrdering<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.forwardOrder);
   }
 }

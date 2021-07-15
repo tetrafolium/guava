@@ -29,16 +29,16 @@ import java.util.zip.Checksum;
  * @author Colin Decker
  */
 final class ChecksumHashFunction
-    extends AbstractHashFunction implements Serializable {
+  extends AbstractHashFunction implements Serializable {
   private final Supplier<? extends Checksum> checksumSupplier;
   private final int bits;
   private final String toString;
 
   ChecksumHashFunction(Supplier<? extends Checksum> checksumSupplier, int bits,
-                       String toString) {
+      String toString) {
     this.checksumSupplier = checkNotNull(checksumSupplier);
     checkArgument(bits == 32 || bits == 64, "bits (%s) must be either 32 or 64",
-                  bits);
+        bits);
     this.bits = bits;
     this.toString = checkNotNull(toString);
   }

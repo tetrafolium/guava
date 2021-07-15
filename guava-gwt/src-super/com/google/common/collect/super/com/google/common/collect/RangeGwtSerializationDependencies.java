@@ -21,6 +21,6 @@ import java.io.Serializable;
 
 @GwtCompatible(emulated = true)
 abstract class RangeGwtSerializationDependencies<C extends Comparable>
-    implements Serializable {
+  implements Serializable {
   C dummy;
 }

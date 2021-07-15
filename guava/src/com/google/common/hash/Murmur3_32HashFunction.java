@@ -53,7 +53,7 @@ import javax.annotation.Nullable;
  * @author Kurt Alfred Kluever
  */
 final class Murmur3_32HashFunction
-    extends AbstractHashFunction implements Serializable {
+  extends AbstractHashFunction implements Serializable {
   static final HashFunction MURMUR3_32 = new Murmur3_32HashFunction(0);
 
   static final HashFunction GOOD_FAST_HASH_32 =
@@ -230,7 +230,7 @@ final class Murmur3_32HashFunction
 
   private static int getIntLittleEndian(byte[] input, int offset) {
     return Ints.fromBytes(input[offset + 3], input[offset + 2],
-                          input[offset + 1], input[offset]);
+               input[offset + 1], input[offset]);
   }
 
   private static int mixK1(int k1) {
@@ -366,7 +366,7 @@ final class Murmur3_32HashFunction
           } else if (c < 0x800) {
             update(2, charToTwoUtf8Bytes(c));
           } else if (c < Character.MIN_SURROGATE ||
-                     c > Character.MAX_SURROGATE) {
+              c > Character.MAX_SURROGATE) {
             update(3, charToThreeUtf8Bytes(c));
           } else {
             int codePoint = Character.codePointAt(input, i);
@@ -374,8 +374,8 @@ final class Murmur3_32HashFunction
               // fall back to JDK getBytes instead of trying to handle invalid
               // surrogates ourselves
               putBytes(input.subSequence(i, utf16Length)
-                           .toString()
-                           .getBytes(charset));
+                  .toString()
+                  .getBytes(charset));
               return this;
             }
             i++;
@@ -399,14 +399,14 @@ final class Murmur3_32HashFunction
 
   private static long codePointToFourUtf8Bytes(int codePoint) {
     return (((0xFL << 4) | (codePoint >>> 18)) & 0xFF) |
-        ((0x80L | (0x3F & (codePoint >>> 12))) << 8) |
-        ((0x80L | (0x3F & (codePoint >>> 6))) << 16) |
-        ((0x80L | (0x3F & codePoint)) << 24);
+           ((0x80L | (0x3F & (codePoint >>> 12))) << 8) |
+           ((0x80L | (0x3F & (codePoint >>> 6))) << 16) |
+           ((0x80L | (0x3F & codePoint)) << 24);
   }
 
   private static long charToThreeUtf8Bytes(char c) {
     return (((0xF << 5) | (c >>> 12)) & 0xFF) |
-        ((0x80 | (0x3F & (c >>> 6))) << 8) | ((0x80 | (0x3F & c)) << 16);
+           ((0x80 | (0x3F & (c >>> 6))) << 8) | ((0x80 | (0x3F & c)) << 16);
   }
 
   private static long charToTwoUtf8Bytes(char c) {

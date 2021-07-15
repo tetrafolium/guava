@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class CartesianList<E>
-    extends AbstractList<List<E>> implements RandomAccess {
+  extends AbstractList<List<E>> implements RandomAccess {
 
   private final transient ImmutableList<List<E>> axes;
   private final transient int[] axesSizeProduct;
@@ -62,7 +62,7 @@ final class CartesianList<E>
       }
     } catch (ArithmeticException e) {
       throw new IllegalArgumentException(
-          "Cartesian product too large; must have size at most Integer.MAX_VALUE");
+              "Cartesian product too large; must have size at most Integer.MAX_VALUE");
     }
     this.axesSizeProduct = axesSizeProduct;
   }
@@ -75,22 +75,22 @@ final class CartesianList<E>
   public ImmutableList<E> get(final int index) {
     checkElementIndex(index, size());
     return new ImmutableList<E>() {
-      @Override
-      public int size() {
-        return axes.size();
-      }
+             @Override
+             public int size() {
+               return axes.size();
+             }
 
-      @Override
-      public E get(int axis) {
-        checkElementIndex(axis, size());
-        int axisIndex = getAxisIndexForProductIndex(index, axis);
-        return axes.get(axis).get(axisIndex);
-      }
+             @Override
+             public E get(int axis) {
+               checkElementIndex(axis, size());
+               int axisIndex = getAxisIndexForProductIndex(index, axis);
+               return axes.get(axis).get(axisIndex);
+             }
 
-      @Override
-      boolean isPartialView() {
-        return true;
-      }
+             @Override
+             boolean isPartialView() {
+               return true;
+             }
     };
   }
 

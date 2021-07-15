@@ -120,7 +120,7 @@ public final class Interners {
 
     private InternerImpl(MapMaker mapMaker) {
       this.map = MapMakerInternalMap.createWithDummyValues(
-          mapMaker.keyEquivalence(Equivalence.equals()));
+        mapMaker.keyEquivalence(Equivalence.equals()));
     }
 
     @Override

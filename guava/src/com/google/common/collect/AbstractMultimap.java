@@ -102,7 +102,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
   @CanIgnoreReturnValue
   @Override
   public Collection<V> replaceValues(@Nullable K key,
-                                     Iterable<? extends V> values) {
+      Iterable<? extends V> values) {
     checkNotNull(values);
     Collection<V> result = removeAll(key);
     putAll(key, values);
@@ -160,8 +160,8 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
 
   Spliterator<Entry<K, V>> entrySpliterator() {
     return Spliterators.spliterator(
-        entryIterator(), size(),
-        (this instanceof SetMultimap) ? Spliterator.DISTINCT : 0);
+      entryIterator(), size(),
+      (this instanceof SetMultimap) ? Spliterator.DISTINCT : 0);
   }
 
   private transient Set<K> keySet;

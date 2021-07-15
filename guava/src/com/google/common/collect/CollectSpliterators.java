@@ -38,13 +38,13 @@ final class CollectSpliterators {
   private CollectSpliterators() {}
 
   static <T> Spliterator<T> indexed(int size, int extraCharacteristics,
-                                    IntFunction<T> function) {
+      IntFunction<T> function) {
     return indexed(size, extraCharacteristics, function, null);
   }
 
   static <T> Spliterator<T> indexed(int size, int extraCharacteristics,
-                                    IntFunction<T> function,
-                                    Comparator<? super T> comparator) {
+      IntFunction<T> function,
+      Comparator<? super T> comparator) {
     if (comparator != null) {
       checkArgument((extraCharacteristics & (Spliterator.SORTED)) != 0);
     }
@@ -58,13 +58,13 @@ final class CollectSpliterators {
       @Override
       public boolean tryAdvance(Consumer<? super T> action) {
         return delegate.tryAdvance(
-            (IntConsumer)i -> action.accept(function.apply(i)));
+          (IntConsumer)i->action.accept(function.apply(i)));
       }
 
       @Override
       public void forEachRemaining(Consumer<? super T> action) {
         delegate.forEachRemaining(
-            (IntConsumer)i -> action.accept(function.apply(i)));
+          (IntConsumer)i->action.accept(function.apply(i)));
       }
 
       @Override
@@ -82,7 +82,7 @@ final class CollectSpliterators {
       @Override
       public int characteristics() {
         return Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED |
-            extraCharacteristics;
+               extraCharacteristics;
       }
 
       @Override
@@ -102,44 +102,44 @@ final class CollectSpliterators {
    * mapped by {@code function}.
    */
   static <F, T> Spliterator<T> map(Spliterator<F> fromSpliterator,
-                                   Function<? super F, ? extends T> function) {
+      Function<? super F, ? extends T> function) {
     checkNotNull(fromSpliterator);
     checkNotNull(function);
     return new Spliterator<T>() {
-      @Override
-      public boolean tryAdvance(Consumer<? super T> action) {
-        return fromSpliterator.tryAdvance(
-            fromElement -> action.accept(function.apply(fromElement)));
-      }
+             @Override
+             public boolean tryAdvance(Consumer<? super T> action) {
+               return fromSpliterator.tryAdvance(
+                 fromElement->action.accept(function.apply(fromElement)));
+             }
 
-      @Override
-      public void forEachRemaining(Consumer<? super T> action) {
-        fromSpliterator.forEachRemaining(
-            fromElement -> action.accept(function.apply(fromElement)));
-      }
+             @Override
+             public void forEachRemaining(Consumer<? super T> action) {
+               fromSpliterator.forEachRemaining(
+                 fromElement->action.accept(function.apply(fromElement)));
+             }
 
-      @Override
-      public Spliterator<T> trySplit() {
-        Spliterator<F> fromSplit = fromSpliterator.trySplit();
-        return (fromSplit != null) ? map(fromSplit, function) : null;
-      }
+             @Override
+             public Spliterator<T> trySplit() {
+               Spliterator<F> fromSplit = fromSpliterator.trySplit();
+               return (fromSplit != null) ? map(fromSplit, function) : null;
+             }
 
-      @Override
-      public long estimateSize() {
-        return fromSpliterator.estimateSize();
-      }
+             @Override
+             public long estimateSize() {
+               return fromSpliterator.estimateSize();
+             }
 
-      @Override
-      public int characteristics() {
-        return fromSpliterator.characteristics() &
-            ~(Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.SORTED);
-      }
+             @Override
+             public int characteristics() {
+               return fromSpliterator.characteristics() &
+                      ~(Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.SORTED);
+             }
     };
   }
 
   /** Returns a {@code Spliterator} filtered by the specified predicate. */
   static <T> Spliterator<T> filter(Spliterator<T> fromSpliterator,
-                                   Predicate<? super T> predicate) {
+      Predicate<? super T> predicate) {
     checkNotNull(fromSpliterator);
     checkNotNull(predicate);
     class Splitr implements Spliterator<T>, Consumer<T> {
@@ -184,8 +184,8 @@ final class CollectSpliterators {
       @Override
       public int characteristics() {
         return fromSpliterator.characteristics() &
-            (Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.ORDERED |
-             Spliterator.SORTED);
+               (Spliterator.DISTINCT | Spliterator.NONNULL | Spliterator.ORDERED |
+               Spliterator.SORTED);
       }
     }
     return new Splitr();
@@ -198,12 +198,12 @@ final class CollectSpliterators {
    */
   static <F, T> Spliterator<T>
   flatMap(Spliterator<F> fromSpliterator,
-          Function<? super F, Spliterator<T>> function, int topCharacteristics,
-          long topSize) {
+      Function<? super F, Spliterator<T>> function, int topCharacteristics,
+      long topSize) {
     checkArgument((topCharacteristics & Spliterator.SUBSIZED) == 0,
-                  "flatMap does not support SUBSIZED characteristic");
+        "flatMap does not support SUBSIZED characteristic");
     checkArgument((topCharacteristics & Spliterator.SORTED) == 0,
-                  "flatMap does not support SORTED characteristic");
+        "flatMap does not support SORTED characteristic");
     checkNotNull(fromSpliterator);
     checkNotNull(function);
     class FlatMapSpliterator implements Spliterator<T> {
@@ -213,7 +213,7 @@ final class CollectSpliterators {
       long estimatedSize;
 
       FlatMapSpliterator(Spliterator<T> prefix, Spliterator<F> from,
-                         int characteristics, long estimatedSize) {
+          int characteristics, long estimatedSize) {
         this.prefix = prefix;
         this.from = from;
         this.characteristics = characteristics;
@@ -232,7 +232,7 @@ final class CollectSpliterators {
             prefix = null;
           }
           if (!from.tryAdvance(
-                  fromElement -> prefix = function.apply(fromElement))) {
+                fromElement->prefix = function.apply(fromElement))) {
             return false;
           }
         }
@@ -245,8 +245,8 @@ final class CollectSpliterators {
           prefix = null;
         }
         from.forEachRemaining(
-            fromElement
-            -> function.apply(fromElement).forEachRemaining(action));
+          fromElement
+          ->function.apply(fromElement).forEachRemaining(action));
         estimatedSize = 0;
       }
 
@@ -262,7 +262,7 @@ final class CollectSpliterators {
             this.characteristics = splitCharacteristics;
           }
           Spliterator<T> result = new FlatMapSpliterator(
-              this.prefix, fromSplit, splitCharacteristics, estSplitSize);
+            this.prefix, fromSplit, splitCharacteristics, estSplitSize);
           this.prefix = null;
           return result;
         } else if (prefix != null) {
@@ -288,6 +288,6 @@ final class CollectSpliterators {
       }
     }
     return new FlatMapSpliterator(null, fromSpliterator, topCharacteristics,
-                                  topSize);
+               topSize);
   }
 }

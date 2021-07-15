@@ -29,7 +29,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class ImmutableEntry_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 ImmutableEntry<?, ?> instance) {}
+      ImmutableEntry<?, ?> instance) {}
 
   public static ImmutableEntry<Object, Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -39,8 +39,8 @@ public class ImmutableEntry_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ImmutableEntry<?, ?> instance)
-      throws SerializationException {
+      ImmutableEntry<?, ?> instance)
+  throws SerializationException {
     writer.writeObject(instance.getKey());
     writer.writeObject(instance.getValue());
   }

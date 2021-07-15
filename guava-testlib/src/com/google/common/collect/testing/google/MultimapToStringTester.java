@@ -35,7 +35,7 @@ import com.google.common.collect.testing.features.MapFeature;
  */
 @GwtCompatible
 public class MultimapToStringTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(ZERO)
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToStringEmpty() {

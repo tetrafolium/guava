@@ -38,13 +38,13 @@ import java.util.Map;
  */
 @GwtCompatible
 public class ListMultimapRemoveTester<K, V>
-    extends AbstractListMultimapTester<K, V> {
+  extends AbstractListMultimapTester<K, V> {
   @SuppressWarnings("unchecked")
   @MapFeature.Require(SUPPORTS_REMOVE)
   @CollectionSize.Require(SEVERAL)
   public void testMultimapRemoveDeletesFirstOccurrence() {
     resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
-                   mapEntry(k0(), v0()));
+        mapEntry(k0(), v0()));
 
     List<V> list = multimap().get(k0());
     multimap().remove(k0(), v0());
@@ -59,7 +59,7 @@ public class ListMultimapRemoveTester<K, V>
 
     for (int i = 0; i < 3; i++) {
       resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
-                     mapEntry(k0(), v0()));
+          mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
       multimap().get(k0()).remove(i);
@@ -77,7 +77,7 @@ public class ListMultimapRemoveTester<K, V>
 
     for (int i = 0; i < 3; i++) {
       resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
-                     mapEntry(k0(), v0()));
+          mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
       List<V> asMapValue = (List<V>)multimap().asMap().get(k0());
@@ -96,7 +96,7 @@ public class ListMultimapRemoveTester<K, V>
 
     for (int i = 0; i < 3; i++) {
       resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
-                     mapEntry(k0(), v0()));
+          mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
       Map.Entry<K, Collection<V>> asMapEntry =

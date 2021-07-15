@@ -150,15 +150,15 @@ public final class NullPointerTester {
    * inherited from superclasses of the same package.
    */
   public void testInstanceMethods(Object instance,
-                                  Visibility minimalVisibility) {
+      Visibility minimalVisibility) {
     for (Method method :
-         getInstanceMethodsToTest(instance.getClass(), minimalVisibility)) {
+        getInstanceMethodsToTest(instance.getClass(), minimalVisibility)) {
       testMethod(instance, method);
     }
   }
 
   ImmutableList<Method> getInstanceMethodsToTest(Class<?> c,
-                                                 Visibility minimalVisibility) {
+      Visibility minimalVisibility) {
     ImmutableList.Builder<Method> builder = ImmutableList.builder();
     for (Method method : minimalVisibility.getInstanceMethods(c)) {
       if (!isIgnored(method)) {
@@ -200,9 +200,9 @@ public final class NullPointerTester {
   public void testConstructor(Constructor<?> ctor) {
     Class<?> declaringClass = ctor.getDeclaringClass();
     checkArgument(Modifier.isStatic(declaringClass.getModifiers()) ||
-                      declaringClass.getEnclosingClass() == null,
-                  "Cannot test constructor of non-static inner class: %s",
-                  declaringClass.getName());
+        declaringClass.getEnclosingClass() == null,
+        "Cannot test constructor of non-static inner class: %s",
+        declaringClass.getName());
     Class<?>[] types = ctor.getParameterTypes();
     for (int nullIndex = 0; nullIndex < types.length; nullIndex++) {
       testConstructorParameter(ctor, nullIndex);
@@ -219,10 +219,10 @@ public final class NullPointerTester {
    *     {@code method} is static
    */
   public void testMethodParameter(@Nullable final Object instance,
-                                  final Method method, int paramIndex) {
+      final Method method, int paramIndex) {
     method.setAccessible(true);
     testParameter(instance, invokable(instance, method), paramIndex,
-                  method.getDeclaringClass());
+        method.getDeclaringClass());
   }
 
   /**
@@ -234,7 +234,7 @@ public final class NullPointerTester {
   public void testConstructorParameter(Constructor<?> ctor, int paramIndex) {
     ctor.setAccessible(true);
     testParameter(null, Invokable.from(ctor), paramIndex,
-                  ctor.getDeclaringClass());
+        ctor.getDeclaringClass());
   }
 
   /** Visibility of any method or constructor. */
@@ -328,7 +328,7 @@ public final class NullPointerTester {
       if (obj instanceof Signature) {
         Signature that = (Signature)obj;
         return name.equals(that.name) &&
-            parameterTypes.equals(that.parameterTypes);
+               parameterTypes.equals(that.parameterTypes);
       }
       return false;
     }
@@ -349,7 +349,7 @@ public final class NullPointerTester {
    *     {@code invokable} is static
    */
   private void testParameter(Object instance, Invokable<?, ?> invokable,
-                             int paramIndex, Class<?> testedClass) {
+      int paramIndex, Class<?> testedClass) {
     if (isPrimitiveOrNullable(invokable.getParameters().get(paramIndex))) {
       return; // there's nothing to test
     }
@@ -360,19 +360,19 @@ public final class NullPointerTester {
       Invokable<Object, ?> unsafe = (Invokable<Object, ?>)invokable;
       unsafe.invoke(instance, params);
       Assert.fail("No exception thrown for parameter at index " + paramIndex +
-                  " from " + invokable + Arrays.toString(params) + " for " +
-                  testedClass);
+          " from " + invokable + Arrays.toString(params) + " for " +
+          testedClass);
     } catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
       if (policy.isExpectedType(cause)) {
         return;
       }
       AssertionFailedError error = new AssertionFailedError(String.format(
-          "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
-              + "Full parameters: %s%n"
-              + "Actual exception message: %s",
-          invokable, invokable.getParameters().get(paramIndex).getType(),
-          paramIndex, Arrays.toString(params), cause));
+            "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
+            + "Full parameters: %s%n"
+            + "Actual exception message: %s",
+            invokable, invokable.getParameters().get(paramIndex).getType(),
+            paramIndex, Arrays.toString(params), cause));
       error.initCause(cause);
       throw error;
     } catch (IllegalAccessException e) {
@@ -381,7 +381,7 @@ public final class NullPointerTester {
   }
 
   private Object[] buildParamList(Invokable<?, ?> invokable,
-                                  int indexOfParamToSetToNull) {
+      int indexOfParamToSetToNull) {
     ImmutableList<Parameter> params = invokable.getParameters();
     Object[] args = new Object[params.size()];
 
@@ -390,10 +390,10 @@ public final class NullPointerTester {
       if (i != indexOfParamToSetToNull) {
         args[i] = getDefaultValue(param.getType());
         Assert.assertTrue(
-            "Can't find or create a sample instance for type '" +
-                param.getType() +
-                "'; please provide one using NullPointerTester.setDefault()",
-            args[i] != null || isNullable(param));
+          "Can't find or create a sample instance for type '" +
+          param.getType() +
+          "'; please provide one using NullPointerTester.setDefault()",
+          args[i] != null || isNullable(param));
       }
     }
     return args;
@@ -441,27 +441,27 @@ public final class NullPointerTester {
 
   private <F, T> Converter<F, T>
   defaultConverter(final TypeToken<F> convertFromType,
-                   final TypeToken<T> convertToType) {
+      final TypeToken<T> convertToType) {
     return new Converter<F, T>() {
-      @Override
-      protected T doForward(F a) {
-        return doConvert(convertToType);
-      }
-      @Override
-      protected F doBackward(T b) {
-        return doConvert(convertFromType);
-      }
+             @Override
+             protected T doForward(F a) {
+               return doConvert(convertToType);
+             }
+             @Override
+             protected F doBackward(T b) {
+               return doConvert(convertFromType);
+             }
 
-      private /*static*/<S> S doConvert(TypeToken<S> type) {
-        return checkNotNull(getDefaultValue(type));
-      }
+             private /*static*/<S> S doConvert(TypeToken<S> type) {
+               return checkNotNull(getDefaultValue(type));
+             }
     };
   }
 
   private static TypeToken<?> getFirstTypeParameter(Type type) {
     if (type instanceof ParameterizedType) {
       return TypeToken.of(
-          ((ParameterizedType)type).getActualTypeArguments()[0]);
+        ((ParameterizedType)type).getActualTypeArguments()[0]);
     } else {
       return TypeToken.of(Object.class);
     }
@@ -469,15 +469,15 @@ public final class NullPointerTester {
 
   private <T> T newDefaultReturningProxy(final TypeToken<T> type) {
     return new DummyProxy() {
-      @Override
-      <R> R dummyReturnValue(TypeToken<R> returnType) {
-        return getDefaultValue(returnType);
-      }
+             @Override
+             <R> R dummyReturnValue(TypeToken<R> returnType) {
+               return getDefaultValue(returnType);
+             }
     }.newProxy(type);
   }
 
   private static Invokable<?, ?> invokable(@Nullable Object instance,
-                                           Method method) {
+      Method method) {
     if (instance == null) {
       return Invokable.from(method);
     } else {
@@ -491,12 +491,12 @@ public final class NullPointerTester {
 
   private static boolean isNullable(Parameter param) {
     return param.isAnnotationPresent(CheckForNull.class) ||
-        param.isAnnotationPresent(Nullable.class);
+           param.isAnnotationPresent(Nullable.class);
   }
 
   private boolean isIgnored(Member member) {
     return member.isSynthetic() || ignoredMembers.contains(member) ||
-        isEquals(member);
+           isEquals(member);
   }
 
   /**
@@ -544,7 +544,7 @@ public final class NullPointerTester {
       @Override
       public boolean isExpectedType(Throwable cause) {
         return cause instanceof NullPointerException ||
-            cause instanceof UnsupportedOperationException;
+               cause instanceof UnsupportedOperationException;
       }
     },
 
@@ -557,8 +557,8 @@ public final class NullPointerTester {
       @Override
       public boolean isExpectedType(Throwable cause) {
         return cause instanceof NullPointerException ||
-            cause instanceof IllegalArgumentException ||
-            cause instanceof UnsupportedOperationException;
+               cause instanceof IllegalArgumentException ||
+               cause instanceof UnsupportedOperationException;
       }
     };
 

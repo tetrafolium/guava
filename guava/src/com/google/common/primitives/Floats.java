@@ -170,7 +170,7 @@ public final class Floats {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -198,7 +198,7 @@ public final class Floats {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(float[] array, float target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -265,7 +265,7 @@ public final class Floats {
   @Beta
   public static float constrainToRange(float value, float min, float max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return Math.min(Math.max(value, min), max);
   }
 
@@ -279,7 +279,7 @@ public final class Floats {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static float[] concat(float[]... arrays) {
+  public static float[] concat(float[] ... arrays) {
     int length = 0;
     for (float[] array : arrays) {
       length += array.length;
@@ -294,7 +294,7 @@ public final class Floats {
   }
 
   private static final class FloatConverter
-      extends Converter<String, Float> implements Serializable {
+    extends Converter<String, Float> implements Serializable {
     static final FloatConverter INSTANCE = new FloatConverter();
 
     @Override
@@ -347,7 +347,7 @@ public final class Floats {
    *     {@code minLength}
    */
   public static float[] ensureCapacity(float[] array, int minLength,
-                                       int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -405,7 +405,7 @@ public final class Floats {
   }
 
   private enum LexicographicalComparator implements Comparator < float
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -546,7 +546,7 @@ public final class Floats {
 
   @GwtCompatible
   private static class FloatArrayAsList
-      extends AbstractList<Float> implements RandomAccess, Serializable {
+    extends AbstractList<Float> implements RandomAccess, Serializable {
     final float[] array;
     final int start;
     final int end;
@@ -579,7 +579,7 @@ public final class Floats {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Float) &&
-          Floats.indexOf(array, (Float)target, start, end) != -1;
+             Floats.indexOf(array, (Float)target, start, end) != -1;
     }
 
     @Override

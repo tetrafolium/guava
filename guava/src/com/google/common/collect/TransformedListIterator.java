@@ -29,7 +29,7 @@ import java.util.ListIterator;
  */
 @GwtCompatible
 abstract class TransformedListIterator<F, T>
-    extends TransformedIterator<F, T> implements ListIterator<T> {
+  extends TransformedIterator<F, T> implements ListIterator<T> {
   TransformedListIterator(ListIterator<? extends F> backingIterator) {
     super(backingIterator);
   }

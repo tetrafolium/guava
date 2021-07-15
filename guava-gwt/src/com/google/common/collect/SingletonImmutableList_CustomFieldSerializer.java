@@ -29,7 +29,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class SingletonImmutableList_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 SingletonImmutableList<?> instance) {}
+      SingletonImmutableList<?> instance) {}
 
   public static SingletonImmutableList<Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -38,8 +38,8 @@ public class SingletonImmutableList_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               SingletonImmutableList<?> instance)
-      throws SerializationException {
+      SingletonImmutableList<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.element);
   }
 }

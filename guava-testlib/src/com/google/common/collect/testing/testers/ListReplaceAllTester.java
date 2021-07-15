@@ -36,13 +36,13 @@ import java.util.List;
 public class ListReplaceAllTester<E> extends AbstractListTester<E> {
   @ListFeature.Require(SUPPORTS_SET)
   public void testReplaceAll() {
-    getList().replaceAll(e -> samples.e3());
+    getList().replaceAll(e->samples.e3());
     expectContents(Collections.nCopies(getNumElements(), samples.e3()));
   }
 
   @ListFeature.Require(SUPPORTS_SET)
   public void testReplaceAll_changesSome() {
-    getList().replaceAll(e -> (e.equals(samples.e0())) ? samples.e3() : e);
+    getList().replaceAll(e->(e.equals(samples.e0())) ? samples.e3() : e);
     E[] expected = createSamplesArray();
     for (int i = 0; i < expected.length; i++) {
       if (expected[i].equals(samples.e0())) {
@@ -56,7 +56,7 @@ public class ListReplaceAllTester<E> extends AbstractListTester<E> {
   @ListFeature.Require(absent = SUPPORTS_SET)
   public void testReplaceAll_unsupported() {
     try {
-      getList().replaceAll(e -> e);
+      getList().replaceAll(e->e);
       fail("replaceAll() should throw UnsupportedOperationException");
     } catch (UnsupportedOperationException expected) {
     }

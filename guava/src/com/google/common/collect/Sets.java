@@ -142,11 +142,11 @@ public final class Sets {
 
   private static final class Accumulator<E extends Enum<E>> {
     static final Collector<Enum<?>, ?, ImmutableSet<? extends Enum<?>>>
-        TO_IMMUTABLE_ENUM_SET =
-            (Collector)Collector.<Enum, Accumulator, ImmutableSet<?>>of(
-                Accumulator::new, Accumulator::add, Accumulator::combine,
-                Accumulator::toImmutableSet,
-                Collector.Characteristics.UNORDERED);
+    TO_IMMUTABLE_ENUM_SET =
+        (Collector)Collector.<Enum, Accumulator, ImmutableSet<?>>of(
+      Accumulator::new, Accumulator::add, Accumulator::combine,
+      Accumulator::toImmutableSet,
+      Collector.Characteristics.UNORDERED);
 
     private EnumSet<E> set;
 
@@ -556,7 +556,7 @@ public final class Sets {
       return EnumSet.complementOf((EnumSet<E>)collection);
     }
     checkArgument(!collection.isEmpty(),
-                  "collection is empty; use the other version of this method");
+        "collection is empty; use the other version of this method");
     Class<E> type = collection.iterator().next().getDeclaringClass();
     return makeComplementByHand(collection, type);
   }
@@ -774,76 +774,76 @@ public final class Sets {
    * the {@link Map#keySet} of an {@code IdentityHashMap} all are).
    */
   public static <E> SetView<E> union(final Set<? extends E> set1,
-                                     final Set<? extends E> set2) {
+      final Set<? extends E> set2) {
     checkNotNull(set1, "set1");
     checkNotNull(set2, "set2");
 
     return new SetView<E>() {
-      @Override
-      public int size() {
-        int size = set1.size();
-        for (E e : set2) {
-          if (!set1.contains(e)) {
-            size++;
-          }
-        }
-        return size;
-      }
+             @Override
+             public int size() {
+               int size = set1.size();
+               for (E e : set2) {
+                 if (!set1.contains(e)) {
+                   size++;
+                 }
+               }
+               return size;
+             }
 
-      @Override
-      public boolean isEmpty() {
-        return set1.isEmpty() && set2.isEmpty();
-      }
+             @Override
+             public boolean isEmpty() {
+               return set1.isEmpty() && set2.isEmpty();
+             }
 
-      @Override
-      public UnmodifiableIterator<E> iterator() {
-        return new AbstractIterator<E>() {
-          final Iterator<? extends E> itr1 = set1.iterator();
-          final Iterator<? extends E> itr2 = set2.iterator();
+             @Override
+             public UnmodifiableIterator<E> iterator() {
+               return new AbstractIterator<E>() {
+                        final Iterator<? extends E> itr1 = set1.iterator();
+                        final Iterator<? extends E> itr2 = set2.iterator();
 
-          @Override
-          protected E computeNext() {
-            if (itr1.hasNext()) {
-              return itr1.next();
-            }
-            while (itr2.hasNext()) {
-              E e = itr2.next();
-              if (!set1.contains(e)) {
-                return e;
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+                        @Override
+                        protected E computeNext() {
+                          if (itr1.hasNext()) {
+                            return itr1.next();
+                          }
+                          while (itr2.hasNext()) {
+                            E e = itr2.next();
+                            if (!set1.contains(e)) {
+                              return e;
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public Stream<E> stream() {
-        return Stream.concat(set1.stream(),
-                             set2.stream().filter(e -> !set1.contains(e)));
-      }
+             @Override
+             public Stream<E> stream() {
+               return Stream.concat(set1.stream(),
+                          set2.stream().filter(e->!set1.contains(e)));
+             }
 
-      @Override
-      public Stream<E> parallelStream() {
-        return stream().parallel();
-      }
+             @Override
+             public Stream<E> parallelStream() {
+               return stream().parallel();
+             }
 
-      @Override
-      public boolean contains(Object object) {
-        return set1.contains(object) || set2.contains(object);
-      }
+             @Override
+             public boolean contains(Object object) {
+               return set1.contains(object) || set2.contains(object);
+             }
 
-      @Override
-      public <S extends Set<E>> S copyInto(S set) {
-        set.addAll(set1);
-        set.addAll(set2);
-        return set;
-      }
+             @Override
+             public <S extends Set<E>> S copyInto(S set) {
+               set.addAll(set1);
+               set.addAll(set2);
+               return set;
+             }
 
-      @Override
-      public ImmutableSet<E> immutableCopy() {
-        return new ImmutableSet.Builder<E>().addAll(set1).addAll(set2).build();
-      }
+             @Override
+             public ImmutableSet<E> immutableCopy() {
+               return new ImmutableSet.Builder<E>().addAll(set1).addAll(set2).build();
+             }
     };
   }
 
@@ -874,64 +874,64 @@ public final class Sets {
    * <p>This is unfortunate, but should come up only very rarely.
    */
   public static <E> SetView<E> intersection(final Set<E> set1,
-                                            final Set<?> set2) {
+      final Set<?> set2) {
     checkNotNull(set1, "set1");
     checkNotNull(set2, "set2");
 
     return new SetView<E>() {
-      @Override
-      public UnmodifiableIterator<E> iterator() {
-        return new AbstractIterator<E>() {
-          final Iterator<E> itr = set1.iterator();
+             @Override
+             public UnmodifiableIterator<E> iterator() {
+               return new AbstractIterator<E>() {
+                        final Iterator<E> itr = set1.iterator();
 
-          @Override
-          protected E computeNext() {
-            while (itr.hasNext()) {
-              E e = itr.next();
-              if (set2.contains(e)) {
-                return e;
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+                        @Override
+                        protected E computeNext() {
+                          while (itr.hasNext()) {
+                            E e = itr.next();
+                            if (set2.contains(e)) {
+                              return e;
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public Stream<E> stream() {
-        return set1.stream().filter(set2::contains);
-      }
+             @Override
+             public Stream<E> stream() {
+               return set1.stream().filter(set2::contains);
+             }
 
-      @Override
-      public Stream<E> parallelStream() {
-        return set1.parallelStream().filter(set2::contains);
-      }
+             @Override
+             public Stream<E> parallelStream() {
+               return set1.parallelStream().filter(set2::contains);
+             }
 
-      @Override
-      public int size() {
-        int size = 0;
-        for (E e : set1) {
-          if (set2.contains(e)) {
-            size++;
-          }
-        }
-        return size;
-      }
+             @Override
+             public int size() {
+               int size = 0;
+               for (E e : set1) {
+                 if (set2.contains(e)) {
+                   size++;
+                 }
+               }
+               return size;
+             }
 
-      @Override
-      public boolean isEmpty() {
-        return Collections.disjoint(set1, set2);
-      }
+             @Override
+             public boolean isEmpty() {
+               return Collections.disjoint(set1, set2);
+             }
 
-      @Override
-      public boolean contains(Object object) {
-        return set1.contains(object) && set2.contains(object);
-      }
+             @Override
+             public boolean contains(Object object) {
+               return set1.contains(object) && set2.contains(object);
+             }
 
-      @Override
-      public boolean containsAll(Collection<?> collection) {
-        return set1.containsAll(collection) && set2.containsAll(collection);
-      }
+             @Override
+             public boolean containsAll(Collection<?> collection) {
+               return set1.containsAll(collection) && set2.containsAll(collection);
+             }
     };
   }
 
@@ -947,58 +947,58 @@ public final class Sets {
    * and the keySet of an {@code IdentityHashMap} all are).
    */
   public static <E> SetView<E> difference(final Set<E> set1,
-                                          final Set<?> set2) {
+      final Set<?> set2) {
     checkNotNull(set1, "set1");
     checkNotNull(set2, "set2");
 
     return new SetView<E>() {
-      @Override
-      public UnmodifiableIterator<E> iterator() {
-        return new AbstractIterator<E>() {
-          final Iterator<E> itr = set1.iterator();
-          @Override
-          protected E computeNext() {
-            while (itr.hasNext()) {
-              E e = itr.next();
-              if (!set2.contains(e)) {
-                return e;
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+             @Override
+             public UnmodifiableIterator<E> iterator() {
+               return new AbstractIterator<E>() {
+                        final Iterator<E> itr = set1.iterator();
+                        @Override
+                        protected E computeNext() {
+                          while (itr.hasNext()) {
+                            E e = itr.next();
+                            if (!set2.contains(e)) {
+                              return e;
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public Stream<E> stream() {
-        return set1.stream().filter(e -> !set2.contains(e));
-      }
+             @Override
+             public Stream<E> stream() {
+               return set1.stream().filter(e->!set2.contains(e));
+             }
 
-      @Override
-      public Stream<E> parallelStream() {
-        return set1.parallelStream().filter(e -> !set2.contains(e));
-      }
+             @Override
+             public Stream<E> parallelStream() {
+               return set1.parallelStream().filter(e->!set2.contains(e));
+             }
 
-      @Override
-      public int size() {
-        int size = 0;
-        for (E e : set1) {
-          if (!set2.contains(e)) {
-            size++;
-          }
-        }
-        return size;
-      }
+             @Override
+             public int size() {
+               int size = 0;
+               for (E e : set1) {
+                 if (!set2.contains(e)) {
+                   size++;
+                 }
+               }
+               return size;
+             }
 
-      @Override
-      public boolean isEmpty() {
-        return set2.containsAll(set1);
-      }
+             @Override
+             public boolean isEmpty() {
+               return set2.containsAll(set1);
+             }
 
-      @Override
-      public boolean contains(Object element) {
-        return set1.contains(element) && !set2.contains(element);
-      }
+             @Override
+             public boolean contains(Object element) {
+               return set1.contains(element) && !set2.contains(element);
+             }
     };
   }
 
@@ -1016,60 +1016,60 @@ public final class Sets {
    */
   public static <E> SetView<E>
   symmetricDifference(final Set<? extends E> set1,
-                      final Set<? extends E> set2) {
+      final Set<? extends E> set2) {
     checkNotNull(set1, "set1");
     checkNotNull(set2, "set2");
 
     return new SetView<E>() {
-      @Override
-      public UnmodifiableIterator<E> iterator() {
-        final Iterator<? extends E> itr1 = set1.iterator();
-        final Iterator<? extends E> itr2 = set2.iterator();
-        return new AbstractIterator<E>() {
-          @Override
-          public E computeNext() {
-            while (itr1.hasNext()) {
-              E elem1 = itr1.next();
-              if (!set2.contains(elem1)) {
-                return elem1;
-              }
-            }
-            while (itr2.hasNext()) {
-              E elem2 = itr2.next();
-              if (!set1.contains(elem2)) {
-                return elem2;
-              }
-            }
-            return endOfData();
-          }
-        };
-      }
+             @Override
+             public UnmodifiableIterator<E> iterator() {
+               final Iterator<? extends E> itr1 = set1.iterator();
+               final Iterator<? extends E> itr2 = set2.iterator();
+               return new AbstractIterator<E>() {
+                        @Override
+                        public E computeNext() {
+                          while (itr1.hasNext()) {
+                            E elem1 = itr1.next();
+                            if (!set2.contains(elem1)) {
+                              return elem1;
+                            }
+                          }
+                          while (itr2.hasNext()) {
+                            E elem2 = itr2.next();
+                            if (!set1.contains(elem2)) {
+                              return elem2;
+                            }
+                          }
+                          return endOfData();
+                        }
+               };
+             }
 
-      @Override
-      public int size() {
-        int size = 0;
-        for (E e : set1) {
-          if (!set2.contains(e)) {
-            size++;
-          }
-        }
-        for (E e : set2) {
-          if (!set1.contains(e)) {
-            size++;
-          }
-        }
-        return size;
-      }
+             @Override
+             public int size() {
+               int size = 0;
+               for (E e : set1) {
+                 if (!set2.contains(e)) {
+                   size++;
+                 }
+               }
+               for (E e : set2) {
+                 if (!set1.contains(e)) {
+                   size++;
+                 }
+               }
+               return size;
+             }
 
-      @Override
-      public boolean isEmpty() {
-        return set1.equals(set2);
-      }
+             @Override
+             public boolean isEmpty() {
+               return set1.equals(set2);
+             }
 
-      @Override
-      public boolean contains(Object element) {
-        return set1.contains(element) ^ set2.contains(element);
-      }
+             @Override
+             public boolean contains(Object element) {
+               return set1.contains(element) ^ set2.contains(element);
+             }
     };
   }
 
@@ -1105,7 +1105,7 @@ public final class Sets {
    */
   // TODO(kevinb): how to omit that last sentence when building GWT javadoc?
   public static <E> Set<E> filter(Set<E> unfiltered,
-                                  Predicate<? super E> predicate) {
+      Predicate<? super E> predicate) {
     if (unfiltered instanceof SortedSet) {
       return filter((SortedSet<E>)unfiltered, predicate);
     }
@@ -1119,11 +1119,11 @@ public final class Sets {
     }
 
     return new FilteredSet<E>(checkNotNull(unfiltered),
-                              checkNotNull(predicate));
+               checkNotNull(predicate));
   }
 
   private static class FilteredSet<E>
-      extends FilteredCollection<E> implements Set<E> {
+    extends FilteredCollection<E> implements Set<E> {
     FilteredSet(Set<E> unfiltered, Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
@@ -1171,7 +1171,7 @@ public final class Sets {
    * @since 11.0
    */
   public static <E> SortedSet<E> filter(SortedSet<E> unfiltered,
-                                        Predicate<? super E> predicate) {
+      Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredSet) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
@@ -1179,15 +1179,15 @@ public final class Sets {
       Predicate<E> combinedPredicate =
           Predicates.<E>and(filtered.predicate, predicate);
       return new FilteredSortedSet<E>((SortedSet<E>)filtered.unfiltered,
-                                      combinedPredicate);
+                 combinedPredicate);
     }
 
     return new FilteredSortedSet<E>(checkNotNull(unfiltered),
-                                    checkNotNull(predicate));
+               checkNotNull(predicate));
   }
 
   private static class FilteredSortedSet<E>
-      extends FilteredSet<E> implements SortedSet<E> {
+    extends FilteredSet<E> implements SortedSet<E> {
 
     FilteredSortedSet(SortedSet<E> unfiltered, Predicate<? super E> predicate) {
       super(unfiltered, predicate);
@@ -1201,19 +1201,19 @@ public final class Sets {
     @Override
     public SortedSet<E> subSet(E fromElement, E toElement) {
       return new FilteredSortedSet<E>(
-          ((SortedSet<E>)unfiltered).subSet(fromElement, toElement), predicate);
+        ((SortedSet<E>)unfiltered).subSet(fromElement, toElement), predicate);
     }
 
     @Override
     public SortedSet<E> headSet(E toElement) {
       return new FilteredSortedSet<E>(
-          ((SortedSet<E>)unfiltered).headSet(toElement), predicate);
+        ((SortedSet<E>)unfiltered).headSet(toElement), predicate);
     }
 
     @Override
     public SortedSet<E> tailSet(E fromElement) {
       return new FilteredSortedSet<E>(
-          ((SortedSet<E>)unfiltered).tailSet(fromElement), predicate);
+        ((SortedSet<E>)unfiltered).tailSet(fromElement), predicate);
     }
 
     @Override
@@ -1268,7 +1268,7 @@ public final class Sets {
   @GwtIncompatible // NavigableSet
   @SuppressWarnings("unchecked")
   public static <E> NavigableSet<E> filter(NavigableSet<E> unfiltered,
-                                           Predicate<? super E> predicate) {
+      Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredSet) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
@@ -1276,18 +1276,18 @@ public final class Sets {
       Predicate<E> combinedPredicate =
           Predicates.<E>and(filtered.predicate, predicate);
       return new FilteredNavigableSet<E>((NavigableSet<E>)filtered.unfiltered,
-                                         combinedPredicate);
+                 combinedPredicate);
     }
 
     return new FilteredNavigableSet<E>(checkNotNull(unfiltered),
-                                       checkNotNull(predicate));
+               checkNotNull(predicate));
   }
 
   @GwtIncompatible // NavigableSet
   private static class FilteredNavigableSet<E>
-      extends FilteredSortedSet<E> implements NavigableSet<E> {
+    extends FilteredSortedSet<E> implements NavigableSet<E> {
     FilteredNavigableSet(NavigableSet<E> unfiltered,
-                         Predicate<? super E> predicate) {
+        Predicate<? super E> predicate) {
       super(unfiltered, predicate);
     }
 
@@ -1297,14 +1297,14 @@ public final class Sets {
     @Nullable
     public E lower(E e) {
       return Iterators.find(unfiltered().headSet(e, false).descendingIterator(),
-                            predicate, null);
+                 predicate, null);
     }
 
     @Override
     @Nullable
     public E floor(E e) {
       return Iterators.find(unfiltered().headSet(e, true).descendingIterator(),
-                            predicate, null);
+                 predicate, null);
     }
 
     @Override
@@ -1325,7 +1325,7 @@ public final class Sets {
     @Override
     public E pollLast() {
       return Iterables.removeFirstMatching(unfiltered().descendingSet(),
-                                           predicate);
+                 predicate);
     }
 
     @Override
@@ -1345,10 +1345,10 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(E fromElement, boolean fromInclusive,
-                                  E toElement, boolean toInclusive) {
+        E toElement, boolean toInclusive) {
       return filter(unfiltered().subSet(fromElement, fromInclusive, toElement,
-                                        toInclusive),
-                    predicate);
+                 toInclusive),
+                 predicate);
     }
 
     @Override
@@ -1482,7 +1482,7 @@ public final class Sets {
   }
 
   private static final class CartesianSet<E>
-      extends ForwardingCollection<List<E>> implements Set<List<E>> {
+    extends ForwardingCollection<List<E>> implements Set<List<E>> {
     private final transient ImmutableList<ImmutableSet<E>> axes;
     private final transient CartesianList<E> delegate;
 
@@ -1517,7 +1517,7 @@ public final class Sets {
     }
 
     private CartesianSet(ImmutableList<ImmutableSet<E>> axes,
-                         CartesianList<E> delegate) {
+        CartesianList<E> delegate) {
       this.axes = axes;
       this.delegate = delegate;
     }
@@ -1607,23 +1607,23 @@ public final class Sets {
     @Override
     public Iterator<E> iterator() {
       return new UnmodifiableIterator<E>() {
-        final ImmutableList<E> elements = inputSet.keySet().asList();
-        int remainingSetBits = mask;
+               final ImmutableList<E> elements = inputSet.keySet().asList();
+               int remainingSetBits = mask;
 
-        @Override
-        public boolean hasNext() {
-          return remainingSetBits != 0;
-        }
+               @Override
+               public boolean hasNext() {
+                 return remainingSetBits != 0;
+               }
 
-        @Override
-        public E next() {
-          int index = Integer.numberOfTrailingZeros(remainingSetBits);
-          if (index == 32) {
-            throw new NoSuchElementException();
-          }
-          remainingSetBits &= ~(1 << index);
-          return elements.get(index);
-        }
+               @Override
+               public E next() {
+                 int index = Integer.numberOfTrailingZeros(remainingSetBits);
+                 if (index == 32) {
+                   throw new NoSuchElementException();
+                 }
+                 remainingSetBits &= ~(1 << index);
+                 return elements.get(index);
+               }
       };
     }
 
@@ -1645,8 +1645,8 @@ public final class Sets {
     PowerSet(Set<E> input) {
       this.inputSet = Maps.indexMap(input);
       checkArgument(inputSet.size() <= 30,
-                    "Too many elements to create power set: %s > 30",
-                    inputSet.size());
+          "Too many elements to create power set: %s > 30",
+          inputSet.size());
     }
 
     @Override
@@ -1662,10 +1662,10 @@ public final class Sets {
     @Override
     public Iterator<Set<E>> iterator() {
       return new AbstractIndexedListIterator<Set<E>>(size()) {
-        @Override
-        protected Set<E> get(final int setBits) {
-          return new SubSet<E>(inputSet, setBits);
-        }
+               @Override
+               protected Set<E> get(final int setBits) {
+                 return new SubSet<E>(inputSet, setBits);
+               }
       };
     }
 
@@ -1738,99 +1738,99 @@ public final class Sets {
     final ImmutableMap<E, Integer> index = Maps.indexMap(set);
     checkNonnegative(size, "size");
     checkArgument(size <= index.size(), "size (%s) must be <= set.size() (%s)",
-                  size, index.size());
+        size, index.size());
     if (size == 0) {
       return ImmutableSet.<Set<E>>of(ImmutableSet.<E>of());
     } else if (size == index.size()) {
       return ImmutableSet.<Set<E>>of(index.keySet());
     }
     return new AbstractSet<Set<E>>() {
-      @Override
-      public boolean contains(@Nullable Object o) {
-        if (o instanceof Set) {
-          Set<?> s = (Set<?>)o;
-          return s.size() == size && index.keySet().containsAll(s);
-        }
-        return false;
-      }
+             @Override
+             public boolean contains(@Nullable Object o) {
+               if (o instanceof Set) {
+                 Set<?> s = (Set<?>)o;
+                 return s.size() == size && index.keySet().containsAll(s);
+               }
+               return false;
+             }
 
-      @Override
-      public Iterator<Set<E>> iterator() {
-        return new AbstractIterator<Set<E>>() {
-          final BitSet bits = new BitSet(index.size());
+             @Override
+             public Iterator<Set<E>> iterator() {
+               return new AbstractIterator<Set<E>>() {
+                        final BitSet bits = new BitSet(index.size());
 
-          @Override
-          protected Set<E> computeNext() {
-            if (bits.isEmpty()) {
-              bits.set(0, size);
-            } else {
-              int firstSetBit = bits.nextSetBit(0);
-              int bitToFlip = bits.nextClearBit(firstSetBit);
+                        @Override
+                        protected Set<E> computeNext() {
+                          if (bits.isEmpty()) {
+                            bits.set(0, size);
+                          } else {
+                            int firstSetBit = bits.nextSetBit(0);
+                            int bitToFlip = bits.nextClearBit(firstSetBit);
 
-              if (bitToFlip == index.size()) {
-                return endOfData();
-              }
+                            if (bitToFlip == index.size()) {
+                              return endOfData();
+                            }
 
-              /*
-               * The current set in sorted order looks like
-               * {firstSetBit, firstSetBit + 1, ..., bitToFlip - 1, ...}
-               * where it does *not* contain bitToFlip.
-               *
-               * The next combination is
-               *
-               * {0, 1, ..., bitToFlip - firstSetBit - 2, bitToFlip, ...}
-               *
-               * This is lexicographically next if you look at the combinations
-               * in descending order e.g. {2, 1, 0}, {3, 1, 0}, {3, 2, 0}, {3,
-               * 2, 1}, {4, 1, 0}...
-               */
+                            /*
+                             * The current set in sorted order looks like
+                             * {firstSetBit, firstSetBit + 1, ..., bitToFlip - 1, ...}
+                             * where it does *not* contain bitToFlip.
+                             *
+                             * The next combination is
+                             *
+                             * {0, 1, ..., bitToFlip - firstSetBit - 2, bitToFlip, ...}
+                             *
+                             * This is lexicographically next if you look at the combinations
+                             * in descending order e.g. {2, 1, 0}, {3, 1, 0}, {3, 2, 0}, {3,
+                             * 2, 1}, {4, 1, 0}...
+                             */
 
-              bits.set(0, bitToFlip - firstSetBit - 1);
-              bits.clear(bitToFlip - firstSetBit - 1, bitToFlip);
-              bits.set(bitToFlip);
-            }
-            final BitSet copy = (BitSet)bits.clone();
-            return new AbstractSet<E>() {
-              @Override
-              public boolean contains(@Nullable Object o) {
-                Integer i = index.get(o);
-                return i != null && copy.get(i);
-              }
+                            bits.set(0, bitToFlip - firstSetBit - 1);
+                            bits.clear(bitToFlip - firstSetBit - 1, bitToFlip);
+                            bits.set(bitToFlip);
+                          }
+                          final BitSet copy = (BitSet)bits.clone();
+                          return new AbstractSet<E>() {
+                                   @Override
+                                   public boolean contains(@Nullable Object o) {
+                                     Integer i = index.get(o);
+                                     return i != null && copy.get(i);
+                                   }
 
-              @Override
-              public Iterator<E> iterator() {
-                return new AbstractIterator<E>() {
-                  int i = -1;
+                                   @Override
+                                   public Iterator<E> iterator() {
+                                     return new AbstractIterator<E>() {
+                                              int i = -1;
 
-                  @Override
-                  protected E computeNext() {
-                    i = copy.nextSetBit(i + 1);
-                    if (i == -1) {
-                      return endOfData();
-                    }
-                    return index.keySet().asList().get(i);
-                  }
-                };
-              }
+                                              @Override
+                                              protected E computeNext() {
+                                                i = copy.nextSetBit(i + 1);
+                                                if (i == -1) {
+                                                  return endOfData();
+                                                }
+                                                return index.keySet().asList().get(i);
+                                              }
+                                     };
+                                   }
 
-              @Override
-              public int size() {
-                return size;
-              }
-            };
-          }
-        };
-      }
+                                   @Override
+                                   public int size() {
+                                     return size;
+                                   }
+                          };
+                        }
+               };
+             }
 
-      @Override
-      public int size() {
-        return IntMath.binomial(index.size(), size);
-      }
+             @Override
+             public int size() {
+               return IntMath.binomial(index.size(), size);
+             }
 
-      @Override
-      public String toString() {
-        return "Sets.combinations(" + index.keySet() + ", " + size + ")";
-      }
+             @Override
+             public String toString() {
+               return "Sets.combinations(" + index.keySet() + ", " + size + ")";
+             }
     };
   }
 
@@ -1886,14 +1886,14 @@ public final class Sets {
   public static <E> NavigableSet<E>
   unmodifiableNavigableSet(NavigableSet<E> set) {
     if (set instanceof ImmutableSortedSet || set instanceof
-                                                 UnmodifiableNavigableSet) {
+        UnmodifiableNavigableSet) {
       return set;
     }
     return new UnmodifiableNavigableSet<E>(set);
   }
 
   static final class UnmodifiableNavigableSet<E>
-      extends ForwardingSortedSet<E> implements NavigableSet<E>, Serializable {
+    extends ForwardingSortedSet<E> implements NavigableSet<E>, Serializable {
     private final NavigableSet<E> delegate;
     private final SortedSet<E> unmodifiableDelegate;
 
@@ -1979,9 +1979,9 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(E fromElement, boolean fromInclusive,
-                                  E toElement, boolean toInclusive) {
+        E toElement, boolean toInclusive) {
       return unmodifiableNavigableSet(
-          delegate.subSet(fromElement, fromInclusive, toElement, toInclusive));
+        delegate.subSet(fromElement, fromInclusive, toElement, toInclusive));
     }
 
     @Override
@@ -2129,9 +2129,9 @@ public final class Sets {
 
     @Override
     public NavigableSet<E> subSet(E fromElement, boolean fromInclusive,
-                                  E toElement, boolean toInclusive) {
+        E toElement, boolean toInclusive) {
       return forward.subSet(toElement, toInclusive, fromElement, fromInclusive)
-          .descendingSet();
+             .descendingSet();
     }
 
     @Override
@@ -2234,20 +2234,20 @@ public final class Sets {
     if (set.comparator() != null && set.comparator() != Ordering.natural() &&
         range.hasLowerBound() && range.hasUpperBound()) {
       checkArgument(
-          set.comparator().compare(range.lowerEndpoint(),
-                                   range.upperEndpoint()) <= 0,
-          "set is using a custom comparator which is inconsistent with the natural ordering.");
+        set.comparator().compare(range.lowerEndpoint(),
+        range.upperEndpoint()) <= 0,
+        "set is using a custom comparator which is inconsistent with the natural ordering.");
     }
     if (range.hasLowerBound() && range.hasUpperBound()) {
       return set.subSet(
-          range.lowerEndpoint(), range.lowerBoundType() == BoundType.CLOSED,
-          range.upperEndpoint(), range.upperBoundType() == BoundType.CLOSED);
+        range.lowerEndpoint(), range.lowerBoundType() == BoundType.CLOSED,
+        range.upperEndpoint(), range.upperBoundType() == BoundType.CLOSED);
     } else if (range.hasLowerBound()) {
       return set.tailSet(range.lowerEndpoint(),
-                         range.lowerBoundType() == BoundType.CLOSED);
+                 range.lowerBoundType() == BoundType.CLOSED);
     } else if (range.hasUpperBound()) {
       return set.headSet(range.upperEndpoint(),
-                         range.upperBoundType() == BoundType.CLOSED);
+                 range.upperBoundType() == BoundType.CLOSED);
     }
     return checkNotNull(set);
   }

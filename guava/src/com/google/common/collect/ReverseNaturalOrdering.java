@@ -26,7 +26,7 @@ import java.util.Iterator;
 @GwtCompatible(serializable = true)
 @SuppressWarnings("unchecked") // TODO(kevinb): the right way to explain this??
 final class ReverseNaturalOrdering
-    extends Ordering<Comparable> implements Serializable {
+  extends Ordering<Comparable> implements Serializable {
   static final ReverseNaturalOrdering INSTANCE = new ReverseNaturalOrdering();
 
   @Override

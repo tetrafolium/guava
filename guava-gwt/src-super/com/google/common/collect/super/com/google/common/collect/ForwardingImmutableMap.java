@@ -75,7 +75,7 @@ public abstract class ForwardingImmutableMap<K, V> extends ImmutableMap<K, V> {
       @Override
       public boolean contains(Object object) {
         if (object instanceof Entry<?, ?> &&
-            ((Entry<?, ?>)object).getKey() == null) {
+        ((Entry<?, ?>)object).getKey() == null) {
           return false;
         }
         try {

@@ -46,17 +46,17 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   @Override
   public HashCode hashInt(int input) {
     return hashBytes(ByteBuffer.allocate(4)
-                         .order(ByteOrder.LITTLE_ENDIAN)
-                         .putInt(input)
-                         .array());
+               .order(ByteOrder.LITTLE_ENDIAN)
+               .putInt(input)
+               .array());
   }
 
   @Override
   public HashCode hashLong(long input) {
     return hashBytes(ByteBuffer.allocate(8)
-                         .order(ByteOrder.LITTLE_ENDIAN)
-                         .putLong(input)
-                         .array());
+               .order(ByteOrder.LITTLE_ENDIAN)
+               .putLong(input)
+               .array());
   }
 
   @Override
@@ -116,7 +116,7 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
 
   // Just to access the byte[] without introducing an unnecessary copy
   private static final class ExposedByteArrayOutputStream
-      extends ByteArrayOutputStream {
+    extends ByteArrayOutputStream {
     ExposedByteArrayOutputStream(int expectedInputSize) {
       super(expectedInputSize);
     }

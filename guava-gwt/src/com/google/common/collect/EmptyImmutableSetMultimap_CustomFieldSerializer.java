@@ -28,7 +28,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class EmptyImmutableSetMultimap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 EmptyImmutableSetMultimap instance) {}
+      EmptyImmutableSetMultimap instance) {}
 
   public static EmptyImmutableSetMultimap
   instantiate(SerializationStreamReader reader) {
@@ -36,5 +36,5 @@ public class EmptyImmutableSetMultimap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               EmptyImmutableSetMultimap instance) {}
+      EmptyImmutableSetMultimap instance) {}
 }

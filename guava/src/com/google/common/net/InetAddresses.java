@@ -136,8 +136,8 @@ public final class InetAddresses {
    */
   private static Inet4Address getInet4Address(byte[] bytes) {
     checkArgument(bytes.length == 4,
-                  "Byte array has invalid length for an IPv4 address: %s != 4.",
-                  bytes.length);
+        "Byte array has invalid length for an IPv4 address: %s != 4.",
+        bytes.length);
 
     // Given a 4-byte array, this cast should always succeed.
     return (Inet4Address)bytesToInetAddress(bytes);
@@ -161,7 +161,7 @@ public final class InetAddresses {
     // The argument was malformed, i.e. not an IP string literal.
     if (addr == null) {
       throw formatIllegalArgumentException("'%s' is not an IP string literal.",
-                                           ipString);
+                ipString);
     }
 
     return bytesToInetAddress(addr);
@@ -494,7 +494,7 @@ public final class InetAddresses {
     InetAddress addr = forUriStringNoThrow(hostAddr);
     if (addr == null) {
       throw formatIllegalArgumentException("Not a valid URI IP literal: '%s'",
-                                           hostAddr);
+                hostAddr);
     }
 
     return addr;
@@ -583,7 +583,7 @@ public final class InetAddresses {
    */
   public static Inet4Address getCompatIPv4Address(Inet6Address ip) {
     checkArgument(isCompatIPv4Address(ip),
-                  "Address '%s' is not IPv4-compatible.", toAddrString(ip));
+        "Address '%s' is not IPv4-compatible.", toAddrString(ip));
 
     return getInet4Address(Arrays.copyOfRange(ip.getAddress(), 12, 16));
   }
@@ -618,7 +618,7 @@ public final class InetAddresses {
    */
   public static Inet4Address get6to4IPv4Address(Inet6Address ip) {
     checkArgument(is6to4Address(ip), "Address '%s' is not a 6to4 address.",
-                  toAddrString(ip));
+        toAddrString(ip));
 
     return getInet4Address(Arrays.copyOfRange(ip.getAddress(), 2, 6));
   }
@@ -656,11 +656,11 @@ public final class InetAddresses {
      */
     // TODO: why is this public?
     public TeredoInfo(@Nullable Inet4Address server,
-                      @Nullable Inet4Address client, int port, int flags) {
+        @Nullable Inet4Address client, int port, int flags) {
       checkArgument((port >= 0) && (port <= 0xffff),
-                    "port '%s' is out of range (0 <= port <= 0xffff)", port);
+          "port '%s' is out of range (0 <= port <= 0xffff)", port);
       checkArgument((flags >= 0) && (flags <= 0xffff),
-                    "flags '%s' is out of range (0 <= flags <= 0xffff)", flags);
+          "flags '%s' is out of range (0 <= flags <= 0xffff)", flags);
 
       this.server = MoreObjects.firstNonNull(server, ANY4);
       this.client = MoreObjects.firstNonNull(client, ANY4);
@@ -688,7 +688,7 @@ public final class InetAddresses {
   public static boolean isTeredoAddress(Inet6Address ip) {
     byte[] bytes = ip.getAddress();
     return (bytes[0] == (byte)0x20) && (bytes[1] == (byte)0x01) &&
-        (bytes[2] == 0) && (bytes[3] == 0);
+           (bytes[2] == 0) && (bytes[3] == 0);
   }
 
   /**
@@ -702,7 +702,7 @@ public final class InetAddresses {
    */
   public static TeredoInfo getTeredoInfo(Inet6Address ip) {
     checkArgument(isTeredoAddress(ip), "Address '%s' is not a Teredo address.",
-                  toAddrString(ip));
+        toAddrString(ip));
 
     byte[] bytes = ip.getAddress();
     Inet4Address server = getInet4Address(Arrays.copyOfRange(bytes, 4, 8));
@@ -755,7 +755,7 @@ public final class InetAddresses {
     }
 
     return (bytes[9] == (byte)0x00) && (bytes[10] == (byte)0x5e) &&
-        (bytes[11] == (byte)0xfe);
+           (bytes[11] == (byte)0xfe);
   }
 
   /**
@@ -769,7 +769,7 @@ public final class InetAddresses {
    */
   public static Inet4Address getIsatapIPv4Address(Inet6Address ip) {
     checkArgument(isIsatapAddress(ip), "Address '%s' is not an ISATAP address.",
-                  toAddrString(ip));
+        toAddrString(ip));
 
     return getInet4Address(Arrays.copyOfRange(ip.getAddress(), 12, 16));
   }
@@ -820,7 +820,7 @@ public final class InetAddresses {
     }
 
     throw formatIllegalArgumentException("'%s' has no embedded IPv4 address.",
-                                         toAddrString(ip));
+              toAddrString(ip));
   }
 
   /**
@@ -950,7 +950,7 @@ public final class InetAddresses {
    */
   public static int coerceToInteger(InetAddress ip) {
     return ByteStreams.newDataInput(getCoercedIPv4Address(ip).getAddress())
-        .readInt();
+           .readInt();
   }
 
   /**
@@ -976,7 +976,7 @@ public final class InetAddresses {
    * @throws UnknownHostException if IP address is of illegal length
    */
   public static InetAddress fromLittleEndianByteArray(byte[] addr)
-      throws UnknownHostException {
+  throws UnknownHostException {
     byte[] reversed = new byte[addr.length];
     for (int i = 0; i < addr.length; i++) {
       reversed[i] = addr[addr.length - i - 1];
@@ -1052,6 +1052,6 @@ public final class InetAddresses {
   private static IllegalArgumentException
   formatIllegalArgumentException(String format, Object... args) {
     return new IllegalArgumentException(
-        String.format(Locale.ROOT, format, args));
+      String.format(Locale.ROOT, format, args));
   }
 }

@@ -41,7 +41,7 @@ import javax.annotation.Nullable;
 final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   @SuppressWarnings("unchecked")
   static final ImmutableMap<Object, Object> EMPTY = new RegularImmutableMap<>(
-      (Entry<Object, Object>[])ImmutableMap.EMPTY_ENTRY_ARRAY, null, 0);
+    (Entry<Object, Object>[])ImmutableMap.EMPTY_ENTRY_ARRAY, null, 0);
 
   // entries in insertion order
   @VisibleForTesting final transient Entry<K, V>[] entries;
@@ -86,7 +86,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
       ImmutableMapEntry<K, V> newEntry;
       if (existing == null) {
         boolean reusable = entry instanceof ImmutableMapEntry &&
-                           ((ImmutableMapEntry<K, V>)entry).isReusable();
+            ((ImmutableMapEntry<K, V>)entry).isReusable();
         newEntry = reusable ? (ImmutableMapEntry<K, V>)entry
                             : new ImmutableMapEntry<K, V>(key, value);
       } else {
@@ -100,7 +100,7 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
   }
 
   private RegularImmutableMap(Entry<K, V>[] entries,
-                              ImmutableMapEntry<K, V>[] table, int mask) {
+      ImmutableMapEntry<K, V>[] table, int mask) {
     this.entries = entries;
     this.table = table;
     this.mask = mask;
@@ -108,11 +108,11 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
 
   static void
   checkNoConflictInKeyBucket(Object key, Entry<?, ?> entry,
-                             @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
+      @Nullable ImmutableMapEntry<?, ?> keyBucketHead) {
     for (; keyBucketHead != null;
-         keyBucketHead = keyBucketHead.getNextInKeyBucket()) {
+        keyBucketHead = keyBucketHead.getNextInKeyBucket()) {
       checkNoConflict(!key.equals(keyBucketHead.getKey()), "key", entry,
-                      keyBucketHead);
+          keyBucketHead);
     }
   }
 
@@ -130,13 +130,13 @@ final class RegularImmutableMap<K, V> extends ImmutableMap<K, V> {
 
   @Nullable
   static <V> V get(@Nullable Object key,
-                   @Nullable ImmutableMapEntry<?, V>[] keyTable, int mask) {
+      @Nullable ImmutableMapEntry<?, V>[] keyTable, int mask) {
     if (key == null || keyTable == null) {
       return null;
     }
     int index = Hashing.smear(key.hashCode()) & mask;
     for (ImmutableMapEntry<?, V> entry = keyTable[index]; entry != null;
-         entry = entry.getNextInKeyBucket()) {
+        entry = entry.getNextInKeyBucket()) {
       Object candidateKey = entry.getKey();
 
       /*

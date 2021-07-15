@@ -175,7 +175,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @GwtIncompatible // TODO
   public static <V, X extends Exception> CheckedFuture<V, X>
   makeChecked(ListenableFuture<V> future,
-              Function<? super Exception, X> mapper) {
+      Function<? super Exception, X> mapper) {
     return new MappingCheckedFuture<>(checkNotNull(future), mapper);
   }
 
@@ -287,7 +287,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @since 23.0
    */
   public static <O> ListenableFuture<O> submitAsync(AsyncCallable<O> callable,
-                                                    Executor executor) {
+      Executor executor) {
     TrustedListenableFutureTask<O> task =
         TrustedListenableFutureTask.create(callable);
     executor.execute(task);
@@ -305,7 +305,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @GwtIncompatible // java.util.concurrent.ScheduledExecutorService
   public static <O> ListenableFuture<O>
   scheduleAsync(AsyncCallable<O> callable, long delay, TimeUnit timeUnit,
-                ScheduledExecutorService executorService) {
+      ScheduledExecutorService executorService) {
     TrustedListenableFutureTask<O> task =
         TrustedListenableFutureTask.create(callable);
     final Future<?> scheduled = executorService.schedule(task, delay, timeUnit);
@@ -372,9 +372,9 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V, X extends Throwable> ListenableFuture<V>
   catching(ListenableFuture<? extends V> input, Class<X> exceptionType,
-           Function<? super X, ? extends V> fallback) {
+      Function<? super X, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         directExecutor());
+               directExecutor());
   }
 
   /**
@@ -425,9 +425,9 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V, X extends Throwable> ListenableFuture<V>
   catching(ListenableFuture<? extends V> input, Class<X> exceptionType,
-           Function<? super X, ? extends V> fallback, Executor executor) {
+      Function<? super X, ? extends V> fallback, Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         executor);
+               executor);
   }
 
   /**
@@ -508,9 +508,9 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V, X extends Throwable> ListenableFuture<V>
   catchingAsync(ListenableFuture<? extends V> input, Class<X> exceptionType,
-                AsyncFunction<? super X, ? extends V> fallback) {
+      AsyncFunction<? super X, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         directExecutor());
+               directExecutor());
   }
 
   /**
@@ -588,10 +588,10 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V, X extends Throwable> ListenableFuture<V>
   catchingAsync(ListenableFuture<? extends V> input, Class<X> exceptionType,
-                AsyncFunction<? super X, ? extends V> fallback,
-                Executor executor) {
+      AsyncFunction<? super X, ? extends V> fallback,
+      Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         executor);
+               executor);
   }
 
   /**
@@ -610,7 +610,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @GwtIncompatible // java.util.concurrent.ScheduledExecutorService
   public static <V> ListenableFuture<V>
   withTimeout(ListenableFuture<V> delegate, long time, TimeUnit unit,
-              ScheduledExecutorService scheduledExecutor) {
+      ScheduledExecutorService scheduledExecutor) {
     return TimeoutFuture.create(delegate, time, unit, scheduledExecutor);
   }
 
@@ -662,7 +662,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @Deprecated
   public static <I, O> ListenableFuture<O>
   transformAsync(ListenableFuture<I> input,
-                 AsyncFunction<? super I, ? extends O> function) {
+      AsyncFunction<? super I, ? extends O> function) {
     return AbstractTransformFuture.create(input, function, directExecutor());
   }
 
@@ -708,8 +708,8 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    */
   public static <I, O> ListenableFuture<O>
   transformAsync(ListenableFuture<I> input,
-                 AsyncFunction<? super I, ? extends O> function,
-                 Executor executor) {
+      AsyncFunction<? super I, ? extends O> function,
+      Executor executor) {
     return AbstractTransformFuture.create(input, function, executor);
   }
 
@@ -756,7 +756,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @Deprecated
   public static <I, O> ListenableFuture<O>
   transform(ListenableFuture<I> input,
-            Function<? super I, ? extends O> function) {
+      Function<? super I, ? extends O> function) {
     return AbstractTransformFuture.create(input, function, directExecutor());
   }
 
@@ -796,7 +796,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    */
   public static <I, O> ListenableFuture<O>
   transform(ListenableFuture<I> input,
-            Function<? super I, ? extends O> function, Executor executor) {
+      Function<? super I, ? extends O> function, Executor executor) {
     return AbstractTransformFuture.create(input, function, executor);
   }
 
@@ -827,43 +827,43 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @GwtIncompatible // TODO
   public static <I, O> Future<O>
   lazyTransform(final Future<I> input,
-                final Function<? super I, ? extends O> function) {
+      final Function<? super I, ? extends O> function) {
     checkNotNull(input);
     checkNotNull(function);
     return new Future<O>() {
-      @Override
-      public boolean cancel(boolean mayInterruptIfRunning) {
-        return input.cancel(mayInterruptIfRunning);
-      }
+             @Override
+             public boolean cancel(boolean mayInterruptIfRunning) {
+               return input.cancel(mayInterruptIfRunning);
+             }
 
-      @Override
-      public boolean isCancelled() {
-        return input.isCancelled();
-      }
+             @Override
+             public boolean isCancelled() {
+               return input.isCancelled();
+             }
 
-      @Override
-      public boolean isDone() {
-        return input.isDone();
-      }
+             @Override
+             public boolean isDone() {
+               return input.isDone();
+             }
 
-      @Override
-      public O get() throws InterruptedException, ExecutionException {
-        return applyTransformation(input.get());
-      }
+             @Override
+             public O get() throws InterruptedException, ExecutionException {
+               return applyTransformation(input.get());
+             }
 
-      @Override
-      public O get(long timeout, TimeUnit unit)
-          throws InterruptedException, ExecutionException, TimeoutException {
-        return applyTransformation(input.get(timeout, unit));
-      }
+             @Override
+             public O get(long timeout, TimeUnit unit)
+             throws InterruptedException, ExecutionException, TimeoutException {
+               return applyTransformation(input.get(timeout, unit));
+             }
 
-      private O applyTransformation(I input) throws ExecutionException {
-        try {
-          return function.apply(input);
-        } catch (Throwable t) {
-          throw new ExecutionException(t);
-        }
-      }
+             private O applyTransformation(I input) throws ExecutionException {
+               try {
+                 return function.apply(input);
+               } catch (Throwable t) {
+                 throw new ExecutionException(t);
+               }
+             }
     };
   }
 
@@ -904,21 +904,21 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @Deprecated
   @SuppressWarnings({"rawtypes", "unchecked"})
   public static <V> ListenableFuture<V> dereference(
-      ListenableFuture<? extends ListenableFuture<? extends V>> nested) {
+    ListenableFuture<? extends ListenableFuture<? extends V>> nested) {
     return transformAsync((ListenableFuture)nested, (AsyncFunction)DEREFERENCER,
-                          directExecutor());
+               directExecutor());
   }
 
   /**
    * Helper {@code Function} for {@link #dereference}.
    */
   private static final AsyncFunction<ListenableFuture<Object>, Object>
-      DEREFERENCER = new AsyncFunction<ListenableFuture<Object>, Object>() {
-        @Override
-        public ListenableFuture<Object> apply(ListenableFuture<Object> input) {
-          return input;
-        }
-      };
+  DEREFERENCER = new AsyncFunction<ListenableFuture<Object>, Object>() {
+    @Override
+    public ListenableFuture<Object> apply(ListenableFuture<Object> input) {
+      return input;
+    }
+  };
 
   /**
    * Creates a new {@code ListenableFuture} whose value is a list containing the
@@ -1047,8 +1047,8 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
     private final ImmutableList<ListenableFuture<? extends V>> futures;
 
     private FutureCombiner(
-        boolean allMustSucceed,
-        ImmutableList<ListenableFuture<? extends V>> futures) {
+      boolean allMustSucceed,
+      ImmutableList<ListenableFuture<? extends V>> futures) {
       this.allMustSucceed = allMustSucceed;
       this.futures = futures;
     }
@@ -1070,7 +1070,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
      * futures.
      */
     public <C> ListenableFuture<C> callAsync(AsyncCallable<C> combiner,
-                                             Executor executor) {
+        Executor executor) {
       return new CombinedFuture<C>(futures, allMustSucceed, executor, combiner);
     }
 
@@ -1108,7 +1108,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
      */
     @CanIgnoreReturnValue
     public <C> ListenableFuture<C> call(Callable<C> combiner,
-                                        Executor executor) {
+        Executor executor) {
       return new CombinedFuture<C>(futures, allMustSucceed, executor, combiner);
     }
 
@@ -1158,7 +1158,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
 
   /** A wrapped future that does not propagate cancellation to its delegate. */
   private static final class NonCancellationPropagatingFuture<V>
-      extends AbstractFuture.TrustedFuture<V> implements Runnable {
+    extends AbstractFuture.TrustedFuture<V> implements Runnable {
     private ListenableFuture<V> delegate;
 
     NonCancellationPropagatingFuture(final ListenableFuture<V> delegate) {
@@ -1271,7 +1271,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
     @SuppressWarnings("unchecked")
     ListenableFuture<? extends T>[] copy =
         (ListenableFuture<? extends T>[])collection.toArray(
-            new ListenableFuture[collection.size()]);
+      new ListenableFuture[collection.size()]);
     final InCompletionOrderState<T> state = new InCompletionOrderState<>(copy);
     ImmutableList.Builder<AbstractFuture<T>> delegatesBuilder =
         ImmutableList.builder();
@@ -1299,7 +1299,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   // optimizations that mean cancel won't be called if this Future is passed
   // into setFuture, and then cancelled.
   private static final class InCompletionOrderFuture<T>
-      extends AbstractFuture<T> {
+    extends AbstractFuture<T> {
     private InCompletionOrderState<T> state;
 
     private InCompletionOrderFuture(InCompletionOrderState<T> state) {
@@ -1328,7 +1328,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
         // Don't print the actual array! We don't want
         // inCompletionOrder(list).toString() to have quadratic output.
         return "inputCount=[" + localState.inputFutures.length +
-            "], remaining=[" + localState.incompleteOutputCount.get() + "]";
+               "], remaining=[" + localState.incompleteOutputCount.get() + "]";
       }
       return null;
     }
@@ -1345,7 +1345,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
     private volatile int delegateIndex = 0;
 
     private InCompletionOrderState(
-        ListenableFuture<? extends T>[] inputFutures) {
+      ListenableFuture<? extends T>[] inputFutures) {
       this.inputFutures = inputFutures;
       incompleteOutputCount = new AtomicInteger(inputFutures.length);
     }
@@ -1362,7 +1362,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
 
     private void
     recordInputCompletion(ImmutableList<AbstractFuture<T>> delegates,
-                          int inputFutureIndex) {
+        int inputFutureIndex) {
       ListenableFuture<? extends T> inputFuture =
           inputFutures[inputFutureIndex];
       // Null out our reference to this future, so it can be GCed
@@ -1437,7 +1437,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    */
   @Deprecated
   public static <V> void addCallback(ListenableFuture<V> future,
-                                     FutureCallback<? super V> callback) {
+      FutureCallback<? super V> callback) {
     addCallback(future, callback, directExecutor());
   }
 
@@ -1482,8 +1482,8 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @since 10.0
    */
   public static <V> void addCallback(final ListenableFuture<V> future,
-                                     final FutureCallback<? super V> callback,
-                                     Executor executor) {
+      final FutureCallback<? super V> callback,
+      Executor executor) {
     Preconditions.checkNotNull(callback);
     future.addListener(new CallbackListener<V>(future, callback), executor);
   }
@@ -1613,8 +1613,8 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @CanIgnoreReturnValue
   @GwtIncompatible // reflection
   public static <V, X extends Exception> V getChecked(Future<V> future,
-                                                      Class<X> exceptionClass)
-      throws X {
+      Class<X> exceptionClass)
+  throws X {
     return FuturesGetChecked.getChecked(future, exceptionClass);
   }
 
@@ -1670,8 +1670,8 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
   @CanIgnoreReturnValue
   @GwtIncompatible // reflection
   public static <V, X extends Exception>
-      V getChecked(Future<V> future, Class<X> exceptionClass, long timeout,
-                   TimeUnit unit) throws X {
+  V getChecked(Future<V> future, Class<X> exceptionClass, long timeout,
+      TimeUnit unit) throws X {
     return FuturesGetChecked.getChecked(future, exceptionClass, timeout, unit);
   }
 
@@ -1757,12 +1757,12 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    */
   @GwtIncompatible // TODO
   private static class MappingCheckedFuture<V, X extends Exception>
-      extends AbstractCheckedFuture<V, X> {
+    extends AbstractCheckedFuture<V, X> {
 
     final Function<? super Exception, X> mapper;
 
     MappingCheckedFuture(ListenableFuture<V> delegate,
-                         Function<? super Exception, X> mapper) {
+        Function<? super Exception, X> mapper) {
       super(delegate);
 
       this.mapper = checkNotNull(mapper);

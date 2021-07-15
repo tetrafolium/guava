@@ -98,10 +98,10 @@ public abstract class MultimapBuilder<K0, V0> {
   hashKeys(final int expectedKeys) {
     checkNonnegative(expectedKeys, "expectedKeys");
     return new MultimapBuilderWithKeys<Object>() {
-      @Override
-      <K, V> Map<K, Collection<V>> createMap() {
-        return Maps.newHashMapWithExpectedSize(expectedKeys);
-      }
+             @Override
+             <K, V> Map<K, Collection<V>> createMap() {
+               return Maps.newHashMapWithExpectedSize(expectedKeys);
+             }
     };
   }
 
@@ -134,10 +134,10 @@ public abstract class MultimapBuilder<K0, V0> {
   linkedHashKeys(final int expectedKeys) {
     checkNonnegative(expectedKeys, "expectedKeys");
     return new MultimapBuilderWithKeys<Object>() {
-      @Override
-      <K, V> Map<K, Collection<V>> createMap() {
-        return newLinkedHashMapWithExpectedSize(expectedKeys);
-      }
+             @Override
+             <K, V> Map<K, Collection<V>> createMap() {
+               return newLinkedHashMapWithExpectedSize(expectedKeys);
+             }
     };
   }
 
@@ -178,10 +178,10 @@ public abstract class MultimapBuilder<K0, V0> {
   treeKeys(final Comparator<K0> comparator) {
     checkNotNull(comparator);
     return new MultimapBuilderWithKeys<K0>() {
-      @Override
-      <K extends K0, V> Map<K, Collection<V>> createMap() {
-        return new TreeMap<>(comparator);
-      }
+             @Override
+             <K extends K0, V> Map<K, Collection<V>> createMap() {
+               return new TreeMap<>(comparator);
+             }
     };
   }
 
@@ -192,18 +192,18 @@ public abstract class MultimapBuilder<K0, V0> {
   enumKeys(final Class<K0> keyClass) {
     checkNotNull(keyClass);
     return new MultimapBuilderWithKeys<K0>() {
-      @SuppressWarnings("unchecked")
-      @Override
-      <K extends K0, V> Map<K, Collection<V>> createMap() {
-        // K must actually be K0, since enums are effectively final
-        // (their subclasses are inaccessible)
-        return (Map<K, Collection<V>>)new EnumMap<K0, Collection<V>>(keyClass);
-      }
+             @SuppressWarnings("unchecked")
+             @Override
+             <K extends K0, V> Map<K, Collection<V>> createMap() {
+               // K must actually be K0, since enums are effectively final
+               // (their subclasses are inaccessible)
+               return (Map<K, Collection<V>>)new EnumMap<K0, Collection<V>>(keyClass);
+             }
     };
   }
 
   private static final class ArrayListSupplier<V>
-      implements Supplier<List<V>>, Serializable {
+    implements Supplier<List<V>>, Serializable {
     private final int expectedValuesPerKey;
 
     ArrayListSupplier(int expectedValuesPerKey) {
@@ -235,7 +235,7 @@ public abstract class MultimapBuilder<K0, V0> {
   }
 
   private static final class HashSetSupplier<V>
-      implements Supplier<Set<V>>, Serializable {
+    implements Supplier<Set<V>>, Serializable {
     private final int expectedValuesPerKey;
 
     HashSetSupplier(int expectedValuesPerKey) {
@@ -250,7 +250,7 @@ public abstract class MultimapBuilder<K0, V0> {
   }
 
   private static final class LinkedHashSetSupplier<V>
-      implements Supplier<Set<V>>, Serializable {
+    implements Supplier<Set<V>>, Serializable {
     private final int expectedValuesPerKey;
 
     LinkedHashSetSupplier(int expectedValuesPerKey) {
@@ -265,7 +265,7 @@ public abstract class MultimapBuilder<K0, V0> {
   }
 
   private static final class TreeSetSupplier<V>
-      implements Supplier<SortedSet<V>>, Serializable {
+    implements Supplier<SortedSet<V>>, Serializable {
     private final Comparator<? super V> comparator;
 
     TreeSetSupplier(Comparator<? super V> comparator) {
@@ -279,7 +279,7 @@ public abstract class MultimapBuilder<K0, V0> {
   }
 
   private static final class EnumSetSupplier<V extends Enum<V>>
-      implements Supplier<Set<V>>, Serializable {
+    implements Supplier<Set<V>>, Serializable {
     private final Class<V> clazz;
 
     EnumSetSupplier(Class<V> clazz) { this.clazz = checkNotNull(clazz); }
@@ -322,12 +322,12 @@ public abstract class MultimapBuilder<K0, V0> {
     arrayListValues(final int expectedValuesPerKey) {
       checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
       return new ListMultimapBuilder<K0, Object>() {
-        @Override
-        public <K extends K0, V> ListMultimap<K, V> build() {
-          return Multimaps.newListMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(),
-              new ArrayListSupplier<V>(expectedValuesPerKey));
-        }
+               @Override
+               public <K extends K0, V> ListMultimap<K, V> build() {
+                 return Multimaps.newListMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(),
+                   new ArrayListSupplier<V>(expectedValuesPerKey));
+               }
       };
     }
 
@@ -336,12 +336,12 @@ public abstract class MultimapBuilder<K0, V0> {
      */
     public ListMultimapBuilder<K0, Object> linkedListValues() {
       return new ListMultimapBuilder<K0, Object>() {
-        @Override
-        public <K extends K0, V> ListMultimap<K, V> build() {
-          return Multimaps.newListMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(),
-              LinkedListSupplier.<V>instance());
-        }
+               @Override
+               public <K extends K0, V> ListMultimap<K, V> build() {
+                 return Multimaps.newListMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(),
+                   LinkedListSupplier.<V>instance());
+               }
       };
     }
 
@@ -362,12 +362,12 @@ public abstract class MultimapBuilder<K0, V0> {
     hashSetValues(final int expectedValuesPerKey) {
       checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
       return new SetMultimapBuilder<K0, Object>() {
-        @Override
-        public <K extends K0, V> SetMultimap<K, V> build() {
-          return Multimaps.newSetMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(),
-              new HashSetSupplier<V>(expectedValuesPerKey));
-        }
+               @Override
+               public <K extends K0, V> SetMultimap<K, V> build() {
+                 return Multimaps.newSetMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(),
+                   new HashSetSupplier<V>(expectedValuesPerKey));
+               }
       };
     }
 
@@ -388,12 +388,12 @@ public abstract class MultimapBuilder<K0, V0> {
     linkedHashSetValues(final int expectedValuesPerKey) {
       checkNonnegative(expectedValuesPerKey, "expectedValuesPerKey");
       return new SetMultimapBuilder<K0, Object>() {
-        @Override
-        public <K extends K0, V> SetMultimap<K, V> build() {
-          return Multimaps.newSetMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(),
-              new LinkedHashSetSupplier<V>(expectedValuesPerKey));
-        }
+               @Override
+               public <K extends K0, V> SetMultimap<K, V> build() {
+                 return Multimaps.newSetMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(),
+                   new LinkedHashSetSupplier<V>(expectedValuesPerKey));
+               }
       };
     }
 
@@ -417,12 +417,12 @@ public abstract class MultimapBuilder<K0, V0> {
     treeSetValues(final Comparator<V0> comparator) {
       checkNotNull(comparator, "comparator");
       return new SortedSetMultimapBuilder<K0, V0>() {
-        @Override
-        public <K extends K0, V extends V0> SortedSetMultimap<K, V> build() {
-          return Multimaps.newSortedSetMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(),
-              new TreeSetSupplier<V>(comparator));
-        }
+               @Override
+               public <K extends K0, V extends V0> SortedSetMultimap<K, V> build() {
+                 return Multimaps.newSortedSetMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(),
+                   new TreeSetSupplier<V>(comparator));
+               }
       };
     }
 
@@ -433,16 +433,16 @@ public abstract class MultimapBuilder<K0, V0> {
     enumSetValues(final Class<V0> valueClass) {
       checkNotNull(valueClass, "valueClass");
       return new SetMultimapBuilder<K0, V0>() {
-        @Override
-        public <K extends K0, V extends V0> SetMultimap<K, V> build() {
-          // V must actually be V0, since enums are effectively final
-          // (their subclasses are inaccessible)
-          @SuppressWarnings({"unchecked", "rawtypes"})
-          Supplier<Set<V>> factory =
-              (Supplier) new EnumSetSupplier<V0>(valueClass);
-          return Multimaps.newSetMultimap(
-              MultimapBuilderWithKeys.this.<K, V>createMap(), factory);
-        }
+               @Override
+               public <K extends K0, V extends V0> SetMultimap<K, V> build() {
+                 // V must actually be V0, since enums are effectively final
+                 // (their subclasses are inaccessible)
+                 @SuppressWarnings({"unchecked", "rawtypes"})
+                 Supplier<Set<V>> factory =
+                     (Supplier) new EnumSetSupplier<V0>(valueClass);
+                 return Multimaps.newSetMultimap(
+                   MultimapBuilderWithKeys.this.<K, V>createMap(), factory);
+               }
       };
     }
   }
@@ -469,7 +469,7 @@ public abstract class MultimapBuilder<K0, V0> {
    * ListMultimap} instances.
    */
   public abstract static class ListMultimapBuilder<K0, V0>
-      extends MultimapBuilder<K0, V0> {
+    extends MultimapBuilder<K0, V0> {
     ListMultimapBuilder() {}
 
     @Override
@@ -487,7 +487,7 @@ public abstract class MultimapBuilder<K0, V0> {
    * SetMultimap} instances.
    */
   public abstract static class SetMultimapBuilder<K0, V0>
-      extends MultimapBuilder<K0, V0> {
+    extends MultimapBuilder<K0, V0> {
     SetMultimapBuilder() {}
 
     @Override
@@ -505,7 +505,7 @@ public abstract class MultimapBuilder<K0, V0> {
    * SortedSetMultimap} instances.
    */
   public abstract static class SortedSetMultimapBuilder<K0, V0>
-      extends SetMultimapBuilder<K0, V0> {
+    extends SetMultimapBuilder<K0, V0> {
     SortedSetMultimapBuilder() {}
 
     @Override

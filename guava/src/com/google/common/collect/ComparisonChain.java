@@ -77,7 +77,7 @@ public abstract class ComparisonChain {
 
     @Override
     public <T> ComparisonChain compare(@Nullable T left, @Nullable T right,
-                                       Comparator<T> comparator) {
+        Comparator<T> comparator) {
       return classify(comparator.compare(left, right));
     }
 
@@ -132,13 +132,13 @@ public abstract class ComparisonChain {
 
     @Override
     public ComparisonChain compare(@Nullable Comparable left,
-                                   @Nullable Comparable right) {
+        @Nullable Comparable right) {
       return this;
     }
 
     @Override
     public <T> ComparisonChain compare(@Nullable T left, @Nullable T right,
-                                       @Nullable Comparator<T> comparator) {
+        @Nullable Comparator<T> comparator) {
       return this;
     }
 
@@ -184,15 +184,15 @@ public abstract class ComparisonChain {
    * has not already been determined.
    */
   public abstract ComparisonChain compare(Comparable<?> left,
-                                          Comparable<?> right);
+      Comparable<?> right);
 
   /**
    * Compares two objects using a comparator, <i>if</i> the result of this
    * comparison chain has not already been determined.
    */
   public abstract <T> ComparisonChain compare(@Nullable T left,
-                                              @Nullable T right,
-                                              Comparator<T> comparator);
+      @Nullable T right,
+      Comparator<T> comparator);
 
   /**
    * Compares two {@code int} values as specified by {@link Ints#compare},
@@ -252,7 +252,7 @@ public abstract class ComparisonChain {
    * @since 12.0 (present as {@code compare} since 2.0)
    */
   public abstract ComparisonChain compareFalseFirst(boolean left,
-                                                    boolean right);
+      boolean right);
 
   /**
    * Ends this comparison chain and returns its result: a value having the

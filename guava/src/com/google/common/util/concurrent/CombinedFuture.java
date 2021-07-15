@@ -35,34 +35,34 @@ import javax.annotation.Nullable;
 @GwtCompatible
 final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   CombinedFuture(ImmutableCollection<? extends ListenableFuture<?>> futures,
-                 boolean allMustSucceed, Executor listenerExecutor,
-                 AsyncCallable<V> callable) {
+      boolean allMustSucceed, Executor listenerExecutor,
+      AsyncCallable<V> callable) {
     init(new CombinedFutureRunningState(
-        futures, allMustSucceed,
-        new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
+          futures, allMustSucceed,
+          new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
   }
 
   CombinedFuture(ImmutableCollection<? extends ListenableFuture<?>> futures,
-                 boolean allMustSucceed, Executor listenerExecutor,
-                 Callable<V> callable) {
+      boolean allMustSucceed, Executor listenerExecutor,
+      Callable<V> callable) {
     init(new CombinedFutureRunningState(
-        futures, allMustSucceed,
-        new CallableInterruptibleTask(callable, listenerExecutor)));
+          futures, allMustSucceed,
+          new CallableInterruptibleTask(callable, listenerExecutor)));
   }
 
   private final class CombinedFutureRunningState extends RunningState {
     private CombinedFutureInterruptibleTask task;
 
     CombinedFutureRunningState(
-        ImmutableCollection<? extends ListenableFuture<?>> futures,
-        boolean allMustSucceed, CombinedFutureInterruptibleTask task) {
+      ImmutableCollection<? extends ListenableFuture<?>> futures,
+      boolean allMustSucceed, CombinedFutureInterruptibleTask task) {
       super(futures, allMustSucceed, false);
       this.task = task;
     }
 
     @Override
     void collectOneValue(boolean allMustSucceed, int index,
-                         @Nullable Object returnValue) {}
+        @Nullable Object returnValue) {}
 
     @Override
     void handleAllCompleted() {
@@ -91,7 +91,7 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
   @WeakOuter
   private abstract class CombinedFutureInterruptibleTask<T>
-      extends InterruptibleTask<T> {
+    extends InterruptibleTask<T> {
     private final Executor listenerExecutor;
     boolean thrownByExecute = true;
 
@@ -134,11 +134,11 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
   @WeakOuter
   private final class AsyncCallableInterruptibleTask
-      extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
+    extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
     public AsyncCallableInterruptibleTask(AsyncCallable<V> callable,
-                                          Executor listenerExecutor) {
+        Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }
@@ -148,8 +148,8 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
       thrownByExecute = false;
       ListenableFuture<V> result = callable.call();
       return checkNotNull(
-          result, "AsyncCallable.call returned null instead of a Future. "
-                      + "Did you mean to return immediateFuture(null)?");
+        result, "AsyncCallable.call returned null instead of a Future. "
+        + "Did you mean to return immediateFuture(null)?");
     }
 
     @Override
@@ -165,11 +165,11 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
   @WeakOuter
   private final class CallableInterruptibleTask
-      extends CombinedFutureInterruptibleTask<V> {
+    extends CombinedFutureInterruptibleTask<V> {
     private final Callable<V> callable;
 
     public CallableInterruptibleTask(Callable<V> callable,
-                                     Executor listenerExecutor) {
+        Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }

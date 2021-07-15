@@ -50,14 +50,14 @@ public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_size0() {
     assertEquals("emptyMap.toString should return {}", "{}",
-                 getMap().toString());
+        getMap().toString());
   }
 
   @CollectionSize.Require(ONE)
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_size1() {
     assertEquals("size1Map.toString should return {entry}", "{" + e0() + "}",
-                 getMap().toString());
+        getMap().toString());
   }
 
   @CollectionSize.Require(absent = ZERO)
@@ -79,7 +79,7 @@ public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
   public void testToString_formatting() {
     assertEquals("map.toString() incorrect",
-                 expectedToString(getMap().entrySet()), getMap().toString());
+        expectedToString(getMap().entrySet()), getMap().toString());
   }
 
   private String expectedToString(Set<Entry<K, V>> entries) {

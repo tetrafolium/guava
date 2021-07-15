@@ -38,35 +38,35 @@ abstract class GwtFuturesCatchingSpecialization {
   @Deprecated
   public static <V> ListenableFuture<V>
   catching(ListenableFuture<? extends V> input, Class<Throwable> exceptionType,
-           Function<? super Throwable, ? extends V> fallback) {
+      Function<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         directExecutor());
+               directExecutor());
   }
 
   public static <V> ListenableFuture<V>
   catching(ListenableFuture<? extends V> input, Class<Throwable> exceptionType,
-           Function<? super Throwable, ? extends V> fallback,
-           Executor executor) {
+      Function<? super Throwable, ? extends V> fallback,
+      Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         executor);
+               executor);
   }
 
   /** @deprecated Use the overload that requires an executor. */
   @Deprecated
   public static <V> ListenableFuture<V>
   catchingAsync(ListenableFuture<? extends V> input,
-                Class<Throwable> exceptionType,
-                AsyncFunction<? super Throwable, ? extends V> fallback) {
+      Class<Throwable> exceptionType,
+      AsyncFunction<? super Throwable, ? extends V> fallback) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         directExecutor());
+               directExecutor());
   }
 
   public static <V> ListenableFuture<V>
   catchingAsync(ListenableFuture<? extends V> input,
-                Class<Throwable> exceptionType,
-                AsyncFunction<? super Throwable, ? extends V> fallback,
-                Executor executor) {
+      Class<Throwable> exceptionType,
+      AsyncFunction<? super Throwable, ? extends V> fallback,
+      Executor executor) {
     return AbstractCatchingFuture.create(input, exceptionType, fallback,
-                                         executor);
+               executor);
   }
 }

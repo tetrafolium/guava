@@ -44,7 +44,7 @@ public abstract class TypeParameter<T> extends TypeCapture<T> {
   protected TypeParameter() {
     Type type = capture();
     checkArgument(type instanceof TypeVariable, "%s should be a type variable.",
-                  type);
+        type);
     this.typeVariable = (TypeVariable<?>)type;
   }
 

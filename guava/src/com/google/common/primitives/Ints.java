@@ -187,7 +187,7 @@ public final class Ints {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -280,7 +280,7 @@ public final class Ints {
   @Beta
   public static int constrainToRange(int value, int min, int max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return Math.min(Math.max(value, min), max);
   }
 
@@ -294,7 +294,7 @@ public final class Ints {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static int[] concat(int[]... arrays) {
+  public static int[] concat(int[] ... arrays) {
     int length = 0;
     for (int[] array : arrays) {
       length += array.length;
@@ -341,7 +341,7 @@ public final class Ints {
    */
   public static int fromByteArray(byte[] bytes) {
     checkArgument(bytes.length >= BYTES, "array too small: %s < %s",
-                  bytes.length, BYTES);
+        bytes.length, BYTES);
     return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3]);
   }
 
@@ -357,7 +357,7 @@ public final class Ints {
   }
 
   private static final class IntConverter
-      extends Converter<String, Integer> implements Serializable {
+    extends Converter<String, Integer> implements Serializable {
     static final IntConverter INSTANCE = new IntConverter();
 
     @Override
@@ -466,7 +466,7 @@ public final class Ints {
   }
 
   private enum LexicographicalComparator implements Comparator < int
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -600,7 +600,7 @@ public final class Ints {
 
   @GwtCompatible
   private static class IntArrayAsList
-      extends AbstractList<Integer> implements RandomAccess, Serializable {
+    extends AbstractList<Integer> implements RandomAccess, Serializable {
     final int[] array;
     final int start;
     final int end;
@@ -638,7 +638,7 @@ public final class Ints {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Integer) &&
-          Ints.indexOf(array, (Integer)target, start, end) != -1;
+             Ints.indexOf(array, (Integer)target, start, end) != -1;
     }
 
     @Override

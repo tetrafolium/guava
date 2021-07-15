@@ -166,7 +166,7 @@ class FreshValueGenerator {
   private final Map<Type, Integer> emptyInstanceGenerated = new HashMap<>();
 
   final <T> void addSampleInstances(Class<T> type,
-                                    Iterable<? extends T> instances) {
+      Iterable<? extends T> instances) {
     sampleInstances.putAll(checkNotNull(type), checkNotNull(instances));
   }
 
@@ -273,7 +273,7 @@ class FreshValueGenerator {
 
   private <T> T newProxy(final Class<T> interfaceType) {
     return Reflection.newProxy(interfaceType,
-                               new FreshInvocationHandler(interfaceType));
+               new FreshInvocationHandler(interfaceType));
   }
 
   private Object invokeGeneratorMethod(Method generator, Object... args) {
@@ -298,7 +298,7 @@ class FreshValueGenerator {
 
     @Override
     protected Object handleInvocation(Object proxy, Method method,
-                                      Object[] args) {
+        Object[] args) {
       return interfaceMethodCalled(interfaceType, method);
     }
 
@@ -369,9 +369,9 @@ class FreshValueGenerator {
   @Generates
   private Class<?> generateClass() {
     return pickInstance(ImmutableList.of(int.class, long.class, void.class,
-                                         Object.class, Object[].class,
-                                         Iterable.class),
-                        Object.class);
+               Object.class, Object[].class,
+               Iterable.class),
+               Object.class);
   }
 
   @Generates
@@ -593,49 +593,49 @@ class FreshValueGenerator {
   @Generates
   private <T> Equivalence<T> generateEquivalence() {
     return new Equivalence<T>() {
-      @Override
-      protected boolean doEquivalent(T a, T b) {
-        return false;
-      }
-      @Override
-      protected int doHash(T t) {
-        return 0;
-      }
-      final String string = paramString(Equivalence.class, generateInt());
-      @Override
-      public String toString() {
-        return string;
-      }
+             @Override
+             protected boolean doEquivalent(T a, T b) {
+               return false;
+             }
+             @Override
+             protected int doHash(T t) {
+               return 0;
+             }
+             final String string = paramString(Equivalence.class, generateInt());
+             @Override
+             public String toString() {
+               return string;
+             }
     };
   }
 
   @Generates
   private CharMatcher generateCharMatcher() {
     return new CharMatcher() {
-      @Override
-      public boolean matches(char c) {
-        return false;
-      }
-      final String string = paramString(CharMatcher.class, generateInt());
-      @Override
-      public String toString() {
-        return string;
-      }
+             @Override
+             public boolean matches(char c) {
+               return false;
+             }
+             final String string = paramString(CharMatcher.class, generateInt());
+             @Override
+             public String toString() {
+               return string;
+             }
     };
   }
 
   @Generates
   private Ticker generateTicker() {
     return new Ticker() {
-      @Override
-      public long read() {
-        return 0;
-      }
-      final String string = paramString(Ticker.class, generateInt());
-      @Override
-      public String toString() {
-        return string;
-      }
+             @Override
+             public long read() {
+               return 0;
+             }
+             final String string = paramString(Ticker.class, generateInt());
+             @Override
+             public String toString() {
+               return string;
+             }
     };
   }
 
@@ -648,15 +648,15 @@ class FreshValueGenerator {
   @Generates
   private <T> Ordering<T> generateOrdering() {
     return new Ordering<T>() {
-      @Override
-      public int compare(T left, T right) {
-        return 0;
-      }
-      final String string = paramString(Ordering.class, generateInt());
-      @Override
-      public String toString() {
-        return string;
-      }
+             @Override
+             public int compare(T left, T right) {
+               return 0;
+             }
+             final String string = paramString(Ordering.class, generateInt());
+             @Override
+             public String toString() {
+               return string;
+             }
     };
   }
 
@@ -817,7 +817,7 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> LinkedHashMap<K, V> generateLinkedHashMap(K key,
-                                                                  V value) {
+      V value) {
     LinkedHashMap<K, V> map = Maps.newLinkedHashMap();
     map.put(key, value);
     return map;
@@ -825,7 +825,7 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> ImmutableMap<K, V> generateImmutableMap(K key,
-                                                                V value) {
+      V value) {
     return ImmutableMap.of(key, value);
   }
 
@@ -836,7 +836,7 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> ConcurrentMap<K, V> generateConcurrentMap(K key,
-                                                                  V value) {
+      V value) {
     ConcurrentMap<K, V> map = Maps.newConcurrentMap();
     map.put(key, value);
     return map;
@@ -881,7 +881,7 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> ListMultimap<K, V> generateListMultimap(K key,
-                                                                V value) {
+      V value) {
     return generateArrayListMultimap(key, value);
   }
 
@@ -906,7 +906,7 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> HashMultimap<K, V> generateHashMultimap(K key,
-                                                                V value) {
+      V value) {
     HashMultimap<K, V> multimap = HashMultimap.create();
     multimap.put(key, value);
     return multimap;
@@ -940,13 +940,13 @@ class FreshValueGenerator {
 
   @Generates
   private static <K, V> ImmutableBiMap<K, V> generateImmutableBimap(K key,
-                                                                    V value) {
+      V value) {
     return ImmutableBiMap.of(key, value);
   }
 
   @Generates
   private static <R, C, V> Table<R, C, V> generateTable(R row, C column,
-                                                        V value) {
+      V value) {
     return generateHashBasedTable(row, column, value);
   }
 
@@ -961,14 +961,14 @@ class FreshValueGenerator {
   @SuppressWarnings("rawtypes") // TreeBasedTable.create() is defined as such
   @Generates
   private static <R extends Comparable, C extends Comparable, V>
-      RowSortedTable<R, C, V> generateRowSortedTable(R row, C column, V value) {
+  RowSortedTable<R, C, V> generateRowSortedTable(R row, C column, V value) {
     return generateTreeBasedTable(row, column, value);
   }
 
   @SuppressWarnings("rawtypes") // TreeBasedTable.create() is defined as such
   @Generates
   private static <R extends Comparable, C extends Comparable, V>
-      TreeBasedTable<R, C, V> generateTreeBasedTable(R row, C column, V value) {
+  TreeBasedTable<R, C, V> generateTreeBasedTable(R row, C column, V value) {
     TreeBasedTable<R, C, V> table = TreeBasedTable.create();
     table.put(row, column, value);
     return table;

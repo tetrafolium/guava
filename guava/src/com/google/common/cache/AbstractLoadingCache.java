@@ -44,7 +44,7 @@ import java.util.concurrent.ExecutionException;
  */
 @GwtIncompatible
 public abstract class AbstractLoadingCache<K, V>
-    extends AbstractCache<K, V> implements LoadingCache<K, V> {
+  extends AbstractCache<K, V> implements LoadingCache<K, V> {
 
   /** Constructor for use by subclasses. */
   protected AbstractLoadingCache() {}
@@ -60,7 +60,7 @@ public abstract class AbstractLoadingCache<K, V>
 
   @Override
   public ImmutableMap<K, V> getAll(Iterable<? extends K> keys)
-      throws ExecutionException {
+  throws ExecutionException {
     Map<K, V> result = Maps.newLinkedHashMap();
     for (K key : keys) {
       if (!result.containsKey(key)) {

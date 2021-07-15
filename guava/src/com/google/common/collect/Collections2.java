@@ -90,7 +90,7 @@ public final class Collections2 {
   // TODO(kevinb): how can we omit that Iterables link when building gwt
   // javadoc?
   public static <E> Collection<E> filter(Collection<E> unfiltered,
-                                         Predicate<? super E> predicate) {
+      Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredCollection) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
@@ -98,7 +98,7 @@ public final class Collections2 {
     }
 
     return new FilteredCollection<E>(checkNotNull(unfiltered),
-                                     checkNotNull(predicate));
+               checkNotNull(predicate));
   }
 
   /**
@@ -107,7 +107,7 @@ public final class Collections2 {
    * {@code NullPointerException}.
    */
   static boolean safeContains(Collection<?> collection,
-                              @Nullable Object object) {
+      @Nullable Object object) {
     checkNotNull(collection);
     try {
       return collection.contains(object);
@@ -135,14 +135,14 @@ public final class Collections2 {
     final Predicate<? super E> predicate;
 
     FilteredCollection(Collection<E> unfiltered,
-                       Predicate<? super E> predicate) {
+        Predicate<? super E> predicate) {
       this.unfiltered = unfiltered;
       this.predicate = predicate;
     }
 
     FilteredCollection<E> createCombined(Predicate<? super E> newPredicate) {
       return new FilteredCollection<E>(
-          unfiltered, Predicates.<E>and(predicate, newPredicate));
+        unfiltered, Predicates.<E>and(predicate, newPredicate));
       // .<E> above needed to compile in JDK 5
     }
 
@@ -199,7 +199,7 @@ public final class Collections2 {
     @Override
     public void forEach(Consumer<? super E> action) {
       checkNotNull(action);
-      unfiltered.forEach((E e) -> {
+      unfiltered.forEach((E e)->{
         if (predicate.test(e)) {
           action.accept(e);
         }
@@ -218,14 +218,14 @@ public final class Collections2 {
 
     @Override
     public boolean retainAll(final Collection<?> collection) {
-      return removeIf(element -> !collection.contains(element));
+      return removeIf(element->!collection.contains(element));
     }
 
     @Override
     public boolean removeIf(java.util.function.Predicate<? super E> filter) {
       checkNotNull(filter);
       return unfiltered.removeIf(
-          element -> predicate.apply(element) && filter.test(element));
+        element->predicate.apply(element) && filter.test(element));
     }
 
     @Override
@@ -283,7 +283,7 @@ public final class Collections2 {
     final Function<? super F, ? extends T> function;
 
     TransformedCollection(Collection<F> fromCollection,
-                          Function<? super F, ? extends T> function) {
+        Function<? super F, ? extends T> function) {
       this.fromCollection = checkNotNull(fromCollection);
       this.function = checkNotNull(function);
     }
@@ -311,14 +311,14 @@ public final class Collections2 {
     @Override
     public void forEach(Consumer<? super T> action) {
       checkNotNull(action);
-      fromCollection.forEach((F f) -> action.accept(function.apply(f)));
+      fromCollection.forEach((F f)->action.accept(function.apply(f)));
     }
 
     @Override
     public boolean removeIf(java.util.function.Predicate<? super T> filter) {
       checkNotNull(filter);
       return fromCollection.removeIf(
-          element -> filter.test(function.apply(element)));
+        element->filter.test(function.apply(element)));
     }
 
     @Override
@@ -471,13 +471,13 @@ public final class Collections2 {
   }
 
   private static final class OrderedPermutationCollection<E>
-      extends AbstractCollection<List<E>> {
+    extends AbstractCollection<List<E>> {
     final ImmutableList<E> inputList;
     final Comparator<? super E> comparator;
     final int size;
 
     OrderedPermutationCollection(Iterable<E> input,
-                                 Comparator<? super E> comparator) {
+        Comparator<? super E> comparator) {
       this.inputList = ImmutableList.sortedCopyOf(comparator, input);
       this.comparator = comparator;
       this.size = calculateSize(inputList, comparator);
@@ -493,13 +493,13 @@ public final class Collections2 {
      * </ul>
      */
     private static <E> int calculateSize(List<E> sortedInputList,
-                                         Comparator<? super E> comparator) {
+        Comparator<? super E> comparator) {
       int permutations = 1;
       int n = 1;
       int r = 1;
       while (n < sortedInputList.size()) {
         int comparison = comparator.compare(sortedInputList.get(n - 1),
-                                            sortedInputList.get(n));
+            sortedInputList.get(n));
         if (comparison < 0) {
           // We move to the next non-repeated element.
           permutations =
@@ -546,7 +546,7 @@ public final class Collections2 {
   }
 
   private static final class OrderedPermutationIterator<E>
-      extends AbstractIterator<List<E>> {
+    extends AbstractIterator<List<E>> {
 
     List<E> nextPermutation;
     final Comparator<? super E> comparator;
@@ -582,7 +582,7 @@ public final class Collections2 {
     int findNextJ() {
       for (int k = nextPermutation.size() - 2; k >= 0; k--) {
         if (comparator.compare(nextPermutation.get(k),
-                               nextPermutation.get(k + 1)) < 0) {
+            nextPermutation.get(k + 1)) < 0) {
           return k;
         }
       }
@@ -626,7 +626,7 @@ public final class Collections2 {
   }
 
   private static final class PermutationCollection<E>
-      extends AbstractCollection<List<E>> {
+    extends AbstractCollection<List<E>> {
     final ImmutableList<E> inputList;
 
     PermutationCollection(ImmutableList<E> input) { this.inputList = input; }
@@ -662,7 +662,7 @@ public final class Collections2 {
   }
 
   private static class PermutationIterator<E>
-      extends AbstractIterator<List<E>> {
+    extends AbstractIterator<List<E>> {
     final List<E> list;
     final int[] c;
     final int[] o;

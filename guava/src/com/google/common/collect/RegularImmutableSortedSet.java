@@ -42,12 +42,12 @@ import javax.annotation.Nullable;
 final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   static final RegularImmutableSortedSet<Comparable> NATURAL_EMPTY_SET =
       new RegularImmutableSortedSet<>(ImmutableList.<Comparable>of(),
-                                      Ordering.natural());
+      Ordering.natural());
 
   private final transient ImmutableList<E> elements;
 
   RegularImmutableSortedSet(ImmutableList<E> elements,
-                            Comparator<? super E> comparator) {
+      Comparator<? super E> comparator) {
     super(comparator);
     this.elements = elements;
   }
@@ -239,7 +239,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
 
   int headIndex(E toElement, boolean inclusive) {
     int index = Collections.binarySearch(elements, checkNotNull(toElement),
-                                         comparator());
+        comparator());
     if (index >= 0) {
       return inclusive ? index + 1 : index;
     } else {
@@ -249,9 +249,9 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
 
   @Override
   ImmutableSortedSet<E> subSetImpl(E fromElement, boolean fromInclusive,
-                                   E toElement, boolean toInclusive) {
+      E toElement, boolean toInclusive) {
     return tailSetImpl(fromElement, fromInclusive)
-        .headSetImpl(toElement, toInclusive);
+           .headSetImpl(toElement, toInclusive);
   }
 
   @Override
@@ -261,7 +261,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
 
   int tailIndex(E fromElement, boolean inclusive) {
     int index = Collections.binarySearch(elements, checkNotNull(fromElement),
-                                         comparator());
+        comparator());
     if (index >= 0) {
       return inclusive ? index : index + 1;
     } else {
@@ -282,7 +282,7 @@ final class RegularImmutableSortedSet<E> extends ImmutableSortedSet<E> {
       return this;
     } else if (newFromIndex < newToIndex) {
       return new RegularImmutableSortedSet<E>(
-          elements.subList(newFromIndex, newToIndex), comparator);
+        elements.subList(newFromIndex, newToIndex), comparator);
     } else {
       return emptySet(comparator);
     }

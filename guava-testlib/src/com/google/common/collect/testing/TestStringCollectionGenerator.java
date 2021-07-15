@@ -28,7 +28,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class TestStringCollectionGenerator
-    implements TestCollectionGenerator<String> {
+  implements TestCollectionGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();

@@ -58,7 +58,7 @@ abstract class ImmutableMapEntrySet<K, V> extends ImmutableSet<Entry<K, V>> {
     @Override
     public Spliterator<Entry<K, V>> spliterator() {
       return Spliterators.spliterator(entries,
-                                      ImmutableSet.SPLITERATOR_CHARACTERISTICS);
+                 ImmutableSet.SPLITERATOR_CHARACTERISTICS);
     }
 
     @Override

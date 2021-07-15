@@ -40,7 +40,7 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @MapFeature.Require(SUPPORTS_PUT)
   public void testPutIfAbsent_supportedAbsent() {
     assertNull("putIfAbsent(notPresent, value) should return null",
-               getMap().putIfAbsent(k3(), v3()));
+        getMap().putIfAbsent(k3(), v3()));
     expectAdded(e3());
   }
 
@@ -48,7 +48,7 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testPutIfAbsent_supportedPresent() {
     assertEquals("putIfAbsent(present, value) should return existing value",
-                 v0(), getMap().putIfAbsent(k0(), v3()));
+        v0(), getMap().putIfAbsent(k0(), v3()));
     expectUnchanged();
   }
 
@@ -68,8 +68,8 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
   public void testPutIfAbsent_unsupportedPresentExistingValue() {
     try {
       assertEquals(
-          "putIfAbsent(present, existingValue) should return present or throw",
-          v0(), getMap().putIfAbsent(k0(), v0()));
+        "putIfAbsent(present, existingValue) should return present or throw",
+        v0(), getMap().putIfAbsent(k0(), v0()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
@@ -94,7 +94,7 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullKeyMissingWhenNullKeysUnsupported(
-        "Should not contain null key after unsupported putIfAbsent(null, value)");
+      "Should not contain null key after unsupported putIfAbsent(null, value)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -106,7 +106,7 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null value after unsupported put(key, null)");
+      "Should not contain null value after unsupported put(key, null)");
   }
 
   @MapFeature.Require(value = SUPPORTS_PUT, absent = ALLOWS_NULL_VALUES)
@@ -118,6 +118,6 @@ public class MapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     }
     expectUnchanged();
     expectNullValueMissingWhenNullValuesUnsupported(
-        "Should not contain null after unsupported putIfAbsent(present, null)");
+      "Should not contain null after unsupported putIfAbsent(present, null)");
   }
 }

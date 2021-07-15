@@ -30,12 +30,12 @@ import java.util.List;
  */
 @GwtCompatible
 public final class OneSizeGenerator<T, E>
-    implements OneSizeTestContainerGenerator<T, E> {
+  implements OneSizeTestContainerGenerator<T, E> {
   private final TestContainerGenerator<T, E> generator;
   private final CollectionSize collectionSize;
 
   public OneSizeGenerator(TestContainerGenerator<T, E> generator,
-                          CollectionSize collectionSize) {
+      CollectionSize collectionSize) {
     this.generator = generator;
     this.collectionSize = collectionSize;
   }
@@ -72,7 +72,7 @@ public final class OneSizeGenerator<T, E>
     SampleElements<E> samples = samples();
     @SuppressWarnings("unchecked")
     List<E> allSampleElements = Arrays.asList(
-        samples.e0(), samples.e1(), samples.e2(), samples.e3(), samples.e4());
+      samples.e0(), samples.e1(), samples.e2(), samples.e3(), samples.e4());
     return new ArrayList<E>(allSampleElements.subList(0, howMany));
   }
 

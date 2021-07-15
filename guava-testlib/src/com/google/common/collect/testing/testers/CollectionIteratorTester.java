@@ -53,7 +53,7 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
       iteratorElements.add(element);
     }
     Helpers.assertEqualIgnoringOrder(Arrays.asList(createSamplesArray()),
-                                     iteratorElements);
+        iteratorElements);
   }
 
   @CollectionFeature.Require(KNOWN_ORDER)
@@ -87,34 +87,34 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
   @CollectionFeature.Require({KNOWN_ORDER, SUPPORTS_ITERATOR_REMOVE})
   public void testIterator_knownOrderRemoveSupported() {
     runIteratorTest(MODIFIABLE, IteratorTester.KnownOrder.KNOWN_ORDER,
-                    getOrderedElements());
+        getOrderedElements());
   }
 
   @CollectionFeature.
   Require(value = KNOWN_ORDER, absent = SUPPORTS_ITERATOR_REMOVE)
   public void testIterator_knownOrderRemoveUnsupported() {
     runIteratorTest(UNMODIFIABLE, IteratorTester.KnownOrder.KNOWN_ORDER,
-                    getOrderedElements());
+        getOrderedElements());
   }
 
   @CollectionFeature.
   Require(absent = KNOWN_ORDER, value = SUPPORTS_ITERATOR_REMOVE)
   public void testIterator_unknownOrderRemoveSupported() {
     runIteratorTest(MODIFIABLE, IteratorTester.KnownOrder.UNKNOWN_ORDER,
-                    getSampleElements());
+        getSampleElements());
   }
 
   @CollectionFeature.Require(absent = {KNOWN_ORDER, SUPPORTS_ITERATOR_REMOVE})
   public void testIterator_unknownOrderRemoveUnsupported() {
     runIteratorTest(UNMODIFIABLE, IteratorTester.KnownOrder.UNKNOWN_ORDER,
-                    getSampleElements());
+        getSampleElements());
   }
 
   private void runIteratorTest(Set<IteratorFeature> features,
-                               IteratorTester.KnownOrder knownOrder,
-                               Iterable<E> elements) {
+      IteratorTester.KnownOrder knownOrder,
+      Iterable<E> elements) {
     new IteratorTester<E>(Platform.collectionIteratorTesterNumIterations(),
-                          features, elements, knownOrder) {
+        features, elements, knownOrder) {
       @Override
       protected Iterator<E> newTargetIterator() {
         resetCollection();

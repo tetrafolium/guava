@@ -69,7 +69,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
 
   @Override
   ContiguousSet<C> subSetImpl(C fromElement, boolean fromInclusive, C toElement,
-                              boolean toInclusive) {
+      boolean toInclusive) {
     return this;
   }
 
@@ -142,7 +142,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
 
   @GwtIncompatible // serialization
   private static final class SerializedForm<C extends Comparable>
-      implements Serializable {
+    implements Serializable {
     private final DiscreteDomain<C> domain;
 
     private SerializedForm(DiscreteDomain<C> domain) { this.domain = domain; }

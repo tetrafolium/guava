@@ -91,10 +91,10 @@ public class SampleElements<E> implements Iterable<E> {
   public static <K, V> SampleElements<Map.Entry<K, V>>
   mapEntries(SampleElements<K> keys, SampleElements<V> values) {
     return new SampleElements<>(Helpers.mapEntry(keys.e0(), values.e0()),
-                                Helpers.mapEntry(keys.e1(), values.e1()),
-                                Helpers.mapEntry(keys.e2(), values.e2()),
-                                Helpers.mapEntry(keys.e3(), values.e3()),
-                                Helpers.mapEntry(keys.e4(), values.e4()));
+               Helpers.mapEntry(keys.e1(), values.e1()),
+               Helpers.mapEntry(keys.e2(), values.e2()),
+               Helpers.mapEntry(keys.e3(), values.e3()),
+               Helpers.mapEntry(keys.e4(), values.e4()));
   }
 
   public E e0() { return e0; }
@@ -110,15 +110,15 @@ public class SampleElements<E> implements Iterable<E> {
   public static class Unhashables extends SampleElements<UnhashableObject> {
     public Unhashables() {
       super(new UnhashableObject(1), new UnhashableObject(2),
-            new UnhashableObject(3), new UnhashableObject(4),
-            new UnhashableObject(5));
+      new UnhashableObject(3), new UnhashableObject(4),
+      new UnhashableObject(5));
     }
   }
 
   public static class Colliders extends SampleElements<Object> {
     public Colliders() {
       super(new Collider(1), new Collider(2), new Collider(3), new Collider(4),
-            new Collider(5));
+      new Collider(5));
     }
   }
 

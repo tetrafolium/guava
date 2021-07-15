@@ -41,7 +41,7 @@ import java.util.SortedSet;
  * @author Louis Wasserman
  */
 public abstract class ForwardingSortedMultiset<E>
-    extends ForwardingMultiset<E> implements SortedMultiset<E> {
+  extends ForwardingMultiset<E> implements SortedMultiset<E> {
   /** Constructor for use by subclasses. */
   protected ForwardingSortedMultiset() {}
 
@@ -94,7 +94,7 @@ public abstract class ForwardingSortedMultiset<E>
    * return an instance of a subclass of {@code StandardDescendingMultiset}.
    */
   protected abstract class StandardDescendingMultiset
-      extends DescendingMultiset<E> {
+    extends DescendingMultiset<E> {
     /** Constructor for use by subclasses. */
     public StandardDescendingMultiset() {}
 
@@ -203,9 +203,9 @@ public abstract class ForwardingSortedMultiset<E>
 
   @Override
   public SortedMultiset<E> subMultiset(E lowerBound, BoundType lowerBoundType,
-                                       E upperBound, BoundType upperBoundType) {
+      E upperBound, BoundType upperBoundType) {
     return delegate().subMultiset(lowerBound, lowerBoundType, upperBound,
-                                  upperBoundType);
+               upperBoundType);
   }
 
   /**
@@ -219,11 +219,11 @@ public abstract class ForwardingSortedMultiset<E>
    * this implementation.
    */
   protected SortedMultiset<E> standardSubMultiset(E lowerBound,
-                                                  BoundType lowerBoundType,
-                                                  E upperBound,
-                                                  BoundType upperBoundType) {
+      BoundType lowerBoundType,
+      E upperBound,
+      BoundType upperBoundType) {
     return tailMultiset(lowerBound, lowerBoundType)
-        .headMultiset(upperBound, upperBoundType);
+           .headMultiset(upperBound, upperBoundType);
   }
 
   @Override

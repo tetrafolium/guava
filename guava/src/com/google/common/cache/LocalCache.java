@@ -101,7 +101,7 @@ import javax.annotation.concurrent.GuardedBy;
  */
 @GwtCompatible(emulated = true)
 class LocalCache<K, V>
-    extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
+  extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
 
   /*
    * The basic strategy is to subdivide the table among Segments, each of which
@@ -253,7 +253,7 @@ class LocalCache<K, V>
    * concurrency level.
    */
   LocalCache(CacheBuilder<? super K, ? super V> builder,
-             @Nullable CacheLoader<? super K, V> loader) {
+      @Nullable CacheLoader<? super K, V> loader) {
     concurrencyLevel = Math.min(builder.getConcurrencyLevel(), MAX_SEGMENTS);
 
     keyStrength = builder.getKeyStrength();
@@ -276,7 +276,7 @@ class LocalCache<K, V>
 
     ticker = builder.getTicker(recordsTime());
     entryFactory = EntryFactory.getFactory(keyStrength, usesAccessEntries(),
-                                           usesWriteEntries());
+        usesWriteEntries());
     globalStatsCounter = builder.getStatsCounterSupplier().get();
     defaultLoader = loader;
 
@@ -295,7 +295,7 @@ class LocalCache<K, V>
     int segmentShift = 0;
     int segmentCount = 1;
     while (segmentCount < concurrencyLevel &&
-           (!evictsBySize() || segmentCount * 20 <= maxWeight)) {
+        (!evictsBySize() || segmentCount * 20 <= maxWeight)) {
       ++segmentShift;
       segmentCount <<= 1;
     }
@@ -324,12 +324,12 @@ class LocalCache<K, V>
         }
         this.segments[i] =
             createSegment(segmentSize, maxSegmentWeight,
-                          builder.getStatsCounterSupplier().get());
+            builder.getStatsCounterSupplier().get());
       }
     } else {
       for (int i = 0; i < this.segments.length; ++i) {
         this.segments[i] = createSegment(
-            segmentSize, UNSET_INT, builder.getStatsCounterSupplier().get());
+          segmentSize, UNSET_INT, builder.getStatsCounterSupplier().get());
       }
     }
   }
@@ -373,8 +373,8 @@ class LocalCache<K, V>
     STRONG {
       @Override
       <K, V> ValueReference<K, V> referenceValue(Segment<K, V> segment,
-                                                 ReferenceEntry<K, V> entry,
-                                                 V value, int weight) {
+          ReferenceEntry<K, V> entry,
+          V value, int weight) {
         return (weight == 1)
             ? new StrongValueReference<K, V>(value)
             : new WeightedStrongValueReference<K, V>(value, weight);
@@ -388,13 +388,13 @@ class LocalCache<K, V>
     SOFT {
       @Override
       <K, V> ValueReference<K, V> referenceValue(Segment<K, V> segment,
-                                                 ReferenceEntry<K, V> entry,
-                                                 V value, int weight) {
+          ReferenceEntry<K, V> entry,
+          V value, int weight) {
         return (weight == 1)
             ? new SoftValueReference<K, V>(segment.valueReferenceQueue, value,
-                                           entry)
+                   entry)
             : new WeightedSoftValueReference<K, V>(segment.valueReferenceQueue,
-                                                   value, entry, weight);
+                   value, entry, weight);
       }
 
       @Override
@@ -405,13 +405,13 @@ class LocalCache<K, V>
     WEAK {
       @Override
       <K, V> ValueReference<K, V> referenceValue(Segment<K, V> segment,
-                                                 ReferenceEntry<K, V> entry,
-                                                 V value, int weight) {
+          ReferenceEntry<K, V> entry,
+          V value, int weight) {
         return (weight == 1)
             ? new WeakValueReference<K, V>(segment.valueReferenceQueue, value,
-                                           entry)
+                   entry)
             : new WeightedWeakValueReference<K, V>(segment.valueReferenceQueue,
-                                                   value, entry, weight);
+                   value, entry, weight);
       }
 
       @Override
@@ -425,7 +425,7 @@ class LocalCache<K, V>
      */
     abstract <K, V> ValueReference<K, V>
     referenceValue(Segment<K, V> segment, ReferenceEntry<K, V> entry, V value,
-                   int weight);
+        int weight);
 
     /**
      * Returns the default equivalence strategy used to compare and hash keys or
@@ -443,7 +443,7 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new StrongEntry<>(key, hash, next);
       }
     },
@@ -451,14 +451,14 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new StrongAccessEntry<>(key, hash, next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyAccessEntry(original, newEntry);
@@ -469,14 +469,14 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new StrongWriteEntry<>(key, hash, next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyWriteEntry(original, newEntry);
@@ -487,14 +487,14 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new StrongAccessWriteEntry<>(key, hash, next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyAccessEntry(original, newEntry);
@@ -506,7 +506,7 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new WeakEntry<>(segment.keyReferenceQueue, key, hash, next);
       }
     },
@@ -514,15 +514,15 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new WeakAccessEntry<>(segment.keyReferenceQueue, key, hash,
-                                     next);
+                   next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyAccessEntry(original, newEntry);
@@ -533,14 +533,14 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new WeakWriteEntry<>(segment.keyReferenceQueue, key, hash, next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyWriteEntry(original, newEntry);
@@ -551,15 +551,15 @@ class LocalCache<K, V>
       @Override
       <K, V> ReferenceEntry<K, V>
       newEntry(Segment<K, V> segment, K key, int hash,
-               @Nullable ReferenceEntry<K, V> next) {
+          @Nullable ReferenceEntry<K, V> next) {
         return new WeakAccessWriteEntry<>(segment.keyReferenceQueue, key, hash,
-                                          next);
+                   next);
       }
 
       @Override
       <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                            ReferenceEntry<K, V> original,
-                                            ReferenceEntry<K, V> newNext) {
+          ReferenceEntry<K, V> original,
+          ReferenceEntry<K, V> newNext) {
         ReferenceEntry<K, V> newEntry =
             super.copyEntry(segment, original, newNext);
         copyAccessEntry(original, newEntry);
@@ -578,16 +578,16 @@ class LocalCache<K, V>
      * Look-up table for factories.
      */
     static final EntryFactory[] factories = {
-        STRONG, STRONG_ACCESS, STRONG_WRITE, STRONG_ACCESS_WRITE,
-        WEAK,   WEAK_ACCESS,   WEAK_WRITE,   WEAK_ACCESS_WRITE,
+      STRONG, STRONG_ACCESS, STRONG_WRITE, STRONG_ACCESS_WRITE,
+      WEAK,   WEAK_ACCESS,   WEAK_WRITE,   WEAK_ACCESS_WRITE,
     };
 
     static EntryFactory getFactory(Strength keyStrength,
-                                   boolean usesAccessQueue,
-                                   boolean usesWriteQueue) {
+        boolean usesAccessQueue,
+        boolean usesWriteQueue) {
       int flags = ((keyStrength == Strength.WEAK) ? WEAK_MASK : 0) |
-                  (usesAccessQueue ? ACCESS_MASK : 0) |
-                  (usesWriteQueue ? WRITE_MASK : 0);
+          (usesAccessQueue ? ACCESS_MASK : 0) |
+          (usesWriteQueue ? WRITE_MASK : 0);
       return factories[flags];
     }
 
@@ -601,7 +601,7 @@ class LocalCache<K, V>
      */
     abstract <K, V> ReferenceEntry<K, V>
     newEntry(Segment<K, V> segment, K key, int hash,
-             @Nullable ReferenceEntry<K, V> next);
+        @Nullable ReferenceEntry<K, V> next);
 
     /**
      * Copies an entry, assigning it a new {@code next} entry.
@@ -611,14 +611,14 @@ class LocalCache<K, V>
      */
     // Guarded By Segment.this
     <K, V> ReferenceEntry<K, V> copyEntry(Segment<K, V> segment,
-                                          ReferenceEntry<K, V> original,
-                                          ReferenceEntry<K, V> newNext) {
+        ReferenceEntry<K, V> original,
+        ReferenceEntry<K, V> newNext) {
       return newEntry(segment, original.getKey(), original.getHash(), newNext);
     }
 
     // Guarded By Segment.this
     <K, V> void copyAccessEntry(ReferenceEntry<K, V> original,
-                                ReferenceEntry<K, V> newEntry) {
+        ReferenceEntry<K, V> newEntry) {
       // TODO(fry): when we link values instead of entries this method can go
       // away, as can connectAccessOrder, nullifyAccessOrder.
       newEntry.setAccessTime(original.getAccessTime());
@@ -631,7 +631,7 @@ class LocalCache<K, V>
 
     // Guarded By Segment.this
     <K, V> void copyWriteEntry(ReferenceEntry<K, V> original,
-                               ReferenceEntry<K, V> newEntry) {
+        ReferenceEntry<K, V> newEntry) {
       // TODO(fry): when we link values instead of entries this method can go
       // away, as can connectWriteOrder, nullifyWriteOrder.
       newEntry.setWriteTime(original.getWriteTime());
@@ -679,7 +679,7 @@ class LocalCache<K, V>
      * <p>{@code value} may be null only for a loading reference.
      */
     ValueReference<K, V> copyFor(ReferenceQueue<V> queue, @Nullable V value,
-                                 ReferenceEntry<K, V> entry);
+        ReferenceEntry<K, V> entry);
 
     /**
      * Notify pending loads that a new value was set. This is only relevant to
@@ -710,46 +710,46 @@ class LocalCache<K, V>
    */
   static final ValueReference<Object, Object> UNSET =
       new ValueReference<Object, Object>() {
-        @Override
-        public Object get() {
-          return null;
-        }
+    @Override
+    public Object get() {
+      return null;
+    }
 
-        @Override
-        public int getWeight() {
-          return 0;
-        }
+    @Override
+    public int getWeight() {
+      return 0;
+    }
 
-        @Override
-        public ReferenceEntry<Object, Object> getEntry() {
-          return null;
-        }
+    @Override
+    public ReferenceEntry<Object, Object> getEntry() {
+      return null;
+    }
 
-        @Override
-        public ValueReference<Object, Object> copyFor(
-            ReferenceQueue<Object> queue, @Nullable Object value,
-            ReferenceEntry<Object, Object> entry) {
-          return this;
-        }
+    @Override
+    public ValueReference<Object, Object> copyFor(
+      ReferenceQueue<Object> queue, @Nullable Object value,
+      ReferenceEntry<Object, Object> entry) {
+      return this;
+    }
 
-        @Override
-        public boolean isLoading() {
-          return false;
-        }
+    @Override
+    public boolean isLoading() {
+      return false;
+    }
 
-        @Override
-        public boolean isActive() {
-          return false;
-        }
+    @Override
+    public boolean isActive() {
+      return false;
+    }
 
-        @Override
-        public Object waitForValue() {
-          return null;
-        }
+    @Override
+    public Object waitForValue() {
+      return null;
+    }
 
-        @Override
-        public void notifyNewValue(Object newValue) {}
-      };
+    @Override
+    public void notifyNewValue(Object newValue) {}
+  };
 
   /**
    * Singleton placeholder that indicates a value is being loaded.
@@ -958,7 +958,7 @@ class LocalCache<K, V>
   }
 
   abstract static class AbstractReferenceEntry<K, V>
-      implements ReferenceEntry<K, V> {
+    implements ReferenceEntry<K, V> {
     @Override
     public ValueReference<K, V> getValueReference() {
       throw new UnsupportedOperationException();
@@ -1234,7 +1234,7 @@ class LocalCache<K, V>
 
   static final class StrongAccessWriteEntry<K, V> extends StrongEntry<K, V> {
     StrongAccessWriteEntry(K key, int hash,
-                           @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       super(key, hash, next);
     }
 
@@ -1323,9 +1323,9 @@ class LocalCache<K, V>
    * Used for weakly-referenced keys.
    */
   static class WeakEntry<K, V>
-      extends WeakReference<K> implements ReferenceEntry<K, V> {
+    extends WeakReference<K> implements ReferenceEntry<K, V> {
     WeakEntry(ReferenceQueue<K> queue, K key, int hash,
-              @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       super(key, queue);
       this.hash = hash;
       this.next = next;
@@ -1434,7 +1434,7 @@ class LocalCache<K, V>
 
   static final class WeakAccessEntry<K, V> extends WeakEntry<K, V> {
     WeakAccessEntry(ReferenceQueue<K> queue, K key, int hash,
-                    @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       super(queue, key, hash, next);
     }
 
@@ -1481,7 +1481,7 @@ class LocalCache<K, V>
 
   static final class WeakWriteEntry<K, V> extends WeakEntry<K, V> {
     WeakWriteEntry(ReferenceQueue<K> queue, K key, int hash,
-                   @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       super(queue, key, hash, next);
     }
 
@@ -1528,7 +1528,7 @@ class LocalCache<K, V>
 
   static final class WeakAccessWriteEntry<K, V> extends WeakEntry<K, V> {
     WeakAccessWriteEntry(ReferenceQueue<K> queue, K key, int hash,
-                         @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       super(queue, key, hash, next);
     }
 
@@ -1617,11 +1617,11 @@ class LocalCache<K, V>
    * References a weak value.
    */
   static class WeakValueReference<K, V>
-      extends WeakReference<V> implements ValueReference<K, V> {
+    extends WeakReference<V> implements ValueReference<K, V> {
     final ReferenceEntry<K, V> entry;
 
     WeakValueReference(ReferenceQueue<V> queue, V referent,
-                       ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       super(referent, queue);
       this.entry = entry;
     }
@@ -1641,7 +1641,7 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue, V value,
-                                        ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       return new WeakValueReference<>(queue, value, entry);
     }
 
@@ -1665,11 +1665,11 @@ class LocalCache<K, V>
    * References a soft value.
    */
   static class SoftValueReference<K, V>
-      extends SoftReference<V> implements ValueReference<K, V> {
+    extends SoftReference<V> implements ValueReference<K, V> {
     final ReferenceEntry<K, V> entry;
 
     SoftValueReference(ReferenceQueue<V> queue, V referent,
-                       ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       super(referent, queue);
       this.entry = entry;
     }
@@ -1689,7 +1689,7 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue, V value,
-                                        ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       return new SoftValueReference<>(queue, value, entry);
     }
 
@@ -1734,7 +1734,7 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue, V value,
-                                        ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       return this;
     }
 
@@ -1761,11 +1761,11 @@ class LocalCache<K, V>
    * References a weak value.
    */
   static final class WeightedWeakValueReference<K, V>
-      extends WeakValueReference<K, V> {
+    extends WeakValueReference<K, V> {
     final int weight;
 
     WeightedWeakValueReference(ReferenceQueue<V> queue, V referent,
-                               ReferenceEntry<K, V> entry, int weight) {
+        ReferenceEntry<K, V> entry, int weight) {
       super(queue, referent, entry);
       this.weight = weight;
     }
@@ -1777,7 +1777,7 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue, V value,
-                                        ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       return new WeightedWeakValueReference<>(queue, value, entry, weight);
     }
   }
@@ -1786,11 +1786,11 @@ class LocalCache<K, V>
    * References a soft value.
    */
   static final class WeightedSoftValueReference<K, V>
-      extends SoftValueReference<K, V> {
+    extends SoftValueReference<K, V> {
     final int weight;
 
     WeightedSoftValueReference(ReferenceQueue<V> queue, V referent,
-                               ReferenceEntry<K, V> entry, int weight) {
+        ReferenceEntry<K, V> entry, int weight) {
       super(queue, referent, entry);
       this.weight = weight;
     }
@@ -1802,7 +1802,7 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue, V value,
-                                        ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       return new WeightedSoftValueReference<>(queue, value, entry, weight);
     }
   }
@@ -1811,7 +1811,7 @@ class LocalCache<K, V>
    * References a strong value.
    */
   static final class WeightedStrongValueReference<K, V>
-      extends StrongValueReference<K, V> {
+    extends StrongValueReference<K, V> {
     final int weight;
 
     WeightedStrongValueReference(V referent, int weight) {
@@ -1851,7 +1851,7 @@ class LocalCache<K, V>
    */
   @VisibleForTesting
   ReferenceEntry<K, V> newEntry(K key, int hash,
-                                @Nullable ReferenceEntry<K, V> next) {
+      @Nullable ReferenceEntry<K, V> next) {
     Segment<K, V> segment = segmentFor(hash);
     segment.lock();
     try {
@@ -1868,7 +1868,7 @@ class LocalCache<K, V>
   // Guarded By Segment.this
   @VisibleForTesting
   ReferenceEntry<K, V> copyEntry(ReferenceEntry<K, V> original,
-                                 ReferenceEntry<K, V> newNext) {
+      ReferenceEntry<K, V> newNext) {
     int hash = original.getHash();
     return segmentFor(hash).copyEntry(original, newNext);
   }
@@ -1880,10 +1880,10 @@ class LocalCache<K, V>
   // Guarded By Segment.this
   @VisibleForTesting
   ValueReference<K, V> newValueReference(ReferenceEntry<K, V> entry, V value,
-                                         int weight) {
+      int weight) {
     int hash = entry.getHash();
     return valueStrength.referenceValue(segmentFor(hash), entry,
-                                        checkNotNull(value), weight);
+               checkNotNull(value), weight);
   }
 
   int hash(@Nullable Object key) {
@@ -1923,7 +1923,7 @@ class LocalCache<K, V>
   }
 
   Segment<K, V> createSegment(int initialCapacity, long maxSegmentWeight,
-                              StatsCounter statsCounter) {
+      StatsCounter statsCounter) {
     return new Segment<>(this, initialCapacity, maxSegmentWeight, statsCounter);
   }
 
@@ -1972,7 +1972,7 @@ class LocalCache<K, V>
 
   // Guarded By Segment.this
   static <K, V> void connectAccessOrder(ReferenceEntry<K, V> previous,
-                                        ReferenceEntry<K, V> next) {
+      ReferenceEntry<K, V> next) {
     previous.setNextInAccessQueue(next);
     next.setPreviousInAccessQueue(previous);
   }
@@ -1986,7 +1986,7 @@ class LocalCache<K, V>
 
   // Guarded By Segment.this
   static <K, V> void connectWriteOrder(ReferenceEntry<K, V> previous,
-                                       ReferenceEntry<K, V> next) {
+      ReferenceEntry<K, V> next) {
     previous.setNextInWriteQueue(next);
     next.setPreviousInWriteQueue(previous);
   }
@@ -2147,7 +2147,7 @@ class LocalCache<K, V>
     final StatsCounter statsCounter;
 
     Segment(LocalCache<K, V> map, int initialCapacity, long maxSegmentWeight,
-            StatsCounter statsCounter) {
+        StatsCounter statsCounter) {
       this.map = map;
       this.maxSegmentWeight = maxSegmentWeight;
       this.statsCounter = checkNotNull(statsCounter);
@@ -2187,7 +2187,7 @@ class LocalCache<K, V>
 
     @GuardedBy("this")
     ReferenceEntry<K, V> newEntry(K key, int hash,
-                                  @Nullable ReferenceEntry<K, V> next) {
+        @Nullable ReferenceEntry<K, V> next) {
       return map.entryFactory.newEntry(this, checkNotNull(key), hash, next);
     }
 
@@ -2198,7 +2198,7 @@ class LocalCache<K, V>
      */
     @GuardedBy("this")
     ReferenceEntry<K, V> copyEntry(ReferenceEntry<K, V> original,
-                                   ReferenceEntry<K, V> newNext) {
+        ReferenceEntry<K, V> newNext) {
       if (original.getKey() == null) {
         // key collected
         return null;
@@ -2214,7 +2214,7 @@ class LocalCache<K, V>
       ReferenceEntry<K, V> newEntry =
           map.entryFactory.copyEntry(this, original, newNext);
       newEntry.setValueReference(
-          valueReference.copyFor(this.valueReferenceQueue, value, newEntry));
+        valueReference.copyFor(this.valueReferenceQueue, value, newEntry));
       return newEntry;
     }
 
@@ -2238,7 +2238,7 @@ class LocalCache<K, V>
     // loading
 
     V get(K key, int hash, CacheLoader<? super K, V> loader)
-        throws ExecutionException {
+    throws ExecutionException {
       checkNotNull(key);
       checkNotNull(loader);
       try {
@@ -2276,7 +2276,7 @@ class LocalCache<K, V>
     }
 
     V lockedGetOrLoad(K key, int hash, CacheLoader<? super K, V> loader)
-        throws ExecutionException {
+    throws ExecutionException {
       ReferenceEntry<K, V> e;
       ValueReference<K, V> valueReference = null;
       LoadingValueReference<K, V> loadingValueReference = null;
@@ -2304,15 +2304,15 @@ class LocalCache<K, V>
               V value = valueReference.get();
               if (value == null) {
                 enqueueNotification(entryKey, hash, value,
-                                    valueReference.getWeight(),
-                                    RemovalCause.COLLECTED);
+                    valueReference.getWeight(),
+                    RemovalCause.COLLECTED);
               } else if (map.isExpired(e, now)) {
                 // This is a duplicate check, as preWriteCleanup already purged
                 // expired entries, but let's accomodate an incorrect expiration
                 // queue.
                 enqueueNotification(entryKey, hash, value,
-                                    valueReference.getWeight(),
-                                    RemovalCause.EXPIRED);
+                    valueReference.getWeight(),
+                    RemovalCause.EXPIRED);
               } else {
                 recordLockedRead(e, now);
                 statsCounter.recordHits(1);
@@ -2363,8 +2363,8 @@ class LocalCache<K, V>
     }
 
     V waitForLoadingValue(ReferenceEntry<K, V> e, K key,
-                          ValueReference<K, V> valueReference)
-        throws ExecutionException {
+        ValueReference<K, V> valueReference)
+    throws ExecutionException {
       if (!valueReference.isLoading()) {
         throw new AssertionError();
       }
@@ -2375,7 +2375,7 @@ class LocalCache<K, V>
         V value = valueReference.waitForValue();
         if (value == null) {
           throw new InvalidCacheLoadException(
-              "CacheLoader returned null for key " + key + ".");
+                  "CacheLoader returned null for key " + key + ".");
         }
         // re-read ticker now that loading has completed
         long now = map.ticker.read();
@@ -2387,7 +2387,7 @@ class LocalCache<K, V>
     }
 
     V compute(K key, int hash,
-              BiFunction<? super K, ? super V, ? extends V> function) {
+        BiFunction<? super K, ? super V, ? extends V> function) {
       ReferenceEntry<K, V> e;
       ValueReference<K, V> valueReference = null;
       LoadingValueReference<K, V> loadingValueReference = null;
@@ -2414,8 +2414,8 @@ class LocalCache<K, V>
               // expired entries, but let's accomodate an incorrect expiration
               // queue.
               enqueueNotification(entryKey, hash, valueReference.get(),
-                                  valueReference.getWeight(),
-                                  RemovalCause.EXPIRED);
+                  valueReference.getWeight(),
+                  RemovalCause.EXPIRED);
             }
 
             // immediately reuse invalid entries
@@ -2443,10 +2443,10 @@ class LocalCache<K, V>
         if (newValue != null) {
           try {
             return getAndRecordStats(key, hash, loadingValueReference,
-                                     Futures.immediateFuture(newValue));
+                       Futures.immediateFuture(newValue));
           } catch (ExecutionException exception) {
             throw new AssertionError(
-                "impossible; Futures.immediateFuture can't throw");
+                    "impossible; Futures.immediateFuture can't throw");
           }
         } else if (createNewEntry) {
           removeLoadingValue(key, hash, loadingValueReference);
@@ -2465,8 +2465,8 @@ class LocalCache<K, V>
     // LoadingValueReference
 
     V loadSync(K key, int hash,
-               LoadingValueReference<K, V> loadingValueReference,
-               CacheLoader<? super K, V> loader) throws ExecutionException {
+        LoadingValueReference<K, V> loadingValueReference,
+        CacheLoader<? super K, V> loader) throws ExecutionException {
       ListenableFuture<V> loadingFuture =
           loadingValueReference.loadFuture(key, loader);
       return getAndRecordStats(key, hash, loadingValueReference, loadingFuture);
@@ -2474,8 +2474,8 @@ class LocalCache<K, V>
 
     ListenableFuture<V>
     loadAsync(final K key, final int hash,
-              final LoadingValueReference<K, V> loadingValueReference,
-              CacheLoader<? super K, V> loader) {
+        final LoadingValueReference<K, V> loadingValueReference,
+        CacheLoader<? super K, V> loader) {
       final ListenableFuture<V> loadingFuture =
           loadingValueReference.loadFuture(key, loader);
       loadingFuture.addListener(new Runnable() {
@@ -2497,15 +2497,15 @@ class LocalCache<K, V>
      * loading stats.
      */
     V getAndRecordStats(K key, int hash,
-                        LoadingValueReference<K, V> loadingValueReference,
-                        ListenableFuture<V> newValue)
-        throws ExecutionException {
+        LoadingValueReference<K, V> loadingValueReference,
+        ListenableFuture<V> newValue)
+    throws ExecutionException {
       V value = null;
       try {
         value = getUninterruptibly(newValue);
         if (value == null) {
           throw new InvalidCacheLoadException(
-              "CacheLoader returned null for key " + key + ".");
+                  "CacheLoader returned null for key " + key + ".");
         }
         statsCounter.recordLoadSuccess(loadingValueReference.elapsedNanos());
         storeLoadedValue(key, hash, loadingValueReference, value);
@@ -2513,14 +2513,14 @@ class LocalCache<K, V>
       } finally {
         if (value == null) {
           statsCounter.recordLoadException(
-              loadingValueReference.elapsedNanos());
+            loadingValueReference.elapsedNanos());
           removeLoadingValue(key, hash, loadingValueReference);
         }
       }
     }
 
     V scheduleRefresh(ReferenceEntry<K, V> entry, K key, int hash, V oldValue,
-                      long now, CacheLoader<? super K, V> loader) {
+        long now, CacheLoader<? super K, V> loader) {
       if (map.refreshes() && (now - entry.getWriteTime() > map.refreshNanos) &&
           !entry.getValueReference().isLoading()) {
         V newValue = refresh(key, hash, loader, true);
@@ -2540,7 +2540,7 @@ class LocalCache<K, V>
      */
     @Nullable
     V refresh(K key, int hash, CacheLoader<? super K, V> loader,
-              boolean checkTime) {
+        boolean checkTime) {
       final LoadingValueReference<K, V> loadingValueReference =
           insertLoadingValueReference(key, hash, checkTime);
       if (loadingValueReference == null) {
@@ -2565,8 +2565,8 @@ class LocalCache<K, V>
      */
     @Nullable
     LoadingValueReference<K, V> insertLoadingValueReference(final K key,
-                                                            final int hash,
-                                                            boolean checkTime) {
+        final int hash,
+        boolean checkTime) {
       ReferenceEntry<K, V> e = null;
       lock();
       try {
@@ -2805,7 +2805,7 @@ class LocalCache<K, V>
 
     @GuardedBy("this")
     void enqueueNotification(@Nullable K key, int hash, @Nullable V value,
-                             int weight, RemovalCause cause) {
+        int weight, RemovalCause cause) {
       totalWeight -= weight;
       if (cause.wasEvicted()) {
         statsCounter.recordEviction();
@@ -2872,7 +2872,7 @@ class LocalCache<K, V>
     @Nullable
     ReferenceEntry<K, V> getEntry(Object key, int hash) {
       for (ReferenceEntry<K, V> e = getFirst(hash); e != null;
-           e = e.getNext()) {
+          e = e.getNext()) {
         if (e.getHash() != hash) {
           continue;
         }
@@ -2939,7 +2939,7 @@ class LocalCache<K, V>
           if (value != null) {
             recordRead(e, now);
             return scheduleRefresh(e, e.getKey(), hash, value, now,
-                                   map.defaultLoader);
+                       map.defaultLoader);
           }
           tryDrainReferenceQueues();
         }
@@ -2979,7 +2979,7 @@ class LocalCache<K, V>
           int length = table.length();
           for (int i = 0; i < length; ++i) {
             for (ReferenceEntry<K, V> e = table.get(i); e != null;
-                 e = e.getNext()) {
+                e = e.getNext()) {
               V entryValue = getLiveValue(e, now);
               if (entryValue == null) {
                 continue;
@@ -3028,8 +3028,8 @@ class LocalCache<K, V>
               ++modCount;
               if (valueReference.isActive()) {
                 enqueueNotification(key, hash, entryValue,
-                                    valueReference.getWeight(),
-                                    RemovalCause.COLLECTED);
+                    valueReference.getWeight(),
+                    RemovalCause.COLLECTED);
                 setValue(e, key, value, now);
                 newCount = this.count; // count remains unchanged
               } else {
@@ -3049,8 +3049,8 @@ class LocalCache<K, V>
               // clobber existing entry, count remains unchanged
               ++modCount;
               enqueueNotification(key, hash, entryValue,
-                                  valueReference.getWeight(),
-                                  RemovalCause.REPLACED);
+                  valueReference.getWeight(),
+                  RemovalCause.REPLACED);
               setValue(e, key, value, now);
               evictEntries(e);
               return entryValue;
@@ -3170,8 +3170,8 @@ class LocalCache<K, V>
                 int newCount = this.count - 1;
                 ++modCount;
                 ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                    first, e, entryKey, hash, entryValue, valueReference,
-                    RemovalCause.COLLECTED);
+                  first, e, entryKey, hash, entryValue, valueReference,
+                  RemovalCause.COLLECTED);
                 newCount = this.count - 1;
                 table.set(index, newFirst);
                 this.count = newCount; // write-volatile
@@ -3182,8 +3182,8 @@ class LocalCache<K, V>
             if (map.valueEquivalence.equivalent(oldValue, entryValue)) {
               ++modCount;
               enqueueNotification(key, hash, entryValue,
-                                  valueReference.getWeight(),
-                                  RemovalCause.REPLACED);
+                  valueReference.getWeight(),
+                  RemovalCause.REPLACED);
               setValue(e, key, newValue, now);
               evictEntries(e);
               return true;
@@ -3226,8 +3226,8 @@ class LocalCache<K, V>
                 int newCount = this.count - 1;
                 ++modCount;
                 ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                    first, e, entryKey, hash, entryValue, valueReference,
-                    RemovalCause.COLLECTED);
+                  first, e, entryKey, hash, entryValue, valueReference,
+                  RemovalCause.COLLECTED);
                 newCount = this.count - 1;
                 table.set(index, newFirst);
                 this.count = newCount; // write-volatile
@@ -3237,8 +3237,8 @@ class LocalCache<K, V>
 
             ++modCount;
             enqueueNotification(key, hash, entryValue,
-                                valueReference.getWeight(),
-                                RemovalCause.REPLACED);
+                valueReference.getWeight(),
+                RemovalCause.REPLACED);
             setValue(e, key, newValue, now);
             evictEntries(e);
             return entryValue;
@@ -3283,7 +3283,7 @@ class LocalCache<K, V>
 
             ++modCount;
             ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                first, e, entryKey, hash, entryValue, valueReference, cause);
+              first, e, entryKey, hash, entryValue, valueReference, cause);
             newCount = this.count - 1;
             table.set(index, newFirst);
             this.count = newCount; // write-volatile
@@ -3299,8 +3299,8 @@ class LocalCache<K, V>
     }
 
     boolean storeLoadedValue(K key, int hash,
-                             LoadingValueReference<K, V> oldValueReference,
-                             V newValue) {
+        LoadingValueReference<K, V> oldValueReference,
+        V newValue) {
       lock();
       try {
         long now = map.ticker.read();
@@ -3332,7 +3332,7 @@ class LocalCache<K, V>
                                          ? RemovalCause.COLLECTED
                                          : RemovalCause.REPLACED;
                 enqueueNotification(key, hash, entryValue,
-                                    oldValueReference.getWeight(), cause);
+                    oldValueReference.getWeight(), cause);
                 newCount--;
               }
               setValue(e, key, newValue, now);
@@ -3390,7 +3390,7 @@ class LocalCache<K, V>
 
             ++modCount;
             ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                first, e, entryKey, hash, entryValue, valueReference, cause);
+              first, e, entryKey, hash, entryValue, valueReference, cause);
             newCount = this.count - 1;
             table.set(index, newFirst);
             this.count = newCount; // write-volatile
@@ -3415,7 +3415,7 @@ class LocalCache<K, V>
           AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
           for (int i = 0; i < table.length(); ++i) {
             for (ReferenceEntry<K, V> e = table.get(i); e != null;
-                 e = e.getNext()) {
+                e = e.getNext()) {
               // Loading references aren't actually in the map yet.
               if (e.getValueReference().isActive()) {
                 K key = e.getKey();
@@ -3424,7 +3424,7 @@ class LocalCache<K, V>
                                          ? RemovalCause.COLLECTED
                                          : RemovalCause.EXPLICIT;
                 enqueueNotification(key, e.getHash(), value,
-                                    e.getValueReference().getWeight(), cause);
+                    e.getValueReference().getWeight(), cause);
               }
             }
           }
@@ -3449,9 +3449,9 @@ class LocalCache<K, V>
     @Nullable
     ReferenceEntry<K, V>
     removeValueFromChain(ReferenceEntry<K, V> first, ReferenceEntry<K, V> entry,
-                         @Nullable K key, int hash, V value,
-                         ValueReference<K, V> valueReference,
-                         RemovalCause cause) {
+        @Nullable K key, int hash, V value,
+        ValueReference<K, V> valueReference,
+        RemovalCause cause) {
       enqueueNotification(key, hash, value, valueReference.getWeight(), cause);
       writeQueue.remove(entry);
       accessQueue.remove(entry);
@@ -3467,7 +3467,7 @@ class LocalCache<K, V>
     @GuardedBy("this")
     @Nullable
     ReferenceEntry<K, V> removeEntryFromChain(ReferenceEntry<K, V> first,
-                                              ReferenceEntry<K, V> entry) {
+        ReferenceEntry<K, V> entry) {
       int newCount = count;
       ReferenceEntry<K, V> newFirst = entry.getNext();
       for (ReferenceEntry<K, V> e = first; e != entry; e = e.getNext()) {
@@ -3486,8 +3486,8 @@ class LocalCache<K, V>
     @GuardedBy("this")
     void removeCollectedEntry(ReferenceEntry<K, V> entry) {
       enqueueNotification(
-          entry.getKey(), entry.getHash(), entry.getValueReference().get(),
-          entry.getValueReference().getWeight(), RemovalCause.COLLECTED);
+        entry.getKey(), entry.getHash(), entry.getValueReference().get(),
+        entry.getValueReference().getWeight(), RemovalCause.COLLECTED);
       writeQueue.remove(entry);
       accessQueue.remove(entry);
     }
@@ -3507,8 +3507,8 @@ class LocalCache<K, V>
           if (e == entry) {
             ++modCount;
             ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                first, e, e.getKey(), hash, e.getValueReference().get(),
-                e.getValueReference(), RemovalCause.COLLECTED);
+              first, e, e.getKey(), hash, e.getValueReference().get(),
+              e.getValueReference(), RemovalCause.COLLECTED);
             newCount = this.count - 1;
             table.set(index, newFirst);
             this.count = newCount; // write-volatile
@@ -3542,8 +3542,8 @@ class LocalCache<K, V>
             if (v == valueReference) {
               ++modCount;
               ReferenceEntry<K, V> newFirst = removeValueFromChain(
-                  first, e, entryKey, hash, valueReference.get(),
-                  valueReference, RemovalCause.COLLECTED);
+                first, e, entryKey, hash, valueReference.get(),
+                valueReference, RemovalCause.COLLECTED);
               newCount = this.count - 1;
               table.set(index, newFirst);
               this.count = newCount; // write-volatile
@@ -3563,7 +3563,7 @@ class LocalCache<K, V>
     }
 
     boolean removeLoadingValue(K key, int hash,
-                               LoadingValueReference<K, V> valueReference) {
+        LoadingValueReference<K, V> valueReference) {
       lock();
       try {
         AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
@@ -3598,7 +3598,7 @@ class LocalCache<K, V>
     @VisibleForTesting
     @GuardedBy("this")
     boolean removeEntry(ReferenceEntry<K, V> entry, int hash,
-                        RemovalCause cause) {
+        RemovalCause cause) {
       int newCount = this.count - 1;
       AtomicReferenceArray<ReferenceEntry<K, V>> table = this.table;
       int index = hash & (table.length() - 1);
@@ -3608,8 +3608,8 @@ class LocalCache<K, V>
         if (e == entry) {
           ++modCount;
           ReferenceEntry<K, V> newFirst = removeValueFromChain(
-              first, e, e.getKey(), hash, e.getValueReference().get(),
-              e.getValueReference(), cause);
+            first, e, e.getKey(), hash, e.getValueReference().get(),
+            e.getValueReference(), cause);
           newCount = this.count - 1;
           table.set(index, newFirst);
           this.count = newCount; // write-volatile
@@ -3731,7 +3731,7 @@ class LocalCache<K, V>
     }
 
     public ListenableFuture<V> loadFuture(K key,
-                                          CacheLoader<? super K, V> loader) {
+        CacheLoader<? super K, V> loader) {
       try {
         stopwatch.start();
         V previousValue = oldValue.get();
@@ -3765,7 +3765,7 @@ class LocalCache<K, V>
     }
 
     public V compute(K key,
-                     BiFunction<? super K, ? super V, ? extends V> function) {
+        BiFunction<? super K, ? super V, ? extends V> function) {
       stopwatch.start();
       V previousValue;
       try {
@@ -3799,8 +3799,8 @@ class LocalCache<K, V>
 
     @Override
     public ValueReference<K, V> copyFor(ReferenceQueue<V> queue,
-                                        @Nullable V value,
-                                        ReferenceEntry<K, V> entry) {
+        @Nullable V value,
+        ReferenceEntry<K, V> entry) {
       return this;
     }
   }
@@ -3821,7 +3821,7 @@ class LocalCache<K, V>
    * contains method is highly optimized for the current model.
    */
   static final class WriteQueue<K, V>
-      extends AbstractQueue<ReferenceEntry<K, V>> {
+    extends AbstractQueue<ReferenceEntry<K, V>> {
     final ReferenceEntry<K, V> head = new AbstractReferenceEntry<K, V>() {
       @Override
       public long getWriteTime() {
@@ -3862,7 +3862,7 @@ class LocalCache<K, V>
     public boolean offer(ReferenceEntry<K, V> entry) {
       // unlink
       connectWriteOrder(entry.getPreviousInWriteQueue(),
-                        entry.getNextInWriteQueue());
+          entry.getNextInWriteQueue());
 
       // add to tail
       connectWriteOrder(head.getPreviousInWriteQueue(), entry);
@@ -3916,7 +3916,7 @@ class LocalCache<K, V>
     public int size() {
       int size = 0;
       for (ReferenceEntry<K, V> e = head.getNextInWriteQueue(); e != head;
-           e = e.getNextInWriteQueue()) {
+          e = e.getNextInWriteQueue()) {
         size++;
       }
       return size;
@@ -3938,12 +3938,12 @@ class LocalCache<K, V>
     @Override
     public Iterator<ReferenceEntry<K, V>> iterator() {
       return new AbstractSequentialIterator<ReferenceEntry<K, V>>(peek()) {
-        @Override
-        protected ReferenceEntry<K, V> computeNext(
-            ReferenceEntry<K, V> previous) {
-          ReferenceEntry<K, V> next = previous.getNextInWriteQueue();
-          return (next == head) ? null : next;
-        }
+               @Override
+               protected ReferenceEntry<K, V> computeNext(
+                 ReferenceEntry<K, V> previous) {
+                 ReferenceEntry<K, V> next = previous.getNextInWriteQueue();
+                 return (next == head) ? null : next;
+               }
       };
     }
   }
@@ -3962,7 +3962,7 @@ class LocalCache<K, V>
    * contains method is highly optimized for the current model.
    */
   static final class AccessQueue<K, V>
-      extends AbstractQueue<ReferenceEntry<K, V>> {
+    extends AbstractQueue<ReferenceEntry<K, V>> {
     final ReferenceEntry<K, V> head = new AbstractReferenceEntry<K, V>() {
       @Override
       public long getAccessTime() {
@@ -4003,7 +4003,7 @@ class LocalCache<K, V>
     public boolean offer(ReferenceEntry<K, V> entry) {
       // unlink
       connectAccessOrder(entry.getPreviousInAccessQueue(),
-                         entry.getNextInAccessQueue());
+          entry.getNextInAccessQueue());
 
       // add to tail
       connectAccessOrder(head.getPreviousInAccessQueue(), entry);
@@ -4057,7 +4057,7 @@ class LocalCache<K, V>
     public int size() {
       int size = 0;
       for (ReferenceEntry<K, V> e = head.getNextInAccessQueue(); e != head;
-           e = e.getNextInAccessQueue()) {
+          e = e.getNextInAccessQueue()) {
         size++;
       }
       return size;
@@ -4079,12 +4079,12 @@ class LocalCache<K, V>
     @Override
     public Iterator<ReferenceEntry<K, V>> iterator() {
       return new AbstractSequentialIterator<ReferenceEntry<K, V>>(peek()) {
-        @Override
-        protected ReferenceEntry<K, V> computeNext(
-            ReferenceEntry<K, V> previous) {
-          ReferenceEntry<K, V> next = previous.getNextInAccessQueue();
-          return (next == head) ? null : next;
-        }
+               @Override
+               protected ReferenceEntry<K, V> computeNext(
+                 ReferenceEntry<K, V> previous) {
+                 ReferenceEntry<K, V> next = previous.getNextInAccessQueue();
+                 return (next == head) ? null : next;
+               }
       };
     }
   }
@@ -4137,8 +4137,8 @@ class LocalCache<K, V>
     long sum = 0;
     for (int i = 0; i < segments.length; ++i) {
       sum += Math.max(
-          0,
-          segments[i].count); // see https://github.com/google/guava/issues/2108
+        0,
+        segments[i].count);   // see https://github.com/google/guava/issues/2108
     }
     return sum;
   }
@@ -4209,7 +4209,7 @@ class LocalCache<K, V>
   }
 
   ImmutableMap<K, V> getAll(Iterable<? extends K> keys)
-      throws ExecutionException {
+  throws ExecutionException {
     int hits = 0;
     int misses = 0;
 
@@ -4236,7 +4236,7 @@ class LocalCache<K, V>
             V value = newEntries.get(key);
             if (value == null) {
               throw new InvalidCacheLoadException(
-                  "loadAll failed to return a value for " + key);
+                      "loadAll failed to return a value for " + key);
             }
             result.put(key, value);
           }
@@ -4261,7 +4261,7 @@ class LocalCache<K, V>
    */
   @Nullable
   Map<K, V> loadAll(Set<? extends K> keys, CacheLoader<? super K, V> loader)
-      throws ExecutionException {
+  throws ExecutionException {
     checkNotNull(loader);
     checkNotNull(keys);
     Stopwatch stopwatch = Stopwatch.createStarted();
@@ -4293,7 +4293,7 @@ class LocalCache<K, V>
     if (result == null) {
       globalStatsCounter.recordLoadException(stopwatch.elapsed(NANOSECONDS));
       throw new InvalidCacheLoadException(loader +
-                                          " returned null map from loadAll");
+                " returned null map from loadAll");
     }
 
     stopwatch.stop();
@@ -4313,7 +4313,7 @@ class LocalCache<K, V>
     if (nullsPresent) {
       globalStatsCounter.recordLoadException(stopwatch.elapsed(NANOSECONDS));
       throw new InvalidCacheLoadException(
-          loader + " returned null keys or values from loadAll");
+              loader + " returned null keys or values from loadAll");
     }
 
     // TODO(fry): record count of loaded entries
@@ -4375,7 +4375,7 @@ class LocalCache<K, V>
         AtomicReferenceArray<ReferenceEntry<K, V>> table = segment.table;
         for (int j = 0; j < table.length(); j++) {
           for (ReferenceEntry<K, V> e = table.get(j); e != null;
-               e = e.getNext()) {
+              e = e.getNext()) {
             V v = segment.getLiveValue(e, now);
             if (v != null && valueEquivalence.equivalent(value, v)) {
               return true;
@@ -4410,7 +4410,7 @@ class LocalCache<K, V>
 
   @Override
   public V compute(K key,
-                   BiFunction<? super K, ? super V, ? extends V> function) {
+      BiFunction<? super K, ? super V, ? extends V> function) {
     checkNotNull(key);
     checkNotNull(function);
     int hash = hash(key);
@@ -4422,31 +4422,31 @@ class LocalCache<K, V>
     checkNotNull(key);
     checkNotNull(function);
     return compute(
-        key,
-        (k, oldValue) -> (oldValue == null) ? function.apply(key) : oldValue);
+      key,
+      (k, oldValue)->(oldValue == null) ? function.apply(key) : oldValue);
   }
 
   @Override
   public V
   computeIfPresent(K key,
-                   BiFunction<? super K, ? super V, ? extends V> function) {
+      BiFunction<? super K, ? super V, ? extends V> function) {
     checkNotNull(key);
     checkNotNull(function);
     return compute(
-        key,
-        (k,
-         oldValue) -> (oldValue == null) ? null : function.apply(k, oldValue));
+      key,
+      (k,
+      oldValue)->(oldValue == null) ? null : function.apply(k, oldValue));
   }
 
   @Override
   public V merge(K key, V newValue,
-                 BiFunction<? super V, ? super V, ? extends V> function) {
+      BiFunction<? super V, ? super V, ? extends V> function) {
     checkNotNull(key);
     checkNotNull(newValue);
     checkNotNull(function);
     return compute(key,
-                   (k, oldValue)
-                       -> (oldValue == null)
+               (k, oldValue)
+               ->(oldValue == null)
                               ? newValue
                               : function.apply(oldValue, newValue));
   }
@@ -4587,7 +4587,7 @@ class LocalCache<K, V>
     boolean nextInChain() {
       if (nextEntry != null) {
         for (nextEntry = nextEntry.getNext(); nextEntry != null;
-             nextEntry = nextEntry.getNext()) {
+            nextEntry = nextEntry.getNext()) {
           if (advanceTo(nextEntry)) {
             return true;
           }
@@ -4838,7 +4838,7 @@ class LocalCache<K, V>
     @Override
     public boolean removeIf(Predicate<? super V> filter) {
       checkNotNull(filter);
-      return LocalCache.this.removeIf((k, v) -> filter.test(v));
+      return LocalCache.this.removeIf((k, v)->filter.test(v));
     }
 
     @Override
@@ -4876,7 +4876,7 @@ class LocalCache<K, V>
     public boolean removeIf(Predicate<? super Entry<K, V>> filter) {
       checkNotNull(filter);
       return LocalCache.this.removeIf(
-          (k, v) -> filter.test(Maps.immutableEntry(k, v)));
+        (k, v)->filter.test(Maps.immutableEntry(k, v)));
     }
 
     @Override
@@ -4916,7 +4916,7 @@ class LocalCache<K, V>
    * is present, so the proxy must be able to behave as the cache itself.
    */
   static class ManualSerializationProxy<K, V>
-      extends ForwardingCache<K, V> implements Serializable {
+    extends ForwardingCache<K, V> implements Serializable {
     private static final long serialVersionUID = 1;
 
     final Strength keyStrength;
@@ -4936,20 +4936,20 @@ class LocalCache<K, V>
 
     ManualSerializationProxy(LocalCache<K, V> cache) {
       this(cache.keyStrength, cache.valueStrength, cache.keyEquivalence,
-           cache.valueEquivalence, cache.expireAfterWriteNanos,
-           cache.expireAfterAccessNanos, cache.maxWeight, cache.weigher,
-           cache.concurrencyLevel, cache.removalListener, cache.ticker,
-           cache.defaultLoader);
+      cache.valueEquivalence, cache.expireAfterWriteNanos,
+      cache.expireAfterAccessNanos, cache.maxWeight, cache.weigher,
+      cache.concurrencyLevel, cache.removalListener, cache.ticker,
+      cache.defaultLoader);
     }
 
     private ManualSerializationProxy(
-        Strength keyStrength, Strength valueStrength,
-        Equivalence<Object> keyEquivalence,
-        Equivalence<Object> valueEquivalence, long expireAfterWriteNanos,
-        long expireAfterAccessNanos, long maxWeight, Weigher<K, V> weigher,
-        int concurrencyLevel,
-        RemovalListener<? super K, ? super V> removalListener, Ticker ticker,
-        CacheLoader<? super K, V> loader) {
+      Strength keyStrength, Strength valueStrength,
+      Equivalence<Object> keyEquivalence,
+      Equivalence<Object> valueEquivalence, long expireAfterWriteNanos,
+      long expireAfterAccessNanos, long maxWeight, Weigher<K, V> weigher,
+      int concurrencyLevel,
+      RemovalListener<? super K, ? super V> removalListener, Ticker ticker,
+      CacheLoader<? super K, V> loader) {
       this.keyStrength = keyStrength;
       this.valueStrength = valueStrength;
       this.keyEquivalence = keyEquivalence;
@@ -4968,12 +4968,12 @@ class LocalCache<K, V>
 
     CacheBuilder<K, V> recreateCacheBuilder() {
       CacheBuilder<K, V> builder = CacheBuilder.newBuilder()
-                                       .setKeyStrength(keyStrength)
-                                       .setValueStrength(valueStrength)
-                                       .keyEquivalence(keyEquivalence)
-                                       .valueEquivalence(valueEquivalence)
-                                       .concurrencyLevel(concurrencyLevel)
-                                       .removalListener(removalListener);
+          .setKeyStrength(keyStrength)
+          .setValueStrength(valueStrength)
+          .keyEquivalence(keyEquivalence)
+          .valueEquivalence(valueEquivalence)
+          .concurrencyLevel(concurrencyLevel)
+          .removalListener(removalListener);
       builder.strictParsing = false;
       if (expireAfterWriteNanos > 0) {
         builder.expireAfterWrite(expireAfterWriteNanos, TimeUnit.NANOSECONDS);
@@ -4998,7 +4998,7 @@ class LocalCache<K, V>
     }
 
     private void readObject(ObjectInputStream in)
-        throws IOException, ClassNotFoundException {
+    throws IOException, ClassNotFoundException {
       in.defaultReadObject();
       CacheBuilder<K, V> builder = recreateCacheBuilder();
       this.delegate = builder.build();
@@ -5021,8 +5021,8 @@ class LocalCache<K, V>
    * is present, so the proxy must be able to behave as the cache itself.
    */
   static final class LoadingSerializationProxy<K, V>
-      extends ManualSerializationProxy<K, V>
-      implements LoadingCache<K, V>, Serializable {
+    extends ManualSerializationProxy<K, V>
+    implements LoadingCache<K, V>, Serializable {
     private static final long serialVersionUID = 1;
 
     transient LoadingCache<K, V> autoDelegate;
@@ -5030,7 +5030,7 @@ class LocalCache<K, V>
     LoadingSerializationProxy(LocalCache<K, V> cache) { super(cache); }
 
     private void readObject(ObjectInputStream in)
-        throws IOException, ClassNotFoundException {
+    throws IOException, ClassNotFoundException {
       in.defaultReadObject();
       CacheBuilder<K, V> builder = recreateCacheBuilder();
       this.autoDelegate = builder.build(loader);
@@ -5048,7 +5048,7 @@ class LocalCache<K, V>
 
     @Override
     public ImmutableMap<K, V> getAll(Iterable<? extends K> keys)
-        throws ExecutionException {
+    throws ExecutionException {
       return autoDelegate.getAll(keys);
     }
 
@@ -5086,7 +5086,7 @@ class LocalCache<K, V>
 
     @Override
     public V get(K key, final Callable<? extends V> valueLoader)
-        throws ExecutionException {
+    throws ExecutionException {
       checkNotNull(valueLoader);
       return localCache.get(key, new CacheLoader<Object, V>() {
         @Override
@@ -5160,10 +5160,10 @@ class LocalCache<K, V>
   }
 
   static class LocalLoadingCache<K, V>
-      extends LocalManualCache<K, V> implements LoadingCache<K, V> {
+    extends LocalManualCache<K, V> implements LoadingCache<K, V> {
 
     LocalLoadingCache(CacheBuilder<? super K, ? super V> builder,
-                      CacheLoader<? super K, V> loader) {
+        CacheLoader<? super K, V> loader) {
       super(new LocalCache<K, V>(builder, checkNotNull(loader)));
     }
 
@@ -5185,7 +5185,7 @@ class LocalCache<K, V>
 
     @Override
     public ImmutableMap<K, V> getAll(Iterable<? extends K> keys)
-        throws ExecutionException {
+    throws ExecutionException {
       return localCache.getAll(keys);
     }
 

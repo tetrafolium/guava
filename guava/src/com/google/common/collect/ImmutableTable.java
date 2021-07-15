@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ImmutableTable<R, C, V>
-    extends AbstractTable<R, C, V> implements Serializable {
+  extends AbstractTable<R, C, V> implements Serializable {
 
   /**
    * Returns a {@code Collector} that accumulates elements into an {@code
@@ -65,18 +65,18 @@ public abstract class ImmutableTable<R, C, V>
   @Beta
   public static <T, R, C, V> Collector<T, ?, ImmutableTable<R, C, V>>
   toImmutableTable(Function<? super T, ? extends R> rowFunction,
-                   Function<? super T, ? extends C> columnFunction,
-                   Function<? super T, ? extends V> valueFunction) {
+      Function<? super T, ? extends C> columnFunction,
+      Function<? super T, ? extends V> valueFunction) {
     checkNotNull(rowFunction);
     checkNotNull(columnFunction);
     checkNotNull(valueFunction);
     return Collector.of(()
-                            -> new ImmutableTable.Builder<R, C, V>(),
-                        (builder, t)
-                            -> builder.put(rowFunction.apply(t),
-                                           columnFunction.apply(t),
-                                           valueFunction.apply(t)),
-                        (b1, b2) -> b1.combine(b2), b -> b.build());
+               ->new ImmutableTable.Builder<R, C, V>(),
+               (builder, t)
+               ->builder.put(rowFunction.apply(t),
+               columnFunction.apply(t),
+               valueFunction.apply(t)),
+               (b1, b2)->b1.combine(b2), b->b.build());
   }
 
   /**
@@ -95,9 +95,9 @@ public abstract class ImmutableTable<R, C, V>
    */
   public static <T, R, C, V> Collector<T, ?, ImmutableTable<R, C, V>>
   toImmutableTable(Function<? super T, ? extends R> rowFunction,
-                   Function<? super T, ? extends C> columnFunction,
-                   Function<? super T, ? extends V> valueFunction,
-                   BinaryOperator<V> mergeFunction) {
+      Function<? super T, ? extends C> columnFunction,
+      Function<? super T, ? extends V> valueFunction,
+      BinaryOperator<V> mergeFunction) {
 
     checkNotNull(rowFunction);
     checkNotNull(columnFunction);
@@ -111,13 +111,13 @@ public abstract class ImmutableTable<R, C, V>
      */
 
     return Collector.of(
-        ()
-            -> new CollectorState<R, C, V>()
-        /* GWT isn't currently playing nicely with constructor references? */,
-        (state, input)
-            -> state.put(rowFunction.apply(input), columnFunction.apply(input),
-                         valueFunction.apply(input), mergeFunction),
-        (s1, s2) -> s1.combine(s2, mergeFunction), state -> state.toTable());
+      ()
+      ->new CollectorState<R, C, V>()
+      /* GWT isn't currently playing nicely with constructor references? */,
+      (state, input)
+      ->state.put(rowFunction.apply(input), columnFunction.apply(input),
+      valueFunction.apply(input), mergeFunction),
+      (s1, s2)->s1.combine(s2, mergeFunction), state->state.toTable());
   }
 
   private static final class CollectorState<R, C, V> {
@@ -136,7 +136,7 @@ public abstract class ImmutableTable<R, C, V>
     }
 
     CollectorState<R, C, V> combine(CollectorState<R, C, V> other,
-                                    BinaryOperator<V> merger) {
+        BinaryOperator<V> merger) {
       for (MutableCell<R, C, V> cell : other.insertionOrder) {
         put(cell.getRowKey(), cell.getColumnKey(), cell.getValue(), merger);
       }
@@ -147,7 +147,7 @@ public abstract class ImmutableTable<R, C, V>
   }
 
   private static final class MutableCell<R, C, V>
-      extends AbstractCell<R, C, V> {
+    extends AbstractCell<R, C, V> {
     private final R row;
     private final C column;
     private V value;
@@ -187,7 +187,7 @@ public abstract class ImmutableTable<R, C, V>
 
   /** Returns an immutable table containing a single cell. */
   public static <R, C, V> ImmutableTable<R, C, V> of(R rowKey, C columnKey,
-                                                     V value) {
+      V value) {
     return new SingletonImmutableTable<>(rowKey, columnKey, value);
   }
 
@@ -218,7 +218,7 @@ public abstract class ImmutableTable<R, C, V>
   }
 
   private static <R, C, V> ImmutableTable<R, C, V> copyOf(
-      Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
+    Iterable<? extends Cell<? extends R, ? extends C, ? extends V>> cells) {
     ImmutableTable.Builder<R, C, V> builder = ImmutableTable.builder();
     for (Cell<? extends R, ? extends C, ? extends V> cell : cells) {
       builder.put(cell);
@@ -239,7 +239,7 @@ public abstract class ImmutableTable<R, C, V>
    */
   static <R, C, V> Cell<R, C, V> cellOf(R rowKey, C columnKey, V value) {
     return Tables.immutableCell(checkNotNull(rowKey), checkNotNull(columnKey),
-                                checkNotNull(value));
+               checkNotNull(value));
   }
 
   /**
@@ -365,7 +365,7 @@ public abstract class ImmutableTable<R, C, V>
         return new SingletonImmutableTable<>(Iterables.getOnlyElement(cells));
       default:
         return RegularImmutableTable.forCells(cells, rowComparator,
-                                              columnComparator);
+                   columnComparator);
       }
     }
   }
@@ -410,8 +410,8 @@ public abstract class ImmutableTable<R, C, V>
   public ImmutableMap<R, V> column(C columnKey) {
     checkNotNull(columnKey);
     return MoreObjects.firstNonNull(
-        (ImmutableMap<R, V>)columnMap().get(columnKey),
-        ImmutableMap.<R, V>of());
+      (ImmutableMap<R, V>)columnMap().get(columnKey),
+      ImmutableMap.<R, V>of());
   }
 
   @Override
@@ -436,7 +436,7 @@ public abstract class ImmutableTable<R, C, V>
   public ImmutableMap<C, V> row(R rowKey) {
     checkNotNull(rowKey);
     return MoreObjects.firstNonNull((ImmutableMap<C, V>)rowMap().get(rowKey),
-                                    ImmutableMap.<C, V>of());
+               ImmutableMap.<C, V>of());
   }
 
   @Override
@@ -528,8 +528,8 @@ public abstract class ImmutableTable<R, C, V>
     private final int[] cellColumnIndices;
 
     private SerializedForm(Object[] rowKeys, Object[] columnKeys,
-                           Object[] cellValues, int[] cellRowIndices,
-                           int[] cellColumnIndices) {
+        Object[] cellValues, int[] cellRowIndices,
+        int[] cellColumnIndices) {
       this.rowKeys = rowKeys;
       this.columnKeys = columnKeys;
       this.cellValues = cellValues;
@@ -538,11 +538,11 @@ public abstract class ImmutableTable<R, C, V>
     }
 
     static SerializedForm create(ImmutableTable<?, ?, ?> table,
-                                 int[] cellRowIndices,
-                                 int[] cellColumnIndices) {
+        int[] cellRowIndices,
+        int[] cellColumnIndices) {
       return new SerializedForm(
-          table.rowKeySet().toArray(), table.columnKeySet().toArray(),
-          table.values().toArray(), cellRowIndices, cellColumnIndices);
+        table.rowKeySet().toArray(), table.columnKeySet().toArray(),
+        table.values().toArray(), cellRowIndices, cellColumnIndices);
     }
 
     Object readResolve() {
@@ -556,12 +556,12 @@ public abstract class ImmutableTable<R, C, V>
           new ImmutableList.Builder<>(cellValues.length);
       for (int i = 0; i < cellValues.length; i++) {
         cellListBuilder.add(cellOf(rowKeys[cellRowIndices[i]],
-                                   columnKeys[cellColumnIndices[i]],
-                                   cellValues[i]));
+            columnKeys[cellColumnIndices[i]],
+            cellValues[i]));
       }
       return RegularImmutableTable.forOrderedComponents(
-          cellListBuilder.build(), ImmutableSet.copyOf(rowKeys),
-          ImmutableSet.copyOf(columnKeys));
+        cellListBuilder.build(), ImmutableSet.copyOf(rowKeys),
+        ImmutableSet.copyOf(columnKeys));
     }
 
     private static final long serialVersionUID = 0;

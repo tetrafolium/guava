@@ -28,7 +28,7 @@ import java.util.Comparator;
  */
 public class TreeBasedTable_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader,
-                                 TreeBasedTable<?, ?, ?> table) {}
+      TreeBasedTable<?, ?, ?> table) {}
 
   public static TreeBasedTable<Object, Object, Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -44,8 +44,8 @@ public class TreeBasedTable_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               TreeBasedTable<?, ?, ?> table)
-      throws SerializationException {
+      TreeBasedTable<?, ?, ?> table)
+  throws SerializationException {
     writer.writeObject(table.rowComparator());
     writer.writeObject(table.columnComparator());
     Table_CustomFieldSerializerBase.serialize(writer, table);

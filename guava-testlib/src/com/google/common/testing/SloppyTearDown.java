@@ -43,7 +43,7 @@ public abstract class SloppyTearDown implements TearDown {
       sloppyTearDown();
     } catch (Throwable t) {
       logger.log(Level.INFO,
-                 "exception thrown during tearDown: " + t.getMessage(), t);
+          "exception thrown during tearDown: " + t.getMessage(), t);
     }
   }
 

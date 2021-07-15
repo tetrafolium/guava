@@ -47,7 +47,7 @@ import java.util.Set;
 @SuppressWarnings("unchecked")
 @GwtCompatible
 public enum CollectionSize
-    implements Feature<Collection>, Comparable<CollectionSize> {
+implements Feature<Collection>, Comparable<CollectionSize> {
   /** Test an empty collection. */
   ZERO(0),
   /** Test a one-element collection. */
@@ -84,7 +84,7 @@ public enum CollectionSize
   public int getNumElements() {
     if (numElements == null) {
       throw new IllegalStateException(
-          "A compound CollectionSize doesn't specify a number of elements.");
+              "A compound CollectionSize doesn't specify a number of elements.");
     }
     return numElements;
   }

@@ -108,7 +108,7 @@ public final class EqualsTester {
    */
   public EqualsTester testEquals() {
     RelationshipTester<Object> delegate = new RelationshipTester<>(
-        Equivalence.equals(), "Object#equals", "Object#hashCode", itemReporter);
+      Equivalence.equals(), "Object#equals", "Object#hashCode", itemReporter);
     for (List<Object> group : equalityGroups) {
       delegate.addRelatedGroup(group);
     }
@@ -122,14 +122,14 @@ public final class EqualsTester {
   private void testItems() {
     for (Object item : Iterables.concat(equalityGroups)) {
       assertTrue(item + " must not be Object#equals to null",
-                 !item.equals(null));
+          !item.equals(null));
       assertTrue(
-          item +
-              " must not be Object#equals to an arbitrary object of another class",
-          !item.equals(NotAnInstance.EQUAL_TO_NOTHING));
+        item +
+        " must not be Object#equals to an arbitrary object of another class",
+        !item.equals(NotAnInstance.EQUAL_TO_NOTHING));
       assertEquals(item + " must be Object#equals to itself", item, item);
       assertEquals("the Object#hashCode of " + item + " must be consistent",
-                   item.hashCode(), item.hashCode());
+          item.hashCode(), item.hashCode());
     }
   }
 

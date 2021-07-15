@@ -146,7 +146,7 @@ public final class Doubles {
 
   // TODO(kevinb): consider making this public
   private static int indexOf(double[] array, double target, int start,
-                             int end) {
+      int end) {
     for (int i = start; i < end; i++) {
       if (array[i] == target) {
         return i;
@@ -177,7 +177,7 @@ public final class Doubles {
       return 0;
     }
 
-  outer:
+outer:
     for (int i = 0; i < array.length - target.length + 1; i++) {
       for (int j = 0; j < target.length; j++) {
         if (array[i + j] != target[j]) {
@@ -205,7 +205,7 @@ public final class Doubles {
 
   // TODO(kevinb): consider making this public
   private static int lastIndexOf(double[] array, double target, int start,
-                                 int end) {
+      int end) {
     for (int i = end - 1; i >= start; i--) {
       if (array[i] == target) {
         return i;
@@ -272,7 +272,7 @@ public final class Doubles {
   @Beta
   public static double constrainToRange(double value, double min, double max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)",
-                  min, max);
+        min, max);
     return Math.min(Math.max(value, min), max);
   }
 
@@ -287,7 +287,7 @@ public final class Doubles {
    * @return a single array containing all the values from the source arrays, in
    *     order
    */
-  public static double[] concat(double[]... arrays) {
+  public static double[] concat(double[] ... arrays) {
     int length = 0;
     for (double[] array : arrays) {
       length += array.length;
@@ -302,7 +302,7 @@ public final class Doubles {
   }
 
   private static final class DoubleConverter
-      extends Converter<String, Double> implements Serializable {
+    extends Converter<String, Double> implements Serializable {
     static final DoubleConverter INSTANCE = new DoubleConverter();
 
     @Override
@@ -355,7 +355,7 @@ public final class Doubles {
    *     {@code minLength}
    */
   public static double[] ensureCapacity(double[] array, int minLength,
-                                        int padding) {
+      int padding) {
     checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
     checkArgument(padding >= 0, "Invalid padding: %s", padding);
     return (array.length < minLength)
@@ -412,7 +412,7 @@ public final class Doubles {
   }
 
   private enum LexicographicalComparator implements Comparator < double
-  [] > {
+      [] > {
     INSTANCE;
 
     @Override
@@ -458,7 +458,7 @@ public final class Doubles {
    * @since 23.1
    */
   public static void sortDescending(double[] array, int fromIndex,
-                                    int toIndex) {
+      int toIndex) {
     checkNotNull(array);
     checkPositionIndexes(fromIndex, toIndex, array.length);
     Arrays.sort(array, fromIndex, toIndex);
@@ -558,7 +558,7 @@ public final class Doubles {
 
   @GwtCompatible
   private static class DoubleArrayAsList
-      extends AbstractList<Double> implements RandomAccess, Serializable {
+    extends AbstractList<Double> implements RandomAccess, Serializable {
     final double[] array;
     final int start;
     final int end;
@@ -596,7 +596,7 @@ public final class Doubles {
     public boolean contains(Object target) {
       // Overridden to prevent a ton of boxing
       return (target instanceof Double) &&
-          Doubles.indexOf(array, (Double)target, start, end) != -1;
+             Doubles.indexOf(array, (Double)target, start, end) != -1;
     }
 
     @Override

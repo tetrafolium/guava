@@ -36,7 +36,9 @@ public enum BoundType {
 
   final boolean inclusive;
 
-  BoundType(boolean inclusive) { this.inclusive = inclusive; }
+  BoundType(boolean inclusive) {
+    this.inclusive = inclusive;
+  }
 
   /**
    * Returns the bound type corresponding to a boolean value for inclusivity.

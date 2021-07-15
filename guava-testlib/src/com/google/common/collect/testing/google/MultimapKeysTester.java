@@ -41,18 +41,18 @@ import java.util.Iterator;
  */
 @GwtCompatible
 public class MultimapKeysTester<K, V>
-    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+  extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(SEVERAL)
   public void testKeys() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
-                   Helpers.mapEntry(k1(), v0()));
+        Helpers.mapEntry(k1(), v0()));
     Multiset<K> keys = multimap().keys();
     assertEquals(2, keys.count(k0()));
     assertEquals(1, keys.count(k1()));
     assertEquals(3, keys.size());
     assertContainsAllOf(keys, k0(), k1());
     assertContainsAllOf(keys.entrySet(), Multisets.immutableEntry(k0(), 2),
-                        Multisets.immutableEntry(k1(), 1));
+        Multisets.immutableEntry(k1(), 1));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
@@ -64,15 +64,15 @@ public class MultimapKeysTester<K, V>
   @MapFeature.Require(ALLOWS_NULL_KEYS)
   public void testKeysWithNullKey() {
     resetContainer(Helpers.mapEntry((K)null, v0()),
-                   Helpers.mapEntry((K)null, v1()),
-                   Helpers.mapEntry(k1(), v0()));
+        Helpers.mapEntry((K)null, v1()),
+        Helpers.mapEntry(k1(), v0()));
     Multiset<K> keys = multimap().keys();
     assertEquals(2, keys.count(null));
     assertEquals(1, keys.count(k1()));
     assertEquals(3, keys.size());
     assertContainsAllOf(keys, null, k1());
     assertContainsAllOf(keys.entrySet(), Multisets.immutableEntry((K)null, 2),
-                        Multisets.immutableEntry(k1(), 1));
+        Multisets.immutableEntry(k1(), 1));
   }
 
   public void testKeysElementSet() {
@@ -99,9 +99,9 @@ public class MultimapKeysTester<K, V>
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testKeysEntrySetRemove() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
-                   Helpers.mapEntry(k1(), v0()));
+        Helpers.mapEntry(k1(), v0()));
     assertTrue(
-        multimap().keys().entrySet().remove(Multisets.immutableEntry(k0(), 2)));
+      multimap().keys().entrySet().remove(Multisets.immutableEntry(k0(), 2)));
     assertEquals(1, multimap().size());
     assertTrue(multimap().containsEntry(k1(), v0()));
   }

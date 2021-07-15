@@ -33,7 +33,7 @@ import java.util.Arrays;
  * @author Dimitris Andreou
  */
 final class MessageDigestHashFunction
-    extends AbstractHashFunction implements Serializable {
+  extends AbstractHashFunction implements Serializable {
   private final MessageDigest prototype;
   private final int bytes;
   private final boolean supportsClone;
@@ -51,7 +51,7 @@ final class MessageDigestHashFunction
     this.prototype = getMessageDigest(algorithmName);
     int maxLength = prototype.getDigestLength();
     checkArgument(bytes >= 4 && bytes <= maxLength,
-                  "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
+        "bytes (%s) must be >= 4 and < %s", bytes, maxLength);
     this.bytes = bytes;
     this.supportsClone = supportsClone(prototype);
   }
@@ -93,7 +93,7 @@ final class MessageDigestHashFunction
       }
     }
     return new MessageDigestHasher(getMessageDigest(prototype.getAlgorithm()),
-                                   bytes);
+               bytes);
   }
 
   private static final class SerializedForm implements Serializable {

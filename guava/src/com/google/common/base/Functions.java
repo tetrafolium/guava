@@ -132,7 +132,7 @@ public final class Functions {
   }
 
   private static class FunctionForMapNoDefault<K, V>
-      implements Function<K, V>, Serializable {
+    implements Function<K, V>, Serializable {
     final Map<K, V> map;
 
     FunctionForMapNoDefault(Map<K, V> map) { this.map = checkNotNull(map); }
@@ -141,7 +141,7 @@ public final class Functions {
     public V apply(@Nullable K key) {
       V result = map.get(key);
       checkArgument(result != null || map.containsKey(key),
-                    "Key '%s' not present in map", key);
+          "Key '%s' not present in map", key);
       return result;
     }
 
@@ -183,12 +183,12 @@ public final class Functions {
    *         defaultValue} otherwise
    */
   public static <K, V> Function<K, V> forMap(Map<K, ? extends V> map,
-                                             @Nullable V defaultValue) {
+      @Nullable V defaultValue) {
     return new ForMapWithDefault<>(map, defaultValue);
   }
 
   private static class ForMapWithDefault<K, V>
-      implements Function<K, V>, Serializable {
+    implements Function<K, V>, Serializable {
     final Map<K, ? extends V> map;
     final V defaultValue;
 
@@ -208,7 +208,7 @@ public final class Functions {
       if (o instanceof ForMapWithDefault) {
         ForMapWithDefault<?, ?> that = (ForMapWithDefault<?, ?>)o;
         return map.equals(that.map) &&
-            Objects.equal(defaultValue, that.defaultValue);
+               Objects.equal(defaultValue, that.defaultValue);
       }
       return false;
     }
@@ -243,12 +243,12 @@ public final class Functions {
    *     composition</a>
    */
   public static <A, B, C> Function<A, C> compose(Function<B, C> g,
-                                                 Function<A, ? extends B> f) {
+      Function<A, ? extends B> f) {
     return new FunctionComposition<>(g, f);
   }
 
   private static class FunctionComposition<A, B, C>
-      implements Function<A, C>, Serializable {
+    implements Function<A, C>, Serializable {
     private final Function<B, C> g;
     private final Function<A, ? extends B> f;
 
@@ -303,7 +303,7 @@ public final class Functions {
 
   /** @see Functions#forPredicate */
   private static class PredicateFunction<T>
-      implements Function<T, Boolean>, Serializable {
+    implements Function<T, Boolean>, Serializable {
     private final Predicate<T> predicate;
 
     private PredicateFunction(Predicate<T> predicate) {
@@ -351,7 +351,7 @@ public final class Functions {
   }
 
   private static class ConstantFunction<E>
-      implements Function<Object, E>, Serializable {
+    implements Function<Object, E>, Serializable {
     private final E value;
 
     public ConstantFunction(@Nullable E value) { this.value = value; }
@@ -398,7 +398,7 @@ public final class Functions {
 
   /** @see Functions#forSupplier */
   private static class SupplierFunction<T>
-      implements Function<Object, T>, Serializable {
+    implements Function<Object, T>, Serializable {
 
     private final Supplier<T> supplier;
 

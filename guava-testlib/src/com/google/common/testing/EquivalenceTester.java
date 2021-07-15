@@ -65,7 +65,7 @@ public final class EquivalenceTester<T> {
   private EquivalenceTester(Equivalence<? super T> equivalence) {
     this.equivalence = checkNotNull(equivalence);
     this.delegate = new RelationshipTester<T>(equivalence, "equivalent", "hash",
-                                              new ItemReporter());
+        new ItemReporter());
   }
 
   public static <T> EquivalenceTester<T>
@@ -106,13 +106,13 @@ public final class EquivalenceTester<T> {
        * logic itself
        */
       assertTrue(item + " must be inequivalent to null",
-                 !equivalence.equivalent(item, null));
+          !equivalence.equivalent(item, null));
       assertTrue("null must be inequivalent to " + item,
-                 !equivalence.equivalent(null, item));
+          !equivalence.equivalent(null, item));
       assertTrue(item + " must be equivalent to itself",
-                 equivalence.equivalent(item, item));
+          equivalence.equivalent(item, item));
       assertEquals("the hash of " + item + " must be consistent",
-                   equivalence.hash(item), equivalence.hash(item));
+          equivalence.hash(item), equivalence.hash(item));
     }
   }
 }

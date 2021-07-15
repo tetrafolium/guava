@@ -48,7 +48,7 @@ public class AsciiBenchmark {
   @BeforeExperiment
   void setUp() {
     random = new Random(
-        0xdeadbeef); // fix the seed so results are comparable across runs
+      0xdeadbeef);   // fix the seed so results are comparable across runs
 
     int nonAlpha = size / nonAlphaRatio;
     int alpha = size - nonAlpha;

@@ -91,7 +91,7 @@ public class QuantilesBenchmark {
     for (int i = 0; i < reps; i++) {
       dummy +=
           algorithm.multipleQuantiles(ImmutableSet.of(90, 99), 100, dataset(i))
-              .get(90);
+          .get(90);
     }
     return dummy;
   }
@@ -102,8 +102,8 @@ public class QuantilesBenchmark {
     for (int i = 0; i < reps; i++) {
       dummy +=
           algorithm
-              .multipleQuantiles(ImmutableSet.of(90, 95, 99), 100, dataset(i))
-              .get(90);
+          .multipleQuantiles(ImmutableSet.of(90, 95, 99), 100, dataset(i))
+          .get(90);
     }
     return dummy;
   }
@@ -113,7 +113,7 @@ public class QuantilesBenchmark {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.multipleQuantiles(ALL_DECILE_INDEXES, 10, dataset(i))
-                   .get(9);
+          .get(9);
     }
     return dummy;
   }

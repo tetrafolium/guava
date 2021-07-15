@@ -74,7 +74,7 @@ import java.util.concurrent.TimeoutException;
 @Deprecated
 @GwtCompatible
 public interface CheckedFuture<V, X extends Exception>
-    extends ListenableFuture<V> {
+  extends ListenableFuture<V> {
 
   /**
    * Exception checking version of {@link Future#get()} that will translate

@@ -34,40 +34,40 @@ import java.util.concurrent.TimeUnit;
 @CanIgnoreReturnValue // TODO(cpovirk): Consider being more strict.
 @GwtIncompatible
 abstract class WrappingScheduledExecutorService
-    extends WrappingExecutorService implements ScheduledExecutorService {
+  extends WrappingExecutorService implements ScheduledExecutorService {
   final ScheduledExecutorService delegate;
 
   protected WrappingScheduledExecutorService(
-      ScheduledExecutorService delegate) {
+    ScheduledExecutorService delegate) {
     super(delegate);
     this.delegate = delegate;
   }
 
   @Override
   public final ScheduledFuture<?> schedule(Runnable command, long delay,
-                                           TimeUnit unit) {
+      TimeUnit unit) {
     return delegate.schedule(wrapTask(command), delay, unit);
   }
 
   @Override
   public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay,
-                                               TimeUnit unit) {
+      TimeUnit unit) {
     return delegate.schedule(wrapTask(task), delay, unit);
   }
 
   @Override
   public final ScheduledFuture<?>
   scheduleAtFixedRate(Runnable command, long initialDelay, long period,
-                      TimeUnit unit) {
+      TimeUnit unit) {
     return delegate.scheduleAtFixedRate(wrapTask(command), initialDelay, period,
-                                        unit);
+               unit);
   }
 
   @Override
   public final ScheduledFuture<?>
   scheduleWithFixedDelay(Runnable command, long initialDelay, long delay,
-                         TimeUnit unit) {
+      TimeUnit unit) {
     return delegate.scheduleWithFixedDelay(wrapTask(command), initialDelay,
-                                           delay, unit);
+               delay, unit);
   }
 }

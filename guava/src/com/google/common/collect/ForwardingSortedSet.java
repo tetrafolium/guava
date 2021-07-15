@@ -58,7 +58,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 public abstract class ForwardingSortedSet<E>
-    extends ForwardingSet<E> implements SortedSet<E> {
+  extends ForwardingSet<E> implements SortedSet<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingSortedSet() {}
@@ -121,7 +121,7 @@ public abstract class ForwardingSortedSet<E>
       Object ceiling = self.tailSet(object).first();
       return unsafeCompare(ceiling, object) == 0;
     } catch (ClassCastException | NoSuchElementException |
-             NullPointerException e) {
+        NullPointerException e) {
       return false;
     }
   }

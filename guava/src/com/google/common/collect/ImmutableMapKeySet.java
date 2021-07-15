@@ -66,7 +66,7 @@ final class ImmutableMapKeySet<K, V> extends ImmutableSet.Indexed<K> {
   @Override
   public void forEach(Consumer<? super K> action) {
     checkNotNull(action);
-    map.forEach((k, v) -> action.accept(k));
+    map.forEach((k, v)->action.accept(k));
   }
 
   @Override

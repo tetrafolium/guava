@@ -135,7 +135,7 @@ public abstract class RateLimiter {
 
   @VisibleForTesting
   static RateLimiter create(double permitsPerSecond,
-                            SleepingStopwatch stopwatch) {
+      SleepingStopwatch stopwatch) {
     RateLimiter rateLimiter =
         new SmoothBursty(stopwatch, 1.0 /* maxBurstSeconds */);
     rateLimiter.setRate(permitsPerSecond);
@@ -173,17 +173,17 @@ public abstract class RateLimiter {
    *     {@code warmupPeriod} is negative
    */
   public static RateLimiter create(double permitsPerSecond, long warmupPeriod,
-                                   TimeUnit unit) {
+      TimeUnit unit) {
     checkArgument(warmupPeriod >= 0, "warmupPeriod must not be negative: %s",
-                  warmupPeriod);
+        warmupPeriod);
     return create(permitsPerSecond, warmupPeriod, unit, 3.0,
-                  SleepingStopwatch.createFromSystemTimer());
+               SleepingStopwatch.createFromSystemTimer());
   }
 
   @VisibleForTesting
   static RateLimiter create(double permitsPerSecond, long warmupPeriod,
-                            TimeUnit unit, double coldFactor,
-                            SleepingStopwatch stopwatch) {
+      TimeUnit unit, double coldFactor,
+      SleepingStopwatch stopwatch) {
     RateLimiter rateLimiter =
         new SmoothWarmingUp(stopwatch, warmupPeriod, unit, coldFactor);
     rateLimiter.setRate(permitsPerSecond);
@@ -241,7 +241,7 @@ public abstract class RateLimiter {
    */
   public final void setRate(double permitsPerSecond) {
     checkArgument(permitsPerSecond > 0.0 && !Double.isNaN(permitsPerSecond),
-                  "rate must be positive");
+        "rate must be positive");
     synchronized (mutex()) {
       doSetRate(permitsPerSecond, stopwatch.readMicros());
     }
@@ -422,7 +422,7 @@ public abstract class RateLimiter {
   @Override
   public String toString() {
     return String.format(Locale.ROOT, "RateLimiter[stableRate=%3.1fqps]",
-                         getRate());
+               getRate());
   }
 
   abstract static class SleepingStopwatch {
@@ -441,25 +441,25 @@ public abstract class RateLimiter {
 
     public static final SleepingStopwatch createFromSystemTimer() {
       return new SleepingStopwatch() {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
+               final Stopwatch stopwatch = Stopwatch.createStarted();
 
-        @Override
-        protected long readMicros() {
-          return stopwatch.elapsed(MICROSECONDS);
-        }
+               @Override
+               protected long readMicros() {
+                 return stopwatch.elapsed(MICROSECONDS);
+               }
 
-        @Override
-        protected void sleepMicrosUninterruptibly(long micros) {
-          if (micros > 0) {
-            Uninterruptibles.sleepUninterruptibly(micros, MICROSECONDS);
-          }
-        }
+               @Override
+               protected void sleepMicrosUninterruptibly(long micros) {
+                 if (micros > 0) {
+                   Uninterruptibles.sleepUninterruptibly(micros, MICROSECONDS);
+                 }
+               }
       };
     }
   }
 
   private static void checkPermits(int permits) {
     checkArgument(permits > 0, "Requested permits (%s) must be positive",
-                  permits);
+        permits);
   }
 }

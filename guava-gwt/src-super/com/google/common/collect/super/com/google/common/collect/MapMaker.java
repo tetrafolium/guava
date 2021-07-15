@@ -33,13 +33,13 @@ public final class MapMaker {
   // during iteration, but this implementation (based on a LHM) does. This will
   // all be replaced soon anyways, so leaving it as is for now.
   private static class ComputingMap<K, V>
-      extends LinkedHashMap<K, V> implements ConcurrentMap<K, V> {
+    extends LinkedHashMap<K, V> implements ConcurrentMap<K, V> {
     private final Function<? super K, ? extends V> computer;
 
     ComputingMap(int initialCapacity) { this(null, initialCapacity); }
 
     ComputingMap(Function<? super K, ? extends V> computer,
-                 int initialCapacity) {
+        int initialCapacity) {
       super(initialCapacity, /* ignored loadFactor */ 0.75f, true);
       this.computer = computer;
     }
@@ -130,7 +130,7 @@ public final class MapMaker {
   public MapMaker concurrencyLevel(int concurrencyLevel) {
     if (concurrencyLevel < 1) {
       throw new IllegalArgumentException(
-          "GWT only supports a concurrency level of 1");
+              "GWT only supports a concurrency level of 1");
     }
     // GWT technically only supports concurrencyLevel == 1, but we silently
     // ignore other positive values.

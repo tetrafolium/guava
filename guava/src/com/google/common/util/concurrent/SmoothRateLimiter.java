@@ -242,7 +242,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
     private double coldFactor;
 
     SmoothWarmingUp(SleepingStopwatch stopwatch, long warmupPeriod,
-                    TimeUnit timeUnit, double coldFactor) {
+        TimeUnit timeUnit, double coldFactor) {
       super(stopwatch);
       this.warmupPeriodMicros = timeUnit.toMicros(warmupPeriod);
       this.coldFactor = coldFactor;
@@ -255,9 +255,9 @@ abstract class SmoothRateLimiter extends RateLimiter {
       thresholdPermits = 0.5 * warmupPeriodMicros / stableIntervalMicros;
       maxPermits =
           thresholdPermits + 2.0 * warmupPeriodMicros /
-                                 (stableIntervalMicros + coldIntervalMicros);
+          (stableIntervalMicros + coldIntervalMicros);
       slope = (coldIntervalMicros - stableIntervalMicros) /
-              (maxPermits - thresholdPermits);
+          (maxPermits - thresholdPermits);
       if (oldMaxPermits == Double.POSITIVE_INFINITY) {
         // if we don't special-case this, we would get storedPermits == NaN,
         // below
@@ -280,8 +280,8 @@ abstract class SmoothRateLimiter extends RateLimiter {
             min(availablePermitsAboveThreshold, permitsToTake);
         // TODO(cpovirk): Figure out a good name for this variable.
         double length = permitsToTime(availablePermitsAboveThreshold) +
-                        permitsToTime(availablePermitsAboveThreshold -
-                                      permitsAboveThresholdToTake);
+            permitsToTime(availablePermitsAboveThreshold -
+            permitsAboveThresholdToTake);
         micros = (long)(permitsAboveThresholdToTake * length / 2.0);
         permitsToTake -= permitsAboveThresholdToTake;
       }
@@ -417,7 +417,7 @@ abstract class SmoothRateLimiter extends RateLimiter {
    * <p>This always holds: {@code 0 <= permitsToTake <= storedPermits}
    */
   abstract long storedPermitsToWaitTime(double storedPermits,
-                                        double permitsToTake);
+      double permitsToTake);
 
   /**
    * Returns the number of microseconds during cool down that we have to wait to

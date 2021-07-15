@@ -44,7 +44,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(serializable = true)
 public final class UnsignedLong
-    extends Number implements Comparable<UnsignedLong>, Serializable {
+  extends Number implements Comparable<UnsignedLong>, Serializable {
 
   private static final long UNSIGNED_MASK = 0x7fffffffffffffffL;
 
@@ -85,8 +85,8 @@ public final class UnsignedLong
   @CanIgnoreReturnValue
   public static UnsignedLong valueOf(long value) {
     checkArgument(value >= 0,
-                  "value (%s) is outside the range for an unsigned long value",
-                  value);
+        "value (%s) is outside the range for an unsigned long value",
+        value);
     return fromLongBits(value);
   }
 
@@ -102,8 +102,8 @@ public final class UnsignedLong
   public static UnsignedLong valueOf(BigInteger value) {
     checkNotNull(value);
     checkArgument(value.signum() >= 0 && value.bitLength() <= Long.SIZE,
-                  "value (%s) is outside the range for an unsigned long value",
-                  value);
+        "value (%s) is outside the range for an unsigned long value",
+        value);
     return fromLongBits(value.longValue());
   }
 
@@ -179,7 +179,7 @@ public final class UnsignedLong
    */
   public UnsignedLong mod(UnsignedLong val) {
     return fromLongBits(
-        UnsignedLongs.remainder(value, checkNotNull(val).value));
+      UnsignedLongs.remainder(value, checkNotNull(val).value));
   }
 
   /**

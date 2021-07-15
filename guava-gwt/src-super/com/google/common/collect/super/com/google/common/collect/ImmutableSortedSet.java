@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  * @author Hayward Chan
  */
 public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
-    implements SortedSet<E>, SortedIterable<E> {
+  implements SortedSet<E>, SortedIterable<E> {
   // TODO(cpovirk): split into ImmutableSortedSet/ForwardingImmutableSortedSet?
 
   // In the non-emulated source, this is in ImmutableSortedSetFauxverideShim,
@@ -58,7 +58,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   @SuppressWarnings("unchecked")
   private static final ImmutableSortedSet<Object> NATURAL_EMPTY_SET =
       new RegularImmutableSortedSet<Object>(new TreeSet<Object>(NATURAL_ORDER),
-                                            false);
+      false);
 
   static <E> ImmutableSortedSet<E> emptySet(Comparator<? super E> comparator) {
     checkNotNull(comparator);
@@ -66,7 +66,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
       return of();
     } else {
       return new RegularImmutableSortedSet<E>(new TreeSet<E>(comparator),
-                                              false);
+                 false);
     }
   }
 
@@ -140,13 +140,13 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   public static <E> ImmutableSortedSet<E>
   copyOf(Collection<? extends E> elements) {
     return copyOfInternal((Ordering<E>)Ordering.natural(), (Collection)elements,
-                          false);
+               false);
   }
 
   public static <E> ImmutableSortedSet<E>
   copyOf(Iterable<? extends E> elements) {
     return copyOfInternal((Ordering<E>)Ordering.natural(), (Iterable)elements,
-                          false);
+               false);
   }
 
   public static <E> ImmutableSortedSet<E>
@@ -188,7 +188,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
 
   private static <E> ImmutableSortedSet<E>
   copyOfInternal(Comparator<? super E> comparator,
-                 Iterable<? extends E> elements, boolean fromSortedSet) {
+      Iterable<? extends E> elements, boolean fromSortedSet) {
     checkNotNull(comparator);
 
     boolean hasSameComparator =
@@ -197,7 +197,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
       @SuppressWarnings("unchecked")
       ImmutableSortedSet<E> result = (ImmutableSortedSet<E>)elements;
       boolean isSubset = (result instanceof RegularImmutableSortedSet) &&
-                         ((RegularImmutableSortedSet)result).isSubset;
+          ((RegularImmutableSortedSet)result).isSubset;
       if (!isSubset) {
         // Only return the original copy if this immutable sorted set isn't
         // a subset of another, to avoid memory leak.
@@ -209,7 +209,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
 
   private static <E> ImmutableSortedSet<E>
   copyOfInternal(Comparator<? super E> comparator,
-                 Iterator<? extends E> elements) {
+      Iterator<? extends E> elements) {
     checkNotNull(comparator);
     if (!elements.hasNext()) {
       return emptySet(comparator);
@@ -224,7 +224,7 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   private static boolean hasSameComparator(Iterable<?> elements,
-                                           Comparator<?> comparator) {
+      Comparator<?> comparator) {
     if (elements instanceof SortedSet) {
       SortedSet<?> sortedSet = (SortedSet<?>)elements;
       Comparator<?> comparator2 = sortedSet.comparator();
@@ -354,12 +354,12 @@ public abstract class ImmutableSortedSet<E> extends ForwardingImmutableSet<E>
   }
 
   ImmutableSortedSet<E> subSet(E fromElement, boolean fromInclusive,
-                               E toElement, boolean toInclusive) {
+      E toElement, boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     int cmp = comparator().compare(fromElement, toElement);
     checkArgument(cmp <= 0, "fromElement (%s) is less than toElement (%s)",
-                  fromElement, toElement);
+        fromElement, toElement);
     if (cmp == 0 && !(fromInclusive && toInclusive)) {
       return emptySet(comparator());
     }

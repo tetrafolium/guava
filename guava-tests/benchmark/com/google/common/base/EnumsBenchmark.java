@@ -36,10 +36,10 @@ public class EnumsBenchmark {
   @SuppressWarnings("unchecked")
   void setUp() throws ClassNotFoundException {
     Preconditions.checkArgument(hitRate >= 0 && hitRate <= 1,
-                                "hitRate must be in the range [0,1]");
+        "hitRate must be in the range [0,1]");
 
     enumType = (Class<? extends Enum>)Class.forName(
-        EnumsBenchmark.class.getCanonicalName() + "$" + enumSize + "Enum");
+      EnumsBenchmark.class.getCanonicalName() + "$" + enumSize + "Enum");
 
     Enum<?>[] allConstants = enumType.getEnumConstants();
     List<String> hits = new ArrayList<>();

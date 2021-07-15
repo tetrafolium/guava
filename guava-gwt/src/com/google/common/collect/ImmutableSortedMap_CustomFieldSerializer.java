@@ -29,7 +29,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public final class ImmutableSortedMap_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader,
-                                 ImmutableSortedMap<?, ?> instance) {}
+      ImmutableSortedMap<?, ?> instance) {}
 
   public static ImmutableSortedMap<?, ?>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -37,8 +37,8 @@ public final class ImmutableSortedMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               ImmutableSortedMap<?, ?> instance)
-      throws SerializationException {
+      ImmutableSortedMap<?, ?> instance)
+  throws SerializationException {
     ImmutableSortedMap_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

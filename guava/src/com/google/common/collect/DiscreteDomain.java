@@ -57,7 +57,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
   }
 
   private static final class IntegerDomain
-      extends DiscreteDomain<Integer> implements Serializable {
+    extends DiscreteDomain<Integer> implements Serializable {
     private static final IntegerDomain INSTANCE = new IntegerDomain();
 
     IntegerDomain() { super(true); }
@@ -113,7 +113,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
   public static DiscreteDomain<Long> longs() { return LongDomain.INSTANCE; }
 
   private static final class LongDomain
-      extends DiscreteDomain<Long> implements Serializable {
+    extends DiscreteDomain<Long> implements Serializable {
     private static final LongDomain INSTANCE = new LongDomain();
 
     LongDomain() { super(true); }
@@ -182,7 +182,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
   }
 
   private static final class BigIntegerDomain
-      extends DiscreteDomain<BigInteger> implements Serializable {
+    extends DiscreteDomain<BigInteger> implements Serializable {
     private static final BigIntegerDomain INSTANCE = new BigIntegerDomain();
 
     BigIntegerDomain() { super(true); }

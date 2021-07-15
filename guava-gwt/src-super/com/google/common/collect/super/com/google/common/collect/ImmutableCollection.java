@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("serial") // we're overriding default serialization
 public abstract class ImmutableCollection<E>
-    extends AbstractCollection<E> implements Serializable {
+  extends AbstractCollection<E> implements Serializable {
   static final int SPLITERATOR_CHARACTERISTICS =
       Spliterator.IMMUTABLE | Spliterator.NONNULL | Spliterator.ORDERED;
 

@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 abstract class AbstractSortedSetMultimap<K, V>
-    extends AbstractSetMultimap<K, V> implements SortedSetMultimap<K, V> {
+  extends AbstractSetMultimap<K, V> implements SortedSetMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *
@@ -102,7 +102,7 @@ abstract class AbstractSortedSetMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public SortedSet<V> replaceValues(@Nullable K key,
-                                    Iterable<? extends V> values) {
+      Iterable<? extends V> values) {
     return (SortedSet<V>)super.replaceValues(key, values);
   }
 

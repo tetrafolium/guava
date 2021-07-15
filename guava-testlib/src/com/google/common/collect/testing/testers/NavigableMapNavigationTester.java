@@ -41,7 +41,7 @@ import java.util.NavigableMap;
  */
 @GwtIncompatible
 public class NavigableMapNavigationTester<K, V>
-    extends AbstractMapTester<K, V> {
+  extends AbstractMapTester<K, V> {
 
   private NavigableMap<K, V> navigableMap;
   private List<Entry<K, V>> entries;
@@ -54,9 +54,9 @@ public class NavigableMapNavigationTester<K, V>
     super.setUp();
     navigableMap = (NavigableMap<K, V>)getMap();
     entries = Helpers.copyToList(getSubjectGenerator().getSampleElements(
-        getSubjectGenerator().getCollectionSize().getNumElements()));
+          getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(entries,
-                     Helpers.<K, V>entryComparator(navigableMap.comparator()));
+        Helpers.<K, V>entryComparator(navigableMap.comparator()));
 
     // some tests assume SEVERAL == 3
     if (entries.size() >= 1) {
@@ -159,7 +159,7 @@ public class NavigableMapNavigationTester<K, V>
   public void testPollFirst() {
     assertEquals(a, navigableMap.pollFirstEntry());
     assertEquals(entries.subList(1, entries.size()),
-                 Helpers.copyToList(navigableMap.entrySet()));
+        Helpers.copyToList(navigableMap.entrySet()));
   }
 
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
@@ -225,7 +225,7 @@ public class NavigableMapNavigationTester<K, V>
   public void testPollLast() {
     assertEquals(c, navigableMap.pollLastEntry());
     assertEquals(entries.subList(0, entries.size() - 1),
-                 Helpers.copyToList(navigableMap.entrySet()));
+        Helpers.copyToList(navigableMap.entrySet()));
   }
 
   @MapFeature.Require(absent = SUPPORTS_REMOVE)
@@ -249,7 +249,7 @@ public class NavigableMapNavigationTester<K, V>
   @CollectionSize.Require(absent = ZERO)
   public void testHeadMapExclusive() {
     assertFalse(
-        navigableMap.headMap(a.getKey(), false).containsKey(a.getKey()));
+      navigableMap.headMap(a.getKey(), false).containsKey(a.getKey()));
   }
 
   @CollectionSize.Require(absent = ZERO)
@@ -260,7 +260,7 @@ public class NavigableMapNavigationTester<K, V>
   @CollectionSize.Require(absent = ZERO)
   public void testTailMapExclusive() {
     assertFalse(
-        navigableMap.tailMap(a.getKey(), false).containsKey(a.getKey()));
+      navigableMap.tailMap(a.getKey(), false).containsKey(a.getKey()));
   }
 
   @CollectionSize.Require(absent = ZERO)

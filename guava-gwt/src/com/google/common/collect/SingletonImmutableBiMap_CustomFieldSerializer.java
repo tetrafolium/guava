@@ -31,7 +31,7 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
 public class SingletonImmutableBiMap_CustomFieldSerializer {
 
   public static void deserialize(SerializationStreamReader reader,
-                                 SingletonImmutableBiMap<?, ?> instance) {}
+      SingletonImmutableBiMap<?, ?> instance) {}
 
   public static SingletonImmutableBiMap<Object, Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -41,8 +41,8 @@ public class SingletonImmutableBiMap_CustomFieldSerializer {
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               SingletonImmutableBiMap<?, ?> instance)
-      throws SerializationException {
+      SingletonImmutableBiMap<?, ?> instance)
+  throws SerializationException {
     writer.writeObject(instance.singleKey);
     writer.writeObject(instance.singleValue);
   }

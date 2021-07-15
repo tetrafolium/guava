@@ -76,7 +76,7 @@ public final class LongMath {
     checkPositive("x", x);
     if (x > MAX_SIGNED_POWER_OF_TWO) {
       throw new ArithmeticException("ceilingPowerOfTwo(" + x +
-                                    ") is not representable as a long");
+                ") is not representable as a long");
     }
     return 1L << -Long.numberOfLeadingZeros(x - 1);
   }
@@ -222,10 +222,11 @@ public final class LongMath {
   // maxLog10ForLeadingZeros[i] == floor(log10(2^(Long.SIZE - i)))
   @VisibleForTesting
   static final byte[] maxLog10ForLeadingZeros = {
-      19, 18, 18, 18, 18, 17, 17, 17, 16, 16, 16, 15, 15, 15, 15, 14,
-      14, 14, 13, 13, 13, 12, 12, 12, 12, 11, 11, 11, 10, 10, 10, 9,
-      9,  9,  9,  8,  8,  8,  7,  7,  7,  6,  6,  6,  6,  5,  5,  5,
-      4,  4,  4,  3,  3,  3,  3,  2,  2,  2,  1,  1,  1,  0,  0,  0};
+    19, 18, 18, 18, 18, 17, 17, 17, 16, 16, 16, 15, 15, 15, 15, 14,
+    14, 14, 13, 13, 13, 12, 12, 12, 12, 11, 11, 11, 10, 10, 10, 9,
+    9,  9,  9,  8,  8,  8,  7,  7,  7,  6,  6,  6,  6,  5,  5,  5,
+    4,  4,  4,  3,  3,  3,  3,  2,  2,  2,  1,  1,  1,  0,  0,  0
+  };
 
   @GwtIncompatible // TODO
   @VisibleForTesting
@@ -558,7 +559,7 @@ public final class LongMath {
 
       b += minDeltaOrZero; // sets b to min(old a, b)
       a >>= Long.numberOfTrailingZeros(
-          a); // divide out all 2s, since 2 doesn't divide b
+        a);   // divide out all 2s, since 2 doesn't divide b
     }
     return a << min(aTwos, bTwos);
   }
@@ -669,7 +670,7 @@ public final class LongMath {
         k >>= 1;
         if (k > 0) {
           checkNoOverflow(-FLOOR_SQRT_MAX_LONG <= b &&
-                          b <= FLOOR_SQRT_MAX_LONG);
+              b <= FLOOR_SQRT_MAX_LONG);
           b *= b;
         }
       }
@@ -819,31 +820,32 @@ public final class LongMath {
   }
 
   static final long[] factorials = {
-      1L,
-      1L,
-      1L * 2,
-      1L * 2 * 3,
-      1L * 2 * 3 * 4,
-      1L * 2 * 3 * 4 * 5,
-      1L * 2 * 3 * 4 * 5 * 6,
-      1L * 2 * 3 * 4 * 5 * 6 * 7,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
-          17,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
-          17 * 18,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
-          17 * 18 * 19,
-      1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
-          17 * 18 * 19 * 20};
+    1L,
+    1L,
+    1L * 2,
+    1L * 2 * 3,
+    1L * 2 * 3 * 4,
+    1L * 2 * 3 * 4 * 5,
+    1L * 2 * 3 * 4 * 5 * 6,
+    1L * 2 * 3 * 4 * 5 * 6 * 7,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
+    17,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
+    17 * 18,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
+    17 * 18 * 19,
+    1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 *
+    17 * 18 * 19 * 20
+  };
 
   /**
    * Returns {@code n} choose {@code k}, also known as the binomial coefficient
@@ -872,7 +874,7 @@ public final class LongMath {
       } else if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
         return Long.MAX_VALUE;
       } else if (k < biggestSimpleBinomials.length &&
-                 n <= biggestSimpleBinomials[k]) {
+          n <= biggestSimpleBinomials[k]) {
         // guaranteed not to overflow
         long result = n--;
         for (int i = 2; i <= k; n--, i++) {
@@ -1033,7 +1035,7 @@ public final class LongMath {
    */
   private static final int SIEVE_30 =
       ~((1 << 1) | (1 << 7) | (1 << 11) | (1 << 13) | (1 << 17) | (1 << 19) |
-        (1 << 23) | (1 << 29));
+      (1 << 23) | (1 << 29));
 
   /**
    * Returns {@code true} if {@code n} is a
@@ -1091,15 +1093,16 @@ public final class LongMath {
    * but benchmarks showed negligible performance improvements.
    */
   private static final long[][] millerRabinBaseSets = {
-      {291830, 126401071349994536L},
-      {885594168, 725270293939359937L, 3569819667048198375L},
-      {273919523040L, 15, 7363882082L, 992620450144556L},
-      {47636622961200L, 2, 2570940, 211991001, 3749873356L},
-      {7999252175582850L, 2, 4130806001517L, 149795463772692060L,
-       186635894390467037L, 3967304179347715805L},
-      {585226005592931976L, 2, 123635709730000L, 9233062284813009L,
-       43835965440333360L, 761179012939631437L, 1263739024124850375L},
-      {Long.MAX_VALUE, 2, 325, 9375, 28178, 450775, 9780504, 1795265022}};
+    {291830, 126401071349994536L},
+    {885594168, 725270293939359937L, 3569819667048198375L},
+    {273919523040L, 15, 7363882082L, 992620450144556L},
+    {47636622961200L, 2, 2570940, 211991001, 3749873356L},
+    {7999252175582850L, 2, 4130806001517L, 149795463772692060L,
+     186635894390467037L, 3967304179347715805L},
+    {585226005592931976L, 2, 123635709730000L, 9233062284813009L,
+     43835965440333360L, 761179012939631437L, 1263739024124850375L},
+    {Long.MAX_VALUE, 2, 325, 9375, 28178, 450775, 9780504, 1795265022}
+  };
 
   private enum MillerRabinTester {
     /** Works for inputs ≤ FLOOR_SQRT_MAX_LONG. */
@@ -1175,7 +1178,7 @@ public final class LongMath {
         result += aLo * bHi;                  // aLo * bHi < 2^63, result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(result,
-                       UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m), m);
+                   UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m), m);
       }
 
       @Override
@@ -1199,7 +1202,7 @@ public final class LongMath {
         result += hiLo;                       // result < 2^64
         result = times2ToThe32Mod(result, m); // result < m < 2^63
         return plusMod(result,
-                       UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m), m);
+                   UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m), m);
       }
     };
 

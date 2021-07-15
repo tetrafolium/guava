@@ -22,7 +22,7 @@ package com.google.common.util.concurrent;
 final class Platform {
   static boolean
   isInstanceOfThrowableClass(Throwable t,
-                             Class<? extends Throwable> expectedClass) {
+      Class<? extends Throwable> expectedClass) {
     /*
      * This method is used only by CatchingFuture, and CatchingFuture accepts
      * only Throwable.class under GWT.

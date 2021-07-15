@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class RegularImmutableSortedSet_CustomFieldSerializer {
   public static void deserialize(SerializationStreamReader reader,
-                                 RegularImmutableSortedSet<?> instance) {}
+      RegularImmutableSortedSet<?> instance) {}
 
   public static RegularImmutableSortedSet<Object>
   instantiate(SerializationStreamReader reader) throws SerializationException {
@@ -52,12 +52,12 @@ public class RegularImmutableSortedSet_CustomFieldSerializer {
      * ImmutableSortedSet.copyOf always return a RegularImmutableSortedSet back.
      */
     return (RegularImmutableSortedSet<Object>)ImmutableSortedSet.copyOf(
-        comparator, elements);
+      comparator, elements);
   }
 
   public static void serialize(SerializationStreamWriter writer,
-                               RegularImmutableSortedSet<?> instance)
-      throws SerializationException {
+      RegularImmutableSortedSet<?> instance)
+  throws SerializationException {
     writer.writeObject(instance.comparator());
 
     Collection_CustomFieldSerializerBase.serialize(writer, instance);

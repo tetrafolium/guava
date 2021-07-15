@@ -30,7 +30,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible(emulated = true)
 abstract class DescendingMultiset<E>
-    extends ForwardingMultiset<E> implements SortedMultiset<E> {
+  extends ForwardingMultiset<E> implements SortedMultiset<E> {
   abstract SortedMultiset<E> forwardMultiset();
 
   private transient Comparator<? super E> comparator;
@@ -69,23 +69,23 @@ abstract class DescendingMultiset<E>
   @Override
   public SortedMultiset<E> headMultiset(E toElement, BoundType boundType) {
     return forwardMultiset()
-        .tailMultiset(toElement, boundType)
-        .descendingMultiset();
+           .tailMultiset(toElement, boundType)
+           .descendingMultiset();
   }
 
   @Override
   public SortedMultiset<E> subMultiset(E fromElement, BoundType fromBoundType,
-                                       E toElement, BoundType toBoundType) {
+      E toElement, BoundType toBoundType) {
     return forwardMultiset()
-        .subMultiset(toElement, toBoundType, fromElement, fromBoundType)
-        .descendingMultiset();
+           .subMultiset(toElement, toBoundType, fromElement, fromBoundType)
+           .descendingMultiset();
   }
 
   @Override
   public SortedMultiset<E> tailMultiset(E fromElement, BoundType boundType) {
     return forwardMultiset()
-        .headMultiset(fromElement, boundType)
-        .descendingMultiset();
+           .headMultiset(fromElement, boundType)
+           .descendingMultiset();
   }
 
   @Override
@@ -120,20 +120,20 @@ abstract class DescendingMultiset<E>
 
   Set<Entry<E>> createEntrySet() {
     return new Multisets.EntrySet<E>() {
-      @Override
-      Multiset<E> multiset() {
-        return DescendingMultiset.this;
-      }
+             @Override
+             Multiset<E> multiset() {
+               return DescendingMultiset.this;
+             }
 
-      @Override
-      public Iterator<Entry<E>> iterator() {
-        return entryIterator();
-      }
+             @Override
+             public Iterator<Entry<E>> iterator() {
+               return entryIterator();
+             }
 
-      @Override
-      public int size() {
-        return forwardMultiset().entrySet().size();
-      }
+             @Override
+             public int size() {
+               return forwardMultiset().entrySet().size();
+             }
     };
   }
 

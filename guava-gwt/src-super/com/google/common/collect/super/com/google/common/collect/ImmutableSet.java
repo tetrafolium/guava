@@ -40,7 +40,7 @@ import java.util.stream.Collector;
  */
 @SuppressWarnings("serial") // Serialization only done in GWT.
 public abstract class ImmutableSet<E>
-    extends ImmutableCollection<E> implements Set<E> {
+  extends ImmutableCollection<E> implements Set<E> {
   ImmutableSet() {}
 
   @Beta
@@ -80,7 +80,7 @@ public abstract class ImmutableSet<E>
 
   @SuppressWarnings("unchecked")
   public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
-                                       E... others) {
+      E... others) {
     int size = others.length + 6;
     List<E> all = new ArrayList<E>(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -190,15 +190,15 @@ public abstract class ImmutableSet<E>
     @Override
     ImmutableList<E> createAsList() {
       return new ImmutableAsList<E>() {
-        @Override
-        public E get(int index) {
-          return Indexed.this.get(index);
-        }
+               @Override
+               public E get(int index) {
+                 return Indexed.this.get(index);
+               }
 
-        @Override
-        Indexed<E> delegateCollection() {
-          return Indexed.this;
-        }
+               @Override
+               Indexed<E> delegateCollection() {
+                 return Indexed.this;
+               }
       };
     }
   }
