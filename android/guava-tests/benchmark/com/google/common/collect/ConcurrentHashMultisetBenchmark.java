@@ -53,37 +53,41 @@ public class ConcurrentHashMultisetBenchmark {
   private ImmutableList<Integer> keys;
   private ExecutorService threadPool;
 
-  @BeforeExperiment void setUp() throws Exception {
+  @BeforeExperiment
+  void setUp() throws Exception {
     multiset = implSupplier.get();
     ImmutableList.Builder<Integer> builder = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
       builder.add(i);
     }
     keys = builder.build();
-    threadPool =
-        Executors.newFixedThreadPool(threads, new ThreadFactoryBuilder().setDaemon(true).build());
+    threadPool = Executors.newFixedThreadPool(
+        threads, new ThreadFactoryBuilder().setDaemon(true).build());
   }
 
-  @Benchmark long add(final int reps) throws ExecutionException, InterruptedException {
-    return doMultithreadedLoop(
-    new Callable<Long>() {
-      @Override public Long call() {
+  @Benchmark
+  long add(final int reps) throws ExecutionException, InterruptedException {
+    return doMultithreadedLoop(new Callable<Long>() {
+      @Override
+      public Long call() {
         return runAddSingleThread(reps);
       }
     });
   }
 
-  @Benchmark long addRemove(final int reps) throws ExecutionException, InterruptedException {
-    return doMultithreadedLoop(
-    new Callable<Long>() {
-      @Override public Long call() {
+  @Benchmark
+  long addRemove(final int reps)
+      throws ExecutionException, InterruptedException {
+    return doMultithreadedLoop(new Callable<Long>() {
+      @Override
+      public Long call() {
         return runAddRemoveSingleThread(reps);
       }
     });
   }
 
   private long doMultithreadedLoop(Callable<Long> task)
-  throws InterruptedException, ExecutionException {
+      throws InterruptedException, ExecutionException {
 
     List<Future<Long>> futures = Lists.newArrayListWithCapacity(threads);
     for (int i = 0; i < threads; i++) {
@@ -115,8 +119,8 @@ public class ConcurrentHashMultisetBenchmark {
     long blah = 0;
     for (int i = 0; i < reps; i++) {
       Integer key = keys.get(random.nextInt(nKeys));
-      // This range is [-5, 4] - slight negative bias so we often hit zero, which brings the
-      // auto-removal of zeroes into play.
+      // This range is [-5, 4] - slight negative bias so we often hit zero,
+      // which brings the auto-removal of zeroes into play.
       int delta = random.nextInt(10) - 5;
       blah += delta;
       if (delta >= 0) {
@@ -130,17 +134,20 @@ public class ConcurrentHashMultisetBenchmark {
 
   private enum MultisetSupplier {
     CONCURRENT_HASH_MULTISET() {
-      @Override Multiset<Integer> get() {
+      @Override
+      Multiset<Integer> get() {
         return ConcurrentHashMultiset.create();
       }
     },
     BOXED_ATOMIC_REPLACE() {
-      @Override Multiset<Integer> get() {
+      @Override
+      Multiset<Integer> get() {
         return OldConcurrentHashMultiset.create();
       }
     },
     SYNCHRONIZED_MULTISET() {
-      @Override Multiset<Integer> get() {
+      @Override
+      Multiset<Integer> get() {
         return Synchronized.multiset(HashMultiset.<Integer>create(), null);
       }
     },
@@ -150,10 +157,12 @@ public class ConcurrentHashMultisetBenchmark {
   }
 
   /**
-   * Duplication of the old version of ConcurrentHashMultiset (with some unused stuff removed, like
-   * serialization code) which used a map with boxed integers for the values.
+   * Duplication of the old version of ConcurrentHashMultiset (with some unused
+   * stuff removed, like serialization code) which used a map with boxed
+   * integers for the values.
    */
-  private static final class OldConcurrentHashMultiset<E> extends AbstractMultiset<E> {
+  private static final class OldConcurrentHashMultiset<E>
+      extends AbstractMultiset<E> {
     /** The number of occurrences of each element. */
     private final transient ConcurrentMap<E, Integer> countMap;
 
@@ -162,10 +171,12 @@ public class ConcurrentHashMultisetBenchmark {
      * initial capacity, load factor, and concurrency settings.
      */
     public static <E> OldConcurrentHashMultiset<E> create() {
-      return new OldConcurrentHashMultiset<E>(new ConcurrentHashMap<E, Integer>());
+      return new OldConcurrentHashMultiset<E>(
+          new ConcurrentHashMap<E, Integer>());
     }
 
-    @VisibleForTesting OldConcurrentHashMultiset(ConcurrentMap<E, Integer> countMap) {
+    @VisibleForTesting
+    OldConcurrentHashMultiset(ConcurrentMap<E, Integer> countMap) {
       checkArgument(countMap.isEmpty());
       this.countMap = countMap;
     }
@@ -178,7 +189,8 @@ public class ConcurrentHashMultisetBenchmark {
      * @param element the element to look for
      * @return the nonnegative number of occurrences of the element
      */
-    @Override public int count(@Nullable Object element) {
+    @Override
+    public int count(@Nullable Object element) {
       try {
         return unbox(countMap.get(element));
       } catch (NullPointerException | ClassCastException e) {
@@ -189,11 +201,12 @@ public class ConcurrentHashMultisetBenchmark {
     /**
      * {@inheritDoc}
      *
-     * <p>If the data in the multiset is modified by any other threads during this
-     * method, it is undefined which (if any) of these modifications will be
-     * reflected in the result.
+     * <p>If the data in the multiset is modified by any other threads during
+     * this method, it is undefined which (if any) of these modifications will
+     * be reflected in the result.
      */
-    @Override public int size() {
+    @Override
+    public int size() {
       long sum = 0L;
       for (Integer value : countMap.values()) {
         sum += value;
@@ -202,22 +215,24 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /*
-    * Note: the superclass toArray() methods assume that size() gives a correct
-    * answer, which ours does not.
-    */
+     * Note: the superclass toArray() methods assume that size() gives a correct
+     * answer, which ours does not.
+     */
 
-    @Override public Object[] toArray() {
+    @Override
+    public Object[] toArray() {
       return snapshot().toArray();
     }
 
-    @Override public <T> T[] toArray(T[] array) {
+    @Override
+    public <T> T[] toArray(T[] array) {
       return snapshot().toArray(array);
     }
 
     /*
-    * We'd love to use 'new ArrayList(this)' or 'list.addAll(this)', but
-    * either of these would recurse back to us again!
-    */
+     * We'd love to use 'new ArrayList(this)' or 'list.addAll(this)', but
+     * either of these would recurse back to us again!
+     */
     private List<E> snapshot() {
       List<E> list = Lists.newArrayListWithExpectedSize(size());
       for (Multiset.Entry<E> entry : entrySet()) {
@@ -238,10 +253,11 @@ public class ConcurrentHashMultisetBenchmark {
      * @param occurrences the number of occurrences to add
      * @return the previous count of the element before the operation; possibly
      *     zero
-     * @throws IllegalArgumentException if {@code occurrences} is negative, or if
-     *     the resulting amount would exceed {@link Integer#MAX_VALUE}
+     * @throws IllegalArgumentException if {@code occurrences} is negative, or
+     *     if the resulting amount would exceed {@link Integer#MAX_VALUE}
      */
-    @Override public int add(E element, int occurrences) {
+    @Override
+    public int add(E element, int occurrences) {
       if (occurrences == 0) {
         return count(element);
       }
@@ -255,8 +271,8 @@ public class ConcurrentHashMultisetBenchmark {
           }
         } else {
           checkArgument(occurrences <= Integer.MAX_VALUE - current,
-              "Overflow adding %s occurrences to a count of %s",
-              occurrences, current);
+                        "Overflow adding %s occurrences to a count of %s",
+                        occurrences, current);
           int next = current + occurrences;
           if (countMap.replace(element, current, next)) {
             return current;
@@ -268,15 +284,16 @@ public class ConcurrentHashMultisetBenchmark {
 
     /**
      * Removes a number of occurrences of the specified element from this
-     * multiset. If the multiset contains fewer than this number of occurrences to
-     * begin with, all occurrences will be removed.
+     * multiset. If the multiset contains fewer than this number of occurrences
+     * to begin with, all occurrences will be removed.
      *
      * @param element the element whose occurrences should be removed
      * @param occurrences the number of occurrences of the element to remove
      * @return the count of the element before the operation; possibly zero
      * @throws IllegalArgumentException if {@code occurrences} is negative
      */
-    @Override public int remove(@Nullable Object element, int occurrences) {
+    @Override
+    public int remove(@Nullable Object element, int occurrences) {
       if (occurrences == 0) {
         return count(element);
       }
@@ -293,8 +310,7 @@ public class ConcurrentHashMultisetBenchmark {
           }
         } else {
           // We know it's an "E" because it already exists in the map.
-          @SuppressWarnings("unchecked")
-          E casted = (E) element;
+          @SuppressWarnings("unchecked") E casted = (E)element;
 
           if (countMap.replace(casted, current, current - occurrences)) {
             return current;
@@ -305,9 +321,9 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /**
-     * Removes <b>all</b> occurrences of the specified element from this multiset.
-     * This method complements {@link Multiset#remove(Object)}, which removes only
-     * one occurrence at a time.
+     * Removes <b>all</b> occurrences of the specified element from this
+     * multiset. This method complements {@link Multiset#remove(Object)}, which
+     * removes only one occurrence at a time.
      *
      * @param element the element whose occurrences should all be removed
      * @return the number of occurrences successfully removed, possibly zero
@@ -321,11 +337,11 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /**
-     * Removes exactly the specified number of occurrences of {@code element}, or
-     * makes no change if this is not possible.
+     * Removes exactly the specified number of occurrences of {@code element},
+     * or makes no change if this is not possible.
      *
-     * <p>This method, in contrast to {@link #remove(Object, int)}, has no effect
-     * when the element count is smaller than {@code occurrences}.
+     * <p>This method, in contrast to {@link #remove(Object, int)}, has no
+     * effect when the element count is smaller than {@code occurrences}.
      *
      * @param element the element to remove
      * @param occurrences the number of occurrences of {@code element} to remove
@@ -349,7 +365,7 @@ public class ConcurrentHashMultisetBenchmark {
           }
         } else {
           @SuppressWarnings("unchecked") // it's in the map, must be an "E"
-          E casted = (E) element;
+          E casted = (E)element;
           if (countMap.replace(casted, current, current - occurrences)) {
             return true;
           }
@@ -359,38 +375,40 @@ public class ConcurrentHashMultisetBenchmark {
     }
 
     /**
-     * Adds or removes occurrences of {@code element} such that the {@link #count}
-     * of the element becomes {@code count}.
+     * Adds or removes occurrences of {@code element} such that the {@link
+     * #count} of the element becomes {@code count}.
      *
      * @return the count of {@code element} in the multiset before this call
      * @throws IllegalArgumentException if {@code count} is negative
      */
-    @Override public int setCount(E element, int count) {
+    @Override
+    public int setCount(E element, int count) {
       checkNonnegative(count, "count");
-      return (count == 0)
-          ? removeAllOccurrences(element)
-          : unbox(countMap.put(element, count));
+      return (count == 0) ? removeAllOccurrences(element)
+                          : unbox(countMap.put(element, count));
     }
 
     /**
-     * Sets the number of occurrences of {@code element} to {@code newCount}, but
-     * only if the count is currently {@code oldCount}. If {@code element} does
-     * not appear in the multiset exactly {@code oldCount} times, no changes will
-     * be made.
+     * Sets the number of occurrences of {@code element} to {@code newCount},
+     * but only if the count is currently {@code oldCount}. If {@code element}
+     * does not appear in the multiset exactly {@code oldCount} times, no
+     * changes will be made.
      *
      * @return {@code true} if the change was successful. This usually indicates
      *     that the multiset has been modified, but not always: in the case that
      *     {@code oldCount == newCount}, the method will return {@code true} if
      *     the condition was met.
-     * @throws IllegalArgumentException if {@code oldCount} or {@code newCount} is
-     *     negative
+     * @throws IllegalArgumentException if {@code oldCount} or {@code newCount}
+     *     is negative
      */
-    @Override public boolean setCount(E element, int oldCount, int newCount) {
+    @Override
+    public boolean setCount(E element, int oldCount, int newCount) {
       checkNonnegative(oldCount, "oldCount");
       checkNonnegative(newCount, "newCount");
       if (newCount == 0) {
         if (oldCount == 0) {
-          // No change to make, but must return true if the element is not present
+          // No change to make, but must return true if the element is not
+          // present
           return !countMap.containsKey(element);
         } else {
           return countMap.remove(element, oldCount);
@@ -404,7 +422,8 @@ public class ConcurrentHashMultisetBenchmark {
 
     // Views
 
-    @Override Set<E> createElementSet() {
+    @Override
+    Set<E> createElementSet() {
       final Set<E> delegate = countMap.keySet();
       return new ForwardingSet<E>() {
         @Override
@@ -425,7 +444,8 @@ public class ConcurrentHashMultisetBenchmark {
 
     private transient EntrySet entrySet;
 
-    @Override public Set<Multiset.Entry<E>> entrySet() {
+    @Override
+    public Set<Multiset.Entry<E>> entrySet() {
       EntrySet result = entrySet;
       if (result == null) {
         entrySet = result = new EntrySet();
@@ -433,66 +453,78 @@ public class ConcurrentHashMultisetBenchmark {
       return result;
     }
 
-    @Override int distinctElements() {
+    @Override
+    int distinctElements() {
       return countMap.size();
     }
 
-    @Override public boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
       return countMap.isEmpty();
     }
 
-    @Override Iterator<Entry<E>> entryIterator() {
+    @Override
+    Iterator<Entry<E>> entryIterator() {
       final Iterator<Map.Entry<E, Integer>> backingIterator =
           countMap.entrySet().iterator();
       return new Iterator<Entry<E>>() {
-        @Override public boolean hasNext() {
+        @Override
+        public boolean hasNext() {
           return backingIterator.hasNext();
         }
 
-        @Override public Multiset.Entry<E> next() {
+        @Override
+        public Multiset.Entry<E> next() {
           Map.Entry<E, Integer> backingEntry = backingIterator.next();
           return Multisets.immutableEntry(backingEntry.getKey(),
-                  backingEntry.getValue());
+                                          backingEntry.getValue());
         }
 
-        @Override public void remove() {
+        @Override
+        public void remove() {
           backingIterator.remove();
         }
       };
     }
 
-    @Override public void clear() {
+    @Override
+    public void clear() {
       countMap.clear();
     }
 
     private class EntrySet extends AbstractMultiset<E>.EntrySet {
-      @Override Multiset<E> multiset() {
+      @Override
+      Multiset<E> multiset() {
         return OldConcurrentHashMultiset.this;
       }
 
       /*
-      * Note: the superclass toArray() methods assume that size() gives a correct
-      * answer, which ours does not.
-      */
+       * Note: the superclass toArray() methods assume that size() gives a
+       * correct answer, which ours does not.
+       */
 
-      @Override public Object[] toArray() {
+      @Override
+      public Object[] toArray() {
         return snapshot().toArray();
       }
 
-      @Override public <T> T[] toArray(T[] array) {
+      @Override
+      public <T> T[] toArray(T[] array) {
         return snapshot().toArray(array);
       }
 
       private List<Multiset.Entry<E>> snapshot() {
-        List<Multiset.Entry<E>> list = Lists.newArrayListWithExpectedSize(size());
+        List<Multiset.Entry<E>> list =
+            Lists.newArrayListWithExpectedSize(size());
         // not Iterables.addAll(list, this), because that'll forward back here
         Iterators.addAll(list, iterator());
         return list;
       }
 
-      @Override public boolean remove(Object object) {
+      @Override
+      public boolean remove(Object object) {
         if (object instanceof Multiset.Entry) {
-          Multiset.Entry<?> entry = (Multiset.Entry<?>) object;
+          Multiset.Entry<?> entry = (Multiset.Entry<?>)object;
           Object element = entry.getElement();
           int entryCount = entry.getCount();
           return countMap.remove(element, entryCount);
@@ -501,9 +533,11 @@ public class ConcurrentHashMultisetBenchmark {
       }
 
       /**
-       * The hash code is the same as countMap's, though the objects aren't equal.
+       * The hash code is the same as countMap's, though the objects aren't
+       * equal.
        */
-      @Override public int hashCode() {
+      @Override
+      public int hashCode() {
         return countMap.hashCode();
       }
     }

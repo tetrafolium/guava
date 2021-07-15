@@ -26,6 +26,5 @@ import java.util.List;
  */
 @GwtCompatible
 public interface TestListGenerator<E> extends TestCollectionGenerator<E> {
-  @Override
-  List<E> create(Object... elements);
+  @Override List<E> create(Object... elements);
 }

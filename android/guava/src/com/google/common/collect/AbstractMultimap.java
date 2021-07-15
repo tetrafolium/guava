@@ -30,7 +30,8 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * A skeleton {@code Multimap} implementation, not necessarily in terms of a {@code Map}.
+ * A skeleton {@code Multimap} implementation, not necessarily in terms of a
+ * {@code Map}.
  *
  * @author Louis Wasserman
  */
@@ -78,7 +79,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
     // make sure we only call values.iterator() once
     // and we only call get(key) if values is nonempty
     if (values instanceof Collection) {
-      Collection<? extends V> valueCollection = (Collection<? extends V>) values;
+      Collection<? extends V> valueCollection = (Collection<? extends V>)values;
       return !valueCollection.isEmpty() && get(key).addAll(valueCollection);
     } else {
       Iterator<? extends V> valueItr = values.iterator();
@@ -98,7 +99,8 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
 
   @CanIgnoreReturnValue
   @Override
-  public Collection<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
+  public Collection<V> replaceValues(@Nullable K key,
+                                     Iterable<? extends V> values) {
     checkNotNull(values);
     Collection<V> result = removeAll(key);
     putAll(key, values);
@@ -157,9 +159,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
     return (result == null) ? keySet = createKeySet() : result;
   }
 
-  Set<K> createKeySet() {
-    return new Maps.KeySet<>(asMap());
-  }
+  Set<K> createKeySet() { return new Maps.KeySet<>(asMap()); }
 
   private transient Multiset<K> keys;
 
@@ -169,9 +169,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
     return (result == null) ? keys = createKeys() : result;
   }
 
-  Multiset<K> createKeys() {
-    return new Multimaps.Keys<>(this);
-  }
+  Multiset<K> createKeys() { return new Multimaps.Keys<>(this); }
 
   private transient Collection<V> values;
 
@@ -181,9 +179,7 @@ abstract class AbstractMultimap<K, V> implements Multimap<K, V> {
     return (result == null) ? values = createValues() : result;
   }
 
-  Collection<V> createValues() {
-    return new Values();
-  }
+  Collection<V> createValues() { return new Values(); }
 
   @WeakOuter
   class Values extends AbstractCollection<V> {

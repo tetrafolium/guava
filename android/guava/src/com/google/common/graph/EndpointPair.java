@@ -27,9 +27,11 @@ import com.google.errorprone.annotations.Immutable;
 import javax.annotation.Nullable;
 
 /**
- * An immutable pair representing the two endpoints of an edge in a graph. The {@link EndpointPair}
- * of a directed edge is an ordered pair of nodes ({@link #source()} and {@link #target()}). The
- * {@link EndpointPair} of an undirected edge is an unordered pair of nodes ({@link #nodeU()} and
+ * An immutable pair representing the two endpoints of an edge in a graph. The
+ * {@link EndpointPair} of a directed edge is an ordered pair of nodes ({@link
+ * #source()} and {@link #target()}). The
+ * {@link EndpointPair} of an undirected edge is an unordered pair of nodes
+ * ({@link #nodeU()} and
  * {@link #nodeV()}).
  *
  * <p>The edge is a self-loop if, and only if, the two endpoints are equal.
@@ -48,61 +50,78 @@ public abstract class EndpointPair<N> implements Iterable<N> {
     this.nodeV = checkNotNull(nodeV);
   }
 
-  /** Returns an {@link EndpointPair} representing the endpoints of a directed edge. */
+  /**
+   * Returns an {@link EndpointPair} representing the endpoints of a directed
+   * edge.
+   */
   public static <N> EndpointPair<N> ordered(N source, N target) {
     return new Ordered<N>(source, target);
   }
 
-  /** Returns an {@link EndpointPair} representing the endpoints of an undirected edge. */
+  /**
+   * Returns an {@link EndpointPair} representing the endpoints of an
+   * undirected edge.
+   */
   public static <N> EndpointPair<N> unordered(N nodeU, N nodeV) {
-    // Swap nodes on purpose to prevent callers from relying on the "ordering" of an unordered pair.
+    // Swap nodes on purpose to prevent callers from relying on the "ordering"
+    // of an unordered pair.
     return new Unordered<N>(nodeV, nodeU);
   }
 
-  /** Returns an {@link EndpointPair} representing the endpoints of an edge in {@code graph}. */
+  /**
+   * Returns an {@link EndpointPair} representing the endpoints of an edge in
+   * {@code graph}.
+   */
   static <N> EndpointPair<N> of(Graph<?> graph, N nodeU, N nodeV) {
     return graph.isDirected() ? ordered(nodeU, nodeV) : unordered(nodeU, nodeV);
   }
 
-  /** Returns an {@link EndpointPair} representing the endpoints of an edge in {@code network}. */
+  /**
+   * Returns an {@link EndpointPair} representing the endpoints of an edge in
+   * {@code network}.
+   */
   static <N> EndpointPair<N> of(Network<?, ?> network, N nodeU, N nodeV) {
-    return network.isDirected() ? ordered(nodeU, nodeV) : unordered(nodeU, nodeV);
+    return network.isDirected() ? ordered(nodeU, nodeV)
+                                : unordered(nodeU, nodeV);
   }
 
   /**
-   * If this {@link EndpointPair} {@link #isOrdered()}, returns the node which is the source.
+   * If this {@link EndpointPair} {@link #isOrdered()}, returns the node which
+   * is the source.
    *
-   * @throws UnsupportedOperationException if this {@link EndpointPair} is not ordered
+   * @throws UnsupportedOperationException if this {@link EndpointPair} is not
+   *     ordered
    */
   public abstract N source();
 
   /**
-   * If this {@link EndpointPair} {@link #isOrdered()}, returns the node which is the target.
+   * If this {@link EndpointPair} {@link #isOrdered()}, returns the node which
+   * is the target.
    *
-   * @throws UnsupportedOperationException if this {@link EndpointPair} is not ordered
+   * @throws UnsupportedOperationException if this {@link EndpointPair} is not
+   *     ordered
    */
   public abstract N target();
 
   /**
-   * If this {@link EndpointPair} {@link #isOrdered()} returns the {@link #source()}; otherwise,
-   * returns an arbitrary (but consistent) endpoint of the origin edge.
+   * If this {@link EndpointPair} {@link #isOrdered()} returns the {@link
+   * #source()}; otherwise, returns an arbitrary (but consistent) endpoint of
+   * the origin edge.
    */
-  public final N nodeU() {
-    return nodeU;
-  }
+  public final N nodeU() { return nodeU; }
 
   /**
-   * Returns the node {@link #adjacentNode(Object) adjacent} to {@link #nodeU()} along the origin
-   * edge. If this {@link EndpointPair} {@link #isOrdered()}, this is equal to {@link #target()}.
+   * Returns the node {@link #adjacentNode(Object) adjacent} to {@link #nodeU()}
+   * along the origin edge. If this {@link EndpointPair} {@link #isOrdered()},
+   * this is equal to {@link #target()}.
    */
-  public final N nodeV() {
-    return nodeV;
-  }
+  public final N nodeV() { return nodeV; }
 
   /**
    * Returns the node that is adjacent to {@code node} along the origin edge.
    *
-   * @throws IllegalArgumentException if this {@link EndpointPair} does not contain {@code node}
+   * @throws IllegalArgumentException if this {@link EndpointPair} does not
+   *     contain {@code node}
    */
   public final N adjacentNode(Object node) {
     if (node.equals(nodeU)) {
@@ -110,13 +129,14 @@ public abstract class EndpointPair<N> implements Iterable<N> {
     } else if (node.equals(nodeV)) {
       return nodeU;
     } else {
-      throw new IllegalArgumentException("EndpointPair " + this + " does not contain node " + node);
+      throw new IllegalArgumentException("EndpointPair " + this +
+                                         " does not contain node " + node);
     }
   }
 
   /**
-   * Returns {@code true} if this {@link EndpointPair} is an ordered pair (i.e. represents the
-   * endpoints of a directed edge).
+   * Returns {@code true} if this {@link EndpointPair} is an ordered pair (i.e.
+   * represents the endpoints of a directed edge).
    */
   public abstract boolean isOrdered();
 
@@ -127,25 +147,22 @@ public abstract class EndpointPair<N> implements Iterable<N> {
   }
 
   /**
-   * Two ordered {@link EndpointPair}s are equal if their {@link #source()} and {@link #target()}
-   * are equal. Two unordered {@link EndpointPair}s are equal if they contain the same nodes. An
-   * ordered {@link EndpointPair} is never equal to an unordered {@link EndpointPair}.
+   * Two ordered {@link EndpointPair}s are equal if their {@link #source()} and
+   * {@link #target()} are equal. Two unordered {@link EndpointPair}s are equal
+   * if they contain the same nodes. An ordered {@link EndpointPair} is never
+   * equal to an unordered {@link EndpointPair}.
    */
-  @Override
-  public abstract boolean equals(@Nullable Object obj);
+  @Override public abstract boolean equals(@Nullable Object obj);
 
   /**
-   * The hashcode of an ordered {@link EndpointPair} is equal to {@code Objects.hashCode(source(),
-   * target())}. The hashcode of an unordered {@link EndpointPair} is equal to {@code
-   * nodeU().hashCode() + nodeV().hashCode()}.
+   * The hashcode of an ordered {@link EndpointPair} is equal to {@code
+   * Objects.hashCode(source(), target())}. The hashcode of an unordered {@link
+   * EndpointPair} is equal to {@code nodeU().hashCode() + nodeV().hashCode()}.
    */
-  @Override
-  public abstract int hashCode();
+  @Override public abstract int hashCode();
 
   private static final class Ordered<N> extends EndpointPair<N> {
-    private Ordered(N source, N target) {
-      super(source, target);
-    }
+    private Ordered(N source, N target) { super(source, target); }
 
     @Override
     public N source() {
@@ -171,7 +188,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
         return false;
       }
 
-      EndpointPair<?> other = (EndpointPair<?>) obj;
+      EndpointPair<?> other = (EndpointPair<?>)obj;
       if (isOrdered() != other.isOrdered()) {
         return false;
       }
@@ -191,9 +208,7 @@ public abstract class EndpointPair<N> implements Iterable<N> {
   }
 
   private static final class Unordered<N> extends EndpointPair<N> {
-    private Unordered(N nodeU, N nodeV) {
-      super(nodeU, nodeV);
-    }
+    private Unordered(N nodeU, N nodeV) { super(nodeU, nodeV); }
 
     @Override
     public N source() {
@@ -219,24 +234,28 @@ public abstract class EndpointPair<N> implements Iterable<N> {
         return false;
       }
 
-      EndpointPair<?> other = (EndpointPair<?>) obj;
+      EndpointPair<?> other = (EndpointPair<?>)obj;
       if (isOrdered() != other.isOrdered()) {
         return false;
       }
 
       // Equivalent to the following simple implementation:
-      // boolean condition1 = nodeU().equals(other.nodeU()) && nodeV().equals(other.nodeV());
-      // boolean condition2 = nodeU().equals(other.nodeV()) && nodeV().equals(other.nodeU());
-      // return condition1 || condition2;
+      // boolean condition1 = nodeU().equals(other.nodeU()) &&
+      // nodeV().equals(other.nodeV()); boolean condition2 =
+      // nodeU().equals(other.nodeV()) && nodeV().equals(other.nodeU()); return
+      // condition1 || condition2;
       if (nodeU().equals(other.nodeU())) { // check condition1
-        // Here's the tricky bit. We don't have to explicitly check for condition2 in this case.
-        // Why? The second half of condition2 requires that nodeV equals other.nodeU.
-        // We already know that nodeU equals other.nodeU. Combined with the earlier statement,
-        // and the transitive property of equality, this implies that nodeU equals nodeV.
-        // If nodeU equals nodeV, condition1 == condition2, so checking condition1 is sufficient.
+        // Here's the tricky bit. We don't have to explicitly check for
+        // condition2 in this case. Why? The second half of condition2 requires
+        // that nodeV equals other.nodeU. We already know that nodeU equals
+        // other.nodeU. Combined with the earlier statement, and the transitive
+        // property of equality, this implies that nodeU equals nodeV. If nodeU
+        // equals nodeV, condition1 == condition2, so checking condition1 is
+        // sufficient.
         return nodeV().equals(other.nodeV());
       }
-      return nodeU().equals(other.nodeV()) && nodeV().equals(other.nodeU()); // check condition2
+      return nodeU().equals(other.nodeV()) &&
+          nodeV().equals(other.nodeU()); // check condition2
     }
 
     @Override

@@ -20,8 +20,8 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.Set;
 
 /**
- * An interface for representing and manipulating an origin node's adjacent nodes and incident edges
- * in a {@link Network}.
+ * An interface for representing and manipulating an origin node's adjacent
+ * nodes and incident edges in a {@link Network}.
  *
  * @author James Sexton
  * @param <N> Node parameter type
@@ -42,8 +42,9 @@ interface NetworkConnections<N, E> {
   Set<E> outEdges();
 
   /**
-   * Returns the set of edges connecting the origin node to {@code node}. For networks without
-   * parallel edges, this set cannot be of size greater than one.
+   * Returns the set of edges connecting the origin node to {@code node}. For
+   * networks without parallel edges, this set cannot be of size greater than
+   * one.
    */
   Set<E> edgesConnecting(N node);
 
@@ -55,22 +56,29 @@ interface NetworkConnections<N, E> {
   N adjacentNode(E edge);
 
   /**
-   * Remove {@code edge} from the set of incoming edges. Returns the former predecessor node.
+   * Remove {@code edge} from the set of incoming edges. Returns the former
+   * predecessor node.
    *
-   * <p>In the undirected case, returns {@code null} if {@code isSelfLoop} is true.
+   * <p>In the undirected case, returns {@code null} if {@code isSelfLoop} is
+   * true.
    */
-  @CanIgnoreReturnValue
-  N removeInEdge(E edge, boolean isSelfLoop);
-
-  /** Remove {@code edge} from the set of outgoing edges. Returns the former successor node. */
-  @CanIgnoreReturnValue
-  N removeOutEdge(E edge);
+  @CanIgnoreReturnValue N removeInEdge(E edge, boolean isSelfLoop);
 
   /**
-   * Add {@code edge} to the set of incoming edges. Implicitly adds {@code node} as a predecessor.
+   * Remove {@code edge} from the set of outgoing edges. Returns the former
+   * successor node.
+   */
+  @CanIgnoreReturnValue N removeOutEdge(E edge);
+
+  /**
+   * Add {@code edge} to the set of incoming edges. Implicitly adds {@code node}
+   * as a predecessor.
    */
   void addInEdge(E edge, N node, boolean isSelfLoop);
 
-  /** Add {@code edge} to the set of outgoing edges. Implicitly adds {@code node} as a successor. */
+  /**
+   * Add {@code edge} to the set of outgoing edges. Implicitly adds {@code
+   * node} as a successor.
+   */
   void addOutEdge(E edge, N node);
 }

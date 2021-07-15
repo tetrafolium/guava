@@ -33,15 +33,16 @@ import java.util.List;
  * @author Jesse Wilson
  */
 @GwtIncompatible
-public class ReserializingTestCollectionGenerator<E> implements TestCollectionGenerator<E> {
+public class ReserializingTestCollectionGenerator<E>
+    implements TestCollectionGenerator<E> {
   private final TestCollectionGenerator<E> delegate;
 
   ReserializingTestCollectionGenerator(TestCollectionGenerator<E> delegate) {
     this.delegate = delegate;
   }
 
-  public static <E> ReserializingTestCollectionGenerator<E> newInstance(
-      TestCollectionGenerator<E> delegate) {
+  public static <E> ReserializingTestCollectionGenerator<E>
+  newInstance(TestCollectionGenerator<E> delegate) {
     return new ReserializingTestCollectionGenerator<E>(delegate);
   }
 
@@ -56,8 +57,9 @@ public class ReserializingTestCollectionGenerator<E> implements TestCollectionGe
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       ObjectOutputStream out = new ObjectOutputStream(bytes);
       out.writeObject(object);
-      ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
-      return (T) in.readObject();
+      ObjectInputStream in =
+          new ObjectInputStream(new ByteArrayInputStream(bytes.toByteArray()));
+      return (T)in.readObject();
     } catch (IOException | ClassNotFoundException e) {
       Helpers.fail(e, e.getMessage());
     }

@@ -62,8 +62,7 @@ public interface SortedSetMultimap<K, V> extends SetMultimap<K, V> {
    * key, this method returns a {@link SortedSet}, instead of the
    * {@link java.util.Collection} specified in the {@link Multimap} interface.
    */
-  @Override
-  SortedSet<V> get(@Nullable K key);
+  @Override SortedSet<V> get(@Nullable K key);
 
   /**
    * Removes all values associated with a given key.
@@ -72,9 +71,7 @@ public interface SortedSetMultimap<K, V> extends SetMultimap<K, V> {
    * key, this method returns a {@link SortedSet}, instead of the
    * {@link java.util.Collection} specified in the {@link Multimap} interface.
    */
-  @CanIgnoreReturnValue
-  @Override
-  SortedSet<V> removeAll(@Nullable Object key);
+  @CanIgnoreReturnValue @Override SortedSet<V> removeAll(@Nullable Object key);
 
   /**
    * Stores a collection of values with the same key, replacing any existing
@@ -106,8 +103,7 @@ public interface SortedSetMultimap<K, V> extends SetMultimap<K, V> {
    * {@code Map<K, SortedSet<V>>}, call
    * {@link Multimaps#asMap(SortedSetMultimap)} instead.
    */
-  @Override
-  Map<K, Collection<V>> asMap();
+  @Override Map<K, Collection<V>> asMap();
 
   /**
    * Returns the comparator that orders the multimap values, with {@code null}

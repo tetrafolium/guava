@@ -27,12 +27,12 @@ import java.util.List;
  */
 public class ImmutableListCreationBenchmark {
 
-  @Param({"10", "1000", "1000000"})
-  int size;
+  @Param({"10", "1000", "1000000"}) int size;
 
   private static final Object OBJECT = new Object();
 
-  @Benchmark int builderAdd(int reps) {
+  @Benchmark
+  int builderAdd(int reps) {
     int size = this.size;
     int dummy = 0;
     for (int rep = 0; rep < reps; rep++) {
@@ -45,7 +45,8 @@ public class ImmutableListCreationBenchmark {
     return dummy;
   }
 
-  @Benchmark int preSizedBuilderAdd(int reps) {
+  @Benchmark
+  int preSizedBuilderAdd(int reps) {
     int size = this.size;
     int dummy = 0;
     for (int rep = 0; rep < reps; rep++) {
@@ -58,7 +59,8 @@ public class ImmutableListCreationBenchmark {
     return dummy;
   }
 
-  @Benchmark int copyArrayList(int reps) {
+  @Benchmark
+  int copyArrayList(int reps) {
     int size = this.size;
     int dummy = 0;
     for (int rep = 0; rep < reps; rep++) {
@@ -71,7 +73,8 @@ public class ImmutableListCreationBenchmark {
     return dummy;
   }
 
-  @Benchmark int copyPreSizedArrayList(int reps) {
+  @Benchmark
+  int copyPreSizedArrayList(int reps) {
     int size = this.size;
     int tmp = 0;
     for (int rep = 0; rep < reps; rep++) {

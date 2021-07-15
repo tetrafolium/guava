@@ -24,15 +24,18 @@ import java.util.concurrent.atomic.AtomicLongFieldUpdater;
 
 /**
  * A {@code double} value that may be updated atomically. See the {@link
- * java.util.concurrent.atomic} package specification for description of the properties of atomic
- * variables. An {@code AtomicDouble} is used in applications such as atomic accumulation, and
- * cannot be used as a replacement for a {@link Double}. However, this class does extend {@code
- * Number} to allow uniform access by tools and utilities that deal with numerically-based classes.
+ * java.util.concurrent.atomic} package specification for description of the
+ * properties of atomic variables. An {@code AtomicDouble} is used in
+ * applications such as atomic accumulation, and cannot be used as a replacement
+ * for a {@link Double}. However, this class does extend {@code Number} to allow
+ * uniform access by tools and utilities that deal with numerically-based
+ * classes.
  *
- * <p><a name="bitEquals"></a>This class compares primitive {@code double} values in methods such as
+ * <p><a name="bitEquals"></a>This class compares primitive {@code double}
+ * values in methods such as
  * {@link #compareAndSet} by comparing their bitwise representation using {@link
- * Double#doubleToRawLongBits}, which differs from both the primitive double {@code ==} operator and
- * from {@link Double#equals}, as if implemented by:
+ * Double#doubleToRawLongBits}, which differs from both the primitive double
+ * {@code ==} operator and from {@link Double#equals}, as if implemented by:
  *
  * <pre>{@code
  * static boolean bitEquals(double x, double y) {
@@ -42,8 +45,8 @@ import java.util.concurrent.atomic.AtomicLongFieldUpdater;
  * }
  * }</pre>
  *
- * <p>It is possible to write a more scalable updater, at the cost of giving up strict atomicity.
- * See for example <a
+ * <p>It is possible to write a more scalable updater, at the cost of giving up
+ * strict atomicity. See for example <a
  * href="http://gee.cs.oswego.edu/dl/jsr166/dist/jsr166edocs/jsr166e/DoubleAdder.html">
  * DoubleAdder</a> and <a
  * href="http://gee.cs.oswego.edu/dl/jsr166/dist/jsr166edocs/jsr166e/DoubleMaxUpdater.html">
@@ -84,9 +87,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    *
    * @return the current value
    */
-  public final double get() {
-    return longBitsToDouble(value);
-  }
+  public final double get() { return longBitsToDouble(value); }
 
   /**
    * Sets to the given value.
@@ -130,9 +131,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * the actual value was not bitwise equal to the expected value.
    */
   public final boolean compareAndSet(double expect, double update) {
-    return updater.compareAndSet(this,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+    return updater.compareAndSet(this, doubleToRawLongBits(expect),
+                                 doubleToRawLongBits(update));
   }
 
   /**
@@ -151,9 +151,8 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @return {@code true} if successful
    */
   public final boolean weakCompareAndSet(double expect, double update) {
-    return updater.weakCompareAndSet(this,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+    return updater.weakCompareAndSet(this, doubleToRawLongBits(expect),
+                                     doubleToRawLongBits(update));
   }
 
   /**
@@ -198,40 +197,30 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * Returns the String representation of the current value.
    * @return the String representation of the current value
    */
-  public String toString() {
-    return Double.toString(get());
-  }
+  public String toString() { return Double.toString(get()); }
 
   /**
    * Returns the value of this {@code AtomicDouble} as an {@code int}
    * after a narrowing primitive conversion.
    */
-  public int intValue() {
-    return (int) get();
-  }
+  public int intValue() { return (int)get(); }
 
   /**
    * Returns the value of this {@code AtomicDouble} as a {@code long}
    * after a narrowing primitive conversion.
    */
-  public long longValue() {
-    return (long) get();
-  }
+  public long longValue() { return (long)get(); }
 
   /**
    * Returns the value of this {@code AtomicDouble} as a {@code float}
    * after a narrowing primitive conversion.
    */
-  public float floatValue() {
-    return (float) get();
-  }
+  public float floatValue() { return (float)get(); }
 
   /**
    * Returns the value of this {@code AtomicDouble} as a {@code double}.
    */
-  public double doubleValue() {
-    return get();
-  }
+  public double doubleValue() { return get(); }
 
   /**
    * Saves the state to a stream (that is, serializes it).
@@ -239,7 +228,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * @serialData The current value is emitted (a {@code double}).
    */
   private void writeObject(java.io.ObjectOutputStream s)
-  throws java.io.IOException {
+      throws java.io.IOException {
     s.defaultWriteObject();
 
     s.writeDouble(get());
@@ -249,7 +238,7 @@ public class AtomicDouble extends Number implements java.io.Serializable {
    * Reconstitutes the instance from a stream (that is, deserializes it).
    */
   private void readObject(java.io.ObjectInputStream s)
-  throws java.io.IOException, ClassNotFoundException {
+      throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
 
     set(s.readDouble());

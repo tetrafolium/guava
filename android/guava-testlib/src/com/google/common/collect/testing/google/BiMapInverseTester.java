@@ -32,8 +32,8 @@ import java.util.List;
 /**
  * Tests for the {@code inverse} view of a BiMap.
  *
- * <p>This assumes that {@code bimap.inverse().inverse() == bimap}, which is not technically
- * required but is fulfilled by all current implementations.
+ * <p>This assumes that {@code bimap.inverse().inverse() == bimap}, which is not
+ * technically required but is fulfilled by all current implementations.
  *
  * @author Louis Wasserman
  */
@@ -67,8 +67,8 @@ public class BiMapInverseTester<K, V> extends AbstractBiMapTester<K, V> {
   }
 
   /**
-   * Returns {@link Method} instances for the tests that assume that the inverse will be the same
-   * after serialization.
+   * Returns {@link Method} instances for the tests that assume that the inverse
+   * will be the same after serialization.
    */
   @GwtIncompatible // reflection
   public static List<Method> getInverseSameAfterSerializingMethods() {

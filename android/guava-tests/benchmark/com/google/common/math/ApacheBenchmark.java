@@ -29,7 +29,8 @@ import com.google.caliper.Param;
 /**
  * Benchmarks against the Apache Commons Math utilities.
  *
- * <p>Note: the Apache benchmarks are not open sourced to avoid the extra dependency.
+ * <p>Note: the Apache benchmarks are not open sourced to avoid the extra
+ * dependency.
  *
  * @author Louis Wasserman
  */
@@ -123,16 +124,17 @@ public class ApacheBenchmark {
   private final long[][] longsToAdd = new long[ARRAY_SIZE][2];
   private final long[][] longsToMul = new long[ARRAY_SIZE][2];
 
-  @Param({"APACHE", "GUAVA"})
-  Impl impl;
+  @Param({"APACHE", "GUAVA"}) Impl impl;
 
   @BeforeExperiment
   void setUp() {
     for (int i = 0; i < ARRAY_SIZE; i++) {
       factorials[i] = RANDOM_SOURCE.nextInt(200);
       for (int j = 0; j < 2; j++) {
-        nonnegInt[i][j] = randomNonNegativeBigInteger(Integer.SIZE - 2).intValue();
-        nonnegLong[i][j] = randomNonNegativeBigInteger(Long.SIZE - 2).longValue();
+        nonnegInt[i][j] =
+            randomNonNegativeBigInteger(Integer.SIZE - 2).intValue();
+        nonnegLong[i][j] =
+            randomNonNegativeBigInteger(Long.SIZE - 2).longValue();
       }
       do {
         for (int j = 0; j < 2; j++) {
@@ -155,12 +157,15 @@ public class ApacheBenchmark {
         }
       } while (!Impl.GUAVA.noMulOverflow(longsToMul[i][0], longsToMul[i][1]));
 
-      int k = binomials[i][1] = RANDOM_SOURCE.nextInt(MathBenchmarking.biggestBinomials.length);
-      binomials[i][0] = RANDOM_SOURCE.nextInt(MathBenchmarking.biggestBinomials[k] - k) + k;
+      int k = binomials[i][1] =
+          RANDOM_SOURCE.nextInt(MathBenchmarking.biggestBinomials.length);
+      binomials[i][0] =
+          RANDOM_SOURCE.nextInt(MathBenchmarking.biggestBinomials[k] - k) + k;
     }
   }
 
-  @Benchmark long factorialDouble(int reps) {
+  @Benchmark
+  long factorialDouble(int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -169,7 +174,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark int intGCD(int reps) {
+  @Benchmark
+  int intGCD(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -178,7 +184,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark long longGCD(int reps) {
+  @Benchmark
+  long longGCD(int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -187,7 +194,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark long binomialCoefficient(int reps) {
+  @Benchmark
+  long binomialCoefficient(int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -196,7 +204,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark int intAddOverflow(int reps) {
+  @Benchmark
+  int intAddOverflow(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -207,7 +216,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark int longAddOverflow(int reps) {
+  @Benchmark
+  int longAddOverflow(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -218,7 +228,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark int intMulOverflow(int reps) {
+  @Benchmark
+  int intMulOverflow(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -229,7 +240,8 @@ public class ApacheBenchmark {
     return tmp;
   }
 
-  @Benchmark int longMulOverflow(int reps) {
+  @Benchmark
+  int longMulOverflow(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;

@@ -36,14 +36,10 @@ final class Platform {
   }
 
   /** See {@link ListListIteratorTester} */
-  static int listListIteratorTesterNumIterations() {
-    return 4;
-  }
+  static int listListIteratorTesterNumIterations() { return 4; }
 
   /** See {@link CollectionIteratorTester} */
-  static int collectionIteratorTesterNumIterations() {
-    return 5;
-  }
+  static int collectionIteratorTesterNumIterations() { return 5; }
 
   private Platform() {}
 }

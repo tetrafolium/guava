@@ -65,6 +65,7 @@ public class CollectionCreationTester<E> extends AbstractCollectionTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getCreateWithNullUnsupportedMethod() {
-    return Helpers.getMethod(CollectionCreationTester.class, "testCreateWithNull_unsupported");
+    return Helpers.getMethod(CollectionCreationTester.class,
+                             "testCreateWithNull_unsupported");
   }
 }

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -24,10 +26,11 @@ import java.util.Set;
 import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * Based on what a {@link Type} is, dispatch it to the corresponding {@code visit*} method. By
- * default, no recursion is done for type arguments or type bounds. But subclasses can opt to do
- * recursion by calling {@link #visit} for any {@code Type} while visitation is in progress. For
- * example, this can be used to reject wildcards or type variables contained in a type as in:
+ * Based on what a {@link Type} is, dispatch it to the corresponding {@code
+ * visit*} method. By default, no recursion is done for type arguments or type
+ * bounds. But subclasses can opt to do recursion by calling {@link #visit} for
+ * any {@code Type} while visitation is in progress. For example, this can be
+ * used to reject wildcards or type variables contained in a type as in:
  *
  * <pre>   {@code
  *   new TypeVisitor() {
@@ -46,8 +49,9 @@ import javax.annotation.concurrent.NotThreadSafe;
  *     }
  *   }.visit(type);}</pre>
  *
- * <p>One {@code Type} is visited at most once. The second time the same type is visited, it's
- * ignored by {@link #visit}. This avoids infinite recursion caused by recursive type bounds.
+ * <p>One {@code Type} is visited at most once. The second time the same type is
+ * visited, it's ignored by {@link #visit}. This avoids infinite recursion
+ * caused by recursive type bounds.
  *
  * <p>This class is <em>not</em> thread safe.
  *
@@ -59,8 +63,10 @@ abstract class TypeVisitor {
   private final Set<Type> visited = Sets.newHashSet();
 
   /**
-   * Visits the given types. Null types are ignored. This allows subclasses to call
-   * {@code visit(parameterizedType.getOwnerType())} safely without having to check nulls.
+   * Visits the given types. Null types are ignored. This allows subclasses to
+   * call
+   * {@code visit(parameterizedType.getOwnerType())} safely without having to
+   * check nulls.
    */
   public final void visit(Type... types) {
     for (Type type : types) {
@@ -71,21 +77,22 @@ abstract class TypeVisitor {
       boolean succeeded = false;
       try {
         if (type instanceof TypeVariable) {
-          visitTypeVariable((TypeVariable<?>) type);
+          visitTypeVariable((TypeVariable<?>)type);
         } else if (type instanceof WildcardType) {
-          visitWildcardType((WildcardType) type);
+          visitWildcardType((WildcardType)type);
         } else if (type instanceof ParameterizedType) {
-          visitParameterizedType((ParameterizedType) type);
+          visitParameterizedType((ParameterizedType)type);
         } else if (type instanceof Class) {
-          visitClass((Class<?>) type);
+          visitClass((Class<?>)type);
         } else if (type instanceof GenericArrayType) {
-          visitGenericArrayType((GenericArrayType) type);
+          visitGenericArrayType((GenericArrayType)type);
         } else {
           throw new AssertionError("Unknown type: " + type);
         }
         succeeded = true;
       } finally {
-        if (!succeeded) { // When the visitation failed, we don't want to ignore the second.
+        if (!succeeded) { // When the visitation failed, we don't want to ignore
+                          // the second.
           visited.remove(type);
         }
       }

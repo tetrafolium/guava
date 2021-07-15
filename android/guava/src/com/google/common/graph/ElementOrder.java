@@ -31,8 +31,8 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
- * Used to represent the order of elements in a data structure that supports different options for
- * iteration order guarantees.
+ * Used to represent the order of elements in a data structure that supports
+ * different options for iteration order guarantees.
  *
  * <p>Example usage:
  *
@@ -49,7 +49,8 @@ import javax.annotation.Nullable;
 public final class ElementOrder<T> {
   private final Type type;
 
-  @SuppressWarnings("Immutable") // Hopefully the comparator provided is immutable!
+  @SuppressWarnings("Immutable")
+  // Hopefully the comparator provided is immutable!
   @Nullable
   private final Comparator<T> comparator;
 
@@ -62,11 +63,7 @@ public final class ElementOrder<T> {
    * <li>SORTED: ordering according to a supplied comparator is guaranteed.
    * </ul>
    */
-  public enum Type {
-    UNORDERED,
-    INSERTION,
-    SORTED
-  }
+  public enum Type { UNORDERED, INSERTION, SORTED }
 
   private ElementOrder(Type type, @Nullable Comparator<T> comparator) {
     this.type = checkNotNull(type);
@@ -79,30 +76,31 @@ public final class ElementOrder<T> {
     return new ElementOrder<S>(Type.UNORDERED, null);
   }
 
-  /** Returns an instance which specifies that insertion ordering is guaranteed. */
+  /**
+   * Returns an instance which specifies that insertion ordering is guaranteed.
+   */
   public static <S> ElementOrder<S> insertion() {
     return new ElementOrder<S>(Type.INSERTION, null);
   }
 
   /**
-   * Returns an instance which specifies that the natural ordering of the elements is guaranteed.
+   * Returns an instance which specifies that the natural ordering of the
+   * elements is guaranteed.
    */
   public static <S extends Comparable<? super S>> ElementOrder<S> natural() {
     return new ElementOrder<S>(Type.SORTED, Ordering.<S>natural());
   }
 
   /**
-   * Returns an instance which specifies that the ordering of the elements is guaranteed to be
-   * determined by {@code comparator}.
+   * Returns an instance which specifies that the ordering of the elements is
+   * guaranteed to be determined by {@code comparator}.
    */
   public static <S> ElementOrder<S> sorted(Comparator<S> comparator) {
     return new ElementOrder<S>(Type.SORTED, comparator);
   }
 
   /** Returns the type of ordering used. */
-  public Type type() {
-    return type;
-  }
+  public Type type() { return type; }
 
   /**
    * Returns the {@link Comparator} used.
@@ -113,7 +111,8 @@ public final class ElementOrder<T> {
     if (comparator != null) {
       return comparator;
     }
-    throw new UnsupportedOperationException("This ordering does not define a comparator.");
+    throw new UnsupportedOperationException(
+        "This ordering does not define a comparator.");
   }
 
   @Override
@@ -125,7 +124,7 @@ public final class ElementOrder<T> {
       return false;
     }
 
-    ElementOrder<?> other = (ElementOrder<?>) obj;
+    ElementOrder<?> other = (ElementOrder<?>)obj;
     return (type == other.type) && Objects.equal(comparator, other.comparator);
   }
 
@@ -143,7 +142,10 @@ public final class ElementOrder<T> {
     return helper.toString();
   }
 
-  /** Returns an empty mutable map whose keys will respect this {@link ElementOrder}. */
+  /**
+   * Returns an empty mutable map whose keys will respect this {@link
+   * ElementOrder}.
+   */
   <K extends T, V> Map<K, V> createMap(int expectedSize) {
     switch (type) {
     case UNORDERED:
@@ -159,6 +161,6 @@ public final class ElementOrder<T> {
 
   @SuppressWarnings("unchecked")
   <T1 extends T> ElementOrder<T1> cast() {
-    return (ElementOrder<T1>) this;
+    return (ElementOrder<T1>)this;
   }
 }

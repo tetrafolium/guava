@@ -55,7 +55,8 @@ public class AbstractTester<G> extends TestCase {
   }
 
   // public so that it can be referenced in generated GWT tests.
-  public final void init(G subjectGenerator, String suiteName, Runnable setUp, Runnable tearDown) {
+  public final void init(G subjectGenerator, String suiteName, Runnable setUp,
+                         Runnable tearDown) {
     this.subjectGenerator = subjectGenerator;
     this.suiteName = suiteName;
     this.setUp = setUp;
@@ -67,14 +68,10 @@ public class AbstractTester<G> extends TestCase {
     init(subjectGenerator, suiteName, null, null);
   }
 
-  public G getSubjectGenerator() {
-    return subjectGenerator;
-  }
+  public G getSubjectGenerator() { return subjectGenerator; }
 
   /** Returns the name of the test method invoked by this test instance. */
-  public final String getTestMethodName() {
-    return super.getName();
-  }
+  public final String getTestMethodName() { return super.getName(); }
 
   @Override
   public String getName() {

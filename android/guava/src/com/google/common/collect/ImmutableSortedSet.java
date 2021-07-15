@@ -37,14 +37,15 @@ import java.util.SortedSet;
 import javax.annotation.Nullable;
 
 /**
- * A {@link NavigableSet} whose contents will never change, with many other important properties
- * detailed at {@link ImmutableCollection}.
+ * A {@link NavigableSet} whose contents will never change, with many other
+ * important properties detailed at {@link ImmutableCollection}.
  *
- * <p><b>Warning:</b> as with any sorted collection, you are strongly advised not to use a {@link
- * Comparator} or {@link Comparable} type whose comparison behavior is <i>inconsistent with
- * equals</i>. That is, {@code a.compareTo(b)} or {@code comparator.compare(a, b)} should equal zero
- * <i>if and only if</i> {@code a.equals(b)}. If this advice is not followed, the resulting
- * collection will not correctly obey its specification.
+ * <p><b>Warning:</b> as with any sorted collection, you are strongly advised
+ * not to use a {@link Comparator} or {@link Comparable} type whose comparison
+ * behavior is <i>inconsistent with equals</i>. That is, {@code a.compareTo(b)}
+ * or {@code comparator.compare(a, b)} should equal zero <i>if and only if</i>
+ * {@code a.equals(b)}. If this advice is not followed, the resulting collection
+ * will not correctly obey its specification.
  *
  * <p>See the Guava User Guide article on <a href=
  * "https://github.com/google/guava/wiki/ImmutableCollectionsExplained">
@@ -57,13 +58,17 @@ import javax.annotation.Nullable;
 // TODO(benyu): benchmark and optimize all creation paths, which are a mess now
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // we're overriding default serialization
-public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxverideShim<E>
-  implements NavigableSet<E>, SortedIterable<E> {
-  static <E> RegularImmutableSortedSet<E> emptySet(Comparator<? super E> comparator) {
+public abstract class ImmutableSortedSet<E>
+    extends ImmutableSortedSetFauxverideShim<E>
+    implements NavigableSet<E>, SortedIterable<E> {
+  static <E> RegularImmutableSortedSet<E>
+  emptySet(Comparator<? super E> comparator) {
     if (Ordering.natural().equals(comparator)) {
-      return (RegularImmutableSortedSet<E>) RegularImmutableSortedSet.NATURAL_EMPTY_SET;
+      return (RegularImmutableSortedSet<E>)
+          RegularImmutableSortedSet.NATURAL_EMPTY_SET;
     } else {
-      return new RegularImmutableSortedSet<E>(ImmutableList.<E>of(), comparator);
+      return new RegularImmutableSortedSet<E>(ImmutableList.<E>of(),
+                                              comparator);
     }
   }
 
@@ -71,14 +76,16 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * Returns the empty immutable sorted set.
    */
   public static <E> ImmutableSortedSet<E> of() {
-    return (ImmutableSortedSet<E>) RegularImmutableSortedSet.NATURAL_EMPTY_SET;
+    return (ImmutableSortedSet<E>)RegularImmutableSortedSet.NATURAL_EMPTY_SET;
   }
 
   /**
    * Returns an immutable sorted set containing a single element.
    */
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(E element) {
-    return new RegularImmutableSortedSet<E>(ImmutableList.of(element), Ordering.natural());
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E element) {
+    return new RegularImmutableSortedSet<E>(ImmutableList.of(element),
+                                            Ordering.natural());
   }
 
   /**
@@ -89,7 +96,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(E e1, E e2) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E e1, E e2) {
     return construct(Ordering.natural(), 2, e1, e2);
   }
 
@@ -101,7 +109,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(E e1, E e2, E e3) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E e1, E e2, E e3) {
     return construct(Ordering.natural(), 3, e1, e2, e3);
   }
 
@@ -113,7 +122,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(E e1, E e2, E e3, E e4) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E e1, E e2, E e3, E e4) {
     return construct(Ordering.natural(), 4, e1, e2, e3, e4);
   }
 
@@ -125,8 +135,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any element is null
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E e1, E e2, E e3, E e4, E e5) {
     return construct(Ordering.natural(), 5, e1, e2, e3, e4, e5);
   }
 
@@ -139,8 +149,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @since 3.0 (source-compatible since 2.0)
    */
   @SuppressWarnings("unchecked")
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> of(
-      E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  of(E e1, E e2, E e3, E e4, E e5, E e6, E... remaining) {
     Comparable[] contents = new Comparable[6 + remaining.length];
     contents[0] = e1;
     contents[1] = e2;
@@ -149,7 +159,7 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     contents[4] = e5;
     contents[5] = e6;
     System.arraycopy(remaining, 0, contents, 6, remaining.length);
-    return construct(Ordering.natural(), contents.length, (E[]) contents);
+    return construct(Ordering.natural(), contents.length, (E[])contents);
   }
 
   // TODO(kevinb): Consider factory methods that reject duplicates
@@ -162,7 +172,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any of {@code elements} is null
    * @since 3.0
    */
-  public static <E extends Comparable<? super E>> ImmutableSortedSet<E> copyOf(E[] elements) {
+  public static <E extends Comparable<? super E>> ImmutableSortedSet<E>
+  copyOf(E[] elements) {
     return construct(Ordering.natural(), elements.length, elements.clone());
   }
 
@@ -191,11 +202,12 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws ClassCastException if the elements are not mutually comparable
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSortedSet<E> copyOf(Iterable<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Iterable<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedSetFauxverideShim.
     @SuppressWarnings("unchecked")
-    Ordering<E> naturalOrder = (Ordering<E>) Ordering.<Comparable>natural();
+    Ordering<E> naturalOrder = (Ordering<E>)Ordering.<Comparable>natural();
     return copyOf(naturalOrder, elements);
   }
 
@@ -228,11 +240,12 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if any of {@code elements} is null
    * @since 7.0 (source-compatible since 2.0)
    */
-  public static <E> ImmutableSortedSet<E> copyOf(Collection<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Collection<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedSetFauxverideShim.
     @SuppressWarnings("unchecked")
-    Ordering<E> naturalOrder = (Ordering<E>) Ordering.<Comparable>natural();
+    Ordering<E> naturalOrder = (Ordering<E>)Ordering.<Comparable>natural();
     return copyOf(naturalOrder, elements);
   }
 
@@ -247,11 +260,12 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws ClassCastException if the elements are not mutually comparable
    * @throws NullPointerException if any of {@code elements} is null
    */
-  public static <E> ImmutableSortedSet<E> copyOf(Iterator<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Iterator<? extends E> elements) {
     // Hack around E not being a subtype of Comparable.
     // Unsafe, see ImmutableSortedSetFauxverideShim.
     @SuppressWarnings("unchecked")
-    Ordering<E> naturalOrder = (Ordering<E>) Ordering.<Comparable>natural();
+    Ordering<E> naturalOrder = (Ordering<E>)Ordering.<Comparable>natural();
     return copyOf(naturalOrder, elements);
   }
 
@@ -264,8 +278,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if {@code comparator} or any of
    *     {@code elements} is null
    */
-  public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterator<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Comparator<? super E> comparator, Iterator<? extends E> elements) {
     return new Builder<E>(comparator).addAll(elements).build();
   }
 
@@ -282,20 +296,21 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    * @throws NullPointerException if {@code comparator} or any of {@code
    *         elements} is null
    */
-  public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Iterable<? extends E> elements) {
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Comparator<? super E> comparator, Iterable<? extends E> elements) {
     checkNotNull(comparator);
-    boolean hasSameComparator = SortedIterables.hasSameComparator(comparator, elements);
+    boolean hasSameComparator =
+        SortedIterables.hasSameComparator(comparator, elements);
 
     if (hasSameComparator && (elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked")
-      ImmutableSortedSet<E> original = (ImmutableSortedSet<E>) elements;
+      ImmutableSortedSet<E> original = (ImmutableSortedSet<E>)elements;
       if (!original.isPartialView()) {
         return original;
       }
     }
     @SuppressWarnings("unchecked") // elements only contains E's; it's safe.
-    E[] array = (E[]) Iterables.toArray(elements);
+    E[] array = (E[])Iterables.toArray(elements);
     return construct(comparator, array.length, array);
   }
 
@@ -317,9 +332,9 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    *     {@code elements} is null
    * @since 7.0 (source-compatible since 2.0)
    */
-  public static <E> ImmutableSortedSet<E> copyOf(
-      Comparator<? super E> comparator, Collection<? extends E> elements) {
-    return copyOf(comparator, (Iterable<? extends E>) elements);
+  public static <E> ImmutableSortedSet<E>
+  copyOf(Comparator<? super E> comparator, Collection<? extends E> elements) {
+    return copyOf(comparator, (Iterable<? extends E>)elements);
   }
 
   /**
@@ -350,18 +365,20 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
   }
 
   /**
-   * Constructs an {@code ImmutableSortedSet} from the first {@code n} elements of {@code contents}.
-   * If {@code k} is the size of the returned {@code ImmutableSortedSet}, then the sorted unique
-   * elements are in the first {@code k} positions of {@code contents}, and {@code contents[i] ==
-   * null} for {@code k <= i < n}.
+   * Constructs an {@code ImmutableSortedSet} from the first {@code n} elements
+   * of {@code contents}. If {@code k} is the size of the returned {@code
+   * ImmutableSortedSet}, then the sorted unique elements are in the first
+   * {@code k} positions of {@code contents}, and {@code contents[i] == null}
+   * for {@code k <= i < n}.
    *
-   * <p>This method takes ownership of {@code contents}; do not modify {@code contents} after this
-   * returns.
+   * <p>This method takes ownership of {@code contents}; do not modify {@code
+   * contents} after this returns.
    *
-   * @throws NullPointerException if any of the first {@code n} elements of {@code contents} is null
+   * @throws NullPointerException if any of the first {@code n} elements of
+   *     {@code contents} is null
    */
-  static <E> ImmutableSortedSet<E> construct(
-      Comparator<? super E> comparator, int n, E... contents) {
+  static <E> ImmutableSortedSet<E> construct(Comparator<? super E> comparator,
+                                             int n, E... contents) {
     if (n == 0) {
       return emptySet(comparator);
     }
@@ -377,12 +394,13 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     }
     Arrays.fill(contents, uniques, n, null);
     if (uniques < contents.length / 2) {
-      // Deduplication eliminated many of the elements.  We don't want to retain an arbitrarily
-      // large array relative to the number of elements, so we cap the ratio.
+      // Deduplication eliminated many of the elements.  We don't want to retain
+      // an arbitrarily large array relative to the number of elements, so we
+      // cap the ratio.
       contents = Arrays.copyOf(contents, uniques);
     }
     return new RegularImmutableSortedSet<E>(
-            ImmutableList.<E>asImmutableList(contents, uniques), comparator);
+        ImmutableList.<E>asImmutableList(contents, uniques), comparator);
   }
 
   /**
@@ -427,9 +445,9 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    *           .add(42)
    *           .build();}</pre>
    *
-   * <p>Builder instances can be reused; it is safe to call {@link #build} multiple
-   * times to build multiple sets in series. Each set is a superset of the set
-   * created before it.
+   * <p>Builder instances can be reused; it is safe to call {@link #build}
+   * multiple times to build multiple sets in series. Each set is a superset of
+   * the set created before it.
    *
    * @since 2.0
    */
@@ -513,9 +531,10 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     @Override
     public ImmutableSortedSet<E> build() {
       @SuppressWarnings("unchecked") // we're careful to put only E's in here
-      E[] contentsArray = (E[]) contents;
+      E[] contentsArray = (E[])contents;
       ImmutableSortedSet<E> result = construct(comparator, size, contentsArray);
-      this.size = result.size(); // we eliminated duplicates in-place in contentsArray
+      this.size =
+          result.size(); // we eliminated duplicates in-place in contentsArray
       this.forceCopy = true;
       return result;
     }
@@ -530,7 +549,7 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     // compare a and b, we should get a CCE on the subsequent line. Only methods
     // that are spec'd to throw CCE should call this.
     @SuppressWarnings("unchecked")
-    Comparator<Object> unsafeComparator = (Comparator<Object>) comparator;
+    Comparator<Object> unsafeComparator = (Comparator<Object>)comparator;
     return unsafeComparator.compare(a, b);
   }
 
@@ -552,7 +571,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     return comparator;
   }
 
-  @Override // needed to unify the iterator() methods in Collection and SortedIterable
+  @Override
+  // needed to unify the iterator() methods in Collection and SortedIterable
   public abstract UnmodifiableIterator<E> iterator();
 
   /**
@@ -603,8 +623,8 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    */
   @GwtIncompatible // NavigableSet
   @Override
-  public ImmutableSortedSet<E> subSet(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
+  public ImmutableSortedSet<E> subSet(E fromElement, boolean fromInclusive,
+                                      E toElement, boolean toInclusive) {
     checkNotNull(fromElement);
     checkNotNull(toElement);
     checkArgument(comparator.compare(fromElement, toElement) <= 0);
@@ -642,8 +662,9 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
    */
   abstract ImmutableSortedSet<E> headSetImpl(E toElement, boolean inclusive);
 
-  abstract ImmutableSortedSet<E> subSetImpl(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive);
+  abstract ImmutableSortedSet<E> subSetImpl(E fromElement,
+                                            boolean fromInclusive, E toElement,
+                                            boolean toInclusive);
 
   abstract ImmutableSortedSet<E> tailSetImpl(E fromElement, boolean inclusive);
 
@@ -742,9 +763,9 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
     return result;
   }
 
-  // Most classes should implement this as new DescendingImmutableSortedSet<E>(this),
-  // but we push down that implementation because ProGuard can't eliminate it even when it's always
-  // overridden.
+  // Most classes should implement this as new
+  // DescendingImmutableSortedSet<E>(this), but we push down that implementation
+  // because ProGuard can't eliminate it even when it's always overridden.
   @GwtIncompatible // NavigableSet
   abstract ImmutableSortedSet<E> createDescendingSet();
 
@@ -777,13 +798,14 @@ public abstract class ImmutableSortedSet<E> extends ImmutableSortedSetFauxveride
 
     @SuppressWarnings("unchecked")
     Object readResolve() {
-      return new Builder<E>(comparator).add((E[]) elements).build();
+      return new Builder<E>(comparator).add((E[])elements).build();
     }
 
     private static final long serialVersionUID = 0;
   }
 
-  private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+  private void readObject(ObjectInputStream stream)
+      throws InvalidObjectException {
     throw new InvalidObjectException("Use SerializedForm");
   }
 

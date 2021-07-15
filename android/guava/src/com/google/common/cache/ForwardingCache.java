@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -25,21 +27,22 @@ import java.util.concurrent.ExecutionException;
 import javax.annotation.Nullable;
 
 /**
- * A cache which forwards all its method calls to another cache. Subclasses should override one or
- * more methods to modify the behavior of the backing cache as desired per the
- * <a href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
+ * A cache which forwards all its method calls to another cache. Subclasses
+ * should override one or more methods to modify the behavior of the backing
+ * cache as desired per the <a
+ * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
  *
  * @author Charles Fry
  * @since 10.0
  */
 @GwtIncompatible
-public abstract class ForwardingCache<K, V> extends ForwardingObject implements Cache<K, V> {
+public abstract class ForwardingCache<K, V>
+    extends ForwardingObject implements Cache<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingCache() {}
 
-  @Override
-  protected abstract Cache<K, V> delegate();
+  @Override protected abstract Cache<K, V> delegate();
 
   /**
    * @since 11.0
@@ -54,7 +57,8 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
    * @since 11.0
    */
   @Override
-  public V get(K key, Callable<? extends V> valueLoader) throws ExecutionException {
+  public V get(K key, Callable<? extends V> valueLoader)
+      throws ExecutionException {
     return delegate().get(key, valueLoader);
   }
 
@@ -121,12 +125,13 @@ public abstract class ForwardingCache<K, V> extends ForwardingObject implements 
   }
 
   /**
-   * A simplified version of {@link ForwardingCache} where subclasses can pass in an already
-   * constructed {@link Cache} as the delegate.
+   * A simplified version of {@link ForwardingCache} where subclasses can pass
+   * in an already constructed {@link Cache} as the delegate.
    *
    * @since 10.0
    */
-  public abstract static class SimpleForwardingCache<K, V> extends ForwardingCache<K, V> {
+  public abstract static class SimpleForwardingCache<K, V>
+      extends ForwardingCache<K, V> {
     private final Cache<K, V> delegate;
 
     protected SimpleForwardingCache(Cache<K, V> delegate) {

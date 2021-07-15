@@ -32,12 +32,14 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * ObjectCountHashMap is an implementation of {@code AbstractObjectCountMap} that uses arrays to
- * store key objects and count values. Comparing to using a traditional {@code HashMap}
- * implementation which stores keys and count values as map entries, {@code ObjectCountHashMap}
- * minimizes object allocation and reduces memory footprint.
+ * ObjectCountHashMap is an implementation of {@code AbstractObjectCountMap}
+ * that uses arrays to store key objects and count values. Comparing to using a
+ * traditional {@code HashMap} implementation which stores keys and count values
+ * as map entries, {@code ObjectCountHashMap} minimizes object allocation and
+ * reduces memory footprint.
  *
- * <p>In the absence of element deletions, this will iterate over elements in insertion order.
+ * <p>In the absence of element deletions, this will iterate over elements in
+ * insertion order.
  */
 @GwtCompatible(serializable = true, emulated = true)
 class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
@@ -48,15 +50,18 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   }
 
   /**
-   * Creates a {@code ObjectCountHashMap} instance, with a high enough "initial capacity" that it
-   * <i>should</i> hold {@code expectedSize} elements without growth.
+   * Creates a {@code ObjectCountHashMap} instance, with a high enough "initial
+   * capacity" that it <i>should</i> hold {@code expectedSize} elements without
+   * growth.
    *
-   * @param expectedSize the number of elements you expect to add to the returned set
-   * @return a new, empty {@code ObjectCountHashMap} with enough capacity to hold {@code
-   *     expectedSize} elements without resizing
+   * @param expectedSize the number of elements you expect to add to the
+   *     returned set
+   * @return a new, empty {@code ObjectCountHashMap} with enough capacity to
+   *     hold {@code expectedSize} elements without resizing
    * @throws IllegalArgumentException if {@code expectedSize} is negative
    */
-  public static <K> ObjectCountHashMap<K> createWithExpectedSize(int expectedSize) {
+  public static <K> ObjectCountHashMap<K>
+  createWithExpectedSize(int expectedSize) {
     return new ObjectCountHashMap<K>(expectedSize);
   }
 
@@ -76,20 +81,21 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   static final int UNSET = -1;
 
   /**
-   * The hashtable. Its values are indexes to the keys, values, and entries arrays.
+   * The hashtable. Its values are indexes to the keys, values, and entries
+   * arrays.
    *
-   * <p>Currently, the UNSET value means "null pointer", and any non negative value x is the actual
-   * index.
+   * <p>Currently, the UNSET value means "null pointer", and any non negative
+   * value x is the actual index.
    *
    * <p>Its size must be a power of two.
    */
   private transient int[] table;
 
   /**
-   * Contains the logical entries, in the range of [0, size()). The high 32 bits of each long is the
-   * smeared hash of the element, whereas the low 32 bits is the "next" pointer (pointing to the
-   * next entry in the bucket chain). The pointers in [size(), entries.length) are all "null"
-   * (UNSET).
+   * Contains the logical entries, in the range of [0, size()). The high 32 bits
+   * of each long is the smeared hash of the element, whereas the low 32 bits is
+   * the "next" pointer (pointing to the next entry in the bucket chain). The
+   * pointers in [size(), entries.length) are all "null" (UNSET).
    */
   @VisibleForTesting transient long[] entries;
 
@@ -100,9 +106,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   private transient int threshold;
 
   /** Constructs a new empty instance of {@code ObjectCountHashMap}. */
-  ObjectCountHashMap() {
-    init(DEFAULT_SIZE, DEFAULT_LOAD_FACTOR);
-  }
+  ObjectCountHashMap() { init(DEFAULT_SIZE, DEFAULT_LOAD_FACTOR); }
 
   ObjectCountHashMap(AbstractObjectCountMap<K> map) {
     init(map.size(), DEFAULT_LOAD_FACTOR);
@@ -112,20 +116,20 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   }
 
   /**
-   * Constructs a new instance of {@code ObjectCountHashMap} with the specified capacity.
+   * Constructs a new instance of {@code ObjectCountHashMap} with the specified
+   * capacity.
    *
    * @param capacity the initial capacity of this {@code ObjectCountHashMap}.
    */
-  ObjectCountHashMap(int capacity) {
-    this(capacity, DEFAULT_LOAD_FACTOR);
-  }
+  ObjectCountHashMap(int capacity) { this(capacity, DEFAULT_LOAD_FACTOR); }
 
   ObjectCountHashMap(int expectedSize, float loadFactor) {
     init(expectedSize, loadFactor);
   }
 
   void init(int expectedSize, float loadFactor) {
-    Preconditions.checkArgument(expectedSize >= 0, "Initial capacity must be non-negative");
+    Preconditions.checkArgument(expectedSize >= 0,
+                                "Initial capacity must be non-negative");
     Preconditions.checkArgument(loadFactor > 0, "Illegal load factor");
     int buckets = Hashing.closedTableSize(expectedSize, loadFactor);
     this.table = newTable(buckets);
@@ -135,7 +139,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     this.values = new int[expectedSize];
 
     this.entries = newEntries(expectedSize);
-    this.threshold = Math.max(1, (int) (buckets * loadFactor));
+    this.threshold = Math.max(1, (int)(buckets * loadFactor));
   }
 
   private static int[] newTable(int size) {
@@ -150,20 +154,17 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     return array;
   }
 
-  private int hashTableMask() {
-    return table.length - 1;
-  }
+  private int hashTableMask() { return table.length - 1; }
 
-  private static int getHash(long entry) {
-    return (int) (entry >>> 32);
-  }
+  private static int getHash(long entry) { return (int)(entry >>> 32); }
 
   /** Returns the index, or UNSET if the pointer is "null" */
-  private static int getNext(long entry) {
-    return (int) entry;
-  }
+  private static int getNext(long entry) { return (int)entry; }
 
-  /** Returns a new entry value by changing the "next" index of an existing entry */
+  /**
+   * Returns a new entry value by changing the "next" index of an existing
+   * entry
+   */
   private static long swapNext(long entry, int newNext) {
     return (HASH_MASK & entry) | (NEXT_MASK & newNext);
   }
@@ -178,7 +179,8 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
 
     int hash = smearedHash(key);
     int tableIndex = hash & hashTableMask();
-    int newEntryIndex = this.size; // current size, and pointer to the entry to be appended
+    int newEntryIndex =
+        this.size; // current size, and pointer to the entry to be appended
     int next = table[tableIndex];
     if (next == UNSET) {
       table[tableIndex] = newEntryIndex;
@@ -199,7 +201,8 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
       entries[last] = swapNext(entry, newEntryIndex);
     }
     if (newEntryIndex == Integer.MAX_VALUE) {
-      throw new IllegalStateException("Cannot contain more than Integer.MAX_VALUE elements!");
+      throw new IllegalStateException(
+          "Cannot contain more than Integer.MAX_VALUE elements!");
     }
     int newSize = newEntryIndex + 1;
     resizeMeMaybe(newSize);
@@ -213,15 +216,18 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   }
 
   /**
-   * Creates a fresh entry with the specified object at the specified position in the entry array.
+   * Creates a fresh entry with the specified object at the specified position
+   * in the entry array.
    */
   void insertEntry(int entryIndex, @Nullable K key, int value, int hash) {
-    this.entries[entryIndex] = ((long) hash << 32) | (NEXT_MASK & UNSET);
+    this.entries[entryIndex] = ((long)hash << 32) | (NEXT_MASK & UNSET);
     this.keys[entryIndex] = key;
     this.values[entryIndex] = value;
   }
 
-  /** Returns currentSize + 1, after resizing the entries storage if necessary. */
+  /**
+   * Returns currentSize + 1, after resizing the entries storage if necessary.
+   */
   private void resizeMeMaybe(int newSize) {
     int entriesSize = entries.length;
     if (newSize > entriesSize) {
@@ -236,8 +242,8 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   }
 
   /**
-   * Resizes the internal entries array to the specified capacity, which may be greater or less than
-   * the current capacity.
+   * Resizes the internal entries array to the specified capacity, which may be
+   * greater or less than the current capacity.
    */
   void resizeEntries(int newCapacity) {
     this.keys = Arrays.copyOf(keys, newCapacity);
@@ -251,14 +257,15 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
     this.entries = entries;
   }
 
-  private void resizeTable(int newCapacity) { // newCapacity always a power of two
+  private void
+  resizeTable(int newCapacity) { // newCapacity always a power of two
     int[] oldTable = table;
     int oldCapacity = oldTable.length;
     if (oldCapacity >= MAXIMUM_CAPACITY) {
       threshold = Integer.MAX_VALUE;
       return;
     }
-    int newThreshold = 1 + (int) (newCapacity * loadFactor);
+    int newThreshold = 1 + (int)(newCapacity * loadFactor);
     int[] newTable = newTable(newCapacity);
     long[] entries = this.entries;
 
@@ -269,7 +276,7 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
       int tableIndex = hash & mask;
       int next = newTable[tableIndex];
       newTable[tableIndex] = i;
-      entries[i] = ((long) hash << 32) | (NEXT_MASK & next);
+      entries[i] = ((long)hash << 32) | (NEXT_MASK & next);
     }
 
     this.threshold = newThreshold;
@@ -346,7 +353,8 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
   }
 
   /**
-   * Moves the last entry in the entry array into {@code dstIndex}, and nulls out its old position.
+   * Moves the last entry in the entry array into {@code dstIndex}, and nulls
+   * out its old position.
    */
   void moveLastEntry(int dstIndex) {
     int srcIndex = size() - 1;
@@ -362,8 +370,9 @@ class ObjectCountHashMap<K> extends AbstractObjectCountMap<K> {
       entries[dstIndex] = lastEntry;
       entries[srcIndex] = UNSET;
 
-      // also need to update whoever's "next" pointer was pointing to the last entry place
-      // reusing "tableIndex" and "next"; these variables were no longer needed
+      // also need to update whoever's "next" pointer was pointing to the last
+      // entry place reusing "tableIndex" and "next"; these variables were no
+      // longer needed
       int tableIndex = getHash(lastEntry) & hashTableMask();
       int lastNext = table[tableIndex];
       if (lastNext == srcIndex) {

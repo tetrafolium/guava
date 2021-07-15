@@ -27,11 +27,12 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
- * ObjectCountLinkedHashMap is an implementation of {@code AbstractObjectCountMap} with insertion
- * iteration order, and uses arrays to store key objects and count values. Comparing to using a
- * traditional {@code LinkedHashMap} implementation which stores keys and count values as map
- * entries, {@code ObjectCountLinkedHashMap} minimizes object allocation and reduces memory
- * footprint.
+ * ObjectCountLinkedHashMap is an implementation of {@code
+ * AbstractObjectCountMap} with insertion iteration order, and uses arrays to
+ * store key objects and count values. Comparing to using a traditional {@code
+ * LinkedHashMap} implementation which stores keys and count values as map
+ * entries, {@code ObjectCountLinkedHashMap} minimizes object allocation and
+ * reduces memory footprint.
  */
 @GwtCompatible(serializable = true, emulated = true)
 class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
@@ -41,40 +42,49 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
   }
 
   /**
-   * Creates a {@code ObjectCountLinkedHashMap} instance, with a high enough "initial capacity" that
-   * it <i>should</i> hold {@code expectedSize} elements without growth.
+   * Creates a {@code ObjectCountLinkedHashMap} instance, with a high enough
+   * "initial capacity" that it <i>should</i> hold {@code expectedSize} elements
+   * without growth.
    *
-   * @param expectedSize the number of elements you expect to add to the returned set
-   * @return a new, empty {@code ObjectCountLinkedHashMap} with enough capacity to hold {@code
-   *     expectedSize} elements without resizing
+   * @param expectedSize the number of elements you expect to add to the
+   *     returned set
+   * @return a new, empty {@code ObjectCountLinkedHashMap} with enough capacity
+   *     to hold {@code expectedSize} elements without resizing
    * @throws IllegalArgumentException if {@code expectedSize} is negative
    */
-  public static <K> ObjectCountLinkedHashMap<K> createWithExpectedSize(int expectedSize) {
+  public static <K> ObjectCountLinkedHashMap<K>
+  createWithExpectedSize(int expectedSize) {
     return new ObjectCountLinkedHashMap<K>(expectedSize);
   }
 
   private static final int ENDPOINT = -2;
 
   /**
-   * Contains the link pointers corresponding with the entries, in the range of [0, size()). The
-   * high 32 bits of each long is the "prev" pointer, whereas the low 32 bits is the "succ" pointer
-   * (pointing to the nextEntry entry in the linked list). The pointers in [size(), entries.length)
-   * are all "null" (UNSET).
+   * Contains the link pointers corresponding with the entries, in the range of
+   * [0, size()). The high 32 bits of each long is the "prev" pointer, whereas
+   * the low 32 bits is the "succ" pointer (pointing to the nextEntry entry in
+   * the linked list). The pointers in [size(), entries.length) are all "null"
+   * (UNSET).
    *
-   * <p>A node with "prev" pointer equal to {@code ENDPOINT} is the first node in the linked list,
-   * and a node with "nextEntry" pointer equal to {@code ENDPOINT} is the last node.
+   * <p>A node with "prev" pointer equal to {@code ENDPOINT} is the first node
+   * in the linked list, and a node with "nextEntry" pointer equal to {@code
+   * ENDPOINT} is the last node.
    */
   @VisibleForTesting transient long[] links;
 
-  /** Pointer to the first node in the linked list, or {@code ENDPOINT} if there are no entries. */
+  /**
+   * Pointer to the first node in the linked list, or {@code ENDPOINT} if there
+   * are no entries.
+   */
   private transient int firstEntry;
 
-  /** Pointer to the last node in the linked list, or {@code ENDPOINT} if there are no entries. */
+  /**
+   * Pointer to the last node in the linked list, or {@code ENDPOINT} if there
+   * are no entries.
+   */
   private transient int lastEntry;
 
-  ObjectCountLinkedHashMap() {
-    this(DEFAULT_SIZE);
-  }
+  ObjectCountLinkedHashMap() { this(DEFAULT_SIZE); }
 
   ObjectCountLinkedHashMap(int expectedSize) {
     this(expectedSize, DEFAULT_LOAD_FACTOR);
@@ -111,13 +121,9 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
     return (result == ENDPOINT) ? -1 : result;
   }
 
-  private int getPredecessor(int entry) {
-    return (int) (links[entry] >>> 32);
-  }
+  private int getPredecessor(int entry) { return (int)(links[entry] >>> 32); }
 
-  private int getSuccessor(int entry) {
-    return (int) links[entry];
-  }
+  private int getSuccessor(int entry) { return (int)links[entry]; }
 
   private void setSuccessor(int entry, int succ) {
     long succMask = (~0L) >>> 32;
@@ -126,7 +132,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
 
   private void setPredecessor(int entry, int pred) {
     long predMask = (~0L) << 32;
-    links[entry] = (links[entry] & ~predMask) | ((long) pred << 32);
+    links[entry] = (links[entry] & ~predMask) | ((long)pred << 32);
   }
 
   private void setSucceeds(int pred, int succ) {
@@ -228,7 +234,7 @@ class ObjectCountLinkedHashMap<K> extends ObjectCountHashMap<K> {
           @SuppressWarnings("unchecked") // keys only contains Ks
           @Override
           K getOutput(int entry) {
-            return (K) keys[entry];
+            return (K)keys[entry];
           }
         };
       }

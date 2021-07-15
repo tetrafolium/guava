@@ -43,12 +43,11 @@ final class SortedMultisets {
   /**
    * A skeleton implementation for {@link SortedMultiset#elementSet}.
    */
-  static class ElementSet<E> extends Multisets.ElementSet<E> implements SortedSet<E> {
+  static class ElementSet<E>
+      extends Multisets.ElementSet<E> implements SortedSet<E> {
     @Weak private final SortedMultiset<E> multiset;
 
-    ElementSet(SortedMultiset<E> multiset) {
-      this.multiset = multiset;
-    }
+    ElementSet(SortedMultiset<E> multiset) { this.multiset = multiset; }
 
     @Override
     final SortedMultiset<E> multiset() {
@@ -62,7 +61,9 @@ final class SortedMultisets {
 
     @Override
     public SortedSet<E> subSet(E fromElement, E toElement) {
-      return multiset().subMultiset(fromElement, CLOSED, toElement, OPEN).elementSet();
+      return multiset()
+          .subMultiset(fromElement, CLOSED, toElement, OPEN)
+          .elementSet();
     }
 
     @Override
@@ -90,10 +91,9 @@ final class SortedMultisets {
    * A skeleton navigable implementation for {@link SortedMultiset#elementSet}.
    */
   @GwtIncompatible // Navigable
-  static class NavigableElementSet<E> extends ElementSet<E> implements NavigableSet<E> {
-    NavigableElementSet(SortedMultiset<E> multiset) {
-      super(multiset);
-    }
+  static class NavigableElementSet<E>
+      extends ElementSet<E> implements NavigableSet<E> {
+    NavigableElementSet(SortedMultiset<E> multiset) { super(multiset); }
 
     @Override
     public E lower(E e) {
@@ -136,25 +136,23 @@ final class SortedMultisets {
     }
 
     @Override
-    public NavigableSet<E> subSet(
-        E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
-      return new NavigableElementSet<E>(
-              multiset()
-              .subMultiset(
-                  fromElement, BoundType.forBoolean(fromInclusive),
-                  toElement, BoundType.forBoolean(toInclusive)));
+    public NavigableSet<E> subSet(E fromElement, boolean fromInclusive,
+                                  E toElement, boolean toInclusive) {
+      return new NavigableElementSet<E>(multiset().subMultiset(
+          fromElement, BoundType.forBoolean(fromInclusive), toElement,
+          BoundType.forBoolean(toInclusive)));
     }
 
     @Override
     public NavigableSet<E> headSet(E toElement, boolean inclusive) {
       return new NavigableElementSet<E>(
-              multiset().headMultiset(toElement, BoundType.forBoolean(inclusive)));
+          multiset().headMultiset(toElement, BoundType.forBoolean(inclusive)));
     }
 
     @Override
     public NavigableSet<E> tailSet(E fromElement, boolean inclusive) {
-      return new NavigableElementSet<E>(
-              multiset().tailMultiset(fromElement, BoundType.forBoolean(inclusive)));
+      return new NavigableElementSet<E>(multiset().tailMultiset(
+          fromElement, BoundType.forBoolean(inclusive)));
     }
   }
 

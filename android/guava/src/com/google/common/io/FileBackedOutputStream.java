@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2008 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -27,8 +29,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * An {@link OutputStream} that starts buffering to a byte array, but switches to file buffering
- * once the data reaches a configurable size.
+ * An {@link OutputStream} that starts buffering to a byte array, but switches
+ * to file buffering once the data reaches a configurable size.
  *
  * <p>This class is thread-safe.
  *
@@ -49,13 +51,9 @@ public final class FileBackedOutputStream extends OutputStream {
 
   /** ByteArrayOutputStream that exposes its internals. */
   private static class MemoryOutput extends ByteArrayOutputStream {
-    byte[] getBuffer() {
-      return buf;
-    }
+    byte[] getBuffer() { return buf; }
 
-    int getCount() {
-      return count;
-    }
+    int getCount() { return count; }
   }
 
   /** Returns the file holding the data (possibly null). */
@@ -65,21 +63,26 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /**
-   * Creates a new instance that uses the given file threshold, and does not reset the data when the
+   * Creates a new instance that uses the given file threshold, and does not
+   * reset the data when the
    * {@link ByteSource} returned by {@link #asByteSource} is finalized.
    *
-   * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
+   * @param fileThreshold the number of bytes before the stream should switch to
+   *     buffering to a file
    */
   public FileBackedOutputStream(int fileThreshold) {
     this(fileThreshold, false);
   }
 
   /**
-   * Creates a new instance that uses the given file threshold, and optionally resets the data when
-   * the {@link ByteSource} returned by {@link #asByteSource} is finalized.
+   * Creates a new instance that uses the given file threshold, and optionally
+   * resets the data when the {@link ByteSource} returned by {@link
+   * #asByteSource} is finalized.
    *
-   * @param fileThreshold the number of bytes before the stream should switch to buffering to a file
-   * @param resetOnFinalize if true, the {@link #reset} method will be called when the
+   * @param fileThreshold the number of bytes before the stream should switch to
+   *     buffering to a file
+   * @param resetOnFinalize if true, the {@link #reset} method will be called
+   *     when the
    *     {@link ByteSource} returned by {@link #asByteSource} is finalized
    */
   public FileBackedOutputStream(int fileThreshold, boolean resetOnFinalize) {
@@ -89,8 +92,7 @@ public final class FileBackedOutputStream extends OutputStream {
     out = memory;
 
     if (resetOnFinalize) {
-      source =
-      new ByteSource() {
+      source = new ByteSource() {
         @Override
         public InputStream openStream() throws IOException {
           return openInputStream();
@@ -106,8 +108,7 @@ public final class FileBackedOutputStream extends OutputStream {
         }
       };
     } else {
-      source =
-      new ByteSource() {
+      source = new ByteSource() {
         @Override
         public InputStream openStream() throws IOException {
           return openInputStream();
@@ -117,13 +118,12 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /**
-   * Returns a readable {@link ByteSource} view of the data that has been written to this stream.
+   * Returns a readable {@link ByteSource} view of the data that has been
+   * written to this stream.
    *
    * @since 15.0
    */
-  public ByteSource asByteSource() {
-    return source;
-  }
+  public ByteSource asByteSource() { return source; }
 
   private synchronized InputStream openInputStream() throws IOException {
     if (file != null) {
@@ -134,8 +134,9 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /**
-   * Calls {@link #close} if not already closed, and then resets this object back to its initial
-   * state, for reuse. If data was buffered to a file, it will be deleted.
+   * Calls {@link #close} if not already closed, and then resets this object
+   * back to its initial state, for reuse. If data was buffered to a file, it
+   * will be deleted.
    *
    * @throws IOException if an I/O error occurred while deleting the file buffer
    */
@@ -171,7 +172,8 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   @Override
-  public synchronized void write(byte[] b, int off, int len) throws IOException {
+  public synchronized void write(byte[] b, int off, int len)
+      throws IOException {
     update(len);
     out.write(b, off, len);
   }
@@ -187,8 +189,8 @@ public final class FileBackedOutputStream extends OutputStream {
   }
 
   /**
-   * Checks if writing {@code len} bytes would go over threshold, and switches to file buffering if
-   * so.
+   * Checks if writing {@code len} bytes would go over threshold, and switches
+   * to file buffering if so.
    */
   private void update(int len) throws IOException {
     if (file == null && (memory.getCount() + len > fileThreshold)) {

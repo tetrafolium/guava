@@ -27,8 +27,9 @@ import java.util.List;
  * @author Regina O'Dell
  */
 @GwtCompatible
-public abstract class TestUnhashableCollectionGenerator<T extends Collection<UnhashableObject>>
-  implements TestCollectionGenerator<UnhashableObject> {
+public abstract class TestUnhashableCollectionGenerator<
+    T extends Collection<UnhashableObject>>
+    implements TestCollectionGenerator<UnhashableObject> {
   @Override
   public SampleElements<UnhashableObject> samples() {
     return new Unhashables();
@@ -39,7 +40,7 @@ public abstract class TestUnhashableCollectionGenerator<T extends Collection<Unh
     UnhashableObject[] array = createArray(elements.length);
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (UnhashableObject) e;
+      array[i++] = (UnhashableObject)e;
     }
     return create(array);
   }
@@ -56,7 +57,8 @@ public abstract class TestUnhashableCollectionGenerator<T extends Collection<Unh
   }
 
   @Override
-  public Iterable<UnhashableObject> order(List<UnhashableObject> insertionOrder) {
+  public Iterable<UnhashableObject>
+  order(List<UnhashableObject> insertionOrder) {
     return insertionOrder;
   }
 }

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2009 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -23,21 +25,21 @@ import java.util.NoSuchElementException;
 import javax.annotation.Nullable;
 
 /**
- * Implementation detail for the internal structure of {@link Range} instances. Represents
- * a unique way of "cutting" a "number line" (actually of instances of type {@code C}, not
- * necessarily "numbers") into two sections; this can be done below a certain value, above
- * a certain value, below all values or above all values. With this object defined in this
- * way, an interval can always be represented by a pair of {@code Cut} instances.
+ * Implementation detail for the internal structure of {@link Range} instances.
+ * Represents a unique way of "cutting" a "number line" (actually of instances
+ * of type {@code C}, not necessarily "numbers") into two sections; this can be
+ * done below a certain value, above a certain value, below all values or above
+ * all values. With this object defined in this way, an interval can always be
+ * represented by a pair of {@code Cut} instances.
  *
  * @author Kevin Bourrillion
  */
 @GwtCompatible
-abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializable {
+abstract class Cut<C extends Comparable>
+    implements Comparable<Cut<C>>, Serializable {
   final C endpoint;
 
-  Cut(@Nullable C endpoint) {
-    this.endpoint = endpoint;
-  }
+  Cut(@Nullable C endpoint) { this.endpoint = endpoint; }
 
   abstract boolean isLessThan(C value);
 
@@ -45,9 +47,11 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
 
   abstract BoundType typeAsUpperBound();
 
-  abstract Cut<C> withLowerBoundType(BoundType boundType, DiscreteDomain<C> domain);
+  abstract Cut<C> withLowerBoundType(BoundType boundType,
+                                     DiscreteDomain<C> domain);
 
-  abstract Cut<C> withUpperBoundType(BoundType boundType, DiscreteDomain<C> domain);
+  abstract Cut<C> withUpperBoundType(BoundType boundType,
+                                     DiscreteDomain<C> domain);
 
   abstract void describeAsLowerBound(StringBuilder sb);
 
@@ -58,12 +62,11 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
   abstract C greatestValueBelow(DiscreteDomain<C> domain);
 
   /*
-   * The canonical form is a BelowValue cut whenever possible, otherwise ABOVE_ALL, or
-   * (only in the case of types that are unbounded below) BELOW_ALL.
+   * The canonical form is a BelowValue cut whenever possible, otherwise
+   * ABOVE_ALL, or (only in the case of types that are unbounded below)
+   * BELOW_ALL.
    */
-  Cut<C> canonical(DiscreteDomain<C> domain) {
-    return this;
-  }
+  Cut<C> canonical(DiscreteDomain<C> domain) { return this; }
 
   // note: overridden by {BELOW,ABOVE}_ALL
   @Override
@@ -79,19 +82,18 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
       return result;
     }
     // same value. below comes before above
-    return Booleans.compare(this instanceof AboveValue, that instanceof AboveValue);
+    return Booleans.compare(this instanceof AboveValue,
+                            that instanceof AboveValue);
   }
 
-  C endpoint() {
-    return endpoint;
-  }
+  C endpoint() { return endpoint; }
 
   @SuppressWarnings("unchecked") // catching CCE
   @Override
   public boolean equals(Object obj) {
     if (obj instanceof Cut) {
       // It might not really be a Cut<C>, but we'll catch a CCE if it's not
-      Cut<C> that = (Cut<C>) obj;
+      Cut<C> that = (Cut<C>)obj;
       try {
         int compareResult = compareTo(that);
         return compareResult == 0;
@@ -101,16 +103,17 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     return false;
   }
 
-  // Prevent "missing hashCode" warning by explicitly forcing subclasses implement it
+  // Prevent "missing hashCode" warning by explicitly forcing subclasses
+  // implement it
   @Override public abstract int hashCode();
 
   /*
-   * The implementation neither produces nor consumes any non-null instance of type C, so
-   * casting the type parameter is safe.
+   * The implementation neither produces nor consumes any non-null instance of
+   * type C, so casting the type parameter is safe.
    */
   @SuppressWarnings("unchecked")
   static <C extends Comparable> Cut<C> belowAll() {
-    return (Cut<C>) BelowAll.INSTANCE;
+    return (Cut<C>)BelowAll.INSTANCE;
   }
 
   private static final long serialVersionUID = 0;
@@ -118,9 +121,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
   private static final class BelowAll extends Cut<Comparable<?>> {
     private static final BelowAll INSTANCE = new BelowAll();
 
-    private BelowAll() {
-      super(null);
-    }
+    private BelowAll() { super(null); }
 
     @Override
     Comparable<?> endpoint() {
@@ -143,14 +144,16 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+    Cut<Comparable<?>>
+    withLowerBoundType(BoundType boundType,
+                       DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
     @Override
-    Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+    Cut<Comparable<?>>
+    withUpperBoundType(BoundType boundType,
+                       DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
@@ -198,9 +201,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
       return "-\u221e";
     }
 
-    private Object readResolve() {
-      return INSTANCE;
-    }
+    private Object readResolve() { return INSTANCE; }
 
     private static final long serialVersionUID = 0;
   }
@@ -211,15 +212,13 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
    */
   @SuppressWarnings("unchecked")
   static <C extends Comparable> Cut<C> aboveAll() {
-    return (Cut<C>) AboveAll.INSTANCE;
+    return (Cut<C>)AboveAll.INSTANCE;
   }
 
   private static final class AboveAll extends Cut<Comparable<?>> {
     private static final AboveAll INSTANCE = new AboveAll();
 
-    private AboveAll() {
-      super(null);
-    }
+    private AboveAll() { super(null); }
 
     @Override
     Comparable<?> endpoint() {
@@ -242,14 +241,16 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
     }
 
     @Override
-    Cut<Comparable<?>> withLowerBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+    Cut<Comparable<?>>
+    withLowerBoundType(BoundType boundType,
+                       DiscreteDomain<Comparable<?>> domain) {
       throw new AssertionError("this statement should be unreachable");
     }
 
     @Override
-    Cut<Comparable<?>> withUpperBoundType(
-        BoundType boundType, DiscreteDomain<Comparable<?>> domain) {
+    Cut<Comparable<?>>
+    withUpperBoundType(BoundType boundType,
+                       DiscreteDomain<Comparable<?>> domain) {
       throw new IllegalStateException();
     }
 
@@ -288,9 +289,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
       return "+\u221e";
     }
 
-    private Object readResolve() {
-      return INSTANCE;
-    }
+    private Object readResolve() { return INSTANCE; }
 
     private static final long serialVersionUID = 0;
   }
@@ -300,9 +299,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
   }
 
   private static final class BelowValue<C extends Comparable> extends Cut<C> {
-    BelowValue(C endpoint) {
-      super(checkNotNull(endpoint));
-    }
+    BelowValue(C endpoint) { super(checkNotNull(endpoint)); }
 
     @Override
     boolean isLessThan(C value) {
@@ -326,7 +323,8 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
         return this;
       case OPEN:
         @Nullable C previous = domain.previous(endpoint);
-        return (previous == null) ? Cut.<C>belowAll() : new AboveValue<C>(previous);
+        return (previous == null) ? Cut.<C>belowAll()
+                                  : new AboveValue<C>(previous);
       default:
         throw new AssertionError();
       }
@@ -337,7 +335,8 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
       switch (boundType) {
       case CLOSED:
         @Nullable C previous = domain.previous(endpoint);
-        return (previous == null) ? Cut.<C>aboveAll() : new AboveValue<C>(previous);
+        return (previous == null) ? Cut.<C>aboveAll()
+                                  : new AboveValue<C>(previous);
       case OPEN:
         return this;
       default:
@@ -383,9 +382,7 @@ abstract class Cut<C extends Comparable> implements Comparable<Cut<C>>, Serializ
   }
 
   private static final class AboveValue<C extends Comparable> extends Cut<C> {
-    AboveValue(C endpoint) {
-      super(checkNotNull(endpoint));
-    }
+    AboveValue(C endpoint) { super(checkNotNull(endpoint)); }
 
     @Override
     boolean isLessThan(C value) {

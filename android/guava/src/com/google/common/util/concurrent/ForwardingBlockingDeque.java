@@ -23,35 +23,38 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A {@link BlockingDeque} which forwards all its method calls to another {@code BlockingDeque}.
- * Subclasses should override one or more methods to modify the behavior of the backing deque as
- * desired per the <a href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
+ * A {@link BlockingDeque} which forwards all its method calls to another {@code
+ * BlockingDeque}. Subclasses should override one or more methods to modify the
+ * behavior of the backing deque as desired per the <a
+ * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
  *
- * <p><b>Warning:</b> The methods of {@code ForwardingBlockingDeque} forward <b>indiscriminately</b>
- * to the methods of the delegate. For example, overriding {@link #add} alone <b>will not</b> change
- * the behaviour of {@link #offer} which can lead to unexpected behaviour. In this case, you should
- * override {@code offer} as well, either providing your own implementation, or delegating to the
- * provided {@code standardOffer} method.
+ * <p><b>Warning:</b> The methods of {@code ForwardingBlockingDeque} forward
+ * <b>indiscriminately</b> to the methods of the delegate. For example,
+ * overriding {@link #add} alone <b>will not</b> change the behaviour of {@link
+ * #offer} which can lead to unexpected behaviour. In this case, you should
+ * override {@code offer} as well, either providing your own implementation, or
+ * delegating to the provided {@code standardOffer} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingBlockingDeque}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingBlockingDeque}.
  *
- * <p>The {@code standard} methods are not guaranteed to be thread-safe, even when all of the
- * methods that they depend on are thread-safe.
+ * <p>The {@code standard} methods are not guaranteed to be thread-safe, even
+ * when all of the methods that they depend on are thread-safe.
  *
  * @author Emily Soldal
- * @since 21.0 (since 14.0 as {@link com.google.common.collect.ForwardingBlockingDeque})
+ * @since 21.0 (since 14.0 as {@link
+ * com.google.common.collect.ForwardingBlockingDeque})
  */
 @GwtIncompatible
-public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
-  implements BlockingDeque<E> {
+public abstract class ForwardingBlockingDeque<E>
+    extends ForwardingDeque<E> implements BlockingDeque<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingBlockingDeque() {}
 
-  @Override
-  protected abstract BlockingDeque<E> delegate();
+  @Override protected abstract BlockingDeque<E> delegate();
 
   @Override
   public int remainingCapacity() {
@@ -69,12 +72,14 @@ public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
   }
 
   @Override
-  public boolean offerFirst(E e, long timeout, TimeUnit unit) throws InterruptedException {
+  public boolean offerFirst(E e, long timeout, TimeUnit unit)
+      throws InterruptedException {
     return delegate().offerFirst(e, timeout, unit);
   }
 
   @Override
-  public boolean offerLast(E e, long timeout, TimeUnit unit) throws InterruptedException {
+  public boolean offerLast(E e, long timeout, TimeUnit unit)
+      throws InterruptedException {
     return delegate().offerLast(e, timeout, unit);
   }
 
@@ -104,7 +109,8 @@ public abstract class ForwardingBlockingDeque<E> extends ForwardingDeque<E>
   }
 
   @Override
-  public boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException {
+  public boolean offer(E e, long timeout, TimeUnit unit)
+      throws InterruptedException {
     return delegate().offer(e, timeout, unit);
   }
 

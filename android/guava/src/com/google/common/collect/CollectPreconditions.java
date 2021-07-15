@@ -38,7 +38,8 @@ final class CollectPreconditions {
   @CanIgnoreReturnValue
   static int checkNonnegative(int value, String name) {
     if (value < 0) {
-      throw new IllegalArgumentException(name + " cannot be negative but was: " + value);
+      throw new IllegalArgumentException(
+          name + " cannot be negative but was: " + value);
     }
     return value;
   }
@@ -46,20 +47,22 @@ final class CollectPreconditions {
   @CanIgnoreReturnValue
   static long checkNonnegative(long value, String name) {
     if (value < 0) {
-      throw new IllegalArgumentException(name + " cannot be negative but was: " + value);
+      throw new IllegalArgumentException(
+          name + " cannot be negative but was: " + value);
     }
     return value;
   }
 
   static void checkPositive(int value, String name) {
     if (value <= 0) {
-      throw new IllegalArgumentException(name + " must be positive but was: " + value);
+      throw new IllegalArgumentException(name +
+                                         " must be positive but was: " + value);
     }
   }
 
   /**
-   * Precondition tester for {@code Iterator.remove()} that throws an exception with a consistent
-   * error message.
+   * Precondition tester for {@code Iterator.remove()} that throws an exception
+   * with a consistent error message.
    */
   static void checkRemove(boolean canRemove) {
     checkState(canRemove, "no calls to next() since the last call to remove()");

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2012 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -36,11 +38,13 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  */
 @GwtCompatible
-class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
+class FilteredKeyMultimap<K, V>
+    extends AbstractMultimap<K, V> implements FilteredMultimap<K, V> {
   final Multimap<K, V> unfiltered;
   final Predicate<? super K> keyPredicate;
 
-  FilteredKeyMultimap(Multimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
+  FilteredKeyMultimap(Multimap<K, V> unfiltered,
+                      Predicate<? super K> keyPredicate) {
     this.unfiltered = checkNotNull(unfiltered);
     this.keyPredicate = checkNotNull(keyPredicate);
   }
@@ -68,7 +72,7 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
   public boolean containsKey(@Nullable Object key) {
     if (unfiltered.containsKey(key)) {
       @SuppressWarnings("unchecked") // k is equal to a K, if not one itself
-      K k = (K) key;
+      K k = (K)key;
       return keyPredicate.apply(k);
     }
     return false;
@@ -76,7 +80,8 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
 
   @Override
   public Collection<V> removeAll(Object key) {
-    return containsKey(key) ? unfiltered.removeAll(key) : unmodifiableEmptyCollection();
+    return containsKey(key) ? unfiltered.removeAll(key)
+                            : unmodifiableEmptyCollection();
   }
 
   Collection<V> unmodifiableEmptyCollection() {
@@ -111,19 +116,19 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
   static class AddRejectingSet<K, V> extends ForwardingSet<V> {
     final K key;
 
-    AddRejectingSet(K key) {
-      this.key = key;
-    }
+    AddRejectingSet(K key) { this.key = key; }
 
     @Override
     public boolean add(V element) {
-      throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+      throw new IllegalArgumentException("Key does not satisfy predicate: " +
+                                         key);
     }
 
     @Override
     public boolean addAll(Collection<? extends V> collection) {
       checkNotNull(collection);
-      throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+      throw new IllegalArgumentException("Key does not satisfy predicate: " +
+                                         key);
     }
 
     @Override
@@ -135,9 +140,7 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
   static class AddRejectingList<K, V> extends ForwardingList<V> {
     final K key;
 
-    AddRejectingList(K key) {
-      this.key = key;
-    }
+    AddRejectingList(K key) { this.key = key; }
 
     @Override
     public boolean add(V v) {
@@ -154,7 +157,8 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
     @Override
     public void add(int index, V element) {
       checkPositionIndex(index, 0);
-      throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+      throw new IllegalArgumentException("Key does not satisfy predicate: " +
+                                         key);
     }
 
     @CanIgnoreReturnValue
@@ -162,7 +166,8 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
     public boolean addAll(int index, Collection<? extends V> elements) {
       checkNotNull(elements);
       checkPositionIndex(index, 0);
-      throw new IllegalArgumentException("Key does not satisfy predicate: " + key);
+      throw new IllegalArgumentException("Key does not satisfy predicate: " +
+                                         key);
     }
 
     @Override
@@ -192,10 +197,10 @@ class FilteredKeyMultimap<K, V> extends AbstractMultimap<K, V> implements Filter
     @SuppressWarnings("unchecked")
     public boolean remove(@Nullable Object o) {
       if (o instanceof Entry) {
-        Entry<?, ?> entry = (Entry<?, ?>) o;
+        Entry<?, ?> entry = (Entry<?, ?>)o;
         if (unfiltered.containsKey(entry.getKey())
             // if this holds, then we know entry.getKey() is a K
-            && keyPredicate.apply((K) entry.getKey())) {
+            && keyPredicate.apply((K)entry.getKey())) {
           return unfiltered.remove(entry.getKey(), entry.getValue());
         }
       }

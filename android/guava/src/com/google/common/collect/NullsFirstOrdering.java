@@ -25,9 +25,7 @@ import javax.annotation.Nullable;
 final class NullsFirstOrdering<T> extends Ordering<T> implements Serializable {
   final Ordering<? super T> ordering;
 
-  NullsFirstOrdering(Ordering<? super T> ordering) {
-    this.ordering = ordering;
-  }
+  NullsFirstOrdering(Ordering<? super T> ordering) { this.ordering = ordering; }
 
   @Override
   public int compare(@Nullable T left, @Nullable T right) {
@@ -52,7 +50,7 @@ final class NullsFirstOrdering<T> extends Ordering<T> implements Serializable {
   @SuppressWarnings("unchecked") // still need the right way to explain this
   @Override
   public <S extends T> Ordering<S> nullsFirst() {
-    return (Ordering<S>) this;
+    return (Ordering<S>)this;
   }
 
   @Override
@@ -66,7 +64,7 @@ final class NullsFirstOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof NullsFirstOrdering) {
-      NullsFirstOrdering<?> that = (NullsFirstOrdering<?>) object;
+      NullsFirstOrdering<?> that = (NullsFirstOrdering<?>)object;
       return this.ordering.equals(that.ordering);
     }
     return false;

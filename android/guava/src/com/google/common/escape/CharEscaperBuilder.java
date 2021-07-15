@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2006 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -23,10 +25,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Simple helper class to build a "sparse" array of objects based on the indexes that were added to
- * it. The array will be from 0 to the maximum index given. All non-set indexes will contain null
- * (so it's not really a sparse array, just a pseudo sparse array). The builder can also return a
- * CharEscaper based on the generated array.
+ * Simple helper class to build a "sparse" array of objects based on the indexes
+ * that were added to it. The array will be from 0 to the maximum index given.
+ * All non-set indexes will contain null (so it's not really a sparse array,
+ * just a pseudo sparse array). The builder can also return a CharEscaper based
+ * on the generated array.
  *
  * @author Sven Mawson
  * @since 15.0
@@ -35,8 +38,8 @@ import java.util.Map;
 @GwtCompatible
 public final class CharEscaperBuilder {
   /**
-   * Simple decorator that turns an array of replacement char[]s into a CharEscaper, this results in
-   * a very fast escape method.
+   * Simple decorator that turns an array of replacement char[]s into a
+   * CharEscaper, this results in a very fast escape method.
    */
   private static class CharArrayDecorator extends CharEscaper {
     private final char[][] replacements;
@@ -48,8 +51,8 @@ public final class CharEscaperBuilder {
     }
 
     /*
-     * Overriding escape method to be slightly faster for this decorator. We test the replacements
-     * array directly, saving a method call.
+     * Overriding escape method to be slightly faster for this decorator. We
+     * test the replacements array directly, saving a method call.
      */
     @Override
     public String escape(String s) {
@@ -78,9 +81,7 @@ public final class CharEscaperBuilder {
   /**
    * Construct a new sparse array builder.
    */
-  public CharEscaperBuilder() {
-    this.map = new HashMap<>();
-  }
+  public CharEscaperBuilder() { this.map = new HashMap<>(); }
 
   /**
    * Add a new mapping from an index to an object to the escaping.
@@ -107,9 +108,9 @@ public final class CharEscaperBuilder {
   }
 
   /**
-   * Convert this builder into an array of char[]s where the maximum index is the value of the
-   * highest character that has been seen. The array will be sparse in the sense that any unseen
-   * index will default to null.
+   * Convert this builder into an array of char[]s where the maximum index is
+   * the value of the highest character that has been seen. The array will be
+   * sparse in the sense that any unseen index will default to null.
    *
    * @return a "sparse" array that holds the replacement mappings.
    */
@@ -122,12 +123,10 @@ public final class CharEscaperBuilder {
   }
 
   /**
-   * Convert this builder into a char escaper which is just a decorator around the underlying array
-   * of replacement char[]s.
+   * Convert this builder into a char escaper which is just a decorator around
+   * the underlying array of replacement char[]s.
    *
    * @return an escaper that escapes based on the underlying array.
    */
-  public Escaper toEscaper() {
-    return new CharArrayDecorator(toArray());
-  }
+  public Escaper toEscaper() { return new CharArrayDecorator(toArray()); }
 }

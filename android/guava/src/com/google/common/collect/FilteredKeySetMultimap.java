@@ -28,36 +28,37 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  */
 @GwtCompatible
-final class FilteredKeySetMultimap<K, V> extends FilteredKeyMultimap<K, V>
-  implements FilteredSetMultimap<K, V> {
+final class FilteredKeySetMultimap<K, V>
+    extends FilteredKeyMultimap<K, V> implements FilteredSetMultimap<K, V> {
 
-  FilteredKeySetMultimap(SetMultimap<K, V> unfiltered, Predicate<? super K> keyPredicate) {
+  FilteredKeySetMultimap(SetMultimap<K, V> unfiltered,
+                         Predicate<? super K> keyPredicate) {
     super(unfiltered, keyPredicate);
   }
 
   @Override
   public SetMultimap<K, V> unfiltered() {
-    return (SetMultimap<K, V>) unfiltered;
+    return (SetMultimap<K, V>)unfiltered;
   }
 
   @Override
   public Set<V> get(K key) {
-    return (Set<V>) super.get(key);
+    return (Set<V>)super.get(key);
   }
 
   @Override
   public Set<V> removeAll(Object key) {
-    return (Set<V>) super.removeAll(key);
+    return (Set<V>)super.removeAll(key);
   }
 
   @Override
   public Set<V> replaceValues(K key, Iterable<? extends V> values) {
-    return (Set<V>) super.replaceValues(key, values);
+    return (Set<V>)super.replaceValues(key, values);
   }
 
   @Override
   public Set<Entry<K, V>> entries() {
-    return (Set<Entry<K, V>>) super.entries();
+    return (Set<Entry<K, V>>)super.entries();
   }
 
   @Override

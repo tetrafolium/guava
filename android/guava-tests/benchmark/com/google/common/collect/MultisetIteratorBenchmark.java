@@ -36,7 +36,8 @@ public class MultisetIteratorBenchmark {
   // TreeMultiset requires a Comparable element.
   TreeMultiset<Integer> treeMultiset;
 
-  @BeforeExperiment void setUp() {
+  @BeforeExperiment
+  void setUp() {
     hashMultiset = HashMultiset.create(size);
     linkedHashMultiset = LinkedHashMultiset.create(size);
     treeMultiset = TreeMultiset.create();
@@ -56,11 +57,13 @@ public class MultisetIteratorBenchmark {
       treeMultiset.add(value, count);
     }
 
-    //TODO(kevinb): convert to assert once benchmark tests enable asserts by default
+    // TODO(kevinb): convert to assert once benchmark tests enable asserts by
+    // default
     Preconditions.checkState(hashMultiset.size() == size);
   }
 
-  @Benchmark int hashMultiset(int reps) {
+  @Benchmark
+  int hashMultiset(int reps) {
     int sum = 0;
     for (int i = 0; i < reps; i++) {
       for (Object value : hashMultiset) {
@@ -70,7 +73,8 @@ public class MultisetIteratorBenchmark {
     return sum;
   }
 
-  @Benchmark int linkedHashMultiset(int reps) {
+  @Benchmark
+  int linkedHashMultiset(int reps) {
     int sum = 0;
     for (int i = 0; i < reps; i++) {
       for (Object value : linkedHashMultiset) {
@@ -80,7 +84,8 @@ public class MultisetIteratorBenchmark {
     return sum;
   }
 
-  @Benchmark int treeMultiset(int reps) {
+  @Benchmark
+  int treeMultiset(int reps) {
     int sum = 0;
     for (int i = 0; i < reps; i++) {
       for (Object value : treeMultiset) {

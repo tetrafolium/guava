@@ -46,7 +46,8 @@ import java.util.Set;
 // Enum values use constructors with generic varargs.
 @SuppressWarnings("unchecked")
 @GwtCompatible
-public enum CollectionSize implements Feature<Collection>, Comparable<CollectionSize> {
+public enum CollectionSize
+    implements Feature<Collection>, Comparable<CollectionSize> {
   /** Test an empty collection. */
   ZERO(0),
   /** Test a one-element collection. */

@@ -20,8 +20,9 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * A class to allow {@link ValueGraph} implementations to be backed by a provided delegate. This is
- * not currently planned to be released as a general-purpose forwarding class.
+ * A class to allow {@link ValueGraph} implementations to be backed by a
+ * provided delegate. This is not currently planned to be released as a
+ * general-purpose forwarding class.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain
@@ -36,8 +37,8 @@ abstract class ForwardingValueGraph<N, V> extends AbstractValueGraph<N, V> {
   }
 
   /**
-   * Defer to {@link AbstractValueGraph#edges()} (based on {@link #successors(Object)}) for full
-   * edges() implementation.
+   * Defer to {@link AbstractValueGraph#edges()} (based on {@link
+   * #successors(Object)}) for full edges() implementation.
    */
   @Override
   protected long edgeCount() {

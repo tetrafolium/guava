@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2012 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -35,12 +37,14 @@ import java.util.Map;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K, V> {
+public class ListMultimapRemoveTester<K, V>
+    extends AbstractListMultimapTester<K, V> {
   @SuppressWarnings("unchecked")
   @MapFeature.Require(SUPPORTS_REMOVE)
   @CollectionSize.Require(SEVERAL)
   public void testMultimapRemoveDeletesFirstOccurrence() {
-    resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()), mapEntry(k0(), v0()));
+    resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
+                   mapEntry(k0(), v0()));
 
     List<V> list = multimap().get(k0());
     multimap().remove(k0(), v0());
@@ -54,7 +58,8 @@ public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K
     List<V> values = Arrays.asList(v0(), v1(), v0());
 
     for (int i = 0; i < 3; i++) {
-      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()), mapEntry(k0(), v0()));
+      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
+                     mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
       multimap().get(k0()).remove(i);
@@ -71,10 +76,11 @@ public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K
     List<V> values = Arrays.asList(v0(), v1(), v0());
 
     for (int i = 0; i < 3; i++) {
-      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()), mapEntry(k0(), v0()));
+      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
+                     mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
-      List<V> asMapValue = (List<V>) multimap().asMap().get(k0());
+      List<V> asMapValue = (List<V>)multimap().asMap().get(k0());
       asMapValue.remove(i);
       expectedValues.remove(i);
 
@@ -89,11 +95,13 @@ public class ListMultimapRemoveTester<K, V> extends AbstractListMultimapTester<K
     List<V> values = Arrays.asList(v0(), v1(), v0());
 
     for (int i = 0; i < 3; i++) {
-      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()), mapEntry(k0(), v0()));
+      resetContainer(mapEntry(k0(), v0()), mapEntry(k0(), v1()),
+                     mapEntry(k0(), v0()));
       List<V> expectedValues = copyToList(values);
 
-      Map.Entry<K, Collection<V>> asMapEntry = multimap().asMap().entrySet().iterator().next();
-      List<V> asMapValue = (List<V>) asMapEntry.getValue();
+      Map.Entry<K, Collection<V>> asMapEntry =
+          multimap().asMap().entrySet().iterator().next();
+      List<V> asMapValue = (List<V>)asMapEntry.getValue();
       asMapValue.remove(i);
       expectedValues.remove(i);
 

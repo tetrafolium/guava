@@ -27,7 +27,8 @@ import java.util.List;
  * @author Jared Levy
  */
 @GwtCompatible
-public abstract class TestStringCollectionGenerator implements TestCollectionGenerator<String> {
+public abstract class TestStringCollectionGenerator
+    implements TestCollectionGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();
@@ -38,7 +39,7 @@ public abstract class TestStringCollectionGenerator implements TestCollectionGen
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (String) e;
+      array[i++] = (String)e;
     }
     return create(array);
   }

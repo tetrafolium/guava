@@ -41,7 +41,8 @@ import java.util.Map.Entry;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapRemoveEntryTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testRemoveAbsent() {
     assertFalse(multimap().remove(k0(), v1()));
@@ -66,7 +67,7 @@ public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V
 
     assertTrue(multimap().remove(null, getValueForNullKey()));
 
-    expectMissing(Helpers.mapEntry((K) null, getValueForNullKey()));
+    expectMissing(Helpers.mapEntry((K)null, getValueForNullKey()));
     assertGet(getKeyForNullValue(), ImmutableList.<V>of());
   }
 
@@ -77,7 +78,7 @@ public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V
 
     assertTrue(multimap().remove(getKeyForNullValue(), null));
 
-    expectMissing(Helpers.mapEntry(getKeyForNullValue(), (V) null));
+    expectMissing(Helpers.mapEntry(getKeyForNullValue(), (V)null));
     assertGet(getKeyForNullValue(), ImmutableList.<V>of());
   }
 
@@ -93,7 +94,8 @@ public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V
     expectUnchanged();
   }
 
-  @MapFeature.Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_VALUE_QUERIES)
+  @MapFeature.
+  Require(value = SUPPORTS_REMOVE, absent = ALLOWS_NULL_VALUE_QUERIES)
   public void testRemoveNullValueForbidden() {
     try {
       multimap().remove(k0(), null);
@@ -167,7 +169,8 @@ public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V
       K key = entry.getKey();
       V value = entry.getValue();
 
-      Iterator<Entry<K, Collection<V>>> asMapItr = multimap().asMap().entrySet().iterator();
+      Iterator<Entry<K, Collection<V>>> asMapItr =
+          multimap().asMap().entrySet().iterator();
       Collection<V> collection = null;
       while (asMapItr.hasNext()) {
         Entry<K, Collection<V>> asMapEntry = asMapItr.next();

@@ -41,7 +41,7 @@ public class QueueOfferTester<E> extends AbstractQueueTester<E> {
   @CollectionFeature.Require({SUPPORTS_ADD, ALLOWS_NULL_VALUES})
   public void testOffer_nullSupported() {
     assertTrue("offer(null) should return true", getQueue().offer(null));
-    expectAdded((E) null);
+    expectAdded((E)null);
   }
 
   @CollectionFeature.Require(value = SUPPORTS_ADD, absent = ALLOWS_NULL_VALUES)
@@ -52,6 +52,7 @@ public class QueueOfferTester<E> extends AbstractQueueTester<E> {
     } catch (NullPointerException expected) {
     }
     expectUnchanged();
-    expectNullMissingWhenNullUnsupported("Should not contain null after unsupported offer(null)");
+    expectNullMissingWhenNullUnsupported(
+        "Should not contain null after unsupported offer(null)");
   }
 }

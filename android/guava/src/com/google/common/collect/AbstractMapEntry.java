@@ -30,11 +30,9 @@ import javax.annotation.Nullable;
 @GwtCompatible
 abstract class AbstractMapEntry<K, V> implements Entry<K, V> {
 
-  @Override
-  public abstract K getKey();
+  @Override public abstract K getKey();
 
-  @Override
-  public abstract V getValue();
+  @Override public abstract V getValue();
 
   @Override
   public V setValue(V value) {
@@ -44,9 +42,9 @@ abstract class AbstractMapEntry<K, V> implements Entry<K, V> {
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Entry) {
-      Entry<?, ?> that = (Entry<?, ?>) object;
-      return Objects.equal(this.getKey(), that.getKey())
-          && Objects.equal(this.getValue(), that.getValue());
+      Entry<?, ?> that = (Entry<?, ?>)object;
+      return Objects.equal(this.getKey(), that.getKey()) &&
+          Objects.equal(this.getValue(), that.getValue());
     }
     return false;
   }

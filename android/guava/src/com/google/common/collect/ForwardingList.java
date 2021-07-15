@@ -42,9 +42,10 @@ import javax.annotation.Nullable;
  * override {@code addAll} as well, either providing your own implementation, or
  * delegating to the provided {@code standardAddAll} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingList}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingList}.
  *
  * <p>The {@code standard} methods and any collection views they return are not
  * guaranteed to be thread-safe, even when all of the methods that they depend
@@ -55,14 +56,14 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingList<E> extends ForwardingCollection<E> implements List<E> {
+public abstract class ForwardingList<E>
+    extends ForwardingCollection<E> implements List<E> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
   protected ForwardingList() {}
 
-  @Override
-  protected abstract List<E> delegate();
+  @Override protected abstract List<E> delegate();
 
   @Override
   public void add(int index, E element) {
@@ -182,9 +183,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected Iterator<E> standardIterator() {
-    return listIterator();
-  }
+  protected Iterator<E> standardIterator() { return listIterator(); }
 
   /**
    * A sensible default implementation of {@link #listIterator()}, in terms of
@@ -194,9 +193,7 @@ public abstract class ForwardingList<E> extends ForwardingCollection<E> implemen
    *
    * @since 7.0
    */
-  protected ListIterator<E> standardListIterator() {
-    return listIterator(0);
-  }
+  protected ListIterator<E> standardListIterator() { return listIterator(0); }
 
   /**
    * A sensible default implementation of {@link #listIterator(int)}, in terms

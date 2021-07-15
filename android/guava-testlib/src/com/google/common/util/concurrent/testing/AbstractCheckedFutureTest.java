@@ -32,13 +32,14 @@ import java.util.concurrent.TimeUnit;
  */
 @Beta
 @GwtIncompatible
-public abstract class AbstractCheckedFutureTest extends AbstractListenableFutureTest {
+public abstract class AbstractCheckedFutureTest
+    extends AbstractListenableFutureTest {
 
   /**
    * More specific type for the create method.
    */
-  protected abstract <V> CheckedFuture<V, ?> createCheckedFuture(V value,
-      Exception except, CountDownLatch waitOn);
+  protected abstract <V> CheckedFuture<V, ?>
+  createCheckedFuture(V value, Exception except, CountDownLatch waitOn);
 
   /**
    * Checks that the exception is the correct type of cancellation exception.
@@ -56,8 +57,8 @@ public abstract class AbstractCheckedFutureTest extends AbstractListenableFuture
   protected abstract void checkInterruptedException(Exception e);
 
   @Override
-  protected <V> ListenableFuture<V> createListenableFuture(V value,
-      Exception except, CountDownLatch waitOn) {
+  protected <V> ListenableFuture<V>
+  createListenableFuture(V value, Exception except, CountDownLatch waitOn) {
     return createCheckedFuture(value, except, waitOn);
   }
 
@@ -92,7 +93,7 @@ public abstract class AbstractCheckedFutureTest extends AbstractListenableFuture
   }
 
   public void testCheckedGetThrowsApplicationExceptionOnInterruption()
-  throws InterruptedException {
+      throws InterruptedException {
 
     final CheckedFuture<Boolean, ?> future =
         createCheckedFuture(Boolean.TRUE, null, latch);

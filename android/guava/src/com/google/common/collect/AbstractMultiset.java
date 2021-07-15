@@ -44,7 +44,8 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  */
 @GwtCompatible
-abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Multiset<E> {
+abstract class AbstractMultiset<E>
+    extends AbstractCollection<E> implements Multiset<E> {
   // Query Operations
 
   @Override
@@ -163,9 +164,7 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
    * Creates a new instance of this multiset's element set, which will be
    * returned by {@link #elementSet()}.
    */
-  Set<E> createElementSet() {
-    return new ElementSet();
-  }
+  Set<E> createElementSet() { return new ElementSet(); }
 
   @WeakOuter
   class ElementSet extends Multisets.ElementSet<E> {
@@ -208,9 +207,7 @@ abstract class AbstractMultiset<E> extends AbstractCollection<E> implements Mult
     }
   }
 
-  Set<Entry<E>> createEntrySet() {
-    return new EntrySet();
-  }
+  Set<Entry<E>> createEntrySet() { return new EntrySet(); }
 
   // Object methods
 

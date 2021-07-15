@@ -26,8 +26,10 @@ import java.util.Comparator;
 final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
   final Comparator<? super T>[] comparators;
 
-  CompoundOrdering(Comparator<? super T> primary, Comparator<? super T> secondary) {
-    this.comparators = (Comparator<? super T>[]) new Comparator[] {primary, secondary};
+  CompoundOrdering(Comparator<? super T> primary,
+                   Comparator<? super T> secondary) {
+    this.comparators =
+        (Comparator<? super T>[]) new Comparator[] {primary, secondary};
   }
 
   CompoundOrdering(Iterable<? extends Comparator<? super T>> comparators) {
@@ -51,7 +53,7 @@ final class CompoundOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof CompoundOrdering) {
-      CompoundOrdering<?> that = (CompoundOrdering<?>) object;
+      CompoundOrdering<?> that = (CompoundOrdering<?>)object;
       return Arrays.equals(this.comparators, that.comparators);
     }
     return false;

@@ -46,7 +46,7 @@ public final class ObjectArrays {
   @GwtIncompatible // Array.newInstance(Class, int)
   @SuppressWarnings("unchecked")
   public static <T> T[] newArray(Class<T> type, int length) {
-    return (T[]) Array.newInstance(type, length);
+    return (T[])Array.newInstance(type, length);
   }
 
   /**
@@ -143,15 +143,17 @@ public final class ObjectArrays {
   }
 
   /**
-   * Implementation of {@link Collection#toArray(Object[])} for collections backed by an object
-   * array. the runtime type of the returned array is that of the specified array. If the collection
-   * fits in the specified array, it is returned therein. Otherwise, a new array is allocated with
-   * the runtime type of the specified array and the size of the specified collection.
+   * Implementation of {@link Collection#toArray(Object[])} for collections
+   * backed by an object array. the runtime type of the returned array is that
+   * of the specified array. If the collection fits in the specified array, it
+   * is returned therein. Otherwise, a new array is allocated with the runtime
+   * type of the specified array and the size of the specified collection.
    *
-   * <p>If the collection fits in the specified array with room to spare (i.e., the array has more
-   * elements than the collection), the element in the array immediately following the end of the
-   * collection is set to {@code null}. This is useful in determining the length of the collection
-   * <i>only</i> if the caller knows that the collection does not contain any null elements.
+   * <p>If the collection fits in the specified array with room to spare (i.e.,
+   * the array has more elements than the collection), the element in the array
+   * immediately following the end of the collection is set to {@code null}.
+   * This is useful in determining the length of the collection <i>only</i> if
+   * the caller knows that the collection does not contain any null elements.
    */
   static <T> T[] toArrayImpl(Object[] src, int offset, int len, T[] dst) {
     checkPositionIndexes(offset, offset + len, src.length);
@@ -183,8 +185,8 @@ public final class ObjectArrays {
   }
 
   /**
-   * Returns a copy of the specified subrange of the specified array that is literally an Object[],
-   * and not e.g. a {@code String[]}.
+   * Returns a copy of the specified subrange of the specified array that is
+   * literally an Object[], and not e.g. a {@code String[]}.
    */
   static Object[] copyAsObjectArray(Object[] elements, int offset, int length) {
     checkPositionIndexes(offset, offset + length, elements.length);

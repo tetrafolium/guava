@@ -59,8 +59,8 @@ import javax.annotation.Nullable;
  * @param <E> the type of elements held in this collection
  */
 @CanIgnoreReturnValue
-public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
-  implements BlockingQueue<E> {
+public class MonitorBasedArrayBlockingQueue<E>
+    extends AbstractQueue<E> implements BlockingQueue<E> {
 
   // Based on revision 1.58 of ArrayBlockingQueue by Doug Lea, from
   // http://gee.cs.oswego.edu/cgi-bin/viewcvs.cgi/jsr166/src/main/java/util/concurrent/
@@ -93,9 +93,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
   /**
    * Circularly increment i.
    */
-  final int inc(int i) {
-    return (++i == items.length) ? 0 : i;
-  }
+  final int inc(int i) { return (++i == items.length) ? 0 : i; }
 
   /**
    * Inserts element at current put position, advances, and signals.
@@ -154,9 +152,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    * @param capacity the capacity of this queue
    * @throws IllegalArgumentException if <tt>capacity</tt> is less than 1
    */
-  public MonitorBasedArrayBlockingQueue(int capacity) {
-    this(capacity, false);
-  }
+  public MonitorBasedArrayBlockingQueue(int capacity) { this(capacity, false); }
 
   /**
    * Creates an <tt>MonitorBasedArrayBlockingQueue</tt> with the given (fixed)
@@ -174,12 +170,14 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
     this.items = newEArray(capacity);
     monitor = new Monitor(fair);
     notEmpty = new Monitor.Guard(monitor) {
-      @Override public boolean isSatisfied() {
+      @Override
+      public boolean isSatisfied() {
         return count > 0;
       }
     };
     notFull = new Monitor.Guard(monitor) {
-      @Override public boolean isSatisfied() {
+      @Override
+      public boolean isSatisfied() {
         return count < items.length;
       }
     };
@@ -207,7 +205,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    *         of its elements are null
    */
   public MonitorBasedArrayBlockingQueue(int capacity, boolean fair,
-      Collection<? extends E> c) {
+                                        Collection<? extends E> c) {
     this(capacity, fair);
     if (capacity < c.size())
       throw new IllegalArgumentException();
@@ -227,7 +225,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    * @throws IllegalStateException if this queue is full
    * @throws NullPointerException if the specified element is null
    */
-  @Override public boolean add(E e) {
+  @Override
+  public boolean add(E e) {
     return super.add(e);
   }
 
@@ -242,7 +241,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    */
   @Override
   public boolean offer(E e) {
-    if (e == null) throw new NullPointerException();
+    if (e == null)
+      throw new NullPointerException();
     final Monitor monitor = this.monitor;
     if (monitor.enterIf(notFull)) {
       try {
@@ -265,7 +265,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    */
   @Override
   public void put(E e) throws InterruptedException {
-    if (e == null) throw new NullPointerException();
+    if (e == null)
+      throw new NullPointerException();
     final Monitor monitor = this.monitor;
     monitor.enterWhen(notFull);
     try {
@@ -285,9 +286,10 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    */
   @Override
   public boolean offer(E e, long timeout, TimeUnit unit)
-  throws InterruptedException {
+      throws InterruptedException {
 
-    if (e == null) throw new NullPointerException();
+    if (e == null)
+      throw new NullPointerException();
     final Monitor monitor = this.monitor;
     if (monitor.enterWhen(notFull, timeout, unit)) {
       try {
@@ -361,7 +363,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    *
    * @return the number of elements in this queue
    */
-  @Override public int size() {
+  @Override
+  public int size() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -406,8 +409,10 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    * @param o element to be removed from this queue, if present
    * @return <tt>true</tt> if this queue changed as a result of the call
    */
-  @Override public boolean remove(@Nullable Object o) {
-    if (o == null) return false;
+  @Override
+  public boolean remove(@Nullable Object o) {
+    if (o == null)
+      return false;
     final E[] items = this.items;
     final Monitor monitor = this.monitor;
     monitor.enter();
@@ -436,8 +441,10 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    * @param o object to be checked for containment in this queue
    * @return <tt>true</tt> if this queue contains the specified element
    */
-  @Override public boolean contains(@Nullable Object o) {
-    if (o == null) return false;
+  @Override
+  public boolean contains(@Nullable Object o) {
+    if (o == null)
+      return false;
     final E[] items = this.items;
     final Monitor monitor = this.monitor;
     monitor.enter();
@@ -468,7 +475,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    *
    * @return an array containing all of the elements in this queue
    */
-  @Override public Object[] toArray() {
+  @Override
+  public Object[] toArray() {
     final E[] items = this.items;
     final Monitor monitor = this.monitor;
     monitor.enter();
@@ -522,7 +530,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    *         this queue
    * @throws NullPointerException if the specified array is null
    */
-  @Override public <T> T[] toArray(T[] a) {
+  @Override
+  public <T> T[] toArray(T[] a) {
     final E[] items = this.items;
     final Monitor monitor = this.monitor;
     monitor.enter();
@@ -537,8 +546,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
         // will fail if the runtime type of items[i] is not assignable
         // to the runtime type of a[k++], which is all that the method
         // contract requires (see @throws ArrayStoreException above).
-        @SuppressWarnings("unchecked")
-        T t = (T) items[i];
+        @SuppressWarnings("unchecked") T t = (T)items[i];
         a[k++] = t;
         i = inc(i);
       }
@@ -550,7 +558,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
     }
   }
 
-  @Override public String toString() {
+  @Override
+  public String toString() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -564,7 +573,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    * Atomically removes all of the elements from this queue.
    * The queue will be empty after this call returns.
    */
-  @Override public void clear() {
+  @Override
+  public void clear() {
     final E[] items = this.items;
     final Monitor monitor = this.monitor;
     monitor.enter();
@@ -666,7 +676,8 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
    *
    * @return an iterator over the elements in this queue in proper sequence
    */
-  @Override public Iterator<E> iterator() {
+  @Override
+  public Iterator<E> iterator() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {

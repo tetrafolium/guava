@@ -36,9 +36,10 @@ import javax.annotation.Nullable;
  * override {@code addAll} as well, either providing your own implementation, or
  * delegating to the provided {@code standardAddAll} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingCollection}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingCollection}.
  *
  * <p>The {@code standard} methods are not guaranteed to be thread-safe, even
  * when all of the methods that they depend on are thread-safe.
@@ -48,14 +49,14 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingCollection<E> extends ForwardingObject implements Collection<E> {
+public abstract class ForwardingCollection<E>
+    extends ForwardingObject implements Collection<E> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
   protected ForwardingCollection() {}
 
-  @Override
-  protected abstract Collection<E> delegate();
+  @Override protected abstract Collection<E> delegate();
 
   @Override
   public Iterator<E> iterator() {
@@ -212,9 +213,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected void standardClear() {
-    Iterators.clear(iterator());
-  }
+  protected void standardClear() { Iterators.clear(iterator()); }
 
   /**
    * A sensible definition of {@link #isEmpty} as {@code !iterator().hasNext}.
@@ -224,9 +223,7 @@ public abstract class ForwardingCollection<E> extends ForwardingObject implement
    *
    * @since 7.0
    */
-  protected boolean standardIsEmpty() {
-    return !iterator().hasNext();
-  }
+  protected boolean standardIsEmpty() { return !iterator().hasNext(); }
 
   /**
    * A sensible definition of {@link #toString} in terms of {@link #iterator}.

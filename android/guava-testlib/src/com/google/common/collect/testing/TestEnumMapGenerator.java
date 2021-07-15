@@ -29,16 +29,16 @@ import java.util.Map.Entry;
  * @author Kevin Bourrillion
  */
 @GwtCompatible
-public abstract class TestEnumMapGenerator implements TestMapGenerator<AnEnum, String> {
+public abstract class TestEnumMapGenerator
+    implements TestMapGenerator<AnEnum, String> {
 
   @Override
   public SampleElements<Entry<AnEnum, String>> samples() {
-    return new SampleElements<>(
-            Helpers.mapEntry(AnEnum.A, "January"),
-            Helpers.mapEntry(AnEnum.B, "February"),
-            Helpers.mapEntry(AnEnum.C, "March"),
-            Helpers.mapEntry(AnEnum.D, "April"),
-            Helpers.mapEntry(AnEnum.E, "May"));
+    return new SampleElements<>(Helpers.mapEntry(AnEnum.A, "January"),
+                                Helpers.mapEntry(AnEnum.B, "February"),
+                                Helpers.mapEntry(AnEnum.C, "March"),
+                                Helpers.mapEntry(AnEnum.D, "April"),
+                                Helpers.mapEntry(AnEnum.E, "May"));
   }
 
   @Override
@@ -48,13 +48,14 @@ public abstract class TestEnumMapGenerator implements TestMapGenerator<AnEnum, S
     int i = 0;
     for (Object o : entries) {
       @SuppressWarnings("unchecked")
-      Entry<AnEnum, String> e = (Entry<AnEnum, String>) o;
+      Entry<AnEnum, String> e = (Entry<AnEnum, String>)o;
       array[i++] = e;
     }
     return create(array);
   }
 
-  protected abstract Map<AnEnum, String> create(Entry<AnEnum, String>[] entries);
+  protected abstract Map<AnEnum, String>
+      create(Entry<AnEnum, String>[] entries);
 
   @Override
   @SuppressWarnings("unchecked")
@@ -74,7 +75,8 @@ public abstract class TestEnumMapGenerator implements TestMapGenerator<AnEnum, S
 
   /** Returns the elements sorted in natural order. */
   @Override
-  public Iterable<Entry<AnEnum, String>> order(List<Entry<AnEnum, String>> insertionOrder) {
+  public Iterable<Entry<AnEnum, String>>
+  order(List<Entry<AnEnum, String>> insertionOrder) {
     return orderEntriesByKey(insertionOrder);
   }
 }

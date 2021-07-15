@@ -27,19 +27,21 @@ import java.util.Set;
  * @author Jesse Wilson
  */
 @GwtIncompatible
-public class ReserializingTestSetGenerator<E> extends ReserializingTestCollectionGenerator<E>
-  implements TestSetGenerator<E> {
+public class ReserializingTestSetGenerator<E>
+    extends ReserializingTestCollectionGenerator<E>
+    implements TestSetGenerator<E> {
 
   ReserializingTestSetGenerator(TestSetGenerator<E> delegate) {
     super(delegate);
   }
 
-  public static <E> TestSetGenerator<E> newInstance(TestSetGenerator<E> delegate) {
+  public static <E> TestSetGenerator<E>
+  newInstance(TestSetGenerator<E> delegate) {
     return new ReserializingTestSetGenerator<E>(delegate);
   }
 
   @Override
   public Set<E> create(Object... elements) {
-    return (Set<E>) super.create(elements);
+    return (Set<E>)super.create(elements);
   }
 }

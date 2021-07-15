@@ -56,9 +56,8 @@ public class ListRetainAllTester<E> extends AbstractListTester<E> {
     E[] array = createSamplesArray();
     array[1] = e0();
     collection = getSubjectGenerator().create(array);
-    assertTrue(
-        "containsDuplicates.retainAll(subset) should return true",
-        collection.retainAll(MinimalCollection.of(e2())));
+    assertTrue("containsDuplicates.retainAll(subset) should return true",
+               collection.retainAll(MinimalCollection.of(e2())));
     expectContents(e2());
   }
 

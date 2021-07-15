@@ -28,7 +28,8 @@ import java.util.List;
  * @author Jared Levy
  */
 @GwtCompatible
-public abstract class TestStringMultisetGenerator implements TestMultisetGenerator<String> {
+public abstract class TestStringMultisetGenerator
+    implements TestMultisetGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();
@@ -39,7 +40,7 @@ public abstract class TestStringMultisetGenerator implements TestMultisetGenerat
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (String) e;
+      array[i++] = (String)e;
     }
     return create(array);
   }

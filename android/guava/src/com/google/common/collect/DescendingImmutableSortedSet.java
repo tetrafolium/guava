@@ -54,9 +54,10 @@ final class DescendingImmutableSortedSet<E> extends ImmutableSortedSet<E> {
   }
 
   @Override
-  ImmutableSortedSet<E> subSetImpl(
-      E fromElement, boolean fromInclusive, E toElement, boolean toInclusive) {
-    return forward.subSet(toElement, toInclusive, fromElement, fromInclusive).descendingSet();
+  ImmutableSortedSet<E> subSetImpl(E fromElement, boolean fromInclusive,
+                                   E toElement, boolean toInclusive) {
+    return forward.subSet(toElement, toInclusive, fromElement, fromInclusive)
+        .descendingSet();
   }
 
   @Override

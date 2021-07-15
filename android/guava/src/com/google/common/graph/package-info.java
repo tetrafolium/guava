@@ -15,11 +15,11 @@
  */
 
 /**
- * An API for representing graph (node and edge) data. It is analogous to the Java Collections
- * Framework APIs for lists, maps, sets, etc.
+ * An API for representing graph (node and edge) data. It is analogous to the
+ * Java Collections Framework APIs for lists, maps, sets, etc.
  *
- * <p>This package is a part of the open-source <a href="https://github.com/google/guava">Guava</a>
- * library.
+ * <p>This package is a part of the open-source <a
+ * href="https://github.com/google/guava">Guava</a> library.
  */
 @CheckReturnValue
 @ParametersAreNonnullByDefault

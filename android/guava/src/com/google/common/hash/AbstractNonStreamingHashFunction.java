@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -22,9 +24,10 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
- * Skeleton implementation of {@link HashFunction}, appropriate for non-streaming algorithms. All
- * the hash computation done using {@linkplain #newHasher()} are delegated to the {@linkplain
- * #hashBytes(byte[], int, int)} method.
+ * Skeleton implementation of {@link HashFunction}, appropriate for
+ * non-streaming algorithms. All the hash computation done using {@linkplain
+ * #newHasher()} are delegated to the {@linkplain #hashBytes(byte[], int, int)}
+ * method.
  *
  * @author Dimitris Andreou
  */
@@ -42,18 +45,25 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
 
   @Override
   public HashCode hashInt(int input) {
-    return hashBytes(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(input).array());
+    return hashBytes(ByteBuffer.allocate(4)
+                         .order(ByteOrder.LITTLE_ENDIAN)
+                         .putInt(input)
+                         .array());
   }
 
   @Override
   public HashCode hashLong(long input) {
-    return hashBytes(ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putLong(input).array());
+    return hashBytes(ByteBuffer.allocate(8)
+                         .order(ByteOrder.LITTLE_ENDIAN)
+                         .putLong(input)
+                         .array());
   }
 
   @Override
   public HashCode hashUnencodedChars(CharSequence input) {
     int len = input.length();
-    ByteBuffer buffer = ByteBuffer.allocate(len * 2).order(ByteOrder.LITTLE_ENDIAN);
+    ByteBuffer buffer =
+        ByteBuffer.allocate(len * 2).order(ByteOrder.LITTLE_ENDIAN);
     for (int i = 0; i < len; i++) {
       buffer.putChar(input.charAt(i));
     }
@@ -65,8 +75,7 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
     return hashBytes(input.toString().getBytes(charset));
   }
 
-  @Override
-  public abstract HashCode hashBytes(byte[] input, int off, int len);
+  @Override public abstract HashCode hashBytes(byte[] input, int off, int len);
 
   @Override
   public HashCode hashBytes(ByteBuffer input) {
@@ -106,7 +115,8 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
   }
 
   // Just to access the byte[] without introducing an unnecessary copy
-  private static final class ExposedByteArrayOutputStream extends ByteArrayOutputStream {
+  private static final class ExposedByteArrayOutputStream
+      extends ByteArrayOutputStream {
     ExposedByteArrayOutputStream(int expectedInputSize) {
       super(expectedInputSize);
     }
@@ -120,12 +130,8 @@ abstract class AbstractNonStreamingHashFunction extends AbstractHashFunction {
       count += remaining;
     }
 
-    byte[] byteArray() {
-      return buf;
-    }
+    byte[] byteArray() { return buf; }
 
-    int length() {
-      return count;
-    }
+    int length() { return count; }
   }
 }

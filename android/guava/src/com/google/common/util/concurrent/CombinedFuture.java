@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2015 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -32,26 +34,20 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible
 final class CombinedFuture<V> extends AggregateFuture<Object, V> {
-  CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      AsyncCallable<V> callable) {
-    init(
-        new CombinedFutureRunningState(
-            futures,
-            allMustSucceed,
-            new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
+  CombinedFuture(ImmutableCollection<? extends ListenableFuture<?>> futures,
+                 boolean allMustSucceed, Executor listenerExecutor,
+                 AsyncCallable<V> callable) {
+    init(new CombinedFutureRunningState(
+        futures, allMustSucceed,
+        new AsyncCallableInterruptibleTask(callable, listenerExecutor)));
   }
 
-  CombinedFuture(
-      ImmutableCollection<? extends ListenableFuture<?>> futures,
-      boolean allMustSucceed,
-      Executor listenerExecutor,
-      Callable<V> callable) {
-    init(
-        new CombinedFutureRunningState(
-            futures, allMustSucceed, new CallableInterruptibleTask(callable, listenerExecutor)));
+  CombinedFuture(ImmutableCollection<? extends ListenableFuture<?>> futures,
+                 boolean allMustSucceed, Executor listenerExecutor,
+                 Callable<V> callable) {
+    init(new CombinedFutureRunningState(
+        futures, allMustSucceed,
+        new CallableInterruptibleTask(callable, listenerExecutor)));
   }
 
   private final class CombinedFutureRunningState extends RunningState {
@@ -59,14 +55,14 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
     CombinedFutureRunningState(
         ImmutableCollection<? extends ListenableFuture<?>> futures,
-        boolean allMustSucceed,
-        CombinedFutureInterruptibleTask task) {
+        boolean allMustSucceed, CombinedFutureInterruptibleTask task) {
       super(futures, allMustSucceed, false);
       this.task = task;
     }
 
     @Override
-    void collectOneValue(boolean allMustSucceed, int index, @Nullable Object returnValue) {}
+    void collectOneValue(boolean allMustSucceed, int index,
+                         @Nullable Object returnValue) {}
 
     @Override
     void handleAllCompleted() {
@@ -94,7 +90,8 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   }
 
   @WeakOuter
-  private abstract class CombinedFutureInterruptibleTask<T> extends InterruptibleTask<T> {
+  private abstract class CombinedFutureInterruptibleTask<T>
+      extends InterruptibleTask<T> {
     private final Executor listenerExecutor;
     boolean thrownByExecute = true;
 
@@ -137,10 +134,11 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
 
   @WeakOuter
   private final class AsyncCallableInterruptibleTask
-    extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
+      extends CombinedFutureInterruptibleTask<ListenableFuture<V>> {
     private final AsyncCallable<V> callable;
 
-    public AsyncCallableInterruptibleTask(AsyncCallable<V> callable, Executor listenerExecutor) {
+    public AsyncCallableInterruptibleTask(AsyncCallable<V> callable,
+                                          Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }
@@ -150,9 +148,8 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
       thrownByExecute = false;
       ListenableFuture<V> result = callable.call();
       return checkNotNull(
-              result,
-              "AsyncCallable.call returned null instead of a Future. "
-              + "Did you mean to return immediateFuture(null)?");
+          result, "AsyncCallable.call returned null instead of a Future. "
+                      + "Did you mean to return immediateFuture(null)?");
     }
 
     @Override
@@ -167,10 +164,12 @@ final class CombinedFuture<V> extends AggregateFuture<Object, V> {
   }
 
   @WeakOuter
-  private final class CallableInterruptibleTask extends CombinedFutureInterruptibleTask<V> {
+  private final class CallableInterruptibleTask
+      extends CombinedFutureInterruptibleTask<V> {
     private final Callable<V> callable;
 
-    public CallableInterruptibleTask(Callable<V> callable, Executor listenerExecutor) {
+    public CallableInterruptibleTask(Callable<V> callable,
+                                     Executor listenerExecutor) {
       super(listenerExecutor);
       this.callable = checkNotNull(callable);
     }

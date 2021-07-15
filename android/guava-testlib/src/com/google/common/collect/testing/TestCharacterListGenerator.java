@@ -27,7 +27,8 @@ import java.util.List;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public abstract class TestCharacterListGenerator implements TestListGenerator<Character> {
+public abstract class TestCharacterListGenerator
+    implements TestListGenerator<Character> {
   @Override
   public SampleElements<Character> samples() {
     return new Chars();
@@ -38,7 +39,7 @@ public abstract class TestCharacterListGenerator implements TestListGenerator<Ch
     Character[] array = new Character[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (Character) e;
+      array[i++] = (Character)e;
     }
     return create(array);
   }

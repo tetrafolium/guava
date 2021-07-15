@@ -75,12 +75,11 @@ import javax.annotation.Nullable;
 public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
   private final Comparator<? super C> columnComparator;
 
-  private static class Factory<C, V> implements Supplier<TreeMap<C, V>>, Serializable {
+  private static class Factory<C, V>
+      implements Supplier<TreeMap<C, V>>, Serializable {
     final Comparator<? super C> comparator;
 
-    Factory(Comparator<? super C> comparator) {
-      this.comparator = comparator;
-    }
+    Factory(Comparator<? super C> comparator) { this.comparator = comparator; }
 
     @Override
     public TreeMap<C, V> get() {
@@ -99,7 +98,8 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    * and the same for {@code C}. That's necessary to support classes defined
    * without generics.
    */
-  public static <R extends Comparable, C extends Comparable, V> TreeBasedTable<R, C, V> create() {
+  public static <R extends Comparable, C extends Comparable, V>
+      TreeBasedTable<R, C, V> create() {
     return new TreeBasedTable<>(Ordering.natural(), Ordering.natural());
   }
 
@@ -110,8 +110,9 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    * @param rowComparator the comparator that orders the row keys
    * @param columnComparator the comparator that orders the column keys
    */
-  public static <R, C, V> TreeBasedTable<R, C, V> create(
-      Comparator<? super R> rowComparator, Comparator<? super C> columnComparator) {
+  public static <R, C, V> TreeBasedTable<R, C, V>
+  create(Comparator<? super R> rowComparator,
+         Comparator<? super C> columnComparator) {
     checkNotNull(rowComparator);
     checkNotNull(columnComparator);
     return new TreeBasedTable<>(rowComparator, columnComparator);
@@ -121,23 +122,26 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
    * Creates a {@code TreeBasedTable} with the same mappings and sort order
    * as the specified {@code TreeBasedTable}.
    */
-  public static <R, C, V> TreeBasedTable<R, C, V> create(TreeBasedTable<R, C, ? extends V> table) {
+  public static <R, C, V> TreeBasedTable<R, C, V>
+  create(TreeBasedTable<R, C, ? extends V> table) {
     TreeBasedTable<R, C, V> result =
         new TreeBasedTable<>(table.rowComparator(), table.columnComparator());
     result.putAll(table);
     return result;
   }
 
-  TreeBasedTable(Comparator<? super R> rowComparator, Comparator<? super C> columnComparator) {
-    super(new TreeMap<R, Map<C, V>>(rowComparator), new Factory<C, V>(columnComparator));
+  TreeBasedTable(Comparator<? super R> rowComparator,
+                 Comparator<? super C> columnComparator) {
+    super(new TreeMap<R, Map<C, V>>(rowComparator),
+          new Factory<C, V>(columnComparator));
     this.columnComparator = columnComparator;
   }
 
   // TODO(jlevy): Move to StandardRowSortedTable?
 
   /**
-   * Returns the comparator that orders the rows. With natural ordering, {@link Ordering#natural()}
-   * is returned.
+   * Returns the comparator that orders the rows. With natural ordering, {@link
+   * Ordering#natural()} is returned.
    *
    * @deprecated Use {@code table.rowKeySet().comparator()} instead.
    */
@@ -147,12 +151,15 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
   }
 
   /**
-   * Returns the comparator that orders the columns. With natural ordering, {@link
-   * Ordering#natural()} is returned.
+   * Returns the comparator that orders the columns. With natural ordering,
+   * {@link Ordering#natural()} is returned.
    *
-   * @deprecated Store the {@link Comparator} alongside the {@link Table}. Or, if you know that the
-   *     {@link Table} contains at least one value, you can retrieve the {@link Comparator} with:
-   *     {@code ((SortedMap<C, V>) table.rowMap().values().iterator().next()).comparator();}.
+   * @deprecated Store the {@link Comparator} alongside the {@link Table}. Or,
+   *     if you know that the
+   *     {@link Table} contains at least one value, you can retrieve the {@link
+   * Comparator} with:
+   *     {@code ((SortedMap<C, V>)
+   * table.rowMap().values().iterator().next()).comparator();}.
    */
   @Deprecated
   public Comparator<? super C> columnComparator() {
@@ -180,16 +187,14 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
     @Nullable final C lowerBound;
     @Nullable final C upperBound;
 
-    TreeRow(R rowKey) {
-      this(rowKey, null, null);
-    }
+    TreeRow(R rowKey) { this(rowKey, null, null); }
 
     TreeRow(R rowKey, @Nullable C lowerBound, @Nullable C upperBound) {
       super(rowKey);
       this.lowerBound = lowerBound;
       this.upperBound = upperBound;
-      checkArgument(
-          lowerBound == null || upperBound == null || compare(lowerBound, upperBound) <= 0);
+      checkArgument(lowerBound == null || upperBound == null ||
+                    compare(lowerBound, upperBound) <= 0);
     }
 
     @Override
@@ -205,19 +210,19 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
     int compare(Object a, Object b) {
       // pretend we can compare anything
       @SuppressWarnings({"rawtypes", "unchecked"})
-      Comparator<Object> cmp = (Comparator) comparator();
+      Comparator<Object> cmp = (Comparator)comparator();
       return cmp.compare(a, b);
     }
 
     boolean rangeContains(@Nullable Object o) {
-      return o != null
-          && (lowerBound == null || compare(lowerBound, o) <= 0)
-          && (upperBound == null || compare(upperBound, o) > 0);
+      return o != null && (lowerBound == null || compare(lowerBound, o) <= 0) &&
+          (upperBound == null || compare(upperBound, o) > 0);
     }
 
     @Override
     public SortedMap<C, V> subMap(C fromKey, C toKey) {
-      checkArgument(rangeContains(checkNotNull(fromKey)) && rangeContains(checkNotNull(toKey)));
+      checkArgument(rangeContains(checkNotNull(fromKey)) &&
+                    rangeContains(checkNotNull(toKey)));
       return new TreeRow(rowKey, fromKey, toKey);
     }
 
@@ -258,15 +263,16 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
      * time we're queried.
      */
     SortedMap<C, V> wholeRow() {
-      if (wholeRow == null || (wholeRow.isEmpty() && backingMap.containsKey(rowKey))) {
-        wholeRow = (SortedMap<C, V>) backingMap.get(rowKey);
+      if (wholeRow == null ||
+          (wholeRow.isEmpty() && backingMap.containsKey(rowKey))) {
+        wholeRow = (SortedMap<C, V>)backingMap.get(rowKey);
       }
       return wholeRow;
     }
 
     @Override
     SortedMap<C, V> backingRowMap() {
-      return (SortedMap<C, V>) super.backingRowMap();
+      return (SortedMap<C, V>)super.backingRowMap();
     }
 
     @Override
@@ -325,17 +331,15 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
   Iterator<C> createColumnKeyIterator() {
     final Comparator<? super C> comparator = columnComparator();
 
-    final Iterator<C> merged =
-        Iterators.mergeSorted(
-            Iterables.transform(
-                backingMap.values(),
-    new Function<Map<C, V>, Iterator<C>>() {
-      @Override
-      public Iterator<C> apply(Map<C, V> input) {
-        return input.keySet().iterator();
-      }
-    }),
-    comparator);
+    final Iterator<C> merged = Iterators.mergeSorted(
+        Iterables.transform(backingMap.values(),
+                            new Function<Map<C, V>, Iterator<C>>() {
+                              @Override
+                              public Iterator<C> apply(Map<C, V> input) {
+                                return input.keySet().iterator();
+                              }
+                            }),
+        comparator);
 
     return new AbstractIterator<C>() {
       C lastValue;
@@ -344,7 +348,8 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
       protected C computeNext() {
         while (merged.hasNext()) {
           C next = merged.next();
-          boolean duplicate = lastValue != null && comparator.compare(next, lastValue) == 0;
+          boolean duplicate =
+              lastValue != null && comparator.compare(next, lastValue) == 0;
 
           // Keep looping till we find a non-duplicate value.
           if (!duplicate) {

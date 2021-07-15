@@ -27,13 +27,13 @@ import com.google.common.graph.GraphConstants.Presence;
 import com.google.errorprone.annotations.Immutable;
 
 /**
- * A {@link Graph} whose elements and structural relationships will never change. Instances of this
- * class may be obtained with {@link #copyOf(Graph)}.
+ * A {@link Graph} whose elements and structural relationships will never
+ * change. Instances of this class may be obtained with {@link #copyOf(Graph)}.
  *
  * <p>See the Guava User's Guide's <a
  * href="https://github.com/google/guava/wiki/GraphsExplained#immutable-implementations">discussion
- * of the {@code Immutable*} types</a> for more information on the properties and guarantees
- * provided by this class.
+ * of the {@code Immutable*} types</a> for more information on the properties
+ * and guarantees provided by this class.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain
@@ -54,9 +54,10 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
   /** Returns an immutable copy of {@code graph}. */
   public static <N> ImmutableGraph<N> copyOf(Graph<N> graph) {
     return (graph instanceof ImmutableGraph)
-        ? (ImmutableGraph<N>) graph
+        ? (ImmutableGraph<N>)graph
         : new ImmutableGraph<N>(new ConfigurableValueGraph<N, Presence>(
-                GraphBuilder.from(graph), getNodeConnections(graph), graph.edges().size()));
+              GraphBuilder.from(graph), getNodeConnections(graph),
+              graph.edges().size()));
   }
 
   /**
@@ -69,25 +70,29 @@ public class ImmutableGraph<N> extends ForwardingGraph<N> {
     return checkNotNull(graph);
   }
 
-  private static <N> ImmutableMap<N, GraphConnections<N, Presence>> getNodeConnections(
-      Graph<N> graph) {
-    // ImmutableMap.Builder maintains the order of the elements as inserted, so the map will have
-    // whatever ordering the graph's nodes do, so ImmutableSortedMap is unnecessary even if the
-    // input nodes are sorted.
-    ImmutableMap.Builder<N, GraphConnections<N, Presence>> nodeConnections = ImmutableMap.builder();
+  private static <N> ImmutableMap<N, GraphConnections<N, Presence>>
+  getNodeConnections(Graph<N> graph) {
+    // ImmutableMap.Builder maintains the order of the elements as inserted, so
+    // the map will have whatever ordering the graph's nodes do, so
+    // ImmutableSortedMap is unnecessary even if the input nodes are sorted.
+    ImmutableMap.Builder<N, GraphConnections<N, Presence>> nodeConnections =
+        ImmutableMap.builder();
     for (N node : graph.nodes()) {
       nodeConnections.put(node, connectionsOf(graph, node));
     }
     return nodeConnections.build();
   }
 
-  private static <N> GraphConnections<N, Presence> connectionsOf(Graph<N> graph, N node) {
-    Function<Object, Presence> edgeValueFn = Functions.constant(Presence.EDGE_EXISTS);
+  private static <N> GraphConnections<N, Presence> connectionsOf(Graph<N> graph,
+                                                                 N node) {
+    Function<Object, Presence> edgeValueFn =
+        Functions.constant(Presence.EDGE_EXISTS);
     return graph.isDirected()
         ? DirectedGraphConnections.ofImmutable(
-            graph.predecessors(node), Maps.asMap(graph.successors(node), edgeValueFn))
+              graph.predecessors(node),
+              Maps.asMap(graph.successors(node), edgeValueFn))
         : UndirectedGraphConnections.ofImmutable(
-            Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
+              Maps.asMap(graph.adjacentNodes(node), edgeValueFn));
   }
 
   @Override

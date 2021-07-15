@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -45,7 +47,8 @@ import java.util.Set;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapAsMapTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapAsMapTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testAsMapGet() {
     for (K key : sampleKeys()) {
       List<V> expectedValues = new ArrayList<>();
@@ -99,7 +102,8 @@ public class MultimapAsMapTester<K, V> extends AbstractMultimapTester<K, V, Mult
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v3()));
 
     Set<Entry<K, Collection<V>>> asMapEntrySet = multimap().asMap().entrySet();
-    Collection<V> valueCollection = Iterables.getOnlyElement(asMapEntrySet).getValue();
+    Collection<V> valueCollection =
+        Iterables.getOnlyElement(asMapEntrySet).getValue();
     assertContentsAnyOrder(valueCollection, v0(), v3());
     assertTrue(multimap().put(k0(), v4()));
     assertContentsAnyOrder(valueCollection, v0(), v3(), v4());
@@ -120,7 +124,8 @@ public class MultimapAsMapTester<K, V> extends AbstractMultimapTester<K, V, Mult
   public void testAsMapEntrySetRemovePropagatesToMultimap() {
     resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v3()));
     Set<Entry<K, Collection<V>>> asMapEntrySet = multimap().asMap().entrySet();
-    Entry<K, Collection<V>> asMapEntry0 = Iterables.getOnlyElement(asMapEntrySet);
+    Entry<K, Collection<V>> asMapEntry0 =
+        Iterables.getOnlyElement(asMapEntrySet);
     assertTrue(multimap().put(k1(), v4()));
     assertTrue(asMapEntrySet.remove(asMapEntry0));
     assertEquals(1, multimap().size());

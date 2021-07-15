@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2006 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -29,7 +31,8 @@ import javax.annotation.Nullable;
 /** Implementations of {@code Futures.immediate*}. */
 @GwtCompatible(emulated = true)
 abstract class ImmediateFuture<V> extends FluentFuture<V> {
-  private static final Logger log = Logger.getLogger(ImmediateFuture.class.getName());
+  private static final Logger log =
+      Logger.getLogger(ImmediateFuture.class.getName());
 
   @Override
   public void addListener(Runnable listener, Executor executor) {
@@ -38,12 +41,12 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
     try {
       executor.execute(listener);
     } catch (RuntimeException e) {
-      // ListenableFuture's contract is that it will not throw unchecked exceptions, so log the bad
-      // runnable and/or executor and swallow it.
-      log.log(
-          Level.SEVERE,
-          "RuntimeException while executing runnable " + listener + " with executor " + executor,
-          e);
+      // ListenableFuture's contract is that it will not throw unchecked
+      // exceptions, so log the bad runnable and/or executor and swallow it.
+      log.log(Level.SEVERE,
+              "RuntimeException while executing runnable " + listener +
+                  " with executor " + executor,
+              e);
     }
   }
 
@@ -52,8 +55,7 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
     return false;
   }
 
-  @Override
-  public abstract V get() throws ExecutionException;
+  @Override public abstract V get() throws ExecutionException;
 
   @Override
   public V get(long timeout, TimeUnit unit) throws ExecutionException {
@@ -72,12 +74,11 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   }
 
   static class ImmediateSuccessfulFuture<V> extends ImmediateFuture<V> {
-    static final ImmediateSuccessfulFuture<Object> NULL = new ImmediateSuccessfulFuture<>(null);
+    static final ImmediateSuccessfulFuture<Object> NULL =
+        new ImmediateSuccessfulFuture<>(null);
     @Nullable private final V value;
 
-    ImmediateSuccessfulFuture(@Nullable V value) {
-      this.value = value;
-    }
+    ImmediateSuccessfulFuture(@Nullable V value) { this.value = value; }
 
     // TODO(lukes): Consider throwing InterruptedException when appropriate.
     @Override
@@ -93,13 +94,11 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   }
 
   @GwtIncompatible // TODO
-  static class ImmediateSuccessfulCheckedFuture<V, X extends Exception> extends ImmediateFuture<V>
-    implements CheckedFuture<V, X> {
+  static class ImmediateSuccessfulCheckedFuture<V, X extends Exception>
+      extends ImmediateFuture<V> implements CheckedFuture<V, X> {
     @Nullable private final V value;
 
-    ImmediateSuccessfulCheckedFuture(@Nullable V value) {
-      this.value = value;
-    }
+    ImmediateSuccessfulCheckedFuture(@Nullable V value) { this.value = value; }
 
     @Override
     public V get() {
@@ -125,25 +124,19 @@ abstract class ImmediateFuture<V> extends FluentFuture<V> {
   }
 
   static final class ImmediateFailedFuture<V> extends TrustedFuture<V> {
-    ImmediateFailedFuture(Throwable thrown) {
-      setException(thrown);
-    }
+    ImmediateFailedFuture(Throwable thrown) { setException(thrown); }
   }
 
   static final class ImmediateCancelledFuture<V> extends TrustedFuture<V> {
-    ImmediateCancelledFuture() {
-      cancel(false);
-    }
+    ImmediateCancelledFuture() { cancel(false); }
   }
 
   @GwtIncompatible // TODO
-  static class ImmediateFailedCheckedFuture<V, X extends Exception> extends ImmediateFuture<V>
-    implements CheckedFuture<V, X> {
+  static class ImmediateFailedCheckedFuture<V, X extends Exception>
+      extends ImmediateFuture<V> implements CheckedFuture<V, X> {
     private final X thrown;
 
-    ImmediateFailedCheckedFuture(X thrown) {
-      this.thrown = thrown;
-    }
+    ImmediateFailedCheckedFuture(X thrown) { this.thrown = thrown; }
 
     @Override
     public V get() throws ExecutionException {

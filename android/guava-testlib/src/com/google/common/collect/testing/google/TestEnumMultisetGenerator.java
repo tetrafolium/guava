@@ -31,7 +31,8 @@ import java.util.List;
  * @author Jared Levy
  */
 @GwtCompatible
-public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator<AnEnum> {
+public abstract class TestEnumMultisetGenerator
+    implements TestMultisetGenerator<AnEnum> {
   @Override
   public SampleElements<AnEnum> samples() {
     return new Enums();
@@ -42,7 +43,7 @@ public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator
     AnEnum[] array = new AnEnum[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (AnEnum) e;
+      array[i++] = (AnEnum)e;
     }
     return create(array);
   }

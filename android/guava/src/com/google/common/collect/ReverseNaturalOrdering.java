@@ -25,7 +25,8 @@ import java.util.Iterator;
 /** An ordering that uses the reverse of the natural order of the values. */
 @GwtCompatible(serializable = true)
 @SuppressWarnings("unchecked") // TODO(kevinb): the right way to explain this??
-final class ReverseNaturalOrdering extends Ordering<Comparable> implements Serializable {
+final class ReverseNaturalOrdering
+    extends Ordering<Comparable> implements Serializable {
   static final ReverseNaturalOrdering INSTANCE = new ReverseNaturalOrdering();
 
   @Override
@@ -86,9 +87,7 @@ final class ReverseNaturalOrdering extends Ordering<Comparable> implements Seria
   }
 
   // preserving singleton-ness gives equals()/hashCode() for free
-  private Object readResolve() {
-    return INSTANCE;
-  }
+  private Object readResolve() { return INSTANCE; }
 
   @Override
   public String toString() {

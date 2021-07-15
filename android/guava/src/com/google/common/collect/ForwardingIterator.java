@@ -26,24 +26,26 @@ import java.util.Iterator;
  * backing iterator as desired per the <a
  * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
  *
- * <p><b>{@code default} method warning:</b> This class forwards calls to <i>only some</i> {@code
- * default} methods. Specifically, it forwards calls only for methods that existed <a
- * href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html">before {@code default}
- * methods were introduced</a>. For newer methods, like {@code forEachRemaining}, it inherits their
- * default implementations. When those implementations invoke methods, they invoke methods on the
+ * <p><b>{@code default} method warning:</b> This class forwards calls to
+ * <i>only some</i> {@code default} methods. Specifically, it forwards calls
+ * only for methods that existed <a
+ * href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html">before
+ * {@code default} methods were introduced</a>. For newer methods, like {@code
+ * forEachRemaining}, it inherits their default implementations. When those
+ * implementations invoke methods, they invoke methods on the
  * {@code ForwardingIterator}.
  *
  * @author Kevin Bourrillion
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingIterator<T> extends ForwardingObject implements Iterator<T> {
+public abstract class ForwardingIterator<T>
+    extends ForwardingObject implements Iterator<T> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingIterator() {}
 
-  @Override
-  protected abstract Iterator<T> delegate();
+  @Override protected abstract Iterator<T> delegate();
 
   @Override
   public boolean hasNext() {

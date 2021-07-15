@@ -69,15 +69,15 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
    *
    * @param elements the elements that the multiset should contain
    */
-  public static <E> LinkedHashMultiset<E> create(Iterable<? extends E> elements) {
-    LinkedHashMultiset<E> multiset = create(Multisets.inferDistinctElements(elements));
+  public static <E> LinkedHashMultiset<E>
+  create(Iterable<? extends E> elements) {
+    LinkedHashMultiset<E> multiset =
+        create(Multisets.inferDistinctElements(elements));
     Iterables.addAll(multiset, elements);
     return multiset;
   }
 
-  private LinkedHashMultiset() {
-    super(new ObjectCountLinkedHashMap<E>());
-  }
+  private LinkedHashMultiset() { super(new ObjectCountLinkedHashMap<E>()); }
 
   private LinkedHashMultiset(int distinctElements) {
     super(new ObjectCountLinkedHashMap<E>(distinctElements));
@@ -94,7 +94,8 @@ public final class LinkedHashMultiset<E> extends AbstractMapBasedMultiset<E> {
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     int distinctElements = Serialization.readCount(stream);
     setBackingMap(new ObjectCountLinkedHashMap<E>());
