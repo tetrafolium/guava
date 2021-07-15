@@ -20,8 +20,9 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A class to allow {@link Network} implementations to be backed by a provided delegate. This is not
- * currently planned to be released as a general-purpose forwarding class.
+ * A class to allow {@link Network} implementations to be backed by a provided
+ * delegate. This is not currently planned to be released as a general-purpose
+ * forwarding class.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain

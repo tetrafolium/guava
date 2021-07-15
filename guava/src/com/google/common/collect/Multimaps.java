@@ -71,9 +71,10 @@ public final class Multimaps {
   private Multimaps() {}
 
   /**
-   * Returns a {@code Collector} accumulating entries into a {@code Multimap} generated from the
-   * specified supplier. The keys and values of the entries are the result of applying the provided
-   * mapping functions to the input elements, accumulated in the encounter order of the stream.
+   * Returns a {@code Collector} accumulating entries into a {@code Multimap}
+   * generated from the specified supplier. The keys and values of the entries
+   * are the result of applying the provided mapping functions to the input
+   * elements, accumulated in the encounter order of the stream.
    *
    * <p>Example:
    *
@@ -91,7 +92,8 @@ public final class Multimaps {
    * static final ListMultimap<Character, String> FIRST_LETTER_MULTIMAP;
    *
    * static {
-   *     FIRST_LETTER_MULTIMAP = MultimapBuilder.treeKeys().arrayListValues().build();
+   *     FIRST_LETTER_MULTIMAP =
+   * MultimapBuilder.treeKeys().arrayListValues().build();
    *     FIRST_LETTER_MULTIMAP.put('b', "anana");
    *     FIRST_LETTER_MULTIMAP.put('a', "pple");
    *     FIRST_LETTER_MULTIMAP.put('a', "sparagus");
@@ -103,27 +105,29 @@ public final class Multimaps {
    * @since 21.0
    */
   @Beta
-  public static <T, K, V, M extends Multimap<K, V>> Collector<T, ?, M> toMultimap(
-      java.util.function.Function<? super T, ? extends K> keyFunction,
-      java.util.function.Function<? super T, ? extends V> valueFunction,
-      java.util.function.Supplier<M> multimapSupplier) {
+  public static <T, K, V, M extends Multimap<K, V>> Collector<T, ?, M>
+  toMultimap(java.util.function.Function<? super T, ? extends K> keyFunction,
+             java.util.function.Function<? super T, ? extends V> valueFunction,
+             java.util.function.Supplier<M> multimapSupplier) {
     checkNotNull(keyFunction);
     checkNotNull(valueFunction);
     checkNotNull(multimapSupplier);
-    return Collector.of(
-            multimapSupplier,
-            (multimap, input) -> multimap.put(keyFunction.apply(input), valueFunction.apply(input)),
-    (multimap1, multimap2) -> {
-      multimap1.putAll(multimap2);
-      return multimap1;
-    });
+    return Collector.of(multimapSupplier,
+                        (multimap, input)
+                            -> multimap.put(keyFunction.apply(input),
+                                            valueFunction.apply(input)),
+                        (multimap1, multimap2) -> {
+                          multimap1.putAll(multimap2);
+                          return multimap1;
+                        });
   }
 
   /**
-   * Returns a {@code Collector} accumulating entries into a {@code Multimap} generated from the
-   * specified supplier. Each input element is mapped to a key and a stream of values, each of which
-   * are put into the resulting {@code Multimap}, in the encounter order of the stream and the
-   * encounter order of the streams of values.
+   * Returns a {@code Collector} accumulating entries into a {@code Multimap}
+   * generated from the specified supplier. Each input element is mapped to a
+   * key and a stream of values, each of which are put into the resulting {@code
+   * Multimap}, in the encounter order of the stream and the encounter order of
+   * the streams of values.
    *
    * <p>Example:
    *
@@ -141,83 +145,97 @@ public final class Multimaps {
    * static final ListMultimap<Character, Character> FIRST_LETTER_MULTIMAP;
    *
    * static {
-   *     FIRST_LETTER_MULTIMAP = MultimapBuilder.linkedHashKeys().arrayListValues().build();
-   *     FIRST_LETTER_MULTIMAP.putAll('b', Arrays.asList('a', 'n', 'a', 'n', 'a'));
-   *     FIRST_LETTER_MULTIMAP.putAll('a', Arrays.asList('p', 'p', 'l', 'e'));
-   *     FIRST_LETTER_MULTIMAP.putAll('c', Arrays.asList('a', 'r', 'r', 'o', 't'));
-   *     FIRST_LETTER_MULTIMAP.putAll('a', Arrays.asList('s', 'p', 'a', 'r', 'a', 'g', 'u', 's'));
-   *     FIRST_LETTER_MULTIMAP.putAll('c', Arrays.asList('h', 'e', 'r', 'r', 'y'));
+   *     FIRST_LETTER_MULTIMAP =
+   * MultimapBuilder.linkedHashKeys().arrayListValues().build();
+   *     FIRST_LETTER_MULTIMAP.putAll('b', Arrays.asList('a', 'n', 'a', 'n',
+   * 'a')); FIRST_LETTER_MULTIMAP.putAll('a', Arrays.asList('p', 'p', 'l',
+   * 'e')); FIRST_LETTER_MULTIMAP.putAll('c', Arrays.asList('a', 'r', 'r', 'o',
+   * 't')); FIRST_LETTER_MULTIMAP.putAll('a', Arrays.asList('s', 'p', 'a', 'r',
+   * 'a', 'g', 'u', 's')); FIRST_LETTER_MULTIMAP.putAll('c', Arrays.asList('h',
+   * 'e', 'r', 'r', 'y'));
    * }
    * }</pre>
    *
    * @since 21.0
    */
   @Beta
-  public static <T, K, V, M extends Multimap<K, V>> Collector<T, ?, M> flatteningToMultimap(
+  public static <T, K, V, M extends Multimap<K, V>> Collector<T, ?, M>
+  flatteningToMultimap(
       java.util.function.Function<? super T, ? extends K> keyFunction,
-      java.util.function.Function<? super T, ? extends Stream<? extends V>> valueFunction,
+      java.util.function
+          .Function<? super T, ? extends Stream<? extends V>> valueFunction,
       java.util.function.Supplier<M> multimapSupplier) {
     checkNotNull(keyFunction);
     checkNotNull(valueFunction);
     checkNotNull(multimapSupplier);
-    return Collector.of(
-            multimapSupplier,
-    (multimap, input) -> {
-      K key = keyFunction.apply(input);
-      Collection<V> valuesForKey = multimap.get(key);
-      valueFunction.apply(input).forEachOrdered(valuesForKey::add);
-    },
-    (multimap1, multimap2) -> {
-      multimap1.putAll(multimap2);
-      return multimap1;
-    });
+    return Collector.of(multimapSupplier,
+                        (multimap, input)
+                            -> {
+                          K key = keyFunction.apply(input);
+                          Collection<V> valuesForKey = multimap.get(key);
+                          valueFunction.apply(input).forEachOrdered(
+                              valuesForKey::add);
+                        },
+                        (multimap1, multimap2) -> {
+                          multimap1.putAll(multimap2);
+                          return multimap1;
+                        });
   }
 
   /**
-   * Creates a new {@code Multimap} backed by {@code map}, whose internal value collections are
-   * generated by {@code factory}.
+   * Creates a new {@code Multimap} backed by {@code map}, whose internal value
+   * collections are generated by {@code factory}.
    *
-   * <p><b>Warning: do not use</b> this method when the collections returned by {@code factory}
-   * implement either {@link List} or {@code Set}! Use the more specific method {@link
-   * #newListMultimap}, {@link #newSetMultimap} or {@link #newSortedSetMultimap} instead, to avoid
-   * very surprising behavior from {@link Multimap#equals}.
+   * <p><b>Warning: do not use</b> this method when the collections returned by
+   * {@code factory} implement either {@link List} or {@code Set}! Use the more
+   * specific method {@link #newListMultimap}, {@link #newSetMultimap} or {@link
+   * #newSortedSetMultimap} instead, to avoid very surprising behavior from
+   * {@link Multimap#equals}.
    *
-   * <p>The {@code factory}-generated and {@code map} classes determine the multimap iteration
-   * order. They also specify the behavior of the {@code equals}, {@code hashCode}, and {@code
-   * toString} methods for the multimap and its returned views. However, the multimap's {@code get}
-   * method returns instances of a different class than {@code factory.get()} does.
+   * <p>The {@code factory}-generated and {@code map} classes determine the
+   * multimap iteration order. They also specify the behavior of the {@code
+   * equals}, {@code hashCode}, and {@code toString} methods for the multimap
+   * and its returned views. However, the multimap's {@code get} method returns
+   * instances of a different class than {@code factory.get()} does.
    *
-   * <p>The multimap is serializable if {@code map}, {@code factory}, the collections generated by
+   * <p>The multimap is serializable if {@code map}, {@code factory}, the
+   * collections generated by
    * {@code factory}, and the multimap contents are all serializable.
    *
-   * <p>The multimap is not threadsafe when any concurrent operations update the multimap, even if
-   * {@code map} and the instances generated by {@code factory} are. Concurrent read operations will
-   * work correctly. To allow concurrent update operations, wrap the multimap with a call to {@link
-   * #synchronizedMultimap}.
+   * <p>The multimap is not threadsafe when any concurrent operations update the
+   * multimap, even if
+   * {@code map} and the instances generated by {@code factory} are. Concurrent
+   * read operations will work correctly. To allow concurrent update operations,
+   * wrap the multimap with a call to {@link #synchronizedMultimap}.
    *
-   * <p>Call this method only when the simpler methods {@link ArrayListMultimap#create()}, {@link
-   * HashMultimap#create()}, {@link LinkedHashMultimap#create()}, {@link
-   * LinkedListMultimap#create()}, {@link TreeMultimap#create()}, and {@link
-   * TreeMultimap#create(Comparator, Comparator)} won't suffice.
+   * <p>Call this method only when the simpler methods {@link
+   * ArrayListMultimap#create()}, {@link HashMultimap#create()}, {@link
+   * LinkedHashMultimap#create()}, {@link LinkedListMultimap#create()}, {@link
+   * TreeMultimap#create()}, and {@link TreeMultimap#create(Comparator,
+   * Comparator)} won't suffice.
    *
-   * <p>Note: the multimap assumes complete ownership over of {@code map} and the collections
-   * returned by {@code factory}. Those objects should not be manually updated and they should not
-   * use soft, weak, or phantom references.
+   * <p>Note: the multimap assumes complete ownership over of {@code map} and
+   * the collections returned by {@code factory}. Those objects should not be
+   * manually updated and they should not use soft, weak, or phantom references.
    *
-   * @param map place to store the mapping from each key to its corresponding values
-   * @param factory supplier of new, empty collections that will each hold all values for a given
-   *     key
+   * @param map place to store the mapping from each key to its corresponding
+   *     values
+   * @param factory supplier of new, empty collections that will each hold all
+   *     values for a given key
    * @throws IllegalArgumentException if {@code map} is not empty
    */
-  public static <K, V> Multimap<K, V> newMultimap(
-      Map<K, Collection<V>> map, final Supplier<? extends Collection<V>> factory) {
+  public static <K, V> Multimap<K, V>
+  newMultimap(Map<K, Collection<V>> map,
+              final Supplier<? extends Collection<V>> factory) {
     return new CustomMultimap<>(map, factory);
   }
 
-  private static class CustomMultimap<K, V> extends AbstractMapBasedMultimap<K, V> {
+  private static class CustomMultimap<K, V>
+      extends AbstractMapBasedMultimap<K, V> {
     transient Supplier<? extends Collection<V>> factory;
 
-    CustomMultimap(Map<K, Collection<V>> map, Supplier<? extends Collection<V>> factory) {
+    CustomMultimap(Map<K, Collection<V>> map,
+                   Supplier<? extends Collection<V>> factory) {
       super(map);
       this.factory = checkNotNull(factory);
     }
@@ -238,12 +256,13 @@ public final class Multimaps {
       stream.writeObject(backingMap());
     }
 
-    @GwtIncompatible // java.io.ObjectInputStream
+    @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      factory = (Supplier<? extends Collection<V>>) stream.readObject();
-      Map<K, Collection<V>> map = (Map<K, Collection<V>>) stream.readObject();
+      factory = (Supplier<? extends Collection<V>>)stream.readObject();
+      Map<K, Collection<V>> map = (Map<K, Collection<V>>)stream.readObject();
       setMap(map);
     }
 
@@ -289,15 +308,18 @@ public final class Multimaps {
    *     for a given key
    * @throws IllegalArgumentException if {@code map} is not empty
    */
-  public static <K, V> ListMultimap<K, V> newListMultimap(
-      Map<K, Collection<V>> map, final Supplier<? extends List<V>> factory) {
+  public static <K, V> ListMultimap<K, V>
+  newListMultimap(Map<K, Collection<V>> map,
+                  final Supplier<? extends List<V>> factory) {
     return new CustomListMultimap<>(map, factory);
   }
 
-  private static class CustomListMultimap<K, V> extends AbstractListMultimap<K, V> {
+  private static class CustomListMultimap<K, V>
+      extends AbstractListMultimap<K, V> {
     transient Supplier<? extends List<V>> factory;
 
-    CustomListMultimap(Map<K, Collection<V>> map, Supplier<? extends List<V>> factory) {
+    CustomListMultimap(Map<K, Collection<V>> map,
+                       Supplier<? extends List<V>> factory) {
       super(map);
       this.factory = checkNotNull(factory);
     }
@@ -315,12 +337,13 @@ public final class Multimaps {
       stream.writeObject(backingMap());
     }
 
-    @GwtIncompatible // java.io.ObjectInputStream
+    @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      factory = (Supplier<? extends List<V>>) stream.readObject();
-      Map<K, Collection<V>> map = (Map<K, Collection<V>>) stream.readObject();
+      factory = (Supplier<? extends List<V>>)stream.readObject();
+      Map<K, Collection<V>> map = (Map<K, Collection<V>>)stream.readObject();
       setMap(map);
     }
 
@@ -365,15 +388,18 @@ public final class Multimaps {
    *     for a given key
    * @throws IllegalArgumentException if {@code map} is not empty
    */
-  public static <K, V> SetMultimap<K, V> newSetMultimap(
-      Map<K, Collection<V>> map, final Supplier<? extends Set<V>> factory) {
+  public static <K, V> SetMultimap<K, V>
+  newSetMultimap(Map<K, Collection<V>> map,
+                 final Supplier<? extends Set<V>> factory) {
     return new CustomSetMultimap<>(map, factory);
   }
 
-  private static class CustomSetMultimap<K, V> extends AbstractSetMultimap<K, V> {
+  private static class CustomSetMultimap<K, V>
+      extends AbstractSetMultimap<K, V> {
     transient Supplier<? extends Set<V>> factory;
 
-    CustomSetMultimap(Map<K, Collection<V>> map, Supplier<? extends Set<V>> factory) {
+    CustomSetMultimap(Map<K, Collection<V>> map,
+                      Supplier<? extends Set<V>> factory) {
       super(map);
       this.factory = checkNotNull(factory);
     }
@@ -391,12 +417,13 @@ public final class Multimaps {
       stream.writeObject(backingMap());
     }
 
-    @GwtIncompatible // java.io.ObjectInputStream
+    @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      factory = (Supplier<? extends Set<V>>) stream.readObject();
-      Map<K, Collection<V>> map = (Map<K, Collection<V>>) stream.readObject();
+      factory = (Supplier<? extends Set<V>>)stream.readObject();
+      Map<K, Collection<V>> map = (Map<K, Collection<V>>)stream.readObject();
       setMap(map);
     }
 
@@ -440,16 +467,19 @@ public final class Multimaps {
    *     all values for a given key
    * @throws IllegalArgumentException if {@code map} is not empty
    */
-  public static <K, V> SortedSetMultimap<K, V> newSortedSetMultimap(
-      Map<K, Collection<V>> map, final Supplier<? extends SortedSet<V>> factory) {
+  public static <K, V> SortedSetMultimap<K, V>
+  newSortedSetMultimap(Map<K, Collection<V>> map,
+                       final Supplier<? extends SortedSet<V>> factory) {
     return new CustomSortedSetMultimap<>(map, factory);
   }
 
-  private static class CustomSortedSetMultimap<K, V> extends AbstractSortedSetMultimap<K, V> {
+  private static class CustomSortedSetMultimap<K, V>
+      extends AbstractSortedSetMultimap<K, V> {
     transient Supplier<? extends SortedSet<V>> factory;
     transient Comparator<? super V> valueComparator;
 
-    CustomSortedSetMultimap(Map<K, Collection<V>> map, Supplier<? extends SortedSet<V>> factory) {
+    CustomSortedSetMultimap(Map<K, Collection<V>> map,
+                            Supplier<? extends SortedSet<V>> factory) {
       super(map);
       this.factory = checkNotNull(factory);
       valueComparator = factory.get().comparator();
@@ -473,13 +503,14 @@ public final class Multimaps {
       stream.writeObject(backingMap());
     }
 
-    @GwtIncompatible // java.io.ObjectInputStream
+    @GwtIncompatible               // java.io.ObjectInputStream
     @SuppressWarnings("unchecked") // reading data stored by writeObject
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream stream)
+        throws IOException, ClassNotFoundException {
       stream.defaultReadObject();
-      factory = (Supplier<? extends SortedSet<V>>) stream.readObject();
+      factory = (Supplier<? extends SortedSet<V>>)stream.readObject();
       valueComparator = factory.get().comparator();
-      Map<K, Collection<V>> map = (Map<K, Collection<V>>) stream.readObject();
+      Map<K, Collection<V>> map = (Map<K, Collection<V>>)stream.readObject();
       setMap(map);
     }
 
@@ -499,8 +530,8 @@ public final class Multimaps {
    * @return {@code dest}
    */
   @CanIgnoreReturnValue
-  public static <K, V, M extends Multimap<K, V>> M invertFrom(
-      Multimap<? extends V, ? extends K> source, M dest) {
+  public static <K, V, M extends Multimap<K, V>>
+      M invertFrom(Multimap<? extends V, ? extends K> source, M dest) {
     checkNotNull(dest);
     for (Map.Entry<? extends V, ? extends K> entry : source.entries()) {
       dest.put(entry.getValue(), entry.getKey());
@@ -520,7 +551,8 @@ public final class Multimaps {
    *   Multimap<K, V> multimap = Multimaps.synchronizedMultimap(
    *       HashMultimap.<K, V>create());
    *   ...
-   *   Collection<V> values = multimap.get(key);  // Needn't be in synchronized block
+   *   Collection<V> values = multimap.get(key);  // Needn't be in synchronized
+   * block
    *   ...
    *   synchronized (multimap) {  // Synchronizing on multimap, not values!
    *     Iterator<V> i = values.iterator(); // Must be in synchronized block
@@ -541,7 +573,8 @@ public final class Multimaps {
    * @param multimap the multimap to be wrapped in a synchronized view
    * @return a synchronized view of the specified multimap
    */
-  public static <K, V> Multimap<K, V> synchronizedMultimap(Multimap<K, V> multimap) {
+  public static <K, V> Multimap<K, V>
+  synchronizedMultimap(Multimap<K, V> multimap) {
     return Synchronized.multimap(multimap, null);
   }
 
@@ -562,8 +595,10 @@ public final class Multimaps {
    *     returned
    * @return an unmodifiable view of the specified multimap
    */
-  public static <K, V> Multimap<K, V> unmodifiableMultimap(Multimap<K, V> delegate) {
-    if (delegate instanceof UnmodifiableMultimap || delegate instanceof ImmutableMultimap) {
+  public static <K, V> Multimap<K, V>
+  unmodifiableMultimap(Multimap<K, V> delegate) {
+    if (delegate instanceof UnmodifiableMultimap || delegate instanceof
+                                                        ImmutableMultimap) {
       return delegate;
     }
     return new UnmodifiableMultimap<>(delegate);
@@ -576,12 +611,13 @@ public final class Multimaps {
    * @since 10.0
    */
   @Deprecated
-  public static <K, V> Multimap<K, V> unmodifiableMultimap(ImmutableMultimap<K, V> delegate) {
+  public static <K, V> Multimap<K, V>
+  unmodifiableMultimap(ImmutableMultimap<K, V> delegate) {
     return checkNotNull(delegate);
   }
 
-  private static class UnmodifiableMultimap<K, V> extends ForwardingMultimap<K, V>
-    implements Serializable {
+  private static class UnmodifiableMultimap<K, V>
+      extends ForwardingMultimap<K, V> implements Serializable {
     final Multimap<K, V> delegate;
     transient Collection<Entry<K, V>> entries;
     transient Multiset<K> keys;
@@ -607,17 +643,13 @@ public final class Multimaps {
     public Map<K, Collection<V>> asMap() {
       Map<K, Collection<V>> result = map;
       if (result == null) {
-        result =
-            map =
-                Collections.unmodifiableMap(
-                    Maps.transformValues(
-                        delegate.asMap(),
-        new Function<Collection<V>, Collection<V>>() {
-          @Override
-          public Collection<V> apply(Collection<V> collection) {
-            return unmodifiableValueCollection(collection);
-          }
-        }));
+        result = map = Collections.unmodifiableMap(Maps.transformValues(
+            delegate.asMap(), new Function<Collection<V>, Collection<V>>() {
+              @Override
+              public Collection<V> apply(Collection<V> collection) {
+                return unmodifiableValueCollection(collection);
+              }
+            }));
       }
       return result;
     }
@@ -696,15 +728,13 @@ public final class Multimaps {
     private static final long serialVersionUID = 0;
   }
 
-  private static class UnmodifiableListMultimap<K, V> extends UnmodifiableMultimap<K, V>
-    implements ListMultimap<K, V> {
-    UnmodifiableListMultimap(ListMultimap<K, V> delegate) {
-      super(delegate);
-    }
+  private static class UnmodifiableListMultimap<K, V>
+      extends UnmodifiableMultimap<K, V> implements ListMultimap<K, V> {
+    UnmodifiableListMultimap(ListMultimap<K, V> delegate) { super(delegate); }
 
     @Override
     public ListMultimap<K, V> delegate() {
-      return (ListMultimap<K, V>) super.delegate();
+      return (ListMultimap<K, V>)super.delegate();
     }
 
     @Override
@@ -725,15 +755,13 @@ public final class Multimaps {
     private static final long serialVersionUID = 0;
   }
 
-  private static class UnmodifiableSetMultimap<K, V> extends UnmodifiableMultimap<K, V>
-    implements SetMultimap<K, V> {
-    UnmodifiableSetMultimap(SetMultimap<K, V> delegate) {
-      super(delegate);
-    }
+  private static class UnmodifiableSetMultimap<K, V>
+      extends UnmodifiableMultimap<K, V> implements SetMultimap<K, V> {
+    UnmodifiableSetMultimap(SetMultimap<K, V> delegate) { super(delegate); }
 
     @Override
     public SetMultimap<K, V> delegate() {
-      return (SetMultimap<K, V>) super.delegate();
+      return (SetMultimap<K, V>)super.delegate();
     }
 
     @Override
@@ -763,15 +791,15 @@ public final class Multimaps {
     private static final long serialVersionUID = 0;
   }
 
-  private static class UnmodifiableSortedSetMultimap<K, V> extends UnmodifiableSetMultimap<K, V>
-    implements SortedSetMultimap<K, V> {
+  private static class UnmodifiableSortedSetMultimap<K, V>
+      extends UnmodifiableSetMultimap<K, V> implements SortedSetMultimap<K, V> {
     UnmodifiableSortedSetMultimap(SortedSetMultimap<K, V> delegate) {
       super(delegate);
     }
 
     @Override
     public SortedSetMultimap<K, V> delegate() {
-      return (SortedSetMultimap<K, V>) super.delegate();
+      return (SortedSetMultimap<K, V>)super.delegate();
     }
 
     @Override
@@ -809,7 +837,8 @@ public final class Multimaps {
    * @param multimap the multimap to be wrapped
    * @return a synchronized view of the specified multimap
    */
-  public static <K, V> SetMultimap<K, V> synchronizedSetMultimap(SetMultimap<K, V> multimap) {
+  public static <K, V> SetMultimap<K, V>
+  synchronizedSetMultimap(SetMultimap<K, V> multimap) {
     return Synchronized.setMultimap(multimap, null);
   }
 
@@ -831,8 +860,10 @@ public final class Multimaps {
    *     returned
    * @return an unmodifiable view of the specified multimap
    */
-  public static <K, V> SetMultimap<K, V> unmodifiableSetMultimap(SetMultimap<K, V> delegate) {
-    if (delegate instanceof UnmodifiableSetMultimap || delegate instanceof ImmutableSetMultimap) {
+  public static <K, V> SetMultimap<K, V>
+  unmodifiableSetMultimap(SetMultimap<K, V> delegate) {
+    if (delegate instanceof UnmodifiableSetMultimap ||
+        delegate instanceof ImmutableSetMultimap) {
       return delegate;
     }
     return new UnmodifiableSetMultimap<>(delegate);
@@ -845,8 +876,8 @@ public final class Multimaps {
    * @since 10.0
    */
   @Deprecated
-  public static <K, V> SetMultimap<K, V> unmodifiableSetMultimap(
-      ImmutableSetMultimap<K, V> delegate) {
+  public static <K, V> SetMultimap<K, V>
+  unmodifiableSetMultimap(ImmutableSetMultimap<K, V> delegate) {
     return checkNotNull(delegate);
   }
 
@@ -862,8 +893,8 @@ public final class Multimaps {
    * @param multimap the multimap to be wrapped
    * @return a synchronized view of the specified multimap
    */
-  public static <K, V> SortedSetMultimap<K, V> synchronizedSortedSetMultimap(
-      SortedSetMultimap<K, V> multimap) {
+  public static <K, V> SortedSetMultimap<K, V>
+  synchronizedSortedSetMultimap(SortedSetMultimap<K, V> multimap) {
     return Synchronized.sortedSetMultimap(multimap, null);
   }
 
@@ -885,8 +916,8 @@ public final class Multimaps {
    *     returned
    * @return an unmodifiable view of the specified multimap
    */
-  public static <K, V> SortedSetMultimap<K, V> unmodifiableSortedSetMultimap(
-      SortedSetMultimap<K, V> delegate) {
+  public static <K, V> SortedSetMultimap<K, V>
+  unmodifiableSortedSetMultimap(SortedSetMultimap<K, V> delegate) {
     if (delegate instanceof UnmodifiableSortedSetMultimap) {
       return delegate;
     }
@@ -902,7 +933,8 @@ public final class Multimaps {
    * @param multimap the multimap to be wrapped
    * @return a synchronized view of the specified multimap
    */
-  public static <K, V> ListMultimap<K, V> synchronizedListMultimap(ListMultimap<K, V> multimap) {
+  public static <K, V> ListMultimap<K, V>
+  synchronizedListMultimap(ListMultimap<K, V> multimap) {
     return Synchronized.listMultimap(multimap, null);
   }
 
@@ -924,8 +956,10 @@ public final class Multimaps {
    *     returned
    * @return an unmodifiable view of the specified multimap
    */
-  public static <K, V> ListMultimap<K, V> unmodifiableListMultimap(ListMultimap<K, V> delegate) {
-    if (delegate instanceof UnmodifiableListMultimap || delegate instanceof ImmutableListMultimap) {
+  public static <K, V> ListMultimap<K, V>
+  unmodifiableListMultimap(ListMultimap<K, V> delegate) {
+    if (delegate instanceof UnmodifiableListMultimap ||
+        delegate instanceof ImmutableListMultimap) {
       return delegate;
     }
     return new UnmodifiableListMultimap<>(delegate);
@@ -938,8 +972,8 @@ public final class Multimaps {
    * @since 10.0
    */
   @Deprecated
-  public static <K, V> ListMultimap<K, V> unmodifiableListMultimap(
-      ImmutableListMultimap<K, V> delegate) {
+  public static <K, V> ListMultimap<K, V>
+  unmodifiableListMultimap(ImmutableListMultimap<K, V> delegate) {
     return checkNotNull(delegate);
   }
 
@@ -951,13 +985,14 @@ public final class Multimaps {
    * @param collection the collection for which to return an unmodifiable view
    * @return an unmodifiable view of the collection
    */
-  private static <V> Collection<V> unmodifiableValueCollection(Collection<V> collection) {
+  private static <V> Collection<V>
+  unmodifiableValueCollection(Collection<V> collection) {
     if (collection instanceof SortedSet) {
-      return Collections.unmodifiableSortedSet((SortedSet<V>) collection);
+      return Collections.unmodifiableSortedSet((SortedSet<V>)collection);
     } else if (collection instanceof Set) {
-      return Collections.unmodifiableSet((Set<V>) collection);
+      return Collections.unmodifiableSet((Set<V>)collection);
     } else if (collection instanceof List) {
-      return Collections.unmodifiableList((List<V>) collection);
+      return Collections.unmodifiableList((List<V>)collection);
     }
     return Collections.unmodifiableCollection(collection);
   }
@@ -971,12 +1006,13 @@ public final class Multimaps {
    * @param entries the entries for which to return an unmodifiable view
    * @return an unmodifiable view of the entries
    */
-  private static <K, V> Collection<Entry<K, V>> unmodifiableEntries(
-      Collection<Entry<K, V>> entries) {
+  private static <K, V> Collection<Entry<K, V>>
+  unmodifiableEntries(Collection<Entry<K, V>> entries) {
     if (entries instanceof Set) {
-      return Maps.unmodifiableEntrySet((Set<Entry<K, V>>) entries);
+      return Maps.unmodifiableEntrySet((Set<Entry<K, V>>)entries);
     }
-    return new Maps.UnmodifiableEntries<>(Collections.unmodifiableCollection(entries));
+    return new Maps.UnmodifiableEntries<>(
+        Collections.unmodifiableCollection(entries));
   }
 
   /**
@@ -989,7 +1025,7 @@ public final class Multimaps {
   @SuppressWarnings("unchecked")
   // safe by specification of ListMultimap.asMap()
   public static <K, V> Map<K, List<V>> asMap(ListMultimap<K, V> multimap) {
-    return (Map<K, List<V>>) (Map<K, ?>) multimap.asMap();
+    return (Map<K, List<V>>)(Map<K, ?>)multimap.asMap();
   }
 
   /**
@@ -1002,7 +1038,7 @@ public final class Multimaps {
   @SuppressWarnings("unchecked")
   // safe by specification of SetMultimap.asMap()
   public static <K, V> Map<K, Set<V>> asMap(SetMultimap<K, V> multimap) {
-    return (Map<K, Set<V>>) (Map<K, ?>) multimap.asMap();
+    return (Map<K, Set<V>>)(Map<K, ?>)multimap.asMap();
   }
 
   /**
@@ -1015,8 +1051,9 @@ public final class Multimaps {
   @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of SortedSetMultimap.asMap()
-  public static <K, V> Map<K, SortedSet<V>> asMap(SortedSetMultimap<K, V> multimap) {
-    return (Map<K, SortedSet<V>>) (Map<K, ?>) multimap.asMap();
+  public static <K, V> Map<K, SortedSet<V>>
+  asMap(SortedSetMultimap<K, V> multimap) {
+    return (Map<K, SortedSet<V>>)(Map<K, ?>)multimap.asMap();
   }
 
   /**
@@ -1053,12 +1090,10 @@ public final class Multimaps {
 
   /** @see Multimaps#forMap */
   private static class MapMultimap<K, V> extends AbstractMultimap<K, V>
-    implements SetMultimap<K, V>, Serializable {
+      implements SetMultimap<K, V>, Serializable {
     final Map<K, V> map;
 
-    MapMultimap(Map<K, V> map) {
-      this.map = checkNotNull(map);
-    }
+    MapMultimap(Map<K, V> map) { this.map = checkNotNull(map); }
 
     @Override
     public int size() {
@@ -1235,8 +1270,9 @@ public final class Multimaps {
    *
    * @since 7.0
    */
-  public static <K, V1, V2> Multimap<K, V2> transformValues(
-      Multimap<K, V1> fromMultimap, final Function<? super V1, V2> function) {
+  public static <K, V1, V2> Multimap<K, V2>
+  transformValues(Multimap<K, V1> fromMultimap,
+                  final Function<? super V1, V2> function) {
     checkNotNull(function);
     EntryTransformer<K, V1, V2> transformer = Maps.asEntryTransformer(function);
     return transformEntries(fromMultimap, transformer);
@@ -1297,12 +1333,14 @@ public final class Multimaps {
    *
    * @since 7.0
    */
-  public static <K, V1, V2> Multimap<K, V2> transformEntries(
-      Multimap<K, V1> fromMap, EntryTransformer<? super K, ? super V1, V2> transformer) {
+  public static <K, V1, V2> Multimap<K, V2>
+  transformEntries(Multimap<K, V1> fromMap,
+                   EntryTransformer<? super K, ? super V1, V2> transformer) {
     return new TransformedEntriesMultimap<>(fromMap, transformer);
   }
 
-  private static class TransformedEntriesMultimap<K, V1, V2> extends AbstractMultimap<K, V2> {
+  private static class TransformedEntriesMultimap<K, V1, V2>
+      extends AbstractMultimap<K, V2> {
     final Multimap<K, V1> fromMultimap;
     final EntryTransformer<? super K, ? super V1, V2> transformer;
 
@@ -1314,9 +1352,10 @@ public final class Multimaps {
     }
 
     Collection<V2> transform(K key, Collection<V1> values) {
-      Function<? super V1, V2> function = Maps.asValueToValueFunction(transformer, key);
+      Function<? super V1, V2> function =
+          Maps.asValueToValueFunction(transformer, key);
       if (values instanceof List) {
-        return Lists.transform((List<V1>) values, function);
+        return Lists.transform((List<V1>)values, function);
       } else {
         return Collections2.transform(values, function);
       }
@@ -1325,13 +1364,13 @@ public final class Multimaps {
     @Override
     Map<K, Collection<V2>> createAsMap() {
       return Maps.transformEntries(
-              fromMultimap.asMap(),
-      new EntryTransformer<K, Collection<V1>, Collection<V2>>() {
-        @Override
-        public Collection<V2> transformEntry(K key, Collection<V1> value) {
-          return transform(key, value);
-        }
-      });
+          fromMultimap.asMap(),
+          new EntryTransformer<K, Collection<V1>, Collection<V2>>() {
+            @Override
+            public Collection<V2> transformEntry(K key, Collection<V1> value) {
+              return transform(key, value);
+            }
+          });
     }
 
     @Override
@@ -1347,7 +1386,8 @@ public final class Multimaps {
     @Override
     Iterator<Entry<K, V2>> entryIterator() {
       return Iterators.transform(
-              fromMultimap.entries().iterator(), Maps.<K, V1, V2>asEntryToEntryFunction(transformer));
+          fromMultimap.entries().iterator(),
+          Maps.<K, V1, V2>asEntryToEntryFunction(transformer));
     }
 
     @Override
@@ -1388,13 +1428,13 @@ public final class Multimaps {
     @SuppressWarnings("unchecked")
     @Override
     public boolean remove(Object key, Object value) {
-      return get((K) key).remove(value);
+      return get((K)key).remove(value);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Collection<V2> removeAll(Object key) {
-      return transform((K) key, fromMultimap.removeAll(key));
+      return transform((K)key, fromMultimap.removeAll(key));
     }
 
     @Override
@@ -1410,7 +1450,8 @@ public final class Multimaps {
     @Override
     Collection<V2> createValues() {
       return Collections2.transform(
-              fromMultimap.entries(), Maps.<K, V1, V2>asEntryToValueFunction(transformer));
+          fromMultimap.entries(),
+          Maps.<K, V1, V2>asEntryToValueFunction(transformer));
     }
   }
 
@@ -1455,8 +1496,9 @@ public final class Multimaps {
    *
    * @since 7.0
    */
-  public static <K, V1, V2> ListMultimap<K, V2> transformValues(
-      ListMultimap<K, V1> fromMultimap, final Function<? super V1, V2> function) {
+  public static <K, V1, V2> ListMultimap<K, V2>
+  transformValues(ListMultimap<K, V1> fromMultimap,
+                  final Function<? super V1, V2> function) {
     checkNotNull(function);
     EntryTransformer<K, V1, V2> transformer = Maps.asEntryTransformer(function);
     return transformEntries(fromMultimap, transformer);
@@ -1514,22 +1556,26 @@ public final class Multimaps {
    *
    * @since 7.0
    */
-  public static <K, V1, V2> ListMultimap<K, V2> transformEntries(
-      ListMultimap<K, V1> fromMap, EntryTransformer<? super K, ? super V1, V2> transformer) {
+  public static <K, V1, V2> ListMultimap<K, V2>
+  transformEntries(ListMultimap<K, V1> fromMap,
+                   EntryTransformer<? super K, ? super V1, V2> transformer) {
     return new TransformedEntriesListMultimap<>(fromMap, transformer);
   }
 
   private static final class TransformedEntriesListMultimap<K, V1, V2>
-    extends TransformedEntriesMultimap<K, V1, V2> implements ListMultimap<K, V2> {
+      extends TransformedEntriesMultimap<K, V1, V2>
+      implements ListMultimap<K, V2> {
 
     TransformedEntriesListMultimap(
-        ListMultimap<K, V1> fromMultimap, EntryTransformer<? super K, ? super V1, V2> transformer) {
+        ListMultimap<K, V1> fromMultimap,
+        EntryTransformer<? super K, ? super V1, V2> transformer) {
       super(fromMultimap, transformer);
     }
 
     @Override
     List<V2> transform(K key, Collection<V1> values) {
-      return Lists.transform((List<V1>) values, Maps.asValueToValueFunction(transformer, key));
+      return Lists.transform((List<V1>)values,
+                             Maps.asValueToValueFunction(transformer, key));
     }
 
     @Override
@@ -1540,7 +1586,7 @@ public final class Multimaps {
     @SuppressWarnings("unchecked")
     @Override
     public List<V2> removeAll(Object key) {
-      return transform((K) key, fromMultimap.removeAll(key));
+      return transform((K)key, fromMultimap.removeAll(key));
     }
 
     @Override
@@ -1582,11 +1628,11 @@ public final class Multimaps {
    * @return {@code ImmutableListMultimap} mapping the result of evaluating the
    *     function {@code keyFunction} on each value in the input collection to
    *     that value
-   * @throws NullPointerException if any element of {@code values} is {@code null}, or if {@code
-   *     keyFunction} produces {@code null} for any key
+   * @throws NullPointerException if any element of {@code values} is {@code
+   *     null}, or if {@code keyFunction} produces {@code null} for any key
    */
-  public static <K, V> ImmutableListMultimap<K, V> index(
-      Iterable<V> values, Function<? super V, K> keyFunction) {
+  public static <K, V> ImmutableListMultimap<K, V>
+  index(Iterable<V> values, Function<? super V, K> keyFunction) {
     return index(values.iterator(), keyFunction);
   }
 
@@ -1623,14 +1669,15 @@ public final class Multimaps {
    * @return {@code ImmutableListMultimap} mapping the result of evaluating the
    *     function {@code keyFunction} on each value in the input collection to
    *     that value
-   * @throws NullPointerException if any element of {@code values} is {@code null}, or if {@code
-   *     keyFunction} produces {@code null} for any key
+   * @throws NullPointerException if any element of {@code values} is {@code
+   *     null}, or if {@code keyFunction} produces {@code null} for any key
    * @since 10.0
    */
-  public static <K, V> ImmutableListMultimap<K, V> index(
-      Iterator<V> values, Function<? super V, K> keyFunction) {
+  public static <K, V> ImmutableListMultimap<K, V>
+  index(Iterator<V> values, Function<? super V, K> keyFunction) {
     checkNotNull(keyFunction);
-    ImmutableListMultimap.Builder<K, V> builder = ImmutableListMultimap.builder();
+    ImmutableListMultimap.Builder<K, V> builder =
+        ImmutableListMultimap.builder();
     while (values.hasNext()) {
       V value = values.next();
       checkNotNull(value, values);
@@ -1642,16 +1689,16 @@ public final class Multimaps {
   static class Keys<K, V> extends AbstractMultiset<K> {
     @Weak final Multimap<K, V> multimap;
 
-    Keys(Multimap<K, V> multimap) {
-      this.multimap = multimap;
-    }
+    Keys(Multimap<K, V> multimap) { this.multimap = multimap; }
 
     @Override
     Iterator<Multiset.Entry<K>> entryIterator() {
-      return new TransformedIterator<Map.Entry<K, Collection<V>>, Multiset.Entry<K>>(
-      multimap.asMap().entrySet().iterator()) {
+      return new TransformedIterator<Map.Entry<K, Collection<V>>,
+                                     Multiset.Entry<K>>(
+          multimap.asMap().entrySet().iterator()) {
         @Override
-        Multiset.Entry<K> transform(final Map.Entry<K, Collection<V>> backingEntry) {
+        Multiset.Entry<K> transform(
+            final Map.Entry<K, Collection<V>> backingEntry) {
           return new Multisets.AbstractEntry<K>() {
             @Override
             public K getElement() {
@@ -1669,7 +1716,8 @@ public final class Multimaps {
 
     @Override
     public Spliterator<K> spliterator() {
-      return CollectSpliterators.map(multimap.entries().spliterator(), Map.Entry::getKey);
+      return CollectSpliterators.map(multimap.entries().spliterator(),
+                                     Map.Entry::getKey);
     }
 
     @Override
@@ -1713,7 +1761,7 @@ public final class Multimaps {
       @Override
       public boolean contains(@Nullable Object o) {
         if (o instanceof Multiset.Entry) {
-          Multiset.Entry<?> entry = (Multiset.Entry<?>) o;
+          Multiset.Entry<?> entry = (Multiset.Entry<?>)o;
           Collection<V> collection = multimap.asMap().get(entry.getElement());
           return collection != null && collection.size() == entry.getCount();
         }
@@ -1723,7 +1771,7 @@ public final class Multimaps {
       @Override
       public boolean remove(@Nullable Object o) {
         if (o instanceof Multiset.Entry) {
-          Multiset.Entry<?> entry = (Multiset.Entry<?>) o;
+          Multiset.Entry<?> entry = (Multiset.Entry<?>)o;
           Collection<V> collection = multimap.asMap().get(entry.getElement());
           if (collection != null && collection.size() == entry.getCount()) {
             collection.clear();
@@ -1790,7 +1838,8 @@ public final class Multimaps {
   /**
    * A skeleton implementation of {@link Multimap#entries()}.
    */
-  abstract static class Entries<K, V> extends AbstractCollection<Map.Entry<K, V>> {
+  abstract static class Entries<K, V>
+      extends AbstractCollection<Map.Entry<K, V>> {
     abstract Multimap<K, V> multimap();
 
     @Override
@@ -1801,7 +1850,7 @@ public final class Multimaps {
     @Override
     public boolean contains(@Nullable Object o) {
       if (o instanceof Map.Entry) {
-        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
+        Map.Entry<?, ?> entry = (Map.Entry<?, ?>)o;
         return multimap().containsEntry(entry.getKey(), entry.getValue());
       }
       return false;
@@ -1810,7 +1859,7 @@ public final class Multimaps {
     @Override
     public boolean remove(@Nullable Object o) {
       if (o instanceof Map.Entry) {
-        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
+        Map.Entry<?, ?> entry = (Map.Entry<?, ?>)o;
         return multimap().remove(entry.getKey(), entry.getValue());
       }
       return false;
@@ -1825,12 +1874,11 @@ public final class Multimaps {
   /**
    * A skeleton implementation of {@link Multimap#asMap()}.
    */
-  static final class AsMap<K, V> extends Maps.ViewCachingAbstractMap<K, Collection<V>> {
+  static final class AsMap<K, V>
+      extends Maps.ViewCachingAbstractMap<K, Collection<V>> {
     @Weak private final Multimap<K, V> multimap;
 
-    AsMap(Multimap<K, V> multimap) {
-      this.multimap = checkNotNull(multimap);
-    }
+    AsMap(Multimap<K, V> multimap) { this.multimap = checkNotNull(multimap); }
 
     @Override
     public int size() {
@@ -1842,9 +1890,7 @@ public final class Multimaps {
       return new EntrySet();
     }
 
-    void removeValuesForKey(Object key) {
-      multimap.keySet().remove(key);
-    }
+    void removeValuesForKey(Object key) { multimap.keySet().remove(key); }
 
     @WeakOuter
     class EntrySet extends Maps.EntrySet<K, Collection<V>> {
@@ -1855,14 +1901,13 @@ public final class Multimaps {
 
       @Override
       public Iterator<Entry<K, Collection<V>>> iterator() {
-        return Maps.asMapEntryIterator(
-                multimap.keySet(),
-        new Function<K, Collection<V>>() {
-          @Override
-          public Collection<V> apply(K key) {
-            return multimap.get(key);
-          }
-        });
+        return Maps.asMapEntryIterator(multimap.keySet(),
+                                       new Function<K, Collection<V>>() {
+                                         @Override
+                                         public Collection<V> apply(K key) {
+                                           return multimap.get(key);
+                                         }
+                                       });
       }
 
       @Override
@@ -1870,7 +1915,7 @@ public final class Multimaps {
         if (!contains(o)) {
           return false;
         }
-        Map.Entry<?, ?> entry = (Map.Entry<?, ?>) o;
+        Map.Entry<?, ?> entry = (Map.Entry<?, ?>)o;
         removeValuesForKey(entry.getKey());
         return true;
       }
@@ -1879,7 +1924,7 @@ public final class Multimaps {
     @SuppressWarnings("unchecked")
     @Override
     public Collection<V> get(Object key) {
-      return containsKey(key) ? multimap.get((K) key) : null;
+      return containsKey(key) ? multimap.get((K)key) : null;
     }
 
     @Override
@@ -1919,8 +1964,8 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose keys satisfy the
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose keys satisfy the
    * filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
@@ -1931,25 +1976,26 @@ public final class Multimaps {
    * which satisfy the filter. When a live view is <i>not</i> needed, it may be
    * faster to copy the filtered multimap and use the copy.
    *
-   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with equals</i>,
-   * as documented at {@link Predicate#apply}. Do not provide a predicate such
-   * as {@code Predicates.instanceOf(ArrayList.class)}, which is inconsistent
-   * with equals.
+   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with
+   * equals</i>, as documented at {@link Predicate#apply}. Do not provide a
+   * predicate such as {@code Predicates.instanceOf(ArrayList.class)}, which is
+   * inconsistent with equals.
    *
    * @since 11.0
    */
-  public static <K, V> Multimap<K, V> filterKeys(
-      Multimap<K, V> unfiltered, final Predicate<? super K> keyPredicate) {
+  public static <K, V> Multimap<K, V>
+  filterKeys(Multimap<K, V> unfiltered,
+             final Predicate<? super K> keyPredicate) {
     if (unfiltered instanceof SetMultimap) {
-      return filterKeys((SetMultimap<K, V>) unfiltered, keyPredicate);
+      return filterKeys((SetMultimap<K, V>)unfiltered, keyPredicate);
     } else if (unfiltered instanceof ListMultimap) {
-      return filterKeys((ListMultimap<K, V>) unfiltered, keyPredicate);
+      return filterKeys((ListMultimap<K, V>)unfiltered, keyPredicate);
     } else if (unfiltered instanceof FilteredKeyMultimap) {
-      FilteredKeyMultimap<K, V> prev = (FilteredKeyMultimap<K, V>) unfiltered;
+      FilteredKeyMultimap<K, V> prev = (FilteredKeyMultimap<K, V>)unfiltered;
       return new FilteredKeyMultimap<>(
-              prev.unfiltered, Predicates.<K>and(prev.keyPredicate, keyPredicate));
+          prev.unfiltered, Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else if (unfiltered instanceof FilteredMultimap) {
-      FilteredMultimap<K, V> prev = (FilteredMultimap<K, V>) unfiltered;
+      FilteredMultimap<K, V> prev = (FilteredMultimap<K, V>)unfiltered;
       return filterFiltered(prev, Maps.<K>keyPredicateOnEntries(keyPredicate));
     } else {
       return new FilteredKeyMultimap<>(unfiltered, keyPredicate);
@@ -1967,8 +2013,8 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose keys satisfy the
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose keys satisfy the
    * filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
@@ -1979,21 +2025,24 @@ public final class Multimaps {
    * which satisfy the filter. When a live view is <i>not</i> needed, it may be
    * faster to copy the filtered multimap and use the copy.
    *
-   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with equals</i>,
-   * as documented at {@link Predicate#apply}. Do not provide a predicate such
-   * as {@code Predicates.instanceOf(ArrayList.class)}, which is inconsistent
-   * with equals.
+   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with
+   * equals</i>, as documented at {@link Predicate#apply}. Do not provide a
+   * predicate such as {@code Predicates.instanceOf(ArrayList.class)}, which is
+   * inconsistent with equals.
    *
    * @since 14.0
    */
-  public static <K, V> SetMultimap<K, V> filterKeys(
-      SetMultimap<K, V> unfiltered, final Predicate<? super K> keyPredicate) {
+  public static <K, V> SetMultimap<K, V>
+  filterKeys(SetMultimap<K, V> unfiltered,
+             final Predicate<? super K> keyPredicate) {
     if (unfiltered instanceof FilteredKeySetMultimap) {
-      FilteredKeySetMultimap<K, V> prev = (FilteredKeySetMultimap<K, V>) unfiltered;
+      FilteredKeySetMultimap<K, V> prev =
+          (FilteredKeySetMultimap<K, V>)unfiltered;
       return new FilteredKeySetMultimap<>(
-              prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
+          prev.unfiltered(),
+          Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else if (unfiltered instanceof FilteredSetMultimap) {
-      FilteredSetMultimap<K, V> prev = (FilteredSetMultimap<K, V>) unfiltered;
+      FilteredSetMultimap<K, V> prev = (FilteredSetMultimap<K, V>)unfiltered;
       return filterFiltered(prev, Maps.<K>keyPredicateOnEntries(keyPredicate));
     } else {
       return new FilteredKeySetMultimap<>(unfiltered, keyPredicate);
@@ -2011,8 +2060,8 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose keys satisfy the
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose keys satisfy the
    * filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
@@ -2023,27 +2072,30 @@ public final class Multimaps {
    * which satisfy the filter. When a live view is <i>not</i> needed, it may be
    * faster to copy the filtered multimap and use the copy.
    *
-   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with equals</i>,
-   * as documented at {@link Predicate#apply}. Do not provide a predicate such
-   * as {@code Predicates.instanceOf(ArrayList.class)}, which is inconsistent
-   * with equals.
+   * <p><b>Warning:</b> {@code keyPredicate} must be <i>consistent with
+   * equals</i>, as documented at {@link Predicate#apply}. Do not provide a
+   * predicate such as {@code Predicates.instanceOf(ArrayList.class)}, which is
+   * inconsistent with equals.
    *
    * @since 14.0
    */
-  public static <K, V> ListMultimap<K, V> filterKeys(
-      ListMultimap<K, V> unfiltered, final Predicate<? super K> keyPredicate) {
+  public static <K, V> ListMultimap<K, V>
+  filterKeys(ListMultimap<K, V> unfiltered,
+             final Predicate<? super K> keyPredicate) {
     if (unfiltered instanceof FilteredKeyListMultimap) {
-      FilteredKeyListMultimap<K, V> prev = (FilteredKeyListMultimap<K, V>) unfiltered;
+      FilteredKeyListMultimap<K, V> prev =
+          (FilteredKeyListMultimap<K, V>)unfiltered;
       return new FilteredKeyListMultimap<>(
-              prev.unfiltered(), Predicates.<K>and(prev.keyPredicate, keyPredicate));
+          prev.unfiltered(),
+          Predicates.<K>and(prev.keyPredicate, keyPredicate));
     } else {
       return new FilteredKeyListMultimap<>(unfiltered, keyPredicate);
     }
   }
 
   /**
-   * Returns a multimap containing the mappings in {@code unfiltered} whose values
-   * satisfy a predicate. The returned multimap is a live view of
+   * Returns a multimap containing the mappings in {@code unfiltered} whose
+   * values satisfy a predicate. The returned multimap is a live view of
    * {@code unfiltered}; changes to one affect the other.
    *
    * <p>The resulting multimap's views have iterators that don't support
@@ -2052,9 +2104,9 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose value satisfy the
-   * filter will be removed from the underlying multimap.
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose value satisfy
+   * the filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
    * {@code unfiltered} is.
@@ -2071,14 +2123,16 @@ public final class Multimaps {
    *
    * @since 11.0
    */
-  public static <K, V> Multimap<K, V> filterValues(
-      Multimap<K, V> unfiltered, final Predicate<? super V> valuePredicate) {
-    return filterEntries(unfiltered, Maps.<V>valuePredicateOnEntries(valuePredicate));
+  public static <K, V> Multimap<K, V>
+  filterValues(Multimap<K, V> unfiltered,
+               final Predicate<? super V> valuePredicate) {
+    return filterEntries(unfiltered,
+                         Maps.<V>valuePredicateOnEntries(valuePredicate));
   }
 
   /**
-   * Returns a multimap containing the mappings in {@code unfiltered} whose values
-   * satisfy a predicate. The returned multimap is a live view of
+   * Returns a multimap containing the mappings in {@code unfiltered} whose
+   * values satisfy a predicate. The returned multimap is a live view of
    * {@code unfiltered}; changes to one affect the other.
    *
    * <p>The resulting multimap's views have iterators that don't support
@@ -2087,9 +2141,9 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose value satisfy the
-   * filter will be removed from the underlying multimap.
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose value satisfy
+   * the filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
    * {@code unfiltered} is.
@@ -2106,9 +2160,11 @@ public final class Multimaps {
    *
    * @since 14.0
    */
-  public static <K, V> SetMultimap<K, V> filterValues(
-      SetMultimap<K, V> unfiltered, final Predicate<? super V> valuePredicate) {
-    return filterEntries(unfiltered, Maps.<V>valuePredicateOnEntries(valuePredicate));
+  public static <K, V> SetMultimap<K, V>
+  filterValues(SetMultimap<K, V> unfiltered,
+               final Predicate<? super V> valuePredicate) {
+    return filterEntries(unfiltered,
+                         Maps.<V>valuePredicateOnEntries(valuePredicate));
   }
 
   /**
@@ -2122,8 +2178,8 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose keys satisfy the
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose keys satisfy the
    * filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
@@ -2139,15 +2195,17 @@ public final class Multimaps {
    *
    * @since 11.0
    */
-  public static <K, V> Multimap<K, V> filterEntries(
-      Multimap<K, V> unfiltered, Predicate<? super Entry<K, V>> entryPredicate) {
+  public static <K, V> Multimap<K, V>
+  filterEntries(Multimap<K, V> unfiltered,
+                Predicate<? super Entry<K, V>> entryPredicate) {
     checkNotNull(entryPredicate);
     if (unfiltered instanceof SetMultimap) {
-      return filterEntries((SetMultimap<K, V>) unfiltered, entryPredicate);
+      return filterEntries((SetMultimap<K, V>)unfiltered, entryPredicate);
     }
     return (unfiltered instanceof FilteredMultimap)
-        ? filterFiltered((FilteredMultimap<K, V>) unfiltered, entryPredicate)
-        : new FilteredEntryMultimap<K, V>(checkNotNull(unfiltered), entryPredicate);
+        ? filterFiltered((FilteredMultimap<K, V>)unfiltered, entryPredicate)
+        : new FilteredEntryMultimap<K, V>(checkNotNull(unfiltered),
+                                          entryPredicate);
   }
 
   /**
@@ -2161,8 +2219,8 @@ public final class Multimaps {
    * multimap's {@code put()}, {@code putAll()}, and {@code replaceValues()}
    * methods throw an {@link IllegalArgumentException}.
    *
-   * <p>When methods such as {@code removeAll()} and {@code clear()} are called on
-   * the filtered multimap or its views, only mappings whose keys satisfy the
+   * <p>When methods such as {@code removeAll()} and {@code clear()} are called
+   * on the filtered multimap or its views, only mappings whose keys satisfy the
    * filter will be removed from the underlying multimap.
    *
    * <p>The returned multimap isn't threadsafe or serializable, even if
@@ -2178,36 +2236,41 @@ public final class Multimaps {
    *
    * @since 14.0
    */
-  public static <K, V> SetMultimap<K, V> filterEntries(
-      SetMultimap<K, V> unfiltered, Predicate<? super Entry<K, V>> entryPredicate) {
+  public static <K, V> SetMultimap<K, V>
+  filterEntries(SetMultimap<K, V> unfiltered,
+                Predicate<? super Entry<K, V>> entryPredicate) {
     checkNotNull(entryPredicate);
     return (unfiltered instanceof FilteredSetMultimap)
-        ? filterFiltered((FilteredSetMultimap<K, V>) unfiltered, entryPredicate)
-        : new FilteredEntrySetMultimap<K, V>(checkNotNull(unfiltered), entryPredicate);
+        ? filterFiltered((FilteredSetMultimap<K, V>)unfiltered, entryPredicate)
+        : new FilteredEntrySetMultimap<K, V>(checkNotNull(unfiltered),
+                                             entryPredicate);
   }
 
   /**
    * Support removal operations when filtering a filtered multimap. Since a
    * filtered multimap has iterators that don't support remove, passing one to
-   * the FilteredEntryMultimap constructor would lead to a multimap whose removal
-   * operations would fail. This method combines the predicates to avoid that
-   * problem.
+   * the FilteredEntryMultimap constructor would lead to a multimap whose
+   * removal operations would fail. This method combines the predicates to avoid
+   * that problem.
    */
-  private static <K, V> Multimap<K, V> filterFiltered(
-      FilteredMultimap<K, V> multimap, Predicate<? super Entry<K, V>> entryPredicate) {
+  private static <K, V> Multimap<K, V>
+  filterFiltered(FilteredMultimap<K, V> multimap,
+                 Predicate<? super Entry<K, V>> entryPredicate) {
     Predicate<Entry<K, V>> predicate =
         Predicates.<Entry<K, V>>and(multimap.entryPredicate(), entryPredicate);
     return new FilteredEntryMultimap<>(multimap.unfiltered(), predicate);
   }
 
   /**
-   * Support removal operations when filtering a filtered multimap. Since a filtered multimap has
-   * iterators that don't support remove, passing one to the FilteredEntryMultimap constructor would
-   * lead to a multimap whose removal operations would fail. This method combines the predicates to
-   * avoid that problem.
+   * Support removal operations when filtering a filtered multimap. Since a
+   * filtered multimap has iterators that don't support remove, passing one to
+   * the FilteredEntryMultimap constructor would lead to a multimap whose
+   * removal operations would fail. This method combines the predicates to avoid
+   * that problem.
    */
-  private static <K, V> SetMultimap<K, V> filterFiltered(
-      FilteredSetMultimap<K, V> multimap, Predicate<? super Entry<K, V>> entryPredicate) {
+  private static <K, V> SetMultimap<K, V>
+  filterFiltered(FilteredSetMultimap<K, V> multimap,
+                 Predicate<? super Entry<K, V>> entryPredicate) {
     Predicate<Entry<K, V>> predicate =
         Predicates.<Entry<K, V>>and(multimap.entryPredicate(), entryPredicate);
     return new FilteredEntrySetMultimap<>(multimap.unfiltered(), predicate);
@@ -2218,7 +2281,7 @@ public final class Multimaps {
       return true;
     }
     if (object instanceof Multimap) {
-      Multimap<?, ?> that = (Multimap<?, ?>) object;
+      Multimap<?, ?> that = (Multimap<?, ?>)object;
       return multimap.asMap().equals(that.asMap());
     }
     return false;

@@ -22,17 +22,13 @@ package java.util.concurrent;
  * @author Charles Fry
  */
 public class ExecutionException extends Exception {
-  protected ExecutionException() { }
+  protected ExecutionException() {}
 
-  protected ExecutionException(String message) {
-    super(message);
-  }
+  protected ExecutionException(String message) { super(message); }
 
   public ExecutionException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public ExecutionException(Throwable cause) {
-    super(cause);
-  }
+  public ExecutionException(Throwable cause) { super(cause); }
 }

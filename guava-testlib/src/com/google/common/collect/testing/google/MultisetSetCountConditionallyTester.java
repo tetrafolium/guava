@@ -33,7 +33,8 @@ import com.google.common.collect.testing.features.CollectionSize;
  * @author Chris Povirk
  */
 @GwtCompatible
-public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetCountTester<E> {
+public class MultisetSetCountConditionallyTester<E>
+    extends AbstractMultisetSetCountTester<E> {
   @Override
   void setCountCheckReturnValue(E element, int count) {
     assertTrue(
@@ -53,7 +54,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
   private void assertSetCountNegativeOldCount() {
     try {
       getMultiset().setCount(e3(), -1, 1);
-      fail("calling setCount() with a negative oldCount should throw IllegalArgumentException");
+      fail(
+          "calling setCount() with a negative oldCount should throw IllegalArgumentException");
     } catch (IllegalArgumentException expected) {
     }
   }
@@ -77,18 +79,16 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
 
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testSetCountConditional_oldCountTooLarge() {
-    assertFalse(
-        "setCount() with a too-large oldCount should return false",
-        getMultiset().setCount(e0(), 2, 3));
+    assertFalse("setCount() with a too-large oldCount should return false",
+                getMultiset().setCount(e0(), 2, 3));
     expectUnchanged();
   }
 
   @CollectionSize.Require(absent = ZERO)
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testSetCountConditional_oldCountTooSmallZero() {
-    assertFalse(
-        "setCount() with a too-small oldCount should return false",
-        getMultiset().setCount(e0(), 0, 2));
+    assertFalse("setCount() with a too-small oldCount should return false",
+                getMultiset().setCount(e0(), 0, 2));
     expectUnchanged();
   }
 
@@ -96,9 +96,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
   @CollectionFeature.Require(SUPPORTS_ADD)
   public void testSetCountConditional_oldCountTooSmallNonzero() {
     initThreeCopies();
-    assertFalse(
-        "setCount() with a too-small oldCount should return false",
-        getMultiset().setCount(e0(), 1, 5));
+    assertFalse("setCount() with a too-small oldCount should return false",
+                getMultiset().setCount(e0(), 1, 5));
     expectContents(nCopies(3, e0()));
   }
 

@@ -27,8 +27,7 @@ import java.util.SortedMap;
  */
 @GwtCompatible
 public interface TestSortedMapGenerator<K, V> extends TestMapGenerator<K, V> {
-  @Override
-  SortedMap<K, V> create(Object... elements);
+  @Override SortedMap<K, V> create(Object... elements);
 
   /**
    * Returns an entry with a key less than the keys of the {@link #samples()}

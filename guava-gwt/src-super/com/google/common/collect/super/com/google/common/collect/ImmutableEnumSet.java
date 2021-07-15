@@ -36,7 +36,5 @@ final class ImmutableEnumSet<E> extends ForwardingImmutableSet<E> {
     }
   }
 
-  public ImmutableEnumSet(Set<E> delegate) {
-    super(delegate);
-  }
+  public ImmutableEnumSet(Set<E> delegate) { super(delegate); }
 }

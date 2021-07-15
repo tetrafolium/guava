@@ -34,9 +34,7 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
 
   final transient E element;
 
-  SingletonImmutableList(E element) {
-    this.element = checkNotNull(element);
-  }
+  SingletonImmutableList(E element) { this.element = checkNotNull(element); }
 
   @Override
   public E get(int index) {

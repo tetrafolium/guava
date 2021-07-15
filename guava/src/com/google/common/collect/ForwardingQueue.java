@@ -34,9 +34,10 @@ import java.util.Queue;
  * override {@code offer} as well, either providing your own implementation, or
  * delegating to the provided {@code standardOffer} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingQueue}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingQueue}.
  *
  * <p>The {@code standard} methods are not guaranteed to be thread-safe, even
  * when all of the methods that they depend on are thread-safe.
@@ -46,13 +47,13 @@ import java.util.Queue;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingQueue<E> extends ForwardingCollection<E> implements Queue<E> {
+public abstract class ForwardingQueue<E>
+    extends ForwardingCollection<E> implements Queue<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingQueue() {}
 
-  @Override
-  protected abstract Queue<E> delegate();
+  @Override protected abstract Queue<E> delegate();
 
   @CanIgnoreReturnValue // TODO(cpovirk): Consider removing this?
   @Override

@@ -28,18 +28,20 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class ByFunctionOrdering_CustomFieldSerializer {
 
-  public static void deserialize(
-      SerializationStreamReader reader, ByFunctionOrdering<?, ?> instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 ByFunctionOrdering<?, ?> instance) {}
 
   @SuppressWarnings("unchecked") // deserialization is unsafe
-  public static ByFunctionOrdering<Object, Object> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+  public static ByFunctionOrdering<Object, Object>
+  instantiate(SerializationStreamReader reader) throws SerializationException {
     return new ByFunctionOrdering<>(
-            (Function<Object, Object>) reader.readObject(), (Ordering<Object>) reader.readObject());
+        (Function<Object, Object>)reader.readObject(),
+        (Ordering<Object>)reader.readObject());
   }
 
-  public static void serialize(SerializationStreamWriter writer, ByFunctionOrdering<?, ?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               ByFunctionOrdering<?, ?> instance)
+      throws SerializationException {
     writer.writeObject(instance.function);
     writer.writeObject(instance.ordering);
   }

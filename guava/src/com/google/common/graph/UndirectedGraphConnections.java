@@ -41,11 +41,14 @@ final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
   }
 
   static <N, V> UndirectedGraphConnections<N, V> of() {
-    return new UndirectedGraphConnections<>(new HashMap<N, V>(INNER_CAPACITY, INNER_LOAD_FACTOR));
+    return new UndirectedGraphConnections<>(
+        new HashMap<N, V>(INNER_CAPACITY, INNER_LOAD_FACTOR));
   }
 
-  static <N, V> UndirectedGraphConnections<N, V> ofImmutable(Map<N, V> adjacentNodeValues) {
-    return new UndirectedGraphConnections<>(ImmutableMap.copyOf(adjacentNodeValues));
+  static <N, V> UndirectedGraphConnections<N, V>
+  ofImmutable(Map<N, V> adjacentNodeValues) {
+    return new UndirectedGraphConnections<>(
+        ImmutableMap.copyOf(adjacentNodeValues));
   }
 
   @Override
@@ -70,8 +73,7 @@ final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
 
   @Override
   public void removePredecessor(N node) {
-    @SuppressWarnings("unused")
-    V unused = removeSuccessor(node);
+    @SuppressWarnings("unused") V unused = removeSuccessor(node);
   }
 
   @Override
@@ -81,8 +83,7 @@ final class UndirectedGraphConnections<N, V> implements GraphConnections<N, V> {
 
   @Override
   public void addPredecessor(N node, V value) {
-    @SuppressWarnings("unused")
-    V unused = addSuccessor(node, value);
+    @SuppressWarnings("unused") V unused = addSuccessor(node, value);
   }
 
   @Override

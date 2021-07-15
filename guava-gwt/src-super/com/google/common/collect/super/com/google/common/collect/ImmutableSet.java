@@ -28,17 +28,19 @@ import java.util.Set;
 import java.util.stream.Collector;
 
 /**
- * GWT emulated version of {@link com.google.common.collect.ImmutableSet}. For the unsorted sets,
- * they are thin wrapper around {@link java.util.Collections#emptySet()}, {@link
- * Collections#singleton(Object)} and {@link java.util.LinkedHashSet} for empty, singleton and
- * regular sets respectively. For the sorted sets, it's a thin wrapper around {@link
+ * GWT emulated version of {@link com.google.common.collect.ImmutableSet}. For
+ * the unsorted sets, they are thin wrapper around {@link
+ * java.util.Collections#emptySet()}, {@link Collections#singleton(Object)} and
+ * {@link java.util.LinkedHashSet} for empty, singleton and regular sets
+ * respectively. For the sorted sets, it's a thin wrapper around {@link
  * java.util.TreeSet}.
  *
  * @see ImmutableSortedSet
  * @author Hayward Chan
  */
 @SuppressWarnings("serial") // Serialization only done in GWT.
-public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements Set<E> {
+public abstract class ImmutableSet<E>
+    extends ImmutableCollection<E> implements Set<E> {
   ImmutableSet() {}
 
   @Beta
@@ -49,7 +51,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   // Casting to any type is safe because the set will never hold any elements.
   @SuppressWarnings({"unchecked"})
   public static <E> ImmutableSet<E> of() {
-    return (ImmutableSet<E>) RegularImmutableSet.EMPTY;
+    return (ImmutableSet<E>)RegularImmutableSet.EMPTY;
   }
 
   public static <E> ImmutableSet<E> of(E element) {
@@ -77,7 +79,8 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   }
 
   @SuppressWarnings("unchecked")
-  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E... others) {
+  public static <E> ImmutableSet<E> of(E e1, E e2, E e3, E e4, E e5, E e6,
+                                       E... others) {
     int size = others.length + 6;
     List<E> all = new ArrayList<E>(size);
     Collections.addAll(all, e1, e2, e3, e4, e5, e6);
@@ -103,9 +106,10 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
   }
 
   public static <E> ImmutableSet<E> copyOf(Iterable<? extends E> elements) {
-    if (elements instanceof ImmutableSet && !(elements instanceof ImmutableSortedSet)) {
+    if (elements instanceof ImmutableSet &&
+        !(elements instanceof ImmutableSortedSet)) {
       @SuppressWarnings("unchecked") // all supported methods are covariant
-      ImmutableSet<E> set = (ImmutableSet<E>) elements;
+      ImmutableSet<E> set = (ImmutableSet<E>)elements;
       return set;
     }
     return copyOf(elements.iterator());
@@ -161,18 +165,19 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  @Override public boolean equals(Object obj) {
+  @Override
+  public boolean equals(Object obj) {
     return Sets.equalsImpl(this, obj);
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return Sets.hashCodeImpl(this);
   }
 
   // This declaration is needed to make Set.iterator() and
   // ImmutableCollection.iterator() appear consistent to javac's type inference.
-  @Override
-  public abstract UnmodifiableIterator<E> iterator();
+  @Override public abstract UnmodifiableIterator<E> iterator();
 
   abstract static class Indexed<E> extends ImmutableSet<E> {
     abstract E get(int index);
@@ -198,9 +203,7 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     }
   }
 
-  public static <E> Builder<E> builder() {
-    return new Builder<E>();
-  }
+  public static <E> Builder<E> builder() { return new Builder<E>(); }
 
   public static <E> Builder<E> builderWithExpectedSize(int size) {
     return new Builder<E>(size);
@@ -210,36 +213,38 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
     // accessed directly by ImmutableSortedSet
     final ArrayList<E> contents;
 
-    public Builder() {
-      this.contents = Lists.newArrayList();
-    }
+    public Builder() { this.contents = Lists.newArrayList(); }
 
     Builder(int initialCapacity) {
       this.contents = Lists.newArrayListWithCapacity(initialCapacity);
     }
 
-    @Override public Builder<E> add(E element) {
+    @Override
+    public Builder<E> add(E element) {
       contents.add(checkNotNull(element));
       return this;
     }
 
-    @Override public Builder<E> add(E... elements) {
+    @Override
+    public Builder<E> add(E... elements) {
       checkNotNull(elements); // for GWT
       contents.ensureCapacity(contents.size() + elements.length);
       super.add(elements);
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterable<? extends E> elements) {
+    @Override
+    public Builder<E> addAll(Iterable<? extends E> elements) {
       if (elements instanceof Collection) {
-        Collection<?> collection = (Collection<?>) elements;
+        Collection<?> collection = (Collection<?>)elements;
         contents.ensureCapacity(contents.size() + collection.size());
       }
       super.addAll(elements);
       return this;
     }
 
-    @Override public Builder<E> addAll(Iterator<? extends E> elements) {
+    @Override
+    public Builder<E> addAll(Iterator<? extends E> elements) {
       super.addAll(elements);
       return this;
     }
@@ -249,7 +254,8 @@ public abstract class ImmutableSet<E> extends ImmutableCollection<E> implements 
       return this;
     }
 
-    @Override public ImmutableSet<E> build() {
+    @Override
+    public ImmutableSet<E> build() {
       return copyOf(contents.iterator());
     }
   }

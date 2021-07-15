@@ -32,7 +32,7 @@ import java.util.Collection;
  */
 @GwtCompatible
 public interface OneSizeTestContainerGenerator<T, E>
-  extends TestSubjectGenerator<T>, TestContainerGenerator<T, E> {
+    extends TestSubjectGenerator<T>, TestContainerGenerator<T, E> {
   TestContainerGenerator<T, E> getInnerGenerator();
 
   Collection<E> getSampleElements(int howMany);

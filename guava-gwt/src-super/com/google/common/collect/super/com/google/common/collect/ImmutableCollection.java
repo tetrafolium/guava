@@ -32,13 +32,13 @@ import javax.annotation.Nullable;
  * @author Jesse Wilson
  */
 @SuppressWarnings("serial") // we're overriding default serialization
-public abstract class ImmutableCollection<E> extends AbstractCollection<E>
-  implements Serializable {
+public abstract class ImmutableCollection<E>
+    extends AbstractCollection<E> implements Serializable {
   static final int SPLITERATOR_CHARACTERISTICS =
       Spliterator.IMMUTABLE | Spliterator.NONNULL | Spliterator.ORDERED;
 
-  static final ImmutableCollection<Object> EMPTY_IMMUTABLE_COLLECTION
-    = new ForwardingImmutableCollection<Object>(Collections.emptyList());
+  static final ImmutableCollection<Object> EMPTY_IMMUTABLE_COLLECTION =
+      new ForwardingImmutableCollection<Object>(Collections.emptyList());
 
   ImmutableCollection() {}
 
@@ -48,9 +48,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
     return object != null && super.contains(object);
   }
 
-  public final boolean add(E e) {
-    throw new UnsupportedOperationException();
-  }
+  public final boolean add(E e) { throw new UnsupportedOperationException(); }
 
   public final boolean remove(Object object) {
     throw new UnsupportedOperationException();
@@ -68,9 +66,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
     throw new UnsupportedOperationException();
   }
 
-  public final void clear() {
-    throw new UnsupportedOperationException();
-  }
+  public final void clear() { throw new UnsupportedOperationException(); }
 
   private transient ImmutableList<E> asList;
 
@@ -93,9 +89,7 @@ public abstract class ImmutableCollection<E> extends AbstractCollection<E>
     return new ForwardingImmutableCollection<E>(delegate);
   }
 
-  boolean isPartialView() {
-    return false;
-  }
+  boolean isPartialView() { return false; }
 
   /**
    * GWT emulated version of {@link ImmutableCollection.Builder}.

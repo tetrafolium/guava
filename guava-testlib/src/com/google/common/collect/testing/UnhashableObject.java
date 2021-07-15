@@ -27,14 +27,12 @@ import com.google.common.annotations.GwtCompatible;
 public class UnhashableObject implements Comparable<UnhashableObject> {
   private final int value;
 
-  public UnhashableObject(int value) {
-    this.value = value;
-  }
+  public UnhashableObject(int value) { this.value = value; }
 
   @Override
   public boolean equals(Object object) {
     if (object instanceof UnhashableObject) {
-      UnhashableObject that = (UnhashableObject) object;
+      UnhashableObject that = (UnhashableObject)object;
       return this.value == that.value;
     }
     return false;

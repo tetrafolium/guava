@@ -50,12 +50,12 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    navigableMap = (SortedMap<K, V>) getMap();
+    navigableMap = (SortedMap<K, V>)getMap();
     List<Entry<K, V>> entries =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
-    Collections.sort(entries, Helpers.<K, V>entryComparator(navigableMap.comparator()));
+        Helpers.copyToList(getSubjectGenerator().getSampleElements(
+            getSubjectGenerator().getCollectionSize().getNumElements()));
+    Collections.sort(entries,
+                     Helpers.<K, V>entryComparator(navigableMap.comparator()));
 
     // some tests assume SEVERAL == 3
     if (entries.size() >= 1) {
@@ -116,22 +116,23 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
 
   public void testHeadMap() {
     List<Entry<K, V>> entries =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
-    Collections.sort(entries, Helpers.<K, V>entryComparator(navigableMap.comparator()));
+        Helpers.copyToList(getSubjectGenerator().getSampleElements(
+            getSubjectGenerator().getCollectionSize().getNumElements()));
+    Collections.sort(entries,
+                     Helpers.<K, V>entryComparator(navigableMap.comparator()));
     for (int i = 0; i < entries.size(); i++) {
       assertEqualInOrder(
-          entries.subList(0, i), navigableMap.headMap(entries.get(i).getKey()).entrySet());
+          entries.subList(0, i),
+          navigableMap.headMap(entries.get(i).getKey()).entrySet());
     }
   }
 
   public void testTailMap() {
     List<Entry<K, V>> entries =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
-    Collections.sort(entries, Helpers.<K, V>entryComparator(navigableMap.comparator()));
+        Helpers.copyToList(getSubjectGenerator().getSampleElements(
+            getSubjectGenerator().getCollectionSize().getNumElements()));
+    Collections.sort(entries,
+                     Helpers.<K, V>entryComparator(navigableMap.comparator()));
     for (int i = 0; i < entries.size(); i++) {
       assertEqualInOrder(
           entries.subList(i, entries.size()),
@@ -141,15 +142,17 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
 
   public void testSubMap() {
     List<Entry<K, V>> entries =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
-    Collections.sort(entries, Helpers.<K, V>entryComparator(navigableMap.comparator()));
+        Helpers.copyToList(getSubjectGenerator().getSampleElements(
+            getSubjectGenerator().getCollectionSize().getNumElements()));
+    Collections.sort(entries,
+                     Helpers.<K, V>entryComparator(navigableMap.comparator()));
     for (int i = 0; i < entries.size(); i++) {
       for (int j = i + 1; j < entries.size(); j++) {
         assertEqualInOrder(
             entries.subList(i, j),
-            navigableMap.subMap(entries.get(i).getKey(), entries.get(j).getKey()).entrySet());
+            navigableMap
+                .subMap(entries.get(i).getKey(), entries.get(j).getKey())
+                .entrySet());
       }
     }
   }
@@ -168,12 +171,11 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
     @SuppressWarnings("unchecked")
     Comparator<? super K> comparator = navigableMap.comparator();
     if (comparator == null) {
-      comparator =
-      new Comparator<K>() {
+      comparator = new Comparator<K>() {
         @SuppressWarnings("unchecked")
         @Override
         public int compare(K o1, K o2) {
-          return ((Comparable) o1).compareTo(o2);
+          return ((Comparable)o1).compareTo(o2);
         }
       };
     }
@@ -181,7 +183,8 @@ public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
     Entry<K, V> prevEntry = entryItr.next();
     while (entryItr.hasNext()) {
       Entry<K, V> nextEntry = entryItr.next();
-      assertTrue(comparator.compare(prevEntry.getKey(), nextEntry.getKey()) < 0);
+      assertTrue(comparator.compare(prevEntry.getKey(), nextEntry.getKey()) <
+                 0);
       prevEntry = nextEntry;
     }
   }

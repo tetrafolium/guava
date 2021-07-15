@@ -30,9 +30,7 @@ public class ComputationException extends RuntimeException {
   /**
    * Creates a new instance with the given cause.
    */
-  public ComputationException(@Nullable Throwable cause) {
-    super(cause);
-  }
+  public ComputationException(@Nullable Throwable cause) { super(cause); }
 
   private static final long serialVersionUID = 0;
 }

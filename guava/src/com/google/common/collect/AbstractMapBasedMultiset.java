@@ -45,7 +45,8 @@ import javax.annotation.Nullable;
  * @author Kevin Bourrillion
  */
 @GwtCompatible(emulated = true)
-abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implements Serializable {
+abstract class AbstractMapBasedMultiset<E>
+    extends AbstractMultiset<E> implements Serializable {
   // TODO(lowasser): consider overhauling this back to Map<E, Integer>
   private transient Map<E, Count> backingMap;
 
@@ -63,9 +64,7 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
   }
 
   /** Used during deserialization only. The backing map must be empty. */
-  void setBackingMap(Map<E, Count> backingMap) {
-    this.backingMap = backingMap;
-  }
+  void setBackingMap(Map<E, Count> backingMap) { this.backingMap = backingMap; }
 
   // Required Implementations
 
@@ -83,7 +82,8 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
 
   @Override
   Iterator<Entry<E>> entryIterator() {
-    final Iterator<Map.Entry<E, Count>> backingEntries = backingMap.entrySet().iterator();
+    final Iterator<Map.Entry<E, Count>> backingEntries =
+        backingMap.entrySet().iterator();
     return new Iterator<Multiset.Entry<E>>() {
       Map.Entry<E, Count> toRemove;
 
@@ -126,7 +126,8 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     };
   }
 
-  @Override public void forEachEntry(ObjIntConsumer<? super E> action) {
+  @Override
+  public void forEachEntry(ObjIntConsumer<? super E> action) {
     checkNotNull(action);
     backingMap.forEach((element, count) -> action.accept(element, count.get()));
   }
@@ -224,7 +225,8 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     if (occurrences == 0) {
       return count(element);
     }
-    checkArgument(occurrences > 0, "occurrences cannot be negative: %s", occurrences);
+    checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
+                  occurrences);
     Count frequency = backingMap.get(element);
     int oldCount;
     if (frequency == null) {
@@ -232,8 +234,9 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
       backingMap.put(element, new Count(occurrences));
     } else {
       oldCount = frequency.get();
-      long newCount = (long) oldCount + (long) occurrences;
-      checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s", newCount);
+      long newCount = (long)oldCount + (long)occurrences;
+      checkArgument(newCount <= Integer.MAX_VALUE, "too many occurrences: %s",
+                    newCount);
       frequency.add(occurrences);
     }
     size += occurrences;
@@ -246,7 +249,8 @@ abstract class AbstractMapBasedMultiset<E> extends AbstractMultiset<E> implement
     if (occurrences == 0) {
       return count(element);
     }
-    checkArgument(occurrences > 0, "occurrences cannot be negative: %s", occurrences);
+    checkArgument(occurrences > 0, "occurrences cannot be negative: %s",
+                  occurrences);
     Count frequency = backingMap.get(element);
     if (frequency == null) {
       return 0;

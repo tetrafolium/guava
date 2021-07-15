@@ -52,53 +52,50 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   private final KnownOrder knownOrder;
 
   /**
-   * Meta-exception thrown by {@link AbstractIteratorTester.MultiExceptionListIterator} instead of
-   * throwing any particular exception type.
+   * Meta-exception thrown by {@link
+   * AbstractIteratorTester.MultiExceptionListIterator} instead of throwing any
+   * particular exception type.
    */
-  private abstract static class PermittedMetaException extends RuntimeException {
-    static final PermittedMetaException UOE_OR_ISE =
-    new PermittedMetaException("UnsupportedOperationException or IllegalStateException") {
+  private abstract static class PermittedMetaException
+      extends RuntimeException {
+    static final PermittedMetaException UOE_OR_ISE = new PermittedMetaException(
+        "UnsupportedOperationException or IllegalStateException") {
       @Override
       boolean isPermitted(RuntimeException exception) {
-        return exception instanceof UnsupportedOperationException
-            || exception instanceof IllegalStateException;
+        return exception instanceof UnsupportedOperationException ||
+            exception instanceof IllegalStateException;
       }
     };
     static final PermittedMetaException UOE =
-    new PermittedMetaException("UnsupportedOperationException") {
-      @Override
-      boolean isPermitted(RuntimeException exception) {
-        return exception instanceof UnsupportedOperationException;
-      }
-    };
+        new PermittedMetaException("UnsupportedOperationException") {
+          @Override
+          boolean isPermitted(RuntimeException exception) {
+            return exception instanceof UnsupportedOperationException;
+          }
+        };
     static final PermittedMetaException ISE =
-    new PermittedMetaException("IllegalStateException") {
-      @Override
-      boolean isPermitted(RuntimeException exception) {
-        return exception instanceof IllegalStateException;
-      }
-    };
+        new PermittedMetaException("IllegalStateException") {
+          @Override
+          boolean isPermitted(RuntimeException exception) {
+            return exception instanceof IllegalStateException;
+          }
+        };
     static final PermittedMetaException NSEE =
-    new PermittedMetaException("NoSuchElementException") {
-      @Override
-      boolean isPermitted(RuntimeException exception) {
-        return exception instanceof NoSuchElementException;
-      }
-    };
+        new PermittedMetaException("NoSuchElementException") {
+          @Override
+          boolean isPermitted(RuntimeException exception) {
+            return exception instanceof NoSuchElementException;
+          }
+        };
 
-    private PermittedMetaException(String message) {
-      super(message);
-    }
+    private PermittedMetaException(String message) { super(message); }
 
     abstract boolean isPermitted(RuntimeException exception);
 
     void assertPermitted(RuntimeException exception) {
       if (!isPermitted(exception)) {
-        String message =
-            "Exception "
-            + exception.getClass().getSimpleName()
-            + " was thrown; expected "
-            + getMessage();
+        String message = "Exception " + exception.getClass().getSimpleName() +
+                         " was thrown; expected " + getMessage();
         Helpers.fail(exception, message);
       }
     }
@@ -108,7 +105,8 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
 
   private static final class UnknownElementException extends RuntimeException {
     private UnknownElementException(Collection<?> expected, Object actual) {
-      super("Returned value '" + actual + "' not found. Remaining elements: " + expected);
+      super("Returned value '" + actual +
+            "' not found. Remaining elements: " + expected);
     }
 
     private static final long serialVersionUID = 0;
@@ -270,19 +268,13 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
     }
   }
 
-  public enum KnownOrder {
-    KNOWN_ORDER,
-    UNKNOWN_ORDER
-  }
+  public enum KnownOrder { KNOWN_ORDER, UNKNOWN_ORDER }
 
   @SuppressWarnings("unchecked") // creating array of generic class Stimulus
-  AbstractIteratorTester(
-      int steps,
-      Iterable<E> elementsToInsertIterable,
-      Iterable<? extends IteratorFeature> features,
-      Iterable<E> expectedElements,
-      KnownOrder knownOrder,
-      int startIndex) {
+  AbstractIteratorTester(int steps, Iterable<E> elementsToInsertIterable,
+                         Iterable<? extends IteratorFeature> features,
+                         Iterable<E> expectedElements, KnownOrder knownOrder,
+                         int startIndex) {
     // periodically we should manually try (steps * 3 / 2) here; all tests but
     // one should still pass (testVerifyGetsCalled()).
     stimuli = new Stimulus[steps];
@@ -300,7 +292,8 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
    * I'd like to make this a parameter to the constructor, but I can't because
    * the stimulus instances refer to {@code this}.
    */
-  protected abstract Iterable<? extends Stimulus<E, ? super I>> getStimulusValues();
+  protected abstract Iterable<? extends Stimulus<E, ? super I>>
+  getStimulusValues();
 
   /**
    * Returns a new target iterator each time it's called. This is the iterator
@@ -366,21 +359,23 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
 
   private void compareResultsForThisListOfStimuli() {
     int removes = Collections.frequency(Arrays.asList(stimuli), remove);
-    if ((!features.contains(IteratorFeature.SUPPORTS_REMOVE) && removes > 1)
-        || (stimuli.length >= 5 && removes > 2)) {
-      // removes are the most expensive thing to test, since they often throw exceptions with stack
-      // traces, so we test them a bit less aggressively
+    if ((!features.contains(IteratorFeature.SUPPORTS_REMOVE) && removes > 1) ||
+        (stimuli.length >= 5 && removes > 2)) {
+      // removes are the most expensive thing to test, since they often throw
+      // exceptions with stack traces, so we test them a bit less aggressively
       return;
     }
 
-    MultiExceptionListIterator reference = new MultiExceptionListIterator(expectedElements);
+    MultiExceptionListIterator reference =
+        new MultiExceptionListIterator(expectedElements);
     I target = newTargetIterator();
     for (int i = 0; i < stimuli.length; i++) {
       try {
         stimuli[i].executeAndCompare(reference, target);
         verify(reference.getElements());
       } catch (AssertionFailedError cause) {
-        Helpers.fail(cause, "failed with stimuli " + subListCopy(stimuli, i + 1));
+        Helpers.fail(cause,
+                     "failed with stimuli " + subListCopy(stimuli, i + 1));
       }
     }
   }
@@ -391,9 +386,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
     return Arrays.asList(copy);
   }
 
-  private interface IteratorOperation {
-    Object execute(Iterator<?> iterator);
-  }
+  private interface IteratorOperation { Object execute(Iterator<?> iterator); }
 
   /**
    * Apply this method to both iterators and return normally only if both
@@ -401,8 +394,8 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
    *
    * @see Stimulus#executeAndCompare(ListIterator, Iterator)
    */
-  private <T extends Iterator<E>> void internalExecuteAndCompare(
-      T reference, T target, IteratorOperation method) {
+  private <T extends Iterator<E>> void
+  internalExecuteAndCompare(T reference, T target, IteratorOperation method) {
     Object referenceReturnValue = null;
     PermittedMetaException referenceException = null;
     Object targetReturnValue = null;
@@ -415,15 +408,14 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
     }
 
     try {
-      if (method == NEXT_METHOD
-          && targetException == null
-          && knownOrder == KnownOrder.UNKNOWN_ORDER) {
+      if (method == NEXT_METHOD && targetException == null &&
+          knownOrder == KnownOrder.UNKNOWN_ORDER) {
         /*
          * We already know the iterator is an Iterator<E>, and now we know that
          * we called next(), so the returned element must be of type E.
          */
         @SuppressWarnings("unchecked")
-        E targetReturnValueFromNext = (E) targetReturnValue;
+        E targetReturnValueFromNext = (E)targetReturnValue;
         /*
          * We have an Iterator<E> and want to cast it to
          * MultiExceptionListIterator. Because we're inside an
@@ -440,7 +432,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
          * Eclipse 3.4. Right now, this suppression is mostly unnecessary.
          */
         MultiExceptionListIterator multiExceptionListIterator =
-            (MultiExceptionListIterator) reference;
+            (MultiExceptionListIterator)reference;
         multiExceptionListIterator.promoteToNext(targetReturnValueFromNext);
       }
 
@@ -453,7 +445,8 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
 
     if (referenceException == null) {
       if (targetException != null) {
-        Helpers.fail(targetException, "Target threw exception when reference did not");
+        Helpers.fail(targetException,
+                     "Target threw exception when reference did not");
       }
 
       /*
@@ -477,16 +470,15 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   }
 
   private static final IteratorOperation REMOVE_METHOD =
-  new IteratorOperation() {
-    @Override
-    public Object execute(Iterator<?> iterator) {
-      iterator.remove();
-      return null;
-    }
-  };
+      new IteratorOperation() {
+        @Override
+        public Object execute(Iterator<?> iterator) {
+          iterator.remove();
+          return null;
+        }
+      };
 
-  private static final IteratorOperation NEXT_METHOD =
-  new IteratorOperation() {
+  private static final IteratorOperation NEXT_METHOD = new IteratorOperation() {
     @Override
     public Object execute(Iterator<?> iterator) {
       return iterator.next();
@@ -494,12 +486,12 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   };
 
   private static final IteratorOperation PREVIOUS_METHOD =
-  new IteratorOperation() {
-    @Override
-    public Object execute(Iterator<?> iterator) {
-      return ((ListIterator<?>) iterator).previous();
-    }
-  };
+      new IteratorOperation() {
+        @Override
+        public Object execute(Iterator<?> iterator) {
+          return ((ListIterator<?>)iterator).previous();
+        }
+      };
 
   private final IteratorOperation newAddMethod() {
     final Object toInsert = elementsToInsert.next();
@@ -507,7 +499,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
       @Override
       public Object execute(Iterator<?> iterator) {
         @SuppressWarnings("unchecked")
-        ListIterator<Object> rawIterator = (ListIterator<Object>) iterator;
+        ListIterator<Object> rawIterator = (ListIterator<Object>)iterator;
         rawIterator.add(toInsert);
         return null;
       }
@@ -520,7 +512,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
       @Override
       public Object execute(Iterator<?> iterator) {
         @SuppressWarnings("unchecked")
-        ListIterator<E> li = (ListIterator<E>) iterator;
+        ListIterator<E> li = (ListIterator<E>)iterator;
         li.set(toInsert);
         return null;
       }
@@ -530,9 +522,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
   abstract static class Stimulus<E, T extends Iterator<E>> {
     private final String toString;
 
-    protected Stimulus(String toString) {
-      this.toString = toString;
-    }
+    protected Stimulus(String toString) { this.toString = toString; }
 
     /**
      * Send this stimulus to both iterators and return normally only if both
@@ -546,22 +536,19 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
     }
   }
 
-  Stimulus<E, Iterator<E>> hasNext =
-  new Stimulus<E, Iterator<E>>("hasNext") {
+  Stimulus<E, Iterator<E>> hasNext = new Stimulus<E, Iterator<E>>("hasNext") {
     @Override
     void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
       assertEquals(reference.hasNext(), target.hasNext());
     }
   };
-  Stimulus<E, Iterator<E>> next =
-  new Stimulus<E, Iterator<E>>("next") {
+  Stimulus<E, Iterator<E>> next = new Stimulus<E, Iterator<E>>("next") {
     @Override
     void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
       internalExecuteAndCompare(reference, target, NEXT_METHOD);
     }
   };
-  Stimulus<E, Iterator<E>> remove =
-  new Stimulus<E, Iterator<E>>("remove") {
+  Stimulus<E, Iterator<E>> remove = new Stimulus<E, Iterator<E>>("remove") {
     @Override
     void executeAndCompare(ListIterator<E> reference, Iterator<E> target) {
       internalExecuteAndCompare(reference, target, REMOVE_METHOD);
@@ -573,43 +560,41 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
     return Arrays.asList(hasNext, next, remove);
   }
 
-  Stimulus<E, ListIterator<E>> hasPrevious =
-  new Stimulus<E, ListIterator<E>>("hasPrevious") {
+  Stimulus<E, ListIterator<E>> hasPrevious = new Stimulus<E, ListIterator<E>>(
+      "hasPrevious") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       assertEquals(reference.hasPrevious(), target.hasPrevious());
     }
   };
-  Stimulus<E, ListIterator<E>> nextIndex =
-  new Stimulus<E, ListIterator<E>>("nextIndex") {
+  Stimulus<E, ListIterator<E>> nextIndex = new Stimulus<E, ListIterator<E>>(
+      "nextIndex") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       assertEquals(reference.nextIndex(), target.nextIndex());
     }
   };
-  Stimulus<E, ListIterator<E>> previousIndex =
-  new Stimulus<E, ListIterator<E>>("previousIndex") {
+  Stimulus<E, ListIterator<E>> previousIndex = new Stimulus<E, ListIterator<E>>(
+      "previousIndex") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       assertEquals(reference.previousIndex(), target.previousIndex());
     }
   };
-  Stimulus<E, ListIterator<E>> previous =
-  new Stimulus<E, ListIterator<E>>("previous") {
+  Stimulus<E, ListIterator<E>> previous = new Stimulus<E, ListIterator<E>>(
+      "previous") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       internalExecuteAndCompare(reference, target, PREVIOUS_METHOD);
     }
   };
-  Stimulus<E, ListIterator<E>> add =
-  new Stimulus<E, ListIterator<E>>("add") {
+  Stimulus<E, ListIterator<E>> add = new Stimulus<E, ListIterator<E>>("add") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       internalExecuteAndCompare(reference, target, newAddMethod());
     }
   };
-  Stimulus<E, ListIterator<E>> set =
-  new Stimulus<E, ListIterator<E>>("set") {
+  Stimulus<E, ListIterator<E>> set = new Stimulus<E, ListIterator<E>>("set") {
     @Override
     void executeAndCompare(ListIterator<E> reference, ListIterator<E> target) {
       internalExecuteAndCompare(reference, target, newSetMethod());
@@ -618,6 +603,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
 
   @SuppressWarnings("unchecked")
   List<Stimulus<E, ListIterator<E>>> listIteratorStimuli() {
-    return Arrays.asList(hasPrevious, nextIndex, previousIndex, previous, add, set);
+    return Arrays.asList(hasPrevious, nextIndex, previousIndex, previous, add,
+                         set);
   }
 }

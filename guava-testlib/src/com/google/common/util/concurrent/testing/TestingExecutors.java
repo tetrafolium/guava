@@ -45,10 +45,11 @@ public final class TestingExecutors {
   /**
    * Returns a {@link ScheduledExecutorService} that never executes anything.
    *
-   * <p>The {@code shutdownNow} method of the returned executor always returns an empty list despite
-   * the fact that everything is still technically awaiting execution.
-   * The {@code getDelay} method of any {@link ScheduledFuture} returned by the executor will always
-   * return the max long value instead of the time until the user-specified delay.
+   * <p>The {@code shutdownNow} method of the returned executor always returns
+   * an empty list despite the fact that everything is still technically
+   * awaiting execution. The {@code getDelay} method of any {@link
+   * ScheduledFuture} returned by the executor will always return the max long
+   * value instead of the time until the user-specified delay.
    */
   public static ListeningScheduledExecutorService noOpScheduledExecutor() {
     return new NoOpScheduledExecutorService();
@@ -96,71 +97,88 @@ public final class TestingExecutors {
    *
    * @since 15.0
    */
-  public static SameThreadScheduledExecutorService sameThreadScheduledExecutor() {
+  public static SameThreadScheduledExecutorService
+  sameThreadScheduledExecutor() {
     return new SameThreadScheduledExecutorService();
   }
 
   private static final class NoOpScheduledExecutorService
-    extends AbstractListeningExecutorService implements ListeningScheduledExecutorService {
+      extends AbstractListeningExecutorService
+      implements ListeningScheduledExecutorService {
 
     private volatile boolean shutdown;
 
-    @Override public void shutdown() {
+    @Override
+    public void shutdown() {
       shutdown = true;
     }
 
-    @Override public List<Runnable> shutdownNow() {
+    @Override
+    public List<Runnable> shutdownNow() {
       shutdown();
       return ImmutableList.of();
     }
 
-    @Override public boolean isShutdown() {
+    @Override
+    public boolean isShutdown() {
       return shutdown;
     }
 
-    @Override public boolean isTerminated() {
+    @Override
+    public boolean isTerminated() {
       return shutdown;
     }
 
-    @Override public boolean awaitTermination(long timeout, TimeUnit unit) {
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) {
       return true;
     }
 
-    @Override public void execute(Runnable runnable) {}
+    @Override
+    public void execute(Runnable runnable) {}
 
-    @Override public <V> ListenableScheduledFuture<V> schedule(
-        Callable<V> callable, long delay, TimeUnit unit) {
+    @Override
+    public <V> ListenableScheduledFuture<V>
+    schedule(Callable<V> callable, long delay, TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
-    @Override public ListenableScheduledFuture<?> schedule(
-        Runnable command, long delay, TimeUnit unit) {
+    @Override
+    public ListenableScheduledFuture<?> schedule(Runnable command, long delay,
+                                                 TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
-    @Override public ListenableScheduledFuture<?> scheduleAtFixedRate(
-        Runnable command, long initialDelay, long period, TimeUnit unit) {
+    @Override
+    public ListenableScheduledFuture<?>
+    scheduleAtFixedRate(Runnable command, long initialDelay, long period,
+                        TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
-    @Override public ListenableScheduledFuture<?> scheduleWithFixedDelay(
-        Runnable command, long initialDelay, long delay, TimeUnit unit) {
+    @Override
+    public ListenableScheduledFuture<?>
+    scheduleWithFixedDelay(Runnable command, long initialDelay, long delay,
+                           TimeUnit unit) {
       return NeverScheduledFuture.create();
     }
 
     private static class NeverScheduledFuture<V>
-      extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
+        extends AbstractFuture<V> implements ListenableScheduledFuture<V> {
 
       static <V> NeverScheduledFuture<V> create() {
         return new NeverScheduledFuture<V>();
       }
 
-      @Override public long getDelay(TimeUnit unit) {
+      @Override
+      public long getDelay(TimeUnit unit) {
         return Long.MAX_VALUE;
       }
 
-      @Override public int compareTo(Delayed other) {
-        return Longs.compare(getDelay(TimeUnit.NANOSECONDS), other.getDelay(TimeUnit.NANOSECONDS));
+      @Override
+      public int compareTo(Delayed other) {
+        return Longs.compare(getDelay(TimeUnit.NANOSECONDS),
+                             other.getDelay(TimeUnit.NANOSECONDS));
       }
     }
   }

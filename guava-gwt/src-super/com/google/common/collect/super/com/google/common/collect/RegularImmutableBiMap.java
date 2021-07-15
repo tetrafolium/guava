@@ -35,7 +35,7 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
 
   RegularImmutableBiMap() {
     super(new RegularImmutableMap<K, V>(new HashMap<K, V>()));
-    this.inverse = (ImmutableBiMap<V, K>) this;
+    this.inverse = (ImmutableBiMap<V, K>)this;
   }
 
   RegularImmutableBiMap(ImmutableMap<K, V> delegate) {
@@ -50,12 +50,13 @@ class RegularImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
   }
 
   RegularImmutableBiMap(ImmutableMap<K, V> delegate,
-      ImmutableBiMap<V, K> inverse) {
+                        ImmutableBiMap<V, K> inverse) {
     super(delegate);
     this.inverse = inverse;
   }
 
-  @Override public ImmutableBiMap<V, K> inverse() {
+  @Override
+  public ImmutableBiMap<V, K> inverse() {
     return inverse;
   }
 }

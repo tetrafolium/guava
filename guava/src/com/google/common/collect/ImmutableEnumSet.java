@@ -55,9 +55,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
    */
   private final transient EnumSet<E> delegate;
 
-  private ImmutableEnumSet(EnumSet<E> delegate) {
-    this.delegate = delegate;
-  }
+  private ImmutableEnumSet(EnumSet<E> delegate) { this.delegate = delegate; }
 
   @Override
   boolean isPartialView() {
@@ -92,7 +90,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   @Override
   public boolean containsAll(Collection<?> collection) {
     if (collection instanceof ImmutableEnumSet<?>) {
-      collection = ((ImmutableEnumSet<?>) collection).delegate;
+      collection = ((ImmutableEnumSet<?>)collection).delegate;
     }
     return delegate.containsAll(collection);
   }
@@ -108,7 +106,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
       return true;
     }
     if (object instanceof ImmutableEnumSet) {
-      object = ((ImmutableEnumSet<?>) object).delegate;
+      object = ((ImmutableEnumSet<?>)object).delegate;
     }
     return delegate.equals(object);
   }
@@ -118,8 +116,7 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
     return true;
   }
 
-  @LazyInit
-  private transient int hashCode;
+  @LazyInit private transient int hashCode;
 
   @Override
   public int hashCode() {
@@ -141,12 +138,11 @@ final class ImmutableEnumSet<E extends Enum<E>> extends ImmutableSet<E> {
   /*
    * This class is used to serialize ImmutableEnumSet instances.
    */
-  private static class EnumSerializedForm<E extends Enum<E>> implements Serializable {
+  private static class EnumSerializedForm<E extends Enum<E>>
+      implements Serializable {
     final EnumSet<E> delegate;
 
-    EnumSerializedForm(EnumSet<E> delegate) {
-      this.delegate = delegate;
-    }
+    EnumSerializedForm(EnumSet<E> delegate) { this.delegate = delegate; }
 
     Object readResolve() {
       // EJ2 #76: Write readObject() methods defensively.

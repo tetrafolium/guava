@@ -25,20 +25,20 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * This class contains static utility methods for writing {@code ImmutableSortedMap} GWT field
- * serializers.
+ * This class contains static utility methods for writing {@code
+ * ImmutableSortedMap} GWT field serializers.
  *
  * @author Chris Povirk
  */
 final class ImmutableSortedMap_CustomFieldSerializerBase {
-  static ImmutableSortedMap<Object, Object> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+  static ImmutableSortedMap<Object, Object>
+  instantiate(SerializationStreamReader reader) throws SerializationException {
     /*
      * Nothing we can do, but we're already assuming the serialized form is
      * correctly typed, anyway.
      */
     @SuppressWarnings("unchecked")
-    Comparator<Object> comparator = (Comparator<Object>) reader.readObject();
+    Comparator<Object> comparator = (Comparator<Object>)reader.readObject();
 
     SortedMap<Object, Object> entries = new TreeMap<>(comparator);
     Map_CustomFieldSerializerBase.deserialize(reader, entries);
@@ -46,8 +46,9 @@ final class ImmutableSortedMap_CustomFieldSerializerBase {
     return ImmutableSortedMap.orderedBy(comparator).putAll(entries).build();
   }
 
-  static void serialize(SerializationStreamWriter writer, ImmutableSortedMap<?, ?> instance)
-  throws SerializationException {
+  static void serialize(SerializationStreamWriter writer,
+                        ImmutableSortedMap<?, ?> instance)
+      throws SerializationException {
     writer.writeObject(instance.comparator());
 
     Map_CustomFieldSerializerBase.serialize(writer, instance);

@@ -62,10 +62,10 @@ import javax.annotation.Nullable;
  *
  *   map.remove(key1, foo);}</pre>
  *
- * <p>changes the entries iteration order to {@code [key2=bar, key1=baz]} and the
- * key iteration order to {@code [key2, key1]}. The {@link #entries()} iterator
- * returns mutable map entries, and {@link #replaceValues} attempts to preserve
- * iteration order as much as possible.
+ * <p>changes the entries iteration order to {@code [key2=bar, key1=baz]} and
+ * the key iteration order to {@code [key2, key1]}. The {@link #entries()}
+ * iterator returns mutable map entries, and {@link #replaceValues} attempts to
+ * preserve iteration order as much as possible.
  *
  * <p>The collections returned by {@link #keySet()} and {@link #asMap} iterate
  * through the keys in the order they were first added to the multimap.
@@ -101,8 +101,8 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible(serializable = true, emulated = true)
-public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
-  implements ListMultimap<K, V>, Serializable {
+public class LinkedListMultimap<K, V>
+    extends AbstractMultimap<K, V> implements ListMultimap<K, V>, Serializable {
   /*
    * Order is maintained using a linked list containing all key-value pairs. In
    * addition, a series of disjoint linked lists of "siblings", each containing
@@ -113,9 +113,9 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
   private static final class Node<K, V> extends AbstractMapEntry<K, V> {
     final K key;
     V value;
-    Node<K, V> next; // the next node (with any key)
-    Node<K, V> previous; // the previous node (with any key)
-    Node<K, V> nextSibling; // the next node with the same key
+    Node<K, V> next;            // the next node (with any key)
+    Node<K, V> previous;        // the previous node (with any key)
+    Node<K, V> nextSibling;     // the next node with the same key
     Node<K, V> previousSibling; // the previous node with the same key
 
     Node(@Nullable K key, @Nullable V value) {
@@ -161,9 +161,10 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
   private transient int size;
 
   /*
-   * Tracks modifications to keyToKeyList so that addition or removal of keys invalidates
-   * preexisting iterators. This does *not* track simple additions and removals of values
-   * that are not the first to be added or last to be removed for their key.
+   * Tracks modifications to keyToKeyList so that addition or removal of keys
+   * invalidates preexisting iterators. This does *not* track simple additions
+   * and removals of values that are not the first to be added or last to be
+   * removed for their key.
    */
   private transient int modCount;
 
@@ -193,14 +194,12 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
    *
    * @param multimap the multimap whose contents are copied to this multimap
    */
-  public static <K, V> LinkedListMultimap<K, V> create(
-      Multimap<? extends K, ? extends V> multimap) {
+  public static <K, V> LinkedListMultimap<K, V>
+  create(Multimap<? extends K, ? extends V> multimap) {
     return new LinkedListMultimap<>(multimap);
   }
 
-  LinkedListMultimap() {
-    keyToKeyList = Maps.newHashMap();
-  }
+  LinkedListMultimap() { keyToKeyList = Maps.newHashMap(); }
 
   private LinkedListMultimap(int expectedKeys) {
     keyToKeyList = new HashMap<>(expectedKeys);
@@ -218,7 +217,8 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
    * for an node for the same {@code key}!
    */
   @CanIgnoreReturnValue
-  private Node<K, V> addNode(@Nullable K key, @Nullable V value, @Nullable Node<K, V> nextSibling) {
+  private Node<K, V> addNode(@Nullable K key, @Nullable V value,
+                             @Nullable Node<K, V> nextSibling) {
     Node<K, V> node = new Node<>(key, value);
     if (head == null) { // empty list
       head = tail = node;
@@ -568,7 +568,7 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
     @Override
     @SuppressWarnings("unchecked")
     public void add(V value) {
-      previous = addNode((K) key, value, next);
+      previous = addNode((K)key, value, next);
       nextIndex++;
       current = null;
     }
@@ -719,13 +719,11 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
         return new DistinctKeyIterator();
       }
 
-      @Override
-      public boolean contains(Object key) { // for performance
+      @Override public boolean contains(Object key) { // for performance
         return containsKey(key);
       }
 
-      @Override
-      public boolean remove(Object o) { // for performance
+      @Override public boolean remove(Object o) { // for performance
         return !LinkedListMultimap.this.removeAll(o).isEmpty();
       }
     }
@@ -743,7 +741,7 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
    */
   @Override
   public List<V> values() {
-    return (List<V>) super.values();
+    return (List<V>)super.values();
   }
 
   @Override
@@ -794,7 +792,7 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
    */
   @Override
   public List<Entry<K, V>> entries() {
-    return (List<Entry<K, V>>) super.entries();
+    return (List<Entry<K, V>>)super.entries();
   }
 
   @Override
@@ -848,15 +846,16 @@ public class LinkedListMultimap<K, V> extends AbstractMultimap<K, V>
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     keyToKeyList = Maps.newLinkedHashMap();
     int size = stream.readInt();
     for (int i = 0; i < size; i++) {
       @SuppressWarnings("unchecked") // reading data stored by writeObject
-      K key = (K) stream.readObject();
+      K key = (K)stream.readObject();
       @SuppressWarnings("unchecked") // reading data stored by writeObject
-      V value = (V) stream.readObject();
+      V value = (V)stream.readObject();
       put(key, value);
     }
   }

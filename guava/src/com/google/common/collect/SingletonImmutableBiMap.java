@@ -44,7 +44,8 @@ final class SingletonImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     this.singleValue = singleValue;
   }
 
-  private SingletonImmutableBiMap(K singleKey, V singleValue, ImmutableBiMap<V, K> inverse) {
+  private SingletonImmutableBiMap(K singleKey, V singleValue,
+                                  ImmutableBiMap<V, K> inverse) {
     this.singleKey = singleKey;
     this.singleValue = singleValue;
     this.inverse = inverse;
@@ -90,16 +91,15 @@ final class SingletonImmutableBiMap<K, V> extends ImmutableBiMap<K, V> {
     return ImmutableSet.of(singleKey);
   }
 
-  @LazyInit
-  @RetainedWith
-  transient ImmutableBiMap<V, K> inverse;
+  @LazyInit @RetainedWith transient ImmutableBiMap<V, K> inverse;
 
   @Override
   public ImmutableBiMap<V, K> inverse() {
     // racy single-check idiom
     ImmutableBiMap<V, K> result = inverse;
     if (result == null) {
-      return inverse = new SingletonImmutableBiMap<>(singleValue, singleKey, this);
+      return inverse =
+                 new SingletonImmutableBiMap<>(singleValue, singleKey, this);
     } else {
       return result;
     }

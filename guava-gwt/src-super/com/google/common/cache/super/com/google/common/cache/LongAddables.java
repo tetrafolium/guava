@@ -22,7 +22,5 @@ package com.google.common.cache;
  * @author Louis Wasserman
  */
 final class LongAddables {
-  public static LongAddable create() {
-    return new LongAdder();
-  }
+  public static LongAddable create() { return new LongAdder(); }
 }

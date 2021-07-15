@@ -24,7 +24,8 @@ import java.io.Serializable;
  * values.
  */
 @GwtCompatible(serializable = true)
-final class UsingToStringOrdering extends Ordering<Object> implements Serializable {
+final class UsingToStringOrdering
+    extends Ordering<Object> implements Serializable {
   static final UsingToStringOrdering INSTANCE = new UsingToStringOrdering();
 
   @Override
@@ -33,9 +34,7 @@ final class UsingToStringOrdering extends Ordering<Object> implements Serializab
   }
 
   // preserve singleton-ness, so equals() and hashCode() work correctly
-  private Object readResolve() {
-    return INSTANCE;
-  }
+  private Object readResolve() { return INSTANCE; }
 
   @Override
   public String toString() {

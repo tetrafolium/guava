@@ -36,9 +36,7 @@ final class GwtSerializationDependencies {
   static final class OptionalDependencies<T> extends Optional<T> {
     T value;
 
-    OptionalDependencies() {
-      super();
-    }
+    OptionalDependencies() { super(); }
 
     @Override
     public boolean isPresent() {

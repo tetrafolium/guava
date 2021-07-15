@@ -40,7 +40,8 @@ import java.util.Collections;
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapGetTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapGetTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   public void testGetEmpty() {
     Collection<V> result = multimap().get(k3());
     assertEmpty(result);
@@ -56,20 +57,18 @@ public class MultimapGetTester<K, V> extends AbstractMultimapTester<K, V, Multim
 
   @CollectionSize.Require(SEVERAL)
   public void testGetMultiple() {
-    resetContainer(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()), Helpers.mapEntry(k0(), v2()));
+    resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v1()),
+                   Helpers.mapEntry(k0(), v2()));
     assertGet(k0(), v0(), v1(), v2());
   }
 
-  public void testGetAbsentKey() {
-    assertGet(k4());
-  }
+  public void testGetAbsentKey() { assertGet(k4()); }
 
   @CollectionSize.Require(SEVERAL)
   @MapFeature.Require(SUPPORTS_REMOVE)
   public void testPropagatesRemoveToMultimap() {
-    resetContainer(
-        Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v3()), Helpers.mapEntry(k0(), v2()));
+    resetContainer(Helpers.mapEntry(k0(), v0()), Helpers.mapEntry(k0(), v3()),
+                   Helpers.mapEntry(k0(), v2()));
     Collection<V> result = multimap().get(k0());
     assertTrue(result.remove(v0()));
     assertFalse(multimap().containsEntry(k0(), v0()));

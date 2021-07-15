@@ -26,20 +26,20 @@ import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
 
 /**
- * Tester for the {@code containsKey} methods of {@code Multimap} and its {@code asMap()} view.
+ * Tester for the {@code containsKey} methods of {@code Multimap} and its {@code
+ * asMap()} view.
  *
  * @author Louis Wasserman
  */
 @GwtCompatible
-public class MultimapContainsKeyTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
+public class MultimapContainsKeyTester<K, V>
+    extends AbstractMultimapTester<K, V, Multimap<K, V>> {
   @CollectionSize.Require(absent = ZERO)
   public void testContainsKeyYes() {
     assertTrue(multimap().containsKey(k0()));
   }
 
-  public void testContainsKeyNo() {
-    assertFalse(multimap().containsKey(k3()));
-  }
+  public void testContainsKeyNo() { assertFalse(multimap().containsKey(k3())); }
 
   public void testContainsKeysFromKeySet() {
     for (K k : multimap().keySet()) {
@@ -55,7 +55,8 @@ public class MultimapContainsKeyTester<K, V> extends AbstractMultimapTester<K, V
 
   public void testContainsKeyAgreesWithAsMap() {
     for (K k : sampleKeys()) {
-      assertEquals(multimap().containsKey(k), multimap().asMap().containsKey(k));
+      assertEquals(multimap().containsKey(k),
+                   multimap().asMap().containsKey(k));
     }
   }
 

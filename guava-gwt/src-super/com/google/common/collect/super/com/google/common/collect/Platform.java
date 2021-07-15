@@ -37,19 +37,16 @@ final class Platform {
   }
 
   private static void resizeArray(Object array, int newSize) {
-    ((NativeArray) array).setLength(newSize);
+    ((NativeArray)array).setLength(newSize);
   }
 
   // TODO(user): Move this logic to a utility class.
   @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
   private interface NativeArray {
-    @JsProperty
-    void setLength(int length);
+    @JsProperty void setLength(int length);
   }
 
-  static MapMaker tryWeakKeys(MapMaker mapMaker) {
-    return mapMaker;
-  }
+  static MapMaker tryWeakKeys(MapMaker mapMaker) { return mapMaker; }
 
   private Platform() {}
 }

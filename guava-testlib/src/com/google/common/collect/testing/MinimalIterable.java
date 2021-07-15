@@ -66,14 +66,12 @@ public final class MinimalIterable<E> implements Iterable<E> {
    */
   @SuppressWarnings("unchecked") // Es come in, Es go out
   public static <E> MinimalIterable<E> from(final Collection<E> elements) {
-    return (MinimalIterable) of(elements.toArray());
+    return (MinimalIterable)of(elements.toArray());
   }
 
   private Iterator<E> iterator;
 
-  private MinimalIterable(Iterator<E> iterator) {
-    this.iterator = iterator;
-  }
+  private MinimalIterable(Iterator<E> iterator) { this.iterator = iterator; }
 
   @Override
   public Iterator<E> iterator() {

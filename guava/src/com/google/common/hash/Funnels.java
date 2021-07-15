@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -38,12 +40,11 @@ public final class Funnels {
     return ByteArrayFunnel.INSTANCE;
   }
 
-  private enum ByteArrayFunnel implements Funnel<byte[]> {
+  private enum ByteArrayFunnel implements Funnel < byte
+  [] > {
     INSTANCE;
 
-    public void funnel(byte[] from, PrimitiveSink into) {
-      into.putBytes(from);
-    }
+    public void funnel(byte[] from, PrimitiveSink into) { into.putBytes(from); }
 
     @Override
     public String toString() {
@@ -52,8 +53,9 @@ public final class Funnels {
   }
 
   /**
-   * Returns a funnel that extracts the characters from a {@code CharSequence}, a character at a
-   * time, without performing any encoding. If you need to use a specific encoding, use
+   * Returns a funnel that extracts the characters from a {@code CharSequence},
+   * a character at a time, without performing any encoding. If you need to use
+   * a specific encoding, use
    * {@link Funnels#stringFunnel(Charset)} instead.
    *
    * @since 15.0 (since 11.0 as {@code Funnels.stringFunnel()}.
@@ -76,7 +78,8 @@ public final class Funnels {
   }
 
   /**
-   * Returns a funnel that encodes the characters of a {@code CharSequence} with the specified
+   * Returns a funnel that encodes the characters of a {@code CharSequence} with
+   * the specified
    * {@code Charset}.
    *
    * @since 15.0
@@ -85,7 +88,8 @@ public final class Funnels {
     return new StringCharsetFunnel(charset);
   }
 
-  private static class StringCharsetFunnel implements Funnel<CharSequence>, Serializable {
+  private static class StringCharsetFunnel
+      implements Funnel<CharSequence>, Serializable {
     private final Charset charset;
 
     StringCharsetFunnel(Charset charset) {
@@ -104,7 +108,7 @@ public final class Funnels {
     @Override
     public boolean equals(@Nullable Object o) {
       if (o instanceof StringCharsetFunnel) {
-        StringCharsetFunnel funnel = (StringCharsetFunnel) o;
+        StringCharsetFunnel funnel = (StringCharsetFunnel)o;
         return this.charset.equals(funnel.charset);
       }
       return false;
@@ -115,9 +119,7 @@ public final class Funnels {
       return StringCharsetFunnel.class.hashCode() ^ charset.hashCode();
     }
 
-    Object writeReplace() {
-      return new SerializedForm(charset);
-    }
+    Object writeReplace() { return new SerializedForm(charset); }
 
     private static class SerializedForm implements Serializable {
       private final String charsetCanonicalName;
@@ -146,9 +148,7 @@ public final class Funnels {
   private enum IntegerFunnel implements Funnel<Integer> {
     INSTANCE;
 
-    public void funnel(Integer from, PrimitiveSink into) {
-      into.putInt(from);
-    }
+    public void funnel(Integer from, PrimitiveSink into) { into.putInt(from); }
 
     @Override
     public String toString() {
@@ -157,16 +157,19 @@ public final class Funnels {
   }
 
   /**
-   * Returns a funnel that processes an {@code Iterable} by funneling its elements in iteration
-   * order with the specified funnel. No separators are added between the elements.
+   * Returns a funnel that processes an {@code Iterable} by funneling its
+   * elements in iteration order with the specified funnel. No separators are
+   * added between the elements.
    *
    * @since 15.0
    */
-  public static <E> Funnel<Iterable<? extends E>> sequentialFunnel(Funnel<E> elementFunnel) {
+  public static <E> Funnel<Iterable<? extends E>>
+  sequentialFunnel(Funnel<E> elementFunnel) {
     return new SequentialFunnel<E>(elementFunnel);
   }
 
-  private static class SequentialFunnel<E> implements Funnel<Iterable<? extends E>>, Serializable {
+  private static class SequentialFunnel<E>
+      implements Funnel<Iterable<? extends E>>, Serializable {
     private final Funnel<E> elementFunnel;
 
     SequentialFunnel(Funnel<E> elementFunnel) {
@@ -187,7 +190,7 @@ public final class Funnels {
     @Override
     public boolean equals(@Nullable Object o) {
       if (o instanceof SequentialFunnel) {
-        SequentialFunnel<?> funnel = (SequentialFunnel<?>) o;
+        SequentialFunnel<?> funnel = (SequentialFunnel<?>)o;
         return elementFunnel.equals(funnel.elementFunnel);
       }
       return false;
@@ -204,16 +207,12 @@ public final class Funnels {
    *
    * @since 13.0
    */
-  public static Funnel<Long> longFunnel() {
-    return LongFunnel.INSTANCE;
-  }
+  public static Funnel<Long> longFunnel() { return LongFunnel.INSTANCE; }
 
   private enum LongFunnel implements Funnel<Long> {
     INSTANCE;
 
-    public void funnel(Long from, PrimitiveSink into) {
-      into.putLong(from);
-    }
+    public void funnel(Long from, PrimitiveSink into) { into.putLong(from); }
 
     @Override
     public String toString() {
@@ -222,12 +221,13 @@ public final class Funnels {
   }
 
   /**
-   * Wraps a {@code PrimitiveSink} as an {@link OutputStream}, so it is easy to {@link Funnel#funnel
-   * funnel} an object to a {@code PrimitiveSink} if there is already a way to write the contents of
-   * the object to an {@code OutputStream}.
+   * Wraps a {@code PrimitiveSink} as an {@link OutputStream}, so it is easy to
+   * {@link Funnel#funnel funnel} an object to a {@code PrimitiveSink} if there
+   * is already a way to write the contents of the object to an {@code
+   * OutputStream}.
    *
-   * <p>The {@code close} and {@code flush} methods of the returned {@code OutputStream} do nothing,
-   * and no method throws {@code IOException}.
+   * <p>The {@code close} and {@code flush} methods of the returned {@code
+   * OutputStream} do nothing, and no method throws {@code IOException}.
    *
    * @since 13.0
    */
@@ -244,7 +244,7 @@ public final class Funnels {
 
     @Override
     public void write(int b) {
-      sink.putByte((byte) b);
+      sink.putByte((byte)b);
     }
 
     @Override

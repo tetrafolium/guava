@@ -24,7 +24,7 @@ import com.google.common.annotations.GwtCompatible;
  * @author Louis Wasserman
  */
 @GwtCompatible
-interface FilteredSetMultimap<K, V> extends FilteredMultimap<K, V>, SetMultimap<K, V> {
-  @Override
-  SetMultimap<K, V> unfiltered();
+interface FilteredSetMultimap<K, V>
+    extends FilteredMultimap<K, V>, SetMultimap<K, V> {
+  @Override SetMultimap<K, V> unfiltered();
 }

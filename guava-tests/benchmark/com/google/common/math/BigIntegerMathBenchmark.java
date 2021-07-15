@@ -36,8 +36,7 @@ public class BigIntegerMathBenchmark {
   private static final int[] slowFactorials = new int[ARRAY_SIZE];
   private static final int[] binomials = new int[ARRAY_SIZE];
 
-  @Param({"50", "1000", "10000"})
-  int factorialBound;
+  @Param({"50", "1000", "10000"}) int factorialBound;
 
   @BeforeExperiment
   void setUp() {
@@ -56,7 +55,8 @@ public class BigIntegerMathBenchmark {
       return BigInteger.valueOf(LongMath.factorial(n));
     } else {
       int k = 20;
-      return BigInteger.valueOf(LongMath.factorial(k)).multiply(oldSlowFactorial(k, n));
+      return BigInteger.valueOf(LongMath.factorial(k))
+          .multiply(oldSlowFactorial(k, n));
     }
   }
 
@@ -75,14 +75,15 @@ public class BigIntegerMathBenchmark {
     }
 
     /*
-     * We want each multiplication to have both sides with approximately the same number of digits.
-     * Currently, we just divide the range in half.
+     * We want each multiplication to have both sides with approximately the
+     * same number of digits. Currently, we just divide the range in half.
      */
     int mid = (n1 + n2) >>> 1;
     return oldSlowFactorial(n1, mid).multiply(oldSlowFactorial(mid, n2));
   }
 
-  @Benchmark int slowFactorial(int reps) {
+  @Benchmark
+  int slowFactorial(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -91,7 +92,8 @@ public class BigIntegerMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int factorial(int reps) {
+  @Benchmark
+  int factorial(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -100,7 +102,8 @@ public class BigIntegerMathBenchmark {
     return tmp;
   }
 
-  @Benchmark int binomial(int reps) {
+  @Benchmark
+  int binomial(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & 0xffff;

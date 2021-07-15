@@ -34,8 +34,8 @@ import java.util.Set;
 @GwtCompatible
 public enum MultisetFeature implements Feature<Multiset> {
   /**
-   * Indicates that elements from {@code Multiset.entrySet()} update to reflect changes in the
-   * backing multiset.
+   * Indicates that elements from {@code Multiset.entrySet()} update to reflect
+   * changes in the backing multiset.
    */
   ENTRIES_ARE_VIEWS;
 

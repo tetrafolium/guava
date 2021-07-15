@@ -178,9 +178,7 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
     }
   }
 
-  private Map<K, V> emptyMap() {
-    return Collections.emptyMap();
-  }
+  private Map<K, V> emptyMap() { return Collections.emptyMap(); }
 
   private void putAll(Iterable<Entry<K, V>> entries) {
     Map<K, V> map = new LinkedHashMap<>();
@@ -199,6 +197,7 @@ public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
    */
   @GwtIncompatible // reflection
   public static Method getPutAllNullKeyUnsupportedMethod() {
-    return Helpers.getMethod(MapPutAllTester.class, "testPutAll_nullKeyUnsupported");
+    return Helpers.getMethod(MapPutAllTester.class,
+                             "testPutAll_nullKeyUnsupported");
   }
 }

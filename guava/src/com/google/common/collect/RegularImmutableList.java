@@ -29,14 +29,12 @@ import java.util.Spliterators;
 @GwtCompatible(serializable = true, emulated = true)
 @SuppressWarnings("serial") // uses writeReplace(), not default serialization
 class RegularImmutableList<E> extends ImmutableList<E> {
-  static final ImmutableList<Object> EMPTY = new RegularImmutableList<>(new Object[0]);
+  static final ImmutableList<Object> EMPTY =
+      new RegularImmutableList<>(new Object[0]);
 
-  @VisibleForTesting
-  final transient Object[] array;
+  @VisibleForTesting final transient Object[] array;
 
-  RegularImmutableList(Object[] array) {
-    this.array = array;
-  }
+  RegularImmutableList(Object[] array) { this.array = array; }
 
   @Override
   public int size() {
@@ -58,7 +56,7 @@ class RegularImmutableList<E> extends ImmutableList<E> {
   @Override
   @SuppressWarnings("unchecked")
   public E get(int index) {
-    return (E) array[index];
+    return (E)array[index];
   }
 
   @SuppressWarnings("unchecked")
@@ -66,7 +64,8 @@ class RegularImmutableList<E> extends ImmutableList<E> {
   public UnmodifiableListIterator<E> listIterator(int index) {
     // for performance
     // The fake cast to E is safe because the creation methods only allow E's
-    return (UnmodifiableListIterator<E>) Iterators.forArray(array, 0, array.length, index);
+    return (UnmodifiableListIterator<E>)Iterators.forArray(array, 0,
+                                                           array.length, index);
   }
 
   @Override
@@ -74,5 +73,6 @@ class RegularImmutableList<E> extends ImmutableList<E> {
     return Spliterators.spliterator(array, SPLITERATOR_CHARACTERISTICS);
   }
 
-  // TODO(lowasser): benchmark optimizations for equals() and see if they're worthwhile
+  // TODO(lowasser): benchmark optimizations for equals() and see if they're
+  // worthwhile
 }

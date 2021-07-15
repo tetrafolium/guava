@@ -25,15 +25,13 @@ import java.io.Serializable;
  * @author Kevin Bourrillion
  */
 @GwtCompatible
-public class BaseComparable implements Comparable<BaseComparable>, Serializable {
+public class BaseComparable
+    implements Comparable<BaseComparable>, Serializable {
   private final String s;
 
-  public BaseComparable(String s) {
-    this.s = s;
-  }
+  public BaseComparable(String s) { this.s = s; }
 
-  @Override
-  public int hashCode() { // delegate to 's'
+  @Override public int hashCode() { // delegate to 's'
     return s.hashCode();
   }
 
@@ -42,7 +40,7 @@ public class BaseComparable implements Comparable<BaseComparable>, Serializable 
     if (other == null) {
       return false;
     } else if (other instanceof BaseComparable) {
-      return s.equals(((BaseComparable) other).s);
+      return s.equals(((BaseComparable)other).s);
     } else {
       return false;
     }

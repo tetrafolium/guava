@@ -22,7 +22,8 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Multimap;
 
 /**
- * Helper methods/assertions for use with {@code com.google.common.collect} types.
+ * Helper methods/assertions for use with {@code com.google.common.collect}
+ * types.
  *
  * @author Colin Decker
  */

@@ -33,14 +33,15 @@ import java.lang.reflect.Method;
 import java.util.Spliterator;
 
 /**
- * A generic JUnit test which tests {@code spliterator} operations on a collection.
- * Can't be invoked directly; please see
+ * A generic JUnit test which tests {@code spliterator} operations on a
+ * collection. Can't be invoked directly; please see
  * {@link com.google.common.collect.testing.CollectionTestSuiteBuilder}.
  *
  * @author Louis Wasserman
  */
 @GwtCompatible(emulated = true)
-public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> {
+public class CollectionSpliteratorTester<E>
+    extends AbstractCollectionTester<E> {
 
   @CollectionFeature.Require(absent = KNOWN_ORDER)
   public void testSpliteratorUnknownOrder() {
@@ -52,7 +53,9 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testSpliteratorKnownOrder() {
     synchronized (collection) {
-      SpliteratorTester.of(collection::spliterator).expect(getOrderedElements()).inOrder();
+      SpliteratorTester.of(collection::spliterator)
+          .expect(getOrderedElements())
+          .inOrder();
     }
   }
 
@@ -61,7 +64,8 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
   public void testSpliteratorNullable() {
     initCollectionWithNullElement();
     synchronized (collection) { // for Collections.synchronized
-      assertFalse(collection.spliterator().hasCharacteristics(Spliterator.NONNULL));
+      assertFalse(
+          collection.spliterator().hasCharacteristics(Spliterator.NONNULL));
     }
   }
 
@@ -69,7 +73,8 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
   public void testSpliteratorNotImmutable_CollectionAllowsAdd() {
     // If add is supported, verify that IMMUTABLE is not reported.
     synchronized (collection) { // for Collections.synchronized
-      assertFalse(collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
+      assertFalse(
+          collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
     }
   }
 
@@ -77,19 +82,22 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
   public void testSpliteratorNotImmutable_CollectionAllowsRemove() {
     // If remove is supported, verify that IMMUTABLE is not reported.
     synchronized (collection) { // for Collections.synchronized
-      assertFalse(collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
+      assertFalse(
+          collection.spliterator().hasCharacteristics(Spliterator.IMMUTABLE));
     }
   }
 
   @GwtIncompatible // reflection
   public static Method getSpliteratorNotImmutableCollectionAllowsAddMethod() {
-    return Helpers.getMethod(
-            CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsAdd");
+    return Helpers.getMethod(CollectionSpliteratorTester.class,
+                             "testSpliteratorNotImmutable_CollectionAllowsAdd");
   }
 
   @GwtIncompatible // reflection
-  public static Method getSpliteratorNotImmutableCollectionAllowsRemoveMethod() {
+  public static Method
+  getSpliteratorNotImmutableCollectionAllowsRemoveMethod() {
     return Helpers.getMethod(
-            CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsRemove");
+        CollectionSpliteratorTester.class,
+        "testSpliteratorNotImmutable_CollectionAllowsRemove");
   }
 }

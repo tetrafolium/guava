@@ -30,11 +30,11 @@ import java.util.Map;
  * @author Chris Povirk
  */
 public class RegularImmutableBiMap_CustomFieldSerializer {
-  public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableBiMap<?, ?> instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 RegularImmutableBiMap<?, ?> instance) {}
 
-  public static RegularImmutableBiMap<Object, Object> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+  public static RegularImmutableBiMap<Object, Object>
+  instantiate(SerializationStreamReader reader) throws SerializationException {
     Map<Object, Object> entries = new LinkedHashMap<>();
     Map_CustomFieldSerializerBase.deserialize(reader, entries);
     /*
@@ -43,12 +43,13 @@ public class RegularImmutableBiMap_CustomFieldSerializer {
      * always have one or more elements, ImmutableBiMap.copyOf always return a
      * RegularImmutableBiMap back.
      */
-    return (RegularImmutableBiMap<Object, Object>) ImmutableBiMap.copyOf(entries);
+    return (RegularImmutableBiMap<Object, Object>)ImmutableBiMap.copyOf(
+        entries);
   }
 
-  public static void serialize(
-      SerializationStreamWriter writer, RegularImmutableBiMap<?, ?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               RegularImmutableBiMap<?, ?> instance)
+      throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

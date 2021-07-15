@@ -43,7 +43,8 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible(emulated = true)
-public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, V> {
+public final class EnumHashBiMap<K extends Enum<K>, V>
+    extends AbstractBiMap<K, V> {
   private transient Class<K> keyType;
 
   /**
@@ -51,7 +52,8 @@ public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, 
    *
    * @param keyType the key type
    */
-  public static <K extends Enum<K>, V> EnumHashBiMap<K, V> create(Class<K> keyType) {
+  public static <K extends Enum<K>, V> EnumHashBiMap<K, V>
+  create(Class<K> keyType) {
     return new EnumHashBiMap<>(keyType);
   }
 
@@ -65,16 +67,17 @@ public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, 
    * @throws IllegalArgumentException if map is not an {@code EnumBiMap} or an
    *     {@code EnumHashBiMap} instance and contains no mappings
    */
-  public static <K extends Enum<K>, V> EnumHashBiMap<K, V> create(Map<K, ? extends V> map) {
+  public static <K extends Enum<K>, V> EnumHashBiMap<K, V>
+  create(Map<K, ? extends V> map) {
     EnumHashBiMap<K, V> bimap = create(EnumBiMap.inferKeyType(map));
     bimap.putAll(map);
     return bimap;
   }
 
   private EnumHashBiMap(Class<K> keyType) {
-    super(
-        WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-        Maps.<V, K>newHashMapWithExpectedSize(keyType.getEnumConstants().length));
+    super(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
+          Maps.<V, K>newHashMapWithExpectedSize(
+              keyType.getEnumConstants().length));
     this.keyType = keyType;
   }
 
@@ -98,9 +101,7 @@ public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, 
   }
 
   /** Returns the associated key type. */
-  public Class<K> keyType() {
-    return keyType;
-  }
+  public Class<K> keyType() { return keyType; }
 
   /**
    * @serialData the key class, number of entries, first key, first value,
@@ -114,13 +115,13 @@ public final class EnumHashBiMap<K extends Enum<K>, V> extends AbstractBiMap<K, 
   }
 
   @SuppressWarnings("unchecked") // reading field populated by writeObject
-  @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  @GwtIncompatible               // java.io.ObjectInputStream
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
-    keyType = (Class<K>) stream.readObject();
-    setDelegates(
-        WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
-        new HashMap<V, K>(keyType.getEnumConstants().length * 3 / 2));
+    keyType = (Class<K>)stream.readObject();
+    setDelegates(WellBehavedMap.wrap(new EnumMap<K, V>(keyType)),
+                 new HashMap<V, K>(keyType.getEnumConstants().length * 3 / 2));
     Serialization.populateMap(this, stream);
   }
 

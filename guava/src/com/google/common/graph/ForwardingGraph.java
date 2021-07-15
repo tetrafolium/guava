@@ -19,8 +19,9 @@ package com.google.common.graph;
 import java.util.Set;
 
 /**
- * A class to allow {@link Graph} implementations to be backed by a {@link BaseGraph}. This is not
- * currently planned to be released as a general-purpose forwarding class.
+ * A class to allow {@link Graph} implementations to be backed by a {@link
+ * BaseGraph}. This is not currently planned to be released as a general-purpose
+ * forwarding class.
  *
  * @author James Sexton
  */
@@ -34,8 +35,8 @@ abstract class ForwardingGraph<N> extends AbstractGraph<N> {
   }
 
   /**
-   * Defer to {@link AbstractGraph#edges()} (based on {@link #successors(Object)}) for full edges()
-   * implementation.
+   * Defer to {@link AbstractGraph#edges()} (based on {@link
+   * #successors(Object)}) for full edges() implementation.
    */
   @Override
   protected long edgeCount() {

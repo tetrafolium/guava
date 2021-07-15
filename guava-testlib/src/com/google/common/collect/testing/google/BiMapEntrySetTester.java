@@ -34,7 +34,8 @@ public class BiMapEntrySetTester<K, V> extends AbstractBiMapTester<K, V> {
   public void testSetValue_valueAbsent() {
     for (Entry<K, V> entry : getMap().entrySet()) {
       if (entry.getKey().equals(k0())) {
-        assertEquals("entry.setValue() should return the old value", v0(), entry.setValue(v3()));
+        assertEquals("entry.setValue() should return the old value", v0(),
+                     entry.setValue(v3()));
         break;
       }
     }
@@ -78,6 +79,6 @@ public class BiMapEntrySetTester<K, V> extends AbstractBiMapTester<K, V> {
         entry.setValue(null);
       }
     }
-    expectReplacement(entry(k0(), (V) null));
+    expectReplacement(entry(k0(), (V)null));
   }
 }

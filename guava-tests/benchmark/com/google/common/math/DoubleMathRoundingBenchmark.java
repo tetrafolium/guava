@@ -36,7 +36,8 @@ public class DoubleMathRoundingBenchmark {
   private static final double[] doubleInLongRange = new double[ARRAY_SIZE];
   private static final double[] positiveDoubles = new double[ARRAY_SIZE];
 
-  @Param({"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
+  @Param(
+      {"DOWN", "UP", "FLOOR", "CEILING", "HALF_EVEN", "HALF_UP", "HALF_DOWN"})
   RoundingMode mode;
 
   @BeforeExperiment
@@ -48,7 +49,8 @@ public class DoubleMathRoundingBenchmark {
     }
   }
 
-  @Benchmark int roundToInt(int reps) {
+  @Benchmark
+  int roundToInt(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -57,7 +59,8 @@ public class DoubleMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark long roundToLong(int reps) {
+  @Benchmark
+  long roundToLong(int reps) {
     long tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -66,7 +69,8 @@ public class DoubleMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark int roundToBigInteger(int reps) {
+  @Benchmark
+  int roundToBigInteger(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;
@@ -75,7 +79,8 @@ public class DoubleMathRoundingBenchmark {
     return tmp;
   }
 
-  @Benchmark int log2Round(int reps) {
+  @Benchmark
+  int log2Round(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       int j = i & ARRAY_MASK;

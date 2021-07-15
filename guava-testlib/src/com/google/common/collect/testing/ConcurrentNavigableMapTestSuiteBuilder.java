@@ -27,7 +27,7 @@ import java.util.List;
  */
 @GwtIncompatible
 public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
-  extends NavigableMapTestSuiteBuilder<K, V> {
+    extends NavigableMapTestSuiteBuilder<K, V> {
 
   public static <K, V> ConcurrentNavigableMapTestSuiteBuilder<K, V> using(
       TestSortedMapGenerator<K, V> generator) {
@@ -39,13 +39,15 @@ public class ConcurrentNavigableMapTestSuiteBuilder<K, V>
 
   @Override
   protected List<Class<? extends AbstractTester>> getTesters() {
-    List<Class<? extends AbstractTester>> testers = Helpers.copyToList(super.getTesters());
+    List<Class<? extends AbstractTester>> testers =
+        Helpers.copyToList(super.getTesters());
     testers.addAll(ConcurrentMapTestSuiteBuilder.TESTERS);
     return testers;
   }
 
   @Override
-  NavigableMapTestSuiteBuilder<K, V> subSuiteUsing(TestSortedMapGenerator<K, V> generator) {
+  NavigableMapTestSuiteBuilder<K, V>
+  subSuiteUsing(TestSortedMapGenerator<K, V> generator) {
     return using(generator);
   }
 }

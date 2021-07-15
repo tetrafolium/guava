@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2006 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -24,8 +26,9 @@ import java.io.Writer;
 import javax.annotation.Nullable;
 
 /**
- * Writer that places all output on an {@link Appendable} target. If the target is {@link Flushable}
- * or {@link Closeable}, flush()es and close()s will also be delegated to the target.
+ * Writer that places all output on an {@link Appendable} target. If the target
+ * is {@link Flushable} or {@link Closeable}, flush()es and close()s will also
+ * be delegated to the target.
  *
  * @author Alan Green
  * @author Sebastian Kanthak
@@ -41,9 +44,7 @@ class AppendableWriter extends Writer {
    *
    * @param target target to which to append output
    */
-  AppendableWriter(Appendable target) {
-    this.target = checkNotNull(target);
-  }
+  AppendableWriter(Appendable target) { this.target = checkNotNull(target); }
 
   /*
    * Abstract methods from Writer
@@ -61,7 +62,7 @@ class AppendableWriter extends Writer {
   public void flush() throws IOException {
     checkNotClosed();
     if (target instanceof Flushable) {
-      ((Flushable) target).flush();
+      ((Flushable)target).flush();
     }
   }
 
@@ -69,18 +70,19 @@ class AppendableWriter extends Writer {
   public void close() throws IOException {
     this.closed = true;
     if (target instanceof Closeable) {
-      ((Closeable) target).close();
+      ((Closeable)target).close();
     }
   }
 
   /*
-   * Override a few functions for performance reasons to avoid creating unnecessary strings.
+   * Override a few functions for performance reasons to avoid creating
+   * unnecessary strings.
    */
 
   @Override
   public void write(int c) throws IOException {
     checkNotClosed();
-    target.append((char) c);
+    target.append((char)c);
   }
 
   @Override
@@ -111,7 +113,8 @@ class AppendableWriter extends Writer {
   }
 
   @Override
-  public Writer append(@Nullable CharSequence charSeq, int start, int end) throws IOException {
+  public Writer append(@Nullable CharSequence charSeq, int start, int end)
+      throws IOException {
     checkNotClosed();
     target.append(charSeq, start, end);
     return this;

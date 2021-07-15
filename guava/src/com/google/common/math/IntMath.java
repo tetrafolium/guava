@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -34,14 +36,16 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 /**
- * A class for arithmetic on values of type {@code int}. Where possible, methods are defined and
- * named analogously to their {@code BigInteger} counterparts.
+ * A class for arithmetic on values of type {@code int}. Where possible, methods
+ * are defined and named analogously to their {@code BigInteger} counterparts.
  *
- * <p>The implementations of many methods in this class are based on material from Henry S. Warren,
- * Jr.'s <i>Hacker's Delight</i>, (Addison Wesley, 2002).
+ * <p>The implementations of many methods in this class are based on material
+ * from Henry S. Warren, Jr.'s <i>Hacker's Delight</i>, (Addison Wesley, 2002).
  *
- * <p>Similar functionality for {@code long} and for {@link BigInteger} can be found in
- * {@link LongMath} and {@link BigIntegerMath} respectively. For other common operations on
+ * <p>Similar functionality for {@code long} and for {@link BigInteger} can be
+ * found in
+ * {@link LongMath} and {@link BigIntegerMath} respectively. For other common
+ * operations on
  * {@code int} values, see {@link com.google.common.primitives.Ints}.
  *
  * @author Louis Wasserman
@@ -49,16 +53,20 @@ import java.math.RoundingMode;
  */
 @GwtCompatible(emulated = true)
 public final class IntMath {
-  // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
+  // NOTE: Whenever both tests are cheap and functional, it's faster to use &, |
+  // instead of &&, ||
 
-  @VisibleForTesting static final int MAX_SIGNED_POWER_OF_TWO = 1 << (Integer.SIZE - 2);
+  @VisibleForTesting
+  static final int MAX_SIGNED_POWER_OF_TWO = 1 << (Integer.SIZE - 2);
 
   /**
-   * Returns the smallest power of two greater than or equal to {@code x}.  This is equivalent to
+   * Returns the smallest power of two greater than or equal to {@code x}.  This
+   * is equivalent to
    * {@code checkedPow(2, log2(x, CEILING))}.
    *
    * @throws IllegalArgumentException if {@code x <= 0}
-   * @throws ArithmeticException of the next-higher power of two is not representable as an
+   * @throws ArithmeticException of the next-higher power of two is not
+   *     representable as an
    *         {@code int}, i.e. when {@code x > 2^30}
    * @since 20.0
    */
@@ -66,13 +74,15 @@ public final class IntMath {
   public static int ceilingPowerOfTwo(int x) {
     checkPositive("x", x);
     if (x > MAX_SIGNED_POWER_OF_TWO) {
-      throw new ArithmeticException("ceilingPowerOfTwo(" + x + ") not representable as an int");
+      throw new ArithmeticException("ceilingPowerOfTwo(" + x +
+                                    ") not representable as an int");
     }
     return 1 << -Integer.numberOfLeadingZeros(x - 1);
   }
 
   /**
-   * Returns the largest power of two less than or equal to {@code x}.  This is equivalent to
+   * Returns the largest power of two less than or equal to {@code x}.  This is
+   * equivalent to
    * {@code checkedPow(2, log2(x, FLOOR))}.
    *
    * @throws IllegalArgumentException if {@code x <= 0}
@@ -88,31 +98,33 @@ public final class IntMath {
    * Returns {@code true} if {@code x} represents a power of two.
    *
    * <p>This differs from {@code Integer.bitCount(x) == 1}, because
-   * {@code Integer.bitCount(Integer.MIN_VALUE) == 1}, but {@link Integer#MIN_VALUE} is not a power
-   * of two.
+   * {@code Integer.bitCount(Integer.MIN_VALUE) == 1}, but {@link
+   * Integer#MIN_VALUE} is not a power of two.
    */
   public static boolean isPowerOfTwo(int x) {
     return x > 0 & (x & (x - 1)) == 0;
   }
 
   /**
-   * Returns 1 if {@code x < y} as unsigned integers, and 0 otherwise. Assumes that x - y fits into
-   * a signed int. The implementation is branch-free, and benchmarks suggest it is measurably (if
-   * narrowly) faster than the straightforward ternary expression.
+   * Returns 1 if {@code x < y} as unsigned integers, and 0 otherwise. Assumes
+   * that x - y fits into a signed int. The implementation is branch-free, and
+   * benchmarks suggest it is measurably (if narrowly) faster than the
+   * straightforward ternary expression.
    */
   @VisibleForTesting
   static int lessThanBranchFree(int x, int y) {
-    // The double negation is optimized away by normal Java, but is necessary for GWT
-    // to make sure bit twiddling works as expected.
+    // The double negation is optimized away by normal Java, but is necessary
+    // for GWT to make sure bit twiddling works as expected.
     return ~~(x - y) >>> (Integer.SIZE - 1);
   }
 
   /**
-   * Returns the base-2 logarithm of {@code x}, rounded according to the specified rounding mode.
+   * Returns the base-2 logarithm of {@code x}, rounded according to the
+   * specified rounding mode.
    *
    * @throws IllegalArgumentException if {@code x <= 0}
-   * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x}
-   *     is not a power of two
+   * @throws ArithmeticException if {@code mode} is {@link
+   *     RoundingMode#UNNECESSARY} and {@code x} is not a power of two
    */
   @SuppressWarnings("fallthrough")
   // TODO(kevinb): remove after this warning is disabled globally
@@ -149,11 +161,12 @@ public final class IntMath {
   @VisibleForTesting static final int MAX_POWER_OF_SQRT2_UNSIGNED = 0xB504F333;
 
   /**
-   * Returns the base-10 logarithm of {@code x}, rounded according to the specified rounding mode.
+   * Returns the base-10 logarithm of {@code x}, rounded according to the
+   * specified rounding mode.
    *
    * @throws IllegalArgumentException if {@code x <= 0}
-   * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x}
-   *     is not a power of ten
+   * @throws ArithmeticException if {@code mode} is {@link
+   *     RoundingMode#UNNECESSARY} and {@code x} is not a power of ten
    */
   @GwtIncompatible // need BigIntegerMath to adequately test
   @SuppressWarnings("fallthrough")
@@ -183,16 +196,19 @@ public final class IntMath {
 
   private static int log10Floor(int x) {
     /*
-     * Based on Hacker's Delight Fig. 11-5, the two-table-lookup, branch-free implementation.
+     * Based on Hacker's Delight Fig. 11-5, the two-table-lookup, branch-free
+     * implementation.
      *
-     * The key idea is that based on the number of leading zeros (equivalently, floor(log2(x))), we
-     * can narrow the possible floor(log10(x)) values to two. For example, if floor(log2(x)) is 6,
-     * then 64 <= x < 128, so floor(log10(x)) is either 1 or 2.
+     * The key idea is that based on the number of leading zeros (equivalently,
+     * floor(log2(x))), we can narrow the possible floor(log10(x)) values to
+     * two. For example, if floor(log2(x)) is 6, then 64 <= x < 128, so
+     * floor(log10(x)) is either 1 or 2.
      */
     int y = maxLog10ForLeadingZeros[Integer.numberOfLeadingZeros(x)];
     /*
-     * y is the higher of the two possible values of floor(log10(x)). If x < 10^y, then we want the
-     * lower of the two possible values, or y - 1, otherwise, we want y.
+     * y is the higher of the two possible values of floor(log10(x)). If x <
+     * 10^y, then we want the lower of the two possible values, or y - 1,
+     * otherwise, we want y.
      */
     return y - lessThanBranchFree(x, powersOf10[y]);
   }
@@ -200,27 +216,28 @@ public final class IntMath {
   // maxLog10ForLeadingZeros[i] == floor(log10(2^(Long.SIZE - i)))
   @VisibleForTesting
   static final byte[] maxLog10ForLeadingZeros = {
-    9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0,
-    0
-  };
+      9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4,
+      4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0};
 
   @VisibleForTesting
-  static final int[] powersOf10 = {
-    1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000
-  };
+  static final int[] powersOf10 = {1,         10,        100,     1000,
+                                   10000,     100000,    1000000, 10000000,
+                                   100000000, 1000000000};
 
   // halfPowersOf10[i] = largest int less than 10^(i + 0.5)
   @VisibleForTesting
   static final int[] halfPowersOf10 = {
-    3, 31, 316, 3162, 31622, 316227, 3162277, 31622776, 316227766, Integer.MAX_VALUE
-  };
+      3,      31,      316,      3162,      31622,
+      316227, 3162277, 31622776, 316227766, Integer.MAX_VALUE};
 
   /**
-   * Returns {@code b} to the {@code k}th power. Even if the result overflows, it will be equal to
-   * {@code BigInteger.valueOf(b).pow(k).intValue()}. This implementation runs in {@code O(log k)}
-   * time.
+   * Returns {@code b} to the {@code k}th power. Even if the result overflows,
+   * it will be equal to
+   * {@code BigInteger.valueOf(b).pow(k).intValue()}. This implementation runs
+   * in {@code O(log k)} time.
    *
-   * <p>Compare {@link #checkedPow}, which throws an {@link ArithmeticException} upon overflow.
+   * <p>Compare {@link #checkedPow}, which throws an {@link ArithmeticException}
+   * upon overflow.
    *
    * @throws IllegalArgumentException if {@code k < 0}
    */
@@ -245,7 +262,7 @@ public final class IntMath {
     default:
       // continue below to handle the general case
     }
-    for (int accum = 1; ; k >>= 1) {
+    for (int accum = 1;; k >>= 1) {
       switch (k) {
       case 0:
         return accum;
@@ -259,10 +276,12 @@ public final class IntMath {
   }
 
   /**
-   * Returns the square root of {@code x}, rounded with the specified rounding mode.
+   * Returns the square root of {@code x}, rounded with the specified rounding
+   * mode.
    *
    * @throws IllegalArgumentException if {@code x < 0}
-   * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and
+   * @throws ArithmeticException if {@code mode} is {@link
+   *     RoundingMode#UNNECESSARY} and
    *     {@code sqrt(x)} is not an integer
    */
   @GwtIncompatible // need BigIntegerMath to adequately test
@@ -284,15 +303,16 @@ public final class IntMath {
     case HALF_EVEN:
       int halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
       /*
-       * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
-       * and halfSquare are integers, this is equivalent to testing whether or not x <=
-       * halfSquare. (We have to deal with overflow, though.)
+       * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare +
+       * 0.25. Since both x and halfSquare are integers, this is equivalent to
+       * testing whether or not x <= halfSquare. (We have to deal with overflow,
+       * though.)
        *
        * If we treat halfSquare as an unsigned int, we know that
        *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
        * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
-       * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
-       * signed int, so lessThanBranchFree is safe for use.
+       * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x -
+       * halfSquare as a signed int, so lessThanBranchFree is safe for use.
        */
       return sqrtFloor + lessThanBranchFree(halfSquare, x);
     default:
@@ -301,17 +321,19 @@ public final class IntMath {
   }
 
   private static int sqrtFloor(int x) {
-    // There is no loss of precision in converting an int to a double, according to
+    // There is no loss of precision in converting an int to a double, according
+    // to
     // http://java.sun.com/docs/books/jls/third_edition/html/conversions.html#5.1.2
-    return (int) Math.sqrt(x);
+    return (int)Math.sqrt(x);
   }
 
   /**
-   * Returns the result of dividing {@code p} by {@code q}, rounding using the specified
+   * Returns the result of dividing {@code p} by {@code q}, rounding using the
+   * specified
    * {@code RoundingMode}.
    *
-   * @throws ArithmeticException if {@code q == 0}, or if {@code mode == UNNECESSARY} and {@code a}
-   *     is not an integer multiple of {@code b}
+   * @throws ArithmeticException if {@code q == 0}, or if {@code mode ==
+   *     UNNECESSARY} and {@code a} is not an integer multiple of {@code b}
    */
   @SuppressWarnings("fallthrough")
   public static int divide(int p, int q, RoundingMode mode) {
@@ -327,11 +349,12 @@ public final class IntMath {
     }
 
     /*
-     * Normal Java division rounds towards 0, consistently with RoundingMode.DOWN. We just have to
-     * deal with the cases where rounding towards 0 is wrong, which typically depends on the sign of
-     * p / q.
+     * Normal Java division rounds towards 0, consistently with
+     * RoundingMode.DOWN. We just have to deal with the cases where rounding
+     * towards 0 is wrong, which typically depends on the sign of p / q.
      *
-     * signum is 1 if p and q are both nonnegative or both negative, and -1 otherwise.
+     * signum is 1 if p and q are both nonnegative or both negative, and -1
+     * otherwise.
      */
     int signum = 1 | ((p ^ q) >> (Integer.SIZE - 1));
     boolean increment;
@@ -371,7 +394,8 @@ public final class IntMath {
   }
 
   /**
-   * Returns {@code x mod m}, a non-negative value less than {@code m}. This differs from
+   * Returns {@code x mod m}, a non-negative value less than {@code m}. This
+   * differs from
    * {@code x % m}, which might be negative.
    *
    * <p>For example:<pre> {@code
@@ -383,7 +407,8 @@ public final class IntMath {
    * mod(8, 4) == 0}</pre>
    *
    * @throws ArithmeticException if {@code m <= 0}
-   * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.17.3">
+   * @see <a
+   *     href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.17.3">
    *     Remainder Operator</a>
    */
   public static int mod(int x, int m) {
@@ -402,9 +427,9 @@ public final class IntMath {
    */
   public static int gcd(int a, int b) {
     /*
-     * The reason we require both arguments to be >= 0 is because otherwise, what do you return on
-     * gcd(0, Integer.MIN_VALUE)? BigInteger.gcd would return positive 2^31, but positive 2^31 isn't
-     * an int.
+     * The reason we require both arguments to be >= 0 is because otherwise,
+     * what do you return on gcd(0, Integer.MIN_VALUE)? BigInteger.gcd would
+     * return positive 2^31, but positive 2^31 isn't an int.
      */
     checkNonNegative("a", a);
     checkNonNegative("b", b);
@@ -416,17 +441,19 @@ public final class IntMath {
       return a; // similar logic
     }
     /*
-     * Uses the binary GCD algorithm; see http://en.wikipedia.org/wiki/Binary_GCD_algorithm. This is
-     * >40% faster than the Euclidean algorithm in benchmarks.
+     * Uses the binary GCD algorithm; see
+     * http://en.wikipedia.org/wiki/Binary_GCD_algorithm. This is >40% faster
+     * than the Euclidean algorithm in benchmarks.
      */
     int aTwos = Integer.numberOfTrailingZeros(a);
     a >>= aTwos; // divide out all 2s
     int bTwos = Integer.numberOfTrailingZeros(b);
-    b >>= bTwos; // divide out all 2s
+    b >>= bTwos;     // divide out all 2s
     while (a != b) { // both a, b are odd
       // The key to the binary GCD algorithm is as follows:
       // Both a and b are odd. Assume a > b; then gcd(a - b, b) = gcd(a, b).
-      // But in gcd(a - b, b), a - b is even and b is odd, so we can divide out powers of two.
+      // But in gcd(a - b, b), a - b is even and b is odd, so we can divide out
+      // powers of two.
 
       // We bend over backwards to avoid branching, adapting a technique from
       // http://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
@@ -440,7 +467,8 @@ public final class IntMath {
       // a is now nonnegative and even
 
       b += minDeltaOrZero; // sets b to min(old a, b)
-      a >>= Integer.numberOfTrailingZeros(a); // divide out all 2s, since 2 doesn't divide b
+      a >>= Integer.numberOfTrailingZeros(
+          a); // divide out all 2s, since 2 doesn't divide b
     }
     return a << min(aTwos, bTwos);
   }
@@ -448,42 +476,49 @@ public final class IntMath {
   /**
    * Returns the sum of {@code a} and {@code b}, provided it does not overflow.
    *
-   * @throws ArithmeticException if {@code a + b} overflows in signed {@code int} arithmetic
+   * @throws ArithmeticException if {@code a + b} overflows in signed {@code
+   *     int} arithmetic
    */
   public static int checkedAdd(int a, int b) {
-    long result = (long) a + b;
-    checkNoOverflow(result == (int) result);
-    return (int) result;
+    long result = (long)a + b;
+    checkNoOverflow(result == (int)result);
+    return (int)result;
   }
 
   /**
-   * Returns the difference of {@code a} and {@code b}, provided it does not overflow.
+   * Returns the difference of {@code a} and {@code b}, provided it does not
+   * overflow.
    *
-   * @throws ArithmeticException if {@code a - b} overflows in signed {@code int} arithmetic
+   * @throws ArithmeticException if {@code a - b} overflows in signed {@code
+   *     int} arithmetic
    */
   public static int checkedSubtract(int a, int b) {
-    long result = (long) a - b;
-    checkNoOverflow(result == (int) result);
-    return (int) result;
+    long result = (long)a - b;
+    checkNoOverflow(result == (int)result);
+    return (int)result;
   }
 
   /**
-   * Returns the product of {@code a} and {@code b}, provided it does not overflow.
+   * Returns the product of {@code a} and {@code b}, provided it does not
+   * overflow.
    *
-   * @throws ArithmeticException if {@code a * b} overflows in signed {@code int} arithmetic
+   * @throws ArithmeticException if {@code a * b} overflows in signed {@code
+   *     int} arithmetic
    */
   public static int checkedMultiply(int a, int b) {
-    long result = (long) a * b;
-    checkNoOverflow(result == (int) result);
-    return (int) result;
+    long result = (long)a * b;
+    checkNoOverflow(result == (int)result);
+    return (int)result;
   }
 
   /**
-   * Returns the {@code b} to the {@code k}th power, provided it does not overflow.
+   * Returns the {@code b} to the {@code k}th power, provided it does not
+   * overflow.
    *
    * <p>{@link #pow} may be faster, but does not check for overflow.
    *
-   * @throws ArithmeticException if {@code b} to the {@code k}th power overflows in signed
+   * @throws ArithmeticException if {@code b} to the {@code k}th power overflows
+   *     in signed
    *     {@code int} arithmetic
    */
   public static int checkedPow(int b, int k) {
@@ -525,41 +560,46 @@ public final class IntMath {
   }
 
   /**
-   * Returns the sum of {@code a} and {@code b} unless it would overflow or underflow in which case
-   * {@code Integer.MAX_VALUE} or {@code Integer.MIN_VALUE} is returned, respectively.
+   * Returns the sum of {@code a} and {@code b} unless it would overflow or
+   * underflow in which case
+   * {@code Integer.MAX_VALUE} or {@code Integer.MIN_VALUE} is returned,
+   * respectively.
    *
    * @since 20.0
    */
   @Beta
   public static int saturatedAdd(int a, int b) {
-    return Ints.saturatedCast((long) a + b);
+    return Ints.saturatedCast((long)a + b);
   }
 
   /**
-   * Returns the difference of {@code a} and {@code b} unless it would overflow or underflow in
-   * which case {@code Integer.MAX_VALUE} or {@code Integer.MIN_VALUE} is returned, respectively.
+   * Returns the difference of {@code a} and {@code b} unless it would overflow
+   * or underflow in which case {@code Integer.MAX_VALUE} or {@code
+   * Integer.MIN_VALUE} is returned, respectively.
    *
    * @since 20.0
    */
   @Beta
   public static int saturatedSubtract(int a, int b) {
-    return Ints.saturatedCast((long) a - b);
+    return Ints.saturatedCast((long)a - b);
   }
 
   /**
-   * Returns the product of {@code a} and {@code b} unless it would overflow or underflow in which
-   * case {@code Integer.MAX_VALUE} or {@code Integer.MIN_VALUE} is returned, respectively.
+   * Returns the product of {@code a} and {@code b} unless it would overflow or
+   * underflow in which case {@code Integer.MAX_VALUE} or {@code
+   * Integer.MIN_VALUE} is returned, respectively.
    *
    * @since 20.0
    */
   @Beta
   public static int saturatedMultiply(int a, int b) {
-    return Ints.saturatedCast((long) a * b);
+    return Ints.saturatedCast((long)a * b);
   }
 
   /**
-   * Returns the {@code b} to the {@code k}th power, unless it would overflow or underflow in which
-   * case {@code Integer.MAX_VALUE} or {@code Integer.MIN_VALUE} is returned, respectively.
+   * Returns the {@code b} to the {@code k}th power, unless it would overflow or
+   * underflow in which case {@code Integer.MAX_VALUE} or {@code
+   * Integer.MIN_VALUE} is returned, respectively.
    *
    * @since 20.0
    */
@@ -587,7 +627,8 @@ public final class IntMath {
       // continue below to handle the general case
     }
     int accum = 1;
-    // if b is negative and k is odd then the limit is MIN otherwise the limit is MAX
+    // if b is negative and k is odd then the limit is MIN otherwise the limit
+    // is MAX
     int limit = Integer.MAX_VALUE + ((b >>> Integer.SIZE - 1) & (k & 1));
     while (true) {
       switch (k) {
@@ -613,8 +654,10 @@ public final class IntMath {
   @VisibleForTesting static final int FLOOR_SQRT_MAX_INT = 46340;
 
   /**
-   * Returns {@code n!}, that is, the product of the first {@code n} positive integers, {@code 1} if
-   * {@code n == 0}, or {@link Integer#MAX_VALUE} if the result does not fit in a {@code int}.
+   * Returns {@code n!}, that is, the product of the first {@code n} positive
+   * integers, {@code 1} if
+   * {@code n == 0}, or {@link Integer#MAX_VALUE} if the result does not fit in
+   * a {@code int}.
    *
    * @throws IllegalArgumentException if {@code n < 0}
    */
@@ -624,26 +667,28 @@ public final class IntMath {
   }
 
   private static final int[] factorials = {
-    1,
-    1,
-    1 * 2,
-    1 * 2 * 3,
-    1 * 2 * 3 * 4,
-    1 * 2 * 3 * 4 * 5,
-    1 * 2 * 3 * 4 * 5 * 6,
-    1 * 2 * 3 * 4 * 5 * 6 * 7,
-    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8,
-    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
-    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
-    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
-    1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12
-  };
+      1,
+      1,
+      1 * 2,
+      1 * 2 * 3,
+      1 * 2 * 3 * 4,
+      1 * 2 * 3 * 4 * 5,
+      1 * 2 * 3 * 4 * 5 * 6,
+      1 * 2 * 3 * 4 * 5 * 6 * 7,
+      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8,
+      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
+      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
+      1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12};
 
   /**
-   * Returns {@code n} choose {@code k}, also known as the binomial coefficient of {@code n} and
-   * {@code k}, or {@link Integer#MAX_VALUE} if the result does not fit in an {@code int}.
+   * Returns {@code n} choose {@code k}, also known as the binomial coefficient
+   * of {@code n} and
+   * {@code k}, or {@link Integer#MAX_VALUE} if the result does not fit in an
+   * {@code int}.
    *
-   * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0} or {@code k > n}
+   * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0} or {@code
+   *     k > n}
    */
   public static int binomial(int n, int k) {
     checkNonNegative("n", n);
@@ -666,35 +711,34 @@ public final class IntMath {
         result *= n - i;
         result /= i + 1;
       }
-      return (int) result;
+      return (int)result;
     }
   }
 
-  // binomial(biggestBinomials[k], k) fits in an int, but not binomial(biggestBinomials[k]+1,k).
+  // binomial(biggestBinomials[k], k) fits in an int, but not
+  // binomial(biggestBinomials[k]+1,k).
   @VisibleForTesting
-  static int[] biggestBinomials = {
-    Integer.MAX_VALUE,
-    Integer.MAX_VALUE,
-    65536,
-    2345,
-    477,
-    193,
-    110,
-    75,
-    58,
-    49,
-    43,
-    39,
-    37,
-    35,
-    34,
-    34,
-    33
-  };
+  static int[] biggestBinomials = {Integer.MAX_VALUE,
+                                   Integer.MAX_VALUE,
+                                   65536,
+                                   2345,
+                                   477,
+                                   193,
+                                   110,
+                                   75,
+                                   58,
+                                   49,
+                                   43,
+                                   39,
+                                   37,
+                                   35,
+                                   34,
+                                   34,
+                                   33};
 
   /**
-   * Returns the arithmetic mean of {@code x} and {@code y}, rounded towards negative infinity. This
-   * method is overflow resilient.
+   * Returns the arithmetic mean of {@code x} and {@code y}, rounded towards
+   * negative infinity. This method is overflow resilient.
    *
    * @since 14.0
    */
@@ -707,12 +751,14 @@ public final class IntMath {
 
   /**
    * Returns {@code true} if {@code n} is a
-   * <a href="http://mathworld.wolfram.com/PrimeNumber.html">prime number</a>: an integer <i>greater
-   * than one</i> that cannot be factored into a product of <i>smaller</i> positive integers.
-   * Returns {@code false} if {@code n} is zero, one, or a composite number (one which <i>can</i>
-   * be factored into smaller positive integers).
+   * <a href="http://mathworld.wolfram.com/PrimeNumber.html">prime number</a>:
+   * an integer <i>greater than one</i> that cannot be factored into a product
+   * of <i>smaller</i> positive integers. Returns {@code false} if {@code n} is
+   * zero, one, or a composite number (one which <i>can</i> be factored into
+   * smaller positive integers).
    *
-   * <p>To test larger numbers, use {@link LongMath#isPrime} or {@link BigInteger#isProbablePrime}.
+   * <p>To test larger numbers, use {@link LongMath#isPrime} or {@link
+   * BigInteger#isProbablePrime}.
    *
    * @throws IllegalArgumentException if {@code n} is negative
    * @since 20.0

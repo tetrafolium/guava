@@ -34,7 +34,7 @@ import java.util.List;
  */
 @GwtCompatible
 public abstract class AbstractContainerTester<C, E>
-  extends AbstractTester<OneSizeTestContainerGenerator<C, E>> {
+    extends AbstractTester<OneSizeTestContainerGenerator<C, E>> {
   protected SampleElements<E> samples;
   protected C container;
 
@@ -110,9 +110,7 @@ public abstract class AbstractContainerTester<C, E>
     Helpers.assertEqualIgnoringOrder(expected, actualContents());
   }
 
-  protected void expectUnchanged() {
-    expectContents(getOrderedElements());
-  }
+  protected void expectUnchanged() { expectContents(getOrderedElements()); }
 
   /**
    * Asserts that the collection under test contains exactly the elements it was
@@ -160,7 +158,8 @@ public abstract class AbstractContainerTester<C, E>
    */
   protected void expectMissing(E... elements) {
     for (E element : elements) {
-      assertFalse("Should not contain " + element, actualContents().contains(element));
+      assertFalse("Should not contain " + element,
+                  actualContents().contains(element));
     }
   }
 
@@ -219,7 +218,8 @@ public abstract class AbstractContainerTester<C, E>
    */
   protected List<E> getOrderedElements() {
     List<E> list = new ArrayList<E>();
-    for (E e : getSubjectGenerator().order(new ArrayList<E>(getSampleElements()))) {
+    for (E e :
+         getSubjectGenerator().order(new ArrayList<E>(getSampleElements()))) {
       list.add(e);
     }
     return Collections.unmodifiableList(list);
@@ -229,9 +229,7 @@ public abstract class AbstractContainerTester<C, E>
    * @return a suitable location for a null element, to use when initializing
    * containers for tests that involve a null element being present.
    */
-  protected int getNullLocation() {
-    return getNumElements() / 2;
-  }
+  protected int getNullLocation() { return getNumElements() / 2; }
 
   @SuppressWarnings("unchecked")
   protected MinimalCollection<E> createDisjointCollection() {
@@ -243,23 +241,13 @@ public abstract class AbstractContainerTester<C, E>
     return MinimalCollection.<E>of();
   }
 
-  protected final E e0() {
-    return samples.e0();
-  }
+  protected final E e0() { return samples.e0(); }
 
-  protected final E e1() {
-    return samples.e1();
-  }
+  protected final E e1() { return samples.e1(); }
 
-  protected final E e2() {
-    return samples.e2();
-  }
+  protected final E e2() { return samples.e2(); }
 
-  protected final E e3() {
-    return samples.e3();
-  }
+  protected final E e3() { return samples.e3(); }
 
-  protected final E e4() {
-    return samples.e4();
-  }
+  protected final E e4() { return samples.e4(); }
 }

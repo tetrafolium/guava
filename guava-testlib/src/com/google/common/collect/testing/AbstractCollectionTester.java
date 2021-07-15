@@ -28,7 +28,7 @@ import java.util.Collection;
  */
 @GwtCompatible
 public abstract class AbstractCollectionTester<E>
-  extends AbstractContainerTester<Collection<E>, E> {
+    extends AbstractContainerTester<Collection<E>, E> {
 
   // TODO: replace this with an accessor.
   protected Collection<E> collection;
@@ -46,9 +46,7 @@ public abstract class AbstractCollectionTester<E>
   }
 
   /** @see AbstractContainerTester#resetContainer() */
-  protected void resetCollection() {
-    resetContainer();
-  }
+  protected void resetCollection() { resetContainer(); }
 
   /**
    * @return an array of the proper size with {@code null} inserted into the

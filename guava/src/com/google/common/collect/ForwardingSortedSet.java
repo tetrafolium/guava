@@ -37,9 +37,10 @@ import javax.annotation.Nullable;
  * override {@code addAll} as well, either providing your own implementation, or
  * delegating to the provided {@code standardAddAll} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingSortedSet}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingSortedSet}.
  *
  * <p>Each of the {@code standard} methods, where appropriate, uses the set's
  * comparator (or the natural ordering of the elements, if there is no
@@ -56,13 +57,13 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements SortedSet<E> {
+public abstract class ForwardingSortedSet<E>
+    extends ForwardingSet<E> implements SortedSet<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingSortedSet() {}
 
-  @Override
-  protected abstract SortedSet<E> delegate();
+  @Override protected abstract SortedSet<E> delegate();
 
   @Override
   public Comparator<? super E> comparator() {
@@ -99,8 +100,8 @@ public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements
   private int unsafeCompare(Object o1, Object o2) {
     Comparator<? super E> comparator = comparator();
     return (comparator == null)
-        ? ((Comparable<Object>) o1).compareTo(o2)
-        : ((Comparator<Object>) comparator).compare(o1, o2);
+        ? ((Comparable<Object>)o1).compareTo(o2)
+        : ((Comparator<Object>)comparator).compare(o1, o2);
   }
 
   /**
@@ -116,10 +117,11 @@ public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements
     try {
       // any ClassCastExceptions are caught
       @SuppressWarnings("unchecked")
-      SortedSet<Object> self = (SortedSet<Object>) this;
+      SortedSet<Object> self = (SortedSet<Object>)this;
       Object ceiling = self.tailSet(object).first();
       return unsafeCompare(ceiling, object) == 0;
-    } catch (ClassCastException | NoSuchElementException | NullPointerException e) {
+    } catch (ClassCastException | NoSuchElementException |
+             NullPointerException e) {
       return false;
     }
   }
@@ -137,7 +139,7 @@ public abstract class ForwardingSortedSet<E> extends ForwardingSet<E> implements
     try {
       // any ClassCastExceptions are caught
       @SuppressWarnings("unchecked")
-      SortedSet<Object> self = (SortedSet<Object>) this;
+      SortedSet<Object> self = (SortedSet<Object>)this;
       Iterator<Object> iterator = self.tailSet(object).iterator();
       if (iterator.hasNext()) {
         Object ceiling = iterator.next();

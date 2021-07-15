@@ -28,8 +28,8 @@ import java.util.stream.Collector;
 import javax.annotation.Nullable;
 
 /**
- * Collectors not present in {@code java.util.stream.Collectors} that are not otherwise associated
- * with a {@code com.google.common} type.
+ * Collectors not present in {@code java.util.stream.Collectors} that are not
+ * otherwise associated with a {@code com.google.common} type.
  *
  * @author Louis Wasserman
  * @since 21.0
@@ -39,54 +39,51 @@ import javax.annotation.Nullable;
 public final class MoreCollectors {
 
   /*
-   * TODO(lowasser): figure out if we can convert this to a concurrent AtomicReference-based
-   * collector without breaking j2cl?
+   * TODO(lowasser): figure out if we can convert this to a concurrent
+   * AtomicReference-based collector without breaking j2cl?
    */
   private static final Collector<Object, ?, Optional<Object>> TO_OPTIONAL =
-      Collector.of(
-          ToOptionalState::new,
-          ToOptionalState::add,
-          ToOptionalState::combine,
-          ToOptionalState::getOptional,
-          Collector.Characteristics.UNORDERED);
+      Collector.of(ToOptionalState::new, ToOptionalState::add,
+                   ToOptionalState::combine, ToOptionalState::getOptional,
+                   Collector.Characteristics.UNORDERED);
 
   /**
-   * A collector that converts a stream of zero or one elements to an {@code Optional}. The returned
-   * collector throws an {@code IllegalArgumentException} if the stream consists of two or more
-   * elements, and a {@code NullPointerException} if the stream consists of exactly one element,
-   * which is null.
+   * A collector that converts a stream of zero or one elements to an {@code
+   * Optional}. The returned collector throws an {@code
+   * IllegalArgumentException} if the stream consists of two or more elements,
+   * and a {@code NullPointerException} if the stream consists of exactly one
+   * element, which is null.
    */
   @SuppressWarnings("unchecked")
   public static <T> Collector<T, ?, Optional<T>> toOptional() {
-    return (Collector) TO_OPTIONAL;
+    return (Collector)TO_OPTIONAL;
   }
 
   private static final Object NULL_PLACEHOLDER = new Object();
 
   private static final Collector<Object, ?, Object> ONLY_ELEMENT =
-      Collector.of(
-          ToOptionalState::new,
-          (state, o) -> state.add((o == null) ? NULL_PLACEHOLDER : o),
-          ToOptionalState::combine,
-  state -> {
-    Object result = state.getElement();
-    return (result == NULL_PLACEHOLDER) ? null : result;
-  },
-  Collector.Characteristics.UNORDERED);
+      Collector.of(ToOptionalState::new,
+                   (state, o)
+                       -> state.add((o == null) ? NULL_PLACEHOLDER : o),
+                   ToOptionalState::combine, state -> {
+                     Object result = state.getElement();
+                     return (result == NULL_PLACEHOLDER) ? null : result;
+                   }, Collector.Characteristics.UNORDERED);
 
   /**
-   * A collector that takes a stream containing exactly one element and returns that element. The
-   * returned collector throws an {@code IllegalArgumentException} if the stream consists of two or
-   * more elements, and a {@code NoSuchElementException} if the stream is empty.
+   * A collector that takes a stream containing exactly one element and returns
+   * that element. The returned collector throws an {@code
+   * IllegalArgumentException} if the stream consists of two or more elements,
+   * and a {@code NoSuchElementException} if the stream is empty.
    */
   @SuppressWarnings("unchecked")
   public static <T> Collector<T, ?, T> onlyElement() {
-    return (Collector) ONLY_ELEMENT;
+    return (Collector)ONLY_ELEMENT;
   }
 
   /**
-   * This atrocity is here to let us report several of the elements in the stream if there were more
-   * than one, not just two.
+   * This atrocity is here to let us report several of the elements in the
+   * stream if there were more than one, not just two.
    */
   private static final class ToOptionalState {
     static final int MAX_EXTRAS = 4;
@@ -100,8 +97,9 @@ public final class MoreCollectors {
     }
 
     IllegalArgumentException multiples(boolean overflow) {
-      StringBuilder sb =
-          new StringBuilder().append("expected one element but was: <").append(element);
+      StringBuilder sb = new StringBuilder()
+                             .append("expected one element but was: <")
+                             .append(element);
       for (Object o : extras) {
         sb.append(", ").append(o);
       }

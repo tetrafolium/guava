@@ -38,12 +38,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MoreExecutorsDirectExecutorBenchmark {
   enum Impl {
     EXECUTOR_SERVICE {
-      @Override Executor executor() {
+      @Override
+      Executor executor() {
         return newDirectExecutorService();
       }
     },
     EXECUTOR {
-      @Override Executor executor() {
+      @Override
+      Executor executor() {
         return directExecutor();
       }
     };
@@ -55,7 +57,8 @@ public class MoreExecutorsDirectExecutorBenchmark {
 
   static final class CountingRunnable implements Runnable {
     AtomicInteger integer = new AtomicInteger();
-    @Override public void run() {
+    @Override
+    public void run() {
       integer.incrementAndGet();
     }
   }
@@ -64,11 +67,13 @@ public class MoreExecutorsDirectExecutorBenchmark {
 
   Set<Thread> threads = new HashSet<>();
 
-  @BeforeExperiment void before() {
+  @BeforeExperiment
+  void before() {
     executor = impl.executor();
     for (int i = 0; i < 4; i++) {
       Thread thread = new Thread() {
-        @Override public void run() {
+        @Override
+        public void run() {
           CountingRunnable localRunnable = new CountingRunnable();
           while (!isInterrupted()) {
             executor.execute(localRunnable);
@@ -80,18 +85,21 @@ public class MoreExecutorsDirectExecutorBenchmark {
     }
   }
 
-  @AfterExperiment void after() {
+  @AfterExperiment
+  void after() {
     for (Thread thread : threads) {
-      thread.interrupt();  // try to get them to exit
+      thread.interrupt(); // try to get them to exit
     }
     threads.clear();
   }
 
-  @Footprint Object measureSize() {
+  @Footprint
+  Object measureSize() {
     return executor;
   }
 
-  @Benchmark int timeUncontendedExecute(int reps) {
+  @Benchmark
+  int timeUncontendedExecute(int reps) {
     final Executor executor = this.executor;
     final CountingRunnable countingRunnable = this.countingRunnable;
     for (int i = 0; i < reps; i++) {
@@ -100,7 +108,8 @@ public class MoreExecutorsDirectExecutorBenchmark {
     return countingRunnable.integer.get();
   }
 
-  @Benchmark int timeContendedExecute(int reps) {
+  @Benchmark
+  int timeContendedExecute(int reps) {
     final Executor executor = this.executor;
     for (Thread thread : threads) {
       if (!thread.isAlive()) {

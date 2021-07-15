@@ -86,7 +86,8 @@ public class MapCreationTester<K, V> extends AbstractMapTester<K, V> {
     expectContents(entries);
   }
 
-  @MapFeature.Require(value = ALLOWS_NULL_KEYS, absent = REJECTS_DUPLICATES_AT_CREATION)
+  @MapFeature.
+  Require(value = ALLOWS_NULL_KEYS, absent = REJECTS_DUPLICATES_AT_CREATION)
   @CollectionSize.Require(absent = {ZERO, ONE})
   public void testCreateWithDuplicates_nullDuplicatesNotRejected() {
     expectFirstRemoved(getEntriesMultipleNullKeys());
@@ -149,6 +150,7 @@ public class MapCreationTester<K, V> extends AbstractMapTester<K, V> {
    */
   @GwtIncompatible // reflection
   public static Method getCreateWithNullKeyUnsupportedMethod() {
-    return Helpers.getMethod(MapCreationTester.class, "testCreateWithNullKeyUnsupported");
+    return Helpers.getMethod(MapCreationTester.class,
+                             "testCreateWithNullKeyUnsupported");
   }
 }

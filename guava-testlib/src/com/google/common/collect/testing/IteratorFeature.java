@@ -52,12 +52,13 @@ public enum IteratorFeature {
    * A set containing none of the optional features of the {@link Iterator} or
    * {@link ListIterator} interfaces.
    */
-  public static final Set<IteratorFeature> UNMODIFIABLE = Collections.emptySet();
+  public static final Set<IteratorFeature> UNMODIFIABLE =
+      Collections.emptySet();
 
   /**
    * A set containing all of the optional features of the {@link Iterator} and
    * {@link ListIterator} interfaces.
    */
   public static final Set<IteratorFeature> MODIFIABLE =
-  Collections.unmodifiableSet(EnumSet.allOf(IteratorFeature.class));
+      Collections.unmodifiableSet(EnumSet.allOf(IteratorFeature.class));
 }

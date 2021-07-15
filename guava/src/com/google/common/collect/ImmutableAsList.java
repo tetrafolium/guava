@@ -23,8 +23,8 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 /**
- * List returned by {@link ImmutableCollection#asList} that delegates {@code contains} checks
- * to the backing collection.
+ * List returned by {@link ImmutableCollection#asList} that delegates {@code
+ * contains} checks to the backing collection.
  *
  * @author Jared Levy
  * @author Louis Wasserman
@@ -67,15 +67,14 @@ abstract class ImmutableAsList<E> extends ImmutableList<E> {
       this.collection = collection;
     }
 
-    Object readResolve() {
-      return collection.asList();
-    }
+    Object readResolve() { return collection.asList(); }
 
     private static final long serialVersionUID = 0;
   }
 
   @GwtIncompatible // serialization
-  private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+  private void readObject(ObjectInputStream stream)
+      throws InvalidObjectException {
     throw new InvalidObjectException("Use SerializedForm");
   }
 

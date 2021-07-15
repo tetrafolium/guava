@@ -73,7 +73,8 @@ import javax.annotation.Nullable;
  *   Zachary: [Taylor]
  *   John: [Adams, Adams, Tyler, Kennedy]  // Remember, Quincy!
  *   George: [Washington, Bush, Bush]
- *   Grover: [Cleveland, Cleveland]        // Two, non-consecutive terms, rep'ing NJ!
+ *   Grover: [Cleveland, Cleveland]        // Two, non-consecutive terms,
+ * rep'ing NJ!
  *   ...}</pre>
  *
  * <h3>Views</h3>
@@ -199,9 +200,8 @@ public interface Multimap<K, V> {
    * Returns {@code true} if this multimap contains at least one key-value pair
    * with the key {@code key} and the value {@code value}.
    */
-  boolean containsEntry(
-      @CompatibleWith("K") @Nullable Object key,
-      @CompatibleWith("V") @Nullable Object value);
+  boolean containsEntry(@CompatibleWith("K") @Nullable Object key,
+                        @CompatibleWith("V") @Nullable Object value);
 
   // Modification Operations
 
@@ -217,8 +217,7 @@ public interface Multimap<K, V> {
    *     {@code false} if the multimap already contained the key-value pair and
    *     doesn't allow duplicates
    */
-  @CanIgnoreReturnValue
-  boolean put(@Nullable K key, @Nullable V value);
+  @CanIgnoreReturnValue boolean put(@Nullable K key, @Nullable V value);
 
   /**
    * Removes a single key-value pair with the key {@code key} and the value
@@ -229,9 +228,8 @@ public interface Multimap<K, V> {
    * @return {@code true} if the multimap changed
    */
   @CanIgnoreReturnValue
-  boolean remove(
-      @CompatibleWith("K") @Nullable Object key,
-      @CompatibleWith("V") @Nullable Object value);
+  boolean remove(@CompatibleWith("K") @Nullable Object key,
+                 @CompatibleWith("V") @Nullable Object value);
 
   // Bulk Operations
 
@@ -351,12 +349,15 @@ public interface Multimap<K, V> {
   Collection<Map.Entry<K, V>> entries();
 
   /**
-   * Performs the given action for all key-value pairs contained in this multimap. If an ordering is
-   * specified by the {@code Multimap} implementation, actions will be performed in the order of
-   * iteration of {@link #entries()}. Exceptions thrown by the action are relayed to the caller.
+   * Performs the given action for all key-value pairs contained in this
+   * multimap. If an ordering is specified by the {@code Multimap}
+   * implementation, actions will be performed in the order of iteration of
+   * {@link #entries()}. Exceptions thrown by the action are relayed to the
+   * caller.
    *
    * <p>To loop over all keys and their associated value collections, write
-   * {@code Multimaps.asMap(multimap).forEach((key, valueCollection) -> action())}.
+   * {@code Multimaps.asMap(multimap).forEach((key, valueCollection) ->
+   * action())}.
    *
    * @since 21.0
    */
@@ -397,8 +398,7 @@ public interface Multimap<K, V> {
    * collections as values. However, any two empty multimaps are equal, because
    * they both have empty {@link #asMap} views.
    */
-  @Override
-  boolean equals(@Nullable Object obj);
+  @Override boolean equals(@Nullable Object obj);
 
   /**
    * Returns the hash code for this multimap.
@@ -413,6 +413,5 @@ public interface Multimap<K, V> {
    * of {@link ListMultimap} instances depends on the ordering of the values
    * for each key.
    */
-  @Override
-  int hashCode();
+  @Override int hashCode();
 }

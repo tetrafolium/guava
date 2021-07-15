@@ -50,7 +50,7 @@ public interface SortedMultiset<E> extends Multiset<E>, SortedIterable<E> {
   SortedMultiset<E> headMultiset(E upperBound, BoundType boundType);
 
   SortedMultiset<E> subMultiset(E lowerBound, BoundType lowerBoundType,
-      E upperBound, BoundType upperBoundType);
+                                E upperBound, BoundType upperBoundType);
 
   SortedMultiset<E> tailMultiset(E lowerBound, BoundType boundType);
 }

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -20,7 +22,8 @@
 /*
  * Source:
  * https://github.com/aappleby/smhasher/blob/master/src/MurmurHash3.cpp
- * (Modified to adapt to Guava coding conventions and to use the HashFunction interface)
+ * (Modified to adapt to Guava coding conventions and to use the HashFunction
+ * interface)
  */
 
 package com.google.common.hash;
@@ -33,24 +36,25 @@ import java.nio.ByteOrder;
 import javax.annotation.Nullable;
 
 /**
- * See MurmurHash3_x64_128 in <a href="http://smhasher.googlecode.com/svn/trunk/MurmurHash3.cpp">the
- * C++ implementation</a>.
+ * See MurmurHash3_x64_128 in <a
+ * href="http://smhasher.googlecode.com/svn/trunk/MurmurHash3.cpp">the C++
+ * implementation</a>.
  *
  * @author Austin Appleby
  * @author Dimitris Andreou
  */
-final class Murmur3_128HashFunction extends AbstractHashFunction implements Serializable {
+final class Murmur3_128HashFunction
+    extends AbstractHashFunction implements Serializable {
   static final HashFunction MURMUR3_128 = new Murmur3_128HashFunction(0);
 
   static final HashFunction GOOD_FAST_HASH_128 =
       new Murmur3_128HashFunction(Hashing.GOOD_FAST_HASH_SEED);
 
-  // TODO(user): when the shortcuts are implemented, update BloomFilterStrategies
+  // TODO(user): when the shortcuts are implemented, update
+  // BloomFilterStrategies
   private final int seed;
 
-  Murmur3_128HashFunction(int seed) {
-    this.seed = seed;
-  }
+  Murmur3_128HashFunction(int seed) { this.seed = seed; }
 
   @Override
   public int bits() {
@@ -70,7 +74,7 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Murmur3_128HashFunction) {
-      Murmur3_128HashFunction other = (Murmur3_128HashFunction) object;
+      Murmur3_128HashFunction other = (Murmur3_128HashFunction)object;
       return seed == other.seed;
     }
     return false;
@@ -125,36 +129,36 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
       length += bb.remaining();
       switch (bb.remaining()) {
       case 15:
-        k2 ^= (long) toInt(bb.get(14)) << 48; // fall through
+        k2 ^= (long)toInt(bb.get(14)) << 48; // fall through
       case 14:
-        k2 ^= (long) toInt(bb.get(13)) << 40; // fall through
+        k2 ^= (long)toInt(bb.get(13)) << 40; // fall through
       case 13:
-        k2 ^= (long) toInt(bb.get(12)) << 32; // fall through
+        k2 ^= (long)toInt(bb.get(12)) << 32; // fall through
       case 12:
-        k2 ^= (long) toInt(bb.get(11)) << 24; // fall through
+        k2 ^= (long)toInt(bb.get(11)) << 24; // fall through
       case 11:
-        k2 ^= (long) toInt(bb.get(10)) << 16; // fall through
+        k2 ^= (long)toInt(bb.get(10)) << 16; // fall through
       case 10:
-        k2 ^= (long) toInt(bb.get(9)) << 8; // fall through
+        k2 ^= (long)toInt(bb.get(9)) << 8; // fall through
       case 9:
-        k2 ^= (long) toInt(bb.get(8)); // fall through
+        k2 ^= (long)toInt(bb.get(8)); // fall through
       case 8:
         k1 ^= bb.getLong();
         break;
       case 7:
-        k1 ^= (long) toInt(bb.get(6)) << 48; // fall through
+        k1 ^= (long)toInt(bb.get(6)) << 48; // fall through
       case 6:
-        k1 ^= (long) toInt(bb.get(5)) << 40; // fall through
+        k1 ^= (long)toInt(bb.get(5)) << 40; // fall through
       case 5:
-        k1 ^= (long) toInt(bb.get(4)) << 32; // fall through
+        k1 ^= (long)toInt(bb.get(4)) << 32; // fall through
       case 4:
-        k1 ^= (long) toInt(bb.get(3)) << 24; // fall through
+        k1 ^= (long)toInt(bb.get(3)) << 24; // fall through
       case 3:
-        k1 ^= (long) toInt(bb.get(2)) << 16; // fall through
+        k1 ^= (long)toInt(bb.get(2)) << 16; // fall through
       case 2:
-        k1 ^= (long) toInt(bb.get(1)) << 8; // fall through
+        k1 ^= (long)toInt(bb.get(1)) << 8; // fall through
       case 1:
-        k1 ^= (long) toInt(bb.get(0));
+        k1 ^= (long)toInt(bb.get(0));
         break;
       default:
         throw new AssertionError("Should never get here.");
@@ -177,12 +181,11 @@ final class Murmur3_128HashFunction extends AbstractHashFunction implements Seri
       h1 += h2;
       h2 += h1;
 
-      return HashCode.fromBytesNoCopy(
-              ByteBuffer.wrap(new byte[CHUNK_SIZE])
-              .order(ByteOrder.LITTLE_ENDIAN)
-              .putLong(h1)
-              .putLong(h2)
-              .array());
+      return HashCode.fromBytesNoCopy(ByteBuffer.wrap(new byte[CHUNK_SIZE])
+                                          .order(ByteOrder.LITTLE_ENDIAN)
+                                          .putLong(h1)
+                                          .putLong(h2)
+                                          .array());
     }
 
     private static long fmix64(long k) {

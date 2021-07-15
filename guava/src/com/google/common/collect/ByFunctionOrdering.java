@@ -29,7 +29,8 @@ import javax.annotation.Nullable;
  * function on those elements.
  */
 @GwtCompatible(serializable = true)
-final class ByFunctionOrdering<F, T> extends Ordering<F> implements Serializable {
+final class ByFunctionOrdering<F, T>
+    extends Ordering<F> implements Serializable {
   final Function<F, ? extends T> function;
   final Ordering<T> ordering;
 
@@ -49,8 +50,9 @@ final class ByFunctionOrdering<F, T> extends Ordering<F> implements Serializable
       return true;
     }
     if (object instanceof ByFunctionOrdering) {
-      ByFunctionOrdering<?, ?> that = (ByFunctionOrdering<?, ?>) object;
-      return this.function.equals(that.function) && this.ordering.equals(that.ordering);
+      ByFunctionOrdering<?, ?> that = (ByFunctionOrdering<?, ?>)object;
+      return this.function.equals(that.function) &&
+          this.ordering.equals(that.ordering);
     }
     return false;
   }

@@ -31,7 +31,8 @@ import java.util.SortedSet;
  * @author Louis Wasserman
  */
 @GwtCompatible
-abstract class AbstractSortedKeySortedSetMultimap<K, V> extends AbstractSortedSetMultimap<K, V> {
+abstract class AbstractSortedKeySortedSetMultimap<K, V>
+    extends AbstractSortedSetMultimap<K, V> {
 
   AbstractSortedKeySortedSetMultimap(SortedMap<K, Collection<V>> map) {
     super(map);
@@ -39,16 +40,16 @@ abstract class AbstractSortedKeySortedSetMultimap<K, V> extends AbstractSortedSe
 
   @Override
   public SortedMap<K, Collection<V>> asMap() {
-    return (SortedMap<K, Collection<V>>) super.asMap();
+    return (SortedMap<K, Collection<V>>)super.asMap();
   }
 
   @Override
   SortedMap<K, Collection<V>> backingMap() {
-    return (SortedMap<K, Collection<V>>) super.backingMap();
+    return (SortedMap<K, Collection<V>>)super.backingMap();
   }
 
   @Override
   public SortedSet<K> keySet() {
-    return (SortedSet<K>) super.keySet();
+    return (SortedSet<K>)super.keySet();
   }
 }

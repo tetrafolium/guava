@@ -37,9 +37,7 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
    * Creates a new, empty {@code HashMultiset} using the default initial
    * capacity.
    */
-  public static <E> HashMultiset<E> create() {
-    return new HashMultiset<E>();
-  }
+  public static <E> HashMultiset<E> create() { return new HashMultiset<E>(); }
 
   /**
    * Creates a new, empty {@code HashMultiset} with the specified expected
@@ -61,14 +59,13 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
    * @param elements the elements that the multiset should contain
    */
   public static <E> HashMultiset<E> create(Iterable<? extends E> elements) {
-    HashMultiset<E> multiset = create(Multisets.inferDistinctElements(elements));
+    HashMultiset<E> multiset =
+        create(Multisets.inferDistinctElements(elements));
     Iterables.addAll(multiset, elements);
     return multiset;
   }
 
-  private HashMultiset() {
-    super(new HashMap<E, Count>());
-  }
+  private HashMultiset() { super(new HashMap<E, Count>()); }
 
   private HashMultiset(int distinctElements) {
     super(Maps.<E, Count>newHashMapWithExpectedSize(distinctElements));
@@ -85,7 +82,8 @@ public final class HashMultiset<E> extends AbstractMapBasedMultiset<E> {
   }
 
   @GwtIncompatible // java.io.ObjectInputStream
-  private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
+  private void readObject(ObjectInputStream stream)
+      throws IOException, ClassNotFoundException {
     stream.defaultReadObject();
     int distinctElements = Serialization.readCount(stream);
     setBackingMap(Maps.<E, Count>newHashMap());

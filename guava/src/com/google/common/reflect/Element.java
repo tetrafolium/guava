@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2012 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -26,8 +28,9 @@ import java.lang.reflect.Modifier;
 import javax.annotation.Nullable;
 
 /**
- * Represents either a {@link Field}, a {@link Method} or a {@link Constructor}. Provides
- * convenience methods such as {@link #isPublic} and {@link #isPackagePrivate}.
+ * Represents either a {@link Field}, a {@link Method} or a {@link Constructor}.
+ * Provides convenience methods such as {@link #isPublic} and {@link
+ * #isPackagePrivate}.
  *
  * @author Ben Yu
  */
@@ -36,7 +39,7 @@ class Element extends AccessibleObject implements Member {
   private final AccessibleObject accessibleObject;
   private final Member member;
 
-  <M extends AccessibleObject & Member> Element(M member) {
+  <M extends AccessibleObject &Member> Element(M member) {
     checkNotNull(member);
     this.accessibleObject = member;
     this.member = member;
@@ -47,12 +50,14 @@ class Element extends AccessibleObject implements Member {
   }
 
   @Override
-  public final boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {
+  public final boolean
+  isAnnotationPresent(Class<? extends Annotation> annotationClass) {
     return accessibleObject.isAnnotationPresent(annotationClass);
   }
 
   @Override
-  public final <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+  public final <A extends Annotation>
+      A getAnnotation(Class<A> annotationClass) {
     return accessibleObject.getAnnotation(annotationClass);
   }
 
@@ -97,9 +102,7 @@ class Element extends AccessibleObject implements Member {
   }
 
   /** Returns true if the element is public. */
-  public final boolean isPublic() {
-    return Modifier.isPublic(getModifiers());
-  }
+  public final boolean isPublic() { return Modifier.isPublic(getModifiers()); }
 
   /** Returns true if the element is protected. */
   public final boolean isProtected() {
@@ -117,20 +120,19 @@ class Element extends AccessibleObject implements Member {
   }
 
   /** Returns true if the element is static. */
-  public final boolean isStatic() {
-    return Modifier.isStatic(getModifiers());
-  }
+  public final boolean isStatic() { return Modifier.isStatic(getModifiers()); }
 
   /**
-   * Returns {@code true} if this method is final, per {@code Modifier.isFinal(getModifiers())}.
+   * Returns {@code true} if this method is final, per {@code
+   * Modifier.isFinal(getModifiers())}.
    *
-   * <p>Note that a method may still be effectively "final", or non-overridable when it has no
-   * {@code final} keyword. For example, it could be private, or it could be declared by a final
-   * class. To tell whether a method is overridable, use {@link Invokable#isOverridable}.
+   * <p>Note that a method may still be effectively "final", or non-overridable
+   * when it has no
+   * {@code final} keyword. For example, it could be private, or it could be
+   * declared by a final class. To tell whether a method is overridable, use
+   * {@link Invokable#isOverridable}.
    */
-  public final boolean isFinal() {
-    return Modifier.isFinal(getModifiers());
-  }
+  public final boolean isFinal() { return Modifier.isFinal(getModifiers()); }
 
   /** Returns true if the method is abstract. */
   public final boolean isAbstract() {
@@ -138,9 +140,7 @@ class Element extends AccessibleObject implements Member {
   }
 
   /** Returns true if the element is native. */
-  public final boolean isNative() {
-    return Modifier.isNative(getModifiers());
-  }
+  public final boolean isNative() { return Modifier.isNative(getModifiers()); }
 
   /** Returns true if the method is synchronized. */
   public final boolean isSynchronized() {
@@ -148,20 +148,17 @@ class Element extends AccessibleObject implements Member {
   }
 
   /** Returns true if the field is volatile. */
-  final boolean isVolatile() {
-    return Modifier.isVolatile(getModifiers());
-  }
+  final boolean isVolatile() { return Modifier.isVolatile(getModifiers()); }
 
   /** Returns true if the field is transient. */
-  final boolean isTransient() {
-    return Modifier.isTransient(getModifiers());
-  }
+  final boolean isTransient() { return Modifier.isTransient(getModifiers()); }
 
   @Override
   public boolean equals(@Nullable Object obj) {
     if (obj instanceof Element) {
-      Element that = (Element) obj;
-      return getOwnerType().equals(that.getOwnerType()) && member.equals(that.member);
+      Element that = (Element)obj;
+      return getOwnerType().equals(that.getOwnerType()) &&
+          member.equals(that.member);
     }
     return false;
   }

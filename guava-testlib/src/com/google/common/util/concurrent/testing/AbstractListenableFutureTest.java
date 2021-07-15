@@ -62,8 +62,8 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * Constructs a listenable future with a value available after the latch
    * has counted down.
    */
-  protected abstract <V> ListenableFuture<V> createListenableFuture(
-      V value, Exception except, CountDownLatch waitOn);
+  protected abstract <V> ListenableFuture<V>
+  createListenableFuture(V value, Exception except, CountDownLatch waitOn);
 
   /**
    * Tests that the {@link Future#get()} method blocks until a value is
@@ -108,8 +108,8 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * Tests that the {@link Future#get(long, TimeUnit)} method times out
    * correctly.
    */
-  public void testTimeoutOnGetWorksCorrectly() throws InterruptedException,
-    ExecutionException {
+  public void testTimeoutOnGetWorksCorrectly()
+      throws InterruptedException, ExecutionException {
 
     // The task thread waits for the latch, so we expect a timeout here.
     try {
@@ -207,7 +207,7 @@ public abstract class AbstractListenableFutureTest extends TestCase {
    * can be lost.
    */
   public void testAllListenersCompleteSuccessfully()
-  throws InterruptedException, ExecutionException {
+      throws InterruptedException, ExecutionException {
 
     ExecutorService exec = Executors.newCachedThreadPool();
 

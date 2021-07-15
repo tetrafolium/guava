@@ -70,10 +70,10 @@ public class MapForEachTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testForEach_nullValues() {
     initMapWithNullValue();
-    List<Entry<K, V>> expectedEntries = Arrays.asList(createArrayWithNullValue());
+    List<Entry<K, V>> expectedEntries =
+        Arrays.asList(createArrayWithNullValue());
     List<Entry<K, V>> entries = new ArrayList<>();
     getMap().forEach((k, v) -> entries.add(entry(k, v)));
     Helpers.assertEqualIgnoringOrder(expectedEntries, entries);
   }
 }
-

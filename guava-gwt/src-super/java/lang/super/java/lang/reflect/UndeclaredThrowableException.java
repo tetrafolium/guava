@@ -24,11 +24,10 @@ public class UndeclaredThrowableException extends RuntimeException {
     super(undeclaredThrowable);
   }
 
-  public UndeclaredThrowableException(Throwable undeclaredThrowable, String message) {
+  public UndeclaredThrowableException(Throwable undeclaredThrowable,
+                                      String message) {
     super(message, undeclaredThrowable);
   }
 
-  public Throwable getUndeclaredThrowable() {
-    return getCause();
-  }
+  public Throwable getUndeclaredThrowable() { return getCause(); }
 }

@@ -28,25 +28,29 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * A map-like data structure that wraps a backing map and caches values while iterating through
- * {@link #unmodifiableKeySet()}. By design, the cache is cleared when this structure is mutated. If
- * this structure is never mutated, it provides a thread-safe view of the backing map.
+ * A map-like data structure that wraps a backing map and caches values while
+ * iterating through
+ * {@link #unmodifiableKeySet()}. By design, the cache is cleared when this
+ * structure is mutated. If this structure is never mutated, it provides a
+ * thread-safe view of the backing map.
  *
- * <p>The {@link MapIteratorCache} assumes ownership of the backing map, and cannot guarantee
- * correctness in the face of external mutations to the backing map. As such, it is <b>strongly</b>
- * recommended that the caller does not persist a reference to the backing map (unless the backing
- * map is immutable).
+ * <p>The {@link MapIteratorCache} assumes ownership of the backing map, and
+ * cannot guarantee correctness in the face of external mutations to the backing
+ * map. As such, it is <b>strongly</b> recommended that the caller does not
+ * persist a reference to the backing map (unless the backing map is immutable).
  *
- * <p>This class is tailored toward use cases in common.graph. It is *NOT* a general purpose map.
+ * <p>This class is tailored toward use cases in common.graph. It is *NOT* a
+ * general purpose map.
  *
  * @author James Sexton
  */
 class MapIteratorCache<K, V> {
   private final Map<K, V> backingMap;
 
-  // Per JDK: "the behavior of a map entry is undefined if the backing map has been modified after
-  // the entry was returned by the iterator, except through the setValue operation on the map entry"
-  // As such, this field must be cleared before every map mutation.
+  // Per JDK: "the behavior of a map entry is undefined if the backing map has
+  // been modified after the entry was returned by the iterator, except through
+  // the setValue operation on the map entry" As such, this field must be
+  // cleared before every map mutation.
   @Nullable private transient Entry<K, V> entrySetCache;
 
   MapIteratorCache(Map<K, V> backingMap) {
@@ -87,7 +91,8 @@ class MapIteratorCache<K, V> {
     return new AbstractSet<K>() {
       @Override
       public UnmodifiableIterator<K> iterator() {
-        final Iterator<Entry<K, V>> entryIterator = backingMap.entrySet().iterator();
+        final Iterator<Entry<K, V>> entryIterator =
+            backingMap.entrySet().iterator();
 
         return new UnmodifiableIterator<K>() {
           @Override
@@ -97,7 +102,8 @@ class MapIteratorCache<K, V> {
 
           @Override
           public K next() {
-            Entry<K, V> entry = entryIterator.next(); // store local reference for thread-safety
+            Entry<K, V> entry =
+                entryIterator.next(); // store local reference for thread-safety
             entrySetCache = entry;
             return entry.getKey();
           }
@@ -116,19 +122,20 @@ class MapIteratorCache<K, V> {
     };
   }
 
-  // Internal methods ('protected' is still package-visible, but treat as only subclass-visible)
+  // Internal methods ('protected' is still package-visible, but treat as only
+  // subclass-visible)
 
   protected V getIfCached(@Nullable Object key) {
-    Entry<K, V> entry = entrySetCache; // store local reference for thread-safety
+    Entry<K, V> entry =
+        entrySetCache; // store local reference for thread-safety
 
-    // Check cache. We use == on purpose because it's cheaper and a cache miss is ok.
+    // Check cache. We use == on purpose because it's cheaper and a cache miss
+    // is ok.
     if (entry != null && entry.getKey() == key) {
       return entry.getValue();
     }
     return null;
   }
 
-  protected void clearCache() {
-    entrySetCache = null;
-  }
+  protected void clearCache() { entrySetCache = null; }
 }

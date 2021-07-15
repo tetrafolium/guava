@@ -1,20 +1,23 @@
 /*
  * Copyright (C) 2012 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
 /*
- * SipHash-c-d was designed by Jean-Philippe Aumasson and Daniel J. Bernstein and is described in
- * "SipHash: a fast short-input PRF" (available at https://131002.net/siphash/siphash.pdf).
+ * SipHash-c-d was designed by Jean-Philippe Aumasson and Daniel J. Bernstein
+ * and is described in "SipHash: a fast short-input PRF" (available at
+ * https://131002.net/siphash/siphash.pdf).
  */
 
 package com.google.common.hash;
@@ -32,7 +35,8 @@ import javax.annotation.Nullable;
  * @author Jean-Philippe Aumasson
  * @author Daniel J. Bernstein
  */
-final class SipHashFunction extends AbstractHashFunction implements Serializable {
+final class SipHashFunction
+    extends AbstractHashFunction implements Serializable {
   static final HashFunction SIP_HASH_24 =
       new SipHashFunction(2, 4, 0x0706050403020100L, 0x0f0e0d0c0b0a0908L);
 
@@ -52,9 +56,13 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
    */
   SipHashFunction(int c, int d, long k0, long k1) {
     checkArgument(
-        c > 0, "The number of SipRound iterations (c=%s) during Compression must be positive.", c);
+        c > 0,
+        "The number of SipRound iterations (c=%s) during Compression must be positive.",
+        c);
     checkArgument(
-        d > 0, "The number of SipRound iterations (d=%s) during Finalization must be positive.", d);
+        d > 0,
+        "The number of SipRound iterations (d=%s) during Finalization must be positive.",
+        d);
     this.c = c;
     this.d = d;
     this.k0 = k0;
@@ -81,18 +89,16 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof SipHashFunction) {
-      SipHashFunction other = (SipHashFunction) object;
-      return (c == other.c)
-          && (d == other.d)
-          && (k0 == other.k0)
-          && (k1 == other.k1);
+      SipHashFunction other = (SipHashFunction)object;
+      return (c == other.c) && (d == other.d) && (k0 == other.k0) &&
+          (k1 == other.k1);
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return (int) (getClass().hashCode() ^ c ^ d ^ k0 ^ k1);
+    return (int)(getClass().hashCode() ^ c ^ d ^ k0 ^ k1);
   }
 
   private static final class SipHasher extends AbstractStreamingHasher {
@@ -104,9 +110,10 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
     private final int d;
 
     // Four 64-bit words of internal state.
-    // The initial state corresponds to the ASCII string "somepseudorandomlygeneratedbytes",
-    // big-endian encoded. There is nothing special about this value; the only requirement
-    // was some asymmetry so that the initial v0 and v1 differ from v2 and v3.
+    // The initial state corresponds to the ASCII string
+    // "somepseudorandomlygeneratedbytes", big-endian encoded. There is nothing
+    // special about this value; the only requirement was some asymmetry so that
+    // the initial v0 and v1 differ from v2 and v3.
     private long v0 = 0x736f6d6570736575L;
     private long v1 = 0x646f72616e646f6dL;
     private long v2 = 0x6c7967656e657261L;
@@ -115,8 +122,9 @@ final class SipHashFunction extends AbstractHashFunction implements Serializable
     // The number of bytes in the input.
     private long b = 0;
 
-    // The final 64-bit chunk includes the last 0 through 7 bytes of m followed by null bytes
-    // and ending with a byte encoding the positive integer b mod 256.
+    // The final 64-bit chunk includes the last 0 through 7 bytes of m followed
+    // by null bytes and ending with a byte encoding the positive integer b mod
+    // 256.
     private long finalM = 0;
 
     SipHasher(int c, int d, long k0, long k1) {

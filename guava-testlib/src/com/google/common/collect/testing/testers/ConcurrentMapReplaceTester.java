@@ -29,8 +29,8 @@ import com.google.common.collect.testing.features.MapFeature;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * A generic JUnit test which tests {@code replace(K, V)} operations on a concurrent map. Can't be
- * invoked directly; please see
+ * A generic JUnit test which tests {@code replace(K, V)} operations on a
+ * concurrent map. Can't be invoked directly; please see
  * {@link com.google.common.collect.testing.ConcurrentMapTestSuiteBuilder}.
  *
  * @author Louis Wasserman
@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentMap;
 public class ConcurrentMapReplaceTester<K, V> extends AbstractMapTester<K, V> {
   @Override
   protected ConcurrentMap<K, V> getMap() {
-    return (ConcurrentMap<K, V>) super.getMap();
+    return (ConcurrentMap<K, V>)super.getMap();
   }
 
   @MapFeature.Require(SUPPORTS_PUT)

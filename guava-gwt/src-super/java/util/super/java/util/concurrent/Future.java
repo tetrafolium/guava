@@ -17,10 +17,11 @@
 package java.util.concurrent;
 
 /**
- * Emulation of Future. Since GWT environment is single threaded, attempting to block on the future
- * by calling {@link #get()} or {@link #get(long, TimeUnit)} when the it is not yet done is
- * considered illegal because it would lead to a deadlock. Future implementations must throw {@link
- * IllegalStateException} to avoid a deadlock.
+ * Emulation of Future. Since GWT environment is single threaded, attempting to
+ * block on the future by calling {@link #get()} or {@link #get(long, TimeUnit)}
+ * when the it is not yet done is considered illegal because it would lead to a
+ * deadlock. Future implementations must throw {@link IllegalStateException} to
+ * avoid a deadlock.
  *
  * @param <V> value type returned by the future.
  */
@@ -31,12 +32,13 @@ public interface Future<V> {
 
   boolean isDone();
 
-  // Even though the 'get' methods below are blocking, they are the only built-in APIs to get the
-  // result of the {@code Future}, hence they are not removed. The implementation must throw {@link
-  // IllegalStateException} if the {@code Future} is not done yet (see the class javadoc).
+  // Even though the 'get' methods below are blocking, they are the only
+  // built-in APIs to get the result of the {@code Future}, hence they are not
+  // removed. The implementation must throw {@link IllegalStateException} if the
+  // {@code Future} is not done yet (see the class javadoc).
 
   V get() throws InterruptedException, ExecutionException;
 
   V get(long timeout, TimeUnit unit)
-  throws InterruptedException, ExecutionException, TimeoutException;
+      throws InterruptedException, ExecutionException, TimeoutException;
 }

@@ -83,12 +83,15 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
      */
     List<E> disjointList = Arrays.asList(e3(), e4());
     disjoint = new Target(disjointList, "disjoint");
-    superset = new Target(MinimalCollection.of(e0(), e1(), e2(), e3(), e4()), "superset");
+    superset = new Target(MinimalCollection.of(e0(), e1(), e2(), e3(), e4()),
+                          "superset");
     nonEmptyProperSubset = new Target(MinimalCollection.of(e1()), "subset");
-    sameElements = new Target(Arrays.asList(createSamplesArray()), "sameElements");
-    containsDuplicates =
-        new Target(MinimalCollection.of(e0(), e0(), e3(), e3()), "containsDuplicates");
-    partialOverlap = new Target(MinimalCollection.of(e2(), e3()), "partialOverlap");
+    sameElements =
+        new Target(Arrays.asList(createSamplesArray()), "sameElements");
+    containsDuplicates = new Target(
+        MinimalCollection.of(e0(), e0(), e3(), e3()), "containsDuplicates");
+    partialOverlap =
+        new Target(MinimalCollection.of(e2(), e3()), "partialOverlap");
     nullSingleton = new Target(Collections.<E>singleton(null), "nullSingleton");
   }
 
@@ -302,12 +305,14 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
   }
 
   private void expectReturnsTrue(Target target) {
-    String message = Platform.format("retainAll(%s) should return true", target);
+    String message =
+        Platform.format("retainAll(%s) should return true", target);
     assertTrue(message, collection.retainAll(target.toRetain));
   }
 
   private void expectReturnsFalse(Target target) {
-    String message = Platform.format("retainAll(%s) should return false", target);
+    String message =
+        Platform.format("retainAll(%s) should return false", target);
     assertFalse(message, collection.retainAll(target.toRetain));
   }
 
@@ -321,7 +326,8 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
   }
 
   private void expectReturnsFalseOrThrows(Target target) {
-    String message = Platform.format("retainAll(%s) should return false or throw", target);
+    String message =
+        Platform.format("retainAll(%s) should return false or throw", target);
     try {
       assertFalse(message, collection.retainAll(target.toRetain));
     } catch (UnsupportedOperationException tolerated) {

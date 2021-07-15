@@ -87,9 +87,7 @@ public final class EqualsTester {
   /**
    * Constructs an empty EqualsTester instance
    */
-  public EqualsTester() {
-    this(new RelationshipTester.ItemReporter());
-  }
+  public EqualsTester() { this(new RelationshipTester.ItemReporter()); }
 
   EqualsTester(RelationshipTester.ItemReporter itemReporter) {
     this.itemReporter = checkNotNull(itemReporter);
@@ -109,8 +107,7 @@ public final class EqualsTester {
    * Run tests on equals method, throwing a failure on an invalid test
    */
   public EqualsTester testEquals() {
-    RelationshipTester<Object> delegate =
-        new RelationshipTester<>(
+    RelationshipTester<Object> delegate = new RelationshipTester<>(
         Equivalence.equals(), "Object#equals", "Object#hashCode", itemReporter);
     for (List<Object> group : equalityGroups) {
       delegate.addRelatedGroup(group);
@@ -124,12 +121,15 @@ public final class EqualsTester {
 
   private void testItems() {
     for (Object item : Iterables.concat(equalityGroups)) {
-      assertTrue(item + " must not be Object#equals to null", !item.equals(null));
-      assertTrue(item + " must not be Object#equals to an arbitrary object of another class",
+      assertTrue(item + " must not be Object#equals to null",
+                 !item.equals(null));
+      assertTrue(
+          item +
+              " must not be Object#equals to an arbitrary object of another class",
           !item.equals(NotAnInstance.EQUAL_TO_NOTHING));
       assertEquals(item + " must be Object#equals to itself", item, item);
       assertEquals("the Object#hashCode of " + item + " must be consistent",
-          item.hashCode(), item.hashCode());
+                   item.hashCode(), item.hashCode());
     }
   }
 
@@ -138,7 +138,5 @@ public final class EqualsTester {
    * of an incompatible class.  Since it is a private inner class, the
    * invoker can never pass in an instance to the tester
    */
-  private enum NotAnInstance {
-    EQUAL_TO_NOTHING;
-  }
+  private enum NotAnInstance { EQUAL_TO_NOTHING; }
 }

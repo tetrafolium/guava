@@ -59,53 +59,50 @@ import java.util.TreeMap;
 final class GwtSerializationDependencies {
   private GwtSerializationDependencies() {}
 
-  static final class ImmutableListMultimapDependencies<K, V> extends ImmutableListMultimap<K, V> {
+  static final class ImmutableListMultimapDependencies<K, V>
+      extends ImmutableListMultimap<K, V> {
     K key;
     V value;
 
-    ImmutableListMultimapDependencies() {
-      super(null, 0);
-    }
+    ImmutableListMultimapDependencies() { super(null, 0); }
   }
 
   // ImmutableMap is covered by ImmutableSortedMap/ImmutableBiMap.
 
   // ImmutableMultimap is covered by ImmutableSetMultimap/ImmutableListMultimap.
 
-  static final class ImmutableSetMultimapDependencies<K, V> extends ImmutableSetMultimap<K, V> {
+  static final class ImmutableSetMultimapDependencies<K, V>
+      extends ImmutableSetMultimap<K, V> {
     K key;
     V value;
 
-    ImmutableSetMultimapDependencies() {
-      super(null, 0, null);
-    }
+    ImmutableSetMultimapDependencies() { super(null, 0, null); }
   }
 
   /*
    * We support an interface declared in terms of LinkedListMultimap because it
    * supports entry ordering not supported by other implementations.
    */
-  static final class LinkedListMultimapDependencies<K, V> extends LinkedListMultimap<K, V> {
+  static final class LinkedListMultimapDependencies<K, V>
+      extends LinkedListMultimap<K, V> {
     K key;
     V value;
 
     LinkedListMultimapDependencies() {}
   }
 
-  static final class HashBasedTableDependencies<R, C, V> extends HashBasedTable<R, C, V> {
+  static final class HashBasedTableDependencies<R, C, V>
+      extends HashBasedTable<R, C, V> {
     HashMap<R, HashMap<C, V>> data;
 
-    HashBasedTableDependencies() {
-      super(null, null);
-    }
+    HashBasedTableDependencies() { super(null, null); }
   }
 
-  static final class TreeBasedTableDependencies<R, C, V> extends TreeBasedTable<R, C, V> {
+  static final class TreeBasedTableDependencies<R, C, V>
+      extends TreeBasedTable<R, C, V> {
     TreeMap<R, TreeMap<C, V>> data;
 
-    TreeBasedTableDependencies() {
-      super(null, null);
-    }
+    TreeBasedTableDependencies() { super(null, null); }
   }
 
   /*
@@ -114,15 +111,13 @@ final class GwtSerializationDependencies {
    * need for GWT to believe that this dummy class is serializable, or else it
    * won't generate serialization code for R, C, and V.
    */
-  static final class ImmutableTableDependencies<R, C, V> extends SingletonImmutableTable<R, C, V>
-    implements Serializable {
+  static final class ImmutableTableDependencies<R, C, V>
+      extends SingletonImmutableTable<R, C, V> implements Serializable {
     R rowKey;
     C columnKey;
     V value;
 
-    ImmutableTableDependencies() {
-      super(null, null, null);
-    }
+    ImmutableTableDependencies() { super(null, null, null); }
   }
 
   static final class TreeMultimapDependencies<K, V> extends TreeMultimap<K, V> {
@@ -131,8 +126,6 @@ final class GwtSerializationDependencies {
     K key;
     V value;
 
-    TreeMultimapDependencies() {
-      super(null, null);
-    }
+    TreeMultimapDependencies() { super(null, null); }
   }
 }

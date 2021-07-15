@@ -25,26 +25,24 @@ import javax.annotation.Nullable;
 
 /**
  * Basic implementation of the {@link SetMultimap} interface. It's a wrapper
- * around {@link AbstractMapBasedMultimap} that converts the returned collections into
+ * around {@link AbstractMapBasedMultimap} that converts the returned
+ * collections into
  * {@code Sets}. The {@link #createCollection} method must return a {@code Set}.
  *
  * @author Jared Levy
  */
 @GwtCompatible
-abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
-  implements SetMultimap<K, V> {
+abstract class AbstractSetMultimap<K, V>
+    extends AbstractMapBasedMultimap<K, V> implements SetMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *
    * @param map place to store the mapping from each key to its corresponding
    *     values
    */
-  protected AbstractSetMultimap(Map<K, Collection<V>> map) {
-    super(map);
-  }
+  protected AbstractSetMultimap(Map<K, Collection<V>> map) { super(map); }
 
-  @Override
-  abstract Set<V> createCollection();
+  @Override abstract Set<V> createCollection();
 
   @Override
   Set<V> createUnmodifiableEmptyCollection() {
@@ -62,7 +60,7 @@ abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @Override
   public Set<V> get(@Nullable K key) {
-    return (Set<V>) super.get(key);
+    return (Set<V>)super.get(key);
   }
 
   /**
@@ -74,7 +72,7 @@ abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
    */
   @Override
   public Set<Map.Entry<K, V>> entries() {
-    return (Set<Map.Entry<K, V>>) super.entries();
+    return (Set<Map.Entry<K, V>>)super.entries();
   }
 
   /**
@@ -87,7 +85,7 @@ abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public Set<V> removeAll(@Nullable Object key) {
-    return (Set<V>) super.removeAll(key);
+    return (Set<V>)super.removeAll(key);
   }
 
   /**
@@ -102,7 +100,7 @@ abstract class AbstractSetMultimap<K, V> extends AbstractMapBasedMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public Set<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
-    return (Set<V>) super.replaceValues(key, values);
+    return (Set<V>)super.replaceValues(key, values);
   }
 
   /**

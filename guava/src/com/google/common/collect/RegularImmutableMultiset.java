@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -42,13 +44,13 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
   private final transient int size;
   private final transient int hashCode;
 
-  @LazyInit
-  private transient ImmutableSet<E> elementSet;
+  @LazyInit private transient ImmutableSet<E> elementSet;
 
   RegularImmutableMultiset(Collection<? extends Entry<? extends E>> entries) {
     int distinct = entries.size();
     @SuppressWarnings("unchecked")
-    Multisets.ImmutableEntry<E>[] entryArray = new Multisets.ImmutableEntry[distinct];
+    Multisets.ImmutableEntry<E>[] entryArray =
+        new Multisets.ImmutableEntry[distinct];
     if (distinct == 0) {
       this.entries = entryArray;
       this.hashTable = null;
@@ -59,7 +61,8 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
       int tableSize = Hashing.closedTableSize(distinct, 1.0);
       int mask = tableSize - 1;
       @SuppressWarnings("unchecked")
-      Multisets.ImmutableEntry<E>[] hashTable = new Multisets.ImmutableEntry[tableSize];
+      Multisets.ImmutableEntry<E>[] hashTable =
+          new Multisets.ImmutableEntry[tableSize];
 
       int index = 0;
       int hashCode = 0;
@@ -72,12 +75,11 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
         Multisets.ImmutableEntry<E> bucketHead = hashTable[bucket];
         Multisets.ImmutableEntry<E> newEntry;
         if (bucketHead == null) {
-          boolean canReuseEntry =
-              entry instanceof Multisets.ImmutableEntry && !(entry instanceof NonTerminalEntry);
-          newEntry =
-              canReuseEntry
-              ? (Multisets.ImmutableEntry<E>) entry
-              : new Multisets.ImmutableEntry<E>(element, count);
+          boolean canReuseEntry = entry instanceof Multisets.ImmutableEntry &&
+                                  !(entry instanceof NonTerminalEntry);
+          newEntry = canReuseEntry
+                         ? (Multisets.ImmutableEntry<E>)entry
+                         : new Multisets.ImmutableEntry<E>(element, count);
         } else {
           newEntry = new NonTerminalEntry<E>(element, count, bucketHead);
         }
@@ -93,7 +95,8 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
     }
   }
 
-  private static final class NonTerminalEntry<E> extends Multisets.ImmutableEntry<E> {
+  private static final class NonTerminalEntry<E>
+      extends Multisets.ImmutableEntry<E> {
     private final Multisets.ImmutableEntry<E> nextInBucket;
 
     NonTerminalEntry(E element, int count, ImmutableEntry<E> nextInBucket) {
@@ -121,8 +124,7 @@ class RegularImmutableMultiset<E> extends ImmutableMultiset<E> {
     int hash = Hashing.smearedHash(element);
     int mask = hashTable.length - 1;
     for (Multisets.ImmutableEntry<E> entry = hashTable[hash & mask];
-        entry != null;
-        entry = entry.nextInBucket()) {
+         entry != null; entry = entry.nextInBucket()) {
       if (Objects.equal(element, entry.getElement())) {
         return entry.getCount();
       }

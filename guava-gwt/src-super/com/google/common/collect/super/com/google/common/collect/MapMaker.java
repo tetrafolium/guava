@@ -22,25 +22,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * MapMaker emulation. Since Javascript is single-threaded and have no references, this reduces to
- * the creation of expiring and computing maps.
+ * MapMaker emulation. Since Javascript is single-threaded and have no
+ * references, this reduces to the creation of expiring and computing maps.
  *
  * @author Charles Fry
  */
 public final class MapMaker {
 
-  // TODO(fry,kak): ConcurrentHashMap never throws a CME when mutating the map during iteration, but
-  // this implementation (based on a LHM) does. This will all be replaced soon anyways, so leaving
-  // it as is for now.
-  private static class ComputingMap<K, V> extends LinkedHashMap<K, V>
-    implements ConcurrentMap<K, V> {
+  // TODO(fry,kak): ConcurrentHashMap never throws a CME when mutating the map
+  // during iteration, but this implementation (based on a LHM) does. This will
+  // all be replaced soon anyways, so leaving it as is for now.
+  private static class ComputingMap<K, V>
+      extends LinkedHashMap<K, V> implements ConcurrentMap<K, V> {
     private final Function<? super K, ? extends V> computer;
 
-    ComputingMap(int initialCapacity) {
-      this(null, initialCapacity);
-    }
+    ComputingMap(int initialCapacity) { this(null, initialCapacity); }
 
-    ComputingMap(Function<? super K, ? extends V> computer, int initialCapacity) {
+    ComputingMap(Function<? super K, ? extends V> computer,
+                 int initialCapacity) {
       super(initialCapacity, /* ignored loadFactor */ 0.75f, true);
       this.computer = computer;
     }
@@ -83,16 +82,15 @@ public final class MapMaker {
       V result = super.get(k);
       if (result == null && computer != null) {
         /*
-         * This cast isn't safe, but we can rely on the fact that K is almost always passed to
-         * Map.get(), and tools like IDEs and Findbugs can catch situations where this isn't the
-         * case.
+         * This cast isn't safe, but we can rely on the fact that K is almost
+         * always passed to Map.get(), and tools like IDEs and Findbugs can
+         * catch situations where this isn't the case.
          *
-         * The alternative is to add an overloaded method, but the chances of a user calling get()
-         * instead of the new API and the risks inherent in adding a new API outweigh this little
-         * hole.
+         * The alternative is to add an overloaded method, but the chances of a
+         * user calling get() instead of the new API and the risks inherent in
+         * adding a new API outweigh this little hole.
          */
-        @SuppressWarnings("unchecked")
-        K key = (K) k;
+        @SuppressWarnings("unchecked") K key = (K)k;
         result = compute(key);
       }
       return result;
@@ -131,7 +129,8 @@ public final class MapMaker {
 
   public MapMaker concurrencyLevel(int concurrencyLevel) {
     if (concurrencyLevel < 1) {
-      throw new IllegalArgumentException("GWT only supports a concurrency level of 1");
+      throw new IllegalArgumentException(
+          "GWT only supports a concurrency level of 1");
     }
     // GWT technically only supports concurrencyLevel == 1, but we silently
     // ignore other positive values.
@@ -139,12 +138,12 @@ public final class MapMaker {
   }
 
   public <K, V> ConcurrentMap<K, V> makeMap() {
-    return useCustomMap
-        ? new ComputingMap<K, V>(null, initialCapacity)
-        : new ConcurrentHashMap<K, V>(initialCapacity);
+    return useCustomMap ? new ComputingMap<K, V>(null, initialCapacity)
+                        : new ConcurrentHashMap<K, V>(initialCapacity);
   }
 
-  public <K, V> ConcurrentMap<K, V> makeComputingMap(Function<? super K, ? extends V> computer) {
+  public <K, V> ConcurrentMap<K, V>
+  makeComputingMap(Function<? super K, ? extends V> computer) {
     return new ComputingMap<K, V>(computer, initialCapacity);
   }
 }

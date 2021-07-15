@@ -23,12 +23,4 @@ import com.google.common.annotations.GwtCompatible;
  *
  * @author Kevin Bourrillion
  */
-@GwtCompatible
-public enum AnEnum {
-  A,
-  B,
-  C,
-  D,
-  E,
-  F
-}
+@GwtCompatible public enum AnEnum { A, B, C, D, E, F }

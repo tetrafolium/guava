@@ -37,10 +37,10 @@ import javax.annotation.Nullable;
  * a {@link java.util.Comparator} (or the natural order), see the
  * {@link SortedSetMultimap} subinterface.
  *
- * <p>Since the value collections are sets, the behavior of a {@code SetMultimap}
- * is not specified if key <em>or value</em> objects already present in the
- * multimap change in a manner that affects {@code equals} comparisons.
- * Use caution if mutable objects are used as keys or values in a
+ * <p>Since the value collections are sets, the behavior of a {@code
+ * SetMultimap} is not specified if key <em>or value</em> objects already
+ * present in the multimap change in a manner that affects {@code equals}
+ * comparisons. Use caution if mutable objects are used as keys or values in a
  * {@code SetMultimap}.
  *
  * <p>See the Guava User Guide article on <a href=
@@ -59,8 +59,7 @@ public interface SetMultimap<K, V> extends Multimap<K, V> {
    * method returns a {@link Set}, instead of the {@link java.util.Collection}
    * specified in the {@link Multimap} interface.
    */
-  @Override
-  Set<V> get(@Nullable K key);
+  @Override Set<V> get(@Nullable K key);
 
   /**
    * {@inheritDoc}
@@ -69,9 +68,7 @@ public interface SetMultimap<K, V> extends Multimap<K, V> {
    * method returns a {@link Set}, instead of the {@link java.util.Collection}
    * specified in the {@link Multimap} interface.
    */
-  @CanIgnoreReturnValue
-  @Override
-  Set<V> removeAll(@Nullable Object key);
+  @CanIgnoreReturnValue @Override Set<V> removeAll(@Nullable Object key);
 
   /**
    * {@inheritDoc}
@@ -93,8 +90,7 @@ public interface SetMultimap<K, V> extends Multimap<K, V> {
    * method returns a {@link Set}, instead of the {@link java.util.Collection}
    * specified in the {@link Multimap} interface.
    */
-  @Override
-  Set<Map.Entry<K, V>> entries();
+  @Override Set<Map.Entry<K, V>> entries();
 
   /**
    * {@inheritDoc}
@@ -103,8 +99,7 @@ public interface SetMultimap<K, V> extends Multimap<K, V> {
    * {@link Set}. To obtain this map with the more specific generic type
    * {@code Map<K, Set<V>>}, call {@link Multimaps#asMap(SetMultimap)} instead.
    */
-  @Override
-  Map<K, Collection<V>> asMap();
+  @Override Map<K, Collection<V>> asMap();
 
   /**
    * Compares the specified object to this multimap for equality.
@@ -116,6 +111,5 @@ public interface SetMultimap<K, V> extends Multimap<K, V> {
    * <p>An empty {@code SetMultimap} is equal to any other empty {@code
    * Multimap}, including an empty {@code ListMultimap}.
    */
-  @Override
-  boolean equals(@Nullable Object obj);
+  @Override boolean equals(@Nullable Object obj);
 }

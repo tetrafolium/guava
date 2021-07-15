@@ -72,19 +72,18 @@ public class ListEqualsTester<E> extends AbstractListTester<E> {
   @CollectionSize.Require(absent = CollectionSize.ZERO)
   public void testEquals_shorterList() {
     Collection<E> fewerElements = getSampleElements(getNumElements() - 1);
-    assertFalse(
-        "Lists of different sizes should not be equal.",
-        getList().equals(new ArrayList<E>(fewerElements)));
+    assertFalse("Lists of different sizes should not be equal.",
+                getList().equals(new ArrayList<E>(fewerElements)));
   }
 
   public void testEquals_longerList() {
     Collection<E> moreElements = getSampleElements(getNumElements() + 1);
-    assertFalse(
-        "Lists of different sizes should not be equal.",
-        getList().equals(new ArrayList<E>(moreElements)));
+    assertFalse("Lists of different sizes should not be equal.",
+                getList().equals(new ArrayList<E>(moreElements)));
   }
 
   public void testEquals_set() {
-    assertFalse("A List should never equal a Set.", getList().equals(MinimalSet.from(getList())));
+    assertFalse("A List should never equal a Set.",
+                getList().equals(MinimalSet.from(getList())));
   }
 }

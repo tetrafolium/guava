@@ -32,9 +32,7 @@ final class SingletonImmutableSet<E> extends ImmutableSet<E> {
   // Although this reference is non-final, it doesn't change after set creation.
   E element;
 
-  SingletonImmutableSet(E element) {
-    this.element = checkNotNull(element);
-  }
+  SingletonImmutableSet(E element) { this.element = checkNotNull(element); }
 
   @Override
   public int size() {

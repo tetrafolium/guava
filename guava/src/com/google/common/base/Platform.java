@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2009 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -32,25 +34,25 @@ import javax.annotation.Nullable;
  */
 @GwtCompatible(emulated = true)
 final class Platform {
-  private static final Logger logger = Logger.getLogger(Platform.class.getName());
+  private static final Logger logger =
+      Logger.getLogger(Platform.class.getName());
   private static final PatternCompiler patternCompiler = loadPatternCompiler();
 
   private Platform() {}
 
   /** Calls {@link System#nanoTime()}. */
-  static long systemNanoTime() {
-    return System.nanoTime();
-  }
+  static long systemNanoTime() { return System.nanoTime(); }
 
   static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
     return matcher.precomputedInternal();
   }
 
-  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
-    WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
-    return ref == null
-        ? Optional.<T>absent()
-        : Optional.of(enumClass.cast(ref.get()));
+  static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass,
+                                                          String value) {
+    WeakReference<? extends Enum<?>> ref =
+        Enums.getEnumConstants(enumClass).get(value);
+    return ref == null ? Optional.<T>absent()
+                       : Optional.of(enumClass.cast(ref.get()));
   }
 
   static String formatCompact4Digits(double value) {
@@ -71,7 +73,8 @@ final class Platform {
   }
 
   private static PatternCompiler loadPatternCompiler() {
-    ServiceLoader<PatternCompiler> loader = ServiceLoader.load(PatternCompiler.class);
+    ServiceLoader<PatternCompiler> loader =
+        ServiceLoader.load(PatternCompiler.class);
     // Returns the first PatternCompiler that loads successfully.
     try {
       for (Iterator<PatternCompiler> it = loader.iterator(); it.hasNext();) {
@@ -89,7 +92,8 @@ final class Platform {
   }
 
   private static void logPatternCompilerError(ServiceConfigurationError e) {
-    logger.log(Level.WARNING, "Error loading regex compiler, falling back to next option", e);
+    logger.log(Level.WARNING,
+               "Error loading regex compiler, falling back to next option", e);
   }
 
   private static final class JdkPatternCompiler implements PatternCompiler {

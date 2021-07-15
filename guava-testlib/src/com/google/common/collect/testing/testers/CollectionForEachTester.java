@@ -39,8 +39,8 @@ public class CollectionForEachTester<E> extends AbstractCollectionTester<E> {
   public void testForEachUnknownOrder() {
     List<E> elements = new ArrayList<E>();
     collection.forEach(elements::add);
-    Helpers.assertEqualIgnoringOrder(
-        Arrays.asList(createSamplesArray()), elements);
+    Helpers.assertEqualIgnoringOrder(Arrays.asList(createSamplesArray()),
+                                     elements);
   }
 
   @CollectionFeature.Require(KNOWN_ORDER)

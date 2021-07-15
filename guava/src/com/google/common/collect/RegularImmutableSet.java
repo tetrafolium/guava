@@ -40,7 +40,8 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
   private final transient int mask;
   private final transient int hashCode;
 
-  RegularImmutableSet(Object[] elements, int hashCode, Object[] table, int mask) {
+  RegularImmutableSet(Object[] elements, int hashCode, Object[] table,
+                      int mask) {
     this.elements = elements;
     this.table = table;
     this.mask = mask;
@@ -53,7 +54,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
     if (target == null || table == null) {
       return false;
     }
-    for (int i = Hashing.smearedHash(target); ; i++) {
+    for (int i = Hashing.smearedHash(target);; i++) {
       i &= mask;
       Object candidate = table[i];
       if (candidate == null) {
@@ -71,7 +72,7 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
 
   @Override
   public UnmodifiableIterator<E> iterator() {
-    return (UnmodifiableIterator<E>) Iterators.forArray(elements);
+    return (UnmodifiableIterator<E>)Iterators.forArray(elements);
   }
 
   @Override
@@ -87,7 +88,8 @@ final class RegularImmutableSet<E> extends ImmutableSet<E> {
 
   @Override
   ImmutableList<E> createAsList() {
-    return (table == null) ? ImmutableList.<E>of() : new RegularImmutableAsList<E>(this, elements);
+    return (table == null) ? ImmutableList.<E>of()
+                           : new RegularImmutableAsList<E>(this, elements);
   }
 
   @Override
