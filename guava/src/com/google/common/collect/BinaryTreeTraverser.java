@@ -28,8 +28,8 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 
 /**
- * A variant of {@link TreeTraverser} for binary trees, providing additional traversals specific to
- * binary trees.
+ * A variant of {@link TreeTraverser} for binary trees, providing additional
+ * traversals specific to binary trees.
  *
  * @author Louis Wasserman
  * @since 15.0
@@ -39,14 +39,14 @@ import java.util.function.Consumer;
 public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
 
   /**
-   * Returns the left child of the specified node, or {@link Optional#absent()} if the specified
-   * node has no left child.
+   * Returns the left child of the specified node, or {@link Optional#absent()}
+   * if the specified node has no left child.
    */
   public abstract Optional<T> leftChild(T root);
 
   /**
-   * Returns the right child of the specified node, or {@link Optional#absent()} if the specified
-   * node has no right child.
+   * Returns the right child of the specified node, or {@link Optional#absent()}
+   * if the specified node has no right child.
    */
   public abstract Optional<T> rightChild(T root);
 
@@ -100,8 +100,8 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
   /*
    * Optimized implementation of preOrderIterator for binary trees.
    */
-  private final class PreOrderIterator extends UnmodifiableIterator<T>
-    implements PeekingIterator<T> {
+  private final class PreOrderIterator
+      extends UnmodifiableIterator<T> implements PeekingIterator<T> {
     private final Deque<T> stack;
 
     PreOrderIterator(T root) {
@@ -169,7 +169,8 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     }
   }
 
-  // TODO(lowasser): see if any significant optimizations are possible for breadthFirstIterator
+  // TODO(lowasser): see if any significant optimizations are possible for
+  // breadthFirstIterator
 
   public final FluentIterable<T> inOrderTraversal(final T root) {
     checkNotNull(root);
@@ -189,7 +190,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
             action.accept(t);
             acceptIfPresent(this, rightChild(t));
           }
-        } .accept(root);
+        }.accept(root);
       }
     };
   }
@@ -228,7 +229,8 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     }
   }
 
-  private static <T> void acceptIfPresent(Consumer<? super T> action, Optional<T> node) {
+  private static <T> void acceptIfPresent(Consumer<? super T> action,
+                                          Optional<T> node) {
     if (node.isPresent()) {
       action.accept(node.get());
     }

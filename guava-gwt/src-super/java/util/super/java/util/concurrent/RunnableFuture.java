@@ -19,5 +19,4 @@ package java.util.concurrent;
 /**
  * Emulation of RunnableFuture.
  */
-public interface RunnableFuture<V> extends Runnable, Future<V> {
-}
+public interface RunnableFuture<V> extends Runnable, Future<V> {}

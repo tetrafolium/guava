@@ -33,8 +33,7 @@ import java.util.stream.Stream;
  * @author Louis Wasserman
  */
 public class StreamsBenchmark {
-  @Param({"1", "10", "100", "1000", "10000"})
-  private int size;
+  @Param({"1", "10", "100", "1000", "10000"}) private int size;
 
   enum CollectionType {
     ARRAY_LIST(ArrayList::new),

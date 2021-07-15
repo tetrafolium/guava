@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.google.common.collect;
@@ -28,9 +30,7 @@ import javax.annotation.Nullable;
 @GwtCompatible(emulated = true)
 @SuppressWarnings("unchecked") // allow ungenerified Comparable types
 final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
-  EmptyContiguousSet(DiscreteDomain<C> domain) {
-    super(domain);
-  }
+  EmptyContiguousSet(DiscreteDomain<C> domain) { super(domain); }
 
   @Override
   public C first() {
@@ -68,8 +68,8 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   }
 
   @Override
-  ContiguousSet<C> subSetImpl(
-      C fromElement, boolean fromInclusive, C toElement, boolean toInclusive) {
+  ContiguousSet<C> subSetImpl(C fromElement, boolean fromInclusive, C toElement,
+                              boolean toInclusive) {
     return this;
   }
 
@@ -123,7 +123,7 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Set) {
-      Set<?> that = (Set<?>) object;
+      Set<?> that = (Set<?>)object;
       return that.isEmpty();
     }
     return false;
@@ -141,16 +141,13 @@ final class EmptyContiguousSet<C extends Comparable> extends ContiguousSet<C> {
   }
 
   @GwtIncompatible // serialization
-  private static final class SerializedForm<C extends Comparable> implements Serializable {
+  private static final class SerializedForm<C extends Comparable>
+      implements Serializable {
     private final DiscreteDomain<C> domain;
 
-    private SerializedForm(DiscreteDomain<C> domain) {
-      this.domain = domain;
-    }
+    private SerializedForm(DiscreteDomain<C> domain) { this.domain = domain; }
 
-    private Object readResolve() {
-      return new EmptyContiguousSet<C>(domain);
-    }
+    private Object readResolve() { return new EmptyContiguousSet<C>(domain); }
 
     private static final long serialVersionUID = 0;
   }

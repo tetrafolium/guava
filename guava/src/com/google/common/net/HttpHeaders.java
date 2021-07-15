@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -63,9 +65,11 @@ public final class HttpHeaders {
   /** The HTTP {@code Accept-Language} header field name. */
   public static final String ACCEPT_LANGUAGE = "Accept-Language";
   /** The HTTP {@code Access-Control-Request-Headers} header field name. */
-  public static final String ACCESS_CONTROL_REQUEST_HEADERS = "Access-Control-Request-Headers";
+  public static final String ACCESS_CONTROL_REQUEST_HEADERS =
+      "Access-Control-Request-Headers";
   /** The HTTP {@code Access-Control-Request-Method} header field name. */
-  public static final String ACCESS_CONTROL_REQUEST_METHOD = "Access-Control-Request-Method";
+  public static final String ACCESS_CONTROL_REQUEST_METHOD =
+      "Access-Control-Request-Method";
   /** The HTTP {@code Authorization} header field name. */
   public static final String AUTHORIZATION = "Authorization";
   /** The HTTP {@code Connection} header field name. */
@@ -77,7 +81,8 @@ public final class HttpHeaders {
   /** The HTTP {@code From} header field name. */
   public static final String FROM = "From";
   /**
-   * The HTTP <a href="https://tools.ietf.org/html/rfc7239">{@code Forwarded}</a> header field name.
+   * The HTTP <a href="https://tools.ietf.org/html/rfc7239">{@code
+   * Forwarded}</a> header field name.
    *
    * @since 20.0
    */
@@ -88,7 +93,8 @@ public final class HttpHeaders {
    * @since 17.0
    */
   @Beta
-  public static final String FOLLOW_ONLY_WHEN_PRERENDER_SHOWN = "Follow-Only-When-Prerender-Shown";
+  public static final String FOLLOW_ONLY_WHEN_PRERENDER_SHOWN =
+      "Follow-Only-When-Prerender-Shown";
   /** The HTTP {@code Host} header field name. */
   public static final String HOST = "Host";
   /** The HTTP {@code If-Match} header field name. */
@@ -130,15 +136,20 @@ public final class HttpHeaders {
   /** The HTTP {@code Accept-Ranges} header field name. */
   public static final String ACCEPT_RANGES = "Accept-Ranges";
   /** The HTTP {@code Access-Control-Allow-Headers} header field name. */
-  public static final String ACCESS_CONTROL_ALLOW_HEADERS = "Access-Control-Allow-Headers";
+  public static final String ACCESS_CONTROL_ALLOW_HEADERS =
+      "Access-Control-Allow-Headers";
   /** The HTTP {@code Access-Control-Allow-Methods} header field name. */
-  public static final String ACCESS_CONTROL_ALLOW_METHODS = "Access-Control-Allow-Methods";
+  public static final String ACCESS_CONTROL_ALLOW_METHODS =
+      "Access-Control-Allow-Methods";
   /** The HTTP {@code Access-Control-Allow-Origin} header field name. */
-  public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
+  public static final String ACCESS_CONTROL_ALLOW_ORIGIN =
+      "Access-Control-Allow-Origin";
   /** The HTTP {@code Access-Control-Allow-Credentials} header field name. */
-  public static final String ACCESS_CONTROL_ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials";
+  public static final String ACCESS_CONTROL_ALLOW_CREDENTIALS =
+      "Access-Control-Allow-Credentials";
   /** The HTTP {@code Access-Control-Expose-Headers} header field name. */
-  public static final String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
+  public static final String ACCESS_CONTROL_EXPOSE_HEADERS =
+      "Access-Control-Expose-Headers";
   /** The HTTP {@code Access-Control-Max-Age} header field name. */
   public static final String ACCESS_CONTROL_MAX_AGE = "Access-Control-Max-Age";
   /** The HTTP {@code Age} header field name. */
@@ -158,14 +169,17 @@ public final class HttpHeaders {
   /** The HTTP {@code Content-Range} header field name. */
   public static final String CONTENT_RANGE = "Content-Range";
   /**
-   * The HTTP <a href="http://w3.org/TR/CSP/#content-security-policy-header-field">
+   * The HTTP <a
+   * href="http://w3.org/TR/CSP/#content-security-policy-header-field">
    * {@code Content-Security-Policy}</a> header field name.
    *
    * @since 15.0
    */
-  public static final String CONTENT_SECURITY_POLICY = "Content-Security-Policy";
+  public static final String CONTENT_SECURITY_POLICY =
+      "Content-Security-Policy";
   /**
-   * The HTTP <a href="http://w3.org/TR/CSP/#content-security-policy-report-only-header-field">
+   * The HTTP <a
+   * href="http://w3.org/TR/CSP/#content-security-policy-report-only-header-field">
    * {@code Content-Security-Policy-Report-Only}</a> header field name.
    *
    * @since 15.0
@@ -173,40 +187,46 @@ public final class HttpHeaders {
   public static final String CONTENT_SECURITY_POLICY_REPORT_ONLY =
       "Content-Security-Policy-Report-Only";
   /**
-   * The HTTP nonstandard {@code X-Content-Security-Policy} header field name. It was introduced in
-   * <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and used by the Firefox
-   * until version 23 and the Internet Explorer version 10.
-   * Please, use {@link #CONTENT_SECURITY_POLICY} to pass the CSP.
+   * The HTTP nonstandard {@code X-Content-Security-Policy} header field name.
+   * It was introduced in <a
+   * href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and used by
+   * the Firefox until version 23 and the Internet Explorer version 10. Please,
+   * use {@link #CONTENT_SECURITY_POLICY} to pass the CSP.
    *
    * @since 20.0
    */
-  public static final String X_CONTENT_SECURITY_POLICY = "X-Content-Security-Policy";
+  public static final String X_CONTENT_SECURITY_POLICY =
+      "X-Content-Security-Policy";
   /**
-   * The HTTP nonstandard {@code X-Content-Security-Policy-Report-Only} header field name.
-   * It was introduced in <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and
-   * used by the Firefox until version 23 and the Internet Explorer version 10.
-   * Please, use {@link #CONTENT_SECURITY_POLICY_REPORT_ONLY} to pass the CSP.
+   * The HTTP nonstandard {@code X-Content-Security-Policy-Report-Only} header
+   * field name. It was introduced in <a
+   * href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and used by
+   * the Firefox until version 23 and the Internet Explorer version 10. Please,
+   * use {@link #CONTENT_SECURITY_POLICY_REPORT_ONLY} to pass the CSP.
    *
    * @since 20.0
    */
   public static final String X_CONTENT_SECURITY_POLICY_REPORT_ONLY =
       "X-Content-Security-Policy-Report-Only";
   /**
-   * The HTTP nonstandard {@code X-WebKit-CSP} header field name. It was introduced in
-   * <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and used by the Chrome until
-   * version 25. Please, use {@link #CONTENT_SECURITY_POLICY} to pass the CSP.
+   * The HTTP nonstandard {@code X-WebKit-CSP} header field name. It was
+   * introduced in <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP
+   * v.1</a> and used by the Chrome until version 25. Please, use {@link
+   * #CONTENT_SECURITY_POLICY} to pass the CSP.
    *
    * @since 20.0
    */
   public static final String X_WEBKIT_CSP = "X-WebKit-CSP";
   /**
-   * The HTTP nonstandard {@code X-WebKit-CSP-Report-Only} header field name. It was introduced in
-   * <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP v.1</a> and used by the Chrome until
-   * version 25. Please, use {@link #CONTENT_SECURITY_POLICY_REPORT_ONLY} to pass the CSP.
+   * The HTTP nonstandard {@code X-WebKit-CSP-Report-Only} header field name. It
+   * was introduced in <a href="https://www.w3.org/TR/2011/WD-CSP-20111129/">CSP
+   * v.1</a> and used by the Chrome until version 25. Please, use {@link
+   * #CONTENT_SECURITY_POLICY_REPORT_ONLY} to pass the CSP.
    *
    * @since 20.0
    */
-  public static final String X_WEBKIT_CSP_REPORT_ONLY = "X-WebKit-CSP-Report-Only";
+  public static final String X_WEBKIT_CSP_REPORT_ONLY =
+      "X-WebKit-CSP-Report-Only";
   /** The HTTP {@code ETag} header field name. */
   public static final String ETAG = "ETag";
   /** The HTTP {@code Expires} header field name. */
@@ -221,7 +241,10 @@ public final class HttpHeaders {
   public static final String P3P = "P3P";
   /** The HTTP {@code Proxy-Authenticate} header field name. */
   public static final String PROXY_AUTHENTICATE = "Proxy-Authenticate";
-  /** The HTTP {@code Refresh} header field name. Non-standard header supported by most browsers. */
+  /**
+   * The HTTP {@code Refresh} header field name. Non-standard header supported
+   * by most browsers.
+   */
   public static final String REFRESH = "Refresh";
   /** The HTTP {@code Retry-After} header field name. */
   public static final String RETRY_AFTER = "Retry-After";
@@ -240,14 +263,16 @@ public final class HttpHeaders {
   public static final String SET_COOKIE2 = "Set-Cookie2";
   /**
    * The HTTP
-   * <a href="http://tools.ietf.org/html/rfc6797#section-6.1">{@code Strict-Transport-Security}</a>
-   * header field name.
+   * <a href="http://tools.ietf.org/html/rfc6797#section-6.1">{@code
+   * Strict-Transport-Security}</a> header field name.
    *
    * @since 15.0
    */
-  public static final String STRICT_TRANSPORT_SECURITY = "Strict-Transport-Security";
+  public static final String STRICT_TRANSPORT_SECURITY =
+      "Strict-Transport-Security";
   /**
-   * The HTTP <a href="http://www.w3.org/TR/resource-timing/#cross-origin-resources">
+   * The HTTP <a
+   * href="http://www.w3.org/TR/resource-timing/#cross-origin-resources">
    * {@code Timing-Allow-Origin}</a> header field name.
    *
    * @since 15.0
@@ -270,18 +295,23 @@ public final class HttpHeaders {
   public static final String X_CONTENT_TYPE_OPTIONS = "X-Content-Type-Options";
   /** The HTTP {@code X-Do-Not-Track} header field name. */
   public static final String X_DO_NOT_TRACK = "X-Do-Not-Track";
-  /** The HTTP {@code X-Forwarded-For} header field name (superseded by {@code Forwarded}). */
+  /**
+   * The HTTP {@code X-Forwarded-For} header field name (superseded by {@code
+   * Forwarded}).
+   */
   public static final String X_FORWARDED_FOR = "X-Forwarded-For";
   /** The HTTP {@code X-Forwarded-Proto} header field name. */
   public static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
   /**
-   * The HTTP <a href="http://goo.gl/lQirAH">{@code X-Forwarded-Host}</a> header field name.
+   * The HTTP <a href="http://goo.gl/lQirAH">{@code X-Forwarded-Host}</a> header
+   * field name.
    *
    * @since 20.0
    */
   public static final String X_FORWARDED_HOST = "X-Forwarded-Host";
   /**
-   * The HTTP <a href="http://goo.gl/YtV2at">{@code X-Forwarded-Port}</a> header field name.
+   * The HTTP <a href="http://goo.gl/YtV2at">{@code X-Forwarded-Port}</a> header
+   * field name.
    *
    * @since 20.0
    */
@@ -292,19 +322,22 @@ public final class HttpHeaders {
   public static final String X_POWERED_BY = "X-Powered-By";
   /**
    * The HTTP
-   * <a href="http://tools.ietf.org/html/draft-evans-palmer-key-pinning">{@code Public-Key-Pins}</a>
-   * header field name.
+   * <a href="http://tools.ietf.org/html/draft-evans-palmer-key-pinning">{@code
+   * Public-Key-Pins}</a> header field name.
    *
    * @since 15.0
    */
   @Beta public static final String PUBLIC_KEY_PINS = "Public-Key-Pins";
   /**
-   * The HTTP <a href="http://tools.ietf.org/html/draft-evans-palmer-key-pinning">
+   * The HTTP <a
+   * href="http://tools.ietf.org/html/draft-evans-palmer-key-pinning">
    * {@code Public-Key-Pins-Report-Only}</a> header field name.
    *
    * @since 15.0
    */
-  @Beta public static final String PUBLIC_KEY_PINS_REPORT_ONLY = "Public-Key-Pins-Report-Only";
+  @Beta
+  public static final String PUBLIC_KEY_PINS_REPORT_ONLY =
+      "Public-Key-Pins-Report-Only";
   /** The HTTP {@code X-Requested-With} header field name. */
   public static final String X_REQUESTED_WITH = "X-Requested-With";
   /** The HTTP {@code X-User-IP} header field name. */
@@ -314,19 +347,22 @@ public final class HttpHeaders {
   /**
    * The HTTP <a
    * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control">{@code
-   * X-DNS-Prefetch-Control}</a> header controls DNS prefetch behavior. Value can be "on" or "off".
-   * By default, DNS prefetching is "on" for HTTP pages and "off" for HTTPS pages.
+   * X-DNS-Prefetch-Control}</a> header controls DNS prefetch behavior. Value
+   * can be "on" or "off". By default, DNS prefetching is "on" for HTTP pages
+   * and "off" for HTTPS pages.
    */
   public static final String X_DNS_PREFETCH_CONTROL = "X-DNS-Prefetch-Control";
   /**
-   * The HTTP <a href="http://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing">
+   * The HTTP <a
+   * href="http://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing">
    * {@code Ping-From}</a> header field name.
    *
    * @since 19.0
    */
   public static final String PING_FROM = "Ping-From";
   /**
-   * The HTTP <a href="http://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing">
+   * The HTTP <a
+   * href="http://html.spec.whatwg.org/multipage/semantics.html#hyperlink-auditing">
    * {@code Ping-To}</a> header field name.
    *
    * @since 19.0

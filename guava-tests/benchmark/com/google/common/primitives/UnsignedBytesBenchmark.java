@@ -39,8 +39,7 @@ public class UnsignedBytesBenchmark {
 
   // 4, 8, 64, 1K, 1M, 1M (unaligned), 64M, 64M (unaligned)
   //@Param({"4", "8", "64", "1024", "1048576", "1048577", "6710884", "6710883"})
-  @Param({"4", "8", "64", "1024" })
-  private int length;
+  @Param({"4", "8", "64", "1024"}) private int length;
 
   @BeforeExperiment
   void setUp() throws Exception {
@@ -51,15 +50,16 @@ public class UnsignedBytesBenchmark {
     // Differ at the last element
     ba3 = Arrays.copyOf(ba1, ba1.length);
     ba4 = Arrays.copyOf(ba1, ba1.length);
-    ba3[ba1.length - 1] = (byte) 43;
-    ba4[ba1.length - 1] = (byte) 42;
+    ba3[ba1.length - 1] = (byte)43;
+    ba4[ba1.length - 1] = (byte)42;
 
     javaImpl = UnsignedBytes.lexicographicalComparatorJavaImpl();
     unsafeImpl =
         UnsignedBytes.LexicographicalComparatorHolder.UnsafeComparator.INSTANCE;
   }
 
-  @Benchmark void longEqualJava(int reps) {
+  @Benchmark
+  void longEqualJava(int reps) {
     for (int i = 0; i < reps; ++i) {
       if (javaImpl.compare(ba1, ba2) != 0) {
         throw new Error(); // deoptimization
@@ -67,7 +67,8 @@ public class UnsignedBytesBenchmark {
     }
   }
 
-  @Benchmark void longEqualUnsafe(int reps) {
+  @Benchmark
+  void longEqualUnsafe(int reps) {
     for (int i = 0; i < reps; ++i) {
       if (unsafeImpl.compare(ba1, ba2) != 0) {
         throw new Error(); // deoptimization
@@ -75,7 +76,8 @@ public class UnsignedBytesBenchmark {
     }
   }
 
-  @Benchmark void diffLastJava(int reps) {
+  @Benchmark
+  void diffLastJava(int reps) {
     for (int i = 0; i < reps; ++i) {
       if (javaImpl.compare(ba3, ba4) == 0) {
         throw new Error(); // deoptimization
@@ -83,7 +85,8 @@ public class UnsignedBytesBenchmark {
     }
   }
 
-  @Benchmark void diffLastUnsafe(int reps) {
+  @Benchmark
+  void diffLastUnsafe(int reps) {
     for (int i = 0; i < reps; ++i) {
       if (unsafeImpl.compare(ba3, ba4) == 0) {
         throw new Error(); // deoptimization

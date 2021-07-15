@@ -30,22 +30,24 @@ import java.util.SortedMap;
  */
 // TODO: Use this class to test classes besides ImmutableSortedMap.
 @GwtCompatible
-public abstract class SortedMapInterfaceTest<K, V> extends MapInterfaceTest<K, V> {
+public abstract class SortedMapInterfaceTest<K, V>
+    extends MapInterfaceTest<K, V> {
 
-  protected SortedMapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
-    super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove, supportsClear);
+  protected SortedMapInterfaceTest(boolean allowsNullKeys,
+                                   boolean allowsNullValues,
+                                   boolean supportsPut, boolean supportsRemove,
+                                   boolean supportsClear) {
+    super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove,
+          supportsClear);
   }
 
   @Override
-  protected abstract SortedMap<K, V> makeEmptyMap() throws UnsupportedOperationException;
+  protected abstract SortedMap<K, V> makeEmptyMap()
+      throws UnsupportedOperationException;
 
   @Override
-  protected abstract SortedMap<K, V> makePopulatedMap() throws UnsupportedOperationException;
+  protected abstract SortedMap<K, V> makePopulatedMap()
+      throws UnsupportedOperationException;
 
   @Override
   protected SortedMap<K, V> makeEitherMap() {

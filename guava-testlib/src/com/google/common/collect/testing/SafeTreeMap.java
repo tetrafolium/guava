@@ -37,21 +37,20 @@ import java.util.TreeMap;
  * @author Louis Wasserman
  */
 @GwtIncompatible
-public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V> {
+public final class SafeTreeMap<K, V>
+    implements Serializable, NavigableMap<K, V> {
   @SuppressWarnings("unchecked")
   private static final Comparator<Object> NATURAL_ORDER =
-  new Comparator<Object>() {
-    @Override
-    public int compare(Object o1, Object o2) {
-      return ((Comparable<Object>) o1).compareTo(o2);
-    }
-  };
+      new Comparator<Object>() {
+        @Override
+        public int compare(Object o1, Object o2) {
+          return ((Comparable<Object>)o1).compareTo(o2);
+        }
+      };
 
   private final NavigableMap<K, V> delegate;
 
-  public SafeTreeMap() {
-    this(new TreeMap<K, V>());
-  }
+  public SafeTreeMap() { this(new TreeMap<K, V>()); }
 
   public SafeTreeMap(Comparator<? super K> comparator) {
     this(new TreeMap<K, V>(comparator));
@@ -95,7 +94,7 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   public Comparator<? super K> comparator() {
     Comparator<? super K> comparator = delegate.comparator();
     if (comparator == null) {
-      comparator = (Comparator<? super K>) NATURAL_ORDER;
+      comparator = (Comparator<? super K>)NATURAL_ORDER;
     }
     return comparator;
   }
@@ -127,9 +126,7 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   @Override
   public Set<Entry<K, V>> entrySet() {
     return new AbstractSet<Entry<K, V>>() {
-      private Set<Entry<K, V>> delegate() {
-        return delegate.entrySet();
-      }
+      private Set<Entry<K, V>> delegate() { return delegate.entrySet(); }
 
       @Override
       public boolean contains(Object object) {
@@ -276,9 +273,10 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
   }
 
   @Override
-  public NavigableMap<K, V> subMap(K fromKey, boolean fromInclusive, K toKey, boolean toInclusive) {
-    return new SafeTreeMap<>(
-            delegate.subMap(checkValid(fromKey), fromInclusive, checkValid(toKey), toInclusive));
+  public NavigableMap<K, V> subMap(K fromKey, boolean fromInclusive, K toKey,
+                                   boolean toInclusive) {
+    return new SafeTreeMap<>(delegate.subMap(checkValid(fromKey), fromInclusive,
+                                             checkValid(toKey), toInclusive));
   }
 
   @Override
@@ -303,8 +301,7 @@ public final class SafeTreeMap<K, V> implements Serializable, NavigableMap<K, V>
 
   private <T> T checkValid(T t) {
     // a ClassCastException is what's supposed to happen!
-    @SuppressWarnings("unchecked")
-    K k = (K) t;
+    @SuppressWarnings("unchecked") K k = (K)t;
     comparator().compare(k, k);
     return t;
   }

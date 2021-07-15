@@ -42,10 +42,10 @@ import javax.annotation.Nullable;
 /**
  * Provides static methods for working with {@code Collection} instances.
  *
- * <p><b>Java 8 users:</b> several common uses for this class are now more comprehensively addressed
- * by the new {@link java.util.stream.Stream} library. Read the method documentation below for
- * comparisons. These methods are not being deprecated, but we gently encourage you to migrate to
- * streams.
+ * <p><b>Java 8 users:</b> several common uses for this class are now more
+ * comprehensively addressed by the new {@link java.util.stream.Stream} library.
+ * Read the method documentation below for comparisons. These methods are not
+ * being deprecated, but we gently encourage you to migrate to streams.
  *
  * @author Chris Povirk
  * @author Mike Bostock
@@ -84,18 +84,21 @@ public final class Collections2 {
    * with equals. (See {@link Iterables#filter(Iterable, Class)} for related
    * functionality.)
    *
-   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#filter Stream.filter}.
+   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#filter
+   * Stream.filter}.
    */
   // TODO(kevinb): how can we omit that Iterables link when building gwt
   // javadoc?
-  public static <E> Collection<E> filter(Collection<E> unfiltered, Predicate<? super E> predicate) {
+  public static <E> Collection<E> filter(Collection<E> unfiltered,
+                                         Predicate<? super E> predicate) {
     if (unfiltered instanceof FilteredCollection) {
       // Support clear(), removeAll(), and retainAll() when filtering a filtered
       // collection.
-      return ((FilteredCollection<E>) unfiltered).createCombined(predicate);
+      return ((FilteredCollection<E>)unfiltered).createCombined(predicate);
     }
 
-    return new FilteredCollection<E>(checkNotNull(unfiltered), checkNotNull(predicate));
+    return new FilteredCollection<E>(checkNotNull(unfiltered),
+                                     checkNotNull(predicate));
   }
 
   /**
@@ -103,7 +106,8 @@ public final class Collections2 {
    * {@code contains} method throws a {@code ClassCastException} or
    * {@code NullPointerException}.
    */
-  static boolean safeContains(Collection<?> collection, @Nullable Object object) {
+  static boolean safeContains(Collection<?> collection,
+                              @Nullable Object object) {
     checkNotNull(collection);
     try {
       return collection.contains(object);
@@ -130,13 +134,15 @@ public final class Collections2 {
     final Collection<E> unfiltered;
     final Predicate<? super E> predicate;
 
-    FilteredCollection(Collection<E> unfiltered, Predicate<? super E> predicate) {
+    FilteredCollection(Collection<E> unfiltered,
+                       Predicate<? super E> predicate) {
       this.unfiltered = unfiltered;
       this.predicate = predicate;
     }
 
     FilteredCollection<E> createCombined(Predicate<? super E> newPredicate) {
-      return new FilteredCollection<E>(unfiltered, Predicates.<E>and(predicate, newPredicate));
+      return new FilteredCollection<E>(
+          unfiltered, Predicates.<E>and(predicate, newPredicate));
       // .<E> above needed to compile in JDK 5
     }
 
@@ -162,8 +168,9 @@ public final class Collections2 {
     @Override
     public boolean contains(@Nullable Object element) {
       if (safeContains(unfiltered, element)) {
-        @SuppressWarnings("unchecked") // element is in unfiltered, so it must be an E
-        E e = (E) element;
+        @SuppressWarnings("unchecked")
+        // element is in unfiltered, so it must be an E
+        E e = (E)element;
         return predicate.apply(e);
       }
       return false;
@@ -192,8 +199,7 @@ public final class Collections2 {
     @Override
     public void forEach(Consumer<? super E> action) {
       checkNotNull(action);
-      unfiltered.forEach(
-      (E e) -> {
+      unfiltered.forEach((E e) -> {
         if (predicate.test(e)) {
           action.accept(e);
         }
@@ -218,7 +224,8 @@ public final class Collections2 {
     @Override
     public boolean removeIf(java.util.function.Predicate<? super E> filter) {
       checkNotNull(filter);
-      return unfiltered.removeIf(element -> predicate.apply(element) && filter.test(element));
+      return unfiltered.removeIf(
+          element -> predicate.apply(element) && filter.test(element));
     }
 
     @Override
@@ -263,10 +270,11 @@ public final class Collections2 {
    * {@link Lists#transform}. If only an {@code Iterable} is available, use
    * {@link Iterables#transform}.
    *
-   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#map Stream.map}.
+   * <p><b>{@code Stream} equivalent:</b> {@link java.util.stream.Stream#map
+   * Stream.map}.
    */
-  public static <F, T> Collection<T> transform(
-      Collection<F> fromCollection, Function<? super F, T> function) {
+  public static <F, T> Collection<T>
+  transform(Collection<F> fromCollection, Function<? super F, T> function) {
     return new TransformedCollection<>(fromCollection, function);
   }
 
@@ -274,7 +282,8 @@ public final class Collections2 {
     final Collection<F> fromCollection;
     final Function<? super F, ? extends T> function;
 
-    TransformedCollection(Collection<F> fromCollection, Function<? super F, ? extends T> function) {
+    TransformedCollection(Collection<F> fromCollection,
+                          Function<? super F, ? extends T> function) {
       this.fromCollection = checkNotNull(fromCollection);
       this.function = checkNotNull(function);
     }
@@ -308,7 +317,8 @@ public final class Collections2 {
     @Override
     public boolean removeIf(java.util.function.Predicate<? super T> filter) {
       checkNotNull(filter);
-      return fromCollection.removeIf(element -> filter.test(function.apply(element)));
+      return fromCollection.removeIf(
+          element -> filter.test(function.apply(element)));
     }
 
     @Override
@@ -342,7 +352,8 @@ public final class Collections2 {
    * An implementation of {@link Collection#toString()}.
    */
   static String toStringImpl(final Collection<?> collection) {
-    StringBuilder sb = newStringBuilderForCollection(collection.size()).append('[');
+    StringBuilder sb =
+        newStringBuilderForCollection(collection.size()).append('[');
     boolean first = true;
     for (Object o : collection) {
       if (!first) {
@@ -363,14 +374,14 @@ public final class Collections2 {
    */
   static StringBuilder newStringBuilderForCollection(int size) {
     checkNonnegative(size, "size");
-    return new StringBuilder((int) Math.min(size * 8L, Ints.MAX_POWER_OF_TWO));
+    return new StringBuilder((int)Math.min(size * 8L, Ints.MAX_POWER_OF_TWO));
   }
 
   /**
    * Used to avoid http://bugs.sun.com/view_bug.do?bug_id=6558557
    */
   static <T> Collection<T> cast(Iterable<T> iterable) {
-    return (Collection<T>) iterable;
+    return (Collection<T>)iterable;
   }
 
   /**
@@ -401,8 +412,8 @@ public final class Collections2 {
    * @since 12.0
    */
   @Beta
-  public static <E extends Comparable<? super E>> Collection<List<E>> orderedPermutations(
-      Iterable<E> elements) {
+  public static <E extends Comparable<? super E>> Collection<List<E>>
+  orderedPermutations(Iterable<E> elements) {
     return orderedPermutations(elements, Ordering.natural());
   }
 
@@ -454,17 +465,19 @@ public final class Collections2 {
    * @since 12.0
    */
   @Beta
-  public static <E> Collection<List<E>> orderedPermutations(
-      Iterable<E> elements, Comparator<? super E> comparator) {
+  public static <E> Collection<List<E>>
+  orderedPermutations(Iterable<E> elements, Comparator<? super E> comparator) {
     return new OrderedPermutationCollection<E>(elements, comparator);
   }
 
-  private static final class OrderedPermutationCollection<E> extends AbstractCollection<List<E>> {
+  private static final class OrderedPermutationCollection<E>
+      extends AbstractCollection<List<E>> {
     final ImmutableList<E> inputList;
     final Comparator<? super E> comparator;
     final int size;
 
-    OrderedPermutationCollection(Iterable<E> input, Comparator<? super E> comparator) {
+    OrderedPermutationCollection(Iterable<E> input,
+                                 Comparator<? super E> comparator) {
       this.inputList = ImmutableList.sortedCopyOf(comparator, input);
       this.comparator = comparator;
       this.size = calculateSize(inputList, comparator);
@@ -479,16 +492,18 @@ public final class Collections2 {
      * permutations is increased by a factor of (n choose r).</li>
      * </ul>
      */
-    private static <E> int calculateSize(
-        List<E> sortedInputList, Comparator<? super E> comparator) {
+    private static <E> int calculateSize(List<E> sortedInputList,
+                                         Comparator<? super E> comparator) {
       int permutations = 1;
       int n = 1;
       int r = 1;
       while (n < sortedInputList.size()) {
-        int comparison = comparator.compare(sortedInputList.get(n - 1), sortedInputList.get(n));
+        int comparison = comparator.compare(sortedInputList.get(n - 1),
+                                            sortedInputList.get(n));
         if (comparison < 0) {
           // We move to the next non-repeated element.
-          permutations = IntMath.saturatedMultiply(permutations, IntMath.binomial(n, r));
+          permutations =
+              IntMath.saturatedMultiply(permutations, IntMath.binomial(n, r));
           r = 0;
           if (permutations == Integer.MAX_VALUE) {
             return Integer.MAX_VALUE;
@@ -518,7 +533,7 @@ public final class Collections2 {
     @Override
     public boolean contains(@Nullable Object obj) {
       if (obj instanceof List) {
-        List<?> list = (List<?>) obj;
+        List<?> list = (List<?>)obj;
         return isPermutation(inputList, list);
       }
       return false;
@@ -530,7 +545,8 @@ public final class Collections2 {
     }
   }
 
-  private static final class OrderedPermutationIterator<E> extends AbstractIterator<List<E>> {
+  private static final class OrderedPermutationIterator<E>
+      extends AbstractIterator<List<E>> {
 
     List<E> nextPermutation;
     final Comparator<? super E> comparator;
@@ -565,7 +581,8 @@ public final class Collections2 {
 
     int findNextJ() {
       for (int k = nextPermutation.size() - 2; k >= 0; k--) {
-        if (comparator.compare(nextPermutation.get(k), nextPermutation.get(k + 1)) < 0) {
+        if (comparator.compare(nextPermutation.get(k),
+                               nextPermutation.get(k + 1)) < 0) {
           return k;
         }
       }
@@ -608,12 +625,11 @@ public final class Collections2 {
     return new PermutationCollection<E>(ImmutableList.copyOf(elements));
   }
 
-  private static final class PermutationCollection<E> extends AbstractCollection<List<E>> {
+  private static final class PermutationCollection<E>
+      extends AbstractCollection<List<E>> {
     final ImmutableList<E> inputList;
 
-    PermutationCollection(ImmutableList<E> input) {
-      this.inputList = input;
-    }
+    PermutationCollection(ImmutableList<E> input) { this.inputList = input; }
 
     @Override
     public int size() {
@@ -633,7 +649,7 @@ public final class Collections2 {
     @Override
     public boolean contains(@Nullable Object obj) {
       if (obj instanceof List) {
-        List<?> list = (List<?>) obj;
+        List<?> list = (List<?>)obj;
         return isPermutation(inputList, list);
       }
       return false;
@@ -645,7 +661,8 @@ public final class Collections2 {
     }
   }
 
-  private static class PermutationIterator<E> extends AbstractIterator<List<E>> {
+  private static class PermutationIterator<E>
+      extends AbstractIterator<List<E>> {
     final List<E> list;
     final int[] c;
     final int[] o;

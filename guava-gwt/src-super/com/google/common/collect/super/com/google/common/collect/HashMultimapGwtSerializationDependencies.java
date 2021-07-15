@@ -21,7 +21,8 @@ import java.util.Collection;
 import java.util.Map;
 
 @GwtCompatible(emulated = true)
-abstract class HashMultimapGwtSerializationDependencies<K, V> extends AbstractSetMultimap<K, V> {
+abstract class HashMultimapGwtSerializationDependencies<K, V>
+    extends AbstractSetMultimap<K, V> {
   HashMultimapGwtSerializationDependencies(Map<K, Collection<V>> map) {
     super(map);
   }

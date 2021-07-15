@@ -28,8 +28,8 @@ import java.util.ListIterator;
  * @author Louis Wasserman
  */
 @GwtCompatible
-abstract class TransformedListIterator<F, T> extends TransformedIterator<F, T>
-  implements ListIterator<T> {
+abstract class TransformedListIterator<F, T>
+    extends TransformedIterator<F, T> implements ListIterator<T> {
   TransformedListIterator(ListIterator<? extends F> backingIterator) {
     super(backingIterator);
   }

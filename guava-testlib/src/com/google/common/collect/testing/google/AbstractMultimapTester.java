@@ -36,13 +36,11 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
-  extends AbstractContainerTester<M, Map.Entry<K, V>> {
+    extends AbstractContainerTester<M, Map.Entry<K, V>> {
 
   private M multimap;
 
-  protected M multimap() {
-    return multimap;
-  }
+  protected M multimap() { return multimap; }
 
   /**
    * @return an array of the proper size with {@code null} as the key of the
@@ -69,7 +67,8 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
   }
 
   /**
-   * @return an array of the proper size with {@code null} as the key and value of the
+   * @return an array of the proper size with {@code null} as the key and value
+   *     of the
    * middle element.
    */
   protected Map.Entry<K, V>[] createArrayWithNullKeyAndValue() {
@@ -79,13 +78,9 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
     return array;
   }
 
-  protected V getValueForNullKey() {
-    return getEntryNullReplaces().getValue();
-  }
+  protected V getValueForNullKey() { return getEntryNullReplaces().getValue(); }
 
-  protected K getKeyForNullValue() {
-    return getEntryNullReplaces().getKey();
-  }
+  protected K getKeyForNullValue() { return getEntryNullReplaces().getKey(); }
 
   private Entry<K, V> getEntryNullReplaces() {
     Iterator<Entry<K, V>> entries = getSampleElements().iterator();
@@ -96,26 +91,31 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
   }
 
   protected void initMultimapWithNullKey() {
-    resetContainer(getSubjectGenerator().create((Object[]) createArrayWithNullKey()));
+    resetContainer(
+        getSubjectGenerator().create((Object[])createArrayWithNullKey()));
   }
 
   protected void initMultimapWithNullValue() {
-    resetContainer(getSubjectGenerator().create((Object[]) createArrayWithNullValue()));
+    resetContainer(
+        getSubjectGenerator().create((Object[])createArrayWithNullValue()));
   }
 
   protected void initMultimapWithNullKeyAndValue() {
-    resetContainer(getSubjectGenerator().create((Object[]) createArrayWithNullKeyAndValue()));
+    resetContainer(getSubjectGenerator().create(
+        (Object[])createArrayWithNullKeyAndValue()));
   }
 
   protected SampleElements<K> sampleKeys() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-            getSubjectGenerator().getInnerGenerator())
+                getSubjectGenerator()
+                    .getInnerGenerator())
         .sampleKeys();
   }
 
   protected SampleElements<V> sampleValues() {
     return ((TestMultimapGenerator<K, V, ? extends Multimap<K, V>>)
-            getSubjectGenerator().getInnerGenerator())
+                getSubjectGenerator()
+                    .getInnerGenerator())
         .sampleValues();
   }
 
@@ -132,14 +132,13 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
   }
 
   protected Multimap<K, V> resetContainer(Entry<K, V>... newContents) {
-    multimap = super.resetContainer(getSubjectGenerator().create((Object[]) newContents));
+    multimap = super.resetContainer(
+        getSubjectGenerator().create((Object[])newContents));
     return multimap;
   }
 
   /** @see AbstractContainerTester#resetContainer() */
-  protected void resetCollection() {
-    resetContainer();
-  }
+  protected void resetCollection() { resetContainer(); }
 
   protected void assertGet(K key, V... values) {
     assertGet(key, Arrays.asList(values));
@@ -162,43 +161,23 @@ public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
     assertEquals(values.size() > 0, multimap().keys().contains(key));
   }
 
-  protected final K k0() {
-    return e0().getKey();
-  }
+  protected final K k0() { return e0().getKey(); }
 
-  protected final V v0() {
-    return e0().getValue();
-  }
+  protected final V v0() { return e0().getValue(); }
 
-  protected final K k1() {
-    return e1().getKey();
-  }
+  protected final K k1() { return e1().getKey(); }
 
-  protected final V v1() {
-    return e1().getValue();
-  }
+  protected final V v1() { return e1().getValue(); }
 
-  protected final K k2() {
-    return e2().getKey();
-  }
+  protected final K k2() { return e2().getKey(); }
 
-  protected final V v2() {
-    return e2().getValue();
-  }
+  protected final V v2() { return e2().getValue(); }
 
-  protected final K k3() {
-    return e3().getKey();
-  }
+  protected final K k3() { return e3().getKey(); }
 
-  protected final V v3() {
-    return e3().getValue();
-  }
+  protected final V v3() { return e3().getValue(); }
 
-  protected final K k4() {
-    return e4().getKey();
-  }
+  protected final K k4() { return e4().getKey(); }
 
-  protected final V v4() {
-    return e4().getValue();
-  }
+  protected final V v4() { return e4().getValue(); }
 }

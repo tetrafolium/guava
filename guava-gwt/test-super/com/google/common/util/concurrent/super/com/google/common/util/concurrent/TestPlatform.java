@@ -57,7 +57,8 @@ final class TestPlatform {
     // There is no thread interruption in GWT, so there's nothing to do.
   }
 
-  static <V> V getDoneFromTimeoutOverload(Future<V> future) throws ExecutionException {
+  static <V> V getDoneFromTimeoutOverload(Future<V> future)
+      throws ExecutionException {
     checkState(future.isDone(), "Future was expected to be done: %s", future);
     try {
       return future.get(0, SECONDS);

@@ -26,7 +26,8 @@ import java.util.List;
  * @author Kevin Bourrillion
  */
 @GwtCompatible
-public abstract class TestStringListGenerator implements TestListGenerator<String> {
+public abstract class TestStringListGenerator
+    implements TestListGenerator<String> {
   @Override
   public SampleElements<String> samples() {
     return new Strings();
@@ -37,7 +38,7 @@ public abstract class TestStringListGenerator implements TestListGenerator<Strin
     String[] array = new String[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (String) e;
+      array[i++] = (String)e;
     }
     return create(array);
   }

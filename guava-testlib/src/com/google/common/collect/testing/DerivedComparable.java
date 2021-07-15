@@ -25,9 +25,7 @@ import com.google.common.annotations.GwtCompatible;
  */
 @GwtCompatible
 public class DerivedComparable extends BaseComparable {
-  public DerivedComparable(String s) {
-    super(s);
-  }
+  public DerivedComparable(String s) { super(s); }
 
   private static final long serialVersionUID = 0;
 }

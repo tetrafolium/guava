@@ -39,7 +39,7 @@ final class Platform {
     // the cast is safe because
     // result.getClass() == reference.getClass().getComponentType()
     @SuppressWarnings("unchecked")
-    T[] result = (T[]) Array.newInstance(type, length);
+    T[] result = (T[])Array.newInstance(type, length);
     return result;
   }
 
@@ -49,9 +49,7 @@ final class Platform {
    * server-side code could generate enough volume that reclamation becomes
    * important.
    */
-  static MapMaker tryWeakKeys(MapMaker mapMaker) {
-    return mapMaker.weakKeys();
-  }
+  static MapMaker tryWeakKeys(MapMaker mapMaker) { return mapMaker.weakKeys(); }
 
   private Platform() {}
 }

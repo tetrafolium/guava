@@ -24,15 +24,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 /**
- * Benchmarks for comparing {@link MessageDigest}s and {@link com.google.common.hash.HashFunction}s
- * that wrap {@link MessageDigest}s.
+ * Benchmarks for comparing {@link MessageDigest}s and {@link
+ * com.google.common.hash.HashFunction}s that wrap {@link MessageDigest}s.
  *
  * <p>Parameters for the benchmark are:
  *
  * <ul>
  * <li>size: The length of the byte array to hash.
  * <li>algorithm: the algorithm to hash with (e.g. MD5, SHA1, etc.).
- * <li>hashMethod: how to hash the data (using the Hashing API or the MessageDigest API).
+ * <li>hashMethod: how to hash the data (using the Hashing API or the
+ * MessageDigest API).
  * </ul>
  *
  * @author Kurt Alfred Kluever
@@ -44,22 +45,30 @@ public class MessageDigestAlgorithmBenchmark {
 
   private enum HashMethod {
     MESSAGE_DIGEST_API() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
+      @Override
+      public byte[] hash(Algorithm algorithm, byte[] input) {
         MessageDigest md = algorithm.getMessageDigest();
         md.update(input);
         return md.digest();
       }
     },
     HASH_FUNCTION_DIRECT() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
+      @Override
+      public byte[] hash(Algorithm algorithm, byte[] input) {
         return algorithm.getHashFunction().hashBytes(input).asBytes();
       }
     },
     HASH_FUNCTION_VIA_HASHER() {
-      @Override public byte[] hash(Algorithm algorithm, byte[] input) {
-        return algorithm.getHashFunction().newHasher().putBytes(input).hash().asBytes();
+      @Override
+      public byte[] hash(Algorithm algorithm, byte[] input) {
+        return algorithm.getHashFunction()
+            .newHasher()
+            .putBytes(input)
+            .hash()
+            .asBytes();
       }
-    };;
+    };
+    ;
     public abstract byte[] hash(Algorithm algorithm, byte[] input);
   }
 
@@ -83,22 +92,23 @@ public class MessageDigestAlgorithmBenchmark {
         throw new AssertionError(e);
       }
     }
-    public HashFunction getHashFunction() {
-      return hashFn;
-    }
+    public HashFunction getHashFunction() { return hashFn; }
   }
 
-  // Use a constant seed for all of the benchmarks to ensure apples to apples comparisons.
+  // Use a constant seed for all of the benchmarks to ensure apples to apples
+  // comparisons.
   private static final int RANDOM_SEED = new Random().nextInt();
 
   private byte[] testBytes;
 
-  @BeforeExperiment void setUp() {
+  @BeforeExperiment
+  void setUp() {
     testBytes = new byte[size];
     new Random(RANDOM_SEED).nextBytes(testBytes);
   }
 
-  @Benchmark byte hashing(int reps) {
+  @Benchmark
+  byte hashing(int reps) {
     byte result = 0x01;
     HashMethod hashMethod = this.hashMethod;
     Algorithm algorithm = this.algorithm;

@@ -20,7 +20,6 @@
  * <p>This package is a part of the open-source
  * <a href="http://github.com/google/guava">Guava</a> library.
  */
-@CheckReturnValue
-package com.google.common.escape.testing;
+@CheckReturnValue package com.google.common.escape.testing;
 
 import javax.annotation.CheckReturnValue;

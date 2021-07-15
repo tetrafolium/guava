@@ -25,8 +25,7 @@ import java.util.SortedSet;
  */
 @GwtCompatible
 public interface TestSortedSetGenerator<E> extends TestSetGenerator<E> {
-  @Override
-  SortedSet<E> create(Object... elements);
+  @Override SortedSet<E> create(Object... elements);
 
   /**
    * Returns an element less than the {@link #samples()} and less than

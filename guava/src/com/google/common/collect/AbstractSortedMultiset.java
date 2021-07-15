@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -24,22 +26,25 @@ import java.util.NavigableSet;
 import javax.annotation.Nullable;
 
 /**
- * This class provides a skeletal implementation of the {@link SortedMultiset} interface.
+ * This class provides a skeletal implementation of the {@link SortedMultiset}
+ * interface.
  *
- * <p>The {@link #count} and {@link #size} implementations all iterate across the set returned by
+ * <p>The {@link #count} and {@link #size} implementations all iterate across
+ * the set returned by
  * {@link Multiset#entrySet()}, as do many methods acting on the set returned by
  * {@link #elementSet()}. Override those methods for better performance.
  *
  * @author Louis Wasserman
  */
 @GwtCompatible(emulated = true)
-abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements SortedMultiset<E> {
+abstract class AbstractSortedMultiset<E>
+    extends AbstractMultiset<E> implements SortedMultiset<E> {
   @GwtTransient final Comparator<? super E> comparator;
 
   // needed for serialization
   @SuppressWarnings("unchecked")
   AbstractSortedMultiset() {
-    this((Comparator) Ordering.natural());
+    this((Comparator)Ordering.natural());
   }
 
   AbstractSortedMultiset(Comparator<? super E> comparator) {
@@ -48,7 +53,7 @@ abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements 
 
   @Override
   public NavigableSet<E> elementSet() {
-    return (NavigableSet<E>) super.elementSet();
+    return (NavigableSet<E>)super.elementSet();
   }
 
   @Override
@@ -98,15 +103,15 @@ abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements 
   }
 
   @Override
-  public SortedMultiset<E> subMultiset(
-      @Nullable E fromElement,
-      BoundType fromBoundType,
-      @Nullable E toElement,
-      BoundType toBoundType) {
-    // These are checked elsewhere, but NullPointerTester wants them checked eagerly.
+  public SortedMultiset<E>
+  subMultiset(@Nullable E fromElement, BoundType fromBoundType,
+              @Nullable E toElement, BoundType toBoundType) {
+    // These are checked elsewhere, but NullPointerTester wants them checked
+    // eagerly.
     checkNotNull(fromBoundType);
     checkNotNull(toBoundType);
-    return tailMultiset(fromElement, fromBoundType).headMultiset(toElement, toBoundType);
+    return tailMultiset(fromElement, fromBoundType)
+        .headMultiset(toElement, toBoundType);
   }
 
   abstract Iterator<Entry<E>> descendingEntryIterator();
@@ -120,7 +125,8 @@ abstract class AbstractSortedMultiset<E> extends AbstractMultiset<E> implements 
   @Override
   public SortedMultiset<E> descendingMultiset() {
     SortedMultiset<E> result = descendingMultiset;
-    return (result == null) ? descendingMultiset = createDescendingMultiset() : result;
+    return (result == null) ? descendingMultiset = createDescendingMultiset()
+                            : result;
   }
 
   SortedMultiset<E> createDescendingMultiset() {

@@ -34,9 +34,7 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    * collection in setUp(), but that caused problems when a tester changed the
    * value of list or collection but not both.
    */
-  protected final List<E> getList() {
-    return (List<E>) collection;
-  }
+  protected final List<E> getList() { return (List<E>)collection; }
 
   /**
    * {@inheritDoc}
@@ -55,7 +53,8 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
     for (int i = 0; i < expectedList.size(); i++) {
       E expected = expectedList.get(i);
       E actual = getList().get(i);
-      if (expected != actual && (expected == null || !expected.equals(actual))) {
+      if (expected != actual &&
+          (expected == null || !expected.equals(actual))) {
         fail("mismatch at index " + i + ": " + reportContext(expectedList));
       }
     }
@@ -67,7 +66,7 @@ public class AbstractListTester<E> extends AbstractCollectionTester<E> {
    * extremely large numbers of tests.
    */
   private String reportContext(List<E> expected) {
-    return Platform.format(
-            "expected collection %s; actual collection %s", expected, this.collection);
+    return Platform.format("expected collection %s; actual collection %s",
+                           expected, this.collection);
   }
 }

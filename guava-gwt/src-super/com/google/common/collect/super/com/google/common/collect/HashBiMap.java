@@ -27,7 +27,8 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 
 /**
- * GWT emulation of {@code HashBiMap} that just delegates to a LinkedHashMap and a HashMap.
+ * GWT emulation of {@code HashBiMap} that just delegates to a LinkedHashMap and
+ * a HashMap.
  *
  * @author Mike Bostock
  */
@@ -57,23 +58,24 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
    * bimap is created with an initial capacity sufficient to hold the mappings
    * in the specified map.
    */
-  public static <K, V> HashBiMap<K, V> create(
-      Map<? extends K, ? extends V> map) {
+  public static <K, V> HashBiMap<K, V>
+  create(Map<? extends K, ? extends V> map) {
     HashBiMap<K, V> bimap = create(map.size());
     bimap.putAll(map);
     return bimap;
   }
 
   private HashBiMap() {
-    // we only care about the forward-direction order, so only that direction needs to be an LHM
+    // we only care about the forward-direction order, so only that direction
+    // needs to be an LHM
     super(new LinkedHashMap<K, V>(), new HashMap<V, K>());
   }
 
   private HashBiMap(int expectedSize) {
-    // we only care about the forward-direction order, so only that direction needs to be an LHM
-    super(
-        Maps.<K, V>newLinkedHashMapWithExpectedSize(expectedSize),
-        Maps.<V, K>newHashMapWithExpectedSize(expectedSize));
+    // we only care about the forward-direction order, so only that direction
+    // needs to be an LHM
+    super(Maps.<K, V>newLinkedHashMapWithExpectedSize(expectedSize),
+          Maps.<V, K>newHashMapWithExpectedSize(expectedSize));
   }
 
   @Override
@@ -82,7 +84,7 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
       @Override
       Iterator<Entry<V, K>> entrySetIterator() {
         return new TransformedIterator<Entry<K, V>, Entry<V, K>>(
-        HashBiMap.this.delegate().entrySet().iterator()) {
+            HashBiMap.this.delegate().entrySet().iterator()) {
           @Override
           public Entry<V, K> transform(final Entry<K, V> forwardEntry) {
             return new AbstractMapEntry<V, K>() {
@@ -123,7 +125,8 @@ public final class HashBiMap<K, V> extends AbstractBiMap<K, V> {
     return super.put(key, value);
   }
 
-  @Override public V forcePut(@Nullable K key, @Nullable V value) {
+  @Override
+  public V forcePut(@Nullable K key, @Nullable V value) {
     return super.forcePut(key, value);
   }
 }

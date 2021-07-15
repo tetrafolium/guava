@@ -43,7 +43,7 @@ final class ComparatorOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof ComparatorOrdering) {
-      ComparatorOrdering<?> that = (ComparatorOrdering<?>) object;
+      ComparatorOrdering<?> that = (ComparatorOrdering<?>)object;
       return this.comparator.equals(that.comparator);
     }
     return false;

@@ -66,12 +66,9 @@ public abstract class ComparisonChain {
    * Begins a new chained comparison statement. See example in the class
    * documentation.
    */
-  public static ComparisonChain start() {
-    return ACTIVE;
-  }
+  public static ComparisonChain start() { return ACTIVE; }
 
-  private static final ComparisonChain ACTIVE =
-  new ComparisonChain() {
+  private static final ComparisonChain ACTIVE = new ComparisonChain() {
     @SuppressWarnings("unchecked")
     @Override
     public ComparisonChain compare(Comparable left, Comparable right) {
@@ -79,8 +76,8 @@ public abstract class ComparisonChain {
     }
 
     @Override
-    public <T> ComparisonChain compare(
-        @Nullable T left, @Nullable T right, Comparator<T> comparator) {
+    public <T> ComparisonChain compare(@Nullable T left, @Nullable T right,
+                                       Comparator<T> comparator) {
       return classify(comparator.compare(left, right));
     }
 
@@ -131,18 +128,17 @@ public abstract class ComparisonChain {
   private static final class InactiveComparisonChain extends ComparisonChain {
     final int result;
 
-    InactiveComparisonChain(int result) {
-      this.result = result;
-    }
+    InactiveComparisonChain(int result) { this.result = result; }
 
     @Override
-    public ComparisonChain compare(@Nullable Comparable left, @Nullable Comparable right) {
+    public ComparisonChain compare(@Nullable Comparable left,
+                                   @Nullable Comparable right) {
       return this;
     }
 
     @Override
-    public <T> ComparisonChain compare(
-        @Nullable T left, @Nullable T right, @Nullable Comparator<T> comparator) {
+    public <T> ComparisonChain compare(@Nullable T left, @Nullable T right,
+                                       @Nullable Comparator<T> comparator) {
       return this;
     }
 
@@ -187,14 +183,16 @@ public abstract class ComparisonChain {
    * Comparable#compareTo}, <i>if</i> the result of this comparison chain
    * has not already been determined.
    */
-  public abstract ComparisonChain compare(Comparable<?> left, Comparable<?> right);
+  public abstract ComparisonChain compare(Comparable<?> left,
+                                          Comparable<?> right);
 
   /**
    * Compares two objects using a comparator, <i>if</i> the result of this
    * comparison chain has not already been determined.
    */
-  public abstract <T> ComparisonChain compare(
-      @Nullable T left, @Nullable T right, Comparator<T> comparator);
+  public abstract <T> ComparisonChain compare(@Nullable T left,
+                                              @Nullable T right,
+                                              Comparator<T> comparator);
 
   /**
    * Compares two {@code int} values as specified by {@link Ints#compare},
@@ -253,7 +251,8 @@ public abstract class ComparisonChain {
    *
    * @since 12.0 (present as {@code compare} since 2.0)
    */
-  public abstract ComparisonChain compareFalseFirst(boolean left, boolean right);
+  public abstract ComparisonChain compareFalseFirst(boolean left,
+                                                    boolean right);
 
   /**
    * Ends this comparison chain and returns its result: a value having the

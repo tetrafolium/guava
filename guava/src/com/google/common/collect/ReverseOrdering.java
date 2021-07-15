@@ -40,7 +40,7 @@ final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
   @SuppressWarnings("unchecked") // how to explain?
   @Override
   public <S extends T> Ordering<S> reverse() {
-    return (Ordering<S>) forwardOrder;
+    return (Ordering<S>)forwardOrder;
   }
 
   // Override the min/max methods to "hoist" delegation outside loops
@@ -96,7 +96,7 @@ final class ReverseOrdering<T> extends Ordering<T> implements Serializable {
       return true;
     }
     if (object instanceof ReverseOrdering) {
-      ReverseOrdering<?> that = (ReverseOrdering<?>) object;
+      ReverseOrdering<?> that = (ReverseOrdering<?>)object;
       return this.forwardOrder.equals(that.forwardOrder);
     }
     return false;

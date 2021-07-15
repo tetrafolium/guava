@@ -26,11 +26,13 @@ import static com.google.common.graph.Graphs.checkPositive;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 /**
- * Configurable implementation of {@link MutableValueGraph} that supports both directed and
- * undirected graphs. Instances of this class should be constructed with {@link ValueGraphBuilder}.
+ * Configurable implementation of {@link MutableValueGraph} that supports both
+ * directed and undirected graphs. Instances of this class should be constructed
+ * with {@link ValueGraphBuilder}.
  *
- * <p>Time complexities for mutation methods are all O(1) except for {@code removeNode(N node)},
- * which is in O(d_node) where d_node is the degree of {@code node}.
+ * <p>Time complexities for mutation methods are all O(1) except for {@code
+ * removeNode(N node)}, which is in O(d_node) where d_node is the degree of
+ * {@code node}.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain
@@ -38,10 +40,13 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @param <N> Node parameter type
  * @param <V> Value parameter type
  */
-final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N, V>
-  implements MutableValueGraph<N, V> {
+final class ConfigurableMutableValueGraph<N, V>
+    extends ConfigurableValueGraph<N, V> implements MutableValueGraph<N, V> {
 
-  /** Constructs a mutable graph with the properties specified in {@code builder}. */
+  /**
+   * Constructs a mutable graph with the properties specified in {@code
+   * builder}.
+   */
   ConfigurableMutableValueGraph(AbstractGraphBuilder<? super N> builder) {
     super(builder);
   }
@@ -60,7 +65,8 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
   }
 
   /**
-   * Adds {@code node} to the graph and returns the associated {@link GraphConnections}.
+   * Adds {@code node} to the graph and returns the associated {@link
+   * GraphConnections}.
    *
    * @throws IllegalStateException if {@code node} is already present
    */
@@ -109,7 +115,8 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
     }
 
     if (allowsSelfLoops()) {
-      // Remove self-loop (if any) first, so we don't get CME while removing incident edges.
+      // Remove self-loop (if any) first, so we don't get CME while removing
+      // incident edges.
       if (connections.removeSuccessor(node) != null) {
         connections.removePredecessor(node);
         --edgeCount;
@@ -120,9 +127,11 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
       nodeConnections.getWithoutCaching(successor).removePredecessor(node);
       --edgeCount;
     }
-    if (isDirected()) { // In undirected graphs, the successor and predecessor sets are equal.
+    if (isDirected()) { // In undirected graphs, the successor and predecessor
+                        // sets are equal.
       for (N predecessor : connections.predecessors()) {
-        checkState(nodeConnections.getWithoutCaching(predecessor).removeSuccessor(node) != null);
+        checkState(nodeConnections.getWithoutCaching(predecessor)
+                       .removeSuccessor(node) != null);
         --edgeCount;
       }
     }
@@ -152,8 +161,7 @@ final class ConfigurableMutableValueGraph<N, V> extends ConfigurableValueGraph<N
   }
 
   private GraphConnections<N, V> newConnections() {
-    return isDirected()
-        ? DirectedGraphConnections.<N, V>of()
-        : UndirectedGraphConnections.<N, V>of();
+    return isDirected() ? DirectedGraphConnections.<N, V>of()
+                        : UndirectedGraphConnections.<N, V>of();
   }
 }

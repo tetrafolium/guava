@@ -149,13 +149,16 @@ public final class NullPointerTester {
    * {@code instance} with at least {@code minimalVisibility}, including those
    * inherited from superclasses of the same package.
    */
-  public void testInstanceMethods(Object instance, Visibility minimalVisibility) {
-    for (Method method : getInstanceMethodsToTest(instance.getClass(), minimalVisibility)) {
+  public void testInstanceMethods(Object instance,
+                                  Visibility minimalVisibility) {
+    for (Method method :
+         getInstanceMethodsToTest(instance.getClass(), minimalVisibility)) {
       testMethod(instance, method);
     }
   }
 
-  ImmutableList<Method> getInstanceMethodsToTest(Class<?> c, Visibility minimalVisibility) {
+  ImmutableList<Method> getInstanceMethodsToTest(Class<?> c,
+                                                 Visibility minimalVisibility) {
     ImmutableList.Builder<Method> builder = ImmutableList.builder();
     for (Method method : minimalVisibility.getInstanceMethods(c)) {
       if (!isIgnored(method)) {
@@ -196,9 +199,10 @@ public final class NullPointerTester {
    */
   public void testConstructor(Constructor<?> ctor) {
     Class<?> declaringClass = ctor.getDeclaringClass();
-    checkArgument(Modifier.isStatic(declaringClass.getModifiers())
-        || declaringClass.getEnclosingClass() == null,
-        "Cannot test constructor of non-static inner class: %s", declaringClass.getName());
+    checkArgument(Modifier.isStatic(declaringClass.getModifiers()) ||
+                      declaringClass.getEnclosingClass() == null,
+                  "Cannot test constructor of non-static inner class: %s",
+                  declaringClass.getName());
     Class<?>[] types = ctor.getParameterTypes();
     for (int nullIndex = 0; nullIndex < types.length; nullIndex++) {
       testConstructorParameter(ctor, nullIndex);
@@ -214,10 +218,11 @@ public final class NullPointerTester {
    * @param instance the instance to invoke {@code method} on, or null if
    *     {@code method} is static
    */
-  public void testMethodParameter(
-      @Nullable final Object instance, final Method method, int paramIndex) {
+  public void testMethodParameter(@Nullable final Object instance,
+                                  final Method method, int paramIndex) {
     method.setAccessible(true);
-    testParameter(instance, invokable(instance, method), paramIndex, method.getDeclaringClass());
+    testParameter(instance, invokable(instance, method), paramIndex,
+                  method.getDeclaringClass());
   }
 
   /**
@@ -228,26 +233,30 @@ public final class NullPointerTester {
    */
   public void testConstructorParameter(Constructor<?> ctor, int paramIndex) {
     ctor.setAccessible(true);
-    testParameter(null, Invokable.from(ctor), paramIndex, ctor.getDeclaringClass());
+    testParameter(null, Invokable.from(ctor), paramIndex,
+                  ctor.getDeclaringClass());
   }
 
   /** Visibility of any method or constructor. */
   public enum Visibility {
 
     PACKAGE {
-      @Override boolean isVisible(int modifiers) {
+      @Override
+      boolean isVisible(int modifiers) {
         return !Modifier.isPrivate(modifiers);
       }
     },
 
     PROTECTED {
-      @Override boolean isVisible(int modifiers) {
+      @Override
+      boolean isVisible(int modifiers) {
         return Modifier.isPublic(modifiers) || Modifier.isProtected(modifiers);
       }
     },
 
     PUBLIC {
-      @Override boolean isVisible(int modifiers) {
+      @Override
+      boolean isVisible(int modifiers) {
         return Modifier.isPublic(modifiers);
       }
     };
@@ -314,16 +323,18 @@ public final class NullPointerTester {
       this.parameterTypes = parameterTypes;
     }
 
-    @Override public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
       if (obj instanceof Signature) {
-        Signature that = (Signature) obj;
-        return name.equals(that.name)
-            && parameterTypes.equals(that.parameterTypes);
+        Signature that = (Signature)obj;
+        return name.equals(that.name) &&
+            parameterTypes.equals(that.parameterTypes);
       }
       return false;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
       return Objects.hashCode(name, parameterTypes);
     }
   }
@@ -338,33 +349,30 @@ public final class NullPointerTester {
    *     {@code invokable} is static
    */
   private void testParameter(Object instance, Invokable<?, ?> invokable,
-      int paramIndex, Class<?> testedClass) {
+                             int paramIndex, Class<?> testedClass) {
     if (isPrimitiveOrNullable(invokable.getParameters().get(paramIndex))) {
       return; // there's nothing to test
     }
     Object[] params = buildParamList(invokable, paramIndex);
     try {
-      @SuppressWarnings("unchecked") // We'll get a runtime exception if the type is wrong.
-      Invokable<Object, ?> unsafe = (Invokable<Object, ?>) invokable;
+      @SuppressWarnings("unchecked")
+      // We'll get a runtime exception if the type is wrong.
+      Invokable<Object, ?> unsafe = (Invokable<Object, ?>)invokable;
       unsafe.invoke(instance, params);
-      Assert.fail("No exception thrown for parameter at index " + paramIndex
-          + " from " + invokable + Arrays.toString(params) + " for " + testedClass);
+      Assert.fail("No exception thrown for parameter at index " + paramIndex +
+                  " from " + invokable + Arrays.toString(params) + " for " +
+                  testedClass);
     } catch (InvocationTargetException e) {
       Throwable cause = e.getCause();
       if (policy.isExpectedType(cause)) {
         return;
       }
-      AssertionFailedError error =
-          new AssertionFailedError(
-          String.format(
-              "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
+      AssertionFailedError error = new AssertionFailedError(String.format(
+          "wrong exception thrown from %s when passing null to %s parameter at index %s.%n"
               + "Full parameters: %s%n"
               + "Actual exception message: %s",
-              invokable,
-              invokable.getParameters().get(paramIndex).getType(),
-              paramIndex,
-              Arrays.toString(params),
-              cause));
+          invokable, invokable.getParameters().get(paramIndex).getType(),
+          paramIndex, Arrays.toString(params), cause));
       error.initCause(cause);
       throw error;
     } catch (IllegalAccessException e) {
@@ -372,7 +380,8 @@ public final class NullPointerTester {
     }
   }
 
-  private Object[] buildParamList(Invokable<?, ?> invokable, int indexOfParamToSetToNull) {
+  private Object[] buildParamList(Invokable<?, ?> invokable,
+                                  int indexOfParamToSetToNull) {
     ImmutableList<Parameter> params = invokable.getParameters();
     Object[] args = new Object[params.size()];
 
@@ -381,9 +390,9 @@ public final class NullPointerTester {
       if (i != indexOfParamToSetToNull) {
         args[i] = getDefaultValue(param.getType());
         Assert.assertTrue(
-            "Can't find or create a sample instance for type '"
-            + param.getType()
-            + "'; please provide one using NullPointerTester.setDefault()",
+            "Can't find or create a sample instance for type '" +
+                param.getType() +
+                "'; please provide one using NullPointerTester.setDefault()",
             args[i] != null || isNullable(param));
       }
     }
@@ -394,34 +403,34 @@ public final class NullPointerTester {
     // We assume that all defaults are generics-safe, even if they aren't,
     // we take the risk.
     @SuppressWarnings("unchecked")
-    T defaultValue = (T) defaults.getInstance(type.getRawType());
+    T defaultValue = (T)defaults.getInstance(type.getRawType());
     if (defaultValue != null) {
       return defaultValue;
     }
     @SuppressWarnings("unchecked") // All arbitrary instances are generics-safe
-    T arbitrary = (T) ArbitraryInstances.get(type.getRawType());
+    T arbitrary = (T)ArbitraryInstances.get(type.getRawType());
     if (arbitrary != null) {
       return arbitrary;
     }
     if (type.getRawType() == Class.class) {
       // If parameter is Class<? extends Foo>, we return Foo.class
       @SuppressWarnings("unchecked")
-      T defaultClass = (T) getFirstTypeParameter(type.getType()).getRawType();
+      T defaultClass = (T)getFirstTypeParameter(type.getType()).getRawType();
       return defaultClass;
     }
     if (type.getRawType() == TypeToken.class) {
       // If parameter is TypeToken<? extends Foo>, we return TypeToken<Foo>.
       @SuppressWarnings("unchecked")
-      T defaultType = (T) getFirstTypeParameter(type.getType());
+      T defaultType = (T)getFirstTypeParameter(type.getType());
       return defaultType;
     }
     if (type.getRawType() == Converter.class) {
-      TypeToken<?> convertFromType = type.resolveType(
-              Converter.class.getTypeParameters()[0]);
-      TypeToken<?> convertToType = type.resolveType(
-              Converter.class.getTypeParameters()[1]);
+      TypeToken<?> convertFromType =
+          type.resolveType(Converter.class.getTypeParameters()[0]);
+      TypeToken<?> convertToType =
+          type.resolveType(Converter.class.getTypeParameters()[1]);
       @SuppressWarnings("unchecked") // returns default for both F and T
-      T defaultConverter = (T) defaultConverter(convertFromType, convertToType);
+      T defaultConverter = (T)defaultConverter(convertFromType, convertToType);
       return defaultConverter;
     }
     if (type.getRawType().isInterface()) {
@@ -430,17 +439,20 @@ public final class NullPointerTester {
     return null;
   }
 
-  private <F, T> Converter<F, T> defaultConverter(
-      final TypeToken<F> convertFromType, final TypeToken<T> convertToType) {
+  private <F, T> Converter<F, T>
+  defaultConverter(final TypeToken<F> convertFromType,
+                   final TypeToken<T> convertToType) {
     return new Converter<F, T>() {
-      @Override protected T doForward(F a) {
+      @Override
+      protected T doForward(F a) {
         return doConvert(convertToType);
       }
-      @Override protected F doBackward(T b) {
+      @Override
+      protected F doBackward(T b) {
         return doConvert(convertFromType);
       }
 
-      private /*static*/ <S> S doConvert(TypeToken<S> type) {
+      private /*static*/<S> S doConvert(TypeToken<S> type) {
         return checkNotNull(getDefaultValue(type));
       }
     };
@@ -449,7 +461,7 @@ public final class NullPointerTester {
   private static TypeToken<?> getFirstTypeParameter(Type type) {
     if (type instanceof ParameterizedType) {
       return TypeToken.of(
-              ((ParameterizedType) type).getActualTypeArguments()[0]);
+          ((ParameterizedType)type).getActualTypeArguments()[0]);
     } else {
       return TypeToken.of(Object.class);
     }
@@ -457,13 +469,15 @@ public final class NullPointerTester {
 
   private <T> T newDefaultReturningProxy(final TypeToken<T> type) {
     return new DummyProxy() {
-      @Override <R> R dummyReturnValue(TypeToken<R> returnType) {
+      @Override
+      <R> R dummyReturnValue(TypeToken<R> returnType) {
         return getDefaultValue(returnType);
       }
-    } .newProxy(type);
+    }.newProxy(type);
   }
 
-  private static Invokable<?, ?> invokable(@Nullable Object instance, Method method) {
+  private static Invokable<?, ?> invokable(@Nullable Object instance,
+                                           Method method) {
     if (instance == null) {
       return Invokable.from(method);
     } else {
@@ -476,31 +490,34 @@ public final class NullPointerTester {
   }
 
   private static boolean isNullable(Parameter param) {
-    return param.isAnnotationPresent(CheckForNull.class)
-        || param.isAnnotationPresent(Nullable.class);
+    return param.isAnnotationPresent(CheckForNull.class) ||
+        param.isAnnotationPresent(Nullable.class);
   }
 
   private boolean isIgnored(Member member) {
-    return member.isSynthetic() || ignoredMembers.contains(member) || isEquals(member);
+    return member.isSynthetic() || ignoredMembers.contains(member) ||
+        isEquals(member);
   }
 
   /**
-   * Returns true if the the given member is a method that overrides {@link Object#equals(Object)}.
+   * Returns true if the the given member is a method that overrides {@link
+   * Object#equals(Object)}.
    *
-   * <p>The documentation for {@link Object#equals} says it should accept null, so don't require an
-   * explicit {@code @Nullable} annotation (see <a
+   * <p>The documentation for {@link Object#equals} says it should accept null,
+   * so don't require an explicit {@code @Nullable} annotation (see <a
    * href="https://github.com/google/guava/issues/1819">#1819</a>).
    *
-   * <p>It is not necessary to consider visibility, return type, or type parameter declarations. The
-   * declaration of a method with the same name and formal parameters as {@link Object#equals} that
-   * is not public and boolean-returning, or that declares any type parameters, would be rejected at
-   * compile-time.
+   * <p>It is not necessary to consider visibility, return type, or type
+   * parameter declarations. The declaration of a method with the same name and
+   * formal parameters as {@link Object#equals} that is not public and
+   * boolean-returning, or that declares any type parameters, would be rejected
+   * at compile-time.
    */
   private static boolean isEquals(Member member) {
     if (!(member instanceof Method)) {
       return false;
     }
-    Method method = (Method) member;
+    Method method = (Method)member;
     if (!method.getName().contentEquals("equals")) {
       return false;
     }
@@ -526,8 +543,8 @@ public final class NullPointerTester {
     NPE_OR_UOE() {
       @Override
       public boolean isExpectedType(Throwable cause) {
-        return cause instanceof NullPointerException
-        || cause instanceof UnsupportedOperationException;
+        return cause instanceof NullPointerException ||
+            cause instanceof UnsupportedOperationException;
       }
     },
 
@@ -539,9 +556,9 @@ public final class NullPointerTester {
     NPE_IAE_OR_UOE() {
       @Override
       public boolean isExpectedType(Throwable cause) {
-        return cause instanceof NullPointerException
-            || cause instanceof IllegalArgumentException
-            || cause instanceof UnsupportedOperationException;
+        return cause instanceof NullPointerException ||
+            cause instanceof IllegalArgumentException ||
+            cause instanceof UnsupportedOperationException;
       }
     };
 

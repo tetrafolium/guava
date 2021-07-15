@@ -24,13 +24,15 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 
 /**
- * Implementation helper for {@link TestMapGenerator} for use with sorted maps of strings.
+ * Implementation helper for {@link TestMapGenerator} for use with sorted maps
+ * of strings.
  *
  * @author Chris Povirk
  */
 @GwtCompatible
-public abstract class TestStringSortedMapGenerator extends TestStringMapGenerator
-  implements TestSortedMapGenerator<String, String> {
+public abstract class TestStringSortedMapGenerator
+    extends TestStringMapGenerator
+    implements TestSortedMapGenerator<String, String> {
   @Override
   public Entry<String, String> belowSamplesLesser() {
     return Helpers.mapEntry("!! a", "below view");
@@ -52,15 +54,17 @@ public abstract class TestStringSortedMapGenerator extends TestStringMapGenerato
   }
 
   @Override
-  public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+  public Iterable<Entry<String, String>>
+  order(List<Entry<String, String>> insertionOrder) {
     return orderEntriesByKey(insertionOrder);
   }
 
   @Override
-  protected abstract SortedMap<String, String> create(Entry<String, String>[] entries);
+  protected abstract SortedMap<String, String>
+      create(Entry<String, String>[] entries);
 
   @Override
   public SortedMap<String, String> create(Object... entries) {
-    return (SortedMap<String, String>) super.create(entries);
+    return (SortedMap<String, String>)super.create(entries);
   }
 }

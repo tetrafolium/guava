@@ -33,16 +33,11 @@ package java.util.concurrent.atomic;
 public class AtomicBoolean implements java.io.Serializable {
   private boolean value;
 
-  public AtomicBoolean(boolean initialValue) {
-    value = initialValue;
-  }
+  public AtomicBoolean(boolean initialValue) { value = initialValue; }
 
-  public AtomicBoolean() {
-  }
+  public AtomicBoolean() {}
 
-  public final boolean get() {
-    return value;
-  }
+  public final boolean get() { return value; }
 
   public final boolean compareAndSet(boolean expect, boolean update) {
     if (get() == expect) {
@@ -57,13 +52,9 @@ public class AtomicBoolean implements java.io.Serializable {
     return compareAndSet(expect, update);
   }
 
-  public final void set(boolean newValue) {
-    value = newValue;
-  }
+  public final void set(boolean newValue) { value = newValue; }
 
-  public final void lazySet(boolean newValue) {
-    set(newValue);
-  }
+  public final void lazySet(boolean newValue) { set(newValue); }
 
   public final boolean getAndSet(boolean newValue) {
     boolean current = get();
@@ -71,7 +62,5 @@ public class AtomicBoolean implements java.io.Serializable {
     return current;
   }
 
-  public String toString() {
-    return Boolean.toString(get());
-  }
+  public String toString() { return Boolean.toString(get()); }
 }

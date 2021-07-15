@@ -57,10 +57,10 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public abstract class FeatureSpecificTestSuiteBuilder<
-  B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
+    B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
   @SuppressWarnings("unchecked")
   protected B self() {
-    return (B) this;
+    return (B)this;
   }
 
   // Test Data
@@ -76,27 +76,21 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return self();
   }
 
-  public G getSubjectGenerator() {
-    return subjectGenerator;
-  }
+  public G getSubjectGenerator() { return subjectGenerator; }
 
   public B withSetUp(Runnable setUp) {
     this.setUp = setUp;
     return self();
   }
 
-  protected Runnable getSetUp() {
-    return setUp;
-  }
+  protected Runnable getSetUp() { return setUp; }
 
   public B withTearDown(Runnable tearDown) {
     this.tearDown = tearDown;
     return self();
   }
 
-  protected Runnable getTearDown() {
-    return tearDown;
-  }
+  protected Runnable getTearDown() { return tearDown; }
 
   // Features
 
@@ -137,9 +131,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return self();
   }
 
-  public String getName() {
-    return name;
-  }
+  public String getName() { return name; }
 
   // Test suppression
 
@@ -162,9 +154,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     return self();
   }
 
-  public Set<Method> getSuppressedTests() {
-    return suppressedTests;
-  }
+  public Set<Method> getSuppressedTests() { return suppressedTests; }
 
   private static final Logger logger =
       Logger.getLogger(FeatureSpecificTestSuiteBuilder.class.getName());
@@ -193,8 +183,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
 
     TestSuite suite = new TestSuite(name);
     for (Class<? extends AbstractTester> testerClass : testers) {
-      final TestSuite testerSuite =
-          makeSuiteForTesterClass((Class<? extends AbstractTester<?>>) testerClass);
+      final TestSuite testerSuite = makeSuiteForTesterClass(
+          (Class<? extends AbstractTester<?>>)testerClass);
       if (testerSuite.countTestCases() > 0) {
         suite.addTest(testerSuite);
       }
@@ -214,7 +204,8 @@ public abstract class FeatureSpecificTestSuiteBuilder<
       throw new IllegalStateException("Call named() before createTestSuite().");
     }
     if (features == null) {
-      throw new IllegalStateException("Call withFeatures() before createTestSuite().");
+      throw new IllegalStateException(
+          "Call withFeatures() before createTestSuite().");
     }
   }
 
@@ -226,11 +217,13 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     try {
       method = extractMethod(test);
     } catch (IllegalArgumentException e) {
-      logger.finer(Platform.format("%s: including by default: %s", test, e.getMessage()));
+      logger.finer(Platform.format("%s: including by default: %s", test,
+                                   e.getMessage()));
       return true;
     }
     if (suppressedTests.contains(method)) {
-      logger.finer(Platform.format("%s: excluding because it was explicitly suppressed.", test));
+      logger.finer(Platform.format(
+          "%s: excluding because it was explicitly suppressed.", test));
       return false;
     }
     final TesterRequirements requirements;
@@ -241,21 +234,23 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     }
     if (!features.containsAll(requirements.getPresentFeatures())) {
       if (logger.isLoggable(FINER)) {
-        Set<Feature<?>> missingFeatures = Helpers.copyToSet(requirements.getPresentFeatures());
+        Set<Feature<?>> missingFeatures =
+            Helpers.copyToSet(requirements.getPresentFeatures());
         missingFeatures.removeAll(features);
-        logger.finer(
-            Platform.format(
-                "%s: skipping because these features are absent: %s", method, missingFeatures));
+        logger.finer(Platform.format(
+            "%s: skipping because these features are absent: %s", method,
+            missingFeatures));
       }
       return false;
     }
     if (intersect(features, requirements.getAbsentFeatures())) {
       if (logger.isLoggable(FINER)) {
-        Set<Feature<?>> unwantedFeatures = Helpers.copyToSet(requirements.getAbsentFeatures());
+        Set<Feature<?>> unwantedFeatures =
+            Helpers.copyToSet(requirements.getAbsentFeatures());
         unwantedFeatures.retainAll(features);
-        logger.finer(
-            Platform.format(
-                "%s: skipping because these features are present: %s", method, unwantedFeatures));
+        logger.finer(Platform.format(
+            "%s: skipping because these features are present: %s", method,
+            unwantedFeatures));
       }
       return false;
     }
@@ -268,17 +263,19 @@ public abstract class FeatureSpecificTestSuiteBuilder<
 
   private static Method extractMethod(Test test) {
     if (test instanceof AbstractTester) {
-      AbstractTester<?> tester = (AbstractTester<?>) test;
+      AbstractTester<?> tester = (AbstractTester<?>)test;
       return Helpers.getMethod(tester.getClass(), tester.getTestMethodName());
     } else if (test instanceof TestCase) {
-      TestCase testCase = (TestCase) test;
+      TestCase testCase = (TestCase)test;
       return Helpers.getMethod(testCase.getClass(), testCase.getName());
     } else {
-      throw new IllegalArgumentException("unable to extract method from test: not a TestCase.");
+      throw new IllegalArgumentException(
+          "unable to extract method from test: not a TestCase.");
     }
   }
 
-  protected TestSuite makeSuiteForTesterClass(Class<? extends AbstractTester<?>> testerClass) {
+  protected TestSuite
+  makeSuiteForTesterClass(Class<? extends AbstractTester<?>> testerClass) {
     final TestSuite candidateTests = new TestSuite(testerClass);
     final TestSuite suite = filterSuite(candidateTests);
 
@@ -287,7 +284,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
       Object test = allTests.nextElement();
       if (test instanceof AbstractTester) {
         @SuppressWarnings("unchecked")
-        AbstractTester<? super G> tester = (AbstractTester<? super G>) test;
+        AbstractTester<? super G> tester = (AbstractTester<? super G>)test;
         tester.init(subjectGenerator, name, setUp, tearDown);
       }
     }
@@ -299,7 +296,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     TestSuite filtered = new TestSuite(suite.getName());
     final Enumeration<?> tests = suite.tests();
     while (tests.hasMoreElements()) {
-      Test test = (Test) tests.nextElement();
+      Test test = (Test)tests.nextElement();
       if (matches(test)) {
         filtered.addTest(test);
       }
@@ -312,7 +309,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
     for (Feature<?> feature : features) {
       Object featureAsObject = feature; // to work around bogus JDK warning
       if (featureAsObject instanceof Enum) {
-        Enum<?> f = (Enum<?>) featureAsObject;
+        Enum<?> f = (Enum<?>)featureAsObject;
         temp.add(f.getDeclaringClass().getSimpleName() + "." + feature);
       } else {
         temp.add(feature.toString());

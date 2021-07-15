@@ -29,14 +29,16 @@ import java.util.Collection;
 import java.util.Queue;
 
 /**
- * A non-blocking queue which automatically evicts elements from the head of the queue when
- * attempting to add new elements onto the queue and it is full. This queue orders elements FIFO
- * (first-in-first-out). This data structure is logically equivalent to a circular buffer (i.e.,
- * cyclic buffer or ring buffer).
+ * A non-blocking queue which automatically evicts elements from the head of the
+ * queue when attempting to add new elements onto the queue and it is full. This
+ * queue orders elements FIFO (first-in-first-out). This data structure is
+ * logically equivalent to a circular buffer (i.e., cyclic buffer or ring
+ * buffer).
  *
- * <p>An evicting queue must be configured with a maximum size. Each time an element is added
- * to a full queue, the queue automatically removes its head element. This is different from
- * conventional bounded queues, which either block or reject new elements when full.
+ * <p>An evicting queue must be configured with a maximum size. Each time an
+ * element is added to a full queue, the queue automatically removes its head
+ * element. This is different from conventional bounded queues, which either
+ * block or reject new elements when full.
  *
  * <p>This class is not thread-safe, and does not accept null elements.
  *
@@ -45,7 +47,8 @@ import java.util.Queue;
  */
 @Beta
 @GwtCompatible
-public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serializable {
+public final class EvictingQueue<E>
+    extends ForwardingQueue<E> implements Serializable {
 
   private final Queue<E> delegate;
 
@@ -58,24 +61,23 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
   }
 
   /**
-   * Creates and returns a new evicting queue that will hold up to {@code maxSize} elements.
+   * Creates and returns a new evicting queue that will hold up to {@code
+   * maxSize} elements.
    *
-   * <p>When {@code maxSize} is zero, elements will be evicted immediately after being added to the
-   * queue.
+   * <p>When {@code maxSize} is zero, elements will be evicted immediately after
+   * being added to the queue.
    */
   public static <E> EvictingQueue<E> create(int maxSize) {
     return new EvictingQueue<E>(maxSize);
   }
 
   /**
-   * Returns the number of additional elements that this queue can accept without evicting;
-   * zero if the queue is currently full.
+   * Returns the number of additional elements that this queue can accept
+   * without evicting; zero if the queue is currently full.
    *
    * @since 16.0
    */
-  public int remainingCapacity() {
-    return maxSize - size();
-  }
+  public int remainingCapacity() { return maxSize - size(); }
 
   @Override
   protected Queue<E> delegate() {
@@ -83,8 +85,8 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
   }
 
   /**
-   * Adds the given element to this queue. If the queue is currently full, the element at the head
-   * of the queue is evicted to make room.
+   * Adds the given element to this queue. If the queue is currently full, the
+   * element at the head of the queue is evicted to make room.
    *
    * @return {@code true} always
    */
@@ -95,8 +97,8 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
   }
 
   /**
-   * Adds the given element to this queue. If the queue is currently full, the element at the head
-   * of the queue is evicted to make room.
+   * Adds the given element to this queue. If the queue is currently full, the
+   * element at the head of the queue is evicted to make room.
    *
    * @return {@code true} always
    */
@@ -136,7 +138,8 @@ public final class EvictingQueue<E> extends ForwardingQueue<E> implements Serial
     return delegate().remove(checkNotNull(object));
   }
 
-  // TODO(kak): Do we want to checkNotNull each element in containsAll, removeAll, and retainAll?
+  // TODO(kak): Do we want to checkNotNull each element in containsAll,
+  // removeAll, and retainAll?
 
   private static final long serialVersionUID = 0L;
 }

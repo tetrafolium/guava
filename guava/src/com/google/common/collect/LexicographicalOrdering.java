@@ -27,7 +27,8 @@ import javax.annotation.Nullable;
  * pairwise.
  */
 @GwtCompatible(serializable = true)
-final class LexicographicalOrdering<T> extends Ordering<Iterable<T>> implements Serializable {
+final class LexicographicalOrdering<T>
+    extends Ordering<Iterable<T>> implements Serializable {
   final Comparator<? super T> elementOrder;
 
   LexicographicalOrdering(Comparator<? super T> elementOrder) {
@@ -59,7 +60,7 @@ final class LexicographicalOrdering<T> extends Ordering<Iterable<T>> implements 
       return true;
     }
     if (object instanceof LexicographicalOrdering) {
-      LexicographicalOrdering<?> that = (LexicographicalOrdering<?>) object;
+      LexicographicalOrdering<?> that = (LexicographicalOrdering<?>)object;
       return this.elementOrder.equals(that.elementOrder);
     }
     return false;

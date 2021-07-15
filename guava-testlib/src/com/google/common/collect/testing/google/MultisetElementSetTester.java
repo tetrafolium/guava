@@ -29,7 +29,8 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * Tests for {@code Multiset.elementSet()} not covered by the derived {@code SetTestSuiteBuilder}.
+ * Tests for {@code Multiset.elementSet()} not covered by the derived {@code
+ * SetTestSuiteBuilder}.
  *
  * @author Louis Wasserman
  */

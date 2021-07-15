@@ -30,16 +30,17 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 /**
- * Tests representing the contract of {@link Map}. Concrete subclasses of this base class test
- * conformance of concrete {@link Map} subclasses to that contract.
+ * Tests representing the contract of {@link Map}. Concrete subclasses of this
+ * base class test conformance of concrete {@link Map} subclasses to that
+ * contract.
  *
  * @param <K> the type of keys used by the maps under test
  * @param <V> the type of mapped values used the maps under test
  * @author George van den Driessche
  */
 // TODO: Descriptive assertion messages, with hints as to probable fixes.
-// TODO: Add another constructor parameter indicating whether the class under test is ordered, and
-// check the order if so.
+// TODO: Add another constructor parameter indicating whether the class under
+// test is ordered, and check the order if so.
 // TODO: Refactor to share code with SetTestBuilder etc.
 @GwtCompatible
 public abstract class MapInterfaceTest<K, V> extends TestCase {
@@ -66,7 +67,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * @throws UnsupportedOperationException if it's not possible to make an
    * empty instance of the class under test.
    */
-  protected abstract Map<K, V> makeEmptyMap() throws UnsupportedOperationException;
+  protected abstract Map<K, V> makeEmptyMap()
+      throws UnsupportedOperationException;
 
   /**
    * Creates a new, non-empty instance of the class under test.
@@ -75,7 +77,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * @throws UnsupportedOperationException if it's not possible to make a
    * non-empty instance of the class under test.
    */
-  protected abstract Map<K, V> makePopulatedMap() throws UnsupportedOperationException;
+  protected abstract Map<K, V> makePopulatedMap()
+      throws UnsupportedOperationException;
 
   /**
    * Creates a new key that is not expected to be found
@@ -85,7 +88,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * @throws UnsupportedOperationException if it's not possible to make a key
    * that will not be found in the map.
    */
-  protected abstract K getKeyNotInPopulatedMap() throws UnsupportedOperationException;
+  protected abstract K getKeyNotInPopulatedMap()
+      throws UnsupportedOperationException;
 
   /**
    * Creates a new value that is not expected to be found
@@ -95,37 +99,27 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
    * @throws UnsupportedOperationException if it's not possible to make a value
    * that will not be found in the map.
    */
-  protected abstract V getValueNotInPopulatedMap() throws UnsupportedOperationException;
+  protected abstract V getValueNotInPopulatedMap()
+      throws UnsupportedOperationException;
 
   /**
    * Constructor that assigns {@code supportsIteratorRemove} the same value as
    * {@code supportsRemove}.
    */
-  protected MapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
-    this(
-        allowsNullKeys,
-        allowsNullValues,
-        supportsPut,
-        supportsRemove,
-        supportsClear,
-        supportsRemove);
+  protected MapInterfaceTest(boolean allowsNullKeys, boolean allowsNullValues,
+                             boolean supportsPut, boolean supportsRemove,
+                             boolean supportsClear) {
+    this(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove,
+         supportsClear, supportsRemove);
   }
 
   /**
    * Constructor with an explicit {@code supportsIteratorRemove} parameter.
    */
-  protected MapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear,
-      boolean supportsIteratorRemove) {
+  protected MapInterfaceTest(boolean allowsNullKeys, boolean allowsNullValues,
+                             boolean supportsPut, boolean supportsRemove,
+                             boolean supportsClear,
+                             boolean supportsIteratorRemove) {
     this.supportsPut = supportsPut;
     this.supportsRemove = supportsRemove;
     this.supportsClear = supportsClear;
@@ -197,7 +191,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
 
     assertEquals(map.size(), valueCollection.size());
     assertEquals(valueCollection.size() == 0, valueCollection.isEmpty());
-    assertEquals(!valueCollection.isEmpty(), valueCollection.iterator().hasNext());
+    assertEquals(!valueCollection.isEmpty(),
+                 valueCollection.iterator().hasNext());
     for (V value : valueCollection) {
       assertTrue(map.containsValue(value));
       assertTrue(allowsNullValues || (value != null));
@@ -215,8 +210,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
         assertTrue(map.containsKey(entry.getKey()));
         assertTrue(map.containsValue(entry.getValue()));
         int expectedHash =
-            (entry.getKey() == null ? 0 : entry.getKey().hashCode())
-            ^ (entry.getValue() == null ? 0 : entry.getValue().hashCode());
+            (entry.getKey() == null ? 0 : entry.getKey().hashCode()) ^
+            (entry.getValue() == null ? 0 : entry.getValue().hashCode());
         assertEquals(expectedHash, entry.hashCode());
         expectedEntrySetHash += expectedHash;
       }
@@ -229,7 +224,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertEquals(map.size(), entrySetToArray1.length);
     assertTrue(Arrays.asList(entrySetToArray1).containsAll(entrySet));
 
-    Entry<?, ?>[] entrySetToArray2 = new Entry<?, ?>[map.size() + 2];
+    Entry<?, ?>[] entrySetToArray2 = new Entry<?, ?>[ map.size() + 2 ];
     entrySetToArray2[map.size()] = mapEntry("foo", 1);
     assertSame(entrySetToArray2, entrySet.toArray(entrySetToArray2));
     assertNull(entrySetToArray2[map.size()]);
@@ -258,7 +253,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
 
   @SuppressWarnings("CollectionIncompatibleType")
   private void assertEntrySetNotContainsString(Set<Entry<K, V>> entrySet) {
-    // Very unlikely that a buggy collection would ever return true. It might accidentally throw.
+    // Very unlikely that a buggy collection would ever return true. It might
+    // accidentally throw.
     assertFalse(entrySet.contains("foo"));
   }
 
@@ -392,7 +388,8 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     } catch (UnsupportedOperationException e) {
       return;
     }
-    Entry<IncompatibleKeyType, V> entry = mapEntry(new IncompatibleKeyType(), unmappedValue);
+    Entry<IncompatibleKeyType, V> entry =
+        mapEntry(new IncompatibleKeyType(), unmappedValue);
     try {
       assertFalse(entrySet.contains(entry));
     } catch (ClassCastException tolerated) {
@@ -469,13 +466,14 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     if (supportsIteratorRemove) {
       int initialSize = map.size();
       Entry<K, V> entry = iterator.next();
-      Entry<K, V> entryCopy = Helpers.mapEntry(entry.getKey(), entry.getValue());
+      Entry<K, V> entryCopy =
+          Helpers.mapEntry(entry.getKey(), entry.getValue());
 
       iterator.remove();
       assertEquals(initialSize - 1, map.size());
 
-      // Use "entryCopy" instead of "entry" because "entry" might be invalidated after
-      // iterator.remove().
+      // Use "entryCopy" instead of "entry" because "entry" might be invalidated
+      // after iterator.remove().
       assertFalse(entrySet.contains(entryCopy));
       assertInvariants(map);
       try {
@@ -645,9 +643,10 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     Entry<K, V> entryToRemove = entrySet.iterator().next();
     Set<Entry<K, V>> entriesToRemove = singleton(entryToRemove);
     if (supportsRemove) {
-      // We use a copy of "entryToRemove" in the assertion because "entryToRemove" might be
-      // invalidated and have undefined behavior after entrySet.removeAll(entriesToRemove),
-      // for example entryToRemove.getValue() might be null.
+      // We use a copy of "entryToRemove" in the assertion because
+      // "entryToRemove" might be invalidated and have undefined behavior after
+      // entrySet.removeAll(entriesToRemove), for example
+      // entryToRemove.getValue() might be null.
       Entry<K, V> entryToRemoveCopy =
           Helpers.mapEntry(entryToRemove.getKey(), entryToRemove.getValue());
 
@@ -656,8 +655,9 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
       assertTrue(didRemove);
       assertEquals(initialSize - entriesToRemove.size(), map.size());
 
-      // Use "entryToRemoveCopy" instead of "entryToRemove" because it might be invalidated and
-      // have undefined behavior after entrySet.removeAll(entriesToRemove),
+      // Use "entryToRemoveCopy" instead of "entryToRemove" because it might be
+      // invalidated and have undefined behavior after
+      // entrySet.removeAll(entriesToRemove),
       assertFalse(entrySet.contains(entryToRemoveCopy));
     } else {
       try {
@@ -854,7 +854,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertEquals(map, map);
     assertEquals(makePopulatedMap(), map);
     assertFalse(map.equals(Collections.emptyMap()));
-    //no-inspection ObjectEqualsNull
+    // no-inspection ObjectEqualsNull
     assertFalse(map.equals(null));
   }
 
@@ -906,7 +906,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertEquals(makeEmptyMap(), map);
     assertEquals(Collections.emptyMap(), map);
     assertFalse(map.equals(Collections.emptySet()));
-    //noinspection ObjectEqualsNull
+    // noinspection ObjectEqualsNull
     assertFalse(map.equals(null));
   }
 
@@ -1231,9 +1231,7 @@ public abstract class MapInterfaceTest<K, V> extends TestCase {
     assertInvariants(map);
   }
 
-  public void testSize() {
-    assertInvariants(makeEitherMap());
-  }
+  public void testSize() { assertInvariants(makeEitherMap()); }
 
   public void testKeySetRemove() {
     final Map<K, V> map;

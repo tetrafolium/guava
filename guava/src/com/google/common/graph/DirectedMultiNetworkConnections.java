@@ -33,34 +33,35 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * An implementation of {@link NetworkConnections} for directed networks with parallel edges.
+ * An implementation of {@link NetworkConnections} for directed networks with
+ * parallel edges.
  *
  * @author James Sexton
  * @param <N> Node parameter type
  * @param <E> Edge parameter type
  */
-final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetworkConnections<N, E> {
+final class DirectedMultiNetworkConnections<N, E>
+    extends AbstractDirectedNetworkConnections<N, E> {
 
-  private DirectedMultiNetworkConnections(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+  private DirectedMultiNetworkConnections(Map<E, N> inEdges, Map<E, N> outEdges,
+                                          int selfLoopCount) {
     super(inEdges, outEdges, selfLoopCount);
   }
 
   static <N, E> DirectedMultiNetworkConnections<N, E> of() {
     return new DirectedMultiNetworkConnections<>(
-            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-            new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
-            0);
+        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR),
+        new HashMap<E, N>(INNER_CAPACITY, INNER_LOAD_FACTOR), 0);
   }
 
-  static <N, E> DirectedMultiNetworkConnections<N, E> ofImmutable(
-      Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
-    return new DirectedMultiNetworkConnections<>(
-            ImmutableMap.copyOf(inEdges), ImmutableMap.copyOf(outEdges), selfLoopCount);
+  static <N, E> DirectedMultiNetworkConnections<N, E>
+  ofImmutable(Map<E, N> inEdges, Map<E, N> outEdges, int selfLoopCount) {
+    return new DirectedMultiNetworkConnections<>(ImmutableMap.copyOf(inEdges),
+                                                 ImmutableMap.copyOf(outEdges),
+                                                 selfLoopCount);
   }
 
-  @LazyInit
-  private transient Reference<Multiset<N>> predecessorsReference;
+  @LazyInit private transient Reference<Multiset<N>> predecessorsReference;
 
   @Override
   public Set<N> predecessors() {
@@ -76,8 +77,7 @@ final class DirectedMultiNetworkConnections<N, E> extends AbstractDirectedNetwor
     return predecessors;
   }
 
-  @LazyInit
-  private transient Reference<Multiset<N>> successorsReference;
+  @LazyInit private transient Reference<Multiset<N>> successorsReference;
 
   @Override
   public Set<N> successors() {

@@ -34,13 +34,14 @@ import java.util.Arrays;
 @GwtCompatible
 public class CollectionStreamTester<E> extends AbstractCollectionTester<E> {
   /*
-   * We're not really testing the implementation of Stream, only that we're getting a Stream
-   * that corresponds to the expected elements.
+   * We're not really testing the implementation of Stream, only that we're
+   * getting a Stream that corresponds to the expected elements.
    */
 
   @CollectionFeature.Require(absent = KNOWN_ORDER)
   public void testStreamToArrayUnknownOrder() {
-    synchronized (collection) { // to allow Collections.synchronized* tests to pass
+    synchronized (
+        collection) { // to allow Collections.synchronized* tests to pass
       Helpers.assertEqualIgnoringOrder(
           getSampleElements(), Arrays.asList(collection.stream().toArray()));
     }
@@ -48,13 +49,16 @@ public class CollectionStreamTester<E> extends AbstractCollectionTester<E> {
 
   @CollectionFeature.Require(KNOWN_ORDER)
   public void testStreamToArrayKnownOrder() {
-    synchronized (collection) { // to allow Collections.synchronized* tests to pass
-      assertEquals(getOrderedElements(), Arrays.asList(collection.stream().toArray()));
+    synchronized (
+        collection) { // to allow Collections.synchronized* tests to pass
+      assertEquals(getOrderedElements(),
+                   Arrays.asList(collection.stream().toArray()));
     }
   }
 
   public void testStreamCount() {
-    synchronized (collection) { // to allow Collections.synchronized* tests to pass
+    synchronized (
+        collection) { // to allow Collections.synchronized* tests to pass
       assertEquals(getNumElements(), collection.stream().count());
     }
   }

@@ -26,7 +26,7 @@ import java.util.Iterator;
  */
 @GwtCompatible
 public final class DerivedTestIteratorGenerator<E>
-  implements TestIteratorGenerator<E>, DerivedGenerator {
+    implements TestIteratorGenerator<E>, DerivedGenerator {
   private final TestSubjectGenerator<? extends Iterable<E>> collectionGenerator;
 
   public DerivedTestIteratorGenerator(

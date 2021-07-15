@@ -39,9 +39,10 @@ import javax.annotation.Nullable;
  * your own implementation, or delegating to the provided {@code standardAdd}
  * method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingMultiset}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingMultiset}.
  *
  * <p>The {@code standard} methods and any collection views they return are not
  * guaranteed to be thread-safe, even when all of the methods that they depend
@@ -52,13 +53,13 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingMultiset<E> extends ForwardingCollection<E> implements Multiset<E> {
+public abstract class ForwardingMultiset<E>
+    extends ForwardingCollection<E> implements Multiset<E> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingMultiset() {}
 
-  @Override
-  protected abstract Multiset<E> delegate();
+  @Override protected abstract Multiset<E> delegate();
 
   @Override
   public int count(Object element) {
@@ -282,9 +283,7 @@ public abstract class ForwardingMultiset<E> extends ForwardingCollection<E> impl
    *
    * @since 7.0
    */
-  protected int standardSize() {
-    return Multisets.sizeImpl(this);
-  }
+  protected int standardSize() { return Multisets.sizeImpl(this); }
 
   /**
    * A sensible, albeit inefficient, definition of {@link #equals} in terms of
@@ -305,9 +304,7 @@ public abstract class ForwardingMultiset<E> extends ForwardingCollection<E> impl
    *
    * @since 7.0
    */
-  protected int standardHashCode() {
-    return entrySet().hashCode();
-  }
+  protected int standardHashCode() { return entrySet().hashCode(); }
 
   /**
    * A sensible definition of {@link #toString} as {@code entrySet().toString()}

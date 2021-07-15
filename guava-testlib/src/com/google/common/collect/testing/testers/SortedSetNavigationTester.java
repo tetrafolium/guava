@@ -47,11 +47,9 @@ public class SortedSetNavigationTester<E> extends AbstractSetTester<E> {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    sortedSet = (SortedSet<E>) getSet();
-    values =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+    sortedSet = (SortedSet<E>)getSet();
+    values = Helpers.copyToList(getSubjectGenerator().getSampleElements(
+        getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(values, sortedSet.comparator());
 
     // some tests assume SEVERAL == 3

@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -30,7 +32,7 @@ final class Absent<T> extends Optional<T> {
 
   @SuppressWarnings("unchecked") // implementation is "fully variant"
   static <T> Optional<T> withType() {
-    return (Optional<T>) INSTANCE;
+    return (Optional<T>)INSTANCE;
   }
 
   private Absent() {}
@@ -42,24 +44,27 @@ final class Absent<T> extends Optional<T> {
 
   @Override
   public T get() {
-    throw new IllegalStateException("Optional.get() cannot be called on an absent value");
+    throw new IllegalStateException(
+        "Optional.get() cannot be called on an absent value");
   }
 
   @Override
   public T or(T defaultValue) {
-    return checkNotNull(defaultValue, "use Optional.orNull() instead of Optional.or(null)");
+    return checkNotNull(defaultValue,
+                        "use Optional.orNull() instead of Optional.or(null)");
   }
 
   @SuppressWarnings("unchecked") // safe covariant cast
   @Override
   public Optional<T> or(Optional<? extends T> secondChoice) {
-    return (Optional<T>) checkNotNull(secondChoice);
+    return (Optional<T>)checkNotNull(secondChoice);
   }
 
   @Override
   public T or(Supplier<? extends T> supplier) {
     return checkNotNull(
-            supplier.get(), "use Optional.orNull() instead of a Supplier that returns null");
+        supplier.get(),
+        "use Optional.orNull() instead of a Supplier that returns null");
   }
 
   @Override
@@ -94,9 +99,7 @@ final class Absent<T> extends Optional<T> {
     return "Optional.absent()";
   }
 
-  private Object readResolve() {
-    return INSTANCE;
-  }
+  private Object readResolve() { return INSTANCE; }
 
   private static final long serialVersionUID = 0;
 }

@@ -33,13 +33,11 @@ import java.util.Set;
  * @author Hayward Chan
  */
 public class ConcurrentHashMap<K, V>
-  extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
+    extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
 
   private final Map<K, V> backingMap;
 
-  public ConcurrentHashMap() {
-    this.backingMap = new HashMap<K, V>();
-  }
+  public ConcurrentHashMap() { this.backingMap = new HashMap<K, V>(); }
 
   public ConcurrentHashMap(int initialCapacity) {
     this.backingMap = new HashMap<K, V>(initialCapacity);
@@ -91,54 +89,54 @@ public class ConcurrentHashMap<K, V>
     }
   }
 
-  @Override public boolean containsKey(Object key) {
+  @Override
+  public boolean containsKey(Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
     return backingMap.containsKey(key);
   }
 
-  @Override public V get(Object key) {
+  @Override
+  public V get(Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
     return backingMap.get(key);
   }
 
-  @Override public V put(K key, V value) {
+  @Override
+  public V put(K key, V value) {
     if (key == null || value == null) {
       throw new NullPointerException();
     }
     return backingMap.put(key, value);
   }
 
-  @Override public boolean containsValue(Object value) {
+  @Override
+  public boolean containsValue(Object value) {
     if (value == null) {
       throw new NullPointerException();
     }
     return backingMap.containsValue(value);
   }
 
-  @Override public V remove(Object key) {
+  @Override
+  public V remove(Object key) {
     if (key == null) {
       throw new NullPointerException();
     }
     return backingMap.remove(key);
   }
 
-  @Override public Set<Entry<K, V>> entrySet() {
+  @Override
+  public Set<Entry<K, V>> entrySet() {
     return backingMap.entrySet();
   }
 
-  public boolean contains(Object value) {
-    return containsValue(value);
-  }
+  public boolean contains(Object value) { return containsValue(value); }
 
-  public Enumeration<V> elements() {
-    return Collections.enumeration(values());
-  }
+  public Enumeration<V> elements() { return Collections.enumeration(values()); }
 
-  public Enumeration<K> keys() {
-    return Collections.enumeration(keySet());
-  }
+  public Enumeration<K> keys() { return Collections.enumeration(keySet()); }
 }

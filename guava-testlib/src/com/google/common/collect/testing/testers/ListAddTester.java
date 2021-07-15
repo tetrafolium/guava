@@ -78,6 +78,7 @@ public class ListAddTester<E> extends AbstractListTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getAddSupportedNullPresentMethod() {
-    return Helpers.getMethod(ListAddTester.class, "testAdd_supportedNullPresent");
+    return Helpers.getMethod(ListAddTester.class,
+                             "testAdd_supportedNullPresent");
   }
 }

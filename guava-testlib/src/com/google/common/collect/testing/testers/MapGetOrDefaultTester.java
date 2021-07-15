@@ -39,37 +39,39 @@ import java.util.Map;
 public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_present() {
-    assertEquals("getOrDefault(present, def) should return the associated value",
-        v0(), getMap().getOrDefault(k0(), v3()));
+    assertEquals(
+        "getOrDefault(present, def) should return the associated value", v0(),
+        getMap().getOrDefault(k0(), v3()));
   }
 
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_presentNullDefault() {
-    assertEquals("getOrDefault(present, null) should return the associated value",
-        v0(), getMap().getOrDefault(k0(), null));
+    assertEquals(
+        "getOrDefault(present, null) should return the associated value", v0(),
+        getMap().getOrDefault(k0(), null));
   }
 
   public void testGetOrDefault_absent() {
     assertEquals("getOrDefault(absent, def) should return the default value",
-        v3(), getMap().getOrDefault(k3(), v3()));
+                 v3(), getMap().getOrDefault(k3(), v3()));
   }
 
   public void testGetOrDefault_absentNullDefault() {
     assertNull("getOrDefault(absent, null) should return null",
-        getMap().getOrDefault(k3(), null));
+               getMap().getOrDefault(k3(), null));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
   public void testGetOrDefault_absentNull() {
     assertEquals("getOrDefault(null, def) should return the default value",
-        v3(), getMap().getOrDefault(null, v3()));
+                 v3(), getMap().getOrDefault(null, v3()));
   }
 
   @MapFeature.Require(absent = ALLOWS_NULL_KEY_QUERIES)
   public void testGetOrDefault_nullAbsentAndUnsupported() {
     try {
       assertEquals("getOrDefault(null, def) should return default or throw",
-          v3(), getMap().getOrDefault(null, v3()));
+                   v3(), getMap().getOrDefault(null, v3()));
     } catch (NullPointerException tolerated) {
     }
   }
@@ -78,15 +80,16 @@ public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_nonNullWhenNullContained() {
     initMapWithNullKey();
-    assertEquals("getOrDefault(absent, default) should return default",
-        v3(), getMap().getOrDefault(k3(), v3()));
+    assertEquals("getOrDefault(absent, default) should return default", v3(),
+                 getMap().getOrDefault(k3(), v3()));
   }
 
   @MapFeature.Require(ALLOWS_NULL_KEYS)
   @CollectionSize.Require(absent = ZERO)
   public void testGetOrDefault_presentNull() {
     initMapWithNullKey();
-    assertEquals("getOrDefault(null, default) should return the associated value",
+    assertEquals(
+        "getOrDefault(null, default) should return the associated value",
         getValueForNullKey(), getMap().getOrDefault(null, v3()));
   }
 
@@ -95,12 +98,13 @@ public class MapGetOrDefaultTester<K, V> extends AbstractMapTester<K, V> {
   public void testGetOrDefault_presentMappedToNull() {
     initMapWithNullValue();
     assertNull("getOrDefault(mappedToNull, default) should return null",
-        getMap().getOrDefault(getKeyForNullValue(), v3()));
+               getMap().getOrDefault(getKeyForNullValue(), v3()));
   }
 
   public void testGet_wrongType() {
     try {
-      assertEquals("getOrDefault(wrongType, default) should return default or throw",
+      assertEquals(
+          "getOrDefault(wrongType, default) should return default or throw",
           v3(), getMap().getOrDefault(WrongType.VALUE, v3()));
     } catch (ClassCastException tolerated) {
     }

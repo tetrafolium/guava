@@ -21,8 +21,8 @@ import com.google.common.annotations.GwtIncompatible;
 import java.util.function.Consumer;
 
 /**
- * An {@link ImmutableAsList} implementation specialized for when the delegate collection is
- * already backed by an {@code ImmutableList} or array.
+ * An {@link ImmutableAsList} implementation specialized for when the delegate
+ * collection is already backed by an {@code ImmutableList} or array.
  *
  * @author Louis Wasserman
  */
@@ -32,7 +32,8 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
   private final ImmutableCollection<E> delegate;
   private final ImmutableList<? extends E> delegateList;
 
-  RegularImmutableAsList(ImmutableCollection<E> delegate, ImmutableList<? extends E> delegateList) {
+  RegularImmutableAsList(ImmutableCollection<E> delegate,
+                         ImmutableList<? extends E> delegateList) {
     this.delegate = delegate;
     this.delegateList = delegateList;
   }
@@ -46,14 +47,12 @@ class RegularImmutableAsList<E> extends ImmutableAsList<E> {
     return delegate;
   }
 
-  ImmutableList<? extends E> delegateList() {
-    return delegateList;
-  }
+  ImmutableList<? extends E> delegateList() { return delegateList; }
 
   @SuppressWarnings("unchecked") // safe covariant cast!
   @Override
   public UnmodifiableListIterator<E> listIterator(int index) {
-    return (UnmodifiableListIterator<E>) delegateList.listIterator(index);
+    return (UnmodifiableListIterator<E>)delegateList.listIterator(index);
   }
 
   @GwtIncompatible // not present in emulated superclass

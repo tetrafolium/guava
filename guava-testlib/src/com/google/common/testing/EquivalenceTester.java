@@ -54,7 +54,8 @@ import java.util.List;
  * @since 10.0
  */
 @Beta
-@GwtCompatible public final class EquivalenceTester<T> {
+@GwtCompatible
+public final class EquivalenceTester<T> {
   private static final int REPETITIONS = 3;
 
   private final Equivalence<? super T> equivalence;
@@ -63,11 +64,12 @@ import java.util.List;
 
   private EquivalenceTester(Equivalence<? super T> equivalence) {
     this.equivalence = checkNotNull(equivalence);
-    this.delegate = new RelationshipTester<T>(
-        equivalence, "equivalent", "hash", new ItemReporter());
+    this.delegate = new RelationshipTester<T>(equivalence, "equivalent", "hash",
+                                              new ItemReporter());
   }
 
-  public static <T> EquivalenceTester<T> of(Equivalence<? super T> equivalence) {
+  public static <T> EquivalenceTester<T>
+  of(Equivalence<? super T> equivalence) {
     return new EquivalenceTester<T>(equivalence);
   }
 
@@ -99,14 +101,18 @@ import java.util.List;
   private void testItems() {
     for (T item : items) {
       /*
-       * TODO(cpovirk): consider no longer running these equivalent() tests on every Equivalence,
-       * since the Equivalence base type now implements this logic itself
+       * TODO(cpovirk): consider no longer running these equivalent() tests on
+       * every Equivalence, since the Equivalence base type now implements this
+       * logic itself
        */
-      assertTrue(item + " must be inequivalent to null", !equivalence.equivalent(item, null));
-      assertTrue("null must be inequivalent to " + item, !equivalence.equivalent(null, item));
-      assertTrue(item + " must be equivalent to itself", equivalence.equivalent(item, item));
-      assertEquals("the hash of " + item + " must be consistent", equivalence.hash(item),
-          equivalence.hash(item));
+      assertTrue(item + " must be inequivalent to null",
+                 !equivalence.equivalent(item, null));
+      assertTrue("null must be inequivalent to " + item,
+                 !equivalence.equivalent(null, item));
+      assertTrue(item + " must be equivalent to itself",
+                 equivalence.equivalent(item, item));
+      assertEquals("the hash of " + item + " must be consistent",
+                   equivalence.hash(item), equivalence.hash(item));
     }
   }
 }

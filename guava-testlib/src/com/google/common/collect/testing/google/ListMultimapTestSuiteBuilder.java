@@ -43,18 +43,20 @@ import junit.framework.TestSuite;
  */
 @GwtIncompatible
 public class ListMultimapTestSuiteBuilder<K, V>
-  extends MultimapTestSuiteBuilder<K, V, ListMultimap<K, V>> {
+    extends MultimapTestSuiteBuilder<K, V, ListMultimap<K, V>> {
 
   public static <K, V> ListMultimapTestSuiteBuilder<K, V> using(
       TestListMultimapGenerator<K, V> generator) {
-    ListMultimapTestSuiteBuilder<K, V> result = new ListMultimapTestSuiteBuilder<>();
+    ListMultimapTestSuiteBuilder<K, V> result =
+        new ListMultimapTestSuiteBuilder<>();
     result.usingGenerator(generator);
     return result;
   }
 
   @Override
   protected List<Class<? extends AbstractTester>> getTesters() {
-    List<Class<? extends AbstractTester>> testers = Helpers.copyToList(super.getTesters());
+    List<Class<? extends AbstractTester>> testers =
+        Helpers.copyToList(super.getTesters());
     testers.add(ListMultimapAsMapTester.class);
     testers.add(ListMultimapEqualsTester.class);
     testers.add(ListMultimapPutTester.class);
@@ -67,9 +69,10 @@ public class ListMultimapTestSuiteBuilder<K, V>
   @Override
   TestSuite computeMultimapGetTestSuite(
       FeatureSpecificTestSuiteBuilder<
-      ?, ? extends OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>>>
-      parentBuilder) {
-    return ListTestSuiteBuilder.using(
+          ?, ? extends OneSizeTestContainerGenerator<
+                   ListMultimap<K, V>, Entry<K, V>>> parentBuilder) {
+    return ListTestSuiteBuilder
+        .using(
             new MultimapGetGenerator<K, V>(parentBuilder.getSubjectGenerator()))
         .withFeatures(computeMultimapGetFeatures(parentBuilder.getFeatures()))
         .named(parentBuilder.getName() + ".get[key]")
@@ -80,14 +83,16 @@ public class ListMultimapTestSuiteBuilder<K, V>
   @Override
   TestSuite computeMultimapAsMapGetTestSuite(
       FeatureSpecificTestSuiteBuilder<
-      ?, ? extends OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>>>
-      parentBuilder) {
-    Set<Feature<?>> features = computeMultimapAsMapGetFeatures(parentBuilder.getFeatures());
+          ?, ? extends OneSizeTestContainerGenerator<
+                   ListMultimap<K, V>, Entry<K, V>>> parentBuilder) {
+    Set<Feature<?>> features =
+        computeMultimapAsMapGetFeatures(parentBuilder.getFeatures());
     if (Collections.disjoint(features, EnumSet.allOf(CollectionSize.class))) {
       return new TestSuite();
     } else {
-      return ListTestSuiteBuilder.using(
-              new MultimapAsMapGetGenerator<K, V>(parentBuilder.getSubjectGenerator()))
+      return ListTestSuiteBuilder
+          .using(new MultimapAsMapGetGenerator<K, V>(
+              parentBuilder.getSubjectGenerator()))
           .withFeatures(features)
           .named(parentBuilder.getName() + ".asMap[].get[key]")
           .suppressing(parentBuilder.getSuppressedTests())
@@ -97,7 +102,8 @@ public class ListMultimapTestSuiteBuilder<K, V>
 
   @Override
   Set<Feature<?>> computeMultimapGetFeatures(Set<Feature<?>> multimapFeatures) {
-    Set<Feature<?>> derivedFeatures = super.computeMultimapGetFeatures(multimapFeatures);
+    Set<Feature<?>> derivedFeatures =
+        super.computeMultimapGetFeatures(multimapFeatures);
     if (derivedFeatures.contains(CollectionFeature.SUPPORTS_ADD)) {
       derivedFeatures.add(ListFeature.SUPPORTS_ADD_WITH_INDEX);
     }
@@ -108,30 +114,34 @@ public class ListMultimapTestSuiteBuilder<K, V>
   }
 
   private static class MultimapGetGenerator<K, V>
-    extends MultimapTestSuiteBuilder.MultimapGetGenerator<K, V, ListMultimap<K, V>>
-    implements TestListGenerator<V> {
+      extends MultimapTestSuiteBuilder
+                  .MultimapGetGenerator<K, V, ListMultimap<K, V>>
+      implements TestListGenerator<V> {
     public MultimapGetGenerator(
-        OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>> multimapGenerator) {
+        OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>>
+            multimapGenerator) {
       super(multimapGenerator);
     }
 
     @Override
     public List<V> create(Object... elements) {
-      return (List<V>) super.create(elements);
+      return (List<V>)super.create(elements);
     }
   }
 
   private static class MultimapAsMapGetGenerator<K, V>
-    extends MultimapTestSuiteBuilder.MultimapAsMapGetGenerator<K, V, ListMultimap<K, V>>
-    implements TestListGenerator<V> {
+      extends MultimapTestSuiteBuilder
+                  .MultimapAsMapGetGenerator<K, V, ListMultimap<K, V>>
+      implements TestListGenerator<V> {
     public MultimapAsMapGetGenerator(
-        OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>> multimapGenerator) {
+        OneSizeTestContainerGenerator<ListMultimap<K, V>, Entry<K, V>>
+            multimapGenerator) {
       super(multimapGenerator);
     }
 
     @Override
     public List<V> create(Object... elements) {
-      return (List<V>) super.create(elements);
+      return (List<V>)super.create(elements);
     }
   }
 }

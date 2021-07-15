@@ -33,12 +33,15 @@ public class PowerSetBenchmark {
 
   Set<Set<Integer>> powerSet;
 
-  @BeforeExperiment void setUp() {
-    Set<Integer> set = ContiguousSet.create(Range.closed(1, elements), integers());
+  @BeforeExperiment
+  void setUp() {
+    Set<Integer> set =
+        ContiguousSet.create(Range.closed(1, elements), integers());
     powerSet = Sets.powerSet(set);
   }
 
-  @Benchmark int iteration(int reps) {
+  @Benchmark
+  int iteration(int reps) {
     int sum = 0;
     for (int i = 0; i < reps; i++) {
       for (Set<Integer> subset : powerSet) {

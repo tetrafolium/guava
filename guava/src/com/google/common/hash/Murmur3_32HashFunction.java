@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -20,7 +22,8 @@
 /*
  * Source:
  * http://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp
- * (Modified to adapt to Guava coding conventions and to use the HashFunction interface)
+ * (Modified to adapt to Guava coding conventions and to use the HashFunction
+ * interface)
  */
 
 package com.google.common.hash;
@@ -42,14 +45,15 @@ import javax.annotation.Nullable;
 
 /**
  * See MurmurHash3_x86_32 in <a
- * href="https://github.com/aappleby/smhasher/blob/master/src/MurmurHash3.cpp">the C++
- * implementation</a>.
+ * href="https://github.com/aappleby/smhasher/blob/master/src/MurmurHash3.cpp">the
+ * C++ implementation</a>.
  *
  * @author Austin Appleby
  * @author Dimitris Andreou
  * @author Kurt Alfred Kluever
  */
-final class Murmur3_32HashFunction extends AbstractHashFunction implements Serializable {
+final class Murmur3_32HashFunction
+    extends AbstractHashFunction implements Serializable {
   static final HashFunction MURMUR3_32 = new Murmur3_32HashFunction(0);
 
   static final HashFunction GOOD_FAST_HASH_32 =
@@ -62,9 +66,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
   private final int seed;
 
-  Murmur3_32HashFunction(int seed) {
-    this.seed = seed;
-  }
+  Murmur3_32HashFunction(int seed) { this.seed = seed; }
 
   @Override
   public int bits() {
@@ -84,7 +86,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof Murmur3_32HashFunction) {
-      Murmur3_32HashFunction other = (Murmur3_32HashFunction) object;
+      Murmur3_32HashFunction other = (Murmur3_32HashFunction)object;
       return seed == other.seed;
     }
     return false;
@@ -105,8 +107,8 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
   @Override
   public HashCode hashLong(long input) {
-    int low = (int) input;
-    int high = (int) (input >>> 32);
+    int low = (int)input;
+    int high = (int)(input >>> 32);
 
     int k1 = mixK1(low);
     int h1 = mixH1(seed, k1);
@@ -138,7 +140,8 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     return fmix(h1, Chars.BYTES * input.length());
   }
 
-  @SuppressWarnings("deprecation") // need to use Charsets for Android tests to pass
+  @SuppressWarnings("deprecation")
+  // need to use Charsets for Android tests to pass
   @Override
   public HashCode hashString(CharSequence input, Charset charset) {
     if (Charsets.UTF_8.equals(charset)) {
@@ -169,7 +172,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
       for (; i < utf16Length; i++) {
         char c = input.charAt(i);
         if (c < 0x80) {
-          buffer |= (long) c << shift;
+          buffer |= (long)c << shift;
           shift += 8;
           len++;
         } else if (c < 0x800) {
@@ -192,14 +195,14 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
         }
 
         if (shift >= 32) {
-          int k1 = mixK1((int) buffer);
+          int k1 = mixK1((int)buffer);
           h1 = mixH1(h1, k1);
           buffer = buffer >>> 32;
           shift -= 32;
         }
       }
 
-      int k1 = mixK1((int) buffer);
+      int k1 = mixK1((int)buffer);
       h1 ^= k1;
       return fmix(h1, len);
     } else {
@@ -226,7 +229,8 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
   }
 
   private static int getIntLittleEndian(byte[] input, int offset) {
-    return Ints.fromBytes(input[offset + 3], input[offset + 2], input[offset + 1], input[offset]);
+    return Ints.fromBytes(input[offset + 3], input[offset + 2],
+                          input[offset + 1], input[offset]);
   }
 
   private static int mixK1(int k1) {
@@ -275,7 +279,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
       length += nBytes;
 
       if (shift >= 32) {
-        h1 = mixH1(h1, mixK1((int) buffer));
+        h1 = mixH1(h1, mixK1((int)buffer));
         buffer >>>= 32;
         shift -= 32;
       }
@@ -322,7 +326,7 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
 
     @Override
     public Hasher putLong(long l) {
-      update(4, (int) l);
+      update(4, (int)l);
       update(4, l >>> 32);
       return this;
     }
@@ -333,7 +337,8 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
       return this;
     }
 
-    @SuppressWarnings("deprecation") // need to use Charsets for Android tests to pass
+    @SuppressWarnings("deprecation")
+    // need to use Charsets for Android tests to pass
     @Override
     public Hasher putString(CharSequence input, Charset charset) {
       if (Charsets.UTF_8.equals(charset)) {
@@ -360,13 +365,17 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
             update(1, c);
           } else if (c < 0x800) {
             update(2, charToTwoUtf8Bytes(c));
-          } else if (c < Character.MIN_SURROGATE || c > Character.MAX_SURROGATE) {
+          } else if (c < Character.MIN_SURROGATE ||
+                     c > Character.MAX_SURROGATE) {
             update(3, charToThreeUtf8Bytes(c));
           } else {
             int codePoint = Character.codePointAt(input, i);
             if (codePoint == c) {
-              // fall back to JDK getBytes instead of trying to handle invalid surrogates ourselves
-              putBytes(input.subSequence(i, utf16Length).toString().getBytes(charset));
+              // fall back to JDK getBytes instead of trying to handle invalid
+              // surrogates ourselves
+              putBytes(input.subSequence(i, utf16Length)
+                           .toString()
+                           .getBytes(charset));
               return this;
             }
             i++;
@@ -383,22 +392,21 @@ final class Murmur3_32HashFunction extends AbstractHashFunction implements Seria
     public HashCode hash() {
       checkState(!isDone);
       isDone = true;
-      h1 ^= mixK1((int) buffer);
+      h1 ^= mixK1((int)buffer);
       return fmix(h1, length);
     }
   }
 
   private static long codePointToFourUtf8Bytes(int codePoint) {
-    return (((0xFL << 4) | (codePoint >>> 18)) & 0xFF)
-        | ((0x80L | (0x3F & (codePoint >>> 12))) << 8)
-        | ((0x80L | (0x3F & (codePoint >>> 6))) << 16)
-        | ((0x80L | (0x3F & codePoint)) << 24);
+    return (((0xFL << 4) | (codePoint >>> 18)) & 0xFF) |
+        ((0x80L | (0x3F & (codePoint >>> 12))) << 8) |
+        ((0x80L | (0x3F & (codePoint >>> 6))) << 16) |
+        ((0x80L | (0x3F & codePoint)) << 24);
   }
 
   private static long charToThreeUtf8Bytes(char c) {
-    return (((0xF << 5) | (c >>> 12)) & 0xFF)
-        | ((0x80 | (0x3F & (c >>> 6))) << 8)
-        | ((0x80 | (0x3F & c)) << 16);
+    return (((0xF << 5) | (c >>> 12)) & 0xFF) |
+        ((0x80 | (0x3F & (c >>> 6))) << 8) | ((0x80 | (0x3F & c)) << 16);
   }
 
   private static long charToTwoUtf8Bytes(char c) {

@@ -26,11 +26,13 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class NaturalOrdering_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, NaturalOrdering instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 NaturalOrdering instance) {}
 
   public static NaturalOrdering instantiate(SerializationStreamReader reader) {
     return NaturalOrdering.INSTANCE;
   }
 
-  public static void serialize(SerializationStreamWriter writer, NaturalOrdering instance) {}
+  public static void serialize(SerializationStreamWriter writer,
+                               NaturalOrdering instance) {}
 }

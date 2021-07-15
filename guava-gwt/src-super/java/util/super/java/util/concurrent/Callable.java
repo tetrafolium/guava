@@ -21,6 +21,4 @@ package java.util.concurrent;
  *
  * @author Charles Fry
  */
-public interface Callable<V> {
-  V call() throws Exception;
-}
+public interface Callable<V> { V call() throws Exception; }

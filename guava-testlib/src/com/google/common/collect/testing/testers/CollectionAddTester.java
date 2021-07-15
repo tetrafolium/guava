@@ -64,19 +64,19 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
   @CollectionSize.Require(absent = ZERO)
   public void testAdd_unsupportedPresent() {
     try {
-      assertFalse("add(present) should return false or throw", collection.add(e0()));
+      assertFalse("add(present) should return false or throw",
+                  collection.add(e0()));
     } catch (UnsupportedOperationException tolerated) {
     }
     expectUnchanged();
   }
 
-  @CollectionFeature.Require(
-      value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
-      absent = RESTRICTS_ELEMENTS
-  )
-  public void testAdd_nullSupported() {
+  @CollectionFeature.Require(value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
+                             absent = RESTRICTS_ELEMENTS)
+  public void
+  testAdd_nullSupported() {
     assertTrue("add(null) should return true", collection.add(null));
-    expectAdded((E) null);
+    expectAdded((E)null);
   }
 
   @CollectionFeature.Require(value = SUPPORTS_ADD, absent = ALLOWS_NULL_VALUES)
@@ -87,10 +87,12 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
     } catch (NullPointerException expected) {
     }
     expectUnchanged();
-    expectNullMissingWhenNullUnsupported("Should not contain null after unsupported add(null)");
+    expectNullMissingWhenNullUnsupported(
+        "Should not contain null after unsupported add(null)");
   }
 
-  @CollectionFeature.Require({SUPPORTS_ADD, FAILS_FAST_ON_CONCURRENT_MODIFICATION})
+  @CollectionFeature.
+  Require({SUPPORTS_ADD, FAILS_FAST_ON_CONCURRENT_MODIFICATION})
   @CollectionSize.Require(absent = ZERO)
   public void testAddConcurrentWithIteration() {
     try {
@@ -117,7 +119,8 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getAddNullSupportedMethod() {
-    return Helpers.getMethod(CollectionAddTester.class, "testAdd_nullSupported");
+    return Helpers.getMethod(CollectionAddTester.class,
+                             "testAdd_nullSupported");
   }
 
   /**
@@ -129,7 +132,8 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getAddNullUnsupportedMethod() {
-    return Helpers.getMethod(CollectionAddTester.class, "testAdd_nullUnsupported");
+    return Helpers.getMethod(CollectionAddTester.class,
+                             "testAdd_nullUnsupported");
   }
 
   /**
@@ -141,6 +145,7 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getAddUnsupportedNotPresentMethod() {
-    return Helpers.getMethod(CollectionAddTester.class, "testAdd_unsupportedNotPresent");
+    return Helpers.getMethod(CollectionAddTester.class,
+                             "testAdd_unsupportedNotPresent");
   }
 }

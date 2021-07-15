@@ -47,7 +47,7 @@ public final class EscaperAsserts {
     Assert.assertEquals("", escaper.escape(""));
     // Assert that escapers throw null pointer exceptions.
     try {
-      escaper.escape((String) null);
+      escaper.escape((String)null);
       Assert.fail("exception not thrown when escaping a null string");
     } catch (NullPointerException e) {
       // pass
@@ -63,7 +63,7 @@ public final class EscaperAsserts {
    * @param c the character to escape
    */
   public static void assertEscaping(CharEscaper escaper, String expected,
-      char c) {
+                                    char c) {
 
     String escaped = computeReplacement(escaper, c);
     Assert.assertNotNull(escaped);
@@ -89,7 +89,7 @@ public final class EscaperAsserts {
    * @param cp the Unicode code point to escape
    */
   public static void assertEscaping(UnicodeEscaper escaper, String expected,
-      int cp) {
+                                    int cp) {
 
     String escaped = computeReplacement(escaper, cp);
     Assert.assertNotNull(escaped);
@@ -116,7 +116,7 @@ public final class EscaperAsserts {
    * @param lo the low surrogate pair character
    */
   public static void assertUnicodeEscaping(UnicodeEscaper escaper,
-      String expected, char hi, char lo) {
+                                           String expected, char hi, char lo) {
 
     int cp = Character.toCodePoint(hi, lo);
     String escaped = computeReplacement(escaper, cp);

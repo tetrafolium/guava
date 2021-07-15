@@ -32,12 +32,10 @@ import javax.annotation.Nullable;
  * @author Louis Wasserman
  */
 @GwtIncompatible
-abstract class AbstractNavigableMap<K, V> extends IteratorBasedAbstractMap<K, V>
-  implements NavigableMap<K, V> {
+abstract class AbstractNavigableMap<K, V>
+    extends IteratorBasedAbstractMap<K, V> implements NavigableMap<K, V> {
 
-  @Override
-  @Nullable
-  public abstract V get(@Nullable Object key);
+  @Override @Nullable public abstract V get(@Nullable Object key);
 
   @Override
   @Nullable

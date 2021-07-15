@@ -45,6 +45,5 @@ public class Executors {
     }
   }
 
-  private Executors() {
-  }
+  private Executors() {}
 }

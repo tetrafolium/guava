@@ -26,6 +26,5 @@ import java.util.Set;
  */
 @GwtCompatible
 public interface TestSetGenerator<E> extends TestCollectionGenerator<E> {
-  @Override
-  Set<E> create(Object... elements);
+  @Override Set<E> create(Object... elements);
 }

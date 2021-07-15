@@ -112,7 +112,7 @@ public class ListAddAtIndexTester<E> extends AbstractListTester<E> {
   @CollectionFeature.Require(ALLOWS_NULL_VALUES)
   public void testAddAtIndex_nullSupported() {
     getList().add(0, null);
-    expectAdded(0, (E) null);
+    expectAdded(0, (E)null);
   }
 
   @ListFeature.Require(SUPPORTS_ADD_WITH_INDEX)
@@ -124,7 +124,8 @@ public class ListAddAtIndexTester<E> extends AbstractListTester<E> {
     } catch (NullPointerException expected) {
     }
     expectUnchanged();
-    expectNullMissingWhenNullUnsupported("Should not contain null after unsupported add(n, null)");
+    expectNullMissingWhenNullUnsupported(
+        "Should not contain null after unsupported add(n, null)");
   }
 
   @ListFeature.Require(SUPPORTS_ADD_WITH_INDEX)
@@ -156,6 +157,7 @@ public class ListAddAtIndexTester<E> extends AbstractListTester<E> {
    */
   @GwtIncompatible // reflection
   public static Method getAddNullSupportedMethod() {
-    return Helpers.getMethod(ListAddAtIndexTester.class, "testAddAtIndex_nullSupported");
+    return Helpers.getMethod(ListAddAtIndexTester.class,
+                             "testAddAtIndex_nullSupported");
   }
 }

@@ -48,12 +48,10 @@ final class AllEqualOrdering extends Ordering<Object> implements Serializable {
   @SuppressWarnings("unchecked")
   @Override
   public <S> Ordering<S> reverse() {
-    return (Ordering<S>) this;
+    return (Ordering<S>)this;
   }
 
-  private Object readResolve() {
-    return INSTANCE;
-  }
+  private Object readResolve() { return INSTANCE; }
 
   @Override
   public String toString() {

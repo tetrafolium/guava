@@ -28,8 +28,8 @@ import com.google.common.collect.testing.features.MapFeature;
 import java.util.Map;
 
 /**
- * A generic JUnit test which tests {@link Map#replace(Object, Object, Object)}. Can't
- * be invoked directly; please see
+ * A generic JUnit test which tests {@link Map#replace(Object, Object, Object)}.
+ * Can't be invoked directly; please see
  * {@link com.google.common.collect.testing.MapTestSuiteBuilder}.
  *
  * @author Louis Wasserman
@@ -74,7 +74,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), v0(), null);
       fail("Expected NullPointerException");
-    } catch (NullPointerException expected) {}
+    } catch (NullPointerException expected) {
+    }
     expectUnchanged();
   }
 
@@ -84,7 +85,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       assertFalse(getMap().replace(k0(), v3(), null));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -94,7 +96,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       assertFalse(getMap().replace(k3(), v3(), null));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -110,7 +113,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       assertFalse(getMap().replace(k3(), null, v3()));
     } catch (NullPointerException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -121,7 +125,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), v0(), v3());
       fail("Expected UnsupportedOperationException");
-    } catch (UnsupportedOperationException expected) {}
+    } catch (UnsupportedOperationException expected) {
+    }
     expectUnchanged();
   }
 
@@ -131,7 +136,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k0(), v3(), v4());
     } catch (UnsupportedOperationException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }
@@ -141,7 +147,8 @@ public class MapReplaceEntryTester<K, V> extends AbstractMapTester<K, V> {
     try {
       getMap().replace(k3(), v3(), v4());
     } catch (UnsupportedOperationException tolerated) {
-      // the operation would be a no-op, so exceptions are allowed but not required
+      // the operation would be a no-op, so exceptions are allowed but not
+      // required
     }
     expectUnchanged();
   }

@@ -23,7 +23,4 @@ import com.google.common.annotations.GwtCompatible;
  * tests, and so can be used to test how a Collection behaves when given input
  * of the wrong type.
  */
-@GwtCompatible
-public enum WrongType {
-  VALUE
-}
+@GwtCompatible public enum WrongType { VALUE }

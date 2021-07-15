@@ -52,11 +52,9 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    navigableSet = (NavigableSet<E>) getSet();
-    values =
-        Helpers.copyToList(
-            getSubjectGenerator()
-            .getSampleElements(getSubjectGenerator().getCollectionSize().getNumElements()));
+    navigableSet = (NavigableSet<E>)getSet();
+    values = Helpers.copyToList(getSubjectGenerator().getSampleElements(
+        getSubjectGenerator().getCollectionSize().getNumElements()));
     Collections.sort(values, navigableSet.comparator());
 
     // some tests assume SEVERAL == 3
@@ -75,7 +73,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
    */
   protected void resetWithHole() {
     super.resetContainer(getSubjectGenerator().create(a, c));
-    navigableSet = (NavigableSet<E>) getSet();
+    navigableSet = (NavigableSet<E>)getSet();
   }
 
   @CollectionFeature.Require(SUPPORTS_REMOVE)
@@ -124,7 +122,8 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   @CollectionSize.Require(SEVERAL)
   public void testPollFirst() {
     assertEquals(a, navigableSet.pollFirst());
-    assertEquals(values.subList(1, values.size()), Helpers.copyToList(navigableSet));
+    assertEquals(values.subList(1, values.size()),
+                 Helpers.copyToList(navigableSet));
   }
 
   @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
@@ -169,9 +168,10 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   }
 
   /*
-   * TODO(cpovirk): make "too small" and "too large" elements available for better navigation
-   * testing. At that point, we may be able to eliminate the "hole" tests, which would mean that
-   * ContiguousSet's tests would no longer need to suppress them.
+   * TODO(cpovirk): make "too small" and "too large" elements available for
+   * better navigation testing. At that point, we may be able to eliminate the
+   * "hole" tests, which would mean that ContiguousSet's tests would no longer
+   * need to suppress them.
    */
   @CollectionSize.Require(SEVERAL)
   public void testLower() {
@@ -205,7 +205,8 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   @CollectionSize.Require(SEVERAL)
   public void testPollLast() {
     assertEquals(c, navigableSet.pollLast());
-    assertEquals(values.subList(0, values.size() - 1), Helpers.copyToList(navigableSet));
+    assertEquals(values.subList(0, values.size() - 1),
+                 Helpers.copyToList(navigableSet));
   }
 
   @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
@@ -220,7 +221,7 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   @CollectionSize.Require(SEVERAL)
   public void testDescendingNavigation() {
     List<E> descending = new ArrayList<E>();
-    for (Iterator<E> i = navigableSet.descendingIterator(); i.hasNext(); ) {
+    for (Iterator<E> i = navigableSet.descendingIterator(); i.hasNext();) {
       descending.add(i.next());
     }
     Collections.reverse(descending);
@@ -233,27 +234,30 @@ public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
   }
 
   /*
-   * TODO(cpovirk): more testing of subSet/headSet/tailSet/descendingSet? and/or generate derived
-   * suites?
+   * TODO(cpovirk): more testing of subSet/headSet/tailSet/descendingSet? and/or
+   * generate derived suites?
    */
 
   /**
-   * Returns the {@link Method} instances for the test methods in this class that create a set with
-   * a "hole" in it so that set tests of {@code ContiguousSet} can suppress them with {@code
+   * Returns the {@link Method} instances for the test methods in this class
+   * that create a set with a "hole" in it so that set tests of {@code
+   * ContiguousSet} can suppress them with {@code
    * FeatureSpecificTestSuiteBuilder.suppressing()}.
    */
   /*
-   * TODO(cpovirk): or we could make HOLES_FORBIDDEN a feature. Or we could declare that
-   * implementations are permitted to throw IAE if a hole is requested, and we could update
-   * test*Hole to permit IAE. (But might this ignore genuine bugs?) But see the TODO above
-   * testLower, which could make this all unnecessary
+   * TODO(cpovirk): or we could make HOLES_FORBIDDEN a feature. Or we could
+   * declare that implementations are permitted to throw IAE if a hole is
+   * requested, and we could update test*Hole to permit IAE. (But might this
+   * ignore genuine bugs?) But see the TODO above testLower, which could make
+   * this all unnecessary
    */
   public static Method[] getHoleMethods() {
     return new Method[] {
-            Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
-            Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
-            Helpers.getMethod(NavigableSetNavigationTester.class, "testCeilingHole"),
-            Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
-        };
+        Helpers.getMethod(NavigableSetNavigationTester.class, "testLowerHole"),
+        Helpers.getMethod(NavigableSetNavigationTester.class, "testFloorHole"),
+        Helpers.getMethod(NavigableSetNavigationTester.class,
+                          "testCeilingHole"),
+        Helpers.getMethod(NavigableSetNavigationTester.class, "testHigherHole"),
+    };
   }
 }

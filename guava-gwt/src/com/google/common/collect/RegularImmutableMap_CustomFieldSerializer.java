@@ -30,11 +30,11 @@ import java.util.Map;
  */
 public class RegularImmutableMap_CustomFieldSerializer {
 
-  public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableMap<?, ?> instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 RegularImmutableMap<?, ?> instance) {}
 
-  public static RegularImmutableMap<Object, Object> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+  public static RegularImmutableMap<Object, Object>
+  instantiate(SerializationStreamReader reader) throws SerializationException {
     Map<Object, Object> entries = new LinkedHashMap<>();
     Map_CustomFieldSerializerBase.deserialize(reader, entries);
     /*
@@ -43,11 +43,12 @@ public class RegularImmutableMap_CustomFieldSerializer {
      * always have two or more elements, ImmutableMap.copyOf always return
      * a RegularImmutableMap back.
      */
-    return (RegularImmutableMap<Object, Object>) ImmutableMap.copyOf(entries);
+    return (RegularImmutableMap<Object, Object>)ImmutableMap.copyOf(entries);
   }
 
-  public static void serialize(SerializationStreamWriter writer, RegularImmutableMap<?, ?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               RegularImmutableMap<?, ?> instance)
+      throws SerializationException {
     Map_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

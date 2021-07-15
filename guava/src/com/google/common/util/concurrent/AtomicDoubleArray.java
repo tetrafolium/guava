@@ -21,14 +21,15 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.concurrent.atomic.AtomicLongArray;
 
 /**
- * A {@code double} array in which elements may be updated atomically. See the {@link
- * java.util.concurrent.atomic} package specification for description of the properties of atomic
- * variables.
+ * A {@code double} array in which elements may be updated atomically. See the
+ * {@link java.util.concurrent.atomic} package specification for description of
+ * the properties of atomic variables.
  *
- * <p><a name="bitEquals"></a>This class compares primitive {@code double} values in methods such as
+ * <p><a name="bitEquals"></a>This class compares primitive {@code double}
+ * values in methods such as
  * {@link #compareAndSet} by comparing their bitwise representation using {@link
- * Double#doubleToRawLongBits}, which differs from both the primitive double {@code ==} operator and
- * from {@link Double#equals}, as if implemented by:
+ * Double#doubleToRawLongBits}, which differs from both the primitive double
+ * {@code ==} operator and from {@link Double#equals}, as if implemented by:
  *
  * <pre>{@code
  * static boolean bitEquals(double x, double y) {
@@ -81,9 +82,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    *
    * @return the length of the array
    */
-  public final int length() {
-    return longs.length();
-  }
+  public final int length() { return longs.length(); }
 
   /**
    * Gets the current value at position {@code i}.
@@ -91,9 +90,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    * @param i the index
    * @return the current value
    */
-  public final double get(int i) {
-    return longBitsToDouble(longs.get(i));
-  }
+  public final double get(int i) { return longBitsToDouble(longs.get(i)); }
 
   /**
    * Sets the element at position {@code i} to the given value.
@@ -143,9 +140,8 @@ public class AtomicDoubleArray implements java.io.Serializable {
    * the actual value was not equal to the expected value.
    */
   public final boolean compareAndSet(int i, double expect, double update) {
-    return longs.compareAndSet(i,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+    return longs.compareAndSet(i, doubleToRawLongBits(expect),
+                               doubleToRawLongBits(update));
   }
 
   /**
@@ -166,9 +162,8 @@ public class AtomicDoubleArray implements java.io.Serializable {
    * @return true if successful
    */
   public final boolean weakCompareAndSet(int i, double expect, double update) {
-    return longs.weakCompareAndSet(i,
-            doubleToRawLongBits(expect),
-            doubleToRawLongBits(update));
+    return longs.weakCompareAndSet(i, doubleToRawLongBits(expect),
+                                   doubleToRawLongBits(update));
   }
 
   /**
@@ -240,7 +235,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    *             of its elements (each a {@code double}) in the proper order.
    */
   private void writeObject(java.io.ObjectOutputStream s)
-  throws java.io.IOException {
+      throws java.io.IOException {
     s.defaultWriteObject();
 
     // Write out array length
@@ -257,7 +252,7 @@ public class AtomicDoubleArray implements java.io.Serializable {
    * Reconstitutes the instance from a stream (that is, deserializes it).
    */
   private void readObject(java.io.ObjectInputStream s)
-  throws java.io.IOException, ClassNotFoundException {
+      throws java.io.IOException, ClassNotFoundException {
     s.defaultReadObject();
 
     // Read in array length and allocate array

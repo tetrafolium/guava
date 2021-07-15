@@ -26,18 +26,17 @@ import com.google.common.collect.Range;
 import java.util.Random;
 
 /**
- * Benchmarks some algorithms providing the same functionality as {@link Quantiles}.
+ * Benchmarks some algorithms providing the same functionality as {@link
+ * Quantiles}.
  */
 public class QuantilesBenchmark {
 
   private static final ContiguousSet<Integer> ALL_DECILE_INDEXES =
       ContiguousSet.create(Range.closed(0, 10), DiscreteDomain.integers());
 
-  @Param({"10", "100", "1000", "10000", "100000"})
-  int datasetSize;
+  @Param({"10", "100", "1000", "10000", "100000"}) int datasetSize;
 
-  @Param
-  QuantilesAlgorithm algorithm;
+  @Param QuantilesAlgorithm algorithm;
 
   private double[][] datasets = new double[0x100][];
 
@@ -53,12 +52,14 @@ public class QuantilesBenchmark {
   }
 
   private double[] dataset(int i) {
-    // We must test on a fresh clone of the dataset each time. Doing sorts and quickselects on an
-    // dataset which is already sorted or partially sorted is cheating.
+    // We must test on a fresh clone of the dataset each time. Doing sorts and
+    // quickselects on an dataset which is already sorted or partially sorted is
+    // cheating.
     return datasets[i & 0xFF].clone();
   }
 
-  @Benchmark double median(int reps) {
+  @Benchmark
+  double median(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(1, 2, dataset(i));
@@ -66,7 +67,8 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentile90(int reps) {
+  @Benchmark
+  double percentile90(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(90, 100, dataset(i));
@@ -74,7 +76,8 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentile99(int reps) {
+  @Benchmark
+  double percentile99(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
       dummy += algorithm.singleQuantile(99, 100, dataset(i));
@@ -82,26 +85,35 @@ public class QuantilesBenchmark {
     return dummy;
   }
 
-  @Benchmark double percentiles90And99(int reps) {
+  @Benchmark
+  double percentiles90And99(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
-      dummy += algorithm.multipleQuantiles(ImmutableSet.of(90, 99), 100, dataset(i)).get(90);
+      dummy +=
+          algorithm.multipleQuantiles(ImmutableSet.of(90, 99), 100, dataset(i))
+              .get(90);
     }
     return dummy;
   }
 
-  @Benchmark double threePercentiles(int reps) {
+  @Benchmark
+  double threePercentiles(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
-      dummy += algorithm.multipleQuantiles(ImmutableSet.of(90, 95, 99), 100, dataset(i)).get(90);
+      dummy +=
+          algorithm
+              .multipleQuantiles(ImmutableSet.of(90, 95, 99), 100, dataset(i))
+              .get(90);
     }
     return dummy;
   }
 
-  @Benchmark double allDeciles(int reps) {
+  @Benchmark
+  double allDeciles(int reps) {
     double dummy = 0.0;
     for (int i = 0; i < reps; i++) {
-      dummy += algorithm.multipleQuantiles(ALL_DECILE_INDEXES, 10, dataset(i)).get(9);
+      dummy += algorithm.multipleQuantiles(ALL_DECILE_INDEXES, 10, dataset(i))
+                   .get(9);
     }
     return dummy;
   }

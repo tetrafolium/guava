@@ -72,19 +72,17 @@ public class TestLogHandler extends Handler {
   @Override
   public void close() {}
 
-  public synchronized void clear() {
-    list.clear();
-  }
+  public synchronized void clear() { list.clear(); }
 
   /**
    * Returns a snapshot of the logged records.
    */
   /*
-   * TODO(cpovirk): consider higher-level APIs here (say, assertNoRecordsLogged(),
-   * getOnlyRecordLogged(), getAndClearLogRecords()...)
+   * TODO(cpovirk): consider higher-level APIs here (say,
+   * assertNoRecordsLogged(), getOnlyRecordLogged(), getAndClearLogRecords()...)
    *
-   * TODO(cpovirk): consider renaming this method to reflect that it takes a snapshot (and/or return
-   * an ImmutableList)
+   * TODO(cpovirk): consider renaming this method to reflect that it takes a
+   * snapshot (and/or return an ImmutableList)
    */
   public synchronized List<LogRecord> getStoredLogRecords() {
     List<LogRecord> result = new ArrayList<>(list);

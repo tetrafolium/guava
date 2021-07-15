@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2011 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -36,9 +38,7 @@ import java.math.BigInteger;
 final class DoubleUtils {
   private DoubleUtils() {}
 
-  static double nextDown(double d) {
-    return -Math.nextUp(-d);
-  }
+  static double nextDown(double d) { return -Math.nextUp(-d); }
 
   // The mask for the significand, according to the {@link
   // Double#doubleToRawLongBits(double)} spec.
@@ -66,22 +66,16 @@ final class DoubleUtils {
     int exponent = getExponent(d);
     long bits = doubleToRawLongBits(d);
     bits &= SIGNIFICAND_MASK;
-    return (exponent == MIN_EXPONENT - 1)
-        ? bits << 1
-        : bits | IMPLICIT_BIT;
+    return (exponent == MIN_EXPONENT - 1) ? bits << 1 : bits | IMPLICIT_BIT;
   }
 
-  static boolean isFinite(double d) {
-    return getExponent(d) <= MAX_EXPONENT;
-  }
+  static boolean isFinite(double d) { return getExponent(d) <= MAX_EXPONENT; }
 
-  static boolean isNormal(double d) {
-    return getExponent(d) >= MIN_EXPONENT;
-  }
+  static boolean isNormal(double d) { return getExponent(d) >= MIN_EXPONENT; }
 
   /*
-   * Returns x scaled by a power of 2 such that it is in the range [1, 2). Assumes x is positive,
-   * normal, and finite.
+   * Returns x scaled by a power of 2 such that it is in the range [1, 2).
+   * Assumes x is positive, normal, and finite.
    */
   static double scaleNormalize(double x) {
     long significand = doubleToRawLongBits(x) & SIGNIFICAND_MASK;
@@ -89,7 +83,8 @@ final class DoubleUtils {
   }
 
   static double bigToDouble(BigInteger x) {
-    // This is an extremely fast implementation of BigInteger.doubleValue(). JDK patch pending.
+    // This is an extremely fast implementation of BigInteger.doubleValue(). JDK
+    // patch pending.
     BigInteger absX = x.abs();
     int exponent = absX.bitLength() - 1;
     // exponent == floor(log2(abs(x)))
@@ -100,12 +95,14 @@ final class DoubleUtils {
     }
 
     /*
-     * We need the top SIGNIFICAND_BITS + 1 bits, including the "implicit" one bit. To make rounding
-     * easier, we pick out the top SIGNIFICAND_BITS + 2 bits, so we have one to help us round up or
-     * down. twiceSignifFloor will contain the top SIGNIFICAND_BITS + 2 bits, and signifFloor the
-     * top SIGNIFICAND_BITS + 1.
+     * We need the top SIGNIFICAND_BITS + 1 bits, including the "implicit" one
+     * bit. To make rounding easier, we pick out the top SIGNIFICAND_BITS + 2
+     * bits, so we have one to help us round up or down. twiceSignifFloor will
+     * contain the top SIGNIFICAND_BITS + 2 bits, and signifFloor the top
+     * SIGNIFICAND_BITS + 1.
      *
-     * It helps to consider the real number signif = absX * 2^(SIGNIFICAND_BITS - exponent).
+     * It helps to consider the real number signif = absX * 2^(SIGNIFICAND_BITS
+     * - exponent).
      */
     int shift = exponent - SIGNIFICAND_BITS - 1;
     long twiceSignifFloor = absX.shiftRight(shift).longValue();
@@ -113,20 +110,23 @@ final class DoubleUtils {
     signifFloor &= SIGNIFICAND_MASK; // remove the implied bit
 
     /*
-     * We round up if either the fractional part of signif is strictly greater than 0.5 (which is
-     * true if the 0.5 bit is set and any lower bit is set), or if the fractional part of signif is
-     * >= 0.5 and signifFloor is odd (which is true if both the 0.5 bit and the 1 bit are set).
+     * We round up if either the fractional part of signif is strictly greater
+     * than 0.5 (which is true if the 0.5 bit is set and any lower bit is set),
+     * or if the fractional part of signif is
+     * >= 0.5 and signifFloor is odd (which is true if both the 0.5 bit and the
+     * 1 bit are set).
      */
     boolean increment =
-        (twiceSignifFloor & 1) != 0 && ((signifFloor & 1) != 0 || absX.getLowestSetBit() < shift);
+        (twiceSignifFloor & 1) != 0 &&
+        ((signifFloor & 1) != 0 || absX.getLowestSetBit() < shift);
     long signifRounded = increment ? signifFloor + 1 : signifFloor;
-    long bits = (long) ((exponent + EXPONENT_BIAS)) << SIGNIFICAND_BITS;
+    long bits = (long)((exponent + EXPONENT_BIAS)) << SIGNIFICAND_BITS;
     bits += signifRounded;
     /*
-     * If signifRounded == 2^53, we'd need to set all of the significand bits to zero and add 1 to
-     * the exponent. This is exactly the behavior we get from just adding signifRounded to bits
-     * directly. If the exponent is MAX_DOUBLE_EXPONENT, we round up (correctly) to
-     * Double.POSITIVE_INFINITY.
+     * If signifRounded == 2^53, we'd need to set all of the significand bits to
+     * zero and add 1 to the exponent. This is exactly the behavior we get from
+     * just adding signifRounded to bits directly. If the exponent is
+     * MAX_DOUBLE_EXPONENT, we round up (correctly) to Double.POSITIVE_INFINITY.
      */
     bits |= x.signum() & SIGN_MASK;
     return longBitsToDouble(bits);
@@ -144,6 +144,5 @@ final class DoubleUtils {
     }
   }
 
-  @VisibleForTesting
-  static final long ONE_BITS = 0x3ff0000000000000L;
+  @VisibleForTesting static final long ONE_BITS = 0x3ff0000000000000L;
 }

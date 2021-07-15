@@ -39,9 +39,10 @@ import javax.annotation.Nullable;
  * override {@code putAll} as well, either providing your own implementation, or
  * delegating to the provided {@code standardPutAll} method.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingMap}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingMap}.
  *
  * <p>Each of the {@code standard} methods, where appropriate, use {@link
  * Objects#equal} to test equality for both keys and values. This may not be
@@ -59,14 +60,14 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingMap<K, V> extends ForwardingObject implements Map<K, V> {
+public abstract class ForwardingMap<K, V>
+    extends ForwardingObject implements Map<K, V> {
   // TODO(lowasser): identify places where thread safety is actually lost
 
   /** Constructor for use by subclasses. */
   protected ForwardingMap() {}
 
-  @Override
-  protected abstract Map<K, V> delegate();
+  @Override protected abstract Map<K, V> delegate();
 
   @Override
   public int size() {
@@ -185,9 +186,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected void standardClear() {
-    Iterators.clear(entrySet().iterator());
-  }
+  protected void standardClear() { Iterators.clear(entrySet().iterator()); }
 
   /**
    * A sensible implementation of {@link Map#keySet} in terms of the following
@@ -203,9 +202,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   @Beta
   protected class StandardKeySet extends Maps.KeySet<K, V> {
     /** Constructor for use by subclasses. */
-    public StandardKeySet() {
-      super(ForwardingMap.this);
-    }
+    public StandardKeySet() { super(ForwardingMap.this); }
   }
 
   /**
@@ -234,9 +231,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
   @Beta
   protected class StandardValues extends Maps.Values<K, V> {
     /** Constructor for use by subclasses. */
-    public StandardValues() {
-      super(ForwardingMap.this);
-    }
+    public StandardValues() { super(ForwardingMap.this); }
   }
 
   /**
@@ -301,9 +296,7 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected int standardHashCode() {
-    return Sets.hashCodeImpl(entrySet());
-  }
+  protected int standardHashCode() { return Sets.hashCodeImpl(entrySet()); }
 
   /**
    * A sensible definition of {@link #toString} in terms of the {@code iterator}
@@ -312,7 +305,5 @@ public abstract class ForwardingMap<K, V> extends ForwardingObject implements Ma
    *
    * @since 7.0
    */
-  protected String standardToString() {
-    return Maps.toStringImpl(this);
-  }
+  protected String standardToString() { return Maps.toStringImpl(this); }
 }

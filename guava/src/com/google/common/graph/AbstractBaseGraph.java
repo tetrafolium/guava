@@ -29,8 +29,8 @@ import javax.annotation.Nullable;
 /**
  * This class provides a skeletal implementation of {@link BaseGraph}.
  *
- * <p>The methods implemented in this class should not be overridden unless the subclass admits a
- * more efficient implementation.
+ * <p>The methods implemented in this class should not be overridden unless the
+ * subclass admits a more efficient implementation.
  *
  * @author James Sexton
  * @param <N> Node parameter type
@@ -38,23 +38,25 @@ import javax.annotation.Nullable;
 abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
 
   /**
-   * Returns the number of edges in this graph; used to calculate the size of {@link #edges()}. This
-   * implementation requires O(|N|) time. Classes extending this one may manually keep track of the
-   * number of edges as the graph is updated, and override this method for better performance.
+   * Returns the number of edges in this graph; used to calculate the size of
+   * {@link #edges()}. This implementation requires O(|N|) time. Classes
+   * extending this one may manually keep track of the number of edges as the
+   * graph is updated, and override this method for better performance.
    */
   protected long edgeCount() {
     long degreeSum = 0L;
     for (N node : nodes()) {
       degreeSum += degree(node);
     }
-    // According to the degree sum formula, this is equal to twice the number of edges.
+    // According to the degree sum formula, this is equal to twice the number of
+    // edges.
     checkState((degreeSum & 1) == 0);
     return degreeSum >>> 1;
   }
 
   /**
-   * An implementation of {@link BaseGraph#edges()} defined in terms of {@link #nodes()} and {@link
-   * #successors(Object)}.
+   * An implementation of {@link BaseGraph#edges()} defined in terms of {@link
+   * #nodes()} and {@link #successors(Object)}.
    */
   @Override
   public Set<EndpointPair<N>> edges() {
@@ -69,19 +71,19 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
         return Ints.saturatedCast(edgeCount());
       }
 
-      // Mostly safe: We check contains(u) before calling successors(u), so we perform unsafe
-      // operations only in weird cases like checking for an EndpointPair<ArrayList> in a
-      // Graph<LinkedList>.
+      // Mostly safe: We check contains(u) before calling successors(u), so we
+      // perform unsafe operations only in weird cases like checking for an
+      // EndpointPair<ArrayList> in a Graph<LinkedList>.
       @SuppressWarnings("unchecked")
       @Override
       public boolean contains(@Nullable Object obj) {
         if (!(obj instanceof EndpointPair)) {
           return false;
         }
-        EndpointPair<?> endpointPair = (EndpointPair<?>) obj;
-        return isDirected() == endpointPair.isOrdered()
-            && nodes().contains(endpointPair.nodeU())
-            && successors((N) endpointPair.nodeU()).contains(endpointPair.nodeV());
+        EndpointPair<?> endpointPair = (EndpointPair<?>)obj;
+        return isDirected() == endpointPair.isOrdered() &&
+            nodes().contains(endpointPair.nodeU()) &&
+            successors((N)endpointPair.nodeU()).contains(endpointPair.nodeV());
       }
     };
   }
@@ -89,10 +91,12 @@ abstract class AbstractBaseGraph<N> implements BaseGraph<N> {
   @Override
   public int degree(N node) {
     if (isDirected()) {
-      return IntMath.saturatedAdd(predecessors(node).size(), successors(node).size());
+      return IntMath.saturatedAdd(predecessors(node).size(),
+                                  successors(node).size());
     } else {
       Set<N> neighbors = adjacentNodes(node);
-      int selfLoopCount = (allowsSelfLoops() && neighbors.contains(node)) ? 1 : 0;
+      int selfLoopCount =
+          (allowsSelfLoops() && neighbors.contains(node)) ? 1 : 0;
       return IntMath.saturatedAdd(neighbors.size(), selfLoopCount);
     }
   }

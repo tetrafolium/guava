@@ -39,7 +39,7 @@ public abstract class TestEnumSetGenerator implements TestSetGenerator<AnEnum> {
     AnEnum[] array = new AnEnum[elements.length];
     int i = 0;
     for (Object e : elements) {
-      array[i++] = (AnEnum) e;
+      array[i++] = (AnEnum)e;
     }
     return create(array);
   }

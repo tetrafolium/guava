@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2013 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -22,17 +24,18 @@ import java.util.Comparator;
 import java.util.Random;
 
 /**
- * A benchmark to determine the overhead of sorting with {@link Ordering#from(Comparator)}, or with
- * {@link Ordering#natural()}, as opposed to using the inlined {@link Arrays#sort(Object[])}
- * implementation, which uses {@link Comparable#compareTo} directly.
+ * A benchmark to determine the overhead of sorting with {@link
+ * Ordering#from(Comparator)}, or with
+ * {@link Ordering#natural()}, as opposed to using the inlined {@link
+ * Arrays#sort(Object[])} implementation, which uses {@link
+ * Comparable#compareTo} directly.
  *
  * @author Louis Wasserman
  */
 public class ComparatorDelegationOverheadBenchmark {
   private final Integer[][] inputArrays = new Integer[0x100][];
 
-  @Param({"10000"})
-  int n;
+  @Param({"10000"}) int n;
 
   @BeforeExperiment
   void setUp() throws Exception {
@@ -46,7 +49,8 @@ public class ComparatorDelegationOverheadBenchmark {
     }
   }
 
-  @Benchmark int arraysSortNoComparator(int reps) {
+  @Benchmark
+  int arraysSortNoComparator(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();
@@ -56,7 +60,8 @@ public class ComparatorDelegationOverheadBenchmark {
     return tmp;
   }
 
-  @Benchmark int arraysSortOrderingNatural(int reps) {
+  @Benchmark
+  int arraysSortOrderingNatural(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();
@@ -66,14 +71,16 @@ public class ComparatorDelegationOverheadBenchmark {
     return tmp;
   }
 
-  private static final Comparator<Integer> NATURAL_INTEGER = new Comparator<Integer>() {
-    @Override
-    public int compare(Integer o1, Integer o2) {
-      return o1.compareTo(o2);
-    }
-  };
+  private static final Comparator<Integer> NATURAL_INTEGER =
+      new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+          return o1.compareTo(o2);
+        }
+      };
 
-  @Benchmark int arraysSortOrderingFromNatural(int reps) {
+  @Benchmark
+  int arraysSortOrderingFromNatural(int reps) {
     int tmp = 0;
     for (int i = 0; i < reps; i++) {
       Integer[] copy = inputArrays[i & 0xFF].clone();

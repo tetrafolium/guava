@@ -25,25 +25,27 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 /**
- * A multimap which forwards all its method calls to another multimap. Subclasses should override
- * one or more methods to modify the behavior of the backing multimap as desired per the <a
+ * A multimap which forwards all its method calls to another multimap.
+ * Subclasses should override one or more methods to modify the behavior of the
+ * backing multimap as desired per the <a
  * href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a>.
  *
- * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward calls to {@code
- * default} methods. Instead, it inherits their default implementations. When those implementations
- * invoke methods, they invoke methods on the {@code ForwardingMultimap}.
+ * <p><b>{@code default} method warning:</b> This class does <i>not</i> forward
+ * calls to {@code default} methods. Instead, it inherits their default
+ * implementations. When those implementations invoke methods, they invoke
+ * methods on the {@code ForwardingMultimap}.
  *
  * @author Robert Konigsberg
  * @since 2.0
  */
 @GwtCompatible
-public abstract class ForwardingMultimap<K, V> extends ForwardingObject implements Multimap<K, V> {
+public abstract class ForwardingMultimap<K, V>
+    extends ForwardingObject implements Multimap<K, V> {
 
   /** Constructor for use by subclasses. */
   protected ForwardingMultimap() {}
 
-  @Override
-  protected abstract Multimap<K, V> delegate();
+  @Override protected abstract Multimap<K, V> delegate();
 
   @Override
   public Map<K, Collection<V>> asMap() {

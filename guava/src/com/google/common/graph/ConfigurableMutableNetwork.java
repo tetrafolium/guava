@@ -27,11 +27,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 
 /**
- * Configurable implementation of {@link MutableNetwork} that supports both directed and undirected
- * graphs. Instances of this class should be constructed with {@link NetworkBuilder}.
+ * Configurable implementation of {@link MutableNetwork} that supports both
+ * directed and undirected graphs. Instances of this class should be constructed
+ * with {@link NetworkBuilder}.
  *
- * <p>Time complexities for mutation methods are all O(1) except for {@code removeNode(N node)},
- * which is in O(d_node) where d_node is the degree of {@code node}.
+ * <p>Time complexities for mutation methods are all O(1) except for {@code
+ * removeNode(N node)}, which is in O(d_node) where d_node is the degree of
+ * {@code node}.
  *
  * @author James Sexton
  * @author Joshua O'Madadhain
@@ -39,10 +41,13 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
  * @param <N> Node parameter type
  * @param <E> Edge parameter type
  */
-final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
-  implements MutableNetwork<N, E> {
+final class ConfigurableMutableNetwork<N, E>
+    extends ConfigurableNetwork<N, E> implements MutableNetwork<N, E> {
 
-  /** Constructs a mutable graph with the properties specified in {@code builder}. */
+  /**
+   * Constructs a mutable graph with the properties specified in {@code
+   * builder}.
+   */
   ConfigurableMutableNetwork(NetworkBuilder<? super N, ? super E> builder) {
     super(builder);
   }
@@ -61,7 +66,8 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
   }
 
   /**
-   * Adds {@code node} to the graph and returns the associated {@link NetworkConnections}.
+   * Adds {@code node} to the graph and returns the associated {@link
+   * NetworkConnections}.
    *
    * @throws IllegalStateException if {@code node} is already present
    */
@@ -82,21 +88,16 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
     if (containsEdge(edge)) {
       EndpointPair<N> existingIncidentNodes = incidentNodes(edge);
       EndpointPair<N> newIncidentNodes = EndpointPair.of(this, nodeU, nodeV);
-      checkArgument(
-          existingIncidentNodes.equals(newIncidentNodes),
-          REUSING_EDGE,
-          edge,
-          existingIncidentNodes,
-          newIncidentNodes);
+      checkArgument(existingIncidentNodes.equals(newIncidentNodes),
+                    REUSING_EDGE, edge, existingIncidentNodes,
+                    newIncidentNodes);
       return false;
     }
     NetworkConnections<N, E> connectionsU = nodeConnections.get(nodeU);
     if (!allowsParallelEdges()) {
       checkArgument(
           !(connectionsU != null && connectionsU.successors().contains(nodeV)),
-          PARALLEL_EDGES_NOT_ALLOWED,
-          nodeU,
-          nodeV);
+          PARALLEL_EDGES_NOT_ALLOWED, nodeU, nodeV);
     }
     boolean isSelfLoop = nodeU.equals(nodeV);
     if (!allowsSelfLoops()) {
@@ -156,11 +157,9 @@ final class ConfigurableMutableNetwork<N, E> extends ConfigurableNetwork<N, E>
 
   private NetworkConnections<N, E> newConnections() {
     return isDirected()
-        ? allowsParallelEdges()
-        ? DirectedMultiNetworkConnections.<N, E>of()
-        : DirectedNetworkConnections.<N, E>of()
-        : allowsParallelEdges()
-        ? UndirectedMultiNetworkConnections.<N, E>of()
-        : UndirectedNetworkConnections.<N, E>of();
+        ? allowsParallelEdges() ? DirectedMultiNetworkConnections.<N, E>of()
+                                : DirectedNetworkConnections.<N, E>of()
+        : allowsParallelEdges() ? UndirectedMultiNetworkConnections.<N, E>of()
+                                : UndirectedNetworkConnections.<N, E>of();
   }
 }

@@ -34,9 +34,10 @@ import java.util.Map;
  */
 public final class Multimap_CustomFieldSerializerBase {
 
-  static ImmutableMultimap<Object, Object> instantiate(
-      SerializationStreamReader reader, ImmutableMultimap.Builder<Object, Object> builder)
-  throws SerializationException {
+  static ImmutableMultimap<Object, Object>
+  instantiate(SerializationStreamReader reader,
+              ImmutableMultimap.Builder<Object, Object> builder)
+      throws SerializationException {
     int keyCount = reader.readInt();
     for (int i = 0; i < keyCount; ++i) {
       Object key = reader.readObject();
@@ -50,9 +51,9 @@ public final class Multimap_CustomFieldSerializerBase {
   }
 
   @CanIgnoreReturnValue
-  public static Multimap<Object, Object> populate(
-      SerializationStreamReader reader, Multimap<Object, Object> multimap)
-  throws SerializationException {
+  public static Multimap<Object, Object>
+  populate(SerializationStreamReader reader, Multimap<Object, Object> multimap)
+      throws SerializationException {
     int keyCount = reader.readInt();
     for (int i = 0; i < keyCount; ++i) {
       Object key = reader.readObject();
@@ -65,10 +66,12 @@ public final class Multimap_CustomFieldSerializerBase {
     return multimap;
   }
 
-  public static void serialize(SerializationStreamWriter writer, Multimap<?, ?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               Multimap<?, ?> instance)
+      throws SerializationException {
     writer.writeInt(instance.asMap().size());
-    for (Map.Entry<?, ? extends Collection<?>> entry : instance.asMap().entrySet()) {
+    for (Map.Entry<?, ? extends Collection<?>> entry :
+         instance.asMap().entrySet()) {
       writer.writeObject(entry.getKey());
       writer.writeInt(entry.getValue().size());
       for (Object value : entry.getValue()) {

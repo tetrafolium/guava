@@ -23,9 +23,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * An {@link ClusterException} is a data structure that allows for some code to "throw multiple
- * exceptions", or something close to it. The prototypical code that calls for this class is
- * presented below:
+ * An {@link ClusterException} is a data structure that allows for some code to
+ * "throw multiple exceptions", or something close to it. The prototypical code
+ * that calls for this class is presented below:
  *
  * <pre>
  * void runManyThings({@literal List<ThingToRun>} thingsToRun) {
@@ -65,7 +65,8 @@ final class ClusterException extends RuntimeException {
 
   private ClusterException(Collection<? extends Throwable> exceptions) {
     super(
-        exceptions.size() + " exceptions were thrown. The first exception is listed as a cause.",
+        exceptions.size() +
+            " exceptions were thrown. The first exception is listed as a cause.",
         exceptions.iterator().next());
     ArrayList<Throwable> temp = new ArrayList<>();
     temp.addAll(exceptions);
@@ -101,7 +102,8 @@ final class ClusterException extends RuntimeException {
    * @throws NullPointerException if {@code exceptions} is null
    * @throws IllegalArgumentException if {@code exceptions} is empty
    */
-  public static RuntimeException create(Collection<? extends Throwable> exceptions) {
+  public static RuntimeException
+  create(Collection<? extends Throwable> exceptions) {
     if (exceptions.size() == 0) {
       throw new IllegalArgumentException(
           "Can't create an ExceptionCollection with no exceptions");

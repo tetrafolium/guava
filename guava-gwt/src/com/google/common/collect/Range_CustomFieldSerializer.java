@@ -27,18 +27,20 @@ import com.google.gwt.user.client.rpc.SerializationStreamWriter;
  */
 public class Range_CustomFieldSerializer {
 
-  public static void deserialize(SerializationStreamReader reader, Range<?> instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 Range<?> instance) {}
 
   public static Range<?> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+      throws SerializationException {
 
     Cut lowerBound;
     boolean hasLowerBound = reader.readBoolean();
     if (hasLowerBound) {
       boolean lowerIsClosed = reader.readBoolean();
-      Comparable lower = (Comparable) reader.readObject();
+      Comparable lower = (Comparable)reader.readObject();
 
-      lowerBound = lowerIsClosed ? Cut.belowValue(lower) : Cut.aboveValue(lower);
+      lowerBound =
+          lowerIsClosed ? Cut.belowValue(lower) : Cut.aboveValue(lower);
     } else {
       lowerBound = Cut.belowAll();
     }
@@ -47,9 +49,10 @@ public class Range_CustomFieldSerializer {
     boolean hasUpperBound = reader.readBoolean();
     if (hasUpperBound) {
       boolean upperIsClosed = reader.readBoolean();
-      Comparable upper = (Comparable) reader.readObject();
+      Comparable upper = (Comparable)reader.readObject();
 
-      upperBound = upperIsClosed ? Cut.aboveValue(upper) : Cut.belowValue(upper);
+      upperBound =
+          upperIsClosed ? Cut.aboveValue(upper) : Cut.belowValue(upper);
     } else {
       upperBound = Cut.aboveAll();
     }
@@ -57,8 +60,9 @@ public class Range_CustomFieldSerializer {
     return Range.create(lowerBound, upperBound);
   }
 
-  public static void serialize(SerializationStreamWriter writer, Range<?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               Range<?> instance)
+      throws SerializationException {
 
     if (instance.hasLowerBound()) {
       writer.writeBoolean(true);

@@ -75,9 +75,8 @@ public class Helpers {
   }
 
   private static boolean isEmpty(Iterable<?> iterable) {
-    return iterable instanceof Collection
-        ? ((Collection<?>) iterable).isEmpty()
-        : !iterable.iterator().hasNext();
+    return iterable instanceof Collection ? ((Collection<?>)iterable).isEmpty()
+                                          : !iterable.iterator().hasNext();
   }
 
   public static void assertEmpty(Iterable<?> iterable) {
@@ -92,37 +91,32 @@ public class Helpers {
     }
   }
 
-  public static void assertEqualInOrder(Iterable<?> expected, Iterable<?> actual) {
+  public static void assertEqualInOrder(Iterable<?> expected,
+                                        Iterable<?> actual) {
     Iterator<?> expectedIter = expected.iterator();
     Iterator<?> actualIter = actual.iterator();
 
     while (expectedIter.hasNext() && actualIter.hasNext()) {
       if (!equal(expectedIter.next(), actualIter.next())) {
-        Assert.fail(
-            "contents were not equal and in the same order: "
-            + "expected = "
-            + expected
-            + ", actual = "
-            + actual);
+        Assert.fail("contents were not equal and in the same order: "
+                    + "expected = " + expected + ", actual = " + actual);
       }
     }
 
     if (expectedIter.hasNext() || actualIter.hasNext()) {
       // actual either had too few or too many elements
-      Assert.fail(
-          "contents were not equal and in the same order: "
-          + "expected = "
-          + expected
-          + ", actual = "
-          + actual);
+      Assert.fail("contents were not equal and in the same order: "
+                  + "expected = " + expected + ", actual = " + actual);
     }
   }
 
-  public static void assertContentsInOrder(Iterable<?> actual, Object... expected) {
+  public static void assertContentsInOrder(Iterable<?> actual,
+                                           Object... expected) {
     assertEqualInOrder(Arrays.asList(expected), actual);
   }
 
-  public static void assertEqualIgnoringOrder(Iterable<?> expected, Iterable<?> actual) {
+  public static void assertEqualIgnoringOrder(Iterable<?> expected,
+                                              Iterable<?> actual) {
     List<?> exp = copyToList(expected);
     List<?> act = copyToList(actual);
     String actString = act.toString();
@@ -133,27 +127,22 @@ public class Helpers {
     // Yeah it's n^2.
     for (Object object : exp) {
       if (!act.remove(object)) {
-        Assert.fail(
-            "did not contain expected element "
-            + object
-            + ", "
-            + "expected = "
-            + exp
-            + ", actual = "
-            + actString);
+        Assert.fail("did not contain expected element " + object + ", "
+                    + "expected = " + exp + ", actual = " + actString);
       }
     }
     assertTrue("unexpected elements: " + act, act.isEmpty());
   }
 
-  public static void assertContentsAnyOrder(Iterable<?> actual, Object... expected) {
+  public static void assertContentsAnyOrder(Iterable<?> actual,
+                                            Object... expected) {
     assertEqualIgnoringOrder(Arrays.asList(expected), actual);
   }
 
   public static void assertContains(Iterable<?> actual, Object expected) {
     boolean contained = false;
     if (actual instanceof Collection) {
-      contained = ((Collection<?>) actual).contains(expected);
+      contained = ((Collection<?>)actual).contains(expected);
     } else {
       for (Object o : actual) {
         if (equal(o, expected)) {
@@ -168,7 +157,8 @@ public class Helpers {
     }
   }
 
-  public static void assertContainsAllOf(Iterable<?> actual, Object... expected) {
+  public static void assertContainsAllOf(Iterable<?> actual,
+                                         Object... expected) {
     List<Object> expectedList = new ArrayList<>();
     expectedList.addAll(Arrays.asList(expected));
 
@@ -177,11 +167,13 @@ public class Helpers {
     }
 
     if (!expectedList.isEmpty()) {
-      Assert.fail("Not true that " + actual + " contains all of " + Arrays.asList(expected));
+      Assert.fail("Not true that " + actual + " contains all of " +
+                  Arrays.asList(expected));
     }
   }
 
-  public static <E> boolean addAll(Collection<E> addTo, Iterable<? extends E> elementsToAdd) {
+  public static <E> boolean addAll(Collection<E> addTo,
+                                   Iterable<? extends E> elementsToAdd) {
     boolean modified = false;
     for (E e : elementsToAdd) {
       modified |= addTo.add(e);
@@ -246,77 +238,80 @@ public class Helpers {
   }
 
   static void fail(Throwable cause, Object message) {
-    AssertionFailedError assertionFailedError = new AssertionFailedError(String.valueOf(message));
+    AssertionFailedError assertionFailedError =
+        new AssertionFailedError(String.valueOf(message));
     assertionFailedError.initCause(cause);
     throw assertionFailedError;
   }
 
-  public static <K, V> Comparator<Entry<K, V>> entryComparator(
-      final Comparator<? super K> keyComparator) {
+  public static <K, V> Comparator<Entry<K, V>>
+  entryComparator(final Comparator<? super K> keyComparator) {
     return new Comparator<Entry<K, V>>() {
       @Override
       @SuppressWarnings("unchecked") // no less safe than putting it in the map!
       public int compare(Entry<K, V> a, Entry<K, V> b) {
         return (keyComparator == null)
-            ? ((Comparable) a.getKey()).compareTo(b.getKey())
+            ? ((Comparable)a.getKey()).compareTo(b.getKey())
             : keyComparator.compare(a.getKey(), b.getKey());
       }
     };
   }
 
   /**
-   * Asserts that all pairs of {@code T} values within {@code valuesInExpectedOrder} are ordered
-   * consistently between their order within {@code valuesInExpectedOrder} and the order implied by
-   * the given {@code comparator}.
+   * Asserts that all pairs of {@code T} values within {@code
+   * valuesInExpectedOrder} are ordered consistently between their order within
+   * {@code valuesInExpectedOrder} and the order implied by the given {@code
+   * comparator}.
    *
    * @see #testComparator(Comparator, List)
    */
-  public static <T> void testComparator(
-      Comparator<? super T> comparator, T... valuesInExpectedOrder) {
+  public static <T> void testComparator(Comparator<? super T> comparator,
+                                        T... valuesInExpectedOrder) {
     testComparator(comparator, Arrays.asList(valuesInExpectedOrder));
   }
 
   /**
-   * Asserts that all pairs of {@code T} values within {@code valuesInExpectedOrder} are ordered
-   * consistently between their order within {@code valuesInExpectedOrder} and the order implied by
-   * the given {@code comparator}.
+   * Asserts that all pairs of {@code T} values within {@code
+   * valuesInExpectedOrder} are ordered consistently between their order within
+   * {@code valuesInExpectedOrder} and the order implied by the given {@code
+   * comparator}.
    *
    * <p>In detail, this method asserts
    *
    * <ul>
-   *   <li><i>reflexivity</i>: {@code comparator.compare(t, t) = 0} for all {@code t} in {@code
-   *       valuesInExpectedOrder}; and
-   *   <li><i>consistency</i>: {@code comparator.compare(ti, tj) < 0} and {@code
-   *       comparator.compare(tj, ti) > 0} for {@code i < j}, where {@code ti =
-   *       valuesInExpectedOrder.get(i)} and {@code tj = valuesInExpectedOrder.get(j)}.
+   *   <li><i>reflexivity</i>: {@code comparator.compare(t, t) = 0} for all
+   * {@code t} in {@code valuesInExpectedOrder}; and <li><i>consistency</i>:
+   * {@code comparator.compare(ti, tj) < 0} and {@code comparator.compare(tj,
+   * ti) > 0} for {@code i < j}, where {@code ti = valuesInExpectedOrder.get(i)}
+   * and {@code tj = valuesInExpectedOrder.get(j)}.
    * </ul>
    */
-  public static <T> void testComparator(
-      Comparator<? super T> comparator, List<T> valuesInExpectedOrder) {
+  public static <T> void testComparator(Comparator<? super T> comparator,
+                                        List<T> valuesInExpectedOrder) {
     // This does an O(n^2) test of all pairs of values in both orders
     for (int i = 0; i < valuesInExpectedOrder.size(); i++) {
       T t = valuesInExpectedOrder.get(i);
 
       for (int j = 0; j < i; j++) {
         T lesser = valuesInExpectedOrder.get(j);
-        assertTrue(
-            comparator + ".compare(" + lesser + ", " + t + ")", comparator.compare(lesser, t) < 0);
+        assertTrue(comparator + ".compare(" + lesser + ", " + t + ")",
+                   comparator.compare(lesser, t) < 0);
       }
 
-      assertEquals(comparator + ".compare(" + t + ", " + t + ")", 0, comparator.compare(t, t));
+      assertEquals(comparator + ".compare(" + t + ", " + t + ")", 0,
+                   comparator.compare(t, t));
 
       for (int j = i + 1; j < valuesInExpectedOrder.size(); j++) {
         T greater = valuesInExpectedOrder.get(j);
-        assertTrue(
-            comparator + ".compare(" + greater + ", " + t + ")",
-            comparator.compare(greater, t) > 0);
+        assertTrue(comparator + ".compare(" + greater + ", " + t + ")",
+                   comparator.compare(greater, t) > 0);
       }
     }
   }
 
   @SuppressWarnings({"SelfComparison", "SelfEquals"})
-  public static <T extends Comparable<? super T>> void testCompareToAndEquals(
-      List<T> valuesInExpectedOrder) {
+  public static <T extends Comparable<? super T>> void
+  testCompareToAndEquals(List<T> valuesInExpectedOrder) {
     // This does an O(n^2) test of all pairs of values in both orders
     for (int i = 0; i < valuesInExpectedOrder.size(); i++) {
       T t = valuesInExpectedOrder.get(i);
@@ -367,7 +362,8 @@ public class Helpers {
    * possible to access the raw (modifiable) map entry via a nefarious equals
    * method.
    */
-  public static <K, V> Map.Entry<K, V> nefariousMapEntry(final K key, final V value) {
+  public static <K, V> Map.Entry<K, V> nefariousMapEntry(final K key,
+                                                         final V value) {
     return new Map.Entry<K, V>() {
       @Override
       public K getKey() {
@@ -388,10 +384,11 @@ public class Helpers {
       @Override
       public boolean equals(Object o) {
         if (o instanceof Map.Entry) {
-          Map.Entry<K, V> e = (Map.Entry<K, V>) o;
+          Map.Entry<K, V> e = (Map.Entry<K, V>)o;
           e.setValue(value); // muhahaha!
 
-          return equal(this.getKey(), e.getKey()) && equal(this.getValue(), e.getValue());
+          return equal(this.getKey(), e.getKey()) &&
+              equal(this.getValue(), e.getValue());
         }
         return false;
       }
@@ -400,7 +397,8 @@ public class Helpers {
       public int hashCode() {
         K k = getKey();
         V v = getValue();
-        return ((k == null) ? 0 : k.hashCode()) ^ ((v == null) ? 0 : v.hashCode());
+        return ((k == null) ? 0 : k.hashCode()) ^
+            ((v == null) ? 0 : v.hashCode());
       }
 
       @Override
@@ -412,7 +410,7 @@ public class Helpers {
 
   static <E> List<E> castOrCopyToList(Iterable<E> iterable) {
     if (iterable instanceof List) {
-      return (List<E>) iterable;
+      return (List<E>)iterable;
     }
     List<E> list = new ArrayList<E>();
     for (E e : iterable) {
@@ -422,36 +420,39 @@ public class Helpers {
   }
 
   private static final Comparator<Comparable> NATURAL_ORDER =
-  new Comparator<Comparable>() {
-    @SuppressWarnings("unchecked") // assume any Comparable is Comparable<Self>
-    @Override
-    public int compare(Comparable left, Comparable right) {
-      return left.compareTo(right);
-    }
-  };
+      new Comparator<Comparable>() {
+        @SuppressWarnings("unchecked")
+        // assume any Comparable is Comparable<Self>
+        @Override
+        public int compare(Comparable left, Comparable right) {
+          return left.compareTo(right);
+        }
+      };
 
-  public static <K extends Comparable, V> Iterable<Entry<K, V>> orderEntriesByKey(
-      List<Entry<K, V>> insertionOrder) {
+  public static <K extends Comparable, V> Iterable<Entry<K, V>>
+  orderEntriesByKey(List<Entry<K, V>> insertionOrder) {
     sort(insertionOrder, Helpers.<K, V>entryComparator(NATURAL_ORDER));
     return insertionOrder;
   }
 
   /**
-   * Private replacement for {@link com.google.gwt.user.client.rpc.GwtTransient} to work around
-   * build-system quirks.
+   * Private replacement for {@link com.google.gwt.user.client.rpc.GwtTransient}
+   * to work around build-system quirks.
    */
   private @interface GwtTransient {}
 
   /**
-   * Compares strings in natural order except that null comes immediately before a given value. This
-   * works better than Ordering.natural().nullsFirst() because, if null comes before all other
-   * values, it lies outside the submap/submultiset ranges we test, and the variety of tests that
-   * exercise null handling fail on those subcollections.
+   * Compares strings in natural order except that null comes immediately before
+   * a given value. This works better than Ordering.natural().nullsFirst()
+   * because, if null comes before all other values, it lies outside the
+   * submap/submultiset ranges we test, and the variety of tests that exercise
+   * null handling fail on those subcollections.
    */
-  public abstract static class NullsBefore implements Comparator<String>, Serializable {
+  public abstract static class NullsBefore
+      implements Comparator<String>, Serializable {
     /*
-     * We don't serialize this class in GWT, so we don't care about whether GWT will serialize this
-     * field.
+     * We don't serialize this class in GWT, so we don't care about whether GWT
+     * will serialize this field.
      */
     @GwtTransient private final String justAfterNull;
 
@@ -490,7 +491,7 @@ public class Helpers {
     @Override
     public boolean equals(Object obj) {
       if (obj instanceof NullsBefore) {
-        NullsBefore other = (NullsBefore) obj;
+        NullsBefore other = (NullsBefore)obj;
         return justAfterNull.equals(other.justAfterNull);
       }
       return false;
@@ -505,9 +506,7 @@ public class Helpers {
   public static final class NullsBeforeB extends NullsBefore {
     public static final NullsBeforeB INSTANCE = new NullsBeforeB();
 
-    private NullsBeforeB() {
-      super("b");
-    }
+    private NullsBeforeB() { super("b"); }
   }
 
   public static final class NullsBeforeTwo extends NullsBefore {

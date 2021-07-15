@@ -37,14 +37,12 @@ public enum ListFeature implements Feature<List> {
   SUPPORTS_ADD_WITH_INDEX(CollectionFeature.SUPPORTS_ADD),
   SUPPORTS_REMOVE_WITH_INDEX(CollectionFeature.SUPPORTS_REMOVE),
 
-  GENERAL_PURPOSE(
-      CollectionFeature.GENERAL_PURPOSE,
-      SUPPORTS_SET,
-      SUPPORTS_ADD_WITH_INDEX,
-      SUPPORTS_REMOVE_WITH_INDEX),
+  GENERAL_PURPOSE(CollectionFeature.GENERAL_PURPOSE, SUPPORTS_SET,
+                  SUPPORTS_ADD_WITH_INDEX, SUPPORTS_REMOVE_WITH_INDEX),
 
   /** Features supported by lists where only removal is allowed. */
-  REMOVE_OPERATIONS(CollectionFeature.REMOVE_OPERATIONS, SUPPORTS_REMOVE_WITH_INDEX);
+  REMOVE_OPERATIONS(CollectionFeature.REMOVE_OPERATIONS,
+                    SUPPORTS_REMOVE_WITH_INDEX);
 
   private final Set<Feature<? super List>> implied;
 

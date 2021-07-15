@@ -84,8 +84,7 @@ public interface BiMap<K, V> extends Map<K, V> {
    *     entry fails. Note that some map entries may have been added to the
    *     bimap before the exception was thrown.
    */
-  @Override
-  void putAll(Map<? extends K, ? extends V> map);
+  @Override void putAll(Map<? extends K, ? extends V> map);
 
   // Views
 
@@ -96,8 +95,7 @@ public interface BiMap<K, V> extends Map<K, V> {
    * instead of the {@link java.util.Collection} specified in the {@link Map}
    * interface.
    */
-  @Override
-  Set<V> values();
+  @Override Set<V> values();
 
   /**
    * Returns the inverse view of this bimap, which maps each of this bimap's

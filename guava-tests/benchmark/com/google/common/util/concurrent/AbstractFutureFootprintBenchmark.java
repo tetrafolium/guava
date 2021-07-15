@@ -33,7 +33,7 @@ import java.util.concurrent.Executor;
  */
 public class AbstractFutureFootprintBenchmark {
 
-  enum State { NOT_DONE, FINISHED, CANCELLED, FAILED}
+  enum State { NOT_DONE, FINISHED, CANCELLED, FAILED }
 
   @Param State state;
   @Param Impl impl;
@@ -42,16 +42,19 @@ public class AbstractFutureFootprintBenchmark {
 
   private final Set<Thread> blockedThreads = new HashSet<>();
 
-  @BeforeExperiment void setUp() throws Exception {
+  @BeforeExperiment
+  void setUp() throws Exception {
     if (state != State.NOT_DONE && (numListeners != 0 || numThreads != 0)) {
       throw new SkipThisScenarioException();
     }
   }
 
-  // This exclusion doesn't exclude the TOMBSTONE objects we set. So 'done' NEW futures will look
-  // larger than they are.
-  @Footprint(exclude = {Runnable.class, Executor.class, Thread.class, Exception.class})
-  public Object measureSize() {
+  // This exclusion doesn't exclude the TOMBSTONE objects we set. So 'done' NEW
+  // futures will look larger than they are.
+  @Footprint(exclude = {Runnable.class, Executor.class, Thread.class,
+                        Exception.class})
+  public Object
+  measureSize() {
     for (Thread thread : blockedThreads) {
       thread.interrupt();
     }
@@ -59,10 +62,12 @@ public class AbstractFutureFootprintBenchmark {
     final Facade<Object> f = impl.newFacade();
     for (int i = 0; i < numThreads; i++) {
       Thread thread = new Thread() {
-        @Override public void run() {
+        @Override
+        public void run() {
           try {
             f.get();
-          } catch (Throwable expected) {}
+          } catch (Throwable expected) {
+          }
         }
       };
       thread.start();

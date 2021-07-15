@@ -30,9 +30,7 @@ final class ExplicitOrdering<T> extends Ordering<T> implements Serializable {
     this(Maps.indexMap(valuesInOrder));
   }
 
-  ExplicitOrdering(ImmutableMap<T, Integer> rankMap) {
-    this.rankMap = rankMap;
-  }
+  ExplicitOrdering(ImmutableMap<T, Integer> rankMap) { this.rankMap = rankMap; }
 
   @Override
   public int compare(T left, T right) {
@@ -50,7 +48,7 @@ final class ExplicitOrdering<T> extends Ordering<T> implements Serializable {
   @Override
   public boolean equals(@Nullable Object object) {
     if (object instanceof ExplicitOrdering) {
-      ExplicitOrdering<?> that = (ExplicitOrdering<?>) object;
+      ExplicitOrdering<?> that = (ExplicitOrdering<?>)object;
       return this.rankMap.equals(that.rankMap);
     }
     return false;

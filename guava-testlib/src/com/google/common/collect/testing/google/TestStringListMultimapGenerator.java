@@ -32,16 +32,14 @@ import java.util.Map.Entry;
  */
 @GwtCompatible
 public abstract class TestStringListMultimapGenerator
-  implements TestListMultimapGenerator<String, String> {
+    implements TestListMultimapGenerator<String, String> {
 
   @Override
   public SampleElements<Map.Entry<String, String>> samples() {
     return new SampleElements<>(
-            Helpers.mapEntry("one", "January"),
-            Helpers.mapEntry("two", "February"),
-            Helpers.mapEntry("three", "March"),
-            Helpers.mapEntry("four", "April"),
-            Helpers.mapEntry("five", "May"));
+        Helpers.mapEntry("one", "January"), Helpers.mapEntry("two", "February"),
+        Helpers.mapEntry("three", "March"), Helpers.mapEntry("four", "April"),
+        Helpers.mapEntry("five", "May"));
   }
 
   @Override
@@ -55,7 +53,8 @@ public abstract class TestStringListMultimapGenerator
   }
 
   @Override
-  public Collection<String> createCollection(Iterable<? extends String> values) {
+  public Collection<String>
+  createCollection(Iterable<? extends String> values) {
     return Helpers.copyToList(values);
   }
 
@@ -66,13 +65,14 @@ public abstract class TestStringListMultimapGenerator
     int i = 0;
     for (Object o : entries) {
       @SuppressWarnings("unchecked")
-      Entry<String, String> e = (Entry<String, String>) o;
+      Entry<String, String> e = (Entry<String, String>)o;
       array[i++] = e;
     }
     return create(array);
   }
 
-  protected abstract ListMultimap<String, String> create(Entry<String, String>[] entries);
+  protected abstract ListMultimap<String, String>
+      create(Entry<String, String>[] entries);
 
   @Override
   @SuppressWarnings("unchecked")
@@ -92,7 +92,8 @@ public abstract class TestStringListMultimapGenerator
 
   /** Returns the original element list, unchanged. */
   @Override
-  public Iterable<Entry<String, String>> order(List<Entry<String, String>> insertionOrder) {
+  public Iterable<Entry<String, String>>
+  order(List<Entry<String, String>> insertionOrder) {
     return insertionOrder;
   }
 }

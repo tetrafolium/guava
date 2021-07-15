@@ -1,14 +1,16 @@
 /*
  * Copyright (C) 2007 The Guava Authors
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
  * the License.
  */
 
@@ -39,14 +41,10 @@ public final class CountingOutputStream extends FilterOutputStream {
    *
    * @param out the output stream to be wrapped
    */
-  public CountingOutputStream(OutputStream out) {
-    super(checkNotNull(out));
-  }
+  public CountingOutputStream(OutputStream out) { super(checkNotNull(out)); }
 
   /** Returns the number of bytes written. */
-  public long getCount() {
-    return count;
-  }
+  public long getCount() { return count; }
 
   @Override
   public void write(byte[] b, int off, int len) throws IOException {
@@ -60,9 +58,9 @@ public final class CountingOutputStream extends FilterOutputStream {
     count++;
   }
 
-  // Overriding close() because FilterOutputStream's close() method pre-JDK8 has bad behavior:
-  // it silently ignores any exception thrown by flush(). Instead, just close the delegate stream.
-  // It should flush itself if necessary.
+  // Overriding close() because FilterOutputStream's close() method pre-JDK8 has
+  // bad behavior: it silently ignores any exception thrown by flush(). Instead,
+  // just close the delegate stream. It should flush itself if necessary.
   @Override
   public void close() throws IOException {
     out.close();

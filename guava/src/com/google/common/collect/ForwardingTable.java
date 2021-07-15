@@ -32,12 +32,12 @@ import java.util.Set;
  * @since 7.0
  */
 @GwtCompatible
-public abstract class ForwardingTable<R, C, V> extends ForwardingObject implements Table<R, C, V> {
+public abstract class ForwardingTable<R, C, V>
+    extends ForwardingObject implements Table<R, C, V> {
   /** Constructor for use by subclasses. */
   protected ForwardingTable() {}
 
-  @Override
-  protected abstract Table<R, C, V> delegate();
+  @Override protected abstract Table<R, C, V> delegate();
 
   @Override
   public Set<Cell<R, C, V>> cellSet() {

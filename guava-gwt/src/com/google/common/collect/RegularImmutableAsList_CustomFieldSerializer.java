@@ -24,26 +24,28 @@ import com.google.gwt.user.client.rpc.core.java.util.Collection_CustomFieldSeria
 import java.util.ArrayList;
 
 /**
- * This class implements the GWT serialization of {@link RegularImmutableAsList}.
+ * This class implements the GWT serialization of {@link
+ * RegularImmutableAsList}.
  *
  * @author Hayward Chan
  */
 @GwtCompatible(emulated = true)
 public class RegularImmutableAsList_CustomFieldSerializer {
 
-  public static void deserialize(
-      SerializationStreamReader reader, RegularImmutableAsList<?> instance) {}
+  public static void deserialize(SerializationStreamReader reader,
+                                 RegularImmutableAsList<?> instance) {}
 
-  public static RegularImmutableAsList<Object> instantiate(SerializationStreamReader reader)
-  throws SerializationException {
+  public static RegularImmutableAsList<Object>
+  instantiate(SerializationStreamReader reader) throws SerializationException {
     ArrayList<Object> elements = new ArrayList<>();
     Collection_CustomFieldSerializerBase.deserialize(reader, elements);
     ImmutableList<Object> delegate = ImmutableList.copyOf(elements);
     return new RegularImmutableAsList<>(delegate, delegate);
   }
 
-  public static void serialize(SerializationStreamWriter writer, RegularImmutableAsList<?> instance)
-  throws SerializationException {
+  public static void serialize(SerializationStreamWriter writer,
+                               RegularImmutableAsList<?> instance)
+      throws SerializationException {
     Collection_CustomFieldSerializerBase.serialize(writer, instance);
   }
 }

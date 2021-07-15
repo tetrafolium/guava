@@ -55,19 +55,20 @@ import javax.annotation.Nullable;
 @GwtCompatible
 public final class Streams {
   /**
-   * Returns a sequential {@link Stream} of the contents of {@code iterable}, delegating to {@link
-   * Collection#stream} if possible.
+   * Returns a sequential {@link Stream} of the contents of {@code iterable},
+   * delegating to {@link Collection#stream} if possible.
    */
   public static <T> Stream<T> stream(Iterable<T> iterable) {
     return (iterable instanceof Collection)
-        ? ((Collection<T>) iterable).stream()
+        ? ((Collection<T>)iterable).stream()
         : StreamSupport.stream(iterable.spliterator(), false);
   }
 
   /**
    * Returns {@link Collection#stream}.
    *
-   * @deprecated There is no reason to use this; just invoke {@code collection.stream()} directly.
+   * @deprecated There is no reason to use this; just invoke {@code
+   *     collection.stream()} directly.
    */
   @Deprecated
   public static <T> Stream<T> stream(Collection<T> collection) {
@@ -75,24 +76,27 @@ public final class Streams {
   }
 
   /**
-   * Returns a sequential {@link Stream} of the remaining contents of {@code iterator}. Do not use
+   * Returns a sequential {@link Stream} of the remaining contents of {@code
+   * iterator}. Do not use
    * {@code iterator} directly after passing it to this method.
    */
   public static <T> Stream<T> stream(Iterator<T> iterator) {
-    return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, 0), false);
+    return StreamSupport.stream(
+        Spliterators.spliteratorUnknownSize(iterator, 0), false);
   }
 
   /**
-   * If a value is present in {@code optional}, returns a stream containing only that element,
-   * otherwise returns an empty stream.
+   * If a value is present in {@code optional}, returns a stream containing only
+   * that element, otherwise returns an empty stream.
    */
-  public static <T> Stream<T> stream(com.google.common.base.Optional<T> optional) {
+  public static <T> Stream<T>
+  stream(com.google.common.base.Optional<T> optional) {
     return optional.isPresent() ? Stream.of(optional.get()) : Stream.of();
   }
 
   /**
-   * If a value is present in {@code optional}, returns a stream containing only that element,
-   * otherwise returns an empty stream.
+   * If a value is present in {@code optional}, returns a stream containing only
+   * that element, otherwise returns an empty stream.
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
@@ -101,41 +105,44 @@ public final class Streams {
   }
 
   /**
-   * If a value is present in {@code optional}, returns a stream containing only that element,
-   * otherwise returns an empty stream.
+   * If a value is present in {@code optional}, returns a stream containing only
+   * that element, otherwise returns an empty stream.
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
   public static IntStream stream(OptionalInt optional) {
-    return optional.isPresent() ? IntStream.of(optional.getAsInt()) : IntStream.empty();
+    return optional.isPresent() ? IntStream.of(optional.getAsInt())
+                                : IntStream.empty();
   }
 
   /**
-   * If a value is present in {@code optional}, returns a stream containing only that element,
-   * otherwise returns an empty stream.
+   * If a value is present in {@code optional}, returns a stream containing only
+   * that element, otherwise returns an empty stream.
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
   public static LongStream stream(OptionalLong optional) {
-    return optional.isPresent() ? LongStream.of(optional.getAsLong()) : LongStream.empty();
+    return optional.isPresent() ? LongStream.of(optional.getAsLong())
+                                : LongStream.empty();
   }
 
   /**
-   * If a value is present in {@code optional}, returns a stream containing only that element,
-   * otherwise returns an empty stream.
+   * If a value is present in {@code optional}, returns a stream containing only
+   * that element, otherwise returns an empty stream.
    *
    * <p><b>Java 9 users:</b> use {@code optional.stream()} instead.
    */
   public static DoubleStream stream(OptionalDouble optional) {
-    return optional.isPresent() ? DoubleStream.of(optional.getAsDouble()) : DoubleStream.empty();
+    return optional.isPresent() ? DoubleStream.of(optional.getAsDouble())
+                                : DoubleStream.empty();
   }
 
   /**
-   * Returns a {@link Stream} containing the elements of the first stream, followed by the elements
-   * of the second stream, and so on.
+   * Returns a {@link Stream} containing the elements of the first stream,
+   * followed by the elements of the second stream, and so on.
    *
-   * <p>This is equivalent to {@code Stream.of(streams).flatMap(stream -> stream)}, but the returned
-   * stream may perform better.
+   * <p>This is equivalent to {@code Stream.of(streams).flatMap(stream ->
+   * stream)}, but the returned stream may perform better.
    *
    * @see Stream#concat(Stream, Stream)
    */
@@ -143,7 +150,8 @@ public final class Streams {
   public static <T> Stream<T> concat(Stream<? extends T>... streams) {
     // TODO(lowasser): consider an implementation that can support SUBSIZED
     boolean isParallel = false;
-    int characteristics = Spliterator.ORDERED | Spliterator.SIZED | Spliterator.NONNULL;
+    int characteristics =
+        Spliterator.ORDERED | Spliterator.SIZED | Spliterator.NONNULL;
     long estimatedSize = 0L;
     ImmutableList.Builder<Spliterator<? extends T>> splitrsBuilder =
         new ImmutableList.Builder<>(streams.length);
@@ -152,29 +160,29 @@ public final class Streams {
       Spliterator<? extends T> splitr = stream.spliterator();
       splitrsBuilder.add(splitr);
       characteristics &= splitr.characteristics();
-      estimatedSize = LongMath.saturatedAdd(estimatedSize, splitr.estimateSize());
+      estimatedSize =
+          LongMath.saturatedAdd(estimatedSize, splitr.estimateSize());
     }
-    return StreamSupport.stream(
-            CollectSpliterators.flatMap(
-                splitrsBuilder.build().spliterator(),
-                splitr -> (Spliterator<T>) splitr,
-                characteristics,
-                estimatedSize),
+    return StreamSupport
+        .stream(
+            CollectSpliterators.flatMap(splitrsBuilder.build().spliterator(),
+                                        splitr
+                                        -> (Spliterator<T>)splitr,
+                                        characteristics, estimatedSize),
             isParallel)
-        .onClose(
-    () -> {
-      for (Stream<? extends T> stream : streams) {
-        stream.close();
-      }
-    });
+        .onClose(() -> {
+          for (Stream<? extends T> stream : streams) {
+            stream.close();
+          }
+        });
   }
 
   /**
-   * Returns an {@link IntStream} containing the elements of the first stream, followed by the
-   * elements of the second stream, and so on.
+   * Returns an {@link IntStream} containing the elements of the first stream,
+   * followed by the elements of the second stream, and so on.
    *
-   * <p>This is equivalent to {@code Stream.of(streams).flatMapToInt(stream -> stream)}, but the
-   * returned stream may perform better.
+   * <p>This is equivalent to {@code Stream.of(streams).flatMapToInt(stream ->
+   * stream)}, but the returned stream may perform better.
    *
    * @see IntStream#concat(IntStream, IntStream)
    */
@@ -184,11 +192,11 @@ public final class Streams {
   }
 
   /**
-   * Returns a {@link LongStream} containing the elements of the first stream, followed by the
-   * elements of the second stream, and so on.
+   * Returns a {@link LongStream} containing the elements of the first stream,
+   * followed by the elements of the second stream, and so on.
    *
-   * <p>This is equivalent to {@code Stream.of(streams).flatMapToLong(stream -> stream)}, but the
-   * returned stream may perform better.
+   * <p>This is equivalent to {@code Stream.of(streams).flatMapToLong(stream ->
+   * stream)}, but the returned stream may perform better.
    *
    * @see LongStream#concat(LongStream, LongStream)
    */
@@ -198,11 +206,11 @@ public final class Streams {
   }
 
   /**
-   * Returns a {@link DoubleStream} containing the elements of the first stream, followed by the
-   * elements of the second stream, and so on.
+   * Returns a {@link DoubleStream} containing the elements of the first stream,
+   * followed by the elements of the second stream, and so on.
    *
-   * <p>This is equivalent to {@code Stream.of(streams).flatMapToDouble(stream -> stream)}, but the
-   * returned stream may perform better.
+   * <p>This is equivalent to {@code Stream.of(streams).flatMapToDouble(stream
+   * -> stream)}, but the returned stream may perform better.
    *
    * @see DoubleStream#concat(DoubleStream, DoubleStream)
    */
@@ -212,8 +220,9 @@ public final class Streams {
   }
 
   /**
-   * Returns a stream in which each element is the result of passing the corresponding elementY of
-   * each of {@code streamA} and {@code streamB} to {@code function}.
+   * Returns a stream in which each element is the result of passing the
+   * corresponding elementY of each of {@code streamA} and {@code streamB} to
+   * {@code function}.
    *
    * <p>For example:
    *
@@ -226,51 +235,56 @@ public final class Streams {
    *
    * <p>will return {@code Stream.of("foo1:bar1", "foo2:bar2")}.
    *
-   * <p>The resulting stream will only be as long as the shorter of the two input streams; if one
-   * stream is longer, its extra elements will be ignored.
+   * <p>The resulting stream will only be as long as the shorter of the two
+   * input streams; if one stream is longer, its extra elements will be ignored.
    *
-   * <p>Note that if you are calling {@link Stream#forEach} on the resulting stream, you might want
-   * to consider using {@link #forEachPair} instead of this method.
+   * <p>Note that if you are calling {@link Stream#forEach} on the resulting
+   * stream, you might want to consider using {@link #forEachPair} instead of
+   * this method.
    *
    * <p><b>Performance note:</b> The resulting stream is not <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>.
-   * This may harm parallel performance.
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a>. This may harm parallel performance.
    */
-  public static <A, B, R> Stream<R> zip(
-      Stream<A> streamA, Stream<B> streamB, BiFunction<? super A, ? super B, R> function) {
+  public static <A, B, R> Stream<R>
+  zip(Stream<A> streamA, Stream<B> streamB,
+      BiFunction<? super A, ? super B, R> function) {
     checkNotNull(streamA);
     checkNotNull(streamB);
     checkNotNull(function);
-    boolean isParallel = streamA.isParallel() || streamB.isParallel(); // same as Stream.concat
+    boolean isParallel =
+        streamA.isParallel() || streamB.isParallel(); // same as Stream.concat
     Spliterator<A> splitrA = streamA.spliterator();
     Spliterator<B> splitrB = streamB.spliterator();
-    int characteristics =
-        splitrA.characteristics()
-        & splitrB.characteristics()
-        & (Spliterator.SIZED | Spliterator.ORDERED);
+    int characteristics = splitrA.characteristics() &
+                          splitrB.characteristics() &
+                          (Spliterator.SIZED | Spliterator.ORDERED);
     Iterator<A> itrA = Spliterators.iterator(splitrA);
     Iterator<B> itrB = Spliterators.iterator(splitrB);
-    return StreamSupport.stream(
+    return StreamSupport
+        .stream(
             new AbstractSpliterator<R>(
-    Math.min(splitrA.estimateSize(), splitrB.estimateSize()), characteristics) {
-      @Override
-      public boolean tryAdvance(Consumer<? super R> action) {
-        if (itrA.hasNext() && itrB.hasNext()) {
-          action.accept(function.apply(itrA.next(), itrB.next()));
-          return true;
-        }
-        return false;
-      }
-    },
-    isParallel)
-    .onClose(streamA::close)
-    .onClose(streamB::close);
+                Math.min(splitrA.estimateSize(), splitrB.estimateSize()),
+                characteristics) {
+              @Override
+              public boolean tryAdvance(Consumer<? super R> action) {
+                if (itrA.hasNext() && itrB.hasNext()) {
+                  action.accept(function.apply(itrA.next(), itrB.next()));
+                  return true;
+                }
+                return false;
+              }
+            },
+            isParallel)
+        .onClose(streamA::close)
+        .onClose(streamB::close);
   }
 
   /**
-   * Invokes {@code consumer} once for each pair of <i>corresponding</i> elements in {@code streamA}
-   * and {@code streamB}. If one stream is longer than the other, the extra elements are silently
-   * ignored. Elements passed to the consumer are guaranteed to come from the same position in their
+   * Invokes {@code consumer} once for each pair of <i>corresponding</i>
+   * elements in {@code streamA} and {@code streamB}. If one stream is longer
+   * than the other, the extra elements are silently ignored. Elements passed to
+   * the consumer are guaranteed to come from the same position in their
    * respective source streams. For example:
    *
    * <pre>{@code
@@ -287,22 +301,25 @@ public final class Streams {
    * foo2:bar2
    * }</pre>
    *
-   * <p><b>Warning:</b> If either supplied stream is a parallel stream, the same correspondence
-   * between elements will be made, but the order in which those pairs of elements are passed to the
-   * consumer is <i>not</i> defined.
+   * <p><b>Warning:</b> If either supplied stream is a parallel stream, the same
+   * correspondence between elements will be made, but the order in which those
+   * pairs of elements are passed to the consumer is <i>not</i> defined.
    *
-   * <p>Note that many usages of this method can be replaced with simpler calls to {@link #zip}.
-   * This method behaves equivalently to {@linkplain #zip zipping} the stream elements into
-   * temporary pair objects and then using {@link Stream#forEach} on that stream.
+   * <p>Note that many usages of this method can be replaced with simpler calls
+   * to {@link #zip}. This method behaves equivalently to {@linkplain #zip
+   * zipping} the stream elements into temporary pair objects and then using
+   * {@link Stream#forEach} on that stream.
    *
    * @since 22.0
    */
-  public static <A, B> void forEachPair(
-      Stream<A> streamA, Stream<B> streamB, BiConsumer<? super A, ? super B> consumer) {
+  public static <A, B> void
+  forEachPair(Stream<A> streamA, Stream<B> streamB,
+              BiConsumer<? super A, ? super B> consumer) {
     checkNotNull(consumer);
 
     if (streamA.isParallel() || streamB.isParallel()) {
-      zip(streamA, streamB, TemporaryPair::new).forEach(pair -> consumer.accept(pair.a, pair.b));
+      zip(streamA, streamB, TemporaryPair::new)
+          .forEach(pair -> consumer.accept(pair.a, pair.b));
     } else {
       Iterator<A> iterA = streamA.iterator();
       Iterator<B> iterB = streamB.iterator();
@@ -324,7 +341,8 @@ public final class Streams {
   }
 
   /**
-   * Returns a stream consisting of the results of applying the given function to the elements of
+   * Returns a stream consisting of the results of applying the given function
+   * to the elements of
    * {@code stream} and their indices in the stream. For example,
    *
    * <pre>{@code
@@ -336,17 +354,18 @@ public final class Streams {
    * <p>would return {@code Stream.of("a:0", "b:1", "c:2")}.
    *
    * <p>The resulting stream is <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * if and only if {@code stream} was efficiently splittable and its underlying spliterator
-   * reported {@link Spliterator#SUBSIZED}. This is generally the case if the underlying stream
-   * comes from a data structure supporting efficient indexed random access, typically an array or
-   * list.
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> if and only if {@code stream} was efficiently splittable and
+   * its underlying spliterator reported {@link Spliterator#SUBSIZED}. This is
+   * generally the case if the underlying stream comes from a data structure
+   * supporting efficient indexed random access, typically an array or list.
    *
-   * <p>The order of the resulting stream is defined if and only if the order of the original stream
-   * was defined.
+   * <p>The order of the resulting stream is defined if and only if the order of
+   * the original stream was defined.
    */
-  public static <T, R> Stream<R> mapWithIndex(
-      Stream<T> stream, FunctionWithIndex<? super T, ? extends R> function) {
+  public static <T, R> Stream<R>
+  mapWithIndex(Stream<T> stream,
+               FunctionWithIndex<? super T, ? extends R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
@@ -354,29 +373,31 @@ public final class Streams {
 
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
       Iterator<T> fromIterator = Spliterators.iterator(fromSpliterator);
-      return StreamSupport.stream(
+      return StreamSupport
+          .stream(
               new AbstractSpliterator<R>(
                   fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
-        long index = 0;
+                  fromSpliterator.characteristics() &
+                      (Spliterator.ORDERED | Spliterator.SIZED)) {
+                long index = 0;
 
-        @Override
-        public boolean tryAdvance(Consumer<? super R> action) {
-          if (fromIterator.hasNext()) {
-            action.accept(function.apply(fromIterator.next(), index++));
-            return true;
-          }
-          return false;
-        }
-      },
-      isParallel).onClose(stream::close);
+                @Override
+                public boolean tryAdvance(Consumer<? super R> action) {
+                  if (fromIterator.hasNext()) {
+                    action.accept(function.apply(fromIterator.next(), index++));
+                    return true;
+                  }
+                  return false;
+                }
+              },
+              isParallel)
+          .onClose(stream::close);
     }
-    class Splitr extends MapWithIndexSpliterator<Spliterator<T>, R, Splitr> implements Consumer<T> {
+    class Splitr extends MapWithIndexSpliterator<Spliterator<T>, R, Splitr>
+        implements Consumer<T> {
       T holder;
 
-      Splitr(Spliterator<T> splitr, long index) {
-        super(splitr, index);
-      }
+      Splitr(Spliterator<T> splitr, long index) { super(splitr, index); }
 
       @Override
       public void accept(@Nullable T t) {
@@ -401,26 +422,30 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel)
+        .onClose(stream::close);
   }
 
   /**
    * An analogue of {@link java.util.function.Function} also accepting an index.
    *
-   * <p>This interface is only intended for use by callers of {@link #mapWithIndex(Stream,
-   * FunctionWithIndex)}.
+   * <p>This interface is only intended for use by callers of {@link
+   * #mapWithIndex(Stream, FunctionWithIndex)}.
    *
    * @since 21.0
    */
   @Beta
   public interface FunctionWithIndex<T, R> {
-    /** Applies this function to the given argument and its index within a stream. */
+    /**
+     * Applies this function to the given argument and its index within a
+     * stream.
+     */
     R apply(T from, long index);
   }
 
   private abstract static class MapWithIndexSpliterator<
-    F extends Spliterator<?>, R, S extends MapWithIndexSpliterator<F, R, S>>
-    implements Spliterator<R> {
+      F extends Spliterator<?>, R, S extends MapWithIndexSpliterator<F, R, S>>
+      implements Spliterator<R> {
     final F fromSpliterator;
     long index;
 
@@ -433,8 +458,7 @@ public final class Streams {
 
     @Override
     public S trySplit() {
-      @SuppressWarnings("unchecked")
-      F split = (F) fromSpliterator.trySplit();
+      @SuppressWarnings("unchecked") F split = (F)fromSpliterator.trySplit();
       if (split == null) {
         return null;
       }
@@ -450,13 +474,14 @@ public final class Streams {
 
     @Override
     public int characteristics() {
-      return fromSpliterator.characteristics()
-          & (Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED);
+      return fromSpliterator.characteristics() &
+          (Spliterator.ORDERED | Spliterator.SIZED | Spliterator.SUBSIZED);
     }
   }
 
   /**
-   * Returns a stream consisting of the results of applying the given function to the elements of
+   * Returns a stream consisting of the results of applying the given function
+   * to the elements of
    * {@code stream} and their indexes in the stream. For example,
    *
    * <pre>{@code
@@ -468,48 +493,51 @@ public final class Streams {
    * <p>...would return {@code Stream.of("0:0", "1:1", "2:2")}.
    *
    * <p>The resulting stream is <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * if and only if {@code stream} was efficiently splittable and its underlying spliterator
-   * reported {@link Spliterator#SUBSIZED}. This is generally the case if the underlying stream
-   * comes from a data structure supporting efficient indexed random access, typically an array or
-   * list.
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> if and only if {@code stream} was efficiently splittable and
+   * its underlying spliterator reported {@link Spliterator#SUBSIZED}. This is
+   * generally the case if the underlying stream comes from a data structure
+   * supporting efficient indexed random access, typically an array or list.
    *
-   * <p>The order of the resulting stream is defined if and only if the order of the original stream
-   * was defined.
+   * <p>The order of the resulting stream is defined if and only if the order of
+   * the original stream was defined.
    */
-  public static <R> Stream<R> mapWithIndex(IntStream stream, IntFunctionWithIndex<R> function) {
+  public static <R> Stream<R> mapWithIndex(IntStream stream,
+                                           IntFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
     Spliterator.OfInt fromSpliterator = stream.spliterator();
 
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
-      PrimitiveIterator.OfInt fromIterator = Spliterators.iterator(fromSpliterator);
-      return StreamSupport.stream(
+      PrimitiveIterator.OfInt fromIterator =
+          Spliterators.iterator(fromSpliterator);
+      return StreamSupport
+          .stream(
               new AbstractSpliterator<R>(
                   fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
-        long index = 0;
+                  fromSpliterator.characteristics() &
+                      (Spliterator.ORDERED | Spliterator.SIZED)) {
+                long index = 0;
 
-        @Override
-        public boolean tryAdvance(Consumer<? super R> action) {
-          if (fromIterator.hasNext()) {
-            action.accept(function.apply(fromIterator.nextInt(), index++));
-            return true;
-          }
-          return false;
-        }
-      },
-      isParallel)
-      .onClose(stream::close);
+                @Override
+                public boolean tryAdvance(Consumer<? super R> action) {
+                  if (fromIterator.hasNext()) {
+                    action.accept(
+                        function.apply(fromIterator.nextInt(), index++));
+                    return true;
+                  }
+                  return false;
+                }
+              },
+              isParallel)
+          .onClose(stream::close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator.OfInt, R, Splitr>
-      implements IntConsumer, Spliterator<R> {
+        implements IntConsumer, Spliterator<R> {
       int holder;
 
-      Splitr(Spliterator.OfInt splitr, long index) {
-        super(splitr, index);
-      }
+      Splitr(Spliterator.OfInt splitr, long index) { super(splitr, index); }
 
       @Override
       public void accept(int t) {
@@ -530,25 +558,31 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel)
+        .onClose(stream::close);
   }
 
   /**
-   * An analogue of {@link java.util.function.IntFunction} also accepting an index.
+   * An analogue of {@link java.util.function.IntFunction} also accepting an
+   * index.
    *
-   * <p>This interface is only intended for use by callers of {@link #mapWithIndex(IntStream,
-   * IntFunctionWithIndex)}.
+   * <p>This interface is only intended for use by callers of {@link
+   * #mapWithIndex(IntStream, IntFunctionWithIndex)}.
    *
    * @since 21.0
    */
   @Beta
   public interface IntFunctionWithIndex<R> {
-    /** Applies this function to the given argument and its index within a stream. */
+    /**
+     * Applies this function to the given argument and its index within a
+     * stream.
+     */
     R apply(int from, long index);
   }
 
   /**
-   * Returns a stream consisting of the results of applying the given function to the elements of
+   * Returns a stream consisting of the results of applying the given function
+   * to the elements of
    * {@code stream} and their indexes in the stream. For example,
    *
    * <pre>{@code
@@ -560,48 +594,51 @@ public final class Streams {
    * <p>...would return {@code Stream.of("0:0", "1:1", "2:2")}.
    *
    * <p>The resulting stream is <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * if and only if {@code stream} was efficiently splittable and its underlying spliterator
-   * reported {@link Spliterator#SUBSIZED}. This is generally the case if the underlying stream
-   * comes from a data structure supporting efficient indexed random access, typically an array or
-   * list.
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> if and only if {@code stream} was efficiently splittable and
+   * its underlying spliterator reported {@link Spliterator#SUBSIZED}. This is
+   * generally the case if the underlying stream comes from a data structure
+   * supporting efficient indexed random access, typically an array or list.
    *
-   * <p>The order of the resulting stream is defined if and only if the order of the original stream
-   * was defined.
+   * <p>The order of the resulting stream is defined if and only if the order of
+   * the original stream was defined.
    */
-  public static <R> Stream<R> mapWithIndex(LongStream stream, LongFunctionWithIndex<R> function) {
+  public static <R> Stream<R> mapWithIndex(LongStream stream,
+                                           LongFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
     Spliterator.OfLong fromSpliterator = stream.spliterator();
 
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
-      PrimitiveIterator.OfLong fromIterator = Spliterators.iterator(fromSpliterator);
-      return StreamSupport.stream(
+      PrimitiveIterator.OfLong fromIterator =
+          Spliterators.iterator(fromSpliterator);
+      return StreamSupport
+          .stream(
               new AbstractSpliterator<R>(
                   fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
-        long index = 0;
+                  fromSpliterator.characteristics() &
+                      (Spliterator.ORDERED | Spliterator.SIZED)) {
+                long index = 0;
 
-        @Override
-        public boolean tryAdvance(Consumer<? super R> action) {
-          if (fromIterator.hasNext()) {
-            action.accept(function.apply(fromIterator.nextLong(), index++));
-            return true;
-          }
-          return false;
-        }
-      },
-      isParallel)
-      .onClose(stream::close);
+                @Override
+                public boolean tryAdvance(Consumer<? super R> action) {
+                  if (fromIterator.hasNext()) {
+                    action.accept(
+                        function.apply(fromIterator.nextLong(), index++));
+                    return true;
+                  }
+                  return false;
+                }
+              },
+              isParallel)
+          .onClose(stream::close);
     }
     class Splitr extends MapWithIndexSpliterator<Spliterator.OfLong, R, Splitr>
-      implements LongConsumer, Spliterator<R> {
+        implements LongConsumer, Spliterator<R> {
       long holder;
 
-      Splitr(Spliterator.OfLong splitr, long index) {
-        super(splitr, index);
-      }
+      Splitr(Spliterator.OfLong splitr, long index) { super(splitr, index); }
 
       @Override
       public void accept(long t) {
@@ -622,25 +659,31 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel)
+        .onClose(stream::close);
   }
 
   /**
-   * An analogue of {@link java.util.function.LongFunction} also accepting an index.
+   * An analogue of {@link java.util.function.LongFunction} also accepting an
+   * index.
    *
-   * <p>This interface is only intended for use by callers of {@link #mapWithIndex(LongStream,
-   * LongFunctionWithIndex)}.
+   * <p>This interface is only intended for use by callers of {@link
+   * #mapWithIndex(LongStream, LongFunctionWithIndex)}.
    *
    * @since 21.0
    */
   @Beta
   public interface LongFunctionWithIndex<R> {
-    /** Applies this function to the given argument and its index within a stream. */
+    /**
+     * Applies this function to the given argument and its index within a
+     * stream.
+     */
     R apply(long from, long index);
   }
 
   /**
-   * Returns a stream consisting of the results of applying the given function to the elements of
+   * Returns a stream consisting of the results of applying the given function
+   * to the elements of
    * {@code stream} and their indexes in the stream. For example,
    *
    * <pre>{@code
@@ -652,49 +695,52 @@ public final class Streams {
    * <p>...would return {@code Stream.of("0.0:0", "1.0:1", "2.0:2")}.
    *
    * <p>The resulting stream is <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * if and only if {@code stream} was efficiently splittable and its underlying spliterator
-   * reported {@link Spliterator#SUBSIZED}. This is generally the case if the underlying stream
-   * comes from a data structure supporting efficient indexed random access, typically an array or
-   * list.
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> if and only if {@code stream} was efficiently splittable and
+   * its underlying spliterator reported {@link Spliterator#SUBSIZED}. This is
+   * generally the case if the underlying stream comes from a data structure
+   * supporting efficient indexed random access, typically an array or list.
    *
-   * <p>The order of the resulting stream is defined if and only if the order of the original stream
-   * was defined.
+   * <p>The order of the resulting stream is defined if and only if the order of
+   * the original stream was defined.
    */
-  public static <R> Stream<R> mapWithIndex(
-      DoubleStream stream, DoubleFunctionWithIndex<R> function) {
+  public static <R> Stream<R>
+  mapWithIndex(DoubleStream stream, DoubleFunctionWithIndex<R> function) {
     checkNotNull(stream);
     checkNotNull(function);
     boolean isParallel = stream.isParallel();
     Spliterator.OfDouble fromSpliterator = stream.spliterator();
 
     if (!fromSpliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
-      PrimitiveIterator.OfDouble fromIterator = Spliterators.iterator(fromSpliterator);
-      return StreamSupport.stream(
+      PrimitiveIterator.OfDouble fromIterator =
+          Spliterators.iterator(fromSpliterator);
+      return StreamSupport
+          .stream(
               new AbstractSpliterator<R>(
                   fromSpliterator.estimateSize(),
-      fromSpliterator.characteristics() & (Spliterator.ORDERED | Spliterator.SIZED)) {
-        long index = 0;
+                  fromSpliterator.characteristics() &
+                      (Spliterator.ORDERED | Spliterator.SIZED)) {
+                long index = 0;
 
-        @Override
-        public boolean tryAdvance(Consumer<? super R> action) {
-          if (fromIterator.hasNext()) {
-            action.accept(function.apply(fromIterator.nextDouble(), index++));
-            return true;
-          }
-          return false;
-        }
-      },
-      isParallel)
-      .onClose(stream::close);
+                @Override
+                public boolean tryAdvance(Consumer<? super R> action) {
+                  if (fromIterator.hasNext()) {
+                    action.accept(
+                        function.apply(fromIterator.nextDouble(), index++));
+                    return true;
+                  }
+                  return false;
+                }
+              },
+              isParallel)
+          .onClose(stream::close);
     }
-    class Splitr extends MapWithIndexSpliterator<Spliterator.OfDouble, R, Splitr>
-      implements DoubleConsumer, Spliterator<R> {
+    class Splitr
+        extends MapWithIndexSpliterator<Spliterator.OfDouble, R, Splitr>
+        implements DoubleConsumer, Spliterator<R> {
       double holder;
 
-      Splitr(Spliterator.OfDouble splitr, long index) {
-        super(splitr, index);
-      }
+      Splitr(Spliterator.OfDouble splitr, long index) { super(splitr, index); }
 
       @Override
       public void accept(double t) {
@@ -715,34 +761,40 @@ public final class Streams {
         return new Splitr(from, i);
       }
     }
-    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel).onClose(stream::close);
+    return StreamSupport.stream(new Splitr(fromSpliterator, 0), isParallel)
+        .onClose(stream::close);
   }
 
   /**
-   * An analogue of {@link java.util.function.DoubleFunction} also accepting an index.
+   * An analogue of {@link java.util.function.DoubleFunction} also accepting an
+   * index.
    *
-   * <p>This interface is only intended for use by callers of {@link #mapWithIndex(DoubleStream,
-   * DoubleFunctionWithIndex)}.
+   * <p>This interface is only intended for use by callers of {@link
+   * #mapWithIndex(DoubleStream, DoubleFunctionWithIndex)}.
    *
    * @since 21.0
    */
   @Beta
   public interface DoubleFunctionWithIndex<R> {
-    /** Applies this function to the given argument and its index within a stream. */
+    /**
+     * Applies this function to the given argument and its index within a
+     * stream.
+     */
     R apply(double from, long index);
   }
 
   /**
-   * Returns the last element of the specified stream, or {@link java.util.Optional#empty} if the
-   * stream is empty.
+   * Returns the last element of the specified stream, or {@link
+   * java.util.Optional#empty} if the stream is empty.
    *
-   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform significantly better. This
-   * method's runtime will be between O(log n) and O(n), performing better on <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * streams.
+   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform
+   * significantly better. This method's runtime will be between O(log n) and
+   * O(n), performing better on <a
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> streams.
    *
-   * <p>If the stream has nondeterministic order, this has equivalent semantics to {@link
-   * Stream#findAny} (which you might as well use).
+   * <p>If the stream has nondeterministic order, this has equivalent semantics
+   * to {@link Stream#findAny} (which you might as well use).
    *
    * @see Stream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
@@ -774,8 +826,8 @@ public final class Streams {
         continue; // drop this split
       }
 
-      // Many spliterators will have trySplits that are SUBSIZED even if they are not themselves
-      // SUBSIZED.
+      // Many spliterators will have trySplits that are SUBSIZED even if they
+      // are not themselves SUBSIZED.
       if (spliterator.hasCharacteristics(Spliterator.SUBSIZED)) {
         // we can drill down to exactly the smallest nonempty spliterator
         while (true) {
@@ -810,13 +862,14 @@ public final class Streams {
   }
 
   /**
-   * Returns the last element of the specified stream, or {@link OptionalInt#empty} if the stream is
-   * empty.
+   * Returns the last element of the specified stream, or {@link
+   * OptionalInt#empty} if the stream is empty.
    *
-   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform significantly better. This
-   * method's runtime will be between O(log n) and O(n), performing better on <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * streams.
+   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform
+   * significantly better. This method's runtime will be between O(log n) and
+   * O(n), performing better on <a
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> streams.
    *
    * @see IntStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
@@ -824,17 +877,19 @@ public final class Streams {
   public static OptionalInt findLast(IntStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Integer> boxedLast = findLast(stream.boxed());
-    return boxedLast.isPresent() ? OptionalInt.of(boxedLast.get()) : OptionalInt.empty();
+    return boxedLast.isPresent() ? OptionalInt.of(boxedLast.get())
+                                 : OptionalInt.empty();
   }
 
   /**
-   * Returns the last element of the specified stream, or {@link OptionalLong#empty} if the stream
-   * is empty.
+   * Returns the last element of the specified stream, or {@link
+   * OptionalLong#empty} if the stream is empty.
    *
-   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform significantly better. This
-   * method's runtime will be between O(log n) and O(n), performing better on <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * streams.
+   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform
+   * significantly better. This method's runtime will be between O(log n) and
+   * O(n), performing better on <a
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> streams.
    *
    * @see LongStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
@@ -842,17 +897,19 @@ public final class Streams {
   public static OptionalLong findLast(LongStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Long> boxedLast = findLast(stream.boxed());
-    return boxedLast.isPresent() ? OptionalLong.of(boxedLast.get()) : OptionalLong.empty();
+    return boxedLast.isPresent() ? OptionalLong.of(boxedLast.get())
+                                 : OptionalLong.empty();
   }
 
   /**
-   * Returns the last element of the specified stream, or {@link OptionalDouble#empty} if the stream
-   * is empty.
+   * Returns the last element of the specified stream, or {@link
+   * OptionalDouble#empty} if the stream is empty.
    *
-   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform significantly better. This
-   * method's runtime will be between O(log n) and O(n), performing better on <a
-   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently splittable</a>
-   * streams.
+   * <p>Equivalent to {@code stream.reduce((a, b) -> b)}, but may perform
+   * significantly better. This method's runtime will be between O(log n) and
+   * O(n), performing better on <a
+   * href="http://gee.cs.oswego.edu/dl/html/StreamParallelGuidance.html">efficiently
+   * splittable</a> streams.
    *
    * @see DoubleStream#findFirst()
    * @throws NullPointerException if the last element of the stream is null
@@ -860,7 +917,8 @@ public final class Streams {
   public static OptionalDouble findLast(DoubleStream stream) {
     // findLast(Stream) does some allocation, so we might as well box some more
     java.util.Optional<Double> boxedLast = findLast(stream.boxed());
-    return boxedLast.isPresent() ? OptionalDouble.of(boxedLast.get()) : OptionalDouble.empty();
+    return boxedLast.isPresent() ? OptionalDouble.of(boxedLast.get())
+                                 : OptionalDouble.empty();
   }
 
   private Streams() {}

@@ -34,20 +34,17 @@ import javax.annotation.Nullable;
  * @author Jared Levy
  */
 @GwtCompatible
-abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
-  implements SortedSetMultimap<K, V> {
+abstract class AbstractSortedSetMultimap<K, V>
+    extends AbstractSetMultimap<K, V> implements SortedSetMultimap<K, V> {
   /**
    * Creates a new multimap that uses the provided map.
    *
    * @param map place to store the mapping from each key to its corresponding
    *     values
    */
-  protected AbstractSortedSetMultimap(Map<K, Collection<V>> map) {
-    super(map);
-  }
+  protected AbstractSortedSetMultimap(Map<K, Collection<V>> map) { super(map); }
 
-  @Override
-  abstract SortedSet<V> createCollection();
+  @Override abstract SortedSet<V> createCollection();
 
   @Override
   SortedSet<V> createUnmodifiableEmptyCollection() {
@@ -75,7 +72,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    */
   @Override
   public SortedSet<V> get(@Nullable K key) {
-    return (SortedSet<V>) super.get(key);
+    return (SortedSet<V>)super.get(key);
   }
 
   /**
@@ -89,7 +86,7 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
   @CanIgnoreReturnValue
   @Override
   public SortedSet<V> removeAll(@Nullable Object key) {
-    return (SortedSet<V>) super.removeAll(key);
+    return (SortedSet<V>)super.removeAll(key);
   }
 
   /**
@@ -104,8 +101,9 @@ abstract class AbstractSortedSetMultimap<K, V> extends AbstractSetMultimap<K, V>
    */
   @CanIgnoreReturnValue
   @Override
-  public SortedSet<V> replaceValues(@Nullable K key, Iterable<? extends V> values) {
-    return (SortedSet<V>) super.replaceValues(key, values);
+  public SortedSet<V> replaceValues(@Nullable K key,
+                                    Iterable<? extends V> values) {
+    return (SortedSet<V>)super.replaceValues(key, values);
   }
 
   /**

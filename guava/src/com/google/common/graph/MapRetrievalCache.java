@@ -20,8 +20,10 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
- * A {@link MapIteratorCache} that adds additional caching. In addition to the caching provided by
- * {@link MapIteratorCache}, this structure caches values for the two most recently retrieved keys.
+ * A {@link MapIteratorCache} that adds additional caching. In addition to the
+ * caching provided by
+ * {@link MapIteratorCache}, this structure caches values for the two most
+ * recently retrieved keys.
  *
  * @author James Sexton
  */
@@ -29,11 +31,10 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
   @Nullable private transient CacheEntry<K, V> cacheEntry1;
   @Nullable private transient CacheEntry<K, V> cacheEntry2;
 
-  MapRetrievalCache(Map<K, V> backingMap) {
-    super(backingMap);
-  }
+  MapRetrievalCache(Map<K, V> backingMap) { super(backingMap); }
 
-  @SuppressWarnings("unchecked") // Safe because we only cast if key is found in map.
+  @SuppressWarnings("unchecked")
+  // Safe because we only cast if key is found in map.
   @Override
   public V get(@Nullable Object key) {
     V value = getIfCached(key);
@@ -43,12 +44,13 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
 
     value = getWithoutCaching(key);
     if (value != null) {
-      addToCache((K) key, value);
+      addToCache((K)key, value);
     }
     return value;
   }
 
-  // Internal methods ('protected' is still package-visible, but treat as only subclass-visible)
+  // Internal methods ('protected' is still package-visible, but treat as only
+  // subclass-visible)
 
   @Override
   protected V getIfCached(@Nullable Object key) {
@@ -57,11 +59,13 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
       return value;
     }
 
-    // Store a local reference to the cache entry. If the backing map is immutable, this,
-    // in combination with immutable cache entries, will ensure a thread-safe cache.
+    // Store a local reference to the cache entry. If the backing map is
+    // immutable, this, in combination with immutable cache entries, will ensure
+    // a thread-safe cache.
     CacheEntry<K, V> entry;
 
-    // Check cache. We use == on purpose because it's cheaper and a cache miss is ok.
+    // Check cache. We use == on purpose because it's cheaper and a cache miss
+    // is ok.
     entry = cacheEntry1;
     if (entry != null && entry.key == key) {
       return entry.value;
@@ -88,7 +92,8 @@ class MapRetrievalCache<K, V> extends MapIteratorCache<K, V> {
   }
 
   private void addToCache(CacheEntry<K, V> entry) {
-    // Slide new entry into first cache position. Drop previous entry in second cache position.
+    // Slide new entry into first cache position. Drop previous entry in second
+    // cache position.
     cacheEntry2 = cacheEntry1;
     cacheEntry1 = entry;
   }

@@ -28,10 +28,10 @@ import java.util.NoSuchElementException;
 
 /**
  * A descriptor for a <i>discrete</i> {@code Comparable} domain such as all
- * {@link Integer} instances. A discrete domain is one that supports the three basic
- * operations: {@link #next}, {@link #previous} and {@link #distance}, according
- * to their specifications. The methods {@link #minValue} and {@link #maxValue}
- * should also be overridden for bounded types.
+ * {@link Integer} instances. A discrete domain is one that supports the three
+ * basic operations: {@link #next}, {@link #previous} and {@link #distance},
+ * according to their specifications. The methods {@link #minValue} and {@link
+ * #maxValue} should also be overridden for bounded types.
  *
  * <p>A discrete domain always represents the <i>entire</i> set of values of its
  * type; it cannot represent partial domains such as "prime integers" or
@@ -56,12 +56,11 @@ public abstract class DiscreteDomain<C extends Comparable> {
     return IntegerDomain.INSTANCE;
   }
 
-  private static final class IntegerDomain extends DiscreteDomain<Integer> implements Serializable {
+  private static final class IntegerDomain
+      extends DiscreteDomain<Integer> implements Serializable {
     private static final IntegerDomain INSTANCE = new IntegerDomain();
 
-    IntegerDomain() {
-      super(true);
-    }
+    IntegerDomain() { super(true); }
 
     @Override
     public Integer next(Integer value) {
@@ -83,7 +82,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
 
     @Override
     public long distance(Integer start, Integer end) {
-      return (long) end - start;
+      return (long)end - start;
     }
 
     @Override
@@ -96,9 +95,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
       return Integer.MAX_VALUE;
     }
 
-    private Object readResolve() {
-      return INSTANCE;
-    }
+    private Object readResolve() { return INSTANCE; }
 
     @Override
     public String toString() {
@@ -113,16 +110,13 @@ public abstract class DiscreteDomain<C extends Comparable> {
    *
    * @since 14.0 (since 10.0 as {@code DiscreteDomains.longs()})
    */
-  public static DiscreteDomain<Long> longs() {
-    return LongDomain.INSTANCE;
-  }
+  public static DiscreteDomain<Long> longs() { return LongDomain.INSTANCE; }
 
-  private static final class LongDomain extends DiscreteDomain<Long> implements Serializable {
+  private static final class LongDomain
+      extends DiscreteDomain<Long> implements Serializable {
     private static final LongDomain INSTANCE = new LongDomain();
 
-    LongDomain() {
-      super(true);
-    }
+    LongDomain() { super(true); }
 
     @Override
     public Long next(Long value) {
@@ -168,9 +162,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
       return Long.MAX_VALUE;
     }
 
-    private Object readResolve() {
-      return INSTANCE;
-    }
+    private Object readResolve() { return INSTANCE; }
 
     @Override
     public String toString() {
@@ -189,16 +181,16 @@ public abstract class DiscreteDomain<C extends Comparable> {
     return BigIntegerDomain.INSTANCE;
   }
 
-  private static final class BigIntegerDomain extends DiscreteDomain<BigInteger>
-    implements Serializable {
+  private static final class BigIntegerDomain
+      extends DiscreteDomain<BigInteger> implements Serializable {
     private static final BigIntegerDomain INSTANCE = new BigIntegerDomain();
 
-    BigIntegerDomain() {
-      super(true);
-    }
+    BigIntegerDomain() { super(true); }
 
-    private static final BigInteger MIN_LONG = BigInteger.valueOf(Long.MIN_VALUE);
-    private static final BigInteger MAX_LONG = BigInteger.valueOf(Long.MAX_VALUE);
+    private static final BigInteger MIN_LONG =
+        BigInteger.valueOf(Long.MIN_VALUE);
+    private static final BigInteger MAX_LONG =
+        BigInteger.valueOf(Long.MAX_VALUE);
 
     @Override
     public BigInteger next(BigInteger value) {
@@ -221,9 +213,7 @@ public abstract class DiscreteDomain<C extends Comparable> {
       return end.subtract(start).max(MIN_LONG).min(MAX_LONG).longValue();
     }
 
-    private Object readResolve() {
-      return INSTANCE;
-    }
+    private Object readResolve() { return INSTANCE; }
 
     @Override
     public String toString() {
@@ -236,17 +226,18 @@ public abstract class DiscreteDomain<C extends Comparable> {
   final boolean supportsFastOffset;
 
   /** Constructor for use by subclasses. */
-  protected DiscreteDomain() {
-    this(false);
-  }
+  protected DiscreteDomain() { this(false); }
 
-  /** Private constructor for built-in DiscreteDomains supporting fast offset. */
+  /**
+   * Private constructor for built-in DiscreteDomains supporting fast offset.
+   */
   private DiscreteDomain(boolean supportsFastOffset) {
     this.supportsFastOffset = supportsFastOffset;
   }
 
   /**
-   * Returns, conceptually, "origin + distance", or equivalently, the result of calling
+   * Returns, conceptually, "origin + distance", or equivalently, the result of
+   * calling
    * {@link #next} on {@code origin} {@code distance} times.
    */
   C offset(C origin, long distance) {
