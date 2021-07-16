@@ -1,18 +1,6 @@
 inspecode:
 
-  global:
-    ignore:      [ "**/test/" ]
-
   tools:
 
     coverity:
-      thresholds:  { num-issues: 999 }
-
-    fortify:
-      thresholds:  { num-issues: 999 }
-
-    pgrelief:
-      thresholds:  { num-issues: 999 }
-
-    understand:
       thresholds:  { num-issues: 999 }
