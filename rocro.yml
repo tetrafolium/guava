@@ -5,14 +5,12 @@ inspecode:
 
   tools:
 
-    coverity:
-      thresholds:  { num-issues: 999 }
-
     fortify:
-      thresholds:  { num-issues: 999 }
-
-    pgrelief:
-      thresholds:  { num-issues: 999 }
-
-    understand:
-      thresholds:  { num-issues: 999 }
+    - thresholds:  { num-issues: 999 }
+    - thresholds:  { num-issues: 999 }
+      machine: {cpu: 1.5}
+    - thresholds:  { num-issues: 999 }
+      options: { -jdk: 11 }
+    - thresholds:  { num-issues: 999 }
+      options: { -jdk: 11 }
+      machine: {cpu: 1.5}
