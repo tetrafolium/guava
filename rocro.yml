@@ -1,18 +1,16 @@
 inspecode:
 
-  global:
-    ignore:      [ "**/test/" ]
-
   tools:
 
     coverity:
-      thresholds:  { num-issues: 999 }
+      thresholds:  { num-issues: 999 }  # Skipped - Coverity was skipped.
 
     fortify:
-      thresholds:  { num-issues: 999 }
+      machine: {cpu: 1.1}
+      thresholds:  { num-issues: 999 }  # [ERROR] Aborting compile due to errors in some input files
 
     pgrelief:
-      thresholds:  { num-issues: 999 }
+      thresholds:  { num-issues: 999 }  # Skipped - detected no analyzable files in the repository
 
     understand:
-      thresholds:  { num-issues: 999 }
+      thresholds:  { num-issues: 999 }  # too many issues detected: 1415 > 1000
